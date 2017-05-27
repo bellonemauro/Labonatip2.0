@@ -1,12 +1,12 @@
 
-  |                              Fluicell AB                                  |
-  |                                                                           |
-  | Lab-on-a-tip                                                              |
-  |                                                                           |
-  | Copyright 2017 © Fluicell AB                                              |
-  | Authors: Mauro Bellone, http://www.maurobellone.com                       |
-  | Released under ___ License.                                               |
-  |                                                                           |
+                                Fluicell AB                                  
+                                                                             
+   Lab-on-a-tip                                                              
+                                                                             
+   Copyright 2017 © Fluicell AB                                              
+   Authors: Mauro Bellone, http://www.maurobellone.com                       
+   Released under ___ License.                                               
+                                                                             
 
 
 This application has been developed for research purposes.
@@ -31,18 +31,17 @@ known issues:
 
 From git shell write:
 
-    git clone https://___ your_folder
+    git clone https://github.com/bellonemauro/Labonatip.git your_folder
 
 then you should get something like:
 
-    Cloning into 'your_folder'...
-    Username for 'https://bitbucket.org': your_username 
-    Password for 'https://bellonemauro@gmail.com@bitbucket.org':    your_password  
-    remote: Counting objects: 45, done.
-    remote: Compressing objects: 100% (41/41), done.
-    remote: Total 45 (delta 13), reused 0 (delta 0)
-    Unpacking objects: 100% (45/45), done.
-    Checking connectivity... done.
+	C:\...\Labonatip> git clone https://github.com/bellonemauro/Labonatip.git ./
+	Cloning into '.'...
+	remote: Counting objects: 7, done.
+	remote: Compressing objects: 100% (7/7), done.
+	remote: Total 7 (delta 1), reused 0 (delta 0), pack-reused 0
+	Unpacking objects: 100% (7/7), done.
+	Checking connectivity... done.
 
 done !!! 
 
