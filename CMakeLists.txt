@@ -1,10 +1,11 @@
 #  +---------------------------------------------------------------------------+
 #  |                                                                           |
-#  |                      http://www.maurobellone.com                          |
+#  |  Fluicell AB - Lab-on-a-tip                                               |
+#  |  Copyright 2017 © Fluicell AB, http://fluicell.com/                       |
 #  |                                                                           |
-#  | Copyright (c) 2017, - All rights reserved.                                |
-#  | Authors: Mauro Bellone                                                    |
-#  | Released under ___ License.                                               |
+#  | Copyright (c) 2017,                                                       |
+#  | Authors: Mauro Bellone - http://www.maurobellone.com                      |
+#  | Released under GNU GPL License.                                           |
 #  +---------------------------------------------------------------------------+ 
 
 project(Fluicell)   # Fluicell lab-on-a-tip

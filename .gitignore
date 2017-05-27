@@ -1,6 +1,8 @@
 #build folders
 ./build
 ./build_creator
+./build_qt5.8
+./build_qt5.8_32bit
 
 #qt user filed
 *.user

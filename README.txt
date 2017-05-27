@@ -1,12 +1,9 @@
 
-                                Fluicell AB                                  
-                                                                             
-   Lab-on-a-tip                                                              
-                                                                             
-   Copyright 2017 © Fluicell AB                                              
-   Authors: Mauro Bellone, http://www.maurobellone.com                       
-   Released under ___ License.                                               
-                                                                             
+Fluicell AB - Lab-on-a-tip                                                              
+Copyright 2017 © Fluicell AB, http://fluicell.com/                                          
+
+Developer: Mauro Bellone, http://www.maurobellone.com                       
+Released under GNU GPL License.                                               
 
 
 This application has been developed for research purposes.
