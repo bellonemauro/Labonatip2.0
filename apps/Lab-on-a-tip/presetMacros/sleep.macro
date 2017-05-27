@@ -1,0 +1,33 @@
+%% +---------------------------------------------------------------------------+
+%% |                           FLUICELL LAB-ON-A-TIP                           |
+%% |                                                                           |
+%% |                                                                           |
+%% |                          http://www.fluicell.com/                         |
+%% +---------------------------------------------------------------------------+
+%% 
+%% Macro Header V. 0.1 
+%% file created on dd/mm/yyyy 
+%% Fluicell Lab-on-a-tip macro file description 
+%% +---------------------------------------------------------------------------+ 
+%% List of parameters: 
+%%  - name 
+%%  - loops 
+%%  - P_on (mbar) 
+%%  - P_off (mbar) 
+%%  - V_switch (mbar) 
+%%  - V_recirc (mbar) 
+%%  - Duration (sec) 
+%%  - OpenSol1 (int) 
+%%  - waitSync (bool) 
+%%  - syncOut (bool) 
+%%  - ask (bool) 
+%%  - ask_message (bool) 
+%%  - status_message (string) 
+%%  - level 
+%% +---------------------------------------------------------------------------+ 
+%% name loops P_on P_off  V_switch  V_recirc  Duration  OpenSol  waitSync  syncOut  ask ask_message status_message level
+%
+Sleep#1#0#0#0#0#1#0#0##0##0###0#§
+allOff#1#0#0#0#0#1#0#0##0##0##turning everything off#1#§
+set pressure#1#0#11#0#0#5#0#0##0##0##set pressures Poff 11 and Pon 0#1#§
+set vacuum#1#0#11#-45#-45#0#0#0##0##0##sleeping#1#§

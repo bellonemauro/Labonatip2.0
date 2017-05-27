@@ -1,0 +1,42 @@
+%% +---------------------------------------------------------------------------+
+%% |                           FLUICELL LAB-ON-A-TIP                           |
+%% |                                                                           |
+%% |                                                                           |
+%% |                          http://www.fluicell.com/                         |
+%% +---------------------------------------------------------------------------+
+%% 
+%% Macro Header V. 0.1 
+%% file created on dd/mm/yyyy 
+%% Fluicell Lab-on-a-tip macro file description 
+%% +---------------------------------------------------------------------------+ 
+%% List of parameters: 
+%%  - name 
+%%  - loops 
+%%  - P_on (mbar) 
+%%  - P_off (mbar) 
+%%  - V_switch (mbar) 
+%%  - V_recirc (mbar) 
+%%  - Duration (sec) 
+%%  - OpenSol1 (int) 
+%%  - waitSync (bool) 
+%%  - syncOut (bool) 
+%%  - ask (bool) 
+%%  - ask_message (bool) 
+%%  - status_message (string) 
+%%  - level 
+%% +---------------------------------------------------------------------------+ 
+%% name loops P_on P_off  V_switch  V_recirc  Duration  OpenSol  waitSync  syncOut  ask ask_message status_message level
+%
+Initialize#1#0#0#0#0#1#0#0##0##0##Initialization#0#§
+ask#1#0#0#0#0#1#0#0##0##2#Place the pipette to the holder and tighten. THEN PRESS OK#Waiting#1#§
+all off#1#0#0#0#0#1#0#0##0##0##Shutting down pressures#1#§
+p v off#1#0#0#0#0#5#0#0##0##0##Shutting down vacuums#1#§
+pon 200#1#200#0#0#0#5#0#0##0##0##Pumps off#1#§
+ask wait#1#200#0#0#0#40#0#0##0##2#Wait until a droplet appears at the tip of the pipette and THEN PRESS OK#Waiting#1#§
+all off#1#0#0#0#0#1#0#0##0##0##all off#1#§
+set pon 0#1#0#0#0#0#10#0#0##0##0##pressure off#1#§
+ask#1#0#0#0#0#1#0#0##0##2#Remove the droplet using a lens tissue and put the pipette into solution THEN PRESS OK#Waiting#1#§
+set vacuum#1#0#0#-200#-200#90#0#0##0##0##Set vacuum -200#1#§
+set pressures#1#190#21#-200#-200#5#0#0##0##0##Set pressures 190, 21#1#§
+set vacuum#1#190#21#-115#-115#1#0#0##0##0##Set 100%#1#§
+ask#1#190#21#-115#-115#0#0#0##0##2#Pipette is ready for operation, press OK to start.#Ready to start#1#§
