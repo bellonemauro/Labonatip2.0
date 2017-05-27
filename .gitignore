@@ -1,8 +1,9 @@
 #build folders
-./build
-./build_creator
-./build_qt5.8
-./build_qt5.8_32bit
+.\build
+.\build_creator
+.\build_qt5.8
+.\build_qt5.8_32bit
+.\docs\DoxygenDocs
 
 #qt user filed
 *.user
