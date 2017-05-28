@@ -4,7 +4,7 @@ The cross platform API allows independent control of each pressure line and solu
 
  
 Working on Windows and Linux - Not yet tested on IOS
-API documentation available <a href="https://github.com/bellonemauro/PPC1API-docs.io/settings">here</a>
+API documentation available <a href="https://github.com/bellonemauro/PPC1API-docs.io">here</a>
 
 # Dependences
 
