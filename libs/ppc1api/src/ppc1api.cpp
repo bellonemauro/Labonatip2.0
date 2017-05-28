@@ -234,7 +234,7 @@ bool fluicell::PPC1api::decodeChannelLine(string &_data, vector<double> &_line)
 	}
 
 	_line.clear();
-	int byte_counter = 2;        // in the line 0 is letter and 1 is the separator e.g. A|
+	unsigned int byte_counter = 2;        // in the line 0 is letter and 1 is the separator e.g. A|
 	const char separator[] = "|";       // separator between data
 	while (byte_counter < _data.length())   // scan the whole string
 	{
@@ -706,7 +706,7 @@ bool fluicell::PPC1api::checkVIDPID(std::string _port)
 	// try to get device information
 	std::vector<serial::PortInfo> devices = serial::list_ports();
 	std::vector<serialDeviceInfo> devs;
-	for (int i = 0; i < devices.size(); i++) // for all the connected devices extract information
+	for (unsigned int i = 0; i < devices.size(); i++) // for all the connected devices extract information
 	{
 		serialDeviceInfo dev;
 		dev.port = devices.at(i).port;
@@ -717,7 +717,7 @@ bool fluicell::PPC1api::checkVIDPID(std::string _port)
 		string v = "VID";
 		string p = "PID";
 		// the fluicell PPC1 device expected string is USB\VID_16D0&PID_083A&REV_0200
-		for (int j = 0; j < hw_info.size() - 2; j++)
+		for (unsigned int j = 0; j < hw_info.size() - 2; j++)
 		{
 			// extract 3 characters looking for the strings VID or PID
 			string s = hw_info.substr(j, 3);
@@ -736,7 +736,7 @@ bool fluicell::PPC1api::checkVIDPID(std::string _port)
 	}
 
 	
-	for (int i = 0; i < devs.size(); i++) // for all the connected devices 
+	for (unsigned int i = 0; i < devs.size(); i++) // for all the connected devices 
 		if (devs.at(i).port.compare(_port) == 0) // look for the device connected on _port
 			if (devs.at(i).VID.compare(PPC1_VID) == 0) // check VID
 				if (devs.at(i).PID.compare(PPC1_PID) == 0) // check PID

@@ -100,6 +100,8 @@ elseif(  BUILD_QT5)
 	if ( ENABLE_verbose )
 		message (STATUS "${PROJECT_NAME} MESSAGE: QT_BINARY_DIR ---- ${QT_BINARY_DIR}")
 		message (STATUS "${PROJECT_NAME} MESSAGE: QT5_LIBRARIES_DIR ---- ${QT5_LIBRARIES_DIR}")
+		message (STATUS "${PROJECT_NAME} MESSAGE: Qt5Widgets ---- ${Qt5Widgets_LIBRARIES}")
+		message (STATUS "${PROJECT_NAME} MESSAGE: Qt5Charts ---- ${Qt5Charts_LIBRARIES}")
 	endif ( ENABLE_verbose )
 	if (NOT QT5_LIBRARIES_DIR)
                 message(WARNING "${PROJECT_NAME} MESSAGE: QT5_LIBRARIES_DIR not found --- set namually")
@@ -127,7 +129,11 @@ elseif(  BUILD_QT5)
 	target_link_libraries ( ${PROJECT_NAME}  
 							${QT_LIBRARIES} Qt5SerialPort Qt5Charts 
 							PPC1api serial )
-	
+	if ( ENABLE_verbose )
+		message (STATUS "${PROJECT_NAME} MESSAGE: Qt5Charts ---- ${Qt5Charts}")
+		message (STATUS "${PROJECT_NAME} MESSAGE: Qt5SerialPort ---- ${Qt5SerialPort}")
+		message (STATUS "${PROJECT_NAME} MESSAGE: QT_LIBRARIES ---- ${QT_LIBRARIES}")
+	endif ( ENABLE_verbose )	
 	# differently than others, QT has the windeployqt file that takes care of dlls and other stuff
 	# see this post: http://stackoverflow.com/questions/36981942/how-to-use-add-custom-command-to-copy-dlls-using-generator-expressions
 	# Windows specific build steps

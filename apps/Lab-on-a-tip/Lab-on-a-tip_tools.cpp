@@ -114,6 +114,8 @@ void Labonatip_tools::okPressed() {
 	getSolutionSettings();
 	addAllCommandsToMacro();
 
+	saveSettings();
+
 	//TODO other settings ! 
 	emit ok();
 
@@ -130,7 +132,9 @@ void Labonatip_tools::applyPressed() {
 	getCOMsettings();
 	getSolutionSettings();
 	addAllCommandsToMacro(); 
-	
+
+	saveSettings();
+
 	emit apply();
 
 }
@@ -592,10 +596,11 @@ void Labonatip_tools::loadSettings(QString _path)
 	//ComName
 	QString comPort = m_settings->value("COM/ComName", "COM1").toString();
 	m_comSettings->name = comPort;
+
 	//BaudRate
 	int baudRate = m_settings->value("COM/BaudRate", "115200").toInt();
 	m_comSettings->baudRate = static_cast<qint32>(baudRate);
-	ui_tools->comboBox_baudRate->setCurrentIndex(5);  // baudrate default value 115200 
+	ui_tools->comboBox_baudRate->setCurrentIndex(7);  // baudrate forced value 115200 
 
 	//DataBits
 	int dataBits = m_settings->value("COM/DataBits", "8").toInt();
@@ -727,20 +732,72 @@ void Labonatip_tools::loadSettings(QString _path)
 
 		<< endl;
 
-	QSettings *settings1 = new QSettings("./settings/settings2.ini", QSettings::IniFormat);
-
-	settings1->setValue("MyParam/myParam3", "10.2");
-	settings1->setValue("MyParam/myParam2", "30.2");
-	settings1->setValue("MyParam/myParam3", "30.2");
-	settings1->setPath(QSettings::IniFormat, QSettings::Scope::UserScope, "./settings/settings2.ini");
-	settings1->sync();
-
-
 }
 
 void Labonatip_tools::saveSettings()
 {
 
+
+	// [default]
+	// user = 
+	m_settings->setValue("default/user", ui_tools->lineEdit_userName->text());
+	// year = 
+	m_settings->setValue("default/user", ui_tools->lineEdit_year->text());
+	// month = 
+	m_settings->setValue("default/user", ui_tools->lineEdit_month->text());
+
+	// [COM]
+	// ComName = COM_
+	m_settings->setValue("COM/ComName", m_comSettings->name);
+	// BaudRate = 115200
+	m_settings->setValue("COM/BaudRate", ui_tools->comboBox_baudRate->currentText());
+	// DataBits = 8
+	m_settings->setValue("COM/DataBits", ui_tools->comboBox_dataBit->currentText());
+	// Parity = NoParity
+	m_settings->setValue("COM/Parity", ui_tools->comboBox_parity->currentText());
+	// StopBits = 1
+	m_settings->setValue("COM/StopBits", ui_tools->comboBox_stopBit->currentText());
+	// FlowControl = noFlow
+	m_settings->setValue("COM/FlowControl", ui_tools->comboBox_flowControl->currentText());
+
+	// [pr_limits]
+	// p_on_max = 
+	m_settings->setValue("pr_limits/p_on_max", ui_tools->lineEdit_p_on_max->text());
+	// p_on_min =
+	m_settings->setValue("pr_limits/p_on_min", ui_tools->lineEdit_p_on_min->text());
+	// p_on_default = 
+	m_settings->setValue("pr_limits/p_on_default", ui_tools->lineEdit_p_on_default->text());
+	// p_off_max = 
+	m_settings->setValue("pr_limits/p_off_max", ui_tools->lineEdit_p_off_max->text());
+	// p_off_min = 
+	m_settings->setValue("pr_limits/p_off_min", ui_tools->lineEdit_p_off_min->text());
+	// p_off_default = 
+	m_settings->setValue("pr_limits/p_off_default", ui_tools->lineEdit_p_off_default->text());
+	// v_switch_max = 
+	m_settings->setValue("pr_limits/v_switch_max", ui_tools->lineEdit_v_switch_max->text());
+	// v_switch_min = 
+	m_settings->setValue("pr_limits/v_switch_min", ui_tools->lineEdit_v_switch_min->text());
+	// v_switch_default = 
+	m_settings->setValue("pr_limits/v_switch_default", ui_tools->lineEdit_v_switch_default->text());
+	// v_recirc_max = 
+	m_settings->setValue("pr_limits/v_recirc_max", ui_tools->lineEdit_v_recirc_max->text());
+	// v_recirc_min = 
+	m_settings->setValue("pr_limits/v_recirc_min", ui_tools->lineEdit_v_recirc_min->text());
+	// v_recirc_default = 
+	m_settings->setValue("pr_limits/v_recirc_default", ui_tools->lineEdit_v_recirc_default->text());
+
+	// [solutionNames]
+	// solution1 = CuSO4
+	m_settings->setValue("solutionNames/solution1", ui_tools->lineEdit_sol1_name->text());
+	// solution2 = NaCl
+	m_settings->setValue("solutionNames/solution2", ui_tools->lineEdit_sol2_name->text());
+	// solution3 = NaHCO3
+	m_settings->setValue("solutionNames/solution3", ui_tools->lineEdit_sol3_name->text());
+	// solution4 = FeS
+	m_settings->setValue("solutionNames/solution4", ui_tools->lineEdit_sol4_name->text());
+
+
+	m_settings->sync();
 	//TODO !!!!
 
 }

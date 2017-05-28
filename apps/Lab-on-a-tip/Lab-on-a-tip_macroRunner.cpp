@@ -37,10 +37,10 @@ void Labonatip_macroRunner::run()  {
 				return;
 			}
 
-			cout << " i'm in the thread ... index " << i << endl;
+			//cout << " i'm in the thread ... index " << i << endl;
 			sleep(1);
 			if (m_ppc1->isRunning()) {
-				cout << " ppc1 is running the command " << m_macro->at(i).status_message << endl;
+				//cout << " ppc1 is running the command " << m_macro->at(i).status_message << endl;
 				//m_ppc1->setPressureChannelD(100);
 
 				if (m_ppc1->m_PPC1_data->channel_A->set_point != m_macro->at(i).V_switch)
@@ -58,17 +58,26 @@ void Labonatip_macroRunner::run()  {
 				m_ppc1->setValve_d(m_macro->at(i).open_valve_d);
 				QString message = QString::fromStdString(m_macro->at(i).status_message);
 				emit sendStatusMessage(message);
-				
+
 				sleep(m_macro->at(i).Duration);
 				//m_ppc1->setPressureChannelD(0);
 			}
-			else
-				cout << " ppc1 is NOT running" << endl;
+			else {
+				cerr << " Labonatip_macroRunner::run  ---- error --- MESSAGE: ppc1 is NOT running " << endl;
+				result = " ppc1 is NOT running ";
+
+				emit resultReady(result);
+				return;
+			}
 		}
 	}
-	else
-		cout << " null pointer " << endl;
+	else {
+		cerr << " Labonatip_macroRunner::run  ---- error --- MESSAGE: null pointer " << endl;
+		result = " null pointer ";
 
+		emit resultReady(result);
+		return;
+	}
 	result = " Success";
 
 	emit resultReady(result);
