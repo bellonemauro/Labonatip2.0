@@ -49,6 +49,7 @@ set(CPACK_NSIS_MENU_LINKS
             "${WEBSITE}" "Homepage for Fluicell Lab-on-a-tip ${WEBSITE}"
             "${WEB_TUTORIAL}" "Tutorials"
             "Lab-on-a-tip.exe" "Lab-on-a-tip"
+            "Lab-on-a-tip_console.exe" "Lab-on-a-tip console"
 			"uninstall.exe" "Uninstall Lab-on-a-tip"
             "${WEB_DOCS}" "Documentation"
             "${WEB_DEV}" "Developer Website" )

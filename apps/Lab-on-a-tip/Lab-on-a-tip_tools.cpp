@@ -742,9 +742,9 @@ void Labonatip_tools::saveSettings()
 	// user = 
 	m_settings->setValue("default/user", ui_tools->lineEdit_userName->text());
 	// year = 
-	m_settings->setValue("default/user", ui_tools->lineEdit_year->text());
+	m_settings->setValue("default/year", ui_tools->lineEdit_year->text());
 	// month = 
-	m_settings->setValue("default/user", ui_tools->lineEdit_month->text());
+	m_settings->setValue("default/month", ui_tools->lineEdit_month->text());
 
 	// [COM]
 	// ComName = COM_

@@ -18,6 +18,7 @@ compliled from external source:
 
 nsis - only to generate the installation package
 
+API documentation available <a href="https://github.com/bellonemauro/PPC1API-docs.io/settings">here</a>
 
 known issues:
   - none for now
