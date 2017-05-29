@@ -20,9 +20,7 @@
 
 // PPC1api 
 #include <fluicell/ppc1api/ppc1api.h>
-
-#include <QtSerialPort/QSerialPort>
-#include <QtSerialPort/QSerialPortInfo>
+#include <serial/serial.h>
 
 
 using namespace std;
@@ -41,23 +39,24 @@ signals :
 
 public:
 
+	// TODO: exclude QTserial and bring this structure to serial ! 
 	// structure to handle COM port parameters
 	struct COMSettings {
-		QString name;                    //--> COM1 --- n 
-		qint32 baudRate;                 //--> 4200 - 9600 --- 
-		QSerialPort::DataBits dataBits;  //--> 5 - 6 - 7 - 8
-		QSerialPort::Parity parity;      //--> None, Even, Odd, Mark, Space 
-		QSerialPort::StopBits stopBits;  //--> 1, 1.5, 2
-		QSerialPort::FlowControl flowControl;  //--> None, RTS/CTS, XON/XOFF 
+		std::string name;                    //--> COM1 --- n 
+		int baudRate;                 //--> 4200 - 9600 --- 
+		serial::bytesize_t dataBits;  //--> 5 - 6 - 7 - 8
+		serial::parity_t parity;      //--> None, Even, Odd, Mark, Space 
+		serial::stopbits_t stopBits;  //--> 1, 1.5, 2
+		serial::flowcontrol_t flowControl;  //--> None, RTS/CTS, XON/XOFF 
 		bool localEchoEnabled;
 
 		COMSettings() {   // default values
 			this->name = "COM5";
 			this->baudRate = 115200;
-			this->dataBits = QSerialPort::DataBits::Data8;
-			this->parity = QSerialPort::Parity::NoParity;
-			this->stopBits = QSerialPort::StopBits::OneStop;
-			this->flowControl = QSerialPort::FlowControl::NoFlowControl;
+			this->dataBits = serial::eightbits;
+			this->parity = serial::parity_none;
+			this->stopBits = serial::stopbits_one;
+			this->flowControl = serial::flowcontrol_none;
 		}
 
 	}; // END COMSettings struct

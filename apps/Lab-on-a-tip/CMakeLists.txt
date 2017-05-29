@@ -91,10 +91,8 @@ elseif(  BUILD_QT5)
 	# Find the QtWidgets library ---- really weird way of find libraries ---TODO solve this ! 
 	find_package( Qt5Widgets REQUIRED )
 	find_package( Qt5Core REQUIRED )
-	find_package( Qt5Network REQUIRED ) 
 	find_package( Qt5Gui REQUIRED ) 
-	find_package( Qt5OpenGL REQUIRED )
-	find_package( Qt5SerialPort REQUIRED )
+#	find_package( Qt5OpenGL REQUIRED )
 	find_package( Qt5Charts REQUIRED )
 
 	if ( ENABLE_verbose )

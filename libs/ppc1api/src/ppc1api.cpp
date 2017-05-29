@@ -265,9 +265,9 @@ bool fluicell::PPC1api::connectCOM()
 	try {
 		m_PPC1_serial->setPort(m_COMport);
 		m_PPC1_serial->setBaudrate(m_baud_rate);
-		m_PPC1_serial->setFlowcontrol(serial::flowcontrol_hardware);
+		m_PPC1_serial->setFlowcontrol(serial::flowcontrol_none);
 		m_PPC1_serial->setParity(serial::parity_none);
-        m_PPC1_serial->setTimeout(serial::Timeout::simpleTimeout(250));
+        //m_PPC1_serial->setTimeout(serial::Timeout::simpleTimeout(250));
 
 		if (!checkVIDPID(m_COMport)) {
 			cerr << " fluicell::PPC1api::connectCOM :::  no match VID/PID device "  << endl;

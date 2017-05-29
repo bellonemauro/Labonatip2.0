@@ -99,7 +99,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   Log_file_name = QString("./Exp_data/LogFile.dat");
 
   // initialize PPC1api
-  m_ppc1->setCOMport(m_dialog_tools->m_comSettings->name.toStdString());
+  m_ppc1->setCOMport(m_dialog_tools->m_comSettings->name);
   m_ppc1->setBaudRate((int)m_dialog_tools->m_comSettings->baudRate);
 
   //close the dock tool at inizialization
@@ -1189,7 +1189,7 @@ void Labonatip_GUI::initConnects()
 void Labonatip_GUI::toolOk() {
 
 	cout << " ok to the tools window pressed" << endl;
-	m_ppc1->setCOMport(m_dialog_tools->m_comSettings->name.toStdString());
+	m_ppc1->setCOMport(m_dialog_tools->m_comSettings->name);
 	m_ppc1->setBaudRate((int)m_dialog_tools->m_comSettings->baudRate);
 
 }

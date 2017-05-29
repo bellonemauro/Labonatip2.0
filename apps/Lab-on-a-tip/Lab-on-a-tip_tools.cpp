@@ -146,28 +146,19 @@ void Labonatip_tools::enumerate()
 	QString description;
 	QString manufacturer;
 	QString serialNumber;
-	QSerialPortInfo serialInfo;
-	QList<QSerialPortInfo> infos = serialInfo.availablePorts();
-	for (const QSerialPortInfo &info : infos) {
-		QStringList list;
-		description = info.description();
-		manufacturer = info.manufacturer();
-		serialNumber = info.serialNumber();
-		list << info.portName()
-			<< (!description.isEmpty() ? description : "N/A")
-			<< (!manufacturer.isEmpty() ? manufacturer : "N/A")
-			<< (!serialNumber.isEmpty() ? serialNumber : "N/A")
-			<< info.systemLocation()
-			<< (info.vendorIdentifier() ? QString::number(info.vendorIdentifier(), 16) : "N/A")
-			<< (info.productIdentifier() ? QString::number(info.productIdentifier(), 16) : "N/A");
 
-		ui_tools->comboBox_serialInfo->addItem(list.first(), list);
+	// try to get device information
+	std::vector<serial::PortInfo> devices = serial::list_ports();
+	std::vector<fluicell::PPC1api::serialDeviceInfo> devs;
+	for (unsigned int i = 0; i < devices.size(); i++) // for all the connected devices extract information
+	{
+		fluicell::PPC1api::serialDeviceInfo dev;
+		dev.port = devices.at(i).port;
+		dev.description = devices.at(i).description;
+		dev.hardware_ID = devices.at(i).hardware_id;
+		devs.push_back(dev);
+		ui_tools->comboBox_serialInfo->addItem(QString::fromStdString(dev.port));
 	}
-	/*	serialInfo.~QSerialPortInfo();
-	cout << " infos size = " << infos.size() << endl;
-	infos.clear();
-	cout << " cleared = " << endl;
-	infos.~QList();*/
 
 }
 
@@ -548,7 +539,7 @@ void Labonatip_tools::showPortInfo(int idx)
 
 void Labonatip_tools::getCOMsettings()
 {
-	m_comSettings->name = ui_tools->comboBox_serialInfo->currentText();
+	m_comSettings->name = ui_tools->comboBox_serialInfo->currentText().toStdString();
 	m_comSettings->baudRate = ui_tools->comboBox_baudRate->currentText().toInt();
 	//m_comSettings->dataBits = 
 	//m_comSettings->flowControl =
@@ -595,45 +586,45 @@ void Labonatip_tools::loadSettings(QString _path)
 	// read com group
 	//ComName
 	QString comPort = m_settings->value("COM/ComName", "COM1").toString();
-	m_comSettings->name = comPort;
+	m_comSettings->name = comPort.toStdString();
 
 	//BaudRate
 	int baudRate = m_settings->value("COM/BaudRate", "115200").toInt();
-	m_comSettings->baudRate = static_cast<qint32>(baudRate);
+	m_comSettings->baudRate = baudRate;
 	ui_tools->comboBox_baudRate->setCurrentIndex(7);  // baudrate forced value 115200 
 
 	//DataBits
 	int dataBits = m_settings->value("COM/DataBits", "8").toInt();
 	switch (dataBits) {
 	case 5:
-		m_comSettings->dataBits = QSerialPort::DataBits::Data5;
+		m_comSettings->dataBits = serial::fivebits;
 		break;
 	case 6:
-		m_comSettings->dataBits = QSerialPort::DataBits::Data6;
+		m_comSettings->dataBits = serial::sixbits;
 		break;
 	case 7:
-		m_comSettings->dataBits = QSerialPort::DataBits::Data7;
+		m_comSettings->dataBits = serial::sevenbits;
 		break;
 	case 8:
-		m_comSettings->dataBits = QSerialPort::DataBits::Data8;
+		m_comSettings->dataBits = serial::eightbits;
 		break;
 	default:
 		cout << " Error data bit cannot be read, using default value 8" << endl;
-		m_comSettings->dataBits = QSerialPort::DataBits::Data8;
+		m_comSettings->dataBits = serial::eightbits;
 		break;
 	}
 
 	//Parity = NoParity
 	QString parity = m_settings->value("COM/Parity", "NoParity").toString();
-	m_comSettings->parity = QSerialPort::Parity::NoParity; //TODO: no intepretation yet
+	m_comSettings->parity = serial::parity_none;  //TODO: no intepretation yet
 
 	//StopBits = 1
 	int stopBits = m_settings->value("COM/StopBits", "1").toInt();
-	m_comSettings->stopBits = QSerialPort::StopBits::OneStop; //TODO: no intepretation yet
+	m_comSettings->stopBits = serial::stopbits_one;  //TODO: no intepretation yet
 
 	//FlowControl = noFlow
 	QString flowControl = m_settings->value("COM/FlowControl", "noFlow").toString();
-	m_comSettings->flowControl = QSerialPort::FlowControl::NoFlowControl; //TODO: no intepretation yet
+	m_comSettings->flowControl = serial::flowcontrol_none; //TODO: no intepretation yet
 
 	
 	// read pr_limits group
@@ -748,7 +739,7 @@ void Labonatip_tools::saveSettings()
 
 	// [COM]
 	// ComName = COM_
-	m_settings->setValue("COM/ComName", m_comSettings->name);
+	m_settings->setValue("COM/ComName", QString::fromStdString(m_comSettings->name));
 	// BaudRate = 115200
 	m_settings->setValue("COM/BaudRate", ui_tools->comboBox_baudRate->currentText());
 	// DataBits = 8

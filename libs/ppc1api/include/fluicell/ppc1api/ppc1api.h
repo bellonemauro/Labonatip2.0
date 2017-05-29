@@ -33,6 +33,7 @@
 #include <iostream>
 #include <string>
 #include <cstdio>
+#include <cmath>
 #include <thread>
 #include <mutex>
 
@@ -244,7 +245,8 @@ namespace fluicell
 
 		};
 
-		/**  \brief Serial device info data structure
+public:
+	/**  \brief Serial device info data structure
 		*
 		*  @param port is the port name
 		*  @param description is the hardware description
@@ -264,7 +266,7 @@ namespace fluicell
 			string VID;
 			string PID;
 		
-			serialDeviceInfo::serialDeviceInfo() {}
+			serialDeviceInfo() {}
 		};
 
 public:

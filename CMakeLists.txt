@@ -45,9 +45,9 @@ set (Fluicell_SOURCE_DIR ${PROJECT_SOURCE_DIR})
 
 
 # find Eigen 
-find_package(Eigen )
 option(ENABLE_internalEigen "Use internal Eigen library " "ON")
 If (NOT EIGEN_INCLUDE_DIR OR ENABLE_internalEigen)
+  find_package(Eigen )
   message(STATUS "Using internal Eigen lib " )
   set (EIGEN_INCLUDE_DIR  ${PROJECT_SOURCE_DIR}/3rdParty/Eigen_3.2.2/Eigen  CACHE PATH "Path to the internal Eigen version" FORCE)
   include_directories(${EIGEN_INCLUDE_DIR})
@@ -90,7 +90,7 @@ endif(ENABLE_BUILD_3rdParty)
 
 
 # add all libraries in the /libs folder
-OPTION(ENABLE_BUILD_libs "Option for building internal libraries - ON by default" OFF)
+OPTION(ENABLE_BUILD_libs "Option for building internal libraries - ON by default" ON)
 if (ENABLE_BUILD_libs)
 	add_subdirectory(libs)
 endif(ENABLE_BUILD_libs)
