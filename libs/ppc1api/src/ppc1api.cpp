@@ -7,7 +7,7 @@
  *  | Released under GNU GPL License.                                           |
  *  +---------------------------------------------------------------------------+ */
 
-#include "fluicell/ppc1api/PPC1api.h"
+#include "fluicell/ppc1api/ppc1api.h"
 
 
 fluicell::PPC1api::PPC1api() :
@@ -267,7 +267,8 @@ bool fluicell::PPC1api::connectCOM()
 		m_PPC1_serial->setBaudrate(m_baud_rate);
 		m_PPC1_serial->setFlowcontrol(serial::flowcontrol_none);
 		m_PPC1_serial->setParity(serial::parity_none);
-        //m_PPC1_serial->setTimeout(serial::Timeout::simpleTimeout(250));
+		serial::Timeout my_timeout = serial::Timeout::simpleTimeout(250);
+        m_PPC1_serial->setTimeout(my_timeout);
 
 		if (!checkVIDPID(m_COMport)) {
 			cerr << " fluicell::PPC1api::connectCOM :::  no match VID/PID device "  << endl;

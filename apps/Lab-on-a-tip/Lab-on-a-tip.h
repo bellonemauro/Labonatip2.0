@@ -162,6 +162,13 @@ private slots:
    */
    void vacuumMinus();
 
+   /** \brief Update flow control percentages
+   *
+   *   	 
+   *
+   * \note
+   */
+   void updateFlowControlPercentages();
 
 	/** \brief This function is called when the down arrow on Pon is called
 	  *        it decreases the pressure on Pon, it does not accept out-of-range

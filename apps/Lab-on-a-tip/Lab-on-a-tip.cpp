@@ -194,12 +194,32 @@ void Labonatip_GUI::dropletSizePlus() {
 	if (m_pipette_active)	{ 
 		m_ppc1->increaseDropletSize();
 	}
+	if (m_simulationOnly) {
+		ui->horizontalSlider_p_on->setValue(
+			ui->horizontalSlider_p_on->value() * 1.025);
+		
+		ui->horizontalSlider_recirculation->setValue(
+			ui->horizontalSlider_recirculation->value() * 0.975);
+
+		updateFlowControlPercentages();
+
+	}
 }
 
 void Labonatip_GUI::dropletSizeMinus() {
 	// only Pon and V_recirc + - 2.5%
 	if (m_pipette_active) {
 		m_ppc1->decreaseDropletSize();
+	}
+	if (m_simulationOnly) {
+		ui->horizontalSlider_p_on->setValue(
+			ui->horizontalSlider_p_on->value() * 0.975);
+
+		ui->horizontalSlider_recirculation->setValue(
+			ui->horizontalSlider_recirculation->value() * 1.025);
+
+		updateFlowControlPercentages();
+
 	}
 }
 
@@ -210,12 +230,44 @@ void Labonatip_GUI::flowSpeedPlus() {
 	if (m_pipette_active) {
 		m_ppc1->increaseFlowspeed();
 	}
+	if (m_simulationOnly) {
+		ui->horizontalSlider_p_on->setValue(
+			ui->horizontalSlider_p_on->value() * 1.05);
+
+		ui->horizontalSlider_p_off->setValue(
+			ui->horizontalSlider_p_off->value() * 1.05);
+
+		ui->horizontalSlider_switch->setValue(
+			ui->horizontalSlider_switch->value() * 1.05);
+
+		ui->horizontalSlider_recirculation->setValue(
+			ui->horizontalSlider_recirculation->value() * 1.05);
+
+		updateFlowControlPercentages();
+
+	}
 }
 
 void Labonatip_GUI::flowSpeedMinus() {
 	// -5% to all values
 	if (m_pipette_active) {
 		m_ppc1->decreaseFlowspeed();
+	}
+	if (m_simulationOnly) {
+
+		ui->horizontalSlider_p_on->setValue(
+			ui->horizontalSlider_p_on->value() * 0.95);
+
+		ui->horizontalSlider_p_off->setValue(
+			ui->horizontalSlider_p_off->value() * 0.95);
+
+		ui->horizontalSlider_switch->setValue(
+			ui->horizontalSlider_switch->value() * 0.95);
+
+		ui->horizontalSlider_recirculation->setValue(
+			ui->horizontalSlider_recirculation->value() * 0.95);
+
+		updateFlowControlPercentages();
 	}
 }
 
@@ -224,6 +276,13 @@ void Labonatip_GUI::vacuumPlus() {
 	if (m_pipette_active) {
 		m_ppc1->increaseVacuum5p();
 	}
+	if (m_simulationOnly) {
+
+		int value = ui->horizontalSlider_recirculation->value() * 1.05;
+		ui->horizontalSlider_recirculation->setValue(value);
+
+		updateFlowControlPercentages();
+	}
 }
 
 void Labonatip_GUI::vacuumMinus() {
@@ -231,8 +290,41 @@ void Labonatip_GUI::vacuumMinus() {
 	if (m_pipette_active) {
 		m_ppc1->decreaseVacuum5p();
 	}
+	if (m_simulationOnly) {
+
+		int value = ui->horizontalSlider_recirculation->value() * 0.95;
+		ui->horizontalSlider_recirculation->setValue(value);
+		
+		updateFlowControlPercentages();
+	}
 }
    
+void Labonatip_GUI::updateFlowControlPercentages()
+{
+	if (m_simulationOnly) {
+	
+		{
+			int pon = 100 * ui->horizontalSlider_p_on->value() / 190;
+			int vr = 100 * ui->horizontalSlider_recirculation->value() / 115;
+			int droplet_percentage = (pon + vr) / 2;
+			ui->lcdNumber_dropletSize_percentage->display(droplet_percentage);
+		}
+		{
+			int pon = 100 * ui->horizontalSlider_p_on->value() / 190;
+			int poff = 100 * ui->horizontalSlider_p_off->value() / 21;
+			int vs = 100 * ui->horizontalSlider_switch->value() / 115;
+			int vr = 100 * ui->horizontalSlider_recirculation->value() / 115;
+			int flowspeed_percentage = (pon + poff + vs + vr) / 4;
+			ui->lcdNumber_flowspeed_percentage->display(flowspeed_percentage);
+		}
+		{
+			int vacuum_percentage = 100 * ui->horizontalSlider_recirculation->value() / 115;
+			ui->lcdNumber_vacuum_percentage->display(vacuum_percentage);
+		}
+	}
+
+}
+
 void Labonatip_GUI::pressurePonDown() {
 	ui->horizontalSlider_p_on->setValue(ui->horizontalSlider_p_on->value() - 1);
 }
@@ -760,6 +852,7 @@ void Labonatip_GUI::sliderPonChanged(int _value)  {
 	if(m_simulationOnly) {
 		ui->label_PonPressure->setText(QString(QString::number(_value) + " mbar"));
 	    ui->progressBar_pressure_p_on->setValue(_value); 
+		updateFlowControlPercentages();
 	}
 
 	// if we decrease the pressure to zero, clean the scene and return, so the flow disappear
@@ -783,6 +876,7 @@ void Labonatip_GUI::sliderPoffChanged(int _value) {
 	if (m_simulationOnly) {
 		ui->label_PoffPressure->setText(QString(QString::number(_value) + " mbar"));
 		ui->progressBar_pressure_p_off->setValue(_value);
+		updateFlowControlPercentages();
 	}
 
 	// if we decrease the pressure to zero, clean the scene and return, so the flow disappear
@@ -806,6 +900,7 @@ void Labonatip_GUI::sliderRecircChanged(int _value) {
 	if (m_simulationOnly) {
 		ui->label_recircPressure->setText(QString(QString::number(-_value) + " mbar"));
 		ui->progressBar_recirc->setValue(_value);
+		updateFlowControlPercentages();
 	}
 
 	ui->progressBar_recircIn->setValue(_value);
@@ -833,6 +928,7 @@ void Labonatip_GUI::sliderSwitchChanged(int _value) {
 	if (m_simulationOnly) {
 		ui->label_switchPressure->setText(QString(QString::number(-_value) + " mbar"));
 		ui->progressBar_switch->setValue(_value);
+		updateFlowControlPercentages();
 	}
 
 	ui->progressBar_switchIn->setValue(_value);

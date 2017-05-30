@@ -13,7 +13,7 @@
 #include <ostream>
 
 // PPC1api test
-#include <fluicell/ppc1api/PPC1api.h>
+#include <fluicell/ppc1api/ppc1api.h>
 
 // declare some useful variables
 static std::string COMport;
