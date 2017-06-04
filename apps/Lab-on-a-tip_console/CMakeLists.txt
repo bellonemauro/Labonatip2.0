@@ -68,7 +68,7 @@ elseif(  BUILD_QT5)
 
 
 	if ( ENABLE_verbose )
-		message (STATUS "${PROJECT_NAME} MESSAGE: QT_BINARY_DIR ---- ${QT_BINARY_DIR}")
+		message (STATUS "${PROJECT_NAME} MESSAGE: QT5_BINARY_DIR ---- ${QT5_BINARY_DIR}")
 		message (STATUS "${PROJECT_NAME} MESSAGE: QT5_LIBRARIES_DIR ---- ${QT5_LIBRARIES_DIR}")
 	endif ( ENABLE_verbose )
 	if (NOT QT5_LIBRARIES_DIR)
@@ -103,7 +103,7 @@ elseif(  BUILD_QT5)
 	# Windows specific build steps
 	if(ENABLE_WINDEPLOYQT AND WIN32)
 		# Run winddeployqt if it can be found
-	find_program(WINDEPLOYQT_EXECUTABLE NAMES windeployqt HINTS ${QT_BINARY_DIR} ENV QTDIR PATH_SUFFIXES bin)
+	find_program(WINDEPLOYQT_EXECUTABLE NAMES windeployqt HINTS ${QT5_BINARY_DIR} ENV QTDIR PATH_SUFFIXES bin)
 	if ( ENABLE_verbose )
 		message (STATUS "${PROJECT_NAME} MESSAGE: WINDEPLOYQT_EXECUTABLE is : ${WINDEPLOYQT_EXECUTABLE} \n")
 		message (STATUS "${PROJECT_NAME} MESSAGE: Current file target is : ${F} \n")

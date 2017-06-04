@@ -87,7 +87,7 @@ include (CPack)
 # I really would like to have this feature but unfortunately it is still not supported ! 
 if(BUILD_WINDEPLOYQT AND WIN32)
 		# Run winddeployqt if it can be found
-	find_program(WINDEPLOYQT_EXECUTABLE NAMES windeployqt HINTS ${QT_BINARY_DIR} ENV QTDIR PATH_SUFFIXES bin)
+	find_program(WINDEPLOYQT_EXECUTABLE NAMES windeployqt HINTS ${QT5_BINARY_DIR} ENV QTDIR PATH_SUFFIXES bin)
     FILE(GLOB FILE_EXE "${PROJECT_BINARY_DIR}/bin/Release/*.exe")
       FOREACH(F ${FILE_EXE})
         #INSTALL(FILES "${F}" DESTINATION ./)

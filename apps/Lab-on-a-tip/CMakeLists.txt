@@ -96,7 +96,7 @@ elseif(  BUILD_QT5)
 	find_package( Qt5Charts REQUIRED )
 
 	if ( ENABLE_verbose )
-		message (STATUS "${PROJECT_NAME} MESSAGE: QT_BINARY_DIR ---- ${QT_BINARY_DIR}")
+		message (STATUS "${PROJECT_NAME} MESSAGE: QT5_BINARY_DIR ---- ${QT5_BINARY_DIR}")
 		message (STATUS "${PROJECT_NAME} MESSAGE: QT5_LIBRARIES_DIR ---- ${QT5_LIBRARIES_DIR}")
 		message (STATUS "${PROJECT_NAME} MESSAGE: Qt5Widgets ---- ${Qt5Widgets_LIBRARIES}")
 		message (STATUS "${PROJECT_NAME} MESSAGE: Qt5Charts ---- ${Qt5Charts_LIBRARIES}")
@@ -125,7 +125,7 @@ elseif(  BUILD_QT5)
 	qt5_use_modules(${PROJECT_NAME} Widgets)
 
 	target_link_libraries ( ${PROJECT_NAME}  
-							${QT_LIBRARIES} Qt5SerialPort Qt5Charts 
+							${QT_LIBRARIES}  Qt5Charts 
 							PPC1api serial )
 	if ( ENABLE_verbose )
 		message (STATUS "${PROJECT_NAME} MESSAGE: Qt5Charts ---- ${Qt5Charts}")
@@ -137,7 +137,7 @@ elseif(  BUILD_QT5)
 	# Windows specific build steps
 	if(ENABLE_WINDEPLOYQT AND WIN32)
 			# Run winddeployqt if it can be found
-		find_program(WINDEPLOYQT_EXECUTABLE NAMES windeployqt HINTS ${QT_BINARY_DIR} ENV QTDIR PATH_SUFFIXES bin)
+		find_program(WINDEPLOYQT_EXECUTABLE NAMES windeployqt HINTS ${QT5_BINARY_DIR} ENV QTDIR PATH_SUFFIXES bin)
 		if ( ENABLE_verbose )
 			message (STATUS "${PROJECT_NAME} MESSAGE: WINDEPLOYQT_EXECUTABLE is : ${WINDEPLOYQT_EXECUTABLE} \n")
 			message (STATUS "${PROJECT_NAME} MESSAGE: Current file target is : ${F} \n")

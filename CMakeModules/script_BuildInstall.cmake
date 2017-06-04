@@ -33,16 +33,16 @@ if ( ENABLE_verbose )
   message(STATUS " Install script messages :  " )
 endif (  )
 
-if (QT_BINARY_DIR AND NOT BUILD_QT5) #deprecated - QT5 is the only way to go! 
+if (QT5_BINARY_DIR AND NOT BUILD_QT5) #deprecated - QT5 is the only way to go! 
 # EXTRACT_DEB_REL_DLLS looks for ALL .dlls in the specified library, 
 # it's of for installers but maybe allow the choice of necessary dlls only is mandatory for the sake of space saving
 
   message (FATAL_ERROR "  QT4 is deprecated, please use QT5 instead ")
 
-  EXTRACT_DEB_REL_DLLS (${QT_BINARY_DIR} d4 )# --> OUR custom macro for searching dlls 
+  EXTRACT_DEB_REL_DLLS (${QT5_BINARY_DIR} d4 )# --> OUR custom macro for searching dlls 
 
   if (ENABLE_verbose)
-    message (STATUS "     QT_BINARY_DIR is : ${QT_BINARY_DIR}")
+    message (STATUS "     QT5_BINARY_DIR is : ${QT5_BINARY_DIR}")
     message (STATUS "     REL DLLS are : ${REL_DLLS}")
     message (STATUS "     DEB DLLS are : ${DEB_DLLS}")
   endif (ENABLE_verbose)
@@ -55,13 +55,13 @@ if (QT_BINARY_DIR AND NOT BUILD_QT5) #deprecated - QT5 is the only way to go!
     #INSTALL(FILES "${F}" DESTINATION bin)   # no install debug for now
   #ENDFOREACH(F)
 	
-else(QT_BINARY_DIR AND NOT BUILD_QT5)
+else(QT5_BINARY_DIR AND NOT BUILD_QT5)
 
 # EXTRACT_DEB_REL_DLLS looks for ALL .dlls in the specified library, 
 # it's of for installers but maybe allow the choice of necessary dlls only is mandatory for the sake of space saving
-  EXTRACT_DEB_REL_DLLS (${QT_BINARY_DIR} d )# --> QT5 changed the postfix ! 
+  EXTRACT_DEB_REL_DLLS (${QT5_BINARY_DIR} d )# --> QT5 changed the postfix ! 
   if (ENABLE_verbose)
-    message (STATUS "     QT_BINARY_DIR is : ${QT_BINARY_DIR}") 
+    message (STATUS "     QT5_BINARY_DIR is : ${QT5_BINARY_DIR}") 
 	message (STATUS "\n\n REL DLLS are     : ${REL_DLLS}")
     message (STATUS "\n\n DEB DLLS are     : ${DEB_DLLS}")
   endif (ENABLE_verbose)
@@ -72,7 +72,7 @@ else(QT_BINARY_DIR AND NOT BUILD_QT5)
   # Windows specific build steps
 if(BUILD_WINDEPLOYQT AND WIN32)
 		# Run winddeployqt if it can be found
-	find_program(WINDEPLOYQT_EXECUTABLE NAMES windeployqt HINTS ${QT_BINARY_DIR} ENV QTDIR PATH_SUFFIXES bin)
+	find_program(WINDEPLOYQT_EXECUTABLE NAMES windeployqt HINTS ${QT5_BINARY_DIR} ENV QTDIR PATH_SUFFIXES bin)
     FILE(GLOB FILE_EXE "${PROJECT_BINARY_DIR}/bin/Release/*.exe")
       FOREACH(F ${FILE_EXE})
         #INSTALL(FILES "${F}" DESTINATION ./)

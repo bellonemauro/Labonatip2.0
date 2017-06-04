@@ -179,7 +179,6 @@ private slots:
 private:
 
 	QSettings *m_settings;
-	QSerialPort *serial;
 
 	void createNewCommand(QTreeWidgetItem &_command);
 

@@ -22,9 +22,6 @@ Labonatip_tools::Labonatip_tools(QWidget *parent ):
 	//load settings from file
 	loadSettings("./settings/settings.ini");
 
-	// initialize and connect serial port objects
-	serial = new QSerialPort(parent);
-
 	ui_tools->comboBox_serialInfo->clear();
 	connect(ui_tools->comboBox_serialInfo,
 		static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this,

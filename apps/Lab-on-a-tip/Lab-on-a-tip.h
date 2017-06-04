@@ -44,10 +44,6 @@
 #include <QtCharts/QLineSeries>
 #include <QtCharts/QAreaSeries>
 
-// QT serial communication
-#include <QPlainTextEdit>
-#include <QtSerialPort/QSerialPort>
-
 //#include "Q_DebugStream.h"
 #include "Lab-on-a-tip_tools.h"
 #include "Lab-on-a-tip_macroRunner.h"

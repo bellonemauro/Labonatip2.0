@@ -45,7 +45,7 @@ set (Fluicell_SOURCE_DIR ${PROJECT_SOURCE_DIR})
 
 
 # find Eigen 
-option(ENABLE_internalEigen "Use internal Eigen library " "ON")
+option(ENABLE_internalEigen "Use internal Eigen library " "OFF")
 If (NOT EIGEN_INCLUDE_DIR OR ENABLE_internalEigen)
   find_package(Eigen )
   message(STATUS "Using internal Eigen lib " )
@@ -55,10 +55,10 @@ If (NOT EIGEN_INCLUDE_DIR OR ENABLE_internalEigen)
   add_definitions(-DEIGEN_NO_DEBUG) 
   add_definitions(-DNDEBUG)
 else ()
-  include_directories(SYSTEM ${EIGEN_INCLUDE_DIRS})
-  include_directories(${EIGEN_INCLUDE_DIR})
-  add_definitions(-DEIGEN_NO_DEBUG) 
-  add_definitions(-DNDEBUG)
+  #include_directories(SYSTEM ${EIGEN_INCLUDE_DIRS})
+  #include_directories(${EIGEN_INCLUDE_DIR})
+  #add_definitions(-DEIGEN_NO_DEBUG) 
+  #add_definitions(-DNDEBUG)
 endif()
 
 
