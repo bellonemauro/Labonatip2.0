@@ -748,10 +748,10 @@ border-top-left-radius: 2px;
                      <number>3</number>
                     </property>
                     <property name="value" stdset="0">
-                     <double>100.000000000000000</double>
+                     <double>0.000000000000000</double>
                     </property>
                     <property name="intValue" stdset="0">
-                     <number>100</number>
+                     <number>0</number>
                     </property>
                    </widget>
                   </item>
@@ -764,10 +764,10 @@ border-top-left-radius: 2px;
                      <number>3</number>
                     </property>
                     <property name="value" stdset="0">
-                     <double>100.000000000000000</double>
+                     <double>0.000000000000000</double>
                     </property>
                     <property name="intValue" stdset="0">
-                     <number>100</number>
+                     <number>0</number>
                     </property>
                    </widget>
                   </item>
@@ -816,10 +816,10 @@ border-top-left-radius: 2px;
                      <number>3</number>
                     </property>
                     <property name="value" stdset="0">
-                     <double>100.000000000000000</double>
+                     <double>0.000000000000000</double>
                     </property>
                     <property name="intValue" stdset="0">
-                     <number>100</number>
+                     <number>0</number>
                     </property>
                    </widget>
                   </item>

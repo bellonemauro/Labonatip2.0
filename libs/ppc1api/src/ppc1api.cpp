@@ -485,29 +485,43 @@ bool fluicell::PPC1api::setValve_d(bool _value) {
 
 bool fluicell::PPC1api::increaseDropletSize()
 {
-	double value = m_PPC1_data->channel_A->set_point;
-	if (!setVacuumChannelA(value*0.975)) {// decrease A by 2.5%
+	double value = m_PPC1_data->channel_A->set_point*0.975; // decrease A by 2.5%
+	if (value <= MIN_CHAN_A || value >= MAX_CHAN_A)
+		return false; // out of bound
+
+	if (!setVacuumChannelA(value)) {
 		return false;
 	}
 	std::this_thread::sleep_for(std::chrono::microseconds(10000)); // wait 10msec
-	value = m_PPC1_data->channel_D->set_point;
-	if (!setPressureChannelD(value*1.025)) { // increase C by 2.5%
+
+	value = m_PPC1_data->channel_D->set_point*1.025;// increase C by 2.5%
+	if (value <= MIN_CHAN_D || value >= MAX_CHAN_D)
+		return false; // out of bound 
+
+	if (!setPressureChannelD(value)) { 
 		return false;
 	}
 	std::this_thread::sleep_for(std::chrono::microseconds(10000)); // wait 10msec
+
 	return true;
 }
 
 bool fluicell::PPC1api::decreaseDropletSize()
 {
-	double value = m_PPC1_data->channel_A->set_point;
-	if (!setVacuumChannelA(value*1.025)) {// increase A by 2.5%
+	double value = m_PPC1_data->channel_A->set_point*1.025;// increase A by 2.5%
+	if (value <= MIN_CHAN_A || value >= MAX_CHAN_A)
+		return false; // out of bound
+
+	if (!setVacuumChannelA(value)) {
 		return false;
 	}
 	std::this_thread::sleep_for(std::chrono::microseconds(10000)); // wait 10msec
 	
-	value = m_PPC1_data->channel_D->set_point;
-	if (!setPressureChannelD(value*0.975)) { // reduce C by 2.5%
+	value = m_PPC1_data->channel_D->set_point*0.975;
+	if (value <= MIN_CHAN_D || value >= MAX_CHAN_D)
+		return false; // out of bound
+
+	if (!setPressureChannelD(value)) { // reduce C by 2.5%
 		return false;
 	}
 	std::this_thread::sleep_for(std::chrono::microseconds(10000)); // wait 10msec
@@ -529,26 +543,38 @@ double fluicell::PPC1api::getDropletSizePercentage()
 
 bool fluicell::PPC1api::increaseFlowspeed()
 {
-	double value = m_PPC1_data->channel_A->set_point;
-	if (!setVacuumChannelA(value*1.05)) { // increase A by 5%
+	double value = m_PPC1_data->channel_A->set_point*1.05;
+	if (value <= MIN_CHAN_A || value >= MAX_CHAN_A)
+		return false; // out of bound
+
+	if (!setVacuumChannelA(value)) { // increase A by 5%
 		return false;
 	}
 	std::this_thread::sleep_for(std::chrono::microseconds(10000)); // wait 10msec
 	
-	value = m_PPC1_data->channel_B->set_point;
-	if (!setVacuumChannelB(value*1.05)) { // increase B by 5%
+	value = m_PPC1_data->channel_B->set_point*1.05;
+	if (value <= MIN_CHAN_B || value >= MAX_CHAN_B)
+		return false; // out of bound
+
+	if (value == 0 || !setVacuumChannelB(value)) { // increase B by 5%
 		return false;
 	}
 	std::this_thread::sleep_for(std::chrono::microseconds(10000)); // wait 10msec
 	
-	value = m_PPC1_data->channel_C->set_point;
-	if (!setPressureChannelC(value*1.05)) { // increase C by 5%
+	value = m_PPC1_data->channel_C->set_point*1.05;
+	if (value <= MIN_CHAN_C || value >= MAX_CHAN_C)
+		return false; // out of bound
+
+	if (value == 0 || !setPressureChannelC(value)) { // increase C by 5%
 		return false;
 	}
 	std::this_thread::sleep_for(std::chrono::microseconds(10000)); // wait 10msec
 	
-	value = m_PPC1_data->channel_D->set_point;
-	if (!setPressureChannelD(value*1.05)) { // increase D by 5%
+	value = m_PPC1_data->channel_D->set_point*1.05;
+	if (value <= MIN_CHAN_D || value >= MAX_CHAN_D)
+		return false; // out of bound
+
+	if (value == 0 || !setPressureChannelD(value)) { // increase D by 5%
 		return false;
 	}
 	std::this_thread::sleep_for(std::chrono::microseconds(10000)); // wait 10msec
@@ -558,26 +584,38 @@ bool fluicell::PPC1api::increaseFlowspeed()
 
 bool fluicell::PPC1api::decreaseFlowspeed()
 {
-	double value = m_PPC1_data->channel_A->set_point;
-	if (!setVacuumChannelA(value*0.95)) { // reduce A by 5%
+	double value = m_PPC1_data->channel_A->set_point*0.95;
+	if (value <= MIN_CHAN_A || value >= MAX_CHAN_A)
+		return false; // out of bound
+
+	if (value == 0 || !setVacuumChannelA(value)) { // reduce A by 5%
 		return false;
 	}
 	std::this_thread::sleep_for(std::chrono::microseconds(10000)); // wait 10msec
 	
-	value = m_PPC1_data->channel_B->set_point;
-	if (!setVacuumChannelB(value*0.95)) { // reduce B by 5%
+	value = m_PPC1_data->channel_B->set_point*0.95;
+	if (value <= MIN_CHAN_B || value >= MAX_CHAN_B)
+		return false; // out of bound
+
+	if (value == 0 || !setVacuumChannelB(value*0.95)) { // reduce B by 5%
 		return false;
 	}
 	std::this_thread::sleep_for(std::chrono::microseconds(10000)); // wait 10msec
 	
-	value = m_PPC1_data->channel_C->set_point;
-	if (!setPressureChannelC(value*0.95)) { // reduce C by 5%
+	value = m_PPC1_data->channel_C->set_point*0.95;
+	if (value <= MIN_CHAN_C || value >= MAX_CHAN_C)
+		return false; // out of bound
+
+	if (value == 0 || !setPressureChannelC(value)) { // reduce C by 5%
 		return false;
 	}
 	std::this_thread::sleep_for(std::chrono::microseconds(10000)); // wait 10msec
 	
-	value = m_PPC1_data->channel_D->set_point;
-	if (!setPressureChannelD(value*0.95)) { // increase D by 5%
+	value = m_PPC1_data->channel_D->set_point*0.95;
+	if (value <= MIN_CHAN_D || value >= MAX_CHAN_D)
+		return false; // out of bound
+
+	if (value == 0 || !setPressureChannelD(value)) { // increase D by 5%
 		return false;
 	}
 	std::this_thread::sleep_for(std::chrono::microseconds(10000)); // wait 10msec
@@ -603,14 +641,26 @@ double fluicell::PPC1api::getFlowSpeedPercentage()
 
 bool fluicell::PPC1api::increaseVacuum5p()
 {
-	double value = m_PPC1_data->channel_A->set_point;
-	return setVacuumChannelA(value*1.05); // 1.05 is the 5% increment
+	double value = m_PPC1_data->channel_A->set_point*1.05;
+	if (value <= MIN_CHAN_A || value >= MAX_CHAN_A)
+		return false; // out of bound
+
+	if (!setVacuumChannelA(value))
+		return false; // 1.05 is the 5% increment
+
+	return true;
 }
 
 bool fluicell::PPC1api::decreaseVacuum5p()
 {
-	double value = m_PPC1_data->channel_A->set_point;
-	return setVacuumChannelA(value*0.95); // 0.95 is the 5% decrement
+	double value = m_PPC1_data->channel_A->set_point*0.95;
+	if (value <= MIN_CHAN_A || value >= MAX_CHAN_A)
+		return false; // out of bound
+
+	if (value == 0 || !setVacuumChannelA(value))
+		return false; // 0.95 is the 5% decrement
+
+	return true;
 }
 
 double fluicell::PPC1api::getVacuumPercentage()

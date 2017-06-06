@@ -103,6 +103,8 @@ public:
 
 	~Labonatip_tools();
 
+
+	// TODO: members should not be public .... add get functions instead
 	COMSettings *m_comSettings;
 	solutionsNames *m_solutionNames;
 	pr_params *m_pr_params;
