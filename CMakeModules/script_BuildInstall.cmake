@@ -12,174 +12,171 @@
 
 if (WIN32 AND NOT UNIX)
 
-# ---- install redistributables 
-#this is not included in my build system but strangely required in the case of parallel computing installed by default on other systems
-#if (OPENMP_FOUND)   #ATTENTION !!!! this call to vcomp110.dll cannot stay here !!!! ATTENTION !!!!
-install(FILES "C:/Program Files (x86)/Microsoft Visual Studio 11.0/VC/redist/x64/Microsoft.VC110.OpenMP/vcomp110.dll" DESTINATION ./ )#COMPONENT Libraries) #TODO specify the components
-set(CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS_SKIP  ON)  # this allows the InstallRequiredSystemLibraries to find all the libraries without installing in the ./bin folder  .... so we can set the destination for the redistributables 
-include (InstallRequiredSystemLibraries )
-  FOREACH(F ${CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS})
-    INSTALL(FILES "${F}" DESTINATION ./)
-  ENDFOREACH(F)
-#install(FILES "C:/Program Files (x86)/Microsoft Visual Studio 11.0/VC/redist/x64/Microsoft.VC110.OpenMP/Microsoft.VC90.OpenMP.manifest" DESTINATION bin COMPONENT Libraries)
-#endif(OPENMP_FOUND)
-
-
-
-
-
-if ( ENABLE_verbose )
-  message(STATUS "\n ---------------------------------- " )
-  message(STATUS " Install script messages :  " )
-endif (  )
-
-if (QT5_BINARY_DIR AND NOT BUILD_QT5) #deprecated - QT5 is the only way to go! 
-# EXTRACT_DEB_REL_DLLS looks for ALL .dlls in the specified library, 
-# it's of for installers but maybe allow the choice of necessary dlls only is mandatory for the sake of space saving
-
-  message (FATAL_ERROR "  QT4 is deprecated, please use QT5 instead ")
-
-  EXTRACT_DEB_REL_DLLS (${QT5_BINARY_DIR} d4 )# --> OUR custom macro for searching dlls 
-
-  if (ENABLE_verbose)
-    message (STATUS "     QT5_BINARY_DIR is : ${QT5_BINARY_DIR}")
-    message (STATUS "     REL DLLS are : ${REL_DLLS}")
-    message (STATUS "     DEB DLLS are : ${DEB_DLLS}")
-  endif (ENABLE_verbose)
-
-  FOREACH(F ${REL_DLLS})
-    INSTALL(FILES "${F}" DESTINATION ./)   # install all release dll
-  ENDFOREACH(F)
-
-  #FOREACH(F ${DEB_DLLS})
-    #INSTALL(FILES "${F}" DESTINATION bin)   # no install debug for now
-  #ENDFOREACH(F)
-	
-else(QT5_BINARY_DIR AND NOT BUILD_QT5)
-
-# EXTRACT_DEB_REL_DLLS looks for ALL .dlls in the specified library, 
-# it's of for installers but maybe allow the choice of necessary dlls only is mandatory for the sake of space saving
-  EXTRACT_DEB_REL_DLLS (${QT5_BINARY_DIR} d )# --> QT5 changed the postfix ! 
-  if (ENABLE_verbose)
-    message (STATUS "     QT5_BINARY_DIR is : ${QT5_BINARY_DIR}") 
-	message (STATUS "\n\n REL DLLS are     : ${REL_DLLS}")
-    message (STATUS "\n\n DEB DLLS are     : ${DEB_DLLS}")
-  endif (ENABLE_verbose)
-  
-
-  # differently than others, QT has the windeployqt file that takes care of dlls and other stuff
-  # see this post: http://stackoverflow.com/questions/36981942/how-to-use-add-custom-command-to-copy-dlls-using-generator-expressions
-  # Windows specific build steps
-if(BUILD_WINDEPLOYQT AND WIN32)
-		# Run winddeployqt if it can be found
-	find_program(WINDEPLOYQT_EXECUTABLE NAMES windeployqt HINTS ${QT5_BINARY_DIR} ENV QTDIR PATH_SUFFIXES bin)
-    FILE(GLOB FILE_EXE "${PROJECT_BINARY_DIR}/bin/Release/*.exe")
-      FOREACH(F ${FILE_EXE})
-        #INSTALL(FILES "${F}" DESTINATION ./)
- 	    message (STATUS "     WINDEPLOYQT_EXECUTABLE is : ${WINDEPLOYQT_EXECUTABLE} \n")
- 	    message (STATUS "     Current file target is : ${F} \n")
-		message (STATUS "     PROJECT_NAME is : ${PROJECT_NAME} \n")
-	    #add_custom_command(TARGET ${F} PRE_BUILD WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/bin/Release/ COMMAND ${WINDEPLOYQT_EXECUTABLE} $<TARGET_FILE:${F}> COMMENT "Preparing Qt runtime dependencies")
-
+	# ---- install redistributables 
+	#this is not included in my build system but strangely required in the case of parallel computing installed by default on other systems
+	#if (OPENMP_FOUND)   #ATTENTION !!!! this call to vcomp110.dll cannot stay here !!!! ATTENTION !!!!
+	install(FILES "C:/Program Files (x86)/Microsoft Visual Studio 11.0/VC/redist/x64/Microsoft.VC110.OpenMP/vcomp110.dll" DESTINATION ./ )#COMPONENT Libraries) #TODO specify the components
+	set(CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS_SKIP  ON)  # this allows the InstallRequiredSystemLibraries to find all the libraries without installing in the ./bin folder  .... so we can set the destination for the redistributables 
+	include (InstallRequiredSystemLibraries )
+	  FOREACH(F ${CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS})
+		INSTALL(FILES "${F}" DESTINATION ./)
 	  ENDFOREACH(F)
-  endif()
-  
-  
-  #FOREACH(F ${REL_DLLS})
-  #  INSTALL(FILES "${F}" DESTINATION ./)   # install all release dll
-  #ENDFOREACH(F)
-
-  #FOREACH(F ${DEB_DLLS})
-    #INSTALL(FILES "${F}" DESTINATION ./bin)   # no install debug for now
-  #ENDFOREACH(F)
-endif ()
+	#install(FILES "C:/Program Files (x86)/Microsoft Visual Studio 11.0/VC/redist/x64/Microsoft.VC110.OpenMP/Microsoft.VC90.OpenMP.manifest" DESTINATION bin COMPONENT Libraries)
+	#endif(OPENMP_FOUND)
 
 
-# copy a specific file to the install folder
-# INSTALL(FILES "${PROJECT_SOURCE_DIR}/apps/nomeFile.extension" DESTINATION ./)		
-FILE(GLOB FILE_EXE "${PROJECT_BINARY_DIR}/bin/Release/*.exe")
-  FOREACH(F ${FILE_EXE})
-    INSTALL(FILES "${F}" DESTINATION ./)
-  ENDFOREACH(F)
+	if ( ENABLE_verbose )
+	  message(STATUS "\n ---------------------------------- " )
+	  message(STATUS " Install script messages :  " )
+	endif (  )
 
-FILE(GLOB INTERNAL_DLL "${PROJECT_BINARY_DIR}/bin/Release/*.dll")
-  FOREACH(F ${INTERNAL_DLL})
-    INSTALL(FILES "${F}" DESTINATION ./)
-  ENDFOREACH(F)
+	if (QT5_BINARY_DIR AND NOT BUILD_QT5) #deprecated - QT5 is the only way to go! 
+	# EXTRACT_DEB_REL_DLLS looks for ALL .dlls in the specified library, 
+	# it's of for installers but maybe allow the choice of necessary dlls only is mandatory for the sake of space saving
 
-FILE(GLOB INTERNAL_LIB "${PROJECT_BINARY_DIR}/bin/Release/*.lib")
-  FOREACH(F ${INTERNAL_LIB})
-    INSTALL(FILES "${F}" DESTINATION ./)
-  ENDFOREACH(F)
+	  message (FATAL_ERROR "  QT4 is deprecated, please use QT5 instead ")
 
-  
-  
-FILE(GLOB myProject_ICONENGINES "${PROJECT_BINARY_DIR}/bin/Release/iconengines/*.*") 
-if ( ENABLE_verbose )
-    message (STATUS "     myProject_ICONENGINES : ${myProject_ICONENGINES} \n")
-endif (  )
-FOREACH(F ${myProject_ICONENGINES})
-	INSTALL(FILES "${F}" DESTINATION ./iconengines)
-if ( ENABLE_verbose )
-	message (STATUS "     Current file target is : ${F} \n")
-endif (  )
-ENDFOREACH(F)				
+	  EXTRACT_DEB_REL_DLLS (${QT5_BINARY_DIR} d4 )# --> OUR custom macro for searching dlls 
 
-FILE(GLOB myProject_ICONS "${PROJECT_BINARY_DIR}/bin/Release/icons/*.*") 
-FOREACH(F ${myProject_ICONS})
-	INSTALL(FILES "${F}" DESTINATION ./icons)
-ENDFOREACH(F)				
+	  if (ENABLE_verbose)
+		message (STATUS "     QT5_BINARY_DIR is : ${QT5_BINARY_DIR}")
+		message (STATUS "     REL DLLS are : ${REL_DLLS}")
+		message (STATUS "     DEB DLLS are : ${DEB_DLLS}")
+	  endif (ENABLE_verbose)
 
-FILE(GLOB myProject_IMAGEFORMAT "${PROJECT_BINARY_DIR}/bin/Release/imageformats/*.*") 
-FOREACH(F ${myProject_IMAGEFORMAT})
-	INSTALL(FILES "${F}" DESTINATION ./imageformats)
-ENDFOREACH(F)				
+	  FOREACH(F ${REL_DLLS})
+		INSTALL(FILES "${F}" DESTINATION ./)   # install all release dll
+	  ENDFOREACH(F)
 
-FILE(GLOB myProject_PLATFORMS "${PROJECT_BINARY_DIR}/bin/Release/platforms/*.*") 
-FOREACH(F ${myProject_PLATFORMS})
-	INSTALL(FILES "${F}" DESTINATION ./platforms)
-ENDFOREACH(F)				
+	  #FOREACH(F ${DEB_DLLS})
+		#INSTALL(FILES "${F}" DESTINATION bin)   # no install debug for now
+	  #ENDFOREACH(F)
+		
+	else(QT5_BINARY_DIR AND NOT BUILD_QT5)
 
+	# EXTRACT_DEB_REL_DLLS looks for ALL .dlls in the specified library, 
+	# it's of for installers but maybe allow the choice of necessary dlls only is mandatory for the sake of space saving
+	  EXTRACT_DEB_REL_DLLS (${QT5_BINARY_DIR} d )# --> QT5 changed the postfix ! 
+	  if (ENABLE_verbose)
+		message (STATUS "     QT5_BINARY_DIR is : ${QT5_BINARY_DIR}") 
+		message (STATUS "\n\n REL DLLS are     : ${REL_DLLS}")
+		message (STATUS "\n\n DEB DLLS are     : ${DEB_DLLS}")
+	  endif (ENABLE_verbose)
+	  
 
-FILE(GLOB myProject_SETTINGS "${PROJECT_BINARY_DIR}/bin/Release/settings/*.ini") 
-FOREACH(F ${myProject_SETTINGS})
-	INSTALL(FILES "${F}" DESTINATION ./settings)
-ENDFOREACH(F)	
+	  # differently than others, QT has the windeployqt file that takes care of dlls and other stuff
+	  # see this post: http://stackoverflow.com/questions/36981942/how-to-use-add-custom-command-to-copy-dlls-using-generator-expressions
+	  # Windows specific build steps
+	if(BUILD_WINDEPLOYQT AND WIN32)
+			# Run winddeployqt if it can be found
+		find_program(WINDEPLOYQT_EXECUTABLE NAMES windeployqt HINTS ${QT5_BINARY_DIR} ENV QTDIR PATH_SUFFIXES bin)
+		FILE(GLOB FILE_EXE "${PROJECT_BINARY_DIR}/bin/Release/*.exe")
+		  FOREACH(F ${FILE_EXE})
+			#INSTALL(FILES "${F}" DESTINATION ./)
+			message (STATUS "     WINDEPLOYQT_EXECUTABLE is : ${WINDEPLOYQT_EXECUTABLE} \n")
+			message (STATUS "     Current file target is : ${F} \n")
+			message (STATUS "     PROJECT_NAME is : ${PROJECT_NAME} \n")
+			#add_custom_command(TARGET ${F} PRE_BUILD WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/bin/Release/ COMMAND ${WINDEPLOYQT_EXECUTABLE} $<TARGET_FILE:${F}> COMMENT "Preparing Qt runtime dependencies")
 
-FILE(GLOB myProject_TRANSATIONS "${PROJECT_BINARY_DIR}/bin/Release/translations/*.*") 
-FOREACH(F ${myProject_TRANSATIONS})
-	INSTALL(FILES "${F}" DESTINATION ./translations)
-ENDFOREACH(F)	
+		  ENDFOREACH(F)
+	  endif()
+	  
+	  
+	  #FOREACH(F ${REL_DLLS})
+	  #  INSTALL(FILES "${F}" DESTINATION ./)   # install all release dll
+	  #ENDFOREACH(F)
 
-
-# For additional libraries just copy and past the following code changing the name of the library
-# remember to check for the right debug suffix - standard are : "d" "_d" 
-#if (library_DIR)
-#  EXTRACT_DEB_REL_DLLS (${library_BINARY_DIR} d )# --> OUR custom macro for searching dlls 
-#  if (ENABLE_verbose)
-#   message (STATUS "\n\n REL DLLS are : ${REL_DLLS}")
-#   message (STATUS "\n\n DEB DLLS are : ${DEB_DLLS}")
-# endif (ENABLE_verbose) 
-#  FOREACH(F ${REL_DLLS})
-#	 INSTALL(FILES "${F}" DESTINATION bin)   # install all release dll
-#  ENDFOREACH(F)
-#  FOREACH(F ${DEB_DLLS})
-#    INSTALL(FILES "${F}" DESTINATION bin)   # no install debug for now
-#  ENDFOREACH(F)
-#endif ()
+	  #FOREACH(F ${DEB_DLLS})
+		#INSTALL(FILES "${F}" DESTINATION ./bin)   # no install debug for now
+	  #ENDFOREACH(F)
+	endif ()
 
 
-#NOTE: this has to go into a separated file script____install.cmake
-#install (TARGETS ${PROJECT_NAME} DESTINATION bin
-#				RUNTIME DESTINATION bin
-#				LIBRARY DESTINATION lib
-#				ARCHIVE DESTINATION lib)
-#install (FILES  "${PROJECT_SOURCE_DIR}/_.h"  DESTINATION include)
-#install (FILES  "${lib_BINARY_DIR}/Release/_.dll"   DESTINATION bin)
-				
-if ( ENABLE_verbose )
-  message(STATUS " ---------------------------------- " )
-endif (  )
+	# copy a specific file to the install folder
+	# INSTALL(FILES "${PROJECT_SOURCE_DIR}/apps/nomeFile.extension" DESTINATION ./)		
+	FILE(GLOB FILE_EXE "${PROJECT_BINARY_DIR}/bin/Release/*.exe")
+	  FOREACH(F ${FILE_EXE})
+		INSTALL(FILES "${F}" DESTINATION ./)
+	  ENDFOREACH(F)
+
+	FILE(GLOB INTERNAL_DLL "${PROJECT_BINARY_DIR}/bin/Release/*.dll")
+	  FOREACH(F ${INTERNAL_DLL})
+		INSTALL(FILES "${F}" DESTINATION ./)
+	  ENDFOREACH(F)
+
+	FILE(GLOB INTERNAL_LIB "${PROJECT_BINARY_DIR}/bin/Release/*.lib")
+	  FOREACH(F ${INTERNAL_LIB})
+		INSTALL(FILES "${F}" DESTINATION ./)
+	  ENDFOREACH(F)
+
+	  
+	  
+	FILE(GLOB myProject_ICONENGINES "${PROJECT_BINARY_DIR}/bin/Release/iconengines/*.*") 
+	if ( ENABLE_verbose )
+		message (STATUS "     myProject_ICONENGINES : ${myProject_ICONENGINES} \n")
+	endif (  )
+	FOREACH(F ${myProject_ICONENGINES})
+		INSTALL(FILES "${F}" DESTINATION ./iconengines)
+	if ( ENABLE_verbose )
+		message (STATUS "     Current file target is : ${F} \n")
+	endif (  )
+	ENDFOREACH(F)				
+
+	FILE(GLOB myProject_ICONS "${PROJECT_BINARY_DIR}/bin/Release/icons/*.*") 
+	FOREACH(F ${myProject_ICONS})
+		INSTALL(FILES "${F}" DESTINATION ./icons)
+	ENDFOREACH(F)				
+
+	FILE(GLOB myProject_IMAGEFORMAT "${PROJECT_BINARY_DIR}/bin/Release/imageformats/*.*") 
+	FOREACH(F ${myProject_IMAGEFORMAT})
+		INSTALL(FILES "${F}" DESTINATION ./imageformats)
+	ENDFOREACH(F)				
+
+	FILE(GLOB myProject_PLATFORMS "${PROJECT_BINARY_DIR}/bin/Release/platforms/*.*") 
+	FOREACH(F ${myProject_PLATFORMS})
+		INSTALL(FILES "${F}" DESTINATION ./platforms)
+	ENDFOREACH(F)				
+
+
+	FILE(GLOB myProject_SETTINGS "${PROJECT_BINARY_DIR}/bin/Release/settings/*.ini") 
+	FOREACH(F ${myProject_SETTINGS})
+		INSTALL(FILES "${F}" DESTINATION ./settings)
+	ENDFOREACH(F)	
+
+	FILE(GLOB myProject_TRANSATIONS "${PROJECT_BINARY_DIR}/bin/Release/translations/*.*") 
+	FOREACH(F ${myProject_TRANSATIONS})
+		INSTALL(FILES "${F}" DESTINATION ./translations)
+	ENDFOREACH(F)	
+
+
+	# For additional libraries just copy and past the following code changing the name of the library
+	# remember to check for the right debug suffix - standard are : "d" "_d" 
+	#if (library_DIR)
+	#  EXTRACT_DEB_REL_DLLS (${library_BINARY_DIR} d )# --> OUR custom macro for searching dlls 
+	#  if (ENABLE_verbose)
+	#   message (STATUS "\n\n REL DLLS are : ${REL_DLLS}")
+	#   message (STATUS "\n\n DEB DLLS are : ${DEB_DLLS}")
+	# endif (ENABLE_verbose) 
+	#  FOREACH(F ${REL_DLLS})
+	#	 INSTALL(FILES "${F}" DESTINATION bin)   # install all release dll
+	#  ENDFOREACH(F)
+	#  FOREACH(F ${DEB_DLLS})
+	#    INSTALL(FILES "${F}" DESTINATION bin)   # no install debug for now
+	#  ENDFOREACH(F)
+	#endif ()
+
+
+	#NOTE: this has to go into a separated file script____install.cmake
+	#install (TARGETS ${PROJECT_NAME} DESTINATION bin
+	#				RUNTIME DESTINATION bin
+	#				LIBRARY DESTINATION lib
+	#				ARCHIVE DESTINATION lib)
+	#install (FILES  "${PROJECT_SOURCE_DIR}/_.h"  DESTINATION include)
+	#install (FILES  "${lib_BINARY_DIR}/Release/_.dll"   DESTINATION bin)
+					
+	if ( ENABLE_verbose )
+	  message(STATUS " ---------------------------------- " )
+	endif (  )
 
 else (WIN32 AND NOT UNIX)
   message(STATUS " INSTALL NOT YET SUPPORTED " )

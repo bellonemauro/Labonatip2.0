@@ -799,6 +799,26 @@ void Labonatip_GUI::updateDrawing( int _value) {
 
 void Labonatip_GUI::pushSolution1()
 {
+
+	if (!ui->pushButton_solution1->isChecked()){
+		m_timer_solution = m_time_multipilcator;
+
+		if (m_pipette_active) {
+			m_ppc1->closeAllValves();
+		}
+
+		m_update_time_s1->stop();
+
+		return;
+	}
+
+	ui->pushButton_solution2->setChecked(false);
+	pushSolution2(); // this will actually stop the flow as the check state is false
+	ui->pushButton_solution3->setChecked(false);
+	pushSolution3(); // this will actually stop the flow as the check state is false
+	ui->pushButton_solution4->setChecked(false);
+	pushSolution4(); // this will actually stop the flow as the check state is false
+
 	// set the color into the drawing to fit the solution flow 
 	m_gradient_flow->setColorAt(0, m_sol1_color);  // from dark green 
 	m_gradient_flow->setColorAt(1, Qt::white); // to white, alpha value 0 to ensure transparency
@@ -827,10 +847,30 @@ void Labonatip_GUI::pushSolution1()
 	m_timer_solution = 0;
 	m_update_time_s1->start();
 
-	setEnableSolutionButtons(false);
+//	setEnableSolutionButtons(false);
+
 }
 
 void Labonatip_GUI::pushSolution2() {
+
+	if (!ui->pushButton_solution2->isChecked()){
+		m_timer_solution = m_time_multipilcator;
+
+		if (m_pipette_active) {
+			m_ppc1->closeAllValves();
+		}
+
+		m_update_time_s2->stop();
+
+		return;
+	}
+	
+	ui->pushButton_solution1->setChecked(false);
+	pushSolution1(); // this will actually stop the flow as the check state is false
+	ui->pushButton_solution3->setChecked(false);
+	pushSolution3(); // this will actually stop the flow as the check state is false
+	ui->pushButton_solution4->setChecked(false);
+	pushSolution4(); // this will actually stop the flow as the check state is false
 
 	// set the color into the drawing to fit the solution flow 
 	m_gradient_flow->setColorAt(0, m_sol2_color);   // from light green 
@@ -859,10 +899,30 @@ void Labonatip_GUI::pushSolution2() {
 
 	m_timer_solution = 0;
 	m_update_time_s2->start();
-	setEnableSolutionButtons(false);
+	//setEnableSolutionButtons(false);
+
 }
 
 void Labonatip_GUI::pushSolution3() {
+
+	if (!ui->pushButton_solution3->isChecked()){
+		m_timer_solution = m_time_multipilcator;
+
+		if (m_pipette_active) {
+			m_ppc1->closeAllValves();
+		}
+
+		m_update_time_s3->stop();
+
+		return;
+	}
+
+	ui->pushButton_solution1->setChecked(false);
+	pushSolution1(); // this will actually stop the flow as the check state is false
+	ui->pushButton_solution2->setChecked(false);
+	pushSolution2(); // this will actually stop the flow as the check state is false
+	ui->pushButton_solution4->setChecked(false);
+	pushSolution4(); // this will actually stop the flow as the check state is false
 
 	// set the color into the drawing to fit the solution flow 
 	m_gradient_flow->setColorAt(0, m_sol3_color);  // from orange
@@ -891,10 +951,30 @@ void Labonatip_GUI::pushSolution3() {
 
 	m_timer_solution = 0;
 	m_update_time_s3->start();
-	setEnableSolutionButtons(false);
+	//setEnableSolutionButtons(false);
+
 }
 
 void Labonatip_GUI::pushSolution4() {
+
+	if (!ui->pushButton_solution4->isChecked()){
+		m_timer_solution = m_time_multipilcator;
+
+		if (m_pipette_active) {
+			m_ppc1->closeAllValves();
+		}
+
+		m_update_time_s4->stop();
+
+		return;
+	}
+
+	ui->pushButton_solution1->setChecked(false);
+	pushSolution1(); // this will actually stop the flow as the check state is false
+	ui->pushButton_solution2->setChecked(false);
+	pushSolution2(); // this will actually stop the flow as the check state is false
+	ui->pushButton_solution3->setChecked(false);
+	pushSolution3(); // this will actually stop the flow as the check state is false
 
 	// set the color into the drawing to fit the solution flow 
 	m_gradient_flow->setColorAt(0.0, m_sol4_color);  // from solution 4 preset color
@@ -923,7 +1003,8 @@ void Labonatip_GUI::pushSolution4() {
 
 	m_timer_solution = 0;
 	m_update_time_s4->start();
-	setEnableSolutionButtons(false);
+	//setEnableSolutionButtons(false);
+
 }
 
 
@@ -1044,7 +1125,7 @@ void Labonatip_GUI::updateTimingSlider_s1() {
 	if (m_timer_solution < m_time_multipilcator) {
 		m_update_time_s1->start();
 		int status = int(100 * m_timer_solution / m_time_multipilcator);
-		ui->widget_sol1->setValue(status);
+		//ui->widget_sol1->setValue(status);
 		ui->progressBar_solution1->setValue(100 - status);
 		QString s;
 		s.append("Empty in ");
@@ -1073,12 +1154,13 @@ void Labonatip_GUI::updateTimingSlider_s1() {
 		m_update_time_s1->stop();
 		m_timer_solution = 0;
 		ui->progressBar_solution1->setValue(0);
-		ui->widget_sol1->setValue(100);
+		//ui->widget_sol1->setValue(100);
 		if (m_pipette_active)
 		{
 			m_ppc1->setValve_a(false);
 		}
 		setEnableSolutionButtons(true);
+		ui->pushButton_solution1->setChecked(false);
 
 		ui->label_warningIcon->setPixmap(*m_pmap_okIcon);
 		ui->label_warning->setText(" Ok! ");
@@ -1092,7 +1174,7 @@ void Labonatip_GUI::updateTimingSlider_s2() {
 	if (m_timer_solution < m_time_multipilcator) {
 		m_update_time_s2->start();
 		int status = int(100 * m_timer_solution / m_time_multipilcator);
-		ui->widget_sol2->setValue(status);
+		//ui->widget_sol2->setValue(status);
 		ui->progressBar_solution2->setValue(100 - status);
 		QString s;
 		s.append("Empty in ");
@@ -1117,12 +1199,14 @@ void Labonatip_GUI::updateTimingSlider_s2() {
 		m_update_time_s2->stop();
 		m_timer_solution = 0;
 		ui->progressBar_solution2->setValue(0);
-		ui->widget_sol2->setValue(100);
+		//ui->widget_sol2->setValue(100);
 		if (m_pipette_active)
 		{
 			m_ppc1->setValve_b(false);
 		}
 		setEnableSolutionButtons(true);
+		ui->pushButton_solution2->setChecked(false);
+
 		ui->label_warningIcon->setPixmap(*m_pmap_okIcon);
 		ui->label_warning->setText(" Ok! ");
 		return;
@@ -1135,7 +1219,7 @@ void Labonatip_GUI::updateTimingSlider_s3() {
 	if (m_timer_solution < m_time_multipilcator) {
 		m_update_time_s3->start();
 		int status = int(100 * m_timer_solution / m_time_multipilcator);
-		ui->widget_sol3->setValue(status);
+		//ui->widget_sol3->setValue(status);
 		ui->progressBar_solution3->setValue(100 - status);
 		QString s;
 		s.append("Empty in ");
@@ -1160,12 +1244,14 @@ void Labonatip_GUI::updateTimingSlider_s3() {
 		m_update_time_s3->stop();
 		m_timer_solution = 0;
 		ui->progressBar_solution3->setValue(0);
-		ui->widget_sol3->setValue(100);
+		//ui->widget_sol3->setValue(100);
 		if (m_pipette_active)
 		{
 			m_ppc1->setValve_c(false);
 		}
 		setEnableSolutionButtons(true);
+		ui->pushButton_solution3->setChecked(false);
+
 		ui->label_warningIcon->setPixmap(*m_pmap_okIcon);
 		ui->label_warning->setText(" Ok! ");
 		return;
@@ -1178,7 +1264,7 @@ void Labonatip_GUI::updateTimingSlider_s4() {
 	if (m_timer_solution < m_time_multipilcator) {
 		m_update_time_s4->start();
 		int status = int(100 * m_timer_solution / m_time_multipilcator);
-		ui->widget_sol4->setValue(status);
+		//ui->widget_sol4->setValue(status);
 		ui->progressBar_solution4->setValue(100 - status);
 		QString s;
 		s.append("Empty in ");
@@ -1203,12 +1289,14 @@ void Labonatip_GUI::updateTimingSlider_s4() {
 		m_update_time_s4->stop();
 		m_timer_solution = 0;
 		ui->progressBar_solution4->setValue(0);
-		ui->widget_sol4->setValue(100);
+		//ui->widget_sol4->setValue(100);
 		if (m_pipette_active)
 		{
 			m_ppc1->setValve_d(false);
 		}
 		setEnableSolutionButtons(true);
+		ui->pushButton_solution4->setChecked(false);
+
 		ui->label_warningIcon->setPixmap(*m_pmap_okIcon);
 		ui->label_warning->setText(" Ok! ");
 		return;

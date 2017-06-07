@@ -1989,21 +1989,24 @@ border-color: rgb(250, 250, 250);</string>
                       <string>Pump solution</string>
                      </property>
                      <property name="styleSheet">
-                      <string notr="true"> background-color: rgb(250, 250, 250);
-border-color: rgb(250, 250, 250);</string>
+                      <string notr="true">border:0</string>
                      </property>
                      <property name="text">
                       <string/>
                      </property>
                      <property name="icon">
                       <iconset>
-                       <normaloff>icons/InjectorN4.png</normaloff>icons/InjectorN4.png</iconset>
+                       <normaloff>icons/InjectorN4.png</normaloff>
+                       <activeon>icons/InjectoGreenrN4.png</activeon>icons/InjectorN4.png</iconset>
                      </property>
                      <property name="iconSize">
                       <size>
                        <width>45</width>
                        <height>45</height>
                       </size>
+                     </property>
+                     <property name="checkable">
+                      <bool>true</bool>
                      </property>
                      <property name="autoDefault">
                       <bool>false</bool>
@@ -2069,20 +2072,24 @@ border-color: rgb(235, 240, 235);
                       <string>Pump solution</string>
                      </property>
                      <property name="styleSheet">
-                      <string notr="true"/>
+                      <string notr="true">border:0</string>
                      </property>
                      <property name="text">
                       <string/>
                      </property>
                      <property name="icon">
                       <iconset>
-                       <normaloff>icons/InjectorN3.png</normaloff>icons/InjectorN3.png</iconset>
+                       <normaloff>icons/InjectorN3.png</normaloff>
+                       <activeon>icons/InjectoGreenrN3.png</activeon>icons/InjectorN3.png</iconset>
                      </property>
                      <property name="iconSize">
                       <size>
                        <width>45</width>
                        <height>45</height>
                       </size>
+                     </property>
+                     <property name="checkable">
+                      <bool>true</bool>
                      </property>
                      <property name="flat">
                       <bool>true</bool>
@@ -2144,20 +2151,24 @@ border-color: rgb(235, 240, 235);</string>
                       <string>Pump solution</string>
                      </property>
                      <property name="styleSheet">
-                      <string notr="true"/>
+                      <string notr="true">border:0</string>
                      </property>
                      <property name="text">
                       <string/>
                      </property>
                      <property name="icon">
                       <iconset>
-                       <normaloff>icons/InjectorN2.png</normaloff>icons/InjectorN2.png</iconset>
+                       <normaloff>icons/InjectorN2.png</normaloff>
+                       <activeon>icons/InjectoGreenrN2.png</activeon>icons/InjectorN2.png</iconset>
                      </property>
                      <property name="iconSize">
                       <size>
                        <width>45</width>
                        <height>45</height>
                       </size>
+                     </property>
+                     <property name="checkable">
+                      <bool>true</bool>
                      </property>
                      <property name="flat">
                       <bool>true</bool>
@@ -2219,20 +2230,24 @@ border-color: rgb(235, 240, 235);</string>
                       <string>Pump solution</string>
                      </property>
                      <property name="styleSheet">
-                      <string notr="true"/>
+                      <string notr="true">border:0</string>
                      </property>
                      <property name="text">
                       <string/>
                      </property>
                      <property name="icon">
                       <iconset>
-                       <normaloff>icons/InjectorN1.png</normaloff>icons/InjectorN1.png</iconset>
+                       <normaloff>icons/InjectorN1.png</normaloff>
+                       <activeon>icons/InjectoGreenrN1.png</activeon>icons/InjectorN1.png</iconset>
                      </property>
                      <property name="iconSize">
                       <size>
                        <width>45</width>
                        <height>45</height>
                       </size>
+                     </property>
+                     <property name="checkable">
+                      <bool>true</bool>
                      </property>
                      <property name="flat">
                       <bool>true</bool>
