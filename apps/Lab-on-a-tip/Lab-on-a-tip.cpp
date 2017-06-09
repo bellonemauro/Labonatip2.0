@@ -596,8 +596,10 @@ void Labonatip_GUI::runMacro() {
 	if (!m_macroRunner_thread->isRunning()) {
 
 		m_macroRunner_thread->setMacroPrt(m_macro);
-		m_macroRunner_thread->start();
 
+		m_macroRunner_thread->setSimulationFlag(m_simulationOnly);
+		m_macroRunner_thread->start();
+		
 		ui->groupBox_deliveryZone->setEnabled(false);
 		ui->pushButton_operational->setEnabled(false);
 		ui->pushButton_Initialize->setEnabled(false); 
@@ -615,7 +617,9 @@ void Labonatip_GUI::runMacro() {
 	else {
 		m_macroRunner_thread->disconnect();
 
+		m_macroRunner_thread->setSimulationFlag(m_simulationOnly);
 		m_macroRunner_thread->killMacro(true);
+		
 
 		ui->groupBox_deliveryZone->setEnabled(true);
 		ui->pushButton_operational->setEnabled(true);
@@ -1725,6 +1729,7 @@ void Labonatip_GUI::simulationOnly()
 	ui->actionReset->setEnabled(!m_simulationOnly);
 	ui->actionSleep->setEnabled(!m_simulationOnly);
 	ui->actionShutdown->setEnabled(!m_simulationOnly);
+	m_macroRunner_thread->setSimulationFlag(m_simulationOnly);
 
 }
 

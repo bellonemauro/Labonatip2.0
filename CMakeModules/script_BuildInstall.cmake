@@ -137,7 +137,11 @@ if (WIN32 AND NOT UNIX)
 		INSTALL(FILES "${F}" DESTINATION ./platforms)
 	ENDFOREACH(F)				
 
-
+	FILE(GLOB myProject_MACROS "${PROJECT_BINARY_DIR}/bin/Release/presetMacros/*.*") 
+	FOREACH(F ${myProject_MACROS})
+		INSTALL(FILES "${F}" DESTINATION ./presetMacros)
+	ENDFOREACH(F)		
+	
 	FILE(GLOB myProject_SETTINGS "${PROJECT_BINARY_DIR}/bin/Release/settings/*.ini") 
 	FOREACH(F ${myProject_SETTINGS})
 		INSTALL(FILES "${F}" DESTINATION ./settings)

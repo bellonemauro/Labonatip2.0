@@ -15,6 +15,7 @@ Labonatip_macroRunner::Labonatip_macroRunner(QMainWindow *parent ) :
 	m_number_of_iterations(100),
 	m_ppc1(NULL),
 	m_macro(NULL),
+	m_simulation_only(true),
 	m_threadTerminationHandler(false)
 {
 	cout << " macroRunner initialization " << endl;
@@ -38,36 +39,64 @@ void Labonatip_macroRunner::run()  {
 			}
 
 			//cout << " i'm in the thread ... index " << i << endl;
-			sleep(1);
-			if (m_ppc1->isRunning()) {
-				//cout << " ppc1 is running the command " << m_macro->at(i).status_message << endl;
-				//m_ppc1->setPressureChannelD(100);
 
-				if (m_ppc1->m_PPC1_data->channel_A->set_point != m_macro->at(i).V_switch)
-					m_ppc1->setVacuumChannelA(m_macro->at(i).V_switch);
-				if (m_ppc1->m_PPC1_data->channel_B->set_point != m_macro->at(i).V_recirc)
-					m_ppc1->setVacuumChannelB(m_macro->at(i).V_recirc);
-				if (m_ppc1->m_PPC1_data->channel_C->set_point != m_macro->at(i).P_on)
-					m_ppc1->setPressureChannelC(m_macro->at(i).P_on);
-				if (m_ppc1->m_PPC1_data->channel_D->set_point != m_macro->at(i).P_off)
-					m_ppc1->setPressureChannelD(m_macro->at(i).P_off);
+			if (m_simulation_only)
+			{
 
-				m_ppc1->setValve_a(m_macro->at(i).open_valve_a);
-				m_ppc1->setValve_b(m_macro->at(i).open_valve_b);
-				m_ppc1->setValve_c(m_macro->at(i).open_valve_c);
-				m_ppc1->setValve_d(m_macro->at(i).open_valve_d);
 				QString message = QString::fromStdString(m_macro->at(i).status_message);
+				message.append(" >>> command :  ");
+				message.append(" v_switch = ");
+				message.append(QString::number(m_macro->at(i).V_switch));
+				message.append(";  V_recirc = ");
+				message.append(QString::number(m_macro->at(i).V_recirc));
+				message.append(";  P_on = ");
+				message.append(QString::number(m_macro->at(i).P_on));
+				message.append(";  P_off = ");
+				message.append(QString::number(m_macro->at(i).P_off));
+				message.append(";  Valve a = ");
+				message.append(QString::number(m_macro->at(i).open_valve_a));
+				message.append(";  Valve b = ");
+				message.append(QString::number(m_macro->at(i).open_valve_b));
+				message.append(";  Valve c = ");
+				message.append(QString::number(m_macro->at(i).open_valve_c));
+				message.append(";  Valve d = ");
+				message.append(QString::number(m_macro->at(i).open_valve_d));
+
 				emit sendStatusMessage(message);
 
 				sleep(m_macro->at(i).Duration);
-				//m_ppc1->setPressureChannelD(0);
 			}
 			else {
-				cerr << " Labonatip_macroRunner::run  ---- error --- MESSAGE: ppc1 is NOT running " << endl;
-				result = " ppc1 is NOT running ";
+				if (m_ppc1->isRunning()) {
+					//cout << " ppc1 is running the command " << m_macro->at(i).status_message << endl;
+					//m_ppc1->setPressureChannelD(100);
 
-				emit resultReady(result);
-				return;
+					if (m_ppc1->m_PPC1_data->channel_A->set_point != m_macro->at(i).V_switch)
+						m_ppc1->setVacuumChannelA(m_macro->at(i).V_switch);
+					if (m_ppc1->m_PPC1_data->channel_B->set_point != m_macro->at(i).V_recirc)
+						m_ppc1->setVacuumChannelB(m_macro->at(i).V_recirc);
+					if (m_ppc1->m_PPC1_data->channel_C->set_point != m_macro->at(i).P_on)
+						m_ppc1->setPressureChannelC(m_macro->at(i).P_on);
+					if (m_ppc1->m_PPC1_data->channel_D->set_point != m_macro->at(i).P_off)
+						m_ppc1->setPressureChannelD(m_macro->at(i).P_off);
+
+					m_ppc1->setValve_a(m_macro->at(i).open_valve_a);
+					m_ppc1->setValve_b(m_macro->at(i).open_valve_b);
+					m_ppc1->setValve_c(m_macro->at(i).open_valve_c);
+					m_ppc1->setValve_d(m_macro->at(i).open_valve_d);
+					QString message = QString::fromStdString(m_macro->at(i).status_message);
+					emit sendStatusMessage(message);
+
+					sleep(m_macro->at(i).Duration);
+					//m_ppc1->setPressureChannelD(0);
+				}
+				else {
+					cerr << " Labonatip_macroRunner::run  ---- error --- MESSAGE: ppc1 is NOT running " << endl;
+					result = " ppc1 is NOT running ";
+
+					emit resultReady(result);
+					return;
+				}
 			}
 		}
 	}

@@ -947,6 +947,10 @@ bool Labonatip_tools::loadMacro()
 		for (int i = 0; i < ui_tools->treeWidget_macroTable->columnCount(); i++) {
 			ui_tools->treeWidget_macroTable->resizeColumnToContents(i);
 		}
+
+		ui_tools->treeWidget_macroTable->setItemSelected(
+			ui_tools->treeWidget_macroTable->topLevelItem(
+			ui_tools->treeWidget_macroTable->topLevelItemCount()-1), true);
 		//ui_tools->treeWidget_macroTable->addTopLevelItems(*list);
 
 	}

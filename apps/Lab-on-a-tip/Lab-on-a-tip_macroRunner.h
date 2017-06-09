@@ -51,6 +51,8 @@ public:
 
 	void killMacro(bool _kill) { m_threadTerminationHandler = !_kill; }
 
+	void setSimulationFlag(bool _sim_flag){ m_simulation_only = _sim_flag; }
+
 	fluicell::PPC1api *m_ppc1;
 
 signals:
@@ -60,6 +62,7 @@ signals:
 private: 
 
 	std::vector<fluicell::PPC1api::command> *m_macro;
+	bool m_simulation_only;
 	bool m_threadTerminationHandler;
 
 };
