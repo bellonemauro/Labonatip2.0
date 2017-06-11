@@ -1,6 +1,6 @@
-# LAB-ON-A-TIP 2.0
-
 ![alt text](https://github.com/bellonemauro/Labonatip2.0/blob/master/apps/Lab-on-a-tip/icons/fluicell_logo_BIG.png)
+
+# LAB-ON-A-TIP 2.0
 
 The Lab-on-a-tip is a software that enables facile configuration and use of the Fluicell <a href="http://fluicell.com/thebiopensystem/">BioPen</a> system. 
 The cross-platform BioPen software allows independent control of each pressure line and solution delivery.
