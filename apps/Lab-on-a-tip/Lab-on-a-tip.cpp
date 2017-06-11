@@ -104,7 +104,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 
   //close the dock tool at inizialization
   //closeOpenDockTools();
-  this->resize(QSize(this->minimumWidth(), this->minimumHeight()));
+  //this->resize(QSize(this->minimumWidth(), this->minimumHeight()));
 
 
   // init thread macroRunner //TODO: this is just a support, check if needed
@@ -770,7 +770,7 @@ void Labonatip_GUI::closeOpenDockTools() {
 	if (!ui->dockWidget->isHidden()) {
 		ui->dockWidget->hide();
 		if (!this->isMaximized())
-			this->resize(QSize(this->minimumWidth(), this->height()));
+			this->resize(QSize(this->width(), this->height()));//			this->resize(QSize(this->minimumWidth(), this->height()));
 	}
 	else {
 		ui->dockWidget->show();
@@ -1554,7 +1554,7 @@ void Labonatip_GUI::setGUIbars() {
 
 void Labonatip_GUI::setGUIchart()
 {
-	cout << " setting GUI charts " << endl;
+
 	//![1]
 	m_series_X = new QtCharts::QLineSeries();
 	m_series_Y = new QtCharts::QLineSeries();
@@ -1567,7 +1567,6 @@ void Labonatip_GUI::setGUIchart()
 	m_series_sync_in = new QtCharts::QLineSeries();
 	m_series_sync_out = new QtCharts::QLineSeries();
 
-	cout << " variable initialized " << endl;
 	//![1]
 
 	//![2]
@@ -1594,7 +1593,6 @@ void Labonatip_GUI::setGUIchart()
 	*m_series_sync_out << QPointF(0.0, 0.0) << QPointF(20.0, 0.0) << QPointF(20.0, 10.0) << QPointF(50.0, 10.0) << QPointF(50.0, 0.0)
 		<< QPointF(70.0, 00.0) << QPointF(70.0, 10.0) << QPointF(100.0, 10.0);
 
-	cout << " Build sample series " << endl;
 
 	//![2]
 
@@ -1619,7 +1617,7 @@ void Labonatip_GUI::setGUIchart()
 	gradient2.setCoordinateMode(QGradient::ObjectBoundingMode);
 	//series2A->setBrush(gradient2);
 	//![3]
-	cout << " set gradients " << endl;
+
 
 
 	//![4]
@@ -1636,7 +1634,7 @@ void Labonatip_GUI::setGUIchart()
 	//chart->addSeries(series1A);
 	//chart->addSeries(series2A);
 
-	cout << " add series " << endl;
+
 
 
 	//  chart->setTitle("Simple areachart example");
@@ -1679,6 +1677,7 @@ void Labonatip_GUI::setGUIchart()
 	axisX->append("100 %", 100);
 	axisX->setRange(0, 100);
 
+
 	axisX->setTitleText("Simulation time percentage");
 
 	axisY->append(" ", 10);
@@ -1702,6 +1701,9 @@ void Labonatip_GUI::setGUIchart()
 	chart->setAxisY(axisY, m_series_sync_in);
 	chart->setAxisY(axisY, m_series_sync_out);
 	//chart->createDefaultAxes();
+	chart->setMargins(QMargins(0, 0, 0, 0));
+	chart->setBackgroundBrush(QBrush(QColor(0xFA, 0xFA, 0xFA)));
+	//chart->setContentsMargins(0, 0, 0, 0);
 
 	//chart->axisX()->setRange(0, 20);
 	//chart->axisY()->setRange(0, 10);
@@ -1710,9 +1712,12 @@ void Labonatip_GUI::setGUIchart()
 	//![5]
 	QtCharts::QChartView *chartView = new QtCharts::QChartView(chart);
 	chartView->setRenderHint(QPainter::Antialiasing);
+	chartView->setBackgroundBrush(QBrush(QColor(0xFA, 0xFA, 0xFA)));
+	//chartView->setContentsMargins(0, 0, 0, 0);
 	//![5]
 
 	ui->gridLayout_12->addWidget(chartView);
+
 
 }
 

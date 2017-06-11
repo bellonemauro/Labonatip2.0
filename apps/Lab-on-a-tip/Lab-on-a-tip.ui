@@ -13,8 +13,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1400</width>
-    <height>818</height>
+    <width>1500</width>
+    <height>841</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -2775,7 +2775,7 @@ background-color: rgb(255, 255, 255);</string>
         <enum>QTabWidget::Triangular</enum>
        </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>1</number>
        </property>
        <property name="elideMode">
         <enum>Qt::ElideNone</enum>
@@ -2804,7 +2804,7 @@ background-color: rgb(255, 255, 255);</string>
           <number>2</number>
          </property>
          <property name="topMargin">
-          <number>2</number>
+          <number>5</number>
          </property>
          <property name="rightMargin">
           <number>2</number>
@@ -3017,7 +3017,7 @@ p, li { white-space: pre-wrap; }
          <property name="bottomMargin">
           <number>2</number>
          </property>
-         <item row="1" column="0">
+         <item row="2" column="0">
           <widget class="QGroupBox" name="groupBox_poff">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -3053,7 +3053,10 @@ p, li { white-space: pre-wrap; }
            </property>
            <layout class="QGridLayout" name="gridLayout_15">
             <property name="topMargin">
-             <number>0</number>
+             <number>11</number>
+            </property>
+            <property name="bottomMargin">
+             <number>11</number>
             </property>
             <item row="2" column="1" colspan="3">
              <widget class="QProgressBar" name="progressBar_pressure_p_off">
@@ -3425,7 +3428,420 @@ border-radius: 4px;
            </layout>
           </widget>
          </item>
-         <item row="3" column="0">
+         <item row="0" column="0">
+          <widget class="QGroupBox" name="groupBox_pon">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>280</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Arial</family>
+             <pointsize>22</pointsize>
+             <weight>50</weight>
+             <italic>false</italic>
+             <bold>false</bold>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QGroupBox { 
+     border: 2px solid  rgb(200, 200, 200); ; 
+     border-radius: 10px; 
+    color: rgb(80, 80, 80);
+    background-color: rgb(235, 240, 235);
+ } </string>
+           </property>
+           <property name="title">
+            <string/>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_6">
+            <property name="topMargin">
+             <number>11</number>
+            </property>
+            <item row="11" column="2">
+             <widget class="QLabel" name="label_poff">
+              <property name="font">
+               <font>
+                <pointsize>11</pointsize>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string>P on</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+              </property>
+             </widget>
+            </item>
+            <item row="15" column="2" colspan="2">
+             <widget class="QSlider" name="horizontalSlider_p_on">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>35</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>8</pointsize>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QSlider::groove:horizontal {
+border: 1px solid #bbb;
+background: white;
+height: 5px;
+border-radius: 3px;
+}
+
+QSlider::sub-page:horizontal {
+background: qlineargradient(x1: 0, y1: 0,    x2: 0, y2: 1,
+stop: 0 #dafefe,
+stop: 1 #331cfe );
+background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
+stop: 0 #A9D08E,
+stop: 0.4 #549635,
+stop: 0.7 #148C14,
+stop: 1 #006400 );
+border: 1px solid #777;
+height: 5px;
+border-radius:3px;
+}
+
+QSlider::add-page:horizontal {
+background: #fff;
+border: 1px solid #777;
+height: 5px;
+border-radius: 3px;
+}
+
+QSlider::handle:horizontal {
+background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+    stop:0 #eee, stop:1 #ccc);
+border: 1px solid #777;
+width: 50px;
+margin-top: -15px;
+margin-bottom: -15px;
+border-radius: 12px;
+}
+
+QSlider::handle:horizontal:hover {
+background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+    stop:0 #fff, stop:1 #ddd);
+border: 1px solid #444;
+border-radius: 4px;
+}
+
+QSlider::sub-page:horizontal:disabled {
+background: #bbb;
+border-color: #999;
+}
+
+QSlider::add-page:horizontal:disabled {
+background: #eee;
+border-color: #999;
+}
+
+QSlider::handle:horizontal:disabled {
+background: #eee;
+border: 1px solid #aaa;
+border-radius: 4px;
+}</string>
+              </property>
+              <property name="minimum">
+               <number>0</number>
+              </property>
+              <property name="maximum">
+               <number>500</number>
+              </property>
+              <property name="value">
+               <number>0</number>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="invertedAppearance">
+               <bool>false</bool>
+              </property>
+              <property name="invertedControls">
+               <bool>false</bool>
+              </property>
+              <property name="tickPosition">
+               <enum>QSlider::TicksBelow</enum>
+              </property>
+              <property name="tickInterval">
+               <number>20</number>
+              </property>
+             </widget>
+            </item>
+            <item row="11" column="3">
+             <widget class="QLabel" name="label_PonPressure">
+              <property name="font">
+               <font>
+                <pointsize>11</pointsize>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string>0 mbar</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
+              </property>
+             </widget>
+            </item>
+            <item row="11" column="1">
+             <widget class="QProgressBar" name="progressBar_ledPon">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>60</width>
+                <height>25</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>10</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="toolTip">
+               <string>Pressure ON/OFF indicator</string>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QProgressBar {
+border: 1px solid grey;
+padding: 0px;
+color: rgb(255, 255, 255);
+border-bottom-right-radius: 10px;
+border-bottom-left-radius: 10px;
+border-top-right-radius: 10px;
+border-top-left-radius: 10px;
+text-align:right;
+/*margin-right: 25ex;*/
+background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
+stop: 0 #00ff00,
+stop: 0.3 #55ff55,
+stop: 0.5 #aaffaa,
+stop: 1 #ffffff );
+width: 15px;
+}
+
+QProgressBar::chunk {
+background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
+stop: 0 #ffffff,
+stop: 0.5 #ffaaaa,
+stop: 0.7 #ff5555,
+stop: 1 #ff0000 );
+border-bottom-right-radius: 10px;
+border-bottom-left-radius: 10px;
+border-top-right-radius: 10px;
+border-top-left-radius: 10px;
+border:0px solid white;
+}</string>
+              </property>
+              <property name="minimum">
+               <number>0</number>
+              </property>
+              <property name="maximum">
+               <number>1</number>
+              </property>
+              <property name="value">
+               <number>0</number>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight</set>
+              </property>
+              <property name="textVisible">
+               <bool>false</bool>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="invertedAppearance">
+               <bool>false</bool>
+              </property>
+              <property name="format">
+               <string notr="true">%v mbar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="14" column="4" rowspan="2">
+             <widget class="QPushButton" name="pushButton_p_on_up">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>60</width>
+                <height>60</height>
+               </size>
+              </property>
+              <property name="toolTip">
+               <string>Fine tuning: single step increment</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normaloff>icons/arrow_up.png</normaloff>icons/arrow_up.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>50</width>
+                <height>50</height>
+               </size>
+              </property>
+              <property name="flat">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="14" column="2" colspan="2">
+             <widget class="QProgressBar" name="progressBar_pressure_p_on">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>15</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>10</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QProgressBar {
+border: 1px solid white;
+padding: 1px;
+color: rgb(255, 255, 255);
+border-bottom-right-radius: 5px;
+border-bottom-left-radius: 5px;
+border-top-right-radius: 5px;
+border-top-left-radius: 5px;
+text-align:right;
+/*margin-right: 25ex;*/
+background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
+stop: 0 #fff,
+stop: 0.4 #eee,
+stop: 0.7 #ddd,
+stop: 1 #eee );
+width: 15px;
+}
+
+QProgressBar::chunk {
+background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
+stop: 0 #A9D08E,
+stop: 0.4 #549635,
+stop: 0.7 #148C14,
+stop: 1 #006400 );
+border-bottom-right-radius: 5px;
+border-bottom-left-radius: 5px;
+border-top-right-radius: 5px;
+border-top-left-radius: 5px;
+/*border: 2px solid white;*/
+/*width: 1px;*/
+}</string>
+              </property>
+              <property name="minimum">
+               <number>0</number>
+              </property>
+              <property name="maximum">
+               <number>500</number>
+              </property>
+              <property name="value">
+               <number>0</number>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight</set>
+              </property>
+              <property name="textVisible">
+               <bool>false</bool>
+              </property>
+              <property name="invertedAppearance">
+               <bool>false</bool>
+              </property>
+              <property name="format">
+               <string notr="true">%v mbar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="14" column="1" rowspan="2">
+             <widget class="QPushButton" name="pushButton_p_on_down">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>60</width>
+                <height>60</height>
+               </size>
+              </property>
+              <property name="toolTip">
+               <string>Fine tuning: single step decrement</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normaloff>icons/arrow_down.png</normaloff>icons/arrow_down.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>50</width>
+                <height>50</height>
+               </size>
+              </property>
+              <property name="flat">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item row="4" column="0">
           <widget class="QGroupBox" name="groupBox_switch">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -3458,55 +3874,8 @@ border-radius: 4px;
            </property>
            <layout class="QGridLayout" name="gridLayout_9">
             <property name="topMargin">
-             <number>0</number>
+             <number>11</number>
             </property>
-            <item row="0" column="2">
-             <widget class="QLabel" name="label_switchPressure">
-              <property name="font">
-               <font>
-                <pointsize>11</pointsize>
-               </font>
-              </property>
-              <property name="styleSheet">
-               <string notr="true"/>
-              </property>
-              <property name="text">
-               <string>0 mbar</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0" rowspan="2">
-             <widget class="QPushButton" name="pushButton_switchDown">
-              <property name="maximumSize">
-               <size>
-                <width>60</width>
-                <height>60</height>
-               </size>
-              </property>
-              <property name="toolTip">
-               <string>Fine tuning: single step decrement</string>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset>
-                <normaloff>icons/arrow_down.png</normaloff>icons/arrow_down.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>50</width>
-                <height>50</height>
-               </size>
-              </property>
-              <property name="flat">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
             <item row="1" column="1" colspan="2">
              <widget class="QProgressBar" name="progressBar_switch">
               <property name="minimumSize">
@@ -3575,6 +3944,135 @@ border-top-left-radius: 5px;
               </property>
               <property name="textVisible">
                <bool>false</bool>
+              </property>
+              <property name="invertedAppearance">
+               <bool>false</bool>
+              </property>
+              <property name="format">
+               <string notr="true">%v mbar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0" rowspan="2">
+             <widget class="QPushButton" name="pushButton_switchDown">
+              <property name="maximumSize">
+               <size>
+                <width>60</width>
+                <height>60</height>
+               </size>
+              </property>
+              <property name="toolTip">
+               <string>Fine tuning: single step decrement</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normaloff>icons/arrow_down.png</normaloff>icons/arrow_down.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>50</width>
+                <height>50</height>
+               </size>
+              </property>
+              <property name="flat">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2">
+             <widget class="QLabel" name="label_switchPressure">
+              <property name="font">
+               <font>
+                <pointsize>11</pointsize>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string>0 mbar</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0">
+             <widget class="QProgressBar" name="progressBar_ledSwitch">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>60</width>
+                <height>25</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>10</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="toolTip">
+               <string>Switch ON/OFF indicator</string>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QProgressBar {
+border: 1px solid grey;
+padding: 0px;
+color: rgb(255, 255, 255);
+border-bottom-right-radius: 10px;
+border-bottom-left-radius: 10px;
+border-top-right-radius: 10px;
+border-top-left-radius: 10px;
+text-align:right;
+/*margin-right: 25ex;*/
+background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
+stop: 0 #00ff00,
+stop: 0.3 #55ff55,
+stop: 0.5 #aaffaa,
+stop: 1 #ffffff );
+width: 15px;
+}
+
+QProgressBar::chunk {
+background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
+stop: 0 #ffffff,
+stop: 0.5 #ffaaaa,
+stop: 0.7 #ff5555,
+stop: 1 #ff0000 );
+border-bottom-right-radius: 10px;
+border-bottom-left-radius: 10px;
+border-top-right-radius: 10px;
+border-top-left-radius: 10px;
+border:0px solid white;
+}</string>
+              </property>
+              <property name="minimum">
+               <number>0</number>
+              </property>
+              <property name="maximum">
+               <number>1</number>
+              </property>
+              <property name="value">
+               <number>0</number>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight</set>
+              </property>
+              <property name="textVisible">
+               <bool>false</bool>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
               </property>
               <property name="invertedAppearance">
                <bool>false</bool>
@@ -3718,92 +4216,10 @@ border-radius: 4px;
               </property>
              </widget>
             </item>
-            <item row="0" column="0">
-             <widget class="QProgressBar" name="progressBar_ledSwitch">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>60</width>
-                <height>25</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>10</pointsize>
-                <weight>75</weight>
-                <bold>true</bold>
-               </font>
-              </property>
-              <property name="toolTip">
-               <string>Switch ON/OFF indicator</string>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QProgressBar {
-border: 1px solid grey;
-padding: 0px;
-color: rgb(255, 255, 255);
-border-bottom-right-radius: 10px;
-border-bottom-left-radius: 10px;
-border-top-right-radius: 10px;
-border-top-left-radius: 10px;
-text-align:right;
-/*margin-right: 25ex;*/
-background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
-stop: 0 #00ff00,
-stop: 0.3 #55ff55,
-stop: 0.5 #aaffaa,
-stop: 1 #ffffff );
-width: 15px;
-}
-
-QProgressBar::chunk {
-background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
-stop: 0 #ffffff,
-stop: 0.5 #ffaaaa,
-stop: 0.7 #ff5555,
-stop: 1 #ff0000 );
-border-bottom-right-radius: 10px;
-border-bottom-left-radius: 10px;
-border-top-right-radius: 10px;
-border-top-left-radius: 10px;
-border:0px solid white;
-}</string>
-              </property>
-              <property name="minimum">
-               <number>0</number>
-              </property>
-              <property name="maximum">
-               <number>1</number>
-              </property>
-              <property name="value">
-               <number>0</number>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignRight</set>
-              </property>
-              <property name="textVisible">
-               <bool>false</bool>
-              </property>
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="invertedAppearance">
-               <bool>false</bool>
-              </property>
-              <property name="format">
-               <string notr="true">%v mbar</string>
-              </property>
-             </widget>
-            </item>
            </layout>
           </widget>
          </item>
-         <item row="4" column="0">
+         <item row="7" column="0">
           <widget class="QGroupBox" name="groupBox_recirc">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -3842,7 +4258,7 @@ border:0px solid white;
            </property>
            <layout class="QGridLayout" name="gridLayout_8">
             <property name="topMargin">
-             <number>0</number>
+             <number>11</number>
             </property>
             <item row="4" column="2" colspan="2">
              <widget class="QSlider" name="horizontalSlider_recirculation">
@@ -4187,418 +4603,57 @@ border:0px solid white;
            </layout>
           </widget>
          </item>
-         <item row="0" column="0">
-          <widget class="QGroupBox" name="groupBox_pon">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
+         <item row="8" column="0">
+          <spacer name="verticalSpacer_12">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
            </property>
-           <property name="minimumSize">
+           <property name="sizeHint" stdset="0">
             <size>
-             <width>280</width>
-             <height>50</height>
+             <width>20</width>
+             <height>40</height>
             </size>
            </property>
-           <property name="maximumSize">
+          </spacer>
+         </item>
+         <item row="6" column="0">
+          <spacer name="verticalSpacer_10">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
             <size>
-             <width>16777215</width>
-             <height>16777215</height>
+             <width>20</width>
+             <height>40</height>
             </size>
            </property>
-           <property name="font">
-            <font>
-             <family>Arial</family>
-             <pointsize>22</pointsize>
-             <weight>50</weight>
-             <italic>false</italic>
-             <bold>false</bold>
-            </font>
+          </spacer>
+         </item>
+         <item row="1" column="0">
+          <spacer name="verticalSpacer_5">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
            </property>
-           <property name="styleSheet">
-            <string notr="true">QGroupBox { 
-     border: 2px solid  rgb(200, 200, 200); ; 
-     border-radius: 10px; 
-    color: rgb(80, 80, 80);
-    background-color: rgb(235, 240, 235);
- } </string>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
            </property>
-           <property name="title">
-            <string/>
+          </spacer>
+         </item>
+         <item row="3" column="0">
+          <spacer name="verticalSpacer_9">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
            </property>
-           <layout class="QGridLayout" name="gridLayout_6">
-            <property name="topMargin">
-             <number>0</number>
-            </property>
-            <item row="11" column="2">
-             <widget class="QLabel" name="label_poff">
-              <property name="font">
-               <font>
-                <pointsize>11</pointsize>
-               </font>
-              </property>
-              <property name="styleSheet">
-               <string notr="true"/>
-              </property>
-              <property name="text">
-               <string>P on</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
-              </property>
-             </widget>
-            </item>
-            <item row="14" column="4" rowspan="2">
-             <widget class="QPushButton" name="pushButton_p_on_up">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>60</width>
-                <height>60</height>
-               </size>
-              </property>
-              <property name="toolTip">
-               <string>Fine tuning: single step increment</string>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset>
-                <normaloff>icons/arrow_up.png</normaloff>icons/arrow_up.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>50</width>
-                <height>50</height>
-               </size>
-              </property>
-              <property name="flat">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="15" column="2" colspan="2">
-             <widget class="QSlider" name="horizontalSlider_p_on">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>35</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>8</pointsize>
-               </font>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QSlider::groove:horizontal {
-border: 1px solid #bbb;
-background: white;
-height: 5px;
-border-radius: 3px;
-}
-
-QSlider::sub-page:horizontal {
-background: qlineargradient(x1: 0, y1: 0,    x2: 0, y2: 1,
-stop: 0 #dafefe,
-stop: 1 #331cfe );
-background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
-stop: 0 #A9D08E,
-stop: 0.4 #549635,
-stop: 0.7 #148C14,
-stop: 1 #006400 );
-border: 1px solid #777;
-height: 5px;
-border-radius:3px;
-}
-
-QSlider::add-page:horizontal {
-background: #fff;
-border: 1px solid #777;
-height: 5px;
-border-radius: 3px;
-}
-
-QSlider::handle:horizontal {
-background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
-    stop:0 #eee, stop:1 #ccc);
-border: 1px solid #777;
-width: 50px;
-margin-top: -15px;
-margin-bottom: -15px;
-border-radius: 12px;
-}
-
-QSlider::handle:horizontal:hover {
-background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
-    stop:0 #fff, stop:1 #ddd);
-border: 1px solid #444;
-border-radius: 4px;
-}
-
-QSlider::sub-page:horizontal:disabled {
-background: #bbb;
-border-color: #999;
-}
-
-QSlider::add-page:horizontal:disabled {
-background: #eee;
-border-color: #999;
-}
-
-QSlider::handle:horizontal:disabled {
-background: #eee;
-border: 1px solid #aaa;
-border-radius: 4px;
-}</string>
-              </property>
-              <property name="minimum">
-               <number>0</number>
-              </property>
-              <property name="maximum">
-               <number>500</number>
-              </property>
-              <property name="value">
-               <number>0</number>
-              </property>
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="invertedAppearance">
-               <bool>false</bool>
-              </property>
-              <property name="invertedControls">
-               <bool>false</bool>
-              </property>
-              <property name="tickPosition">
-               <enum>QSlider::TicksBelow</enum>
-              </property>
-              <property name="tickInterval">
-               <number>20</number>
-              </property>
-             </widget>
-            </item>
-            <item row="11" column="3">
-             <widget class="QLabel" name="label_PonPressure">
-              <property name="font">
-               <font>
-                <pointsize>11</pointsize>
-               </font>
-              </property>
-              <property name="styleSheet">
-               <string notr="true"/>
-              </property>
-              <property name="text">
-               <string>0 mbar</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
-              </property>
-             </widget>
-            </item>
-            <item row="11" column="1">
-             <widget class="QProgressBar" name="progressBar_ledPon">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>60</width>
-                <height>25</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>10</pointsize>
-                <weight>75</weight>
-                <bold>true</bold>
-               </font>
-              </property>
-              <property name="toolTip">
-               <string>Pressure ON/OFF indicator</string>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QProgressBar {
-border: 1px solid grey;
-padding: 0px;
-color: rgb(255, 255, 255);
-border-bottom-right-radius: 10px;
-border-bottom-left-radius: 10px;
-border-top-right-radius: 10px;
-border-top-left-radius: 10px;
-text-align:right;
-/*margin-right: 25ex;*/
-background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
-stop: 0 #00ff00,
-stop: 0.3 #55ff55,
-stop: 0.5 #aaffaa,
-stop: 1 #ffffff );
-width: 15px;
-}
-
-QProgressBar::chunk {
-background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
-stop: 0 #ffffff,
-stop: 0.5 #ffaaaa,
-stop: 0.7 #ff5555,
-stop: 1 #ff0000 );
-border-bottom-right-radius: 10px;
-border-bottom-left-radius: 10px;
-border-top-right-radius: 10px;
-border-top-left-radius: 10px;
-border:0px solid white;
-}</string>
-              </property>
-              <property name="minimum">
-               <number>0</number>
-              </property>
-              <property name="maximum">
-               <number>1</number>
-              </property>
-              <property name="value">
-               <number>0</number>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignRight</set>
-              </property>
-              <property name="textVisible">
-               <bool>false</bool>
-              </property>
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="invertedAppearance">
-               <bool>false</bool>
-              </property>
-              <property name="format">
-               <string notr="true">%v mbar</string>
-              </property>
-             </widget>
-            </item>
-            <item row="14" column="2" colspan="2">
-             <widget class="QProgressBar" name="progressBar_pressure_p_on">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>15</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>10</pointsize>
-                <weight>75</weight>
-                <bold>true</bold>
-               </font>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QProgressBar {
-border: 1px solid white;
-padding: 1px;
-color: rgb(255, 255, 255);
-border-bottom-right-radius: 5px;
-border-bottom-left-radius: 5px;
-border-top-right-radius: 5px;
-border-top-left-radius: 5px;
-text-align:right;
-/*margin-right: 25ex;*/
-background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
-stop: 0 #fff,
-stop: 0.4 #eee,
-stop: 0.7 #ddd,
-stop: 1 #eee );
-width: 15px;
-}
-
-QProgressBar::chunk {
-background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
-stop: 0 #A9D08E,
-stop: 0.4 #549635,
-stop: 0.7 #148C14,
-stop: 1 #006400 );
-border-bottom-right-radius: 5px;
-border-bottom-left-radius: 5px;
-border-top-right-radius: 5px;
-border-top-left-radius: 5px;
-/*border: 2px solid white;*/
-/*width: 1px;*/
-}</string>
-              </property>
-              <property name="minimum">
-               <number>0</number>
-              </property>
-              <property name="maximum">
-               <number>500</number>
-              </property>
-              <property name="value">
-               <number>0</number>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignRight</set>
-              </property>
-              <property name="textVisible">
-               <bool>false</bool>
-              </property>
-              <property name="invertedAppearance">
-               <bool>false</bool>
-              </property>
-              <property name="format">
-               <string notr="true">%v mbar</string>
-              </property>
-             </widget>
-            </item>
-            <item row="14" column="1" rowspan="2">
-             <widget class="QPushButton" name="pushButton_p_on_down">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>60</width>
-                <height>60</height>
-               </size>
-              </property>
-              <property name="toolTip">
-               <string>Fine tuning: single step decrement</string>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset>
-                <normaloff>icons/arrow_down.png</normaloff>icons/arrow_down.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>50</width>
-                <height>50</height>
-               </size>
-              </property>
-              <property name="flat">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>40</height>
+            </size>
+           </property>
+          </spacer>
          </item>
         </layout>
        </widget>
@@ -4613,13 +4668,18 @@ border-top-left-radius: 5px;
          <string>Chart</string>
         </attribute>
         <layout class="QGridLayout" name="gridLayout_7">
-         <item row="0" column="0">
-          <layout class="QGridLayout" name="gridLayout_12">
-           <property name="spacing">
-            <number>0</number>
-           </property>
-          </layout>
-         </item>
+         <property name="leftMargin">
+          <number>2</number>
+         </property>
+         <property name="topMargin">
+          <number>5</number>
+         </property>
+         <property name="rightMargin">
+          <number>2</number>
+         </property>
+         <property name="bottomMargin">
+          <number>2</number>
+         </property>
          <item row="1" column="0">
           <spacer name="verticalSpacer_4">
            <property name="orientation">
@@ -4636,9 +4696,54 @@ border-top-left-radius: 5px;
            </property>
           </spacer>
          </item>
+         <item row="0" column="0">
+          <widget class="QGroupBox" name="groupBox_chart">
+           <property name="styleSheet">
+            <string notr="true">QGroupBox { 
+     border: 2px solid  rgb(250, 250, 250); ; 
+     border-radius: 10px; 
+    color: rgb( 250, 250, 250);
+    background-color: rgb(250, 250, 250);
+ } </string>
+           </property>
+           <property name="title">
+            <string/>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_12">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <property name="spacing">
+             <number>0</number>
+            </property>
+           </layout>
+          </widget>
+         </item>
         </layout>
        </widget>
       </widget>
+     </item>
+     <item row="1" column="0">
+      <spacer name="verticalSpacer_8">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
      </item>
     </layout>
    </widget>
