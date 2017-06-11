@@ -1554,7 +1554,7 @@ void Labonatip_GUI::setGUIbars() {
 
 void Labonatip_GUI::setGUIchart()
 {
-
+	cout << " setting GUI charts " << endl;
 	//![1]
 	m_series_X = new QtCharts::QLineSeries();
 	m_series_Y = new QtCharts::QLineSeries();
@@ -1567,6 +1567,7 @@ void Labonatip_GUI::setGUIchart()
 	m_series_sync_in = new QtCharts::QLineSeries();
 	m_series_sync_out = new QtCharts::QLineSeries();
 
+	cout << " variable initialized " << endl;
 	//![1]
 
 	//![2]
@@ -1593,6 +1594,8 @@ void Labonatip_GUI::setGUIchart()
 	*m_series_sync_out << QPointF(0.0, 0.0) << QPointF(20.0, 0.0) << QPointF(20.0, 10.0) << QPointF(50.0, 10.0) << QPointF(50.0, 0.0)
 		<< QPointF(70.0, 00.0) << QPointF(70.0, 10.0) << QPointF(100.0, 10.0);
 
+	cout << " Build sample series " << endl;
+
 	//![2]
 
 	//![3]
@@ -1616,6 +1619,8 @@ void Labonatip_GUI::setGUIchart()
 	gradient2.setCoordinateMode(QGradient::ObjectBoundingMode);
 	//series2A->setBrush(gradient2);
 	//![3]
+	cout << " set gradients " << endl;
+
 
 	//![4]
 	QtCharts::QChart *chart = new QtCharts::QChart();
@@ -1630,6 +1635,9 @@ void Labonatip_GUI::setGUIchart()
 	chart->addSeries(m_series_sync_out);
 	//chart->addSeries(series1A);
 	//chart->addSeries(series2A);
+
+	cout << " add series " << endl;
+
 
 	//  chart->setTitle("Simple areachart example");
 	//  chart->createDefaultAxes();
@@ -1744,7 +1752,7 @@ void Labonatip_GUI::about() {
 
 	QMessageBox messageBox;
 	messageBox.about(this, tr( "About Fluicell Lab-on-a-tip Wizard"), 
-		                   tr( "<b>Lab-on-a-tip</b> is a Fluicell software http://fluicell.com/ <br>"
+		                   tr( "<b>Lab-on-a-tip</b> is a <a href='http://fluicell.com/'>Fluicell</a> AB software <br>"
 							   //"Lab-on-a-tip Wizard <br>"
 							   "Copyright Fluicell AB, Sweden 2017 <br> <br>"
 							   "Developer: Mauro Bellone http://www.maurobellone.com <br>"

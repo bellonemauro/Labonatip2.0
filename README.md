@@ -2,6 +2,8 @@
 
 # LAB-ON-A-TIP 2.0
 
+IMPORTANT: This software is still under development !!! There is no release yet, bugs may be everywhere !!!
+
 The Lab-on-a-tip is a software that enables facile configuration and use of the Fluicell <a href="http://fluicell.com/thebiopensystem/">BioPen</a> system. 
 The cross-platform BioPen software allows independent control of each pressure line and solution delivery.
 
@@ -27,7 +29,7 @@ The following libraries are included into the distribution, but they can optiona
 
 From git shell write:
 
-    git clone https://___ your_folder
+    git clone https://github.com/bellonemauro/Labonatip2.0.git  your_folder
 
 then you should get something like:
 
@@ -50,8 +52,8 @@ Use CMake to generate the solution for your system, see http://www.cmake.org
 It is advised to set your build folder OUT of the source code folder, the build should be independent from the code. 
 
 <b> Windows </b><br>
-in the case you don't have environmental variables set you should find manually some dependences:
-" \__\" folder 
+in the case you don't have environmental variables set you should find manually some dependences path:
+" \__\" folder, in case of QT libraries, C:/___/Qt/__your_version___/__compiler__ersion__/lib/cmake/Qt5_library 
 
 in my experience everything is automatically found 
 
@@ -66,6 +68,5 @@ CMake --> configure --> generate
 TODO
 
 ---------------------------------------------------------------------
-<sup>Copyright 2017 © <a href="http://fluicell.com/">Fluicell</a> AB <br>
-Author: Mauro Bellone, http://www.maurobellone.com <br>
-Released under GNU GPL License. </sup>
+<sup> Software released under GNU GPL License. <br>
+Author: <a href="http://fluicell.com/">Fluicell</a> AB , Mauro Bellone, http://www.maurobellone.com <br> </sup>
