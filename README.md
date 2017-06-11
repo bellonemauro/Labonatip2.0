@@ -1,6 +1,6 @@
 # LAB-ON-A-TIP 2.0
 
-===
+
 
 The Lab-on-a-tip is a ....
 
@@ -10,8 +10,8 @@ Lab-on-a-tip is released under the terms of the ____ license, and thus free/not-
 # Dependences
 
 The external dependences for this applications are:
-  - <a href="https://github.com/wjwwood/serial">Serial</a> for serial port communication, a modified light version is Included as 3rdParty library. 
-    \note The official version available on github will not work.
+  - <a href="https://github.com/wjwwood/serial">Serial</a> for serial port communication, a modified light version is Included as 3rdParty library. <br>
+    NOTE: The official version available on github will not work.
   - QT  v. >5.4, for GUI - https://www.qt.io/
   - nsis http://nsis.sourceforge.net/Main_Page - only to generate the installation package
   - <a href="http://www.cmake.org">CMake</a> to generate the solution for your system and build. 
@@ -21,7 +21,7 @@ The following libraries are included into the distribution, but they can optiona
 
 
 
-============================================================================
+
 # Fetching instructions:
 
 From git shell write:
@@ -41,7 +41,7 @@ then you should get something like:
 
 done !!! 
 
-============================================================================
+
 # Building Instructions:
 
 Use CMake to generate the solution for your system, see http://www.cmake.org
@@ -65,6 +65,6 @@ CMake --> configure --> generate
 TODO
 
 ---------------------------------------------------------------------
-<sup>Copyright 2017 © Fluicell AB \n
-Author: Mauro Bellone, http://www.maurobellone.com \n
-Released under ___ License. </sup>
+<sup>Copyright 2017 © <a href="http://fluicell.com/">Fluicell</a> AB <br>
+Author: Mauro Bellone, http://www.maurobellone.com <br>
+Released under GNU LGP3 LICENSE License. </sup>
