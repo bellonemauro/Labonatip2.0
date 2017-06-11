@@ -2,9 +2,10 @@
 
 
 
-The Lab-on-a-tip is a ....
+The Lab-on-a-tip is a software that enables facile configuration and use of the Fluicell <a href="http://fluicell.com/thebiopensystem/">BioPen</a> system. 
+The cross-platform BioPen software allows independent control of each pressure line and solution delivery.
 
-Lab-on-a-tip is released under the terms of the ____ license, and thus free/not-free for commercial and research use. 
+Lab-on-a-tip is released under the terms of the GNU GPL license. 
 
 
 # Dependences
@@ -67,4 +68,4 @@ TODO
 ---------------------------------------------------------------------
 <sup>Copyright 2017 © <a href="http://fluicell.com/">Fluicell</a> AB <br>
 Author: Mauro Bellone, http://www.maurobellone.com <br>
-Released under GNU LGP3 LICENSE License. </sup>
+Released under GNU GPL License. </sup>
