@@ -371,13 +371,13 @@ void Labonatip_GUI::updateFlowControlPercentages()
 	if (m_simulationOnly) {
 	
 		{
-			int pon = 100 * 
-				ui->horizontalSlider_p_on->value() / 
+			int pon = 100 *
+				ui->horizontalSlider_p_on->value() / 190;//
 				m_dialog_tools->m_pr_params->p_on_default; // TODO direct access the public member, add get function instead
 
-			int vr = 100 * 
+			int vr = 100 *
 				ui->horizontalSlider_recirculation->value() / 
-				m_dialog_tools->m_pr_params->v_recirc_default;  // TODO direct access the public member, add get function instead
+				(-m_dialog_tools->m_pr_params->v_recirc_default);  // TODO direct access the public member, add get function instead
 
 			int droplet_percentage = (pon + vr) / 2;
 			ui->lcdNumber_dropletSize_percentage->display(droplet_percentage);
@@ -393,20 +393,20 @@ void Labonatip_GUI::updateFlowControlPercentages()
 			
 			int vs = 100 * 
 				ui->horizontalSlider_switch->value() / 
-				m_dialog_tools->m_pr_params->v_switch_default; // TODO direct access the public member, add get function instead;
+				(-m_dialog_tools->m_pr_params->v_switch_default); // TODO direct access the public member, add get function instead;
 
 			int vr = 100 * 
 				ui->horizontalSlider_recirculation->value() / 
-				m_dialog_tools->m_pr_params->v_recirc_default; // TODO direct access the public member, add get function instead;
+				(-m_dialog_tools->m_pr_params->v_recirc_default); // TODO direct access the public member, add get function instead;
 			
 			int flowspeed_percentage = (pon + poff + vs + vr) / 4; // 4 is for the average
 			ui->lcdNumber_flowspeed_percentage->display(flowspeed_percentage);
 		}
 
 		{
-			int vacuum_percentage = 100 * 
+			int vacuum_percentage = 100 *
 				ui->horizontalSlider_recirculation->value() / 
-				m_dialog_tools->m_pr_params->v_recirc_default; // TODO direct access the public member, add get function instead;
+				(-m_dialog_tools->m_pr_params->v_recirc_default); // TODO direct access the public member, add get function instead;
 
 			ui->lcdNumber_vacuum_percentage->display(vacuum_percentage);
 		}
