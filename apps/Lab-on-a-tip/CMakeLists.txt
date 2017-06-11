@@ -135,13 +135,9 @@ elseif(  BUILD_QT5)
 	qt5_use_modules(${PROJECT_NAME} Widgets)
 
 	target_link_libraries ( ${PROJECT_NAME}  
-							${QT_LIBRARIES}  Qt5Charts 
+							${QT_LIBRARIES}  ${Qt5Charts_LIBRARIES} 
 							PPC1api serial )
-	if ( ENABLE_verbose )
-		message (STATUS "${PROJECT_NAME} MESSAGE: Qt5Charts ---- ${Qt5Charts}")
-		message (STATUS "${PROJECT_NAME} MESSAGE: Qt5SerialPort ---- ${Qt5SerialPort}")
-		message (STATUS "${PROJECT_NAME} MESSAGE: QT_LIBRARIES ---- ${QT_LIBRARIES}")
-	endif ( ENABLE_verbose )	
+
 	# differently than others, QT has the windeployqt file that takes care of dlls and other stuff
 	# see this post: http://stackoverflow.com/questions/36981942/how-to-use-add-custom-command-to-copy-dlls-using-generator-expressions
 	# Windows specific build steps
