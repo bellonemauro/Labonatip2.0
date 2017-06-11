@@ -1,10 +1,11 @@
-#  +---------------------------------------------------------------------------+
-#  |                                                                           |
-#  |  Fluicell AB - Lab-on-a-tip                                               |
-#  |  Copyright 2017 © Fluicell AB, http://fluicell.com/                       |
-#  |                                                                           |
-#  | Authors: Mauro Bellone - http://www.maurobellone.com                      |
-#  | Released under GNU GPL License.                                           |
-#  +---------------------------------------------------------------------------+ 
+# PCC1 API
 
-all external data will go here
+===
+
+The PPC1 Api is an open project for microfluidic applications using the <a href="http://fluicell.com/">Fluicell</a> biopen. 
+The cross platform API allows independent control of each pressure line and solution delivery.
+
+ 
+Working on Windows and Linux - Not yet tested on IOS
+API documentation available <a href="https://bellonemauro.github.io/PPC1API-docs.io/">here</a>
+

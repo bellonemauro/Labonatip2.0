@@ -1,10 +1,11 @@
+# LAB-ON-A-TIP 2.0
 
-The PPC1 Api is an open project for microfluidic applications using the <a href="http://fluicell.com/">Fluicell</a> biopen. 
-The cross platform API allows independent control of each pressure line and solution delivery.
+===
 
- 
-Working on Windows and Linux - Not yet tested on IOS
-API documentation available <a href="https://bellonemauro.github.io/PPC1API-docs.io/">here</a>
+The Lab-on-a-tip is a ....
+
+Lab-on-a-tip is released under the terms of the ____ license, and thus free/not-free for commercial and research use. 
+
 
 # Dependences
 
