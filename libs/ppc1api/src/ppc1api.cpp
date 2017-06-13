@@ -8,7 +8,7 @@
  *  +---------------------------------------------------------------------------+ */
 
 #include "fluicell/ppc1api/ppc1api.h"
-
+#include <iomanip>
 
 fluicell::PPC1api::PPC1api() :
 	m_PPC1_data(new PPC1_data)
@@ -327,25 +327,15 @@ void fluicell::PPC1api::pumpingOff()
 		setVacuumChannelB(0.0); //sendData("B0.0\n");
 		setPressureChannelC(0.0); // sendData("C0.0\n");
 		setPressureChannelD(0.0); //sendData("D0.0\n");
-        setValve_l(false);
-        setValve_k(false);
-        setValve_j(false);
-        setValve_i(false);
+		closeAllValves();
 	}
 }
 
 void fluicell::PPC1api::closeAllValves()
 {
 	if (m_PPC1_serial->isOpen()) {
-		//setValve_l(false);
-		//setValve_k(false);
-		//setValve_j(false);
-		//setValve_i(false);
-
-		sendData("v0f\n");   // close
-		
+		setValvesState(0xFF);
 	}
-
 }
 
 void fluicell::PPC1api::reboot()
@@ -483,6 +473,24 @@ bool fluicell::PPC1api::setValve_i(bool _value) {
 			return true;
 	}
 
+	return false;
+}
+
+bool fluicell::PPC1api::setValvesState(int _value)
+{
+
+	stringstream value;
+	value << std::setfill('0') 
+		  << std::setw(2) // we expect only one byte so 2 is the number of allowed hex digits
+		  << std::hex << _value;
+	string msg;
+	msg.append("v");
+	msg.append(value.str());
+	msg.append("\n");
+	if (sendData(msg)) {
+		return true;
+	}
+	
 	return false;
 }
 

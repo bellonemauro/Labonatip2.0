@@ -136,6 +136,7 @@ namespace fluicell
 	#define PPC1_VID "16D0"  //!< device vendor ID
 	#define PPC1_PID "083A"  //!< device product ID
 
+
 	/**  PCC1 Output data stream specification
 	*
 	*    A|-0.000000|0.114514|0.000000|0
@@ -476,9 +477,9 @@ public:
 		  **/
 		void pumpingOff();
 
-		/**  \brief Close all the valves
+		/**  \brief Close all the valves i to l
 		*         
-		*
+		*     It recalls the setValvesState with the message 0xFF
 		**/
 		void closeAllValves();
 
@@ -605,6 +606,21 @@ public:
 		  **/
 		bool setValve_i(bool _value = false);
 		
+		/** \brief Set all the valves state in one command using a binary number where 1/0 are Open/Close
+		*
+		*  Send the string v%X\n set valve e...l states as one command. 
+		*  %X is unsigned hexadecimal byte where each bit represents a valve state from MSB=e to LSB=l.
+		*
+		*  Example 	"vff\n"    closes all valves (0xff = 0b11111111)
+		*           "v0\n"     opens all valves (0x00 = 0b00000000)
+		*           "v0f\n"    opens e to h and closes i to l (0x0f = 0b00001111)
+		*           "v8a\n"    closes valves e i and k, opens all others (0x8a = 0b10001010)
+		*
+		*  @param  _value is an hex number 
+		*
+		*  \note -  valves e to h are not supported by the PPC1 
+		**/
+		bool setValvesState(int _value = 0x00);
 
 		/** \brief Increase the droplet size 
 		*

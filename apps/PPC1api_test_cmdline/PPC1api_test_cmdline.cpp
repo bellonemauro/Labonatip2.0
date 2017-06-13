@@ -96,6 +96,7 @@ int	main (int argc, char** argv)
 		my_ppc1->setCOMport(COMport);
 		my_ppc1->setBaudRate(baudRate);
 		if (!my_ppc1->connectCOM()) {
+
 			cout << " cannot connect to Fluicell PPC1 -- press enter to exit " << endl;
 			cin.get();
 			return 0;
@@ -109,7 +110,7 @@ int	main (int argc, char** argv)
 		
 		// try to just read from the data in the threaded class
 		int count = 0;
-		while (count < 1000) {
+		while (count < 100) {
 			//my_ppc1->readData();
 			cout << " data on channel A " << my_ppc1->m_PPC1_data->channel_A->sensor_reading << endl;
 			cout << " data on channel B " << my_ppc1->m_PPC1_data->channel_B->sensor_reading << endl;
@@ -163,33 +164,33 @@ int	main (int argc, char** argv)
 		
 		my_ppc1->setPressureChannelD(200);
 
-		cout << "opening a " << endl;
-		my_ppc1->setValve_a(true);
+		cout << "opening l " << endl;
+		my_ppc1->setValve_l(true);
 		std::this_thread::sleep_for(std::chrono::microseconds(10000000));
-		cout << "closing a " << endl;
-		my_ppc1->setValve_a(false);
+		cout << "closing l " << endl;
+		my_ppc1->setValve_l(false);
 		std::this_thread::sleep_for(std::chrono::microseconds(10000000));
 
-		cout << "opening b " << endl;
-		my_ppc1->setValve_b(true);
+		cout << "opening k " << endl;
+		my_ppc1->setValve_k(true);
 		std::this_thread::sleep_for(std::chrono::microseconds(10000000));
-		cout << "closing b " << endl;
-		my_ppc1->setValve_b(false);
+		cout << "closing k " << endl;
+		my_ppc1->setValve_k(false);
 		std::this_thread::sleep_for(std::chrono::microseconds(10000000));
 		
 		
-		cout << "opening c " << endl;
-		my_ppc1->setValve_c(true);
+		cout << "opening j " << endl;
+		my_ppc1->setValve_j(true);
 		std::this_thread::sleep_for(std::chrono::microseconds(10000000));
-		cout << "closing c " << endl;
-		my_ppc1->setValve_c(false);
+		cout << "closing j " << endl;
+		my_ppc1->setValve_j(false);
 		std::this_thread::sleep_for(std::chrono::microseconds(10000000));
 
-		cout << "opening d " << endl;
-		my_ppc1->setValve_d(true);
+		cout << "opening i " << endl;
+		my_ppc1->setValve_i(true);
 		std::this_thread::sleep_for(std::chrono::microseconds(10000000));
-		cout << "closing d " << endl;
-		my_ppc1->setValve_d(false);
+		cout << "closing i " << endl;
+		my_ppc1->setValve_i(false);
 		std::this_thread::sleep_for(std::chrono::microseconds(10000000));
 
 		my_ppc1->pumpingOff();

@@ -584,6 +584,7 @@ void Labonatip_GUI::operationalMode()  {
 	// so the event slider_changed is not emitted
 	ui->horizontalSlider_p_off->setValue(21);
 	ui->horizontalSlider_p_on->setValue(190);
+	QThread::sleep(5);
 	ui->horizontalSlider_recirculation->setValue(115);
 	ui->horizontalSlider_switch->setValue(115);  // on slider changed, it send the value to the pumps
 
@@ -756,6 +757,7 @@ void Labonatip_GUI::standby()
 	if (m_pipette_active) {
 		if (m_ppc1->isConnected()) m_ppc1->pumpingOff();
 
+		this->closeAllValves();
 		ui->horizontalSlider_p_on->setValue(0);
 		ui->horizontalSlider_p_off->setValue(11);
 		
