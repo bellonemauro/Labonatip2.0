@@ -48,8 +48,6 @@
 #include "Lab-on-a-tip_tools.h"
 #include "Lab-on-a-tip_macroRunner.h"
 
-//#include <Eigen/Geometry>
-
 // serial
 #include <serial/serial.h>
 // PPC1api 
@@ -266,6 +264,12 @@ private slots:
       * \note 
       */
    void pumpingOff( );
+   
+   /** \brief Close the valves
+   *
+   * \note
+   */
+   void closeAllValves();
 
 	/** \brief Run the shutdown procedure
 	  * 
@@ -496,6 +500,8 @@ private:
   QtCharts::QLineSeries *m_series_ask;
   QtCharts::QLineSeries *m_series_sync_in;
   QtCharts::QLineSeries *m_series_sync_out;
+  QtCharts::QLineSeries *m_time_line;
+
 
   QString m_version;
 

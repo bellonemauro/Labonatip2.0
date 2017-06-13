@@ -80,10 +80,10 @@ void Labonatip_macroRunner::run()  {
 					if (m_ppc1->m_PPC1_data->channel_D->set_point != m_macro->at(i).P_off)
 						m_ppc1->setPressureChannelD(m_macro->at(i).P_off);
 
-					m_ppc1->setValve_a(m_macro->at(i).open_valve_a);
-					m_ppc1->setValve_b(m_macro->at(i).open_valve_b);
-					m_ppc1->setValve_c(m_macro->at(i).open_valve_c);
-					m_ppc1->setValve_d(m_macro->at(i).open_valve_d);
+					m_ppc1->setValve_l(m_macro->at(i).open_valve_a);
+					m_ppc1->setValve_k(m_macro->at(i).open_valve_b);
+					m_ppc1->setValve_j(m_macro->at(i).open_valve_c);
+					m_ppc1->setValve_i(m_macro->at(i).open_valve_d);
 					QString message = QString::fromStdString(m_macro->at(i).status_message);
 					emit sendStatusMessage(message);
 

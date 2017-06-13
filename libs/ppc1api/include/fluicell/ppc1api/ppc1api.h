@@ -557,7 +557,7 @@ public:
 		  **/
 		bool setPressureChannelD(double _value = 0.0);
 
-		/** \brief Set the valve a value to true/false to Open/Close
+		/** \brief Set the valve "l" value to true/false to Open/Close
 		  *
 		  *  Send the string c%u\n to set valve state on valve a
 		  *  (Do not use in closed loop (automatic) mode)
@@ -567,9 +567,9 @@ public:
 		  *
 		  *  \note -  false by default
 		  **/
-		bool setValve_a(bool _value = false);
+		bool setValve_l(bool _value = false);
 
-		/** \brief Set the valve b value to true/false to Open/Close
+		/** \brief Set the valve "k" value to true/false to Open/Close
 		  *
 		  *  Send the string c%u\n to set valve state on valve b
 		  *  (Do not use in closed loop (automatic) mode)
@@ -579,9 +579,9 @@ public:
 		  *
 		  *  \note -  false by default
 		  **/
-		bool setValve_b(bool _value = false);
+		bool setValve_k(bool _value = false);
 
-		/** \brief Set the valve c value to true/false to Open/Close
+		/** \brief Set the valve "j" value to true/false to Open/Close
 		  *
 		  *  Send the string c%u\n to set valve state on valve c
 		  *  (Do not use in closed loop (automatic) mode)
@@ -591,9 +591,9 @@ public:
 		  *
 		  *  \note -  false by default
 		  **/
-		bool setValve_c(bool _value = false);
+		bool setValve_j(bool _value = false);
 
-		/** \brief Set the valve d value to true/false to Open/Close
+		/** \brief Set the valve "i" value to true/false to Open/Close
 		  *
 		  *  Send the string c%u\n to set valve state on valve d
 		  *  (Do not use in closed loop (automatic) mode)
@@ -603,7 +603,7 @@ public:
 		  *
 		  *  \note -  false by default
 		  **/
-		bool setValve_d(bool _value = false);
+		bool setValve_i(bool _value = false);
 		
 
 		/** \brief Increase the droplet size 

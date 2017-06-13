@@ -327,20 +327,23 @@ void fluicell::PPC1api::pumpingOff()
 		setVacuumChannelB(0.0); //sendData("B0.0\n");
 		setPressureChannelC(0.0); // sendData("C0.0\n");
 		setPressureChannelD(0.0); //sendData("D0.0\n");
-        setValve_a(false);
-        setValve_b(false);
-        setValve_c(false);
-        setValve_d(false);
+        setValve_l(false);
+        setValve_k(false);
+        setValve_j(false);
+        setValve_i(false);
 	}
 }
 
 void fluicell::PPC1api::closeAllValves()
 {
 	if (m_PPC1_serial->isOpen()) {
-		setValve_a(false);
-		setValve_b(false);
-		setValve_c(false);
-		setValve_d(false);
+		//setValve_l(false);
+		//setValve_k(false);
+		//setValve_j(false);
+		//setValve_i(false);
+
+		sendData("v0f\n");   // close
+		
 	}
 
 }
@@ -430,7 +433,7 @@ bool fluicell::PPC1api::setPressureChannelD(double _value)
 	return false;
 }
 
-bool fluicell::PPC1api::setValve_a(bool _value)
+bool fluicell::PPC1api::setValve_l(bool _value)
 {
 	if (_value) {
 		if (sendData("l1\n"))   // close
@@ -444,7 +447,7 @@ bool fluicell::PPC1api::setValve_a(bool _value)
 	return false;
 }
 
-bool fluicell::PPC1api::setValve_b(bool _value) {
+bool fluicell::PPC1api::setValve_k(bool _value) {
 	if (_value) {
 		if (sendData("k1\n"))   // close
 			return true;
@@ -457,7 +460,7 @@ bool fluicell::PPC1api::setValve_b(bool _value) {
 	return false;
 }
 
-bool fluicell::PPC1api::setValve_c(bool _value) {
+bool fluicell::PPC1api::setValve_j(bool _value) {
 	if (_value) {
 		if (sendData("j1\n"))   // close
 			return true;
@@ -470,7 +473,7 @@ bool fluicell::PPC1api::setValve_c(bool _value) {
 	return false;
 }
 
-bool fluicell::PPC1api::setValve_d(bool _value) {
+bool fluicell::PPC1api::setValve_i(bool _value) {
 	if (_value) {
 		if (sendData("i1\n"))   // close
 			return true;

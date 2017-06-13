@@ -94,7 +94,7 @@ elseif(  BUILD_QT5)
 									${myProject_FORMS_HEADERS})
 	qt5_use_modules(${PROJECT_NAME} Widgets)
 
-    target_link_libraries ( ${PROJECT_NAME}  ${QT_LIBRARIES} Qt5SerialPort)
+    target_link_libraries ( ${PROJECT_NAME}  ${QT_LIBRARIES} ${Qt5SerialPort_LIBRARIES})
 
 
 
