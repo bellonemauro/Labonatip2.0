@@ -128,7 +128,7 @@
          <x>0</x>
          <y>0</y>
          <width>1024</width>
-         <height>708</height>
+         <height>716</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout_2">
@@ -167,7 +167,7 @@
              <x>0</x>
              <y>0</y>
              <width>1024</width>
-             <height>708</height>
+             <height>716</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout">
@@ -1042,6 +1042,18 @@ border: 2px solid white;
                       <height>90</height>
                      </size>
                     </property>
+                    <property name="whatsThis">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shutdown button, it runs the following commands: &lt;br/&gt;&lt;br/&gt;
+allOff()&lt;br/&gt;
+setPon(0)&lt;br/&gt;
+setPoff(0)&lt;br/&gt;
+sleep(10)&lt;br/&gt;
+setVswitch(0)&lt;br/&gt;
+setVrecirc(0)&lt;br/&gt;
+sleep(15)&lt;br/&gt;
+pumpsOff()&lt;br/&gt;
+&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    </property>
                     <property name="text">
                      <string/>
                     </property>
@@ -1058,7 +1070,7 @@ border: 2px solid white;
                    </widget>
                   </item>
                   <item row="3" column="0">
-                   <widget class="QPushButton" name="pushButton_Initialize">
+                   <widget class="QPushButton" name="pushButton_newTip">
                     <property name="minimumSize">
                      <size>
                       <width>90</width>
@@ -1088,6 +1100,11 @@ border: 2px solid white;
                       <height>90</height>
                      </size>
                     </property>
+                    <property name="whatsThis">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Stop button, it runs the following commands: &lt;br/&gt;&lt;br/&gt;
+closeAllValves()&lt;br/&gt;
+&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    </property>
                     <property name="text">
                      <string/>
                     </property>
@@ -1110,6 +1127,10 @@ border: 2px solid white;
                       <width>90</width>
                       <height>90</height>
                      </size>
+                    </property>
+                    <property name="whatsThis">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Operational mode button, it runs the following commands: &lt;br/&gt;&lt;br/&gt;allOff()&lt;br/&gt;setVswitch(-115)&lt;br/&gt;setVrecirc(-115)&lt;br/&gt;sleep(5)&lt;br/&gt;setPoff(21)&lt;br/&gt;setPon(190)&lt;br/&gt;
+&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="text">
                      <string/>
@@ -1223,6 +1244,9 @@ border: 2px solid white;
                       <width>90</width>
                       <height>90</height>
                      </size>
+                    </property>
+                    <property name="whatsThis">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Run macro runs the macro that can be loaded in the tools window&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="text">
                      <string/>
@@ -2614,7 +2638,14 @@ background-color: rgb(255, 255, 255);</string>
     </item>
    </layout>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QStatusBar" name="statusBar">
+   <property name="statusTip">
+    <string>Status bar</string>
+   </property>
+   <property name="whatsThis">
+    <string>Status bar</string>
+   </property>
+  </widget>
   <widget class="QToolBar" name="toolBar">
    <property name="windowTitle">
     <string>toolBar</string>
@@ -2775,7 +2806,7 @@ background-color: rgb(255, 255, 255);</string>
         <enum>QTabWidget::Triangular</enum>
        </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>1</number>
        </property>
        <property name="elideMode">
         <enum>Qt::ElideNone</enum>
@@ -2866,7 +2897,7 @@ color: rgb(0, 0, 0);</string>
             <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Macros list&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
@@ -2898,7 +2929,7 @@ color: rgb(0, 0, 0);</string>
             <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Content&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
@@ -2972,7 +3003,7 @@ color: rgb(0, 0, 0);</string>
             <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;STATUS: Simulation&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Outflow : __   &lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Inflow : __ &lt;/span&gt;&lt;/p&gt;
@@ -4730,6 +4761,91 @@ border:0px solid white;
          </item>
         </layout>
        </widget>
+       <widget class="QWidget" name="tab_4">
+        <attribute name="title">
+         <string>Debug stream</string>
+        </attribute>
+        <layout class="QGridLayout" name="gridLayout_10">
+         <item row="4" column="0" colspan="2">
+          <widget class="QTextEdit" name="textEdit_qcerr">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>200</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(0, 0, 0);</string>
+           </property>
+           <property name="html">
+            <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0" rowspan="2" colspan="2">
+          <widget class="QTextEdit" name="textEdit_qcout">
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(0, 0, 0);</string>
+           </property>
+           <property name="html">
+            <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0" colspan="2">
+          <widget class="QLabel" name="label_21">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
+           <property name="text">
+            <string>Error messages</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_22">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
+           <property name="text">
+            <string>Out messages</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
       </widget>
      </item>
      <item row="1" column="0">
@@ -4765,6 +4881,12 @@ border:0px solid white;
    <property name="toolTip">
     <string>Open configuration file</string>
    </property>
+   <property name="statusTip">
+    <string>Open configuration file</string>
+   </property>
+   <property name="whatsThis">
+    <string>Open configuration file</string>
+   </property>
    <property name="shortcut">
     <string>Ctrl+O</string>
    </property>
@@ -4793,10 +4915,10 @@ border:0px solid white;
     <string>Save the current configuration to a file</string>
    </property>
    <property name="statusTip">
-    <string/>
+    <string>Save the current configuration to a file</string>
    </property>
    <property name="whatsThis">
-    <string/>
+    <string>Save the current configuration to a file</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+S</string>
@@ -4820,10 +4942,13 @@ border:0px solid white;
     <string>Tools</string>
    </property>
    <property name="toolTip">
-    <string>Open tool window to set application options</string>
+    <string>Application settings</string>
    </property>
    <property name="statusTip">
-    <string/>
+    <string>Application settings</string>
+   </property>
+   <property name="whatsThis">
+    <string>Applications settings</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+T</string>
@@ -4895,7 +5020,13 @@ border:0px solid white;
     <string>Connect</string>
    </property>
    <property name="toolTip">
-    <string>Initialize fluipen</string>
+    <string>Connect and disconnect to PPC1</string>
+   </property>
+   <property name="statusTip">
+    <string>Connect and disconnect to PPC1</string>
+   </property>
+   <property name="whatsThis">
+    <string>Connect and disconnect to PPC1</string>
    </property>
   </action>
   <action name="actionReset">
@@ -4912,6 +5043,14 @@ border:0px solid white;
    <property name="toolTip">
     <string>Reset device</string>
    </property>
+   <property name="statusTip">
+    <string>Reset device</string>
+   </property>
+   <property name="whatsThis">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Reset the device&lt;br/&gt;&lt;br/&gt;
+The procedure will take around 30 seconds, &lt;br/&gt;
+It will be impossible to use the application during the reset process. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
   </action>
   <action name="actionNerdy">
    <property name="icon">
@@ -4922,7 +5061,13 @@ border:0px solid white;
     <string>Advanced</string>
    </property>
    <property name="toolTip">
-    <string>Open nerdy panel with more information</string>
+    <string>Visualize advanced control and monitor panel</string>
+   </property>
+   <property name="statusTip">
+    <string>Visualize advanced control and monitor panel</string>
+   </property>
+   <property name="whatsThis">
+    <string>Visualize advanced control and monitor panel</string>
    </property>
   </action>
   <action name="actionSimulation">
@@ -4940,7 +5085,13 @@ border:0px solid white;
     <string>Simulation</string>
    </property>
    <property name="toolTip">
-    <string>Run simulation only, when active the pump will not be activated</string>
+    <string>Simulation mode: when ACTIVE the pump is NOT used</string>
+   </property>
+   <property name="statusTip">
+    <string>Simulation mode: when ACTIVE the pump is NOT used</string>
+   </property>
+   <property name="whatsThis">
+    <string>Simulation mode: when ACTIVE the pump is NOT used</string>
    </property>
   </action>
   <action name="actionFile">
@@ -4970,7 +5121,15 @@ border:0px solid white;
     <string>what's this</string>
    </property>
    <property name="toolTip">
-    <string>what's this</string>
+    <string>what's this button, click on an object to have quick help</string>
+   </property>
+   <property name="statusTip">
+    <string>what's this button, click on an object to have quick help</string>
+   </property>
+   <property name="whatsThis">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;what's this button, &lt;br/&gt;
+click on any object to have quick help
+&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+H</string>
@@ -4986,6 +5145,15 @@ border:0px solid white;
    </property>
    <property name="text">
     <string>logo</string>
+   </property>
+   <property name="toolTip">
+    <string>Fluicell AB information</string>
+   </property>
+   <property name="statusTip">
+    <string>Fluicell AB information</string>
+   </property>
+   <property name="whatsThis">
+    <string>Fluicell AB information</string>
    </property>
    <property name="shortcut">
     <string>F1</string>

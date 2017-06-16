@@ -16,6 +16,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	ui(new Ui::Labonatip_GUI),
 	m_pipette_active(false),
 	m_ppc1 ( new fluicell::PPC1api() ),
+	m_macro (NULL),
 	c_x(53.0),
 	c_y(46.0),
 	c_radius(10.0),
@@ -41,7 +42,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 {
   // allows to use path alias
   QDir::setSearchPaths("icons", QStringList(QDir::currentPath() + "/icons/"));
-
+  
   // setup the user interface
   ui->setupUi (this);
   ui->dockWidget->close();  //close the advaced dock page
@@ -95,12 +96,18 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   m_pen_line.setColor(Qt::lightGray);
   m_pen_line.setWidth(m_pen_line_width);
  
-
-  Log_file_name = QString("./Exp_data/LogFile.dat");
+  // not yet used - it can save log data, messages from the console ect. 
+  Log_file_name = QString("./Ext_data/LogFile_");
 
   // initialize PPC1api
   m_ppc1->setCOMport(m_dialog_tools->m_comSettings->name);
   m_ppc1->setBaudRate((int)m_dialog_tools->m_comSettings->baudRate);
+
+  // init the redirect buffer
+  qout = new QDebugStream(std::cout, ui->textEdit_qcout);
+  //  QTextStream standardOutput(stdout);
+  qerr = new QDebugStream(std::cerr, ui->textEdit_qcerr);
+  //  QTextStream standardOutput(stderr);// (stdout);
 
   //close the dock tool at inizialization
   //closeOpenDockTools();
@@ -148,6 +155,9 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 
 
 void Labonatip_GUI::openFile() {
+	
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::openFile    " << endl;
 
 	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
 	QString _path = QFileDialog::getOpenFileName (this, tr("Open file"), QDir::currentPath(),  // dialog to open files
@@ -163,6 +173,9 @@ void Labonatip_GUI::openFile() {
 }
 
 void Labonatip_GUI::saveFile() {
+
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::saveFile    " << endl;
 
 	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
 	/*if (something->isEmpty()) 
@@ -180,6 +193,9 @@ void Labonatip_GUI::saveFile() {
 
 void Labonatip_GUI::showToolsDialog() {
 
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::showToolsDialog    " << endl;
+
 	m_dialog_tools->setWindowFlags(Qt::WindowStaysOnTopHint);
 	m_dialog_tools->setModal(false);
 	m_macro = new std::vector<fluicell::PPC1api::command>();
@@ -190,6 +206,9 @@ void Labonatip_GUI::showToolsDialog() {
 
 
 void Labonatip_GUI::dropletSizePlus() {
+
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::dropletSizePlus    " << endl;
 	// only Pon + 2.5%
 	// V_recirc - 2.5%
 	if (m_pipette_active)	{ 
@@ -222,6 +241,10 @@ void Labonatip_GUI::dropletSizePlus() {
 }
 
 void Labonatip_GUI::dropletSizeMinus() {
+
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::dropletSizeMinus    " << endl;
+
 	// only Pon - 2.5%
 	// V_recirc + 2.5%
 	if (m_pipette_active) {
@@ -254,6 +277,9 @@ void Labonatip_GUI::dropletSizeMinus() {
 }
 
 void Labonatip_GUI::flowSpeedPlus() {
+
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::flowSpeedPlus    " << endl;
 	// +5% to all values
 		// Poff does not read too low values, 
 		// if 5% different is less than 5 mbar .... start -> start + 5 --> start - 5%
@@ -303,6 +329,11 @@ void Labonatip_GUI::flowSpeedPlus() {
 }
 
 void Labonatip_GUI::flowSpeedMinus() {
+
+
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::flowSpeedMinus    " << endl;
+
 	// -5% to all values
 	if (m_pipette_active) {
 		if (!m_ppc1->decreaseFlowspeed())
@@ -327,6 +358,10 @@ void Labonatip_GUI::flowSpeedMinus() {
 }
 
 void Labonatip_GUI::vacuumPlus() {
+
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::vacuumPlus    " << endl;
+
 	// +5% v_recirculation
 	if (m_pipette_active) {
 		if (!m_ppc1->increaseVacuum5p())
@@ -348,6 +383,10 @@ void Labonatip_GUI::vacuumPlus() {
 }
 
 void Labonatip_GUI::vacuumMinus() {
+
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::vacuumMinus    " << endl;
+
 	// -5% v_recirculation
 	if (m_pipette_active) {
 		if (!m_ppc1->decreaseVacuum5p())
@@ -368,7 +407,9 @@ void Labonatip_GUI::vacuumMinus() {
    
 void Labonatip_GUI::updateFlowControlPercentages()
 {
-	if (m_simulationOnly) {
+
+		
+		if (m_simulationOnly) {
 	
 		{
 			int pon = 100 *
@@ -415,38 +456,65 @@ void Labonatip_GUI::updateFlowControlPercentages()
 }
 
 void Labonatip_GUI::pressurePonDown() {
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::pressurePonDown    " << endl;
+
 	ui->horizontalSlider_p_on->setValue(ui->horizontalSlider_p_on->value() - 1);
 }
 
 void Labonatip_GUI::pressurePonUp()	{
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::pressurePonUp    " << endl;
+
 	ui->horizontalSlider_p_on->setValue(ui->horizontalSlider_p_on->value() + 1);
 }
 
 void Labonatip_GUI::pressurePoffDown()	{
-	   ui->horizontalSlider_p_off->setValue(ui->horizontalSlider_p_off->value() - 1);
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::pressurePoffDown    " << endl;
+	
+	ui->horizontalSlider_p_off->setValue(ui->horizontalSlider_p_off->value() - 1);
 }
    
 void Labonatip_GUI::pressurePoffUp()	{
-	   ui->horizontalSlider_p_off->setValue(ui->horizontalSlider_p_off->value() + 1);
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::pressurePoffUp    " << endl;
+	
+	ui->horizontalSlider_p_off->setValue(ui->horizontalSlider_p_off->value() + 1);
 }
 
  void Labonatip_GUI::pressButtonPressed_switchDown() {
+	 cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		 << "Labonatip_GUI::pressButtonPressed_switchDown    " << endl;
+
 	 ui->horizontalSlider_switch->setValue(ui->horizontalSlider_switch->value() - 1);
 }
 
  void Labonatip_GUI::pressButtonPressed_switchUp()	{
+	 cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		 << "Labonatip_GUI::pressButtonPressed_switchUp    " << endl;
+
 	 ui->horizontalSlider_switch->setValue(ui->horizontalSlider_switch->value() + 1);
 }
  
 void Labonatip_GUI::recirculationDown() {
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::recirculationDown    " << endl;
+
 	ui->horizontalSlider_recirculation->setValue(ui->horizontalSlider_recirculation->value() - 1);
 }
    
 void Labonatip_GUI::recirculationUp() {
-	   ui->horizontalSlider_recirculation->setValue(ui->horizontalSlider_recirculation->value() + 1);
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::recirculationUp    " << endl;
+	
+	ui->horizontalSlider_recirculation->setValue(ui->horizontalSlider_recirculation->value() + 1);
 }
 
 void Labonatip_GUI::reboot() {
+
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::reboot    " << endl;
 
 	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
 
@@ -482,6 +550,9 @@ void Labonatip_GUI::reboot() {
 }
 
 void Labonatip_GUI::disCon() {
+
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::disCon    " << endl;
 
 	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
 
@@ -566,27 +637,20 @@ void Labonatip_GUI::operationalMode()  {
 
 	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
 
-	// allOff()
-	// setPoff(21)
-	// setPon(190)
-	// setVswitch(-115)
-	// setVrecirc(-115)
-	if (m_pipette_active) {
-		if(m_ppc1->isConnected()) m_ppc1->pumpingOff();
-	}
-	ui->horizontalSlider_switch->setValue(0);  // on slider changed, it send the value to the pumps
-	ui->horizontalSlider_recirculation->setValue(0);
-	ui->horizontalSlider_p_on->setValue(0);
-	ui->horizontalSlider_p_off->setValue(0);
-	QThread::msleep(1000);
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  " 
+		<< "Labonatip_GUI::operationalMode    "  << endl;
 
-	// if the sliders were in the same position, it does not change !!! 
+	if (m_pipette_active) {
+		if(m_ppc1->isConnected()) m_ppc1->closeAllValves();
+	}
+	
+	// if the sliders were in the same position, it does not change, so it does not send the command !!! 
 	// so the event slider_changed is not emitted
-	ui->horizontalSlider_p_off->setValue(21);
-	ui->horizontalSlider_p_on->setValue(190);
-	QThread::sleep(5);
 	ui->horizontalSlider_recirculation->setValue(115);
 	ui->horizontalSlider_switch->setValue(115);  // on slider changed, it send the value to the pumps
+	QThread::sleep(5);
+	ui->horizontalSlider_p_off->setValue(21);
+	ui->horizontalSlider_p_on->setValue(190);
 
 
 	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
@@ -594,6 +658,9 @@ void Labonatip_GUI::operationalMode()  {
 }
 
 void Labonatip_GUI::runMacro() {
+
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  " 
+		<< "Labonatip_GUI::runMacro    " << endl;
 
 	if (!m_macroRunner_thread->isRunning()) {
 
@@ -604,7 +671,7 @@ void Labonatip_GUI::runMacro() {
 		
 		ui->groupBox_deliveryZone->setEnabled(false);
 		ui->pushButton_operational->setEnabled(false);
-		ui->pushButton_Initialize->setEnabled(false); 
+		ui->pushButton_newTip->setEnabled(false); 
 		ui->pushButton_standby->setEnabled(false);
 		ui->pushButton_stop->setEnabled(false);
 		ui->tabWidget->setEnabled(false);
@@ -625,7 +692,7 @@ void Labonatip_GUI::runMacro() {
 
 		ui->groupBox_deliveryZone->setEnabled(true);
 		ui->pushButton_operational->setEnabled(true);
-		ui->pushButton_Initialize->setEnabled(true);
+		ui->pushButton_newTip->setEnabled(true);
 		ui->pushButton_standby->setEnabled(true);
 		ui->pushButton_stop->setEnabled(true);
 		ui->tabWidget->setEnabled(true);
@@ -640,14 +707,187 @@ void Labonatip_GUI::runMacro() {
 
 }
 
+void Labonatip_GUI::newTip()
+{
+
+	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
+
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::newTip    " << endl;
+
+    //Ask: Place the pipette into the holder and tighten.THEN PRESS OK.
+	QMessageBox::information(this, " Information ", 
+		"Place the pipette into the holder and tighten.THEN PRESS OK");
+
+	//vf0
+	if (m_pipette_active) {
+		m_ppc1->closeAllValves();
+	}
+
+	//D0
+	ui->horizontalSlider_p_on->setValue(0);
+
+	//C0
+	ui->horizontalSlider_p_off->setValue(0);
+
+	//B0
+	ui->horizontalSlider_switch->setValue(0);
+
+	//A0
+	ui->horizontalSlider_recirculation->setValue(0);
+
+	//Wait 5 seconds
+	int counter = 5;
+	QProgressDialog *PD = new QProgressDialog(" waiting ...", "Cancel", 0, counter, this);
+	PD->show();
+	PD->setValue(counter);
+	PD->setWindowModality(Qt::WindowModal);
+	for (int i = 0; i < counter; i++) {
+		PD->setValue(i);
+		QThread::sleep(1);  //--> wait the last execution
+							//if (PD->wasCanceled()) // the operation cannot be cancelled
+							//QMessageBox::information(this, "Warning !", " Reboot cannot be canceled  ");
+	}
+	PD->cancel();
+	//QThread::sleep(5);
+
+	//D200
+	ui->horizontalSlider_p_on->setValue(200);
+	
+	//Wait 5 seconds
+	//QThread::sleep(5);
+	PD->show();
+	counter = 5;
+	PD->setValue(counter);
+	PD->setWindowModality(Qt::WindowModal);
+	for (int i = 0; i < counter; i++) {
+		PD->setValue(i);
+		QThread::sleep(1);  //--> wait the last execution
+							//if (PD->wasCanceled()) // the operation cannot be cancelled
+							//QMessageBox::information(this, "Warning !", " Reboot cannot be canceled  ");
+	}
+	PD->cancel();
+
+	//vff
+	if (m_pipette_active) {
+		m_ppc1->openAllValves();
+	}
+
+	//Ask : wait until a droplet appears at the tip of the pipette and THEN PRESS OK.
+	QMessageBox::information(this, " Information ", 
+		"wait until a droplet appears at the tip of the pipette and THEN PRESS OK");
+
+	//Wait 40 seconds
+	//QThread::sleep(40);
+	PD->show();
+	counter = 40;
+	PD->setMaximum(counter);
+	PD->setValue(counter);
+	PD->setWindowModality(Qt::WindowModal);
+	for (int i = 0; i < counter; i++) {
+		PD->setValue(i);
+		QThread::sleep(1);  //--> wait the last execution
+							//if (PD->wasCanceled()) // the operation cannot be cancelled
+							//QMessageBox::information(this, "Warning !", " Reboot cannot be canceled  ");
+	}
+	PD->cancel();
+
+	//vf0
+	if (m_pipette_active) {
+		m_ppc1->closeAllValves();
+	}
+
+	//D0
+	ui->horizontalSlider_p_on->setValue(0);
+
+	//Wait 10 seconds
+	//QThread::sleep(10);
+	PD->show();
+	counter = 10;
+	PD->setMaximum(counter);
+	PD->setValue(counter);
+	PD->setWindowModality(Qt::WindowModal);
+	for (int i = 0; i < counter; i++) {
+		PD->setValue(i);
+		QThread::sleep(1);  //--> wait the last execution
+							//if (PD->wasCanceled()) // the operation cannot be cancelled
+							//QMessageBox::information(this, "Warning !", " Reboot cannot be canceled  ");
+	}
+	PD->cancel();
+
+	//Ask : Remove the droplet using a lens tissue and put the pipette into solution.THEN PRESS OK.
+	QMessageBox::information(this, " Information ", 
+		"Remove the droplet using a lens tissue and put the pipette into solution.THEN PRESS OK");
+
+	//B - 200
+	ui->horizontalSlider_switch->setValue(200);
+
+	//A - 200
+	ui->horizontalSlider_recirculation->setValue(200);
+
+	//Wait 90 seconds
+	//QThread::sleep(90);
+	PD->show();
+	counter = 90;
+	PD->setMaximum(counter);
+	PD->setValue(counter);
+	PD->setWindowModality(Qt::WindowModal);
+	for (int i = 0; i < counter; i++) {
+		PD->setValue(i);
+		QThread::sleep(1);  //--> wait the last execution
+							//if (PD->wasCanceled()) // the operation cannot be cancelled
+							//QMessageBox::information(this, "Warning !", " Reboot cannot be canceled  ");
+	}
+	PD->cancel();
+
+	//C21
+	ui->horizontalSlider_p_off->setValue(21);
+
+	//D190
+	ui->horizontalSlider_p_on->setValue(190);
+
+	//Wait 5 seconds
+	QThread::sleep(5);
+	PD->show();
+	counter = 5;
+	PD->setMaximum(counter);
+	PD->setValue(counter);
+	PD->setWindowModality(Qt::WindowModal);
+	for (int i = 0; i < counter; i++) {
+		PD->setValue(i);
+		QThread::sleep(1);  //--> wait the last execution
+							//if (PD->wasCanceled()) // the operation cannot be cancelled
+							//QMessageBox::information(this, "Warning !", " Reboot cannot be canceled  ");
+	}
+	PD->cancel();
+
+	//B - 115
+	ui->horizontalSlider_switch->setValue(115);
+
+	//A - 115
+	ui->horizontalSlider_recirculation->setValue(115);
+
+	//Ask: Pipette is ready for operation.PRESS OK TO START.
+	QMessageBox::information(this, " Information ",
+		"Pipette is ready for operation.PRESS OK TO START");
+
+	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
+
+
+
+}
+
 void Labonatip_GUI::macroFinished(const QString &_result) {
+
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::macroFinished    " << endl;
 
 	QMessageBox::information(this, " Information !", _result);
 	ui->statusBar->showMessage("MACRO FINISHED");
 	ui->label_runMacro->setText("Run Macro");
 	ui->groupBox_deliveryZone->setEnabled(true);
 	ui->pushButton_operational->setEnabled(true);
-	ui->pushButton_Initialize->setEnabled(true);
+	ui->pushButton_newTip->setEnabled(true);
 	ui->pushButton_stop->setEnabled(true);
 	ui->pushButton_standby->setEnabled(true);
 	ui->tabWidget->setEnabled(true);
@@ -665,9 +905,15 @@ void Labonatip_GUI::updateMacroStatusMessage(const QString &_message) {
 	QString s = " MACRO RUNNING :: status message >>  ";
 	s.append(_message);
 	ui->statusBar->showMessage(s);
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::updateMacroStatusMessage :::: " << _message.toStdString() << endl;
+
 }
 
 void Labonatip_GUI::pumpingOff() {
+
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::pumpingOff    " << endl;
 
 	if (m_pipette_active) {
 		m_ppc1->pumpingOff();
@@ -688,6 +934,9 @@ void Labonatip_GUI::pumpingOff() {
 
 void Labonatip_GUI::closeAllValves() {
 
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::closeAllValves   " << endl;
+
 	if (m_pipette_active) {
 
 		m_ppc1->closeAllValves();
@@ -697,10 +946,13 @@ void Labonatip_GUI::closeAllValves() {
 	m_timer_solution = std::numeric_limits<int>::max();
 
 	// reset the wells
-	resetWells();
+	//resetWells();
 }
 
 void Labonatip_GUI::shutdown() {
+
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::shutdown   " << endl;
 
 	setEnableMainWindow(false);
 	QMessageBox::StandardButton resBtn = QMessageBox::question(this, "Lab-on-a-tip",
@@ -745,6 +997,9 @@ void Labonatip_GUI::shutdown() {
 
 void Labonatip_GUI::standby()
 {
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::standby   " << endl;
+
 	//OLD SLEEP MACRO
 	// allOff()
 	// setPoff(11)
@@ -755,16 +1010,14 @@ void Labonatip_GUI::standby()
 	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
 
 	if (m_pipette_active) {
-		if (m_ppc1->isConnected()) m_ppc1->pumpingOff();
-
-		this->closeAllValves();
-		ui->horizontalSlider_p_on->setValue(0);
-		ui->horizontalSlider_p_off->setValue(11);
+			m_ppc1->closeAllValves();
+		}
+	ui->horizontalSlider_p_on->setValue(0);
+	ui->horizontalSlider_p_off->setValue(11);
 		
-		QThread::sleep(5);
-		ui->horizontalSlider_switch->setValue(45);
-		ui->horizontalSlider_recirculation->setValue(45);
-	}  
+	QThread::sleep(5);
+	ui->horizontalSlider_switch->setValue(45);
+	ui->horizontalSlider_recirculation->setValue(45);
 
 	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 
@@ -783,6 +1036,9 @@ void Labonatip_GUI::setEnableSolutionButtons(bool _enable ) {
 
 
 void Labonatip_GUI::closeOpenDockTools() {
+
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::closeOpenDockTools   " << endl;
 
 	if (!ui->dockWidget->isHidden()) {
 		ui->dockWidget->hide();
@@ -820,6 +1076,8 @@ void Labonatip_GUI::updateDrawing( int _value) {
 
 void Labonatip_GUI::pushSolution1()
 {
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::pushSolution1    " << endl;
 
 	if (!ui->pushButton_solution1->isChecked()){ // this allows to stop the flow when active
 		m_timer_solution = m_time_multipilcator;
@@ -883,6 +1141,9 @@ void Labonatip_GUI::pushSolution1()
 
 void Labonatip_GUI::pushSolution2() {
 
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::pushSolution2   " << endl;
+	
 	if (!ui->pushButton_solution2->isChecked()){
 		m_timer_solution = m_time_multipilcator;
 
@@ -944,6 +1205,10 @@ void Labonatip_GUI::pushSolution2() {
 
 void Labonatip_GUI::pushSolution3() {
 
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::pushSolution3   " << endl;
+
+
 	if (!ui->pushButton_solution3->isChecked()){
 		m_timer_solution = m_time_multipilcator;
 
@@ -1004,6 +1269,10 @@ void Labonatip_GUI::pushSolution3() {
 }
 
 void Labonatip_GUI::pushSolution4() {
+
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::pushSolution4   " << endl;
+
 
 	if (!ui->pushButton_solution4->isChecked()){
 		m_timer_solution = m_time_multipilcator;
@@ -1068,6 +1337,10 @@ void Labonatip_GUI::pushSolution4() {
 
 void Labonatip_GUI::resetWells() {
 
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::resetWells   " << endl;
+
+
 	ui->progressBar_solution1->setValue(100);
 	ui->progressBar_solution2->setValue(100);
 	ui->progressBar_solution3->setValue(100);
@@ -1083,18 +1356,18 @@ void Labonatip_GUI::sliderPonChanged(int _value)  {
 		updateFlowControlPercentages();
 	}
 
+	// SET vacum to _value
+	// TODO: be careful the control is not implemented, the value will be sent directly ! 
+	if (m_pipette_active) 	{
+		m_ppc1->setPressureChannelD(_value);
+	}
+
 	// if we decrease the pressure to zero, clean the scene and return, so the flow disappear
 	if (_value == 0) {
 		ui->progressBar_ledPon->setValue(0); // turn the led off
 		return;
 	}
 	ui->progressBar_ledPon->setValue(m_ppc1->m_PPC1_data->channel_D->state); // turn the led on
-
-	// SET vacum to _value
-	// TODO: be careful the control is not implemented, the value will be sent directly ! 
-	if (m_pipette_active) 	{
-		m_ppc1->setPressureChannelD(_value);
-	}
 
 }
 
@@ -1107,12 +1380,7 @@ void Labonatip_GUI::sliderPoffChanged(int _value) {
 		updateFlowControlPercentages();
 	}
 
-	// if we decrease the pressure to zero, clean the scene and return, so the flow disappear
-	if (_value == 0) {
-		ui->progressBar_ledPoff->setValue(0); // turn the led off
-		return;
-	}
-	ui->progressBar_ledPoff->setValue(m_ppc1->m_PPC1_data->channel_C->state); // turn the led on
+
 
 	// SET vacum to _value
 	// TODO: be careful the control is not implemented, the value will be sent directly ! 
@@ -1120,6 +1388,12 @@ void Labonatip_GUI::sliderPoffChanged(int _value) {
 		m_ppc1->setPressureChannelC(_value);
 	}
 
+	// if we decrease the pressure to zero, clean the scene and return, so the flow disappear
+	if (_value == 0) {
+		ui->progressBar_ledPoff->setValue(0); // turn the led off
+		return;
+	}
+	ui->progressBar_ledPoff->setValue(m_ppc1->m_PPC1_data->channel_C->state); // turn the led on
 }
 
 
@@ -1134,19 +1408,18 @@ void Labonatip_GUI::sliderRecircChanged(int _value) {
 	ui->progressBar_recircIn->setValue(_value);
 	ui->progressBar_recircOut->setValue(_value);
 
-	// if we decrease the pressure to zero, clean the scene and return, so the flow disappear
-	if (_value == 0) {
-		ui->progressBar_ledRecirc->setValue(0);  // turn the led off
-		return;
-	}
-
-	ui->progressBar_ledRecirc->setValue(m_ppc1->m_PPC1_data->channel_A->state); // turn the led on
-
 	// SET vacum to _value
 	// TODO: be careful the control is not implemented, the value will be sent directly ! 
 	if (m_pipette_active) 	{
 		m_ppc1->setVacuumChannelA(-_value);
 	}
+
+	// if we decrease the pressure to zero, clean the scene and return, so the flow disappear
+	if (_value == 0) {
+		ui->progressBar_ledRecirc->setValue(0);  // turn the led off
+		return;
+	}
+	ui->progressBar_ledRecirc->setValue(m_ppc1->m_PPC1_data->channel_A->state); // turn the led on
 
 }
 
@@ -1162,19 +1435,18 @@ void Labonatip_GUI::sliderSwitchChanged(int _value) {
 	ui->progressBar_switchIn->setValue(_value);
 	ui->progressBar_switchOut->setValue(_value);
 
-	// if we decrease the pressure to zero, clean the scene and return, so the flow disappear
-	if (_value == 0) {
-		ui->progressBar_ledSwitch->setValue(0);
-		return;
-	}
-
-	ui->progressBar_ledSwitch->setValue(m_ppc1->m_PPC1_data->channel_B->state);
-
 	// SET vacum to _value
 	// TODO: be careful the control is not implemented, the value will be sent directly ! 
 	if (m_pipette_active) 	{
 		m_ppc1->setVacuumChannelB(-_value);
 	}
+
+	// if we decrease the pressure to zero, clean the scene and return, so the flow disappear
+	if (_value == 0) {
+		ui->progressBar_ledSwitch->setValue(0);
+		return;
+	}
+	ui->progressBar_ledSwitch->setValue(m_ppc1->m_PPC1_data->channel_B->state);
 
 }
 
@@ -1503,6 +1775,7 @@ void Labonatip_GUI::initConnects()
 	connect(ui->pushButton_stop, SIGNAL(clicked()), this, SLOT(closeAllValves()));
 	connect(ui->pushButton_operational, SIGNAL(clicked()), this, SLOT(operationalMode()));
 	connect(ui->pushButton_runMacro, SIGNAL(clicked()), this, SLOT(runMacro()));
+	connect(ui->pushButton_newTip, SIGNAL(clicked()), this, SLOT(newTip()));
 
 	
 	
@@ -1519,7 +1792,9 @@ void Labonatip_GUI::initConnects()
 
 void Labonatip_GUI::toolOk() {
 
-	cout << " ok to the tools window pressed" << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::toolOk   ::: ok to the tools window pressed" << endl;
+
 	m_ppc1->setCOMport(m_dialog_tools->m_comSettings->name);
 	m_ppc1->setBaudRate((int)m_dialog_tools->m_comSettings->baudRate);
 
@@ -1805,12 +2080,16 @@ void Labonatip_GUI::simulationOnly()
 
 void Labonatip_GUI::ewst() {
 
-	cout << " whats this mode " << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		<< " whats this mode " << endl;
 	QWhatsThis::enterWhatsThisMode();
 
 }
 
 void Labonatip_GUI::about() {
+
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::about  " << endl;
 
 	QMessageBox messageBox;
 	messageBox.about(this, tr( "About Fluicell Lab-on-a-tip Wizard"), 
@@ -1835,7 +2114,46 @@ void Labonatip_GUI::closeEvent(QCloseEvent *event) {
 		event->ignore();
 	}
 	else {
+
+		// dump log file
+		//if (0)
+		{
+			// save log data, messages from the console ect. 
+			QString cout_file_name = QString("./Ext_data/Cout_");
+			cout_file_name.append(QDate::currentDate().toString());
+			cout_file_name.append("_");
+			cout_file_name.append(QString::number(QTime::currentTime().hour()));
+			cout_file_name.append("_");
+			cout_file_name.append(QString::number(QTime::currentTime().minute()));
+			cout_file_name.append("_");
+			cout_file_name.append(QString::number(QTime::currentTime().second()));
+			cout_file_name.append(".txt");
+
+			QFile coutfile;
+			coutfile.setFileName(cout_file_name);
+			coutfile.open(QIODevice::Append | QIODevice::Text);
+			QTextStream c_out(&coutfile);
+			c_out << ui->textEdit_qcout->toPlainText() << endl;
+
+			// save log data, messages from the console ect. 
+			QString Err_file_name = QString("./Ext_data/Err_");
+			Err_file_name.append(QDate::currentDate().toString());
+			Err_file_name.append("_");
+			Err_file_name.append(QString::number(QTime::currentTime().hour()));
+			Err_file_name.append("_");
+			Err_file_name.append(QString::number(QTime::currentTime().minute()));
+			Err_file_name.append("_");
+			Err_file_name.append(QString::number(QTime::currentTime().second()));
+			Err_file_name.append(".txt");
+
+			QFile cerrfile;
+			cerrfile.setFileName(Err_file_name);
+			cerrfile.open(QIODevice::Append | QIODevice::Text);
+			QTextStream c_err(&cerrfile);
+			c_err << ui->textEdit_qcerr->toPlainText() << endl;
+		}
 		if (m_ppc1->isConnected()) {
+			
 			m_ppc1->stop();
 			m_ppc1->disconnectCOM(); //if is active, disconnect
 		}
@@ -1851,6 +2169,7 @@ void Labonatip_GUI::setVersion(string _version) {
 
 Labonatip_GUI::~Labonatip_GUI ()
 {
+
   delete ui;
   qApp->quit();
 }

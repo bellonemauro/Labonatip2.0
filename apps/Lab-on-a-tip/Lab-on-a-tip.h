@@ -44,7 +44,7 @@
 #include <QtCharts/QLineSeries>
 #include <QtCharts/QAreaSeries>
 
-//#include "Q_DebugStream.h"
+#include "Q_DebugStream.h"
 #include "Lab-on-a-tip_tools.h"
 #include "Lab-on-a-tip_macroRunner.h"
 
@@ -246,7 +246,13 @@ private slots:
    * \note
    */
    void runMacro();
-   
+
+   /** \brief The operation run in background, a signal is emitted at the end
+   *
+   * \note
+   */
+   void newTip();
+
    /** \brief The operation run in background, a signal is emitted at the end
    *  
    * \note
@@ -425,6 +431,8 @@ private:
 
   QString Log_file_name;			//!< set the file name for the joints log file, default value "log_file.dat"
   QDir m_saveFolderPath;
+  QDebugStream *qout;            //--> redirect for messages into the GUI
+  QDebugStream *qerr;            //--> redirect for messages into the GUI
 
   Labonatip_tools * m_dialog_tools; //!< pointer to the tools dialog
 

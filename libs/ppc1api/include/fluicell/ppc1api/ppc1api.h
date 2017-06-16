@@ -34,6 +34,7 @@
 #include <string>
 #include <cstdio>
 #include <cmath>
+#include <ctime>
 #include <thread>
 #include <mutex>
 
@@ -408,12 +409,18 @@ public:
 		int toDigit(char _c) {return _c - '0';}// '0' = 48 in ASCII 
 
 
-		/** Check if the connection on _port is going to the PPC1 or any other device 
+		/** \brief Check if the connection on _port is going to the PPC1 or any other device 
 		*
 		* \return true if PPC1 VID/PID definitions match the VID/PID 
 		*         of the device connected on _port
 		*/
 		bool checkVIDPID(std::string _port);
+
+		/** \brief  Get current date/time, format is YYYY-MM-DD.HH:mm:ss
+		*
+		* \return a string
+		*/
+		const std::string currentDateTime();
 
 		// Serial port configuration parameters, only serial port number 
 		// and baud rate are configurable for the user, this is intentional!
@@ -428,6 +435,7 @@ public:
 		
 		bool m_threadTerminationHandler;  //!< set to TRUE to stop the thread, automatically set to false during the thread starting
 		bool m_isRunning; //!< true when the thread is running
+
 
 	public:
 
@@ -478,8 +486,14 @@ public:
 		void pumpingOff();
 
 		/**  \brief Close all the valves i to l
-		*         
+		*
 		*     It recalls the setValvesState with the message 0xFF
+		**/
+		void openAllValves();
+
+		/**  \brief Close all the valves i to l
+		*         
+		*     It recalls the setValvesState with the message 0xF0
 		**/
 		void closeAllValves();
 

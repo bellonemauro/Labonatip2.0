@@ -18,18 +18,20 @@ Labonatip_macroRunner::Labonatip_macroRunner(QMainWindow *parent ) :
 	m_simulation_only(true),
 	m_threadTerminationHandler(false)
 {
-	cout << " macroRunner initialization " << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		<< " macroRunner initialization " << endl;
 
 }
 
 void Labonatip_macroRunner::run()  {
 	QString result;
 	m_threadTerminationHandler = true;
-	cout << " Macro running " << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		<< " Macro running " << endl;
 
 	if (m_ppc1 && m_macro)
 	{
-		cout << " macro size " << m_macro->size() << endl;
+		cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  " << " macro size " << m_macro->size() << endl;
 		for (int i = 0; i < m_macro->size(); i++)
 		{
 			if (!m_threadTerminationHandler) {
@@ -38,7 +40,7 @@ void Labonatip_macroRunner::run()  {
 				return;
 			}
 
-			//cout << " i'm in the thread ... index " << i << endl;
+			//cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  " << " i'm in the thread ... index " << i << endl;
 
 			if (m_simulation_only)
 			{
@@ -68,7 +70,7 @@ void Labonatip_macroRunner::run()  {
 			}
 			else {
 				if (m_ppc1->isRunning()) {
-					//cout << " ppc1 is running the command " << m_macro->at(i).status_message << endl;
+					//cout  << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  " << " ppc1 is running the command " << m_macro->at(i).status_message << endl;
 					//m_ppc1->setPressureChannelD(100);
 
 					if (m_ppc1->m_PPC1_data->channel_A->set_point != m_macro->at(i).V_switch)
@@ -91,7 +93,8 @@ void Labonatip_macroRunner::run()  {
 					//m_ppc1->setPressureChannelD(0);
 				}
 				else {
-					cerr << " Labonatip_macroRunner::run  ---- error --- MESSAGE: ppc1 is NOT running " << endl;
+					cerr << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+						<< " Labonatip_macroRunner::run  ---- error --- MESSAGE: ppc1 is NOT running " << endl;
 					result = " ppc1 is NOT running ";
 
 					emit resultReady(result);
@@ -101,7 +104,8 @@ void Labonatip_macroRunner::run()  {
 		}
 	}
 	else {
-		cerr << " Labonatip_macroRunner::run  ---- error --- MESSAGE: null pointer " << endl;
+		cerr << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+			<< " Labonatip_macroRunner::run  ---- error --- MESSAGE: null pointer " << endl;
 		result = " null pointer ";
 
 		emit resultReady(result);

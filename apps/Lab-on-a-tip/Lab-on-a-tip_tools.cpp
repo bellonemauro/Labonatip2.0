@@ -287,18 +287,21 @@ void Labonatip_tools::plusIndent()
 bool Labonatip_tools::checkValidity(QTreeWidgetItem *_item, int _column)
 {
 	int row = ui_tools->treeWidget_macroTable->currentIndex().row();
-	cout << "check validity on row " << row << " and column " << _column << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		<< "check validity on row " << row << " and column " << _column << endl;
 
 	switch (_column) {
 	case 0:
 		// check name
 		// every thing is fine
-		cout << "case : " << _column << endl;
+		cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+			<< "case : " << _column << endl;
 		break;
 	case 1: {
 		// check loops
 		bool isNumeric;
-		cout << "case : " << _column << endl;
+		cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+			<< "case : " << _column << endl;
 		int number = _item->text(_column).toInt(&isNumeric);
 		if (!isNumeric) {
 			QMessageBox::warning(this, "Warning !", " Loop is not a valid number, \n value must be a positive integer number!");
@@ -310,7 +313,8 @@ bool Labonatip_tools::checkValidity(QTreeWidgetItem *_item, int _column)
 	case 2: {
 		// check pon
 		bool isNumeric; 
-		cout << "case : "  << _column << endl;
+		cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+			<< "case : "  << _column << endl;
 		int number = _item->text(_column).toInt(&isNumeric);
 		if (!isNumeric) {
 			QMessageBox::warning(this, "Warning !", " Pon is not a valid number, \n value must be a positive integer number in [0, 350]!");
@@ -327,7 +331,8 @@ bool Labonatip_tools::checkValidity(QTreeWidgetItem *_item, int _column)
 	case 3: {
 		// check poff
 		bool isNumeric;
-		cout << "case : " << _column << endl;
+		cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+			<< "case : " << _column << endl;
 		int number = _item->text(_column).toInt(&isNumeric);
 		if (!isNumeric) {
 			QMessageBox::warning(this, "Warning !", " Poff is not a valid number, \n value must be a positive integer number in [0, 500]!");
@@ -344,7 +349,8 @@ bool Labonatip_tools::checkValidity(QTreeWidgetItem *_item, int _column)
 	case 4:{
 		// check v_s
 		bool isNumeric;
-		cout << "case : " << _column << endl;
+		cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+			<< "case : " << _column << endl;
 		int number = _item->text(_column).toInt(&isNumeric);
 		if (!isNumeric) {
 			QMessageBox::warning(this, "Warning !", " V_switch is not a valid number, \n value must be a positive integer number in [-350, 0]!");
@@ -361,7 +367,8 @@ bool Labonatip_tools::checkValidity(QTreeWidgetItem *_item, int _column)
 	case 5: {
 		// check v_r
 		bool isNumeric;
-		cout << "case : " << _column << endl;
+		cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+			<< "case : " << _column << endl;
 		int number = _item->text(_column).toInt(&isNumeric);
 		if (!isNumeric) {
 			QMessageBox::warning(this, "Warning !", " V_recirc is not a valid number, \n value must be a positive integer number in [0, 350]!");
@@ -378,7 +385,8 @@ bool Labonatip_tools::checkValidity(QTreeWidgetItem *_item, int _column)
 	case 6: {
 		// check duration
 		bool isNumeric;
-		cout << "case : " << _column << endl;
+		cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+			<< "case : " << _column << endl;
 		int number = _item->text(_column).toInt(&isNumeric); // should this be an integer?
 		if (!isNumeric) {
 			QMessageBox::warning(this, "Warning !", " Duration is not a valid number, \n value must be a positive integer number !");
@@ -395,7 +403,8 @@ bool Labonatip_tools::checkValidity(QTreeWidgetItem *_item, int _column)
 	case 7: {
 		// check open valve : 0 = no valve, 1,2,3,4 valves 1,2,3,4
 		bool isNumeric;
-		cout << "case : " << _column << endl;
+		cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+			<< "case : " << _column << endl;
 		int number = _item->text(_column).toInt(&isNumeric);
 		if (!isNumeric) {
 			QMessageBox::warning(this, "Warning !", " Open valsve is not a valid number, \n value must be a positive integer number in [0, 4]! \n where 0 = no open valve, 1,2,3,4 open valves 1,2,3,4. Only one valve at time can be open");
@@ -411,17 +420,20 @@ bool Labonatip_tools::checkValidity(QTreeWidgetItem *_item, int _column)
 	}
 	case 8:{
 		// check
-		cout << "case : " << _column << endl;
+		cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+			<< "case : " << _column << endl;
 		break;
 	}
 	case 9:{
 		// check
-		cout << "case : " << _column << endl;
+		cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+			<< "case : " << _column << endl;
 		break;
 	}
 	default:{
 		// default function active if none of the previous
-		cout << "default : " << _column << endl;
+		cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+			<< "default : " << _column << endl;
 		break;
 	}
 	}
@@ -485,7 +497,8 @@ void Labonatip_tools::visualizeItemProperties()
 
 	int number_of_items = ui_tools->treeWidget_macroTable->topLevelItemCount();
 
-	cout << "\n  row" << row  
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		<< "\n  row" << row
 		 << "\n  column  " << column
 		 << "\n  childCount  " << childCount
 		 << "\n  hasParent  " << hasParent
@@ -561,12 +574,14 @@ void Labonatip_tools::loadSettings(QString _path)
 
 	if (_path.isEmpty())
 	{
-		cout << "Warning !  ::  Setting file not found !\n please set the setting file " << endl;
+		cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+			<< "Warning !  ::  Setting file not found !\n please set the setting file " << endl;
 		//_path = QFileDialog::getOpenFileName(this, tr("Open file"), QDir::currentPath(),  // dialog to open files
 		//	"Ini file (*.ini);; Data file (*.dat);; Binary File (*.bin);; All Files(*.*)", 0);
 	}
 
-	cout << "the path is : " << _path.toStdString() << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		<< "the path is : " << _path.toStdString() << endl;
 
 	m_settings = new QSettings(_path, QSettings::IniFormat);
 
@@ -606,7 +621,8 @@ void Labonatip_tools::loadSettings(QString _path)
 		m_comSettings->dataBits = serial::eightbits;
 		break;
 	default:
-		cout << " Error data bit cannot be read, using default value 8" << endl;
+		cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+			<< " Error data bit cannot be read, using default value 8" << endl;
 		m_comSettings->dataBits = serial::eightbits;
 		break;
 	}
@@ -705,7 +721,8 @@ void Labonatip_tools::loadSettings(QString _path)
 	//comSettings->name = ComPort;
 
 
-	cout << " Load settings: \n"
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		<< " Load settings: \n"
 		<< "    default/owner " << user.toStdString() << " \n"
 		<< "    default/date " << year << " \n"
 		<< "    default/month " << month.toStdString() << " \n\n"
@@ -876,7 +893,8 @@ void Labonatip_tools::addAllCommandsToMacro()
 	}
 
 
-	cout << " the current macro will run " << m_macro->size() << " commands " << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		<< " the current macro will run " << m_macro->size() << " commands " << endl;
 
 
 
@@ -905,14 +923,16 @@ bool Labonatip_tools::loadMacro()
 				{
 					ui_tools->treeWidget_macroTable->addTopLevelItem(newItem);
 					//list->push_back(newItem);
-					cout << " top level item " << newItem->text(0).toStdString()
+					cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+						<< " top level item " << newItem->text(0).toStdString()
 						<< " level " << newItem->text(13).toStdString() << endl;
 					parent = newItem->clone();
 				}
 				if (getLevel(*newItem) > 0)  // we are at the first level
 				{
 					//getLastNode(ui_tools->treeWidget_macroTable, *parent);
-					cout << " item level " << getLevel(*newItem) << " text " << newItem->text(0).toStdString() << endl;
+					cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+						<< " item level " << getLevel(*newItem) << " text " << newItem->text(0).toStdString() << endl;
 					QTreeWidgetItem *item = new QTreeWidgetItem();
 					QTreeWidgetItemIterator *item_iterator =
 						new QTreeWidgetItemIterator(ui_tools->treeWidget_macroTable, QTreeWidgetItemIterator::All);
@@ -1018,12 +1038,14 @@ bool Labonatip_tools::saveMacro(QString _file_name)
 
 		QList<QStringList> result = visitTree(ui_tools->treeWidget_macroTable);
 
-		cout << " result size " << result.size() << endl;
+		cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+			<< " result size " << result.size() << endl;
 
 		for (int i = 0; i < result.size(); i++) {
 			for (int j = 0; j < result.at(i).size(); j++)
 			{
-				//cout << " element " << i << " is " << result.at(i).at(j).toStdString() << endl;
+				//cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+				//<< " element " << i << " is " << result.at(i).at(j).toStdString() << endl;
 				stream << result.at(i).at(j) << "#";
 			}
 			stream << "§" << endl;
@@ -1067,7 +1089,8 @@ void Labonatip_tools::getLastNode(QTreeWidget *_tree, QTreeWidgetItem *_item)
 	while (*it) {
 		_item = (*it);
 		++it;
-		//		cout << "getLastNode first column " << _item.text(0).toStdString() << endl;
+		//		cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		//<< "getLastNode first column " << _item.text(0).toStdString() << endl;
 	}
 }
 
@@ -1122,7 +1145,8 @@ bool Labonatip_tools::decodeMacroCommand(QByteArray &_command, QTreeWidgetItem &
 	QStringList data_string;
 	if (_command.at(0) == *"%") {
 		// do nothing, just discard the line
-		//	cout << " this line belogs to the header" << endl;
+		//	cout<< QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		// << " this line belogs to the header" << endl;
 	}
 	else
 	{

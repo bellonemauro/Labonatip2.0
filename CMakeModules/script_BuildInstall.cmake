@@ -137,6 +137,11 @@ if (WIN32 AND NOT UNIX)
 		INSTALL(FILES "${F}" DESTINATION ./platforms)
 	ENDFOREACH(F)				
 
+	FILE(GLOB myProject_EXTDATA "${PROJECT_BINARY_DIR}/bin/Release/ExtData/*.*") 
+	FOREACH(F ${myProject_EXTDATA})
+		INSTALL(FILES "${F}" DESTINATION ./ExtData)
+	ENDFOREACH(F)				
+
 	FILE(GLOB myProject_MACROS "${PROJECT_BINARY_DIR}/bin/Release/presetMacros/*.*") 
 	FOREACH(F ${myProject_MACROS})
 		INSTALL(FILES "${F}" DESTINATION ./presetMacros)
