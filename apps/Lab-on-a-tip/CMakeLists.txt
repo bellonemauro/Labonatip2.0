@@ -109,6 +109,7 @@ elseif(  BUILD_QT5)
 	find_package( Qt5Gui REQUIRED ) 
 #	find_package( Qt5OpenGL REQUIRED )
 	find_package( Qt5Charts REQUIRED )
+	find_package (Qt5Concurrent REQUIRED)
 
 	if ( ENABLE_verbose )
 		message (STATUS "${PROJECT_NAME} MESSAGE: QT5_BINARY_DIR ---- ${QT5_BINARY_DIR}")

@@ -11,6 +11,7 @@
 #include <QtCharts/QCategoryAxis>
 #include <QtCharts/QAbstractAxis>
 
+
 Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	QMainWindow(parent),
 	ui(new Ui::Labonatip_GUI),
@@ -707,10 +708,10 @@ void Labonatip_GUI::runMacro() {
 
 }
 
+
 void Labonatip_GUI::newTip()
 {
-
-	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
+	
 
 	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_GUI::newTip    " << endl;
@@ -718,6 +719,8 @@ void Labonatip_GUI::newTip()
     //Ask: Place the pipette into the holder and tighten.THEN PRESS OK.
 	QMessageBox::information(this, " Information ", 
 		"Place the pipette into the holder and tighten.THEN PRESS OK");
+
+	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
 
 	//vf0
 	if (m_pipette_active) {
@@ -739,14 +742,20 @@ void Labonatip_GUI::newTip()
 	//Wait 5 seconds
 	int counter = 5;
 	QProgressDialog *PD = new QProgressDialog(" waiting ...", "Cancel", 0, counter, this);
+	PD->setMinimumWidth(350);
+	PD->setMinimumHeight(150);
 	PD->show();
 	PD->setValue(counter);
 	PD->setWindowModality(Qt::WindowModal);
 	for (int i = 0; i < counter; i++) {
 		PD->setValue(i);
 		QThread::sleep(1);  //--> wait the last execution
-							//if (PD->wasCanceled()) // the operation cannot be cancelled
-							//QMessageBox::information(this, "Warning !", " Reboot cannot be canceled  ");
+		if (PD->wasCanceled()) // the operation cannot be cancelled
+		{
+			QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
+			QMessageBox::information(this, "Warning !", " Running new tip cancelled  ");
+			return;
+		}
 	}
 	PD->cancel();
 	//QThread::sleep(5);
@@ -763,8 +772,12 @@ void Labonatip_GUI::newTip()
 	for (int i = 0; i < counter; i++) {
 		PD->setValue(i);
 		QThread::sleep(1);  //--> wait the last execution
-							//if (PD->wasCanceled()) // the operation cannot be cancelled
-							//QMessageBox::information(this, "Warning !", " Reboot cannot be canceled  ");
+		if (PD->wasCanceled()) // the operation cannot be cancelled
+		{
+			QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
+			QMessageBox::information(this, "Warning !", " Running new tip cancelled  ");
+			return;
+		}
 	}
 	PD->cancel();
 
@@ -774,8 +787,10 @@ void Labonatip_GUI::newTip()
 	}
 
 	//Ask : wait until a droplet appears at the tip of the pipette and THEN PRESS OK.
-	QMessageBox::information(this, " Information ", 
+	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
+	QMessageBox::information(this, " Information ",
 		"wait until a droplet appears at the tip of the pipette and THEN PRESS OK");
+	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
 
 	//Wait 40 seconds
 	//QThread::sleep(40);
@@ -787,8 +802,12 @@ void Labonatip_GUI::newTip()
 	for (int i = 0; i < counter; i++) {
 		PD->setValue(i);
 		QThread::sleep(1);  //--> wait the last execution
-							//if (PD->wasCanceled()) // the operation cannot be cancelled
-							//QMessageBox::information(this, "Warning !", " Reboot cannot be canceled  ");
+		if (PD->wasCanceled()) // the operation cannot be cancelled
+		{
+			QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
+			QMessageBox::information(this, "Warning !", " Running new tip cancelled  ");
+			return;
+		}
 	}
 	PD->cancel();
 
@@ -810,14 +829,20 @@ void Labonatip_GUI::newTip()
 	for (int i = 0; i < counter; i++) {
 		PD->setValue(i);
 		QThread::sleep(1);  //--> wait the last execution
-							//if (PD->wasCanceled()) // the operation cannot be cancelled
-							//QMessageBox::information(this, "Warning !", " Reboot cannot be canceled  ");
+		if (PD->wasCanceled()) // the operation cannot be cancelled
+		{
+			QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
+			QMessageBox::information(this, "Warning !", " Running new tip cancelled  ");
+			return;
+		}
 	}
 	PD->cancel();
 
 	//Ask : Remove the droplet using a lens tissue and put the pipette into solution.THEN PRESS OK.
-	QMessageBox::information(this, " Information ", 
+	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
+	QMessageBox::information(this, " Information ",
 		"Remove the droplet using a lens tissue and put the pipette into solution.THEN PRESS OK");
+	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
 
 	//B - 200
 	ui->horizontalSlider_switch->setValue(200);
@@ -835,8 +860,12 @@ void Labonatip_GUI::newTip()
 	for (int i = 0; i < counter; i++) {
 		PD->setValue(i);
 		QThread::sleep(1);  //--> wait the last execution
-							//if (PD->wasCanceled()) // the operation cannot be cancelled
-							//QMessageBox::information(this, "Warning !", " Reboot cannot be canceled  ");
+		if (PD->wasCanceled()) // the operation cannot be cancelled
+		{
+			QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
+			QMessageBox::information(this, "Warning !", " Running new tip cancelled  ");
+			return;
+		}
 	}
 	PD->cancel();
 
@@ -856,8 +885,12 @@ void Labonatip_GUI::newTip()
 	for (int i = 0; i < counter; i++) {
 		PD->setValue(i);
 		QThread::sleep(1);  //--> wait the last execution
-							//if (PD->wasCanceled()) // the operation cannot be cancelled
-							//QMessageBox::information(this, "Warning !", " Reboot cannot be canceled  ");
+		if (PD->wasCanceled()) // the operation cannot be cancelled
+		{
+			QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
+			QMessageBox::information(this, "Warning !", " Running new tip cancelled  ");
+			return;
+		}
 	}
 	PD->cancel();
 
@@ -868,10 +901,9 @@ void Labonatip_GUI::newTip()
 	ui->horizontalSlider_recirculation->setValue(115);
 
 	//Ask: Pipette is ready for operation.PRESS OK TO START.
+	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 	QMessageBox::information(this, " Information ",
 		"Pipette is ready for operation.PRESS OK TO START");
-
-	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 
 
 

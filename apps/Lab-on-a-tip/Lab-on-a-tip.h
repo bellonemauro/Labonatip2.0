@@ -247,11 +247,13 @@ private slots:
    */
    void runMacro();
 
+
    /** \brief The operation run in background, a signal is emitted at the end
    *
    * \note
    */
    void newTip();
+
 
    /** \brief The operation run in background, a signal is emitted at the end
    *  
