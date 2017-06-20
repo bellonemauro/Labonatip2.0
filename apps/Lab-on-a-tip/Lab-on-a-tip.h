@@ -47,6 +47,8 @@
 #include "Q_DebugStream.h"
 #include "Lab-on-a-tip_tools.h"
 #include "Lab-on-a-tip_macroRunner.h"
+#include "Lab-on-a-tip_chart.h"
+
 
 // serial
 #include <serial/serial.h>
@@ -59,330 +61,326 @@ using namespace std;
 namespace Ui
 {
   class Labonatip_GUI;
+
 }
+
 
 
 class Labonatip_tools;
 class Labonatip_macroRunner;
+class Labonatip_chart;
+
+
 
 // new shorter class name = Lab-on-a-tip  -- Loat 
 class Labonatip_GUI : public QMainWindow
 {
-  Q_OBJECT
+	Q_OBJECT
 
+		class Labonatip_dropletControl;
 
 public:
-  explicit Labonatip_GUI(QMainWindow *parent = nullptr);
+	explicit Labonatip_GUI(QMainWindow *parent = nullptr);
 
-  ~Labonatip_GUI();
+	~Labonatip_GUI();
 
-  void setVersion(string _version);
+	void setVersion(string _version);
 
 
 
-private slots:
+	private slots:
 
-	/** \brief open a file 
+	/** \brief open a file
 	  * TODO : - this is just a support for the future, still not used
-      * \note 
-      */
-  void openFile();
+	  * \note
+	  */
+	void openFile();
 
-	/** \brief save a file 
+	/** \brief save a file
 	  * TODO : - this is just a support for the future, still not used
-      * \note 
-      */
-  void saveFile();
+	  * \note
+	  */
+	void saveFile();
 
-  
-	/** \brief This function shows a tool dialog, 
+
+	/** \brief This function shows a tool dialog,
 	  *        all the settings must be implemented here
-      * 
-      * \note 
-      */
-   void showToolsDialog( );
+	  *
+	  * \note
+	  */
+	void showToolsDialog();
 
-   
-   /** \brief This function is called when the button + on droplet size is clicked 
-   * 
-   *   only Pon and V_recirc + - 2.5%
-   *
-   * \note
-   */
-   void dropletSizePlus();
 
-   /** \brief This function is called when the button - on droplet size is clicked
-   *
-   *   only Pon and V_recirc + - 2.5%
-   *
-   * \note
-   */
-   void dropletSizeMinus();
-   
-   
-   /** \brief This function is called when the button + on flow speed is clicked
-   *
-   *   	 +5% to all values
-   *	 Poff does not read too low values, 
-   *	 if 5% different is less than 5 mbar .... start -> start + 5 --> start - 5%
-   *
-   * \note
-   */
-   void flowSpeedPlus();
+	/** \brief This function is called when the button + on droplet size is clicked
+	*
+	*   only Pon and V_recirc + - 2.5%
+	*
+	* \note
+	*/
+	void dropletSizePlus();
 
-   /** \brief This function is called when the button - on flow speed is clicked
-   *
-   *   	 -5% to all values
-   *	 Poff does not read too low values,
-   *	 if 5% different is less than 5 mbar .... start -> start + 5 --> start - 5%
-   *
-   * \note
-   */
-   void flowSpeedMinus();
-   
-   /** \brief This function is called when the button + on flow speed is clicked
-   *
-   *   	 +5% v_recirculation
-   *
-   * \note
-   */
-   void vacuumPlus();
+	/** \brief This function is called when the button - on droplet size is clicked
+	*
+	*   only Pon and V_recirc + - 2.5%
+	*
+	* \note
+	*/
+	void dropletSizeMinus();
 
-   /** \brief This function is called when the button - on flow speed is clicked
-   *
-   *   	 -5% v_recirculation
-   *
-   * \note
-   */
-   void vacuumMinus();
 
-   /** \brief Update flow control percentages
-   *
-   *   	 
-   *
-   * \note
-   */
-   void updateFlowControlPercentages();
+	/** \brief This function is called when the button + on flow speed is clicked
+	*
+	*   	 +5% to all values
+	*	 Poff does not read too low values,
+	*	 if 5% different is less than 5 mbar .... start -> start + 5 --> start - 5%
+	*
+	* \note
+	*/
+	void flowSpeedPlus();
+
+	/** \brief This function is called when the button - on flow speed is clicked
+	*
+	*   	 -5% to all values
+	*	 Poff does not read too low values,
+	*	 if 5% different is less than 5 mbar .... start -> start + 5 --> start - 5%
+	*
+	* \note
+	*/
+	void flowSpeedMinus();
+
+	/** \brief This function is called when the button + on flow speed is clicked
+	*
+	*   	 +5% v_recirculation
+	*
+	* \note
+	*/
+	void vacuumPlus();
+
+	/** \brief This function is called when the button - on flow speed is clicked
+	*
+	*   	 -5% v_recirculation
+	*
+	* \note
+	*/
+	void vacuumMinus();
+
+	/** \brief Update flow control percentages
+	*
+	*
+	*
+	* \note
+	*/
+	void updateFlowControlPercentages();
 
 	/** \brief This function is called when the down arrow on Pon is called
 	  *        it decreases the pressure on Pon, it does not accept out-of-range
-	  *  
-      * \note 
-      */
-   void pressurePonDown( );
-   
- 	/** \brief This function is called when the up arrow on Pon is called
-	  *        it increases the pressure on Pon, it does not accept out-of-range 
 	  *
-      * \note 
-      */
-   void pressurePonUp( );
+	  * \note
+	  */
+	void pressurePonDown();
 
-	 /** \brief This function is called when the down arrow on Poff is called
-	   *        it decreases the pressure on Poff, it does not accept out-of-range
+	/** \brief This function is called when the up arrow on Pon is called
+	  *        it increases the pressure on Pon, it does not accept out-of-range
+	  *
+	  * \note
+	  */
+	void pressurePonUp();
+
+	/** \brief This function is called when the down arrow on Poff is called
+	  *        it decreases the pressure on Poff, it does not accept out-of-range
+	  *
+	  * \note
+	  */
+	void pressurePoffDown();
+
+	/** \brief This function is called when the up arrow on Poff is called
+	*          it increases the pressure on Poff, it does not accept out-of-range
+	*
+	* \note
+	*/
+	void pressurePoffUp();
+
+	/** \brief This function is called when the down arrow on v_switch is called
+	*          it decreases the vacuum, it does not accept out-of-range
+	*
+	* \note
+	*/
+	void pressButtonPressed_switchDown();
+
+	/** \brief This function is called when the up arrow on v_switch is called
+	*          it increases the vacuum, it does not accept out-of-range
+	*
+	* \note
+	*/
+	void pressButtonPressed_switchUp();
+
+
+	/** \brief This function is called when the down arrow on v_recirc is called
+	*          it decreases the vacuum, it does not accept out-of-range
+	*
+	* \note
+	*/
+	void recirculationDown();
+
+	/** \brief This function is called when the up arrow on v_recirc is called
+	*          it increases the vacuum, it does not accept out-of-range
+	*
+	* \note
+	*/
+	void recirculationUp();
+
+
+	/** \brief reboot the PPC1
 	   *
 	   * \note
 	   */
-   void pressurePoffDown( );
-   
-   /** \brief This function is called when the up arrow on Poff is called
-   *          it increases the pressure on Poff, it does not accept out-of-range
-   *
-   * \note
-   */
-   void pressurePoffUp( );
-
-   /** \brief This function is called when the down arrow on v_switch is called
-   *          it decreases the vacuum, it does not accept out-of-range
-   *
-   * \note 
-   */
-   void pressButtonPressed_switchDown( );
-  
-   /** \brief This function is called when the up arrow on v_switch is called
-   *          it increases the vacuum, it does not accept out-of-range
-   *
-   * \note
-   */
-   void pressButtonPressed_switchUp( );  
-
-
-   /** \brief This function is called when the down arrow on v_recirc is called
-   *          it decreases the vacuum, it does not accept out-of-range
-   *
-   * \note
-   */
-   void recirculationDown( );
-   
-   /** \brief This function is called when the up arrow on v_recirc is called
-   *          it increases the vacuum, it does not accept out-of-range
-   *
-   * \note
-   */
-   void recirculationUp( );
-   
-
-   /** \brief reboot the PPC1 
-	  * 
-      * \note 
-      */
-   void reboot( );
+	void reboot();
 
 
 	/** \brief Connect and disconnect the PPC1
-	  *  
-      * \note 
-      */
-   void disCon( );
+	  *
+	  * \note
+	  */
+	void disCon();
 
 	/** \brief Run --- still work in progress
-	  *  
-      * \note 
-      */
-   void operationalMode( );
+	  *
+	  * \note
+	  */
+	void operationalMode();
 
-   /** \brief The operation run in background, a signal is emitted at the end
-   *  
-   * \note
-   */
-   void runMacro();
-
-
-   /** \brief The operation run in background, a signal is emitted at the end
-   *
-   * \note
-   */
-   void newTip();
+	/** \brief The operation run in background, a signal is emitted at the end
+	*
+	* \note
+	*/
+	void runMacro();
 
 
-   /** \brief The operation run in background, a signal is emitted at the end
-   *  
-   * \note
-   */
-   void macroFinished(const QString &_result);
-   
-   /** \brief Update macro status message
-   *  
-   * \note
-   */
-   void updateMacroStatusMessage(const QString &_message);
+	/** \brief The operation run in background, a signal is emitted at the end
+	*
+	* \note
+	*/
+	void newTip();
 
-   /** \brief Stop all pumps and close the valves
-	  * 
-      * \note 
-      */
-   void pumpingOff( );
-   
-   /** \brief Close the valves
-   *
-   * \note
-   */
-   void closeAllValves();
+
+	/** \brief The operation run in background, a signal is emitted at the end
+	*
+	* \note
+	*/
+	void macroFinished(const QString &_result);
+
+	/** \brief Update macro status message
+	*
+	* \note
+	*/
+	void updateMacroStatusMessage(const QString &_message);
+
+	/** \brief Stop all pumps and close the valves
+	   *
+	   * \note
+	   */
+	void pumpingOff();
+
+	/** \brief Close the valves
+	*
+	* \note
+	*/
+	void closeAllValves();
 
 	/** \brief Run the shutdown procedure
-	  * 
-      * \note 
-      */
-   void shutdown( );
-   
-   /** \brief  standby
-   * 
-   * \note
-   */
-   void standby();
+	  *
+	  * \note
+	  */
+	void shutdown();
 
-   /** \brief Stop button should run the single command allOff()
-   *  
-   */
-   void allOff();
-   
-   /** \brief Open/close the dock for advaced tools
-     *
-     * \note 
-     */
-   void closeOpenDockTools( );
+	/** \brief  standby
+	*
+	* \note
+	*/
+	void standby();
 
-   /** \brief pushSolution1
-   * 
-   * \note
-   */
-   void pushSolution1();
+	/** \brief Open/close the dock for advaced tools
+	  *
+	  * \note
+	  */
+	void closeOpenDockTools();
 
-   /** \brief  pushSolution2
-   *  
-   * \note
-   */
-   void pushSolution2();
 
-   /** \brief pushSolution3
-   *  
-   * \note
-   */
-   void pushSolution3();
+	/** \brief pushSolution1
+	*
+	* \note
+	*/
+	void pushSolution1();
 
-   /** \brief pushSolution4
-   *  
-   * \note
-   */
-   void pushSolution4();
+	/** \brief  pushSolution2
+	*
+	* \note
+	*/
+	void pushSolution2();
 
-   /** \brief Put to zero the indicators
-   *  
-   * \note
-   */
-   void resetWells();
+	/** \brief pushSolution3
+	*
+	* \note
+	*/
+	void pushSolution3();
 
-   /** \brief Increase/reduce the area for the solution depiction
-   *  
-   * \note
-   */
-   void sliderPonChanged(int _value);
+	/** \brief pushSolution4
+	*
+	* \note
+	*/
+	void pushSolution4();
 
-   /** \brief Increase/reduce the area for the solution depiction
-   *  
-   * \note
-   */
-   void sliderPoffChanged(int _value);
+	/** \brief Put to zero the indicators
+	*
+	* \note
+	*/
+	void resetWells();
 
-   /** \brief  Increase/reduce the area for the solution depiction
-   *  
-   * \note
-   */
-   void sliderRecircChanged(int _value);
+	/** \brief Increase/reduce the area for the solution depiction
+	*
+	* \note
+	*/
+	void sliderPonChanged(int _value);
 
-   /** Increase/reduce the area for the solution depiction
-   *  
-   * \note
-   */
-   void sliderSwitchChanged(int _value);
+	/** \brief Increase/reduce the area for the solution depiction
+	*
+	* \note
+	*/
+	void sliderPoffChanged(int _value);
 
-   /** \brief This is supposed to be used from the solution release time to 
-     * update the visualization of the circular sliders
-     *  
-     * \note
-     */
-   void updateTimingSlider_s1();
+	/** \brief  Increase/reduce the area for the solution depiction
+	*
+	* \note
+	*/
+	void sliderRecircChanged(int _value);
 
-   void updateTimingSlider_s2();
+	/** Increase/reduce the area for the solution depiction
+	*
+	* \note
+	*/
+	void sliderSwitchChanged(int _value);
 
-   void updateTimingSlider_s3();
-   
-   void updateTimingSlider_s4();
+	/** \brief This is supposed to be used from the solution release time to
+	  * update the visualization of the circular sliders
+	  *
+	  * \note
+	  */
+	void updateTimingSliders( );
 
-   void updateGUI();
+	void updateGUI();
 
 	/** \brief  Set the sLog file to be saved true = save // false = not save
 	  *
-	  *  \param  _Log_file_name   = file name 
-	  *  /note - 
+	  *  \param  _Log_file_name   = file name
+	  *  /note -
 	  **/
-	void setLogFile ( QString &_Log_file_name) 
-	{		
-	Log_file_name = _Log_file_name; 
-	}; 
+	void setLogFile(QString &_Log_file_name)
+	{
+		Log_file_name = _Log_file_name;
+	};
 
-	/** \brief save log file  
-	  *  
+	/** \brief save log file
+	  *
 	  * /return false for any writing error
 	  **/
 	bool saveLog(QString &_file_name);
@@ -391,28 +389,27 @@ private slots:
 	/** \brief Enter simulation mode - the PPC1 will not be used
 	* \note
 	*/
-	void simulationOnly(); 
+	void simulationOnly();
 
 
-   /** \brief  Enter what's this mode
-     * \note
-     */
+	/** \brief  Enter what's this mode
+	  * \note
+	  */
 	void  ewst();
 
-  /** \brief Visualize the about dialog
-    * \note
-    */
-  void  about();
+	/** \brief Visualize the about dialog
+	  * \note
+	  */
+	void  about();
 
-  void toolOk();
+	void toolOk();
 
+	void toolApply();
 
 
 private:
 
 	void setGUIbars();
-
-	void setGUIchart();
 
 	void setEnableMainWindow(bool _enable = false);
 
@@ -454,16 +451,14 @@ private:
   
   // Threding
   Labonatip_macroRunner *m_macroRunner_thread;
-  QTimer *m_update_time_s1;        //!< connected to an update visualization function relative to solution 1
-  QTimer *m_update_time_s2;        //!< connected to an update visualization function relative to solution 2
-  QTimer *m_update_time_s3;        //!< connected to an update visualization function relative to solution 3
-  QTimer *m_update_time_s4;        //!< connected to an update visualization function relative to solution 4
+  QTimer *m_update_flowing_sliders;        //!< connected to an update visualization function relative to solutions flow
+  int m_flowing_solution;            //!< needed for the visualization function relative to solution 1 - 2 - 3- 4
   QTimer *m_update_GUI;            //!< update GUI to show PPC1 values
   const int m_base_time_step;         //!< used to set the update timers, every step is by default 1000 ms
 
   //!< set the multiplicators for the time step, 
   //    e.g. desired_duration (sec) = multiplicator * m_base_time_step (100ms)
-  //    TODO: KNOWN ISSUE: timing is not well fulfilled --- it is longer then expected
+  //    TODO: KNOWN ISSUE: timing is not well fulfilled --- it is longer than expected
   int m_time_multipilcator;   //!< used to set the update time for the timers
   int m_timer_solution;               //!< duration of injection for solution 
   
@@ -499,19 +494,9 @@ private:
   const QColor m_sol4_color_g05;  //!< my solution 4 gradient color - first level
   const QColor m_sol4_color_g1;   //!< my solution 4 gradient color - second level
 
-  // line series for the chart
-  QtCharts::QLineSeries *m_series_X;
-  QtCharts::QLineSeries *m_series_Y;
-  QtCharts::QLineSeries *m_series_Pon;
-  QtCharts::QLineSeries *m_series_Poff;
-  QtCharts::QLineSeries *m_series_V_switch;
-  QtCharts::QLineSeries *m_series_V_recirc;
-  QtCharts::QLineSeries *m_series_solution;
-  QtCharts::QLineSeries *m_series_ask;
-  QtCharts::QLineSeries *m_series_sync_in;
-  QtCharts::QLineSeries *m_series_sync_out;
-  QtCharts::QLineSeries *m_time_line;
-
+  // objects for the chart
+  QtCharts::QChartView *m_chartView;
+  Labonatip_chart *m_labonatip_chart_view;
 
   QString m_version;
 

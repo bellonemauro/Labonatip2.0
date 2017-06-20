@@ -28,6 +28,7 @@
 using namespace std;
 
 
+
 class Labonatip_macroRunner : public  QThread
 {
 	Q_OBJECT

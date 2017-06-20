@@ -20,7 +20,6 @@ Labonatip_macroRunner::Labonatip_macroRunner(QMainWindow *parent ) :
 {
 	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
 		<< " macroRunner initialization " << endl;
-
 }
 
 void Labonatip_macroRunner::run()  {
@@ -28,6 +27,7 @@ void Labonatip_macroRunner::run()  {
 	m_threadTerminationHandler = true;
 	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
 		<< " Macro running " << endl;
+	//QMessageBox::information(this, "Warning !", " Macro running. ");
 
 	if (m_ppc1 && m_macro)
 	{
