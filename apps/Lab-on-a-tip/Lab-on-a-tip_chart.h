@@ -61,6 +61,10 @@ public: //private:
 	QtCharts::QLineSeries *m_series_Poff;
 	QtCharts::QLineSeries *m_series_V_switch;
 	QtCharts::QLineSeries *m_series_V_recirc;
+	QtCharts::QLineSeries *m_series_solution1;
+	QtCharts::QLineSeries *m_series_solution2;
+	QtCharts::QLineSeries *m_series_solution3;
+	QtCharts::QLineSeries *m_series_solution4;
 	QtCharts::QLineSeries *m_series_solution;
 	QtCharts::QLineSeries *m_series_ask;
 	QtCharts::QLineSeries *m_series_sync_in;

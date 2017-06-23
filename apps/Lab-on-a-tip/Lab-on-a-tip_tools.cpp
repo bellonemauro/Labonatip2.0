@@ -641,7 +641,7 @@ void Labonatip_tools::loadSettings(QString _path)
 
 	
 	// read pr_limits group
-	int p_on_max = m_settings->value("pr_limits/p_on_max", "500").toInt();
+	int p_on_max = m_settings->value("pr_limits/p_on_max", "450").toInt();
 	ui_tools->lineEdit_p_on_max->setText(QString::number(p_on_max));
 	m_pr_params->p_on_max = p_on_max;
 
@@ -653,7 +653,7 @@ void Labonatip_tools::loadSettings(QString _path)
 	ui_tools->lineEdit_p_on_default->setText(QString::number(p_on_default));
 	m_pr_params->p_on_default = p_on_default;
 
-	int p_off_max = m_settings->value("pr_limits/p_off_max", "500").toInt();
+	int p_off_max = m_settings->value("pr_limits/p_off_max", "450").toInt();
 	ui_tools->lineEdit_p_off_max->setText(QString::number(p_off_max));
 	m_pr_params->p_off_max = p_off_max;
 
@@ -669,11 +669,11 @@ void Labonatip_tools::loadSettings(QString _path)
 	ui_tools->lineEdit_v_switch_max->setText(QString::number(v_switch_max));
 	m_pr_params->v_switch_max = v_switch_max;
 
-	int v_switch_min = m_settings->value("pr_limits/v_switch_min", "-350").toInt();
+	int v_switch_min = m_settings->value("pr_limits/v_switch_min", "-300").toInt();
 	ui_tools->lineEdit_v_switch_min->setText(QString::number(v_switch_min));
 	m_pr_params->v_switch_min = v_switch_min;
 
-	int v_switch_default = m_settings->value("pr_limits/v_switch_default", "-350").toInt();
+	int v_switch_default = m_settings->value("pr_limits/v_switch_default", "-115").toInt();
 	ui_tools->lineEdit_v_switch_default->setText(QString::number(v_switch_default));
 	m_pr_params->v_switch_default = v_switch_default;
 
@@ -681,11 +681,11 @@ void Labonatip_tools::loadSettings(QString _path)
 	ui_tools->lineEdit_v_recirc_max->setText(QString::number(v_recirc_max));
 	m_pr_params->v_recirc_max = v_recirc_max;
 
-	int v_recirc_min = m_settings->value("pr_limits/v_recirc_min", "-350").toInt();
+	int v_recirc_min = m_settings->value("pr_limits/v_recirc_min", "-300").toInt();
 	ui_tools->lineEdit_v_recirc_min->setText(QString::number(v_recirc_min));
 	m_pr_params->v_recirc_min = v_recirc_min;
 
-	int v_recirc_default = m_settings->value("pr_limits/v_recirc_default", "-350").toInt();
+	int v_recirc_default = m_settings->value("pr_limits/v_recirc_default", "-115").toInt();
 	ui_tools->lineEdit_v_recirc_default->setText(QString::number(v_recirc_default));
 	m_pr_params->v_recirc_default = v_recirc_default;
 
@@ -721,21 +721,20 @@ void Labonatip_tools::loadSettings(QString _path)
 	//comSettings->name = ComPort;
 
 
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		<< " Load settings: \n"
-		<< "    default/owner " << user.toStdString() << " \n"
-		<< "    default/date " << year << " \n"
-		<< "    default/month " << month.toStdString() << " \n\n"
-		<< "    COM/ComPort " << comPort.toStdString() << " \n"
-		<< "    COM/BaudRate " << baudRate << " \n"
-		<< "    COM/DataBits " << dataBits << " \n"
-		<< "    COM/Parity " << parity.toStdString() << " \n"
-		<< "    COM/StopBits " << stopBits << " \n"
-		<< "    COM/FlowControl " << flowControl.toStdString() << " \n"
-		<< "    MyParam/myParam1 " << myParam1 << " \n"
-		<< "    MyParam/myParam2 " << myParam2 << " \n\n"
-
-		<< endl;
+	//cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+	//	<< " Load settings: \n"
+	//	<< "    default/owner " << user.toStdString() << " \n"
+	//	<< "    default/date " << year << " \n"
+	//	<< "    default/month " << month.toStdString() << " \n\n"
+	//	<< "    COM/ComPort " << comPort.toStdString() << " \n"
+	//	<< "    COM/BaudRate " << baudRate << " \n"
+	//	<< "    COM/DataBits " << dataBits << " \n"
+	//	<< "    COM/Parity " << parity.toStdString() << " \n"
+	//	<< "    COM/StopBits " << stopBits << " \n"
+	//	<< "    COM/FlowControl " << flowControl.toStdString() << " \n"
+	//	<< "    MyParam/myParam1 " << myParam1 << " \n"
+	//	<< "    MyParam/myParam2 " << myParam2 << " \n\n"
+	//	<< endl;
 
 }
 

@@ -117,18 +117,19 @@ namespace fluicell
 	class PPC1API_EXPORT PPC1api
 	{
 
-		// define class constants for ranges in vacuum and pressures
-	#define MIN_CHAN_A -350.0 //!< in mbar
+	// define class constants for ranges in vacuum and pressures
+	#define MIN_CHAN_A -300.0 //!< in mbar
 	#define MAX_CHAN_A -0.0 //!< in mbar
-	#define MIN_CHAN_B -350.0 //!< in mbar
+	#define MIN_CHAN_B -300.0 //!< in mbar
 	#define MAX_CHAN_B -0.0 //!< in mbar
 	#define MIN_CHAN_C 0.0 //!< in mbar
-	#define MAX_CHAN_C 500.0 //!< in mbar
+	#define MAX_CHAN_C 450.0 //!< in mbar
 	#define MIN_CHAN_D 0.0 //!< in mbar
-	#define MAX_CHAN_D 500.0 //!< in mbar
+	#define MAX_CHAN_D 450.0 //!< in mbar
 	#define MIN_STREAM_PERIOD 0 //!< in msec
 	#define MAX_STREAM_PERIOD 500 //!< in msec
-	
+	#define MIN_PULSE_PERIOD 20 //!< in msec
+
 	// this values are the constants to have 100% droplet size 
 	#define DEFAULT_PON 190 //!< in mbar
 	#define DEFAULT_POFF 21 //!< in mbar
@@ -635,6 +636,45 @@ public:
 		*  \note -  valves e to h are not supported by the PPC1 
 		**/
 		bool setValvesState(int _value = 0x00);
+
+
+
+		/** \brief Sets the TTL output state (high or low)
+		*
+		*  Send the string o%u\n to set the TTL output state where %u is either 1 or 0 (high or low)
+		*
+		*
+		*  @param  _value is boolean
+		*
+		**/
+		bool setTTLstate(bool _value);
+
+		/** \brief Send a pulse lasting _value (ms)
+		*
+		*  Send the string p%u\n that generates a pulse with a length of %u milliseconds. 
+		*  For example p30\n generates a 30 milliseconds long pulse. 
+		*  The initial state of the output is dependent of the previous "o%u" commands (default low). 
+		*  If the state of output before the pulse command is high, 
+		*  the pulse command puts the output low for the scpecified amount of time. 
+		*  The minimum pulse length is 20 milliseconds.
+		*
+		*  @param  _value is the duration of the pulse in ms
+		*
+		**/
+		bool setPulsePeriod(int _value);
+
+
+		/** \brief Set the runtime timeout to _value (mbar)
+		*
+		*  Send the string z%u\n  to set runtime setpoint timeout threshold to %u mbar. 
+		*  If the setpoint is not in a window of +- threshold in 30 seconds, 
+		*  setpoint will be zeroed and error bit will be set.  Default value is 5 mbar
+		*
+		*  @param  _value is the threshold in mbar
+		*
+		**/
+		bool setRuntimeTimeout(int _value);
+
 
 		/** \brief Increase the droplet size 
 		*

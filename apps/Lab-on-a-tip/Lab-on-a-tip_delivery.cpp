@@ -18,12 +18,12 @@ void Labonatip_GUI::dropletSizePlus() {
 		<< "Labonatip_GUI::dropletSizePlus    " << endl;
 	// only Pon + 2.5%
 	// V_recirc - 2.5%
-	if (m_pipette_active) {
-		if (!m_ppc1->increaseDropletSize())
-			QMessageBox::information(this, "Warning !", " Operation cannot be done. <br> Please, check for out of bound values. ");
-	}
+//	if (m_pipette_active) {
+//		if (!m_ppc1->increaseDropletSize())
+//			QMessageBox::information(this, "Warning !", " Operation cannot be done. <br> Please, check for out of bound values. ");
+//	}
 
-	if (m_simulationOnly) {
+//	if (m_simulationOnly) {
 
 		if (ui->horizontalSlider_recirculation->value() == 0) {
 			QMessageBox::information(this, "Warning !", " Recirculation zero, operation cannot be done ");
@@ -31,7 +31,8 @@ void Labonatip_GUI::dropletSizePlus() {
 		}
 		else {
 			ui->horizontalSlider_recirculation->setValue(
-				ui->horizontalSlider_recirculation->value() * 0.975);
+				ui->horizontalSlider_recirculation->value() - 
+				ceil( default_v_recirc * 0.025));
 		}
 
 		if (ui->horizontalSlider_p_on->value() == 0) {
@@ -39,12 +40,13 @@ void Labonatip_GUI::dropletSizePlus() {
 		}
 		else {
 			ui->horizontalSlider_p_on->setValue(
-				ui->horizontalSlider_p_on->value() * 1.025);
+				ui->horizontalSlider_p_on->value() + 
+				ceil( default_pon * 0.025));
 		}
 
 		updateFlowControlPercentages();
 
-	}
+//	}
 }
 
 void Labonatip_GUI::dropletSizeMinus() {
@@ -54,12 +56,11 @@ void Labonatip_GUI::dropletSizeMinus() {
 
 	// only Pon - 2.5%
 	// V_recirc + 2.5%
-	if (m_pipette_active) {
-		if (!m_ppc1->decreaseDropletSize())
-			QMessageBox::information(this, "Warning !", " Operation cannot be done. <br> Please, check for out of bound values. ");
-	}
-
-	if (m_simulationOnly) {
+//	if (m_pipette_active) {
+//		if (!m_ppc1->decreaseDropletSize())
+//			QMessageBox::information(this, "Warning !", " Operation cannot be done. <br> Please, check for out of bound values. ");
+//	}
+//	if (m_simulationOnly) {
 
 		if (ui->horizontalSlider_p_on->value() == 0) {
 			QMessageBox::information(this, "Warning !", " P_on zero, operation cannot be done ");
@@ -67,7 +68,8 @@ void Labonatip_GUI::dropletSizeMinus() {
 		}
 		else {
 			ui->horizontalSlider_p_on->setValue(
-				ui->horizontalSlider_p_on->value() * 0.975);
+				ui->horizontalSlider_p_on->value() - 
+				ceil( default_pon * 0.025));
 		}
 
 		if (ui->horizontalSlider_recirculation->value() == 0) {
@@ -76,11 +78,12 @@ void Labonatip_GUI::dropletSizeMinus() {
 		else {
 
 			ui->horizontalSlider_recirculation->setValue(
-				ui->horizontalSlider_recirculation->value() * 1.025);
+				ui->horizontalSlider_recirculation->value() + 
+				ceil( default_v_recirc * 0.025));
 		}
 		updateFlowControlPercentages();
 
-	}
+//	}
 }
 
 void Labonatip_GUI::flowSpeedPlus() {
@@ -90,18 +93,19 @@ void Labonatip_GUI::flowSpeedPlus() {
 	// +5% to all values
 	// Poff does not read too low values, 
 	// if 5% different is less than 5 mbar .... start -> start + 5 --> start - 5%
-	if (m_pipette_active) {
-		if (!m_ppc1->increaseFlowspeed())
-			QMessageBox::information(this, "Warning !", " Operation cannot be done. <br> Please, check for out of bound values. ");
-	}
-	if (m_simulationOnly) {
+//	if (m_pipette_active) {
+//		if (!m_ppc1->increaseFlowspeed())
+//			QMessageBox::information(this, "Warning !", " Operation cannot be done. <br> Please, check for out of bound values. ");
+//	}
+//	if (m_simulationOnly) {
 
 		if (ui->horizontalSlider_p_on->value() == 0) {
 			ui->horizontalSlider_p_on->setValue(5);
 		}
 		else {
 			ui->horizontalSlider_p_on->setValue(
-				ui->horizontalSlider_p_on->value() * 1.05);
+				ui->horizontalSlider_p_on->value() + 
+				ceil ( default_pon * 0.05) );
 		}
 
 		if (ui->horizontalSlider_p_off->value() == 0) {
@@ -110,7 +114,8 @@ void Labonatip_GUI::flowSpeedPlus() {
 		else {
 
 			ui->horizontalSlider_p_off->setValue(
-				ui->horizontalSlider_p_off->value() * 1.05);
+				ui->horizontalSlider_p_off->value() + 
+				ceil( default_poff * 0.05) );
 		}
 
 		if (ui->horizontalSlider_switch->value() == 0) {
@@ -119,7 +124,8 @@ void Labonatip_GUI::flowSpeedPlus() {
 		else {
 
 			ui->horizontalSlider_switch->setValue(
-				ui->horizontalSlider_switch->value() * 1.05);
+				ui->horizontalSlider_switch->value() + 
+				ceil ( default_v_switch * 0.05) );
 		}
 
 		if (ui->horizontalSlider_recirculation->value() == 0) {
@@ -128,11 +134,12 @@ void Labonatip_GUI::flowSpeedPlus() {
 		else {
 
 			ui->horizontalSlider_recirculation->setValue(
-				ui->horizontalSlider_recirculation->value() * 1.05);
+				ui->horizontalSlider_recirculation->value() + 
+				ceil ( default_v_recirc * 0.05) );
 		}
 		updateFlowControlPercentages();
 
-	}
+//	}
 }
 
 void Labonatip_GUI::flowSpeedMinus() {
@@ -142,26 +149,30 @@ void Labonatip_GUI::flowSpeedMinus() {
 		<< "Labonatip_GUI::flowSpeedMinus    " << endl;
 
 	// -5% to all values
-	if (m_pipette_active) {
-		if (!m_ppc1->decreaseFlowspeed())
-			QMessageBox::information(this, "Warning !", " Operation cannot be done. <br> Please, check for out of bound values. ");
-	}
-	if (m_simulationOnly) {
+//	if (m_pipette_active) {
+//		if (!m_ppc1->decreaseFlowspeed())
+//			QMessageBox::information(this, "Warning !", " Operation cannot be done. <br> Please, check for out of bound values. ");
+//	}
+//	if (m_simulationOnly) {
 
 		ui->horizontalSlider_p_on->setValue(
-			ui->horizontalSlider_p_on->value() * 0.95);
+			ui->horizontalSlider_p_on->value() - 
+			ceil ( default_pon * 0.05 ) );
 
 		ui->horizontalSlider_p_off->setValue(
-			ui->horizontalSlider_p_off->value() * 0.95);
+			ui->horizontalSlider_p_off->value() - 
+			ceil ( default_poff * 0.05 ) );
 
 		ui->horizontalSlider_switch->setValue(
-			ui->horizontalSlider_switch->value() * 0.95);
+			ui->horizontalSlider_switch->value() - 
+			ceil ( default_v_switch * 0.05 ) );
 
 		ui->horizontalSlider_recirculation->setValue(
-			ui->horizontalSlider_recirculation->value() * 0.95);
+			ui->horizontalSlider_recirculation->value() - 
+			ceil ( default_v_recirc * 0.05 ));
 
 		updateFlowControlPercentages();
-	}
+//	}
 }
 
 void Labonatip_GUI::vacuumPlus() {
@@ -170,23 +181,25 @@ void Labonatip_GUI::vacuumPlus() {
 		<< "Labonatip_GUI::vacuumPlus    " << endl;
 
 	// +5% v_recirculation
-	if (m_pipette_active) {
-		if (!m_ppc1->increaseVacuum5p())
-			QMessageBox::information(this, "Warning !", " Operation cannot be done. <br> Please, check for out of bound values.");
-	}
-	if (m_simulationOnly) {
+//	if (m_pipette_active) {
+//		if (!m_ppc1->increaseVacuum5p())
+//			QMessageBox::information(this, "Warning !", " Operation cannot be done. <br> Please, check for out of bound values.");
+//	}
+//	if (m_simulationOnly) {
 
 		if (ui->horizontalSlider_recirculation->value() == 0) {
 			ui->horizontalSlider_recirculation->setValue(5);
 		}
 		else {
 
-			ui->horizontalSlider_recirculation->setValue(
-				ui->horizontalSlider_recirculation->value() * 1.05);
+			int value = ui->horizontalSlider_recirculation->value() + 
+				ceil ( default_v_recirc * 0.05 );
+			ui->horizontalSlider_recirculation->setValue(value);
+				
 		}
 
 		updateFlowControlPercentages();
-	}
+//	}
 }
 
 void Labonatip_GUI::vacuumMinus() {
@@ -195,21 +208,22 @@ void Labonatip_GUI::vacuumMinus() {
 		<< "Labonatip_GUI::vacuumMinus    " << endl;
 
 	// -5% v_recirculation
-	if (m_pipette_active) {
-		if (!m_ppc1->decreaseVacuum5p())
-			QMessageBox::information(this, "Warning !", " Operation cannot be done. <br> Please, check for out of bound values. ");
-	}
-	if (m_simulationOnly) {
+//	if (m_pipette_active) {
+//		if (!m_ppc1->decreaseVacuum5p())
+//			QMessageBox::information(this, "Warning !", " Operation cannot be done. <br> Please, check for out of bound values. ");
+//	}
+//	if (m_simulationOnly) {
 
 		if (ui->horizontalSlider_recirculation->value() == 0) {
 			QMessageBox::information(this, "Warning !", " Operation cannot be done. <br> Recirculation is zero. ");
 		}
 
-		int value = ui->horizontalSlider_recirculation->value() * 0.95;
+		int value = ui->horizontalSlider_recirculation->value() - 
+			ceil ( default_v_recirc * 0.05 );
 		ui->horizontalSlider_recirculation->setValue(value);
 
 		updateFlowControlPercentages();
-	}
+//	}
 }
 
 void Labonatip_GUI::updateFlowControlPercentages()
@@ -220,32 +234,29 @@ void Labonatip_GUI::updateFlowControlPercentages()
 
 		{
 			int pon = 100 *
-				ui->horizontalSlider_p_on->value() / 190;//
-			m_dialog_tools->m_pr_params->p_on_default; // TODO direct access the public member, add get function instead
+				ui->horizontalSlider_p_on->value() / default_pon;//
+			//m_dialog_tools->m_pr_params->p_on_default; // TODO direct access the public member, add get function instead
 
 			int vr = 100 *
-				ui->horizontalSlider_recirculation->value() /
-				(-m_dialog_tools->m_pr_params->v_recirc_default);  // TODO direct access the public member, add get function instead
+				ui->horizontalSlider_recirculation->value() / default_v_recirc;
+				//(-m_dialog_tools->m_pr_params->v_recirc_default);  // TODO direct access the public member, add get function instead
 
-			int droplet_percentage = (pon + vr) / 2;
+			int droplet_percentage = 100 + (pon - vr) / 2;
+
 			ui->lcdNumber_dropletSize_percentage->display(droplet_percentage);
 		}
 		{
 			int pon = 100 *
-				ui->horizontalSlider_p_on->value() /
-				m_dialog_tools->m_pr_params->p_on_default; // TODO direct access the public member, add get function instead
+				ui->horizontalSlider_p_on->value() / default_pon; // TODO direct access the public member, add get function instead
 
 			int poff = 100 *
-				ui->horizontalSlider_p_off->value() /
-				m_dialog_tools->m_pr_params->p_off_default; // TODO direct access the public member, add get function instead;
+				ui->horizontalSlider_p_off->value() / default_poff; // TODO direct access the public member, add get function instead;
 
 			int vs = 100 *
-				ui->horizontalSlider_switch->value() /
-				(-m_dialog_tools->m_pr_params->v_switch_default); // TODO direct access the public member, add get function instead;
+				ui->horizontalSlider_switch->value() / default_v_switch; // TODO direct access the public member, add get function instead;
 
 			int vr = 100 *
-				ui->horizontalSlider_recirculation->value() /
-				(-m_dialog_tools->m_pr_params->v_recirc_default); // TODO direct access the public member, add get function instead;
+				ui->horizontalSlider_recirculation->value() / default_v_recirc; // TODO direct access the public member, add get function instead;
 
 			int flowspeed_percentage = (pon + poff + vs + vr) / 4; // 4 is for the average
 			ui->lcdNumber_flowspeed_percentage->display(flowspeed_percentage);
@@ -253,8 +264,7 @@ void Labonatip_GUI::updateFlowControlPercentages()
 
 		{
 			int vacuum_percentage = 100 *
-				ui->horizontalSlider_recirculation->value() /
-				(-m_dialog_tools->m_pr_params->v_recirc_default); // TODO direct access the public member, add get function instead;
+				ui->horizontalSlider_recirculation->value() / default_v_recirc; // TODO direct access the public member, add get function instead;
 
 			ui->lcdNumber_vacuum_percentage->display(vacuum_percentage);
 		}

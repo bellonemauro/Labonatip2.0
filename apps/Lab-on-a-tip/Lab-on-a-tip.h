@@ -330,6 +330,12 @@ public:
 	*/
 	void pushSolution4();
 
+	/** \brief Set current pressure/vacuum values as 100% default values
+	*
+	* \note
+	*/
+	void setAsDefault();
+
 	/** \brief Put to zero the indicators
 	*
 	* \note
@@ -497,6 +503,12 @@ private:
   // objects for the chart
   QtCharts::QChartView *m_chartView;
   Labonatip_chart *m_labonatip_chart_view;
+
+  int default_pon;
+  int default_poff;
+  int default_v_recirc;
+  int default_v_switch;
+
 
   QString m_version;
 

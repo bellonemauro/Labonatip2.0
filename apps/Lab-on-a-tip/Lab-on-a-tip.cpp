@@ -60,6 +60,10 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   // init the object to handle the internal dialogs
   m_dialog_tools = new Labonatip_tools();
 
+  default_pon = m_dialog_tools->m_pr_params->p_on_default;
+  default_poff = m_dialog_tools->m_pr_params->p_off_default;
+  default_v_switch = -m_dialog_tools->m_pr_params->v_switch_default;
+  default_v_recirc = -m_dialog_tools->m_pr_params->v_recirc_default;
 
   // all the connects are in this function
   initConnects();
@@ -80,7 +84,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   ui->label_warning->setText(" ok ! ");
 
   // move the arrow in the drawing to point at the solution 1
-  ui->widget_solutionArrow->setVisible(true);
+  ui->widget_solutionArrow->setVisible(false);
   ui->label_arrowSolution->setText(m_dialog_tools->m_solutionNames->sol1);
   ui->widget_solutionArrow->move(QPoint(400, ui->widget_solutionArrow->pos().ry()));
   //TODO: I don't like the static movement, let's find another solution for it ! 
@@ -442,6 +446,8 @@ void Labonatip_GUI::pushSolution1()
 
 		//m_update_time_s1->stop();
 		m_update_flowing_sliders->stop();
+		ui->widget_solutionArrow->setVisible(false);
+
 		return;
 	}
 
@@ -464,7 +470,7 @@ void Labonatip_GUI::pushSolution1()
 
 	// set the color into the drawing to fit the solution flow 
 	m_gradient_flow->setColorAt(0, m_sol1_color);  // from dark green 
-	m_gradient_flow->setColorAt(1, Qt::white); // to white, alpha value 0 to ensure transparency
+	m_gradient_flow->setColorAt(1, m_sol1_color);// Qt::white); // to white, alpha value 0 to ensure transparency
 	m_pen_line.setColor(m_sol1_color);
 
 	if (m_pipette_active) updateDrawing(m_ppc1->getDropletSizePercentage());
@@ -509,6 +515,8 @@ void Labonatip_GUI::pushSolution2() {
 		}
 
 		m_update_flowing_sliders->stop();
+		ui->widget_solutionArrow->setVisible(false);
+
 		return;
 	}
 	
@@ -532,7 +540,7 @@ void Labonatip_GUI::pushSolution2() {
 
 	// set the color into the drawing to fit the solution flow 
 	m_gradient_flow->setColorAt(0, m_sol2_color);   // from light green 
-	m_gradient_flow->setColorAt(1, Qt::white); // to white, alpha value 0 to ensure transparency
+	m_gradient_flow->setColorAt(1, m_sol2_color);// Qt::white); // to white, alpha value 0 to ensure transparency
 	m_pen_line.setColor(m_sol2_color);
 	
 	if (m_pipette_active) updateDrawing(m_ppc1->getDropletSizePercentage());
@@ -575,6 +583,7 @@ void Labonatip_GUI::pushSolution3() {
 		}
 
 		m_update_flowing_sliders->stop();
+		ui->widget_solutionArrow->setVisible(false);
 
 		return;
 	}
@@ -599,7 +608,7 @@ void Labonatip_GUI::pushSolution3() {
 
 	// set the color into the drawing to fit the solution flow 
 	m_gradient_flow->setColorAt(0, m_sol3_color);  // from orange
-	m_gradient_flow->setColorAt(1, Qt::white);   // to white, alpha value 0 to ensure transparency
+	m_gradient_flow->setColorAt(1, m_sol3_color);// Qt::white);   // to white, alpha value 0 to ensure transparency
 	m_pen_line.setColor(m_sol3_color);
 
 	if (m_pipette_active) updateDrawing(m_ppc1->getDropletSizePercentage());
@@ -642,6 +651,7 @@ void Labonatip_GUI::pushSolution4() {
 		}
 
 		m_update_flowing_sliders->stop();
+		ui->widget_solutionArrow->setVisible(false);
 
 		return;
 	}
@@ -667,7 +677,7 @@ void Labonatip_GUI::pushSolution4() {
 
 	// set the color into the drawing to fit the solution flow 
 	m_gradient_flow->setColorAt(0.0, m_sol4_color);  // from solution 4 preset color
-	m_gradient_flow->setColorAt(1.0, Qt::white); // to white, alpha value 0 to ensure transparency
+	m_gradient_flow->setColorAt(1.0, m_sol4_color);// Qt::white); // to white, alpha value 0 to ensure transparency
 	m_pen_line.setColor(m_sol4_color);
 
 	if (m_pipette_active) updateDrawing(m_ppc1->getDropletSizePercentage());
@@ -693,6 +703,18 @@ void Labonatip_GUI::pushSolution4() {
 	m_timer_solution = 0;
 	m_update_flowing_sliders->start();
 	//setEnableSolutionButtons(false);
+
+}
+
+void Labonatip_GUI::setAsDefault()
+{
+
+	default_pon = ui->horizontalSlider_p_on->value();
+	default_poff = ui->horizontalSlider_p_off->value();
+	default_v_recirc = ui->horizontalSlider_recirculation->value();
+	default_v_switch = ui->horizontalSlider_switch->value();
+
+	updateFlowControlPercentages();
 
 }
 
@@ -786,6 +808,7 @@ void Labonatip_GUI::updateTimingSliders( )
 		}
 		setEnableSolutionButtons(true);
 		_button->setChecked(false);
+		ui->widget_solutionArrow->setVisible(false);
 
 		ui->label_warningIcon->setPixmap(*m_pmap_okIcon);
 		ui->label_warning->setText(" Ok! ");
@@ -796,25 +819,29 @@ void Labonatip_GUI::updateTimingSliders( )
 
 
 void Labonatip_GUI::updateGUI() {
-	float value = roundf(m_ppc1->m_PPC1_data->channel_B->sensor_reading * 100) / 100;  // rounded to second decimal
-	ui->label_switchPressure->setText(QString(QString::number(value) + " mbar"));
-	ui->progressBar_switch->setValue(-value);
-	//ui->horizontalSlider_switch->setValue(-value);
+	float sensor_reading = roundf(m_ppc1->m_PPC1_data->channel_B->sensor_reading );  // rounded to second decimal
+	float set_point = roundf(m_ppc1->m_PPC1_data->channel_B->set_point);
+	ui->label_switchPressure->setText(QString(QString::number(sensor_reading) + " / " + QString::number(set_point) + " mbar"));
+	ui->progressBar_switch->setValue(-sensor_reading);
 
-	value = roundf(m_ppc1->m_PPC1_data->channel_A->sensor_reading * 100) / 100;
-	ui->label_recircPressure->setText(QString(QString::number(value) + " mbar")); 
-	ui->progressBar_recirc->setValue(-value);
-	//ui->horizontalSlider_recirculation->setValue(-value);
 
-	value = roundf(m_ppc1->m_PPC1_data->channel_C->sensor_reading * 100) / 100;
-	ui->label_PoffPressure->setText(QString(QString::number(value) + " mbar"));
-	ui->progressBar_pressure_p_off->setValue(value);
-	//ui->horizontalSlider_1->setValue(value);
+	sensor_reading = roundf(m_ppc1->m_PPC1_data->channel_A->sensor_reading );
+	set_point = roundf(m_ppc1->m_PPC1_data->channel_A->set_point);
+	ui->label_recircPressure->setText(QString(QString::number(sensor_reading) + " / " + QString::number(set_point) + " mbar"));
+	ui->progressBar_recirc->setValue(-sensor_reading);
 
-	value = roundf(m_ppc1->m_PPC1_data->channel_D->sensor_reading * 100) / 100;
-	ui->label_PonPressure->setText(QString(QString::number(value) + " mbar"));
-	ui->progressBar_pressure_p_on->setValue(value);
-	//ui->horizontalSlider_2->setValue(value);
+
+	sensor_reading = roundf(m_ppc1->m_PPC1_data->channel_C->sensor_reading );
+	set_point = roundf(m_ppc1->m_PPC1_data->channel_C->set_point);
+	ui->label_PoffPressure->setText(QString(QString::number(sensor_reading) + " / " + QString::number(set_point) + " mbar"));
+	ui->progressBar_pressure_p_off->setValue(sensor_reading);
+
+
+	sensor_reading = roundf(m_ppc1->m_PPC1_data->channel_D->sensor_reading );
+	set_point = roundf(m_ppc1->m_PPC1_data->channel_D->set_point);
+	ui->label_PonPressure->setText(QString(QString::number(sensor_reading) + " / " + QString::number(set_point) + " mbar"));
+	ui->progressBar_pressure_p_on->setValue(sensor_reading);
+
 
 	ui->lcdNumber_dropletSize_percentage->display(m_ppc1->getDropletSizePercentage());
 	ui->progressBar_dropletSize->setValue(m_ppc1->getDropletSizePercentage());
@@ -925,6 +952,7 @@ void Labonatip_GUI::initConnects()
 	connect(ui->pushButton_solution2, SIGNAL(clicked()), this, SLOT(pushSolution2()));
 	connect(ui->pushButton_solution3, SIGNAL(clicked()), this, SLOT(pushSolution3()));
 	connect(ui->pushButton_solution4, SIGNAL(clicked()), this, SLOT(pushSolution4()));
+	connect(ui->pushButton_setValuesAsDefault, SIGNAL(clicked()), this, SLOT(setAsDefault()));
 
 
 	connect(ui->pushButton_dropSize_minus, SIGNAL(clicked()), this, SLOT(dropletSizeMinus()));
