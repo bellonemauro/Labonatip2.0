@@ -130,11 +130,6 @@ namespace fluicell
 	#define MAX_STREAM_PERIOD 500 //!< in msec
 	#define MIN_PULSE_PERIOD 20 //!< in msec
 
-	// this values are the constants to have 100% droplet size 
-	#define DEFAULT_PON 190 //!< in mbar
-	#define DEFAULT_POFF 21 //!< in mbar
-	#define DEFAULT_VACUUM 115 //!< in mbar (negative value!)
-
 	#define PPC1_VID "16D0"  //!< device vendor ID
 	#define PPC1_PID "083A"  //!< device product ID
 
@@ -217,10 +212,10 @@ namespace fluicell
 
 				channel() : set_point(0.0), sensor_reading(0.0), PID_out_DC(0.0), state(0) {}
 			};
-			channel *channel_A;  //!< vacuum channel A
-			channel *channel_B;  //!< vacuum channel B
-			channel *channel_C;  //!< pressure channel C
-			channel *channel_D;  //!< pressure channel D
+			channel *channel_A;  //!< vacuum channel A   --- V_recirc
+			channel *channel_B;  //!< vacuum channel B   --- V_switch
+			channel *channel_C;  //!< pressure channel C --- P_off
+			channel *channel_D;  //!< pressure channel D --- P_on
 
 			/*	i%u | j%u | k%u | l%u\n where the characters i, j, k and l mark the output channels 8, 7, 6, 5 respectively and %u is 1 when the
 			*		output channel is connected to pressure channel D and 0 when channel C.
@@ -292,10 +287,10 @@ public:
 			*
 			**/
 			int loops;              // number of loops
-			int P_on;               //(int: pressure in mbar) 
-			int P_off;              //(int: pressure in mbar)
-			int V_switch;           //(int: pressure in mbar) 
-			int V_recirc;           //(int: pressure in mbar) 
+			int P_on;               //(int: pressure in mbar) ---- Channel D
+			int P_off;              //(int: pressure in mbar) ---- Channel C
+			int V_switch;           //(int: pressure in mbar) ---- Channel B
+			int V_recirc;           //(int: pressure in mbar) ---- Channel A
 			int Duration;           //duration for the application of the command 
 			bool ask;               //set true to stop execution and ask confirmation to continue
 			string ask_message;     // message to ask if @\param(ask)- is true
@@ -437,6 +432,12 @@ public:
 		bool m_threadTerminationHandler;  //!< set to TRUE to stop the thread, automatically set to false during the thread starting
 		bool m_isRunning; //!< true when the thread is running
 
+	    // this values are the constants to have 100% droplet size 
+		double m_default_pon;   //!< in mbar  -- default value  190.0 mbar
+		double m_default_poff;  //!< in mbar  -- default value   21.0 mbar
+		double m_default_v_recirc;  //!< in mbar (negative value!)  -- default value 115 mbar
+		double m_default_v_switch;  //!< in mbar (negative value!)  -- default value 115 mbar
+
 
 	public:
 
@@ -528,11 +529,12 @@ public:
 			std::this_thread::sleep_for(std::chrono::microseconds(1000));  //--> wait the last execution
 		}
 
-		/** \brief Set a value on the vacuum channel A, admitted values are [-350.0, 0.0] in mbar
+		/** \brief Set a value on the vacuum channel A, admitted values are [-300.0, 0.0] in mbar
 		  *
 		  *
 		  *  Send the string A%f\n to set vacuum on channel A to activate vacuum at a specific value
 		  *
+		  * \note - Channel A correspond to V_switch value
 		  *
 		  *  @param  _value is the set value %f
 		  *
@@ -540,10 +542,12 @@ public:
 		  **/
 		bool setVacuumChannelA(double _value = -0.0);
 
-		/** \brief Set a value on the vacuum channel B, admitted values are [-350.0, 0.0] in mbar
+		/** \brief Set a value on the vacuum channel B, admitted values are [-300.0, 0.0] in mbar
 		  *
 		  *
 		  *  Send the string B%f\n to set vacuum on channel B to activate vacuum at a specific value
+		  *
+		  * \note - Channel B correspond to V_switch value
 		  *
 		  *  @param  _value is the set value %f
 		  *
@@ -551,10 +555,12 @@ public:
 		  **/
 		bool setVacuumChannelB(double _value = -0.0);
 
-		/** \brief Set a value on the pressure channel C, admitted values are [0.0, 500.0] in mbar
+		/** \brief Set a value on the pressure channel C, admitted values are [0.0, 450.0] in mbar
 		  *
 		  *
 		  *  Send the string C%f\n to set pressure on channel C
+		  *
+		  * \note - Channel C correspond to Poff value
 		  *
 		  *  @param  _value is the set value %f
 		  *
@@ -562,10 +568,12 @@ public:
 		  **/
 		bool setPressureChannelC(double _value = 0.0);
 
-		/** \brief Set a value on the pressure channel D, admitted values are [0.0, 500.0] in mbar
+		/** \brief Set a value on the pressure channel D, admitted values are [0.0, 450.0] in mbar
 		  *
 		  *
-		  *  Send the string D%f\n to set pressure on channel D to pressure at a specific value
+		  *  Send the string D%f\n to set pressure on channel D to pressure at a specific value.
+		  *
+		  * \note - Channel D correspond to Pon value
 		  *
 		  *  @param  _value is the set value %f
 		  *
@@ -785,19 +793,41 @@ public:
 		  **/
 		bool setDataStreamPeriod(int _value = 200); //in msec
 
-		/**  Allow to set the COM port name
+		/** \brief Allow to set the COM port name
+		*
 		*  \param  _COMport COM1, COM2, COM_n
 		*
 		*  \note -  there is no actual check on the string, TODO too weak implement!
 		**/
 		void setCOMport(string _COMport = "COM1") { m_COMport = _COMport; }
 
-		/**  Allow to set the baudRate for the specified com port
+		/** \brief Allow to set the baudRate for the specified com port
+		*
 		*  \param  _baud_rate 9600 19200 115200
 		*
 		*  \note -  there is no actual check on the number, TODO too weak implement!
 		**/
 		void setBaudRate(int _baud_rate = 115200) { m_baud_rate = _baud_rate; }
+
+		/** \brief Reset the default values of pressures and vacuum to 100 droplet size
+		*
+		*  \param  m_default_pon  default value of pressures 
+		*  \param  m_default_poff  default value of pressures 
+		*  \param  m_default_v_recirc  default value of vacuum 
+		*  \param  m_default_v_switch  default value of vacuum 
+		*
+		*  \note -  values are in mbar
+		*  \note -  there is no actual check on the numbers, TODO too weak implement!
+		**/
+		void setDefaultPV( double _default_pon = 190.0,
+						   double _default_poff = 21.0,
+		                   double _default_v_recirc = 115.0,
+						   double _default_v_switch = 115.0 ) {
+			m_default_pon = _default_pon;
+			m_default_poff = _default_poff;
+			m_default_v_recirc = _default_v_recirc;
+			m_default_v_switch = _default_v_switch;
+		}
 
 		/**  \brief Get device serial number
 		  *

@@ -10,8 +10,6 @@
 
 #include "Lab-on-a-tip.h"
 
-
-
 void Labonatip_GUI::operationalMode() {
 
 	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
@@ -23,14 +21,11 @@ void Labonatip_GUI::operationalMode() {
 		if (m_ppc1->isConnected()) m_ppc1->closeAllValves();
 	}
 
-	// if the sliders were in the same position, it does not change, so it does not send the command !!! 
-	// so the event slider_changed is not emitted
-	ui->horizontalSlider_recirculation->setValue(default_v_recirc);
-	ui->horizontalSlider_switch->setValue(default_v_switch);  // on slider changed, it send the value to the pumps
-	QThread::sleep(5);
-	ui->horizontalSlider_p_off->setValue(default_poff);
-	ui->horizontalSlider_p_on->setValue(default_pon);
-
+	updateVrecircSetPoint(default_v_recirc);// update the set point
+	updateVswitchSetPoint(default_v_switch);// update the set point
+	if (!visualizeProgressMessage(5, " waiting ... ")) return;
+	updatePoffSetPoint(default_poff);// update the set point
+	updatePonSetPoint(default_pon);// update the set point
 
 	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 
@@ -99,7 +94,6 @@ void Labonatip_GUI::newTip()
 	//Ask: Place the pipette into the holder and tighten.THEN PRESS OK.
 	QMessageBox::information(this, " Information ",
 		"Place the pipette into the holder and tighten.THEN PRESS OK");
-
 	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
 
 														//vf0
@@ -108,61 +102,25 @@ void Labonatip_GUI::newTip()
 	}
 
 	//D0
-	ui->horizontalSlider_p_on->setValue(0);
+	updatePonSetPoint(0.0);
 
 	//C0
-	ui->horizontalSlider_p_off->setValue(0);
+	updatePoffSetPoint(0.0);
 
 	//B0
-	ui->horizontalSlider_switch->setValue(0);
+	updateVswitchSetPoint(0.0);
 
 	//A0
-	ui->horizontalSlider_recirculation->setValue(0);
+	updateVrecircSetPoint(0.0);
 
 	//Wait 5 seconds
-	int counter = 5;
-	QProgressDialog *PD = new QProgressDialog(" Initialization ", "Cancel", 0, counter, this);
-	PD->setMinimumWidth(350);
-	PD->setMinimumHeight(150);
-	PD->show();
-	PD->setValue(counter);
-	PD->setWindowModality(Qt::WindowModal);
-	for (int i = 0; i < counter; i++) {
-		PD->setValue(i);
-		QThread::sleep(1);  //--> wait the last execution
-		if (PD->wasCanceled()) // the operation cannot be cancelled
-		{
-			QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-			QMessageBox::information(this, "Warning !", " Running new tip cancelled  ");
-			setEnableMainWindow(true); 
-			return;
-		}
-	}
-	PD->cancel();
-	//QThread::sleep(5);
+	if (!visualizeProgressMessage(5, " Initialization ")) return;
 
 	//D200
-	ui->horizontalSlider_p_on->setValue(200);
+	updatePonSetPoint(200.0); 
 
 	//Wait 5 seconds
-	//QThread::sleep(5);
-	PD->show();
-	counter = 5;
-	PD->setValue(counter);
-	PD->setLabelText("Pressurize");
-	PD->setWindowModality(Qt::WindowModal);
-	for (int i = 0; i < counter; i++) {
-		PD->setValue(i);
-		QThread::sleep(1);  //--> wait the last execution
-		if (PD->wasCanceled()) // the operation cannot be cancelled
-		{
-			QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-			QMessageBox::information(this, "Warning !", " Running new tip cancelled  ");
-			setEnableMainWindow(true); 
-			return;
-		}
-	}
-	PD->cancel();
+	if (!visualizeProgressMessage(5, " Pressurize ")) return;
 
 	//vff
 	if (m_pipette_active) {
@@ -175,26 +133,8 @@ void Labonatip_GUI::newTip()
 		"wait until a droplet appears at the tip of the pipette and THEN PRESS OK");
 	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
 
-														//Wait 40 seconds
-														//QThread::sleep(40);
-	PD->show();
-	counter = 40;
-	PD->setMaximum(counter);
-	PD->setLabelText("Purging the liquid channels"); 
-	PD->setValue(counter);
-	PD->setWindowModality(Qt::WindowModal);
-	for (int i = 0; i < counter; i++) {
-		PD->setValue(i);
-		QThread::sleep(1);  //--> wait the last execution
-		if (PD->wasCanceled()) // the operation cannot be cancelled
-		{
-			QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-			QMessageBox::information(this, "Warning !", " Running new tip cancelled  ");
-			setEnableMainWindow(true); 
-			return;
-		}
-	}
-	PD->cancel();
+	//Wait 40 seconds
+	if (!visualizeProgressMessage(40, " Purging the liquid channels ")) return;
 
 	//vf0
 	if (m_pipette_active) {
@@ -202,28 +142,10 @@ void Labonatip_GUI::newTip()
 	}
 
 	//D0
-	ui->horizontalSlider_p_on->setValue(0);
+	updatePonSetPoint(0.0);
 
 	//Wait 10 seconds
-	//QThread::sleep(10);
-	PD->show();
-	counter = 10;
-	PD->setMaximum(counter);
-	PD->setLabelText("Purging the vacuum channels");
-	PD->setValue(counter);
-	PD->setWindowModality(Qt::WindowModal);
-	for (int i = 0; i < counter; i++) {
-		PD->setValue(i);
-		QThread::sleep(1);  //--> wait the last execution
-		if (PD->wasCanceled()) // the operation cannot be cancelled
-		{
-			QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-			QMessageBox::information(this, "Warning !", " Running new tip cancelled  ");
-			setEnableMainWindow(true); 
-			return;
-		}
-	}
-	PD->cancel();
+	if (!visualizeProgressMessage(10, " Purging the vacuum channels ")) return;
 
 	//Ask : Remove the droplet using a lens tissue and put the pipette into solution.THEN PRESS OK.
 	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
@@ -233,65 +155,29 @@ void Labonatip_GUI::newTip()
 		"Put the pipette into solution. THEN PRESS OK");
 	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
 
-														//B - 200
-	ui->horizontalSlider_switch->setValue(200);
+	//B - 200
+	updateVswitchSetPoint(200.0); 
 
 	//A - 200
-	ui->horizontalSlider_recirculation->setValue(200);
+	updateVrecircSetPoint(200.0);
 
 	//Wait 90 seconds
-	//QThread::sleep(90);
-	PD->show();
-	counter = 90;
-	PD->setMaximum(counter);
-	PD->setLabelText("Purging the vacuum channels");
-	PD->setValue(counter);
-	PD->setWindowModality(Qt::WindowModal);
-	for (int i = 0; i < counter; i++) {
-		PD->setValue(i);
-		QThread::sleep(1);  //--> wait the last execution
-		if (PD->wasCanceled()) // the operation cannot be cancelled
-		{
-			QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-			QMessageBox::information(this, "Warning !", " Running new tip cancelled  ");
-			setEnableMainWindow(true); 
-			return;
-		}
-	}
-	PD->cancel();
+	if (!visualizeProgressMessage(90, " Purging the vacuum channels ")) return;
 
 	//C21
-	ui->horizontalSlider_p_off->setValue(21);
+	updatePoffSetPoint(21.0);
 
 	//D190
-	ui->horizontalSlider_p_on->setValue(190);
+	updatePoffSetPoint(190.0); 
 
 	//Wait 5 seconds
-	QThread::sleep(5);
-	PD->show();
-	counter = 5;
-	PD->setMaximum(counter);
-	PD->setLabelText("Establishing operational pressures");
-	PD->setValue(counter);
-	PD->setWindowModality(Qt::WindowModal);
-	for (int i = 0; i < counter; i++) {
-		PD->setValue(i);
-		QThread::sleep(1);  //--> wait the last execution
-		if (PD->wasCanceled()) // the operation cannot be cancelled
-		{
-			QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-			QMessageBox::information(this, "Warning !", " Running new tip cancelled  ");
-			setEnableMainWindow(true); 
-			return;
-		}
-	}
-	PD->cancel();
+	if (!visualizeProgressMessage(5, " Purging the vacuum channels ")) return;
 
 	//B - 115
-	ui->horizontalSlider_switch->setValue(115);
+	updateVswitchSetPoint(115);
 
 	//A - 115
-	ui->horizontalSlider_recirculation->setValue(115);
+	updateVrecircSetPoint(115);
 
 	//Ask: Pipette is ready for operation.PRESS OK TO START.
 	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
@@ -352,58 +238,18 @@ void Labonatip_GUI::shutdown() {
 		if (m_pipette_active) {
 			m_ppc1->closeAllValves();
 		}
-		ui->horizontalSlider_p_on->setValue(0);
-		ui->horizontalSlider_p_off->setValue(0);
+		updatePonSetPoint(0.0);
+		updatePoffSetPoint(0.0);
 		
 		//Wait 10 seconds
-		int counter = 10;
-		QProgressDialog *PD = new QProgressDialog(" WRITE A MESSAGE ", "Cancel", 0, counter, this);
-		PD->setMinimumWidth(350);
-		PD->setMinimumHeight(150);
-		PD->show();
-		PD->setValue(counter);
-		PD->setWindowModality(Qt::WindowModal);
-		for (int i = 0; i < counter; i++) {
-			PD->setValue(i);
-			QThread::sleep(1);  //--> wait the last execution
-			if (PD->wasCanceled()) // the operation cannot be cancelled
-			{
-				QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-				QMessageBox::information(this, "Warning !", " Running new tip cancelled  ");
-				setEnableMainWindow(true);
-				return;
-			}
-		}
-		PD->cancel();
+		if (!visualizeProgressMessage(10, " Shutting down ")) return;
+		
+		updateVrecircSetPoint(0.0);
+		updateVswitchSetPoint(0.0);
 
-		//QThread::sleep(10);
-		ui->horizontalSlider_recirculation->setValue(0);
-		ui->horizontalSlider_switch->setValue(0);
-
-
-		counter = 15;
-		PD->show();
-		PD->setMaximum(counter);
-		PD->setLabelText("Set another message");
-		PD->setValue(counter);
-		PD->setWindowModality(Qt::WindowModal);
-		for (int i = 0; i < counter; i++) {
-			PD->setValue(i);
-			QThread::sleep(1);  //--> wait the last execution
-			if (PD->wasCanceled()) // the operation cannot be cancelled
-			{
-				QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-				QMessageBox::information(this, "Warning !", " Running new tip cancelled  ");
-				setEnableMainWindow(true); 
-				return;
-			}
-		}
-		PD->cancel();
-		//QThread::sleep(15);
-		//if (m_pipette_active) {
-		//	m_ppc1->pumpingOff();
-		//}
-
+		//Wait 15 seconds
+		if (!visualizeProgressMessage(15, " Shutting down ")) return; 
+		
 	}
 	else {
 		// do nothing for now
@@ -430,13 +276,44 @@ void Labonatip_GUI::standby()
 	if (m_pipette_active) {
 		m_ppc1->closeAllValves();
 	}
-	ui->horizontalSlider_p_on->setValue(0);
-	ui->horizontalSlider_p_off->setValue(11);
+	updatePonSetPoint(0.0);
+	updatePoffSetPoint(11.0);
 
-	QThread::sleep(5);
-	ui->horizontalSlider_switch->setValue(45);
-	ui->horizontalSlider_recirculation->setValue(45);
+	if (!visualizeProgressMessage(5, " Standby operation progress ")) return;
+	updateVswitchSetPoint(45.0);
+	updateVrecircSetPoint(45.0);
 
+	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
+
+}
+
+
+void Labonatip_GUI::reboot() {
+
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::reboot    " << endl;
+
+	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
+
+	if (m_pipette_active) {
+		disCon(); // with the pipette active this will stop the threads
+		ui->actionSimulation->setChecked(false);
+	
+		m_ppc1->reboot();
+
+		updatePonSetPoint(0.0);
+		updatePoffSetPoint(0.0);
+		updateVrecircSetPoint(0.0);
+		updateVswitchSetPoint(0.0);
+
+		if (!visualizeProgressMessage(200, " Rebooting ... ")) return;
+
+		m_ppc1->connectCOM();
+
+		if (!visualizeProgressMessage(5, " Reconnecting ... ")) return;
+
+		disCon();
+	}
 	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 
 }

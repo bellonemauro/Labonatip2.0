@@ -31,18 +31,10 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	l_y2(l_y1),
 	m_base_time_step(1000),
 	m_flowing_solution(0),
-	m_sol1_color(QColor::fromRgb(189, 62, 71)),
-	m_sol1_color_g05(QColor::fromRgb(200, 100, 110, 255)),
-	m_sol1_color_g1(QColor::fromRgb(220, 150, 150, 255)),
-	m_sol2_color(QColor::fromRgb(96, 115, 158)),
-	m_sol2_color_g05(QColor::fromRgb(130, 155, 195, 255)),
-	m_sol2_color_g1(QColor::fromRgb(156, 195, 229, 255)),
-	m_sol3_color(QColor::fromRgb(193, 130, 50)),
-	m_sol3_color_g05(QColor::fromRgb(255, 180, 85, 255)),
-	m_sol3_color_g1(QColor::fromRgb(255, 225, 120, 255)),
-	m_sol4_color(QColor::fromRgb(83, 155, 81)),
-	m_sol4_color_g05(QColor::fromRgb(120, 240, 120, 255)),
-	m_sol4_color_g1(QColor::fromRgb(150, 240, 150, 255))
+	m_pon_set_point(0.0),
+	m_poff_set_point(0.0),
+	m_v_recirc_set_point(0.0),
+	m_v_switch_set_point(0.0)
 {
   // allows to use path alias
   QDir::setSearchPaths("icons", QStringList(QDir::currentPath() + "/icons/"));
@@ -148,7 +140,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   connect(m_update_GUI, SIGNAL(timeout()), this, SLOT(updateGUI()));
 
   //set color properties rounded progress bars for solution buttons 
-  setGUIbars();
+  //setGUIbars();
 
   //setGUIchart();
   m_labonatip_chart_view = new Labonatip_chart();
@@ -212,43 +204,6 @@ void Labonatip_GUI::showToolsDialog() {
 
 
 
-void Labonatip_GUI::reboot() {
-
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::reboot    " << endl;
-
-	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
-
-	if (m_pipette_active) {
-		disCon(); // with the pipette active this will stop the threads
-		ui->actionSimulation->setChecked(false);
-
-		int counter = 200;
-		QProgressDialog *PD = new QProgressDialog("Rebooting ...", "Cancel", 0, counter, this);
-		PD->show();
-		PD->setWindowModality(Qt::WindowModal);
-		m_ppc1->reboot();
-
-		ui->horizontalSlider_p_on->setValue(0);
-		ui->horizontalSlider_p_off->setValue(0);
-		ui->horizontalSlider_recirculation->setValue(0);
-		ui->horizontalSlider_switch->setValue(0);
-		for (int i = 0; i < counter; i++) {
-			PD->setValue(i);
-            std::this_thread::sleep_for(std::chrono::microseconds(100000));  //--> wait the last execution
-			//if (PD->wasCanceled()) // the operation cannot be cancelled
-				//QMessageBox::information(this, "Warning !", " Reboot cannot be canceled  ");
-		}
-		PD->cancel();
-
-		m_ppc1->connectCOM();
-        std::this_thread::sleep_for(std::chrono::microseconds(500000));  //--> wait the last execution
-
-		disCon();
-	}
-	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-
-}
 
 void Labonatip_GUI::disCon() {
 
@@ -263,73 +218,106 @@ void Labonatip_GUI::disCon() {
 		return;
 	}
 
-	if (!m_ppc1->isRunning()) {
+	try
+	{
 
-		if (!m_ppc1->isConnected())
-			if (!m_ppc1->connectCOM()) { // TODO: this is not good !! this should not be connected always
-				ui->statusBar->showMessage("STATUS: NOT Connected  "); 
-				ui->actionDisCon->setIconText("Connect");
-				ui->actionSimulation->setEnabled(true);
+		if (!m_ppc1->isRunning()) {
+
+			if (!m_ppc1->isConnected())
+				if (!m_ppc1->connectCOM()) { // TODO: this is not good !! this should not be connected always
+					ui->statusBar->showMessage("STATUS: NOT Connected  ");
+					ui->actionDisCon->setIconText("Connect");
+					ui->actionSimulation->setEnabled(true);
+					QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
+					QMessageBox::information(this, "Warning !",
+						"Lab-on-a-tip could not connect to PPC1, \n please check the cable and settings  ");
+					m_pipette_active = false;
+					ui->actionDisCon->setChecked(false);
+					return;
+				}
+			QThread::msleep(500);
+
+			m_ppc1->run();   // TODO: this is not the best way of running the device as it cannot handle exeptions
+			QThread::msleep(500);
+			if (m_ppc1->isRunning()) {
+				m_pipette_active = true;
+				ui->actionDisCon->setChecked(true);
+				m_update_GUI->start();
+				ui->statusBar->showMessage("STATUS: Connected  ");
+				ui->actionDisCon->setIconText("Disconnect");
+				ui->actionSimulation->setEnabled(false);
+			}
+			else {
 				QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 				QMessageBox::information(this, "Warning !",
-					"Lab-on-a-tip could not connect to PPC1, \n please check the cable and settings  ");
+					"Lab-on-a-tip connected but not running on PPC1 ");
+				m_ppc1->stop();
+				m_ppc1->disconnectCOM();
+
 				m_pipette_active = false;
+				ui->statusBar->showMessage("STATUS: NOT Connected  ");
+				ui->actionDisCon->setIconText("Connect");
+				ui->actionSimulation->setEnabled(true);
 				ui->actionDisCon->setChecked(false);
 				return;
 			}
-		QThread::msleep(500);
-
-		m_ppc1->run();
-		QThread::msleep(500);
-		if (m_ppc1->isRunning()) {
-			m_pipette_active = true;
-			ui->actionDisCon->setChecked(true);
-			m_update_GUI->start();
-			ui->statusBar->showMessage("STATUS: Connected  ");
-			ui->actionDisCon->setIconText("Disconnect");
-			ui->actionSimulation->setEnabled(false);
-		}
-		else { 
-			QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-			QMessageBox::information(this, "Warning !",
-				"Lab-on-a-tip connected but not running on PPC1 "); 
+		} // if m_ppc1 not running 
+		else
+		{
 			m_ppc1->stop();
-			m_ppc1->disconnectCOM();
+			QThread::msleep(500);
+			if (m_ppc1->isConnected())
+				m_ppc1->disconnectCOM();
+			QThread::msleep(500);
 
-			m_pipette_active = false;
-			ui->statusBar->showMessage("STATUS: NOT Connected  ");
-			ui->actionDisCon->setIconText("Connect");
-			ui->actionSimulation->setEnabled(true);
-			ui->actionDisCon->setChecked(false);
-			return;
+			if (!m_ppc1->isRunning()) { // verify that it really stopped
+				ui->statusBar->showMessage("STATUS: NOT Connected  ");
+				ui->actionDisCon->setIconText("Connect");
+				m_pipette_active = false;
+				ui->actionSimulation->setEnabled(true);
+			}
+			else {
+				ui->actionDisCon->setChecked(false);
+				m_update_GUI->stop();
+				ui->statusBar->showMessage("STATUS: Connected  ");
+				ui->actionDisCon->setIconText("Disconnect");
+				ui->actionSimulation->setEnabled(false);
+				QMessageBox::information(this, "Warning !",
+					"Unable to stop and disconnect ");
+				QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
+				return;
+			}
 		}
-	} // if m_ppc1 not running 
-	else
-	{		
-		m_ppc1->stop();
-		QThread::msleep(500);
-		if (m_ppc1->isConnected())
-			m_ppc1->disconnectCOM();
-		QThread::msleep(500);
 
-		if (!m_ppc1->isRunning()) { // verify that it really stopped
-			ui->statusBar->showMessage("STATUS: NOT Connected  ");
-			ui->actionDisCon->setIconText("Connect");
-			m_pipette_active = false; 
-			ui->actionSimulation->setEnabled(true);
-		}
-		else {
-			ui->actionDisCon->setChecked(false);
-			m_update_GUI->stop();
-			ui->statusBar->showMessage("STATUS: Connected  ");
-			ui->actionDisCon->setIconText("Disconnect");
-			ui->actionSimulation->setEnabled(false);
-			QMessageBox::information(this, "Warning !",
-				"Unable to stop and disconnect ");
-			QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-			return;
-		}
 	}
+	catch (serial::IOException &e)
+	{
+		cerr << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+			<< " Labonatip_GUI::disCon ::: IOException : " << e.what() << endl;
+		//m_PPC1_serial->close();
+		return;
+	}
+	catch (serial::PortNotOpenedException &e)
+	{
+		cerr << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+			<< " Labonatip_GUI::disCon ::: PortNotOpenedException : " << e.what() << endl;
+		//m_PPC1_serial->close();
+		return;
+	}
+	catch (serial::SerialException &e)
+	{
+		cerr << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+			<< " Labonatip_GUI::disCon ::: SerialException : " << e.what() << endl;
+		//m_PPC1_serial->close();
+		return;
+	}
+	catch (exception &e) {
+		cerr << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+			<< " Labonatip_GUI::disCon ::: Unhandled Exception: " << e.what() << endl;
+		//m_PPC1_serial->close();
+		return;
+	}
+
 
 	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 }
@@ -354,10 +342,10 @@ void Labonatip_GUI::pumpingOff() {
 		m_ppc1->pumpingOff();
 	}
 
-	ui->horizontalSlider_p_on->setValue(0);
-	ui->horizontalSlider_p_off->setValue(0);
-	ui->horizontalSlider_recirculation->setValue(0);
-	ui->horizontalSlider_switch->setValue(0);
+	updatePonSetPoint(0.0);
+	updatePoffSetPoint(0.0);
+	updateVrecircSetPoint(0.0);
+	updateVswitchSetPoint(0.0);
 
 	//this will stop the solution flow 
 	m_timer_solution = std::numeric_limits<int>::max();
@@ -468,11 +456,6 @@ void Labonatip_GUI::pushSolution1()
 		m_update_flowing_sliders->stop();
 	}
 
-	// set the color into the drawing to fit the solution flow 
-	m_gradient_flow->setColorAt(0, m_sol1_color);  // from dark green 
-	m_gradient_flow->setColorAt(1, m_sol1_color);// Qt::white); // to white, alpha value 0 to ensure transparency
-	m_pen_line.setColor(m_sol1_color);
-
 	if (m_pipette_active) updateDrawing(m_ppc1->getDropletSizePercentage());
 	else updateDrawing(ui->horizontalSlider_p_on->value());
 
@@ -538,11 +521,6 @@ void Labonatip_GUI::pushSolution2() {
 
 	m_flowing_solution = 2;
 
-	// set the color into the drawing to fit the solution flow 
-	m_gradient_flow->setColorAt(0, m_sol2_color);   // from light green 
-	m_gradient_flow->setColorAt(1, m_sol2_color);// Qt::white); // to white, alpha value 0 to ensure transparency
-	m_pen_line.setColor(m_sol2_color);
-	
 	if (m_pipette_active) updateDrawing(m_ppc1->getDropletSizePercentage());
 	else updateDrawing(ui->horizontalSlider_p_on->value());
 
@@ -605,11 +583,6 @@ void Labonatip_GUI::pushSolution3() {
 	}
 
 	m_flowing_solution = 3;
-
-	// set the color into the drawing to fit the solution flow 
-	m_gradient_flow->setColorAt(0, m_sol3_color);  // from orange
-	m_gradient_flow->setColorAt(1, m_sol3_color);// Qt::white);   // to white, alpha value 0 to ensure transparency
-	m_pen_line.setColor(m_sol3_color);
 
 	if (m_pipette_active) updateDrawing(m_ppc1->getDropletSizePercentage());
 	else updateDrawing(ui->horizontalSlider_p_on->value());
@@ -675,11 +648,6 @@ void Labonatip_GUI::pushSolution4() {
 
 	m_flowing_solution = 4;
 
-	// set the color into the drawing to fit the solution flow 
-	m_gradient_flow->setColorAt(0.0, m_sol4_color);  // from solution 4 preset color
-	m_gradient_flow->setColorAt(1.0, m_sol4_color);// Qt::white); // to white, alpha value 0 to ensure transparency
-	m_pen_line.setColor(m_sol4_color);
-
 	if (m_pipette_active) updateDrawing(m_ppc1->getDropletSizePercentage());
 	else updateDrawing(ui->horizontalSlider_p_on->value());
 
@@ -715,6 +683,9 @@ void Labonatip_GUI::setAsDefault()
 	default_v_switch = ui->horizontalSlider_switch->value();
 
 	updateFlowControlPercentages();
+
+	if (m_ppc1)
+		m_ppc1->setDefaultPV(default_pon, default_poff, default_v_recirc, default_v_switch);
 
 }
 
@@ -819,26 +790,26 @@ void Labonatip_GUI::updateTimingSliders( )
 
 
 void Labonatip_GUI::updateGUI() {
-	float sensor_reading = roundf(m_ppc1->m_PPC1_data->channel_B->sensor_reading );  // rounded to second decimal
-	float set_point = roundf(m_ppc1->m_PPC1_data->channel_B->set_point);
+	float sensor_reading = (m_ppc1->m_PPC1_data->channel_B->sensor_reading );  // rounded to second decimal
+	float set_point = (m_ppc1->m_PPC1_data->channel_B->set_point);
 	ui->label_switchPressure->setText(QString(QString::number(sensor_reading) + " / " + QString::number(set_point) + " mbar"));
 	ui->progressBar_switch->setValue(-sensor_reading);
 
 
-	sensor_reading = roundf(m_ppc1->m_PPC1_data->channel_A->sensor_reading );
-	set_point = roundf(m_ppc1->m_PPC1_data->channel_A->set_point);
+	sensor_reading = (m_ppc1->m_PPC1_data->channel_A->sensor_reading );
+	set_point = (m_ppc1->m_PPC1_data->channel_A->set_point);
 	ui->label_recircPressure->setText(QString(QString::number(sensor_reading) + " / " + QString::number(set_point) + " mbar"));
 	ui->progressBar_recirc->setValue(-sensor_reading);
 
 
-	sensor_reading = roundf(m_ppc1->m_PPC1_data->channel_C->sensor_reading );
-	set_point = roundf(m_ppc1->m_PPC1_data->channel_C->set_point);
+	sensor_reading = (m_ppc1->m_PPC1_data->channel_C->sensor_reading );
+	set_point = (m_ppc1->m_PPC1_data->channel_C->set_point);
 	ui->label_PoffPressure->setText(QString(QString::number(sensor_reading) + " / " + QString::number(set_point) + " mbar"));
 	ui->progressBar_pressure_p_off->setValue(sensor_reading);
 
 
-	sensor_reading = roundf(m_ppc1->m_PPC1_data->channel_D->sensor_reading );
-	set_point = roundf(m_ppc1->m_PPC1_data->channel_D->set_point);
+	sensor_reading = (m_ppc1->m_PPC1_data->channel_D->sensor_reading );
+	set_point = (m_ppc1->m_PPC1_data->channel_D->set_point);
 	ui->label_PonPressure->setText(QString(QString::number(sensor_reading) + " / " + QString::number(set_point) + " mbar"));
 	ui->progressBar_pressure_p_on->setValue(sensor_reading);
 
@@ -1030,82 +1001,82 @@ void Labonatip_GUI::toolApply()
 
 void Labonatip_GUI::setGUIbars() {
 
-	QPalette p1;
-	p1.setBrush(QPalette::AlternateBase, Qt::black);
-	p1.setColor(QPalette::Text, Qt::yellow);
-	QPalette p2(p1);
-	p2.setBrush(QPalette::Base, Qt::transparent);
-	p2.setColor(QPalette::Text, Qt::transparent);
-	p2.setColor(QPalette::Shadow, Qt::transparent);
+	//QPalette p1;
+	//p1.setBrush(QPalette::AlternateBase, Qt::black);
+	//p1.setColor(QPalette::Text, Qt::yellow);
+	//QPalette p2(p1);
+	//p2.setBrush(QPalette::Base, Qt::transparent);
+	//p2.setColor(QPalette::Text, Qt::transparent);
+	//p2.setColor(QPalette::Shadow, Qt::transparent);
 
 	// set a gradient for solution 1
-	QGradientStops gradientPoints_sol1;
-	gradientPoints_sol1 << QGradientStop(0.0, m_sol1_color)
-		<< QGradientStop(0.5, m_sol1_color_g1)
-		<< QGradientStop(1.0, m_sol1_color_g1);
+	//QGradientStops gradientPoints_sol1;
+	//gradientPoints_sol1 << QGradientStop(0.0, m_sol1_color)
+	//	<< QGradientStop(0.5, m_sol1_color_g1)
+	//	<< QGradientStop(1.0, m_sol1_color_g1);
 	// set a gradient for solution 2
-	QGradientStops gradientPoints_sol2;
-	gradientPoints_sol2 << QGradientStop(0.0, m_sol2_color)
-		<< QGradientStop(0.5, m_sol2_color_g1)
-		<< QGradientStop(1.0, m_sol2_color_g1);
+	//QGradientStops gradientPoints_sol2;
+	//gradientPoints_sol2 << QGradientStop(0.0, m_sol2_color)
+	//	<< QGradientStop(0.5, m_sol2_color_g1)
+	//	<< QGradientStop(1.0, m_sol2_color_g1);
 	// set a gradient for solution 3
-	QGradientStops gradientPoints_sol3;
-	gradientPoints_sol3 << QGradientStop(0.0, m_sol3_color)
-		<< QGradientStop(0.5, m_sol3_color_g05)
-		<< QGradientStop(1.0, m_sol3_color_g1);
+	//QGradientStops gradientPoints_sol3;
+	//gradientPoints_sol3 << QGradientStop(0.0, m_sol3_color)
+	//	<< QGradientStop(0.5, m_sol3_color_g05)
+	//	<< QGradientStop(1.0, m_sol3_color_g1);
 	// set a gradient for solution 4
-	QGradientStops gradientPoints_sol4;
-	gradientPoints_sol4 << QGradientStop(0.0, m_sol4_color)
-		<< QGradientStop(0.5, m_sol4_color_g05)
-		<< QGradientStop(1.0, m_sol4_color_g1);
+	//QGradientStops gradientPoints_sol4;
+	//gradientPoints_sol4 << QGradientStop(0.0, m_sol4_color)
+	//	<< QGradientStop(0.5, m_sol4_color_g05)
+	//	<< QGradientStop(1.0, m_sol4_color_g1);
 
 	// set the round progress bars for solution 1
-	ui->widget_sol1->setFormat("%p");
-	ui->widget_sol1->setDecimals(0);
-	ui->widget_sol1->setPalette(p2);
-	ui->widget_sol1->setBarStyle(QRoundProgressBar::StylePie);
-	ui->widget_sol1->setOutlinePenWidth(0);
-	ui->widget_sol1->setDataPenWidth(0);
-	ui->widget_sol1->setDataColors(gradientPoints_sol1);
+	//ui->widget_sol1->setFormat("%p");
+	//ui->widget_sol1->setDecimals(0);
+	//ui->widget_sol1->setPalette(p2);
+	//ui->widget_sol1->setBarStyle(QRoundProgressBar::StylePie);
+	//ui->widget_sol1->setOutlinePenWidth(0);
+	//ui->widget_sol1->setDataPenWidth(0);
+	//ui->widget_sol1->setDataColors(gradientPoints_sol1);
 	//ui->widget_sol1->setRange(ui->horizontalSlider_1->minimum(), ui->horizontalSlider_1->maximum());
-	ui->widget_sol1->setRange(0, 100);
-	ui->widget_sol1->setValue(ui->horizontalSlider_p_on->value());
+	//ui->widget_sol1->setRange(0, 100);
+	//ui->widget_sol1->setValue(ui->horizontalSlider_p_on->value());
 
 	// set the round progress bars for solution 2
-	ui->widget_sol2->setFormat("%p");
-	ui->widget_sol2->setDecimals(0);
-	ui->widget_sol2->setPalette(p2);
-	ui->widget_sol2->setBarStyle(QRoundProgressBar::StylePie);
-	ui->widget_sol2->setOutlinePenWidth(0);
-	ui->widget_sol2->setDataPenWidth(0);
-	ui->widget_sol2->setDataColors(gradientPoints_sol2);
+	//ui->widget_sol2->setFormat("%p");
+	//ui->widget_sol2->setDecimals(0);
+	//ui->widget_sol2->setPalette(p2);
+	//ui->widget_sol2->setBarStyle(QRoundProgressBar::StylePie);
+	//ui->widget_sol2->setOutlinePenWidth(0);
+	//ui->widget_sol2->setDataPenWidth(0);
+	//ui->widget_sol2->setDataColors(gradientPoints_sol2);
 	//ui->widget_sol2->setRange(ui->horizontalSlider_1->minimum(), ui->horizontalSlider_1->maximum());
-	ui->widget_sol4->setRange(0, 100); 
-	ui->widget_sol2->setValue(ui->horizontalSlider_p_on->value());
+	//ui->widget_sol4->setRange(0, 100); 
+	//ui->widget_sol2->setValue(ui->horizontalSlider_p_on->value());
 
 	// set the round progress bars for solution 3
-	ui->widget_sol3->setFormat("%p");
-	ui->widget_sol3->setDecimals(0);
-	ui->widget_sol3->setPalette(p2);
-	ui->widget_sol3->setBarStyle(QRoundProgressBar::StylePie);
-	ui->widget_sol3->setOutlinePenWidth(0);
-	ui->widget_sol3->setDataPenWidth(0);
-	ui->widget_sol3->setDataColors(gradientPoints_sol3);
+	//ui->widget_sol3->setFormat("%p");
+	//ui->widget_sol3->setDecimals(0);
+	//ui->widget_sol3->setPalette(p2);
+	//ui->widget_sol3->setBarStyle(QRoundProgressBar::StylePie);
+	//ui->widget_sol3->setOutlinePenWidth(0);
+	//ui->widget_sol3->setDataPenWidth(0);
+	//ui->widget_sol3->setDataColors(gradientPoints_sol3);
 	//ui->widget_sol3->setRange(ui->horizontalSlider_1->minimum(), ui->horizontalSlider_1->maximum());
-	ui->widget_sol3->setRange(0, 100);
-	ui->widget_sol3->setValue(ui->horizontalSlider_p_on->value());
+	//ui->widget_sol3->setRange(0, 100);
+	//ui->widget_sol3->setValue(ui->horizontalSlider_p_on->value());
 
 	// set the round progress bars for solution 4
-	ui->widget_sol4->setFormat("%p");
-	ui->widget_sol4->setDecimals(0);
-	ui->widget_sol4->setPalette(p2);
-	ui->widget_sol4->setBarStyle(QRoundProgressBar::StylePie);
-	ui->widget_sol4->setOutlinePenWidth(0);
-	ui->widget_sol4->setDataPenWidth(0);
-	ui->widget_sol4->setDataColors(gradientPoints_sol4);
+	//ui->widget_sol4->setFormat("%p");
+	//ui->widget_sol4->setDecimals(0);
+	//ui->widget_sol4->setPalette(p2);
+	//ui->widget_sol4->setBarStyle(QRoundProgressBar::StylePie);
+	//ui->widget_sol4->setOutlinePenWidth(0);
+	//ui->widget_sol4->setDataPenWidth(0);
+	//ui->widget_sol4->setDataColors(gradientPoints_sol4);
 	//ui->widget_sol4->setRange(ui->horizontalSlider_1->minimum(), ui->horizontalSlider_1->maximum());
-	ui->widget_sol4->setRange(0, 100);
-	ui->widget_sol4->setValue(ui->horizontalSlider_p_on->value());
+	//ui->widget_sol4->setRange(0, 100);
+	//ui->widget_sol4->setValue(ui->horizontalSlider_p_on->value());
 
 }
 
@@ -1138,6 +1109,35 @@ void Labonatip_GUI::simulationOnly()
 	else ui->treeWidget_macroInfo->topLevelItem(0)->setText(1, "PPC1");
 
 }
+
+
+bool Labonatip_GUI::visualizeProgressMessage(int _seconds, QString _message)
+{
+	QProgressDialog *PD = new QProgressDialog(_message, "Cancel", 0, _seconds, this);
+	PD->setMinimumWidth(350);
+	PD->setMinimumHeight(150);
+	PD->setValue(0); 
+	PD->setMinimumDuration(0); // Change the Minimum Duration before displaying from 4 sec. to 0 sec. 
+	PD->show(); // Make sure dialog is displayed immediately
+	PD->setValue(1); 
+	PD->setWindowModality(Qt::WindowModal);
+	for (int i = 0; i < _seconds; i++) {
+		PD->setValue(i);
+		QThread::sleep(1);  
+		if (PD->wasCanceled()) // the operation cannot be cancelled
+		{
+			QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
+			QMessageBox::information(this, "Warning !", " Operation cancelled  ");
+			setEnableMainWindow(true);
+			return false;
+		}
+	}
+	PD->cancel();
+	return true;
+
+}
+
+
 
 void Labonatip_GUI::ewst() {
 
@@ -1227,6 +1227,8 @@ void Labonatip_GUI::setVersion(string _version) {
 	m_version = QString::fromStdString(_version);
 	this->setWindowTitle(QString("Lab-on-a-tip v.") + m_version);
 }
+
+
 
 Labonatip_GUI::~Labonatip_GUI ()
 {

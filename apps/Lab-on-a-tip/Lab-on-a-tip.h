@@ -86,9 +86,35 @@ public:
 
 	void setVersion(string _version);
 
+	/** \brief This function is called when the down arrow on Pon is called
+	*        it decreases the pressure on Pon, it does not accept out-of-range
+	*
+	* \note
+	*/
+	void updatePonSetPoint(double _pon_set_point);
 
+	/** \brief This function is called when the down arrow on Pon is called
+	*        it decreases the pressure on Pon, it does not accept out-of-range
+	*
+	* \note
+	*/
+	void updatePoffSetPoint(double _poff_set_point);
 
-	private slots:
+	/** \brief This function is called when the down arrow on Pon is called
+	*        it decreases the pressure on Pon, it does not accept out-of-range
+	*
+	* \note
+	*/
+	void updateVrecircSetPoint(double _v_recirc_set_point);
+
+	/** \brief This function is called when the down arrow on Pon is called
+	*        it decreases the pressure on Pon, it does not accept out-of-range
+	*
+	* \note
+	*/
+	void updateVswitchSetPoint(double _v_switch_set_point);
+
+private slots:
 
 	/** \brief open a file
 	  * TODO : - this is just a support for the future, still not used
@@ -397,6 +423,10 @@ public:
 	*/
 	void simulationOnly();
 
+	/** \brief Visualize a message and a progress bar 
+	* \note
+	*/
+	bool visualizeProgressMessage(int _seconds, QString _message = " no message ");
 
 	/** \brief  Enter what's this mode
 	  * \note
@@ -482,32 +512,18 @@ private:
   const float l_x2;                   //x-coordinate of the line ending point, value = 55.0  
   const float l_y2;                   //y-coordinate of the line ending point, value = l_y1
 
-  // set all the GUI colors for solutions and gradients
-  // NOTE: colors are not supposed to be set manually
-  const QColor m_sol1_color;      //!< my solution 1 color
-  const QColor m_sol1_color_g05;  //!< my solution 1 gradient color - first level
-  const QColor m_sol1_color_g1;   //!< my solution 1 gradient color - second level
-  
-  const QColor m_sol2_color;      //!< my solution 2 color
-  const QColor m_sol2_color_g05;  //!< my solution 2 gradient color - first level
-  const QColor m_sol2_color_g1;   //!< my solution 2 gradient color - second level
-
-  const QColor m_sol3_color;      //!< my solution 3 color
-  const QColor m_sol3_color_g05;  //!< my solution 3 gradient color - first level
-  const QColor m_sol3_color_g1;   //!< my solution 3 gradient color - second level
-
-  const QColor m_sol4_color;      //!< my solution 4 color
-  const QColor m_sol4_color_g05;  //!< my solution 4 gradient color - first level
-  const QColor m_sol4_color_g1;   //!< my solution 4 gradient color - second level
-
   // objects for the chart
   QtCharts::QChartView *m_chartView;
   Labonatip_chart *m_labonatip_chart_view;
 
-  int default_pon;
-  int default_poff;
-  int default_v_recirc;
-  int default_v_switch;
+  double default_pon;
+  double default_poff;
+  double default_v_recirc;
+  double default_v_switch;
+  double m_pon_set_point;
+  double m_poff_set_point;
+  double m_v_recirc_set_point;
+  double m_v_switch_set_point;
 
 
   QString m_version;

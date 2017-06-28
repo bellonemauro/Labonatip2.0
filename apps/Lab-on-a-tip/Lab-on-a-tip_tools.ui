@@ -722,7 +722,7 @@
                </column>
                <column>
                 <property name="text">
-                 <string>Flow nL/s</string>
+                 <string>Flow uL/s</string>
                 </property>
                </column>
                <column>
