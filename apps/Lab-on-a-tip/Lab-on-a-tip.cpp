@@ -1113,7 +1113,12 @@ void Labonatip_GUI::simulationOnly()
 
 bool Labonatip_GUI::visualizeProgressMessage(int _seconds, QString _message)
 {
-	QProgressDialog *PD = new QProgressDialog(_message, "Cancel", 0, _seconds, this);
+	QString msg = _message;
+	msg.append("<br> This operation will take ");
+	msg.append(QString::number(_seconds));
+	msg.append(" seconds ");
+
+	QProgressDialog *PD = new QProgressDialog(msg, "Cancel", 0, _seconds, this);
 	PD->setMinimumWidth(350);
 	PD->setMinimumHeight(150);
 	PD->setValue(0); 
