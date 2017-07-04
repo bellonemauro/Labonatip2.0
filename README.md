@@ -63,11 +63,11 @@ to build the package in windows : windeployqt yourfile.exe
 CMake --> configure --> generate 
 
 Add a screenshot
-![alt text](https://github.com/bellonemauro/Labonatip2.0/blob/master/apps/Lab-on-a-tip/icons/fluicell_logo_BIG.png = 100x50)
-![alt text](https://github.com/bellonemauro/Labonatip2.0/blob/master/apps/Lab-on-a-tip/icons/fluicell_logo_BIG.png = 100x50)
-![alt text](https://github.com/bellonemauro/Labonatip2.0/blob/master/apps/Lab-on-a-tip/icons/fluicell_logo_BIG.png = 100x50)
-![alt text](https://github.com/bellonemauro/Labonatip2.0/blob/master/apps/Lab-on-a-tip/icons/fluicell_logo_BIG.png = 100x50)
-
+![](https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipUbuntu1.png )
+![](https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipUbuntu2.png )
+![](https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipUbuntu3.png )
+![](https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipUbuntu4.png )
+![](https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipWin.png)
 
 TODO
 
