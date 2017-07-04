@@ -1,7 +1,7 @@
 /*  +---------------------------------------------------------------------------+
 *  |                                                                           |
-*  |  Fluicell AB - Lab-on-a-tip                                               |
-*  |  Copyright 2017 © Fluicell AB, http://fluicell.com/                       |
+*  | Fluicell AB, http://fluicell.com/                                         |
+*  | Lab-on-a-tip 2.0                                                          |
 *  |                                                                           |
 *  | Authors: Mauro Bellone - http://www.maurobellone.com                      |
 *  | Released under GNU GPL License.                                           |
@@ -163,22 +163,31 @@ void Labonatip_tools::addMacroCommand()
 {
 	QTreeWidgetItem *newItem = new QTreeWidgetItem;
 	createNewCommand(*newItem);
+	QComboBox *comboBox = new QComboBox(this);
+	comboBox->addItems(QStringList() << "setPON" << "setPOFF" << "setSwitch" << "setRecirculation"
+		<< "solution1" << "solution2" << "solution3" << "solution4"
+		<< "allOff" << "pumpsOff" << "valve (valvestate)" << "waitSync" << "syncOut");
+	
 
 	if (ui_tools->treeWidget_macroTable->topLevelItemCount() < 1 || 
 		!ui_tools->treeWidget_macroTable->currentIndex().isValid()) {
-		
-		ui_tools->treeWidget_macroTable->insertTopLevelItem(0, newItem);
+			ui_tools->treeWidget_macroTable->insertTopLevelItem(0, newItem);
+			ui_tools->treeWidget_macroTable->setItemWidget(newItem, 12, comboBox);
 		return;
 	}
 	else {
 		int row = ui_tools->treeWidget_macroTable->currentIndex().row();
 		QTreeWidgetItem *parent = ui_tools->treeWidget_macroTable->currentItem()->parent();
 		
-		if (ui_tools->treeWidget_macroTable->currentItem()->parent()) 
-			parent->insertChild(row+1,newItem);
-		else 
+		if (ui_tools->treeWidget_macroTable->currentItem()->parent()) {
+			parent->insertChild(row + 1, newItem);
+			ui_tools->treeWidget_macroTable->setItemWidget(newItem, 12, comboBox);
+		}
+		else {
 			ui_tools->treeWidget_macroTable->insertTopLevelItem(row + 1, newItem);
-
+			ui_tools->treeWidget_macroTable->setItemWidget(newItem, 12, comboBox);
+		}
+			
 		return;
 	}
 
@@ -524,6 +533,9 @@ void Labonatip_tools::createNewCommand(QTreeWidgetItem & _command)
 	_command.setText(10, "questions?"); // ask message 
 	_command.setText(11, "go science !!!"); // status message
 	_command.setFlags(_command.flags() | (Qt::ItemIsEditable));
+	_command.setText(12, "Command"); // 
+	_command.setText(13, "Value"); // 
+
 }
 
 

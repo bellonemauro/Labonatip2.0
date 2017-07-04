@@ -1,17 +1,18 @@
 /*  +---------------------------------------------------------------------------+
- *  |                                                                           |
- *  |  Fluicell AB - Lab-on-a-tip                                               |
- *  |  Copyright 2017 © Fluicell AB, http://fluicell.com/                       |
- *  |                                                                           |
- *  | Authors: Mauro Bellone - http://www.maurobellone.com                      |
- *  | Released under GNU GPL License.                                           |
- *  +---------------------------------------------------------------------------+ */
+*  |                                                                           |
+*  | Fluicell AB, http://fluicell.com/                                         |
+*  | PPC1 API                                                                  |
+*  |                                                                           |
+*  | Authors: Mauro Bellone - http://www.maurobellone.com                      |
+*  | Released under GNU GPL License.                                           |
+*  +---------------------------------------------------------------------------+ */
 
 #include "fluicell/ppc1api/ppc1api.h"
 #include <iomanip>
 
 fluicell::PPC1api::PPC1api() :
-	m_PPC1_data(new PPC1_data)
+	m_PPC1_data(new PPC1_data),
+	m_verbose(false)
 {
 	// initialize and connect serial port objects
 	m_PPC1_serial = new serial::Serial();
@@ -41,7 +42,7 @@ void fluicell::PPC1api::threadSerial()
 		m_isRunning = true;
 		while (!m_threadTerminationHandler)
 		{
-//			cout << " thread running " << endl;
+//			if(m_verbose) cout << " thread running " << endl;
 			if(my_mutex.try_lock())
 			{
 				string data;
@@ -304,12 +305,12 @@ bool fluicell::PPC1api::connectCOM()
 			return false;
 		}
 
-		//cout << "Is the port open?";
+		// "Is the port open?";
 		if (m_PPC1_serial->isOpen())
-			//cout << " Serial Port already open" << endl;
+			//if(m_verbose) cout << " Serial Port already open" << endl;
 			std::this_thread::sleep_for(std::chrono::microseconds(100));  //--> do nothing, wait
 		else {
-			//cout << " Serial port not open, opening . . ." << endl;
+			//if(m_verbose) cout << " Serial port not open, opening . . ." << endl;
 			m_PPC1_serial->open();
             std::this_thread::sleep_for(std::chrono::microseconds(100));  
 		}
@@ -608,10 +609,11 @@ bool fluicell::PPC1api::setRuntimeTimeout(int _value)
 }
 
 
-bool fluicell::PPC1api::increaseDropletSize()
+bool fluicell::PPC1api::increaseDropletSize(double _percentage)
 {
-	double value = m_PPC1_data->channel_A->set_point + m_default_v_recirc * 0.025; // decrease A by 2.5%
-	cout << currentDateTime()
+	double percentage = _percentage / 100.0;
+	double value = m_PPC1_data->channel_A->set_point + m_default_v_recirc * percentage; // decrease A by 2.5%
+	if(m_verbose) cout << currentDateTime()
 		<< "fluicell::PPC1api::increaseDropletSize" << " new recirculation value << " << value << " >> " << endl;
 	if (value <= MIN_CHAN_A || value >= MAX_CHAN_A)
 		return false; // out of bound
@@ -635,10 +637,11 @@ bool fluicell::PPC1api::increaseDropletSize()
 	return true;
 }
 
-bool fluicell::PPC1api::decreaseDropletSize()
+bool fluicell::PPC1api::decreaseDropletSize(double _percentage)
 {
-	double value = m_PPC1_data->channel_A->set_point - m_default_v_recirc * 0.025;// increase A by 2.5% with respect to the default value
-	cout << currentDateTime()
+	double percentage = _percentage / 100.0;
+	double value = m_PPC1_data->channel_A->set_point - m_default_v_recirc * percentage;// increase A by 2.5% with respect to the default value
+	if(m_verbose) cout << currentDateTime()
 		<< "fluicell::PPC1api::decreaseDropletSize" << " new recirculation value << " << value << " >> " << endl;
 	if (value <= MIN_CHAN_A || value >= MAX_CHAN_A)
 		return false; // out of bound
@@ -649,7 +652,7 @@ bool fluicell::PPC1api::decreaseDropletSize()
 	std::this_thread::sleep_for(std::chrono::microseconds(10000)); // wait 10msec
 	
 	value = m_PPC1_data->channel_D->set_point - m_default_pon * 0.025;
-	cout << currentDateTime()
+	if(m_verbose) cout << currentDateTime()
 		<< "fluicell::PPC1api::decreaseDropletSize" << " new pon value << " << value << " >> " << endl;
 	if (value <= MIN_CHAN_D || value >= MAX_CHAN_D)
 		return false; // out of bound
@@ -674,10 +677,11 @@ double fluicell::PPC1api::getDropletSizePercentage()
 	return mean_percentage;
 }
 
-bool fluicell::PPC1api::increaseFlowspeed()
+bool fluicell::PPC1api::increaseFlowspeed(double _percentage)
 {
-	double value = m_PPC1_data->channel_A->set_point - m_default_v_recirc * 0.05;
-	cout << currentDateTime()
+	double percentage = _percentage / 100.0;
+	double value = m_PPC1_data->channel_A->set_point - m_default_v_recirc * percentage;
+	if(m_verbose) cout << currentDateTime()
 		<< "fluicell::PPC1api::increaseFlowspeed" << " new recirculation value << " << value << " >> " << endl;
 	if (value <= MIN_CHAN_A || value >= MAX_CHAN_A)
 		return false; // out of bound
@@ -688,7 +692,7 @@ bool fluicell::PPC1api::increaseFlowspeed()
 	std::this_thread::sleep_for(std::chrono::microseconds(10000)); // wait 10msec
 	
 	value = m_PPC1_data->channel_B->set_point - m_default_v_switch * 0.05;
-	cout << currentDateTime()
+	if(m_verbose) cout << currentDateTime()
 		<< "fluicell::PPC1api::increaseFlowspeed" << " new switch value << " << value << " >> " << endl;
 	if (value <= MIN_CHAN_B || value >= MAX_CHAN_B)
 		return false; // out of bound
@@ -699,7 +703,7 @@ bool fluicell::PPC1api::increaseFlowspeed()
 	std::this_thread::sleep_for(std::chrono::microseconds(10000)); // wait 10msec
 	
 	value = m_PPC1_data->channel_C->set_point + m_default_poff * 0.05;
-	cout << currentDateTime()
+	if(m_verbose) cout << currentDateTime()
 		<< "fluicell::PPC1api::increaseFlowspeed" << " new poff value << " << value << " >> " << endl;
 	if (value <= MIN_CHAN_C || value >= MAX_CHAN_C)
 		return false; // out of bound
@@ -710,7 +714,7 @@ bool fluicell::PPC1api::increaseFlowspeed()
 	std::this_thread::sleep_for(std::chrono::microseconds(10000)); // wait 10msec
 	
 	value = m_PPC1_data->channel_D->set_point + m_default_pon * 0.05;
-	cout << currentDateTime()
+	if(m_verbose) cout << currentDateTime()
 		<< "fluicell::PPC1api::increaseFlowspeed" << " new pon value << " << value << " >> " << endl;
 	if (value <= MIN_CHAN_D || value >= MAX_CHAN_D)
 		return false; // out of bound
@@ -723,11 +727,12 @@ bool fluicell::PPC1api::increaseFlowspeed()
 	return true;
 }
 
-bool fluicell::PPC1api::decreaseFlowspeed()
+bool fluicell::PPC1api::decreaseFlowspeed(double _percentage)
 {
-	double value = m_PPC1_data->channel_A->set_point + m_default_v_recirc * 0.05;
+	double percentage = _percentage / 100.0; 
+	double value = m_PPC1_data->channel_A->set_point + m_default_v_recirc * percentage;
 
-	cout << currentDateTime()
+	if(m_verbose) cout << currentDateTime()
 		<< "fluicell::PPC1api::decreaseFlowspeed" << " new recirculation value << " << value << " >> " << endl;
 	if (value <= MIN_CHAN_A || value >= MAX_CHAN_A)
 		return false; // out of bound
@@ -738,7 +743,7 @@ bool fluicell::PPC1api::decreaseFlowspeed()
 	std::this_thread::sleep_for(std::chrono::microseconds(10000)); // wait 10msec
 	
 	value = m_PPC1_data->channel_B->set_point + m_default_v_switch * 0.05;
-	cout << currentDateTime()
+	if(m_verbose) cout << currentDateTime()
 		<< "fluicell::PPC1api::decreaseFlowspeed" << " new switch value << " << value << " >> " << endl;
 	if (value <= MIN_CHAN_B || value >= MAX_CHAN_B)
 		return false; // out of bound
@@ -749,7 +754,7 @@ bool fluicell::PPC1api::decreaseFlowspeed()
 	std::this_thread::sleep_for(std::chrono::microseconds(10000)); // wait 10msec
 	
 	value = m_PPC1_data->channel_C->set_point - m_default_poff * 0.05;
-	cout << currentDateTime()
+	if(m_verbose) cout << currentDateTime()
 		<< "fluicell::PPC1api::decreaseFlowspeed" << " new poff value << " << value << " >> " << endl;
 	if (value <= MIN_CHAN_C || value >= MAX_CHAN_C)
 		return false; // out of bound
@@ -760,7 +765,7 @@ bool fluicell::PPC1api::decreaseFlowspeed()
 	std::this_thread::sleep_for(std::chrono::microseconds(10000)); // wait 10msec
 	
 	value = m_PPC1_data->channel_D->set_point - m_default_pon * 0.05;
-	cout << currentDateTime()
+	if(m_verbose) cout << currentDateTime()
 		<< "fluicell::PPC1api::decreaseFlowspeed" << " new pon value << " << value << " >> " << endl;
 	if (value <= MIN_CHAN_D || value >= MAX_CHAN_D)
 		return false; // out of bound
@@ -789,11 +794,12 @@ double fluicell::PPC1api::getFlowSpeedPercentage()
 	return mean_percentage;
 }
 
-bool fluicell::PPC1api::increaseVacuum5p()
+bool fluicell::PPC1api::increaseVacuum(double _percentage)
 {
-	double value = m_PPC1_data->channel_A->set_point - m_default_v_recirc * 0.05;
+	double percentage = _percentage / 100.0; 
+	double value = m_PPC1_data->channel_A->set_point - m_default_v_recirc * percentage;
 
-	cout << currentDateTime()
+	if(m_verbose) cout << currentDateTime()
 		<< "fluicell::PPC1api::increaseVacuum5p" << " new recirculation value << " << value << " >> " << endl;
 
 	if (value <= MIN_CHAN_A || value >= MAX_CHAN_A)
@@ -805,11 +811,12 @@ bool fluicell::PPC1api::increaseVacuum5p()
 	return true;
 }
 
-bool fluicell::PPC1api::decreaseVacuum5p()
+bool fluicell::PPC1api::decreaseVacuum(double _percentage)
 {
-	double value = m_PPC1_data->channel_A->set_point + m_default_v_recirc * 0.05;
+	double percentage = _percentage / 100.0; 
+	double value = m_PPC1_data->channel_A->set_point + m_default_v_recirc * percentage;
 	
-	cout << currentDateTime() 
+	if(m_verbose) cout << currentDateTime() 
 		 << "fluicell::PPC1api::decreaseVacuum5p" << " new recirculation value << " << value << " >> " << endl;
 
 	if (value <= MIN_CHAN_A || value >= MAX_CHAN_A)
@@ -868,13 +875,13 @@ string fluicell::PPC1api::getDeviceID()
 	std::this_thread::sleep_for(std::chrono::microseconds(50000));
 
 	readData(serialNumber);
-	//cout << " fluicell::PPC1api::getDeviceID :::  the serial number is : " << serialNumber << endl;
+	//if(m_verbose) cout << " fluicell::PPC1api::getDeviceID :::  the serial number is : " << serialNumber << endl;
 	std::this_thread::sleep_for(std::chrono::microseconds(50000));
 
 	// restore the data stream to the default value
 	setDataStreamPeriod(200);// (m_dataStreamPeriod);
 	std::this_thread::sleep_for(std::chrono::microseconds(50000));
-	//cout << " fluicell::PPC1api::getDeviceID :::  set data stream to : " << m_dataStreamPeriod << endl;
+	//if(m_verbose) cout << " fluicell::PPC1api::getDeviceID :::  set data stream to : " << m_dataStreamPeriod << endl;
 
 	return serialNumber;
 }
@@ -882,7 +889,7 @@ string fluicell::PPC1api::getDeviceID()
 bool fluicell::PPC1api::sendData(const string &_data) {
 	//_data->append("\n");
 	if (m_PPC1_serial->isOpen()) {
-		cout << currentDateTime() << "fluicell::PPC1api::sendData" << " sending the string << " << _data << " >> " << endl;
+		if(m_verbose) cout << currentDateTime() << "fluicell::PPC1api::sendData" << " sending the string << " << _data << " >> " << endl;
 		if (m_PPC1_serial->write(_data) > 0) {
 			return true;
 		}
@@ -939,12 +946,12 @@ bool fluicell::PPC1api::checkVIDPID(std::string _port)
 		{
 			// extract 3 characters looking for the strings VID or PID
 			string s = hw_info.substr(j, 3);
-			if (s.compare(v) == 0) {
+			if (s.compare(v) == 0 && hw_info.size() >= j + 4) { //TODO: check if the check for length works
 				// extract the 4 characters after VID_
 				string vid = hw_info.substr(j + 4, 4); //TODO: no check for the string length
 				dev.VID = vid;
 			}
-			if (s.compare(p) == 0) {
+			if (s.compare(p) == 0 && hw_info.size() >= j+4 ) {
 				// extract the 4 characters after PID_
 				string pid = hw_info.substr(j + 4, 4); //TODO: no check for the string length
 				dev.PID = pid;
@@ -985,4 +992,7 @@ fluicell::PPC1api::~PPC1api()
 	if (m_PPC1_serial->isOpen()) {
 		m_PPC1_serial->close();
 	}
+
+	// free memory
+	delete m_PPC1_data;
 }

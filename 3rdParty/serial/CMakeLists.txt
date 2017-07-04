@@ -1,12 +1,11 @@
 #  +---------------------------------------------------------------------------+
 #  |                                                                           |
-#  |  Fluicell AB - Lab-on-a-tip                                               |
-#  |  Copyright 2017 © Fluicell AB, http://fluicell.com/                       |
+#  | Fluicell AB, http://fluicell.com/                                         |
+#  | Light Serial communication library                                                             |
 #  |                                                                           |
-#  | Copyright (c) 2017,                                                       |
 #  | Authors: Mauro Bellone - http://www.maurobellone.com                      |
 #  | Released under GNU GPL License.                                           |
-#  +---------------------------------------------------------------------------+ 
+#  +---------------------------------------------------------------------------+ */
  
 # Note: This CMake file is not standalone, it defines the serial 3rd party library 
 project(serial) 

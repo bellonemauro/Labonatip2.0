@@ -1,7 +1,7 @@
 /*  +---------------------------------------------------------------------------+
 *  |                                                                           |
-*  |  Fluicell AB - Lab-on-a-tip                                               |
-*  |  Copyright 2017 © Fluicell AB, http://fluicell.com/                       |
+*  | Fluicell AB, http://fluicell.com/                                         |
+*  | Lab-on-a-tip 2.0                                                          |
 *  |                                                                           |
 *  | Authors: Mauro Bellone - http://www.maurobellone.com                      |
 *  | Released under GNU GPL License.                                           |
@@ -251,7 +251,7 @@ void Labonatip_GUI::vacuumPlus() {
 
 	// +5% v_recirculation
 	if (m_pipette_active) {
-		if (!m_ppc1->increaseVacuum5p()){
+		if (!m_ppc1->increaseVacuum()){
 			QMessageBox::information(this, "Warning !", " Operation cannot be done. <br> Please, check for out of bound values.");
 		}
 		else {
@@ -289,7 +289,7 @@ void Labonatip_GUI::vacuumMinus() {
 
 	// -5% v_recirculation
 	if (m_pipette_active) {
-		if (!m_ppc1->decreaseVacuum5p()){
+		if (!m_ppc1->decreaseVacuum()){
 			QMessageBox::information(this, "Warning !", " Operation cannot be done. <br> Please, check for out of bound values. ");
 		}
 		else {

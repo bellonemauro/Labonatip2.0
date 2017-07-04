@@ -1,4 +1,4 @@
-![alt text](https://github.com/bellonemauro/Labonatip2.0/blob/master/apps/Lab-on-a-tip/icons/fluicell_logo_BIG.png)
+![alt text](https://github.com/bellonemauro/Labonatip2.0/blob/master/apps/Lab-on-a-tip/icons/fluicell_logo_BIG.png =500x155)
 
 # LAB-ON-A-TIP 2.0
 
@@ -7,7 +7,7 @@ IMPORTANT: This software is still under development !!! There is no release yet,
 The Lab-on-a-tip is a software that enables facile configuration and use of the Fluicell <a href="http://fluicell.com/thebiopensystem/">BioPen</a> system. 
 The cross-platform BioPen software allows independent control of each pressure line and solution delivery.
 
-Lab-on-a-tip is released under the terms of the GNU GPL license. 
+Lab-on-a-tip is released under the terms of the <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">GNU GPL</a> license. 
 
 
 # Dependences
@@ -18,9 +18,6 @@ The external dependences for this applications are:
   - QT  v. >5.4, for GUI - https://www.qt.io/
   - nsis http://nsis.sourceforge.net/Main_Page - only to generate the installation package
   - <a href="http://www.cmake.org">CMake</a> to generate the solution for your system and build. 
-
-The following libraries are included into the distribution, but they can optionally compliled from external source:
-  - <a href="http://eigen.tuxfamily.org/index.php?title=Main_Page">Eigen library</a>, for matrix computation
 
 
 
@@ -64,6 +61,13 @@ to build the package in windows : windeployqt yourfile.exe
 <b> Linux </b>
 
 CMake --> configure --> generate 
+
+Add a screenshot
+![alt text](https://github.com/bellonemauro/Labonatip2.0/blob/master/apps/Lab-on-a-tip/icons/fluicell_logo_BIG.png = 100x50)
+![alt text](https://github.com/bellonemauro/Labonatip2.0/blob/master/apps/Lab-on-a-tip/icons/fluicell_logo_BIG.png = 100x50)
+![alt text](https://github.com/bellonemauro/Labonatip2.0/blob/master/apps/Lab-on-a-tip/icons/fluicell_logo_BIG.png = 100x50)
+![alt text](https://github.com/bellonemauro/Labonatip2.0/blob/master/apps/Lab-on-a-tip/icons/fluicell_logo_BIG.png = 100x50)
+
 
 TODO
 

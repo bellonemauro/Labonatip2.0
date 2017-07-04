@@ -1,7 +1,7 @@
 /*  +---------------------------------------------------------------------------+
 *  |                                                                           |
-*  |  Fluicell AB - Lab-on-a-tip                                               |
-*  |  Copyright 2017 © Fluicell AB, http://fluicell.com/                       |
+*  | Fluicell AB, http://fluicell.com/                                         |
+*  | Lab-on-a-tip 2.0                                                          |
 *  |                                                                           |
 *  | Authors: Mauro Bellone - http://www.maurobellone.com                      |
 *  | Released under GNU GPL License.                                           |
@@ -10,8 +10,6 @@
 #include "Lab-on-a-tip.h"
 #include <QtCharts/QCategoryAxis>
 #include <QtCharts/QAbstractAxis>
-
-
 
 
 Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
@@ -34,7 +32,11 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	m_pon_set_point(0.0),
 	m_poff_set_point(0.0),
 	m_v_recirc_set_point(0.0),
-	m_v_switch_set_point(0.0)
+	m_v_switch_set_point(0.0),
+	m_sol1_color(QColor::fromRgb(189, 62, 71)),
+	m_sol2_color(QColor::fromRgb(96, 115, 158)),
+	m_sol3_color(QColor::fromRgb(193, 130, 50)),
+	m_sol4_color(QColor::fromRgb(83, 155, 81))
 {
   // allows to use path alias
   QDir::setSearchPaths("icons", QStringList(QDir::currentPath() + "/icons/"));
@@ -104,11 +106,15 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   // initialize PPC1api
   m_ppc1->setCOMport(m_dialog_tools->m_comSettings->name);
   m_ppc1->setBaudRate((int)m_dialog_tools->m_comSettings->baudRate);
+  m_ppc1->setVebose(ui->checkBox_verboseOut->isChecked());
 
   // init the redirect buffer
   qout = new QDebugStream(std::cout, ui->textEdit_qcout);
+  qout->copyOutToTerminal(ui->checkBox_to_terminal->isChecked());
   //  QTextStream standardOutput(stdout);
   qerr = new QDebugStream(std::cerr, ui->textEdit_qcerr);
+  qerr->copyOutToTerminal(ui->checkBox_to_terminal->isChecked());
+  
   //  QTextStream standardOutput(stderr);// (stdout);
 
   //close the dock tool at inizialization
@@ -372,6 +378,33 @@ void Labonatip_GUI::closeAllValves() {
 	//resetWells();
 }
 
+void Labonatip_GUI::stopSolutionFlow()
+{
+	// look for the active flow
+	if (ui->pushButton_solution1->isChecked()) {
+		ui->pushButton_solution1->setChecked(false);
+		pushSolution1(); // if the flow is active, this should stop it!
+		return;
+	}
+	if (ui->pushButton_solution2->isChecked()) {
+		ui->pushButton_solution2->setChecked(false);
+		pushSolution2();
+		return;
+	}
+	if (ui->pushButton_solution3->isChecked()) {
+		ui->pushButton_solution3->setChecked(false);
+		pushSolution3();
+		return;
+	}
+	if (ui->pushButton_solution4->isChecked()) {
+		ui->pushButton_solution4->setChecked(false);
+		pushSolution4();
+		return;
+	}
+	// if none is checked, do nothing.
+	return;
+}
+
 void Labonatip_GUI::setEnableSolutionButtons(bool _enable ) {
 	ui->pushButton_solution1->setEnabled(_enable);
 	ui->pushButton_solution2->setEnabled(_enable);
@@ -406,10 +439,12 @@ void Labonatip_GUI::updateDrawing( int _value) {
 
 	_value = _value / 2;
 	// draw the circle 
-	QBrush brush(*m_gradient_flow);
+	//QBrush brush(*m_gradient_flow);
+	QBrush brush(m_pen_line.color(), Qt::SolidPattern);
+
 	m_scene_solution->addEllipse( c_x, c_y - _value/2, 
 		                          c_radius + _value, c_radius + _value, 
-		                          m_pen_flow, brush ); 
+								  m_pen_flow, brush );
 	
 	// draw a line from the injector to the solution release point 
 	m_scene_solution->addLine(l_x1, l_y1, l_x2, l_y2, m_pen_line);
@@ -456,10 +491,12 @@ void Labonatip_GUI::pushSolution1()
 		m_update_flowing_sliders->stop();
 	}
 
-	if (m_pipette_active) updateDrawing(m_ppc1->getDropletSizePercentage());
-	else updateDrawing(ui->horizontalSlider_p_on->value());
-
+	// set the color into the drawing to fit the solution flow 
+	m_pen_line.setColor(m_sol1_color);
 	m_flowing_solution = 1;
+
+	if (m_pipette_active) updateDrawing(m_ppc1->getDropletSizePercentage());
+	else updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
 
 	// move the arrow in the drawing to point on the solution 1
 	ui->widget_solutionArrow->setVisible(true);
@@ -519,10 +556,12 @@ void Labonatip_GUI::pushSolution2() {
 		m_update_flowing_sliders->stop();
 	}
 
+	// set the color into the drawing to fit the solution flow 
+	m_pen_line.setColor(m_sol2_color);
 	m_flowing_solution = 2;
 
 	if (m_pipette_active) updateDrawing(m_ppc1->getDropletSizePercentage());
-	else updateDrawing(ui->horizontalSlider_p_on->value());
+	else updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
 
 	// move the arrow in the drawing to point on the solution 2
 	ui->widget_solutionArrow->setVisible(true);
@@ -582,10 +621,12 @@ void Labonatip_GUI::pushSolution3() {
 		m_update_flowing_sliders->stop();
 	}
 
+	// set the color into the drawing to fit the solution flow 
+	m_pen_line.setColor(m_sol3_color);
 	m_flowing_solution = 3;
 
 	if (m_pipette_active) updateDrawing(m_ppc1->getDropletSizePercentage());
-	else updateDrawing(ui->horizontalSlider_p_on->value());
+	else updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
 
 	// move the arrow in the drawing to point on the solution 3
 	ui->widget_solutionArrow->setVisible(true);
@@ -646,10 +687,12 @@ void Labonatip_GUI::pushSolution4() {
 		m_update_flowing_sliders->stop();
 	}
 
+	// set the color into the drawing to fit the solution flow 
+	m_pen_line.setColor(m_sol4_color);
 	m_flowing_solution = 4;
 
 	if (m_pipette_active) updateDrawing(m_ppc1->getDropletSizePercentage());
-	else updateDrawing(ui->horizontalSlider_p_on->value());
+	else updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
 
 	// move the arrow in the drawing to point on the solution 4
 	ui->widget_solutionArrow->setVisible(true);
@@ -757,6 +800,9 @@ void Labonatip_GUI::updateTimingSliders( )
 		ui->doubleSpinBox_solution->setValue(remaining_time_in_sec);
 		m_timer_solution++;
 		// show the warning label
+
+		if (m_pipette_active) updateDrawing(m_ppc1->getDropletSizePercentage());
+		else updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
 
 		//ui->label_warningIcon->show();
 		//ui->label_warning->show();
@@ -934,13 +980,16 @@ void Labonatip_GUI::initConnects()
 	connect(ui->pushButton_vacuum_plus, SIGNAL(clicked()), this, SLOT(vacuumPlus()));
 	
 	connect(ui->pushButton_standby, SIGNAL(clicked()), this, SLOT(standby()));
-	connect(ui->pushButton_stop, SIGNAL(clicked()), this, SLOT(closeAllValves()));
+	connect(ui->pushButton_stop, SIGNAL(clicked()), this, SLOT(stopSolutionFlow()));
 	connect(ui->pushButton_operational, SIGNAL(clicked()), this, SLOT(operationalMode()));
 	connect(ui->pushButton_runMacro, SIGNAL(clicked()), this, SLOT(runMacro()));
 	connect(ui->pushButton_newTip, SIGNAL(clicked()), this, SLOT(newTip()));
 
 	
-	
+	connect(ui->checkBox_to_terminal, SIGNAL(stateChanged(int)), this, SLOT(dumpToTerminal(int)));
+	connect(ui->checkBox_verboseOut, SIGNAL(stateChanged(int)), this, SLOT(setPpc1Verbose(int)));
+	//connect(ui->checkBox_dumpToFile, SIGNAL(stateChanged(int)), this, SLOT(dumpToTerminal(int)));
+
 	// connect sliders
 	connect(ui->horizontalSlider_p_on, SIGNAL(valueChanged(int)), this, SLOT(sliderPonChanged(int)));
 	connect(ui->horizontalSlider_p_off, SIGNAL(valueChanged(int)), this, SLOT(sliderPoffChanged(int)));
@@ -1114,9 +1163,9 @@ void Labonatip_GUI::simulationOnly()
 bool Labonatip_GUI::visualizeProgressMessage(int _seconds, QString _message)
 {
 	QString msg = _message;
-	msg.append("<br> This operation will take ");
+	msg.append("<br>This operation will take ");
 	msg.append(QString::number(_seconds));
-	msg.append(" seconds ");
+	msg.append(" seconds.");
 
 	QProgressDialog *PD = new QProgressDialog(msg, "Cancel", 0, _seconds, this);
 	PD->setMinimumWidth(350);
@@ -1143,7 +1192,6 @@ bool Labonatip_GUI::visualizeProgressMessage(int _seconds, QString _message)
 }
 
 
-
 void Labonatip_GUI::ewst() {
 
 	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
@@ -1163,7 +1211,7 @@ void Labonatip_GUI::about() {
 							   //"Lab-on-a-tip Wizard <br>"
 							   "Copyright Fluicell AB, Sweden 2017 <br> <br>"
 							   "Developer: Mauro Bellone http://www.maurobellone.com <br>"
-							   "Version 2.0.4" )); // TODO build the string using m_version
+							   "Version 2.0.6" )); // TODO build the string using m_version
 	messageBox.setIconPixmap(QPixmap("./icons/fluicell_iconBIG.ico"));
 //	messageBox.setFixedSize(500, 700);
 }
@@ -1182,7 +1230,7 @@ void Labonatip_GUI::closeEvent(QCloseEvent *event) {
 	else {
 
 		// dump log file
-		//if (0)
+		if (ui->checkBox_dumpToFile->isChecked())
 		{
 			// save log data, messages from the console ect. 
 			QString cout_file_name = QString("./Ext_data/Cout_");

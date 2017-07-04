@@ -1,7 +1,7 @@
 /*  +---------------------------------------------------------------------------+
 *  |                                                                           |
-*  |  Fluicell AB - Lab-on-a-tip                                               |
-*  |  Copyright 2017 © Fluicell AB, http://fluicell.com/                       |
+*  | Fluicell AB, http://fluicell.com/                                         |
+*  | PPC1 API                                                                  |
 *  |                                                                           |
 *  | Authors: Mauro Bellone - http://www.maurobellone.com                      |
 *  | Released under GNU GPL License.                                           |
@@ -42,7 +42,7 @@
 
 using namespace std;
 
-/**  \brief All fluicell software will begin with fluicell namespace
+/**  \brief Define the Fluicell namespace, all the classes will be in here
   *  
   **/
 namespace fluicell
@@ -50,8 +50,8 @@ namespace fluicell
 	
 	/**  \brief Simple API for the communication with the Fluicell PPC1 controller
 	*
-	*  The PPC1 controller is ...
-	*
+	*  The PPC1 controller allows the control of microfluids in the Fluicell biopen system, 
+	*  more details <a href="http://fluicell.com/thebiopensystem/"> here </a>
 	*
 	*
 	*
@@ -106,10 +106,6 @@ namespace fluicell
 	*	    -   disconnect the device :  my_ppc1->disconnectCOM();
 	*
 	*
-	*  <b>About the algorithm:</b><br>
-	*		- Write me
-	*
-	*
 	* <b>Changes history</b>
 	*		- MAY/2017: Creation (MB).
 	*  \ingroup __
@@ -133,58 +129,62 @@ namespace fluicell
 	#define PPC1_VID "16D0"  //!< device vendor ID
 	#define PPC1_PID "083A"  //!< device product ID
 
+	public:
 
-	/**  PCC1 Output data stream specification
-	*
-	*    A|-0.000000|0.114514|0.000000|0
-	*    B|-0.000000|0.034291|0.000000|0
-	*    C|0.000000|-0.103121|0.000000|0
-	*    D|0.000000|0.028670|0.000000|0
-	*    i0|j0|k0|l0
-	*    IN1|OUT1
-	*
-	*    One stream packet contains minimum 6 lines, each ending with newline character \n. First 4 lines correspond to pressure
-	*    and vacuum info, the 5. line shows the valve states and the last line TTL input and output states. All data fields are
-	*    separated using | sign.
-	*
-	*    First 4 line contain following fields:
-	*          Channel character | setpoint | sensor reading | PID output duty cycle | state \n
-	*    This structure is implemented in the ChannelN data structures
-	*
-	*
-	*    Channel character: A and B are vacuums, C and D pressures
-	*    Set point is the closed loop PID controller input value (in mbar)
-	*    sensor reading shows the actual current pressure value in mbar
-	*    PID output duty cycle is the output value of closed loop PID controller. Values 0 to 50000 mark the on time period in
-	*    microseconds. PWM frequency is 20Hz
-	*    state shows error flags. 0 means no errors, 1 is set point timeout error, which occurs when the channel has not reached in
-	*    the range of +-5mbar of the set point within 30 seconds. In this case the output and set point will be set to 0. The error flag
-	*    clears when a new set point is set.
-	*
-	*
-	*    5. line:
-	*       i%u|j%u|k%u|l%u\n where the characters i, j, k and l mark the output channels 8, 7, 6, 5 respectively and %u is 1 when the
-	*       output channel is connected to pressure channel D and 0 when channel C.
-	*
-	*
-	*    6. line:
-	*       INx|OUTy\n where x and y are either 0 or 1 and show the input and output states.
-	*
-	*
-	*
-	*  Current interpreted state:
-	*
-	*    Pon: set 123mbar, read: 123.456789 mbar
-	*    Poff: set 123mbar, read: 123.456789 mbar
-	*    Vswitch: set 123mbar, read: 123.456789 mbar
-	*    Vrecirc: set 123mbar, read: 123.456789 mbar
-	*    Valves: 0101
-	*
-	* \note
-	*/
+		/**  \brief PCC1 Output data stream specification
+		*
+		*  PCC1 Output data stream specification
+		*
+		*    A|-0.000000|0.114514|0.000000|0
+		*    B|-0.000000|0.034291|0.000000|0
+		*    C|0.000000|-0.103121|0.000000|0
+		*    D|0.000000|0.028670|0.000000|0
+		*    i0|j0|k0|l0
+		*    IN1|OUT1
+		*
+		*    One stream packet contains minimum 6 lines, each ending with newline character \n. First 4 lines correspond to pressure
+		*    and vacuum info, the 5. line shows the valve states and the last line TTL input and output states. All data fields are
+		*    separated using | sign.
+		*
+		*    First 4 line contain following fields:
+		*          Channel character | set point | sensor reading | PID output duty cycle | state \n
+		*    This structure is implemented in the ChannelN data structures
+		*
+		*
+		*    Channel character: A and B are vacuums, C and D pressures
+		*    Set point is the closed loop PID controller input value (in mbar)
+		*    sensor reading shows the actual current pressure value in mbar
+		*    PID output duty cycle is the output value of closed loop PID controller. Values 0 to 50000 mark the on time period in
+		*    microseconds. PWM frequency is 20Hz
+		*    state shows error flags. 0 means no errors, 1 is set point timeout error, which occurs when the channel has not reached in
+		*    the range of +-5mbar of the set point within 30 seconds. In this case the output and set point will be set to 0. The error flag
+		*    clears when a new set point is set.
+		*
+		*
+		*    5. line:
+		*       i%u|j%u|k%u|l%u\n where the characters i, j, k and l mark the output channels 8, 7, 6, 5 respectively and %u is 1 when the
+		*       output channel is connected to pressure channel D and 0 when channel C.
+		*
+		*
+		*    6. line:
+		*       INx|OUTy\n where x and y are either 0 or 1 and show the input and output states.
+		*
+		*
+		*
+		*  Current interpreted state:
+		*
+		*    Pon: set 123mbar, read: 123.456789 mbar
+		*    Poff: set 123mbar, read: 123.456789 mbar
+		*    Vswitch: set 123mbar, read: 123.456789 mbar
+		*    Vrecirc: set 123mbar, read: 123.456789 mbar
+		*    Valves: 0101
+		*
+		* \note
+		*/
 		struct PPC1API_EXPORT PPC1_data
 		{
 		public:
+
 			/**  \brief Channel data structure contains the information about a PPC1 channel
 			*         PPC1 has four channels, A and B for vacuum and C and P for pressure,
 			*         all the channels have the same data structure.
@@ -243,7 +243,8 @@ namespace fluicell
 
 		};
 
-public:
+
+	
 	/**  \brief Serial device info data structure
 		*
 		*  @param port is the port name
@@ -253,7 +254,7 @@ public:
 		*  @param PID is the product ID
 		*
 		*
-		*  \note The structure is usefull to check if VID/PID match the fluicell PPC1 device
+		*  \note The structure is useful to check if VID/PID match the fluicell PPC1 device
 		**/
 		struct PPC1API_EXPORT serialDeviceInfo
 		{
@@ -267,42 +268,49 @@ public:
 			serialDeviceInfo() {}
 		};
 
-public:
-		/**  \ brief PCC1 Command --- 
+
+		/**  \brief PCC1 Command data structure definition
 		*
 		*
-		*    Contains the information to run a macro command
+		*    The command data structure contains the information to run a command in the PPC1 controller.
+		*    The final objective is to define a class of commands able to control the PPC1 controller and run a macro
+		*    as a set of commands.
 		*
 		*
+		*  <b>Usage:</b><br>
+		*		- 	define the object :                   fluicell::PPC1api::command *my_command;
+		*	    -   a macro is a vector of commands :     std::vector<fluicell::PPC1api::command> *_macro;
+		*	    -   run the command still missing implementation !! 
 		*
-		*
-		* \note
 		*/
 		struct PPC1API_EXPORT command
 		{
 		public:
+
 			/**  \brief Command data structure .
 			*
 			*  @param loops
 			*
 			**/
-			int loops;              // number of loops
-			int P_on;               //(int: pressure in mbar) ---- Channel D
-			int P_off;              //(int: pressure in mbar) ---- Channel C
-			int V_switch;           //(int: pressure in mbar) ---- Channel B
-			int V_recirc;           //(int: pressure in mbar) ---- Channel A
-			int Duration;           //duration for the application of the command 
-			bool ask;               //set true to stop execution and ask confirmation to continue
-			string ask_message;     // message to ask if @\param(ask)- is true
-			string status_message;  // message to show as status during the command running
-			bool open_valve_a;      // closes other valves, then opens valve a for solution 1 valve only
-			bool open_valve_b;      // closes other valves, then opens valve b for solution 2 valve
-			bool open_valve_c;      // closes other valves, then opens valve c for solution 3 valve
-			bool open_valve_d;      // closes other valves, then opens valve d for solution 4 valve
-			bool wait_sync;         // macro stops until trigger signal is received
-			int sync_out;           // if negative then default state is 1 and pulse is 0, 
-									// if positive, then pulse is 1 and default is 0
+			int loops;              //!< number of loops
+			int P_on;               //!< (int: pressure in mbar) ---- Channel D
+			int P_off;              //!< (int: pressure in mbar) ---- Channel C
+			int V_switch;           //!< (int: pressure in mbar) ---- Channel B
+			int V_recirc;           //!< (int: pressure in mbar) ---- Channel A
+			int Duration;           //!< duration for the application of the command 
+			bool ask;               //!< set true to stop execution and ask confirmation to continue
+			string ask_message;     //!< message to ask if @\param(ask)- is true
+			string status_message;  //!< message to show as status during the command running
+			bool open_valve_a;      //!< closes other valves, then opens valve a for solution 1 valve only
+			bool open_valve_b;      //!< closes other valves, then opens valve b for solution 2 valve
+			bool open_valve_c;      //!< closes other valves, then opens valve c for solution 3 valve
+			bool open_valve_d;      //!< closes other valves, then opens valve d for solution 4 valve
+			bool wait_sync;         //!< macro stops until trigger signal is received
+			int sync_out;           //!< if negative then default state is 1 and pulse is 0, if positive, then pulse is 1 and default is 0
 
+			/**  \brief Command constructor .
+			*
+			**/
 			command() :
 				loops(1),
 				P_on(190), P_off(21), V_switch(-115), V_recirc(-115), Duration(1),
@@ -315,13 +323,15 @@ public:
 
 	public:
 	
-		/** \brief Initialize objects and parameters using default values
+		/** \brief Constructor, initialize objects and parameters using default values
 		*        
 		*/
 		PPC1api();
 
-		/** \brief Make sure the thread and the serial communication 
-		  *        are properly closed
+		/** \brief Destructor implementation to make sure everything is properly closed
+		  *  
+		  *   Make sure the thread and the serial communication 
+		  *   are properly closed, then free memory
 		  */
 		~PPC1api();
 
@@ -334,7 +344,7 @@ public:
 		  *   Values are overridden every iteration. 
 		  *
 		  *  
-		  *  string data format:
+		  *  <b>string data format:</b>
 		  *
 		  *    A|-0.000000|0.114514|0.000000|0\n
 		  *    B|-0.000000|0.034291|0.000000|0\n
@@ -360,7 +370,7 @@ public:
 		/**  \brief Decode one channel line
 		*
 		*    the channel line contains the following fields:
-		*          Channel character | setpoint | sensor reading | PID output duty cycle | state \n
+		*          Channel character | set point | sensor reading | PID output duty cycle | state \n
 		*    example of input data : B|-0.000000|0.034291|0.000000|0\n
 		*
 		*  @param _data  input data to be decoded
@@ -407,10 +417,10 @@ public:
 
 		/** \brief Check if the connection on _port is going to the PPC1 or any other device 
 		*
-		* \return true if PPC1 VID/PID definitions match the VID/PID 
-		*         of the device connected on _port
+		* \return true if PPC1 VID/PID definitions match the VID/PID of the device connected on _port
 		*/
 		bool checkVIDPID(std::string _port);
+
 
 		/** \brief  Get current date/time, format is YYYY-MM-DD.HH:mm:ss
 		*
@@ -437,6 +447,7 @@ public:
 		double m_default_poff;  //!< in mbar  -- default value   21.0 mbar
 		double m_default_v_recirc;  //!< in mbar (negative value!)  -- default value 115 mbar
 		double m_default_v_switch;  //!< in mbar (negative value!)  -- default value 115 mbar
+		bool m_verbose;
 
 
 	public:
@@ -460,7 +471,7 @@ public:
 			return connectCOM();
 		}
 
-		/**  \brief Connect to serial port overload to set the serial port where to connect and the baudrate
+		/**  \brief Connect to serial port overload to set the serial port where to connect and the baud rate
 		*
 		*  @param comPort;
 		*  @param baudRate;
@@ -663,7 +674,7 @@ public:
 		*  For example p30\n generates a 30 milliseconds long pulse. 
 		*  The initial state of the output is dependent of the previous "o%u" commands (default low). 
 		*  If the state of output before the pulse command is high, 
-		*  the pulse command puts the output low for the scpecified amount of time. 
+		*  the pulse command puts the output low for the specified amount of time. 
 		*  The minimum pulse length is 20 milliseconds.
 		*
 		*  @param  _value is the duration of the pulse in ms
@@ -674,9 +685,9 @@ public:
 
 		/** \brief Set the runtime timeout to _value (mbar)
 		*
-		*  Send the string z%u\n  to set runtime setpoint timeout threshold to %u mbar. 
-		*  If the setpoint is not in a window of +- threshold in 30 seconds, 
-		*  setpoint will be zeroed and error bit will be set.  Default value is 5 mbar
+		*  Send the string z%u\n  to set runtime set point timeout threshold to %u mbar. 
+		*  If the set point is not in a window of +- threshold in 30 seconds, 
+		*  set point will be zeroed and error bit will be set.  Default value is 5 mbar
 		*
 		*  @param  _value is the threshold in mbar
 		*
@@ -684,23 +695,23 @@ public:
 		bool setRuntimeTimeout(int _value);
 
 
-		/** \brief Increase the droplet size 
+		/** \brief Increase the droplet size by _percentage, default value = 2.5
 		*
 		*  A bit more advanced control can increase the droplet size by 2.5%
 		*  
 		*
 		*  \return -  false in case of errors
 		**/
-		bool increaseDropletSize();
+		bool increaseDropletSize(double _percentage = 2.5);
 
-		/** \brief Reduce the droplet size
+		/** \brief Reduce the droplet size by _percentage, default value = 2.5 %
 		*
 		*  A bit more advanced control can reduce the droplet size by 2.5%
 		*
 		*
 		*  \return -  false in case of errors
 		**/
-		bool decreaseDropletSize();
+		bool decreaseDropletSize(double _percentage = 2.5);
 			
 		/** \brief Get the current droplet size in percentage
 		*
@@ -711,7 +722,7 @@ public:
 		double getDropletSizePercentage();
 
 
-		/** \brief Increase the flow speed by 5%
+		/** \brief Increase the flow speed by _percentage, default value = 5%
 		*
 		*  A bit more advanced control can increase the flow speed by 5%
 		*  by increasing all the set points (channels A, B, C and D) by 5%
@@ -722,9 +733,9 @@ public:
 		*
 		*  \return -  false in case of errors
 		**/
-		bool increaseFlowspeed();
+		bool increaseFlowspeed(double _percentage = 5.0);
 
-		/** \brief Reduce the flow speed by 5%
+		/** \brief Reduce the flow speed by _percentage, default value = 5%
 		*
 		*  A bit more advanced control can reduce the flow speed by 5%
 		*  by reducing all the set points (channels A, B, C and D) by 5%
@@ -734,7 +745,7 @@ public:
 		*
 		*  \return -  false in case of errors
 		**/
-		bool decreaseFlowspeed();
+		bool decreaseFlowspeed(double _percentage = 5.0);
 
 		/** \brief Get the current flow speed in percentage
 		*
@@ -744,7 +755,7 @@ public:
 		**/
 		double getFlowSpeedPercentage();
 		
-		/** \brief Increase the vacuum by 5%
+		/** \brief Increase the vacuum by _percentage, default value = 5%
 		*
 		*  A bit more advanced control can increase the vacuum by 5%
 		*  by increasing the value by 5% on channel A
@@ -755,9 +766,9 @@ public:
 		*
 		*  \return -  false in case of errors
 		**/
-		bool increaseVacuum5p();
+		bool increaseVacuum(double _percentage = 5.0);
 
-		/** \brief Reduce the vacuum by 5%
+		/** \brief Reduce the vacuum by _percentage, default value = 5%
 		*
 		*  A bit more advanced control can reduce the vacuum by 5%
 		*  by decreasing the value by 5% on channel A
@@ -769,7 +780,7 @@ public:
 		*
 		*  \return -  false in case of errors
 		**/
-		bool decreaseVacuum5p();
+		bool decreaseVacuum(double _percentage = 5.0);
 
 		/** \brief Get the current vacuum value in percentage
 		*
@@ -809,6 +820,15 @@ public:
 		**/
 		void setBaudRate(int _baud_rate = 115200) { m_baud_rate = _baud_rate; }
 
+		/** \brief Set verbose output
+		*
+		*   cout will be printed only if verbose is true, whereas cerr will always
+		*
+		*  \param  _baud_rate 9600 19200 115200
+		*
+		**/
+		void setVebose(bool _verbose = false) { m_verbose = _verbose; }
+
 		/** \brief Reset the default values of pressures and vacuum to 100 droplet size
 		*
 		*  \param  m_default_pon  default value of pressures 
@@ -834,21 +854,21 @@ public:
 		  * \note: from the old device api this description refers to channel, not clear:
 		  * Get internal device ID. These are 6-digit serial numbers of Fluika
 		  * modules in version 1 hardware and consecutive numbers in same
-		  * format for version 2 hardware (e.g. “000001”). Input is channel number
+		  * format for version 2 hardware (e.g. "000001"). Input is channel number
 		  * in range 1-6, where: 1-on pressure, 2-off pressure, 3-switch vacuum,
 		  * 4-recirculation vacuum, 5-valves, 6-synchronization
 		  *
 		  **/
 		string getDeviceID();
 
-		/**  Check if the serial port is open and the PPC1 is connected
+		/** \brief Check if the serial port is open and the PPC1 is connected
 		*
 		*  \return true if open
 		**/
 		bool isConnected() { return m_PPC1_serial->isOpen(); }
 
 
-		/**  Check if the thread is running
+		/** \brief Check if the thread is running
 		*
 		*  \return true if running
 		**/

@@ -1,11 +1,11 @@
 #  +---------------------------------------------------------------------------+
 #  |                                                                           |
-#  |                      http://www.maurobellone.com                          |
+#  | Fluicell AB, http://fluicell.com/                                         |
+#  | Lab-on-a-tip                                                              |
 #  |                                                                           |
-#  | Copyright (c) 2017, - All rights reserved.                                |
-#  | Authors: Mauro Bellone                                                    |
-#  | Released under ___ License.                                               |
-#  +---------------------------------------------------------------------------+ 
+#  | Authors: Mauro Bellone - http://www.maurobellone.com                      |
+#  | Released under GNU GPL License.                                           |
+#  +---------------------------------------------------------------------------+ */
 
 # ----------------------------------------------------------------------------
 # CMake file. Run with "cmake ." at the root directory.

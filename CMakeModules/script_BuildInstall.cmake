@@ -1,11 +1,11 @@
 #  +---------------------------------------------------------------------------+
 #  |                                                                           |
-#  |  Fluicell AB - Lab-on-a-tip                                               |
-#  |  Copyright 2017 © Fluicell AB, http://fluicell.com/                       |
+#  | Fluicell AB, http://fluicell.com/                                         |
+#  | Lab-on-a-tip                                                              |
 #  |                                                                           |
 #  | Authors: Mauro Bellone - http://www.maurobellone.com                      |
 #  | Released under GNU GPL License.                                           |
-#  +---------------------------------------------------------------------------+ 
+#  +---------------------------------------------------------------------------+ */
 #
 # install internal executables file (only from the release folder)
 # ONLY windows is currently supported !!!
@@ -15,7 +15,7 @@ if (WIN32 AND NOT UNIX)
 	# ---- install redistributables 
 	#this is not included in my build system but strangely required in the case of parallel computing installed by default on other systems
 	#if (OPENMP_FOUND)   #ATTENTION !!!! this call to vcomp110.dll cannot stay here !!!! ATTENTION !!!!
-	install(FILES "C:/Program Files (x86)/Microsoft Visual Studio 11.0/VC/redist/x64/Microsoft.VC110.OpenMP/vcomp110.dll" DESTINATION ./ )#COMPONENT Libraries) #TODO specify the components
+	#install(FILES "C:/Program Files (x86)/Microsoft Visual Studio 11.0/VC/redist/x64/Microsoft.VC110.OpenMP/vcomp110.dll" DESTINATION ./ )#COMPONENT Libraries) #TODO specify the components
 	set(CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS_SKIP  ON)  # this allows the InstallRequiredSystemLibraries to find all the libraries without installing in the ./bin folder  .... so we can set the destination for the redistributables 
 	include (InstallRequiredSystemLibraries )
 	  FOREACH(F ${CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS})
@@ -137,9 +137,9 @@ if (WIN32 AND NOT UNIX)
 		INSTALL(FILES "${F}" DESTINATION ./platforms)
 	ENDFOREACH(F)				
 
-	FILE(GLOB myProject_EXTDATA "${PROJECT_BINARY_DIR}/bin/Release/ExtData/*.*") 
+	FILE(GLOB myProject_EXTDATA "${PROJECT_BINARY_DIR}/bin/Release/Ext_data/*.*") 
 	FOREACH(F ${myProject_EXTDATA})
-		INSTALL(FILES "${F}" DESTINATION ./ExtData)
+		INSTALL(FILES "${F}" DESTINATION ./Ext_data)
 	ENDFOREACH(F)				
 
 	FILE(GLOB myProject_MACROS "${PROJECT_BINARY_DIR}/bin/Release/presetMacros/*.*") 

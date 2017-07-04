@@ -1,11 +1,11 @@
 #  +---------------------------------------------------------------------------+
 #  |                                                                           |
-#  |  Fluicell AB - Lab-on-a-tip                                               |
-#  |  Copyright 2017 © Fluicell AB, http://fluicell.com/                       |
+#  | Fluicell AB, http://fluicell.com/                                         |
+#  | Lab-on-a-tip                                                              |
 #  |                                                                           |
 #  | Authors: Mauro Bellone - http://www.maurobellone.com                      |
 #  | Released under GNU GPL License.                                           |
-#  +---------------------------------------------------------------------------+ 
+#  +---------------------------------------------------------------------------+ */
 
 #  Loads the current version number:
 FILE(STRINGS "${CMAKE_CURRENT_SOURCE_DIR}/version_prefix.txt" CMAKE_Fluicell_VERSION_NUMBER LIMIT_COUNT 1) # Read only the first line

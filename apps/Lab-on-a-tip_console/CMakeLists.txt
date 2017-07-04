@@ -1,7 +1,7 @@
 #  +---------------------------------------------------------------------------+
 #  |                                                                           |
-#  |  Fluicell AB - Lab-on-a-tip                                               |
-#  |  Copyright 2017 © Fluicell AB, http://fluicell.com/                       |
+#  | Fluicell AB, http://fluicell.com/                                         |
+#  | Lab-on-a-tip - console app                                                |
 #  |                                                                           |
 #  | Authors: Mauro Bellone - http://www.maurobellone.com                      |
 #  | Released under GNU GPL License.                                           |

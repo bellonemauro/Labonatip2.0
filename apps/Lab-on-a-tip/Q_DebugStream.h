@@ -18,15 +18,20 @@ public:
   log_window = text_edit;
   m_old_buf = stream.rdbuf();
   stream.rdbuf(this);
+  to_terminal = false;
+
  }
  ~QDebugStream()
  {
   // output anything that is left
-  if (!m_string.empty())
-   log_window->append(m_string.c_str());
-
+	 if (!m_string.empty()) {
+		 log_window->append(m_string.c_str());
+		 if (to_terminal) { printf(m_string.c_str()); printf("\n"); }
+	 }
   m_stream.rdbuf(m_old_buf);
  }
+
+ void QDebugStream::copyOutToTerminal(bool _to_terminal) { to_terminal = _to_terminal; }
 
 protected:
  virtual int_type overflow(int_type v)
@@ -34,6 +39,7 @@ protected:
   if (v == '\n')
   {
    log_window->append(m_string.c_str());
+   if (to_terminal) { printf(m_string.c_str()); printf("\n"); }
    m_string.erase(m_string.begin(), m_string.end());
   }
   else
@@ -45,7 +51,7 @@ protected:
  virtual std::streamsize xsputn(const char *p, std::streamsize n)
  {
   m_string.append(p, p + n);
-
+  
   int pos = 0;
   while (pos != std::string::npos)
   {
@@ -54,6 +60,7 @@ protected:
    {
     std::string tmp(m_string.begin(), m_string.begin() + pos);
     log_window->append(tmp.c_str());
+	if (to_terminal) { printf(tmp.c_str()); printf("\n"); }
     m_string.erase(m_string.begin(), m_string.begin() + pos + 1);
    }
   }
@@ -65,7 +72,7 @@ private:
  std::ostream &m_stream;
  std::streambuf *m_old_buf;
  std::string m_string;
-
+ bool to_terminal;  //<! if true the output will also go to the terminal
 
   QTextEdit* log_window;
     };

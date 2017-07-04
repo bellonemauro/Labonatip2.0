@@ -1,14 +1,14 @@
 /*  +---------------------------------------------------------------------------+
 *  |                                                                           |
-*  |  Fluicell AB - Lab-on-a-tip                                               |
-*  |  Copyright 2017 © Fluicell AB, http://fluicell.com/                       |
+*  | Fluicell AB, http://fluicell.com/                                         |
+*  | Lab-on-a-tip 2.0                                                          |
 *  |                                                                           |
 *  | Authors: Mauro Bellone - http://www.maurobellone.com                      |
 *  | Released under GNU GPL License.                                           |
 *  +---------------------------------------------------------------------------+ */
 
 //uncomment to hide the console when the app starts
-#define HIDE_TERMINAL
+//#define HIDE_TERMINAL
 #ifdef HIDE_TERMINAL
 	#if defined (_WIN64) || defined (_WIN32)
 	  #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
@@ -23,7 +23,8 @@
 #define VER STR(LABONATIP_VERSION)
 
 #include "Lab-on-a-tip.h"
-
+#include <QSplashScreen>
+#include <QTimer>
 
 
 int main(int argc, char **argv)//(int argc, char *argv[])
@@ -33,9 +34,15 @@ int main(int argc, char **argv)//(int argc, char *argv[])
 	version = VER;
 	cout << " Running Lab-on-a-tip version " << version << endl;
 #endif
-		
+	try {
+
   QApplication a (argc, argv);
   Labonatip_GUI window;
+
+  QSplashScreen *s = new QSplashScreen();
+  s->setPixmap(QPixmap("./icons/splash_screen.png"));
+  s->show();
+  QTimer::singleShot(5000, s, SLOT(close()));
 
 #ifdef LABONATIP_VERSION
   window.setVersion(version);
@@ -44,10 +51,11 @@ int main(int argc, char **argv)//(int argc, char *argv[])
   //window.showFullScreen();
   //window.showMaximized();
   window.move(QPoint(50, 50));
-  window.show ();
+  //window.show ();
+  QTimer::singleShot(5000, &window, SLOT(show()));
   //return a.exec ();
   
-  try { 
+  
 	  a.exec();
   }
   catch (std::exception &e) {

@@ -128,7 +128,7 @@
          <x>0</x>
          <y>0</y>
          <width>1049</width>
-         <height>716</height>
+         <height>708</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout_2">
@@ -167,7 +167,7 @@
              <x>0</x>
              <y>0</y>
              <width>1049</width>
-             <height>716</height>
+             <height>708</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout">
@@ -2610,7 +2610,6 @@ background-color: rgb(255, 255, 255);</string>
                  <zorder>label_emptyTime</zorder>
                  <zorder>label_Pon_16</zorder>
                  <zorder>doubleSpinBox_solution</zorder>
-                 <zorder>pushButton_solution1</zorder>
                 </widget>
                </item>
                <item row="0" column="1">
@@ -2807,7 +2806,7 @@ background-color: rgb(255, 255, 255);</string>
         <enum>QTabWidget::Triangular</enum>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>2</number>
        </property>
        <property name="elideMode">
         <enum>Qt::ElideNone</enum>
@@ -4637,7 +4636,7 @@ border-top-left-radius: 5px;
          <string>Debug stream</string>
         </attribute>
         <layout class="QGridLayout" name="gridLayout_10">
-         <item row="4" column="0" colspan="2">
+         <item row="6" column="0" colspan="3">
           <widget class="QTextEdit" name="textEdit_qcerr">
            <property name="maximumSize">
             <size>
@@ -4649,6 +4648,9 @@ border-top-left-radius: 5px;
             <string notr="true">background-color: rgb(255, 255, 255);
 color: rgb(0, 0, 0);</string>
            </property>
+           <property name="readOnly">
+            <bool>true</bool>
+           </property>
            <property name="html">
             <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -4658,11 +4660,14 @@ p, li { white-space: pre-wrap; }
            </property>
           </widget>
          </item>
-         <item row="1" column="0" rowspan="2" colspan="2">
+         <item row="3" column="0" rowspan="2" colspan="3">
           <widget class="QTextEdit" name="textEdit_qcout">
            <property name="styleSheet">
             <string notr="true">background-color: rgb(255, 255, 255);
 color: rgb(0, 0, 0);</string>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
            </property>
            <property name="html">
             <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
@@ -4673,7 +4678,38 @@ p, li { white-space: pre-wrap; }
            </property>
           </widget>
          </item>
+         <item row="5" column="0" colspan="3">
+          <widget class="QLabel" name="label_21">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
+           <property name="text">
+            <string>Error messages</string>
+           </property>
+          </widget>
+         </item>
          <item row="0" column="0">
+          <widget class="QCheckBox" name="checkBox_verboseOut">
+           <property name="text">
+            <string>Verbose output</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="0">
           <widget class="QLabel" name="label_22">
            <property name="maximumSize">
             <size>
@@ -4694,24 +4730,40 @@ p, li { white-space: pre-wrap; }
            </property>
           </widget>
          </item>
-         <item row="3" column="0" colspan="2">
-          <widget class="QLabel" name="label_21">
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>30</height>
-            </size>
+         <item row="0" column="1">
+          <widget class="QCheckBox" name="checkBox_dumpToFile">
+           <property name="text">
+            <string>Dump to file</string>
            </property>
-           <property name="font">
-            <font>
-             <pointsize>12</pointsize>
-            </font>
+           <property name="checked">
+            <bool>true</bool>
            </property>
-           <property name="styleSheet">
-            <string notr="true"/>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QCheckBox" name="checkBox_to_terminal">
+           <property name="text">
+            <string>Terminal out</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1" colspan="2">
+          <widget class="QLineEdit" name="lineEdit_msg_out_file_path">
+           <property name="enabled">
+            <bool>false</bool>
            </property>
            <property name="text">
-            <string>Error messages</string>
+            <string>./Ext_Data/</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Out file path</string>
            </property>
           </widget>
          </item>

@@ -1,11 +1,11 @@
 #  +---------------------------------------------------------------------------+
 #  |                                                                           |
-#  |  Fluicell AB - Lab-on-a-tip                                               |
-#  |  Copyright 2017 © Fluicell AB, http://fluicell.com/                       |
+#  | Fluicell AB, http://fluicell.com/                                         |
+#  | PPC1 API                                                                  |
 #  |                                                                           |
 #  | Authors: Mauro Bellone - http://www.maurobellone.com                      |
 #  | Released under GNU GPL License.                                           |
-#  +---------------------------------------------------------------------------+ 
+#  +---------------------------------------------------------------------------+ */
 
 # Note: This CMake file is not standalone, it defines the library Nib tracking lib
 

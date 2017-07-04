@@ -1,11 +1,11 @@
 #  +---------------------------------------------------------------------------+
 #  |                                                                           |
-#  |  Fluicell AB - Lab-on-a-tip                                               |
-#  |  Copyright 2017 © Fluicell AB, http://fluicell.com/                       |
+#  | Fluicell AB, http://fluicell.com/                                         |
+#  | Lab-on-a-tip                                                              |
 #  |                                                                           |
 #  | Authors: Mauro Bellone - http://www.maurobellone.com                      |
 #  | Released under GNU GPL License.                                           |
-#  +---------------------------------------------------------------------------+ 
+#  +---------------------------------------------------------------------------+ */
 
 # build a CPack driven installer package
 
@@ -27,7 +27,7 @@ set(CPACK_PACKAGE_NAME "Lab-on-a-tip")
 set(CPACK_PACKAGE_VENDOR "Fluicell AB")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Fluicell Lab-on-a-tip")
 set(CPACK_NSIS_CONTACT "Mauro Bellone bellonemauro@gmail.com" )
-#set(CPACK_PACKAGE_INSTALL_DIRECTORY "@PROJECT_NAME@ @_VERSION@")
+set(CPACK_PACKAGE_INSTALL_DIRECTORY "@PROJECT_NAME@")# @_VERSION@")
 
 # this allows to check older installations and properly remove them
 set(CPACK_NSIS_ENABLE_UNINSTALL_BEFORE_INSTALL "ON") 

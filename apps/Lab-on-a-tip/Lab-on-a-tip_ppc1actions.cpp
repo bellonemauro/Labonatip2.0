@@ -1,7 +1,7 @@
 /*  +---------------------------------------------------------------------------+
 *  |                                                                           |
-*  |  Fluicell AB - Lab-on-a-tip                                               |
-*  |  Copyright 2017 © Fluicell AB, http://fluicell.com/                       |
+*  | Fluicell AB, http://fluicell.com/                                         |
+*  | Lab-on-a-tip 2.0                                                          |
 *  |                                                                           |
 *  | Authors: Mauro Bellone - http://www.maurobellone.com                      |
 *  | Released under GNU GPL License.                                           |
@@ -114,13 +114,13 @@ void Labonatip_GUI::newTip()
 	updateVrecircSetPoint(0.0);
 
 	//Wait 5 seconds
-	if (!visualizeProgressMessage(5, " Initialization ")) return;
+	if (!visualizeProgressMessage(5, "Initialization.")) return;
 
 	//D200
 	updatePonSetPoint(200.0); 
 
 	//Wait 5 seconds
-	if (!visualizeProgressMessage(5, " Pressurize ")) return;
+	if (!visualizeProgressMessage(5, "Pressurize the system.")) return;
 
 	//vff
 	if (m_pipette_active) {
@@ -130,11 +130,11 @@ void Labonatip_GUI::newTip()
 	//Ask : wait until a droplet appears at the tip of the pipette and THEN PRESS OK.
 	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 	QMessageBox::information(this, " Information ",
-		"wait until a droplet appears at the tip of the pipette and THEN PRESS OK");
+		"Wait until a droplet appears at the tip of the pipette and THEN PRESS OK");
 	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
 
 	//Wait 40 seconds
-	if (!visualizeProgressMessage(40, " Purging the liquid channels ")) return;
+	if (!visualizeProgressMessage(40, "Purging the liquid channels.")) return;
 
 	//vf0
 	if (m_pipette_active) {
@@ -145,7 +145,7 @@ void Labonatip_GUI::newTip()
 	updatePonSetPoint(0.0);
 
 	//Wait 10 seconds
-	if (!visualizeProgressMessage(10, " Purging the vacuum channels ")) return;
+	if (!visualizeProgressMessage(10, "Still purging the liquid channels.")) return;
 
 	//Ask : Remove the droplet using a lens tissue and put the pipette into solution.THEN PRESS OK.
 	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
@@ -162,27 +162,27 @@ void Labonatip_GUI::newTip()
 	updateVrecircSetPoint(200.0);
 
 	//Wait 90 seconds
-	if (!visualizeProgressMessage(90, " Purging the vacuum channels ")) return;
+	if (!visualizeProgressMessage(90, "Purging the vacuum  channels.")) return;
 
 	//C21
-	updatePoffSetPoint(21.0);
+	updatePoffSetPoint(default_poff);// (21.0);
 
 	//D190
-	updatePoffSetPoint(190.0); 
+	updatePonSetPoint(default_pon);// (190.0);
 
 	//Wait 5 seconds
-	if (!visualizeProgressMessage(5, " Purging the vacuum channels ")) return;
+	if (!visualizeProgressMessage(5, "Establishing operational pressures.")) return;
 
 	//B - 115
-	updateVswitchSetPoint(115);
+	updateVswitchSetPoint(default_v_switch);// (115);
 
 	//A - 115
-	updateVrecircSetPoint(115);
+	updateVrecircSetPoint(default_v_recirc);// (115);
 
 	//Ask: Pipette is ready for operation.PRESS OK TO START.
 	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 	QMessageBox::information(this, " Information ",
-		"Pipette is ready for operation.PRESS OK TO START");
+		"Pipette is ready for operation. PRESS OK TO START");
 
 	setEnableMainWindow(true);
 

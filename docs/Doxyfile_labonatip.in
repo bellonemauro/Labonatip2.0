@@ -38,7 +38,7 @@ PROJECT_NAME           = "Fluicell PPC1 API"
 # could be handy for archiving the generated documentation or if some version
 # control system is used.
 
-PROJECT_NUMBER         = V0.0.3
+PROJECT_NUMBER         = V0.0.5
 
 # Using the PROJECT_BRIEF tag one can provide an optional one line description
 # for a project that appears at the top of each page and should give viewer a
@@ -51,7 +51,7 @@ PROJECT_BRIEF          = Lab-on-a-tip
 # pixels and the maximum width should not exceed 200 pixels. Doxygen will copy
 # the logo to the output directory.
 
-PROJECT_LOGO           = C:/code/Fluicell/resources/fluicell_logo_small.png
+PROJECT_LOGO           = ../resources/fluicell_logo_small.png
 
 # The OUTPUT_DIRECTORY tag is used to specify the (relative or absolute) path
 # into which the generated documentation will be written. If a relative path is
@@ -873,9 +873,6 @@ RECURSIVE              = YES
 # run.
 
 EXCLUDE                = ../3rdParty \
-                         ../build \
-                         ../build_creator \
-                         ../build_qt5.8 \
                          ../apps \
                          DoxygenDocs \
                          ../apps \
@@ -990,7 +987,7 @@ FILTER_SOURCE_PATTERNS =
 # (index.html). This can be useful if you have a project on for instance GitHub
 # and want to reuse the introduction page also for the doxygen output.
 
-USE_MDFILE_AS_MAINPAGE = main.md
+USE_MDFILE_AS_MAINPAGE = README.md
 
 #---------------------------------------------------------------------------
 # Configuration options related to source browsing

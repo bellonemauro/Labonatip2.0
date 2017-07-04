@@ -1,7 +1,7 @@
 /*  +---------------------------------------------------------------------------+
 *  |                                                                           |
-*  |  Fluicell AB - Lab-on-a-tip                                               |
-*  |  Copyright 2017 © Fluicell AB, http://fluicell.com/                       |
+*  | Fluicell AB, http://fluicell.com/                                         |
+*  | Lab-on-a-tip 2.0                                                          |
 *  |                                                                           |
 *  | Authors: Mauro Bellone - http://www.maurobellone.com                      |
 *  | Released under GNU GPL License.                                           |
@@ -313,6 +313,13 @@ private slots:
 	*/
 	void closeAllValves();
 
+	/** \brief Stop solution flow
+	*
+	* \note
+	*/
+	void stopSolutionFlow();
+
+
 	/** \brief Run the shutdown procedure
 	  *
 	  * \note
@@ -373,6 +380,23 @@ private slots:
 	* \note
 	*/
 	void sliderPonChanged(int _value);
+
+	/** \brief Set debug to terminal
+	*
+	* \note
+	*/
+	void dumpToTerminal(int _state) {
+		qout->copyOutToTerminal(_state);  
+		qerr->copyOutToTerminal(_state);
+	};
+
+	/** \brief Set debug to terminal
+	*
+	* \note
+	*/
+	void setPpc1Verbose(int _state) {
+		m_ppc1->setVebose(_state);
+	};
 
 	/** \brief Increase/reduce the area for the solution depiction
 	*
@@ -511,6 +535,11 @@ private:
   const float l_y1;                   //y-coordinate of the line starting point, value = 49.0  
   const float l_x2;                   //x-coordinate of the line ending point, value = 55.0  
   const float l_y2;                   //y-coordinate of the line ending point, value = l_y1
+
+  QColor m_sol1_color;      //!< my solution 1 color
+  QColor m_sol2_color;      //!< my solution 2 color
+  QColor m_sol3_color;      //!< my solution 3 color
+  QColor m_sol4_color;      //!< my solution 4 color
 
   // objects for the chart
   QtCharts::QChartView *m_chartView;
