@@ -58,16 +58,17 @@ configure --->  generate and open visual studio
 
 to build the package in windows : windeployqt yourfile.exe
 
+![](https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipWin.png)
+
+
 <b> Linux </b>
 
 CMake --> configure --> generate 
 
 Add a screenshot
 ![](https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipUbuntu1.png )
-![](https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipUbuntu2.png )
 ![](https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipUbuntu3.png )
 ![](https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipUbuntu4.png )
-![](https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipWin.png)
 
 TODO
 
