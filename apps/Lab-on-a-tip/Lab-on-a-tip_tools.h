@@ -31,10 +31,13 @@ class Labonatip_tools : public  QDialog
 {
 	Q_OBJECT
 
+/** Create signals to be passed to the main app
+* 
+*/
 signals :
-	void ok();
-	void apply();
-	void discard();
+	void ok();  // generated when ok is pressed
+	void apply(); // generated when apply is pressed
+	void discard(); // generated when discard is pressed
 
 
 public:
@@ -42,12 +45,12 @@ public:
 	// TODO: exclude QTserial and bring this structure to serial ! 
 	// structure to handle COM port parameters
 	struct COMSettings {
-		std::string name;                    //--> COM1 --- n 
-		int baudRate;                 //--> 4200 - 9600 --- 
-		serial::bytesize_t dataBits;  //--> 5 - 6 - 7 - 8
-		serial::parity_t parity;      //--> None, Even, Odd, Mark, Space 
-		serial::stopbits_t stopBits;  //--> 1, 1.5, 2
-		serial::flowcontrol_t flowControl;  //--> None, RTS/CTS, XON/XOFF 
+		std::string name;                    //!<  COM1 --- n 
+		int baudRate;                        //!<  4200 - 9600 --- 
+		serial::bytesize_t dataBits;         //!<  5 - 6 - 7 - 8
+		serial::parity_t parity;             //!<  None, Even, Odd, Mark, Space 
+		serial::stopbits_t stopBits;         //!<  1, 1.5, 2
+		serial::flowcontrol_t flowControl;   //!<  None, RTS/CTS, XON/XOFF 
 		bool localEchoEnabled;
 
 		COMSettings() {   // default values
@@ -63,10 +66,10 @@ public:
 
   // structure to handle solutions name parameters
   struct solutionsNames {
-	  QString sol1;                    //--> name of the solution 1
-	  QString sol2;                    //--> name of the solution 2
-	  QString sol3;                    //--> name of the solution 3
-	  QString sol4;                    //--> name of the solution 4
+	  QString sol1;                    //!<  name of the solution 1
+	  QString sol2;                    //!<  name of the solution 2
+	  QString sol3;                    //!<  name of the solution 3
+	  QString sol4;                    //!<  name of the solution 4
 
 	  solutionsNames() {   // default values
 		  this->sol1 = "No name given to sol 1";
@@ -115,34 +118,70 @@ public:
 
 private slots:
 
-
-/** Visualize the about dialog
-* \note
-*/
+	/** Allows to switch windows tabs in the interface from the list widget
+	* \note
+	*/
 	void onListMailItemClicked(QListWidgetItem* _item);
 
+	/** Show information for the serial port communication
+	* \note
+	*/
 	void showPortInfo(int idx);
 
+	/** emit ok signal, save the setting, send the current macro to the main
+	*   and close the window
+	* \note
+	*/
 	void okPressed();
 
+	/** Emit discard signal and close the window
+	* \note
+	*/
 	void discardPressed();
 
+	/** emit apply signal, save the setting, and send the current macro to the main
+	*   
+	*/
 	void applyPressed();
 
+	/** Enumerate serial ports
+	*
+	*/
 	void enumerate();
 
+	/** Load a macro fron file, only one type of macro is currently supported
+	*
+	*/
 	bool loadMacro( );
 
+	/** Save the macro to file
+	*
+	*/
 	bool saveMacro( );
 
+	/** Clear all the macro commands
+	*
+	*/
 	void clearAllCommands();
 
+	/** Add a new macro command
+	*
+	*/
 	void addMacroCommand();
-	
+
+	/** remove a macro command
+	*
+	*/
 	void removeMacroCommand();
 
+	/** The selected element will become a child for the preceding element
+	*
+	*/
 	void becomeChild();
 
+	/** The selected element will become parent 
+	*
+	*/
 	void becomeParent();
 	
 	void moveUp();
@@ -151,11 +190,13 @@ private slots:
 
 	void plusIndent();
 
-	bool checkValidity(QTreeWidgetItem *_item, int _column);
-
 	void duplicateItem();
 
-	void visualizeItemProperties();
+//	void visualizeItemProperties(); // deprecated
+
+	bool checkValidity(QTreeWidgetItem *_item, int _column);
+
+	void commandChanged(int _idx);
 
 	/** Load an ini setting file
 	* in the GUI initialization it takes a default value ./settings/setting.ini
@@ -182,7 +223,9 @@ private:
 
 	QSettings *m_settings;
 
-	void createNewCommand(QTreeWidgetItem &_command);
+	//void createNewCommand(QTreeWidgetItem &_command); // deprecated
+
+	void createNewCommand(QTreeWidgetItem &_command, QComboBox &_combo_box);
 
 	QString createHeader();
 	
@@ -194,9 +237,9 @@ private:
 
 	int getLevel(QTreeWidgetItem _item);
 
-	void visitTree(QTreeWidgetItem *_item);
+	//void visitTree(QTreeWidgetItem *_item);
 
-	void visitTree(QList<QStringList> &_list, QTreeWidgetItem *_item);
+	void visitTree(QList<QStringList> &_list, QTreeWidget *_tree, QTreeWidgetItem *_item);
 
 	QList<QStringList> visitTree(QTreeWidget *_tree);
 
@@ -210,7 +253,7 @@ private:
 
 
 protected:
-	Ui::Labonatip_tools *ui_tools;    //--> the user interface
+	Ui::Labonatip_tools *ui_tools;    //!<  the user interface
 };
 
 

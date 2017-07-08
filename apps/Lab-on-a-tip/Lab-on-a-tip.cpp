@@ -200,7 +200,7 @@ void Labonatip_GUI::showToolsDialog() {
 	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_GUI::showToolsDialog    " << endl;
 
-	m_dialog_tools->setWindowFlags(Qt::WindowStaysOnTopHint);
+	m_dialog_tools->setWindowFlags(Qt::WindowFullscreenButtonHint);
 	m_dialog_tools->setModal(false);
 	m_macro = new std::vector<fluicell::PPC1api::command>();
 	m_dialog_tools->setMacroPrt(m_macro);
@@ -982,7 +982,7 @@ void Labonatip_GUI::initConnects()
 	connect(ui->pushButton_standby, SIGNAL(clicked()), this, SLOT(standby()));
 	connect(ui->pushButton_stop, SIGNAL(clicked()), this, SLOT(stopSolutionFlow()));
 	connect(ui->pushButton_operational, SIGNAL(clicked()), this, SLOT(operationalMode()));
-	connect(ui->pushButton_runMacro, SIGNAL(clicked()), this, SLOT(runMacro()));
+	//connect(ui->pushButton_runMacro, SIGNAL(clicked()), this, SLOT(runMacro()));
 	connect(ui->pushButton_newTip, SIGNAL(clicked()), this, SLOT(newTip()));
 
 	

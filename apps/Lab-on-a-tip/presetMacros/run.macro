@@ -5,28 +5,39 @@
 %% |                          http://www.fluicell.com/                         |
 %% +---------------------------------------------------------------------------+
 %% 
-%% Macro Header V. 0.1 
-%% file created on dd/mm/yyyy 
+%% Macro Header V. 0.2 
+%% file created on dd/mm/yyyy - Fri Jul 7 2017 15:09:50%% 
 %% Fluicell Lab-on-a-tip macro file description 
 %% +---------------------------------------------------------------------------+ 
 %% List of parameters: 
-%%  - name 
-%%  - loops 
-%%  - P_on (mbar) 
-%%  - P_off (mbar) 
-%%  - V_switch (mbar) 
-%%  - V_recirc (mbar) 
-%%  - Duration (sec) 
-%%  - OpenSol1 (int) 
-%%  - waitSync (bool) 
-%%  - syncOut (bool) 
-%%  - ask (bool) 
-%%  - ask_message (bool) 
+%%  - Command :  
+%%  -       1:  Pressure ON (mbar) 
+%%  -       2:  Pressure OFF (mbar) 
+%%  -       3:  Vacuum Switch (mbar) 
+%%  -       4:  Vacuum Recirculation (mbar) 
+%%  -       5:  Solution 1 (open/close) 
+%%  -       6:  Solution 2 (open/close) 
+%%  -       7:  Solution 3 (open/close) 
+%%  -       8:  Solution 4 (open/close) 
+%%  -       9:  Droplet size (%) 
+%%  -       10: Flow speed (%) 
+%%  -       11: Vacuum (%) 
+%%  -       12: loop 
+%%  -       13: Wait (s) 
+%%  -       14: All Off 
+%%  -       15: Pumps Off 
+%%  -       16: Valve state 
+%%  -       17: Wait sync 
+%%  -       18: Sync out 
+%%  - 
+%%  - value (mbar, %, s) - value to be applied to the command
 %%  - status_message (string) 
-%%  - level 
+%%  - depth : depth in the tree of the command, all the commands at different layers will run in loop
 %% +---------------------------------------------------------------------------+ 
-%% name loops P_on P_off  V_switch  V_recirc  Duration  OpenSol  waitSync  syncOut  ask ask_message status_message level
+%% Command Value status_message depth
 %
-Run#1#0#0#0#0#1#0#0##0##0###0#§
-allOff#1#0#0#0#0#1#0#0##0##0##turning everything off#1#§
-run#1#190#21#-115#-115#0#0#0##0##0##Running#1#§
+14##0#AllOff#0#§
+1#21#0#setPoff(21)#0#§
+0#190#0#setPon(190)#0#§
+2#-115#0#setVswitch(-115)#0#§
+3#-115#0#setVrecirc(-115)#0#§

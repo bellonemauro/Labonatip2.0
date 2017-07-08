@@ -30,42 +30,11 @@ Labonatip_tools::Labonatip_tools(QWidget *parent ):
 	// enumerate connected com ports
 	enumerate();
 
-	// connect GUI elements
+	// connect GUI elements: communication tab
 	connect(ui_tools->pushButton_enumerate,
 		SIGNAL(clicked()), this, SLOT(enumerate()));
 
-	connect(ui_tools->pushButton_addMacroCommand,
-		SIGNAL(clicked()), this, SLOT(addMacroCommand()));
-
-	connect(ui_tools->pushButton_removeMacroCommand, 
-		SIGNAL(clicked()), this, SLOT(removeMacroCommand()));
-
-	connect(ui_tools->pushButton_becomeChild, 
-		SIGNAL(clicked()), this, SLOT(becomeChild()));
-
-	connect(ui_tools->pushButton_becomeParent, 
-		SIGNAL(clicked()), this, SLOT(removeMacroCommand()));
-
-	connect(ui_tools->pushButton_moveDown, 
-		SIGNAL(clicked()), this, SLOT(moveDown()));
-
-	connect(ui_tools->pushButton_moveUp, 
-		SIGNAL(clicked()), this, SLOT(moveUp()));
-
-	connect(ui_tools->pushButton_plusIndent, 
-		SIGNAL(clicked()), this, SLOT(plusIndent()));
-
-	connect(ui_tools->pushButton_saveMacro,
-		SIGNAL(clicked()), this, SLOT(saveMacro()));
-
-	connect(ui_tools->pushButton_loadMacro, 
-		SIGNAL(clicked()), this, SLOT(loadMacro()));
-
-	connect(ui_tools->pushButton_clearCommands, 
-		SIGNAL(clicked()), this, SLOT(clearAllCommands()));
-
-	connect(ui_tools->pushButton_duplicateLine, 
-		SIGNAL(clicked()), this, SLOT(duplicateItem()));
+	// connect GUI elements: macro tab
 
 	connect(ui_tools->treeWidget_macroTable, 
 		SIGNAL(itemChanged(QTreeWidgetItem *, int)), this, 
@@ -75,6 +44,42 @@ Labonatip_tools::Labonatip_tools(QWidget *parent ):
 		SIGNAL(itemClicked(QListWidgetItem*)), this, 
 		SLOT(onListMailItemClicked(QListWidgetItem*)));
 
+	// connect GUI elements: NEW macro tab
+	connect(ui_tools->pushButton_addMacroCommand,
+		SIGNAL(clicked()), this, SLOT(addMacroCommand()));
+
+	connect(ui_tools->pushButton_removeMacroCommand,
+		SIGNAL(clicked()), this, SLOT(removeMacroCommand()));
+
+	connect(ui_tools->pushButton_becomeChild,
+		SIGNAL(clicked()), this, SLOT(becomeChild()));
+
+	connect(ui_tools->pushButton_becomeParent,
+		SIGNAL(clicked()), this, SLOT(becomeParent()));
+
+	connect(ui_tools->pushButton_moveDown,
+		SIGNAL(clicked()), this, SLOT(moveDown()));
+
+	connect(ui_tools->pushButton_moveUp,
+		SIGNAL(clicked()), this, SLOT(moveUp()));
+
+	connect(ui_tools->pushButton_plusIndent,
+		SIGNAL(clicked()), this, SLOT(plusIndent()));
+
+	connect(ui_tools->pushButton_duplicateLine,
+		SIGNAL(clicked()), this, SLOT(duplicateItem()));
+
+	connect(ui_tools->pushButton_clearCommands,
+		SIGNAL(clicked()), this, SLOT(clearAllCommands()));
+
+	connect(ui_tools->pushButton_saveMacro,
+		SIGNAL(clicked()), this, SLOT(saveMacro()));
+
+	connect(ui_tools->pushButton_loadMacro, 
+		SIGNAL(clicked()), this, SLOT(loadMacro()));
+
+
+	// connect tool window events Ok, Discard, Apply
 	connect(ui_tools->buttonBox->button(QDialogButtonBox::Ok), 
 		SIGNAL(clicked()), this, SLOT(okPressed()));
 
@@ -100,10 +105,6 @@ void Labonatip_tools::onListMailItemClicked(QListWidgetItem* _item)
 	if (ui_tools->listWidget_options->item(3) == _item) {
 		ui_tools->stackedWidget->setCurrentIndex(3);
 	}
-	if (ui_tools->listWidget_options->item(4) == _item) {
-		ui_tools->stackedWidget->setCurrentIndex(4);
-	}
-
 }
 
 void Labonatip_tools::okPressed() {
@@ -112,16 +113,14 @@ void Labonatip_tools::okPressed() {
 	addAllCommandsToMacro();
 
 	saveSettings();
-
 	//TODO other settings ! 
-	emit ok();
 
+	emit ok();
 	this->close();
 }
 
 void Labonatip_tools::discardPressed() {
 	emit discard(); 
-	
 	this->close();
 }
 
@@ -159,35 +158,37 @@ void Labonatip_tools::enumerate()
 
 }
 
+
+
 void Labonatip_tools::addMacroCommand()
 {
+    // create a new item
 	QTreeWidgetItem *newItem = new QTreeWidgetItem;
-	createNewCommand(*newItem);
 	QComboBox *comboBox = new QComboBox(this);
-	comboBox->addItems(QStringList() << "setPON" << "setPOFF" << "setSwitch" << "setRecirculation"
-		<< "solution1" << "solution2" << "solution3" << "solution4"
-		<< "allOff" << "pumpsOff" << "valve (valvestate)" << "waitSync" << "syncOut");
-	
+	createNewCommand(*newItem, *comboBox);
 
-	if (ui_tools->treeWidget_macroTable->topLevelItemCount() < 1 || 
+	//if we are at the top level, 
+	if (ui_tools->treeWidget_macroTable->topLevelItemCount() < 1 ||
 		!ui_tools->treeWidget_macroTable->currentIndex().isValid()) {
-			ui_tools->treeWidget_macroTable->insertTopLevelItem(0, newItem);
-			ui_tools->treeWidget_macroTable->setItemWidget(newItem, 12, comboBox);
+		ui_tools->treeWidget_macroTable->insertTopLevelItem(0, newItem);
+		ui_tools->treeWidget_macroTable->setItemWidget(newItem, 0, comboBox); // the combo widget goes always to the 0 column
 		return;
 	}
-	else {
+	else { 	//else we add the item at a spesific level 
 		int row = ui_tools->treeWidget_macroTable->currentIndex().row();
+		// get the parent
 		QTreeWidgetItem *parent = ui_tools->treeWidget_macroTable->currentItem()->parent();
-		
+
 		if (ui_tools->treeWidget_macroTable->currentItem()->parent()) {
+			// add the new line as a child
 			parent->insertChild(row + 1, newItem);
-			ui_tools->treeWidget_macroTable->setItemWidget(newItem, 12, comboBox);
+			ui_tools->treeWidget_macroTable->setItemWidget(newItem, 0, comboBox);
 		}
-		else {
+		else { // add the new line as a child
 			ui_tools->treeWidget_macroTable->insertTopLevelItem(row + 1, newItem);
-			ui_tools->treeWidget_macroTable->setItemWidget(newItem, 12, comboBox);
+			ui_tools->treeWidget_macroTable->setItemWidget(newItem, 0, comboBox);
 		}
-			
+
 		return;
 	}
 
@@ -195,8 +196,8 @@ void Labonatip_tools::addMacroCommand()
 
 void Labonatip_tools::removeMacroCommand()
 {
-	if ( ui_tools->treeWidget_macroTable->currentItem() &&
-		 ui_tools->treeWidget_macroTable->topLevelItemCount() > 0)  {// avoid crash is no elements in the table or no selection
+	if (ui_tools->treeWidget_macroTable->currentItem() &&
+		ui_tools->treeWidget_macroTable->topLevelItemCount() > 0) {// avoid crash is no elements in the table or no selection
 		ui_tools->treeWidget_macroTable->currentItem()->~QTreeWidgetItem();
 	}
 }
@@ -205,12 +206,17 @@ void Labonatip_tools::becomeChild()
 {
 	if (!ui_tools->treeWidget_macroTable->currentItem()) return; // avoid crash if no selection
 	
-	QTreeWidgetItem* item = ui_tools->treeWidget_macroTable->currentItem()->clone();
+	QTreeWidgetItem *item = new QTreeWidgetItem;
+	QComboBox *comboBox = new QComboBox(this);
+	createNewCommand(*item, *comboBox); 
+	
+	item = ui_tools->treeWidget_macroTable->currentItem()->clone();
 	int row = ui_tools->treeWidget_macroTable->currentIndex().row();
 
 	QTreeWidgetItem *parent = ui_tools->treeWidget_macroTable->itemAbove(ui_tools->treeWidget_macroTable->currentItem());
 	if(parent){
 		parent->addChild(item);
+		ui_tools->treeWidget_macroTable->setItemWidget(item, 0, comboBox);
 		parent->setExpanded(true);
 		ui_tools->treeWidget_macroTable->currentItem()->~QTreeWidgetItem();
 	}
@@ -219,7 +225,12 @@ void Labonatip_tools::becomeChild()
 void Labonatip_tools::becomeParent()
 {
 	if (!ui_tools->treeWidget_macroTable->currentItem()) return; // avoid crash if no selection
-	QTreeWidgetItem* item = ui_tools->treeWidget_macroTable->currentItem()->clone();
+
+	QTreeWidgetItem *item = new QTreeWidgetItem;
+	QComboBox *comboBox = new QComboBox(this);
+	createNewCommand(*item, *comboBox);
+
+	item = ui_tools->treeWidget_macroTable->currentItem()->clone();
 	int row = ui_tools->treeWidget_macroTable->currentIndex().row();
 
 /*	QTreeWidgetItem *parent = ui_tools->treeWidget_macroTable->itemAbove(ui_tools->treeWidget_macroTable->currentItem());
@@ -231,21 +242,28 @@ void Labonatip_tools::becomeParent()
 */
 }
 
+
 void Labonatip_tools::moveUp()
 {
-	QTreeWidgetItem *moveItem = ui_tools->treeWidget_macroTable->currentItem();
+	QTreeWidgetItem *moveItem = new QTreeWidgetItem;
+	QComboBox *comboBox = new QComboBox(this);
+	createNewCommand(*moveItem, *comboBox);
+
+	moveItem = ui_tools->treeWidget_macroTable->currentItem();
 	int row = ui_tools->treeWidget_macroTable->currentIndex().row();
 
-	if (moveItem && row > 0 )
+	if (moveItem && row > 0)
 	{
 		QTreeWidgetItem *parent = ui_tools->treeWidget_macroTable->currentItem()->parent();
 		if (parent) {
 			parent->takeChild(row);
 			parent->insertChild(row - 1, moveItem);
+			ui_tools->treeWidget_macroTable->setItemWidget(moveItem, 0, comboBox);
 		}
 		else {
 			ui_tools->treeWidget_macroTable->takeTopLevelItem(row);
 			ui_tools->treeWidget_macroTable->insertTopLevelItem(row - 1, moveItem);
+			ui_tools->treeWidget_macroTable->setItemWidget(moveItem, 0, comboBox);
 		}
 		ui_tools->treeWidget_macroTable->setCurrentItem(moveItem);
 	}
@@ -253,7 +271,11 @@ void Labonatip_tools::moveUp()
 
 void Labonatip_tools::moveDown()
 {
-	QTreeWidgetItem *moveItem = ui_tools->treeWidget_macroTable->currentItem();
+	QTreeWidgetItem *moveItem = new QTreeWidgetItem;
+	QComboBox *comboBox = new QComboBox(this);
+	createNewCommand(*moveItem, *comboBox);
+	
+	moveItem = ui_tools->treeWidget_macroTable->currentItem();
 	int row = ui_tools->treeWidget_macroTable->currentIndex().row();
 	int number_of_items = ui_tools->treeWidget_macroTable->topLevelItemCount();
 
@@ -263,54 +285,168 @@ void Labonatip_tools::moveDown()
 
 		if (parent) {
 			int childCount = parent->childCount();
-			if (row >= childCount - 1 ) return; // stops at the last
+			if (row >= childCount - 1) return; // stops at the last
 
 			parent->takeChild(row);
 			parent->insertChild(row + 1, moveItem);
+			ui_tools->treeWidget_macroTable->setItemWidget(moveItem, 0, comboBox);
 		}
 		else {
 			ui_tools->treeWidget_macroTable->takeTopLevelItem(row);
 			ui_tools->treeWidget_macroTable->insertTopLevelItem(row + 1, moveItem);
+			ui_tools->treeWidget_macroTable->setItemWidget(moveItem, 0, comboBox);
 		}
 		ui_tools->treeWidget_macroTable->setCurrentItem(moveItem);
 	}
 }
 
+
 void Labonatip_tools::plusIndent()
 {
 	QTreeWidgetItem *newItem = new QTreeWidgetItem;
-	createNewCommand(*newItem);
+	QComboBox *comboBox = new QComboBox(this);
+	createNewCommand(*newItem, *comboBox);
 
 	if (!ui_tools->treeWidget_macroTable->currentIndex().isValid()) {
 		ui_tools->treeWidget_macroTable->insertTopLevelItem(0, newItem);
+		ui_tools->treeWidget_macroTable->setItemWidget(newItem, 0, comboBox);
 		return;
 	}
 	else {
 		QTreeWidgetItem *parent = ui_tools->treeWidget_macroTable->currentItem();
 		parent->insertChild(0, newItem);
+		ui_tools->treeWidget_macroTable->setItemWidget(newItem, 0, comboBox);
 		return;
 	}
 
 }
 
+
+
 bool Labonatip_tools::checkValidity(QTreeWidgetItem *_item, int _column)
 {
 	int row = ui_tools->treeWidget_macroTable->currentIndex().row();
 	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		<< "check validity on row " << row << " and column " << _column << endl;
+		<< "Labonatip_tools::checkValidity ::: check validity on row " << row << " and column " << _column << endl;
 
-	switch (_column) {
-	case 0:
-		// check name
-		// every thing is fine
+	//if (_column != 1) return false; // perform the check on column 1 only
+	_column = 1;
+	int idx = qobject_cast<QComboBox*>(ui_tools->treeWidget_macroTable->itemWidget(_item, 0))->currentIndex();
+
+	switch (idx) {
+	case 0: {
+		// check pon
+		bool isNumeric; 
 		cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-			<< "case : " << _column << endl;
+			<< "Labonatip_tools::checkValidity ::: case : "  << idx << endl;
+		int number = _item->text(_column).toInt(&isNumeric);
+		if (!isNumeric) {
+			QMessageBox::warning(this, "Warning", "Pressure ON is not a valid number, \n its value must be a positive number in [0, 450]");
+			_item->setText(_column, QString("0"));
+			return false;
+		}
+		if (number < 0 || number > 450) {
+			QMessageBox::warning(this, "Warning", " Pressure ON is out of range, \n its value must be a positive number in [0, 450]");
+			_item->setText(_column, QString("0"));
+			return false;
+		}
 		break;
+	}
 	case 1: {
+		// check poff
+		bool isNumeric;
+		cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+			<< "case : " << idx << endl;
+		int number = _item->text(_column).toInt(&isNumeric);
+		if (!isNumeric) {
+			QMessageBox::warning(this, "Warning", "Pressure OFF is not a valid number, \n its value must be a positive number in [0, 450]");
+			_item->setText(_column, QString("0"));
+			return false;
+		}
+		if (number < 0 || number > 450) {
+			QMessageBox::warning(this, "Warning", " Pressure ON is out of range, \n its value must be a positive number in [0, 450]");
+			_item->setText(_column, QString("0"));
+			return false;
+		}
+		break;
+	}
+	case 2:{
+		// check v_s
+		bool isNumeric;
+		cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_tools::checkValidity ::: case : " << idx << endl;
+		int number = _item->text(_column).toInt(&isNumeric);
+		if (!isNumeric) {
+			QMessageBox::warning(this, "Warning", "Vacuum switch is not a valid number, \n its value must be a positive number in [-300, 0]"); 
+			_item->setText(_column, QString("0"));
+			return false;
+		}
+		if (number < -300 || number > 0) {
+			QMessageBox::warning(this, "Warning", "Vacuum switch is out of range, \n its value must be a positive number in [-300, 0]");
+			_item->setText(_column, QString("0"));
+			return false;
+		}
+		break;
+	}
+	case 3: {
+		// check v_r
+		bool isNumeric;
+		cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_tools::checkValidity ::: case : " << idx << endl;
+		int number = _item->text(_column).toInt(&isNumeric);
+		if (!isNumeric) {
+			QMessageBox::warning(this, "Warning", "Vacuum recirculation is not a valid number, \n its value must be a positive number in [-300, 0]");
+			_item->setText(_column, QString("0"));
+			return false;
+		}
+		if (number < -300 || number > 0) {
+			QMessageBox::warning(this, "Warning", "Vacuum recirculation is out of range, \n its value must be a positive number in [-300, 0]");
+			_item->setText(_column, QString("0"));
+			return false;
+		}
+		break;
+	}
+	case 4: case 5: case 6: case 7: { //from 4 to 7
+		// check open valve : 0 = no valve, 1,2,3,4 valves 1,2,3,4
+		bool isNumeric;
+		cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_tools::checkValidity ::: case : " << idx << endl;
+		int number = _item->text(_column).toInt(&isNumeric);
+		if (!isNumeric) {
+			QMessageBox::warning(this, "Warning !", " Solution is not a valid number, \n its value must be 0 or 1 ! \n where 0 = open. \nOnly one valve can be open.");
+			_item->setText(_column, QString("0"));
+			return false;
+		}
+		if (number < 0 || number > 1) {
+			QMessageBox::warning(this, "Warning !", " Solution is out of range, \n its value must be 0 or 1 ! \n where 0 = open. \nOnly one valve can be open.");
+			_item->setText(_column, QString("0"));
+			return false;
+		}
+		break;
+	}
+	case 8:{
+		// Droplet size (%)
+		cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_tools::checkValidity ::: case : " << idx << endl;
+		break;
+	}   
+	case 9:{
+		// Flow speed (%)
+		cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_tools::checkValidity ::: case : " << idx << endl;
+		break;
+	}
+	case 10: {
+		// Vacuum (%)
+		cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_tools::checkValidity ::: case : " << idx << endl;
+		break;
+	}
+	case 11: {
 		// check loops
 		bool isNumeric;
 		cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-			<< "case : " << _column << endl;
+			<< "Labonatip_tools::checkValidity ::: case : " << idx << endl;
 		int number = _item->text(_column).toInt(&isNumeric);
 		if (!isNumeric) {
 			QMessageBox::warning(this, "Warning !", " Loop is not a valid number, \n value must be a positive integer number!");
@@ -319,130 +455,53 @@ bool Labonatip_tools::checkValidity(QTreeWidgetItem *_item, int _column)
 		}
 		break;
 	}
-	case 2: {
-		// check pon
-		bool isNumeric; 
-		cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-			<< "case : "  << _column << endl;
-		int number = _item->text(_column).toInt(&isNumeric);
-		if (!isNumeric) {
-			QMessageBox::warning(this, "Warning !", " Pon is not a valid number, \n value must be a positive integer number in [0, 350]!");
-			_item->setText(_column, QString("0"));
-			return false;
-		}
-		if (number < 0 || number > 500) {
-			QMessageBox::warning(this, "Warning !", " Pon is out of range, \n value must be a positive integer number in [0, 350]!");
-			_item->setText(_column, QString("0"));
-			return false;
-		}
-		break;
-	}
-	case 3: {
-		// check poff
+	case 12: {
+		// check Wait (s)
 		bool isNumeric;
 		cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-			<< "case : " << _column << endl;
+			<< "case : " << idx << endl;
 		int number = _item->text(_column).toInt(&isNumeric);
 		if (!isNumeric) {
-			QMessageBox::warning(this, "Warning !", " Poff is not a valid number, \n value must be a positive integer number in [0, 500]!");
-			_item->setText(_column, QString("0"));
-			return false;
-		}
-		if (number < 0 || number > 500) {
-			QMessageBox::warning(this, "Warning !", " Poff is out of range, \n value must be a positive integer number in [0, 500]!");
-			_item->setText(_column, QString("0"));
+			QMessageBox::warning(this, "Warning !", " Loop is not a valid number, \n value must be a positive integer number!");
+			_item->setText(_column, QString("1"));
 			return false;
 		}
 		break;
 	}
-	case 4:{
-		// check v_s
-		bool isNumeric;
+	case 13: {
+		// all off
 		cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-			<< "case : " << _column << endl;
-		int number = _item->text(_column).toInt(&isNumeric);
-		if (!isNumeric) {
-			QMessageBox::warning(this, "Warning !", " V_switch is not a valid number, \n value must be a positive integer number in [-350, 0]!");
-			_item->setText(_column, QString("0"));
-			return false;
-		}
-		if (number < -350 || number > 0) {
-			QMessageBox::warning(this, "Warning !", " V_switch is out of range, \n value must be a positive integer number in [-350, 0]!");
-			_item->setText(_column, QString("0"));
-			return false;
-		}
+			<< "case : " << idx << endl;
 		break;
 	}
-	case 5: {
-		// check v_r
-		bool isNumeric;
+	case 14: {
+		// pumps off
 		cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-			<< "case : " << _column << endl;
-		int number = _item->text(_column).toInt(&isNumeric);
-		if (!isNumeric) {
-			QMessageBox::warning(this, "Warning !", " V_recirc is not a valid number, \n value must be a positive integer number in [0, 350]!");
-			_item->setText(_column, QString("0"));
-			return false;
-		}
-		if (number < -350 || number > 0) {
-			QMessageBox::warning(this, "Warning !", " V_recirc is out of range, \n value must be a positive integer number in [0, 350]!");
-			_item->setText(_column, QString("0"));
-			return false;
-		}
+			<< "case : " << idx << endl;
 		break;
-	}
-	case 6: {
-		// check duration
-		bool isNumeric;
+	}	
+	case 15: {
+		// Valve state"
 		cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-			<< "case : " << _column << endl;
-		int number = _item->text(_column).toInt(&isNumeric); // should this be an integer?
-		if (!isNumeric) {
-			QMessageBox::warning(this, "Warning !", " Duration is not a valid number, \n value must be a positive integer number !");
-			_item->setText(_column, QString("0"));
-			return false;
-		}
-		if (number <= 0 ) {
-			QMessageBox::warning(this, "Warning !", " Duration is out of range, \n value must be a positive integer number !");
-			_item->setText(_column, QString("0"));
-			return false;
-		}
+			<< "case : " << idx << endl;
 		break;
-	}
-	case 7: {
-		// check open valve : 0 = no valve, 1,2,3,4 valves 1,2,3,4
-		bool isNumeric;
+	}	
+	case 16: {
+		// Wait sync"
 		cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-			<< "case : " << _column << endl;
-		int number = _item->text(_column).toInt(&isNumeric);
-		if (!isNumeric) {
-			QMessageBox::warning(this, "Warning !", " Open valsve is not a valid number, \n value must be a positive integer number in [0, 4]! \n where 0 = no open valve, 1,2,3,4 open valves 1,2,3,4. Only one valve at time can be open");
-			_item->setText(_column, QString("0"));
-			return false;
-		}
-		if (number < 0 || number > 4) {
-			QMessageBox::warning(this, "Warning !", " Duration is out of range, \n value must be a positive integer number in [0, 350]!");
-			_item->setText(_column, QString("0"));
-			return false;
-		}
+			<< "case : " << idx << endl;
 		break;
-	}
-	case 8:{
-		// check
+	}	
+	case 17: {
+		// Sync out"
 		cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-			<< "case : " << _column << endl;
-		break;
-	}
-	case 9:{
-		// check
-		cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-			<< "case : " << _column << endl;
+			<< "case : " << idx << endl;
 		break;
 	}
 	default:{
 		// default function active if none of the previous
 		cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-			<< "default : " << _column << endl;
+			<< "default : " << idx << endl;
 		break;
 	}
 	}
@@ -450,17 +509,39 @@ bool Labonatip_tools::checkValidity(QTreeWidgetItem *_item, int _column)
 	return false;
 }
 
+void Labonatip_tools::commandChanged(int _idx)
+{
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_tools::commandChanged :::: " << _idx << endl;
+
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_tools::commandChanged :::: row " << ui_tools->treeWidget_macroTable->currentIndex().row() << endl;
+	// TODO: retrive the right row where the event is generated
+	
+}
+
+
+
 void Labonatip_tools::duplicateItem()
 {
 	if (!ui_tools->treeWidget_macroTable->currentItem()) return; // avoid crash if no selection
 
-	QTreeWidgetItem *newItem = ui_tools->treeWidget_macroTable->currentItem()->clone();
+	QTreeWidgetItem *newItem = new QTreeWidgetItem;
+	QComboBox *comboBox = new QComboBox(this);
+	createNewCommand(*newItem, *comboBox); 
+	newItem = ui_tools->treeWidget_macroTable->currentItem()->clone();
 
+	int idx = qobject_cast<QComboBox*>(
+				ui_tools->treeWidget_macroTable->itemWidget(
+					ui_tools->treeWidget_macroTable->currentItem(), 0))->currentIndex();
+
+	comboBox->setCurrentIndex(idx);
 
 	if (ui_tools->treeWidget_macroTable->topLevelItemCount() < 1 ||
 		!ui_tools->treeWidget_macroTable->currentIndex().isValid()) {
 
 		ui_tools->treeWidget_macroTable->insertTopLevelItem(0, newItem);
+		ui_tools->treeWidget_macroTable->setItemWidget(newItem, 0, comboBox);
 
 		return;
 	}
@@ -470,72 +551,36 @@ void Labonatip_tools::duplicateItem()
 
 		if (parent) {
 			parent->insertChild(row + 1, newItem);
+			ui_tools->treeWidget_macroTable->setItemWidget(newItem, 0, comboBox);
 		}
 		else {
 			ui_tools->treeWidget_macroTable->insertTopLevelItem(row + 1, newItem);
+			ui_tools->treeWidget_macroTable->setItemWidget(newItem, 0, comboBox);
 		}
 		return;
+		//TODO all the children do not have the combobox
 	}
 
 }
 
-void Labonatip_tools::visualizeItemProperties()
+void Labonatip_tools::createNewCommand(QTreeWidgetItem & _command, QComboBox & _combo_box)
 {
-	if (!ui_tools->treeWidget_macroTable->currentItem()) return; // avoid crash if no selection
 
-	QTreeWidgetItem *moveItem = ui_tools->treeWidget_macroTable->currentItem();
-	int row = ui_tools->treeWidget_macroTable->currentIndex().row();
-	int column = ui_tools->treeWidget_macroTable->currentIndex().column();
-	int childCount = ui_tools->treeWidget_macroTable->currentItem()->childCount();
-	int indexOfChild = -1;
-	int depth = -1;
-	bool hasParent = false;
-	QTreeWidgetItem *parent = ui_tools->treeWidget_macroTable->currentItem()->parent();
-	if (parent) {
-		hasParent = true;
-		indexOfChild = ui_tools->treeWidget_macroTable->currentItem()->indexOfChild(
-			ui_tools->treeWidget_macroTable->currentItem() );
-		depth = 1;
-
-		while (parent != 0) {
-			depth++;
-			parent = parent->parent();
-		}
-
-	}
-
-	int number_of_items = ui_tools->treeWidget_macroTable->topLevelItemCount();
-
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		<< "\n  row" << row
-		 << "\n  column  " << column
-		 << "\n  childCount  " << childCount
-		 << "\n  hasParent  " << hasParent
-		 << "\n  indexOfChild  " << indexOfChild
-		 << "\n  depth  " << depth 
-		 << "\n  number_of_items  " << number_of_items
-		 << endl;
-}
-
-void Labonatip_tools::createNewCommand(QTreeWidgetItem & _command)
-{
-	_command.setText(0, "Name"); // name
-	_command.setText(1, "1"); // loop
-	_command.setText(2, "190"); // pon
-	_command.setText(3, "21"); // poff
-	_command.setText(4, "-115"); // v_s
-	_command.setText(5, "-115"); // v_r
-	_command.setText(6, "60"); // duration
-	_command.setText(7, "0"); // open valve : 0 = no valve, 1,2,3,4 valves 1,2,3,4
-	_command.setCheckState(8, Qt::CheckState::Unchecked); // wait sync
-	_command.setCheckState(9, Qt::CheckState::Unchecked); // sync out
-	_command.setCheckState(10, Qt::CheckState::Unchecked); // ask
-	_command.setText(10, "questions?"); // ask message 
-	_command.setText(11, "go science !!!"); // status message
+	_command.setText(0, "Command"); // 
+	_command.setText(1, "1"); // 
+	_command.setCheckState(2, Qt::CheckState::Unchecked); // status message
+	_command.setText(2, "go science !!!"); // status message
 	_command.setFlags(_command.flags() | (Qt::ItemIsEditable));
-	_command.setText(12, "Command"); // 
-	_command.setText(13, "Value"); // 
 
+	_combo_box.addItems(QStringList() << "Pressure ON (mbar)" << "Pressure OFF (mbar)" 
+		<< "Vacuum Switch (mbar)" << "Vacuum Recirculation (mbar)"
+		<< "Solution 1 (open/close)" << "Solution 2 (open/close)" 
+		<< "Solution 3 (open/close)" << "Solution 4 (open/close)"
+		<< "Droplet size (%)" << "Flow speed (%)" << "Vacuum (%)" 
+		<< "loop" << "Sleep (s)" << "Aks"
+		<< "All Off" << "Pumps Off" << "Valve state" << "Wait sync" << "Sync out");
+
+	connect(&_combo_box, SIGNAL(currentIndexChanged(int )), this, SLOT(commandChanged(int )));
 }
 
 
@@ -820,7 +865,7 @@ void Labonatip_tools::saveSettings()
 
 void Labonatip_tools::addAllCommandsToMacro()
 {
-
+	/*
 	std::vector<QTreeWidgetItem*> items;
 	m_macro->clear();
 
@@ -849,6 +894,7 @@ void Labonatip_tools::addAllCommandsToMacro()
 
 	for (int i = 0; i < items.size(); ++i)
 	{
+		error here !!!
 		fluicell::PPC1api::command new_command;
 		new_command.P_on = items.at(i)->text(2).toInt();
 		new_command.P_off = items.at(i)->text(3).toInt();
@@ -906,7 +952,7 @@ void Labonatip_tools::addAllCommandsToMacro()
 
 	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
 		<< " the current macro will run " << m_macro->size() << " commands " << endl;
-
+		*/
 
 
 }
@@ -917,7 +963,7 @@ bool Labonatip_tools::loadMacro()
 	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
 	QString fine_name = QFileDialog::getOpenFileName(this, tr("Open file"), QDir::currentPath(),  // dialog to open files
 		"Lab-on-a-tip macro File (*.macro);; Data (*.dat);; All Files(*.*)", 0);
-
+	
 	QFile macroFile(fine_name);
 	if (macroFile.exists() && macroFile.open(QIODevice::ReadWrite))
 	{
@@ -928,11 +974,16 @@ bool Labonatip_tools::loadMacro()
 		{
 			QTreeWidgetItem *newItem = new QTreeWidgetItem();
 			QTreeWidgetItem *parent = new QTreeWidgetItem();
+			QComboBox *comboBox = new QComboBox(this);
+			createNewCommand(*newItem, *comboBox);
 
 			if (decodeMacroCommand(content, *newItem)) {
 				if (getLevel(*newItem) == 0) // we are at top level
 				{
+					
 					ui_tools->treeWidget_macroTable->addTopLevelItem(newItem);
+					comboBox->setCurrentIndex(newItem->text(0).toInt());
+					ui_tools->treeWidget_macroTable->setItemWidget(newItem, 0, comboBox);
 					//list->push_back(newItem);
 					cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
 						<< " top level item " << newItem->text(0).toStdString()
@@ -941,7 +992,7 @@ bool Labonatip_tools::loadMacro()
 				}
 				if (getLevel(*newItem) > 0)  // we are at the first level
 				{
-					//getLastNode(ui_tools->treeWidget_macroTable, *parent);
+					getLastNode(ui_tools->treeWidget_macroTable, parent);
 					cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
 						<< " item level " << getLevel(*newItem) << " text " << newItem->text(0).toStdString() << endl;
 					QTreeWidgetItem *item = new QTreeWidgetItem();
@@ -954,9 +1005,13 @@ bool Labonatip_tools::loadMacro()
 					}
 					if (getLevel(*item) == getLevel(*newItem)) {
 						item->parent()->addChild(newItem);
+						comboBox->setCurrentIndex(newItem->text(0).toInt());
+						ui_tools->treeWidget_macroTable->setItemWidget(newItem, 0, comboBox);
 					}
 					if (getLevel(*newItem) == getLevel(*item) + 1) {
 						item->addChild(newItem);
+						comboBox->setCurrentIndex(newItem->text(0).toInt());
+						ui_tools->treeWidget_macroTable->setItemWidget(newItem, 0, comboBox);
 					}
 					if (getLevel(*newItem) < getLevel(*item)) {
 						QTreeWidgetItem *parentItem = item;
@@ -964,6 +1019,8 @@ bool Labonatip_tools::loadMacro()
 							parentItem = parentItem->parent();
 						}
 						parentItem->parent()->addChild(newItem);
+						comboBox->setCurrentIndex(newItem->text(0).toInt());
+						ui_tools->treeWidget_macroTable->setItemWidget(newItem, 0, comboBox);
 					}
 					ui_tools->treeWidget_macroTable->update();
 				}
@@ -1050,7 +1107,7 @@ bool Labonatip_tools::saveMacro(QString _file_name)
 		QList<QStringList> result = visitTree(ui_tools->treeWidget_macroTable);
 
 		cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-			<< " result size " << result.size() << endl;
+			<< "Labonatip_tools::saveMacro :::: result size " << result.size() << endl;
 
 		for (int i = 0; i < result.size(); i++) {
 			for (int j = 0; j < result.at(i).size(); j++)
@@ -1074,18 +1131,15 @@ bool Labonatip_tools::saveMacro(QString _file_name)
 }
 
 
-void Labonatip_tools::visitTree(QTreeWidgetItem *_item) {
-
-
-}
+//void Labonatip_tools::visitTree(QTreeWidgetItem *_item) {}
 
 int Labonatip_tools::getLevel(QTreeWidgetItem _item)
 {
 	int level;
 
-	// for our item structure the level is on the column number 12
+	// for our item structure the level is on the column number 3
 	bool success = false;
-	level = _item.text(12).toInt(&success);
+	level = _item.text(3).toInt(&success);
 	if (success) return level;
 	else return -1;
 
@@ -1105,7 +1159,7 @@ void Labonatip_tools::getLastNode(QTreeWidget *_tree, QTreeWidgetItem *_item)
 	}
 }
 
-void Labonatip_tools::visitTree(QList<QStringList> &_list, QTreeWidgetItem *_item) {
+void Labonatip_tools::visitTree(QList<QStringList> &_list, QTreeWidget *_tree, QTreeWidgetItem *_item) {
 
 	QStringList _string_list;
 
@@ -1116,38 +1170,26 @@ void Labonatip_tools::visitTree(QList<QStringList> &_list, QTreeWidgetItem *_ite
 		parent = parent->parent();
 	}
 
-	//there is a problem with the size of the column
+	int idx = qobject_cast<QComboBox*>(	_tree->itemWidget(_item, 0) )->currentIndex();
 
-	for (int i = 0; i < 12; i++)//_item->columnCount(); i++)
-	{
-		if (i == 8 || i == 9)
-		{
-			_string_list.push_back(QString::number(_item->checkState(i)));
-		}
-		if (i == 10)
-		{
-			_string_list.push_back(QString::number(_item->checkState(i)));
-			_string_list.push_back(_item->text(i));
-		}
-		else
-		{
-			_string_list.push_back(_item->text(i));
-
-		}
-	}
-
+	//there is a problem with the size of the column --- fixed for now, change this!
+	_string_list.push_back(QString::number(idx));
+	_string_list.push_back(_item->text(1));
+	_string_list.push_back(QString::number(_item->checkState(2)));
+	_string_list.push_back(_item->text(2));
 	_string_list.push_back(QString::number(depth)); // push the depth of the command as last
 
 	_list.push_back(_string_list);
 
 	for (int i = 0; i<_item->childCount(); ++i)
-		visitTree(_list, _item->child(i));
+		visitTree(_list, _tree, _item->child(i));
 }
 
 QList<QStringList> Labonatip_tools::visitTree(QTreeWidget *_tree) {
 	QList<QStringList> list;
-	for (int i = 0; i<_tree->topLevelItemCount(); ++i)
-		visitTree(list, _tree->topLevelItem(i));
+	for (int i = 0; i < _tree->topLevelItemCount(); ++i){
+		visitTree(list, _tree, _tree->topLevelItem(i));
+	}
 	return list;
 }
 
@@ -1157,11 +1199,12 @@ bool Labonatip_tools::decodeMacroCommand(QByteArray &_command, QTreeWidgetItem &
 	if (_command.at(0) == *"%") {
 		// do nothing, just discard the line
 		//	cout<< QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		// << " this line belogs to the header" << endl;
+		// << "Labonatip_tools::decodeMacroCommand ::: this line belogs to the header" << endl;
 	}
 	else
 	{
-		//		cout << " this line does not belog to the header " << _command.toStdString() << "  size " << _command.size() << endl;
+		//cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() <<
+		//	"Labonatip_tools::decodeMacroCommand ::: this line does not belog to the header " << _command.toStdString() << "  size " << _command.size() << endl;
 
 		for (int i = 0; i < _command.size() - 2; i++)  // the endline has 2 end characters, # for the string and § for the line
 		{
@@ -1176,38 +1219,40 @@ bool Labonatip_tools::decodeMacroCommand(QByteArray &_command, QTreeWidgetItem &
 		}
 	}
 
-	if (data_string.size() < 14) {
+	if (data_string.size() < 4) {
+		cerr << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() <<
+			"Labonatip_tools::decodeMacroCommand ::: data_string size error - size = " << data_string.size() << endl;
 		return false;  // something went wrong
 	}
 
 
 	// fill the qtreewidget item
-	_out_item.setText(0, data_string.at(0)); // name
-	_out_item.setText(1, data_string.at(1)); // loop
-	_out_item.setText(2, data_string.at(2)); // pon
-	_out_item.setText(3, data_string.at(3)); // poff
-	_out_item.setText(4, data_string.at(4)); // v_s
-	_out_item.setText(5, data_string.at(5)); // v_r
-	_out_item.setText(6, data_string.at(6)); // duration
-	_out_item.setText(7, data_string.at(7)); // open valve : 0 = no valve, 1,2,3,4 valves 1,2,3,4
+	_out_item.setText(0, data_string.at(0)); 
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() <<
+		"Labonatip_tools::decodeMacroCommand ::: data_string.at(0) " << data_string.at(0).toStdString()  << endl;
+	
+	_out_item.setText(1, data_string.at(1));
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() <<
+		"Labonatip_tools::decodeMacroCommand ::: data_string.at(1) " << data_string.at(1).toStdString() << endl;
+	
+	
+	if (data_string.at(2) == "2") {
+		_out_item.setCheckState(2, Qt::CheckState::Checked); 
+	}
+	else {
+		_out_item.setCheckState(2, Qt::CheckState::Unchecked); 
+	}
+	_out_item.setText(2, data_string.at(3)); 
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() <<
+		"Labonatip_tools::decodeMacroCommand ::: data_string.at(3) " << data_string.at(3).toStdString() << endl;
+	
+	_out_item.setText(3, data_string.at(4));
+	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() <<
+		"Labonatip_tools::decodeMacroCommand ::: data_string.at(4) " << data_string.at(4).toStdString() << endl;
 
-	if (data_string.at(8) == "2")
-		_out_item.setCheckState(8, Qt::CheckState::Checked); // wait sync
-	else _out_item.setCheckState(8, Qt::CheckState::Unchecked); // wait sync
-	_out_item.setText(8, data_string.at(9)); // wait sync message 
 
-	if (data_string.at(10) == "2")
-		_out_item.setCheckState(9, Qt::CheckState::Checked); // sync out
-	else _out_item.setCheckState(9, Qt::CheckState::Unchecked); // sync out
-	_out_item.setText(9, data_string.at(11)); // sync out message 
 
-	if (data_string.at(12) == "2")
-		_out_item.setCheckState(10, Qt::CheckState::Checked); // sync out
-	else _out_item.setCheckState(10, Qt::CheckState::Unchecked); // sync out
-	_out_item.setText(10, data_string.at(13)); // ask message 
 
-	_out_item.setText(11, data_string.at(14)); // status message
-	_out_item.setText(12, data_string.at(15)); // status message
 	_out_item.setFlags(_out_item.flags() | (Qt::ItemIsEditable));
 
 	return true;
@@ -1227,30 +1272,44 @@ QString Labonatip_tools::createHeader()
 	header.append(tr("%% |                          http://www.fluicell.com/                         |\n"));
 	header.append(tr("%% +---------------------------------------------------------------------------+\n"));
 	header.append(tr("%% \n"));
-	header.append(tr("%% Macro Header V. 0.1 \n"));
-	header.append(tr("%% file created on dd/mm/yyyy \n"));
+	header.append(tr("%% Macro Header V. 0.2 \n"));
+	header.append(tr("%% file created on dd/mm/yyyy - "));
+	header.append(QDate::currentDate().toString());
+	header.append(" ");
+	header.append(QTime::currentTime().toString());
+	header.append(tr("%% \n"));
 	header.append(tr("%% Fluicell Lab-on-a-tip macro file description \n"));
 	header.append(tr("%% +---------------------------------------------------------------------------+ \n"));
 	header.append(tr("%% List of parameters: \n"));
-	header.append(tr("%%  - name \n"));
-	header.append(tr("%%  - loops \n"));
-	header.append(tr("%%  - P_on (mbar) \n"));
-	header.append(tr("%%  - P_off (mbar) \n"));
-	header.append(tr("%%  - V_switch (mbar) \n"));
-	header.append(tr("%%  - V_recirc (mbar) \n"));
-	header.append(tr("%%  - Duration (sec) \n"));
-	header.append(tr("%%  - OpenSol1 (int) \n"));
-	header.append(tr("%%  - waitSync (bool) \n"));
-	header.append(tr("%%  - syncOut (bool) \n"));
-	header.append(tr("%%  - ask (bool) \n"));
-	header.append(tr("%%  - ask_message (bool) \n"));
+	header.append(tr("%%  - Command :  \n"));
+	header.append(tr("%%  -       1:  Pressure ON (mbar) \n"));
+	header.append(tr("%%  -       2:  Pressure OFF (mbar) \n"));
+	header.append(tr("%%  -       3:  Vacuum Switch (mbar) \n"));
+	header.append(tr("%%  -       4:  Vacuum Recirculation (mbar) \n"));
+	header.append(tr("%%  -       5:  Solution 1 (open/close) \n"));
+	header.append(tr("%%  -       6:  Solution 2 (open/close) \n"));
+	header.append(tr("%%  -       7:  Solution 3 (open/close) \n"));
+	header.append(tr("%%  -       8:  Solution 4 (open/close) \n"));
+	header.append(tr("%%  -       9:  Droplet size (%) \n"));
+	header.append(tr("%%  -       10: Flow speed (%) \n"));
+	header.append(tr("%%  -       11: Vacuum (%) \n"));
+	header.append(tr("%%  -       12: loop \n"));
+	header.append(tr("%%  -       13: Wait (s) \n"));
+	header.append(tr("%%  -       14: All Off \n"));
+	header.append(tr("%%  -       15: Pumps Off \n"));
+	header.append(tr("%%  -       16: Valve state \n"));
+	header.append(tr("%%  -       17: Wait sync \n"));
+	header.append(tr("%%  -       18: Sync out \n"));
+	header.append(tr("%%  - \n"));
+	header.append(tr("%%  - value (mbar, %, s) - value to be applied to the command\n"));
 	header.append(tr("%%  - status_message (string) \n"));
-	header.append(tr("%%  - level \n"));
+	header.append(tr("%%  - depth : depth in the tree of the command, all the commands at different layers will run in loop\n"));
 	header.append(tr("%% +---------------------------------------------------------------------------+ \n"));
-	header.append(tr("%% name loops P_on P_off  V_switch  V_recirc  Duration  OpenSol  waitSync  syncOut  ask ask_message status_message level\n%"));
+	header.append(tr("%% Command Value status_message depth\n%"));
 
 	return header;
 }
+
 
 void Labonatip_tools::clearAllCommands() {
 	ui_tools->treeWidget_macroTable->clear();

@@ -5,38 +5,59 @@
 %% |                          http://www.fluicell.com/                         |
 %% +---------------------------------------------------------------------------+
 %% 
-%% Macro Header V. 0.1 
-%% file created on dd/mm/yyyy 
+%% Macro Header V. 0.2 
+%% file created on dd/mm/yyyy - Fri Jul 7 2017 15:09:15%% 
 %% Fluicell Lab-on-a-tip macro file description 
 %% +---------------------------------------------------------------------------+ 
 %% List of parameters: 
-%%  - name 
-%%  - loops 
-%%  - P_on (mbar) 
-%%  - P_off (mbar) 
-%%  - V_switch (mbar) 
-%%  - V_recirc (mbar) 
-%%  - Duration (sec) 
-%%  - OpenSol1 (int) 
-%%  - waitSync (bool) 
-%%  - syncOut (bool) 
-%%  - ask (bool) 
-%%  - ask_message (bool) 
+%%  - Command :  
+%%  -       1:  Pressure ON (mbar) 
+%%  -       2:  Pressure OFF (mbar) 
+%%  -       3:  Vacuum Switch (mbar) 
+%%  -       4:  Vacuum Recirculation (mbar) 
+%%  -       5:  Solution 1 (open/close) 
+%%  -       6:  Solution 2 (open/close) 
+%%  -       7:  Solution 3 (open/close) 
+%%  -       8:  Solution 4 (open/close) 
+%%  -       9:  Droplet size (%) 
+%%  -       10: Flow speed (%) 
+%%  -       11: Vacuum (%) 
+%%  -       12: loop 
+%%  -       13: Wait (s) 
+%%  -       14: All Off 
+%%  -       15: Pumps Off 
+%%  -       16: Valve state 
+%%  -       17: Wait sync 
+%%  -       18: Sync out 
+%%  - 
+%%  - value (mbar, %, s) - value to be applied to the command
 %%  - status_message (string) 
-%%  - level 
+%%  - depth : depth in the tree of the command, all the commands at different layers will run in loop
 %% +---------------------------------------------------------------------------+ 
-%% name loops P_on P_off  V_switch  V_recirc  Duration  OpenSol  waitSync  syncOut  ask ask_message status_message level
+%% Command Value status_message depth
 %
-Initialize#1#0#0#0#0#1#0#0##0##0##Initialization#0#§
-ask#1#0#0#0#0#1#0#0##0##2#Place the pipette to the holder and tighten. THEN PRESS OK#Waiting#1#§
-all off#1#0#0#0#0#1#0#0##0##0##Shutting down pressures#1#§
-p v off#1#0#0#0#0#5#0#0##0##0##Shutting down vacuums#1#§
-pon 200#1#200#0#0#0#5#0#0##0##0##Pumps off#1#§
-ask wait#1#200#0#0#0#40#0#0##0##2#Wait until a droplet appears at the tip of the pipette and THEN PRESS OK#Waiting#1#§
-all off#1#0#0#0#0#1#0#0##0##0##all off#1#§
-set pon 0#1#0#0#0#0#10#0#0##0##0##pressure off#1#§
-ask#1#0#0#0#0#1#0#0##0##2#Remove the droplet using a lens tissue and put the pipette into solution THEN PRESS OK#Waiting#1#§
-set vacuum#1#0#0#-200#-200#90#0#0##0##0##Set vacuum -200#1#§
-set pressures#1#190#21#-200#-200#5#0#0##0##0##Set pressures 190, 21#1#§
-set vacuum#1#190#21#-115#-115#1#0#0##0##0##Set 100%#1#§
-ask#1#190#21#-115#-115#0#0#0##0##2#Pipette is ready for operation, press OK to start.#Ready to start#1#§
+13#1#2#ask(Place_the_pipette_to_the_holder_and_tighten._THEN_PRESS_OK)#0#§
+14##0#AllOff()#0#§
+2#0#0#setVswitch(0)#0#§
+3#0#0#setVrecirc(0)#0#§
+0#0#0#setPon(0)#0#§
+1#0#0#setPoff(0)#0#§
+12#5#0#sleep(5)#0#§
+0#200#0#setPon(200)#0#§
+12#5#0#sleep(5)#0#§
+16#1111#0#valve(1111)#0#§
+13#1#2#ask(Wait_until_a_droplet_appears_at_the_tip_of_the_pipette_and_THEN_PRESS_OK)#0#§
+12#40#0#sleep(40)#0#§
+14#1#0#allOff()#0#§
+0#0#0#setPon(0)#0#§
+12#10#0#sleep(10)#0#§
+12#1#2#ask(Remove_the_droplet_using_a_lens_tissue_and_put_the_pipette_into_solution._THEN_PRESS_OK)#0#§
+2#-200#0#setVswitch(-200)#0#§
+3#-200#0#setVrecirc(-200)#0#§
+12#90#0#sleep(90)#0#§
+1#21#0#setPoff(21)#0#§
+0#190#0#setPon(190)#0#§
+12#5#0#sleep(5)#0#§
+2#-115#0#setVswitch(-115)#0#§
+3#-115#0#setVrecirc(-115)#0#§
+12#1#2#ask(Pipette_is_ready_for_operation,_press_OK_to_start.)#0#§
