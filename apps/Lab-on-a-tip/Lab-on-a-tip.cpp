@@ -1145,7 +1145,7 @@ void Labonatip_GUI::toolOk() {
 			fluicell::PPC1api::command::instructions::sleep)
 		duration += m_macro->at(i).getValue(); 
 	}
-
+	// visualize it in the chart information panel 
 	ui->treeWidget_macroInfo->topLevelItem(4)->setText(1, QString::number(duration));
 }
 
@@ -1173,10 +1173,7 @@ void Labonatip_GUI::toolApply()
 			fluicell::PPC1api::command::instructions::sleep)
 			duration += m_macro->at(i).getValue();
 	}
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::toolApply ::: the complete duration is : " << duration << endl;
-
+	// visualize it in the chart information panel 
 	ui->treeWidget_macroInfo->topLevelItem(4)->setText(1, QString::number(duration));
 }
 

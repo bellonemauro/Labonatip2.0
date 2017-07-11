@@ -1358,8 +1358,6 @@ bool Labonatip_tools::saveMacro(QString _file_name)
 }
 
 
-//void Labonatip_tools::visitTree(QTreeWidgetItem *_item) {}
-
 int Labonatip_tools::getLevel(QTreeWidgetItem _item)
 {
 	int level;

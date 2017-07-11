@@ -805,7 +805,16 @@ namespace fluicell
 		*  \return -  false in case of errors
 		**/
 		bool decreaseDropletSize(double _percentage = 2.5);
-			
+
+		/** \brief Set the droplet size by _percentage
+		*
+		*  Write me
+		*
+		*
+		*  \return -  false in case of errors
+		**/
+		bool setDropletSize(double _percentage = 0.0);
+
 		/** \brief Get the current droplet size in percentage
 		*
 		* \note: the calculation is based on the the actual sensor readings
@@ -839,6 +848,14 @@ namespace fluicell
 		*  \return -  false in case of errors
 		**/
 		bool decreaseFlowspeed(double _percentage = 5.0);
+		
+		/** \brief Set the flow speed by _percentage
+		*
+		*  Write me
+		*
+		*  \return -  false in case of errors
+		**/
+		bool setFlowspeed(double _percentage = 0.0);
 
 		/** \brief Get the current flow speed in percentage
 		*
@@ -874,6 +891,15 @@ namespace fluicell
 		*  \return -  false in case of errors
 		**/
 		bool decreaseVacuum(double _percentage = 5.0);
+
+		/** \brief Set the vacuum by _percentage 
+		*
+		*  write me
+		*
+		*
+		*  \return -  false in case of errors
+		**/
+		bool setVacuum(double _percentage = 0.0);
 
 		/** \brief Get the current vacuum value in percentage
 		*
