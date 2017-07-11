@@ -49,22 +49,28 @@ void Labonatip_macroRunner::run()  {
 
 					QString message = QString::fromStdString(m_macro->at(i).status_message);
 					message.append(" >>> command :  ");
-					message.append(" v_switch = ");
-					message.append(QString::number(m_macro->at(i).V_switch));
-					message.append(";  V_recirc = ");
-					message.append(QString::number(m_macro->at(i).V_recirc));
-					message.append(";  P_on = ");
-					message.append(QString::number(m_macro->at(i).P_on));
-					message.append(";  P_off = ");
-					message.append(QString::number(m_macro->at(i).P_off));
-					message.append(";  Valve a = ");
-					message.append(QString::number(m_macro->at(i).open_valve_a));
-					message.append(";  Valve b = ");
-					message.append(QString::number(m_macro->at(i).open_valve_b));
-					message.append(";  Valve c = ");
-					message.append(QString::number(m_macro->at(i).open_valve_c));
-					message.append(";  Valve d = ");
-					message.append(QString::number(m_macro->at(i).open_valve_d));
+					message.append(QString::number(m_macro->at(i).comando));
+					message.append(" value ");
+					message.append(QString::number(m_macro->at(i).value));
+					message.append(" status message ");
+					message.append(QString::fromStdString(m_macro->at(i).status_message));
+
+					//message.append(" v_switch = ");
+					//message.append(QString::number(m_macro->at(i).V_switch));
+					//message.append(";  V_recirc = ");
+					//message.append(QString::number(m_macro->at(i).V_recirc));
+					//message.append(";  P_on = ");
+					//message.append(QString::number(m_macro->at(i).P_on));
+					//message.append(";  P_off = ");
+					//message.append(QString::number(m_macro->at(i).P_off));
+					//message.append(";  Valve a = ");
+					//message.append(QString::number(m_macro->at(i).open_valve_a));
+					//message.append(";  Valve b = ");
+					//message.append(QString::number(m_macro->at(i).open_valve_b));
+					//message.append(";  Valve c = ");
+					//message.append(QString::number(m_macro->at(i).open_valve_c));
+					//message.append(";  Valve d = ");
+					//message.append(QString::number(m_macro->at(i).open_valve_d));
 
 					emit sendStatusMessage(message);
 

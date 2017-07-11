@@ -287,6 +287,28 @@ namespace fluicell
 		{
 		public:
 
+			enum PPC1API_EXPORT commands_list {
+				setPon = 0,
+				setPoff = 1,
+				setVswitch = 2,
+				setVrecirc = 3,
+				solution1 = 4,
+				solution2 = 5,
+				solution3 = 6,
+				solution4 = 7,
+				dropletSize = 8,
+				flowSpeed = 9,
+				vacuum = 10,
+				loop = 11,
+				sleep = 12,
+				ask_msg = 13,
+				allOff = 14,
+				pumpsOff = 15,
+				setValveState = 16,
+				waitSync = 17,
+				syncOut = 18
+			};
+
 			/**  \brief Command data structure .
 			*
 			*  @param loops
@@ -300,13 +322,20 @@ namespace fluicell
 			int Duration;           //!< duration for the application of the command 
 			bool ask;               //!< set true to stop execution and ask confirmation to continue
 			string ask_message;     //!< message to ask if @\param(ask)- is true
+			
 			string status_message;  //!< message to show as status during the command running
+			
 			bool open_valve_a;      //!< closes other valves, then opens valve a for solution 1 valve only
 			bool open_valve_b;      //!< closes other valves, then opens valve b for solution 2 valve
 			bool open_valve_c;      //!< closes other valves, then opens valve c for solution 3 valve
 			bool open_valve_d;      //!< closes other valves, then opens valve d for solution 4 valve
 			bool wait_sync;         //!< macro stops until trigger signal is received
 			int sync_out;           //!< if negative then default state is 1 and pulse is 0, if positive, then pulse is 1 and default is 0
+			
+			commands_list comando;
+			int value;
+			bool visualize_status;
+
 
 			/**  \brief Command constructor .
 			*

@@ -725,6 +725,11 @@ void Labonatip_GUI::setAsDefault()
 	default_v_recirc = ui->horizontalSlider_recirculation->value();
 	default_v_switch = ui->horizontalSlider_switch->value();
 
+	m_dialog_tools->m_pr_params->p_on_default = default_pon;
+	m_dialog_tools->m_pr_params->p_off_default = default_poff;
+	m_dialog_tools->m_pr_params->v_recirc_default = default_v_recirc;
+	m_dialog_tools->m_pr_params->v_switch_default = default_v_switch;
+
 	updateFlowControlPercentages();
 
 	if (m_ppc1)
@@ -982,7 +987,7 @@ void Labonatip_GUI::initConnects()
 	connect(ui->pushButton_standby, SIGNAL(clicked()), this, SLOT(standby()));
 	connect(ui->pushButton_stop, SIGNAL(clicked()), this, SLOT(stopSolutionFlow()));
 	connect(ui->pushButton_operational, SIGNAL(clicked()), this, SLOT(operationalMode()));
-	//connect(ui->pushButton_runMacro, SIGNAL(clicked()), this, SLOT(runMacro()));
+	connect(ui->pushButton_runMacro, SIGNAL(clicked()), this, SLOT(runMacro()));
 	connect(ui->pushButton_newTip, SIGNAL(clicked()), this, SLOT(newTip()));
 
 	

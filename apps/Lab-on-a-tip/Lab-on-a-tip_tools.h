@@ -94,10 +94,10 @@ public:
 	  int v_recirc_min;
 	  int v_recirc_default;
 
-	  pr_params() : p_on_max (0), p_on_min(0), p_on_default(0),
-				    p_off_max(0), p_off_min(0), p_off_default(0),
-				    v_switch_max(0), v_switch_min(0), v_switch_default(0),
-					v_recirc_max(0), v_recirc_min(0), v_recirc_default(0)
+	  pr_params() : p_on_max (450), p_on_min(0), p_on_default(190),
+				    p_off_max(450), p_off_min(0), p_off_default(21),
+				    v_switch_max(0), v_switch_min(-300), v_switch_default(-115),
+					v_recirc_max(0), v_recirc_min(-300), v_recirc_default(-115)
 	  {   // default values
 	  }
   }; // END pr_params struct
@@ -215,7 +215,10 @@ private slots:
 	*/
 	void saveSettings();
 
-
+	/** Put all the commands in the macro editor to the macro structure for running
+	*
+	* \note
+	*/
 	void addAllCommandsToMacro();
 
 
@@ -226,7 +229,15 @@ private:
 	//void createNewCommand(QTreeWidgetItem &_command); // deprecated
 
 	void createNewCommand(QTreeWidgetItem &_command, QComboBox &_combo_box);
-
+	
+	/** overload to allow creating the combobox only without the item
+	*
+	*/
+	void createNewCommand(QComboBox &_combo_box) {
+		QTreeWidgetItem item;
+		createNewCommand(item, _combo_box);
+	}
+		
 	QString createHeader();
 	
 	bool loadMacro(const QString _file_name);
