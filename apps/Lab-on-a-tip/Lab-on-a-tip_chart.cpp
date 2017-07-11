@@ -70,11 +70,14 @@ void Labonatip_chart::updateChartMacro(f_macro *_macro)
 
 	// compute the duration of the macro
 	double duration = 0.0;
-	for (int i = 0; i < _macro->size(); i++)
-		duration += _macro->at(i).Duration;
+	for (int i = 0; i < _macro->size(); i++) {
+		if (_macro->at(i).getInstruction() == fluicell::PPC1api::command::instructions::sleep)
+			duration += _macro->at(i).getValue(); //TODO check this
+	}
 
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::updateChartMacro ::: the complete duration is : " << duration << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  " 
+		 << QTime::currentTime().toString().toStdString() << "  "
+		 << "Labonatip_GUI::updateChartMacro ::: the complete duration is : " << duration << endl;
 
 
 	for (int i = 0; i < _macro->size(); i++) {
@@ -88,7 +91,7 @@ void Labonatip_chart::updateChartMacro(f_macro *_macro)
 		//	<< " next y is " << next_y 
 		//	<< " next next x is " << next_next_x 
 		//	<< " the new duration is " << duration_x << endl;
-		m_series_Pon->append(//next_x, next_y);
+/*		m_series_Pon->append(//next_x, next_y);
 			m_series_Pon->at(m_series_Pon->count() - 1).x(),
 			80 + _macro->at(i).P_on / 50);  // in [80; 90]
 
@@ -123,7 +126,7 @@ void Labonatip_chart::updateChartMacro(f_macro *_macro)
 		//		m_series_V_switch->append(
 		//			m_series_Pon->at(m_series_Pon->count() - 1).x() + qreal(m_macro->at(i).Duration / duration), 
 		//			i * 15);//m_macro->at(i).V_switch); // in [50; 60]
-
+*/
 	}
 
 

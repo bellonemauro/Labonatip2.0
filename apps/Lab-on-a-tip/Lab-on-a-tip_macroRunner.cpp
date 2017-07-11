@@ -47,62 +47,32 @@ void Labonatip_macroRunner::run()  {
 				if (m_simulation_only)
 				{
 
-					QString message = QString::fromStdString(m_macro->at(i).status_message);
+					QString message = QString::fromStdString(m_macro->at(i).getStatusMessage());
 					message.append(" >>> command :  ");
-					message.append(QString::number(m_macro->at(i).comando));
+					message.append(QString::fromStdString(m_macro->at(i).getCommandAsString()));
 					message.append(" value ");
-					message.append(QString::number(m_macro->at(i).value));
+					message.append(QString::number(m_macro->at(i).getValue()));
 					message.append(" status message ");
-					message.append(QString::fromStdString(m_macro->at(i).status_message));
-
-					//message.append(" v_switch = ");
-					//message.append(QString::number(m_macro->at(i).V_switch));
-					//message.append(";  V_recirc = ");
-					//message.append(QString::number(m_macro->at(i).V_recirc));
-					//message.append(";  P_on = ");
-					//message.append(QString::number(m_macro->at(i).P_on));
-					//message.append(";  P_off = ");
-					//message.append(QString::number(m_macro->at(i).P_off));
-					//message.append(";  Valve a = ");
-					//message.append(QString::number(m_macro->at(i).open_valve_a));
-					//message.append(";  Valve b = ");
-					//message.append(QString::number(m_macro->at(i).open_valve_b));
-					//message.append(";  Valve c = ");
-					//message.append(QString::number(m_macro->at(i).open_valve_c));
-					//message.append(";  Valve d = ");
-					//message.append(QString::number(m_macro->at(i).open_valve_d));
+					message.append(QString::fromStdString(m_macro->at(i).getStatusMessage()));
 
 					emit sendStatusMessage(message);
 
-					sleep(m_macro->at(i).Duration);
+					sleep(1);// (m_macro->at(i).Duration);
 				}
 				else {
-					if (m_ppc1->isRunning()) {
+					if (!m_ppc1->isRunning()) {
 						//cout  << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  " << " ppc1 is running the command " << m_macro->at(i).status_message << endl;
-						//m_ppc1->setPressureChannelD(100);
-
-						if (m_ppc1->m_PPC1_data->channel_A->set_point != m_macro->at(i).V_switch)
-							m_ppc1->setVacuumChannelA(m_macro->at(i).V_switch);
-						if (m_ppc1->m_PPC1_data->channel_B->set_point != m_macro->at(i).V_recirc)
-							m_ppc1->setVacuumChannelB(m_macro->at(i).V_recirc);
-						if (m_ppc1->m_PPC1_data->channel_C->set_point != m_macro->at(i).P_on)
-							m_ppc1->setPressureChannelC(m_macro->at(i).P_on);
-						if (m_ppc1->m_PPC1_data->channel_D->set_point != m_macro->at(i).P_off)
-							m_ppc1->setPressureChannelD(m_macro->at(i).P_off);
-
-						m_ppc1->setValve_l(m_macro->at(i).open_valve_a);
-						m_ppc1->setValve_k(m_macro->at(i).open_valve_b);
-						m_ppc1->setValve_j(m_macro->at(i).open_valve_c);
-						m_ppc1->setValve_i(m_macro->at(i).open_valve_d);
-						QString message = QString::fromStdString(m_macro->at(i).status_message);
-						emit sendStatusMessage(message);
-
-						sleep(m_macro->at(i).Duration);
-						//m_ppc1->setPressureChannelD(0);
+						m_ppc1->run(m_macro->at(i));
+						
+						if (m_macro->at(i).isStatusVisualized()) {
+							QString message = QString::fromStdString(m_macro->at(i).getStatusMessage());
+							emit sendStatusMessage(message);
+						}
 					}
 					else {
-						cerr << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-							<< " Labonatip_macroRunner::run  ---- error --- MESSAGE: ppc1 is NOT running " << endl;
+						cerr << QDate::currentDate().toString().toStdString() << "  " 
+							 << QTime::currentTime().toString().toStdString() << "  "
+							 << " Labonatip_macroRunner::run  ---- error --- MESSAGE: ppc1 is NOT running " << endl;
 						result = " ppc1 is NOT running ";
 
 						emit resultReady(result);

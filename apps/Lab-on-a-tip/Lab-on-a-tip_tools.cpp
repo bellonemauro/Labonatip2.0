@@ -142,6 +142,7 @@ void Labonatip_tools::applyPressed() {
 
 	saveSettings();
 
+
 	emit apply();
 
 }
@@ -1156,19 +1157,19 @@ void Labonatip_tools::addAllCommandsToMacro()
 		fluicell::PPC1api::command new_command;
 
 		
-		new_command.comando = static_cast<fluicell::PPC1api::command::commands_list>(
-			commands_vector.at(i)->text(0).toInt());
+		new_command.setInstruction( static_cast<fluicell::PPC1api::command::instructions>(
+			commands_vector.at(i)->text(0).toInt()));
 
-		new_command.value = commands_vector.at(i)->text(1).toInt();
-		new_command.ask = commands_vector.at(i)->checkState(2);
-		new_command.status_message = commands_vector.at(i)->text(2).toStdString();
+		new_command.setValue( commands_vector.at(i)->text(1).toInt());
+		new_command.setVisualizeStatus( commands_vector.at(i)->checkState(2));
+		new_command.setStatusMessage( commands_vector.at(i)->text(2).toStdString());
 
 		cout << QDate::currentDate().toString().toStdString() << "  "
 			<< QTime::currentTime().toString().toStdString() << "  "
 			<< "Labonatip_tools::addAllCommandsToMacro ::: size = " 
 			<< commands_vector.at(i)->columnCount()
-			<< "new_command.comando = " << new_command.comando 
-			<< " new_command.value  =  " << new_command.value  << endl;
+			<< " new_command.instruction = " << new_command.getInstruction()
+			<< " new_command.value  =  " << new_command.getValue()  << endl;
 
 		m_macro->push_back(new_command);
 	}

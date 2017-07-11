@@ -145,10 +145,6 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   connect(m_update_flowing_sliders, SIGNAL(timeout()), this, SLOT(updateTimingSliders()));
   connect(m_update_GUI, SIGNAL(timeout()), this, SLOT(updateGUI()));
 
-  //set color properties rounded progress bars for solution buttons 
-  //setGUIbars();
-
-  //setGUIchart();
   m_labonatip_chart_view = new Labonatip_chart();
   m_chartView = m_labonatip_chart_view->getChartView();
   ui->gridLayout_12->addWidget(m_chartView);
@@ -948,68 +944,189 @@ void Labonatip_GUI::initConnects()
 {
 
 	//windows toolbar
-	connect(ui->actionTools, SIGNAL(triggered()), this, SLOT(showToolsDialog()));
-	connect(ui->actionOpen, SIGNAL(triggered()), this, SLOT(openFile()));
-	connect(ui->actionSave, SIGNAL(triggered()), this, SLOT(saveFile()));
-	connect(ui->actionAbout, SIGNAL(triggered()), this, SLOT(about()));
-	connect(ui->actionNerdy, SIGNAL(triggered()), this, SLOT(closeOpenDockTools()));
-	connect(ui->actionDisCon, SIGNAL(triggered()), this, SLOT(disCon()));
-	connect(ui->actionSimulation, SIGNAL(triggered()), this, SLOT(simulationOnly()));
+	connect(ui->actionTools, 
+		SIGNAL(triggered()), this, 
+		SLOT(showToolsDialog()));
+
+	connect(ui->actionOpen, 
+		SIGNAL(triggered()), this, 
+		SLOT(openFile()));
+
+	connect(ui->actionSave, 
+		SIGNAL(triggered()), this, 
+		SLOT(saveFile()));
+
+	connect(ui->actionAbout, 
+		SIGNAL(triggered()), this, 
+		SLOT(about()));
+
+	connect(ui->actionNerdy, 
+		SIGNAL(triggered()), this, 
+		SLOT(closeOpenDockTools()));
+
+	connect(ui->actionDisCon, 
+		SIGNAL(triggered()), this, 
+		SLOT(disCon()));
+
+	connect(ui->actionSimulation, 
+		SIGNAL(triggered()), this, 
+		SLOT(simulationOnly()));
+
 	//connect(ui->actionRun, SIGNAL(triggered()), this, SLOT(runOperations()));
-	connect(ui->actionReset, SIGNAL(triggered()), this, SLOT(reboot()));
+	connect(ui->actionReset, 
+		SIGNAL(triggered()), this, 
+		SLOT(reboot()));
+
 	//connect(ui->actionSleep, SIGNAL(triggered()), this, SLOT(pumpingOff()));
-	connect(ui->actionShutdown, SIGNAL(triggered()), this, SLOT(shutdown()));
-	connect(ui->actionWhatsthis, SIGNAL(triggered()), this, SLOT(ewst()));
+	connect(ui->actionShutdown, 
+		SIGNAL(triggered()), this, 
+		SLOT(shutdown()));
+
+	connect(ui->actionWhatsthis, 
+		SIGNAL(triggered()), this, 
+		SLOT(ewst()));
 
 	// connect buttons
-	connect(ui->pushButton_p_on_down, SIGNAL(clicked()), this, SLOT(pressurePonDown()));
-	connect(ui->pushButton_p_on_up, SIGNAL(clicked()), this, SLOT(pressurePonUp()));
-	connect(ui->pushButton_p_off_down, SIGNAL(clicked()), this, SLOT(pressurePoffDown()));
-	connect(ui->pushButton_p_off_up, SIGNAL(clicked()), this, SLOT(pressurePoffUp()));
-	connect(ui->pushButton_switchDown, SIGNAL(clicked()), this, SLOT(pressButtonPressed_switchDown()));
-	connect(ui->pushButton_switchUp, SIGNAL(clicked()), this, SLOT(pressButtonPressed_switchUp()));
-	connect(ui->pushButton_recirculationDown, SIGNAL(clicked()), this, SLOT(recirculationDown()));
-	connect(ui->pushButton_recirculationUp, SIGNAL(clicked()), this, SLOT(recirculationUp()));
-	connect(ui->pushButton_solution1, SIGNAL(clicked()), this, SLOT(pushSolution1()));
-	connect(ui->pushButton_solution2, SIGNAL(clicked()), this, SLOT(pushSolution2()));
-	connect(ui->pushButton_solution3, SIGNAL(clicked()), this, SLOT(pushSolution3()));
-	connect(ui->pushButton_solution4, SIGNAL(clicked()), this, SLOT(pushSolution4()));
-	connect(ui->pushButton_setValuesAsDefault, SIGNAL(clicked()), this, SLOT(setAsDefault()));
+	connect(ui->pushButton_p_on_down, 
+		SIGNAL(clicked()), this, 
+		SLOT(pressurePonDown()));
+
+	connect(ui->pushButton_p_on_up, 
+		SIGNAL(clicked()), this, 
+		SLOT(pressurePonUp()));
+
+	connect(ui->pushButton_p_off_down, 
+		SIGNAL(clicked()), this, 
+		SLOT(pressurePoffDown()));
+
+	connect(ui->pushButton_p_off_up, 
+		SIGNAL(clicked()), this, 
+		SLOT(pressurePoffUp()));
+
+	connect(ui->pushButton_switchDown, 
+		SIGNAL(clicked()), this, 
+		SLOT(pressButtonPressed_switchDown()));
+
+	connect(ui->pushButton_switchUp, 
+		SIGNAL(clicked()), this, 
+		SLOT(pressButtonPressed_switchUp()));
+
+	connect(ui->pushButton_recirculationDown, 
+		SIGNAL(clicked()), this, 
+		SLOT(recirculationDown()));
+
+	connect(ui->pushButton_recirculationUp, 
+		SIGNAL(clicked()), this, 
+		SLOT(recirculationUp()));
+
+	connect(ui->pushButton_solution1, 
+		SIGNAL(clicked()), this, 
+		SLOT(pushSolution1()));
+
+	connect(ui->pushButton_solution2, 
+		SIGNAL(clicked()), this, 
+		SLOT(pushSolution2()));
+
+	connect(ui->pushButton_solution3, 
+		SIGNAL(clicked()), this, 
+		SLOT(pushSolution3()));
+
+	connect(ui->pushButton_solution4, 
+		SIGNAL(clicked()), this, 
+		SLOT(pushSolution4()));
+
+	connect(ui->pushButton_setValuesAsDefault, 
+		SIGNAL(clicked()), this, 
+		SLOT(setAsDefault()));
 
 
-	connect(ui->pushButton_dropSize_minus, SIGNAL(clicked()), this, SLOT(dropletSizeMinus()));
-	connect(ui->pushButton_dropSize_plus, SIGNAL(clicked()), this, SLOT(dropletSizePlus()));
-	connect(ui->pushButton_flowspeed_minus, SIGNAL(clicked()), this, SLOT(flowSpeedMinus()));
-	connect(ui->pushButton_flowspeed_plus, SIGNAL(clicked()), this, SLOT(flowSpeedPlus()));
-	connect(ui->pushButton_vacuum_minus, SIGNAL(clicked()), this, SLOT(vacuumMinus()));
-	connect(ui->pushButton_vacuum_plus, SIGNAL(clicked()), this, SLOT(vacuumPlus()));
+	connect(ui->pushButton_dropSize_minus, 
+		SIGNAL(clicked()), this, 
+		SLOT(dropletSizeMinus()));
+
+	connect(ui->pushButton_dropSize_plus, 
+		SIGNAL(clicked()), this, 
+		SLOT(dropletSizePlus()));
+
+	connect(ui->pushButton_flowspeed_minus, 
+		SIGNAL(clicked()), this, 
+		SLOT(flowSpeedMinus()));
+
+	connect(ui->pushButton_flowspeed_plus,
+		SIGNAL(clicked()), this, 
+		SLOT(flowSpeedPlus()));
+
+	connect(ui->pushButton_vacuum_minus, 
+		SIGNAL(clicked()), this, 
+		SLOT(vacuumMinus()));
+
+	connect(ui->pushButton_vacuum_plus, 
+		SIGNAL(clicked()), this, 
+		SLOT(vacuumPlus()));
 	
-	connect(ui->pushButton_standby, SIGNAL(clicked()), this, SLOT(standby()));
-	connect(ui->pushButton_stop, SIGNAL(clicked()), this, SLOT(stopSolutionFlow()));
-	connect(ui->pushButton_operational, SIGNAL(clicked()), this, SLOT(operationalMode()));
-	connect(ui->pushButton_runMacro, SIGNAL(clicked()), this, SLOT(runMacro()));
-	connect(ui->pushButton_newTip, SIGNAL(clicked()), this, SLOT(newTip()));
+	connect(ui->pushButton_standby, 
+		SIGNAL(clicked()), this, 
+		SLOT(standby()));
+
+	connect(ui->pushButton_stop, 
+		SIGNAL(clicked()), this, 
+		SLOT(stopSolutionFlow()));
+
+	connect(ui->pushButton_operational, 
+		SIGNAL(clicked()), this, 
+		SLOT(operationalMode()));
+
+	connect(ui->pushButton_runMacro, 
+		SIGNAL(clicked()), this, 
+		SLOT(runMacro()));
+
+	connect(ui->pushButton_newTip, 
+		SIGNAL(clicked()), this, 
+		SLOT(newTip()));
 
 	
-	connect(ui->checkBox_to_terminal, SIGNAL(stateChanged(int)), this, SLOT(dumpToTerminal(int)));
-	connect(ui->checkBox_verboseOut, SIGNAL(stateChanged(int)), this, SLOT(setPpc1Verbose(int)));
+	connect(ui->checkBox_to_terminal, 
+		SIGNAL(stateChanged(int)), this, 
+		SLOT(dumpToTerminal(int)));
+
+	connect(ui->checkBox_verboseOut, 
+		SIGNAL(stateChanged(int)), this, 
+		SLOT(setPpc1Verbose(int)));
+
 	//connect(ui->checkBox_dumpToFile, SIGNAL(stateChanged(int)), this, SLOT(dumpToTerminal(int)));
 
 	// connect sliders
-	connect(ui->horizontalSlider_p_on, SIGNAL(valueChanged(int)), this, SLOT(sliderPonChanged(int)));
-	connect(ui->horizontalSlider_p_off, SIGNAL(valueChanged(int)), this, SLOT(sliderPoffChanged(int)));
-	connect(ui->horizontalSlider_recirculation, SIGNAL(valueChanged(int)), this, SLOT(sliderRecircChanged(int)));
-	connect(ui->horizontalSlider_switch, SIGNAL(valueChanged(int)), this, SLOT(sliderSwitchChanged(int)));
+	connect(ui->horizontalSlider_p_on, 
+		SIGNAL(valueChanged(int)), this, 
+		SLOT(sliderPonChanged(int)));
+
+	connect(ui->horizontalSlider_p_off, 
+		SIGNAL(valueChanged(int)), this, 
+		SLOT(sliderPoffChanged(int)));
+
+	connect(ui->horizontalSlider_recirculation, 
+		SIGNAL(valueChanged(int)), this, 
+		SLOT(sliderRecircChanged(int)));
+
+	connect(ui->horizontalSlider_switch, 
+		SIGNAL(valueChanged(int)), this, 
+		SLOT(sliderSwitchChanged(int)));
 	
-	connect(m_dialog_tools, SIGNAL(ok()), this, SLOT(toolOk()));
-	connect(m_dialog_tools, SIGNAL(apply()), this, SLOT(toolApply()));
+	connect(m_dialog_tools, 
+		SIGNAL(ok()), this, 
+		SLOT(toolOk()));
+
+	connect(m_dialog_tools, 
+		SIGNAL(apply()), this, 
+		SLOT(toolApply()));
 
 }
 
 void Labonatip_GUI::toolOk() {
 
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::toolOk   " << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  " 
+		 << QTime::currentTime().toString().toStdString() << "  "
+		 << "Labonatip_GUI::toolOk   " << endl;
 
 	m_ppc1->setCOMport(m_dialog_tools->m_comSettings->name);
 	m_ppc1->setBaudRate((int)m_dialog_tools->m_comSettings->baudRate);
@@ -1023,8 +1140,11 @@ void Labonatip_GUI::toolOk() {
 
 	// compute the duration of the macro
 	double duration = 0.0;
-	for (int i = 0; i < m_macro->size(); i++)
-		duration += m_macro->at(i).Duration;
+	for (int i = 0; i < m_macro->size(); i++) {
+		if (m_macro->at(i).getInstruction() == 
+			fluicell::PPC1api::command::instructions::sleep)
+		duration += m_macro->at(i).getValue(); 
+	}
 
 	ui->treeWidget_macroInfo->topLevelItem(4)->setText(1, QString::number(duration));
 }
@@ -1032,8 +1152,9 @@ void Labonatip_GUI::toolOk() {
 void Labonatip_GUI::toolApply()
 {
 
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::toolApply   " << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  " 
+		 << QTime::currentTime().toString().toStdString() << "  "
+		 << "Labonatip_GUI::toolApply   " << endl;
 
 	m_ppc1->setCOMport(m_dialog_tools->m_comSettings->name);
 	m_ppc1->setBaudRate((int)m_dialog_tools->m_comSettings->baudRate);
@@ -1047,93 +1168,17 @@ void Labonatip_GUI::toolApply()
 
 	// compute the duration of the macro
 	double duration = 0.0;
-	for (int i = 0; i < m_macro->size(); i++)
-		duration += m_macro->at(i).Duration;
+	for (int i = 0; i < m_macro->size(); i++) {
+		if (m_macro->at(i).getInstruction() ==
+			fluicell::PPC1api::command::instructions::sleep)
+			duration += m_macro->at(i).getValue();
+	}
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		 << QTime::currentTime().toString().toStdString() << "  "
+		 << "Labonatip_GUI::toolApply ::: the complete duration is : " << duration << endl;
 
 	ui->treeWidget_macroInfo->topLevelItem(4)->setText(1, QString::number(duration));
 }
-
-void Labonatip_GUI::setGUIbars() {
-
-	//QPalette p1;
-	//p1.setBrush(QPalette::AlternateBase, Qt::black);
-	//p1.setColor(QPalette::Text, Qt::yellow);
-	//QPalette p2(p1);
-	//p2.setBrush(QPalette::Base, Qt::transparent);
-	//p2.setColor(QPalette::Text, Qt::transparent);
-	//p2.setColor(QPalette::Shadow, Qt::transparent);
-
-	// set a gradient for solution 1
-	//QGradientStops gradientPoints_sol1;
-	//gradientPoints_sol1 << QGradientStop(0.0, m_sol1_color)
-	//	<< QGradientStop(0.5, m_sol1_color_g1)
-	//	<< QGradientStop(1.0, m_sol1_color_g1);
-	// set a gradient for solution 2
-	//QGradientStops gradientPoints_sol2;
-	//gradientPoints_sol2 << QGradientStop(0.0, m_sol2_color)
-	//	<< QGradientStop(0.5, m_sol2_color_g1)
-	//	<< QGradientStop(1.0, m_sol2_color_g1);
-	// set a gradient for solution 3
-	//QGradientStops gradientPoints_sol3;
-	//gradientPoints_sol3 << QGradientStop(0.0, m_sol3_color)
-	//	<< QGradientStop(0.5, m_sol3_color_g05)
-	//	<< QGradientStop(1.0, m_sol3_color_g1);
-	// set a gradient for solution 4
-	//QGradientStops gradientPoints_sol4;
-	//gradientPoints_sol4 << QGradientStop(0.0, m_sol4_color)
-	//	<< QGradientStop(0.5, m_sol4_color_g05)
-	//	<< QGradientStop(1.0, m_sol4_color_g1);
-
-	// set the round progress bars for solution 1
-	//ui->widget_sol1->setFormat("%p");
-	//ui->widget_sol1->setDecimals(0);
-	//ui->widget_sol1->setPalette(p2);
-	//ui->widget_sol1->setBarStyle(QRoundProgressBar::StylePie);
-	//ui->widget_sol1->setOutlinePenWidth(0);
-	//ui->widget_sol1->setDataPenWidth(0);
-	//ui->widget_sol1->setDataColors(gradientPoints_sol1);
-	//ui->widget_sol1->setRange(ui->horizontalSlider_1->minimum(), ui->horizontalSlider_1->maximum());
-	//ui->widget_sol1->setRange(0, 100);
-	//ui->widget_sol1->setValue(ui->horizontalSlider_p_on->value());
-
-	// set the round progress bars for solution 2
-	//ui->widget_sol2->setFormat("%p");
-	//ui->widget_sol2->setDecimals(0);
-	//ui->widget_sol2->setPalette(p2);
-	//ui->widget_sol2->setBarStyle(QRoundProgressBar::StylePie);
-	//ui->widget_sol2->setOutlinePenWidth(0);
-	//ui->widget_sol2->setDataPenWidth(0);
-	//ui->widget_sol2->setDataColors(gradientPoints_sol2);
-	//ui->widget_sol2->setRange(ui->horizontalSlider_1->minimum(), ui->horizontalSlider_1->maximum());
-	//ui->widget_sol4->setRange(0, 100); 
-	//ui->widget_sol2->setValue(ui->horizontalSlider_p_on->value());
-
-	// set the round progress bars for solution 3
-	//ui->widget_sol3->setFormat("%p");
-	//ui->widget_sol3->setDecimals(0);
-	//ui->widget_sol3->setPalette(p2);
-	//ui->widget_sol3->setBarStyle(QRoundProgressBar::StylePie);
-	//ui->widget_sol3->setOutlinePenWidth(0);
-	//ui->widget_sol3->setDataPenWidth(0);
-	//ui->widget_sol3->setDataColors(gradientPoints_sol3);
-	//ui->widget_sol3->setRange(ui->horizontalSlider_1->minimum(), ui->horizontalSlider_1->maximum());
-	//ui->widget_sol3->setRange(0, 100);
-	//ui->widget_sol3->setValue(ui->horizontalSlider_p_on->value());
-
-	// set the round progress bars for solution 4
-	//ui->widget_sol4->setFormat("%p");
-	//ui->widget_sol4->setDecimals(0);
-	//ui->widget_sol4->setPalette(p2);
-	//ui->widget_sol4->setBarStyle(QRoundProgressBar::StylePie);
-	//ui->widget_sol4->setOutlinePenWidth(0);
-	//ui->widget_sol4->setDataPenWidth(0);
-	//ui->widget_sol4->setDataColors(gradientPoints_sol4);
-	//ui->widget_sol4->setRange(ui->horizontalSlider_1->minimum(), ui->horizontalSlider_1->maximum());
-	//ui->widget_sol4->setRange(0, 100);
-	//ui->widget_sol4->setValue(ui->horizontalSlider_p_on->value());
-
-}
-
 
 
 void Labonatip_GUI::setEnableMainWindow(bool _enable) {
@@ -1145,7 +1190,6 @@ void Labonatip_GUI::setEnableMainWindow(bool _enable) {
 	ui->toolBar_3->setEnabled(_enable);
 
 }
-
 
 
 void Labonatip_GUI::simulationOnly()
@@ -1173,6 +1217,9 @@ bool Labonatip_GUI::visualizeProgressMessage(int _seconds, QString _message)
 	msg.append(" seconds.");
 
 	QProgressDialog *PD = new QProgressDialog(msg, "Cancel", 0, _seconds, this);
+	//QFont font;
+	//font.setPixelSize(16);
+	//PD->setFont(font);  // TODO uniform all the font in the application
 	PD->setMinimumWidth(350);
 	PD->setMinimumHeight(150);
 	PD->setValue(0); 
@@ -1182,7 +1229,7 @@ bool Labonatip_GUI::visualizeProgressMessage(int _seconds, QString _message)
 	PD->setWindowModality(Qt::WindowModal);
 	for (int i = 0; i < _seconds; i++) {
 		PD->setValue(i);
-		QThread::sleep(1);  
+		QThread::sleep(1);
 		if (PD->wasCanceled()) // the operation cannot be cancelled
 		{
 			QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode

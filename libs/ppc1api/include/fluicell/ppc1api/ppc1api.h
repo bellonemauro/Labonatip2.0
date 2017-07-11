@@ -287,7 +287,10 @@ namespace fluicell
 		{
 		public:
 
-			enum PPC1API_EXPORT commands_list {
+			/**  \brief Enumerator for the supported commands.
+			*
+			**/
+			enum PPC1API_EXPORT instructions {
 				setPon = 0,
 				setPoff = 1,
 				setVswitch = 2,
@@ -309,44 +312,105 @@ namespace fluicell
 				syncOut = 18
 			};
 
+
 			/**  \brief Command data structure .
 			*
 			*  @param loops
 			*
 			**/
-			int loops;              //!< number of loops
-			int P_on;               //!< (int: pressure in mbar) ---- Channel D
-			int P_off;              //!< (int: pressure in mbar) ---- Channel C
-			int V_switch;           //!< (int: pressure in mbar) ---- Channel B
-			int V_recirc;           //!< (int: pressure in mbar) ---- Channel A
-			int Duration;           //!< duration for the application of the command 
-			bool ask;               //!< set true to stop execution and ask confirmation to continue
-			string ask_message;     //!< message to ask if @\param(ask)- is true
+			//int loops;              //!< number of loops
+			//int P_on;               //!< (int: pressure in mbar) ---- Channel D
+			//int P_off;              //!< (int: pressure in mbar) ---- Channel C
+			//int V_switch;           //!< (int: pressure in mbar) ---- Channel B
+			//int V_recirc;           //!< (int: pressure in mbar) ---- Channel A
+			//int Duration;           //!< duration for the application of the command 
+			//bool ask;               //!< set true to stop execution and ask confirmation to continue
+			//string ask_message;     //!< message to ask if @\param(ask)- is true
 			
-			string status_message;  //!< message to show as status during the command running
 			
-			bool open_valve_a;      //!< closes other valves, then opens valve a for solution 1 valve only
-			bool open_valve_b;      //!< closes other valves, then opens valve b for solution 2 valve
-			bool open_valve_c;      //!< closes other valves, then opens valve c for solution 3 valve
-			bool open_valve_d;      //!< closes other valves, then opens valve d for solution 4 valve
-			bool wait_sync;         //!< macro stops until trigger signal is received
-			int sync_out;           //!< if negative then default state is 1 and pulse is 0, if positive, then pulse is 1 and default is 0
+			//bool open_valve_a;      //!< closes other valves, then opens valve a for solution 1 valve only
+			//bool open_valve_b;      //!< closes other valves, then opens valve b for solution 2 valve
+			//bool open_valve_c;      //!< closes other valves, then opens valve c for solution 3 valve
+			//bool open_valve_d;      //!< closes other valves, then opens valve d for solution 4 valve
+			//bool wait_sync;         //!< macro stops until trigger signal is received
+			//int sync_out;           //!< if negative then default state is 1 and pulse is 0, if positive, then pulse is 1 and default is 0
 			
-			commands_list comando;
-			int value;
-			bool visualize_status;
 
 
 			/**  \brief Command constructor .
 			*
 			**/
 			command() :
-				loops(1),
-				P_on(190), P_off(21), V_switch(-115), V_recirc(-115), Duration(1),
-				open_valve_a(false), open_valve_b(false),
-				open_valve_c(false), open_valve_d(false),
-				ask(false), ask_message(""), wait_sync(false), sync_out(false)
-			{	}
+				instruction(instructions::setPon), value (0),
+				visualize_status(false), status_message("No message")
+			{ }
+
+
+			/**  \brief Get the command from the enumerator.
+			*
+			**/
+			instructions getInstruction() { return this->instruction; }
+
+			/**  \brief Set the command .
+			*
+			**/
+			void setInstruction(instructions _instruction) { this->instruction = _instruction; }
+
+			/**  \brief Simple cast of the enumerator into the corresponding command as a string.
+			*
+			**/
+			std::string getCommandAsString()
+			{
+				static const char* const text[] =
+				{ "setPon", "setPoff", "setVswitch", "setVrecirc",
+					"solution1", "solution2","solution3","solution4",
+					"dropletSize", "flowSpeed", "vacuum",
+					"loop", "sleep", "ask_msg",
+					"allOff", "pumpsOff", "setValveState",
+					"waitSync", "syncOut" };
+				return  text[int(this->instruction)]; // cast to integer
+			}
+
+			/**  \brief Get the value for the corresponding command.
+			*
+			**/
+			double getValue() { return this->value; }
+
+			/**  \brief Set the value for the corresponding command.
+			*
+			**/
+			void setValue(double _value) { 
+				this->value = _value; }
+
+			/**  \brief True if the status is set to be visualized.
+			*
+			**/
+			bool isStatusVisualized() { 
+				return this->visualize_status; }
+
+			/**  \brief True if the status is set to be visualized.
+			*
+			**/
+			void setVisualizeStatus(bool _visualize_status) { 
+				this->visualize_status = _visualize_status; }
+
+			/**  \brief Get the status message.
+			*
+			**/
+			string getStatusMessage() { 
+				return this->status_message; }
+
+			/**  \brief Set the status message.
+			*
+			**/
+			void setStatusMessage(string _status_message) { 
+				this->status_message = _status_message; }
+
+	private:
+			instructions instruction; //!< command
+			double value;                //!< corresponded value to be applied to the command
+			bool visualize_status;    //!< if active the status message will be visualized
+			string status_message;    //!< message to show as status during the command running
 
 		};
 
@@ -818,6 +882,21 @@ namespace fluicell
 		*  \return -  value = 100 * channel_A->sensor_reading / DEFAULT_VACUUM
 		**/
 		double getVacuumPercentage();
+
+		/** \brief Run a command for the PPC1
+		*
+		*  This funciton runs commands on the PPC1, it implements an simple interpreter
+		*  for the enumerator in <command>.
+		*  The field <value> will also be interpreted to run the command. 
+		*  The commands "loop", "ask message" and "status message" are not implemented in API
+		*  by design, as they are supposed to be implemented in the high-level GUI
+		*
+		*  The commands SyncOut and WaitSync are still not implemented in the API
+		*
+		*  @param  _cmd is a command, see <command> structure
+		*
+		**/
+		bool run(command _cmd);
 
 		/**  \brief Set the data stream period on the serial port
 		  *

@@ -404,7 +404,7 @@ private slots:
 	*/
 	void sliderPoffChanged(int _value);
 
-	/** \brief  Increase/reduce the area for the solution depiction
+	/** \brief Increase/reduce the area for the solution depiction
 	*
 	* \note
 	*/
@@ -462,14 +462,18 @@ private slots:
 	  */
 	void  about();
 
+	/** \brief Catch ok signal from tool dialog
+	* \note
+	*/
 	void toolOk();
 
+	/** \brief Catch apply signal from tool dialog
+	* \note
+	*/
 	void toolApply();
 
 
 private:
-
-	void setGUIbars();
 
 	void setEnableMainWindow(bool _enable = false);
 
