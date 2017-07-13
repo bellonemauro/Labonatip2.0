@@ -75,6 +75,21 @@ public: //private:
 	QtCharts::QChart *m_chart;
 
 	QtCharts::QChartView *m_chartView;
+
+	double chart_width;// = 10.0;  //!> this is the height of each line in the chart, we have reserved 10 units for each line
+	double min_series_pon;// = 80.0;
+	double min_series_poff;// = 70.0;
+	double min_series_V_recirc;// = 60.0;
+	double min_series_V_switch;// = 50.0;
+	double min_series_solution;// = 40.0;
+	double min_series_ask;// = 30.0;
+	double min_series_sync_in;// = 20.0;
+	double min_series_sync_out;// = 10.0;
+	
+	double max_pon;// = 450;
+	double max_poff;// = 450;
+	double max_v_recirc;// = 300;
+	double max_v_switch;// = 300;
 };
 
 

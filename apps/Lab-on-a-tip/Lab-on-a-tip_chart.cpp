@@ -17,6 +17,23 @@ Labonatip_chart::Labonatip_chart(  )
 {
 	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
 		<< " Labonatip_chart::Labonatip_chart initialization " << endl;
+
+	chart_width = 10.0;
+	
+	min_series_pon = 80.0;
+	min_series_poff = 70.0;
+	min_series_V_recirc = 60.0;
+	min_series_V_switch = 50.0;
+	min_series_solution = 40.0;
+	min_series_ask = 30.0;
+	min_series_sync_in = 20.0;
+	min_series_sync_out = 10.0;
+
+	max_pon = 450;
+	max_poff = 450;
+	max_v_recirc = 300;
+	max_v_switch = 300;
+
 	setGUIchart();
 }
 
@@ -41,84 +58,209 @@ void Labonatip_chart::updateChartMacro(f_macro *_macro)
 	m_series_V_recirc->clear();
 	m_series_V_switch->clear();
 	m_series_ask->clear();
-	m_series_solution1->clear();
-	m_series_solution2->clear();
-	m_series_solution3->clear();
-	m_series_solution4->clear(); 
+	//m_series_solution1->clear();
+	//m_series_solution2->clear();
+	//m_series_solution3->clear();
+	//m_series_solution4->clear(); 
 	m_series_solution->clear();
 	m_series_sync_in->clear();
 	m_series_sync_out->clear();
 
+	double current_time = 0.0; //!> starts from zero and will be updated according to the duration of the macro
+	double max_time_line = 100.0;  //!> the duration is scaled in the interval [0; 100]
+	
+
 	// append zero
-	m_series_Pon->append(0.0, 80.0);  // in [80; 90]
-	m_series_Poff->append(0.0, 70.0); // in [70; 80]
-	m_series_V_recirc->append(0.0, 60.0); // in [60; 70]
-	m_series_V_switch->append(0.0, 50.0); // in [50; 60]
-	m_series_solution->append(0.0, 45.0);
-	m_series_ask->append(0.0, 35.0);
-	m_series_sync_in->append(0.0, 25.0);
-	m_series_sync_out->append(0.0, 15.0);
+	m_series_Pon->append(current_time,
+		min_series_pon);  // in [80; 90]
+	m_series_Poff->append(current_time,
+		min_series_poff); // in [70; 80]
+	m_series_V_recirc->append(current_time,
+		min_series_V_recirc); // in [60; 70]
+	m_series_V_switch->append(current_time,
+		min_series_V_switch); // in [50; 60]
+	m_series_solution->append(current_time,
+		min_series_solution + 5.0); // + 5.0 just to set the line in the middle for now
+	m_series_ask->append(current_time,
+		min_series_ask + 5.0);  // + 5.0 just to set the line in the middle for now
+	m_series_sync_in->append(current_time,
+		min_series_sync_in + 5.0); // + 5.0 just to set the line in the middle for now
+	m_series_sync_out->append(current_time,
+		min_series_sync_out + 5.0); // + 5.0 just to set the line in the middle for now
 	// this for now is just to show a straight line
 
-	m_series_solution->append(100.0, 45.0);
-	m_series_ask->append(100.0, 35.0);
-	m_series_sync_in->append(100.0, 25.0);
-	m_series_sync_out->append(100.0, 15.0);
+	m_series_solution->append(max_time_line,
+		min_series_solution + 5.0); // + 5.0 just to set the line in the middle for now
+	m_series_ask->append(max_time_line,
+		min_series_ask + 5.0);  // + 5.0 just to set the line in the middle for now
+	m_series_sync_in->append(max_time_line, 
+		min_series_sync_in + 5.0); // + 5.0 just to set the line in the middle for now
+	m_series_sync_out->append(100.0, 
+		min_series_sync_out + 5.0); // + 5.0 just to set the line in the middle for now
+
 
 	// if the macro is empty it does not update the chart
 	//if (m_macro->size() < 1) return;
 
 	// compute the duration of the macro
-	double duration = 0.0;
+	double total_duration = 0.0;
 	for (int i = 0; i < _macro->size(); i++) {
 		if (_macro->at(i).getInstruction() == fluicell::PPC1api::command::instructions::sleep)
-			duration += _macro->at(i).getValue(); //TODO check this
+			total_duration += _macro->at(i).getValue(); //TODO check this
 	}
 
 	cout << QDate::currentDate().toString().toStdString() << "  " 
 		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::updateChartMacro ::: the complete duration is : " << duration << endl;
+		 << "Labonatip_GUI::updateChartMacro ::: the complete duration is : " << total_duration << endl;
 
-
+	
 	for (int i = 0; i < _macro->size(); i++) {
+		// in every iteration a new segment is added to the chart
+		// hence two points are always needed
+
+		switch (_macro->at(i).getInstruction())
+		{
+		case 0: { // Pon
+			// remove the tail of the chart
+			m_series_Pon->remove(m_series_Pon->at(m_series_Pon->count()-1));
+
+			// the first point is calculated starting from the last value to the new value an the current time
+			double first_x = current_time;
+			double first_y = m_series_Pon->at(m_series_Pon->count() - 1).y(); // last added point 
+			double second_x = current_time;
+			double normalization_pon = max_pon / chart_width; // the values are normalized in the height reserved for the chart
+			double second_y = min_series_pon + _macro->at(i).getValue() / normalization_pon;  // new point
+
+			m_series_Pon->append(first_x, first_y); // add the fist point
+			m_series_Pon->append(second_x, second_y); // add the second point 
+
+			//the last point is added at each step, and it must be removed every time a new point is added
+			m_series_Pon->append(max_time_line, second_y);  
+
+			break;
+		}
+		case 1: { // Poff
+			// remove the tail of the chart
+			m_series_Poff->remove(m_series_Poff->at(m_series_Poff->count() - 1));
+
+			// the first point is calculated starting from the last value to the new value an the current time
+			double first_x = current_time;
+			double first_y = m_series_Poff->at(m_series_Poff->count() - 1).y(); // last added point 
+			double second_x = current_time;
+			double normalization_poff = max_poff / chart_width; // the values are normalized in the height reserved for the chart
+			double second_y = min_series_poff + _macro->at(i).getValue() / normalization_poff;  // new point
+
+			m_series_Poff->append(first_x, first_y); // add the fist point
+			m_series_Poff->append(second_x, second_y); // add the second point 
+
+			//the last point is added at each step, and it must be removed every time a new point is added
+			m_series_Poff->append(max_time_line, second_y);
+
+			break;
+		}
+		case 2: { // v_switch
+			// remove the tail of the chart
+			m_series_V_switch->remove(m_series_V_switch->at(m_series_V_switch->count() - 1));
+
+			// the first point is calculated starting from the last value to the new value an the current time
+			double first_x = current_time;
+			double first_y = m_series_V_switch->at(m_series_V_switch->count() - 1).y(); // last added point 
+			double second_x = current_time;
+			double normalization_vs = max_v_switch / chart_width; // the values are normalized in the height reserved for the chart
+			double second_y = min_series_V_switch - _macro->at(i).getValue() / normalization_vs;  // new point
+
+			m_series_V_switch->append(first_x, first_y); // add the fist point
+			m_series_V_switch->append(second_x, second_y); // add the second point 
+
+													   //the last point is added at each step, and it must be removed every time a new point is added
+			m_series_V_switch->append(max_time_line, second_y);
+			break;
+		}
+		case 3: { // V_recirc
+			// remove the tail of the chart
+			m_series_V_recirc->remove(m_series_V_recirc->at(m_series_V_recirc->count() - 1));
+
+			// the first point is calculated starting from the last value to the new value an the current time
+			double first_x = current_time;
+			double first_y = m_series_V_recirc->at(m_series_V_recirc->count() - 1).y(); // last added point 
+			double second_x = current_time;
+			double normalization_vr = max_v_recirc / chart_width; // the values are normalized in the height reserved for the chart
+			double second_y = min_series_V_recirc - _macro->at(i).getValue() / normalization_vr;  // new point
+
+			m_series_V_recirc->append(first_x, first_y); // add the fist point
+			m_series_V_recirc->append(second_x, second_y); // add the second point 
+
+			//the last point is added at each step, and it must be removed every time a new point is added
+			m_series_V_recirc->append(max_time_line, second_y);
+			break;
+		}
+		case 4: { //solution 1
+			
+			break;
+		}
+		case 5: { //solution 2
+
+			break;
+		}
+		case 6: { //solution 3
+
+			break;
+		}
+		case 7: { //solution 4
+
+			break;
+		}
+		case 8: { //dropletSize 
+
+			break;
+		}
+		case 9: { //flowSpeed
+
+			break;
+		}
+		case 10: { //vacuum
+
+			break;
+		}
+		case 11: { //loop
+
+			break;
+		}
+		case 12: { //sleep ---- update the current time
+			current_time +=  100.0 * _macro->at(i).getValue() / total_duration; //the duration is scaled in the interval [0; 100]
+			break;
+		}
+		case 13: { //ask_msg
+			m_series_ask->append(current_time, min_series_ask + 5.0);
+			break;
+		}
+		case 14: { //allOff
+
+			break;
+		}
+		case 15: { //pumpsOff
+
+			break;
+		}
+		case 16: { //setValveState
+
+			break;
+		}
+		case 17: { //waitSync
+			m_series_sync_in->append(current_time, min_series_sync_in + 5.0);
+			break;
+		}
+		case 18: { //syncOut
+			m_series_sync_out->append(current_time, min_series_sync_out + 5.0);
+			break;
+		}
+		default:
+			break;
+		}
+
+
 		// TODO CONTINUE FROM HERE !!!! 
-		//double next_x = m_series_Pon->at(m_series_Pon->count() - 1).x();
-		//double next_y = 80 + m_macro->at(i).P_on / 50;
-		//double next_next_x = m_series_Pon->at(m_series_Pon->count() - 1).x();
-		//double duration_x = 100.0 * double(m_macro->at(i).Duration)/ duration;
-
-		//cout << " next x is " << next_x 
-		//	<< " next y is " << next_y 
-		//	<< " next next x is " << next_next_x 
-		//	<< " the new duration is " << duration_x << endl;
-/*		m_series_Pon->append(//next_x, next_y);
-			m_series_Pon->at(m_series_Pon->count() - 1).x(),
-			80 + _macro->at(i).P_on / 50);  // in [80; 90]
-
-		m_series_Pon->append(
-			m_series_Pon->at(m_series_Pon->count() - 1).x() + 100.0 * double(_macro->at(i).Duration) / duration, //qreal(m_macro->at(i).Duration),
-			80 + _macro->at(i).P_on / 50);  // in [80; 90]
-
-		m_series_Poff->append(
-			m_series_Poff->at(m_series_Poff->count() - 1).x(),
-			70 + _macro->at(i).P_off / 50);// m_macro->at(i).P_off); // in [70; 80]
-		m_series_Poff->append(
-			m_series_Poff->at(m_series_Poff->count() - 1).x() + 100.0 * double(_macro->at(i).Duration) / duration,
-			70 + _macro->at(i).P_off / 50);// m_macro->at(i).P_off); // in [70; 80]
-
-		m_series_V_recirc->append(
-			m_series_V_recirc->at(m_series_V_recirc->count() - 1).x(),
-			60 - _macro->at(i).V_recirc / 35);// m_macro->at(i).P_off); // in [70; 80]
-		m_series_V_recirc->append(
-			m_series_V_recirc->at(m_series_V_recirc->count() - 1).x() + 100.0 * double(_macro->at(i).Duration) / duration,
-			60 - _macro->at(i).V_recirc / 35);// m_macro->at(i).P_off); // in [70; 80]
-
-		m_series_V_switch->append(
-			m_series_V_switch->at(m_series_V_switch->count() - 1).x(),
-			50 - _macro->at(i).V_switch / 35);// m_macro->at(i).P_off); // in [70; 80]
-		m_series_V_switch->append(
-			m_series_V_switch->at(m_series_V_switch->count() - 1).x() + 100.0 * double(_macro->at(i).Duration) / duration,
-			50 - _macro->at(i).V_switch / 35);// m_macro->at(i).P_off); // in [70; 80]
+		/*
 
 		//		m_series_V_recirc->append(
 		//			m_series_Pon->at(m_series_Pon->count() - 1).x() + qreal(m_macro->at(i).Duration / duration), 
@@ -302,8 +444,6 @@ void Labonatip_chart::setGUIchart()
 	m_chart->addSeries(m_time_line_t);
 
 
-
-
 	//  chart->setTitle("Simple areachart example");
 	//  chart->createDefaultAxes();
 	QtCharts::QCategoryAxis *axisX = new QtCharts::QCategoryAxis();
@@ -350,14 +490,14 @@ void Labonatip_chart::setGUIchart()
 	axisX->setTitleText("Simulation time percentage");
 
 	//axisY->append(" ", 10);
-	axisY->append("Sync Out", 20);
-	axisY->append("Sync In", 30);
-	axisY->append("Ask", 40);
-	axisY->append("Solution", 50);
-	axisY->append("V_recirc", 60);
-	axisY->append("V_switch", 70);
-	axisY->append("P_off", 80);
-	axisY->append("P_on", 90);
+	axisY->append("Sync Out", min_series_sync_out + chart_width);
+	axisY->append("Sync In", min_series_sync_in + chart_width);
+	axisY->append("Ask", min_series_ask + chart_width);
+	axisY->append("Solution", min_series_solution + chart_width);
+	axisY->append("V_recirc", min_series_V_recirc + chart_width);
+	axisY->append("V_switch", min_series_V_switch + chart_width);
+	axisY->append("P_off", min_series_poff + chart_width);
+	axisY->append("P_on", min_series_pon + chart_width);
 	axisY->setRange(10, 90);
 
 	m_chart->setAxisX(axisX, m_series_X);
