@@ -160,16 +160,23 @@ void Labonatip_GUI::openFile() {
 		<< "Labonatip_GUI::openFile    " << endl;
 
 	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
-	QString _path = QFileDialog::getOpenFileName (this, tr("Open file"), QDir::currentPath(),  // dialog to open files
-						"Something (*.dat);; Binary File (*.bin);; All Files(*.*)" , 0);
+	QString _path = QFileDialog::getOpenFileName (this, tr("Open Settings file"), QDir::currentPath(),  // dialog to open files
+						"Settings file (*.ini);; All Files(*.*)" , 0);
 
-//	if (open file function ) 
-		QMessageBox::warning(this, "Warning !", "File not found ! <br>" + _path);
+	if (_path.isEmpty()) {
+		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
+		QMessageBox::warning(this, "Warning !", "Empty path, file not found ! <br>" + _path);
+		return;
+	}
 
+	if (!m_dialog_tools->setLoadSettingsFileName(_path)) {
+		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
+		QMessageBox::warning(this, "Warning !", "Cannot load the file ! <br>" + _path);
+		return;
+	}
 
    QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 
-// do something with the new open file
 }
 
 void Labonatip_GUI::saveFile() {
@@ -181,11 +188,21 @@ void Labonatip_GUI::saveFile() {
 	/*if (something->isEmpty()) 
 	{QMessageBox::warning(this, "Warning !", "something empty cannot not saved  ! " );
 	}*/
-	QString _path = QFileDialog::getSaveFileName (this, tr("Save something"), QDir::currentPath(),  // dialog to open files
-						"Something (*.dat);; Binary File (*.bin);; All Files(*.*)" , 0);
+	QString _path = QFileDialog::getSaveFileName (this, tr("Save configuration file"), QDir::currentPath(),  // dialog to open files
+						"Settings file (*.ini);; All Files(*.*)" , 0);
+	
+	if (_path.isEmpty()) {
+		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
+		QMessageBox::warning(this, "Warning !", "Empty path, file not saved ! <br>" + _path);
+		return;
+	}
 
-//	if (save file function ) 
-		QMessageBox::warning(this, "Warning !", "File not saved ! <br>" + _path);
+	if (!m_dialog_tools->setSaveSettingsFileName(_path)) {
+		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
+		QMessageBox::warning(this, "Warning !", "Cannot save the file ! <br>" + _path);
+		return;
+	}
+
   
    QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 }

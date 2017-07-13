@@ -114,7 +114,15 @@ public:
 
 	void setMacroPrt(std::vector<fluicell::PPC1api::command> *_macro) { m_macro = _macro; };
 
+	bool setLoadSettingsFileName(QString _filename) { 
+		m_setting_file_name = _filename; 
+		return loadSettings(m_setting_file_name);
+	}
 
+	bool setSaveSettingsFileName(QString _filename) {
+		m_setting_file_name = _filename;
+		return saveSettings(_filename);
+	}
 
 private slots:
 
@@ -202,18 +210,13 @@ private slots:
 	* in the GUI initialization it takes a default value ./settings/setting.ini
 	* \note
 	*/
-	void loadSettings(QString _path);
-
-	/** Load an ini setting file overload to the default path
-	* \note
-	*/
-	void loadSettings() { loadSettings(QString("")); }
+	bool loadSettings(QString _path = QString("./settings/setting.ini"));
 
 	/** save the setting file
 	*  
 	* \note
 	*/
-	void saveSettings();
+	bool saveSettings(QString _file_name = QString("./settings/setting_save.ini"));
 
 	/** Put all the commands in the macro editor to the macro structure for running
 	*
@@ -262,6 +265,7 @@ private:
 
 	std::vector<fluicell::PPC1api::command> *m_macro;
 
+	QString m_setting_file_name;
 
 protected:
 	Ui::Labonatip_tools *ui_tools;    //!<  the user interface

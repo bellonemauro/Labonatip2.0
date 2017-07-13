@@ -15,12 +15,13 @@ Labonatip_tools::Labonatip_tools(QWidget *parent ):
 	m_comSettings(new COMSettings()),
 	m_solutionNames(new solutionsNames()),
 	m_pr_params(new pr_params()),
-	ui_tools (new Ui::Labonatip_tools)
+	ui_tools (new Ui::Labonatip_tools),
+	m_setting_file_name("./settings/settings.ini")
 {
 	ui_tools->setupUi(this );
 
 	//load settings from file
-	loadSettings("./settings/settings.ini");
+	loadSettings(m_setting_file_name);
 
 	ui_tools->comboBox_serialInfo->clear();
 	connect(ui_tools->comboBox_serialInfo,
@@ -117,7 +118,8 @@ void Labonatip_tools::okPressed() {
 	getSolutionSettings();
 	addAllCommandsToMacro();
 
-	saveSettings();
+	//TODO manual save for now
+	//saveSettings();
 	//TODO other settings ! 
 
 	emit ok();
@@ -140,7 +142,9 @@ void Labonatip_tools::applyPressed() {
 	getSolutionSettings();
 	addAllCommandsToMacro(); 
 
-	saveSettings();
+	//TODO manual save for now
+	//saveSettings();
+	//TODO other settings ! 
 
 
 	emit apply();
@@ -881,7 +885,7 @@ void Labonatip_tools::getSolutionSettings()
 }
 
 
-void Labonatip_tools::loadSettings(QString _path)
+bool Labonatip_tools::loadSettings(QString _path)
 {
 
 	if (_path.isEmpty())
@@ -1048,59 +1052,61 @@ void Labonatip_tools::loadSettings(QString _path)
 	//	<< "    MyParam/myParam2 " << myParam2 << " \n\n"
 	//	<< endl;
 
+	return true;
 }
 
-void Labonatip_tools::saveSettings()
+bool Labonatip_tools::saveSettings(QString _file_name)
 {
 
-
+	//m_settings->setPath(QSettings::IniFormat, QSettings::UserScope, _file_name);
+	QSettings *settings = new QSettings(_file_name, QSettings::IniFormat);
 	// [default]
 	// user = 
-	m_settings->setValue("default/user", ui_tools->lineEdit_userName->text());
+	settings->setValue("default/user", ui_tools->lineEdit_userName->text());
 	// year = 
-	m_settings->setValue("default/year", ui_tools->lineEdit_year->text());
+	settings->setValue("default/year", ui_tools->lineEdit_year->text());
 	// month = 
-	m_settings->setValue("default/month", ui_tools->lineEdit_month->text());
+	settings->setValue("default/month", ui_tools->lineEdit_month->text());
 
 	// [COM]
 	// ComName = COM_
-	m_settings->setValue("COM/ComName", QString::fromStdString(m_comSettings->name));
+	settings->setValue("COM/ComName", QString::fromStdString(m_comSettings->name));
 	// BaudRate = 115200
-	m_settings->setValue("COM/BaudRate", ui_tools->comboBox_baudRate->currentText());
+	settings->setValue("COM/BaudRate", ui_tools->comboBox_baudRate->currentText());
 	// DataBits = 8
-	m_settings->setValue("COM/DataBits", ui_tools->comboBox_dataBit->currentText());
+	settings->setValue("COM/DataBits", ui_tools->comboBox_dataBit->currentText());
 	// Parity = NoParity
-	m_settings->setValue("COM/Parity", ui_tools->comboBox_parity->currentText());
+	settings->setValue("COM/Parity", ui_tools->comboBox_parity->currentText());
 	// StopBits = 1
-	m_settings->setValue("COM/StopBits", ui_tools->comboBox_stopBit->currentText());
+	settings->setValue("COM/StopBits", ui_tools->comboBox_stopBit->currentText());
 	// FlowControl = noFlow
-	m_settings->setValue("COM/FlowControl", ui_tools->comboBox_flowControl->currentText());
+	settings->setValue("COM/FlowControl", ui_tools->comboBox_flowControl->currentText());
 
 	// [pr_limits]
 	// p_on_max = 
-	m_settings->setValue("pr_limits/p_on_max", ui_tools->lineEdit_p_on_max->text());
+	settings->setValue("pr_limits/p_on_max", ui_tools->lineEdit_p_on_max->text());
 	// p_on_min =
-	m_settings->setValue("pr_limits/p_on_min", ui_tools->lineEdit_p_on_min->text());
+	settings->setValue("pr_limits/p_on_min", ui_tools->lineEdit_p_on_min->text());
 	// p_on_default = 
-	m_settings->setValue("pr_limits/p_on_default", ui_tools->lineEdit_p_on_default->text());
+	settings->setValue("pr_limits/p_on_default", ui_tools->lineEdit_p_on_default->text());
 	// p_off_max = 
-	m_settings->setValue("pr_limits/p_off_max", ui_tools->lineEdit_p_off_max->text());
+	settings->setValue("pr_limits/p_off_max", ui_tools->lineEdit_p_off_max->text());
 	// p_off_min = 
-	m_settings->setValue("pr_limits/p_off_min", ui_tools->lineEdit_p_off_min->text());
+	settings->setValue("pr_limits/p_off_min", ui_tools->lineEdit_p_off_min->text());
 	// p_off_default = 
-	m_settings->setValue("pr_limits/p_off_default", ui_tools->lineEdit_p_off_default->text());
+	settings->setValue("pr_limits/p_off_default", ui_tools->lineEdit_p_off_default->text());
 	// v_switch_max = 
-	m_settings->setValue("pr_limits/v_switch_max", ui_tools->lineEdit_v_switch_max->text());
+	settings->setValue("pr_limits/v_switch_max", ui_tools->lineEdit_v_switch_max->text());
 	// v_switch_min = 
-	m_settings->setValue("pr_limits/v_switch_min", ui_tools->lineEdit_v_switch_min->text());
+	settings->setValue("pr_limits/v_switch_min", ui_tools->lineEdit_v_switch_min->text());
 	// v_switch_default = 
-	m_settings->setValue("pr_limits/v_switch_default", ui_tools->lineEdit_v_switch_default->text());
+	settings->setValue("pr_limits/v_switch_default", ui_tools->lineEdit_v_switch_default->text());
 	// v_recirc_max = 
-	m_settings->setValue("pr_limits/v_recirc_max", ui_tools->lineEdit_v_recirc_max->text());
+	settings->setValue("pr_limits/v_recirc_max", ui_tools->lineEdit_v_recirc_max->text());
 	// v_recirc_min = 
-	m_settings->setValue("pr_limits/v_recirc_min", ui_tools->lineEdit_v_recirc_min->text());
+	settings->setValue("pr_limits/v_recirc_min", ui_tools->lineEdit_v_recirc_min->text());
 	// v_recirc_default = 
-	m_settings->setValue("pr_limits/v_recirc_default", ui_tools->lineEdit_v_recirc_default->text());
+	settings->setValue("pr_limits/v_recirc_default", ui_tools->lineEdit_v_recirc_default->text());
 
 	// [solutionNames]
 	// solution1 = CuSO4
@@ -1114,7 +1120,9 @@ void Labonatip_tools::saveSettings()
 
 
 	m_settings->sync();
-	//TODO !!!!
+	
+	return true;
+	//TODO --- finish the implementation!!!!
 
 }
 
