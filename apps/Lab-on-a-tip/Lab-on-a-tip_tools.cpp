@@ -1118,7 +1118,13 @@ bool Labonatip_tools::saveSettings(QString _file_name)
 	// solution4 = FeS
 	m_settings->setValue("solutionNames/solution4", ui_tools->lineEdit_sol4_name->text());
 
+	// [server]
+	// solution1 = CuSO4
+	m_settings->setValue("server/IP", ui_tools->lineEdit_IP->text());
+	// solution2 = NaCl
+	m_settings->setValue("server/port", ui_tools->lineEdit_serverPort->text());
 
+	
 	m_settings->sync();
 	
 	return true;

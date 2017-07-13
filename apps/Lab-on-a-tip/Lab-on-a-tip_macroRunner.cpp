@@ -60,7 +60,7 @@ void Labonatip_macroRunner::run()  {
 					sleep(1);// (m_macro->at(i).Duration);
 				}
 				else {
-					if (!m_ppc1->isRunning()) {
+					if (m_ppc1->isRunning()) {
 						//cout  << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  " << " ppc1 is running the command " << m_macro->at(i).status_message << endl;
 						m_ppc1->run(m_macro->at(i));
 						
