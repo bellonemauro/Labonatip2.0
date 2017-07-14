@@ -289,6 +289,9 @@
                       <pointsize>8</pointsize>
                      </font>
                     </property>
+                    <property name="toolTip">
+                     <string>Decrease droplet size</string>
+                    </property>
                     <property name="text">
                      <string/>
                     </property>
@@ -306,6 +309,9 @@
                   </item>
                   <item row="6" column="6" colspan="3">
                    <widget class="QPushButton" name="pushButton_flowspeed_plus">
+                    <property name="toolTip">
+                     <string>Increase flow speed</string>
+                    </property>
                     <property name="text">
                      <string/>
                     </property>
@@ -336,6 +342,9 @@
                   </item>
                   <item row="6" column="2">
                    <widget class="QPushButton" name="pushButton_flowspeed_minus">
+                    <property name="toolTip">
+                     <string>Decrease flow speed</string>
+                    </property>
                     <property name="text">
                      <string/>
                     </property>
@@ -352,7 +361,7 @@
                    </widget>
                   </item>
                   <item row="9" column="0" rowspan="2">
-                   <widget class="QLabel" name="label_Pon_5">
+                   <widget class="QLabel" name="label_DZC_vacuum">
                     <property name="font">
                      <font>
                       <pointsize>11</pointsize>
@@ -384,6 +393,9 @@
                   </item>
                   <item row="10" column="6" colspan="3">
                    <widget class="QPushButton" name="pushButton_vacuum_plus">
+                    <property name="toolTip">
+                     <string>Increase vacuum</string>
+                    </property>
                     <property name="text">
                      <string/>
                     </property>
@@ -401,6 +413,9 @@
                   </item>
                   <item row="3" column="6" colspan="3">
                    <widget class="QPushButton" name="pushButton_dropSize_plus">
+                    <property name="toolTip">
+                     <string>Increase droplet size</string>
+                    </property>
                     <property name="text">
                      <string/>
                     </property>
@@ -490,7 +505,7 @@ border-top-left-radius: 2px;
                      <number>300</number>
                     </property>
                     <property name="value">
-                     <number>100</number>
+                     <number>1</number>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight</set>
@@ -508,6 +523,9 @@ border-top-left-radius: 2px;
                   </item>
                   <item row="10" column="2">
                    <widget class="QPushButton" name="pushButton_vacuum_minus">
+                    <property name="toolTip">
+                     <string>Decrease vacuum</string>
+                    </property>
                     <property name="text">
                      <string/>
                     </property>
@@ -550,7 +568,7 @@ border-top-left-radius: 2px;
                    </spacer>
                   </item>
                   <item row="6" column="0">
-                   <widget class="QLabel" name="label_Pon_4">
+                   <widget class="QLabel" name="label_DZC_flowSpeed">
                     <property name="font">
                      <font>
                       <pointsize>11</pointsize>
@@ -568,7 +586,7 @@ border-top-left-radius: 2px;
                    </widget>
                   </item>
                   <item row="3" column="0">
-                   <widget class="QLabel" name="label_Pon_3">
+                   <widget class="QLabel" name="label_DZV_dropletSize">
                     <property name="font">
                      <font>
                       <pointsize>11</pointsize>
@@ -646,7 +664,7 @@ border-top-left-radius: 2px;
                      <number>300</number>
                     </property>
                     <property name="value">
-                     <number>100</number>
+                     <number>1</number>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight</set>
@@ -723,7 +741,7 @@ border-top-left-radius: 2px;
                      <number>300</number>
                     </property>
                     <property name="value">
-                     <number>100</number>
+                     <number>1</number>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignRight</set>
@@ -741,6 +759,9 @@ border-top-left-radius: 2px;
                   </item>
                   <item row="3" column="4">
                    <widget class="QLCDNumber" name="lcdNumber_dropletSize_percentage">
+                    <property name="toolTip">
+                     <string>Droplet size percentage</string>
+                    </property>
                     <property name="frameShape">
                      <enum>QFrame::NoFrame</enum>
                     </property>
@@ -757,6 +778,9 @@ border-top-left-radius: 2px;
                   </item>
                   <item row="10" column="4">
                    <widget class="QLCDNumber" name="lcdNumber_vacuum_percentage">
+                    <property name="toolTip">
+                     <string>Vacuum percentage</string>
+                    </property>
                     <property name="frameShape">
                      <enum>QFrame::NoFrame</enum>
                     </property>
@@ -809,6 +833,9 @@ border-top-left-radius: 2px;
                   </item>
                   <item row="6" column="4">
                    <widget class="QLCDNumber" name="lcdNumber_flowspeed_percentage">
+                    <property name="toolTip">
+                     <string>Flow speed percentage</string>
+                    </property>
                     <property name="frameShape">
                      <enum>QFrame::NoFrame</enum>
                     </property>
@@ -924,7 +951,7 @@ border: 2px solid white;
                    </widget>
                   </item>
                   <item row="0" column="0" colspan="5">
-                   <widget class="QLabel" name="label_Pon_2">
+                   <widget class="QLabel" name="label_DZC_title">
                     <property name="font">
                      <font>
                       <pointsize>14</pointsize>
@@ -994,7 +1021,7 @@ border: 2px solid white;
                 </widget>
                </item>
                <item row="1" column="1" rowspan="3" colspan="2">
-                <widget class="QGroupBox" name="groupBox_8">
+                <widget class="QGroupBox" name="groupBox_action">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
                    <horstretch>0</horstretch>
@@ -1042,6 +1069,9 @@ border: 2px solid white;
                       <height>90</height>
                      </size>
                     </property>
+                    <property name="toolTip">
+                     <string>Standby button</string>
+                    </property>
                     <property name="whatsThis">
                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shutdown button, it runs the following commands: &lt;br/&gt;&lt;br/&gt;
 allOff()&lt;br/&gt;
@@ -1077,6 +1107,9 @@ pumpsOff()&lt;br/&gt;
                       <height>90</height>
                      </size>
                     </property>
+                    <property name="toolTip">
+                     <string>New tip button</string>
+                    </property>
                     <property name="text">
                      <string/>
                     </property>
@@ -1099,6 +1132,9 @@ pumpsOff()&lt;br/&gt;
                       <width>90</width>
                       <height>90</height>
                      </size>
+                    </property>
+                    <property name="toolTip">
+                     <string>Stop button</string>
                     </property>
                     <property name="whatsThis">
                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Stop button, it runs the following commands: &lt;br/&gt;&lt;br/&gt;
@@ -1128,6 +1164,9 @@ closeAllValves()&lt;br/&gt;
                       <height>90</height>
                      </size>
                     </property>
+                    <property name="toolTip">
+                     <string>Operational mode button</string>
+                    </property>
                     <property name="whatsThis">
                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Operational mode button, it runs the following commands: &lt;br/&gt;&lt;br/&gt;allOff()&lt;br/&gt;setVswitch(-115)&lt;br/&gt;setVrecirc(-115)&lt;br/&gt;sleep(5)&lt;br/&gt;setPoff(21)&lt;br/&gt;setPon(190)&lt;br/&gt;
 &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1148,7 +1187,7 @@ closeAllValves()&lt;br/&gt;
                    </widget>
                   </item>
                   <item row="4" column="2">
-                   <widget class="QLabel" name="label_Pon_20">
+                   <widget class="QLabel" name="label_action_operational">
                     <property name="font">
                      <font>
                       <pointsize>11</pointsize>
@@ -1166,7 +1205,7 @@ closeAllValves()&lt;br/&gt;
                    </widget>
                   </item>
                   <item row="1" column="0" colspan="3">
-                   <widget class="QLabel" name="label_Pon_6">
+                   <widget class="QLabel" name="label_action_title">
                     <property name="font">
                      <font>
                       <pointsize>14</pointsize>
@@ -1184,7 +1223,7 @@ closeAllValves()&lt;br/&gt;
                    </widget>
                   </item>
                   <item row="4" column="4">
-                   <widget class="QLabel" name="label_Pon_8">
+                   <widget class="QLabel" name="label_action_standby">
                     <property name="font">
                      <font>
                       <pointsize>11</pointsize>
@@ -1202,7 +1241,7 @@ closeAllValves()&lt;br/&gt;
                    </widget>
                   </item>
                   <item row="4" column="3">
-                   <widget class="QLabel" name="label_Pon_22">
+                   <widget class="QLabel" name="label_action_stop">
                     <property name="font">
                      <font>
                       <pointsize>11</pointsize>
@@ -1220,7 +1259,7 @@ closeAllValves()&lt;br/&gt;
                    </widget>
                   </item>
                   <item row="4" column="0">
-                   <widget class="QLabel" name="label_Pon_9">
+                   <widget class="QLabel" name="label_action_newtip">
                     <property name="font">
                      <font>
                       <pointsize>11</pointsize>
@@ -1244,6 +1283,9 @@ closeAllValves()&lt;br/&gt;
                       <width>90</width>
                       <height>90</height>
                      </size>
+                    </property>
+                    <property name="toolTip">
+                     <string>Run macro button</string>
                     </property>
                     <property name="whatsThis">
                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Run macro runs the macro that can be loaded in the tools window&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1393,7 +1435,7 @@ closeAllValves()&lt;br/&gt;
                  <property name="flat">
                   <bool>true</bool>
                  </property>
-                 <widget class="QLabel" name="label">
+                 <widget class="QLabel" name="label_GW_biopenView">
                   <property name="geometry">
                    <rect>
                     <x>10</x>
@@ -1426,6 +1468,9 @@ closeAllValves()&lt;br/&gt;
                     <width>16777215</width>
                     <height>60</height>
                    </size>
+                  </property>
+                  <property name="toolTip">
+                   <string>Recirculation waste</string>
                   </property>
                   <property name="styleSheet">
                    <string notr="true">QProgressBar {
@@ -1479,6 +1524,9 @@ height: 0.5px;
                     <width>16777215</width>
                     <height>60</height>
                    </size>
+                  </property>
+                  <property name="toolTip">
+                   <string>Recirculation waste</string>
                   </property>
                   <property name="styleSheet">
                    <string notr="true">QProgressBar {
@@ -1534,6 +1582,9 @@ height: 0.5px;
                     <height>60</height>
                    </size>
                   </property>
+                  <property name="toolTip">
+                   <string>Switch waste</string>
+                  </property>
                   <property name="styleSheet">
                    <string notr="true">QProgressBar {
 border: 1px solid white;
@@ -1586,6 +1637,9 @@ height: 0.5px;
                     <width>16777215</width>
                     <height>60</height>
                    </size>
+                  </property>
+                  <property name="toolTip">
+                   <string>Switch waste</string>
                   </property>
                   <property name="styleSheet">
                    <string notr="true">QProgressBar {
@@ -1640,6 +1694,9 @@ height: 0.5px;
                     <width>16777215</width>
                     <height>60</height>
                    </size>
+                  </property>
+                  <property name="toolTip">
+                   <string>Solution 4 well</string>
                   </property>
                   <property name="styleSheet">
                    <string notr="true">QProgressBar {
@@ -1697,6 +1754,9 @@ height: 0.5px;
                     <height>60</height>
                    </size>
                   </property>
+                  <property name="toolTip">
+                   <string>Solution 3 well</string>
+                  </property>
                   <property name="styleSheet">
                    <string notr="true">QProgressBar {
 border: 1px solid white;
@@ -1750,6 +1810,9 @@ height: 0.5px;
                     <height>60</height>
                    </size>
                   </property>
+                  <property name="toolTip">
+                   <string>Solution 2 well</string>
+                  </property>
                   <property name="styleSheet">
                    <string notr="true">QProgressBar {
 border: 1px solid white;
@@ -1800,6 +1863,9 @@ height: 0.5px;
                     <width>16777215</width>
                     <height>60</height>
                    </size>
+                  </property>
+                  <property name="toolTip">
+                   <string>Solution 1 well</string>
                   </property>
                   <property name="styleSheet">
                    <string notr="true">QProgressBar {
@@ -2012,6 +2078,9 @@ border-color: rgb(250, 250, 250);</string>
                      <property name="toolTip">
                       <string>Pump solution</string>
                      </property>
+                     <property name="whatsThis">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pump solution 4&lt;br/&gt;&lt;br/&gt;The solutions in the well 1 will be released &lt;br/&gt;for the &lt;span style=&quot; font-style:italic;&quot;&gt;t&lt;/span&gt; seconds, expressed in the field delivery time. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
                      <property name="styleSheet">
                       <string notr="true">border:0</string>
                      </property>
@@ -2095,6 +2164,9 @@ border-color: rgb(235, 240, 235);
                      <property name="toolTip">
                       <string>Pump solution</string>
                      </property>
+                     <property name="whatsThis">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pump solution 3&lt;br/&gt;&lt;br/&gt;The solutions in the well 1 will be released &lt;br/&gt;for the &lt;span style=&quot; font-style:italic;&quot;&gt;t&lt;/span&gt; seconds, expressed in the field delivery time. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
                      <property name="styleSheet">
                       <string notr="true">border:0</string>
                      </property>
@@ -2173,6 +2245,9 @@ border-color: rgb(235, 240, 235);</string>
                      </property>
                      <property name="toolTip">
                       <string>Pump solution</string>
+                     </property>
+                     <property name="whatsThis">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pump solution 2&lt;br/&gt;&lt;br/&gt;The solutions in the well 1 will be released &lt;br/&gt;for the &lt;span style=&quot; font-style:italic;&quot;&gt;t&lt;/span&gt; seconds, expressed in the field delivery time. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
                      <property name="styleSheet">
                       <string notr="true">border:0</string>
@@ -2253,6 +2328,9 @@ border-color: rgb(235, 240, 235);</string>
                      <property name="toolTip">
                       <string>Pump solution</string>
                      </property>
+                     <property name="whatsThis">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pump solution 1&lt;br/&gt;&lt;br/&gt;The solutions in the well 1 will be released &lt;br/&gt;for the &lt;span style=&quot; font-style:italic;&quot;&gt;t&lt;/span&gt; seconds, expressed in the field delivery time. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
                      <property name="styleSheet">
                       <string notr="true">border:0</string>
                      </property>
@@ -2280,7 +2358,7 @@ border-color: rgb(235, 240, 235);</string>
                    </item>
                   </layout>
                  </widget>
-                 <widget class="QLabel" name="label_Pon_10">
+                 <widget class="QLabel" name="label_GW_sw">
                   <property name="geometry">
                    <rect>
                     <x>161</x>
@@ -2304,7 +2382,7 @@ border-color: rgb(235, 240, 235);</string>
                    <set>Qt::AlignCenter</set>
                   </property>
                  </widget>
-                 <widget class="QLabel" name="label_Pon_11">
+                 <widget class="QLabel" name="label_GW_rec">
                   <property name="geometry">
                    <rect>
                     <x>-10</x>
@@ -2328,7 +2406,7 @@ border-color: rgb(235, 240, 235);</string>
                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                   </property>
                  </widget>
-                 <widget class="Line" name="line">
+                 <widget class="Line" name="line_GW_waste">
                   <property name="geometry">
                    <rect>
                     <x>15</x>
@@ -2350,7 +2428,7 @@ border-color: rgb(235, 240, 235);</string>
                    <enum>Qt::Horizontal</enum>
                   </property>
                  </widget>
-                 <widget class="Line" name="line_2">
+                 <widget class="Line" name="line_GW_sol">
                   <property name="geometry">
                    <rect>
                     <x>290</x>
@@ -2372,7 +2450,7 @@ border-color: rgb(235, 240, 235);</string>
                    <enum>Qt::Horizontal</enum>
                   </property>
                  </widget>
-                 <widget class="Line" name="line_3">
+                 <widget class="Line" name="line_GW_time">
                   <property name="geometry">
                    <rect>
                     <x>530</x>
@@ -2394,7 +2472,7 @@ border-color: rgb(235, 240, 235);</string>
                    <enum>Qt::Horizontal</enum>
                   </property>
                  </widget>
-                 <widget class="QLabel" name="label_Pon_12">
+                 <widget class="QLabel" name="label_GW_waste">
                   <property name="geometry">
                    <rect>
                     <x>90</x>
@@ -2420,7 +2498,7 @@ border-color: rgb(235, 240, 235);</string>
                    <set>Qt::AlignCenter</set>
                   </property>
                  </widget>
-                 <widget class="QLabel" name="label_Pon_13">
+                 <widget class="QLabel" name="label_GW_sol">
                   <property name="geometry">
                    <rect>
                     <x>310</x>
@@ -2446,7 +2524,7 @@ border-color: rgb(235, 240, 235);</string>
                    <set>Qt::AlignCenter</set>
                   </property>
                  </widget>
-                 <widget class="QLabel" name="label_Pon_14">
+                 <widget class="QLabel" name="label_GW_del_time">
                   <property name="geometry">
                    <rect>
                     <x>500</x>
@@ -2496,7 +2574,7 @@ border-color: rgb(235, 240, 235);</string>
                    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                   </property>
                  </widget>
-                 <widget class="QLabel" name="label_Pon_16">
+                 <widget class="QLabel" name="label_GW_waste_full">
                   <property name="geometry">
                    <rect>
                     <x>-20</x>
@@ -2555,6 +2633,9 @@ border-color: rgb(235, 240, 235);</string>
                   <property name="toolTip">
                    <string>Injection time in seconds</string>
                   </property>
+                  <property name="whatsThis">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set release solution time&lt;br/&gt;&lt;br/&gt;The solutions in the wells 1,2,3,4, will be released &lt;br/&gt;for the &lt;span style=&quot; font-style:italic;&quot;&gt;t&lt;/span&gt;  seconds. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
                   <property name="styleSheet">
                    <string notr="true">color: rgb(0, 0, 0);
 background-color: rgb(255, 255, 255);</string>
@@ -2592,23 +2673,23 @@ background-color: rgb(255, 255, 255);</string>
                  <zorder>progressBar_switchOut</zorder>
                  <zorder>progressBar_switchIn</zorder>
                  <zorder>progressBar_recircIn</zorder>
-                 <zorder>label</zorder>
+                 <zorder>label_GW_biopenView</zorder>
                  <zorder>graphicsView</zorder>
                  <zorder>widget_solutionArrow</zorder>
                  <zorder>widget_sol4</zorder>
                  <zorder>widget_sol3</zorder>
                  <zorder>widget_sol2</zorder>
                  <zorder>widget_sol1</zorder>
-                 <zorder>label_Pon_10</zorder>
-                 <zorder>label_Pon_11</zorder>
-                 <zorder>line</zorder>
-                 <zorder>line_2</zorder>
-                 <zorder>line_3</zorder>
-                 <zorder>label_Pon_12</zorder>
-                 <zorder>label_Pon_13</zorder>
-                 <zorder>label_Pon_14</zorder>
+                 <zorder>label_GW_sw</zorder>
+                 <zorder>label_GW_rec</zorder>
+                 <zorder>line_GW_waste</zorder>
+                 <zorder>line_GW_sol</zorder>
+                 <zorder>line_GW_time</zorder>
+                 <zorder>label_GW_waste</zorder>
+                 <zorder>label_GW_sol</zorder>
+                 <zorder>label_GW_del_time</zorder>
                  <zorder>label_emptyTime</zorder>
-                 <zorder>label_Pon_16</zorder>
+                 <zorder>label_GW_waste_full</zorder>
                  <zorder>doubleSpinBox_solution</zorder>
                 </widget>
                </item>
@@ -2640,7 +2721,7 @@ background-color: rgb(255, 255, 255);</string>
   </widget>
   <widget class="QStatusBar" name="statusBar">
    <property name="statusTip">
-    <string>Status bar</string>
+    <string/>
    </property>
    <property name="whatsThis">
     <string>Status bar</string>
@@ -2806,7 +2887,7 @@ background-color: rgb(255, 255, 255);</string>
         <enum>QTabWidget::Triangular</enum>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
        <property name="elideMode">
         <enum>Qt::ElideNone</enum>
@@ -2890,8 +2971,10 @@ background-color: rgb(255, 255, 255);</string>
      border: 2px solid  rgb(200, 200, 200); ; 
      border-radius: 10px; 
     color: rgb(80, 80, 80);
-    background-color: rgb(235, 240, 235);
- } </string>
+    background-color: rgb(235, 235, 240);
+   /* background-color: rgb(235, 240, 235);*/
+ } 
+   </string>
            </property>
            <property name="title">
             <string/>
@@ -2907,6 +2990,9 @@ background-color: rgb(255, 255, 255);</string>
                 <width>0</width>
                 <height>35</height>
                </size>
+              </property>
+              <property name="toolTip">
+               <string>Increase/decrease the vacuum recirculation</string>
               </property>
               <property name="styleSheet">
                <string notr="true">QSlider::groove:horizontal {
@@ -3025,6 +3111,9 @@ border-radius: 4px;
                 <weight>75</weight>
                 <bold>true</bold>
                </font>
+              </property>
+              <property name="toolTip">
+               <string>Current vacuum value</string>
               </property>
               <property name="styleSheet">
                <string notr="true">QProgressBar {
@@ -3229,6 +3318,9 @@ border:0px solid white;
                 <pointsize>11</pointsize>
                </font>
               </property>
+              <property name="toolTip">
+               <string>set point / current value</string>
+              </property>
               <property name="styleSheet">
                <string notr="true"/>
               </property>
@@ -3281,7 +3373,8 @@ border:0px solid white;
      border: 2px solid  rgb(200, 200, 200); ; 
      border-radius: 10px; 
     color: rgb(80, 80, 80);
-    background-color: rgb(235, 240, 235);
+    background-color: rgb(235, 235, 240);
+   /* background-color: rgb(235, 240, 235);*/
  } </string>
            </property>
            <property name="title">
@@ -3311,6 +3404,9 @@ border:0px solid white;
                 <weight>75</weight>
                 <bold>true</bold>
                </font>
+              </property>
+              <property name="toolTip">
+               <string>Current vacuum value</string>
               </property>
               <property name="styleSheet">
                <string notr="true">QProgressBar {
@@ -3487,6 +3583,9 @@ border:0px solid white;
                 <height>35</height>
                </size>
               </property>
+              <property name="toolTip">
+               <string>Increase/decrease the vacuum switch</string>
+              </property>
               <property name="styleSheet">
                <string notr="true">QSlider::groove:horizontal {
 border: 1px solid #bbb;
@@ -3620,6 +3719,9 @@ border-radius: 4px;
                 <pointsize>11</pointsize>
                </font>
               </property>
+              <property name="toolTip">
+               <string>set point / current value</string>
+              </property>
               <property name="styleSheet">
                <string notr="true"/>
               </property>
@@ -3659,7 +3761,8 @@ border-radius: 4px;
      border: 2px solid  rgb(200, 200, 200); ; 
      border-radius: 10px; 
     color: rgb(80, 80, 80);
-    background-color: rgb(235, 240, 235);
+    background-color: rgb(235, 235, 240);
+   /* background-color: rgb(235, 240, 235);*/
  } </string>
            </property>
            <property name="title">
@@ -3695,6 +3798,9 @@ border-radius: 4px;
                 <weight>75</weight>
                 <bold>true</bold>
                </font>
+              </property>
+              <property name="toolTip">
+               <string>Current pressure value</string>
               </property>
               <property name="styleSheet">
                <string notr="true">QProgressBar {
@@ -3911,7 +4017,7 @@ border:0px solid white;
              </widget>
             </item>
             <item row="1" column="1">
-             <widget class="QLabel" name="label_Pon">
+             <widget class="QLabel" name="label_Poff">
               <property name="font">
                <font>
                 <pointsize>11</pointsize>
@@ -3935,6 +4041,9 @@ border:0px solid white;
                 <width>0</width>
                 <height>35</height>
                </size>
+              </property>
+              <property name="toolTip">
+               <string>Increase/decrease the pressure Poff</string>
               </property>
               <property name="styleSheet">
                <string notr="true">QSlider::groove:horizontal {
@@ -4031,6 +4140,9 @@ border-radius: 4px;
                 <pointsize>11</pointsize>
                </font>
               </property>
+              <property name="toolTip">
+               <string>set point / current value</string>
+              </property>
               <property name="styleSheet">
                <string notr="true"/>
               </property>
@@ -4079,7 +4191,8 @@ border-radius: 4px;
      border: 2px solid  rgb(200, 200, 200); ; 
      border-radius: 10px; 
     color: rgb(80, 80, 80);
-    background-color: rgb(235, 240, 235);
+    background-color: rgb(235, 235, 240);
+   /* background-color: rgb(235, 240, 235);*/
  } </string>
            </property>
            <property name="title">
@@ -4090,7 +4203,7 @@ border-radius: 4px;
              <number>11</number>
             </property>
             <item row="11" column="2">
-             <widget class="QLabel" name="label_poff">
+             <widget class="QLabel" name="label_pon">
               <property name="font">
                <font>
                 <pointsize>11</pointsize>
@@ -4119,6 +4232,9 @@ border-radius: 4px;
                <font>
                 <pointsize>8</pointsize>
                </font>
+              </property>
+              <property name="toolTip">
+               <string>Increase/decrease the pressure Pon</string>
               </property>
               <property name="styleSheet">
                <string notr="true">QSlider::groove:horizontal {
@@ -4346,6 +4462,9 @@ border:0px solid white;
                 <bold>true</bold>
                </font>
               </property>
+              <property name="toolTip">
+               <string>Current pressure value</string>
+              </property>
               <property name="styleSheet">
                <string notr="true">QProgressBar {
 border: 1px solid white;
@@ -4443,6 +4562,9 @@ border-top-left-radius: 5px;
                <font>
                 <pointsize>11</pointsize>
                </font>
+              </property>
+              <property name="toolTip">
+               <string>set point / current value</string>
               </property>
               <property name="styleSheet">
                <string notr="true"/>
@@ -4655,8 +4777,8 @@ color: rgb(0, 0, 0);</string>
             <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
          </item>
@@ -4673,8 +4795,8 @@ color: rgb(0, 0, 0);</string>
             <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:7.8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
          </item>
@@ -4792,7 +4914,7 @@ p, li { white-space: pre-wrap; }
     <string>Open configuration file</string>
    </property>
    <property name="statusTip">
-    <string>Open configuration file</string>
+    <string/>
    </property>
    <property name="whatsThis">
     <string>Open configuration file</string>
@@ -4825,7 +4947,7 @@ p, li { white-space: pre-wrap; }
     <string>Save the current configuration to a file</string>
    </property>
    <property name="statusTip">
-    <string>Save the current configuration to a file</string>
+    <string/>
    </property>
    <property name="whatsThis">
     <string>Save the current configuration to a file</string>
@@ -4855,7 +4977,7 @@ p, li { white-space: pre-wrap; }
     <string>Application settings</string>
    </property>
    <property name="statusTip">
-    <string>Application settings</string>
+    <string/>
    </property>
    <property name="whatsThis">
     <string>Applications settings</string>
@@ -4894,7 +5016,7 @@ p, li { white-space: pre-wrap; }
     <string>Put device in standby with minimum recirculation</string>
    </property>
    <property name="statusTip">
-    <string>Put device in standby with minimum recirculation</string>
+    <string/>
    </property>
    <property name="whatsThis">
     <string>Put device in standby with minimum recirculation</string>
@@ -4933,7 +5055,7 @@ p, li { white-space: pre-wrap; }
     <string>Connect and disconnect to PPC1</string>
    </property>
    <property name="statusTip">
-    <string>Connect and disconnect to PPC1</string>
+    <string/>
    </property>
    <property name="whatsThis">
     <string>Connect and disconnect to PPC1</string>
@@ -4954,7 +5076,7 @@ p, li { white-space: pre-wrap; }
     <string>Reset device</string>
    </property>
    <property name="statusTip">
-    <string>Reset device</string>
+    <string/>
    </property>
    <property name="whatsThis">
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Reset the device&lt;br/&gt;&lt;br/&gt;
@@ -4974,7 +5096,7 @@ It will be impossible to use the application during the reset process. &lt;/p&gt
     <string>Visualize advanced control and monitor panel</string>
    </property>
    <property name="statusTip">
-    <string>Visualize advanced control and monitor panel</string>
+    <string/>
    </property>
    <property name="whatsThis">
     <string>Visualize advanced control and monitor panel</string>
@@ -4998,7 +5120,7 @@ It will be impossible to use the application during the reset process. &lt;/p&gt
     <string>Simulation mode: when ACTIVE the pump is NOT used</string>
    </property>
    <property name="statusTip">
-    <string>Simulation mode: when ACTIVE the pump is NOT used</string>
+    <string/>
    </property>
    <property name="whatsThis">
     <string>Simulation mode: when ACTIVE the pump is NOT used</string>
@@ -5034,7 +5156,7 @@ It will be impossible to use the application during the reset process. &lt;/p&gt
     <string>what's this button, click on an object to have quick help</string>
    </property>
    <property name="statusTip">
-    <string>what's this button, click on an object to have quick help</string>
+    <string/>
    </property>
    <property name="whatsThis">
     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;what's this button, &lt;br/&gt;
@@ -5060,7 +5182,7 @@ click on any object to have quick help
     <string>Fluicell AB information</string>
    </property>
    <property name="statusTip">
-    <string>Fluicell AB information</string>
+    <string/>
    </property>
    <property name="whatsThis">
     <string>Fluicell AB information</string>

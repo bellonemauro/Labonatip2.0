@@ -38,7 +38,10 @@ signals :
 	void ok();  // generated when ok is pressed
 	void apply(); // generated when apply is pressed
 	void discard(); // generated when discard is pressed
-
+	void colSol1Changed(const int _r, const int _g, const int _b);
+	void colSol2Changed(const int _r, const int _g, const int _b);
+	void colSol3Changed(const int _r, const int _g, const int _b);
+	void colSol4Changed(const int _r, const int _g, const int _b);
 
 public:
 
@@ -124,6 +127,9 @@ public:
 		return saveSettings(_filename);
 	}
 
+	void setDefaultPressuresVacuums(int _p_on_default, int _p_off_default, 
+		                            int _v_recirc_default, int _v_switch_default);
+
 private slots:
 
 	/** Allows to switch windows tabs in the interface from the list widget
@@ -135,6 +141,27 @@ private slots:
 	* \note
 	*/
 	void showPortInfo(int idx);
+
+
+	/** Color solution 1 changed
+	* \note
+	*/
+	void colorSol1Changed(int _value);
+
+	/** Color solution 2 changed
+	* \note
+	*/
+	void colorSol2Changed(int _value);
+
+	/** Color solution 3 changed
+	* \note
+	*/
+	void colorSol3Changed(int _value);
+
+	/** Color solution 4 changed
+	* \note
+	*/
+	void colorSol4Changed(int _value);
 
 	/** emit ok signal, save the setting, send the current macro to the main
 	*   and close the window
@@ -225,6 +252,10 @@ private slots:
 	void addAllCommandsToMacro();
 
 
+
+	void resetToDefaultValues();
+
+
 private:
 
 	QSettings *m_settings;
@@ -262,6 +293,8 @@ private:
 	void getCOMsettings();
 
 	void getSolutionSettings();
+
+	uint32_t giveRainbowColor(float _position);
 
 	std::vector<fluicell::PPC1api::command> *m_macro;
 

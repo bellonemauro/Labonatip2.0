@@ -301,6 +301,15 @@ private slots:
 	*/
 	void updateMacroStatusMessage(const QString &_message);
 
+
+	void colSolution1Changed(const int _r, const int _g, const int _b);
+
+	void colSolution2Changed(const int _r, const int _g, const int _b);
+
+	void colSolution3Changed(const int _r, const int _g, const int _b);
+
+	void colSolution4Changed(const int _r, const int _g, const int _b);
+
 	/** \brief Stop all pumps and close the valves
 	   *
 	   * \note
@@ -478,6 +487,8 @@ private:
 	void setEnableMainWindow(bool _enable = false);
 
 	void setEnableSolutionButtons(bool _enable = false);
+
+	QString generateStyleSheet(const int _r, const int _g, const int _b);
 
   /** Increase/reduce the area for the solution depiction
   *  

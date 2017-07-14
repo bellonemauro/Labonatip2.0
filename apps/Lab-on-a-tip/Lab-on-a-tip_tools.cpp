@@ -45,6 +45,26 @@ Labonatip_tools::Labonatip_tools(QWidget *parent ):
 		SIGNAL(itemClicked(QListWidgetItem*)), this, 
 		SLOT(onListMailItemClicked(QListWidgetItem*)));
 
+
+	// connect color solution settings
+	connect(ui_tools->horizontalSlider_colorSol1,
+		SIGNAL(valueChanged(int)), this,
+		SLOT(colorSol1Changed(int)));
+
+	connect(ui_tools->horizontalSlider_colorSol2,
+		SIGNAL(valueChanged(int)), this,
+		SLOT(colorSol2Changed(int)));
+
+	connect(ui_tools->horizontalSlider_colorSol3,
+		SIGNAL(valueChanged(int)), this,
+		SLOT(colorSol3Changed(int)));
+
+	connect(ui_tools->horizontalSlider_colorSol4,
+		SIGNAL(valueChanged(int)), this,
+		SLOT(colorSol4Changed(int)));
+
+
+
 	// connect GUI elements: NEW macro tab
 	connect(ui_tools->pushButton_addMacroCommand,
 		SIGNAL(clicked()), this, SLOT(addMacroCommand()));
@@ -79,6 +99,8 @@ Labonatip_tools::Labonatip_tools(QWidget *parent ):
 	connect(ui_tools->pushButton_loadMacro, 
 		SIGNAL(clicked()), this, SLOT(loadMacro()));
 
+	connect(ui_tools->pushButton_toDefault,
+		SIGNAL(clicked()), this, SLOT(resetToDefaultValues()));
 
 	// connect tool window events Ok, Discard, Apply
 	connect(ui_tools->buttonBox->button(QDialogButtonBox::Ok), 
@@ -843,6 +865,20 @@ void Labonatip_tools::createNewCommand(QTreeWidgetItem & _command, QComboBox & _
 }
 
 
+void Labonatip_tools::setDefaultPressuresVacuums(int _p_on_default, int _p_off_default, int _v_recirc_default, int _v_switch_default)
+{
+	m_pr_params->p_on_default = _p_on_default;
+	m_pr_params->p_off_default = _p_off_default;
+	m_pr_params->v_recirc_default = _v_recirc_default;
+	m_pr_params->v_switch_default = _v_switch_default;
+
+	ui_tools->lineEdit_p_on_default->setText(QString::number(_p_on_default));
+	ui_tools->lineEdit_p_off_default->setText(QString::number(_p_off_default));
+	ui_tools->lineEdit_v_recirc_default->setText(QString::number(_v_recirc_default));
+	ui_tools->lineEdit_v_switch_default->setText(QString::number(_v_switch_default));
+	
+}
+
 void Labonatip_tools::showPortInfo(int idx)
 {
 	if (idx == -1)
@@ -861,6 +897,110 @@ void Labonatip_tools::showPortInfo(int idx)
 		tr("Vendor Identifier: %1").arg(list.count() > 5 ? list.at(5) : tr("N/A")));
 	ui_tools->pidLabel->setText(
 		tr("Product Identifier: %1").arg(list.count() > 6 ? list.at(6) : tr("N/A")));
+}
+
+void Labonatip_tools::colorSol1Changed(int _value)
+{
+
+	float v = _value / 16777216.0;
+
+	//int red = _value & 0x0000FF;
+	//int green = (_value >> 8) & 0x0000FF;
+	//int blue = (_value >> 16) & 0x0000FF;
+
+	uint32_t color = giveRainbowColor(v);
+
+
+	int red = color & 0x0000FF;
+	int green = (color >> 8) & 0x0000FF;
+	int blue = (color >> 16) & 0x0000FF;
+
+	QPalette *palette = new QPalette();
+	palette->setColor(QPalette::Base, QColor::fromRgb(red, green, blue));
+	ui_tools->lineEdit_sol1_name->setPalette(*palette);
+
+	emit colSol1Changed(red, green, blue);
+
+}
+
+void Labonatip_tools::colorSol2Changed(int _value)
+{
+	float v = _value / 16777216.0;
+
+	//int red = _value & 0x0000FF;
+	//int green = (_value >> 8) & 0x0000FF;
+	//int blue = (_value >> 16) & 0x0000FF;
+
+	uint32_t color = giveRainbowColor(v);
+
+
+	int red = color & 0x0000FF;
+	int green = (color >> 8) & 0x0000FF;
+	int blue = (color >> 16) & 0x0000FF;
+
+	QPalette *palette = new QPalette();
+	palette->setColor(QPalette::Base, QColor::fromRgb(red, green, blue));
+	ui_tools->lineEdit_sol2_name->setPalette(*palette);
+
+	emit colSol2Changed(red, green, blue);
+}
+
+void Labonatip_tools::colorSol3Changed(int _value)
+{
+	float v = _value / 16777216.0;
+
+	//int red = _value & 0x0000FF;
+	//int green = (_value >> 8) & 0x0000FF;
+	//int blue = (_value >> 16) & 0x0000FF;
+
+	uint32_t color = giveRainbowColor(v);
+
+
+	int red = color & 0x0000FF;
+	int green = (color >> 8) & 0x0000FF;
+	int blue = (color >> 16) & 0x0000FF;
+
+	QPalette *palette = new QPalette();
+	palette->setColor(QPalette::Base, QColor::fromRgb(red, green, blue));
+	//palette.setColor(QPalette::Text, Qt::white);
+	ui_tools->lineEdit_sol3_name->setPalette(*palette);
+
+	emit colSol3Changed(red, green, blue);
+}
+
+void Labonatip_tools::colorSol4Changed(int _value)
+{
+	float v = _value / 16777216.0;
+
+	//int red = _value & 0x0000FF;
+	//int green = (_value >> 8) & 0x0000FF;
+	//int blue = (_value >> 16) & 0x0000FF;
+
+	uint32_t color = giveRainbowColor(v);
+	
+	
+	int red = color & 0x0000FF;
+	int green = (color >> 8 ) & 0x0000FF;
+	int blue = (color >> 16) & 0x0000FF;
+
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_tools::colorSol4Changed  :::  "
+		<< " v " <<  v 
+		<< " red = " << red 
+		<< " green = " << green
+		<< " blue = " << blue
+		<< endl;
+
+
+	QPalette *palette = new QPalette();
+	palette->setColor(QPalette::Base, QColor::fromRgb(red, green, blue));
+	//palette.setColor(QPalette::Text, Qt::white);
+	ui_tools->lineEdit_sol4_name->setPalette(*palette);
+
+	emit colSol4Changed(red, green, blue);
+
+
 }
 
 void Labonatip_tools::getCOMsettings()
@@ -890,7 +1030,8 @@ bool Labonatip_tools::loadSettings(QString _path)
 
 	if (_path.isEmpty())
 	{
-		cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+		cout << QDate::currentDate().toString().toStdString() << "  " 
+			 << QTime::currentTime().toString().toStdString() << "  "
 			<< "Warning !  ::  Setting file not found !\n please set the setting file " << endl;
 		//_path = QFileDialog::getOpenFileName(this, tr("Open file"), QDir::currentPath(),  // dialog to open files
 		//	"Ini file (*.ini);; Data file (*.dat);; Binary File (*.bin);; All Files(*.*)", 0);
@@ -1191,9 +1332,19 @@ void Labonatip_tools::addAllCommandsToMacro()
 
 	cout << QDate::currentDate().toString().toStdString() << "  " 
 		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_tools::addAllCommandsToMacro ::: the current macro will run " << m_macro->size() << " commands " << endl;
+		 << "Labonatip_tools::addAllCommandsToMacro ::: the current macro will run " 
+		 << m_macro->size() << " commands " << endl;
 		
 
+
+}
+
+void Labonatip_tools::resetToDefaultValues()
+{
+#pragma message ("TODO : tools resetToDefalut")
+	//TODO
+	QMessageBox::warning(this, "Warning !",
+		"TODO ");
 
 }
 
@@ -1201,11 +1352,26 @@ void Labonatip_tools::addAllCommandsToMacro()
 bool Labonatip_tools::loadMacro()
 {
 	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
-	QString fine_name = QFileDialog::getOpenFileName(this, tr("Open file"), QDir::currentPath(),  // dialog to open files
+	QString file_name = QFileDialog::getOpenFileName(this, tr("Open file"), QDir::currentPath(),  // dialog to open files
 		"Lab-on-a-tip macro File (*.macro);; Data (*.dat);; All Files(*.*)", 0);
 	
+	if (file_name.isEmpty()) {
+		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
+		QMessageBox::warning(this, "Warning !", 
+			"Empty path, file not found ! <br>" + file_name);
+		return false;
+	}
+	
+	return loadMacro(file_name);
+
+
+}
+
+
+bool Labonatip_tools::loadMacro(const QString _file_name)
+{
 	//TODO: there is no check for validity in macro the loading procedure
-	QFile macroFile(fine_name);
+	QFile macroFile(_file_name);
 	if (macroFile.exists() && macroFile.open(QIODevice::ReadWrite))
 	{
 		QByteArray content = macroFile.readLine();
@@ -1221,12 +1387,13 @@ bool Labonatip_tools::loadMacro()
 			if (decodeMacroCommand(content, *newItem)) {
 				if (getLevel(*newItem) == 0) // we are at top level
 				{
-					
+
 					ui_tools->treeWidget_macroTable->addTopLevelItem(newItem);
 					comboBox->setCurrentIndex(newItem->text(0).toInt());
 					ui_tools->treeWidget_macroTable->setItemWidget(newItem, 0, comboBox);
 					//list->push_back(newItem);
-					cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+					cout << QDate::currentDate().toString().toStdString() << "  " 
+						<< QTime::currentTime().toString().toStdString() << "  "
 						<< " top level item " << newItem->text(0).toStdString()
 						<< " level " << newItem->text(13).toStdString() << endl;
 					parent = newItem->clone();
@@ -1234,11 +1401,14 @@ bool Labonatip_tools::loadMacro()
 				if (getLevel(*newItem) > 0)  // we are at the first level
 				{
 					getLastNode(ui_tools->treeWidget_macroTable, parent);
-					cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-						<< " item level " << getLevel(*newItem) << " text " << newItem->text(0).toStdString() << endl;
+					cout << QDate::currentDate().toString().toStdString() << "  " 
+						<< QTime::currentTime().toString().toStdString() << "  "
+						<< " item level " << getLevel(*newItem) 
+						<< " text " << newItem->text(0).toStdString() << endl;
 					QTreeWidgetItem *item = new QTreeWidgetItem();
 					QTreeWidgetItemIterator *item_iterator =
-						new QTreeWidgetItemIterator(ui_tools->treeWidget_macroTable, QTreeWidgetItemIterator::All);
+						new QTreeWidgetItemIterator(ui_tools->treeWidget_macroTable, 
+							QTreeWidgetItemIterator::All);
 					QTreeWidgetItemIterator it(ui_tools->treeWidget_macroTable);
 					while (*it) { // this will just get the last node
 						item = (*it);
@@ -1271,7 +1441,7 @@ bool Labonatip_tools::loadMacro()
 			}
 			content = macroFile.readLine();
 		}
-	
+
 		//resize columns to content
 		for (int i = 0; i < ui_tools->treeWidget_macroTable->columnCount(); i++) {
 			ui_tools->treeWidget_macroTable->resizeColumnToContents(i);
@@ -1279,12 +1449,13 @@ bool Labonatip_tools::loadMacro()
 
 		ui_tools->treeWidget_macroTable->setItemSelected(
 			ui_tools->treeWidget_macroTable->topLevelItem(
-			ui_tools->treeWidget_macroTable->topLevelItemCount()-1), true);
+				ui_tools->treeWidget_macroTable->topLevelItemCount() - 1), true);
 		//ui_tools->treeWidget_macroTable->addTopLevelItems(*list);
 
 	}
 	else {
-		QMessageBox::warning(this, "Warning !", "File not found ! <br>" + fine_name);
+		QMessageBox::warning(this, "Warning !", 
+			"File not found ! <br>" + _file_name);
 		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 		return false;
 
@@ -1293,16 +1464,7 @@ bool Labonatip_tools::loadMacro()
 
 	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 
-											  // do something with the new open file
-
 	return true;
-}
-
-
-bool Labonatip_tools::loadMacro(const QString _file_name)
-{
-
-	return false;
 }
 
 bool Labonatip_tools::saveMacro()
@@ -1347,8 +1509,9 @@ bool Labonatip_tools::saveMacro(QString _file_name)
 
 		QList<QStringList> result = visitTree(ui_tools->treeWidget_macroTable);
 
-		cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-			<< "Labonatip_tools::saveMacro :::: result size " << result.size() << endl;
+		cout << QDate::currentDate().toString().toStdString() << "  " 
+			 << QTime::currentTime().toString().toStdString() << "  "
+			 << "Labonatip_tools::saveMacro :::: result size " << result.size() << endl;
 
 		for (int i = 0; i < result.size(); i++) {
 			for (int j = 0; j < result.at(i).size(); j++)
@@ -1580,6 +1743,86 @@ QString Labonatip_tools::createHeader()
 void Labonatip_tools::clearAllCommands() {
 	ui_tools->treeWidget_macroTable->clear();
 }
+
+uint32_t Labonatip_tools::giveRainbowColor(float _position)
+{
+
+	// this function gives 1D linear RGB color gradient
+	// color is proportional to position
+	// position  <0;1>
+	// position means position of color in color gradient
+
+	if (_position>1) _position = 1;//position-int(position);
+								// if position > 1 then we have repetition of colors
+								// it maybe useful
+	uint8_t R = 0;// byte
+	uint8_t G = 0;// byte
+	uint8_t B = 0;// byte
+	int nmax = 6;// number of color bars
+	float m = nmax* _position;
+	int n = int(m); // integer of m
+	float f = m - n;  // fraction of m
+	uint8_t t = int(f * 255);
+
+
+	switch (n) {
+	case 0:
+	{
+		R = 0;
+		G = 255;
+		B = t;
+		break;
+	}
+
+	case 1:
+	{
+		R = 0;
+		G = 255 - t;
+		B = 255;
+		break;
+	}
+	case 2:
+	{
+		R = t;
+		G = 0;
+		B = 255;
+		break;
+	}
+	case 3:
+	{
+		R = 255;
+		G = 0;
+		B = 255 - t;
+		break;
+	}
+	case 4:
+	{
+		R = 255;
+		G = t;
+		B = 0;
+		break;
+	}
+	case 5: {
+		R = 255 - t;
+		G = 255;
+		B = 0;
+		break;
+	}
+	case 6:
+	{
+		R = 0;
+		G = 255;
+		B = 0;
+		break;
+	}
+
+	}; // case
+
+
+	return (R << 16) | (G << 8) | B;
+}
+
+
 
 Labonatip_tools::~Labonatip_tools() {
   delete ui_tools;

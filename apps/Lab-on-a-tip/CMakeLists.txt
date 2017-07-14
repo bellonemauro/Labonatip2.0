@@ -51,7 +51,7 @@ if(MSVC)
 	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Debug/icons/)
   ENDFOREACH(F)
   
-  FILE(GLOB myProject_EXTDATA "${PROJECT_SOURCE_DIR}/../../Ext_data/*.*") 
+  FILE(GLOB myProject_EXTDATA "${PROJECT_SOURCE_DIR}/Ext_data/*.*") 
   FOREACH(F ${myProject_EXTDATA})
 	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/Ext_data/)
 	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Debug/Ext_data/)

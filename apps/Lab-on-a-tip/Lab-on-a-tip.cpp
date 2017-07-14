@@ -133,6 +133,21 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	  &Labonatip_macroRunner::sendStatusMessage, this,
 	  &Labonatip_GUI::updateMacroStatusMessage ); 
 
+  connect(m_dialog_tools,
+	  &Labonatip_tools::colSol1Changed, this,
+	  &Labonatip_GUI::colSolution1Changed);
+
+  connect(m_dialog_tools,
+	  &Labonatip_tools::colSol2Changed, this,
+	  &Labonatip_GUI::colSolution2Changed);
+
+  connect(m_dialog_tools,
+	  &Labonatip_tools::colSol3Changed, this,
+	  &Labonatip_GUI::colSolution3Changed);
+
+  connect(m_dialog_tools,
+	  &Labonatip_tools::colSol4Changed, this,
+	  &Labonatip_GUI::colSolution4Changed);
 
   // init the timers 
   m_update_flowing_sliders = new QTimer();
@@ -352,10 +367,76 @@ void Labonatip_GUI::updateMacroStatusMessage(const QString &_message) {
 
 }
 
+void Labonatip_GUI::colSolution1Changed(const int _r, const int _g, const int _b)
+{
+
+	QString styleSheet = generateStyleSheet(_r, _g, _b);
+	ui->progressBar_solution1->setStyleSheet(styleSheet);
+}
+
+void Labonatip_GUI::colSolution2Changed(const int _r, const int _g, const int _b)
+{
+
+	QString styleSheet = generateStyleSheet(_r, _g, _b);
+	ui->progressBar_solution2->setStyleSheet(styleSheet);
+}
+
+
+void Labonatip_GUI::colSolution3Changed(const int _r, const int _g, const int _b)
+{
+
+	QString styleSheet = generateStyleSheet(_r, _g, _b);
+	ui->progressBar_solution3->setStyleSheet(styleSheet);
+}
+
+
+void Labonatip_GUI::colSolution4Changed(const int _r, const int _g, const int _b)
+{
+
+	QString styleSheet = generateStyleSheet(_r, _g, _b);
+	ui->progressBar_solution4->setStyleSheet(styleSheet);
+	//ui->progressBar_solution4->setPalette(*palette);
+}
+
+QString Labonatip_GUI::generateStyleSheet(const int _r, const int _g, const int _b)
+{
+	
+	QString styleSheet(" QProgressBar{	border: 1px solid white;");
+	styleSheet.append("padding: 1px;");
+	styleSheet.append("color: rgb(255, 255, 255, 0); ");
+	styleSheet.append("border-bottom-right-radius: 2px;");
+	styleSheet.append("border-bottom-left-radius: 2px;");
+	styleSheet.append("border-top-right-radius: 2px;");
+	styleSheet.append("border-top-left-radius: 2px;");
+	styleSheet.append("text-align:right;");
+	//	margin-right: 25ex;
+	styleSheet.append("background-color: rgb(255, 255, 255, 0);");
+	styleSheet.append("width: 15px;}");
+
+	styleSheet.append("QProgressBar::chunk{");
+	styleSheet.append("background-color: rgb(");
+	styleSheet.append(QString::number(_r));
+	styleSheet.append(", ");
+	styleSheet.append(QString::number(_g));
+	styleSheet.append(", ");
+	styleSheet.append(QString::number(_b));
+	styleSheet.append("); ");
+	styleSheet.append("border-bottom-right-radius: 2px;");
+	styleSheet.append("border-bottom-left-radius: 2px;");
+	styleSheet.append("border-top-right-radius: 2px;");
+	styleSheet.append("border-top-left-radius: 2px;");
+	styleSheet.append("border: 0px solid white;");
+	styleSheet.append("height: 0.5px;}");
+
+	return styleSheet;
+}
+
+
 void Labonatip_GUI::pumpingOff() {
 
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::pumpingOff    " << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  " 
+		 << QTime::currentTime().toString().toStdString() << "  "
+		 << "Labonatip_GUI::pumpingOff    " << endl;
 
 	if (m_pipette_active) {
 		m_ppc1->pumpingOff();
@@ -738,15 +819,14 @@ void Labonatip_GUI::setAsDefault()
 	default_v_recirc = ui->horizontalSlider_recirculation->value();
 	default_v_switch = ui->horizontalSlider_switch->value();
 
-	m_dialog_tools->m_pr_params->p_on_default = default_pon;
-	m_dialog_tools->m_pr_params->p_off_default = default_poff;
-	m_dialog_tools->m_pr_params->v_recirc_default = default_v_recirc;
-	m_dialog_tools->m_pr_params->v_switch_default = default_v_switch;
+	m_dialog_tools->setDefaultPressuresVacuums( default_pon, default_poff,
+			default_v_recirc, default_v_switch);
 
 	updateFlowControlPercentages();
 
 	if (m_ppc1)
-		m_ppc1->setDefaultPV(default_pon, default_poff, default_v_recirc, default_v_switch);
+		m_ppc1->setDefaultPV(default_pon, default_poff, 
+			default_v_recirc, default_v_switch);
 
 }
 
