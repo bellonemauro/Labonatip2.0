@@ -983,14 +983,15 @@ void Labonatip_tools::colorSol4Changed(int _value)
 	int green = (color >> 8 ) & 0x0000FF;
 	int blue = (color >> 16) & 0x0000FF;
 
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_tools::colorSol4Changed  :::  "
-		<< " v " <<  v 
-		<< " red = " << red 
-		<< " green = " << green
-		<< " blue = " << blue
-		<< endl;
+	//cout << QDate::currentDate().toString().toStdString() << "  "
+	//	<< QTime::currentTime().toString().toStdString() << "  "
+	//	<< "Labonatip_tools::colorSol4Changed  :::  "
+	//	<< " value " << _value
+	//	<< " v " <<  v
+	//	<< " red = " << red 
+	//	<< " green = " << green
+	//	<< " blue = " << blue
+	//	<< endl;
 
 
 	QPalette *palette = new QPalette();
@@ -1150,23 +1151,41 @@ bool Labonatip_tools::loadSettings(QString _path)
 
 
 	//Read solution names block
-	QString solname1 = m_settings->value("solutionNames/solution1", "no name").toString();
+	QString solname1 = m_settings->value("solutions/sol1", "no name").toString();
 	ui_tools->lineEdit_sol1_name->setText(solname1);
-	m_solutionNames->sol1 = solname1; //TODO: no intepretation yet
+	m_solutionNames->sol1 = solname1; 
 
-	QString solname2 = m_settings->value("solutionNames/solution2", "no name").toString();
+	QString solname2 = m_settings->value("solutions/sol2", "no name").toString();
 	ui_tools->lineEdit_sol2_name->setText(solname2);
-	m_solutionNames->sol2 = solname2; //TODO: no intepretation yet
+	m_solutionNames->sol2 = solname2; 
 
-	QString solname3 = m_settings->value("solutionNames/solution3", "no name").toString();
+	QString solname3 = m_settings->value("solutions/sol3", "no name").toString();
 	ui_tools->lineEdit_sol3_name->setText(solname3);
-	m_solutionNames->sol3 = solname3; //TODO: no intepretation yet
+	m_solutionNames->sol3 = solname3; 
 
-	QString solname4 = m_settings->value("solutionNames/solution4", "no name").toString();
+	QString solname4 = m_settings->value("solutions/sol1", "no name").toString();
 	ui_tools->lineEdit_sol4_name->setText(solname4);
-	m_solutionNames->sol4 = solname4; //TODO: no intepretation yet
+	m_solutionNames->sol4 = solname4; 
 
-									  // read Leap group
+	int sol1colSlider = m_settings->value("solutions/sol1colSlider", "3522620").toInt();
+	ui_tools->horizontalSlider_colorSol1->setValue(sol1colSlider);
+	colorSol1Changed(sol1colSlider);
+
+		
+	int sol2colSlider = m_settings->value("solutions/sol2colSlider", "5164400").toInt();
+	ui_tools->horizontalSlider_colorSol2->setValue(sol2colSlider);
+	colorSol2Changed(sol2colSlider);
+
+	int sol3colSlider = m_settings->value("solutions/sol3colSlider", "12926220").toInt();
+	ui_tools->horizontalSlider_colorSol3->setValue(sol3colSlider);
+	colorSol3Changed(sol3colSlider);
+
+	int sol4colSlider = m_settings->value("solutions/sol4colSlider", "1432930").toInt();
+	ui_tools->horizontalSlider_colorSol4->setValue(sol4colSlider);
+	colorSol4Changed(sol4colSlider);
+
+	
+	// read Leap group
 	bool myParam1 = m_settings->value("MyParam/myParam1", "true").toBool();
 	double myParam2 = m_settings->value("MyParam/myParam2", "40.0").toDouble();
 
@@ -1251,22 +1270,32 @@ bool Labonatip_tools::saveSettings(QString _file_name)
 
 	// [solutionNames]
 	// solution1 = CuSO4
-	m_settings->setValue("solutionNames/solution1", ui_tools->lineEdit_sol1_name->text());
+	settings->setValue("solutions/sol1", ui_tools->lineEdit_sol1_name->text());
 	// solution2 = NaCl
-	m_settings->setValue("solutionNames/solution2", ui_tools->lineEdit_sol2_name->text());
+	settings->setValue("solutions/sol2", ui_tools->lineEdit_sol2_name->text());
 	// solution3 = NaHCO3
-	m_settings->setValue("solutionNames/solution3", ui_tools->lineEdit_sol3_name->text());
+	settings->setValue("solutions/sol3", ui_tools->lineEdit_sol3_name->text());
 	// solution4 = FeS
-	m_settings->setValue("solutionNames/solution4", ui_tools->lineEdit_sol4_name->text());
+	settings->setValue("solutions/sol4", ui_tools->lineEdit_sol4_name->text());
+	// sol1colSlider
+	settings->setValue("solutions/sol1colSlider", ui_tools->horizontalSlider_colorSol1->value());
+	// sol2colSlider
+	settings->setValue("solutions/sol2colSlider", ui_tools->horizontalSlider_colorSol2->value());
+	// sol3colSlider
+	settings->setValue("solutions/sol3colSlider", ui_tools->horizontalSlider_colorSol3->value());
+	// sol4colSlider
+	settings->setValue("solutions/sol4colSlider", ui_tools->horizontalSlider_colorSol4->value());
+
 
 	// [server]
 	// solution1 = CuSO4
-	m_settings->setValue("server/IP", ui_tools->lineEdit_IP->text());
+	settings->setValue("server/IP", ui_tools->lineEdit_IP->text());
 	// solution2 = NaCl
-	m_settings->setValue("server/port", ui_tools->lineEdit_serverPort->text());
+	settings->setValue("server/port", ui_tools->lineEdit_serverPort->text());
 
 	
-	m_settings->sync();
+	settings->sync();
+	//m_settings->sync();
 	
 	return true;
 	//TODO --- finish the implementation!!!!

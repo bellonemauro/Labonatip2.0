@@ -33,10 +33,10 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	m_poff_set_point(0.0),
 	m_v_recirc_set_point(0.0),
 	m_v_switch_set_point(0.0),
-	m_sol1_color(QColor::fromRgb(189, 62, 71)),
-	m_sol2_color(QColor::fromRgb(96, 115, 158)),
-	m_sol3_color(QColor::fromRgb(193, 130, 50)),
-	m_sol4_color(QColor::fromRgb(83, 155, 81))
+	m_sol1_color(QColor::fromRgb(255, 189, 0)),//(189, 62, 71)),
+	m_sol2_color(QColor::fromRgb(255, 40, 0)),//96, 115, 158)),
+	m_sol3_color(QColor::fromRgb(0, 158, 255)),//193, 130, 50)),
+	m_sol4_color(QColor::fromRgb(130, 255, 0))//83, 155, 81))
 {
   // allows to use path alias
   QDir::setSearchPaths("icons", QStringList(QDir::currentPath() + "/icons/"));
@@ -371,6 +371,7 @@ void Labonatip_GUI::colSolution1Changed(const int _r, const int _g, const int _b
 {
 
 	QString styleSheet = generateStyleSheet(_r, _g, _b);
+	m_sol1_color.setRgb(_r, _g, _b);
 	ui->progressBar_solution1->setStyleSheet(styleSheet);
 }
 
@@ -378,6 +379,7 @@ void Labonatip_GUI::colSolution2Changed(const int _r, const int _g, const int _b
 {
 
 	QString styleSheet = generateStyleSheet(_r, _g, _b);
+	m_sol2_color.setRgb(_r, _g, _b);
 	ui->progressBar_solution2->setStyleSheet(styleSheet);
 }
 
@@ -386,6 +388,7 @@ void Labonatip_GUI::colSolution3Changed(const int _r, const int _g, const int _b
 {
 
 	QString styleSheet = generateStyleSheet(_r, _g, _b);
+	m_sol3_color.setRgb(_r, _g, _b);
 	ui->progressBar_solution3->setStyleSheet(styleSheet);
 }
 
@@ -394,6 +397,7 @@ void Labonatip_GUI::colSolution4Changed(const int _r, const int _g, const int _b
 {
 
 	QString styleSheet = generateStyleSheet(_r, _g, _b);
+	m_sol4_color.setRgb(_r, _g, _b);
 	ui->progressBar_solution4->setStyleSheet(styleSheet);
 	//ui->progressBar_solution4->setPalette(*palette);
 }
