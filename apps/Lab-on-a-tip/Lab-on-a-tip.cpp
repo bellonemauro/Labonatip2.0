@@ -482,24 +482,33 @@ void Labonatip_GUI::stopSolutionFlow()
 	if (ui->pushButton_solution1->isChecked()) {
 		ui->pushButton_solution1->setChecked(false);
 		pushSolution1(); // if the flow is active, this should stop it!
+
+		updateDrawing(-1);
 		return;
 	}
 	if (ui->pushButton_solution2->isChecked()) {
 		ui->pushButton_solution2->setChecked(false);
 		pushSolution2();
+		updateDrawing(-1);
 		return;
 	}
 	if (ui->pushButton_solution3->isChecked()) {
 		ui->pushButton_solution3->setChecked(false);
 		pushSolution3();
+		updateDrawing(-1);
 		return;
 	}
 	if (ui->pushButton_solution4->isChecked()) {
 		ui->pushButton_solution4->setChecked(false);
 		pushSolution4();
+		updateDrawing(-1);
 		return;
 	}
 	// if none is checked, do nothing.
+
+
+
+
 	return;
 }
 
@@ -532,7 +541,16 @@ void Labonatip_GUI::closeOpenDockTools() {
 
 void Labonatip_GUI::updateDrawing( int _value) {
 
-    //clean the scene
+
+	if (_value == -1) { // _value = -1 cleans the scene and make the flow disappear 
+		m_scene_solution->clear();
+		ui->graphicsView->setScene(m_scene_solution);
+		ui->graphicsView->show();
+		return;
+	}
+
+	
+	//clean the scene
 	m_scene_solution->clear();
 
 	_value = _value / 2;
@@ -568,7 +586,7 @@ void Labonatip_GUI::pushSolution1()
 		//m_update_time_s1->stop();
 		m_update_flowing_sliders->stop();
 		ui->widget_solutionArrow->setVisible(false);
-
+		updateDrawing(-1);
 		return;
 	}
 
@@ -634,7 +652,7 @@ void Labonatip_GUI::pushSolution2() {
 
 		m_update_flowing_sliders->stop();
 		ui->widget_solutionArrow->setVisible(false);
-
+		updateDrawing(-1);
 		return;
 	}
 	
@@ -699,7 +717,7 @@ void Labonatip_GUI::pushSolution3() {
 
 		m_update_flowing_sliders->stop();
 		ui->widget_solutionArrow->setVisible(false);
-
+		updateDrawing(-1);
 		return;
 	}
 
@@ -764,7 +782,7 @@ void Labonatip_GUI::pushSolution4() {
 
 		m_update_flowing_sliders->stop();
 		ui->widget_solutionArrow->setVisible(false);
-
+		updateDrawing(-1);
 		return;
 	}
 
@@ -928,9 +946,11 @@ void Labonatip_GUI::updateTimingSliders( )
 		setEnableSolutionButtons(true);
 		_button->setChecked(false);
 		ui->widget_solutionArrow->setVisible(false);
+		updateDrawing(-1); // remove the droplet from the drawing
 
 		ui->label_warningIcon->setPixmap(*m_pmap_okIcon);
 		ui->label_warning->setText(" Ok! ");
+
 		return;
 	}
 
