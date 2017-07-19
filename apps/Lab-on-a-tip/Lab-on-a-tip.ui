@@ -1436,6 +1436,9 @@ closeAllValves()&lt;br/&gt;
                   <bool>true</bool>
                  </property>
                  <widget class="QLabel" name="label_GW_biopenView">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
                   <property name="geometry">
                    <rect>
                     <x>10</x>
@@ -2094,8 +2097,8 @@ border-color: rgb(250, 250, 250);</string>
                      </property>
                      <property name="iconSize">
                       <size>
-                       <width>45</width>
-                       <height>45</height>
+                       <width>50</width>
+                       <height>50</height>
                       </size>
                      </property>
                      <property name="checkable">
@@ -2180,8 +2183,8 @@ border-color: rgb(235, 240, 235);
                      </property>
                      <property name="iconSize">
                       <size>
-                       <width>45</width>
-                       <height>45</height>
+                       <width>50</width>
+                       <height>50</height>
                       </size>
                      </property>
                      <property name="checkable">
@@ -2262,8 +2265,8 @@ border-color: rgb(235, 240, 235);</string>
                      </property>
                      <property name="iconSize">
                       <size>
-                       <width>45</width>
-                       <height>45</height>
+                       <width>50</width>
+                       <height>50</height>
                       </size>
                      </property>
                      <property name="checkable">
@@ -2344,8 +2347,8 @@ border-color: rgb(235, 240, 235);</string>
                      </property>
                      <property name="iconSize">
                       <size>
-                       <width>45</width>
-                       <height>45</height>
+                       <width>50</width>
+                       <height>50</height>
                       </size>
                      </property>
                      <property name="checkable">
@@ -2599,6 +2602,9 @@ border-color: rgb(235, 240, 235);</string>
                   </property>
                  </widget>
                  <widget class="QDoubleSpinBox" name="doubleSpinBox_solution">
+                  <property name="enabled">
+                   <bool>true</bool>
+                  </property>
                   <property name="geometry">
                    <rect>
                     <x>530</x>
@@ -2644,7 +2650,7 @@ background-color: rgb(255, 255, 255);</string>
                    <bool>false</bool>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
                   </property>
                   <property name="buttonSymbols">
                    <enum>QAbstractSpinBox::UpDownArrows</enum>
@@ -2655,6 +2661,9 @@ background-color: rgb(255, 255, 255);</string>
                   <property name="decimals">
                    <number>0</number>
                   </property>
+                  <property name="minimum">
+                   <double>0.000000000000000</double>
+                  </property>
                   <property name="maximum">
                    <double>100000.000000000000000</double>
                   </property>
@@ -2663,6 +2672,27 @@ background-color: rgb(255, 255, 255);</string>
                   </property>
                   <property name="value">
                    <double>500.000000000000000</double>
+                  </property>
+                 </widget>
+                 <widget class="QCheckBox" name="checkBox_disableTimer">
+                  <property name="geometry">
+                   <rect>
+                    <x>530</x>
+                    <y>189</y>
+                    <width>111</width>
+                    <height>20</height>
+                   </rect>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
+                  <property name="layoutDirection">
+                   <enum>Qt::RightToLeft</enum>
+                  </property>
+                  <property name="text">
+                   <string>non-stop</string>
                   </property>
                  </widget>
                  <zorder>progressBar_recircOut</zorder>
@@ -2691,6 +2721,7 @@ background-color: rgb(255, 255, 255);</string>
                  <zorder>label_emptyTime</zorder>
                  <zorder>label_GW_waste_full</zorder>
                  <zorder>doubleSpinBox_solution</zorder>
+                 <zorder>checkBox_disableTimer</zorder>
                 </widget>
                </item>
                <item row="0" column="1">

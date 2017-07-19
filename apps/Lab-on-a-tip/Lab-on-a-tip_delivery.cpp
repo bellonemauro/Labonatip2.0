@@ -348,6 +348,8 @@ void Labonatip_GUI::updateFlowControlPercentages()
 		}
 	}
 
+	updateDrawing(ui->progressBar_dropletSize->value());
+
 }
 
 

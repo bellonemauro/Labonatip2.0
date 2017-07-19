@@ -549,6 +549,11 @@ void Labonatip_GUI::updateDrawing( int _value) {
 		return;
 	}
 
+	if( ui->pushButton_solution1->isChecked() || 
+		ui->pushButton_solution2->isChecked() ||
+		ui->pushButton_solution3->isChecked() ||
+		ui->pushButton_solution4->isChecked())
+	{
 	
 	//clean the scene
 	m_scene_solution->clear();
@@ -567,7 +572,10 @@ void Labonatip_GUI::updateDrawing( int _value) {
 
 	ui->graphicsView->setScene(m_scene_solution);
 	ui->graphicsView->show();
+	}
+
 	return;
+
 }
 
 
@@ -934,9 +942,17 @@ void Labonatip_GUI::updateTimingSliders( )
 	}
 	else
 	{
+		if (ui->checkBox_disableTimer->isChecked() )
+		{
+			m_update_flowing_sliders->start();
+			QString s;
+			s.append("Continuous flowing  ");
+			ui->label_emptyTime->setText(s);
+			return;
+		}
 		m_update_flowing_sliders->stop();
 		m_timer_solution = 0;
-		_bar->setValue(0);
+		_bar->setValue(10); //set the minimum just to visualize something
 		//ui->widget_sol1->setValue(100);
 		if (m_pipette_active)
 		{
@@ -1155,6 +1171,10 @@ void Labonatip_GUI::initConnects()
 	connect(ui->pushButton_solution4, 
 		SIGNAL(clicked()), this, 
 		SLOT(pushSolution4()));
+
+	connect(ui->checkBox_disableTimer,
+		SIGNAL(stateChanged(int)), this,
+		SLOT(disableTimer(int)));
 
 	connect(ui->pushButton_setValuesAsDefault, 
 		SIGNAL(clicked()), this, 

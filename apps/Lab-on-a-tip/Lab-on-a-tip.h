@@ -390,6 +390,15 @@ private slots:
 	*/
 	void sliderPonChanged(int _value);
 
+
+	/** \brief Enable/Disable the timer for an infinite solution flow
+	*
+	* \note
+	*/
+	void disableTimer(int _state) {
+		ui->doubleSpinBox_solution->setEnabled(!_state);
+	}
+
 	/** \brief Set debug to terminal
 	*
 	* \note
