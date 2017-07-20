@@ -72,10 +72,12 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   m_pmap_warningIcon = new QPixmap();
   m_pmap_okIcon->load("./icons/okIcon.png");
   m_pmap_warningIcon->load("./icons/warning.png");
-  ui->label_warningIcon->setPixmap(*m_pmap_okIcon);
+  ui->label_warningIcon->clear();
+  ui->label_warning->clear();
+  //ui->label_warningIcon->setPixmap(*m_pmap_okIcon);
   //ui->label_warningIcon->hide();
   //ui->label_warning->hide();
-  ui->label_warning->setText(" ok ! ");
+  //ui->label_warning->setText(" ok ! ");
 
   // move the arrow in the drawing to point at the solution 1
   ui->widget_solutionArrow->setVisible(false);
@@ -964,8 +966,12 @@ void Labonatip_GUI::updateTimingSliders( )
 		ui->widget_solutionArrow->setVisible(false);
 		updateDrawing(-1); // remove the droplet from the drawing
 
-		ui->label_warningIcon->setPixmap(*m_pmap_okIcon);
-		ui->label_warning->setText(" Ok! ");
+		ui->label_warningIcon->clear();
+		ui->label_warning->clear();
+		//ui->label_warningIcon->setPixmap(*m_pmap_okIcon);
+		//ui->label_warning->setText(" Ok! ");
+		//ui->label_warningIcon->hide();
+		//ui->label_warning->hide();
 
 		return;
 	}

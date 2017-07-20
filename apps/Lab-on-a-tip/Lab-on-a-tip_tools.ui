@@ -1058,7 +1058,7 @@
                 <bool>false</bool>
                </property>
                <property name="columnCount">
-                <number>5</number>
+                <number>3</number>
                </property>
                <column>
                 <property name="text">
@@ -1067,22 +1067,12 @@
                </column>
                <column>
                 <property name="text">
-                 <string>Volume nL</string>
-                </property>
-               </column>
-               <column>
-                <property name="text">
-                 <string>Flow uL/s</string>
+                 <string>Volume (uL)</string>
                 </property>
                </column>
                <column>
                 <property name="text">
                  <string>Time (s)</string>
-                </property>
-               </column>
-               <column>
-                <property name="text">
-                 <string>Solution 1</string>
                 </property>
                </column>
                <item>
@@ -1093,40 +1083,11 @@
                  <string>30</string>
                 </property>
                 <property name="text">
-                 <string>34</string>
-                </property>
-                <property name="text">
                  <string>1</string>
-                </property>
-                <property name="text">
-                 <string/>
-                </property>
-                <property name="checkState">
-                 <enum>Unchecked</enum>
                 </property>
                 <property name="flags">
                  <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
                 </property>
-                <item>
-                 <property name="text">
-                  <string>1.1</string>
-                 </property>
-                 <property name="text">
-                  <string>2</string>
-                 </property>
-                 <property name="text">
-                  <string>2</string>
-                 </property>
-                 <property name="text">
-                  <string>2</string>
-                 </property>
-                 <property name="text">
-                  <string/>
-                 </property>
-                 <property name="flags">
-                  <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-                 </property>
-                </item>
                </item>
                <item>
                 <property name="text">
@@ -1136,13 +1097,7 @@
                  <string>20</string>
                 </property>
                 <property name="text">
-                 <string>59</string>
-                </property>
-                <property name="text">
-                 <string>0.2</string>
-                </property>
-                <property name="text">
-                 <string/>
+                 <string>25</string>
                 </property>
                 <property name="flags">
                  <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
@@ -1153,16 +1108,10 @@
                  <string>3</string>
                 </property>
                 <property name="text">
-                 <string>324</string>
+                 <string>35</string>
                 </property>
                 <property name="text">
-                 <string>324</string>
-                </property>
-                <property name="text">
-                 <string>0.4</string>
-                </property>
-                <property name="text">
-                 <string/>
+                 <string>55</string>
                 </property>
                 <property name="flags">
                  <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
@@ -1173,16 +1122,10 @@
                  <string>4</string>
                 </property>
                 <property name="text">
-                 <string>324</string>
+                 <string>35</string>
                 </property>
                 <property name="text">
-                 <string>234</string>
-                </property>
-                <property name="text">
-                 <string>0.5</string>
-                </property>
-                <property name="text">
-                 <string/>
+                 <string>66</string>
                 </property>
                 <property name="flags">
                  <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>

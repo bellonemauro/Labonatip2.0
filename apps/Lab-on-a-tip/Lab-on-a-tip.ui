@@ -979,6 +979,12 @@ border: 2px solid white;
                    <verstretch>0</verstretch>
                   </sizepolicy>
                  </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>100</width>
+                   <height>100</height>
+                  </size>
+                 </property>
                  <property name="maximumSize">
                   <size>
                    <width>100</width>
@@ -1215,7 +1221,7 @@ closeAllValves()&lt;br/&gt;
                      <string notr="true"/>
                     </property>
                     <property name="text">
-                     <string>PPC-1 Actions</string>
+                     <string>Actions</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
