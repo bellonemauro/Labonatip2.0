@@ -251,7 +251,7 @@
                  </property>
                  <property name="minimumSize">
                   <size>
-                   <width>280</width>
+                   <width>420</width>
                    <height>40</height>
                   </size>
                  </property>
@@ -282,7 +282,27 @@
                   <property name="spacing">
                    <number>0</number>
                   </property>
-                  <item row="3" column="2">
+                  <item row="6" column="7" colspan="3">
+                   <widget class="QPushButton" name="pushButton_flowspeed_plus">
+                    <property name="toolTip">
+                     <string>Increase flow speed</string>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="icon">
+                     <iconset>
+                      <normaloff>icons/plus.png</normaloff>icons/plus.png</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>40</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="3">
                    <widget class="QPushButton" name="pushButton_dropSize_minus">
                     <property name="font">
                      <font>
@@ -307,91 +327,7 @@
                     </property>
                    </widget>
                   </item>
-                  <item row="6" column="6" colspan="3">
-                   <widget class="QPushButton" name="pushButton_flowspeed_plus">
-                    <property name="toolTip">
-                     <string>Increase flow speed</string>
-                    </property>
-                    <property name="text">
-                     <string/>
-                    </property>
-                    <property name="icon">
-                     <iconset>
-                      <normaloff>icons/plus.png</normaloff>icons/plus.png</iconset>
-                    </property>
-                    <property name="iconSize">
-                     <size>
-                      <width>40</width>
-                      <height>40</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="6" column="1">
-                   <spacer name="horizontalSpacer_9">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>5</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                  <item row="6" column="2">
-                   <widget class="QPushButton" name="pushButton_flowspeed_minus">
-                    <property name="toolTip">
-                     <string>Decrease flow speed</string>
-                    </property>
-                    <property name="text">
-                     <string/>
-                    </property>
-                    <property name="icon">
-                     <iconset>
-                      <normaloff>icons/minus.png</normaloff>icons/minus.png</iconset>
-                    </property>
-                    <property name="iconSize">
-                     <size>
-                      <width>40</width>
-                      <height>40</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="9" column="0" rowspan="2">
-                   <widget class="QLabel" name="label_DZC_vacuum">
-                    <property name="font">
-                     <font>
-                      <pointsize>11</pointsize>
-                     </font>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true"/>
-                    </property>
-                    <property name="text">
-                     <string>Vacuum</string>
-                    </property>
-                    <property name="alignment">
-                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="8" column="2" colspan="5">
-                   <spacer name="verticalSpacer">
-                    <property name="orientation">
-                     <enum>Qt::Vertical</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>20</width>
-                      <height>40</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                  <item row="10" column="6" colspan="3">
+                  <item row="10" column="7" colspan="3">
                    <widget class="QPushButton" name="pushButton_vacuum_plus">
                     <property name="toolTip">
                      <string>Increase vacuum</string>
@@ -411,17 +347,48 @@
                     </property>
                    </widget>
                   </item>
-                  <item row="3" column="6" colspan="3">
-                   <widget class="QPushButton" name="pushButton_dropSize_plus">
+                  <item row="8" column="3" colspan="5">
+                   <spacer name="verticalSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item row="9" column="1" rowspan="2">
+                   <widget class="QLabel" name="label_DZC_vacuum">
+                    <property name="font">
+                     <font>
+                      <pointsize>11</pointsize>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"/>
+                    </property>
+                    <property name="text">
+                     <string>Vacuum</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="6" column="3">
+                   <widget class="QPushButton" name="pushButton_flowspeed_minus">
                     <property name="toolTip">
-                     <string>Increase droplet size</string>
+                     <string>Decrease flow speed</string>
                     </property>
                     <property name="text">
                      <string/>
                     </property>
                     <property name="icon">
                      <iconset>
-                      <normaloff>icons/plus.png</normaloff>icons/plus.png</iconset>
+                      <normaloff>icons/minus.png</normaloff>icons/minus.png</iconset>
                     </property>
                     <property name="iconSize">
                      <size>
@@ -431,7 +398,7 @@
                     </property>
                    </widget>
                   </item>
-                  <item row="6" column="3">
+                  <item row="6" column="4">
                    <spacer name="horizontalSpacer_10">
                     <property name="orientation">
                      <enum>Qt::Horizontal</enum>
@@ -444,7 +411,7 @@
                     </property>
                    </spacer>
                   </item>
-                  <item row="4" column="2" colspan="9">
+                  <item row="4" column="3" colspan="9">
                    <widget class="QProgressBar" name="progressBar_dropletSize">
                     <property name="minimumSize">
                      <size>
@@ -521,7 +488,7 @@ border-top-left-radius: 2px;
                     </property>
                    </widget>
                   </item>
-                  <item row="10" column="2">
+                  <item row="10" column="3">
                    <widget class="QPushButton" name="pushButton_vacuum_minus">
                     <property name="toolTip">
                      <string>Decrease vacuum</string>
@@ -541,7 +508,27 @@ border-top-left-radius: 2px;
                     </property>
                    </widget>
                   </item>
-                  <item row="2" column="2" colspan="5">
+                  <item row="3" column="7" colspan="3">
+                   <widget class="QPushButton" name="pushButton_dropSize_plus">
+                    <property name="toolTip">
+                     <string>Increase droplet size</string>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="icon">
+                     <iconset>
+                      <normaloff>icons/plus.png</normaloff>icons/plus.png</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>40</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="3" colspan="5">
                    <spacer name="verticalSpacer_3">
                     <property name="orientation">
                      <enum>Qt::Vertical</enum>
@@ -554,20 +541,7 @@ border-top-left-radius: 2px;
                     </property>
                    </spacer>
                   </item>
-                  <item row="5" column="2" colspan="5">
-                   <spacer name="verticalSpacer_2">
-                    <property name="orientation">
-                     <enum>Qt::Vertical</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>20</width>
-                      <height>40</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                  <item row="6" column="0">
+                  <item row="6" column="1">
                    <widget class="QLabel" name="label_DZC_flowSpeed">
                     <property name="font">
                      <font>
@@ -585,7 +559,20 @@ border-top-left-radius: 2px;
                     </property>
                    </widget>
                   </item>
-                  <item row="3" column="0">
+                  <item row="5" column="3" colspan="5">
+                   <spacer name="verticalSpacer_2">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item row="3" column="1">
                    <widget class="QLabel" name="label_DZV_dropletSize">
                     <property name="font">
                      <font>
@@ -603,7 +590,7 @@ border-top-left-radius: 2px;
                     </property>
                    </widget>
                   </item>
-                  <item row="7" column="2" colspan="9">
+                  <item row="7" column="3" colspan="9">
                    <widget class="QProgressBar" name="progressBar_flowSpeed">
                     <property name="minimumSize">
                      <size>
@@ -680,7 +667,45 @@ border-top-left-radius: 2px;
                     </property>
                    </widget>
                   </item>
-                  <item row="11" column="2" colspan="9">
+                  <item row="3" column="5">
+                   <widget class="QLCDNumber" name="lcdNumber_dropletSize_percentage">
+                    <property name="toolTip">
+                     <string>Droplet size percentage</string>
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::NoFrame</enum>
+                    </property>
+                    <property name="digitCount">
+                     <number>3</number>
+                    </property>
+                    <property name="value" stdset="0">
+                     <double>0.000000000000000</double>
+                    </property>
+                    <property name="intValue" stdset="0">
+                     <number>0</number>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="10" column="5">
+                   <widget class="QLCDNumber" name="lcdNumber_vacuum_percentage">
+                    <property name="toolTip">
+                     <string>Vacuum percentage</string>
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::NoFrame</enum>
+                    </property>
+                    <property name="digitCount">
+                     <number>3</number>
+                    </property>
+                    <property name="value" stdset="0">
+                     <double>0.000000000000000</double>
+                    </property>
+                    <property name="intValue" stdset="0">
+                     <number>0</number>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="11" column="3" colspan="9">
                    <widget class="QProgressBar" name="progressBar_vacuum">
                     <property name="minimumSize">
                      <size>
@@ -757,45 +782,7 @@ border-top-left-radius: 2px;
                     </property>
                    </widget>
                   </item>
-                  <item row="3" column="4">
-                   <widget class="QLCDNumber" name="lcdNumber_dropletSize_percentage">
-                    <property name="toolTip">
-                     <string>Droplet size percentage</string>
-                    </property>
-                    <property name="frameShape">
-                     <enum>QFrame::NoFrame</enum>
-                    </property>
-                    <property name="digitCount">
-                     <number>3</number>
-                    </property>
-                    <property name="value" stdset="0">
-                     <double>0.000000000000000</double>
-                    </property>
-                    <property name="intValue" stdset="0">
-                     <number>0</number>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="10" column="4">
-                   <widget class="QLCDNumber" name="lcdNumber_vacuum_percentage">
-                    <property name="toolTip">
-                     <string>Vacuum percentage</string>
-                    </property>
-                    <property name="frameShape">
-                     <enum>QFrame::NoFrame</enum>
-                    </property>
-                    <property name="digitCount">
-                     <number>3</number>
-                    </property>
-                    <property name="value" stdset="0">
-                     <double>0.000000000000000</double>
-                    </property>
-                    <property name="intValue" stdset="0">
-                     <number>0</number>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="3" column="5">
+                  <item row="3" column="6">
                    <widget class="QLabel" name="label_dropletSize_percentage">
                     <property name="font">
                      <font>
@@ -813,7 +800,7 @@ border-top-left-radius: 2px;
                     </property>
                    </widget>
                   </item>
-                  <item row="10" column="5">
+                  <item row="10" column="6">
                    <widget class="QLabel" name="label_vacuum_percentage">
                     <property name="font">
                      <font>
@@ -831,7 +818,7 @@ border-top-left-radius: 2px;
                     </property>
                    </widget>
                   </item>
-                  <item row="6" column="4">
+                  <item row="6" column="5">
                    <widget class="QLCDNumber" name="lcdNumber_flowspeed_percentage">
                     <property name="toolTip">
                      <string>Flow speed percentage</string>
@@ -850,25 +837,7 @@ border-top-left-radius: 2px;
                     </property>
                    </widget>
                   </item>
-                  <item row="6" column="5">
-                   <widget class="QLabel" name="label_flowspeed_percentage">
-                    <property name="font">
-                     <font>
-                      <pointsize>14</pointsize>
-                     </font>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true"/>
-                    </property>
-                    <property name="text">
-                     <string>%</string>
-                    </property>
-                    <property name="alignment">
-                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="0" column="6" colspan="5">
+                  <item row="0" column="7" colspan="5">
                    <widget class="QProgressBar" name="progressBar_ledP1_2">
                     <property name="minimumSize">
                      <size>
@@ -950,8 +919,8 @@ border: 2px solid white;
                     </property>
                    </widget>
                   </item>
-                  <item row="0" column="0" colspan="5">
-                   <widget class="QLabel" name="label_DZC_title">
+                  <item row="6" column="6">
+                   <widget class="QLabel" name="label_flowspeed_percentage">
                     <property name="font">
                      <font>
                       <pointsize>14</pointsize>
@@ -961,10 +930,47 @@ border: 2px solid white;
                      <string notr="true"/>
                     </property>
                     <property name="text">
-                     <string>Delivery zone control</string>
+                     <string>%</string>
                     </property>
                     <property name="alignment">
-                     <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="6" column="0">
+                   <spacer name="horizontalSpacer_9">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>5</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item row="0" column="0" colspan="7">
+                   <widget class="QLabel" name="label_DZC_title">
+                    <property name="minimumSize">
+                     <size>
+                      <width>320</width>
+                      <height>55</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <pointsize>16</pointsize>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"/>
+                    </property>
+                    <property name="text">
+                     <string>DELIVERY ZONE CONTROL</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                     </property>
                    </widget>
                   </item>
@@ -1212,19 +1218,25 @@ closeAllValves()&lt;br/&gt;
                   </item>
                   <item row="1" column="0" colspan="3">
                    <widget class="QLabel" name="label_action_title">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>55</height>
+                     </size>
+                    </property>
                     <property name="font">
                      <font>
-                      <pointsize>14</pointsize>
+                      <pointsize>16</pointsize>
                      </font>
                     </property>
                     <property name="styleSheet">
                      <string notr="true"/>
                     </property>
                     <property name="text">
-                     <string>Actions</string>
+                     <string>ACTIONS</string>
                     </property>
                     <property name="alignment">
-                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                     </property>
                    </widget>
                   </item>
@@ -2824,7 +2836,6 @@ background-color: rgb(255, 255, 255);</string>
    </attribute>
    <addaction name="actionTools"/>
    <addaction name="actionNerdy"/>
-   <addaction name="actionWhatsthis"/>
   </widget>
   <widget class="QToolBar" name="toolBar_3">
    <property name="font">
@@ -2853,9 +2864,7 @@ background-color: rgb(255, 255, 255);</string>
    </attribute>
    <addaction name="actionSimulation"/>
    <addaction name="actionDisCon"/>
-   <addaction name="actionRun"/>
    <addaction name="actionReset"/>
-   <addaction name="actionSleep"/>
    <addaction name="actionShutdown"/>
    <addaction name="actionOpen"/>
    <addaction name="actionSave"/>
