@@ -36,7 +36,9 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	m_sol1_color(QColor::fromRgb(255, 189, 0)),//(189, 62, 71)),
 	m_sol2_color(QColor::fromRgb(255, 40, 0)),//96, 115, 158)),
 	m_sol3_color(QColor::fromRgb(0, 158, 255)),//193, 130, 50)),
-	m_sol4_color(QColor::fromRgb(130, 255, 0))//83, 155, 81))
+	m_sol4_color(QColor::fromRgb(130, 255, 0)),//83, 155, 81))
+	m_widget_solutionArrow_x_pos (400),
+	m_widget_solutionArrow_x_pos_shift (55)
 {
   // allows to use path alias
   QDir::setSearchPaths("icons", QStringList(QDir::currentPath() + "/icons/"));
@@ -82,8 +84,9 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   // move the arrow in the drawing to point at the solution 1
   ui->widget_solutionArrow->setVisible(false);
   ui->label_arrowSolution->setText(m_dialog_tools->m_solutionNames->sol1);
-  ui->widget_solutionArrow->move(QPoint(400, ui->widget_solutionArrow->pos().ry()));
-  //TODO: I don't like the static movement, let's find another solution for it ! 
+  ui->widget_solutionArrow->move(
+	  QPoint( m_widget_solutionArrow_x_pos, 
+			  ui->widget_solutionArrow->pos().ry()));
    
   // set the scene for the graphic depiction of the solution flow
   m_scene_solution = new QGraphicsScene;
@@ -131,9 +134,14 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   connect(m_macroRunner_thread, 
 	  &Labonatip_macroRunner::resultReady, this, 
 	  &Labonatip_GUI::macroFinished); 
+
   connect(m_macroRunner_thread,
 	  &Labonatip_macroRunner::sendStatusMessage, this,
 	  &Labonatip_GUI::updateMacroStatusMessage ); 
+ 
+  connect(m_macroRunner_thread,
+	  &Labonatip_macroRunner::timeStatus, this,
+	  &Labonatip_GUI::updateMacroTimeStatus);
 
   connect(m_dialog_tools,
 	  &Labonatip_tools::colSol1Changed, this,
@@ -260,7 +268,7 @@ void Labonatip_GUI::disCon() {
 		if (!m_ppc1->isRunning()) {
 
 			if (!m_ppc1->isConnected())
-				if (!m_ppc1->connectCOM()) { // TODO: this is not good !! this should not be connected always
+				if (!m_ppc1->connectCOM()) { 
 					ui->statusBar->showMessage("STATUS: NOT Connected  ");
 					ui->actionDisCon->setIconText("Connect");
 					ui->actionSimulation->setEnabled(true);
@@ -366,6 +374,19 @@ void Labonatip_GUI::updateMacroStatusMessage(const QString &_message) {
 	ui->statusBar->showMessage(s);
 	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_GUI::updateMacroStatusMessage :::: " << _message.toStdString() << endl;
+
+}
+
+
+void Labonatip_GUI::updateMacroTimeStatus(const int &_status) {
+
+	QString s = " MACRO RUNNING :: update Macro Time Status >>  ";
+	s.append(QString::number(_status));
+
+	m_labonatip_chart_view->updateChartTime(_status); // update the vertical line for the time status on the chart
+
+	//cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+	//	<< "Labonatip_GUI::updateMacroTimeStatus :::: " << _status << endl;
 
 }
 
@@ -627,14 +648,14 @@ void Labonatip_GUI::pushSolution1()
 	// move the arrow in the drawing to point on the solution 1
 	ui->widget_solutionArrow->setVisible(true);
 	ui->label_arrowSolution->setText(m_dialog_tools->m_solutionNames->sol1);
-	ui->widget_solutionArrow->move(QPoint(400, ui->widget_solutionArrow->pos().ry()));
-	//TODO: I don't like the static movement, let's find another solution for it ! 
+	ui->widget_solutionArrow->move(
+		QPoint( m_widget_solutionArrow_x_pos, 
+			    ui->widget_solutionArrow->pos().ry()));
 
-	// Here start the solution flow ---TODO: the connection to the real device is still missing
+	// Here start the solution flow 
 	m_time_multipilcator = (int)(ui->doubleSpinBox_solution->value() );
 
 	// SET vacum to _value
-	// TODO: be careful the control is not implemented, the value will be sent directly ! 
 	if (m_pipette_active)
 	{
 		m_ppc1->closeAllValves();
@@ -692,11 +713,10 @@ void Labonatip_GUI::pushSolution2() {
 	// move the arrow in the drawing to point on the solution 2
 	ui->widget_solutionArrow->setVisible(true);
 	ui->label_arrowSolution->setText(m_dialog_tools->m_solutionNames->sol2);
-	ui->widget_solutionArrow->move(QPoint(345, ui->widget_solutionArrow->pos().ry()));
-	//TODO: I don't like the static movement, let's find another solution for it ! 
+	ui->widget_solutionArrow->move(
+		QPoint( m_widget_solutionArrow_x_pos - m_widget_solutionArrow_x_pos_shift, // shift
+			    ui->widget_solutionArrow->pos().ry()));
 
-	// Here start the solution flow ---TODO: the connection to the real device is still missing
-	//m_time_multipilcator_s2 = (int)(ui->doubleSpinBox_solution->value() );
 	m_time_multipilcator = (int)(ui->doubleSpinBox_solution->value());
 
 	if (m_pipette_active)
@@ -757,11 +777,12 @@ void Labonatip_GUI::pushSolution3() {
 	// move the arrow in the drawing to point on the solution 3
 	ui->widget_solutionArrow->setVisible(true);
 	ui->label_arrowSolution->setText(m_dialog_tools->m_solutionNames->sol3);
-	ui->widget_solutionArrow->move(QPoint(290, ui->widget_solutionArrow->pos().ry()));
+	//ui->widget_solutionArrow->move(QPoint(290, ui->widget_solutionArrow->pos().ry()));
+	ui->widget_solutionArrow->move(
+		QPoint(m_widget_solutionArrow_x_pos - 2 * m_widget_solutionArrow_x_pos_shift, // shift
+			ui->widget_solutionArrow->pos().ry()));
 	//TODO: I don't like the static movement, let's find another solution for it ! 
 
-	// Here start the solution flow ---TODO: the connection to the real device is still missing
-	//m_time_multipilcator_s3 = (int)(ui->doubleSpinBox_solution->value() );
 	m_time_multipilcator = (int)(ui->doubleSpinBox_solution->value());
 
 	if (m_pipette_active)
@@ -823,11 +844,12 @@ void Labonatip_GUI::pushSolution4() {
 	// move the arrow in the drawing to point on the solution 4
 	ui->widget_solutionArrow->setVisible(true);
 	ui->label_arrowSolution->setText(m_dialog_tools->m_solutionNames->sol4);
-	ui->widget_solutionArrow->move(QPoint(235, ui->widget_solutionArrow->pos().ry()));
+	//ui->widget_solutionArrow->move(QPoint(235, ui->widget_solutionArrow->pos().ry()));
+	ui->widget_solutionArrow->move(
+		QPoint(m_widget_solutionArrow_x_pos - 3 * m_widget_solutionArrow_x_pos_shift, // shift
+			ui->widget_solutionArrow->pos().ry()));
 	//TODO: I don't like the static movement, let's find another solution for it ! 
 
-	// Here start the solution flow ---TODO: the connection to the real device is still missing
-	//m_time_multipilcator_s4 = (int)(ui->doubleSpinBox_solution->value() );
 	m_time_multipilcator = (int)(ui->doubleSpinBox_solution->value());
 
 	if (m_pipette_active)
@@ -916,7 +938,7 @@ void Labonatip_GUI::updateTimingSliders( )
 		int status = int(100 * m_timer_solution / m_time_multipilcator);
 		//ui->widget_sol1->setValue(status);
 		_bar->setValue(100 - status);
-		m_labonatip_chart_view->updateChartTime(status);
+		//m_labonatip_chart_view->updateChartTime(status); //TODO: take this out of here
 		QString s;
 		s.append("Empty in ");
 		int remaining_time_in_sec = (m_time_multipilcator - m_timer_solution);
@@ -1003,6 +1025,11 @@ void Labonatip_GUI::updateGUI() {
 	ui->label_PonPressure->setText(QString(QString::number(sensor_reading) + " / " + QString::number(set_point) + " mbar"));
 	ui->progressBar_pressure_p_on->setValue(sensor_reading);
 
+	ui->progressBar_recircIn->setValue(ui->horizontalSlider_recirculation->value());
+	ui->progressBar_recircOut->setValue(ui->horizontalSlider_recirculation->value());
+
+	ui->progressBar_switchIn->setValue(ui->horizontalSlider_switch->value());
+	ui->progressBar_switchOut->setValue(ui->horizontalSlider_switch->value());
 
 	ui->lcdNumber_dropletSize_percentage->display(m_ppc1->getDropletSizePercentage());
 	ui->progressBar_dropletSize->setValue(m_ppc1->getDropletSizePercentage());
@@ -1018,7 +1045,7 @@ void Labonatip_GUI::updateGUI() {
 }
 
 
-bool Labonatip_GUI::saveLog(QString &_file_name)
+bool Labonatip_GUI::saveLog(QString &_file_name) // This is deprecated
 {
 	// data stream interface
 	QFile _file(_file_name);
@@ -1286,14 +1313,14 @@ void Labonatip_GUI::toolOk() {
 	m_labonatip_chart_view->updateChartMacro(m_macro);
 
 	// compute the duration of the macro
-	double duration = 0.0;
+	double macro_duration = 0.0;
 	for (int i = 0; i < m_macro->size(); i++) {
 		if (m_macro->at(i).getInstruction() == 
 			fluicell::PPC1api::command::instructions::sleep)
-		duration += m_macro->at(i).getValue(); 
+			macro_duration += m_macro->at(i).getValue();
 	}
 	// visualize it in the chart information panel 
-	ui->treeWidget_macroInfo->topLevelItem(4)->setText(1, QString::number(duration));
+	ui->treeWidget_macroInfo->topLevelItem(4)->setText(1, QString::number(macro_duration));
 }
 
 void Labonatip_GUI::toolApply()
@@ -1314,14 +1341,14 @@ void Labonatip_GUI::toolApply()
 	m_labonatip_chart_view->updateChartMacro(m_macro);
 
 	// compute the duration of the macro
-	double duration = 0.0;
+	double macro_duration = 0.0;
 	for (int i = 0; i < m_macro->size(); i++) {
 		if (m_macro->at(i).getInstruction() ==
 			fluicell::PPC1api::command::instructions::sleep)
-			duration += m_macro->at(i).getValue();
+			macro_duration += m_macro->at(i).getValue();
 	}
 	// visualize it in the chart information panel 
-	ui->treeWidget_macroInfo->topLevelItem(4)->setText(1, QString::number(duration));
+	ui->treeWidget_macroInfo->topLevelItem(4)->setText(1, QString::number(macro_duration));
 }
 
 
@@ -1402,14 +1429,16 @@ void Labonatip_GUI::about() {
 		<< "Labonatip_GUI::about  " << endl;
 
 	QMessageBox messageBox;
-	messageBox.about(this, tr( "About Fluicell Lab-on-a-tip Wizard"), 
-		                   tr( "<b>Lab-on-a-tip</b> is a <a href='http://fluicell.com/'>Fluicell</a> AB software <br>"
-							   //"Lab-on-a-tip Wizard <br>"
-							   "Copyright Fluicell AB, Sweden 2017 <br> <br>"
-							   "Developer: Mauro Bellone http://www.maurobellone.com <br>"
-							   "Version 2.0.6" )); // TODO build the string using m_version
+	QString msg_title = "About Fluicell Lab-on-a-tip Wizard";
+	QString msg_content = tr("<b>Lab-on-a-tip</b> is a <a href='http://fluicell.com/'>Fluicell</a> AB software <br>"
+		//"Lab-on-a-tip Wizard <br>"
+		"Copyright Fluicell AB, Sweden 2017 <br> <br>"
+		"Developer: Mauro Bellone http://www.maurobellone.com <br>"
+		"Version: ");
+	msg_content.append(m_version);
+	messageBox.about(this, msg_title, msg_content); 
 	messageBox.setIconPixmap(QPixmap("./icons/fluicell_iconBIG.ico"));
-//	messageBox.setFixedSize(500, 700);
+	messageBox.setFixedSize(500, 700);
 }
 
 

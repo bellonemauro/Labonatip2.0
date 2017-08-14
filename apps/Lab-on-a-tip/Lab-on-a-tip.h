@@ -301,6 +301,11 @@ private slots:
 	*/
 	void updateMacroStatusMessage(const QString &_message);
 
+	/** \brief Update macro time status for the chart
+	*
+	* \note
+	*/	
+	void updateMacroTimeStatus(const int &_status);
 
 	void colSolution1Changed(const int _r, const int _g, const int _b);
 
@@ -578,6 +583,8 @@ private:
   double m_v_recirc_set_point;
   double m_v_switch_set_point;
 
+  int m_widget_solutionArrow_x_pos; 
+  int m_widget_solutionArrow_x_pos_shift;
 
   QString m_version;
 

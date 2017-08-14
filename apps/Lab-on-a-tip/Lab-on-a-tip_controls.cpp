@@ -229,8 +229,8 @@ void Labonatip_GUI::sliderRecircChanged(int _value) {
 	}
 
 	// this updates the bars in the pipette drawing
-	//ui->progressBar_recircIn->setValue(_value);
-	//ui->progressBar_recircOut->setValue(_value);
+	ui->progressBar_recircIn->setValue(_value);
+	ui->progressBar_recircOut->setValue(_value);
 
 	updateVrecircSetPoint(_value);
 
@@ -252,8 +252,8 @@ void Labonatip_GUI::sliderSwitchChanged(int _value) {
 	}
 
 	// this updates the bars in the pipette drawing
-	//ui->progressBar_switchIn->setValue(_value);
-	//ui->progressBar_switchOut->setValue(_value);
+	ui->progressBar_switchIn->setValue(_value);
+	ui->progressBar_switchOut->setValue(_value);
 
 	updateVswitchSetPoint(_value);
 

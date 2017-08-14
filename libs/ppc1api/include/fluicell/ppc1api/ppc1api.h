@@ -869,7 +869,6 @@ namespace fluicell
 		*
 		*  A bit more advanced control can increase the vacuum by 5%
 		*  by increasing the value by 5% on channel A
-		*  \TODO: verify channel A represents v_recirculation
 		*
 		* \note: new_set_point = old_set_point + 5%
 		*        the calculation is based on the set point and not the actual reading
@@ -882,11 +881,9 @@ namespace fluicell
 		*
 		*  A bit more advanced control can reduce the vacuum by 5%
 		*  by decreasing the value by 5% on channel A
-		*  \TODO: verify channel A represents v_recirculation
 		*
 		* \note: new_set_point = old_set_point - 5%
 		*        the calculation is based on the set point and not the actual reading
-		*
 		*
 		*  \return -  false in case of errors
 		**/

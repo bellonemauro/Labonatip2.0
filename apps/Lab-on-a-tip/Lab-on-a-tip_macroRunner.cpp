@@ -34,6 +34,15 @@ void Labonatip_macroRunner::run()  {
 		if (m_ppc1 && m_macro)
 		{
 			cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  " << " macro size " << m_macro->size() << endl;
+			// compute the duration of the macro
+			double macro_duration = 0.0;
+			for (int i = 0; i < m_macro->size(); i++) {
+				if (m_macro->at(i).getInstruction() ==
+					fluicell::PPC1api::command::instructions::sleep)
+					macro_duration += m_macro->at(i).getValue();
+			}
+			double time_elapsed = 0.0;
+
 			for (int i = 0; i < m_macro->size(); i++)
 			{
 				if (!m_threadTerminationHandler) {
@@ -57,12 +66,36 @@ void Labonatip_macroRunner::run()  {
 
 					emit sendStatusMessage(message);
 
-					sleep(1);// (m_macro->at(i).Duration);
+					//sleep(1);
+
+					if (m_macro->at(i).getInstruction() ==
+						fluicell::PPC1api::command::instructions::sleep) {
+
+						for (int j = 0; j < static_cast<int>(m_macro->at(i).getValue()); j++) {
+							sleep(1);// (m_macro->at(i).Duration);					
+							time_elapsed = time_elapsed + 1.0;
+							int status = int(100 * time_elapsed / macro_duration);
+							
+							emit timeStatus(status);
+					}
+					}
+
 				}
 				else {
 					if (m_ppc1->isRunning()) {
 						//cout  << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  " << " ppc1 is running the command " << m_macro->at(i).status_message << endl;
-						m_ppc1->run(m_macro->at(i));
+						if (m_macro->at(i).getInstruction() == // If the command is to wait, we do it here
+							fluicell::PPC1api::command::instructions::sleep) {
+							//TODO : check the time update with the real device 
+							for (int j = 0; j < static_cast<int>(m_macro->at(i).getValue()); j++) {
+								sleep(1);// (m_macro->at(i).Duration);					
+								time_elapsed = time_elapsed + 1.0;
+								int status = int(100 * time_elapsed / macro_duration);
+
+								emit timeStatus(status);
+							}
+						}
+						else m_ppc1->run(m_macro->at(i)); // otherwise we run the actual command on the PPC1
 						
 						if (m_macro->at(i).isStatusVisualized()) {
 							QString message = QString::fromStdString(m_macro->at(i).getStatusMessage());

@@ -129,7 +129,7 @@
           <widget class="QListWidget" name="listWidget_options">
            <property name="minimumSize">
             <size>
-             <width>150</width>
+             <width>180</width>
              <height>0</height>
             </size>
            </property>
@@ -155,7 +155,7 @@
            </property>
            <property name="gridSize">
             <size>
-             <width>140</width>
+             <width>175</width>
              <height>80</height>
             </size>
            </property>
@@ -186,7 +186,7 @@
             </property>
             <property name="icon">
              <iconset>
-              <normaloff>icons/about.png</normaloff>icons/about.png</iconset>
+              <normaloff>icons/solutions.png</normaloff>icons/solutions.png</iconset>
             </property>
            </item>
            <item>
@@ -195,7 +195,7 @@
             </property>
             <property name="icon">
              <iconset>
-              <normaloff>icons/plug.png</normaloff>icons/plug.png</iconset>
+              <normaloff>icons/Communication.png</normaloff>icons/Communication.png</iconset>
             </property>
            </item>
           </widget>

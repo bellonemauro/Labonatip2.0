@@ -1127,7 +1127,7 @@ pumpsOff()&lt;br/&gt;
                     </property>
                     <property name="icon">
                      <iconset>
-                      <normaloff>icons/about.png</normaloff>icons/about.png</iconset>
+                      <normaloff>icons/newTip.png</normaloff>icons/newTip.png</iconset>
                     </property>
                     <property name="iconSize">
                      <size>

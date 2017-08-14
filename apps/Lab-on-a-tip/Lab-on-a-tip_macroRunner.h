@@ -57,8 +57,9 @@ public:
 	fluicell::PPC1api *m_ppc1;
 
 signals:
-	void resultReady(const QString &s);
+	void resultReady(const QString &_s);
 	void sendStatusMessage(const QString &_message);
+	void timeStatus(const int &_time);
 
 private: 
 
