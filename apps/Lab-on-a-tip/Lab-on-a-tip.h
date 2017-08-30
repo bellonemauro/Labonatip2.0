@@ -58,11 +58,11 @@
 
 using namespace std;
 
-namespace Ui
-{
+//namespace Ui
+//{
   class Labonatip_GUI;
 
-}
+//}
 
 
 
@@ -307,6 +307,12 @@ private slots:
 	*/	
 	void updateMacroTimeStatus(const int &_status);
 
+	/** \brief Ask message
+	*
+	* \note
+	*/
+	void askMessage(const QString &_message);
+
 	void colSolution1Changed(const int _r, const int _g, const int _b);
 
 	void colSolution2Changed(const int _r, const int _g, const int _b);
@@ -396,13 +402,7 @@ private slots:
 	void sliderPonChanged(int _value);
 
 
-	/** \brief Enable/Disable the timer for an infinite solution flow
-	*
-	* \note
-	*/
-	void disableTimer(int _state) {
-		ui->doubleSpinBox_solution->setEnabled(!_state);
-	}
+
 
 	/** \brief Set debug to terminal
 	*

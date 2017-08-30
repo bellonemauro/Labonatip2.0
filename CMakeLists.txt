@@ -30,10 +30,14 @@ if(COMMAND cmake_policy) #return true if the COMMAND cmake_policy exist - this a
 	#The target in the TARGET signature of add_custom_command() must exist - see https://cmake.org/cmake/help/v3.0/policy/CMP0040.html
 	cmake_policy(SET CMP0040 NEW)
 	
-	# Allow using the LOCATION target property.
-	if(NOT "${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION}" LESS 3.0)
-		cmake_policy(SET CMP0026 OLD)
-	endif(NOT "${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION}" LESS 3.0)
+	#Only interpret if() arguments as variables or keywords when unquoted. - see https://cmake.org/cmake/help/v3.1/policy/CMP0054.html
+	cmake_policy(SET CMP0054 NEW)
+	
+	# Allow using the LOCATION target property. https://cmake.org/cmake/help/v3.1/policy/CMP0026.html?highlight=cmp0026
+	#if(NOT "${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION}" LESS 3.0)
+	cmake_policy(SET CMP0026 NEW)
+	#endif(NOT "${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION}" LESS 3.0)
+	
 endif(COMMAND cmake_policy)
 
 # Our own CMake configurations
@@ -137,5 +141,12 @@ endif(DOXYGEN_FOUND)
 # --------------------------------------
 #  settings for install and package --- not fully supported yet
 # --------------------------------------					
-include(${PROJECT_SOURCE_DIR}/CMakeModules/script_BuildInstall.cmake REQUIRED)		# CMake configurations
-include(${PROJECT_SOURCE_DIR}/CMakeModules/script_BuildPackage.cmake REQUIRED)		# CMake configurations						
+OPTION(ENABLE_BUILD_apps "Option to add the install target - ON by default" ON)
+if (ENABLE_BUILD_install)
+	include(${PROJECT_SOURCE_DIR}/CMakeModules/script_BuildInstall.cmake REQUIRED)		# CMake configuration for the install target
+endif(ENABLE_BUILD_install)
+
+OPTION(ENABLE_BUILD_apps "Option for building the package - ON by default" ON)
+if (ENABLE_BUILD_package)
+	include(${PROJECT_SOURCE_DIR}/CMakeModules/script_BuildPackage.cmake REQUIRED)		# CMake configuration for package						
+endif(ENABLE_BUILD_package)

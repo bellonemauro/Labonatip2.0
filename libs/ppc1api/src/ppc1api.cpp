@@ -612,9 +612,12 @@ bool fluicell::PPC1api::setRuntimeTimeout(int _value)
 bool fluicell::PPC1api::increaseDropletSize(double _percentage)
 {
 	double percentage = _percentage / 100.0;
-	double value = m_PPC1_data->channel_A->set_point + m_default_v_recirc * percentage; // decrease A by 2.5%
+	double value = m_PPC1_data->channel_A->set_point + 
+		m_default_v_recirc * percentage; // decrease A by percentage
+
 	if(m_verbose) cout << currentDateTime()
-		<< "fluicell::PPC1api::increaseDropletSize" << " new recirculation value << " << value << " >> " << endl;
+		<< "fluicell::PPC1api::increaseDropletSize" 
+		<< " new recirculation value << " << value << " >> " << endl;
 	if (value <= MIN_CHAN_A || value >= MAX_CHAN_A)
 		return false; // out of bound
 
@@ -623,9 +626,10 @@ bool fluicell::PPC1api::increaseDropletSize(double _percentage)
 	}
 	std::this_thread::sleep_for(std::chrono::microseconds(10000)); // wait 10msec
 
-	value = m_PPC1_data->channel_D->set_point + m_default_pon * 0.025;// increase C by 2.5%
+	value = m_PPC1_data->channel_D->set_point + m_default_pon * percentage;// increase C by 2.5%
 	cout << currentDateTime()
-		<< "fluicell::PPC1api::increaseDropletSize" << " new pon value << " << value << " >> " << endl;
+		<< "fluicell::PPC1api::increaseDropletSize" 
+		<< " new pon value << " << value << " >> " << endl;
 	if (value <= MIN_CHAN_D || value >= MAX_CHAN_D)
 		return false; // out of bound 
 
@@ -640,9 +644,12 @@ bool fluicell::PPC1api::increaseDropletSize(double _percentage)
 bool fluicell::PPC1api::decreaseDropletSize(double _percentage)
 {
 	double percentage = _percentage / 100.0;
-	double value = m_PPC1_data->channel_A->set_point - m_default_v_recirc * percentage;// increase A by 2.5% with respect to the default value
+	double value = m_PPC1_data->channel_A->set_point - 
+		m_default_v_recirc * percentage;// increase A by percentage with respect to the default value
+
 	if(m_verbose) cout << currentDateTime()
-		<< "fluicell::PPC1api::decreaseDropletSize" << " new recirculation value << " << value << " >> " << endl;
+		<< "fluicell::PPC1api::decreaseDropletSize" 
+		<< " new recirculation value << " << value << " >> " << endl;
 	if (value <= MIN_CHAN_A || value >= MAX_CHAN_A)
 		return false; // out of bound
 
@@ -651,13 +658,16 @@ bool fluicell::PPC1api::decreaseDropletSize(double _percentage)
 	}
 	std::this_thread::sleep_for(std::chrono::microseconds(10000)); // wait 10msec
 	
-	value = m_PPC1_data->channel_D->set_point - m_default_pon * 0.025;
+	value = m_PPC1_data->channel_D->set_point - 
+		m_default_pon * percentage;
+
 	if(m_verbose) cout << currentDateTime()
-		<< "fluicell::PPC1api::decreaseDropletSize" << " new pon value << " << value << " >> " << endl;
+		<< "fluicell::PPC1api::decreaseDropletSize" 
+		<< " new pon value << " << value << " >> " << endl;
 	if (value <= MIN_CHAN_D || value >= MAX_CHAN_D)
 		return false; // out of bound
 
-	if (!setPressureChannelD(value)) { // reduce C by 2.5%
+	if (!setPressureChannelD(value)) { // reduce C by percentage
 		return false;
 	}
 	std::this_thread::sleep_for(std::chrono::microseconds(10000)); // wait 10msec
@@ -689,46 +699,62 @@ double fluicell::PPC1api::getDropletSizePercentage()
 bool fluicell::PPC1api::increaseFlowspeed(double _percentage)
 {
 	double percentage = _percentage / 100.0;
-	double value = m_PPC1_data->channel_A->set_point - m_default_v_recirc * percentage;
+	double value = m_PPC1_data->channel_A->set_point - 
+		m_default_v_recirc * percentage;
+
 	if(m_verbose) cout << currentDateTime()
-		<< "fluicell::PPC1api::increaseFlowspeed" << " new recirculation value << " << value << " >> " << endl;
+		<< "fluicell::PPC1api::increaseFlowspeed" 
+		<< " new recirculation value << " << value << " >> " << endl;
+
 	if (value <= MIN_CHAN_A || value >= MAX_CHAN_A)
 		return false; // out of bound
 
-	if (!setVacuumChannelA(value)) { // increase A by 5%
+	if (!setVacuumChannelA(value)) { // increase A by _percentage%
 		return false;
 	}
 	std::this_thread::sleep_for(std::chrono::microseconds(10000)); // wait 10msec
 	
-	value = m_PPC1_data->channel_B->set_point - m_default_v_switch * 0.05;
+	value = m_PPC1_data->channel_B->set_point - 
+		m_default_v_switch * percentage;
+
 	if(m_verbose) cout << currentDateTime()
-		<< "fluicell::PPC1api::increaseFlowspeed" << " new switch value << " << value << " >> " << endl;
+		<< "fluicell::PPC1api::increaseFlowspeed"
+		<< " new switch value << " << value << " >> " << endl;
+
 	if (value <= MIN_CHAN_B || value >= MAX_CHAN_B)
 		return false; // out of bound
 
-	if (value == 0 || !setVacuumChannelB(value)) { // increase B by 5%
+	if (value == 0 || !setVacuumChannelB(value)) { // increase B by _percentage%
 		return false;
 	}
 	std::this_thread::sleep_for(std::chrono::microseconds(10000)); // wait 10msec
 	
-	value = m_PPC1_data->channel_C->set_point + m_default_poff * 0.05;
+	value = m_PPC1_data->channel_C->set_point +
+		m_default_poff * percentage;
+
 	if(m_verbose) cout << currentDateTime()
-		<< "fluicell::PPC1api::increaseFlowspeed" << " new poff value << " << value << " >> " << endl;
+		<< "fluicell::PPC1api::increaseFlowspeed" 
+		<< " new poff value << " << value << " >> " << endl;
+
 	if (value <= MIN_CHAN_C || value >= MAX_CHAN_C)
 		return false; // out of bound
 
-	if (value == 0 || !setPressureChannelC(value)) { // increase C by 5%
+	if (value == 0 || !setPressureChannelC(value)) { // increase C by _percentage%
 		return false;
 	}
 	std::this_thread::sleep_for(std::chrono::microseconds(10000)); // wait 10msec
 	
-	value = m_PPC1_data->channel_D->set_point + m_default_pon * 0.05;
+	value = m_PPC1_data->channel_D->set_point +
+		m_default_pon * percentage;
+
 	if(m_verbose) cout << currentDateTime()
-		<< "fluicell::PPC1api::increaseFlowspeed" << " new pon value << " << value << " >> " << endl;
+		<< "fluicell::PPC1api::increaseFlowspeed" 
+		<< " new pon value << " << value << " >> " << endl;
+
 	if (value <= MIN_CHAN_D || value >= MAX_CHAN_D)
 		return false; // out of bound
 
-	if (value == 0 || !setPressureChannelD(value)) { // increase D by 5%
+	if (value == 0 || !setPressureChannelD(value)) { // increase D by _percentage%
 		return false;
 	}
 	std::this_thread::sleep_for(std::chrono::microseconds(10000)); // wait 10msec
@@ -739,47 +765,62 @@ bool fluicell::PPC1api::increaseFlowspeed(double _percentage)
 bool fluicell::PPC1api::decreaseFlowspeed(double _percentage)
 {
 	double percentage = _percentage / 100.0; 
-	double value = m_PPC1_data->channel_A->set_point + m_default_v_recirc * percentage;
+	double value = m_PPC1_data->channel_A->set_point + 
+		m_default_v_recirc * percentage;
 
 	if(m_verbose) cout << currentDateTime()
-		<< "fluicell::PPC1api::decreaseFlowspeed" << " new recirculation value << " << value << " >> " << endl;
+		<< "fluicell::PPC1api::decreaseFlowspeed" 
+		<< " new recirculation value << " << value << " >> " << endl;
+
 	if (value <= MIN_CHAN_A || value >= MAX_CHAN_A)
 		return false; // out of bound
 
-	if (value == 0 || !setVacuumChannelA(value)) { // reduce A by 5%
+	if (value == 0 || !setVacuumChannelA(value)) { // reduce A by _percentage%
 		return false;
 	}
 	std::this_thread::sleep_for(std::chrono::microseconds(10000)); // wait 10msec
 	
-	value = m_PPC1_data->channel_B->set_point + m_default_v_switch * 0.05;
+	value = m_PPC1_data->channel_B->set_point + 
+		m_default_v_switch * percentage;
+
 	if(m_verbose) cout << currentDateTime()
-		<< "fluicell::PPC1api::decreaseFlowspeed" << " new switch value << " << value << " >> " << endl;
+		<< "fluicell::PPC1api::decreaseFlowspeed" 
+		<< " new switch value << " << value << " >> " << endl;
+	
 	if (value <= MIN_CHAN_B || value >= MAX_CHAN_B)
 		return false; // out of bound
 
-	if (value == 0 || !setVacuumChannelB(value)) { // reduce B by 5%
+	if (value == 0 || !setVacuumChannelB(value)) { // reduce B by _percentage%
 		return false;
 	}
 	std::this_thread::sleep_for(std::chrono::microseconds(10000)); // wait 10msec
 	
-	value = m_PPC1_data->channel_C->set_point - m_default_poff * 0.05;
+	value = m_PPC1_data->channel_C->set_point - 
+		m_default_poff * percentage;
+
 	if(m_verbose) cout << currentDateTime()
-		<< "fluicell::PPC1api::decreaseFlowspeed" << " new poff value << " << value << " >> " << endl;
+		<< "fluicell::PPC1api::decreaseFlowspeed" 
+		<< " new poff value << " << value << " >> " << endl;
+
 	if (value <= MIN_CHAN_C || value >= MAX_CHAN_C)
 		return false; // out of bound
 
-	if (value == 0 || !setPressureChannelC(value)) { // reduce C by 5%
+	if (value == 0 || !setPressureChannelC(value)) { // reduce C by _percentage%
 		return false;
 	}
 	std::this_thread::sleep_for(std::chrono::microseconds(10000)); // wait 10msec
 	
-	value = m_PPC1_data->channel_D->set_point - m_default_pon * 0.05;
+	value = m_PPC1_data->channel_D->set_point - 
+		m_default_pon * percentage;
+
 	if(m_verbose) cout << currentDateTime()
-		<< "fluicell::PPC1api::decreaseFlowspeed" << " new pon value << " << value << " >> " << endl;
+		<< "fluicell::PPC1api::decreaseFlowspeed" << 
+		" new pon value << " << value << " >> " << endl;
+
 	if (value <= MIN_CHAN_D || value >= MAX_CHAN_D)
 		return false; // out of bound
 
-	if (value == 0 || !setPressureChannelD(value)) { // increase D by 5%
+	if (value == 0 || !setPressureChannelD(value)) { // increase D by _percentage%
 		return false;
 	}
 	std::this_thread::sleep_for(std::chrono::microseconds(10000)); // wait 10msec
@@ -808,7 +849,7 @@ double fluicell::PPC1api::getFlowSpeedPercentage()
 	double p2 = std::abs(100 * value_B / m_default_v_switch);
 	double p3 = std::abs(100 * value_C / m_default_poff);
 	double p4 = std::abs(100 * value_D / m_default_pon);
-	double mean_percentage = (p1 + p2 + p3 + p4) / 4.0;
+	double mean_percentage = (p1 + p2 + p3 + p4) / 4.0; // average 4 values
 	return mean_percentage;
 }
 
@@ -824,7 +865,7 @@ bool fluicell::PPC1api::increaseVacuum(double _percentage)
 		return false; // out of bound
 
 	if (!setVacuumChannelA(value))
-		return false; // 1.05 is the 5% increment
+		return false; 
 
 	return true;
 }
@@ -841,7 +882,7 @@ bool fluicell::PPC1api::decreaseVacuum(double _percentage)
 		return false; // out of bound
 
 	if (value == 0 || !setVacuumChannelA(value))
-		return false; // 0.95 is the 5% decrement
+		return false; 
 
 	return true;
 }

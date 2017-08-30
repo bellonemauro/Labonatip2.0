@@ -58,10 +58,10 @@ void Labonatip_chart::updateChartMacro(f_macro *_macro)
 	m_series_V_recirc->clear();
 	m_series_V_switch->clear();
 	m_series_ask->clear();
-	//m_series_solution1->clear();
-	//m_series_solution2->clear();
-	//m_series_solution3->clear();
-	//m_series_solution4->clear(); 
+	m_series_solution1->clear();
+	m_series_solution2->clear();
+	m_series_solution3->clear();
+	m_series_solution4->clear(); 
 	m_series_solution->clear();
 	m_series_sync_in->clear();
 	m_series_sync_out->clear();
@@ -289,7 +289,8 @@ void Labonatip_chart::setGUIchart()
 	m_series_solution1 = new QtCharts::QLineSeries();
 	m_series_solution2 = new QtCharts::QLineSeries();
 	m_series_solution3 = new QtCharts::QLineSeries();
-	m_series_solution4 = new QtCharts::QLineSeries(); 
+	m_series_solution4 = new QtCharts::QLineSeries();
+	m_area_solution4 = new QtCharts::QAreaSeries();
 	m_series_solution = new QtCharts::QLineSeries();
 	m_series_ask = new QtCharts::QLineSeries();
 	m_series_sync_in = new QtCharts::QLineSeries();
@@ -336,8 +337,8 @@ void Labonatip_chart::setGUIchart()
 		<< QPointF(20.0, top_sol_value) << QPointF(40.0, top_sol_value)
 		<< QPointF(40.0, base_sol_value) << QPointF(100.0, base_sol_value);
 	*m_series_solution2
-		<< QPointF(0.0, base_sol_value) << QPointF(45.0, base_sol_value)
-		<< QPointF(45.0, top_sol_value) << QPointF(65.0, top_sol_value)
+		<< QPointF(0.0, base_sol_value) << QPointF(40.0, base_sol_value)
+		<< QPointF(40.0, top_sol_value) << QPointF(65.0, top_sol_value)
 		<< QPointF(65.0, base_sol_value) << QPointF(100.0, base_sol_value);
 	*m_series_solution3
 		<< QPointF(0.0, base_sol_value) << QPointF(70.0, base_sol_value)
@@ -347,7 +348,7 @@ void Labonatip_chart::setGUIchart()
 		<< QPointF(0.0, base_sol_value) << QPointF(85.0, base_sol_value)
 		<< QPointF(85.0, top_sol_value) << QPointF(95.0, top_sol_value)
 		<< QPointF(95.0, base_sol_value) << QPointF(100.0, base_sol_value);
-	*m_series_solution << QPointF(0.0, base_sol_value) << QPointF(100.0, base_sol_value);
+	*m_series_solution << QPointF(20.0, base_sol_value) << QPointF(60.0, base_sol_value);
 
 	QPen pen_as(0x333333);
 	pen_as.setWidth(3);
@@ -380,23 +381,30 @@ void Labonatip_chart::setGUIchart()
 
 	// set colors to lines for different solutions
 	QPen pen_s1(0xFF0000);
-	pen_s1.setWidth(20);
+	pen_s1.setWidth(1); //(20);
 	m_series_solution1->setPen(pen_s1);
 
 	QPen pen_s2(0x00FF00);
-	pen_s2.setWidth(20);
+	pen_s2.setWidth(1); //(20);
 	m_series_solution2->setPen(pen_s2);
 
 	QPen pen_s3(0x0000FF);
-	pen_s3.setWidth(20);
+	pen_s3.setWidth(1); //(20);
 	m_series_solution3->setPen(pen_s3);
 
 	QPen pen_s4(0x00FFFF);
-	pen_s4.setWidth(20);
+	pen_s4.setWidth(1); //(20);
 	m_series_solution4->setPen(pen_s4);
 
+
+	m_area_solution4->setLowerSeries(m_series_solution);
+	m_area_solution4->setUpperSeries(m_series_solution4);
+	QPen penna(0x059605);
+	penna.setWidth(3);
+	m_area_solution4->setPen(penna);
+
 	QPen pen_s(0xBBBBBB);
-	pen_s.setWidth(20);
+	pen_s.setWidth(1); //(20);
 	m_series_solution->setPen(pen_s);
 
 	QLinearGradient gradient(QPointF(1, 50), QPointF(0, 50));
@@ -435,14 +443,15 @@ void Labonatip_chart::setGUIchart()
 	m_chart->addSeries(m_series_solution1);
 	m_chart->addSeries(m_series_solution2);
 	m_chart->addSeries(m_series_solution3);
-	m_chart->addSeries(m_series_solution4);
+	//m_chart->addSeries(m_series_solution4);
+	m_chart->addSeries(m_area_solution4);
 	m_chart->addSeries(m_series_solution);
 	m_chart->addSeries(m_series_ask);
 	m_chart->addSeries(m_series_sync_in);
 	m_chart->addSeries(m_series_sync_out);
 	m_chart->addSeries(m_time_line_b);
 	m_chart->addSeries(m_time_line_t);
-
+	
 
 	//  chart->setTitle("Simple areachart example");
 	//  chart->createDefaultAxes();
@@ -508,7 +517,8 @@ void Labonatip_chart::setGUIchart()
 	m_chart->setAxisY(axisY, m_series_solution1);
 	m_chart->setAxisY(axisY, m_series_solution2);
 	m_chart->setAxisY(axisY, m_series_solution3);
-	m_chart->setAxisY(axisY, m_series_solution4);
+	//m_chart->setAxisY(axisY, m_series_solution4);
+	m_chart->setAxisY(axisY, m_area_solution4);
 	m_chart->setAxisY(axisY, m_series_solution);
 	m_chart->setAxisY(axisY, m_series_ask);
 	m_chart->setAxisY(axisY, m_series_sync_in);

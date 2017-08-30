@@ -54,11 +54,14 @@ public:
 
 	void setSimulationFlag(bool _sim_flag){ m_simulation_only = _sim_flag; }
 
+	void askOkEvent(bool _ask_ok) { m_ask_ok = _ask_ok; }
+
 	fluicell::PPC1api *m_ppc1;
 
 signals:
 	void resultReady(const QString &_s);
 	void sendStatusMessage(const QString &_message);
+	void sendAskMessage(const QString &_message);
 	void timeStatus(const int &_time);
 
 private: 
@@ -66,6 +69,7 @@ private:
 	std::vector<fluicell::PPC1api::command> *m_macro;
 	bool m_simulation_only;
 	bool m_threadTerminationHandler;
+	bool m_ask_ok;
 
 };
 

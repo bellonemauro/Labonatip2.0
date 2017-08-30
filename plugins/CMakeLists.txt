@@ -7,7 +7,7 @@
 #  | Released under GNU GPL License.                                           |
 #  +---------------------------------------------------------------------------+ */
 
-project(ALL_Fluicell_PLUGINS)
+project(ALL_PLUGINS)
 
 # Enumerate all subdirs and process them:
 list_subdirectories(LIST_PLUGINS_DIRS "${CMAKE_SOURCE_DIR}/plugins")

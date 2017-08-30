@@ -325,11 +325,11 @@ void Labonatip_GUI::updateFlowControlPercentages()
 
 		{
 			double ponp = 100.0 * m_pon_set_point / default_pon;
-			double vrp = 100.0 *	m_v_recirc_set_point / default_v_recirc;
+			double vrp = 100.0 * m_v_recirc_set_point / default_v_recirc;
 
 			double droplet_percentage = 100.0 + (ponp - vrp) / 2.0;
 			ui->lcdNumber_dropletSize_percentage->display(droplet_percentage);
-			ui->progressBar_dropletSize->setValue(droplet_percentage);
+			//ui->progressBar_dropletSize->setValue(droplet_percentage);
 		}
 		{
 			double ponp = 100.0 * m_pon_set_point / default_pon; 
@@ -339,12 +339,12 @@ void Labonatip_GUI::updateFlowControlPercentages()
 
 			double flowspeed_percentage = (ponp + poffp + vsp + vrp) / 4.0; // 4 is for the average
 			ui->lcdNumber_flowspeed_percentage->display(flowspeed_percentage);
-			ui->progressBar_flowSpeed->setValue(flowspeed_percentage);
+			//ui->progressBar_flowSpeed->setValue(flowspeed_percentage);
 		}
 		{
 			double vacuum_percentage = 100.0 * m_v_recirc_set_point / default_v_recirc; 
 			ui->lcdNumber_vacuum_percentage->display(vacuum_percentage);
-			ui->progressBar_vacuum->setValue(vacuum_percentage);
+			//ui->progressBar_vacuum->setValue(vacuum_percentage);
 		}
 	}
 
@@ -354,7 +354,7 @@ void Labonatip_GUI::updateFlowControlPercentages()
 	ui->progressBar_switchIn->setValue(ui->horizontalSlider_switch->value());
 	ui->progressBar_switchOut->setValue(ui->horizontalSlider_switch->value());
 
-	updateDrawing(ui->progressBar_dropletSize->value());
+	//updateDrawing(ui->progressBar_dropletSize->value());
 
 }
 

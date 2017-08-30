@@ -63,7 +63,9 @@ Labonatip_tools::Labonatip_tools(QWidget *parent ):
 		SIGNAL(valueChanged(int)), this,
 		SLOT(colorSol4Changed(int)));
 
-
+	connect(ui_tools->checkBox_disableTimer,
+		SIGNAL(stateChanged(int)), this,
+		SLOT(disableTimer(int))); //TODO
 
 	// connect GUI elements: NEW macro tab
 	connect(ui_tools->pushButton_addMacroCommand,
@@ -857,7 +859,7 @@ void Labonatip_tools::createNewCommand(QTreeWidgetItem & _command, QComboBox & _
 		<< "Solution 1 (open/close)" << "Solution 2 (open/close)" 
 		<< "Solution 3 (open/close)" << "Solution 4 (open/close)"
 		<< "Droplet size (%)" << "Flow speed (%)" << "Vacuum (%)" 
-		<< "loop" << "Sleep (s)" << "Aks"
+		<< "loop" << "Sleep (s)" << "Ask"
 		<< "All Off" << "Pumps Off" << "Valve state" << "Wait sync" << "Sync out");
 
 	connect(&_combo_box, SIGNAL(currentIndexChanged(int )), 
@@ -1401,6 +1403,7 @@ bool Labonatip_tools::loadMacro(const QString _file_name)
 {
 	//TODO: there is no check for validity in macro the loading procedure
 	QFile macroFile(_file_name);
+	m_current_macro_file_name = _file_name;
 	if (macroFile.exists() && macroFile.open(QIODevice::ReadWrite))
 	{
 		QByteArray content = macroFile.readLine();

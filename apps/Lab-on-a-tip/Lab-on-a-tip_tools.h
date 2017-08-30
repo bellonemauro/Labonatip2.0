@@ -130,6 +130,12 @@ public:
 	void setDefaultPressuresVacuums(int _p_on_default, int _p_off_default, 
 		                            int _v_recirc_default, int _v_switch_default);
 
+	QString getMacroPath() { return m_current_macro_file_name; };
+
+	int getSolutionTime() { return (int)ui_tools->doubleSpinBox_solution->value(); }
+
+	bool isContinuousFlowing() { return ui_tools->checkBox_disableTimer->isChecked(); }
+
 private slots:
 
 	/** Allows to switch windows tabs in the interface from the list widget
@@ -162,6 +168,14 @@ private slots:
 	* \note
 	*/
 	void colorSol4Changed(int _value);
+
+	/** \brief Enable/Disable the timer for an infinite solution flow
+	*
+	* \note
+	*/
+	void disableTimer(int _state) {
+		  ui_tools->doubleSpinBox_solution->setEnabled(!_state); // TODO !!! this is still not in the setting file
+	}
 
 	/** emit ok signal, save the setting, send the current macro to the main
 	*   and close the window
@@ -299,6 +313,7 @@ private:
 	std::vector<fluicell::PPC1api::command> *m_macro;
 
 	QString m_setting_file_name;
+	QString m_current_macro_file_name;
 
 protected:
 	Ui::Labonatip_tools *ui_tools;    //!<  the user interface

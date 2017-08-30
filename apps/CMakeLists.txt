@@ -10,7 +10,7 @@
 # ----------------------------------------------------------------------------
 # CMake file. Run with "cmake ." at the root directory.
 # ----------------------------------------------------------------------------
-project(ALL_MdF_APPS)
+project(ALL_APPS)
 
 # Enumerate all subdirs and process them:
 list_subdirectories(LIST_APP_DIRS "${CMAKE_SOURCE_DIR}/apps")

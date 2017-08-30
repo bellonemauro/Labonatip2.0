@@ -38,9 +38,50 @@ void Labonatip_GUI::runMacro() {
 
 	if (!m_macroRunner_thread->isRunning()) {
 
-		m_macroRunner_thread->setMacroPrt(m_macro);
+		if (!m_macro) {
+			QMessageBox::information(this, "Lab-on-a-tip information ",
+				"No macro loaded, load a macro first");
+				return;
+		}
+		else {
+			QString macro_path = m_dialog_tools->getMacroPath();
+			QString msg = tr("The macro loaded is : \n");
+			msg.append(macro_path);
+			msg.append("\n press ''ok'' to run the macro, or press ''cancel'' to load a new macro. ");
+			QMessageBox::StandardButton resBtn = 
+				QMessageBox::question(this, "Lab-on-a-tip information ", msg,
+				QMessageBox::Cancel | QMessageBox::Ok,
+				QMessageBox::Ok);
+			if (resBtn != QMessageBox::Cancel) {
+				// do nothing for now
+			}
+			else {
+				// do nothing for now
+			}
+		}
 
+
+
+		m_macroRunner_thread->setMacroPrt(m_macro);
+		cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_GUI::runMacro    RUNNING" << endl;
 		m_macroRunner_thread->setSimulationFlag(m_simulationOnly);
+		connect(m_macroRunner_thread,
+			&Labonatip_macroRunner::resultReady, this,
+			&Labonatip_GUI::macroFinished);
+
+		connect(m_macroRunner_thread,
+			&Labonatip_macroRunner::sendStatusMessage, this,
+			&Labonatip_GUI::updateMacroStatusMessage);
+
+		connect(m_macroRunner_thread,
+			&Labonatip_macroRunner::timeStatus, this,
+			&Labonatip_GUI::updateMacroTimeStatus);
+
+		connect(m_macroRunner_thread,
+			&Labonatip_macroRunner::sendAskMessage, this,
+			&Labonatip_GUI::askMessage);
+
 		m_macroRunner_thread->start();
 
 		ui->groupBox_deliveryZone->setEnabled(false);
@@ -48,7 +89,9 @@ void Labonatip_GUI::runMacro() {
 		ui->pushButton_newTip->setEnabled(false);
 		ui->pushButton_standby->setEnabled(false);
 		ui->pushButton_stop->setEnabled(false);
-		ui->tabWidget->setEnabled(false);
+		//ui->tabWidget->setEnabled(false);
+		ui->tab_2->setEnabled(false);
+		ui->tab_4->setEnabled(false);
 		setEnableSolutionButtons(false);
 		ui->actionDisCon->setEnabled(false);
 		ui->actionRun->setEnabled(false);
@@ -190,8 +233,9 @@ void Labonatip_GUI::newTip()
 
 void Labonatip_GUI::macroFinished(const QString &_result) {
 
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::macroFinished    " << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		 << QTime::currentTime().toString().toStdString() << "  "
+		 << "Labonatip_GUI::macroFinished    " << endl;
 
 	QMessageBox::information(this, " Information !", _result);
 	ui->statusBar->showMessage("MACRO FINISHED");

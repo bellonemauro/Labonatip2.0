@@ -65,7 +65,7 @@ to build the package in windows : windeployqt yourfile.exe
 
 CMake --> configure --> generate 
 
-Add a screenshot
+Add a screen shot
 ![](https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipUbuntu1.png )
 ![](https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipUbuntu3.png )
 ![](https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipUbuntu4.png )

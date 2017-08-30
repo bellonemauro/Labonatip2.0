@@ -27,7 +27,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	l_y1(49.0),
 	l_x2(55.0),
 	l_y2(l_y1),
-	m_base_time_step(1000),
+	m_base_time_step(1000), //TODO : solve this! there is an issue with the timing of the solution pumped https://stackoverflow.com/questions/21232520/precise-interval-in-qthread
 	m_flowing_solution(0),
 	m_pon_set_point(0.0),
 	m_poff_set_point(0.0),
@@ -47,11 +47,16 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   ui->setupUi (this);
   ui->dockWidget->close();  //close the advaced dock page
   ui->treeWidget_macroInfo->setHeaderHidden(false);
+  ui->treeWidget_macroInfo->resizeColumnToContents(0);
 
   // set the stylesheet for the ui-toolbars
-  ui->toolBar->setStyleSheet("QToolButton:!hover {background-color:rgb(199, 223, 197)} QToolBar {background-color:rgb(199, 223, 197)}");
-  ui->toolBar_2->setStyleSheet("QToolButton:!hover {background-color:rgb(199, 223, 197)} QToolBar {background-color:rgb(199, 223, 197)}");
-  ui->toolBar_3->setStyleSheet("QToolButton:!hover {background-color:rgb(199, 223, 197)} QToolBar {background-color:rgb(199, 223, 197)}");
+  ui->toolBar->setMinimumSize(250, 90);
+  ui->toolBar->setStyleSheet("QToolButton:!hover {\n"
+	  "background-color:rgb(199, 223, 197)} \n"
+	  "QToolBar {background-color:rgb(199, 223, 197)}");
+  ui->toolBar_2->setStyleSheet("QToolButton:!hover { \n"
+	  "background-color:rgb(199, 223, 197)} \n"
+	  "QToolBar {background-color:rgb(199, 223, 197)}");
 
   // init the object to handle the internal dialogs
   m_dialog_tools = new Labonatip_tools();
@@ -131,17 +136,6 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   //Labonatip_macroRunner *m_macroRunner_thread = new Labonatip_macroRunner( this );
   m_macroRunner_thread = new Labonatip_macroRunner(this);
   m_macroRunner_thread->setDevice(m_ppc1);
-  connect(m_macroRunner_thread, 
-	  &Labonatip_macroRunner::resultReady, this, 
-	  &Labonatip_GUI::macroFinished); 
-
-  connect(m_macroRunner_thread,
-	  &Labonatip_macroRunner::sendStatusMessage, this,
-	  &Labonatip_GUI::updateMacroStatusMessage ); 
- 
-  connect(m_macroRunner_thread,
-	  &Labonatip_macroRunner::timeStatus, this,
-	  &Labonatip_GUI::updateMacroTimeStatus);
 
   connect(m_dialog_tools,
 	  &Labonatip_tools::colSol1Changed, this,
@@ -174,6 +168,8 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   m_chartView = m_labonatip_chart_view->getChartView();
   ui->gridLayout_12->addWidget(m_chartView);
 
+  ui->actionSimulation->setChecked(true);
+
 }
 
 
@@ -181,8 +177,9 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 
 void Labonatip_GUI::openFile() {
 	
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::openFile    " << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		 << QTime::currentTime().toString().toStdString() << "  "
+		 << "Labonatip_GUI::openFile    " << endl;
 
 	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
 	QString _path = QFileDialog::getOpenFileName (this, tr("Open Settings file"), QDir::currentPath(),  // dialog to open files
@@ -206,8 +203,9 @@ void Labonatip_GUI::openFile() {
 
 void Labonatip_GUI::saveFile() {
 
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::saveFile    " << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		 << QTime::currentTime().toString().toStdString() << "  "
+		 << "Labonatip_GUI::saveFile    " << endl;
 
 	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
 	/*if (something->isEmpty()) 
@@ -235,8 +233,9 @@ void Labonatip_GUI::saveFile() {
 
 void Labonatip_GUI::showToolsDialog() {
 
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::showToolsDialog    " << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  " 
+		 << QTime::currentTime().toString().toStdString() << "  "
+		 << "Labonatip_GUI::showToolsDialog    " << endl;
 
 	m_dialog_tools->setWindowFlags(Qt::WindowFullscreenButtonHint);
 	m_dialog_tools->setModal(false);
@@ -251,8 +250,9 @@ void Labonatip_GUI::showToolsDialog() {
 
 void Labonatip_GUI::disCon() {
 
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::disCon    " << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  " 
+		 << QTime::currentTime().toString().toStdString() << "  "
+		 << "Labonatip_GUI::disCon    " << endl;
 
 	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
 
@@ -336,28 +336,32 @@ void Labonatip_GUI::disCon() {
 	}
 	catch (serial::IOException &e)
 	{
-		cerr << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-			<< " Labonatip_GUI::disCon ::: IOException : " << e.what() << endl;
+		cerr << QDate::currentDate().toString().toStdString() << "  " 
+			 << QTime::currentTime().toString().toStdString() << "  "
+			 << " Labonatip_GUI::disCon ::: IOException : " << e.what() << endl;
 		//m_PPC1_serial->close();
 		return;
 	}
 	catch (serial::PortNotOpenedException &e)
 	{
-		cerr << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-			<< " Labonatip_GUI::disCon ::: PortNotOpenedException : " << e.what() << endl;
+		cerr << QDate::currentDate().toString().toStdString() << "  " 
+			 << QTime::currentTime().toString().toStdString() << "  "
+			 << " Labonatip_GUI::disCon ::: PortNotOpenedException : " << e.what() << endl;
 		//m_PPC1_serial->close();
 		return;
 	}
 	catch (serial::SerialException &e)
 	{
-		cerr << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-			<< " Labonatip_GUI::disCon ::: SerialException : " << e.what() << endl;
+		cerr << QDate::currentDate().toString().toStdString() << "  " 
+			 << QTime::currentTime().toString().toStdString() << "  "
+			 << " Labonatip_GUI::disCon ::: SerialException : " << e.what() << endl;
 		//m_PPC1_serial->close();
 		return;
 	}
 	catch (exception &e) {
-		cerr << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-			<< " Labonatip_GUI::disCon ::: Unhandled Exception: " << e.what() << endl;
+		cerr << QDate::currentDate().toString().toStdString() << "  " 
+			 << QTime::currentTime().toString().toStdString() << "  "
+			 << " Labonatip_GUI::disCon ::: Unhandled Exception: " << e.what() << endl;
 		//m_PPC1_serial->close();
 		return;
 	}
@@ -372,8 +376,10 @@ void Labonatip_GUI::updateMacroStatusMessage(const QString &_message) {
 	QString s = " MACRO RUNNING :: status message >>  ";
 	s.append(_message);
 	ui->statusBar->showMessage(s);
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::updateMacroStatusMessage :::: " << _message.toStdString() << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  " 
+		 << QTime::currentTime().toString().toStdString() << "  "
+		 << "Labonatip_GUI::updateMacroStatusMessage :::: " 
+		 << _message.toStdString() << endl;
 
 }
 
@@ -385,8 +391,30 @@ void Labonatip_GUI::updateMacroTimeStatus(const int &_status) {
 
 	m_labonatip_chart_view->updateChartTime(_status); // update the vertical line for the time status on the chart
 
+	double totalTime = ui->treeWidget_macroInfo->topLevelItem(4)->text(1).toDouble();
+	double currentTime = _status * totalTime / 100.0 ;
+
+	// visualize it in the chart information panel 
+	ui->treeWidget_macroInfo->topLevelItem(5)->setText(1, QString::number(currentTime));
+
+	updateFlowControlPercentages();
+	if (m_pipette_active) updateDrawing(m_ppc1->getDropletSizePercentage());
+	else updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
+
 	//cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
 	//	<< "Labonatip_GUI::updateMacroTimeStatus :::: " << _status << endl;
+
+}
+
+void Labonatip_GUI::askMessage(const QString &_message) {
+
+	QMessageBox::information(this, "Ask message macro command", _message);
+	m_macroRunner_thread->askOkEvent(true);
+
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::askMessage :::: "
+		<< _message.toStdString() << endl;
 
 }
 
@@ -484,8 +512,9 @@ void Labonatip_GUI::pumpingOff() {
 
 void Labonatip_GUI::closeAllValves() {
 
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::closeAllValves   " << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  " 
+		 << QTime::currentTime().toString().toStdString() << "  "
+		 << "Labonatip_GUI::closeAllValves   " << endl;
 
 	if (m_pipette_active) {
 
@@ -545,13 +574,14 @@ void Labonatip_GUI::setEnableSolutionButtons(bool _enable ) {
 
 void Labonatip_GUI::closeOpenDockTools() {
 
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::closeOpenDockTools   " << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  " 
+		 << QTime::currentTime().toString().toStdString() << "  "
+		 << "Labonatip_GUI::closeOpenDockTools   " << endl;
 
 	if (!ui->dockWidget->isHidden()) {
 		ui->dockWidget->hide();
 		if (!this->isMaximized())
-			this->resize(QSize(this->width(), this->height()));//			this->resize(QSize(this->minimumWidth(), this->height()));
+			this->resize(QSize(this->width(), this->height()));//	this->resize(QSize(this->minimumWidth(), this->height()));
 	}
 	else {
 		ui->dockWidget->show();
@@ -604,8 +634,9 @@ void Labonatip_GUI::updateDrawing( int _value) {
 
 void Labonatip_GUI::pushSolution1()
 {
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::pushSolution1    " << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  " 
+		 << QTime::currentTime().toString().toStdString() << "  "
+		 << "Labonatip_GUI::pushSolution1    " << endl;
 
 	if (!ui->pushButton_solution1->isChecked()){ // this allows to stop the flow when active
 		m_timer_solution = m_time_multipilcator;
@@ -653,7 +684,7 @@ void Labonatip_GUI::pushSolution1()
 			    ui->widget_solutionArrow->pos().ry()));
 
 	// Here start the solution flow 
-	m_time_multipilcator = (int)(ui->doubleSpinBox_solution->value() );
+	m_time_multipilcator = m_dialog_tools->getSolutionTime();// (int)(ui->doubleSpinBox_solution->value()); //TODO: get this value from the tool dialog
 
 	// SET vacum to _value
 	if (m_pipette_active)
@@ -671,8 +702,9 @@ void Labonatip_GUI::pushSolution1()
 
 void Labonatip_GUI::pushSolution2() {
 
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::pushSolution2   " << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  " 
+		 << QTime::currentTime().toString().toStdString() << "  "
+		 << "Labonatip_GUI::pushSolution2   " << endl;
 	
 	if (!ui->pushButton_solution2->isChecked()){
 		m_timer_solution = m_time_multipilcator;
@@ -717,7 +749,7 @@ void Labonatip_GUI::pushSolution2() {
 		QPoint( m_widget_solutionArrow_x_pos - m_widget_solutionArrow_x_pos_shift, // shift
 			    ui->widget_solutionArrow->pos().ry()));
 
-	m_time_multipilcator = (int)(ui->doubleSpinBox_solution->value());
+	m_time_multipilcator = m_dialog_tools->getSolutionTime();// (int)(ui->doubleSpinBox_solution->value()); //TODO: get this value from the tool dialog
 
 	if (m_pipette_active)
 	{
@@ -734,8 +766,9 @@ void Labonatip_GUI::pushSolution2() {
 
 void Labonatip_GUI::pushSolution3() {
 
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::pushSolution3   " << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		 << QTime::currentTime().toString().toStdString() << "  "
+		 << "Labonatip_GUI::pushSolution3   " << endl;
 
 
 	if (!ui->pushButton_solution3->isChecked()){
@@ -783,7 +816,7 @@ void Labonatip_GUI::pushSolution3() {
 			ui->widget_solutionArrow->pos().ry()));
 	//TODO: I don't like the static movement, let's find another solution for it ! 
 
-	m_time_multipilcator = (int)(ui->doubleSpinBox_solution->value());
+	m_time_multipilcator = m_dialog_tools->getSolutionTime();// (int)(ui->doubleSpinBox_solution->value()); //TODO: get this value from the tool dialog
 
 	if (m_pipette_active)
 	{
@@ -800,8 +833,9 @@ void Labonatip_GUI::pushSolution3() {
 
 void Labonatip_GUI::pushSolution4() {
 
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::pushSolution4   " << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  " 
+		 << QTime::currentTime().toString().toStdString() << "  "
+		 << "Labonatip_GUI::pushSolution4   " << endl;
 
 
 	if (!ui->pushButton_solution4->isChecked()){
@@ -850,7 +884,7 @@ void Labonatip_GUI::pushSolution4() {
 			ui->widget_solutionArrow->pos().ry()));
 	//TODO: I don't like the static movement, let's find another solution for it ! 
 
-	m_time_multipilcator = (int)(ui->doubleSpinBox_solution->value());
+	m_time_multipilcator = m_dialog_tools->getSolutionTime();// (int)(ui->doubleSpinBox_solution->value()); //TODO: get this value from the tool dialog
 
 	if (m_pipette_active)
 	{
@@ -887,8 +921,9 @@ void Labonatip_GUI::setAsDefault()
 
 void Labonatip_GUI::resetWells() {
 
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::resetWells   " << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  " 
+		 << QTime::currentTime().toString().toStdString() << "  "
+		 << "Labonatip_GUI::resetWells   " << endl;
 
 
 	ui->progressBar_solution1->setValue(100);
@@ -926,8 +961,9 @@ void Labonatip_GUI::updateTimingSliders( )
 		break;
 	}
 	default : {
-		cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-			<< "Labonatip_GUI::updateTimingSliders  error --- no valid m_flowing_solution value " << endl;
+		cout << QDate::currentDate().toString().toStdString() << "  " 
+			 << QTime::currentTime().toString().toStdString() << "  "
+			 << "Labonatip_GUI::updateTimingSliders  error --- no valid m_flowing_solution value " << endl;
 		return;
 	}
 	}
@@ -949,7 +985,7 @@ void Labonatip_GUI::updateTimingSliders( )
 		s.append(QString::number(remaining_mins));
 		s.append(" min ");
 		ui->label_emptyTime->setText(s);
-		ui->doubleSpinBox_solution->setValue(remaining_time_in_sec);
+		//ui->doubleSpinBox_solution->setValue(remaining_time_in_sec);
 		m_timer_solution++;
 		// show the warning label
 
@@ -966,7 +1002,7 @@ void Labonatip_GUI::updateTimingSliders( )
 	}
 	else
 	{
-		if (ui->checkBox_disableTimer->isChecked() )
+		if (m_dialog_tools->isContinuousFlowing())//(ui->checkBox_disableTimer->isChecked() ) // TODO: bring the param to settings
 		{
 			m_update_flowing_sliders->start();
 			QString s;
@@ -1032,11 +1068,11 @@ void Labonatip_GUI::updateGUI() {
 	ui->progressBar_switchOut->setValue(ui->horizontalSlider_switch->value());
 
 	ui->lcdNumber_dropletSize_percentage->display(m_ppc1->getDropletSizePercentage());
-	ui->progressBar_dropletSize->setValue(m_ppc1->getDropletSizePercentage());
+	//ui->progressBar_dropletSize->setValue(m_ppc1->getDropletSizePercentage());
 	ui->lcdNumber_flowspeed_percentage->display(m_ppc1->getFlowSpeedPercentage());
-	ui->progressBar_flowSpeed->setValue(m_ppc1->getFlowSpeedPercentage());
+	//ui->progressBar_flowSpeed->setValue(m_ppc1->getFlowSpeedPercentage());
 	ui->lcdNumber_vacuum_percentage->display(m_ppc1->getVacuumPercentage());
-	ui->progressBar_vacuum->setValue(m_ppc1->getVacuumPercentage());
+	//ui->progressBar_vacuum->setValue(m_ppc1->getVacuumPercentage());
 
 	updateDrawing(m_ppc1->getDropletSizePercentage());
 
@@ -1205,10 +1241,6 @@ void Labonatip_GUI::initConnects()
 		SIGNAL(clicked()), this, 
 		SLOT(pushSolution4()));
 
-	connect(ui->checkBox_disableTimer,
-		SIGNAL(stateChanged(int)), this,
-		SLOT(disableTimer(int)));
-
 	connect(ui->pushButton_setValuesAsDefault, 
 		SIGNAL(clicked()), this, 
 		SLOT(setAsDefault()));
@@ -1358,7 +1390,6 @@ void Labonatip_GUI::setEnableMainWindow(bool _enable) {
 	ui->dockWidget->setEnabled(_enable);
 	ui->toolBar->setEnabled(_enable);
 	ui->toolBar_2->setEnabled(_enable);
-	ui->toolBar_3->setEnabled(_enable);
 
 }
 
@@ -1417,16 +1448,18 @@ bool Labonatip_GUI::visualizeProgressMessage(int _seconds, QString _message)
 
 void Labonatip_GUI::ewst() {
 
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		<< " whats this mode " << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  " 
+		 << QTime::currentTime().toString().toStdString() << "  "
+		 << " whats this mode " << endl;
 	QWhatsThis::enterWhatsThisMode();
 
 }
 
 void Labonatip_GUI::about() {
 
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::about  " << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  " 
+		 << QTime::currentTime().toString().toStdString() << "  "
+		 << "Labonatip_GUI::about  " << endl;
 
 	QMessageBox messageBox;
 	QString msg_title = "About Fluicell Lab-on-a-tip Wizard";

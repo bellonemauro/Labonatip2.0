@@ -65,6 +65,7 @@ public: //private:
 	QtCharts::QLineSeries *m_series_solution2;
 	QtCharts::QLineSeries *m_series_solution3;
 	QtCharts::QLineSeries *m_series_solution4;
+	QtCharts::QAreaSeries *m_area_solution4;
 	QtCharts::QLineSeries *m_series_solution;
 	QtCharts::QLineSeries *m_series_ask;
 	QtCharts::QLineSeries *m_series_sync_in;

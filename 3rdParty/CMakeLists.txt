@@ -10,7 +10,7 @@
 # ----------------------------------------------------------------------------
 # CMake file. Run with "cmake ." at the root directory.
 # ----------------------------------------------------------------------------
-project(ALL_Fluicell_3RDPARTY)
+project(ALL_3RDPARTY)
 
 # Enumerate all subdirs and process them:
 list_subdirectories(LIST_3RD_DIRS "${CMAKE_SOURCE_DIR}/3rdParty")
