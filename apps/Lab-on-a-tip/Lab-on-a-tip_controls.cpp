@@ -17,7 +17,7 @@ void Labonatip_GUI::updatePonSetPoint(double _pon_set_point)
 	m_pon_set_point = _pon_set_point;
 	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_GUI::updatePonSetPoint   ::::  value  =  " << m_pon_set_point << endl;
-	ui->label_PonPressure->setText(QString(QString::number(m_pon_set_point) + " mbar"));
+	ui->label_PonPressure->setText(QString(QString::number(int(m_pon_set_point)) + " mbar"));
 
 	// if the pipette is active we send the set point to the device
 	if (m_pipette_active) {
@@ -42,7 +42,7 @@ void Labonatip_GUI::updatePoffSetPoint(double _poff_set_point)
 	m_poff_set_point = _poff_set_point;
 	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_GUI::updatePoffSetPoint   ::::  value  =  " << m_poff_set_point << endl;
-	ui->label_PoffPressure->setText(QString(QString::number(m_poff_set_point) + " mbar"));
+	ui->label_PoffPressure->setText(QString(QString::number(int(m_poff_set_point)) + " mbar"));
 
 	// if the pipette is active we send the set point to the device
 	if (m_pipette_active) {
@@ -67,7 +67,7 @@ void Labonatip_GUI::updateVrecircSetPoint(double _v_recirc_set_point)
 	m_v_recirc_set_point = _v_recirc_set_point;
 	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_GUI::updateVrecircSetPoint   ::::  value  =  " << m_v_recirc_set_point << endl;
-	ui->label_recircPressure->setText(QString(QString::number(-m_v_recirc_set_point) + " mbar"));
+	ui->label_recircPressure->setText(QString(QString::number(-int(m_v_recirc_set_point)) + " mbar"));
 
 	// if the pipette is active we send the set point to the device
 	if (m_pipette_active) {
@@ -92,7 +92,7 @@ void Labonatip_GUI::updateVswitchSetPoint(double _v_switch_set_point)
 	m_v_switch_set_point = _v_switch_set_point;
 	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_GUI::updateVswitchSetPoint   ::::  value  =  " << m_v_switch_set_point << endl;
-	ui->label_switchPressure->setText(QString(QString::number(-m_v_switch_set_point) + " mbar"));
+	ui->label_switchPressure->setText(QString(QString::number(-int(m_v_switch_set_point)) + " mbar"));
 
 	// if the pipette is active we send the set point to the device
 	if (m_pipette_active) {

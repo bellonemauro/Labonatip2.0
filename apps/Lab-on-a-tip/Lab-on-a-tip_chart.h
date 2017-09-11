@@ -45,6 +45,11 @@ public:
 
 	void setGUIchart();
 
+	void setSolutionColor1(QColor _col_sol) { *m_col_sol1 = _col_sol; }
+	void setSolutionColor2(QColor _col_sol) { *m_col_sol2 = _col_sol; }
+	void setSolutionColor3(QColor _col_sol) { *m_col_sol3 = _col_sol; }
+	void setSolutionColor4(QColor _col_sol) { *m_col_sol4 = _col_sol; }
+
 	void updateChartTime(int _time_value);
 
 	void updateChartMacro(f_macro *_macro);
@@ -65,7 +70,14 @@ public: //private:
 	QtCharts::QLineSeries *m_series_solution2;
 	QtCharts::QLineSeries *m_series_solution3;
 	QtCharts::QLineSeries *m_series_solution4;
+	QtCharts::QAreaSeries *m_area_solution1;
+	QtCharts::QAreaSeries *m_area_solution2;
+	QtCharts::QAreaSeries *m_area_solution3;
 	QtCharts::QAreaSeries *m_area_solution4;
+	QColor *m_col_sol1;
+	QColor *m_col_sol2;
+	QColor *m_col_sol3;
+	QColor *m_col_sol4;
 	QtCharts::QLineSeries *m_series_solution;
 	QtCharts::QLineSeries *m_series_ask;
 	QtCharts::QLineSeries *m_series_sync_in;
@@ -91,6 +103,8 @@ public: //private:
 	double max_poff;// = 450;
 	double max_v_recirc;// = 300;
 	double max_v_switch;// = 300;
+	double m_base_sol_value;
+	double m_top_sol_value;
 };
 
 

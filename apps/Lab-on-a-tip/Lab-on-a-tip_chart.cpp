@@ -34,6 +34,14 @@ Labonatip_chart::Labonatip_chart(  )
 	max_v_recirc = 300;
 	max_v_switch = 300;
 
+	m_base_sol_value = 43.0;
+	m_top_sol_value = 47.0;
+
+	m_col_sol1 = new QColor(0xFFBA00); //(255, 189, 0);
+	m_col_sol2 = new QColor(0xFF2800);
+	m_col_sol3 = new QColor(0x009EFF);
+	m_col_sol4 = new QColor(0x82FF00);
+
 	setGUIchart();
 }
 
@@ -80,7 +88,7 @@ void Labonatip_chart::updateChartMacro(f_macro *_macro)
 	m_series_V_switch->append(current_time,
 		min_series_V_switch); // in [50; 60]
 	m_series_solution->append(current_time,
-		min_series_solution + 5.0); // + 5.0 just to set the line in the middle for now
+		m_base_sol_value); 
 	m_series_ask->append(current_time,
 		min_series_ask + 5.0);  // + 5.0 just to set the line in the middle for now
 	m_series_sync_in->append(current_time,
@@ -90,7 +98,7 @@ void Labonatip_chart::updateChartMacro(f_macro *_macro)
 	// this for now is just to show a straight line
 
 	m_series_solution->append(max_time_line,
-		min_series_solution + 5.0); // + 5.0 just to set the line in the middle for now
+		m_base_sol_value ); 
 	m_series_ask->append(max_time_line,
 		min_series_ask + 5.0);  // + 5.0 just to set the line in the middle for now
 	m_series_sync_in->append(max_time_line, 
@@ -195,19 +203,83 @@ void Labonatip_chart::updateChartMacro(f_macro *_macro)
 			break;
 		}
 		case 4: { //solution 1
-			
+				  // the first point is calculated starting from the last value to the new value an the current time
+			double first_x = current_time;
+			double second_x = current_time;
+			double first_y = 0;
+			double second_y = 0;
+			if (_macro->at(i).getValue() == 1) {
+				first_y = m_base_sol_value;
+ 				second_y = m_top_sol_value;  // new point
+
+			}
+			else {
+				first_y = m_top_sol_value;
+				second_y = m_base_sol_value;
+			}
+
+			m_series_solution1->append(first_x, first_y); // add the fist point
+			m_series_solution1->append(second_x, second_y); // add the second point 
+
 			break;
 		}
 		case 5: { //solution 2
+			 // the first point is calculated starting from the last value to the new value an the current time
+			double first_x = current_time;
+			double second_x = current_time;
+			double first_y = 0;
+			double second_y = 0;
+			if (_macro->at(i).getValue() == 1) {
+				first_y = m_base_sol_value;
+				second_y = m_top_sol_value;  // new point
+
+			}
+			else {
+				first_y = m_top_sol_value;
+				second_y = m_base_sol_value;
+			}
+
+			m_series_solution2->append(first_x, first_y); // add the fist point
+			m_series_solution2->append(second_x, second_y); // add the second point 
 
 			break;
 		}
 		case 6: { //solution 3
+			double first_x = current_time;
+			double second_x = current_time;
+			double first_y = 0;
+			double second_y = 0;
+			if (_macro->at(i).getValue() == 1) {
+				first_y = m_base_sol_value;
+				second_y = m_top_sol_value;  // new point
 
+			}
+			else {
+				first_y = m_top_sol_value;
+				second_y = m_base_sol_value;
+			}
+
+			m_series_solution3->append(first_x, first_y); // add the fist point
+			m_series_solution3->append(second_x, second_y); // add the second point 
 			break;
 		}
 		case 7: { //solution 4
+			double first_x = current_time;
+			double second_x = current_time;
+			double first_y = 0;
+			double second_y = 0;
+			if (_macro->at(i).getValue() == 1) {
+				first_y = m_base_sol_value;
+				second_y = m_top_sol_value;  // new point
 
+			}
+			else {
+				first_y = m_top_sol_value;
+				second_y = m_base_sol_value;
+			}
+
+			m_series_solution4->append(first_x, first_y); // add the fist point
+			m_series_solution4->append(second_x, second_y); // add the second point 
 			break;
 		}
 		case 8: { //dropletSize 
@@ -290,6 +362,9 @@ void Labonatip_chart::setGUIchart()
 	m_series_solution2 = new QtCharts::QLineSeries();
 	m_series_solution3 = new QtCharts::QLineSeries();
 	m_series_solution4 = new QtCharts::QLineSeries();
+	m_area_solution1 = new QtCharts::QAreaSeries();
+	m_area_solution2 = new QtCharts::QAreaSeries();
+	m_area_solution3 = new QtCharts::QAreaSeries();
 	m_area_solution4 = new QtCharts::QAreaSeries();
 	m_series_solution = new QtCharts::QLineSeries();
 	m_series_ask = new QtCharts::QLineSeries();
@@ -330,25 +405,23 @@ void Labonatip_chart::setGUIchart()
 
 	*m_series_V_recirc << QPointF(0.0, 55.0) << QPointF(100.0, 55.0);
 
-	double base_sol_value = 43.0;
-	double top_sol_value = 47.0;
 	*m_series_solution1 
-		<< QPointF(0.0, base_sol_value) << QPointF(20.0, base_sol_value)
-		<< QPointF(20.0, top_sol_value) << QPointF(40.0, top_sol_value)
-		<< QPointF(40.0, base_sol_value) << QPointF(100.0, base_sol_value);
+		<< QPointF(0.0, m_base_sol_value) << QPointF(20.0, m_base_sol_value)
+		<< QPointF(20.0, m_top_sol_value) << QPointF(40.0, m_top_sol_value)
+		<< QPointF(40.0, m_base_sol_value) << QPointF(100.0, m_base_sol_value);
 	*m_series_solution2
-		<< QPointF(0.0, base_sol_value) << QPointF(40.0, base_sol_value)
-		<< QPointF(40.0, top_sol_value) << QPointF(65.0, top_sol_value)
-		<< QPointF(65.0, base_sol_value) << QPointF(100.0, base_sol_value);
+		<< QPointF(0.0, m_base_sol_value) << QPointF(40.0, m_base_sol_value)
+		<< QPointF(40.0, m_top_sol_value) << QPointF(65.0, m_top_sol_value)
+		<< QPointF(65.0, m_base_sol_value) << QPointF(100.0, m_base_sol_value);
 	*m_series_solution3
-		<< QPointF(0.0, base_sol_value) << QPointF(70.0, base_sol_value)
-		<< QPointF(70.0, top_sol_value) << QPointF(80.0, top_sol_value)
-		<< QPointF(80.0, base_sol_value) << QPointF(100.0, base_sol_value);
+		<< QPointF(0.0, m_base_sol_value) << QPointF(70.0, m_base_sol_value)
+		<< QPointF(70.0, m_top_sol_value) << QPointF(80.0, m_top_sol_value)
+		<< QPointF(80.0, m_base_sol_value) << QPointF(100.0, m_base_sol_value);
 	*m_series_solution4
-		<< QPointF(0.0, base_sol_value) << QPointF(85.0, base_sol_value)
-		<< QPointF(85.0, top_sol_value) << QPointF(95.0, top_sol_value)
-		<< QPointF(95.0, base_sol_value) << QPointF(100.0, base_sol_value);
-	*m_series_solution << QPointF(20.0, base_sol_value) << QPointF(60.0, base_sol_value);
+		<< QPointF(0.0, m_base_sol_value) << QPointF(85.0, m_base_sol_value)
+		<< QPointF(85.0, m_top_sol_value) << QPointF(95.0, m_top_sol_value)
+		<< QPointF(95.0, m_base_sol_value) << QPointF(100.0, m_base_sol_value);
+	*m_series_solution << QPointF(0.0, m_base_sol_value) << QPointF(100.0, m_base_sol_value);
 
 	QPen pen_as(0x333333);
 	pen_as.setWidth(3);
@@ -380,28 +453,45 @@ void Labonatip_chart::setGUIchart()
 	m_time_line_t->setPen(pen_b);
 
 	// set colors to lines for different solutions
-	QPen pen_s1(0xFF0000);
-	pen_s1.setWidth(1); //(20);
+	QPen pen_s1(*m_col_sol1);
+	pen_s1.setWidth(0); //(20);
+	pen_s1.setColor(*m_col_sol1);
 	m_series_solution1->setPen(pen_s1);
 
-	QPen pen_s2(0x00FF00);
-	pen_s2.setWidth(1); //(20);
+	QPen pen_s2(*m_col_sol2);
+	pen_s2.setWidth(0); //(20);
+	pen_s2.setColor(*m_col_sol2);
 	m_series_solution2->setPen(pen_s2);
 
-	QPen pen_s3(0x0000FF);
-	pen_s3.setWidth(1); //(20);
+	QPen pen_s3(*m_col_sol3);
+	pen_s3.setWidth(0); //(20);
+	pen_s3.setColor(*m_col_sol3);
 	m_series_solution3->setPen(pen_s3);
 
-	QPen pen_s4(0x00FFFF);
-	pen_s4.setWidth(1); //(20);
+	QPen pen_s4(*m_col_sol4);
+	pen_s4.setWidth(0); //(20);
+	pen_s4.setColor(*m_col_sol4);
 	m_series_solution4->setPen(pen_s4);
 
+	m_area_solution1->setLowerSeries(m_series_solution);
+	m_area_solution1->setUpperSeries(m_series_solution1);
+	m_area_solution1->setPen(pen_s1);
+	m_area_solution1->setColor(*m_col_sol1);
+
+	m_area_solution2->setLowerSeries(m_series_solution);
+	m_area_solution2->setUpperSeries(m_series_solution2);
+	m_area_solution2->setPen(pen_s2);
+	m_area_solution2->setColor(*m_col_sol2);
+
+	m_area_solution3->setLowerSeries(m_series_solution);
+	m_area_solution3->setUpperSeries(m_series_solution3);
+	m_area_solution3->setPen(pen_s3);
+	m_area_solution3->setColor(*m_col_sol3);
 
 	m_area_solution4->setLowerSeries(m_series_solution);
 	m_area_solution4->setUpperSeries(m_series_solution4);
-	QPen penna(0x059605);
-	penna.setWidth(3);
-	m_area_solution4->setPen(penna);
+	m_area_solution4->setPen(pen_s4);
+	m_area_solution4->setColor(*m_col_sol4);
 
 	QPen pen_s(0xBBBBBB);
 	pen_s.setWidth(1); //(20);
@@ -440,10 +530,13 @@ void Labonatip_chart::setGUIchart()
 	m_chart->addSeries(m_series_Poff);
 	m_chart->addSeries(m_series_V_switch);
 	m_chart->addSeries(m_series_V_recirc);
-	m_chart->addSeries(m_series_solution1);
-	m_chart->addSeries(m_series_solution2);
-	m_chart->addSeries(m_series_solution3);
+	//m_chart->addSeries(m_series_solution1);
+	//m_chart->addSeries(m_series_solution2);
+	//m_chart->addSeries(m_series_solution3);
 	//m_chart->addSeries(m_series_solution4);
+	m_chart->addSeries(m_area_solution1);
+	m_chart->addSeries(m_area_solution2);
+	m_chart->addSeries(m_area_solution3);
 	m_chart->addSeries(m_area_solution4);
 	m_chart->addSeries(m_series_solution);
 	m_chart->addSeries(m_series_ask);
@@ -514,10 +607,13 @@ void Labonatip_chart::setGUIchart()
 	m_chart->setAxisY(axisY, m_series_Poff);
 	m_chart->setAxisY(axisY, m_series_V_switch);
 	m_chart->setAxisY(axisY, m_series_V_recirc);
-	m_chart->setAxisY(axisY, m_series_solution1);
-	m_chart->setAxisY(axisY, m_series_solution2);
-	m_chart->setAxisY(axisY, m_series_solution3);
+	//m_chart->setAxisY(axisY, m_series_solution1);
+	//m_chart->setAxisY(axisY, m_series_solution2);
+	//m_chart->setAxisY(axisY, m_series_solution3);
 	//m_chart->setAxisY(axisY, m_series_solution4);
+	m_chart->setAxisY(axisY, m_area_solution1);	
+	m_chart->setAxisY(axisY, m_area_solution2);
+	m_chart->setAxisY(axisY, m_area_solution3);
 	m_chart->setAxisY(axisY, m_area_solution4);
 	m_chart->setAxisY(axisY, m_series_solution);
 	m_chart->setAxisY(axisY, m_series_ask);

@@ -689,9 +689,13 @@ double fluicell::PPC1api::getDropletSizePercentage()
 	double value_A = m_PPC1_data->channel_A->sensor_reading;
 	double value_D = m_PPC1_data->channel_D->sensor_reading;
 
-	double p1 = std::abs(100 * value_A / m_default_v_recirc);
-	double p2 = std::abs(100 * value_D / m_default_pon);
-	double mean_percentage = 100 + (p2 - p1) / 2;
+	//double p1 = std::abs(100 * value_A / m_default_v_recirc);
+	//double p2 = std::abs(100 * value_D / m_default_pon);
+	//double mean_percentage = 100 + (p2 - p1) / 2;
+
+	double p1 = std::abs( value_A / m_default_v_recirc);
+	double p2 = std::abs( value_D / m_default_pon);
+	double mean_percentage = std::pow(1 + (p2 - p1) / 2, 3) * 100;
 
 	return mean_percentage;
 }

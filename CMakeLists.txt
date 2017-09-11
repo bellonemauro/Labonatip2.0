@@ -38,6 +38,9 @@ if(COMMAND cmake_policy) #return true if the COMMAND cmake_policy exist - this a
 	cmake_policy(SET CMP0026 NEW)
 	#endif(NOT "${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION}" LESS 3.0)
 	
+	# pass to the installer the project name
+	cmake_policy(SET CMP0053 OLD) 
+	
 endif(COMMAND cmake_policy)
 
 # Our own CMake configurations
@@ -141,12 +144,12 @@ endif(DOXYGEN_FOUND)
 # --------------------------------------
 #  settings for install and package --- not fully supported yet
 # --------------------------------------					
-OPTION(ENABLE_BUILD_apps "Option to add the install target - ON by default" ON)
+OPTION(ENABLE_BUILD_install "Option to add the install target - ON by default" ON)
 if (ENABLE_BUILD_install)
 	include(${PROJECT_SOURCE_DIR}/CMakeModules/script_BuildInstall.cmake REQUIRED)		# CMake configuration for the install target
 endif(ENABLE_BUILD_install)
 
-OPTION(ENABLE_BUILD_apps "Option for building the package - ON by default" ON)
+OPTION(ENABLE_BUILD_package "Option for building the package - ON by default" ON)
 if (ENABLE_BUILD_package)
 	include(${PROJECT_SOURCE_DIR}/CMakeModules/script_BuildPackage.cmake REQUIRED)		# CMake configuration for package						
 endif(ENABLE_BUILD_package)

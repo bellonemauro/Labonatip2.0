@@ -112,7 +112,9 @@ void Labonatip_GUI::runMacro() {
 		ui->pushButton_newTip->setEnabled(true);
 		ui->pushButton_standby->setEnabled(true);
 		ui->pushButton_stop->setEnabled(true);
-		ui->tabWidget->setEnabled(true);
+		//ui->tabWidget->setEnabled(false);
+		ui->tab_2->setEnabled(true);
+		ui->tab_4->setEnabled(true);
 		setEnableSolutionButtons(true);
 		ui->actionDisCon->setEnabled(!m_simulationOnly);
 		ui->actionRun->setEnabled(!m_simulationOnly);
@@ -245,7 +247,9 @@ void Labonatip_GUI::macroFinished(const QString &_result) {
 	ui->pushButton_newTip->setEnabled(true);
 	ui->pushButton_stop->setEnabled(true);
 	ui->pushButton_standby->setEnabled(true);
-	ui->tabWidget->setEnabled(true);
+	//ui->tabWidget->setEnabled(false);
+	ui->tab_2->setEnabled(true);
+	ui->tab_4->setEnabled(true);
 	setEnableSolutionButtons(true);
 	ui->actionDisCon->setEnabled(!m_simulationOnly);
 	ui->actionRun->setEnabled(!m_simulationOnly);
@@ -286,13 +290,13 @@ void Labonatip_GUI::shutdown() {
 		updatePoffSetPoint(0.0);
 		
 		//Wait 10 seconds
-		if (!visualizeProgressMessage(10, " Shutting down ")) return;
+		if (!visualizeProgressMessage(10, " The pressure is off, waiting for the vacuum. ")) return;
 		
 		updateVrecircSetPoint(0.0);
 		updateVswitchSetPoint(0.0);
 
 		//Wait 15 seconds
-		if (!visualizeProgressMessage(15, " Shutting down ")) return; 
+		if (!visualizeProgressMessage(15, " Vacuum off. Stopping the flow in the device. ")) return; 
 		
 	}
 	else {

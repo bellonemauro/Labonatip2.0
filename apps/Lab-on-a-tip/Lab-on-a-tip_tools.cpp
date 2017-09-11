@@ -211,6 +211,7 @@ void Labonatip_tools::addMacroCommand()
 	QComboBox *comboBox = new QComboBox(this);
 	createNewCommand(*newItem, *comboBox);
 
+
 	//if we are at the top level with no element or no selection 
 	// the element is added at the last position
 	if (ui_tools->treeWidget_macroTable->topLevelItemCount() < 1 ||
@@ -859,7 +860,7 @@ void Labonatip_tools::createNewCommand(QTreeWidgetItem & _command, QComboBox & _
 		<< "Solution 1 (open/close)" << "Solution 2 (open/close)" 
 		<< "Solution 3 (open/close)" << "Solution 4 (open/close)"
 		<< "Droplet size (%)" << "Flow speed (%)" << "Vacuum (%)" 
-		<< "loop" << "Sleep (s)" << "Ask"
+		<< "loop" << "Wait (s)" << "Ask"
 		<< "All Off" << "Pumps Off" << "Valve state" << "Wait sync" << "Sync out");
 
 	connect(&_combo_box, SIGNAL(currentIndexChanged(int )), 
@@ -1024,6 +1025,11 @@ void Labonatip_tools::getSolutionSettings()
 	m_solutionNames->sol2 = ui_tools->lineEdit_sol2_name->text();
 	m_solutionNames->sol3 = ui_tools->lineEdit_sol3_name->text();
 	m_solutionNames->sol4 = ui_tools->lineEdit_sol4_name->text();
+
+	m_pr_params->base_ds_increment = ui_tools->spinBox_ds_increment->value();
+	m_pr_params->base_fs_increment = ui_tools->spinBox_fs_increment->value();
+	m_pr_params->base_v_increment = ui_tools->spinBox_v_increment->value();
+
 	//TODO other settings ! 
 }
 
@@ -1149,6 +1155,18 @@ bool Labonatip_tools::loadSettings(QString _path)
 	ui_tools->lineEdit_v_recirc_default->setText(QString::number(v_recirc_default));
 	m_pr_params->v_recirc_default = v_recirc_default;
 
+	int base_ds_increment = m_settings->value("pr_limits/base_ds_increment", "10").toInt();
+	ui_tools->spinBox_ds_increment->setValue(base_ds_increment);
+	m_pr_params->base_ds_increment = base_ds_increment;
+
+	int base_fs_increment = m_settings->value("pr_limits/base_fs_increment", "5").toInt();
+	ui_tools->spinBox_fs_increment->setValue(base_fs_increment);
+	m_pr_params->base_fs_increment = base_fs_increment;
+
+	int base_v_increment = m_settings->value("pr_limits/base_v_increment", "5").toInt();
+	ui_tools->spinBox_v_increment->setValue(base_v_increment);
+	m_pr_params->base_v_increment = base_v_increment;
+
 	// read server group
 
 
@@ -1269,6 +1287,13 @@ bool Labonatip_tools::saveSettings(QString _file_name)
 	settings->setValue("pr_limits/v_recirc_min", ui_tools->lineEdit_v_recirc_min->text());
 	// v_recirc_default = 
 	settings->setValue("pr_limits/v_recirc_default", ui_tools->lineEdit_v_recirc_default->text());
+	// base_ds_increment = 
+	settings->setValue("pr_limits/base_ds_increment", ui_tools->spinBox_ds_increment->value());
+	// base_ds_increment = 
+	settings->setValue("pr_limits/base_fs_increment", ui_tools->spinBox_fs_increment->value());
+	// base_ds_increment = 
+	settings->setValue("pr_limits/base_v_increment", ui_tools->spinBox_v_increment->value());
+
 
 	// [solutionNames]
 	// solution1 = CuSO4

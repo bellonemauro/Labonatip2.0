@@ -13,7 +13,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1500</width>
+    <width>1400</width>
     <height>841</height>
    </rect>
   </property>
@@ -100,8 +100,8 @@
       </property>
       <property name="minimumSize">
        <size>
-        <width>1024</width>
-        <height>708</height>
+        <width>500</width>
+        <height>500</height>
        </size>
       </property>
       <property name="autoFillBackground">
@@ -127,8 +127,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>1049</width>
-         <height>711</height>
+         <width>1100</width>
+         <height>716</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout_2">
@@ -158,6 +158,9 @@
           <property name="frameShadow">
            <enum>QFrame::Plain</enum>
           </property>
+          <property name="sizeAdjustPolicy">
+           <enum>QAbstractScrollArea::AdjustToContents</enum>
+          </property>
           <property name="widgetResizable">
            <bool>true</bool>
           </property>
@@ -166,8 +169,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>1049</width>
-             <height>711</height>
+             <width>1100</width>
+             <height>716</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout">
@@ -175,6 +178,9 @@
              <number>0</number>
             </property>
             <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
              <number>0</number>
             </property>
             <property name="bottomMargin">
@@ -215,7 +221,26 @@
                <bool>false</bool>
               </property>
               <layout class="QGridLayout" name="gridLayout_14">
-               <item row="3" column="3">
+               <property name="leftMargin">
+                <number>5</number>
+               </property>
+               <property name="rightMargin">
+                <number>5</number>
+               </property>
+               <item row="1" column="5" rowspan="6">
+                <spacer name="horizontalSpacer_8">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>0</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="4" column="3">
                 <spacer name="horizontalSpacer_5">
                  <property name="orientation">
                   <enum>Qt::Horizontal</enum>
@@ -223,19 +248,6 @@
                  <property name="sizeHint" stdset="0">
                   <size>
                    <width>10</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-               <item row="1" column="5" rowspan="5">
-                <spacer name="horizontalSpacer_8">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>40</width>
                    <height>20</height>
                   </size>
                  </property>
@@ -251,14 +263,14 @@
                  </property>
                  <property name="minimumSize">
                   <size>
-                   <width>100</width>
-                   <height>100</height>
+                   <width>90</width>
+                   <height>90</height>
                   </size>
                  </property>
                  <property name="maximumSize">
                   <size>
-                   <width>100</width>
-                   <height>100</height>
+                   <width>90</width>
+                   <height>90</height>
                   </size>
                  </property>
                  <property name="text">
@@ -271,6 +283,19 @@
                   <bool>true</bool>
                  </property>
                 </widget>
+               </item>
+               <item row="1" column="0" rowspan="5">
+                <spacer name="horizontalSpacer_6">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>0</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
                </item>
                <item row="1" column="2">
                 <widget class="QLabel" name="label_warning">
@@ -296,20 +321,7 @@
                  </property>
                 </widget>
                </item>
-               <item row="1" column="0" rowspan="4">
-                <spacer name="horizontalSpacer_6">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>40</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-               <item row="2" column="1" rowspan="3" colspan="2">
+               <item row="3" column="1" rowspan="3" colspan="2">
                 <widget class="QGroupBox" name="groupBox_action">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
@@ -621,7 +633,7 @@ closeAllValves()&lt;br/&gt;
                  </layout>
                 </widget>
                </item>
-               <item row="0" column="4" rowspan="6">
+               <item row="0" column="4" rowspan="7">
                 <widget class="QGroupBox" name="groupBox_deliveryZone">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
@@ -631,7 +643,7 @@ closeAllValves()&lt;br/&gt;
                  </property>
                  <property name="minimumSize">
                   <size>
-                   <width>420</width>
+                   <width>330</width>
                    <height>40</height>
                   </size>
                  </property>
@@ -670,6 +682,12 @@ closeAllValves()&lt;br/&gt;
                       <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>50</width>
+                      <height>50</height>
+                     </size>
+                    </property>
                     <property name="toolTip">
                      <string>Increase vacuum</string>
                     </property>
@@ -682,60 +700,16 @@ closeAllValves()&lt;br/&gt;
                     </property>
                     <property name="iconSize">
                      <size>
-                      <width>40</width>
-                      <height>40</height>
+                      <width>35</width>
+                      <height>35</height>
                      </size>
                     </property>
                    </widget>
                   </item>
-                  <item row="3" column="1">
-                   <widget class="QLabel" name="label_DZV_dropletSize">
-                    <property name="font">
-                     <font>
-                      <pointsize>11</pointsize>
-                     </font>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true"/>
-                    </property>
-                    <property name="text">
-                     <string>Droplet size</string>
-                    </property>
-                    <property name="alignment">
-                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="5" column="6" colspan="2">
-                   <widget class="QPushButton" name="pushButton_flowspeed_plus">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
+                  <item row="3" column="4">
+                   <widget class="QLCDNumber" name="lcdNumber_dropletSize_percentage">
                     <property name="toolTip">
-                     <string>Increase flow speed</string>
-                    </property>
-                    <property name="text">
-                     <string/>
-                    </property>
-                    <property name="icon">
-                     <iconset>
-                      <normaloff>icons/plus.png</normaloff>icons/plus.png</iconset>
-                    </property>
-                    <property name="iconSize">
-                     <size>
-                      <width>40</width>
-                      <height>40</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="8" column="4">
-                   <widget class="QLCDNumber" name="lcdNumber_vacuum_percentage">
-                    <property name="toolTip">
-                     <string>Vacuum percentage</string>
+                     <string>Droplet size percentage</string>
                     </property>
                     <property name="frameShape">
                      <enum>QFrame::NoFrame</enum>
@@ -769,10 +743,42 @@ closeAllValves()&lt;br/&gt;
                     </property>
                    </widget>
                   </item>
-                  <item row="3" column="4">
-                   <widget class="QLCDNumber" name="lcdNumber_dropletSize_percentage">
+                  <item row="5" column="6" colspan="2">
+                   <widget class="QPushButton" name="pushButton_flowspeed_plus">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>50</width>
+                      <height>50</height>
+                     </size>
+                    </property>
                     <property name="toolTip">
-                     <string>Droplet size percentage</string>
+                     <string>Increase flow speed</string>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="icon">
+                     <iconset>
+                      <normaloff>icons/plus.png</normaloff>icons/plus.png</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>35</width>
+                      <height>35</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="8" column="4">
+                   <widget class="QLCDNumber" name="lcdNumber_vacuum_percentage">
+                    <property name="toolTip">
+                     <string>Vacuum percentage</string>
                     </property>
                     <property name="frameShape">
                      <enum>QFrame::NoFrame</enum>
@@ -809,6 +815,12 @@ closeAllValves()&lt;br/&gt;
                   </item>
                   <item row="8" column="5">
                    <widget class="QLabel" name="label_vacuum_percentage">
+                    <property name="maximumSize">
+                     <size>
+                      <width>30</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
                     <property name="font">
                      <font>
                       <pointsize>14</pointsize>
@@ -846,6 +858,12 @@ closeAllValves()&lt;br/&gt;
                       <verstretch>0</verstretch>
                      </sizepolicy>
                     </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>50</width>
+                      <height>50</height>
+                     </size>
+                    </property>
                     <property name="font">
                      <font>
                       <pointsize>8</pointsize>
@@ -853,6 +871,12 @@ closeAllValves()&lt;br/&gt;
                     </property>
                     <property name="toolTip">
                      <string>Decrease droplet size</string>
+                    </property>
+                    <property name="autoFillBackground">
+                     <bool>false</bool>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"/>
                     </property>
                     <property name="text">
                      <string/>
@@ -863,24 +887,11 @@ closeAllValves()&lt;br/&gt;
                     </property>
                     <property name="iconSize">
                      <size>
-                      <width>40</width>
-                      <height>40</height>
+                      <width>35</width>
+                      <height>35</height>
                      </size>
                     </property>
                    </widget>
-                  </item>
-                  <item row="6" column="3" colspan="4">
-                   <spacer name="verticalSpacer">
-                    <property name="orientation">
-                     <enum>Qt::Vertical</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>20</width>
-                      <height>40</height>
-                     </size>
-                    </property>
-                   </spacer>
                   </item>
                   <item row="3" column="5">
                    <widget class="QLabel" name="label_dropletSize_percentage">
@@ -900,32 +911,6 @@ closeAllValves()&lt;br/&gt;
                     </property>
                    </widget>
                   </item>
-                  <item row="5" column="3">
-                   <widget class="QPushButton" name="pushButton_flowspeed_minus">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="toolTip">
-                     <string>Decrease flow speed</string>
-                    </property>
-                    <property name="text">
-                     <string/>
-                    </property>
-                    <property name="icon">
-                     <iconset>
-                      <normaloff>icons/minus.png</normaloff>icons/minus.png</iconset>
-                    </property>
-                    <property name="iconSize">
-                     <size>
-                      <width>40</width>
-                      <height>40</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
                   <item row="8" column="3">
                    <widget class="QPushButton" name="pushButton_vacuum_minus">
                     <property name="sizePolicy">
@@ -933,6 +918,12 @@ closeAllValves()&lt;br/&gt;
                       <horstretch>0</horstretch>
                       <verstretch>0</verstretch>
                      </sizepolicy>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>50</width>
+                      <height>50</height>
+                     </size>
                     </property>
                     <property name="toolTip">
                      <string>Decrease vacuum</string>
@@ -946,31 +937,77 @@ closeAllValves()&lt;br/&gt;
                     </property>
                     <property name="iconSize">
                      <size>
-                      <width>40</width>
-                      <height>40</height>
+                      <width>35</width>
+                      <height>35</height>
                      </size>
                     </property>
                    </widget>
                   </item>
-                  <item row="7" column="1" rowspan="2">
-                   <widget class="QLabel" name="label_DZC_vacuum">
-                    <property name="font">
-                     <font>
-                      <pointsize>11</pointsize>
-                     </font>
+                  <item row="5" column="3">
+                   <widget class="QPushButton" name="pushButton_flowspeed_minus">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
                     </property>
-                    <property name="styleSheet">
-                     <string notr="true"/>
+                    <property name="maximumSize">
+                     <size>
+                      <width>50</width>
+                      <height>50</height>
+                     </size>
+                    </property>
+                    <property name="toolTip">
+                     <string>Decrease flow speed</string>
                     </property>
                     <property name="text">
-                     <string>Vacuum</string>
+                     <string/>
                     </property>
-                    <property name="alignment">
-                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                    <property name="icon">
+                     <iconset>
+                      <normaloff>icons/minus.png</normaloff>icons/minus.png</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>35</width>
+                      <height>35</height>
+                     </size>
                     </property>
                    </widget>
                   </item>
-                  <item row="4" column="3" colspan="4">
+                  <item row="3" column="6" colspan="2">
+                   <widget class="QPushButton" name="pushButton_dropSize_plus">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>50</width>
+                      <height>50</height>
+                     </size>
+                    </property>
+                    <property name="toolTip">
+                     <string>Increase droplet size</string>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="icon">
+                     <iconset>
+                      <normaloff>icons/plus.png</normaloff>icons/plus.png</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>35</width>
+                      <height>35</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="4" column="1" colspan="6">
                    <spacer name="verticalSpacer_2">
                     <property name="orientation">
                      <enum>Qt::Vertical</enum>
@@ -1001,29 +1038,21 @@ closeAllValves()&lt;br/&gt;
                     </property>
                    </widget>
                   </item>
-                  <item row="3" column="6" colspan="2">
-                   <widget class="QPushButton" name="pushButton_dropSize_plus">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
+                  <item row="7" column="1" rowspan="2">
+                   <widget class="QLabel" name="label_DZC_vacuum">
+                    <property name="font">
+                     <font>
+                      <pointsize>11</pointsize>
+                     </font>
                     </property>
-                    <property name="toolTip">
-                     <string>Increase droplet size</string>
+                    <property name="styleSheet">
+                     <string notr="true"/>
                     </property>
                     <property name="text">
-                     <string/>
+                     <string>Vacuum</string>
                     </property>
-                    <property name="icon">
-                     <iconset>
-                      <normaloff>icons/plus.png</normaloff>icons/plus.png</iconset>
-                    </property>
-                    <property name="iconSize">
-                     <size>
-                      <width>40</width>
-                      <height>40</height>
-                     </size>
+                    <property name="alignment">
+                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
                     </property>
                    </widget>
                   </item>
@@ -1051,8 +1080,77 @@ closeAllValves()&lt;br/&gt;
                     </property>
                    </widget>
                   </item>
+                  <item row="3" column="1">
+                   <widget class="QLabel" name="label_DZV_dropletSize">
+                    <property name="minimumSize">
+                     <size>
+                      <width>110</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <pointsize>11</pointsize>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"/>
+                    </property>
+                    <property name="text">
+                     <string>Droplet size</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="2">
+                   <spacer name="horizontalSpacer_7">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                     <enum>QSizePolicy::Fixed</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>10</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item row="6" column="1" colspan="6">
+                   <spacer name="verticalSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
                  </layout>
                 </widget>
+               </item>
+               <item row="2" column="2">
+                <spacer name="verticalSpacer_4">
+                 <property name="orientation">
+                  <enum>Qt::Vertical</enum>
+                 </property>
+                 <property name="sizeType">
+                  <enum>QSizePolicy::Expanding</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>20</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                </spacer>
                </item>
               </layout>
              </widget>
@@ -1062,7 +1160,7 @@ closeAllValves()&lt;br/&gt;
               <property name="minimumSize">
                <size>
                 <width>0</width>
-                <height>290</height>
+                <height>280</height>
                </size>
               </property>
               <property name="maximumSize">
@@ -1086,6 +1184,12 @@ closeAllValves()&lt;br/&gt;
                <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
               </property>
               <layout class="QGridLayout" name="gridLayout_3">
+               <property name="leftMargin">
+                <number>5</number>
+               </property>
+               <property name="rightMargin">
+                <number>5</number>
+               </property>
                <item row="1" column="0">
                 <spacer name="horizontalSpacer_3">
                  <property name="orientation">
@@ -1093,7 +1197,7 @@ closeAllValves()&lt;br/&gt;
                  </property>
                  <property name="sizeHint" stdset="0">
                   <size>
-                   <width>10</width>
+                   <width>0</width>
                    <height>20</height>
                   </size>
                  </property>
@@ -1106,14 +1210,14 @@ closeAllValves()&lt;br/&gt;
                  </property>
                  <property name="sizeHint" stdset="0">
                   <size>
-                   <width>40</width>
+                   <width>0</width>
                    <height>20</height>
                   </size>
                  </property>
                 </spacer>
                </item>
-               <item row="2" column="0" colspan="2">
-                <spacer name="verticalSpacer_6">
+               <item row="0" column="1">
+                <spacer name="verticalSpacer_7">
                  <property name="orientation">
                   <enum>Qt::Vertical</enum>
                  </property>
@@ -2293,8 +2397,8 @@ border-color: rgb(235, 240, 235);</string>
                  <zorder>label_GW_waste_full</zorder>
                 </widget>
                </item>
-               <item row="0" column="1">
-                <spacer name="verticalSpacer_7">
+               <item row="2" column="0" colspan="2">
+                <spacer name="verticalSpacer_6">
                  <property name="orientation">
                   <enum>Qt::Vertical</enum>
                  </property>
@@ -2423,11 +2527,31 @@ border-color: rgb(235, 240, 235);</string>
    <property name="enabled">
     <bool>true</bool>
    </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
    <property name="minimumSize">
     <size>
-     <width>450</width>
+     <width>299</width>
      <height>486</height>
     </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>1000</width>
+     <height>524287</height>
+    </size>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+   <property name="features">
+    <set>QDockWidget::NoDockWidgetFeatures</set>
    </property>
    <property name="windowTitle">
     <string>Advanced</string>
@@ -2523,867 +2647,20 @@ border-color: rgb(235, 240, 235);</string>
          <property name="bottomMargin">
           <number>2</number>
          </property>
-         <item row="4" column="0" colspan="4">
-          <widget class="QGroupBox" name="groupBox_recirc">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
+         <item row="7" column="3">
+          <spacer name="verticalSpacer_12">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
            </property>
-           <property name="minimumSize">
+           <property name="sizeHint" stdset="0">
             <size>
-             <width>280</width>
-             <height>50</height>
+             <width>20</width>
+             <height>40</height>
             </size>
            </property>
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>16777215</height>
-            </size>
-           </property>
-           <property name="font">
-            <font>
-             <family>Arial</family>
-             <pointsize>24</pointsize>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">QGroupBox { 
-     border: 2px solid  rgb(200, 200, 200); ; 
-     border-radius: 10px; 
-    color: rgb(80, 80, 80);
-    background-color: rgb(235, 235, 240);
-   /* background-color: rgb(235, 240, 235);*/
- } 
-   </string>
-           </property>
-           <property name="title">
-            <string/>
-           </property>
-           <layout class="QGridLayout" name="gridLayout_8">
-            <property name="topMargin">
-             <number>11</number>
-            </property>
-            <item row="4" column="2" colspan="2">
-             <widget class="QSlider" name="horizontalSlider_recirculation">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>35</height>
-               </size>
-              </property>
-              <property name="toolTip">
-               <string>Increase/decrease the vacuum recirculation</string>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QSlider::groove:horizontal {
-border: 1px solid #bbb;
-background: white;
-height: 5px;
-border-radius: 3px;
-}
-
-QSlider::sub-page:horizontal {
-background: qlineargradient(x1: 0, y1: 0,    x2: 0, y2: 1,
-stop: 0 #dafefe,
-stop: 1 #331cfe );
-background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
-stop: 0 #c8e2fe,
-stop: 0.4 #80e2fe,
-stop: 0.7 #23e2fe,
-stop: 1 #23c0fe );
-border: 1px solid #777;
-height: 5px;
-border-radius: 3px;
-}
-
-QSlider::add-page:horizontal {
-background: #fff;
-border: 1px solid #777;
-height: 5px;
-border-radius: 3px;
-}
-
-QSlider::handle:horizontal {
-background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
-    stop:0 #eee, stop:1 #ccc);
-border: 1px solid #777;
-width: 50px;
-margin-top: -15px;
-margin-bottom: -15px;
-border-radius: 12px;
-}
-
-QSlider::handle:horizontal:hover {
-background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
-    stop:0 #fff, stop:1 #ddd);
-border: 1px solid #444;
-border-radius: 4px;
-}
-
-QSlider::sub-page:horizontal:disabled {
-background: #bbb;
-border-color: #999;
-}
-
-QSlider::add-page:horizontal:disabled {
-background: #eee;
-border-color: #999;
-}
-
-QSlider::handle:horizontal:disabled {
-background: #eee;
-border: 1px solid #aaa;
-border-radius: 4px;
-}</string>
-              </property>
-              <property name="minimum">
-               <number>0</number>
-              </property>
-              <property name="maximum">
-               <number>300</number>
-              </property>
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="tickPosition">
-               <enum>QSlider::TicksBelow</enum>
-              </property>
-              <property name="tickInterval">
-               <number>10</number>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="2">
-             <widget class="QLabel" name="label_recirc">
-              <property name="font">
-               <font>
-                <pointsize>11</pointsize>
-               </font>
-              </property>
-              <property name="styleSheet">
-               <string notr="true"/>
-              </property>
-              <property name="text">
-               <string>Recirculation</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="2" colspan="2">
-             <widget class="QProgressBar" name="progressBar_recirc">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>15</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>10</pointsize>
-                <weight>75</weight>
-                <bold>true</bold>
-               </font>
-              </property>
-              <property name="toolTip">
-               <string>Current vacuum value</string>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QProgressBar {
-border: 1px solid white;
-padding: 1px;
-color: rgb(255, 255, 255);
-border-bottom-right-radius: 5px;
-border-bottom-left-radius: 5px;
-border-top-right-radius: 5px;
-border-top-left-radius: 5px;
-text-align:right;
-/*margin-right: 25ex;*/
-background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
-stop: 0 #fff,
-stop: 0.4 #eee,
-stop: 0.7 #ddd,
-stop: 1 #eee );
-width: 15px;
-}
-
-QProgressBar::chunk {
-background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
-stop: 0 #c8e2fe,
-stop: 0.4 #80e2fe,
-stop: 0.7 #23e2fe,
-stop: 1 #23c0fe );
-border-bottom-right-radius: 5px;
-border-bottom-left-radius: 5px;
-border-top-right-radius: 5px;
-border-top-left-radius: 5px;
-/*border: 2px solid white;*/
-/*width: 1px;*/
-}</string>
-              </property>
-              <property name="minimum">
-               <number>0</number>
-              </property>
-              <property name="maximum">
-               <number>300</number>
-              </property>
-              <property name="value">
-               <number>0</number>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignRight</set>
-              </property>
-              <property name="textVisible">
-               <bool>false</bool>
-              </property>
-              <property name="invertedAppearance">
-               <bool>false</bool>
-              </property>
-              <property name="format">
-               <string notr="true">%v mbar</string>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="1" rowspan="2">
-             <widget class="QPushButton" name="pushButton_recirculationDown">
-              <property name="maximumSize">
-               <size>
-                <width>60</width>
-                <height>60</height>
-               </size>
-              </property>
-              <property name="toolTip">
-               <string>Fine tuning: single step decrement</string>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset>
-                <normaloff>icons/arrow_down.png</normaloff>icons/arrow_down.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>50</width>
-                <height>50</height>
-               </size>
-              </property>
-              <property name="flat">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="4" rowspan="2">
-             <widget class="QPushButton" name="pushButton_recirculationUp">
-              <property name="maximumSize">
-               <size>
-                <width>60</width>
-                <height>60</height>
-               </size>
-              </property>
-              <property name="toolTip">
-               <string>Fine tuning: single step increment</string>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset>
-                <normaloff>icons/arrow_up.png</normaloff>icons/arrow_up.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>50</width>
-                <height>50</height>
-               </size>
-              </property>
-              <property name="flat">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QProgressBar" name="progressBar_ledRecirc">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>60</width>
-                <height>15</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>10</pointsize>
-                <weight>75</weight>
-                <bold>true</bold>
-               </font>
-              </property>
-              <property name="toolTip">
-               <string>Recirculation ON/OFF indicator</string>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QProgressBar {
-border: 1px solid grey;
-padding: 0px;
-color: rgb(255, 255, 255);
-border-bottom-right-radius: 7px;
-border-bottom-left-radius: 7px;
-border-top-right-radius: 7px;
-border-top-left-radius: 7px;
-text-align:right;
-/*margin-right: 25ex;*/
-background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
-stop: 0 #00ff00,
-stop: 0.3 #55ff55,
-stop: 0.5 #aaffaa,
-stop: 1 #ffffff );
-width: 15px;
-}
-
-QProgressBar::chunk {
-background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
-stop: 0 #ffffff,
-stop: 0.5 #ffaaaa,
-stop: 0.7 #ff5555,
-stop: 1 #ff0000 );
-border-bottom-right-radius: 7px;
-border-bottom-left-radius: 7px;
-border-top-right-radius: 7px;
-border-top-left-radius: 7px;
-border:0px solid white;
-}</string>
-              </property>
-              <property name="minimum">
-               <number>0</number>
-              </property>
-              <property name="maximum">
-               <number>1</number>
-              </property>
-              <property name="value">
-               <number>0</number>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignRight</set>
-              </property>
-              <property name="textVisible">
-               <bool>false</bool>
-              </property>
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="invertedAppearance">
-               <bool>false</bool>
-              </property>
-              <property name="format">
-               <string notr="true">%v mbar</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="3">
-             <widget class="QLabel" name="label_recircPressure">
-              <property name="font">
-               <font>
-                <pointsize>11</pointsize>
-               </font>
-              </property>
-              <property name="toolTip">
-               <string>set point / current value</string>
-              </property>
-              <property name="styleSheet">
-               <string notr="true"/>
-              </property>
-              <property name="text">
-               <string>0 mbar</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
+          </spacer>
          </item>
-         <item row="1" column="0" colspan="4">
-          <widget class="QGroupBox" name="groupBox_poff">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="minimumSize">
-            <size>
-             <width>280</width>
-             <height>50</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>16777215</height>
-            </size>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">QGroupBox { 
-     border: 2px solid  rgb(200, 200, 200); ; 
-     border-radius: 10px; 
-    color: rgb(80, 80, 80);
-    background-color: rgb(235, 235, 240);
-   /* background-color: rgb(235, 240, 235);*/
- } </string>
-           </property>
-           <property name="title">
-            <string/>
-           </property>
-           <property name="flat">
-            <bool>false</bool>
-           </property>
-           <layout class="QGridLayout" name="gridLayout_15">
-            <property name="topMargin">
-             <number>11</number>
-            </property>
-            <property name="bottomMargin">
-             <number>11</number>
-            </property>
-            <item row="1" column="6">
-             <widget class="QLabel" name="label_PoffPressure">
-              <property name="font">
-               <font>
-                <pointsize>11</pointsize>
-               </font>
-              </property>
-              <property name="toolTip">
-               <string>set point / current value</string>
-              </property>
-              <property name="styleSheet">
-               <string notr="true"/>
-              </property>
-              <property name="text">
-               <string>0 mbar</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="4">
-             <widget class="QLabel" name="label_Poff">
-              <property name="font">
-               <font>
-                <pointsize>11</pointsize>
-               </font>
-              </property>
-              <property name="styleSheet">
-               <string notr="true"/>
-              </property>
-              <property name="text">
-               <string>P off</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="4" colspan="3">
-             <widget class="QProgressBar" name="progressBar_pressure_p_off">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>15</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>10</pointsize>
-                <weight>75</weight>
-                <bold>true</bold>
-               </font>
-              </property>
-              <property name="toolTip">
-               <string>Current pressure value</string>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QProgressBar {
-border: 1px solid white;
-padding: 1px;
-color: rgb(255, 255, 255);
-border-bottom-right-radius: 5px;
-border-bottom-left-radius: 5px;
-border-top-right-radius: 5px;
-border-top-left-radius: 5px;
-text-align:right;
-/*margin-right: 25ex;*/
-background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
-stop: 0 #fff,
-stop: 0.4 #eee,
-stop: 0.7 #ddd,
-stop: 1 #eee );
-width: 15px;
-}
-
-QProgressBar::chunk {
-background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
-stop: 0 #A9D08E,
-stop: 0.4 #549635,
-stop: 0.7 #148C14,
-stop: 1 #006400 );
-border-bottom-right-radius: 5px;
-border-bottom-left-radius: 5px;
-border-top-right-radius: 5px;
-border-top-left-radius: 5px;
-/*border: 2px solid white;*/
-/*width: 1px;*/
-}</string>
-              </property>
-              <property name="minimum">
-               <number>0</number>
-              </property>
-              <property name="maximum">
-               <number>450</number>
-              </property>
-              <property name="value">
-               <number>0</number>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignRight</set>
-              </property>
-              <property name="textVisible">
-               <bool>false</bool>
-              </property>
-              <property name="invertedAppearance">
-               <bool>false</bool>
-              </property>
-              <property name="format">
-               <string notr="true">%v mbar</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="7" rowspan="2">
-             <widget class="QPushButton" name="pushButton_p_off_up">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>50</width>
-                <height>50</height>
-               </size>
-              </property>
-              <property name="toolTip">
-               <string>Fine tuning: single step increment</string>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset>
-                <normaloff>icons/plus.png</normaloff>icons/plus.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>40</width>
-                <height>40</height>
-               </size>
-              </property>
-              <property name="flat">
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="3" column="4" colspan="3">
-             <widget class="QSlider" name="horizontalSlider_p_off">
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>35</height>
-               </size>
-              </property>
-              <property name="toolTip">
-               <string>Increase/decrease the pressure Poff</string>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QSlider::groove:horizontal {
-border: 1px solid #bbb;
-background: white;
-height: 5px;
-border-radius: 3px;
-}
-
-QSlider::sub-page:horizontal {
-background: qlineargradient(x1: 0, y1: 0,    x2: 0, y2: 1,
-stop: 0 #dafefe,
-stop: 1 #331cfe );
-background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
-stop: 0 #A9D08E,
-stop: 0.4 #549635,
-stop: 0.7 #148C14,
-stop: 1 #006400 );
-border: 1px solid #777;
-height: 5px;
-border-radius: 3px;
-}
-
-QSlider::add-page:horizontal {
-background: #fff;
-border: 1px solid #777;
-height: 5px;
-border-radius: 3px;
-}
-
-QSlider::handle:horizontal {
-background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
-    stop:0 #eee, stop:1 #ccc);
-border: 1px solid #777;
-width: 50px;
-margin-top: -15px;
-margin-bottom: -15px;
-border-radius: 12px;
-}
-
-QSlider::handle:horizontal:hover {
-background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
-    stop:0 #fff, stop:1 #ddd);
-border: 1px solid #444;
-border-radius: 4px;
-}
-
-QSlider::sub-page:horizontal:disabled {
-background: #bbb;
-border-color: #999;
-}
-
-QSlider::add-page:horizontal:disabled {
-background: #eee;
-border-color: #999;
-}
-
-QSlider::handle:horizontal:disabled {
-background: #eee;
-border: 1px solid #aaa;
-border-radius: 4px;
-}</string>
-              </property>
-              <property name="minimum">
-               <number>0</number>
-              </property>
-              <property name="maximum">
-               <number>450</number>
-              </property>
-              <property name="value">
-               <number>0</number>
-              </property>
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="invertedAppearance">
-               <bool>false</bool>
-              </property>
-              <property name="invertedControls">
-               <bool>false</bool>
-              </property>
-              <property name="tickPosition">
-               <enum>QSlider::TicksBelow</enum>
-              </property>
-              <property name="tickInterval">
-               <number>20</number>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="3">
-             <widget class="QWidget" name="widget" native="true">
-              <property name="maximumSize">
-               <size>
-                <width>5</width>
-                <height>16777215</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QWidget" name="widget_2" native="true">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>10</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>5</width>
-                <height>16777215</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="2">
-             <widget class="QProgressBar" name="progressBar_ledPoff">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>20</width>
-                <height>20</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <pointsize>10</pointsize>
-                <weight>75</weight>
-                <bold>true</bold>
-               </font>
-              </property>
-              <property name="toolTip">
-               <string>Pressure ON/OFF indicator</string>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QProgressBar {
-border: 1px solid grey;
-padding: 0px;
-color: rgb(255, 255, 255);
-border-bottom-right-radius: 10px;
-border-bottom-left-radius: 10px;
-border-top-right-radius: 10px;
-border-top-left-radius: 10px;
-text-align:right;
-/*margin-right: 25ex;*/
-background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
-stop: 0 #00ff00,
-stop: 0.3 #55ff55,
-stop: 0.5 #aaffaa,
-stop: 1 #ffffff );
-width: 15px;
-}
-
-QProgressBar::chunk {
-background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
-stop: 0 #ffffff,
-stop: 0.5 #ffaaaa,
-stop: 0.7 #ff5555,
-stop: 1 #ff0000 );
-border-bottom-right-radius: 10px;
-border-bottom-left-radius: 10px;
-border-top-right-radius: 10px;
-border-top-left-radius: 10px;
-border:0px solid white;
-}</string>
-              </property>
-              <property name="minimum">
-               <number>0</number>
-              </property>
-              <property name="maximum">
-               <number>1</number>
-              </property>
-              <property name="value">
-               <number>0</number>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignRight</set>
-              </property>
-              <property name="textVisible">
-               <bool>false</bool>
-              </property>
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="invertedAppearance">
-               <bool>false</bool>
-              </property>
-              <property name="format">
-               <string notr="true">%v mbar</string>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="1" rowspan="2" colspan="3">
-             <widget class="QPushButton" name="pushButton_p_off_down">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>50</width>
-                <height>50</height>
-               </size>
-              </property>
-              <property name="toolTip">
-               <string>Fine tuning: single step decrement</string>
-              </property>
-              <property name="styleSheet">
-               <string notr="true"/>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset>
-                <normaloff>icons/minus.png</normaloff>icons/minus.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>40</width>
-                <height>40</height>
-               </size>
-              </property>
-              <property name="default">
-               <bool>false</bool>
-              </property>
-              <property name="flat">
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item row="2" column="0" colspan="4">
+         <item row="2" column="1" colspan="3">
           <widget class="QGroupBox" name="groupBox_switch">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -3393,7 +2670,7 @@ border:0px solid white;
            </property>
            <property name="minimumSize">
             <size>
-             <width>280</width>
+             <width>150</width>
              <height>50</height>
             </size>
            </property>
@@ -3419,7 +2696,7 @@ border:0px solid white;
             <property name="topMargin">
              <number>11</number>
             </property>
-            <item row="1" column="1" colspan="2">
+            <item row="1" column="3" colspan="2">
              <widget class="QProgressBar" name="progressBar_switch">
               <property name="minimumSize">
                <size>
@@ -3464,10 +2741,10 @@ width: 15px;
 
 QProgressBar::chunk {
 background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
-stop: 0 #dafefe,
-stop: 0.4 #1375fe,
-stop: 0.7 #3385fe,
-stop: 1 #331cfe );
+stop: 0 #A9D08E,
+stop: 0.4 #549635,
+stop: 0.7 #148C14,
+stop: 1 #006400 );
 border-bottom-right-radius: 5px;
 border-bottom-left-radius: 5px;
 border-top-right-radius: 5px;
@@ -3499,36 +2776,36 @@ border-top-left-radius: 5px;
               </property>
              </widget>
             </item>
-            <item row="1" column="0" rowspan="2">
-             <widget class="QPushButton" name="pushButton_switchDown">
+            <item row="1" column="5" rowspan="2">
+             <widget class="QPushButton" name="pushButton_switchUp">
               <property name="maximumSize">
                <size>
-                <width>60</width>
-                <height>60</height>
+                <width>50</width>
+                <height>50</height>
                </size>
               </property>
               <property name="toolTip">
-               <string>Fine tuning: single step decrement</string>
+               <string>Fine tuning: single step increment</string>
               </property>
               <property name="text">
                <string/>
               </property>
               <property name="icon">
                <iconset>
-                <normaloff>icons/arrow_down.png</normaloff>icons/arrow_down.png</iconset>
+                <normaloff>icons/plus.png</normaloff>icons/plus.png</iconset>
               </property>
               <property name="iconSize">
                <size>
-                <width>50</width>
-                <height>50</height>
+                <width>35</width>
+                <height>35</height>
                </size>
               </property>
               <property name="flat">
-               <bool>true</bool>
+               <bool>false</bool>
               </property>
              </widget>
             </item>
-            <item row="0" column="0">
+            <item row="0" column="1">
              <widget class="QProgressBar" name="progressBar_ledSwitch">
               <property name="minimumSize">
                <size>
@@ -3538,8 +2815,8 @@ border-top-left-radius: 5px;
               </property>
               <property name="maximumSize">
                <size>
-                <width>60</width>
-                <height>15</height>
+                <width>20</width>
+                <height>20</height>
                </size>
               </property>
               <property name="font">
@@ -3557,10 +2834,10 @@ border-top-left-radius: 5px;
 border: 1px solid grey;
 padding: 0px;
 color: rgb(255, 255, 255);
-border-bottom-right-radius: 7px;
-border-bottom-left-radius: 7px;
-border-top-right-radius: 7px;
-border-top-left-radius: 7px;
+border-bottom-right-radius: 10px;
+border-bottom-left-radius: 10px;
+border-top-right-radius: 10px;
+border-top-left-radius: 10px;
 text-align:right;
 /*margin-right: 25ex;*/
 background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
@@ -3577,10 +2854,10 @@ stop: 0 #ffffff,
 stop: 0.5 #ffaaaa,
 stop: 0.7 #ff5555,
 stop: 1 #ff0000 );
-border-bottom-right-radius: 7px;
-border-bottom-left-radius: 7px;
-border-top-right-radius: 7px;
-border-top-left-radius: 7px;
+border-bottom-right-radius: 10px;
+border-bottom-left-radius: 10px;
+border-top-right-radius: 10px;
+border-top-left-radius: 10px;
 border:0px solid white;
 }</string>
               </property>
@@ -3610,7 +2887,7 @@ border:0px solid white;
               </property>
              </widget>
             </item>
-            <item row="2" column="1" colspan="2">
+            <item row="2" column="3" colspan="2">
              <widget class="QSlider" name="horizontalSlider_switch">
               <property name="minimumSize">
                <size>
@@ -3634,10 +2911,10 @@ background: qlineargradient(x1: 0, y1: 0,    x2: 0, y2: 1,
 stop: 0 #dafefe,
 stop: 1 #331cfe );
 background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
-stop: 0 #dafefe,
-stop: 0.4 #1375fe,
-stop: 0.7 #3385fe,
-stop: 1 #331cfe );
+stop: 0 #A9D08E,
+stop: 0.4 #549635,
+stop: 0.7 #148C14,
+stop: 1 #006400 );
 border: 1px solid #777;
 height: 5px;
 border-radius: 3px;
@@ -3700,54 +2977,7 @@ border-radius: 4px;
               </property>
              </widget>
             </item>
-            <item row="1" column="3" rowspan="2">
-             <widget class="QPushButton" name="pushButton_switchUp">
-              <property name="maximumSize">
-               <size>
-                <width>60</width>
-                <height>60</height>
-               </size>
-              </property>
-              <property name="toolTip">
-               <string>Fine tuning: single step increment</string>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="icon">
-               <iconset>
-                <normaloff>icons/arrow_up.png</normaloff>icons/arrow_up.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>50</width>
-                <height>50</height>
-               </size>
-              </property>
-              <property name="flat">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QLabel" name="label_switch">
-              <property name="font">
-               <font>
-                <pointsize>11</pointsize>
-               </font>
-              </property>
-              <property name="styleSheet">
-               <string notr="true"/>
-              </property>
-              <property name="text">
-               <string>Switch</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="2">
+            <item row="0" column="4">
              <widget class="QLabel" name="label_switchPressure">
               <property name="font">
                <font>
@@ -3768,10 +2998,77 @@ border-radius: 4px;
               </property>
              </widget>
             </item>
+            <item row="0" column="3">
+             <widget class="QLabel" name="label_switch">
+              <property name="font">
+               <font>
+                <pointsize>11</pointsize>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string>Switch</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="2">
+             <widget class="QWidget" name="widget_5" native="true">
+              <property name="maximumSize">
+               <size>
+                <width>10</width>
+                <height>16777215</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0">
+             <widget class="QWidget" name="widget_6" native="true">
+              <property name="maximumSize">
+               <size>
+                <width>10</width>
+                <height>16777215</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0" rowspan="2" colspan="3">
+             <widget class="QPushButton" name="pushButton_switchDown">
+              <property name="maximumSize">
+               <size>
+                <width>50</width>
+                <height>50</height>
+               </size>
+              </property>
+              <property name="toolTip">
+               <string>Fine tuning: single step decrement</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normaloff>icons/minus.png</normaloff>icons/minus.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>35</width>
+                <height>35</height>
+               </size>
+              </property>
+              <property name="flat">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
            </layout>
           </widget>
          </item>
-         <item row="0" column="0" colspan="4">
+         <item row="0" column="1" colspan="3">
           <widget class="QGroupBox" name="groupBox_pon">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -3781,7 +3078,7 @@ border-radius: 4px;
            </property>
            <property name="minimumSize">
             <size>
-             <width>280</width>
+             <width>150</width>
              <height>50</height>
             </size>
            </property>
@@ -4143,8 +3440,8 @@ border:0px solid white;
               </property>
               <property name="maximumSize">
                <size>
-                <width>60</width>
-                <height>60</height>
+                <width>50</width>
+                <height>50</height>
                </size>
               </property>
               <property name="toolTip">
@@ -4155,12 +3452,12 @@ border:0px solid white;
               </property>
               <property name="icon">
                <iconset>
-                <normaloff>icons/arrow_up.png</normaloff>icons/arrow_up.png</iconset>
+                <normaloff>icons/plus.png</normaloff>icons/plus.png</iconset>
               </property>
               <property name="iconSize">
                <size>
-                <width>50</width>
-                <height>50</height>
+                <width>35</width>
+                <height>35</height>
                </size>
               </property>
               <property name="flat">
@@ -4172,7 +3469,7 @@ border:0px solid white;
              <widget class="QWidget" name="widget_3" native="true">
               <property name="maximumSize">
                <size>
-                <width>12</width>
+                <width>10</width>
                 <height>16777215</height>
                </size>
               </property>
@@ -4182,7 +3479,7 @@ border:0px solid white;
              <widget class="QWidget" name="widget_4" native="true">
               <property name="maximumSize">
                <size>
-                <width>12</width>
+                <width>10</width>
                 <height>16777215</height>
                </size>
               </property>
@@ -4204,8 +3501,8 @@ border:0px solid white;
               </property>
               <property name="maximumSize">
                <size>
-                <width>60</width>
-                <height>60</height>
+                <width>50</width>
+                <height>50</height>
                </size>
               </property>
               <property name="toolTip">
@@ -4216,12 +3513,892 @@ border:0px solid white;
               </property>
               <property name="icon">
                <iconset>
-                <normaloff>icons/arrow_down.png</normaloff>icons/arrow_down.png</iconset>
+                <normaloff>icons/minus.png</normaloff>icons/minus.png</iconset>
               </property>
               <property name="iconSize">
                <size>
+                <width>35</width>
+                <height>35</height>
+               </size>
+              </property>
+              <property name="flat">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item row="1" column="1" colspan="3">
+          <widget class="QGroupBox" name="groupBox_poff">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>150</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QGroupBox { 
+     border: 2px solid  rgb(200, 200, 200); ; 
+     border-radius: 10px; 
+    color: rgb(80, 80, 80);
+    background-color: rgb(235, 235, 240);
+   /* background-color: rgb(235, 240, 235);*/
+ } </string>
+           </property>
+           <property name="title">
+            <string/>
+           </property>
+           <property name="flat">
+            <bool>false</bool>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_15">
+            <property name="topMargin">
+             <number>11</number>
+            </property>
+            <property name="bottomMargin">
+             <number>11</number>
+            </property>
+            <item row="1" column="4">
+             <widget class="QLabel" name="label_Poff">
+              <property name="font">
+               <font>
+                <pointsize>11</pointsize>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string>P off</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="7" rowspan="2">
+             <widget class="QPushButton" name="pushButton_p_off_up">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
                 <width>50</width>
                 <height>50</height>
+               </size>
+              </property>
+              <property name="toolTip">
+               <string>Fine tuning: single step increment</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normaloff>icons/plus.png</normaloff>icons/plus.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>35</width>
+                <height>35</height>
+               </size>
+              </property>
+              <property name="flat">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="3">
+             <widget class="QWidget" name="widget" native="true">
+              <property name="maximumSize">
+               <size>
+                <width>10</width>
+                <height>16777215</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QWidget" name="widget_2" native="true">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>10</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>10</width>
+                <height>16777215</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2">
+             <widget class="QProgressBar" name="progressBar_ledPoff">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>10</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="toolTip">
+               <string>Pressure ON/OFF indicator</string>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QProgressBar {
+border: 1px solid grey;
+padding: 0px;
+color: rgb(255, 255, 255);
+border-bottom-right-radius: 10px;
+border-bottom-left-radius: 10px;
+border-top-right-radius: 10px;
+border-top-left-radius: 10px;
+text-align:right;
+/*margin-right: 25ex;*/
+background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
+stop: 0 #00ff00,
+stop: 0.3 #55ff55,
+stop: 0.5 #aaffaa,
+stop: 1 #ffffff );
+width: 15px;
+}
+
+QProgressBar::chunk {
+background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
+stop: 0 #ffffff,
+stop: 0.5 #ffaaaa,
+stop: 0.7 #ff5555,
+stop: 1 #ff0000 );
+border-bottom-right-radius: 10px;
+border-bottom-left-radius: 10px;
+border-top-right-radius: 10px;
+border-top-left-radius: 10px;
+border:0px solid white;
+}</string>
+              </property>
+              <property name="minimum">
+               <number>0</number>
+              </property>
+              <property name="maximum">
+               <number>1</number>
+              </property>
+              <property name="value">
+               <number>0</number>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight</set>
+              </property>
+              <property name="textVisible">
+               <bool>false</bool>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="invertedAppearance">
+               <bool>false</bool>
+              </property>
+              <property name="format">
+               <string notr="true">%v mbar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1" rowspan="2" colspan="3">
+             <widget class="QPushButton" name="pushButton_p_off_down">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>50</width>
+                <height>50</height>
+               </size>
+              </property>
+              <property name="toolTip">
+               <string>Fine tuning: single step decrement</string>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normaloff>icons/minus.png</normaloff>icons/minus.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>35</width>
+                <height>35</height>
+               </size>
+              </property>
+              <property name="default">
+               <bool>false</bool>
+              </property>
+              <property name="flat">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="5">
+             <widget class="QLabel" name="label_PoffPressure">
+              <property name="font">
+               <font>
+                <pointsize>11</pointsize>
+               </font>
+              </property>
+              <property name="toolTip">
+               <string>set point / current value</string>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string>0 mbar</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="4" colspan="2">
+             <widget class="QProgressBar" name="progressBar_pressure_p_off">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>15</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>10</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="toolTip">
+               <string>Current pressure value</string>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QProgressBar {
+border: 1px solid white;
+padding: 1px;
+color: rgb(255, 255, 255);
+border-bottom-right-radius: 5px;
+border-bottom-left-radius: 5px;
+border-top-right-radius: 5px;
+border-top-left-radius: 5px;
+text-align:right;
+/*margin-right: 25ex;*/
+background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
+stop: 0 #fff,
+stop: 0.4 #eee,
+stop: 0.7 #ddd,
+stop: 1 #eee );
+width: 15px;
+}
+
+QProgressBar::chunk {
+background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
+stop: 0 #A9D08E,
+stop: 0.4 #549635,
+stop: 0.7 #148C14,
+stop: 1 #006400 );
+border-bottom-right-radius: 5px;
+border-bottom-left-radius: 5px;
+border-top-right-radius: 5px;
+border-top-left-radius: 5px;
+/*border: 2px solid white;*/
+/*width: 1px;*/
+}</string>
+              </property>
+              <property name="minimum">
+               <number>0</number>
+              </property>
+              <property name="maximum">
+               <number>450</number>
+              </property>
+              <property name="value">
+               <number>0</number>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight</set>
+              </property>
+              <property name="textVisible">
+               <bool>false</bool>
+              </property>
+              <property name="invertedAppearance">
+               <bool>false</bool>
+              </property>
+              <property name="format">
+               <string notr="true">%v mbar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="4" colspan="2">
+             <widget class="QSlider" name="horizontalSlider_p_off">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>35</height>
+               </size>
+              </property>
+              <property name="toolTip">
+               <string>Increase/decrease the pressure Poff</string>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QSlider::groove:horizontal {
+border: 1px solid #bbb;
+background: white;
+height: 5px;
+border-radius: 3px;
+}
+
+QSlider::sub-page:horizontal {
+background: qlineargradient(x1: 0, y1: 0,    x2: 0, y2: 1,
+stop: 0 #dafefe,
+stop: 1 #331cfe );
+background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
+stop: 0 #A9D08E,
+stop: 0.4 #549635,
+stop: 0.7 #148C14,
+stop: 1 #006400 );
+border: 1px solid #777;
+height: 5px;
+border-radius: 3px;
+}
+
+QSlider::add-page:horizontal {
+background: #fff;
+border: 1px solid #777;
+height: 5px;
+border-radius: 3px;
+}
+
+QSlider::handle:horizontal {
+background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+    stop:0 #eee, stop:1 #ccc);
+border: 1px solid #777;
+width: 50px;
+margin-top: -15px;
+margin-bottom: -15px;
+border-radius: 12px;
+}
+
+QSlider::handle:horizontal:hover {
+background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+    stop:0 #fff, stop:1 #ddd);
+border: 1px solid #444;
+border-radius: 4px;
+}
+
+QSlider::sub-page:horizontal:disabled {
+background: #bbb;
+border-color: #999;
+}
+
+QSlider::add-page:horizontal:disabled {
+background: #eee;
+border-color: #999;
+}
+
+QSlider::handle:horizontal:disabled {
+background: #eee;
+border: 1px solid #aaa;
+border-radius: 4px;
+}</string>
+              </property>
+              <property name="minimum">
+               <number>0</number>
+              </property>
+              <property name="maximum">
+               <number>450</number>
+              </property>
+              <property name="value">
+               <number>0</number>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="invertedAppearance">
+               <bool>false</bool>
+              </property>
+              <property name="invertedControls">
+               <bool>false</bool>
+              </property>
+              <property name="tickPosition">
+               <enum>QSlider::TicksBelow</enum>
+              </property>
+              <property name="tickInterval">
+               <number>20</number>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item row="4" column="1" colspan="3">
+          <widget class="QGroupBox" name="groupBox_recirc">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>150</width>
+             <height>50</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>Arial</family>
+             <pointsize>24</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QGroupBox { 
+     border: 2px solid  rgb(200, 200, 200); ; 
+     border-radius: 10px; 
+    color: rgb(80, 80, 80);
+    background-color: rgb(235, 235, 240);
+   /* background-color: rgb(235, 240, 235);*/
+ } 
+   </string>
+           </property>
+           <property name="title">
+            <string/>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_8">
+            <property name="topMargin">
+             <number>11</number>
+            </property>
+            <item row="4" column="3" colspan="2">
+             <widget class="QSlider" name="horizontalSlider_recirculation">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>35</height>
+               </size>
+              </property>
+              <property name="toolTip">
+               <string>Increase/decrease the vacuum recirculation</string>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QSlider::groove:horizontal {
+border: 1px solid #bbb;
+background: white;
+height: 5px;
+border-radius: 3px;
+}
+
+QSlider::sub-page:horizontal {
+background: qlineargradient(x1: 0, y1: 0,    x2: 0, y2: 1,
+stop: 0 #dafefe,
+stop: 1 #331cfe );
+background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
+stop: 0 #A9D08E,
+stop: 0.4 #549635,
+stop: 0.7 #148C14,
+stop: 1 #006400 );
+border: 1px solid #777;
+height: 5px;
+border-radius: 3px;
+}
+
+QSlider::add-page:horizontal {
+background: #fff;
+border: 1px solid #777;
+height: 5px;
+border-radius: 3px;
+}
+
+QSlider::handle:horizontal {
+background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+    stop:0 #eee, stop:1 #ccc);
+border: 1px solid #777;
+width: 50px;
+margin-top: -15px;
+margin-bottom: -15px;
+border-radius: 12px;
+}
+
+QSlider::handle:horizontal:hover {
+background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+    stop:0 #fff, stop:1 #ddd);
+border: 1px solid #444;
+border-radius: 4px;
+}
+
+QSlider::sub-page:horizontal:disabled {
+background: #bbb;
+border-color: #999;
+}
+
+QSlider::add-page:horizontal:disabled {
+background: #eee;
+border-color: #999;
+}
+
+QSlider::handle:horizontal:disabled {
+background: #eee;
+border: 1px solid #aaa;
+border-radius: 4px;
+}</string>
+              </property>
+              <property name="minimum">
+               <number>0</number>
+              </property>
+              <property name="maximum">
+               <number>300</number>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="tickPosition">
+               <enum>QSlider::TicksBelow</enum>
+              </property>
+              <property name="tickInterval">
+               <number>10</number>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="3" colspan="2">
+             <widget class="QProgressBar" name="progressBar_recirc">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>15</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>10</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="toolTip">
+               <string>Current vacuum value</string>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QProgressBar {
+border: 1px solid white;
+padding: 1px;
+color: rgb(255, 255, 255);
+border-bottom-right-radius: 5px;
+border-bottom-left-radius: 5px;
+border-top-right-radius: 5px;
+border-top-left-radius: 5px;
+text-align:right;
+/*margin-right: 25ex;*/
+background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
+stop: 0 #fff,
+stop: 0.4 #eee,
+stop: 0.7 #ddd,
+stop: 1 #eee );
+width: 15px;
+}
+
+QProgressBar::chunk {
+background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
+stop: 0 #A9D08E,
+stop: 0.4 #549635,
+stop: 0.7 #148C14,
+stop: 1 #006400 );
+border-bottom-right-radius: 5px;
+border-bottom-left-radius: 5px;
+border-top-right-radius: 5px;
+border-top-left-radius: 5px;
+/*border: 2px solid white;*/
+/*width: 1px;*/
+}</string>
+              </property>
+              <property name="minimum">
+               <number>0</number>
+              </property>
+              <property name="maximum">
+               <number>300</number>
+              </property>
+              <property name="value">
+               <number>0</number>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight</set>
+              </property>
+              <property name="textVisible">
+               <bool>false</bool>
+              </property>
+              <property name="invertedAppearance">
+               <bool>false</bool>
+              </property>
+              <property name="format">
+               <string notr="true">%v mbar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="3">
+             <widget class="QLabel" name="label_recirc">
+              <property name="font">
+               <font>
+                <pointsize>11</pointsize>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string>Recirculation</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="4">
+             <widget class="QLabel" name="label_recircPressure">
+              <property name="font">
+               <font>
+                <pointsize>11</pointsize>
+               </font>
+              </property>
+              <property name="toolTip">
+               <string>set point / current value</string>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <property name="text">
+               <string>0 mbar</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="5" rowspan="2">
+             <widget class="QPushButton" name="pushButton_recirculationUp">
+              <property name="maximumSize">
+               <size>
+                <width>50</width>
+                <height>50</height>
+               </size>
+              </property>
+              <property name="toolTip">
+               <string>Fine tuning: single step increment</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normaloff>icons/plus.png</normaloff>icons/plus.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>35</width>
+                <height>35</height>
+               </size>
+              </property>
+              <property name="flat">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QProgressBar" name="progressBar_ledRecirc">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>20</width>
+                <height>20</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>10</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="toolTip">
+               <string>Recirculation ON/OFF indicator</string>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QProgressBar {
+border: 1px solid grey;
+padding: 0px;
+color: rgb(255, 255, 255);
+border-bottom-right-radius: 10px;
+border-bottom-left-radius: 10px;
+border-top-right-radius: 10px;
+border-top-left-radius: 10px;
+text-align:right;
+/*margin-right: 25ex;*/
+background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
+stop: 0 #00ff00,
+stop: 0.3 #55ff55,
+stop: 0.5 #aaffaa,
+stop: 1 #ffffff );
+width: 15px;
+}
+
+QProgressBar::chunk {
+background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
+stop: 0 #ffffff,
+stop: 0.5 #ffaaaa,
+stop: 0.7 #ff5555,
+stop: 1 #ff0000 );
+border-bottom-right-radius: 10px;
+border-bottom-left-radius: 10px;
+border-top-right-radius: 10px;
+border-top-left-radius: 10px;
+border:0px solid white;
+}</string>
+              </property>
+              <property name="minimum">
+               <number>0</number>
+              </property>
+              <property name="maximum">
+               <number>1</number>
+              </property>
+              <property name="value">
+               <number>0</number>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignRight</set>
+              </property>
+              <property name="textVisible">
+               <bool>false</bool>
+              </property>
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="invertedAppearance">
+               <bool>false</bool>
+              </property>
+              <property name="format">
+               <string notr="true">%v mbar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2">
+             <widget class="QWidget" name="widget_7" native="true">
+              <property name="maximumSize">
+               <size>
+                <width>10</width>
+                <height>16777215</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QWidget" name="widget_8" native="true">
+              <property name="maximumSize">
+               <size>
+                <width>10</width>
+                <height>16777215</height>
+               </size>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0" rowspan="2" colspan="3">
+             <widget class="QPushButton" name="pushButton_recirculationDown">
+              <property name="maximumSize">
+               <size>
+                <width>50</width>
+                <height>50</height>
+               </size>
+              </property>
+              <property name="toolTip">
+               <string>Fine tuning: single step decrement</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normaloff>icons/minus.png</normaloff>icons/minus.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>35</width>
+                <height>35</height>
                </size>
               </property>
               <property name="flat">
@@ -4238,32 +4415,6 @@ border:0px solid white;
             <string>Set as default</string>
            </property>
           </widget>
-         </item>
-         <item row="6" column="1">
-          <spacer name="horizontalSpacer_11">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item row="7" column="3">
-          <spacer name="verticalSpacer_12">
-           <property name="orientation">
-            <enum>Qt::Vertical</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>20</width>
-             <height>40</height>
-            </size>
-           </property>
-          </spacer>
          </item>
         </layout>
        </widget>
@@ -4440,8 +4591,115 @@ border:0px solid white;
         <attribute name="title">
          <string>Debug stream</string>
         </attribute>
-        <layout class="QGridLayout" name="gridLayout_10">
-         <item row="6" column="0" colspan="3">
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <item>
+          <widget class="QCheckBox" name="checkBox_verboseOut">
+           <property name="text">
+            <string>Verbose output</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="checkBox_dumpToFile">
+           <property name="text">
+            <string>Dump to file</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QCheckBox" name="checkBox_to_terminal">
+           <property name="text">
+            <string>Terminal out</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Out file path</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="lineEdit_msg_out_file_path">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
+           <property name="text">
+            <string>./Ext_Data/</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_22">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
+           <property name="text">
+            <string>Out messages</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QTextEdit" name="textEdit_qcout">
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(0, 0, 0);</string>
+           </property>
+           <property name="readOnly">
+            <bool>true</bool>
+           </property>
+           <property name="html">
+            <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:7.8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_21">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
+           <property name="text">
+            <string>Error messages</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QTextEdit" name="textEdit_qcerr">
            <property name="maximumSize">
             <size>
@@ -4462,113 +4720,6 @@ color: rgb(0, 0, 0);</string>
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="0" rowspan="2" colspan="3">
-          <widget class="QTextEdit" name="textEdit_qcout">
-           <property name="styleSheet">
-            <string notr="true">background-color: rgb(255, 255, 255);
-color: rgb(0, 0, 0);</string>
-           </property>
-           <property name="readOnly">
-            <bool>true</bool>
-           </property>
-           <property name="html">
-            <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:7.8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-           </property>
-          </widget>
-         </item>
-         <item row="5" column="0" colspan="3">
-          <widget class="QLabel" name="label_21">
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>12</pointsize>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true"/>
-           </property>
-           <property name="text">
-            <string>Error messages</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0">
-          <widget class="QCheckBox" name="checkBox_verboseOut">
-           <property name="text">
-            <string>Verbose output</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="QLabel" name="label_22">
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>30</height>
-            </size>
-           </property>
-           <property name="font">
-            <font>
-             <pointsize>12</pointsize>
-            </font>
-           </property>
-           <property name="styleSheet">
-            <string notr="true"/>
-           </property>
-           <property name="text">
-            <string>Out messages</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QCheckBox" name="checkBox_dumpToFile">
-           <property name="text">
-            <string>Dump to file</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="2">
-          <widget class="QCheckBox" name="checkBox_to_terminal">
-           <property name="text">
-            <string>Terminal out</string>
-           </property>
-           <property name="checked">
-            <bool>true</bool>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1" colspan="2">
-          <widget class="QLineEdit" name="lineEdit_msg_out_file_path">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-           <property name="text">
-            <string>./Ext_Data/</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0">
-          <widget class="QLabel" name="label_2">
-           <property name="text">
-            <string>Out file path</string>
            </property>
           </widget>
          </item>

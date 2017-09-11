@@ -18,6 +18,7 @@ The external dependences for this applications are:
   - QT  v. >5.4, for GUI - https://www.qt.io/
   - nsis http://nsis.sourceforge.net/Main_Page - only to generate the installation package
   - <a href="http://www.cmake.org">CMake</a> to generate the solution for your system and build. 
+  - To install on some previous windows version you may need to update your Universal C Runtime in Windows <a href="https://support.microsoft.com/en-us/help/2999226/update-for-universal-c-runtime-in-windows">here</a>
 
 
 

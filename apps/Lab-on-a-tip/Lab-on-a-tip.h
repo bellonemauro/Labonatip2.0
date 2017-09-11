@@ -28,6 +28,7 @@
 
 #include <QTextStream>
 #include <QCoreApplication>
+#include <QDesktopWidget>
 #include <QStringList>
 #include <QProgressDialog>
 #include <QDir>

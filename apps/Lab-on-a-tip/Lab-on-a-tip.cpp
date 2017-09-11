@@ -69,7 +69,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   // all the connects are in this function
   initConnects();
   
-  m_simulationOnly = ui->actionSimulation->isChecked();
+  ui->label_emptyTime->setText(" ");
 
   // status bar to not connected
   ui->statusBar->showMessage("STATUS: NOT Connected  ");
@@ -159,16 +159,23 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   m_timer_solution = 0;
 
   m_update_flowing_sliders->setInterval(m_base_time_step);
-  m_update_GUI->setInterval(m_base_time_step);
+  m_update_GUI->setInterval(10); //(m_base_time_step);
 
   connect(m_update_flowing_sliders, SIGNAL(timeout()), this, SLOT(updateTimingSliders()));
   connect(m_update_GUI, SIGNAL(timeout()), this, SLOT(updateGUI()));
+  m_update_GUI->start();
 
   m_labonatip_chart_view = new Labonatip_chart();
   m_chartView = m_labonatip_chart_view->getChartView();
   ui->gridLayout_12->addWidget(m_chartView);
 
   ui->actionSimulation->setChecked(true);
+  m_simulationOnly = ui->actionSimulation->isChecked();
+
+  m_labonatip_chart_view->setSolutionColor1(m_sol1_color);
+  m_labonatip_chart_view->setSolutionColor2(m_sol2_color);
+  m_labonatip_chart_view->setSolutionColor3(m_sol3_color);
+  m_labonatip_chart_view->setSolutionColor4(m_sol4_color);
 
 }
 
@@ -424,6 +431,7 @@ void Labonatip_GUI::colSolution1Changed(const int _r, const int _g, const int _b
 	QString styleSheet = generateStyleSheet(_r, _g, _b);
 	m_sol1_color.setRgb(_r, _g, _b);
 	ui->progressBar_solution1->setStyleSheet(styleSheet);
+	m_labonatip_chart_view->setSolutionColor1(m_sol1_color);
 }
 
 void Labonatip_GUI::colSolution2Changed(const int _r, const int _g, const int _b)
@@ -432,6 +440,7 @@ void Labonatip_GUI::colSolution2Changed(const int _r, const int _g, const int _b
 	QString styleSheet = generateStyleSheet(_r, _g, _b);
 	m_sol2_color.setRgb(_r, _g, _b);
 	ui->progressBar_solution2->setStyleSheet(styleSheet);
+	m_labonatip_chart_view->setSolutionColor2(m_sol2_color);
 }
 
 
@@ -441,6 +450,7 @@ void Labonatip_GUI::colSolution3Changed(const int _r, const int _g, const int _b
 	QString styleSheet = generateStyleSheet(_r, _g, _b);
 	m_sol3_color.setRgb(_r, _g, _b);
 	ui->progressBar_solution3->setStyleSheet(styleSheet);
+	m_labonatip_chart_view->setSolutionColor3(m_sol3_color);
 }
 
 
@@ -450,6 +460,7 @@ void Labonatip_GUI::colSolution4Changed(const int _r, const int _g, const int _b
 	QString styleSheet = generateStyleSheet(_r, _g, _b);
 	m_sol4_color.setRgb(_r, _g, _b);
 	ui->progressBar_solution4->setStyleSheet(styleSheet);
+	m_labonatip_chart_view->setSolutionColor4(m_sol4_color);
 	//ui->progressBar_solution4->setPalette(*palette);
 }
 
@@ -578,15 +589,32 @@ void Labonatip_GUI::closeOpenDockTools() {
 		 << QTime::currentTime().toString().toStdString() << "  "
 		 << "Labonatip_GUI::closeOpenDockTools   " << endl;
 
+	// get the screen resolution of the current screen
+	// so we can resize the application in case of small screens
+	//QRect rec = QApplication::desktop()->screenGeometry();
+	//int screen_height = rec.height();
+	//int screen_width = rec.width();
+
 	if (!ui->dockWidget->isHidden()) {
 		ui->dockWidget->hide();
 		if (!this->isMaximized())
 			this->resize(QSize(this->width(), this->height()));//	this->resize(QSize(this->minimumWidth(), this->height()));
 	}
 	else {
+
+		if (this->width() < this->minimumWidth() + ui->dockWidget->width())
+		{
+			ui->dockWidget->show();
+			if (!this->isMaximized())
+				this->resize(QSize(this->width() + ui->dockWidget->width(), this->height()));
+		}
+		else
+		{
 		ui->dockWidget->show();
 		if (!this->isMaximized())
-			this->resize(QSize(this->minimumWidth() + ui->dockWidget->width(), this->height()));
+			this->resize(QSize(this->width(), this->height()));
+		}
+		
 	}
 
 }
@@ -602,11 +630,11 @@ void Labonatip_GUI::updateDrawing( int _value) {
 		return;
 	}
 
-	if( ui->pushButton_solution1->isChecked() || 
-		ui->pushButton_solution2->isChecked() ||
-		ui->pushButton_solution3->isChecked() ||
-		ui->pushButton_solution4->isChecked())
-	{
+	//if( ui->pushButton_solution1->isChecked() || 
+	//	ui->pushButton_solution2->isChecked() ||
+	//	ui->pushButton_solution3->isChecked() ||
+	//	ui->pushButton_solution4->isChecked())
+	//{
 	
 	//clean the scene
 	m_scene_solution->clear();
@@ -625,7 +653,7 @@ void Labonatip_GUI::updateDrawing( int _value) {
 
 	ui->graphicsView->setScene(m_scene_solution);
 	ui->graphicsView->show();
-	}
+	//}
 
 	return;
 
@@ -648,7 +676,9 @@ void Labonatip_GUI::pushSolution1()
 		//m_update_time_s1->stop();
 		m_update_flowing_sliders->stop();
 		ui->widget_solutionArrow->setVisible(false);
-		updateDrawing(-1);
+		//updateDrawing(-1);
+		m_pen_line.setColor(Qt::lightGray);
+
 		return;
 	}
 
@@ -673,8 +703,8 @@ void Labonatip_GUI::pushSolution1()
 	m_pen_line.setColor(m_sol1_color);
 	m_flowing_solution = 1;
 
-	if (m_pipette_active) updateDrawing(m_ppc1->getDropletSizePercentage());
-	else updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
+	//if (m_pipette_active) updateDrawing(m_ppc1->getDropletSizePercentage());
+	//else updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
 
 	// move the arrow in the drawing to point on the solution 1
 	ui->widget_solutionArrow->setVisible(true);
@@ -684,7 +714,9 @@ void Labonatip_GUI::pushSolution1()
 			    ui->widget_solutionArrow->pos().ry()));
 
 	// Here start the solution flow 
-	m_time_multipilcator = m_dialog_tools->getSolutionTime();// (int)(ui->doubleSpinBox_solution->value()); //TODO: get this value from the tool dialog
+	double solution_release_time = m_dialog_tools->getSolutionTime();
+	m_time_multipilcator = (int)solution_release_time;
+
 
 	// SET vacum to _value
 	if (m_pipette_active)
@@ -715,7 +747,9 @@ void Labonatip_GUI::pushSolution2() {
 
 		m_update_flowing_sliders->stop();
 		ui->widget_solutionArrow->setVisible(false);
-		updateDrawing(-1);
+		//updateDrawing(-1);
+		m_pen_line.setColor(Qt::lightGray);
+
 		return;
 	}
 	
@@ -739,8 +773,8 @@ void Labonatip_GUI::pushSolution2() {
 	m_pen_line.setColor(m_sol2_color);
 	m_flowing_solution = 2;
 
-	if (m_pipette_active) updateDrawing(m_ppc1->getDropletSizePercentage());
-	else updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
+	//if (m_pipette_active) updateDrawing(m_ppc1->getDropletSizePercentage());
+	//else updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
 
 	// move the arrow in the drawing to point on the solution 2
 	ui->widget_solutionArrow->setVisible(true);
@@ -749,8 +783,9 @@ void Labonatip_GUI::pushSolution2() {
 		QPoint( m_widget_solutionArrow_x_pos - m_widget_solutionArrow_x_pos_shift, // shift
 			    ui->widget_solutionArrow->pos().ry()));
 
-	m_time_multipilcator = m_dialog_tools->getSolutionTime();// (int)(ui->doubleSpinBox_solution->value()); //TODO: get this value from the tool dialog
-
+	double solution_release_time = m_dialog_tools->getSolutionTime();
+	m_time_multipilcator = (int)solution_release_time;
+	
 	if (m_pipette_active)
 	{
 		m_ppc1->closeAllValves();
@@ -780,7 +815,9 @@ void Labonatip_GUI::pushSolution3() {
 
 		m_update_flowing_sliders->stop();
 		ui->widget_solutionArrow->setVisible(false);
-		updateDrawing(-1);
+		//updateDrawing(-1);
+		m_pen_line.setColor(Qt::lightGray);
+
 		return;
 	}
 
@@ -804,8 +841,8 @@ void Labonatip_GUI::pushSolution3() {
 	m_pen_line.setColor(m_sol3_color);
 	m_flowing_solution = 3;
 
-	if (m_pipette_active) updateDrawing(m_ppc1->getDropletSizePercentage());
-	else updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
+	//if (m_pipette_active) updateDrawing(m_ppc1->getDropletSizePercentage());
+	//else updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
 
 	// move the arrow in the drawing to point on the solution 3
 	ui->widget_solutionArrow->setVisible(true);
@@ -816,7 +853,8 @@ void Labonatip_GUI::pushSolution3() {
 			ui->widget_solutionArrow->pos().ry()));
 	//TODO: I don't like the static movement, let's find another solution for it ! 
 
-	m_time_multipilcator = m_dialog_tools->getSolutionTime();// (int)(ui->doubleSpinBox_solution->value()); //TODO: get this value from the tool dialog
+	double solution_release_time = m_dialog_tools->getSolutionTime();
+	m_time_multipilcator = (int)solution_release_time;
 
 	if (m_pipette_active)
 	{
@@ -847,7 +885,9 @@ void Labonatip_GUI::pushSolution4() {
 
 		m_update_flowing_sliders->stop();
 		ui->widget_solutionArrow->setVisible(false);
-		updateDrawing(-1);
+		//updateDrawing(-1);
+		m_pen_line.setColor(Qt::lightGray);
+
 		return;
 	}
 
@@ -872,8 +912,8 @@ void Labonatip_GUI::pushSolution4() {
 	m_pen_line.setColor(m_sol4_color);
 	m_flowing_solution = 4;
 
-	if (m_pipette_active) updateDrawing(m_ppc1->getDropletSizePercentage());
-	else updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
+	//if (m_pipette_active) updateDrawing(m_ppc1->getDropletSizePercentage());
+	//else updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
 
 	// move the arrow in the drawing to point on the solution 4
 	ui->widget_solutionArrow->setVisible(true);
@@ -884,7 +924,8 @@ void Labonatip_GUI::pushSolution4() {
 			ui->widget_solutionArrow->pos().ry()));
 	//TODO: I don't like the static movement, let's find another solution for it ! 
 
-	m_time_multipilcator = m_dialog_tools->getSolutionTime();// (int)(ui->doubleSpinBox_solution->value()); //TODO: get this value from the tool dialog
+	double solution_release_time = m_dialog_tools->getSolutionTime();
+	m_time_multipilcator = (int)solution_release_time;
 
 	if (m_pipette_active)
 	{
@@ -961,7 +1002,7 @@ void Labonatip_GUI::updateTimingSliders( )
 		break;
 	}
 	default : {
-		cout << QDate::currentDate().toString().toStdString() << "  " 
+		cerr << QDate::currentDate().toString().toStdString() << "  " 
 			 << QTime::currentTime().toString().toStdString() << "  "
 			 << "Labonatip_GUI::updateTimingSliders  error --- no valid m_flowing_solution value " << endl;
 		return;
@@ -976,14 +1017,20 @@ void Labonatip_GUI::updateTimingSliders( )
 		_bar->setValue(100 - status);
 		//m_labonatip_chart_view->updateChartTime(status); //TODO: take this out of here
 		QString s;
-		s.append("Empty in ");
-		int remaining_time_in_sec = (m_time_multipilcator - m_timer_solution);
-		int remaining_hours = floor(remaining_time_in_sec / 3600); // 3600 sec in a hour
-		int remaining_mins = floor((remaining_time_in_sec % 3600) / 60); // 60 minutes in a hour
-		s.append(QString::number(remaining_hours));
-		s.append(" h, ");
-		s.append(QString::number(remaining_mins));
-		s.append(" min ");
+		if (!m_dialog_tools->isContinuousFlowing()) {
+			s.append("Empty in ");
+			int remaining_time_in_sec = (m_time_multipilcator - m_timer_solution);
+			int remaining_hours = floor(remaining_time_in_sec / 3600); // 3600 sec in a hour
+			int remaining_mins = floor((remaining_time_in_sec % 3600) / 60); // 60 minutes in a hour
+			s.append(QString::number(remaining_hours));
+			s.append(" h, ");
+			s.append(QString::number(remaining_mins));
+			s.append(" min ");
+		}
+		else
+		{
+			s.append("Continuous flowing");
+		}
 		ui->label_emptyTime->setText(s);
 		//ui->doubleSpinBox_solution->setValue(remaining_time_in_sec);
 		m_timer_solution++;
@@ -1006,10 +1053,19 @@ void Labonatip_GUI::updateTimingSliders( )
 		{
 			m_update_flowing_sliders->start();
 			QString s;
-			s.append("Continuous flowing  ");
+			s.append("Continuous flowing");
 			ui->label_emptyTime->setText(s);
 			return;
 		}
+
+		double solution_release_time = m_dialog_tools->getSolutionTime();
+		m_time_multipilcator = (int)solution_release_time;
+		double rest = solution_release_time - m_time_multipilcator;
+		QThread::msleep(rest*1000);
+		// TODO: here we wait the remaing time for the last digit
+		//       however, this is a shitty solution and it must be
+		//       changed to a proper timer and interrupt architecture
+
 		m_update_flowing_sliders->stop();
 		m_timer_solution = 0;
 		_bar->setValue(10); //set the minimum just to visualize something
@@ -1038,45 +1094,51 @@ void Labonatip_GUI::updateTimingSliders( )
 
 
 void Labonatip_GUI::updateGUI() {
-	float sensor_reading = (m_ppc1->m_PPC1_data->channel_B->sensor_reading );  // rounded to second decimal
-	float set_point = (m_ppc1->m_PPC1_data->channel_B->set_point);
-	ui->label_switchPressure->setText(QString(QString::number(sensor_reading) + " / " + QString::number(set_point) + " mbar"));
-	ui->progressBar_switch->setValue(-sensor_reading);
+
+	if (!m_simulationOnly) {
+		int sensor_reading = (int)(m_ppc1->m_PPC1_data->channel_B->sensor_reading);  // rounded to second decimal
+		int set_point = (int)(m_ppc1->m_PPC1_data->channel_B->set_point);
+		ui->label_switchPressure->setText(QString(QString::number(sensor_reading) + ", " + QString::number(set_point) + " mbar"));
+		ui->progressBar_switch->setValue(-sensor_reading);
 
 
-	sensor_reading = (m_ppc1->m_PPC1_data->channel_A->sensor_reading );
-	set_point = (m_ppc1->m_PPC1_data->channel_A->set_point);
-	ui->label_recircPressure->setText(QString(QString::number(sensor_reading) + " / " + QString::number(set_point) + " mbar"));
-	ui->progressBar_recirc->setValue(-sensor_reading);
+		sensor_reading = (int)(m_ppc1->m_PPC1_data->channel_A->sensor_reading);
+		set_point = (int)(m_ppc1->m_PPC1_data->channel_A->set_point);
+		ui->label_recircPressure->setText(QString(QString::number(sensor_reading) + ", " + QString::number(set_point) + " mbar"));
+		ui->progressBar_recirc->setValue(-sensor_reading);
 
 
-	sensor_reading = (m_ppc1->m_PPC1_data->channel_C->sensor_reading );
-	set_point = (m_ppc1->m_PPC1_data->channel_C->set_point);
-	ui->label_PoffPressure->setText(QString(QString::number(sensor_reading) + " / " + QString::number(set_point) + " mbar"));
-	ui->progressBar_pressure_p_off->setValue(sensor_reading);
+		sensor_reading = (int)(m_ppc1->m_PPC1_data->channel_C->sensor_reading);
+		set_point = (int)(m_ppc1->m_PPC1_data->channel_C->set_point);
+		ui->label_PoffPressure->setText(QString(QString::number(sensor_reading) + ", " + QString::number(set_point) + " mbar"));
+		ui->progressBar_pressure_p_off->setValue(sensor_reading);
 
 
-	sensor_reading = (m_ppc1->m_PPC1_data->channel_D->sensor_reading );
-	set_point = (m_ppc1->m_PPC1_data->channel_D->set_point);
-	ui->label_PonPressure->setText(QString(QString::number(sensor_reading) + " / " + QString::number(set_point) + " mbar"));
-	ui->progressBar_pressure_p_on->setValue(sensor_reading);
+		sensor_reading = (int)(m_ppc1->m_PPC1_data->channel_D->sensor_reading);
+		set_point = (int)(m_ppc1->m_PPC1_data->channel_D->set_point);
+		ui->label_PonPressure->setText(QString(QString::number(sensor_reading) + ", " + QString::number(set_point) + " mbar"));
+		ui->progressBar_pressure_p_on->setValue(sensor_reading);
 
-	ui->progressBar_recircIn->setValue(ui->horizontalSlider_recirculation->value());
-	ui->progressBar_recircOut->setValue(ui->horizontalSlider_recirculation->value());
+		ui->progressBar_recircIn->setValue(ui->horizontalSlider_recirculation->value());
+		ui->progressBar_recircOut->setValue(ui->horizontalSlider_recirculation->value());
 
-	ui->progressBar_switchIn->setValue(ui->horizontalSlider_switch->value());
-	ui->progressBar_switchOut->setValue(ui->horizontalSlider_switch->value());
+		ui->progressBar_switchIn->setValue(ui->horizontalSlider_switch->value());
+		ui->progressBar_switchOut->setValue(ui->horizontalSlider_switch->value());
 
-	ui->lcdNumber_dropletSize_percentage->display(m_ppc1->getDropletSizePercentage());
-	//ui->progressBar_dropletSize->setValue(m_ppc1->getDropletSizePercentage());
-	ui->lcdNumber_flowspeed_percentage->display(m_ppc1->getFlowSpeedPercentage());
-	//ui->progressBar_flowSpeed->setValue(m_ppc1->getFlowSpeedPercentage());
-	ui->lcdNumber_vacuum_percentage->display(m_ppc1->getVacuumPercentage());
-	//ui->progressBar_vacuum->setValue(m_ppc1->getVacuumPercentage());
+		ui->lcdNumber_dropletSize_percentage->display(m_ppc1->getDropletSizePercentage());
+		//ui->progressBar_dropletSize->setValue(m_ppc1->getDropletSizePercentage());
+		ui->lcdNumber_flowspeed_percentage->display(m_ppc1->getFlowSpeedPercentage());
+		//ui->progressBar_flowSpeed->setValue(m_ppc1->getFlowSpeedPercentage());
+		ui->lcdNumber_vacuum_percentage->display(m_ppc1->getVacuumPercentage());
+		//ui->progressBar_vacuum->setValue(m_ppc1->getVacuumPercentage());
 
-	updateDrawing(m_ppc1->getDropletSizePercentage());
+		//updateDrawing(m_ppc1->getDropletSizePercentage());
+	}
 
-	if (m_ppc1->isRunning())
+	if (m_pipette_active) updateDrawing(m_ppc1->getDropletSizePercentage());
+	else updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
+
+	//if (m_ppc1->isRunning())
   	    m_update_GUI->start();
 }
 
@@ -1340,6 +1402,25 @@ void Labonatip_GUI::toolOk() {
 
 	/////////////////////////////////////////
 	// TODO set all the other options
+	if (m_dialog_tools->isContinuousFlowing())
+	{
+		m_update_flowing_sliders->start();
+		QString s;
+		s.append("Continuous flowing");
+		ui->label_emptyTime->setText(s);
+	}
+	else
+	{
+		QString s;
+		s.append("Empty in ");
+		int remaining_time_in_sec = (m_time_multipilcator - m_timer_solution);
+		int remaining_hours = floor(remaining_time_in_sec / 3600); // 3600 sec in a hour
+		int remaining_mins = floor((remaining_time_in_sec % 3600) / 60); // 60 minutes in a hour
+		s.append(QString::number(remaining_hours));
+		s.append(" h, ");
+		s.append(QString::number(remaining_mins));
+		s.append(" min ");
+	}
 
 	//updateChartMacro();
 	m_labonatip_chart_view->updateChartMacro(m_macro);
@@ -1368,8 +1449,26 @@ void Labonatip_GUI::toolApply()
 
 	/////////////////////////////////////////
 	// TODO set all the other options
+	if (m_dialog_tools->isContinuousFlowing())
+	{
+		m_update_flowing_sliders->start();
+		QString s;
+		s.append("Continuous flowing");
+		ui->label_emptyTime->setText(s);
+	}
+	else
+	{
+		QString s;
+		s.append("Empty in ");
+		int remaining_time_in_sec = (m_time_multipilcator - m_timer_solution);
+		int remaining_hours = floor(remaining_time_in_sec / 3600); // 3600 sec in a hour
+		int remaining_mins = floor((remaining_time_in_sec % 3600) / 60); // 60 minutes in a hour
+		s.append(QString::number(remaining_hours));
+		s.append(" h, ");
+		s.append(QString::number(remaining_mins));
+		s.append(" min ");
+	}
 
-	//updateChartMacro();
 	m_labonatip_chart_view->updateChartMacro(m_macro);
 
 	// compute the duration of the macro
@@ -1424,7 +1523,9 @@ bool Labonatip_GUI::visualizeProgressMessage(int _seconds, QString _message)
 	//PD->setFont(font);  // TODO uniform all the font in the application
 	PD->setMinimumWidth(350);
 	PD->setMinimumHeight(150);
-	PD->setValue(0); 
+	PD->setMaximumWidth(700);
+	PD->setMaximumHeight(300);
+	PD->setValue(0);
 	PD->setMinimumDuration(0); // Change the Minimum Duration before displaying from 4 sec. to 0 sec. 
 	PD->show(); // Make sure dialog is displayed immediately
 	PD->setValue(1); 
@@ -1466,7 +1567,7 @@ void Labonatip_GUI::about() {
 	QString msg_content = tr("<b>Lab-on-a-tip</b> is a <a href='http://fluicell.com/'>Fluicell</a> AB software <br>"
 		//"Lab-on-a-tip Wizard <br>"
 		"Copyright Fluicell AB, Sweden 2017 <br> <br>"
-		"Developer: Mauro Bellone http://www.maurobellone.com <br>"
+		"Developer: Mauro Bellone <a href='http://www.maurobellone.com'>http://www.maurobellone.com</a> <br>"
 		"Version: ");
 	msg_content.append(m_version);
 	messageBox.about(this, msg_title, msg_content); 

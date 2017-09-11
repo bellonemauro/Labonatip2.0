@@ -60,14 +60,14 @@ set(CPACK_NSIS_DISPLAY_NAME "Fluicell Lab-on-a-tip V.${CMAKE_Fluicell_FULL_VERSI
 set (CPACK_NSIS_MODIFY_PATH "ON")     
 
 #SET(CPACK_PACKAGE_EXECUTABLES "Target_Name" "Target Name")
-SET(CPACK_PACKAGE_EXECUTABLES "Lab-on-a-tip" "Lab-on-a-tip V.${CMAKE_Fluicell_FULL_VERSION}")
+SET(CPACK_PACKAGE_EXECUTABLES "Lab-on-a-tip" "Lab-on-a-tip")
 
 
 #create a desktop icon with link to the .exe file
-set(CPACK_CREATE_DESKTOP_LINKS "Lab-on-a-tip" "Lab-on-a-tip V.${CMAKE_Fluicell_FULL_VERSION}")
+set(CPACK_CREATE_DESKTOP_LINKS "Lab-on-a-tip" "Lab-on-a-tip")
 
 # required by cmake to install new registry key for the executable
-set(CPACK_PACKAGE_INSTALL_REGISTRY_KEY "${CMAKE_PROJECT_NAME}-${CMAKE_Fluicell_FULL_VERSION}")
+set(CPACK_PACKAGE_INSTALL_REGISTRY_KEY "${CMAKE_PROJECT_NAME}")#-${CMAKE_Fluicell_FULL_VERSION}")
 
 
 set(CPACK_NSIS_EXECUTABLES_DIRECTORY ".")
@@ -102,7 +102,7 @@ endif()
 
 #in order to support the previous feature of deploying QT, the previous lines have been added to the lab-on-a-tip gui application
 #anyway to avoid the deployment to run every time it is compiled, the variable BUILD_WINDEPLOYQT is set to 0
-if (NOT BUILD_WINDEPLOYQT )
+if (NOT ENABLE_WINDEPLOYQT )
 		message (WARNING "     REMEMBER TO DEFINE BUILD_WINDEPLOYQT if you want to build the package \n")
 endif()
   

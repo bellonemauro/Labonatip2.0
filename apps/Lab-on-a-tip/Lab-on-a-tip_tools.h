@@ -96,11 +96,15 @@ public:
 	  int v_recirc_max;
 	  int v_recirc_min;
 	  int v_recirc_default;
+	  int base_ds_increment;
+	  int base_fs_increment;
+	  int base_v_increment;
 
 	  pr_params() : p_on_max (450), p_on_min(0), p_on_default(190),
 				    p_off_max(450), p_off_min(0), p_off_default(21),
 				    v_switch_max(0), v_switch_min(-300), v_switch_default(-115),
-					v_recirc_max(0), v_recirc_min(-300), v_recirc_default(-115)
+					v_recirc_max(0), v_recirc_min(-300), v_recirc_default(-115),
+					base_ds_increment(10), base_fs_increment(5), base_v_increment(5)
 	  {   // default values
 	  }
   }; // END pr_params struct
@@ -132,7 +136,7 @@ public:
 
 	QString getMacroPath() { return m_current_macro_file_name; };
 
-	int getSolutionTime() { return (int)ui_tools->doubleSpinBox_solution->value(); }
+	double getSolutionTime() { return (double)ui_tools->doubleSpinBox_solution->value(); }
 
 	bool isContinuousFlowing() { return ui_tools->checkBox_disableTimer->isChecked(); }
 
