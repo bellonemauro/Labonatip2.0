@@ -83,34 +83,34 @@ int main(int argc, char **argv)//(int argc, char *argv[])
 #endif
 	try {
 
-  QApplication a (argc, argv);
-  Labonatip_GUI window;
+	  QApplication a (argc, argv);
+	  Labonatip_GUI window;
 
-  QSplashScreen *s = new QSplashScreen();
-  s->setPixmap(QPixmap("./icons/splash_screen.png"));
-  s->show();
-  QTimer::singleShot(5000, s, SLOT(close()));
+	  QSplashScreen *s = new QSplashScreen();
+	  s->setPixmap(QPixmap("./icons/splash_screen.png"));
+	  s->show();
+	  QTimer::singleShot(5000, s, SLOT(close()));
 
 #ifdef LABONATIP_VERSION
-  window.setVersion(version);
+	  window.setVersion(version);
 #endif
 
-  // get the screen resolution of the current screen
-  // so we can resize the application in case of small screens
-  QRect rec = QApplication::desktop()->screenGeometry();
-  int screen_height = rec.height();
-  int screen_width = rec.width();
+	  // get the screen resolution of the current screen
+	  // so we can resize the application in case of small screens
+	  QRect rec = QApplication::desktop()->screenGeometry();
+	  int screen_height = rec.height();
+	  int screen_width = rec.width();
 
-  //window.showFullScreen();
-  //window.showMaximized();
-  window.move(QPoint(50, 50));
-  //window.show ();
-  if (screen_width < 1400)
-	 QTimer::singleShot(5000, &window, SLOT(showMaximized()));
-  else
-	  QTimer::singleShot(5000, &window, SLOT(show()));
+	  //window.showFullScreen();
+	  //window.showMaximized();
+	  window.move(QPoint(50, 50));
+	  //window.show ();
+	  if (screen_width < 1400)
+		 QTimer::singleShot(5000, &window, SLOT(showMaximized()));
+	  else
+		  QTimer::singleShot(5000, &window, SLOT(show()));
   
-  //return a.exec ();
+	  //return a.exec ();
   
   
 	  a.exec();

@@ -447,6 +447,8 @@ private slots:
 	  */
 	void updateTimingSliders( );
 
+	void updateFlows();
+
 	void updateGUI();
 
 	/** \brief  Set the sLog file to be saved true = save // false = not save

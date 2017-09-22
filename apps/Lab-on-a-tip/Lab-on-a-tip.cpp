@@ -18,8 +18,8 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	m_pipette_active(false),
 	m_ppc1 ( new fluicell::PPC1api() ),
 	m_macro (NULL),
-	c_x(53.0),
-	c_y(46.0),
+	c_x(50.0),
+	c_y(45.0),
 	c_radius(10.0),
 	g_radius(70.0),
 	m_pen_line_width(7),
@@ -161,8 +161,12 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   m_update_flowing_sliders->setInterval(m_base_time_step);
   m_update_GUI->setInterval(10); //(m_base_time_step);
 
-  connect(m_update_flowing_sliders, SIGNAL(timeout()), this, SLOT(updateTimingSliders()));
-  connect(m_update_GUI, SIGNAL(timeout()), this, SLOT(updateGUI()));
+  connect(m_update_flowing_sliders, 
+	  SIGNAL(timeout()), this, 
+	  SLOT(updateTimingSliders()));
+  connect(m_update_GUI, 
+	  SIGNAL(timeout()), this, 
+	  SLOT(updateGUI()));
   m_update_GUI->start();
 
   m_labonatip_chart_view = new Labonatip_chart();
@@ -405,7 +409,7 @@ void Labonatip_GUI::updateMacroTimeStatus(const int &_status) {
 	ui->treeWidget_macroInfo->topLevelItem(5)->setText(1, QString::number(currentTime));
 
 	updateFlowControlPercentages();
-	if (m_pipette_active) updateDrawing(m_ppc1->getDropletSizePercentage());
+	if (m_pipette_active) updateDrawing(m_ppc1->getDropletSize());
 	else updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
 
 	//cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
@@ -624,8 +628,24 @@ void Labonatip_GUI::updateDrawing( int _value) {
 
 
 	if (_value == -1) { // _value = -1 cleans the scene and make the flow disappear 
+
+		cout << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_GUI::updateDrawing :::: clear scene  " << endl;
 		m_scene_solution->clear();
+// TODO: for some reason here the scene is not removed 
+		m_pen_line.setColor(Qt::lightGray);
+		QBrush brush(m_pen_line.color(), Qt::SolidPattern);
+
+		m_scene_solution->addEllipse(c_x, c_y - _value / 2,
+			c_radius + _value, c_radius + _value,
+			m_pen_flow, brush);
+
+		// draw a line from the injector to the solution release point 
+		m_scene_solution->addLine(l_x1, l_y1, l_x2, l_y2, m_pen_line);
+
 		ui->graphicsView->setScene(m_scene_solution);
+		ui->graphicsView->update();
 		ui->graphicsView->show();
 		return;
 	}
@@ -644,10 +664,23 @@ void Labonatip_GUI::updateDrawing( int _value) {
 	//QBrush brush(*m_gradient_flow);
 	QBrush brush(m_pen_line.color(), Qt::SolidPattern);
 
-	m_scene_solution->addEllipse( c_x, c_y - _value/2, 
-		                          c_radius + _value, c_radius + _value, 
-								  m_pen_flow, brush );
+
+	//m_scene_solution->addEllipse( c_x, c_y - _value/8.0, 
+	//	                          c_radius + _value/4.0, c_radius + _value/4.0, 
+	//							  m_pen_flow, brush );
 	
+	QPen * penna = new QPen();
+	penna->setColor(Qt::transparent);
+	penna->setWidth(1);
+	//m_scene_solution->addLine(l_x2 - 20, l_y2 - 20, l_x2 + 20, l_y2 + 20, *penna);
+
+	// TODO: this is an attempt to make the droplet to look a little bit more realistic
+	QPainterPath* path = new QPainterPath();
+	path->arcMoveTo(45, 34, 20, 20, -90);
+	path->arcTo(45, 36, 15 + _value / 8.0, 25 +_value / 50.0, -90 - _value / 5.0, 180 + _value / 2.5);
+	path->setFillRule(Qt::FillRule::WindingFill);
+	m_scene_solution->addPath(*path, *penna, brush);
+
 	// draw a line from the injector to the solution release point 
 	m_scene_solution->addLine(l_x1, l_y1, l_x2, l_y2, m_pen_line);
 
@@ -1036,7 +1069,7 @@ void Labonatip_GUI::updateTimingSliders( )
 		m_timer_solution++;
 		// show the warning label
 
-		if (m_pipette_active) updateDrawing(m_ppc1->getDropletSizePercentage());
+		if (m_pipette_active) updateDrawing(m_ppc1->getDropletSize());
 		else updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
 
 		//ui->label_warningIcon->show();
@@ -1047,7 +1080,7 @@ void Labonatip_GUI::updateTimingSliders( )
 		}
 		return;
 	}
-	else
+	else  // here we are ending the release process of the solution
 	{
 		if (m_dialog_tools->isContinuousFlowing())//(ui->checkBox_disableTimer->isChecked() ) // TODO: bring the param to settings
 		{
@@ -1080,6 +1113,8 @@ void Labonatip_GUI::updateTimingSliders( )
 		ui->widget_solutionArrow->setVisible(false);
 		updateDrawing(-1); // remove the droplet from the drawing
 
+
+
 		ui->label_warningIcon->clear();
 		ui->label_warning->clear();
 		//ui->label_warningIcon->setPixmap(*m_pmap_okIcon);
@@ -1090,6 +1125,136 @@ void Labonatip_GUI::updateTimingSliders( )
 		return;
 	}
 
+}
+
+void Labonatip_GUI::updateFlows()
+{
+
+	// calculate the flow
+	double delta_pressure = 0.0;
+	double pipe_length = 0.124;
+	double outflow = 0.0;
+	double inflow_recirculation = 0.0;
+	double inflow_switch = 0.0;
+	double in_out_ratio = 0.0;
+	double solution_usage_off = 0.0;
+	double solution_usage_on = 0.0;
+	double flow_rate_1 = 0.0;
+	double flow_rate_2 = 0.0;
+	double flow_rate_3 = 0.0;
+	double flow_rate_4 = 0.0;
+	double flow_rate_5 = 0.0;
+	double flow_rate_6 = 0.0;
+	double flow_rate_7 = 0.0;
+	double flow_rate_8 = 0.0;
+	double v_s = m_v_switch_set_point;
+	double p_on = m_pon_set_point;
+	double p_off = m_poff_set_point;
+
+
+	if (!m_simulationOnly) {
+		ui->treeWidget_macroInfo->topLevelItem(1)->setText(1, QString::number(m_ppc1->m_PPC1_status->outflow));
+		ui->treeWidget_macroInfo->topLevelItem(2)->setText(1, QString::number(m_ppc1->m_PPC1_status->inflow_recirculation));
+		ui->treeWidget_macroInfo->topLevelItem(3)->setText(1, QString::number(m_ppc1->m_PPC1_status->in_out_ratio));
+
+		ui->treeWidget_macroInfo->topLevelItem(6)->setText(1, QString::number(m_ppc1->m_PPC1_status->flow_rate_1));
+		ui->treeWidget_macroInfo->topLevelItem(7)->setText(1, QString::number(m_ppc1->m_PPC1_status->flow_rate_2));
+		ui->treeWidget_macroInfo->topLevelItem(8)->setText(1, QString::number(m_ppc1->m_PPC1_status->flow_rate_3));
+		ui->treeWidget_macroInfo->topLevelItem(9)->setText(1, QString::number(m_ppc1->m_PPC1_status->flow_rate_4));
+		ui->treeWidget_macroInfo->topLevelItem(10)->setText(1, QString::number(m_ppc1->m_PPC1_status->flow_rate_5));
+		ui->treeWidget_macroInfo->topLevelItem(11)->setText(1, QString::number(m_ppc1->m_PPC1_status->flow_rate_6));
+		ui->treeWidget_macroInfo->topLevelItem(12)->setText(1, QString::number(m_ppc1->m_PPC1_status->flow_rate_7));
+		ui->treeWidget_macroInfo->topLevelItem(13)->setText(1, QString::number(m_ppc1->m_PPC1_status->flow_rate_8));
+
+		return;
+	}
+	else{
+		v_s = m_v_switch_set_point;
+		p_on = m_pon_set_point;
+		p_off = m_poff_set_point;
+	}
+	// calculate inflow
+	delta_pressure = 100.0 * v_s;
+
+	pipe_length = 0.065;
+	inflow_recirculation = 2 * m_ppc1->getFlowSimple(delta_pressure, pipe_length);
+
+	delta_pressure = 100.0 * (v_s + 2 * p_off *  0.046153846);
+	inflow_switch = 2 * m_ppc1->getFlowSimple(delta_pressure, pipe_length);
+
+	delta_pressure = 100.0 * 2 * p_off;
+	pipe_length = 0.124;
+	solution_usage_off = m_ppc1->getFlowSimple(delta_pressure, pipe_length);
+
+	delta_pressure = 100.0 * p_on;
+	pipe_length = 0.065;
+	solution_usage_on = m_ppc1->getFlowSimple(delta_pressure, pipe_length);
+
+
+	if (ui->pushButton_solution1->isChecked() ||
+		ui->pushButton_solution2->isChecked() ||
+		ui->pushButton_solution3->isChecked() ||
+		ui->pushButton_solution4->isChecked()) // flow when solution is off
+		{
+
+		delta_pressure = 100.0 * (p_on +
+			(p_off * 3) -
+			(v_s * 2));
+
+		pipe_length = 0.065;
+		outflow = m_ppc1->getFlowSimple( delta_pressure, pipe_length);
+
+
+
+		flow_rate_1 = solution_usage_on;
+		flow_rate_2 = solution_usage_off;
+		flow_rate_3 = solution_usage_off;
+		flow_rate_4 = solution_usage_off;
+		flow_rate_5 = inflow_switch / 2.0;
+		flow_rate_6 = inflow_switch / 2.0;
+		flow_rate_7 = inflow_recirculation / 2.0;
+		flow_rate_8 = inflow_recirculation / 2.0;
+
+	}
+	else // flow when solution is on
+	{
+		delta_pressure = 100.0 * ((p_off * 4) -
+			(v_s * 2));
+
+		pipe_length = 0.124;
+		outflow = 2 * m_ppc1->getFlowSimple( delta_pressure, pipe_length);
+
+		flow_rate_1 = solution_usage_off;
+		flow_rate_2 = solution_usage_off;
+		flow_rate_3 = solution_usage_off;
+		flow_rate_4 = solution_usage_off;
+		flow_rate_5 = inflow_switch / 2.0;
+		flow_rate_6 = inflow_switch / 2.0;
+		flow_rate_7 = inflow_recirculation / 2.0;
+		flow_rate_8 = inflow_recirculation / 2.0;
+	}
+
+
+
+	in_out_ratio = std::abs(outflow / inflow_recirculation);
+
+
+
+	ui->treeWidget_macroInfo->topLevelItem(1)->setText(1, QString::number(outflow));
+	ui->treeWidget_macroInfo->topLevelItem(2)->setText(1, QString::number(inflow_recirculation));
+	ui->treeWidget_macroInfo->topLevelItem(3)->setText(1, QString::number(in_out_ratio));
+
+	ui->treeWidget_macroInfo->topLevelItem(6)->setText(1, QString::number(flow_rate_1));
+	ui->treeWidget_macroInfo->topLevelItem(7)->setText(1, QString::number(flow_rate_2));
+	ui->treeWidget_macroInfo->topLevelItem(8)->setText(1, QString::number(flow_rate_3));
+	ui->treeWidget_macroInfo->topLevelItem(9)->setText(1, QString::number(flow_rate_4));
+	ui->treeWidget_macroInfo->topLevelItem(10)->setText(1, QString::number(flow_rate_5));
+	ui->treeWidget_macroInfo->topLevelItem(11)->setText(1, QString::number(flow_rate_6));
+	ui->treeWidget_macroInfo->topLevelItem(12)->setText(1, QString::number(flow_rate_7));
+	ui->treeWidget_macroInfo->topLevelItem(13)->setText(1, QString::number(flow_rate_8));
+
+
+	return;
 }
 
 
@@ -1125,18 +1290,22 @@ void Labonatip_GUI::updateGUI() {
 		ui->progressBar_switchIn->setValue(ui->horizontalSlider_switch->value());
 		ui->progressBar_switchOut->setValue(ui->horizontalSlider_switch->value());
 
-		ui->lcdNumber_dropletSize_percentage->display(m_ppc1->getDropletSizePercentage());
+		ui->lcdNumber_dropletSize_percentage->display(m_ppc1->getDropletSize());
 		//ui->progressBar_dropletSize->setValue(m_ppc1->getDropletSizePercentage());
-		ui->lcdNumber_flowspeed_percentage->display(m_ppc1->getFlowSpeedPercentage());
+		ui->lcdNumber_flowspeed_percentage->display(m_ppc1->getFlowSpeed());
 		//ui->progressBar_flowSpeed->setValue(m_ppc1->getFlowSpeedPercentage());
-		ui->lcdNumber_vacuum_percentage->display(m_ppc1->getVacuumPercentage());
+		ui->lcdNumber_vacuum_percentage->display(m_ppc1->getVacuum());
 		//ui->progressBar_vacuum->setValue(m_ppc1->getVacuumPercentage());
 
 		//updateDrawing(m_ppc1->getDropletSizePercentage());
 	}
 
-	if (m_pipette_active) updateDrawing(m_ppc1->getDropletSizePercentage());
+	if (m_pipette_active) updateDrawing(m_ppc1->getDropletSize());
 	else updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
+
+
+	updateFlows();
+
 
 	//if (m_ppc1->isRunning())
   	    m_update_GUI->start();

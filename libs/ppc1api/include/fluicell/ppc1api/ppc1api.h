@@ -33,12 +33,16 @@
 #include <iostream>
 #include <string>
 #include <cstdio>
-#include <cmath>
+
+#define _USE_MATH_DEFINES
+#include <math.h>
+
 #include <ctime>
 #include <thread>
 #include <mutex>
 
 #include <serial/serial.h>
+
 
 using namespace std;
 
@@ -210,8 +214,17 @@ namespace fluicell
 				double PID_out_DC;
 				int state;
 
-				channel() : set_point(0.0), sensor_reading(0.0), PID_out_DC(0.0), state(0) {}
+				/**  \brief Constructor for PPC1 channel data container
+				*
+				**/
+				channel() : 
+					set_point(0.0), 
+					sensor_reading(0.0),
+					PID_out_DC(0.0), 
+					state(0)
+				{}
 			};
+
 			channel *channel_A;  //!< vacuum channel A   --- V_recirc
 			channel *channel_B;  //!< vacuum channel B   --- V_switch
 			channel *channel_C;  //!< pressure channel C --- P_off
@@ -244,7 +257,37 @@ namespace fluicell
 		};
 
 
-	
+		//TODO write guide 
+		struct PPC1API_EXPORT PPC1_status
+		{
+		public:
+
+			double delta_pressure;
+			double pipe_length;
+			double outflow;
+			double inflow_recirculation;
+			double inflow_switch;
+			double in_out_ratio;
+			double solution_usage_off;
+			double solution_usage_on;
+			double flow_rate_1;
+			double flow_rate_2;
+			double flow_rate_3;
+			double flow_rate_4;
+			double flow_rate_5;
+			double flow_rate_6;
+			double flow_rate_7;
+			double flow_rate_8;
+
+			PPC1_status() :
+				delta_pressure(0.0), pipe_length(0.0), outflow(0.0), inflow_recirculation(0.0),
+				inflow_switch(0.0), in_out_ratio(0.0), solution_usage_off(0.0), solution_usage_on(0.0),
+				flow_rate_1(0.0), flow_rate_2(0.0), flow_rate_3(0.0), flow_rate_4(0.0),
+				flow_rate_5(0.0), flow_rate_6(0.0), flow_rate_7(0.0), flow_rate_8(0.0)
+			{}
+		};
+
+
 	/**  \brief Serial device info data structure
 		*
 		*  @param port is the port name
@@ -264,7 +307,10 @@ namespace fluicell
 			string hardware_ID;
 			string VID;
 			string PID;
-		
+
+			/**  \brief Constructor for serial device info
+			*
+			**/
 			serialDeviceInfo() {}
 		};
 
@@ -337,7 +383,7 @@ namespace fluicell
 			
 
 
-			/**  \brief Command constructor .
+			/**  \brief Command constructor
 			*
 			**/
 			command() :
@@ -407,10 +453,10 @@ namespace fluicell
 				this->status_message = _status_message; }
 
 	private:
-			instructions instruction; //!< command
-			double value;                //!< corresponded value to be applied to the command
-			bool visualize_status;    //!< if active the status message will be visualized
-			string status_message;    //!< message to show as status during the command running
+			instructions instruction;	 //!< command
+			double value;                //!< corresponding value to be applied to the command
+			bool visualize_status;       //!< if active the status message will be visualized
+			string status_message;       //!< message to show as status during the command running
 
 		};
 
@@ -429,6 +475,12 @@ namespace fluicell
 		~PPC1api();
 
 	private:
+
+		/** \brief Threaded routine that stream data from PPC1
+		*
+		* \note return an exception for any serial error
+		*/
+		void threadSerial();
 
 		/**  \brief Decode data line function
 		  *
@@ -458,7 +510,7 @@ namespace fluicell
 		  *
 		  * \note
 		  */
-		bool decodeDataLine(string &_data);
+		bool decodeDataLine(const string &_data, PPC1_data &_PPC1_data);
 
 		/**  \brief Decode one channel line
 		*
@@ -473,13 +525,14 @@ namespace fluicell
 		*
 		* \note
 		*/
-		bool decodeChannelLine(string &_data, vector<double> &_line);
+		bool decodeChannelLine(const string &_data, vector<double> &_line);
 
-		/** \brief Threaded routine that stream data from PPC1
+
+		/** \brief Update flow calculation //TODO: write guide here
 		*
-		* \note return an exception for any serial error
+		* \note -
 		*/
-		void threadSerial();
+		void updateFlows(const PPC1_data &_PPC1_data, PPC1_status &_PPC1_status);
 
 
 		/** \brief Send a string to the PPC1 controller
@@ -588,20 +641,24 @@ namespace fluicell
 		/**  \brief Put all the set points to zero and close the valves,
 		  *         the device is now in a sleep mode
 		  *
+		  *  \return true if success, false for any error
+		  *
 		  **/
 		void pumpingOff();
 
 		/**  \brief Close all the valves i to l
 		*
 		*     It recalls the setValvesState with the message 0xFF
+	    *
+		*  \return true if success, false for any error
 		**/
-		void openAllValves();
+		bool openAllValves();
 
 		/**  \brief Close all the valves i to l
 		*         
 		*     It recalls the setValvesState with the message 0xF0
 		**/
-		void closeAllValves();
+		bool closeAllValves();
 
 		/**  \brief Send a reboot character to the device
 		  *
@@ -635,7 +692,6 @@ namespace fluicell
 
 		/** \brief Set a value on the vacuum channel A, admitted values are [-300.0, 0.0] in mbar
 		  *
-		  *
 		  *  Send the string A%f\n to set vacuum on channel A to activate vacuum at a specific value
 		  *
 		  * \note - Channel A correspond to V_switch value
@@ -644,10 +700,9 @@ namespace fluicell
 		  *
 		  *  \note -  0.0 by default  ensure to avoid pump stress in case of error
 		  **/
-		bool setVacuumChannelA(double _value = -0.0);
+		bool setVacuumChannelA(const double _value = -0.0);
 
 		/** \brief Set a value on the vacuum channel B, admitted values are [-300.0, 0.0] in mbar
-		  *
 		  *
 		  *  Send the string B%f\n to set vacuum on channel B to activate vacuum at a specific value
 		  *
@@ -657,7 +712,7 @@ namespace fluicell
 		  *
 		  *  \note -  0.0 by default  ensure to avoid pump stress in case of error
 		  **/
-		bool setVacuumChannelB(double _value = -0.0);
+		bool setVacuumChannelB(const double _value = -0.0);
 
 		/** \brief Set a value on the pressure channel C, admitted values are [0.0, 450.0] in mbar
 		  *
@@ -670,7 +725,7 @@ namespace fluicell
 		  *
 		  *  \note -  0.0 by default  ensure to avoid pump stress in case of error
 		  **/
-		bool setPressureChannelC(double _value = 0.0);
+		bool setPressureChannelC(const double _value = 0.0);
 
 		/** \brief Set a value on the pressure channel D, admitted values are [0.0, 450.0] in mbar
 		  *
@@ -683,7 +738,7 @@ namespace fluicell
 		  *
 		  *  \note -  0.0 by default  ensure to avoid pump stress in case of error
 		  **/
-		bool setPressureChannelD(double _value = 0.0);
+		bool setPressureChannelD(const double _value = 0.0);
 
 		/** \brief Set the valve "l" value to true/false to Open/Close
 		  *
@@ -695,7 +750,7 @@ namespace fluicell
 		  *
 		  *  \note -  false by default
 		  **/
-		bool setValve_l(bool _value = false);
+		bool setValve_l(const bool _value = false);
 
 		/** \brief Set the valve "k" value to true/false to Open/Close
 		  *
@@ -707,7 +762,7 @@ namespace fluicell
 		  *
 		  *  \note -  false by default
 		  **/
-		bool setValve_k(bool _value = false);
+		bool setValve_k(const bool _value = false);
 
 		/** \brief Set the valve "j" value to true/false to Open/Close
 		  *
@@ -719,7 +774,7 @@ namespace fluicell
 		  *
 		  *  \note -  false by default
 		  **/
-		bool setValve_j(bool _value = false);
+		bool setValve_j(const bool _value = false);
 
 		/** \brief Set the valve "i" value to true/false to Open/Close
 		  *
@@ -731,7 +786,7 @@ namespace fluicell
 		  *
 		  *  \note -  false by default
 		  **/
-		bool setValve_i(bool _value = false);
+		bool setValve_i(const bool _value = false);
 		
 		/** \brief Set all the valves state in one command using a binary number where 1/0 are Open/Close
 		*
@@ -747,8 +802,7 @@ namespace fluicell
 		*
 		*  \note -  valves e to h are not supported by the PPC1 
 		**/
-		bool setValvesState(int _value = 0x00);
-
+		bool setValvesState(const int _value = 0x00);
 
 
 		/** \brief Sets the TTL output state (high or low)
@@ -759,7 +813,7 @@ namespace fluicell
 		*  @param  _value is boolean
 		*
 		**/
-		bool setTTLstate(bool _value);
+		bool setTTLstate(const bool _value);
 
 		/** \brief Send a pulse lasting _value (ms)
 		*
@@ -773,7 +827,7 @@ namespace fluicell
 		*  @param  _value is the duration of the pulse in ms
 		*
 		**/
-		bool setPulsePeriod(int _value);
+		bool setPulsePeriod(const int _value);
 
 
 		/** \brief Set the runtime timeout to _value (mbar)
@@ -785,77 +839,36 @@ namespace fluicell
 		*  @param  _value is the threshold in mbar
 		*
 		**/
-		bool setRuntimeTimeout(int _value);
+		bool setRuntimeTimeout(const int _value);
 
 
-		/** \brief Increase the droplet size by _percentage, default value = 2.5
+		/** \brief Change the droplet size to a specific _percentage, default value = 100.0 %
 		*
-		*  A bit more advanced control can increase the droplet size by 2.5%
+		*  Change the droplet size to a specific _percentage with respect to the default values
 		*  
 		*
 		*  \return -  false in case of errors
 		**/
-		bool increaseDropletSize(double _percentage = 2.5);
+		bool setDropletSize(double _percentage = 100.0);
 
-		/** \brief Reduce the droplet size by _percentage, default value = 2.5 %
-		*
-		*  A bit more advanced control can reduce the droplet size by 2.5%
-		*
-		*
-		*  \return -  false in case of errors
-		**/
-		bool decreaseDropletSize(double _percentage = 2.5);
-
-		/** \brief Set the droplet size by _percentage
-		*
-		*  Write me
-		*
-		*
-		*  \return -  false in case of errors
-		**/
-		bool setDropletSize(double _percentage = 0.0);
 
 		/** \brief Get the current droplet size in percentage
 		*
 		* \note: the calculation is based on the the actual sensor readings
+		* \note: the calculation is actually the cube root of the visualized value 
 		*
 		*  \return -  value as the average of the percentage with respect to the default values
 		**/
-		double getDropletSizePercentage();
+		double getDropletSize();
 
-
-		/** \brief Increase the flow speed by _percentage, default value = 5%
-		*
-		*  A bit more advanced control can increase the flow speed by 5%
-		*  by increasing all the set points (channels A, B, C and D) by 5%
-		*
-		* \note: new_set_point = old_set_point + 5%
-		*        the calculation is based on the set point and not the actual reading
-		*
-		*
-		*  \return -  false in case of errors
-		**/
-		bool increaseFlowspeed(double _percentage = 5.0);
-
-		/** \brief Reduce the flow speed by _percentage, default value = 5%
-		*
-		*  A bit more advanced control can reduce the flow speed by 5%
-		*  by reducing all the set points (channels A, B, C and D) by 5%
-		*
-		* \note: new_set_point = old_set_point - 5% 
- 		*        the calculation is based on the set point and not the actual reading
-		*
-		*  \return -  false in case of errors
-		**/
-		bool decreaseFlowspeed(double _percentage = 5.0);
-		
+	
 		/** \brief Set the flow speed by _percentage
 		*
 		*  Write me
 		*
 		*  \return -  false in case of errors
 		**/
-		bool setFlowspeed(double _percentage = 0.0);
+		bool setFlowspeed(const double _percentage = 100.0);
 
 		/** \brief Get the current flow speed in percentage
 		*
@@ -863,32 +876,8 @@ namespace fluicell
 		*
 		*  \return -  value = average percentage among all the channels
 		**/
-		double getFlowSpeedPercentage();
+		double getFlowSpeed();
 		
-		/** \brief Increase the vacuum by _percentage, default value = 5%
-		*
-		*  A bit more advanced control can increase the vacuum by 5%
-		*  by increasing the value by 5% on channel A
-		*
-		* \note: new_set_point = old_set_point + 5%
-		*        the calculation is based on the set point and not the actual reading
-		*
-		*  \return -  false in case of errors
-		**/
-		bool increaseVacuum(double _percentage = 5.0);
-
-		/** \brief Reduce the vacuum by _percentage, default value = 5%
-		*
-		*  A bit more advanced control can reduce the vacuum by 5%
-		*  by decreasing the value by 5% on channel A
-		*
-		* \note: new_set_point = old_set_point - 5%
-		*        the calculation is based on the set point and not the actual reading
-		*
-		*  \return -  false in case of errors
-		**/
-		bool decreaseVacuum(double _percentage = 5.0);
-
 		/** \brief Set the vacuum by _percentage 
 		*
 		*  write me
@@ -896,7 +885,7 @@ namespace fluicell
 		*
 		*  \return -  false in case of errors
 		**/
-		bool setVacuum(double _percentage = 0.0);
+		bool setVacuum(const double _percentage = 100.0);
 
 		/** \brief Get the current vacuum value in percentage
 		*
@@ -904,7 +893,57 @@ namespace fluicell
 		*
 		*  \return -  value = 100 * channel_A->sensor_reading / DEFAULT_VACUUM
 		**/
-		double getVacuumPercentage();
+		double getVacuum();
+
+
+		/** \brief Calculate the flow value
+		*
+		*  Calculate the flow in a pipe using the Poiseuille equation in laminar flow, 
+		*  more details <a href="https://en.wikipedia.org/wiki/Hagen%E2%80%93Poiseuille_equation">here</a> 
+		*
+		*
+		*  \f$ Q = \frac{\pi D^4 \Delta P}{128 \mu \Delta x} \f$
+		*
+		*  Specifically, here is calculate the flow using the square modifier for the specific channel
+        *
+		*  \f$ Q = \frac{\pi (s * D)^4 \Delta P}{128 \mu \Delta x} \f$
+		*
+		*  @param \f$ s \f$ _square_channel_mod  (m)
+		*  @param \f$ D \f$ _pipe_diameter (m)
+		*  @param \f$ \Delta P \f$ _delta_pressure  (100*mbar)
+		*  @param \f$ \mu \f$ _dynamic_viscosity (poise ?? ) TODO:check this
+		*  @param \f$ \Delta x \f$ _pipe_length (m)
+		*
+		*  \return -  flow (nL/s)
+		**/
+		double getFlow(double _square_channel_mod = 1.128, //TODO: explain the default values
+			double _pipe_diameter = 0.00003,
+			double _delta_pressure = -14600.0,
+			double _dynamic_viscosity = 0.00089,
+			double _pipe_length = 0.124
+		);
+
+		/** \brief Calculate the outflow value using default values
+		*
+		*  Recall getFlow using default values
+		*
+		*
+		*  @param _delta_pressure  (100*mbar)
+		*  @param _pipe_length (m)
+		*
+		*  \return -  flow (nL/s)
+		**/
+		double getFlowSimple(
+			double _delta_pressure = -14600.0,
+			double _pipe_length = 0.124
+		) {
+			double square_channel_mod = 1.128;
+			double pipe_diameter = 0.00003;
+			double dynamic_viscosity = 0.00089;
+			return getFlow(square_channel_mod, pipe_diameter, _delta_pressure, dynamic_viscosity, _pipe_length);
+
+		}
+
 
 		/** \brief Run a command for the PPC1
 		*
@@ -972,8 +1011,8 @@ namespace fluicell
 		**/
 		void setDefaultPV( double _default_pon = 190.0,
 						   double _default_poff = 21.0,
-		                   double _default_v_recirc = 115.0,
-						   double _default_v_switch = 115.0 ) {
+		                   double _default_v_recirc = -115.0,
+						   double _default_v_switch = -115.0 ) {
 			m_default_pon = _default_pon;
 			m_default_poff = _default_poff;
 			m_default_v_recirc = _default_v_recirc;
@@ -1005,8 +1044,9 @@ namespace fluicell
 		**/
 		bool isRunning() { return m_isRunning; }
 
-		PPC1_data *m_PPC1_data; /*!< data structure member exposed 
-									 to be used by the user, 
+		PPC1_data *m_PPC1_data; /*!< data structure member exposed to be used by the user, 
+									 maybe this will be changed in the future */
+		PPC1_status *m_PPC1_status;/*!< data structure member exposed to be used by the user, 
 									 maybe this will be changed in the future */
    };
 
