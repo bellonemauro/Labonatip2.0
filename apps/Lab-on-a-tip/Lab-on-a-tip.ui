@@ -127,7 +127,7 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>1082</width>
+         <width>1079</width>
          <height>716</height>
         </rect>
        </property>
@@ -169,7 +169,7 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>1082</width>
+             <width>1079</width>
              <height>716</height>
             </rect>
            </property>
@@ -2498,7 +2498,7 @@ border-color: rgb(235, 240, 235);</string>
    </property>
    <property name="iconSize">
     <size>
-     <width>60</width>
+     <width>90</width>
      <height>60</height>
     </size>
    </property>
@@ -4411,6 +4411,9 @@ border:0px solid white;
          </item>
          <item row="6" column="2" colspan="2">
           <widget class="QPushButton" name="pushButton_setValuesAsDefault">
+           <property name="toolTip">
+            <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set the current values as default values for the operational condition&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
            <property name="text">
             <string>Set as default</string>
            </property>
@@ -4988,7 +4991,7 @@ It will be impossible to use the application during the reset process. &lt;/p&gt
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>icons/controls.png</normaloff>icons/controls.png</iconset>
+     <normaloff>icons/controls_2.png</normaloff>icons/controls_2.png</iconset>
    </property>
    <property name="text">
     <string>Advanced</string>

@@ -136,6 +136,8 @@ public:
 
 	QString getMacroPath() { return m_current_macro_file_name; };
 
+	inline void setMacroPath(QString _path) { m_macro_path = _path; }
+
 	double getSolutionTime() { return (double)ui_tools->doubleSpinBox_solution->value(); }
 
 	bool isContinuousFlowing() { return ui_tools->checkBox_disableTimer->isChecked(); }
@@ -318,6 +320,7 @@ private:
 
 	QString m_setting_file_name;
 	QString m_current_macro_file_name;
+	QString m_macro_path;
 
 protected:
 	Ui::Labonatip_tools *ui_tools;    //!<  the user interface

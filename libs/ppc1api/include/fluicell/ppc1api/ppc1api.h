@@ -845,26 +845,40 @@ namespace fluicell
 		/** \brief Change the droplet size to a specific _percentage, default value = 100.0 %
 		*
 		*  Change the droplet size to a specific _percentage with respect to the default values
-		*  
+		*  of vacuum and pressures.
+		*
+		*  \note: the droplet size linear increment corresponds to a cubic power 
+		*         of the desired values for pressures and vacuums
+		* 		
+		*  @param  _percentage is the desired percentage value
 		*
 		*  \return -  false in case of errors
 		**/
 		bool setDropletSize(double _percentage = 100.0);
 
 
-		/** \brief Get the current droplet size in percentage
+		/** \brief Get the current droplet size as percentage
+		*
+		*  the real percentage of the droplet is the cubic root of the real value
+		*  \note: As the droplet size linear increment corresponds to a cubic power
+		*         of the desired values for pressures and vacuums, the percentage 
+		*         corresponds to the cubic root
 		*
 		* \note: the calculation is based on the the actual sensor readings
-		* \note: the calculation is actually the cube root of the visualized value 
+		* \note: the calculation is the cube root of the visualized value 
 		*
 		*  \return -  value as the average of the percentage with respect to the default values
 		**/
 		double getDropletSize();
 
 	
-		/** \brief Set the flow speed by _percentage
+		/** \brief Change the flow speed to _percentage, default value = 100.0 %
 		*
-		*  Write me
+		*  To increase the flow speed, all the values of pressures and vacuum are 
+		*  increased/decreased to the same percentage with respect to the default values
+		*
+		*  @param  _percentage is the desired percentage value
+		*
 		*
 		*  \return -  false in case of errors
 		**/
@@ -900,7 +914,7 @@ namespace fluicell
 		*
 		*  Calculate the flow in a pipe using the Poiseuille equation in laminar flow, 
 		*  more details <a href="https://en.wikipedia.org/wiki/Hagen%E2%80%93Poiseuille_equation">here</a> 
-		*
+		*  and <a href="https://engineering.stackexchange.com/questions/8004/how-to-calculate-flow-rate-of-water-through-a-pipe">here</a>
 		*
 		*  \f$ Q = \frac{\pi D^4 \Delta P}{128 \mu \Delta x} \f$
 		*
@@ -908,8 +922,8 @@ namespace fluicell
         *
 		*  \f$ Q = \frac{\pi (s * D)^4 \Delta P}{128 \mu \Delta x} \f$
 		*
-		*  @param \f$ s \f$ _square_channel_mod  (m)
-		*  @param \f$ D \f$ _pipe_diameter (m)
+		*  @param \f$ s \f$ _square_channel_mod  (m), default value 1.128 for the Fluicell PPC1 biopen
+		*  @param \f$ D \f$ _pipe_diameter (m), default value 0.00003 
 		*  @param \f$ \Delta P \f$ _delta_pressure  (100*mbar)
 		*  @param \f$ \mu \f$ _dynamic_viscosity (poise ?? ) TODO:check this
 		*  @param \f$ \Delta x \f$ _pipe_length (m)
@@ -925,8 +939,10 @@ namespace fluicell
 
 		/** \brief Calculate the outflow value using default values
 		*
-		*  Recall getFlow using default values
-		*
+		*  Recall getFlow using the following default values:
+		*			 square_channel_mod = 1.128;
+		*       	 pipe_diameter = 0.00003;
+		*            dynamic_viscosity = 0.00089;
 		*
 		*  @param _delta_pressure  (100*mbar)
 		*  @param _pipe_length (m)
@@ -972,7 +988,7 @@ namespace fluicell
 		  *  \return  true if success, false for any error
 		  *
 		  **/
-		bool setDataStreamPeriod(int _value = 200); //in msec
+		bool setDataStreamPeriod(const int _value = 200); //in msec
 
 		/** \brief Allow to set the COM port name
 		*

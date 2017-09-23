@@ -1204,13 +1204,8 @@ bool Labonatip_tools::loadSettings(QString _path)
 	ui_tools->horizontalSlider_colorSol4->setValue(sol4colSlider);
 	colorSol4Changed(sol4colSlider);
 
-	
-	// read Leap group
-	bool myParam1 = m_settings->value("MyParam/myParam1", "true").toBool();
-	double myParam2 = m_settings->value("MyParam/myParam2", "40.0").toDouble();
 
-	m_settings->setValue("MyParam/myParam3", "10.2");
-	m_settings->sync();
+	//m_settings->sync();
 
 	// TODO set the com parameters
 	//comSettings->baudRate = BaudRate;
@@ -1408,7 +1403,11 @@ void Labonatip_tools::resetToDefaultValues()
 bool Labonatip_tools::loadMacro()
 {
 	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
-	QString file_name = QFileDialog::getOpenFileName(this, tr("Open file"), QDir::currentPath(),  // dialog to open files
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_tools::loadMacro :::  "
+		<< m_macro_path.toStdString() << "  " << endl;
+	QString file_name = QFileDialog::getOpenFileName(this, tr("Open file"), m_macro_path,  // dialog to open files
 		"Lab-on-a-tip macro File (*.macro);; Data (*.dat);; All Files(*.*)", 0);
 	
 	if (file_name.isEmpty()) {

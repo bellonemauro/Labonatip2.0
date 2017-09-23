@@ -87,6 +87,8 @@ public:
 
 	void setVersion(string _version);
 
+	void setMacroPath(QString _path) { m_macro_path = _path; }
+
 	/** \brief This function is called when the down arrow on Pon is called
 	*        it decreases the pressure on Pon, it does not accept out-of-range
 	*
@@ -590,7 +592,7 @@ private:
   int m_widget_solutionArrow_x_pos_shift;
 
   QString m_version;
-
+  QString m_macro_path;
 };
 
 #endif /* Labonatip_GUI_H_ */
