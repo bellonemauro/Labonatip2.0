@@ -62,6 +62,12 @@ if(MSVC)
 	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/presetMacros/)
 	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Debug/presetMacros/)
   ENDFOREACH(F)
+
+  FILE(GLOB myProject_LANGUAGES "${PROJECT_SOURCE_DIR}/languages/*.qm") 
+  FOREACH(F ${myProject_LANGUAGES})
+	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/languages/)
+	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Debug/languages/)
+  ENDFOREACH(F)
   
 elseif( NOT MSVC)
   FILE(GLOB myProject_SETTINGS "${PROJECT_SOURCE_DIR}/settings/*.ini") 
@@ -83,7 +89,13 @@ elseif( NOT MSVC)
   FOREACH(F ${myProject_PRESETMACROS})
 	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/presetMacros/)
   ENDFOREACH(F)
-endif()
+  
+  FILE(GLOB myProject_LANGUAGES "${PROJECT_SOURCE_DIR}/languages/*.qm") 
+  FOREACH(F ${myProject_LANGUAGES})
+	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/languages/)
+  ENDFOREACH(F)
+
+  endif()
 
 
 # --------------------------------------
@@ -154,7 +166,7 @@ elseif(  BUILD_QT5)
 			message (STATUS "${PROJECT_NAME} MESSAGE: WINDEPLOYQT_EXECUTABLE is : ${WINDEPLOYQT_EXECUTABLE} \n")
 			message (STATUS "${PROJECT_NAME} MESSAGE: Current file target is : ${F} \n")
 		endif ( ENABLE_verbose )
-		add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD WORKING_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/ COMMAND ${WINDEPLOYQT_EXECUTABLE} $<TARGET_FILE:${PROJECT_NAME}> COMMENT "Preparing Qt runtime dependencies")
+		add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD WORKING_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/ COMMAND ${WINDEPLOYQT_EXECUTABLE} $<TARGET_FILE:${PROJECT_NAME}> --no-translations COMMENT "Preparing Qt runtime dependencies")
 	endif()
   
 	# allows folders for MSVC

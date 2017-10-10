@@ -28,6 +28,10 @@ Labonatip_tools::Labonatip_tools(QWidget *parent ):
 		static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this,
 		&Labonatip_tools::showPortInfo);
 
+	connect(ui_tools->comboBox_language,
+		static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this,
+		&Labonatip_tools::languageChanged);
+
 	// enumerate connected com ports
 	enumerate();
 
@@ -36,7 +40,6 @@ Labonatip_tools::Labonatip_tools(QWidget *parent ):
 		SIGNAL(clicked()), this, SLOT(enumerate()));
 
 	// connect GUI elements: macro tab
-
 	connect(ui_tools->treeWidget_macroTable, 
 		SIGNAL(itemChanged(QTreeWidgetItem *, int)), this, 
 		SLOT(checkValidity(QTreeWidgetItem *, int)));
@@ -44,7 +47,6 @@ Labonatip_tools::Labonatip_tools(QWidget *parent ):
 	connect(ui_tools->listWidget_options,
 		SIGNAL(itemClicked(QListWidgetItem*)), this, 
 		SLOT(onListMailItemClicked(QListWidgetItem*)));
-
 
 	// connect color solution settings
 	connect(ui_tools->horizontalSlider_colorSol1,
@@ -63,9 +65,12 @@ Labonatip_tools::Labonatip_tools(QWidget *parent ):
 		SIGNAL(valueChanged(int)), this,
 		SLOT(colorSol4Changed(int)));
 
+	connect(ui_tools->pushButton_emptyWells,
+		SIGNAL(clicked()), this, SLOT(emptyWellsPressed()));
+
 	connect(ui_tools->checkBox_disableTimer,
 		SIGNAL(stateChanged(int)), this,
-		SLOT(disableTimer(int))); //TODO
+		SLOT(setContinuousFow(int))); 
 
 	// connect GUI elements: NEW macro tab
 	connect(ui_tools->pushButton_addMacroCommand,
@@ -158,6 +163,16 @@ void Labonatip_tools::discardPressed() {
 	this->close();
 }
 
+void Labonatip_tools::emptyWellsPressed() {
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_tools::emptyWellsPressed " << endl;
+	emit emptyWells();
+
+}
+
+
+
 void Labonatip_tools::applyPressed() {
 	cout << QDate::currentDate().toString().toStdString() << "  "
 		<< QTime::currentTime().toString().toStdString() << "  "
@@ -169,7 +184,6 @@ void Labonatip_tools::applyPressed() {
 	//TODO manual save for now
 	//saveSettings();
 	//TODO other settings ! 
-
 
 	emit apply();
 
@@ -208,7 +222,7 @@ void Labonatip_tools::addMacroCommand()
 	
 	// create a new item
 	QTreeWidgetItem *newItem = new QTreeWidgetItem;
-	QComboBox *comboBox = new QComboBox(this);
+	macroCombobox *comboBox = new macroCombobox();
 	createNewCommand(*newItem, *comboBox);
 
 
@@ -220,7 +234,8 @@ void Labonatip_tools::addMacroCommand()
 		// the combo widget must be created for every item in the tree 
 		// and it goes always to the first column
 		ui_tools->treeWidget_macroTable->setItemWidget(newItem, 0, comboBox); // set the combowidget
-		
+		ui_tools->treeWidget_macroTable->resizeColumnToContents(0);
+
 		return;
 	}
 	else { 	//else we add the item at a specific row
@@ -238,6 +253,7 @@ void Labonatip_tools::addMacroCommand()
 			ui_tools->treeWidget_macroTable->setItemWidget(newItem, 0, comboBox);// set the combowidget
 		}
 
+		ui_tools->treeWidget_macroTable->resizeColumnToContents(0);
 		return;
 	}
 
@@ -266,7 +282,7 @@ void Labonatip_tools::becomeChild()
 	
     // create a new item
 	QTreeWidgetItem *item = new QTreeWidgetItem();
-	QComboBox *comboBox = new QComboBox(this);
+	macroCombobox *comboBox = new macroCombobox();
 	createNewCommand(*item, *comboBox); 
 	
 	// clone the current selected item
@@ -296,7 +312,7 @@ void Labonatip_tools::becomeParent()
 	if (!ui_tools->treeWidget_macroTable->currentItem()) return; // avoid crash if no selection
 
 	QTreeWidgetItem *item = new QTreeWidgetItem;
-	QComboBox *comboBox = new QComboBox(this);
+	macroCombobox *comboBox = new macroCombobox();
 	createNewCommand(*item, *comboBox);
 
 	item = ui_tools->treeWidget_macroTable->currentItem()->clone();
@@ -319,7 +335,7 @@ void Labonatip_tools::moveUp()
 		<< "Labonatip_tools::moveUp " << endl;
 
 	// create a combo
-	QComboBox *comboBox = new QComboBox(this);
+	macroCombobox *comboBox = new macroCombobox();
 	createNewCommand(*comboBox);
 
 	// get the current selected item
@@ -353,7 +369,7 @@ void Labonatip_tools::moveDown()
 		<< "Labonatip_tools::moveDown " << endl;
 
 	// create a combo
-	QComboBox *comboBox = new QComboBox(this);
+	macroCombobox *comboBox = new macroCombobox();
 	createNewCommand(*comboBox);
 
 	// get the current selected item
@@ -392,7 +408,7 @@ void Labonatip_tools::plusIndent()
 
 	// create a new item
 	QTreeWidgetItem *newItem = new QTreeWidgetItem;
-	QComboBox *comboBox = new QComboBox(this);
+	macroCombobox *comboBox = new macroCombobox();
 	createNewCommand(*newItem, *comboBox);
 
     // if no item selected, add to the top level
@@ -528,8 +544,9 @@ bool Labonatip_tools::checkValidity(QTreeWidgetItem *_item, int _column)
 	case 4: case 5: case 6: case 7: { //from 4 to 7
 		// check open valve : 0 = no valve, 1,2,3,4 valves 1,2,3,4
 
-		cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-			<< "Labonatip_tools::checkValidity ::: case : " << idx << endl;
+		cout << QDate::currentDate().toString().toStdString() << "  "
+			 << QTime::currentTime().toString().toStdString() << "  "
+			 << "Labonatip_tools::checkValidity ::: case : " << idx << endl;
 		int number = _item->text(_column).toInt(&isNumeric);
 		if (!isNumeric) {
 			QMessageBox::warning(this, "Warning !", " Solution is not a valid number, \n its value must be 0 or 1 ! \n where 0 = open. \nOnly one valve can be open.");
@@ -555,12 +572,12 @@ bool Labonatip_tools::checkValidity(QTreeWidgetItem *_item, int _column)
 		int number = _item->text(_column).toInt(&isNumeric);
 		if (!isNumeric) {
 			QMessageBox::warning(this, "Warning",
-				"Droplet size percentage is not a valid number, \n its value must be a positive number in [0, 200]"); //TODO limit?
+				"Droplet size percentage is not a valid number, \n its value must be a positive number in [0, 300]"); //TODO limit?
 			_item->setText(_column, QString("100")); // if the value is not valid, reset to zero
 			return false;
 		}
 		if (number < 0 ||
-			number > 200) { // if is not the range
+			number > 300) { // if is not the range //TODO: this should be a setting not a magic number
 			QMessageBox::warning(this, "Warning",
 				"Droplet size percentage is out of range, \n its value must be a positive number in [0, 200]");
 			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
@@ -728,11 +745,6 @@ void Labonatip_tools::commandChanged(int _idx)
 
 	if (!ui_tools->treeWidget_macroTable->currentItem()) return; // avoid crash if no selection
 																 
-	// TODO: retrive the right row where the event is generated
-	// get the index in the combobox of the current item and set it to the new widget
-//	QTreeWidget *wid = qobject_cast<QTreeWidget*>(
-//		_combo_box.parentWidget());
-
 	int idx = qobject_cast<QComboBox*>(
 		ui_tools->treeWidget_macroTable->focusWidget())->currentIndex();
 
@@ -791,7 +803,7 @@ void Labonatip_tools::duplicateItem()
 
 			parent->insertChild(row + 1, newItem);
 			// create a combo
-			QComboBox *comboBox = new QComboBox(this);
+			macroCombobox *comboBox = new macroCombobox();
 			createNewCommand(*comboBox);
 			// get the index in the combobox of the current item and set it to the new widget
 			int idx = qobject_cast<QComboBox*>(
@@ -809,10 +821,10 @@ void Labonatip_tools::duplicateItem()
 			
 			ui_tools->treeWidget_macroTable->insertTopLevelItem(row + 1, newItem);
 			// create a combo
-			QComboBox *comboBox = new QComboBox(this);
+			macroCombobox *comboBox = new macroCombobox();
 			createNewCommand(*comboBox);
 			// get the index in the combobox of the current item and set it to the new widget
-			int idx = qobject_cast<QComboBox*>(
+			int idx = qobject_cast<macroCombobox*>(
 				ui_tools->treeWidget_macroTable->itemWidget(
 					ui_tools->treeWidget_macroTable->currentItem(), 0))->currentIndex();
 			comboBox->blockSignals(true);
@@ -825,7 +837,7 @@ void Labonatip_tools::duplicateItem()
 				for (int i = 0; i < newItem->childCount(); i++)	{
 
 					// create a new combobox for each child
-					QComboBox *comboBox_child = new QComboBox(this);
+					macroCombobox *comboBox_child = new macroCombobox();
 					createNewCommand(*comboBox_child);
 					// get the index in the combobox of the current item and set it to the new widget
 					int idx = qobject_cast<QComboBox*>(
@@ -846,7 +858,7 @@ void Labonatip_tools::duplicateItem()
 	return;
 }
 
-void Labonatip_tools::createNewCommand(QTreeWidgetItem & _command, QComboBox & _combo_box)
+void Labonatip_tools::createNewCommand(QTreeWidgetItem & _command, macroCombobox & _combo_box)
 {
 
 	_command.setText(0, "Command"); // 
@@ -855,6 +867,7 @@ void Labonatip_tools::createNewCommand(QTreeWidgetItem & _command, QComboBox & _
 	_command.setText(2, "go science !!!"); // status message
 	_command.setFlags(_command.flags() | (Qt::ItemIsEditable) | (Qt::ItemIsSelectable));
 
+	_combo_box.setFocusPolicy(Qt::StrongFocus);
 	_combo_box.addItems(QStringList() << "Pressure ON (mbar)" << "Pressure OFF (mbar)" 
 		<< "Vacuum Switch (mbar)" << "Vacuum Recirculation (mbar)"
 		<< "Solution 1 (open/close)" << "Solution 2 (open/close)" 
@@ -900,6 +913,11 @@ void Labonatip_tools::showPortInfo(int idx)
 		tr("Vendor Identifier: %1").arg(list.count() > 5 ? list.at(5) : tr("N/A")));
 	ui_tools->pidLabel->setText(
 		tr("Product Identifier: %1").arg(list.count() > 6 ? list.at(6) : tr("N/A")));
+}
+
+void Labonatip_tools::languageChanged(int _idx)
+{
+	language = _idx;
 }
 
 void Labonatip_tools::colorSol1Changed(int _value)
@@ -1046,8 +1064,9 @@ bool Labonatip_tools::loadSettings(QString _path)
 		//	"Ini file (*.ini);; Data file (*.dat);; Binary File (*.bin);; All Files(*.*)", 0);
 	}
 
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		<< "the path is : " << _path.toStdString() << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  " 
+		 << QTime::currentTime().toString().toStdString() << "  "
+		 << "the path is : " << _path.toStdString() << endl;
 
 	m_settings = new QSettings(_path, QSettings::IniFormat);
 
@@ -1058,8 +1077,12 @@ bool Labonatip_tools::loadSettings(QString _path)
 	int year = m_settings->value("default/year", "2017").toInt();
 	ui_tools->lineEdit_year->setText(QString::number(year));
 
-	QString month = m_settings->value("default/month", "No owner found").toString();
+	QString month = m_settings->value("default/month", "January").toString();
 	ui_tools->lineEdit_month->setText(month);
+
+	QString language = m_settings->value("default/language", "english").toString();
+	ui_tools->comboBox_language->setCurrentIndex(interpreteLanguage(language));
+	languageChanged(ui_tools->comboBox_language->currentIndex());
 
 	// read com group
 	//ComName
@@ -1087,8 +1110,9 @@ bool Labonatip_tools::loadSettings(QString _path)
 		m_comSettings->dataBits = serial::eightbits;
 		break;
 	default:
-		cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-			<< " Error data bit cannot be read, using default value 8" << endl;
+		cout << QDate::currentDate().toString().toStdString() << "  " 
+			 << QTime::currentTime().toString().toStdString() << "  "
+			 << " Error data bit cannot be read, using default value 8" << endl;
 		m_comSettings->dataBits = serial::eightbits;
 		break;
 	}
@@ -1204,29 +1228,6 @@ bool Labonatip_tools::loadSettings(QString _path)
 	ui_tools->horizontalSlider_colorSol4->setValue(sol4colSlider);
 	colorSol4Changed(sol4colSlider);
 
-
-	//m_settings->sync();
-
-	// TODO set the com parameters
-	//comSettings->baudRate = BaudRate;
-	//comSettings->name = ComPort;
-
-
-	//cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-	//	<< " Load settings: \n"
-	//	<< "    default/owner " << user.toStdString() << " \n"
-	//	<< "    default/date " << year << " \n"
-	//	<< "    default/month " << month.toStdString() << " \n\n"
-	//	<< "    COM/ComPort " << comPort.toStdString() << " \n"
-	//	<< "    COM/BaudRate " << baudRate << " \n"
-	//	<< "    COM/DataBits " << dataBits << " \n"
-	//	<< "    COM/Parity " << parity.toStdString() << " \n"
-	//	<< "    COM/StopBits " << stopBits << " \n"
-	//	<< "    COM/FlowControl " << flowControl.toStdString() << " \n"
-	//	<< "    MyParam/myParam1 " << myParam1 << " \n"
-	//	<< "    MyParam/myParam2 " << myParam2 << " \n\n"
-	//	<< endl;
-
 	return true;
 }
 
@@ -1242,6 +1243,8 @@ bool Labonatip_tools::saveSettings(QString _file_name)
 	settings->setValue("default/year", ui_tools->lineEdit_year->text());
 	// month = 
 	settings->setValue("default/month", ui_tools->lineEdit_month->text());
+	// language = 
+	settings->setValue("default/language", ui_tools->comboBox_language->currentText());
 
 	// [COM]
 	// ComName = COM_
@@ -1320,8 +1323,6 @@ bool Labonatip_tools::saveSettings(QString _file_name)
 	//m_settings->sync();
 	
 	return true;
-	//TODO --- finish the implementation!!!!
-
 }
 
 void Labonatip_tools::addAllCommandsToMacro()
@@ -1357,7 +1358,7 @@ void Labonatip_tools::addAllCommandsToMacro()
 
 	}
 
-	for (int i = 0; i < commands_vector.size(); ++i)
+	for (size_t i = 0; i < commands_vector.size(); ++i)
 	{
 
 		fluicell::PPC1api::command new_command;
@@ -1437,7 +1438,7 @@ bool Labonatip_tools::loadMacro(const QString _file_name)
 		{
 			QTreeWidgetItem *newItem = new QTreeWidgetItem();
 			QTreeWidgetItem *parent = new QTreeWidgetItem();
-			QComboBox *comboBox = new QComboBox(this);
+			macroCombobox *comboBox = new macroCombobox();
 			createNewCommand(*newItem, *comboBox);
 
 			if (decodeMacroCommand(content, *newItem)) {
@@ -1527,7 +1528,8 @@ bool Labonatip_tools::saveMacro()
 {
 	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
 
-	QString fileName = QFileDialog::getSaveFileName(this, tr("Save something"), QDir::currentPath(),  // dialog to open files
+	QString fileName = QFileDialog::getSaveFileName(this, 
+		tr("Save something"), m_macro_path,  // dialog to open files
 		"Lab-on-a-tip macro File (*.macro);; Data (*.dat);; All Files(*.*)", 0);
 
 	if (!saveMacro(fileName)) {
@@ -1547,7 +1549,8 @@ bool Labonatip_tools::saveMacro(QString _file_name)
 	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
 
 	if (_file_name.isEmpty()) {
-		_file_name = QFileDialog::getSaveFileName(this, tr("Save something"), QDir::currentPath(),  // dialog to open files
+		_file_name = QFileDialog::getSaveFileName(this, 
+			tr("Save something"), QDir::currentPath(),  // dialog to open files
 			"Lab-on-a-tip macro File (*.macro);; Data (*.dat);; All Files(*.*)", 0);
 		//TODO check file name validity
 	}
@@ -1572,8 +1575,9 @@ bool Labonatip_tools::saveMacro(QString _file_name)
 		for (int i = 0; i < result.size(); i++) {
 			for (int j = 0; j < result.at(i).size(); j++)
 			{
-				//cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-				//<< " element " << i << " is " << result.at(i).at(j).toStdString() << endl;
+				//cout << QDate::currentDate().toString().toStdString() << "  " 
+				//     << QTime::currentTime().toString().toStdString() << "  "
+				//     << " element " << i << " is " << result.at(i).at(j).toStdString() << endl;
 				stream << result.at(i).at(j) << "#";
 			}
 			stream << "§" << endl;
@@ -1581,7 +1585,8 @@ bool Labonatip_tools::saveMacro(QString _file_name)
 	}
 	else {
 		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-		QMessageBox::warning(this, "Warning !", "File not saved ! <br>" + _file_name);
+		QMessageBox::warning(this, "Warning !", 
+			"File not saved ! <br>" + _file_name);
 		return false;
 	}
 
@@ -1659,6 +1664,23 @@ QList<QStringList> Labonatip_tools::visitTree(QTreeWidget *_tree) {
 	return list;
 }
 
+int Labonatip_tools::interpreteLanguage(QString _language)
+{
+	if (_language == "English")
+	{
+		return 0;
+	}
+	if (_language == "Svenska")
+	{
+		return 1;
+	}
+	if (_language == "Italiano")
+	{
+		return 2;
+	}
+	return 0;
+}
+
 bool Labonatip_tools::decodeMacroCommand(QByteArray &_command, QTreeWidgetItem &_out_item)
 {
 	QStringList data_string;
@@ -1686,8 +1708,10 @@ bool Labonatip_tools::decodeMacroCommand(QByteArray &_command, QTreeWidgetItem &
 	}
 
 	if (data_string.size() < 4) {
-		cerr << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() <<
-			"Labonatip_tools::decodeMacroCommand ::: data_string size error - size = " << data_string.size() << endl;
+		cerr << QDate::currentDate().toString().toStdString() << "  " 
+			 << QTime::currentTime().toString().toStdString() 
+			 << "Labonatip_tools::decodeMacroCommand ::: data_string size error - size = " 
+			 << data_string.size() << endl;
 		return false;  // something went wrong
 	}
 
@@ -1695,12 +1719,15 @@ bool Labonatip_tools::decodeMacroCommand(QByteArray &_command, QTreeWidgetItem &
 	// fill the qtreewidget item
 	_out_item.setText(0, data_string.at(0)); 
 	cout << QDate::currentDate().toString().toStdString() << "  " 
-		 << QTime::currentTime().toString().toStdString() <<
-		"Labonatip_tools::decodeMacroCommand ::: data_string.at(0) " << data_string.at(0).toStdString()  << endl;
+		 << QTime::currentTime().toString().toStdString() 
+		 << "Labonatip_tools::decodeMacroCommand ::: data_string.at(0) " 
+		 << data_string.at(0).toStdString()  << endl;
 	
 	_out_item.setText(1, data_string.at(1));
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() <<
-		"Labonatip_tools::decodeMacroCommand ::: data_string.at(1) " << data_string.at(1).toStdString() << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  " 
+		 << QTime::currentTime().toString().toStdString() 
+		 << "Labonatip_tools::decodeMacroCommand ::: data_string.at(1) " 
+		 << data_string.at(1).toStdString() << endl;
 	
 	
 	if (data_string.at(2) == "2") {
@@ -1710,15 +1737,16 @@ bool Labonatip_tools::decodeMacroCommand(QByteArray &_command, QTreeWidgetItem &
 		_out_item.setCheckState(2, Qt::CheckState::Unchecked); 
 	}
 	_out_item.setText(2, data_string.at(3)); 
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() <<
-		"Labonatip_tools::decodeMacroCommand ::: data_string.at(3) " << data_string.at(3).toStdString() << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  " 
+		 << QTime::currentTime().toString().toStdString() 
+		 << "Labonatip_tools::decodeMacroCommand ::: data_string.at(3) " 
+		<< data_string.at(3).toStdString() << endl;
 	
 	_out_item.setText(3, data_string.at(4));
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() <<
-		"Labonatip_tools::decodeMacroCommand ::: data_string.at(4) " << data_string.at(4).toStdString() << endl;
-
-
-
+	cout << QDate::currentDate().toString().toStdString() << "  " 
+		 << QTime::currentTime().toString().toStdString() 
+		 << "Labonatip_tools::decodeMacroCommand ::: data_string.at(4) " 
+		 << data_string.at(4).toStdString() << endl;
 
 	_out_item.setFlags(_out_item.flags() | (Qt::ItemIsEditable));
 
@@ -1879,7 +1907,27 @@ uint32_t Labonatip_tools::giveRainbowColor(float _position)
 }
 
 
-
 Labonatip_tools::~Labonatip_tools() {
   delete ui_tools;
+}
+
+void Labonatip_tools::switchLanguage(QString _translation_file)
+{
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		 << QTime::currentTime().toString().toStdString() << "  "
+		 << "Labonatip_tools::switchLanguage " << endl;
+	
+	qApp->removeTranslator(&m_translator_tool);
+
+	if (m_translator_tool.load(_translation_file)) {
+		//m_translator_tool.translate("Labonatip_tool", "english");
+		qApp->installTranslator(&m_translator_tool);
+
+		ui_tools->retranslateUi(this); 
+
+		cout << QDate::currentDate().toString().toStdString() << "  "
+			 << QTime::currentTime().toString().toStdString() << "  "
+			 << "Labonatip_tools::switchLanguage   installTranslator" << endl;
+	}
+
 }

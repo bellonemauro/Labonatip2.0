@@ -33,6 +33,7 @@ class Labonatip_chart
 {
 //	Q_OBJECT
 	typedef std::vector<fluicell::PPC1api::command> f_macro; // define a type for fluicel macro
+
 public:
 
 	explicit Labonatip_chart( );
@@ -56,8 +57,6 @@ public:
 
 
 public: //private:
-
-	//std::vector<fluicell::PPC1api::command> *m_macro;
 
 	// line series for the chart
 	QtCharts::QLineSeries *m_series_X;

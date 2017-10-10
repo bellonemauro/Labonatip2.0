@@ -17,33 +17,36 @@ Labonatip_macroRunner::Labonatip_macroRunner(QMainWindow *parent ) :
 	m_simulation_only(true),
 	m_threadTerminationHandler(false)
 {
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		<< " macroRunner initialization " << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  " 
+		 << QTime::currentTime().toString().toStdString() << "  "
+		 << " macroRunner initialization " << endl;
 }
 
 void Labonatip_macroRunner::run()  {
 	QString result;
 	m_threadTerminationHandler = true;
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		<< " Macro running " << endl;
-	//QMessageBox::information(this, "Warning !", " Macro running. ");
-
+	cout << QDate::currentDate().toString().toStdString() << "  " 
+		 << QTime::currentTime().toString().toStdString() << "  "
+		 << " Macro running " << endl;
+	
 	try
 	{
 
 		if (m_ppc1 && m_macro)
 		{
-			cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  " << " macro size " << m_macro->size() << endl;
+			cout << QDate::currentDate().toString().toStdString() << "  " 
+				 << QTime::currentTime().toString().toStdString() << "  " 
+				 << " macro size " << m_macro->size() << endl;
 			// compute the duration of the macro
 			double macro_duration = 0.0;
-			for (int i = 0; i < m_macro->size(); i++) {
+			for (size_t i = 0; i < m_macro->size(); i++) {
 				if (m_macro->at(i).getInstruction() ==
 					fluicell::PPC1api::command::instructions::sleep)
 					macro_duration += m_macro->at(i).getValue();
 			}
 			double time_elapsed = 0.0;
 
-			for (int i = 0; i < m_macro->size(); i++)
+			for (size_t i = 0; i < m_macro->size(); i++)
 			{
 				if (!m_threadTerminationHandler) {
 					result = " MACRO STOPPED ";
@@ -51,7 +54,9 @@ void Labonatip_macroRunner::run()  {
 					return;
 				}
 
-				//cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  " << " i'm in the thread ... index " << i << endl;
+				//cout << QDate::currentDate().toString().toStdString() << "  "
+				//       << QTime::currentTime().toString().toStdString() << "  " 
+				//       << " i'm in the thread ... index " << i << endl;
 
 				if (m_simulation_only)
 				{
@@ -110,7 +115,9 @@ void Labonatip_macroRunner::run()  {
 				}
 				else {
 					if (m_ppc1->isRunning()) {
-						//cout  << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  " << " ppc1 is running the command " << m_macro->at(i).status_message << endl;
+						//cout  << QDate::currentDate().toString().toStdString() << "  "
+						//      << QTime::currentTime().toString().toStdString() << "  " 
+						//      << " ppc1 is running the command " << m_macro->at(i).status_message << endl;
 						if (m_macro->at(i).getInstruction() ==
 							fluicell::PPC1api::command::instructions::ask_msg) {
 							QString msg = QString::fromStdString(m_macro->at(i).getStatusMessage());
@@ -156,6 +163,7 @@ void Labonatip_macroRunner::run()  {
 						cerr << QDate::currentDate().toString().toStdString() << "  " 
 							 << QTime::currentTime().toString().toStdString() << "  "
 							 << " Labonatip_macroRunner::run  ---- error --- MESSAGE: ppc1 is NOT running " << endl;
+
 						result = " ppc1 is NOT running ";
 
 						emit resultReady(result);
@@ -165,8 +173,9 @@ void Labonatip_macroRunner::run()  {
 			}
 		}
 		else {
-			cerr << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-				<< " Labonatip_macroRunner::run  ---- error --- MESSAGE: null pointer " << endl;
+			cerr << QDate::currentDate().toString().toStdString() << "  " 
+				 << QTime::currentTime().toString().toStdString() << "  "
+				 << " Labonatip_macroRunner::run  ---- error --- MESSAGE: null pointer " << endl;
 			result = " null pointer ";
 
 			emit resultReady(result);
@@ -180,8 +189,9 @@ void Labonatip_macroRunner::run()  {
 	}
 	catch(serial::IOException &e)
 	{
-		cerr << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-			<< " Labonatip_GUI::disCon ::: IOException : " << e.what() << endl;
+		cerr << QDate::currentDate().toString().toStdString() << "  " 
+			 << QTime::currentTime().toString().toStdString() << "  "
+			 << " Labonatip_GUI::disCon ::: IOException : " << e.what() << endl;
 		//m_ppc1->disconnectCOM();
 		result = " failed"; 
 		emit resultReady(result);
@@ -189,8 +199,9 @@ void Labonatip_macroRunner::run()  {
 	}
 	catch (serial::PortNotOpenedException &e)
 	{
-		cerr << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-			<< " Labonatip_GUI::disCon ::: PortNotOpenedException : " << e.what() << endl;
+		cerr << QDate::currentDate().toString().toStdString() << "  " 
+			 << QTime::currentTime().toString().toStdString() << "  "
+			 << " Labonatip_GUI::disCon ::: PortNotOpenedException : " << e.what() << endl;
 		//m_PPC1_serial->close();
 		result = " failed";
 		emit resultReady(result);
@@ -198,27 +209,27 @@ void Labonatip_macroRunner::run()  {
 	}
 	catch (serial::SerialException &e)
 	{
-		cerr << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-			<< " Labonatip_GUI::disCon ::: SerialException : " << e.what() << endl;
+		cerr << QDate::currentDate().toString().toStdString() << "  " 
+			 << QTime::currentTime().toString().toStdString() << "  "
+			 << " Labonatip_GUI::disCon ::: SerialException : " << e.what() << endl;
 		//m_PPC1_serial->close();
 		result = " failed";
 		emit resultReady(result);
 		return;
 	}
 	catch (exception &e) {
-		cerr << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-			<< " Labonatip_GUI::disCon ::: Unhandled Exception: " << e.what() << endl;
+		cerr << QDate::currentDate().toString().toStdString() << "  " 
+			 << QTime::currentTime().toString().toStdString() << "  "
+			 << " Labonatip_GUI::disCon ::: Unhandled Exception: " << e.what() << endl;
 		//m_PPC1_serial->close();
 		result = " failed";
 		emit resultReady(result);
 		return;
 	}
-
-
-
+	
 }
 
 Labonatip_macroRunner::~Labonatip_macroRunner ()
 {
-
+	// if nothing is to be done here, is better to leave the compiler do it
 }

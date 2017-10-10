@@ -36,10 +36,9 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	m_sol1_color(QColor::fromRgb(255, 189, 0)),//(189, 62, 71)),
 	m_sol2_color(QColor::fromRgb(255, 40, 0)),//96, 115, 158)),
 	m_sol3_color(QColor::fromRgb(0, 158, 255)),//193, 130, 50)),
-	m_sol4_color(QColor::fromRgb(130, 255, 0)),//83, 155, 81))
-	m_widget_solutionArrow_x_pos (400),
-	m_widget_solutionArrow_x_pos_shift (55)
+	m_sol4_color(QColor::fromRgb(130, 255, 0))//83, 155, 81))
 {
+
   // allows to use path alias
   QDir::setSearchPaths("icons", QStringList(QDir::currentPath() + "/icons/"));
   
@@ -49,6 +48,24 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   ui->treeWidget_macroInfo->setHeaderHidden(false);
   ui->treeWidget_macroInfo->resizeColumnToContents(0);
 
+  // debug stuff -- set 1 to remove all messages and tab
+  if (0)
+  {
+  ui->checkBox_dumpToFile->setChecked(false);
+  ui->checkBox_to_terminal->setChecked(false);
+  ui->checkBox_verboseOut->setChecked(false);
+  ui->tabWidget->removeTab(2);
+  setPpc1Verbose(false);
+  }
+
+  // set translation
+  QString translation_file = "./languages/eng.qm";
+  //QString translation_file = "./translations/qt_de.qm";
+  if (!m_translator.load(translation_file)) cout << " translation not loaded" << endl;
+  else cout << " Translation loaded " << endl;
+
+  qApp->installTranslator(&m_translator);
+  
   // set the stylesheet for the ui-toolbars
   ui->toolBar->setMinimumSize(250, 90);
   ui->toolBar->setStyleSheet("QToolButton:!hover {\n"
@@ -61,38 +78,26 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   // init the object to handle the internal dialogs
   m_dialog_tools = new Labonatip_tools();
 
-
   default_pon = m_dialog_tools->m_pr_params->p_on_default;
   default_poff = m_dialog_tools->m_pr_params->p_off_default;
   default_v_switch = -m_dialog_tools->m_pr_params->v_switch_default;
   default_v_recirc = -m_dialog_tools->m_pr_params->v_recirc_default;
+  
+  switchLanguage(m_dialog_tools->language);
 
   // all the connects are in this function
   initConnects();
   
-  ui->label_emptyTime->setText(" ");
-
   // status bar to not connected
   ui->statusBar->showMessage("STATUS: NOT Connected  ");
 
   // hide the warning label
-  m_pmap_okIcon = new QPixmap();
-  m_pmap_warningIcon = new QPixmap();
-  m_pmap_okIcon->load("./icons/okIcon.png");
-  m_pmap_warningIcon->load("./icons/warning.png");
-  ui->label_warningIcon->clear();
-  ui->label_warning->clear();
-  //ui->label_warningIcon->setPixmap(*m_pmap_okIcon);
-  //ui->label_warningIcon->hide();
-  //ui->label_warning->hide();
-  //ui->label_warning->setText(" ok ! ");
+  ui->label_warning->hide();
+  ui->label_warningIcon->hide();
 
   // move the arrow in the drawing to point at the solution 1
   ui->widget_solutionArrow->setVisible(false);
   ui->label_arrowSolution->setText(m_dialog_tools->m_solutionNames->sol1);
-  ui->widget_solutionArrow->move(
-	  QPoint( m_widget_solutionArrow_x_pos, 
-			  ui->widget_solutionArrow->pos().ry()));
    
   // set the scene for the graphic depiction of the solution flow
   m_scene_solution = new QGraphicsScene;
@@ -105,10 +110,10 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	  m_scene_solution->setSceneRect(s_x, s_y, s_w, s_h);
   }
   m_pen_flow.setColor(Qt::transparent);
-  m_gradient_flow = new QRadialGradient(c_x, c_y, g_radius);
-  m_gradient_flow->setColorAt(0, Qt::lightGray);  // default is from gray
-  m_gradient_flow->setColorAt(1, Qt::transparent);        // to white, alpha value 0 to ensure transparency
-  m_pen_line.setColor(Qt::lightGray);
+  //m_gradient_flow = new QRadialGradient(c_x, c_y, g_radius);
+  //m_gradient_flow->setColorAt(0, Qt::lightGray);  // default is from gray
+  //m_gradient_flow->setColorAt(1, Qt::transparent);        // to white, alpha value 0 to ensure transparency
+  m_pen_line.setColor(Qt::transparent);
   m_pen_line.setWidth(m_pen_line_width);
  
   // not yet used - it can save log data, messages from the console ect. 
@@ -182,9 +187,9 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   m_labonatip_chart_view->setSolutionColor3(m_sol3_color);
   m_labonatip_chart_view->setSolutionColor4(m_sol4_color);
 
+  ui->textEdit_emptyTime->setText(" ");
+
 }
-
-
 
 
 void Labonatip_GUI::openFile() {
@@ -194,12 +199,14 @@ void Labonatip_GUI::openFile() {
 		 << "Labonatip_GUI::openFile    " << endl;
 
 	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
-	QString _path = QFileDialog::getOpenFileName (this, tr("Open Settings file"), QDir::currentPath(),  // dialog to open files
+	QString _path = QFileDialog::getOpenFileName (this, tr("Open Settings file"), m_settings_path,  // dialog to open files
 						"Settings file (*.ini);; All Files(*.*)" , 0);
 
 	if (_path.isEmpty()) {
 		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-		QMessageBox::warning(this, "Warning !", "Empty path, file not found ! <br>" + _path);
+		
+		//TODO: no message for now 
+		//QMessageBox::warning(this, "Warning !", "Empty path, file not found ! <br>" + _path);
 		return;
 	}
 
@@ -223,12 +230,13 @@ void Labonatip_GUI::saveFile() {
 	/*if (something->isEmpty()) 
 	{QMessageBox::warning(this, "Warning !", "something empty cannot not saved  ! " );
 	}*/
-	QString _path = QFileDialog::getSaveFileName (this, tr("Save configuration file"), QDir::currentPath(),  // dialog to open files
+	QString _path = QFileDialog::getSaveFileName (this, tr("Save configuration file"), m_settings_path,  // dialog to open files
 						"Settings file (*.ini);; All Files(*.*)" , 0);
 	
 	if (_path.isEmpty()) {
 		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-		QMessageBox::warning(this, "Warning !", "Empty path, file not saved ! <br>" + _path);
+		//TODO: no message for now 
+		//QMessageBox::warning(this, "Warning !", "Empty path, file not saved ! <br>" + _path);
 		return;
 	}
 
@@ -632,12 +640,9 @@ void Labonatip_GUI::updateDrawing( int _value) {
 
 	if (_value == -1) { // _value = -1 cleans the scene and make the flow disappear 
 
-		cout << QDate::currentDate().toString().toStdString() << "  "
-			<< QTime::currentTime().toString().toStdString() << "  "
-			<< "Labonatip_GUI::updateDrawing :::: clear scene  " << endl;
 		m_scene_solution->clear();
-// TODO: for some reason here the scene is not removed 
-		m_pen_line.setColor(Qt::lightGray);
+
+		m_pen_line.setColor(Qt::transparent);
 		QBrush brush(m_pen_line.color(), Qt::SolidPattern);
 
 		m_scene_solution->addEllipse(c_x, c_y - _value / 2,
@@ -653,46 +658,35 @@ void Labonatip_GUI::updateDrawing( int _value) {
 		return;
 	}
 
-	//if( ui->pushButton_solution1->isChecked() || 
-	//	ui->pushButton_solution2->isChecked() ||
-	//	ui->pushButton_solution3->isChecked() ||
-	//	ui->pushButton_solution4->isChecked())
-	//{
-	
 	//clean the scene
 	m_scene_solution->clear();
 
-	_value = _value / 2;
 	// draw the circle 
-	//QBrush brush(*m_gradient_flow);
 	QBrush brush(m_pen_line.color(), Qt::SolidPattern);
 
-
-	//m_scene_solution->addEllipse( c_x, c_y - _value/8.0, 
-	//	                          c_radius + _value/4.0, c_radius + _value/4.0, 
+    //TODO maybe at some point this old ellipse will be removed
+	//m_scene_solution->addEllipse( c_x, c_y - _value/16.0, 
+	//	                          c_radius + _value/8.0, c_radius + _value/4.0, 
 	//							  m_pen_flow, brush );
 	
-	QPen * penna = new QPen();
-	penna->setColor(Qt::transparent);
-	penna->setWidth(1);
-	//m_scene_solution->addLine(l_x2 - 20, l_y2 - 20, l_x2 + 20, l_y2 + 20, *penna);
+	QPen * border_pen = new QPen();
+	border_pen->setColor(Qt::transparent);
+	border_pen->setWidth(1);
 
 	// TODO: this is an attempt to make the droplet to look a little bit more realistic
 	QPainterPath* path = new QPainterPath();
-	path->arcMoveTo(45, 34, 20, 20, -90);
-	path->arcTo(45, 36, 15 + _value / 8.0, 25 +_value / 50.0, -90 - _value / 5.0, 180 + _value / 2.5);
+	path->arcMoveTo(45, 34, 20, 20, -90);  //TODO: a lot of magic numbers !!!! wow !
+	path->arcTo(45, 36, 15 + _value / 16.0, 25 +_value / 100.0, -90 - _value / 10.0, 180 + _value / 5.0);
 	path->setFillRule(Qt::FillRule::WindingFill);
-	m_scene_solution->addPath(*path, *penna, brush);
+	m_scene_solution->addPath(*path, *border_pen, brush);
 
 	// draw a line from the injector to the solution release point 
 	m_scene_solution->addLine(l_x1, l_y1, l_x2, l_y2, m_pen_line);
 
 	ui->graphicsView->setScene(m_scene_solution);
 	ui->graphicsView->show();
-	//}
 
 	return;
-
 }
 
 
@@ -713,7 +707,7 @@ void Labonatip_GUI::pushSolution1()
 		m_update_flowing_sliders->stop();
 		ui->widget_solutionArrow->setVisible(false);
 		//updateDrawing(-1);
-		m_pen_line.setColor(Qt::lightGray);
+		m_pen_line.setColor(Qt::transparent);
 
 		return;
 	}
@@ -745,9 +739,12 @@ void Labonatip_GUI::pushSolution1()
 	// move the arrow in the drawing to point on the solution 1
 	ui->widget_solutionArrow->setVisible(true);
 	ui->label_arrowSolution->setText(m_dialog_tools->m_solutionNames->sol1);
+	// calculate the middle point between the two widget to align the arrow to the progressbar
+	int pos_x = ui->progressBar_solution1->pos().x() - 
+		ui->widget_solutionArrow->width() / 2 + 
+		ui->progressBar_solution1->width() / 2;
 	ui->widget_solutionArrow->move(
-		QPoint( m_widget_solutionArrow_x_pos, 
-			    ui->widget_solutionArrow->pos().ry()));
+		QPoint(pos_x, ui->widget_solutionArrow->pos().ry()));
 
 	// Here start the solution flow 
 	double solution_release_time = m_dialog_tools->getSolutionTime();
@@ -784,7 +781,7 @@ void Labonatip_GUI::pushSolution2() {
 		m_update_flowing_sliders->stop();
 		ui->widget_solutionArrow->setVisible(false);
 		//updateDrawing(-1);
-		m_pen_line.setColor(Qt::lightGray);
+		m_pen_line.setColor(Qt::transparent);
 
 		return;
 	}
@@ -815,9 +812,12 @@ void Labonatip_GUI::pushSolution2() {
 	// move the arrow in the drawing to point on the solution 2
 	ui->widget_solutionArrow->setVisible(true);
 	ui->label_arrowSolution->setText(m_dialog_tools->m_solutionNames->sol2);
+	
+	int pos_x = ui->progressBar_solution2->pos().x() - 
+		ui->widget_solutionArrow->width() / 2 + 
+		ui->progressBar_solution2->width() / 2;
 	ui->widget_solutionArrow->move(
-		QPoint( m_widget_solutionArrow_x_pos - m_widget_solutionArrow_x_pos_shift, // shift
-			    ui->widget_solutionArrow->pos().ry()));
+		QPoint(pos_x, ui->widget_solutionArrow->pos().ry()));
 
 	double solution_release_time = m_dialog_tools->getSolutionTime();
 	m_time_multipilcator = (int)solution_release_time;
@@ -852,7 +852,7 @@ void Labonatip_GUI::pushSolution3() {
 		m_update_flowing_sliders->stop();
 		ui->widget_solutionArrow->setVisible(false);
 		//updateDrawing(-1);
-		m_pen_line.setColor(Qt::lightGray);
+		m_pen_line.setColor(Qt::transparent);
 
 		return;
 	}
@@ -884,11 +884,14 @@ void Labonatip_GUI::pushSolution3() {
 	ui->widget_solutionArrow->setVisible(true);
 	ui->label_arrowSolution->setText(m_dialog_tools->m_solutionNames->sol3);
 	//ui->widget_solutionArrow->move(QPoint(290, ui->widget_solutionArrow->pos().ry()));
-	ui->widget_solutionArrow->move(
-		QPoint(m_widget_solutionArrow_x_pos - 2 * m_widget_solutionArrow_x_pos_shift, // shift
-			ui->widget_solutionArrow->pos().ry()));
-	//TODO: I don't like the static movement, let's find another solution for it ! 
 
+	// calculate the middle point between the two widget to align the arrow to the progressbar
+	int pos_x = ui->progressBar_solution3->pos().x() -
+		ui->widget_solutionArrow->width() / 2 +
+		ui->progressBar_solution3->width() / 2;
+	ui->widget_solutionArrow->move(
+		QPoint(pos_x, ui->widget_solutionArrow->pos().ry()));
+	
 	double solution_release_time = m_dialog_tools->getSolutionTime();
 	m_time_multipilcator = (int)solution_release_time;
 
@@ -922,7 +925,7 @@ void Labonatip_GUI::pushSolution4() {
 		m_update_flowing_sliders->stop();
 		ui->widget_solutionArrow->setVisible(false);
 		//updateDrawing(-1);
-		m_pen_line.setColor(Qt::lightGray);
+		m_pen_line.setColor(Qt::transparent);
 
 		return;
 	}
@@ -954,11 +957,13 @@ void Labonatip_GUI::pushSolution4() {
 	// move the arrow in the drawing to point on the solution 4
 	ui->widget_solutionArrow->setVisible(true);
 	ui->label_arrowSolution->setText(m_dialog_tools->m_solutionNames->sol4);
-	//ui->widget_solutionArrow->move(QPoint(235, ui->widget_solutionArrow->pos().ry()));
+
+	// calculate the middle point between the two widget to align the arrow to the progressbar
+	int pos_x = ui->progressBar_solution4->pos().x() -
+		ui->widget_solutionArrow->width() / 2 +
+		ui->progressBar_solution4->width() / 2;
 	ui->widget_solutionArrow->move(
-		QPoint(m_widget_solutionArrow_x_pos - 3 * m_widget_solutionArrow_x_pos_shift, // shift
-			ui->widget_solutionArrow->pos().ry()));
-	//TODO: I don't like the static movement, let's find another solution for it ! 
+		QPoint(pos_x, ui->widget_solutionArrow->pos().ry()));
 
 	double solution_release_time = m_dialog_tools->getSolutionTime();
 	m_time_multipilcator = (int)solution_release_time;
@@ -1041,6 +1046,7 @@ void Labonatip_GUI::updateTimingSliders( )
 		cerr << QDate::currentDate().toString().toStdString() << "  " 
 			 << QTime::currentTime().toString().toStdString() << "  "
 			 << "Labonatip_GUI::updateTimingSliders  error --- no valid m_flowing_solution value " << endl;
+		m_update_flowing_sliders->stop();  // stop the timer to make sure the function is not recalled if the solutions are not flowing
 		return;
 	}
 	}
@@ -1049,37 +1055,35 @@ void Labonatip_GUI::updateTimingSliders( )
 	if (m_timer_solution < m_time_multipilcator) {
 		m_update_flowing_sliders->start();
 		int status = int(100 * m_timer_solution / m_time_multipilcator);
-		//ui->widget_sol1->setValue(status);
 		_bar->setValue(100 - status);
-		//m_labonatip_chart_view->updateChartTime(status); //TODO: take this out of here
 		QString s;
 		if (!m_dialog_tools->isContinuousFlowing()) {
-			s.append("Empty in ");
+			s.append("Well empty in \n");
 			int remaining_time_in_sec = (m_time_multipilcator - m_timer_solution);
 			int remaining_hours = floor(remaining_time_in_sec / 3600); // 3600 sec in a hour
 			int remaining_mins = floor((remaining_time_in_sec % 3600) / 60); // 60 minutes in a hour
+			int remaining_secs = remaining_time_in_sec - remaining_hours * 3600 - remaining_mins * 60; // 60 minutes in a hour
 			s.append(QString::number(remaining_hours));
-			s.append(" h, ");
+			s.append(" h, \n");
 			s.append(QString::number(remaining_mins));
-			s.append(" min ");
+			s.append(" min \n");
+			s.append(QString::number(remaining_secs));
+			s.append(" sec ");
 		}
 		else
 		{
-			s.append("Continuous flowing");
+			s.append(" Continuous \n flowing");
 		}
-		ui->label_emptyTime->setText(s);
-		//ui->doubleSpinBox_solution->setValue(remaining_time_in_sec);
+		ui->textEdit_emptyTime->setText(s);
 		m_timer_solution++;
-		// show the warning label
 
 		if (m_pipette_active) updateDrawing(m_ppc1->getDropletSize());
 		else updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
 
-		//ui->label_warningIcon->show();
-		//ui->label_warning->show();
+		// show the warning label
 		if (status > 50) {
-			ui->label_warningIcon->setPixmap(*m_pmap_warningIcon);
-			ui->label_warning->setText(" warning solution is ending ");
+			ui->label_warningIcon->show();
+			ui->label_warning->show();
 		}
 		return;
 	}
@@ -1089,8 +1093,8 @@ void Labonatip_GUI::updateTimingSliders( )
 		{
 			m_update_flowing_sliders->start();
 			QString s;
-			s.append("Continuous flowing");
-			ui->label_emptyTime->setText(s);
+			s.append(" Continuous \n flowing");
+			ui->textEdit_emptyTime->setText(s);
 			return;
 		}
 
@@ -1116,14 +1120,8 @@ void Labonatip_GUI::updateTimingSliders( )
 		ui->widget_solutionArrow->setVisible(false);
 		updateDrawing(-1); // remove the droplet from the drawing
 
-
-
-		ui->label_warningIcon->clear();
-		ui->label_warning->clear();
-		//ui->label_warningIcon->setPixmap(*m_pmap_okIcon);
-		//ui->label_warning->setText(" Ok! ");
-		//ui->label_warningIcon->hide();
-		//ui->label_warning->hide();
+		ui->label_warningIcon->hide();
+		ui->label_warning->hide();
 
 		return;
 	}
@@ -1132,10 +1130,11 @@ void Labonatip_GUI::updateTimingSliders( )
 
 void Labonatip_GUI::updateFlows()
 {
+	double pipe_length_on = 0.065; //TODO : bring this to a constant parameter of definition or maybe something that can be set by the user
+	double pipe_length_off = 0.124;
 
 	// calculate the flow
 	double delta_pressure = 0.0;
-	double pipe_length = 0.124;
 	double outflow = 0.0;
 	double inflow_recirculation = 0.0;
 	double inflow_switch = 0.0;
@@ -1156,106 +1155,95 @@ void Labonatip_GUI::updateFlows()
 
 
 	if (!m_simulationOnly) {
-		ui->treeWidget_macroInfo->topLevelItem(1)->setText(1, QString::number(m_ppc1->m_PPC1_status->outflow));
-		ui->treeWidget_macroInfo->topLevelItem(2)->setText(1, QString::number(m_ppc1->m_PPC1_status->inflow_recirculation));
-		ui->treeWidget_macroInfo->topLevelItem(3)->setText(1, QString::number(m_ppc1->m_PPC1_status->in_out_ratio));
+		ui->treeWidget_macroInfo->topLevelItem(1)->setText(1, QString::number(m_ppc1->m_PPC1_status->outflow, 'g', 2));
+		ui->treeWidget_macroInfo->topLevelItem(2)->setText(1, QString::number(m_ppc1->m_PPC1_status->inflow_recirculation, 'g', 2));
 
-		ui->treeWidget_macroInfo->topLevelItem(6)->setText(1, QString::number(m_ppc1->m_PPC1_status->flow_rate_1));
-		ui->treeWidget_macroInfo->topLevelItem(7)->setText(1, QString::number(m_ppc1->m_PPC1_status->flow_rate_2));
-		ui->treeWidget_macroInfo->topLevelItem(8)->setText(1, QString::number(m_ppc1->m_PPC1_status->flow_rate_3));
-		ui->treeWidget_macroInfo->topLevelItem(9)->setText(1, QString::number(m_ppc1->m_PPC1_status->flow_rate_4));
-		ui->treeWidget_macroInfo->topLevelItem(10)->setText(1, QString::number(m_ppc1->m_PPC1_status->flow_rate_5));
-		ui->treeWidget_macroInfo->topLevelItem(11)->setText(1, QString::number(m_ppc1->m_PPC1_status->flow_rate_6));
-		ui->treeWidget_macroInfo->topLevelItem(12)->setText(1, QString::number(m_ppc1->m_PPC1_status->flow_rate_7));
-		ui->treeWidget_macroInfo->topLevelItem(13)->setText(1, QString::number(m_ppc1->m_PPC1_status->flow_rate_8));
+		if (m_ppc1->m_PPC1_status->in_out_ratio > 0)
+			ui->treeWidget_macroInfo->topLevelItem(3)->setText(1, QString::number(m_ppc1->m_PPC1_status->in_out_ratio, 'g', 2));
+		else
+			ui->treeWidget_macroInfo->topLevelItem(3)->setText(1, QString::number(0.0, 'g', 2));
+
+
+		ui->treeWidget_macroInfo->topLevelItem(6)->setText(1, QString::number(m_ppc1->m_PPC1_status->flow_rate_1, 'g', 2));
+		ui->treeWidget_macroInfo->topLevelItem(7)->setText(1, QString::number(m_ppc1->m_PPC1_status->flow_rate_2, 'g', 2));
+		ui->treeWidget_macroInfo->topLevelItem(8)->setText(1, QString::number(m_ppc1->m_PPC1_status->flow_rate_3, 'g', 2));
+		ui->treeWidget_macroInfo->topLevelItem(9)->setText(1, QString::number(m_ppc1->m_PPC1_status->flow_rate_4, 'g', 2));
+		ui->treeWidget_macroInfo->topLevelItem(10)->setText(1, QString::number(m_ppc1->m_PPC1_status->flow_rate_5, 'g', 2));
+		ui->treeWidget_macroInfo->topLevelItem(11)->setText(1, QString::number(m_ppc1->m_PPC1_status->flow_rate_6, 'g', 2));
+		ui->treeWidget_macroInfo->topLevelItem(12)->setText(1, QString::number(m_ppc1->m_PPC1_status->flow_rate_7, 'g', 2));
+		ui->treeWidget_macroInfo->topLevelItem(13)->setText(1, QString::number(m_ppc1->m_PPC1_status->flow_rate_8, 'g', 2));
 
 		return;
 	}
 	else{
-		v_s = m_v_switch_set_point;
-		p_on = m_pon_set_point;
-		p_off = m_poff_set_point;
-	}
 	// calculate inflow
 	delta_pressure = 100.0 * v_s;
+	inflow_recirculation = 2.0 * m_ppc1->getFlowSimple(delta_pressure, pipe_length_on);
 
-	pipe_length = 0.065;
-	inflow_recirculation = 2 * m_ppc1->getFlowSimple(delta_pressure, pipe_length);
+	delta_pressure = 100.0 * (v_s + 2.0 * p_off *  0.046153846); //TODO magic number !!!
+	inflow_switch = 2 * m_ppc1->getFlowSimple(delta_pressure, pipe_length_on);
 
-	delta_pressure = 100.0 * (v_s + 2 * p_off *  0.046153846);
-	inflow_switch = 2 * m_ppc1->getFlowSimple(delta_pressure, pipe_length);
-
-	delta_pressure = 100.0 * 2 * p_off;
-	pipe_length = 0.124;
-	solution_usage_off = m_ppc1->getFlowSimple(delta_pressure, pipe_length);
+	delta_pressure = 100.0 * 2.0 * p_off;
+	solution_usage_off = m_ppc1->getFlowSimple(delta_pressure, pipe_length_off);
 
 	delta_pressure = 100.0 * p_on;
-	pipe_length = 0.065;
-	solution_usage_on = m_ppc1->getFlowSimple(delta_pressure, pipe_length);
+	solution_usage_on = m_ppc1->getFlowSimple(delta_pressure, pipe_length_on);
 
 
 	if (ui->pushButton_solution1->isChecked() ||
 		ui->pushButton_solution2->isChecked() ||
 		ui->pushButton_solution3->isChecked() ||
-		ui->pushButton_solution4->isChecked()) // flow when solution is off
+		ui->pushButton_solution4->isChecked()) // flow when solution is off // TODO : check on off
 		{
 
-		delta_pressure = 100.0 * (p_on +
-			(p_off * 3) -
-			(v_s * 2));
+		delta_pressure = 100.0 * (p_on + p_off * 3 - v_s * 2.0);
 
-		pipe_length = 0.065;
-		outflow = m_ppc1->getFlowSimple( delta_pressure, pipe_length);
+		outflow = m_ppc1->getFlowSimple( delta_pressure, pipe_length_on);
 
-
-
-		flow_rate_1 = solution_usage_on;
-		flow_rate_2 = solution_usage_off;
-		flow_rate_3 = solution_usage_off;
-		flow_rate_4 = solution_usage_off;
-		flow_rate_5 = inflow_switch / 2.0;
-		flow_rate_6 = inflow_switch / 2.0;
-		flow_rate_7 = inflow_recirculation / 2.0;
-		flow_rate_8 = inflow_recirculation / 2.0;
+		if (ui->pushButton_solution1->isChecked() ) flow_rate_1 = solution_usage_on;
+		else flow_rate_1 = solution_usage_off;
+		if (ui->pushButton_solution2->isChecked()) flow_rate_2 = solution_usage_on;
+		else flow_rate_2 = solution_usage_off;
+		if (ui->pushButton_solution3->isChecked()) flow_rate_3 = solution_usage_on;
+		else flow_rate_3 = solution_usage_off;
+		if (ui->pushButton_solution4->isChecked()) flow_rate_4 = solution_usage_on;
+		else flow_rate_4 = solution_usage_off;
 
 	}
-	else // flow when solution is on
+	else // flow when solution is on // TODO : check on off
 	{
-		delta_pressure = 100.0 * ((p_off * 4) -
-			(v_s * 2));
+		delta_pressure = 100.0 * (p_off * 4.0 - v_s * 2.0);
 
-		pipe_length = 0.124;
-		outflow = 2 * m_ppc1->getFlowSimple( delta_pressure, pipe_length);
+		outflow = 2.0 * m_ppc1->getFlowSimple( delta_pressure, pipe_length_off);
 
 		flow_rate_1 = solution_usage_off;
 		flow_rate_2 = solution_usage_off;
 		flow_rate_3 = solution_usage_off;
 		flow_rate_4 = solution_usage_off;
-		flow_rate_5 = inflow_switch / 2.0;
-		flow_rate_6 = inflow_switch / 2.0;
-		flow_rate_7 = inflow_recirculation / 2.0;
-		flow_rate_8 = inflow_recirculation / 2.0;
+
 	}
 
-
+	flow_rate_5 = inflow_switch / 2.0;
+	flow_rate_6 = inflow_switch / 2.0;
+	flow_rate_7 = inflow_recirculation / 2.0;
+	flow_rate_8 = inflow_recirculation / 2.0;
 
 	in_out_ratio = std::abs(outflow / inflow_recirculation);
 
+	ui->treeWidget_macroInfo->topLevelItem(1)->setText(1, QString::number(outflow, 'g', 2));
+	ui->treeWidget_macroInfo->topLevelItem(2)->setText(1, QString::number(inflow_recirculation, 'g', 2));
+	if (in_out_ratio > 0) ui->treeWidget_macroInfo->topLevelItem(3)->setText(1, QString::number(in_out_ratio, 'g', 2));
+	else ui->treeWidget_macroInfo->topLevelItem(3)->setText(1, QString::number(0, 'g', 2));
 
-
-	ui->treeWidget_macroInfo->topLevelItem(1)->setText(1, QString::number(outflow));
-	ui->treeWidget_macroInfo->topLevelItem(2)->setText(1, QString::number(inflow_recirculation));
-	ui->treeWidget_macroInfo->topLevelItem(3)->setText(1, QString::number(in_out_ratio));
-
-	ui->treeWidget_macroInfo->topLevelItem(6)->setText(1, QString::number(flow_rate_1));
-	ui->treeWidget_macroInfo->topLevelItem(7)->setText(1, QString::number(flow_rate_2));
-	ui->treeWidget_macroInfo->topLevelItem(8)->setText(1, QString::number(flow_rate_3));
-	ui->treeWidget_macroInfo->topLevelItem(9)->setText(1, QString::number(flow_rate_4));
-	ui->treeWidget_macroInfo->topLevelItem(10)->setText(1, QString::number(flow_rate_5));
-	ui->treeWidget_macroInfo->topLevelItem(11)->setText(1, QString::number(flow_rate_6));
-	ui->treeWidget_macroInfo->topLevelItem(12)->setText(1, QString::number(flow_rate_7));
-	ui->treeWidget_macroInfo->topLevelItem(13)->setText(1, QString::number(flow_rate_8));
-
+	ui->treeWidget_macroInfo->topLevelItem(6)->setText(1, QString::number(flow_rate_1, 'g', 2));
+	ui->treeWidget_macroInfo->topLevelItem(7)->setText(1, QString::number(flow_rate_2, 'g', 2));
+	ui->treeWidget_macroInfo->topLevelItem(8)->setText(1, QString::number(flow_rate_3, 'g', 2));
+	ui->treeWidget_macroInfo->topLevelItem(9)->setText(1, QString::number(flow_rate_4, 'g', 2));
+	ui->treeWidget_macroInfo->topLevelItem(10)->setText(1, QString::number(flow_rate_5, 'g', 2));
+	ui->treeWidget_macroInfo->topLevelItem(11)->setText(1, QString::number(flow_rate_6, 'g', 2));
+	ui->treeWidget_macroInfo->topLevelItem(12)->setText(1, QString::number(flow_rate_7, 'g', 2));
+	ui->treeWidget_macroInfo->topLevelItem(13)->setText(1, QString::number(flow_rate_8, 'g', 2));
+	}
 
 	return;
 }
@@ -1269,18 +1257,15 @@ void Labonatip_GUI::updateGUI() {
 		ui->label_switchPressure->setText(QString(QString::number(sensor_reading) + ", " + QString::number(set_point) + " mbar"));
 		ui->progressBar_switch->setValue(-sensor_reading);
 
-
 		sensor_reading = (int)(m_ppc1->m_PPC1_data->channel_A->sensor_reading);
 		set_point = (int)(m_ppc1->m_PPC1_data->channel_A->set_point);
 		ui->label_recircPressure->setText(QString(QString::number(sensor_reading) + ", " + QString::number(set_point) + " mbar"));
 		ui->progressBar_recirc->setValue(-sensor_reading);
 
-
 		sensor_reading = (int)(m_ppc1->m_PPC1_data->channel_C->sensor_reading);
 		set_point = (int)(m_ppc1->m_PPC1_data->channel_C->set_point);
 		ui->label_PoffPressure->setText(QString(QString::number(sensor_reading) + ", " + QString::number(set_point) + " mbar"));
 		ui->progressBar_pressure_p_off->setValue(sensor_reading);
-
 
 		sensor_reading = (int)(m_ppc1->m_PPC1_data->channel_D->sensor_reading);
 		set_point = (int)(m_ppc1->m_PPC1_data->channel_D->set_point);
@@ -1310,7 +1295,7 @@ void Labonatip_GUI::updateGUI() {
 	updateFlows();
 
 
-	//if (m_ppc1->isRunning())
+	if (m_ppc1->isRunning())
   	    m_update_GUI->start();
 }
 
@@ -1378,6 +1363,66 @@ bool Labonatip_GUI::saveLog(QString &_file_name) // This is deprecated
 	return true;
 };
 
+
+void Labonatip_GUI::switchLanguage(int _value )
+{
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::switchLanguage   " << endl;
+	
+	qApp->removeTranslator(&m_translator);
+	QString translation_file;
+	switch (_value)
+	{ 
+	case 0:
+	{
+		translation_file = "./languages/eng.qm";
+		break;
+	}
+	case 1:
+	{
+		translation_file = "./languages/sve.qm";
+		break;
+	}
+	case 2:
+	{
+		translation_file = "./languages/ita.qm";
+		break;
+	}
+	default: 
+		translation_file = "./languages/eng.qm";
+		qApp->removeTranslator(&m_translator);
+		break;
+	}
+
+	if (m_translator.load(translation_file)) {
+		//m_translator.translate("Labonatip_GUI", "english");
+		qApp->installTranslator(&m_translator);
+
+		m_dialog_tools->switchLanguage(translation_file);
+	}
+	else cout << " translation not loaded " << endl;
+
+}
+
+
+void Labonatip_GUI::changeEvent(QEvent* event)
+{
+
+	if (0 != event) {
+		switch (event->type()) {
+			// this event is send if a translator is loaded
+		case QEvent::LanguageChange:
+			ui->retranslateUi(this);
+			break;
+
+
+		break;
+		}
+	}
+	QMainWindow::changeEvent(event);
+
+}
 
 
 void Labonatip_GUI::initConnects()
@@ -1552,13 +1597,33 @@ void Labonatip_GUI::initConnects()
 		SIGNAL(valueChanged(int)), this, 
 		SLOT(sliderSwitchChanged(int)));
 	
-	connect(m_dialog_tools, 
+	connect(m_dialog_tools,
+		SIGNAL(emptyWells()), this,
+		SLOT(toolEmptyWells()));
+
+	connect(m_dialog_tools,
 		SIGNAL(ok()), this, 
 		SLOT(toolOk()));
 
 	connect(m_dialog_tools, 
 		SIGNAL(apply()), this, 
 		SLOT(toolApply()));
+
+}
+
+void Labonatip_GUI::toolEmptyWells()
+{
+
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::toolEmptyWells   " << endl;
+
+	ui->progressBar_recircIn->setValue(0);
+	ui->progressBar_recircOut->setValue(0);
+	ui->progressBar_switchIn->setValue(0); 
+	ui->progressBar_switchOut->setValue(0);
+
+	if (!m_simulationOnly) m_ppc1->setValvesState(0x0F); //TODO: check the real behaviour of this function
 
 }
 
@@ -1571,6 +1636,7 @@ void Labonatip_GUI::toolOk() {
 	m_ppc1->setCOMport(m_dialog_tools->m_comSettings->name);
 	m_ppc1->setBaudRate((int)m_dialog_tools->m_comSettings->baudRate);
 
+	switchLanguage(m_dialog_tools->language);
 
 	/////////////////////////////////////////
 	// TODO set all the other options
@@ -1578,20 +1644,23 @@ void Labonatip_GUI::toolOk() {
 	{
 		m_update_flowing_sliders->start();
 		QString s;
-		s.append("Continuous flowing");
-		ui->label_emptyTime->setText(s);
+		s.append(" Continuous \n flowing");
+		ui->textEdit_emptyTime->setText(s);
 	}
 	else
 	{
 		QString s;
-		s.append("Empty in ");
+		s.append("Well empty in \n");
 		int remaining_time_in_sec = (m_time_multipilcator - m_timer_solution);
 		int remaining_hours = floor(remaining_time_in_sec / 3600); // 3600 sec in a hour
 		int remaining_mins = floor((remaining_time_in_sec % 3600) / 60); // 60 minutes in a hour
+		int remaining_secs = remaining_time_in_sec - remaining_hours * 3600 - remaining_mins * 60; // 60 minutes in a hour
 		s.append(QString::number(remaining_hours));
-		s.append(" h, ");
+		s.append(" h, \n");
 		s.append(QString::number(remaining_mins));
-		s.append(" min ");
+		s.append(" min \n");
+		s.append(QString::number(remaining_secs));
+		s.append(" sec ");
 	}
 
 	//updateChartMacro();
@@ -1599,7 +1668,7 @@ void Labonatip_GUI::toolOk() {
 
 	// compute the duration of the macro
 	double macro_duration = 0.0;
-	for (int i = 0; i < m_macro->size(); i++) {
+	for (size_t i = 0; i < m_macro->size(); i++) {
 		if (m_macro->at(i).getInstruction() == 
 			fluicell::PPC1api::command::instructions::sleep)
 			macro_duration += m_macro->at(i).getValue();
@@ -1625,27 +1694,30 @@ void Labonatip_GUI::toolApply()
 	{
 		m_update_flowing_sliders->start();
 		QString s;
-		s.append("Continuous flowing");
-		ui->label_emptyTime->setText(s);
+		s.append(" Continuous \n flowing");
+		ui->textEdit_emptyTime->setText(s);
 	}
 	else
 	{
 		QString s;
-		s.append("Empty in ");
+		s.append("Well empty in \n");
 		int remaining_time_in_sec = (m_time_multipilcator - m_timer_solution);
 		int remaining_hours = floor(remaining_time_in_sec / 3600); // 3600 sec in a hour
 		int remaining_mins = floor((remaining_time_in_sec % 3600) / 60); // 60 minutes in a hour
+		int remaining_secs = remaining_time_in_sec - remaining_hours * 3600 - remaining_mins * 60; // 60 minutes in a hour
 		s.append(QString::number(remaining_hours));
-		s.append(" h, ");
+		s.append(" h, \n");
 		s.append(QString::number(remaining_mins));
-		s.append(" min ");
+		s.append(" min \n");
+		s.append(QString::number(remaining_secs));
+		s.append(" sec ");
 	}
 
 	m_labonatip_chart_view->updateChartMacro(m_macro);
 
 	// compute the duration of the macro
 	double macro_duration = 0.0;
-	for (int i = 0; i < m_macro->size(); i++) {
+	for (size_t i = 0; i < m_macro->size(); i++) {
 		if (m_macro->at(i).getInstruction() ==
 			fluicell::PPC1api::command::instructions::sleep)
 			macro_duration += m_macro->at(i).getValue();

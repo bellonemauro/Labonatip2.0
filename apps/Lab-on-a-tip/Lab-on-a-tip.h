@@ -14,12 +14,15 @@
 // standard libraries
 #include <iostream>
 #include <string>
-#include <math.h>
+//#include <math.h>
 #include <fstream>
 // Qt
 #include <QApplication>
 #include <QMainWindow>
+#include <QTranslator>
+#include <QToolButton>
 #include <QDialog>
+#include <QMenu>
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QSettings>
@@ -80,14 +83,21 @@ class Labonatip_GUI : public QMainWindow
 
 		class Labonatip_dropletControl;
 
+protected:	
+	void changeEvent(QEvent*);
+
 public:
 	explicit Labonatip_GUI(QMainWindow *parent = nullptr);
 
 	~Labonatip_GUI();
+	
+
 
 	void setVersion(string _version);
 
-	void setMacroPath(QString _path) { m_macro_path = _path; }
+	void setMacroUserPath(QString _path) { m_macro_path = _path; }
+
+	void setSettingsUserPath(QString _path) { m_settings_path = _path; }
 
 	/** \brief This function is called when the down arrow on Pon is called
 	*        it decreases the pressure on Pon, it does not accept out-of-range
@@ -405,6 +415,7 @@ private slots:
 	void sliderPonChanged(int _value);
 
 
+	void switchLanguage(int _value);
 
 
 	/** \brief Set debug to terminal
@@ -490,6 +501,8 @@ private slots:
 	  */
 	void  about();
 
+	void toolEmptyWells();
+
 	/** \brief Catch ok signal from tool dialog
 	* \note
 	*/
@@ -531,9 +544,6 @@ private:
 
   QGraphicsScene *m_scene_solution;   //!< scene to draw the solution flow
   
-  QPixmap *m_pmap_okIcon;   //!< pixmaps for the warning labels
-  QPixmap *m_pmap_warningIcon;   //!< pixmaps for the warning labels
-
   // for serial communication
   QLabel *status;
 
@@ -588,11 +598,14 @@ private:
   double m_v_recirc_set_point;
   double m_v_switch_set_point;
 
-  int m_widget_solutionArrow_x_pos; 
-  int m_widget_solutionArrow_x_pos_shift;
+  double m_ds_perc;  //!< droplet size percentage
+  double m_fs_perc;  //!< flow speed percentage
+  double m_v_perc;   //!< vacuum percentage
 
   QString m_version;
   QString m_macro_path;
+  QString m_settings_path;
+  QTranslator m_translator;
 };
 
 #endif /* Labonatip_GUI_H_ */

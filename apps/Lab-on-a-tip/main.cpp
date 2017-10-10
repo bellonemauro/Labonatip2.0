@@ -30,12 +30,14 @@
 
 // if it is the first time that the software runs,
 // it will set up useful files and folders in the user files
-void setPaths(QString &_macro_user_path)
+void setPaths(QString &_macro_user_path, QString &_settings_user_path )
 {
 	QString home_path = QDir::homePath();
 	QDir app_dir = QDir::currentPath();
 	QString macro_path = app_dir.path();
 	macro_path.append("/presetMacros/");
+	QString settings_path = app_dir.path();
+	settings_path.append("/settings/");
 
 	QDir macro_dir;
 	if (!macro_dir.exists(macro_path))
@@ -49,15 +51,18 @@ void setPaths(QString &_macro_user_path)
 
 	home_path.append("/Labonatip/");
 	QDir home_dir;
-	QDir macro_user_dir;
 	if (!home_dir.exists(home_path))
 	{
 		home_dir.mkpath(home_path);
 		cout << "directory " << home_path.toStdString() << " now exists" << endl;
+	}
 
-
-		_macro_user_path = home_path;
-		_macro_user_path.append("/presetMacros/");
+	QDir macro_user_dir;
+	QString macro_home_path = home_path;
+	macro_home_path.append("/presetMacros/");
+	if (!macro_user_dir.exists(macro_home_path))
+	{
+		_macro_user_path = macro_home_path;
 		macro_user_dir.mkpath(_macro_user_path);
 		cout << "directory macro_user_path " << _macro_user_path.toStdString() << " now exists" << endl;
 		cout << "directory macro_dir " << macro_dir.path().toStdString() << " now exists" << endl;
@@ -82,24 +87,35 @@ void setPaths(QString &_macro_user_path)
 		file1.setFileName(_macro_user_path + "/sleep.macro");
 		file2.setFileName(macro_path + "/sleep.macro");
 		QFile::copy(file2.fileName(), file1.fileName());
-
-		//if (file1.open(QIODevice::ReadWrite))
-		//{
-		//	cout << "file now exists";
-		//}
 	}
 	else {
-		_macro_user_path = home_path;
-		_macro_user_path.append("/presetMacros/");
+		_macro_user_path = macro_home_path;
 	}
 
+	QDir settings_user_dir;
+	QString settings_home_path = home_path;
+	settings_home_path.append("/settings/");
+	if (!settings_user_dir.exists(settings_home_path))
+	{
+		_settings_user_path = settings_home_path;
+		settings_user_dir.mkpath(_settings_user_path);
+		QFile file1(_settings_user_path + "/settings.ini");
+		QFile file2(settings_path + "/settings.ini");
+		QFile::copy(file2.fileName(), file1.fileName());
+
+	}
+	else {
+		_settings_user_path = settings_home_path;
+	}
 }
 
 
 int main(int argc, char **argv)//(int argc, char *argv[])
 {	
 	QString macro_user_path;
-	setPaths(macro_user_path);
+	QString settings_user_path;
+
+	setPaths(macro_user_path, settings_user_path);
 
 	string version;
 #ifdef LABONATIP_VERSION
@@ -120,8 +136,8 @@ int main(int argc, char **argv)//(int argc, char *argv[])
 	  window.setVersion(version);
 #endif
 
-	  window.setMacroPath(macro_user_path);
-
+	  window.setMacroUserPath(macro_user_path);
+	  window.setSettingsUserPath(settings_user_path);
 
 	  // get the screen resolution of the current screen
 	  // so we can resize the application in case of small screens
@@ -139,8 +155,7 @@ int main(int argc, char **argv)//(int argc, char *argv[])
 		  QTimer::singleShot(5000, &window, SLOT(show()));
   
 	  //return a.exec ();
-  
-  
+   
 	  a.exec();
   }
   catch (std::exception &e) {
@@ -154,6 +169,3 @@ int main(int argc, char **argv)//(int argc, char *argv[])
 
   return 0; // exit the application
 }
-
-
-

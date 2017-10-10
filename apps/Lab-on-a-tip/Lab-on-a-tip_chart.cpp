@@ -15,8 +15,9 @@
 
 Labonatip_chart::Labonatip_chart(  ) 
 {
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		<< " Labonatip_chart::Labonatip_chart initialization " << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  " 
+		 << QTime::currentTime().toString().toStdString() << "  "
+		 << " Labonatip_chart::Labonatip_chart initialization " << endl;
 
 	chart_width = 10.0;
 	
@@ -112,9 +113,9 @@ void Labonatip_chart::updateChartMacro(f_macro *_macro)
 
 	// compute the duration of the macro
 	double total_duration = 0.0;
-	for (int i = 0; i < _macro->size(); i++) {
+	for (size_t i = 0; i < _macro->size(); i++) {
 		if (_macro->at(i).getInstruction() == fluicell::PPC1api::command::instructions::sleep)
-			total_duration += _macro->at(i).getValue(); //TODO check this
+			total_duration += _macro->at(i).getValue();
 	}
 
 	cout << QDate::currentDate().toString().toStdString() << "  " 
@@ -122,7 +123,7 @@ void Labonatip_chart::updateChartMacro(f_macro *_macro)
 		 << "Labonatip_GUI::updateChartMacro ::: the complete duration is : " << total_duration << endl;
 
 	
-	for (int i = 0; i < _macro->size(); i++) {
+	for (size_t i = 0; i < _macro->size(); i++) {
 		// in every iteration a new segment is added to the chart
 		// hence two points are always needed
 

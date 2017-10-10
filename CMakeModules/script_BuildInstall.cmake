@@ -152,9 +152,9 @@ if (WIN32 AND NOT UNIX)
 		INSTALL(FILES "${F}" DESTINATION ./settings)
 	ENDFOREACH(F)	
 
-	FILE(GLOB myProject_TRANSATIONS "${PROJECT_BINARY_DIR}/bin/Release/translations/*.*") 
-	FOREACH(F ${myProject_TRANSATIONS})
-		INSTALL(FILES "${F}" DESTINATION ./translations)
+	FILE(GLOB myProject_LANGUAGES "${PROJECT_BINARY_DIR}/bin/Release/languages/*.*") 
+	FOREACH(F ${myProject_LANGUAGES})
+		INSTALL(FILES "${F}" DESTINATION ./languages)
 	ENDFOREACH(F)	
 
 

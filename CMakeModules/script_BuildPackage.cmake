@@ -14,10 +14,10 @@
 if( WIN32 AND NOT UNIX )
 
 #define the website -- TODO: change with the real website
-set (WEBSITE "https://www.maurobellone.com")   
+set (WEBSITE "http://www.maurobellone.com")   
 set (WEB_TUTORIAL "share/doc/___/tutorials/html/index.html")  
 set (WEB_DOCS "share/doc/___/html/____.chm")  
-set (WEB_DEV "https://www.maurobellone.com")
+set (WEB_DEV "http://www.maurobellone.com")
 
 # set the info/about for the executable - can be changed to some other comment
 set(CPACK_NSIS_URL_INFO_ABOUT "${WEBSITE}")
@@ -42,7 +42,9 @@ set(CPACK_RESOURCE_FILE_README "${CMAKE_CURRENT_SOURCE_DIR}/README.md")#AUTHORS.
 set (CPACK_PACKAGE_VERSION "${CMAKE_Fluicell_FULL_VERSION}")     
 
 #set a cool icon to start the application
-set (CPACK_NSIS_MUI_ICON "${CMAKE_CURRENT_SOURCE_DIR}/Resources/fluicell_iconBIG.ico")
+set (CPACK_NSIS_MUI_ICON "${CMAKE_CURRENT_SOURCE_DIR}/Resources/fluicell_iconBIG.ico") #program icon
+#set (CPACK_NSIS_MUI_UNIICON "${CMAKE_CURRENT_SOURCE_DIR}/Resources/fluicell_iconBIG.ico") #uninstall icon
+
 #set (CPACK_PACKAGE_ICON "${CMAKE_CURRENT_SOURCE_DIR}/Resources/icon.jpg")# -- NOT FOUND -- ??
 
 set(CPACK_NSIS_MENU_LINKS 
@@ -69,6 +71,14 @@ set(CPACK_CREATE_DESKTOP_LINKS "Lab-on-a-tip" "Lab-on-a-tip")
 # required by cmake to install new registry key for the executable
 set(CPACK_PACKAGE_INSTALL_REGISTRY_KEY "${CMAKE_PROJECT_NAME}")#-${CMAKE_Fluicell_FULL_VERSION}")
 
+# this is to create the user folders during the installation
+set( CPACK_NSIS_EXTRA_INSTALL_COMMANDS "
+	CreateDirectory \\\"$PROFILE\\\\Labonatip\\\" 
+	CreateDirectory \\\"$PROFILE\\\\Labonatip\\\\presetMacros\\\"
+	CreateDirectory \\\"$PROFILE\\\\Labonatip\\\\settings\\\" 
+	CopyFiles \\\"$INSTDIR\\\\presetMacros\\\\*.macro\\\" \\\"$PROFILE\\\\Labonatip\\\\presetMacros\\\"
+	CopyFiles \\\"$INSTDIR\\\\settings\\\\*.ini\\\" \\\"$PROFILE\\\\Labonatip\\\\settings\\\"
+	")
 
 set(CPACK_NSIS_EXECUTABLES_DIRECTORY ".")
 
@@ -79,6 +89,26 @@ set(CPACK_NSIS_INSTALLED_ICON_NAME Lab-on-a-tip.exe)
 set(CPACK_NSIS_MUI_FINISHPAGE_RUN Lab-on-a-tip.exe)
 
 
+#set(CPACK_NSIS_MUI_UNPAGE_WELCOME )
+#set(CPACK_NSIS_MUI_UNPAGE_CONFIRM )
+#set(CPACK_NSIS_MUI_UNCONFIRMPAGE_TEXT_LOCATION "ATTENTION: this will also remove user files, click cancel to abort") 
+#set(CPACK_NSIS_MUI_UNPAGE_COMPONENTS )
+#set(CPACK_NSIS_MUI_UNPAGE_DIRECTORY )
+#set(CPACK_NSIS_MUI_UNPAGE_INSTFILES )
+#set(CPACK_NSIS_MUI_UNPAGE_FINISH )
+
+
+
+#add a command to remove user created files - ATTENTION: it will also removed used created files !!!
+set( CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS "
+	Delete \\\"$PROFILE\\\\Labonatip\\\\presetMacros\\\\*.macro\\\" 
+	Delete \\\"$PROFILE\\\\Labonatip\\\\settings\\\\*.ini\\\" 
+	RMDir \\\"$PROFILE\\\\Labonatip\\\\presetMacros\\\"
+	RMDir \\\"$PROFILE\\\\Labonatip\\\\settings\\\" 
+	RMDir \\\"$PROFILE\\\\Labonatip\\\" 
+")
+
+												   
 message (STATUS "BUILD PACKAGE STATUS MESSAGE : building version ${CMAKE_Fluicell_FULL_VERSION} " )
 
 # make the package 

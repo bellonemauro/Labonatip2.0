@@ -27,6 +27,21 @@ using namespace std;
 
 class Labonatip_macroRunner;
 
+//custom combo behavior
+class macroCombobox :public QComboBox {
+	Q_OBJECT
+
+public:
+	explicit macroCombobox(QWidget* parent = 0) : QComboBox(parent) {}
+
+	void wheelEvent(QWheelEvent *e)
+	{
+		if (hasFocus())
+			QComboBox::wheelEvent(e);
+	}
+};
+
+
 class Labonatip_tools : public  QDialog
 {
 	Q_OBJECT
@@ -38,12 +53,15 @@ signals :
 	void ok();  // generated when ok is pressed
 	void apply(); // generated when apply is pressed
 	void discard(); // generated when discard is pressed
+	void emptyWells(); // generated when empty wells is pressed
 	void colSol1Changed(const int _r, const int _g, const int _b);
 	void colSol2Changed(const int _r, const int _g, const int _b);
 	void colSol3Changed(const int _r, const int _g, const int _b);
 	void colSol4Changed(const int _r, const int _g, const int _b);
 
+
 public:
+
 
 	// TODO: exclude QTserial and bring this structure to serial ! 
 	// structure to handle COM port parameters
@@ -118,8 +136,11 @@ public:
 	COMSettings *m_comSettings;
 	solutionsNames *m_solutionNames;
 	pr_params *m_pr_params;
+	int language; //TODO add an enumerator
 
 	void setMacroPrt(std::vector<fluicell::PPC1api::command> *_macro) { m_macro = _macro; };
+
+	void switchLanguage(QString _translation_file);
 
 	bool setLoadSettingsFileName(QString _filename) { 
 		m_setting_file_name = _filename; 
@@ -154,6 +175,7 @@ private slots:
 	*/
 	void showPortInfo(int idx);
 
+	void languageChanged(int _idx);
 
 	/** Color solution 1 changed
 	* \note
@@ -179,7 +201,7 @@ private slots:
 	*
 	* \note
 	*/
-	void disableTimer(int _state) {
+	void setContinuousFow(int _state) {
 		  ui_tools->doubleSpinBox_solution->setEnabled(!_state); // TODO !!! this is still not in the setting file
 	}
 
@@ -198,6 +220,8 @@ private slots:
 	*   
 	*/
 	void applyPressed();
+
+	void emptyWellsPressed();
 
 	/** Enumerate serial ports
 	*
@@ -247,8 +271,6 @@ private slots:
 
 	void duplicateItem();
 
-//	void visualizeItemProperties(); // deprecated
-
 	bool checkValidity(QTreeWidgetItem *_item, int _column);
 
 	void commandChanged(int _idx);
@@ -282,12 +304,12 @@ private:
 
 	//void createNewCommand(QTreeWidgetItem &_command); // deprecated
 
-	void createNewCommand(QTreeWidgetItem &_command, QComboBox &_combo_box);
+	void createNewCommand(QTreeWidgetItem &_command, macroCombobox &_combo_box);
 	
 	/** overload to allow creating the combobox only without the item
 	*
 	*/
-	void createNewCommand(QComboBox &_combo_box) {
+	void createNewCommand(macroCombobox &_combo_box) {
 		QTreeWidgetItem item;
 		createNewCommand(item, _combo_box);
 	}
@@ -308,6 +330,8 @@ private:
 
 	QList<QStringList> visitTree(QTreeWidget *_tree);
 
+	int interpreteLanguage(QString _language);
+
 	bool decodeMacroCommand(QByteArray &_command, QTreeWidgetItem &_out_item);
 
 	void getCOMsettings();
@@ -321,6 +345,8 @@ private:
 	QString m_setting_file_name;
 	QString m_current_macro_file_name;
 	QString m_macro_path;
+
+	QTranslator m_translator_tool;
 
 protected:
 	Ui::Labonatip_tools *ui_tools;    //!<  the user interface

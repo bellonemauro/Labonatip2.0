@@ -581,7 +581,8 @@ namespace fluicell
 		string m_COMport;   //!< port number
 		int m_baud_rate;    //!< baud rate
 		int m_dataStreamPeriod; //!< data stream for the PPC1
-		//string m_serialNumber;  //!< device serial number --- NOT USED 
+		int m_COM_timeout;  //!< timeout for the serial communication --- default value 250 ms
+
 
 		thread m_thread; //!< Member for the thread handling
 		
@@ -593,6 +594,10 @@ namespace fluicell
 		double m_default_poff;  //!< in mbar  -- default value   21.0 mbar
 		double m_default_v_recirc;  //!< in mbar (negative value!)  -- default value 115 mbar
 		double m_default_v_switch;  //!< in mbar (negative value!)  -- default value 115 mbar
+		double m_pipe_length2tip;  /*!< length of the pipe to the tip, this value is used for the calculation 
+								        of the flow using the Poiseuille equation see function getFlow() -- default value 0.065 m; */
+		double m_pipe_length2zone; /*!< length of the pipe to the zone, this value is used for the calculation 
+								        of the flow using the Poiseuille equation see function getFlow() -- default value 0.124 m;*/
 		bool m_verbose;
 
 
@@ -856,6 +861,7 @@ namespace fluicell
 		**/
 		bool setDropletSize(double _percentage = 100.0);
 
+		bool changeDropletSizeBy(double _percentage = 0.0);
 
 		/** \brief Get the current droplet size as percentage
 		*
@@ -872,7 +878,7 @@ namespace fluicell
 		double getDropletSize();
 
 	
-		/** \brief Change the flow speed to _percentage, default value = 100.0 %
+		/** \brief Set the flow speed to _percentage, default value = 100.0 %
 		*
 		*  To increase the flow speed, all the values of pressures and vacuum are 
 		*  increased/decreased to the same percentage with respect to the default values
@@ -884,6 +890,19 @@ namespace fluicell
 		**/
 		bool setFlowspeed(const double _percentage = 100.0);
 
+
+		/** \brief Change the flow speed by _percentage, default value = 0.0 %
+		*
+		*  To increase the flow speed, all the values of pressures and vacuum are
+		*  increased/decreased to the same percentage with respect to the default values
+		*
+		*  @param  _percentage is the desired percentage value
+		*
+		*
+		*  \return -  false in case of errors
+		**/
+		bool changeFlowspeedBy(const double _percentage = 0.0);
+
 		/** \brief Get the current flow speed in percentage
 		*
 		* \note: the calculation is based on the the actual sensor readings
@@ -894,12 +913,23 @@ namespace fluicell
 		
 		/** \brief Set the vacuum by _percentage 
 		*
-		*  write me
+		*  new recirculation value on Channel A = m_default_v_recirc * percentage
 		*
 		*
 		*  \return -  false in case of errors
 		**/
-		bool setVacuum(const double _percentage = 100.0);
+		bool setVacuumPercentage(const double _percentage = 100.0);
+
+		/** \brief Change the vacuum by _percentage
+		*
+		*  Positive / negative values will increase descrease the percentage
+		*
+		*  new recirculation value on Channel A = m_default_v_recirc * percentage
+		*
+		*
+		*  \return -  false in case of errors
+		**/
+		bool changeVacuumPercentageBy(const double _percentage = 0.0);
 
 		/** \brief Get the current vacuum value in percentage
 		*

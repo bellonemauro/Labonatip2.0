@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="en_GB" sourcelanguage="en_GB">
+<context>
+    <name>Labonatip_GUI</name>
+    <message>
+        <source>E&amp;xit</source>
+        <translation>E&amp;xit</translation>
+    </message>
+    <message>
+        <source>&amp;File</source>
+        <translation>&amp;File</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation>Open</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Save</translation>
+    </message>
+	    <message>
+        <source>Tools</source>
+        <translation>Tools</translation>
+    </message>
+    <message>
+        <source>Simulation</source>
+        <translation>Simulation</translation>
+    </message>
+    <message>
+        <source>Connect</source>
+        <translation>Connect</translation>
+    </message>
+    <message>
+        <source>Reset</source>
+        <translation>Reset</translation>
+	</message>
+    <message>
+        <source>Shutdown</source>
+        <translation>Shutdown</translation>
+	</message>
+    <message>
+        <source>Advanced</source>
+        <translation>Advanced</translation>
+	</message>
+
+</context>
+<context>
+    <name>Labonatip_tools</name>
+    <message>
+        <source>E&amp;xit</source>
+        <translation>E&amp;xit</translation>
+    </message>
+    <message>
+        <source>General</source>
+        <translation>General</translation>
+    </message>
+    <message>
+        <source>Macros</source>
+        <translation>Macros</translation>
+    </message>
+    <message>
+        <source>Solutions</source>
+        <translation>Solutions</translation>
+    </message>
+    <message>
+        <source>Communication</source>
+        <translation>Communication</translation>
+    </message>
+    <message>
+        <source>Change</source>
+        <translation>Change</translation>
+    </message>
+	<message>
+        <source>Year</source>
+        <translation>Year</translation>
+    </message>
+	<message>
+        <source>General settings</source>
+        <translation>General settings</translation>
+    </message>
+</context>
+</TS>

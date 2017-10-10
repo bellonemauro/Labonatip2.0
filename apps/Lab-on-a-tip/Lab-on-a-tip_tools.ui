@@ -222,6 +222,19 @@
            </property>
            <widget class="QWidget" name="page_0">
             <layout class="QGridLayout" name="gridLayout_7">
+             <item row="3" column="1">
+              <spacer name="verticalSpacer_4">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
              <item row="0" column="0">
               <widget class="QGroupBox" name="groupBox_generalSettings">
                <property name="minimumSize">
@@ -239,6 +252,43 @@
                 <string>General Settings</string>
                </property>
                <layout class="QGridLayout" name="gridLayout_13">
+                <item row="3" column="1">
+                 <widget class="QComboBox" name="comboBox_language">
+                  <property name="iconSize">
+                   <size>
+                    <width>50</width>
+                    <height>30</height>
+                   </size>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string>English</string>
+                   </property>
+                   <property name="icon">
+                    <iconset>
+                     <normaloff>icons/english.png</normaloff>icons/english.png</iconset>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Svenska</string>
+                   </property>
+                   <property name="icon">
+                    <iconset>
+                     <normaloff>icons/svenska.png</normaloff>icons/svenska.png</iconset>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Italiano</string>
+                   </property>
+                   <property name="icon">
+                    <iconset>
+                     <normaloff>icons/italiano.png</normaloff>icons/italiano.png</iconset>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
                 <item row="2" column="0">
                  <widget class="QLabel" name="label_19">
                   <property name="text">
@@ -259,13 +309,6 @@
                   </property>
                  </spacer>
                 </item>
-                <item row="2" column="1">
-                 <widget class="QLineEdit" name="lineEdit_month">
-                  <property name="text">
-                   <string/>
-                  </property>
-                 </widget>
-                </item>
                 <item row="0" column="0">
                  <widget class="QLabel" name="label_17">
                   <property name="text">
@@ -275,8 +318,11 @@
                 </item>
                 <item row="1" column="1">
                  <widget class="QLineEdit" name="lineEdit_year">
-                  <property name="text">
+                  <property name="accessibleDescription">
                    <string/>
+                  </property>
+                  <property name="text">
+                   <string notr="true"/>
                   </property>
                  </widget>
                 </item>
@@ -289,12 +335,35 @@
                 </item>
                 <item row="0" column="1">
                  <widget class="QLineEdit" name="lineEdit_userName">
-                  <property name="text">
+                  <property name="accessibleName">
                    <string/>
+                  </property>
+                  <property name="accessibleDescription">
+                   <string/>
+                  </property>
+                  <property name="text">
+                   <string notr="true"/>
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="2">
+                <item row="2" column="1">
+                 <widget class="QLineEdit" name="lineEdit_month">
+                  <property name="accessibleDescription">
+                   <string/>
+                  </property>
+                  <property name="text">
+                   <string notr="true"/>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="0">
+                 <widget class="QLabel" name="label_15">
+                  <property name="text">
+                   <string>Language</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="2">
                  <widget class="QPushButton" name="pushButton_toDefault">
                   <property name="text">
                    <string>Reset to default values</string>
@@ -352,8 +421,11 @@
                   <property name="enabled">
                    <bool>false</bool>
                   </property>
-                  <property name="text">
+                  <property name="accessibleDescription">
                    <string/>
+                  </property>
+                  <property name="text">
+                   <string notr="true"/>
                   </property>
                  </widget>
                 </item>
@@ -362,8 +434,11 @@
                   <property name="enabled">
                    <bool>false</bool>
                   </property>
-                  <property name="text">
+                  <property name="accessibleDescription">
                    <string/>
+                  </property>
+                  <property name="text">
+                   <string notr="true"/>
                   </property>
                  </widget>
                 </item>
@@ -372,8 +447,11 @@
                   <property name="enabled">
                    <bool>false</bool>
                   </property>
-                  <property name="text">
+                  <property name="accessibleDescription">
                    <string/>
+                  </property>
+                  <property name="text">
+                   <string notr="true"/>
                   </property>
                  </widget>
                 </item>
@@ -381,6 +459,9 @@
                  <widget class="QLineEdit" name="lineEdit_v_switch_max">
                   <property name="enabled">
                    <bool>false</bool>
+                  </property>
+                  <property name="accessibleDescription">
+                   <string notr="true"/>
                   </property>
                   <property name="text">
                    <string/>
@@ -418,6 +499,9 @@
                   <property name="enabled">
                    <bool>false</bool>
                   </property>
+                  <property name="accessibleDescription">
+                   <string/>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -449,8 +533,11 @@
                   <property name="enabled">
                    <bool>false</bool>
                   </property>
-                  <property name="text">
+                  <property name="accessibleDescription">
                    <string/>
+                  </property>
+                  <property name="text">
+                   <string notr="true"/>
                   </property>
                  </widget>
                 </item>
@@ -480,6 +567,9 @@
                   <property name="enabled">
                    <bool>false</bool>
                   </property>
+                  <property name="accessibleDescription">
+                   <string notr="true"/>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -497,54 +587,56 @@
                   <property name="enabled">
                    <bool>false</bool>
                   </property>
-                  <property name="text">
+                  <property name="accessibleDescription">
                    <string/>
+                  </property>
+                  <property name="text">
+                   <string notr="true"/>
                   </property>
                  </widget>
                 </item>
                 <item row="3" column="2">
                  <widget class="QLineEdit" name="lineEdit_p_on_default">
-                  <property name="text">
+                  <property name="accessibleDescription">
                    <string/>
+                  </property>
+                  <property name="text">
+                   <string notr="true"/>
                   </property>
                  </widget>
                 </item>
                 <item row="3" column="4">
                  <widget class="QLineEdit" name="lineEdit_p_off_default">
-                  <property name="text">
+                  <property name="accessibleDescription">
                    <string/>
+                  </property>
+                  <property name="text">
+                   <string notr="true"/>
                   </property>
                  </widget>
                 </item>
                 <item row="3" column="6">
                  <widget class="QLineEdit" name="lineEdit_v_switch_default">
-                  <property name="text">
+                  <property name="accessibleDescription">
                    <string/>
+                  </property>
+                  <property name="text">
+                   <string notr="true"/>
                   </property>
                  </widget>
                 </item>
                 <item row="3" column="8">
                  <widget class="QLineEdit" name="lineEdit_v_recirc_default">
-                  <property name="text">
+                  <property name="accessibleDescription">
                    <string/>
+                  </property>
+                  <property name="text">
+                   <string notr="true"/>
                   </property>
                  </widget>
                 </item>
                </layout>
               </widget>
-             </item>
-             <item row="2" column="1">
-              <spacer name="verticalSpacer_4">
-               <property name="orientation">
-                <enum>Qt::Vertical</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>20</width>
-                 <height>40</height>
-                </size>
-               </property>
-              </spacer>
              </item>
             </layout>
            </widget>
@@ -556,6 +648,9 @@
                 <font>
                  <pointsize>12</pointsize>
                 </font>
+               </property>
+               <property name="accessibleDescription">
+                <string notr="true"/>
                </property>
                <property name="frameShadow">
                 <enum>QFrame::Sunken</enum>
@@ -1040,7 +1135,7 @@
            </widget>
            <widget class="QWidget" name="page_2">
             <layout class="QGridLayout" name="gridLayout">
-             <item row="0" column="0" colspan="2">
+             <item row="0" column="0">
               <widget class="QGroupBox" name="groupBox_solutionNames">
                <property name="font">
                 <font>
@@ -1053,62 +1148,8 @@
                 <string>Solutions settings</string>
                </property>
                <layout class="QGridLayout" name="gridLayout_6">
-                <item row="8" column="2">
-                 <widget class="QCheckBox" name="checkBox_disableTimer">
-                  <property name="font">
-                   <font>
-                    <pointsize>11</pointsize>
-                    <weight>50</weight>
-                    <bold>false</bold>
-                   </font>
-                  </property>
-                  <property name="layoutDirection">
-                   <enum>Qt::RightToLeft</enum>
-                  </property>
-                  <property name="text">
-                   <string>non-stop</string>
-                  </property>
-                  <property name="checked">
-                   <bool>true</bool>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="2">
-                 <widget class="QLineEdit" name="lineEdit_sol2_name">
-                  <property name="maximumSize">
-                   <size>
-                    <width>150</width>
-                    <height>16777215</height>
-                   </size>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <pointsize>11</pointsize>
-                   </font>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true"/>
-                  </property>
-                  <property name="text">
-                   <string>Sol2</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="6" column="0" rowspan="3" colspan="2">
-                 <widget class="QLabel" name="label_11">
-                  <property name="font">
-                   <font>
-                    <weight>50</weight>
-                    <bold>false</bold>
-                   </font>
-                  </property>
-                  <property name="text">
-                   <string>Delivery time</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="4" column="3">
-                 <widget class="QSlider" name="horizontalSlider_colorSol4">
+                <item row="2" column="3">
+                 <widget class="QSlider" name="horizontalSlider_colorSol2">
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
@@ -1171,179 +1212,10 @@ border-radius: 4px;
                    <number>1</number>
                   </property>
                   <property name="value">
-                   <number>1432930</number>
+                   <number>5164400</number>
                   </property>
                   <property name="orientation">
                    <enum>Qt::Horizontal</enum>
-                  </property>
-                 </widget>
-                </item>
-                <item row="7" column="2">
-                 <widget class="QDoubleSpinBox" name="doubleSpinBox_solution">
-                  <property name="enabled">
-                   <bool>false</bool>
-                  </property>
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimumSize">
-                   <size>
-                    <width>0</width>
-                    <height>50</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>16777215</width>
-                    <height>16777215</height>
-                   </size>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <pointsize>11</pointsize>
-                   </font>
-                  </property>
-                  <property name="toolTip">
-                   <string>Injection time in seconds</string>
-                  </property>
-                  <property name="whatsThis">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set release solution time&lt;br/&gt;&lt;br/&gt;The solutions in the wells 1,2,3,4, will be released &lt;br/&gt;for the &lt;span style=&quot; font-style:italic;&quot;&gt;t&lt;/span&gt;  seconds. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">color: rgb(0, 0, 0);
-background-color: rgb(255, 255, 255);</string>
-                  </property>
-                  <property name="frame">
-                   <bool>false</bool>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                  </property>
-                  <property name="buttonSymbols">
-                   <enum>QAbstractSpinBox::UpDownArrows</enum>
-                  </property>
-                  <property name="suffix">
-                   <string> s</string>
-                  </property>
-                  <property name="decimals">
-                   <number>1</number>
-                  </property>
-                  <property name="minimum">
-                   <double>0.000000000000000</double>
-                  </property>
-                  <property name="maximum">
-                   <double>100000.000000000000000</double>
-                  </property>
-                  <property name="singleStep">
-                   <double>1.000000000000000</double>
-                  </property>
-                  <property name="value">
-                   <double>500.000000000000000</double>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="0">
-                 <widget class="QLabel" name="label_32">
-                  <property name="maximumSize">
-                   <size>
-                    <width>16777215</width>
-                    <height>16777215</height>
-                   </size>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <pointsize>11</pointsize>
-                    <weight>50</weight>
-                    <bold>false</bold>
-                   </font>
-                  </property>
-                  <property name="text">
-                   <string>Well 1 :</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="1">
-                 <widget class="QLabel" name="label_9">
-                  <property name="font">
-                   <font>
-                    <pointsize>11</pointsize>
-                   </font>
-                  </property>
-                  <property name="text">
-                   <string>Volume (uL)</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="2">
-                 <widget class="QLineEdit" name="lineEdit_sol1_name">
-                  <property name="minimumSize">
-                   <size>
-                    <width>0</width>
-                    <height>0</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>150</width>
-                    <height>16777215</height>
-                   </size>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <pointsize>11</pointsize>
-                   </font>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true"/>
-                  </property>
-                  <property name="text">
-                   <string>Sol1</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="2">
-                 <widget class="QLabel" name="label_10">
-                  <property name="font">
-                   <font>
-                    <pointsize>11</pointsize>
-                   </font>
-                  </property>
-                  <property name="text">
-                   <string>Name</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="4" column="2">
-                 <widget class="QLineEdit" name="lineEdit_sol4_name">
-                  <property name="maximumSize">
-                   <size>
-                    <width>150</width>
-                    <height>16777215</height>
-                   </size>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <pointsize>11</pointsize>
-                   </font>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true"/>
-                  </property>
-                  <property name="text">
-                   <string>Sol4</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="1">
-                 <widget class="QLineEdit" name="lineEdit">
-                  <property name="text">
-                   <string>0</string>
                   </property>
                  </widget>
                 </item>
@@ -1393,102 +1265,71 @@ background-color: rgb(255, 255, 255);</string>
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="3">
-                 <widget class="QSlider" name="horizontalSlider_colorSol1">
-                  <property name="minimumSize">
-                   <size>
-                    <width>350</width>
-                    <height>0</height>
-                   </size>
+                <item row="10" column="2">
+                 <widget class="QSpinBox" name="spinBox_ds_increment">
+                  <property name="suffix">
+                   <string> %</string>
                   </property>
-                  <property name="styleSheet">
-                   <string notr="true">QSlider::groove:horizontal {
-border: 1px solid #bbb;
-background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
-stop: 0 #00FF00,
-stop: 0.167 #FFFF00,
-stop: 0.333 #FF0000,
-stop: 0.5 #FF00FF,
-stop: 0.667 #0000FF,
-stop: 0.883 #00FFFF,
-stop: 1 #00FF00 );
-height: 15px;
-border-radius: 5px;
-}
-
-
-QSlider::handle:horizontal {
-background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
-    stop:0 #eee, stop:1 #ccc);
-border: 1px solid #777;
-width: 5px;
-margin-top: 5px;
-margin-bottom: -2px;
-border-radius: 2px;
-}
-
-QSlider::handle:horizontal:hover {
-background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
-    stop:0 #fff, stop:1 #ddd);
-border: 1px solid #444;
-border-radius: 4px;
-}
-
-QSlider::sub-page:horizontal:disabled {
-background: #bbb;
-border-color: #999;
-}
-
-QSlider::add-page:horizontal:disabled {
-background: #eee;
-border-color: #999;
-}
-
-QSlider::handle:horizontal:disabled {
-background: #eee;
-border: 1px solid #aaa;
-border-radius: 4px;
-}</string>
-                  </property>
-                  <property name="maximum">
-                   <number>16777216</number>
-                  </property>
-                  <property name="singleStep">
+                  <property name="minimum">
                    <number>1</number>
                   </property>
+                  <property name="maximum">
+                   <number>20</number>
+                  </property>
                   <property name="value">
-                   <number>3522620</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
+                   <number>10</number>
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="1">
-                 <widget class="QLineEdit" name="lineEdit_3">
-                  <property name="text">
-                   <string>0</string>
+                <item row="11" column="2">
+                 <widget class="QSpinBox" name="spinBox_fs_increment">
+                  <property name="suffix">
+                   <string> %</string>
+                  </property>
+                  <property name="minimum">
+                   <number>1</number>
+                  </property>
+                  <property name="maximum">
+                   <number>20</number>
+                  </property>
+                  <property name="value">
+                   <number>5</number>
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="2">
-                 <widget class="QLineEdit" name="lineEdit_sol3_name">
-                  <property name="maximumSize">
-                   <size>
-                    <width>150</width>
-                    <height>16777215</height>
-                   </size>
-                  </property>
+                <item row="10" column="0" colspan="2">
+                 <widget class="QLabel" name="label_12">
                   <property name="font">
                    <font>
-                    <pointsize>11</pointsize>
+                    <weight>50</weight>
+                    <bold>false</bold>
                    </font>
                   </property>
-                  <property name="styleSheet">
-                   <string notr="true"/>
+                  <property name="text">
+                   <string>Base increment in droplet size</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="1">
+                 <widget class="QLineEdit" name="lineEdit_2">
+                  <property name="accessibleDescription">
+                   <string/>
                   </property>
                   <property name="text">
-                   <string>Sol3</string>
+                   <string notr="true">0</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="12" column="0" colspan="2">
+                 <widget class="QLabel" name="label_14">
+                  <property name="font">
+                   <font>
+                    <weight>50</weight>
+                    <bold>false</bold>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Base increment in vacuum</string>
                   </property>
                  </widget>
                 </item>
@@ -1563,10 +1404,176 @@ border-radius: 4px;
                   </property>
                  </widget>
                 </item>
-                <item row="4" column="1">
-                 <widget class="QLineEdit" name="lineEdit_4">
+                <item row="7" column="0" rowspan="3" colspan="2">
+                 <widget class="QLabel" name="label_11">
+                  <property name="font">
+                   <font>
+                    <weight>50</weight>
+                    <bold>false</bold>
+                   </font>
+                  </property>
                   <property name="text">
-                   <string>0</string>
+                   <string>Delivery time</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="1">
+                 <widget class="QLineEdit" name="lineEdit_3">
+                  <property name="accessibleDescription">
+                   <string/>
+                  </property>
+                  <property name="text">
+                   <string notr="true">0</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="2">
+                 <widget class="QLineEdit" name="lineEdit_sol4_name">
+                  <property name="maximumSize">
+                   <size>
+                    <width>150</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
+                  <property name="accessibleDescription">
+                   <string/>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true"/>
+                  </property>
+                  <property name="text">
+                   <string notr="true">Sol4</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="2">
+                 <widget class="QLineEdit" name="lineEdit_sol1_name">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>150</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
+                  <property name="accessibleDescription">
+                   <string/>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true"/>
+                  </property>
+                  <property name="text">
+                   <string notr="true">Sol1</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="13" column="2">
+                 <spacer name="verticalSpacer">
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>20</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item row="8" column="2">
+                 <widget class="QDoubleSpinBox" name="doubleSpinBox_solution">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>50</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
+                  <property name="toolTip">
+                   <string>Injection time in seconds</string>
+                  </property>
+                  <property name="whatsThis">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set release solution time&lt;br/&gt;&lt;br/&gt;The solutions in the wells 1,2,3,4, will be released &lt;br/&gt;for the &lt;span style=&quot; font-style:italic;&quot;&gt;t&lt;/span&gt;  seconds. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="layoutDirection">
+                   <enum>Qt::LeftToRight</enum>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">color: rgb(0, 0, 0);
+background-color: rgb(255, 255, 255);</string>
+                  </property>
+                  <property name="wrapping">
+                   <bool>false</bool>
+                  </property>
+                  <property name="frame">
+                   <bool>false</bool>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                  </property>
+                  <property name="buttonSymbols">
+                   <enum>QAbstractSpinBox::UpDownArrows</enum>
+                  </property>
+                  <property name="suffix">
+                   <string> s</string>
+                  </property>
+                  <property name="decimals">
+                   <number>1</number>
+                  </property>
+                  <property name="minimum">
+                   <double>0.000000000000000</double>
+                  </property>
+                  <property name="maximum">
+                   <double>100000.000000000000000</double>
+                  </property>
+                  <property name="singleStep">
+                   <double>1.000000000000000</double>
+                  </property>
+                  <property name="value">
+                   <double>500.000000000000000</double>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QLineEdit" name="lineEdit">
+                  <property name="accessibleDescription">
+                   <string/>
+                  </property>
+                  <property name="text">
+                   <string notr="true">0</string>
                   </property>
                  </widget>
                 </item>
@@ -1593,28 +1600,177 @@ border-radius: 4px;
                   </property>
                  </widget>
                 </item>
-                <item row="12" column="2">
-                 <spacer name="verticalSpacer">
-                  <property name="orientation">
-                   <enum>Qt::Vertical</enum>
+                <item row="4" column="1">
+                 <widget class="QLineEdit" name="lineEdit_4">
+                  <property name="accessibleDescription">
+                   <string/>
                   </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>20</width>
-                    <height>40</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item row="2" column="1">
-                 <widget class="QLineEdit" name="lineEdit_2">
                   <property name="text">
-                   <string>0</string>
+                   <string notr="true">0</string>
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="3">
-                 <widget class="QSlider" name="horizontalSlider_colorSol2">
+                <item row="12" column="2">
+                 <widget class="QSpinBox" name="spinBox_v_increment">
+                  <property name="suffix">
+                   <string> %</string>
+                  </property>
+                  <property name="minimum">
+                   <number>1</number>
+                  </property>
+                  <property name="maximum">
+                   <number>20</number>
+                  </property>
+                  <property name="value">
+                   <number>5</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="2">
+                 <widget class="QLineEdit" name="lineEdit_sol3_name">
+                  <property name="maximumSize">
+                   <size>
+                    <width>150</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
+                  <property name="accessibleDescription">
+                   <string/>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true"/>
+                  </property>
+                  <property name="text">
+                   <string notr="true">Sol3</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="3">
+                 <widget class="QSlider" name="horizontalSlider_colorSol1">
+                  <property name="minimumSize">
+                   <size>
+                    <width>350</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QSlider::groove:horizontal {
+border: 1px solid #bbb;
+background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
+stop: 0 #00FF00,
+stop: 0.167 #FFFF00,
+stop: 0.333 #FF0000,
+stop: 0.5 #FF00FF,
+stop: 0.667 #0000FF,
+stop: 0.883 #00FFFF,
+stop: 1 #00FF00 );
+height: 15px;
+border-radius: 5px;
+}
+
+
+QSlider::handle:horizontal {
+background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+    stop:0 #eee, stop:1 #ccc);
+border: 1px solid #777;
+width: 5px;
+margin-top: 5px;
+margin-bottom: -2px;
+border-radius: 2px;
+}
+
+QSlider::handle:horizontal:hover {
+background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+    stop:0 #fff, stop:1 #ddd);
+border: 1px solid #444;
+border-radius: 4px;
+}
+
+QSlider::sub-page:horizontal:disabled {
+background: #bbb;
+border-color: #999;
+}
+
+QSlider::add-page:horizontal:disabled {
+background: #eee;
+border-color: #999;
+}
+
+QSlider::handle:horizontal:disabled {
+background: #eee;
+border: 1px solid #aaa;
+border-radius: 4px;
+}</string>
+                  </property>
+                  <property name="maximum">
+                   <number>16777216</number>
+                  </property>
+                  <property name="singleStep">
+                   <number>1</number>
+                  </property>
+                  <property name="value">
+                   <number>3522620</number>
+                  </property>
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="2">
+                 <widget class="QLabel" name="label_10">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Name</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QLabel" name="label_9">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>Volume (uL)</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="2">
+                 <widget class="QLineEdit" name="lineEdit_sol2_name">
+                  <property name="maximumSize">
+                   <size>
+                    <width>150</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
+                  <property name="accessibleDescription">
+                   <string/>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true"/>
+                  </property>
+                  <property name="text">
+                   <string notr="true">Sol2</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="3">
+                 <widget class="QSlider" name="horizontalSlider_colorSol4">
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
@@ -1677,75 +1833,57 @@ border-radius: 4px;
                    <number>1</number>
                   </property>
                   <property name="value">
-                   <number>5164400</number>
+                   <number>1432930</number>
                   </property>
                   <property name="orientation">
                    <enum>Qt::Horizontal</enum>
                   </property>
                  </widget>
                 </item>
-                <item row="9" column="2">
-                 <widget class="QSpinBox" name="spinBox_ds_increment">
-                  <property name="suffix">
-                   <string> %</string>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="label_32">
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>16777215</height>
+                   </size>
                   </property>
-                  <property name="minimum">
-                   <number>1</number>
-                  </property>
-                  <property name="maximum">
-                   <number>20</number>
-                  </property>
-                  <property name="value">
-                   <number>10</number>
-                  </property>
-                 </widget>
-                </item>
-                <item row="10" column="2">
-                 <widget class="QSpinBox" name="spinBox_fs_increment">
-                  <property name="suffix">
-                   <string> %</string>
-                  </property>
-                  <property name="minimum">
-                   <number>1</number>
-                  </property>
-                  <property name="maximum">
-                   <number>20</number>
-                  </property>
-                  <property name="value">
-                   <number>5</number>
-                  </property>
-                 </widget>
-                </item>
-                <item row="11" column="2">
-                 <widget class="QSpinBox" name="spinBox_v_increment">
-                  <property name="suffix">
-                   <string> %</string>
-                  </property>
-                  <property name="minimum">
-                   <number>1</number>
-                  </property>
-                  <property name="maximum">
-                   <number>20</number>
-                  </property>
-                  <property name="value">
-                   <number>5</number>
-                  </property>
-                 </widget>
-                </item>
-                <item row="9" column="0" colspan="2">
-                 <widget class="QLabel" name="label_12">
                   <property name="font">
                    <font>
+                    <pointsize>11</pointsize>
                     <weight>50</weight>
                     <bold>false</bold>
                    </font>
                   </property>
                   <property name="text">
-                   <string>Base increment in droplet size</string>
+                   <string>Well 1 :</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                   </property>
                  </widget>
                 </item>
-                <item row="10" column="0" colspan="2">
+                <item row="8" column="3">
+                 <widget class="QCheckBox" name="checkBox_disableTimer">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                    <weight>50</weight>
+                    <bold>false</bold>
+                   </font>
+                  </property>
+                  <property name="layoutDirection">
+                   <enum>Qt::LeftToRight</enum>
+                  </property>
+                  <property name="text">
+                   <string>Continuos flowing</string>
+                  </property>
+                  <property name="checked">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item row="11" column="0" colspan="2">
                  <widget class="QLabel" name="label_13">
                   <property name="font">
                    <font>
@@ -1758,16 +1896,10 @@ border-radius: 4px;
                   </property>
                  </widget>
                 </item>
-                <item row="11" column="0" colspan="2">
-                 <widget class="QLabel" name="label_14">
-                  <property name="font">
-                   <font>
-                    <weight>50</weight>
-                    <bold>false</bold>
-                   </font>
-                  </property>
+                <item row="5" column="1">
+                 <widget class="QPushButton" name="pushButton_emptyWells">
                   <property name="text">
-                   <string>Base increment in vacuum</string>
+                   <string>Empty wells</string>
                   </property>
                  </widget>
                 </item>

@@ -14,8 +14,9 @@ void Labonatip_GUI::operationalMode() {
 
 	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
 
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::operationalMode    " << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  " 
+		 << QTime::currentTime().toString().toStdString() << "  "
+		 << "Labonatip_GUI::operationalMode    " << endl;
 
 	if (m_pipette_active) {
 		if (m_ppc1->isConnected()) m_ppc1->closeAllValves();
@@ -33,8 +34,9 @@ void Labonatip_GUI::operationalMode() {
 
 void Labonatip_GUI::runMacro() {
 
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::runMacro    " << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  " 
+		 << QTime::currentTime().toString().toStdString() << "  "
+		 << "Labonatip_GUI::runMacro    " << endl;
 
 	if (!m_macroRunner_thread->isRunning()) {
 
@@ -63,8 +65,9 @@ void Labonatip_GUI::runMacro() {
 
 
 		m_macroRunner_thread->setMacroPrt(m_macro);
-		cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-			<< "Labonatip_GUI::runMacro    RUNNING" << endl;
+		cout << QDate::currentDate().toString().toStdString() << "  " 
+			 << QTime::currentTime().toString().toStdString() << "  "
+			 << "Labonatip_GUI::runMacro    RUNNING" << endl;
 		m_macroRunner_thread->setSimulationFlag(m_simulationOnly);
 		connect(m_macroRunner_thread,
 			&Labonatip_macroRunner::resultReady, this,
@@ -131,8 +134,9 @@ void Labonatip_GUI::newTip()
 {
 
 
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::newTip    " << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  " 
+		 << QTime::currentTime().toString().toStdString() << "  "
+		 << "Labonatip_GUI::newTip    " << endl;
 
 	setEnableMainWindow(false);
 
@@ -262,8 +266,9 @@ void Labonatip_GUI::macroFinished(const QString &_result) {
 
 void Labonatip_GUI::shutdown() {
 
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::shutdown   " << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  " 
+		 << QTime::currentTime().toString().toStdString() << "  "
+		 << "Labonatip_GUI::shutdown   " << endl;
 
 	setEnableMainWindow(false);
 	QMessageBox::StandardButton resBtn = QMessageBox::question(this, "Lab-on-a-tip",
@@ -309,8 +314,9 @@ void Labonatip_GUI::shutdown() {
 
 void Labonatip_GUI::standby()
 {
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::standby   " << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  " 
+		 << QTime::currentTime().toString().toStdString() << "  "
+		 << "Labonatip_GUI::standby   " << endl;
 
 	//OLD SLEEP MACRO
 	// allOff()
@@ -338,8 +344,9 @@ void Labonatip_GUI::standby()
 
 void Labonatip_GUI::reboot() {
 
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::reboot    " << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  " 
+		 << QTime::currentTime().toString().toStdString() << "  "
+		 << "Labonatip_GUI::reboot    " << endl;
 
 	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
 

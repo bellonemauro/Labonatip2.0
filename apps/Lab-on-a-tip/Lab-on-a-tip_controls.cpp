@@ -15,8 +15,9 @@ void Labonatip_GUI::updatePonSetPoint(double _pon_set_point)
 {
 	// update the set point
 	m_pon_set_point = _pon_set_point;
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::updatePonSetPoint   ::::  value  =  " << m_pon_set_point << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  " 
+		 << QTime::currentTime().toString().toStdString() << "  "
+		 << "Labonatip_GUI::updatePonSetPoint   ::::  value  =  " << m_pon_set_point << endl;
 	ui->label_PonPressure->setText(QString(QString::number(int(m_pon_set_point)) + " mbar"));
 
 	// if the pipette is active we send the set point to the device
@@ -40,8 +41,9 @@ void Labonatip_GUI::updatePoffSetPoint(double _poff_set_point)
 {	
 	// update the set point
 	m_poff_set_point = _poff_set_point;
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::updatePoffSetPoint   ::::  value  =  " << m_poff_set_point << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  " 
+		 << QTime::currentTime().toString().toStdString() << "  "
+		 << "Labonatip_GUI::updatePoffSetPoint   ::::  value  =  " << m_poff_set_point << endl;
 	ui->label_PoffPressure->setText(QString(QString::number(int(m_poff_set_point)) + " mbar"));
 
 	// if the pipette is active we send the set point to the device
@@ -65,8 +67,9 @@ void Labonatip_GUI::updateVrecircSetPoint(double _v_recirc_set_point)
 {
 	// update the set point
 	m_v_recirc_set_point = _v_recirc_set_point;
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::updateVrecircSetPoint   ::::  value  =  " << m_v_recirc_set_point << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  " 
+		 << QTime::currentTime().toString().toStdString() << "  "
+		 << "Labonatip_GUI::updateVrecircSetPoint   ::::  value  =  " << m_v_recirc_set_point << endl;
 	ui->label_recircPressure->setText(QString(QString::number(-int(m_v_recirc_set_point)) + " mbar"));
 
 	// if the pipette is active we send the set point to the device
@@ -90,8 +93,9 @@ void Labonatip_GUI::updateVswitchSetPoint(double _v_switch_set_point)
 {
 	// update the set point
 	m_v_switch_set_point = _v_switch_set_point;
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::updateVswitchSetPoint   ::::  value  =  " << m_v_switch_set_point << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  " 
+		 << QTime::currentTime().toString().toStdString() << "  "
+		 << "Labonatip_GUI::updateVswitchSetPoint   ::::  value  =  " << m_v_switch_set_point << endl;
 	ui->label_switchPressure->setText(QString(QString::number(-int(m_v_switch_set_point)) + " mbar"));
 
 	// if the pipette is active we send the set point to the device
@@ -111,16 +115,18 @@ void Labonatip_GUI::updateVswitchSetPoint(double _v_switch_set_point)
 }
 
 void Labonatip_GUI::pressurePonDown() {
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::pressurePonDown    " << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  " 
+		 << QTime::currentTime().toString().toStdString() << "  "
+		 << "Labonatip_GUI::pressurePonDown    " << endl;
 
 	// update the set point
 	updatePonSetPoint(m_pon_set_point - 1.0);
 }
 
 void Labonatip_GUI::pressurePonUp() {
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::pressurePonUp    " << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  " 
+		 << QTime::currentTime().toString().toStdString() << "  "
+		 << "Labonatip_GUI::pressurePonUp    " << endl;
 
 	// update the set point
 	updatePonSetPoint(m_pon_set_point + 1.0);
@@ -128,8 +134,9 @@ void Labonatip_GUI::pressurePonUp() {
 }
 
 void Labonatip_GUI::pressurePoffDown() {
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::pressurePoffDown    " << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  " 
+		 << QTime::currentTime().toString().toStdString() << "  "
+		 << "Labonatip_GUI::pressurePoffDown    " << endl;
 
 	// update the set point
 	updatePoffSetPoint(m_poff_set_point - 1.0);
@@ -137,8 +144,9 @@ void Labonatip_GUI::pressurePoffDown() {
 }
 
 void Labonatip_GUI::pressurePoffUp() {
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::pressurePoffUp    " << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  " 
+		 << QTime::currentTime().toString().toStdString() << "  "
+		 << "Labonatip_GUI::pressurePoffUp    " << endl;
 
 	// update the set point
 	updatePoffSetPoint(m_poff_set_point + 1.0); 
@@ -146,8 +154,9 @@ void Labonatip_GUI::pressurePoffUp() {
 }
 
 void Labonatip_GUI::pressButtonPressed_switchDown() {
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::pressButtonPressed_switchDown    " << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  " 
+		 << QTime::currentTime().toString().toStdString() << "  "
+		 << "Labonatip_GUI::pressButtonPressed_switchDown    " << endl;
 
 	// update the set point
 	updateVswitchSetPoint(m_v_switch_set_point - 1.0);
@@ -155,8 +164,9 @@ void Labonatip_GUI::pressButtonPressed_switchDown() {
 }
 
 void Labonatip_GUI::pressButtonPressed_switchUp() {
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::pressButtonPressed_switchUp    " << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  " 
+		 << QTime::currentTime().toString().toStdString() << "  "
+		 << "Labonatip_GUI::pressButtonPressed_switchUp    " << endl;
 
 	// update the set point
 	updateVswitchSetPoint(m_v_switch_set_point + 1.0);
@@ -164,8 +174,9 @@ void Labonatip_GUI::pressButtonPressed_switchUp() {
 }
 
 void Labonatip_GUI::recirculationDown() {
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::recirculationDown    " << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  " 
+		 << QTime::currentTime().toString().toStdString() << "  "
+		 << "Labonatip_GUI::recirculationDown    " << endl;
 
 	// update the set point
 	updateVrecircSetPoint(m_v_recirc_set_point - 1.0);
@@ -173,8 +184,9 @@ void Labonatip_GUI::recirculationDown() {
 }
 
 void Labonatip_GUI::recirculationUp() {
-	cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::recirculationUp    " << endl;
+	cout << QDate::currentDate().toString().toStdString() << "  " 
+		 << QTime::currentTime().toString().toStdString() << "  "
+		 << "Labonatip_GUI::recirculationUp    " << endl;
 
 	// update the set point
 	updateVrecircSetPoint(m_v_recirc_set_point + 1.0);
