@@ -218,7 +218,7 @@
             <number>0</number>
            </property>
            <property name="currentIndex">
-            <number>2</number>
+            <number>0</number>
            </property>
            <widget class="QWidget" name="page_0">
             <layout class="QGridLayout" name="gridLayout_7">
@@ -235,7 +235,290 @@
                </property>
               </spacer>
              </item>
-             <item row="0" column="0">
+             <item row="1" column="0" colspan="2">
+              <widget class="QGroupBox" name="groupBox_generalSettings_2">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>100</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="title">
+                <string>Pressure / Vacuum ranges</string>
+               </property>
+               <layout class="QGridLayout" name="gridLayout_14">
+                <item row="1" column="7">
+                 <spacer name="horizontalSpacer_11">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item row="1" column="1">
+                 <spacer name="horizontalSpacer_6">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item row="2" column="4">
+                 <widget class="QLineEdit" name="lineEdit_p_off_min">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="accessibleDescription">
+                   <string/>
+                  </property>
+                  <property name="text">
+                   <string notr="true"/>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="6">
+                 <widget class="QLineEdit" name="lineEdit_v_switch_min">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="accessibleDescription">
+                   <string/>
+                  </property>
+                  <property name="text">
+                   <string notr="true"/>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="8">
+                 <widget class="QLineEdit" name="lineEdit_v_recirc_min">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="accessibleDescription">
+                   <string/>
+                  </property>
+                  <property name="text">
+                   <string notr="true"/>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="6">
+                 <widget class="QLineEdit" name="lineEdit_v_switch_max">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="accessibleDescription">
+                   <string/>
+                  </property>
+                  <property name="text">
+                   <string notr="true"/>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="5">
+                 <spacer name="horizontalSpacer_7">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item row="1" column="3">
+                 <spacer name="horizontalSpacer_8">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item row="1" column="4">
+                 <widget class="QLineEdit" name="lineEdit_p_off_max">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="accessibleDescription">
+                   <string/>
+                  </property>
+                  <property name="text">
+                   <string notr="true"/>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="4">
+                 <widget class="QLabel" name="label_25">
+                  <property name="text">
+                   <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt; P&lt;span style=&quot; vertical-align:sub;&quot;&gt;off&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="2">
+                 <widget class="QLabel" name="label_27">
+                  <property name="text">
+                   <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt; P&lt;span style=&quot; vertical-align:sub;&quot;&gt;on&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="6">
+                 <widget class="QLabel" name="label_26">
+                  <property name="text">
+                   <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt; V&lt;span style=&quot; vertical-align:sub;&quot;&gt;switch&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="8">
+                 <widget class="QLineEdit" name="lineEdit_v_recirc_max">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="accessibleDescription">
+                   <string/>
+                  </property>
+                  <property name="text">
+                   <string notr="true"/>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="label_29">
+                  <property name="text">
+                   <string>Max</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QLabel" name="label_30">
+                  <property name="text">
+                   <string>Min</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="0">
+                 <widget class="QLabel" name="label_28">
+                  <property name="text">
+                   <string>Default operational values</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="2">
+                 <widget class="QLineEdit" name="lineEdit_p_on_max">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="accessibleDescription">
+                   <string/>
+                  </property>
+                  <property name="text">
+                   <string notr="true"/>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="8">
+                 <widget class="QLabel" name="label_31">
+                  <property name="text">
+                   <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt; V&lt;span style=&quot; vertical-align:sub;&quot;&gt;recirc&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="2">
+                 <widget class="QLineEdit" name="lineEdit_p_on_min">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="accessibleDescription">
+                   <string/>
+                  </property>
+                  <property name="text">
+                   <string notr="true"/>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="2">
+                 <widget class="QLineEdit" name="lineEdit_p_on_default">
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Default operational value for P&lt;span style=&quot; vertical-align:sub;&quot;&gt;on&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="accessibleDescription">
+                   <string/>
+                  </property>
+                  <property name="text">
+                   <string notr="true"/>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="4">
+                 <widget class="QLineEdit" name="lineEdit_p_off_default">
+                  <property name="accessibleDescription">
+                   <string/>
+                  </property>
+                  <property name="text">
+                   <string notr="true"/>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="6">
+                 <widget class="QLineEdit" name="lineEdit_v_switch_default">
+                  <property name="accessibleDescription">
+                   <string/>
+                  </property>
+                  <property name="text">
+                   <string notr="true"/>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="8">
+                 <widget class="QLineEdit" name="lineEdit_v_recirc_default">
+                  <property name="accessibleDescription">
+                   <string/>
+                  </property>
+                  <property name="text">
+                   <string notr="true"/>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item row="4" column="1">
+              <widget class="QPushButton" name="pushButton_toDefault">
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                </font>
+               </property>
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Reset settings to default values&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
+               <property name="text">
+                <string>Reset to default values</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0" colspan="2">
               <widget class="QGroupBox" name="groupBox_generalSettings">
                <property name="minimumSize">
                 <size>
@@ -254,6 +537,9 @@
                <layout class="QGridLayout" name="gridLayout_13">
                 <item row="3" column="1">
                  <widget class="QComboBox" name="comboBox_language">
+                  <property name="currentText">
+                   <string notr="true">English</string>
+                  </property>
                   <property name="iconSize">
                    <size>
                     <width>50</width>
@@ -363,280 +649,24 @@
                   </property>
                  </widget>
                 </item>
-                <item row="4" column="2">
-                 <widget class="QPushButton" name="pushButton_toDefault">
-                  <property name="text">
-                   <string>Reset to default values</string>
-                  </property>
-                 </widget>
-                </item>
                </layout>
               </widget>
              </item>
-             <item row="1" column="0" colspan="2">
-              <widget class="QGroupBox" name="groupBox_generalSettings_2">
-               <property name="minimumSize">
+             <item row="5" column="1">
+              <spacer name="verticalSpacer_5">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeType">
+                <enum>QSizePolicy::Minimum</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
                 <size>
-                 <width>0</width>
-                 <height>100</height>
+                 <width>20</width>
+                 <height>40</height>
                 </size>
                </property>
-               <property name="font">
-                <font>
-                 <pointsize>12</pointsize>
-                </font>
-               </property>
-               <property name="title">
-                <string>Pressure / Vacuum ranges</string>
-               </property>
-               <layout class="QGridLayout" name="gridLayout_14">
-                <item row="1" column="7">
-                 <spacer name="horizontalSpacer_11">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>40</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item row="1" column="1">
-                 <spacer name="horizontalSpacer_6">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>40</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item row="2" column="4">
-                 <widget class="QLineEdit" name="lineEdit_p_off_min">
-                  <property name="enabled">
-                   <bool>false</bool>
-                  </property>
-                  <property name="accessibleDescription">
-                   <string/>
-                  </property>
-                  <property name="text">
-                   <string notr="true"/>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="6">
-                 <widget class="QLineEdit" name="lineEdit_v_switch_min">
-                  <property name="enabled">
-                   <bool>false</bool>
-                  </property>
-                  <property name="accessibleDescription">
-                   <string/>
-                  </property>
-                  <property name="text">
-                   <string notr="true"/>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="8">
-                 <widget class="QLineEdit" name="lineEdit_v_recirc_min">
-                  <property name="enabled">
-                   <bool>false</bool>
-                  </property>
-                  <property name="accessibleDescription">
-                   <string/>
-                  </property>
-                  <property name="text">
-                   <string notr="true"/>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="6">
-                 <widget class="QLineEdit" name="lineEdit_v_switch_max">
-                  <property name="enabled">
-                   <bool>false</bool>
-                  </property>
-                  <property name="accessibleDescription">
-                   <string notr="true"/>
-                  </property>
-                  <property name="text">
-                   <string/>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="5">
-                 <spacer name="horizontalSpacer_7">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>40</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item row="1" column="3">
-                 <spacer name="horizontalSpacer_8">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>40</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item row="1" column="4">
-                 <widget class="QLineEdit" name="lineEdit_p_off_max">
-                  <property name="enabled">
-                   <bool>false</bool>
-                  </property>
-                  <property name="accessibleDescription">
-                   <string/>
-                  </property>
-                  <property name="text">
-                   <string/>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="4">
-                 <widget class="QLabel" name="label_25">
-                  <property name="text">
-                   <string>Poff</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="2">
-                 <widget class="QLabel" name="label_27">
-                  <property name="text">
-                   <string>Pon</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="6">
-                 <widget class="QLabel" name="label_26">
-                  <property name="text">
-                   <string>V_switch</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="8">
-                 <widget class="QLineEdit" name="lineEdit_v_recirc_max">
-                  <property name="enabled">
-                   <bool>false</bool>
-                  </property>
-                  <property name="accessibleDescription">
-                   <string/>
-                  </property>
-                  <property name="text">
-                   <string notr="true"/>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="0">
-                 <widget class="QLabel" name="label_29">
-                  <property name="text">
-                   <string>Max</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="0">
-                 <widget class="QLabel" name="label_30">
-                  <property name="text">
-                   <string>Min</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="0">
-                 <widget class="QLabel" name="label_28">
-                  <property name="text">
-                   <string>Default operational values</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="2">
-                 <widget class="QLineEdit" name="lineEdit_p_on_max">
-                  <property name="enabled">
-                   <bool>false</bool>
-                  </property>
-                  <property name="accessibleDescription">
-                   <string notr="true"/>
-                  </property>
-                  <property name="text">
-                   <string/>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="8">
-                 <widget class="QLabel" name="label_31">
-                  <property name="text">
-                   <string>V_recirc</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="2">
-                 <widget class="QLineEdit" name="lineEdit_p_on_min">
-                  <property name="enabled">
-                   <bool>false</bool>
-                  </property>
-                  <property name="accessibleDescription">
-                   <string/>
-                  </property>
-                  <property name="text">
-                   <string notr="true"/>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="2">
-                 <widget class="QLineEdit" name="lineEdit_p_on_default">
-                  <property name="accessibleDescription">
-                   <string/>
-                  </property>
-                  <property name="text">
-                   <string notr="true"/>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="4">
-                 <widget class="QLineEdit" name="lineEdit_p_off_default">
-                  <property name="accessibleDescription">
-                   <string/>
-                  </property>
-                  <property name="text">
-                   <string notr="true"/>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="6">
-                 <widget class="QLineEdit" name="lineEdit_v_switch_default">
-                  <property name="accessibleDescription">
-                   <string/>
-                  </property>
-                  <property name="text">
-                   <string notr="true"/>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="8">
-                 <widget class="QLineEdit" name="lineEdit_v_recirc_default">
-                  <property name="accessibleDescription">
-                   <string/>
-                  </property>
-                  <property name="text">
-                   <string notr="true"/>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
+              </spacer>
              </item>
             </layout>
            </widget>
@@ -1108,8 +1138,8 @@
                <property name="font">
                 <font>
                  <pointsize>12</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
+                 <weight>50</weight>
+                 <bold>false</bold>
                 </font>
                </property>
                <property name="text">
@@ -1122,8 +1152,8 @@
                <property name="font">
                 <font>
                  <pointsize>12</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
+                 <weight>50</weight>
+                 <bold>false</bold>
                 </font>
                </property>
                <property name="text">
@@ -1268,7 +1298,10 @@ border-radius: 4px;
                 <item row="10" column="2">
                  <widget class="QSpinBox" name="spinBox_ds_increment">
                   <property name="suffix">
-                   <string> %</string>
+                   <string notr="true"> %</string>
+                  </property>
+                  <property name="prefix">
+                   <string notr="true"/>
                   </property>
                   <property name="minimum">
                    <number>1</number>
@@ -1284,7 +1317,10 @@ border-radius: 4px;
                 <item row="11" column="2">
                  <widget class="QSpinBox" name="spinBox_fs_increment">
                   <property name="suffix">
-                   <string> %</string>
+                   <string notr="true"> %</string>
+                  </property>
+                  <property name="prefix">
+                   <string notr="true"/>
                   </property>
                   <property name="minimum">
                    <number>1</number>
@@ -1613,7 +1649,10 @@ background-color: rgb(255, 255, 255);</string>
                 <item row="12" column="2">
                  <widget class="QSpinBox" name="spinBox_v_increment">
                   <property name="suffix">
-                   <string> %</string>
+                   <string notr="true"> %</string>
+                  </property>
+                  <property name="prefix">
+                   <string notr="true"/>
                   </property>
                   <property name="minimum">
                    <number>1</number>
@@ -2121,6 +2160,9 @@ border-radius: 4px;
                   <property name="toolTip">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The number of data bits in each character can be 5 (for Baudot code), &lt;br/&gt;6 (rarely used), 7 (for true ASCII), 8 (for most kinds of data, &lt;br/&gt;as this size matches the size of a byte), or 9 (rarely used). &lt;br/&gt;8 data bits are almost universally used in newer applications.&lt;br/&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Default value:&lt;/span&gt; 8&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
+                  <property name="currentText">
+                   <string notr="true">8</string>
+                  </property>
                   <property name="currentIndex">
                    <number>3</number>
                   </property>
@@ -2155,6 +2197,9 @@ border-radius: 4px;
                  <widget class="QComboBox" name="comboBox_baudRate">
                   <property name="toolTip">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The baud rate is the speed of communication in bit/s&lt;br/&gt;Supported values : 1200; 2400; 4800; 9600; 19200; 38400; 57600; 115200 bit/s&lt;br/&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Default value:&lt;/span&gt; 9600&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="currentText">
+                   <string notr="true">9600</string>
                   </property>
                   <property name="currentIndex">
                    <number>3</number>
@@ -2211,6 +2256,9 @@ border-radius: 4px;
                   <property name="toolTip">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Stop bits sent at the end of every character allow the receiving signal hardware to detect the end of a character and to resynchronise with the character stream. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
+                  <property name="currentText">
+                   <string notr="true">OneStop</string>
+                  </property>
                   <item>
                    <property name="text">
                     <string extracomment="OneStop">OneStop</string>
@@ -2237,6 +2285,9 @@ border-radius: 4px;
                  <widget class="QComboBox" name="comboBox_parity">
                   <property name="toolTip">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Parity is a method of detecting errors in transmission.&lt;br/&gt;When parity is used with a serial port, an extra data bit is sent with each data character, &lt;br/&gt;arranged so that the number of 1 bits in each character, including the parity bit, &lt;br/&gt;is always odd or always even. If a byte is received with the wrong number of 1s, &lt;br/&gt;then it must have been corrupted.&lt;br/&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Default value:&lt;/span&gt; NoParity&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="currentText">
+                   <string notr="true">NoParity</string>
                   </property>
                   <item>
                    <property name="text">
@@ -2274,6 +2325,9 @@ border-radius: 4px;
                  <widget class="QComboBox" name="comboBox_flowControl">
                   <property name="toolTip">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-family:'sans-serif'; font-size:14px; color:#222222; background-color:#ffffff;&quot;&gt;A serial port may use signals in the interface to pause and resume the transmission of data.&lt;/span&gt;&lt;br&gt;&lt;span style=&quot; font-family:'sans-serif'; font-size:14px; font-weight:600; color:#222222; background-color:#ffffff;&quot;&gt;Default value:&lt;/span&gt;&lt;span style=&quot; font-family:'sans-serif'; font-size:14px; color:#222222; background-color:#ffffff;&quot;&gt; NoFlowControl&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="currentText">
+                   <string notr="true">NoFlowControl</string>
                   </property>
                   <item>
                    <property name="text">

@@ -127,8 +127,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>1079</width>
-         <height>716</height>
+         <width>1078</width>
+         <height>711</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout_2">
@@ -169,8 +169,8 @@
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>1079</width>
-             <height>716</height>
+             <width>1078</width>
+             <height>711</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout">
@@ -2546,7 +2546,7 @@ p, li { white-space: pre-wrap; }
    <property name="minimumSize">
     <size>
      <width>317</width>
-     <height>490</height>
+     <height>523</height>
     </size>
    </property>
    <property name="maximumSize">
@@ -2617,7 +2617,7 @@ p, li { white-space: pre-wrap; }
         <enum>QTabWidget::Triangular</enum>
        </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>0</number>
        </property>
        <property name="elideMode">
         <enum>Qt::ElideNone</enum>
@@ -3006,7 +3006,7 @@ border-radius: 4px;
                <string notr="true"/>
               </property>
               <property name="text">
-               <string>Switch</string>
+               <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;V&lt;span style=&quot; vertical-align:sub;&quot;&gt;switch&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
@@ -3118,7 +3118,7 @@ border-radius: 4px;
                <string notr="true"/>
               </property>
               <property name="text">
-               <string>P off</string>
+               <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;P&lt;span style=&quot; vertical-align:sub;&quot;&gt;off&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
@@ -3586,7 +3586,7 @@ border-radius: 4px;
                <string notr="true"/>
               </property>
               <property name="text">
-               <string>P on</string>
+               <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;P&lt;span style=&quot; vertical-align:sub;&quot;&gt;on&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
@@ -4215,7 +4215,7 @@ border-top-left-radius: 5px;
                <string notr="true"/>
               </property>
               <property name="text">
-               <string>Recirculation</string>
+               <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;V&lt;span style=&quot; vertical-align:sub;&quot;&gt;recirc&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
@@ -4456,6 +4456,11 @@ border:0px solid white;
          </property>
          <item row="0" column="0">
           <widget class="QGroupBox" name="groupBox_chart">
+           <property name="font">
+            <font>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
            <property name="styleSheet">
             <string notr="true">QGroupBox { 
      border: 2px solid  rgb(250, 250, 250); ; 
@@ -4500,13 +4505,13 @@ border:0px solid white;
            <property name="minimumSize">
             <size>
              <width>0</width>
-             <height>170</height>
+             <height>150</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
              <width>16777215</width>
-             <height>230</height>
+             <height>190</height>
             </size>
            </property>
            <property name="font">

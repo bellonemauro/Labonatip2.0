@@ -1131,63 +1131,154 @@ bool Labonatip_tools::loadSettings(QString _path)
 
 	
 	// read pr_limits group
-	int p_on_max = m_settings->value("pr_limits/p_on_max", "450").toInt();
+	bool ok = false;
+	int p_on_max = m_settings->value("pr_limits/p_on_max", "450").toInt(&ok);
+	if (!ok) {
+		cerr << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_tools::loadSettings ::: Warning !  ::  p_on_max corrupted in setting file, using default value " << endl;
+		p_on_max = 450;
+	}
 	ui_tools->lineEdit_p_on_max->setText(QString::number(p_on_max));
 	m_pr_params->p_on_max = p_on_max;
 
-	int p_on_min = m_settings->value("pr_limits/p_on_min", "0").toInt();
+	int p_on_min = m_settings->value("pr_limits/p_on_min", "0").toInt(&ok);
+	if (!ok) {
+		cerr << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_tools::loadSettings ::: Warning !  ::  p_on_min corrupted in setting file, using default value " << endl;
+		p_on_min = 0;
+	}
 	ui_tools->lineEdit_p_on_min->setText(QString::number(p_on_min));
 	m_pr_params->p_on_min = p_on_min;
 
-	int p_on_default = m_settings->value("pr_limits/p_on_default", "0").toInt();
+	int p_on_default = m_settings->value("pr_limits/p_on_default", "190").toInt(&ok);
+	if (!ok) {
+		cerr << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_tools::loadSettings ::: Warning !  ::  p_on_default corrupted in setting file, using default value " << endl;
+		p_on_default = 190;
+	}
 	ui_tools->lineEdit_p_on_default->setText(QString::number(p_on_default));
 	m_pr_params->p_on_default = p_on_default;
 
-	int p_off_max = m_settings->value("pr_limits/p_off_max", "450").toInt();
-	ui_tools->lineEdit_p_off_max->setText(QString::number(p_off_max));
+	int p_off_max = m_settings->value("pr_limits/p_off_max", "450").toInt(&ok);
+	if (!ok) {
+		cerr << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_tools::loadSettings ::: Warning !  ::  p_off_max corrupted in setting file, using default value " << endl;
+		p_off_max = 450;
+	}
+	ui_tools->lineEdit_p_off_max->setText(QString::number(p_off_max)); //TODO
 	m_pr_params->p_off_max = p_off_max;
 
-	int p_off_min = m_settings->value("pr_limits/p_off_min", "0").toInt();
+	int p_off_min = m_settings->value("pr_limits/p_off_min", "0").toInt(&ok);
+	if (!ok) {
+		cerr << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_tools::loadSettings ::: Warning !  ::  p_off_min corrupted in setting file, using default value " << endl;
+		p_off_min = 0;
+	}
 	ui_tools->lineEdit_p_off_min->setText(QString::number(p_off_min));
 	m_pr_params->p_off_min = p_off_min;
 
-	int p_off_default = m_settings->value("pr_limits/p_off_default", "0").toInt();
+	int p_off_default = m_settings->value("pr_limits/p_off_default", "21").toInt(&ok);
+	if (!ok) {
+		cerr << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_tools::loadSettings ::: Warning !  ::  p_off_default corrupted in setting file, using default value " << endl;
+		p_off_default = 21;
+	}
 	ui_tools->lineEdit_p_off_default->setText(QString::number(p_off_default));
 	m_pr_params->p_off_default = p_off_default;
 
-	int v_switch_max = m_settings->value("pr_limits/v_switch_max", "0").toInt();
+	int v_switch_max = m_settings->value("pr_limits/v_switch_max", "0").toInt(&ok);
+	if (!ok) {
+		cerr << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_tools::loadSettings ::: Warning !  ::  v_switch_max corrupted in setting file, using default value " << endl;
+		v_switch_max = 0;
+	}
 	ui_tools->lineEdit_v_switch_max->setText(QString::number(v_switch_max));
 	m_pr_params->v_switch_max = v_switch_max;
 
-	int v_switch_min = m_settings->value("pr_limits/v_switch_min", "-300").toInt();
+	int v_switch_min = m_settings->value("pr_limits/v_switch_min", "-300").toInt(&ok);
+	if (!ok) {
+		cerr << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_tools::loadSettings ::: Warning !  ::  v_switch_min corrupted in setting file, using default value " << endl;
+		v_switch_min = -300;
+	}
 	ui_tools->lineEdit_v_switch_min->setText(QString::number(v_switch_min));
 	m_pr_params->v_switch_min = v_switch_min;
 
-	int v_switch_default = m_settings->value("pr_limits/v_switch_default", "-115").toInt();
+	int v_switch_default = m_settings->value("pr_limits/v_switch_default", "-115").toInt(&ok);
+	if (!ok) {
+		cerr << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_tools::loadSettings ::: Warning !  ::  v_switch_default corrupted in setting file, using default value " << endl;
+		v_switch_default = -115;
+	}
 	ui_tools->lineEdit_v_switch_default->setText(QString::number(v_switch_default));
 	m_pr_params->v_switch_default = v_switch_default;
 
-	int v_recirc_max = m_settings->value("pr_limits/v_recirc_max", "0").toInt();
+	int v_recirc_max = m_settings->value("pr_limits/v_recirc_max", "0").toInt(&ok);
+	if (!ok) {
+		cerr << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_tools::loadSettings ::: Warning !  ::  v_recirc_max corrupted in setting file, using default value " << endl;
+		v_recirc_max = 0;
+	}
 	ui_tools->lineEdit_v_recirc_max->setText(QString::number(v_recirc_max));
 	m_pr_params->v_recirc_max = v_recirc_max;
 
-	int v_recirc_min = m_settings->value("pr_limits/v_recirc_min", "-300").toInt();
+	int v_recirc_min = m_settings->value("pr_limits/v_recirc_min", "-300").toInt(&ok);
+	if (!ok) {
+		cerr << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_tools::loadSettings ::: Warning !  ::  v_recirc_min corrupted in setting file, using default value " << endl;
+		v_recirc_min = -300;
+	}
 	ui_tools->lineEdit_v_recirc_min->setText(QString::number(v_recirc_min));
 	m_pr_params->v_recirc_min = v_recirc_min;
 
-	int v_recirc_default = m_settings->value("pr_limits/v_recirc_default", "-115").toInt();
+	int v_recirc_default = m_settings->value("pr_limits/v_recirc_default", "-115").toInt(&ok);
+	if (!ok) {
+		cerr << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_tools::loadSettings ::: Warning !  ::  v_recirc_default corrupted in setting file, using default value " << endl;
+		v_recirc_default = -115;
+	}
 	ui_tools->lineEdit_v_recirc_default->setText(QString::number(v_recirc_default));
 	m_pr_params->v_recirc_default = v_recirc_default;
 
-	int base_ds_increment = m_settings->value("pr_limits/base_ds_increment", "10").toInt();
+	int base_ds_increment = m_settings->value("pr_limits/base_ds_increment", "10").toInt(&ok);
+	if (!ok) {
+		cerr << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_tools::loadSettings ::: Warning !  ::  base_ds_increment corrupted in setting file, using default value " << endl;
+		base_ds_increment = 10;
+	}
 	ui_tools->spinBox_ds_increment->setValue(base_ds_increment);
 	m_pr_params->base_ds_increment = base_ds_increment;
 
-	int base_fs_increment = m_settings->value("pr_limits/base_fs_increment", "5").toInt();
+	int base_fs_increment = m_settings->value("pr_limits/base_fs_increment", "5").toInt(&ok);
+	if (!ok) {
+		cerr << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_tools::loadSettings ::: Warning !  ::  base_fs_increment corrupted in setting file, using default value " << endl;
+		base_fs_increment = 5;
+	}
 	ui_tools->spinBox_fs_increment->setValue(base_fs_increment);
 	m_pr_params->base_fs_increment = base_fs_increment;
 
-	int base_v_increment = m_settings->value("pr_limits/base_v_increment", "5").toInt();
+	int base_v_increment = m_settings->value("pr_limits/base_v_increment", "5").toInt(&ok);
+	if (!ok) {
+		cerr << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_tools::loadSettings ::: Warning !  ::  base_v_increment corrupted in setting file, using default value " << endl;
+		base_v_increment = 5;
+	}
 	ui_tools->spinBox_v_increment->setValue(base_v_increment);
 	m_pr_params->base_v_increment = base_v_increment;
 

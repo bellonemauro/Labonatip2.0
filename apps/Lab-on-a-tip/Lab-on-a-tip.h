@@ -68,8 +68,6 @@ using namespace std;
 
 //}
 
-
-
 class Labonatip_tools;
 class Labonatip_macroRunner;
 class Labonatip_chart;
@@ -81,9 +79,8 @@ class Labonatip_GUI : public QMainWindow
 {
 	Q_OBJECT
 
-		class Labonatip_dropletControl;
-
 protected:	
+	// event control, so far only translations are handled
 	void changeEvent(QEvent*);
 
 public:
@@ -92,10 +89,14 @@ public:
 	~Labonatip_GUI();
 	
 
-
+	/**  Set the version of the software from the main 
+	*
+	*/
 	void setVersion(string _version);
 
+
 	void setMacroUserPath(QString _path) { m_macro_path = _path; }
+
 
 	void setSettingsUserPath(QString _path) { m_settings_path = _path; }
 

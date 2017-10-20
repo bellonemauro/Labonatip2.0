@@ -1254,22 +1254,26 @@ void Labonatip_GUI::updateGUI() {
 	if (!m_simulationOnly) {
 		int sensor_reading = (int)(m_ppc1->m_PPC1_data->channel_B->sensor_reading);  // rounded to second decimal
 		int set_point = (int)(m_ppc1->m_PPC1_data->channel_B->set_point);
-		ui->label_switchPressure->setText(QString(QString::number(sensor_reading) + ", " + QString::number(set_point) + " mbar"));
+		ui->label_switchPressure->setText(QString(QString::number(sensor_reading) + 
+			", " + QString::number(set_point) + " mbar"));
 		ui->progressBar_switch->setValue(-sensor_reading);
 
 		sensor_reading = (int)(m_ppc1->m_PPC1_data->channel_A->sensor_reading);
 		set_point = (int)(m_ppc1->m_PPC1_data->channel_A->set_point);
-		ui->label_recircPressure->setText(QString(QString::number(sensor_reading) + ", " + QString::number(set_point) + " mbar"));
+		ui->label_recircPressure->setText(QString(QString::number(sensor_reading) + 
+			", " + QString::number(set_point) + " mbar"));
 		ui->progressBar_recirc->setValue(-sensor_reading);
 
 		sensor_reading = (int)(m_ppc1->m_PPC1_data->channel_C->sensor_reading);
 		set_point = (int)(m_ppc1->m_PPC1_data->channel_C->set_point);
-		ui->label_PoffPressure->setText(QString(QString::number(sensor_reading) + ", " + QString::number(set_point) + " mbar"));
+		ui->label_PoffPressure->setText(QString(QString::number(sensor_reading) + 
+			", " + QString::number(set_point) + " mbar"));
 		ui->progressBar_pressure_p_off->setValue(sensor_reading);
 
 		sensor_reading = (int)(m_ppc1->m_PPC1_data->channel_D->sensor_reading);
 		set_point = (int)(m_ppc1->m_PPC1_data->channel_D->set_point);
-		ui->label_PonPressure->setText(QString(QString::number(sensor_reading) + ", " + QString::number(set_point) + " mbar"));
+		ui->label_PonPressure->setText(QString(QString::number(sensor_reading) + 
+			", " + QString::number(set_point) + " mbar"));
 		ui->progressBar_pressure_p_on->setValue(sensor_reading);
 
 		ui->progressBar_recircIn->setValue(ui->horizontalSlider_recirculation->value());
@@ -1406,11 +1410,14 @@ void Labonatip_GUI::switchLanguage(int _value )
 }
 
 
-void Labonatip_GUI::changeEvent(QEvent* event)
+void Labonatip_GUI::changeEvent(QEvent* _event)
 {
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::changeEvent   " << _event->type() << endl;
 
-	if (0 != event) {
-		switch (event->type()) {
+	if (0 != _event) {
+		switch (_event->type()) {
 			// this event is send if a translator is loaded
 		case QEvent::LanguageChange:
 			ui->retranslateUi(this);
@@ -1420,7 +1427,7 @@ void Labonatip_GUI::changeEvent(QEvent* event)
 		break;
 		}
 	}
-	QMainWindow::changeEvent(event);
+	QMainWindow::changeEvent(_event);
 
 }
 
@@ -1623,8 +1630,7 @@ void Labonatip_GUI::toolEmptyWells()
 	ui->progressBar_switchIn->setValue(0); 
 	ui->progressBar_switchOut->setValue(0);
 
-	if (!m_simulationOnly) m_ppc1->setValvesState(0x0F); //TODO: check the real behaviour of this function
-
+	
 }
 
 void Labonatip_GUI::toolOk() {

@@ -565,7 +565,7 @@ void Labonatip_chart::setGUIchart()
 	axisPen.setWidth(2);
 	axisX->setLinePen(axisPen);
 	axisY->setLinePen(axisPen);
-
+	
 	// Customize axis label colors
 	QBrush axisBrush(Qt::black);
 	axisX->setLabelsBrush(axisBrush);
@@ -593,14 +593,26 @@ void Labonatip_chart::setGUIchart()
 	axisX->setTitleText("Simulation time percentage");
 
 	//axisY->append(" ", 10);
+	QString s;
 	axisY->append("Sync Out", min_series_sync_out + chart_width);
 	axisY->append("Sync In", min_series_sync_in + chart_width);
 	axisY->append("Ask", min_series_ask + chart_width);
 	axisY->append("Solution", min_series_solution + chart_width);
-	axisY->append("V_recirc", min_series_V_recirc + chart_width);
-	axisY->append("V_switch", min_series_V_switch + chart_width);
-	axisY->append("P_off", min_series_poff + chart_width);
-	axisY->append("P_on", min_series_pon + chart_width);
+	s = QStringLiteral("<html><head/><body><p>V<span style=\" vertical-align:sub;\">switch</span></p></body></html>");
+	axisY->append(s, min_series_V_switch + chart_width);
+	//axisY->append("V_switch", min_series_V_switch + chart_width);
+	s.clear();
+	s = QStringLiteral("<html><head/><body><p>V<span style=\" vertical-align:sub;\">recirc</span></p></body></html>");
+	axisY->append(s, min_series_V_recirc + chart_width);
+	//axisY->append("V_recirc", min_series_V_recirc + chart_width);
+	s.clear();
+	s = QStringLiteral("<html><head/><body><p>P<span style=\" vertical-align:sub;\">off</span></p></body></html>");
+	axisY->append(s, min_series_poff + chart_width);
+	//axisY->append("P_off", min_series_poff + chart_width);
+	s.clear();
+	s = QStringLiteral("<html><head/><body><p>P<span style=\" vertical-align:sub;\">on</span></p></body></html>");
+	axisY->append(s, min_series_pon + chart_width);
+	//axisY->append("P_on", min_series_pon + chart_width);
 	axisY->setRange(10, 90);
 
 	m_chart->setAxisX(axisX, m_series_X);
