@@ -19,19 +19,19 @@ void Labonatip_GUI::dropletSizePlus() {
 	// only Pon + percentage
 	// V_recirc - percentage
 	if (m_pipette_active) {
-		bool _use_set_points = false;
+		bool success = false;
 		if (ui->checkBox_useSetPoint->isChecked())
 		{
-			_use_set_points = m_ppc1->changeDropletSizeBy(m_dialog_tools->m_pr_params->base_ds_increment);
+			success = m_ppc1->changeDropletSizeBy(m_dialog_tools->m_pr_params->base_ds_increment);
 		}
 		else {
-			_use_set_points = m_ppc1->setDropletSize(
+			success = m_ppc1->setDropletSize(
 				m_ds_perc + //ui->lcdNumber_dropletSize_percentage->value() +
 				m_dialog_tools->m_pr_params->base_ds_increment);
 		}
 		//if (!m_ppc1->setDropletSize(ui->lcdNumber_dropletSize_percentage->value() +
 		//	m_dialog_tools->m_pr_params->base_ds_increment)) {
-		if(!_use_set_points) {
+		if(!success) {
 			QMessageBox::information(this, "Warning !",
 				" Operation cannot be done. <br> Please, check for out of bound values. ");
 		}
@@ -95,19 +95,19 @@ void Labonatip_GUI::dropletSizeMinus() {
 	// only Pon - percentage
 	// V_recirc + percentage
 	if (m_pipette_active) {
-		bool _use_set_points = false;
+		bool success = false;
 		if (ui->checkBox_useSetPoint->isChecked())
 		{
-			_use_set_points = m_ppc1->changeDropletSizeBy(-m_dialog_tools->m_pr_params->base_ds_increment);
+			success = m_ppc1->changeDropletSizeBy(-m_dialog_tools->m_pr_params->base_ds_increment);
 		}
 		else {
-			_use_set_points = m_ppc1->setDropletSize( m_ds_perc - 
+			success = m_ppc1->setDropletSize( m_ds_perc -
 				m_dialog_tools->m_pr_params->base_ds_increment);
 		}
 		//if (!m_ppc1->setDropletSize(
 		//		ui->lcdNumber_dropletSize_percentage->value() -
 		//		m_dialog_tools->m_pr_params->base_ds_increment)) {
-		if (!_use_set_points){	
+		if (!success){
 			QMessageBox::information(this, "Warning !",
 				" Operation cannot be done. <br> Please, check for out of bound values. ");
 		}
@@ -172,19 +172,19 @@ void Labonatip_GUI::flowSpeedPlus() {
 	// Poff does not read too low values, 
 	// if 5% different is less than 5 mbar .... start -> start + 5 --> start - 5%
 	if (m_pipette_active) {
-		bool _use_set_points = false;
+		bool success = false;
 		if (ui->checkBox_useSetPoint->isChecked())
 		{
-			_use_set_points = m_ppc1->changeFlowspeedBy(m_dialog_tools->m_pr_params->base_fs_increment);
+			success = m_ppc1->changeFlowspeedBy(m_dialog_tools->m_pr_params->base_fs_increment);
 		}
 		else{
-			_use_set_points = m_ppc1->setFlowspeed(m_fs_perc + 
+			success = m_ppc1->setFlowspeed(m_fs_perc +
 				m_dialog_tools->m_pr_params->base_fs_increment);
 		}
 		//if (!m_ppc1->changeFlowspeedBy(m_dialog_tools->m_pr_params->base_fs_increment)) {
 		//if (!m_ppc1->setFlowspeed(ui->lcdNumber_flowspeed_percentage->value() +
 		//	m_dialog_tools->m_pr_params->base_fs_increment)) 
-		if (!_use_set_points) {
+		if (!success) {
 			QMessageBox::information(this, "Warning !", 
 				" Operation cannot be done. <br> Please, check for out of bound values. ");
 		}
@@ -262,19 +262,19 @@ void Labonatip_GUI::flowSpeedMinus() {
 
 	// -percentage to all values
 	if (m_pipette_active) {
-		bool _use_set_points = false;
+		bool success = false;
 		if (ui->checkBox_useSetPoint->isChecked())
 		{
-			_use_set_points = m_ppc1->changeFlowspeedBy(-m_dialog_tools->m_pr_params->base_fs_increment);
+			success = m_ppc1->changeFlowspeedBy(-m_dialog_tools->m_pr_params->base_fs_increment);
 		}
 		else {
-			_use_set_points = m_ppc1->setFlowspeed(m_fs_perc - 
+			success = m_ppc1->setFlowspeed(m_fs_perc -
 				m_dialog_tools->m_pr_params->base_fs_increment);
 		}
 		//if (!m_ppc1->changeFlowspeedBy(-m_dialog_tools->m_pr_params->base_fs_increment)){
 		//if (!m_ppc1->setFlowspeed(ui->lcdNumber_flowspeed_percentage->value() -
 		//		m_dialog_tools->m_pr_params->base_fs_increment)) 
-		if (!_use_set_points) {
+		if (!success) {
 				QMessageBox::information(this, "Warning !",
 				" Operation cannot be done. <br> Please, check for out of bound values. ");
 		}
@@ -328,19 +328,19 @@ void Labonatip_GUI::vacuumPlus() {
 
 	// +percentage to v_recirculation
 	if (m_pipette_active) {
-		bool _use_set_points = false;
+		bool success = false;
 		if (ui->checkBox_useSetPoint->isChecked())
 		{
-			_use_set_points = m_ppc1->changeVacuumPercentageBy(m_dialog_tools->m_pr_params->base_v_increment);
+			success = m_ppc1->changeVacuumPercentageBy(m_dialog_tools->m_pr_params->base_v_increment);
 		}
 		else {
-			_use_set_points = m_ppc1->setVacuumPercentage(m_v_perc + //ui->lcdNumber_vacuum_percentage->value() +
+			success = m_ppc1->setVacuumPercentage(m_v_perc + //ui->lcdNumber_vacuum_percentage->value() +
 				m_dialog_tools->m_pr_params->base_v_increment);
 		}
 		//if (!m_ppc1->changeVacuumPercentageBy(m_dialog_tools->m_pr_params->base_v_increment)){
 		//if (!m_ppc1->setVacuumPercentage(ui->lcdNumber_vacuum_percentage->value() + 
 		//	m_dialog_tools->m_pr_params->base_v_increment)) {
-		if (!_use_set_points) {
+		if (!success) {
 			QMessageBox::information(this, "Warning !",
 				" Operation cannot be done. <br> Please, check for out of bound values.");
 		}
@@ -379,19 +379,20 @@ void Labonatip_GUI::vacuumMinus() {
 
 	// -5% v_recirculation
 	if (m_pipette_active) {
-		bool _use_set_points = false; 
+		bool success = false; 
 		if (ui->checkBox_useSetPoint->isChecked())
 		{
-			_use_set_points = m_ppc1->changeVacuumPercentageBy(-m_dialog_tools->m_pr_params->base_v_increment);
+			success = m_ppc1->changeVacuumPercentageBy(-m_dialog_tools->m_pr_params->base_v_increment);
 		}
 		else {
-			_use_set_points = m_ppc1->setVacuumPercentage(m_v_perc - //ui->lcdNumber_vacuum_percentage->value() -
+			success = m_ppc1->setVacuumPercentage(m_v_perc - //ui->lcdNumber_vacuum_percentage->value() -
 				m_dialog_tools->m_pr_params->base_v_increment);
 		}
+
 		//if (!m_ppc1->changeVacuumPercentageBy(-m_dialog_tools->m_pr_params->base_v_increment)){
 		//if (!m_ppc1->setVacuumPercentage(ui->lcdNumber_vacuum_percentage->value() -
 		//	m_dialog_tools->m_pr_params->base_v_increment)) {
-		if (!_use_set_points) {
+		if (!success) {
 			QMessageBox::information(this, "Warning !",
 				" Operation cannot be done. <br> Please, check for out of bound values. ");
 		}
@@ -427,6 +428,7 @@ void Labonatip_GUI::updateFlowControlPercentages()
 
 	if (m_simulationOnly) {
 
+		// calculate droplet size percentage
 		{
 			//double ponp = 100.0 * m_pon_set_point / default_pon;
 			//double vrp = 100.0 * m_v_recirc_set_point / default_v_recirc;
@@ -434,25 +436,30 @@ void Labonatip_GUI::updateFlowControlPercentages()
 			//double droplet_percentage = 100.0 + (ponp - vrp) / 2.0;
 			
 			double ponp =  100.0 * std::pow(m_pon_set_point / default_pon, 3.0);
-			double vrp =  -100.0 * std::pow((m_v_recirc_set_point - 2 * default_v_recirc) / default_v_recirc, 3.0);
+			double vrp =  -100.0 * std::pow((m_v_recirc_set_point - 2.0 * default_v_recirc) / default_v_recirc, 3.0);
 
 			//double droplet_percentage = std::pow(1.0 + (ponp - vrp) / 2.0, 3);
 			m_ds_perc =  (ponp + vrp) / 2.0;
-			cout << "Labonatip_GUI::updateFlowControlPercentages  ::: ponp " << ponp
-				<< " vrp " << vrp 
-				<< " droplet_percentage " << m_ds_perc << endl;
+			cout << "Labonatip_GUI::updateFlowControlPercentages  ::: " 
+				 << " ponp " << ponp
+				 << " vrp " << vrp 
+				 << " droplet_percentage " << m_ds_perc << endl;
 
 			ui->lcdNumber_dropletSize_percentage->display(m_ds_perc);
 		}
+
+		// calculate flow speed percentage
 		{
 			double ponp = 100.0 * m_pon_set_point / default_pon; 
 			double poffp = 100.0 * m_poff_set_point / default_poff; 
 			double vsp = 100.0 * m_v_switch_set_point / default_v_switch; 
 			double vrp = 100.0 * m_v_recirc_set_point / default_v_recirc; 
 
-			m_fs_perc = (ponp + poffp + vsp + vrp) / 4.0; // 4 is for the average
+			m_fs_perc = (ponp + poffp + vsp + vrp) / 4.0; // 4 is the number of elements in the average
 			ui->lcdNumber_flowspeed_percentage->display(m_fs_perc);
 		}
+
+		//calculate vacuum percentage
 		{
 			m_v_perc = 100.0 * m_v_recirc_set_point / default_v_recirc; 
 			ui->lcdNumber_vacuum_percentage->display(m_v_perc);

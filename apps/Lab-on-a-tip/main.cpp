@@ -32,7 +32,7 @@
 // if it is the first time that the software runs,
 // it will check if required paths already exist and set up useful files and folders in the user files
 // if this function return false, some path may be broken
-bool setPaths(Labonatip_GUI &_l, QString &_macro_user_path, QString &_settings_user_path )
+bool initPaths(Labonatip_GUI &_l, QString &_macro_user_path, QString &_settings_user_path )
 {
 	QString home_path = QDir::homePath();   // detect the home path ... C:/users/user/
 	QDir app_dir = QDir::currentPath();     // is the installation folder  ... C:/Program Files/Labonatip
@@ -182,7 +182,10 @@ int main(int argc, char **argv)//(int argc, char *argv[])
 	  QString macro_user_path;
 	  QString settings_user_path;
 
-	  if (!setPaths(window, macro_user_path, settings_user_path)) return 0;
+	  if (!initPaths(window, macro_user_path, settings_user_path)) return 0;
+	  // set default paths for settings and macros in the GUI app
+	  window.setMacroUserPath(macro_user_path);
+	  window.setSettingsUserPath(settings_user_path);
 
 #ifdef LABONATIP_VERSION
 	  window.setVersion(version);
@@ -193,10 +196,6 @@ int main(int argc, char **argv)//(int argc, char *argv[])
 	  s->setPixmap(QPixmap("./icons/splash_screen.png"));
 	  s->show();
 	  QTimer::singleShot(5000, s, SLOT(close()));
-
-	  // set default paths for settings and macros
-	  window.setMacroUserPath(macro_user_path);
-	  window.setSettingsUserPath(settings_user_path);
 
 	  // get the screen resolution of the current screen
 	  // so we can resize the application in case of small screens

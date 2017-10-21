@@ -10,27 +10,111 @@
 
 #include "Lab-on-a-tip.h"
 
-void Labonatip_GUI::operationalMode() {
+void Labonatip_GUI::newTip()
+{
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::newTip    " << endl;
 
+	setEnableMainWindow(false);
+
+	//Ask: Place the pipette into the holder and tighten.THEN PRESS OK.
+	QMessageBox::information(this, " Information ",
+		"Place the pipette into the holder and tighten.THEN PRESS OK");
 	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
 
-	cout << QDate::currentDate().toString().toStdString() << "  " 
-		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::operationalMode    " << endl;
-
+														//vf0
 	if (m_pipette_active) {
-		if (m_ppc1->isConnected()) m_ppc1->closeAllValves();
+		m_ppc1->closeAllValves();
 	}
 
-	updateVrecircSetPoint(default_v_recirc);// update the set point
-	updateVswitchSetPoint(default_v_switch);// update the set point
-	if (!visualizeProgressMessage(5, " waiting ... ")) return;
-	updatePoffSetPoint(default_poff);// update the set point
-	updatePonSetPoint(default_pon);// update the set point
+	//D0
+	updatePonSetPoint(0.0);
 
+	//C0
+	updatePoffSetPoint(0.0);
+
+	//B0
+	updateVswitchSetPoint(0.0);
+
+	//A0
+	updateVrecircSetPoint(0.0);
+
+	//Wait 5 seconds
+	if (!visualizeProgressMessage(5, "Initialization.")) return;
+
+	//D200
+	updatePonSetPoint(200.0);
+
+	//Wait 5 seconds
+	if (!visualizeProgressMessage(5, "Pressurize the system.")) return;
+
+	//vff
+	if (m_pipette_active) {
+		m_ppc1->openAllValves();
+	}
+
+	//Ask : wait until a droplet appears at the tip of the pipette and THEN PRESS OK.
 	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
+	QMessageBox::information(this, " Information ",
+		"Wait until a droplet appears at the tip of the pipette and THEN PRESS OK");
+	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
+
+	//Wait 40 seconds
+	if (!visualizeProgressMessage(40, "Purging the liquid channels.")) return;
+
+	//vf0
+	if (m_pipette_active) {
+		m_ppc1->closeAllValves();
+	}
+
+	//D0
+	updatePonSetPoint(0.0);
+
+	//Wait 10 seconds
+	if (!visualizeProgressMessage(10, "Still purging the liquid channels.")) return;
+
+	//Ask : Remove the droplet using a lens tissue and put the pipette into solution.THEN PRESS OK.
+	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
+	QMessageBox::information(this, " Information ",
+		"Remove the droplet using a lens tissue. THEN PRESS OK");
+	QMessageBox::information(this, " Information ",
+		"Put the pipette into solution. THEN PRESS OK");
+	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
+
+	//B - 200
+	updateVswitchSetPoint(200.0);
+
+	//A - 200
+	updateVrecircSetPoint(200.0);
+
+	//Wait 90 seconds
+	if (!visualizeProgressMessage(90, "Purging the vacuum  channels.")) return;
+
+	//C21
+	updatePoffSetPoint(default_poff);// (21.0);
+
+	//D190
+	updatePonSetPoint(default_pon);// (190.0);
+
+	//Wait 5 seconds
+	if (!visualizeProgressMessage(5, "Establishing operational pressures.")) return;
+
+	//B - 115
+	updateVswitchSetPoint(default_v_switch);// (115);
+
+	//A - 115
+	updateVrecircSetPoint(default_v_recirc);// (115);
+
+	//Ask: Pipette is ready for operation.PRESS OK TO START.
+	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
+	QMessageBox::information(this, " Information ",
+		"Pipette is ready for operation. PRESS OK TO START");
+
+	setEnableMainWindow(true);
 
 }
+
 
 void Labonatip_GUI::runMacro() {
 
@@ -61,8 +145,6 @@ void Labonatip_GUI::runMacro() {
 				// do nothing for now
 			}
 		}
-
-
 
 		m_macroRunner_thread->setMacroPrt(m_macro);
 		cout << QDate::currentDate().toString().toStdString() << "  " 
@@ -130,113 +212,6 @@ void Labonatip_GUI::runMacro() {
 }
 
 
-void Labonatip_GUI::newTip()
-{
-
-
-	cout << QDate::currentDate().toString().toStdString() << "  " 
-		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::newTip    " << endl;
-
-	setEnableMainWindow(false);
-
-	//Ask: Place the pipette into the holder and tighten.THEN PRESS OK.
-	QMessageBox::information(this, " Information ",
-		"Place the pipette into the holder and tighten.THEN PRESS OK");
-	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
-
-														//vf0
-	if (m_pipette_active) {
-		m_ppc1->closeAllValves();
-	}
-
-	//D0
-	updatePonSetPoint(0.0);
-
-	//C0
-	updatePoffSetPoint(0.0);
-
-	//B0
-	updateVswitchSetPoint(0.0);
-
-	//A0
-	updateVrecircSetPoint(0.0);
-
-	//Wait 5 seconds
-	if (!visualizeProgressMessage(5, "Initialization.")) return;
-
-	//D200
-	updatePonSetPoint(200.0); 
-
-	//Wait 5 seconds
-	if (!visualizeProgressMessage(5, "Pressurize the system.")) return;
-
-	//vff
-	if (m_pipette_active) {
-		m_ppc1->openAllValves();
-	}
-
-	//Ask : wait until a droplet appears at the tip of the pipette and THEN PRESS OK.
-	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-	QMessageBox::information(this, " Information ",
-		"Wait until a droplet appears at the tip of the pipette and THEN PRESS OK");
-	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
-
-	//Wait 40 seconds
-	if (!visualizeProgressMessage(40, "Purging the liquid channels.")) return;
-
-	//vf0
-	if (m_pipette_active) {
-		m_ppc1->closeAllValves();
-	}
-
-	//D0
-	updatePonSetPoint(0.0);
-
-	//Wait 10 seconds
-	if (!visualizeProgressMessage(10, "Still purging the liquid channels.")) return;
-
-	//Ask : Remove the droplet using a lens tissue and put the pipette into solution.THEN PRESS OK.
-	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-	QMessageBox::information(this, " Information ",
-		"Remove the droplet using a lens tissue. THEN PRESS OK");
-	QMessageBox::information(this, " Information ",
-		"Put the pipette into solution. THEN PRESS OK");
-	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
-
-	//B - 200
-	updateVswitchSetPoint(200.0); 
-
-	//A - 200
-	updateVrecircSetPoint(200.0);
-
-	//Wait 90 seconds
-	if (!visualizeProgressMessage(90, "Purging the vacuum  channels.")) return;
-
-	//C21
-	updatePoffSetPoint(default_poff);// (21.0);
-
-	//D190
-	updatePonSetPoint(default_pon);// (190.0);
-
-	//Wait 5 seconds
-	if (!visualizeProgressMessage(5, "Establishing operational pressures.")) return;
-
-	//B - 115
-	updateVswitchSetPoint(default_v_switch);// (115);
-
-	//A - 115
-	updateVrecircSetPoint(default_v_recirc);// (115);
-
-	//Ask: Pipette is ready for operation.PRESS OK TO START.
-	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-	QMessageBox::information(this, " Information ",
-		"Pipette is ready for operation. PRESS OK TO START");
-
-	setEnableMainWindow(true);
-
-}
-
 void Labonatip_GUI::macroFinished(const QString &_result) {
 
 	cout << QDate::currentDate().toString().toStdString() << "  "
@@ -264,59 +239,86 @@ void Labonatip_GUI::macroFinished(const QString &_result) {
 }
 
 
-void Labonatip_GUI::shutdown() {
+void Labonatip_GUI::operationalMode() {
 
-	cout << QDate::currentDate().toString().toStdString() << "  " 
-		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::shutdown   " << endl;
-
+	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
 	setEnableMainWindow(false);
-	QMessageBox::StandardButton resBtn = QMessageBox::question(this, "Lab-on-a-tip",
-		tr("shutdown pressed, this will take 30 seconds, press ok to continue, cancel to abort. \n"),
-		QMessageBox::Cancel | QMessageBox::Ok,
-		QMessageBox::Ok);
-	if (resBtn != QMessageBox::Cancel) {
 
-		//RUN THE FOLLOWING MACRO:
-		//	allOff()
-		//	setPon(0)
-		//	setPoff(0)
-		//	sleep(10)
-		//	setVswitch(0)
-		//	setVrecirc(0)
-		//	sleep(15)
-		//	pumpsOff()
-		QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::operationalMode    " << endl;
 
-		if (m_pipette_active) {
-			m_ppc1->closeAllValves();
-		}
-		updatePonSetPoint(0.0);
-		updatePoffSetPoint(0.0);
-		
-		//Wait 10 seconds
-		if (!visualizeProgressMessage(10, " The pressure is off, waiting for the vacuum. ")) return;
-		
-		updateVrecircSetPoint(0.0);
-		updateVswitchSetPoint(0.0);
-
-		//Wait 15 seconds
-		if (!visualizeProgressMessage(15, " Vacuum off. Stopping the flow in the device. ")) return; 
-		
+	if (m_pipette_active) {
+		if (m_ppc1->isConnected()) m_ppc1->closeAllValves();
 	}
-	else {
-		// do nothing for now
-	}
+
+	updateVrecircSetPoint(default_v_recirc);// update the set point
+	updateVswitchSetPoint(default_v_switch);// update the set point
+	if (!visualizeProgressMessage(5, " waiting ... ")) return;
+	updatePoffSetPoint(default_poff);// update the set point
+	updatePonSetPoint(default_pon);// update the set point
+
 	setEnableMainWindow(true);
 	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 
 }
+
+
+void Labonatip_GUI::stopSolutionFlow()
+{
+	// look for the active flow
+	if (ui->pushButton_solution1->isChecked()) {
+		ui->pushButton_solution1->setChecked(false);
+		pushSolution1(); // if the flow is active, this should stop it!
+
+		updateDrawing(-1);
+		ui->pushButton_stop->released();
+		ui->pushButton_stop->setEnabled(false);
+		return;
+	}
+
+	if (ui->pushButton_solution2->isChecked()) {
+		ui->pushButton_solution2->setChecked(false);
+		pushSolution2();
+		updateDrawing(-1);
+		ui->pushButton_stop->released();
+		ui->pushButton_stop->setEnabled(false);
+		return;
+	}
+
+	if (ui->pushButton_solution3->isChecked()) {
+		ui->pushButton_solution3->setChecked(false);
+		pushSolution3();
+		updateDrawing(-1);
+		ui->pushButton_stop->released();
+		ui->pushButton_stop->setEnabled(false);
+		return;
+	}
+
+	if (ui->pushButton_solution4->isChecked()) {
+		ui->pushButton_solution4->setChecked(false);
+		pushSolution4();
+		updateDrawing(-1);
+		ui->pushButton_stop->released();
+		ui->pushButton_stop->setEnabled(false);
+		return;
+	}
+	// if none is checked, do nothing.
+
+
+
+
+	return;
+}
+
 
 void Labonatip_GUI::standby()
 {
 	cout << QDate::currentDate().toString().toStdString() << "  " 
 		 << QTime::currentTime().toString().toStdString() << "  "
 		 << "Labonatip_GUI::standby   " << endl;
+
+	setEnableMainWindow(false);
 
 	//OLD SLEEP MACRO
 	// allOff()
@@ -337,38 +339,8 @@ void Labonatip_GUI::standby()
 	updateVswitchSetPoint(45.0);
 	updateVrecircSetPoint(45.0);
 
+	setEnableMainWindow(true);
 	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 
 }
 
-
-void Labonatip_GUI::reboot() {
-
-	cout << QDate::currentDate().toString().toStdString() << "  " 
-		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::reboot    " << endl;
-
-	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
-
-	if (m_pipette_active) {
-		disCon(); // with the pipette active this will stop the threads
-		ui->actionSimulation->setChecked(false);
-	
-		m_ppc1->reboot();
-
-		updatePonSetPoint(0.0);
-		updatePoffSetPoint(0.0);
-		updateVrecircSetPoint(0.0);
-		updateVswitchSetPoint(0.0);
-
-		if (!visualizeProgressMessage(200, " Rebooting ... ")) return;
-
-		m_ppc1->connectCOM();
-
-		if (!visualizeProgressMessage(5, " Reconnecting ... ")) return;
-
-		disCon();
-	}
-	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-
-}

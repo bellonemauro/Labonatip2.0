@@ -79,9 +79,8 @@ class Labonatip_GUI : public QMainWindow
 {
 	Q_OBJECT
 
-protected:	
-	// event control, so far only translations are handled
-	void changeEvent(QEvent*);
+#define LENGTH_TO_TIP 0.065
+#define LENGTH_TO_ZONE 0.062
 
 public:
 	explicit Labonatip_GUI(QMainWindow *parent = nullptr);
@@ -130,87 +129,7 @@ public:
 
 private slots:
 
-	/** \brief open a file
-	  * TODO : - this is just a support for the future, still not used
-	  * \note
-	  */
-	void openFile();
 
-	/** \brief save a file
-	  * TODO : - this is just a support for the future, still not used
-	  * \note
-	  */
-	void saveFile();
-
-
-	/** \brief This function shows a tool dialog,
-	  *        all the settings must be implemented here
-	  *
-	  * \note
-	  */
-	void showToolsDialog();
-
-
-	/** \brief This function is called when the button + on droplet size is clicked
-	*
-	*   only Pon and V_recirc + - 2.5%
-	*
-	* \note
-	*/
-	void dropletSizePlus();
-
-	/** \brief This function is called when the button - on droplet size is clicked
-	*
-	*   only Pon and V_recirc + - 2.5%
-	*
-	* \note
-	*/
-	void dropletSizeMinus();
-
-
-	/** \brief This function is called when the button + on flow speed is clicked
-	*
-	*   	 +5% to all values
-	*	 Poff does not read too low values,
-	*	 if 5% different is less than 5 mbar .... start -> start + 5 --> start - 5%
-	*
-	* \note
-	*/
-	void flowSpeedPlus();
-
-	/** \brief This function is called when the button - on flow speed is clicked
-	*
-	*   	 -5% to all values
-	*	 Poff does not read too low values,
-	*	 if 5% different is less than 5 mbar .... start -> start + 5 --> start - 5%
-	*
-	* \note
-	*/
-	void flowSpeedMinus();
-
-	/** \brief This function is called when the button + on flow speed is clicked
-	*
-	*   	 +5% v_recirculation
-	*
-	* \note
-	*/
-	void vacuumPlus();
-
-	/** \brief This function is called when the button - on flow speed is clicked
-	*
-	*   	 -5% v_recirculation
-	*
-	* \note
-	*/
-	void vacuumMinus();
-
-	/** \brief Update flow control percentages
-	*
-	*
-	*
-	* \note
-	*/
-	void updateFlowControlPercentages();
 
 	/** \brief This function is called when the down arrow on Pon is called
 	  *        it decreases the pressure on Pon, it does not accept out-of-range
@@ -270,45 +189,6 @@ private slots:
 	void recirculationUp();
 
 
-	/** \brief reboot the PPC1
-	   *
-	   * \note
-	   */
-	void reboot();
-
-
-	/** \brief Connect and disconnect the PPC1
-	  *
-	  * \note
-	  */
-	void disCon();
-
-	/** \brief Run --- still work in progress
-	  *
-	  * \note
-	  */
-	void operationalMode();
-
-	/** \brief The operation run in background, a signal is emitted at the end
-	*
-	* \note
-	*/
-	void runMacro();
-
-
-	/** \brief The operation run in background, a signal is emitted at the end
-	*
-	* \note
-	*/
-	void newTip();
-
-
-	/** \brief The operation run in background, a signal is emitted at the end
-	*
-	* \note
-	*/
-	void macroFinished(const QString &_result);
-
 	/** \brief Update macro status message
 	*
 	* \note
@@ -346,31 +226,6 @@ private slots:
 	* \note
 	*/
 	void closeAllValves();
-
-	/** \brief Stop solution flow
-	*
-	* \note
-	*/
-	void stopSolutionFlow();
-
-
-	/** \brief Run the shutdown procedure
-	  *
-	  * \note
-	  */
-	void shutdown();
-
-	/** \brief  standby
-	*
-	* \note
-	*/
-	void standby();
-
-	/** \brief Open/close the dock for advaced tools
-	  *
-	  * \note
-	  */
-	void closeOpenDockTools();
 
 
 	/** \brief pushSolution1
@@ -428,6 +283,7 @@ private slots:
 		qerr->copyOutToTerminal(_state);
 	};
 
+
 	/** \brief Set debug to terminal
 	*
 	* \note
@@ -470,22 +326,16 @@ private slots:
 	  *  \param  _Log_file_name   = file name
 	  *  /note -
 	  **/
-	void setLogFile(QString &_Log_file_name)
-	{
-		Log_file_name = _Log_file_name;
-	};
+	//void setLogFile(QString &_Log_file_name) {
+	//	Log_file_name = _Log_file_name;
+	//};
 
 	/** \brief save log file
 	  *
 	  * /return false for any writing error
 	  **/
-	bool saveLog(QString &_file_name);
+	//bool saveLog(QString &_file_name);
 
-
-	/** \brief Enter simulation mode - the PPC1 will not be used
-	* \note
-	*/
-	void simulationOnly();
 
 	/** \brief Visualize a message and a progress bar 
 	* \note
@@ -515,13 +365,214 @@ private slots:
 	void toolApply();
 
 
+//DELIVERY
+
+	/** \brief This function is called when the button + on droplet size is clicked
+	*
+	*   only Pon and V_recirc + - 2.5%
+	*
+	* \note
+	*/
+	void dropletSizePlus();
+
+	/** \brief This function is called when the button - on droplet size is clicked
+	*
+	*   only Pon and V_recirc + - 2.5%
+	*
+	* \note
+	*/
+	void dropletSizeMinus();
+
+
+	/** \brief This function is called when the button + on flow speed is clicked
+	*
+	*   	 +5% to all values
+	*	 Poff does not read too low values,
+	*	 if 5% different is less than 5 mbar .... start -> start + 5 --> start - 5%
+	*
+	* \note
+	*/
+	void flowSpeedPlus();
+
+	/** \brief This function is called when the button - on flow speed is clicked
+	*
+	*   	 -5% to all values
+	*	 Poff does not read too low values,
+	*	 if 5% different is less than 5 mbar .... start -> start + 5 --> start - 5%
+	*
+	* \note
+	*/
+	void flowSpeedMinus();
+
+	/** \brief This function is called when the button + on flow speed is clicked
+	*
+	*   	 +5% v_recirculation
+	*
+	* \note
+	*/
+	void vacuumPlus();
+
+	/** \brief This function is called when the button - on flow speed is clicked
+	*
+	*   	 -5% v_recirculation
+	*
+	* \note
+	*/
+	void vacuumMinus();
+
+	/** \brief Update flow control percentages
+	*
+	*   Only in simulation recalculate the percentages according to the same method in the PPC1 api
+	*
+	* \note
+	*/
+	void updateFlowControlPercentages();
+
+
+//END DELIVERY
+
+
+//TOOLSACTIONS
+
+	/** \brief Open a setting file
+	* 
+	*   Open a setting file from a user folder
+	*  
+	* \note
+	*/
+	void openFile();
+
+	/** \brief save the settings to a file
+	*
+	*   Save the current settings to a .ini file in the user folder
+	*
+	* \note
+	*/
+	void saveFile();
+
+	/** \brief This function shows a tool dialog,
+	*        all the settings must be implemented here
+	*
+	* \note
+	*/
+	void showToolsDialog();
+
+
+	/** \brief Enter simulation mode - the PPC1 will not be used
+	* \note
+	*/
+	void simulationOnly();
+
+	/** \brief Connect and disconnect the PPC1
+	*
+	* \note
+	*/
+	void disCon();
+	
+	/** \brief Reboot the PPC1
+	*
+	* \note This is a hard reboot for the PPC1 device,
+	*       it will cause the disconnection from the serial port
+	*/
+	void reboot();
+
+	/** \brief Run the shutdown procedure
+	*
+	* \note
+	*/
+	void shutdown();
+
+	/** \brief Open/close the dock for advaced tools
+	*
+	* \note
+	*/
+	void closeOpenDockTools();
+
+//END TOOLSACTIONS
+
+//PPC1ACTIONS:
+
+	/** \brief The operation run in background, a signal is emitted at the end
+	*
+	* \note
+	*/
+	void newTip();
+
+
+	/** \brief The operation run in background, a signal is emitted at the end
+	*
+	* \note
+	*/
+	void runMacro();
+
+
+	/** \brief The operation run in background, a signal is emitted at the end
+	*
+	* \note
+	*/
+	void macroFinished(const QString &_result);
+
+	/** \brief Run --- still work in progress
+	*
+	*    It will put the device into the operational mode by running the following macro
+	*      allOff()
+	*      setPoff(21)
+	*      setPon(190)
+	*      setVswitch(-115)
+	*      setVrecirc(-115)
+	*
+	*
+	* \note
+	*/
+	void operationalMode();
+
+	/** \brief Stop solution flow
+	*
+	*   Stop the flow of the solution if one of the solutions is flowing
+	*
+	*
+	* \note
+	*/
+	void stopSolutionFlow();
+
+
+	/** \brief  Put the device into a standby mode
+	*
+	*       Put the device into a standy mode by running the following commands:
+	*
+	*       STANDBY MACRO
+	*       allOff()
+	*       setPoff(11)
+	*       setPon(0)
+	*       sleep(5)
+	*       setVswitch(-45)
+	*       setVrecirc(-45)
+	*
+	* \note
+	*
+	*/
+	void standby();
+
+//END PPC1ACTIONS
+
+protected:
+	// event control, so far only translations are handled
+	void changeEvent(QEvent*); 
+
 private:
 
 	void setEnableMainWindow(bool _enable = false);
 
 	void setEnableSolutionButtons(bool _enable = false);
 
+	QString generateStyleSheet(const QColor _color) {
+		return generateStyleSheet(_color.red(), _color.green(), _color.blue());
+	}
+
 	QString generateStyleSheet(const int _r, const int _g, const int _b);
+
+	// save log data, messages from the console ect. 
+	void dumpLogs();
 
   /** Increase/reduce the area for the solution depiction
   *  
@@ -529,15 +580,15 @@ private:
   */
   void updateDrawing(int _value);
 
-  // group all the connects are in this function
+  /** group all the connects are in this function
+  *
+  */
   void initConnects();
 
   Ui::Labonatip_GUI *ui;    //!< the user interface
 
   void closeEvent(QCloseEvent *event);
 
-  QString Log_file_name;			//!< set the file name for the joints log file, default value "log_file.dat"
-  QDir m_saveFolderPath;
   QDebugStream *qout;            //--> redirect for messages into the GUI
   QDebugStream *qerr;            //--> redirect for messages into the GUI
 
@@ -568,12 +619,6 @@ private:
   int m_timer_solution;               //!< duration of injection for solution 
   
   //GUI stuff for drawing solution flow
-  QPen m_pen_flow;                    //!< Pen object, used to set the border properties of the flow draw
-  QRadialGradient *m_gradient_flow;    //!< Gradient of the color of the solution flow
-  const float c_x;                    //!< x-coordinate of the circle, value = 53.0
-  const float c_y;                    //!< y-coordinate of the circle, value = 46.0 
-  const float c_radius;               //!< initial radius of the circle, value = 10.0 
-  const float g_radius;               //!< radius of the gradient, value = 70.0  
   QPen m_pen_line;                    //!< pen to draw the solution inside the pipe
   const int m_pen_line_width;         //!< pen line width, value = 5
   const float l_x1;                   //x-coordinate of the line starting point, value = -18.0
@@ -607,6 +652,8 @@ private:
   QString m_macro_path;
   QString m_settings_path;
   QTranslator m_translator;
+
+
 };
 
 #endif /* Labonatip_GUI_H_ */

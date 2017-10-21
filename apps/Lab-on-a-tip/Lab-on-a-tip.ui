@@ -387,7 +387,7 @@
                      </size>
                     </property>
                     <property name="toolTip">
-                     <string>Standby button</string>
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shutdown button, it runs the following commands: &lt;br/&gt;&lt;br/&gt;allOff()&lt;br/&gt;setPon(0)&lt;br/&gt;setPoff(0)&lt;br/&gt;sleep(10)&lt;br/&gt;setVswitch(0)&lt;br/&gt;setVrecirc(0)&lt;br/&gt;sleep(15)&lt;br/&gt;pumpsOff()&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="whatsThis">
                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shutdown button, it runs the following commands: &lt;br/&gt;&lt;br/&gt;
@@ -444,6 +444,9 @@ pumpsOff()&lt;br/&gt;
                   </item>
                   <item row="3" column="3">
                    <widget class="QPushButton" name="pushButton_stop">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
                     <property name="minimumSize">
                      <size>
                       <width>90</width>
@@ -451,7 +454,7 @@ pumpsOff()&lt;br/&gt;
                      </size>
                     </property>
                     <property name="toolTip">
-                     <string>Stop button</string>
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Stop button: If one of the solutions is flowing, it will stop the flow&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="whatsThis">
                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Stop button, it runs the following commands: &lt;br/&gt;&lt;br/&gt;
@@ -482,7 +485,7 @@ closeAllValves()&lt;br/&gt;
                      </size>
                     </property>
                     <property name="toolTip">
-                     <string>Operational mode button</string>
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Operational mode button, it runs the following commands: &lt;br/&gt;&lt;br/&gt;allOff()&lt;br/&gt;setVswitch(-115)&lt;br/&gt;setVrecirc(-115)&lt;br/&gt;sleep(5)&lt;br/&gt;setPoff(21)&lt;br/&gt;setPon(190)&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="whatsThis">
                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Operational mode button, it runs the following commands: &lt;br/&gt;&lt;br/&gt;allOff()&lt;br/&gt;setVswitch(-115)&lt;br/&gt;setVrecirc(-115)&lt;br/&gt;sleep(5)&lt;br/&gt;setPoff(21)&lt;br/&gt;setPon(190)&lt;br/&gt;
@@ -608,7 +611,7 @@ closeAllValves()&lt;br/&gt;
                      </size>
                     </property>
                     <property name="toolTip">
-                     <string>Run macro button</string>
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Run macro runs the macro that can be loaded in the tools window&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="whatsThis">
                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Run macro runs the macro that can be loaded in the tools window&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1898,10 +1901,10 @@ border-color: rgb(250, 250, 250);</string>
                       </size>
                      </property>
                      <property name="toolTip">
-                      <string>Pump solution</string>
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Start the flow of solution, press again to stop.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
                      <property name="whatsThis">
-                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pump solution 4&lt;br/&gt;&lt;br/&gt;The solutions in the well 1 will be released &lt;br/&gt;for the &lt;span style=&quot; font-style:italic;&quot;&gt;t&lt;/span&gt; seconds, expressed in the field delivery time. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pump solution 4&lt;br/&gt;&lt;br/&gt;The solutions in the well 1 will be released &lt;br/&gt;for the &lt;span style=&quot; font-style:italic;&quot;&gt;t&lt;/span&gt; seconds, expressed in the field delivery time. &lt;/p&gt;&lt;p&gt;Push again to stop the flow.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
                      <property name="styleSheet">
                       <string notr="true">border:0</string>
@@ -1984,10 +1987,10 @@ border-color: rgb(235, 240, 235);
                       </size>
                      </property>
                      <property name="toolTip">
-                      <string>Pump solution</string>
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Start the flow of solution, press again to stop.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
                      <property name="whatsThis">
-                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pump solution 3&lt;br/&gt;&lt;br/&gt;The solutions in the well 1 will be released &lt;br/&gt;for the &lt;span style=&quot; font-style:italic;&quot;&gt;t&lt;/span&gt; seconds, expressed in the field delivery time. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pump solution 3&lt;br/&gt;&lt;br/&gt;The solutions in the well 1 will be released &lt;br/&gt;for the &lt;span style=&quot; font-style:italic;&quot;&gt;t&lt;/span&gt; seconds, expressed in the field delivery time. &lt;/p&gt;&lt;p&gt;Push again to stop the flow.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
                      <property name="styleSheet">
                       <string notr="true">border:0</string>
@@ -2066,10 +2069,10 @@ border-color: rgb(235, 240, 235);</string>
                       </size>
                      </property>
                      <property name="toolTip">
-                      <string>Pump solution</string>
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Start the flow of solution, press again to stop.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
                      <property name="whatsThis">
-                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pump solution 2&lt;br/&gt;&lt;br/&gt;The solutions in the well 1 will be released &lt;br/&gt;for the &lt;span style=&quot; font-style:italic;&quot;&gt;t&lt;/span&gt; seconds, expressed in the field delivery time. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pump solution 2&lt;br/&gt;&lt;br/&gt;The solutions in the well 1 will be released &lt;br/&gt;for the &lt;span style=&quot; font-style:italic;&quot;&gt;t&lt;/span&gt; seconds, expressed in the field delivery time. &lt;/p&gt;&lt;p&gt;Push again to stop the flow.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
                      <property name="styleSheet">
                       <string notr="true">border:0</string>
@@ -2148,10 +2151,10 @@ border-color: rgb(235, 240, 235);</string>
                       </size>
                      </property>
                      <property name="toolTip">
-                      <string>Pump solution</string>
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Start the flow of solution, press again to stop.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
                      <property name="whatsThis">
-                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pump solution 1&lt;br/&gt;&lt;br/&gt;The solutions in the well 1 will be released &lt;br/&gt;for the &lt;span style=&quot; font-style:italic;&quot;&gt;t&lt;/span&gt; seconds, expressed in the field delivery time. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pump solution 1&lt;br/&gt;&lt;br/&gt;The solutions in the well 1 will be released &lt;br/&gt;for the &lt;span style=&quot; font-style:italic;&quot;&gt;t&lt;/span&gt; seconds, expressed in the field delivery time. &lt;/p&gt;&lt;p&gt;Push again to stop the flow.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
                      <property name="styleSheet">
                       <string notr="true">border:0</string>
@@ -2617,7 +2620,7 @@ p, li { white-space: pre-wrap; }
         <enum>QTabWidget::Triangular</enum>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>2</number>
        </property>
        <property name="elideMode">
         <enum>Qt::ElideNone</enum>
@@ -4505,7 +4508,7 @@ border:0px solid white;
            <property name="minimumSize">
             <size>
              <width>0</width>
-             <height>150</height>
+             <height>250</height>
             </size>
            </property>
            <property name="maximumSize">

@@ -86,17 +86,25 @@ public:
 	}; // END COMSettings struct
 
   // structure to handle solutions name parameters
-  struct solutionsNames {
+  struct solutionsParams {
 	  QString sol1;                    //!<  name of the solution 1
 	  QString sol2;                    //!<  name of the solution 2
 	  QString sol3;                    //!<  name of the solution 3
 	  QString sol4;                    //!<  name of the solution 4
+	  QColor sol1_color;               //!<  color of the solution 1
+	  QColor sol2_color;               //!<  color of the solution 2
+	  QColor sol3_color;               //!<  color of the solution 3
+	  QColor sol4_color;               //!<  color of the solution 4
 
-	  solutionsNames() {   // default values
+	  solutionsParams() {   // default values
 		  this->sol1 = "No name given to sol 1";
 		  this->sol2 = "No name given to sol 2";
 		  this->sol3 = "No name given to sol 3";
 		  this->sol4 = "No name given to sol 4";
+		  this->sol1_color = QColor::fromRgb(255, 189, 0);
+		  this->sol2_color = QColor::fromRgb(255, 40, 0);
+		  this->sol3_color = QColor::fromRgb(0, 158, 255);
+		  this->sol4_color = QColor::fromRgb(130, 255, 0);
 	  }
   }; // END solutionsNames struct
 
@@ -134,7 +142,7 @@ public:
 
 	// TODO: members should not be public .... add get functions instead
 	COMSettings *m_comSettings;
-	solutionsNames *m_solutionNames;
+	solutionsParams *m_solutionParams;
 	pr_params *m_pr_params;
 	int language; //TODO add an enumerator
 

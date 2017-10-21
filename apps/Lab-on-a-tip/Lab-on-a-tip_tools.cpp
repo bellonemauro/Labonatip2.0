@@ -13,7 +13,7 @@
 Labonatip_tools::Labonatip_tools(QWidget *parent ):
 	QDialog (parent),
 	m_comSettings(new COMSettings()),
-	m_solutionNames(new solutionsNames()),
+	m_solutionParams(new solutionsParams()),
 	m_pr_params(new pr_params()),
 	ui_tools (new Ui::Labonatip_tools),
 	m_setting_file_name("./settings/settings.ini")
@@ -939,7 +939,7 @@ void Labonatip_tools::colorSol1Changed(int _value)
 	QPalette *palette = new QPalette();
 	palette->setColor(QPalette::Base, QColor::fromRgb(red, green, blue));
 	ui_tools->lineEdit_sol1_name->setPalette(*palette);
-
+	m_solutionParams->sol1_color = QColor::fromRgb(red, green, blue);
 	emit colSol1Changed(red, green, blue);
 
 }
@@ -962,7 +962,7 @@ void Labonatip_tools::colorSol2Changed(int _value)
 	QPalette *palette = new QPalette();
 	palette->setColor(QPalette::Base, QColor::fromRgb(red, green, blue));
 	ui_tools->lineEdit_sol2_name->setPalette(*palette);
-
+	m_solutionParams->sol2_color = QColor::fromRgb(red, green, blue);
 	emit colSol2Changed(red, green, blue);
 }
 
@@ -985,7 +985,7 @@ void Labonatip_tools::colorSol3Changed(int _value)
 	palette->setColor(QPalette::Base, QColor::fromRgb(red, green, blue));
 	//palette.setColor(QPalette::Text, Qt::white);
 	ui_tools->lineEdit_sol3_name->setPalette(*palette);
-
+	m_solutionParams->sol3_color = QColor::fromRgb(red, green, blue);
 	emit colSol3Changed(red, green, blue);
 }
 
@@ -1019,7 +1019,7 @@ void Labonatip_tools::colorSol4Changed(int _value)
 	palette->setColor(QPalette::Base, QColor::fromRgb(red, green, blue));
 	//palette.setColor(QPalette::Text, Qt::white);
 	ui_tools->lineEdit_sol4_name->setPalette(*palette);
-
+	m_solutionParams->sol4_color = QColor::fromRgb(red, green, blue);
 	emit colSol4Changed(red, green, blue);
 
 
@@ -1039,10 +1039,10 @@ void Labonatip_tools::getCOMsettings()
 
 void Labonatip_tools::getSolutionSettings()
 {
-	m_solutionNames->sol1 = ui_tools->lineEdit_sol1_name->text();
-	m_solutionNames->sol2 = ui_tools->lineEdit_sol2_name->text();
-	m_solutionNames->sol3 = ui_tools->lineEdit_sol3_name->text();
-	m_solutionNames->sol4 = ui_tools->lineEdit_sol4_name->text();
+	m_solutionParams->sol1 = ui_tools->lineEdit_sol1_name->text();
+	m_solutionParams->sol2 = ui_tools->lineEdit_sol2_name->text();
+	m_solutionParams->sol3 = ui_tools->lineEdit_sol3_name->text();
+	m_solutionParams->sol4 = ui_tools->lineEdit_sol4_name->text();
 
 	m_pr_params->base_ds_increment = ui_tools->spinBox_ds_increment->value();
 	m_pr_params->base_fs_increment = ui_tools->spinBox_fs_increment->value();
@@ -1288,19 +1288,19 @@ bool Labonatip_tools::loadSettings(QString _path)
 	//Read solution names block
 	QString solname1 = m_settings->value("solutions/sol1", "no name").toString();
 	ui_tools->lineEdit_sol1_name->setText(solname1);
-	m_solutionNames->sol1 = solname1; 
+	m_solutionParams->sol1 = solname1; 
 
 	QString solname2 = m_settings->value("solutions/sol2", "no name").toString();
 	ui_tools->lineEdit_sol2_name->setText(solname2);
-	m_solutionNames->sol2 = solname2; 
+	m_solutionParams->sol2 = solname2; 
 
 	QString solname3 = m_settings->value("solutions/sol3", "no name").toString();
 	ui_tools->lineEdit_sol3_name->setText(solname3);
-	m_solutionNames->sol3 = solname3; 
+	m_solutionParams->sol3 = solname3; 
 
 	QString solname4 = m_settings->value("solutions/sol1", "no name").toString();
 	ui_tools->lineEdit_sol4_name->setText(solname4);
-	m_solutionNames->sol4 = solname4; 
+	m_solutionParams->sol4 = solname4; 
 
 	int sol1colSlider = m_settings->value("solutions/sol1colSlider", "3522620").toInt();
 	ui_tools->horizontalSlider_colorSol1->setValue(sol1colSlider);
