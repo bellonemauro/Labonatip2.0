@@ -52,7 +52,7 @@ class Labonatip_tools : public  QDialog
 signals :
 	void ok();  // generated when ok is pressed
 	void apply(); // generated when apply is pressed
-	void discard(); // generated when discard is pressed
+	void cancel(); // generated when cancel is pressed
 	void emptyWells(); // generated when empty wells is pressed
 	void colSol1Changed(const int _r, const int _g, const int _b);
 	void colSol2Changed(const int _r, const int _g, const int _b);
@@ -135,6 +135,17 @@ public:
 	  }
   }; // END pr_params struct
 
+
+  struct GUIparams {
+	  Qt::ToolButtonStyle showTextToolBar;     //!<  ToolButtonIconOnly --- n 
+
+	  GUIparams() {   // default values
+		  this->showTextToolBar = Qt::ToolButtonIconOnly;
+
+	  }
+
+  }; // END COMSettings struct
+
 	explicit Labonatip_tools(QWidget *parent = 0);
 
 	~Labonatip_tools();
@@ -144,6 +155,8 @@ public:
 	COMSettings *m_comSettings;
 	solutionsParams *m_solutionParams;
 	pr_params *m_pr_params;
+	GUIparams *m_GUI_params;
+
 	int language; //TODO add an enumerator
 
 	void setMacroPrt(std::vector<fluicell::PPC1api::command> *_macro) { m_macro = _macro; };
@@ -185,6 +198,8 @@ private slots:
 
 	void languageChanged(int _idx);
 
+	void toolButtonStyleChanged(int _idx);
+
 	/** Color solution 1 changed
 	* \note
 	*/
@@ -219,10 +234,10 @@ private slots:
 	*/
 	void okPressed();
 
-	/** Emit discard signal and close the window
+	/** Emit cancel signal and close the window
 	* \note
 	*/
-	void discardPressed();
+	void cancelPressed();
 
 	/** emit apply signal, save the setting, and send the current macro to the main
 	*   
@@ -345,6 +360,8 @@ private:
 	void getCOMsettings();
 
 	void getSolutionSettings();
+
+	void getGUIsettings();
 
 	uint32_t giveRainbowColor(float _position);
 

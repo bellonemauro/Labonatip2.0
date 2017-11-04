@@ -59,7 +59,18 @@
    <bool>true</bool>
   </property>
   <property name="styleSheet">
-   <string notr="true"/>
+   <string notr="true">QToolButton:!hover {
+background-color:rgb(199, 223, 197);
+font-size: 16px;
+}
+QToolButton:hover {
+     background-color: rgb(199, 223, 197);
+ }
+
+QToolBar {
+background-color:rgb(199, 223, 197);
+font-size: 16px;
+}</string>
   </property>
   <property name="tabShape">
    <enum>QTabWidget::Triangular</enum>
@@ -128,7 +139,7 @@
          <x>0</x>
          <y>0</y>
          <width>1078</width>
-         <height>711</height>
+         <height>708</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout_2">
@@ -170,7 +181,7 @@
              <x>0</x>
              <y>0</y>
              <width>1078</width>
-             <height>711</height>
+             <height>708</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout">
@@ -382,7 +393,7 @@
                    <widget class="QPushButton" name="pushButton_standby">
                     <property name="minimumSize">
                      <size>
-                      <width>90</width>
+                      <width>92</width>
                       <height>90</height>
                      </size>
                     </property>
@@ -401,12 +412,42 @@ sleep(15)&lt;br/&gt;
 pumpsOff()&lt;br/&gt;
 &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
+                    <property name="styleSheet">
+                     <string notr="true"> QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 10px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+     min-width: 90px;
+ }
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
+                    </property>
                     <property name="text">
                      <string/>
                     </property>
                     <property name="icon">
                      <iconset>
-                      <normaloff>icons/sleep.png</normaloff>icons/sleep.png</iconset>
+                      <normaloff>icons/shutdown.png</normaloff>icons/shutdown.png</iconset>
                     </property>
                     <property name="iconSize">
                      <size>
@@ -420,12 +461,42 @@ pumpsOff()&lt;br/&gt;
                    <widget class="QPushButton" name="pushButton_newTip">
                     <property name="minimumSize">
                      <size>
-                      <width>90</width>
+                      <width>92</width>
                       <height>90</height>
                      </size>
                     </property>
                     <property name="toolTip">
                      <string>New tip button</string>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"> QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 10px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+     min-width: 90px;
+ }
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
                     </property>
                     <property name="text">
                      <string/>
@@ -440,6 +511,9 @@ pumpsOff()&lt;br/&gt;
                       <height>60</height>
                      </size>
                     </property>
+                    <property name="checkable">
+                     <bool>false</bool>
+                    </property>
                    </widget>
                   </item>
                   <item row="3" column="3">
@@ -449,7 +523,7 @@ pumpsOff()&lt;br/&gt;
                     </property>
                     <property name="minimumSize">
                      <size>
-                      <width>90</width>
+                      <width>92</width>
                       <height>90</height>
                      </size>
                     </property>
@@ -460,6 +534,36 @@ pumpsOff()&lt;br/&gt;
                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Stop button, it runs the following commands: &lt;br/&gt;&lt;br/&gt;
 closeAllValves()&lt;br/&gt;
 &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"> QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 10px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+     min-width: 90px;
+ }
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
                     </property>
                     <property name="text">
                      <string/>
@@ -480,7 +584,7 @@ closeAllValves()&lt;br/&gt;
                    <widget class="QPushButton" name="pushButton_operational">
                     <property name="minimumSize">
                      <size>
-                      <width>90</width>
+                      <width>92</width>
                       <height>90</height>
                      </size>
                     </property>
@@ -490,6 +594,36 @@ closeAllValves()&lt;br/&gt;
                     <property name="whatsThis">
                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Operational mode button, it runs the following commands: &lt;br/&gt;&lt;br/&gt;allOff()&lt;br/&gt;setVswitch(-115)&lt;br/&gt;setVrecirc(-115)&lt;br/&gt;sleep(5)&lt;br/&gt;setPoff(21)&lt;br/&gt;setPon(190)&lt;br/&gt;
 &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"> QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 10px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+     min-width: 90px;
+ }
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
                     </property>
                     <property name="text">
                      <string/>
@@ -606,7 +740,7 @@ closeAllValves()&lt;br/&gt;
                    <widget class="QPushButton" name="pushButton_runMacro">
                     <property name="minimumSize">
                      <size>
-                      <width>90</width>
+                      <width>92</width>
                       <height>90</height>
                      </size>
                     </property>
@@ -615,6 +749,36 @@ closeAllValves()&lt;br/&gt;
                     </property>
                     <property name="whatsThis">
                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Run macro runs the macro that can be loaded in the tools window&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"> QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 10px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+     min-width: 90px;
+ }
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
                     </property>
                     <property name="text">
                      <string/>
@@ -642,7 +806,7 @@ closeAllValves()&lt;br/&gt;
                      <string notr="true"/>
                     </property>
                     <property name="text">
-                     <string>Run Macro</string>
+                     <string>Run protocol</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignHCenter|Qt::AlignTop</set>
@@ -703,12 +867,45 @@ closeAllValves()&lt;br/&gt;
                     </property>
                     <property name="maximumSize">
                      <size>
-                      <width>50</width>
-                      <height>50</height>
+                      <width>52</width>
+                      <height>46</height>
                      </size>
                     </property>
                     <property name="toolTip">
                      <string>Increase vacuum</string>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"> QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 10px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+     min-width: 50px;
+	 min-height: 44px;
+     max-width: 50px;
+	 max-height: 44px;
+ }
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
                     </property>
                     <property name="text">
                      <string/>
@@ -772,12 +969,45 @@ closeAllValves()&lt;br/&gt;
                     </property>
                     <property name="maximumSize">
                      <size>
-                      <width>50</width>
-                      <height>50</height>
+                      <width>52</width>
+                      <height>46</height>
                      </size>
                     </property>
                     <property name="toolTip">
                      <string>Increase flow speed</string>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"> QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 10px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+     min-width: 50px;
+	 min-height: 44px;
+     max-width: 50px;
+	 max-height: 44px;
+ }
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
                     </property>
                     <property name="text">
                      <string/>
@@ -879,8 +1109,8 @@ closeAllValves()&lt;br/&gt;
                     </property>
                     <property name="maximumSize">
                      <size>
-                      <width>50</width>
-                      <height>50</height>
+                      <width>52</width>
+                      <height>46</height>
                      </size>
                     </property>
                     <property name="font">
@@ -895,7 +1125,37 @@ closeAllValves()&lt;br/&gt;
                      <bool>false</bool>
                     </property>
                     <property name="styleSheet">
-                     <string notr="true"/>
+                     <string notr="true"> QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 10px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+     min-width: 50px;
+	 min-height: 44px;
+     max-width: 50px;
+	 max-height: 44px;
+ }
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
                     </property>
                     <property name="text">
                      <string/>
@@ -940,12 +1200,45 @@ closeAllValves()&lt;br/&gt;
                     </property>
                     <property name="maximumSize">
                      <size>
-                      <width>50</width>
-                      <height>50</height>
+                      <width>52</width>
+                      <height>46</height>
                      </size>
                     </property>
                     <property name="toolTip">
                      <string>Decrease vacuum</string>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"> QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 10px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+     min-width: 50px;
+	 min-height: 44px;
+     max-width: 50px;
+	 max-height: 44px;
+ }
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
                     </property>
                     <property name="text">
                      <string/>
@@ -972,12 +1265,45 @@ closeAllValves()&lt;br/&gt;
                     </property>
                     <property name="maximumSize">
                      <size>
-                      <width>50</width>
-                      <height>50</height>
+                      <width>52</width>
+                      <height>46</height>
                      </size>
                     </property>
                     <property name="toolTip">
                      <string>Decrease flow speed</string>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"> QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 10px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+     min-width: 50px;
+	 min-height: 44px;
+     max-width: 50px;
+	 max-height: 44px;
+ }
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
                     </property>
                     <property name="text">
                      <string/>
@@ -1004,12 +1330,45 @@ closeAllValves()&lt;br/&gt;
                     </property>
                     <property name="maximumSize">
                      <size>
-                      <width>50</width>
-                      <height>50</height>
+                      <width>52</width>
+                      <height>46</height>
                      </size>
                     </property>
                     <property name="toolTip">
                      <string>Increase droplet size</string>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"> QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 10px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+     min-width: 50px;
+	 min-height: 44px;
+     max-width: 50px;
+	 max-height: 44px;
+ }
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
                     </property>
                     <property name="text">
                      <string/>
@@ -1116,7 +1475,7 @@ closeAllValves()&lt;br/&gt;
                      <string notr="true"/>
                     </property>
                     <property name="text">
-                     <string>Droplet size</string>
+                     <string>Zone size</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -1255,7 +1614,7 @@ closeAllValves()&lt;br/&gt;
                   <string/>
                  </property>
                  <property name="flat">
-                  <bool>true</bool>
+                  <bool>false</bool>
                  </property>
                  <widget class="QLabel" name="label_GW_biopenView">
                   <property name="enabled">
@@ -1733,7 +2092,7 @@ height: 0.5px;
                  <widget class="QGraphicsView" name="graphicsView">
                   <property name="geometry">
                    <rect>
-                    <x>758</x>
+                    <x>755</x>
                     <y>62</y>
                     <width>190</width>
                     <height>160</height>
@@ -1896,9 +2255,15 @@ border-color: rgb(250, 250, 250);</string>
                      </property>
                      <property name="maximumSize">
                       <size>
-                       <width>16777215</width>
-                       <height>16777215</height>
+                       <width>54</width>
+                       <height>54</height>
                       </size>
+                     </property>
+                     <property name="font">
+                      <font>
+                       <family>Arial</family>
+                       <pointsize>-1</pointsize>
+                      </font>
                      </property>
                      <property name="toolTip">
                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Start the flow of solution, press again to stop.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1907,15 +2272,40 @@ border-color: rgb(250, 250, 250);</string>
                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pump solution 4&lt;br/&gt;&lt;br/&gt;The solutions in the well 1 will be released &lt;br/&gt;for the &lt;span style=&quot; font-style:italic;&quot;&gt;t&lt;/span&gt; seconds, expressed in the field delivery time. &lt;/p&gt;&lt;p&gt;Push again to stop the flow.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
                      <property name="styleSheet">
-                      <string notr="true">border:0</string>
+                      <string notr="true"> QPushButton {
+     border: 2px solid #666666;
+     border-radius: 27px;
+	 font-size: 36px;
+     font-family: &quot;Arial&quot;;
+     max-width:50px;
+     max-height:50px;
+     background-color:#96a4D2;
+
+ }
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ffFF);
+ }
+
+
+QPushButton:checked{ 
+     background-color: #85CD83; }
+
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
                      </property>
                      <property name="text">
-                      <string/>
-                     </property>
-                     <property name="icon">
-                      <iconset>
-                       <normaloff>icons/InjectorN4.png</normaloff>
-                       <activeon>icons/InjectoGreenrN4.png</activeon>icons/InjectorN4.png</iconset>
+                      <string>4</string>
                      </property>
                      <property name="iconSize">
                       <size>
@@ -1926,11 +2316,14 @@ border-color: rgb(250, 250, 250);</string>
                      <property name="checkable">
                       <bool>true</bool>
                      </property>
+                     <property name="checked">
+                      <bool>false</bool>
+                     </property>
                      <property name="autoDefault">
                       <bool>false</bool>
                      </property>
                      <property name="flat">
-                      <bool>true</bool>
+                      <bool>false</bool>
                      </property>
                     </widget>
                    </item>
@@ -1982,8 +2375,8 @@ border-color: rgb(235, 240, 235);
                      </property>
                      <property name="maximumSize">
                       <size>
-                       <width>16777215</width>
-                       <height>16777215</height>
+                       <width>54</width>
+                       <height>54</height>
                       </size>
                      </property>
                      <property name="toolTip">
@@ -1993,15 +2386,40 @@ border-color: rgb(235, 240, 235);
                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pump solution 3&lt;br/&gt;&lt;br/&gt;The solutions in the well 1 will be released &lt;br/&gt;for the &lt;span style=&quot; font-style:italic;&quot;&gt;t&lt;/span&gt; seconds, expressed in the field delivery time. &lt;/p&gt;&lt;p&gt;Push again to stop the flow.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
                      <property name="styleSheet">
-                      <string notr="true">border:0</string>
+                      <string notr="true"> QPushButton {
+     border: 2px solid #666666;
+     border-radius: 27px;
+	 font-size: 36px;
+     font-family: &quot;Arial&quot;;
+     max-width:50px;
+     max-height:50px;
+     background-color:#96a4D2;
+
+ }
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ffFF);
+ }
+
+
+QPushButton:checked{ 
+     background-color: #85CD83; }
+
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
                      </property>
                      <property name="text">
-                      <string/>
-                     </property>
-                     <property name="icon">
-                      <iconset>
-                       <normaloff>icons/InjectorN3.png</normaloff>
-                       <activeon>icons/InjectoGreenrN3.png</activeon>icons/InjectorN3.png</iconset>
+                      <string>3</string>
                      </property>
                      <property name="iconSize">
                       <size>
@@ -2013,7 +2431,7 @@ border-color: rgb(235, 240, 235);
                       <bool>true</bool>
                      </property>
                      <property name="flat">
-                      <bool>true</bool>
+                      <bool>false</bool>
                      </property>
                     </widget>
                    </item>
@@ -2064,8 +2482,8 @@ border-color: rgb(235, 240, 235);</string>
                      </property>
                      <property name="maximumSize">
                       <size>
-                       <width>16777215</width>
-                       <height>16777215</height>
+                       <width>54</width>
+                       <height>54</height>
                       </size>
                      </property>
                      <property name="toolTip">
@@ -2075,15 +2493,40 @@ border-color: rgb(235, 240, 235);</string>
                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pump solution 2&lt;br/&gt;&lt;br/&gt;The solutions in the well 1 will be released &lt;br/&gt;for the &lt;span style=&quot; font-style:italic;&quot;&gt;t&lt;/span&gt; seconds, expressed in the field delivery time. &lt;/p&gt;&lt;p&gt;Push again to stop the flow.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
                      <property name="styleSheet">
-                      <string notr="true">border:0</string>
+                      <string notr="true"> QPushButton {
+     border: 2px solid #666666;
+     border-radius: 27px;
+	 font-size: 36px;
+     font-family: &quot;Arial&quot;;
+     max-width:50px;
+     max-height:50px;
+     background-color:#96a4D2;
+
+ }
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ffFF);
+ }
+
+
+QPushButton:checked{ 
+     background-color: #85CD83; }
+
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
                      </property>
                      <property name="text">
-                      <string/>
-                     </property>
-                     <property name="icon">
-                      <iconset>
-                       <normaloff>icons/InjectorN2.png</normaloff>
-                       <activeon>icons/InjectoGreenrN2.png</activeon>icons/InjectorN2.png</iconset>
+                      <string>2</string>
                      </property>
                      <property name="iconSize">
                       <size>
@@ -2095,7 +2538,7 @@ border-color: rgb(235, 240, 235);</string>
                       <bool>true</bool>
                      </property>
                      <property name="flat">
-                      <bool>true</bool>
+                      <bool>false</bool>
                      </property>
                     </widget>
                    </item>
@@ -2146,8 +2589,8 @@ border-color: rgb(235, 240, 235);</string>
                      </property>
                      <property name="maximumSize">
                       <size>
-                       <width>16777215</width>
-                       <height>16777215</height>
+                       <width>54</width>
+                       <height>54</height>
                       </size>
                      </property>
                      <property name="toolTip">
@@ -2157,15 +2600,39 @@ border-color: rgb(235, 240, 235);</string>
                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pump solution 1&lt;br/&gt;&lt;br/&gt;The solutions in the well 1 will be released &lt;br/&gt;for the &lt;span style=&quot; font-style:italic;&quot;&gt;t&lt;/span&gt; seconds, expressed in the field delivery time. &lt;/p&gt;&lt;p&gt;Push again to stop the flow.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
                      <property name="styleSheet">
-                      <string notr="true">border:0</string>
+                      <string notr="true"> QPushButton {
+     border: 2px solid #666666;
+     border-radius: 27px;
+	 font-size: 36px;
+     font-family: &quot;Arial&quot;;
+     max-width:50px;
+     max-height:50px;
+     background-color:#96a4D2;
+}
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ffFF);
+ }
+
+
+QPushButton:checked{ 
+     background-color: #85CD83; }
+
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
                      </property>
                      <property name="text">
-                      <string/>
-                     </property>
-                     <property name="icon">
-                      <iconset>
-                       <normaloff>icons/InjectorN1.png</normaloff>
-                       <activeon>icons/InjectoGreenrN1.png</activeon>icons/InjectorN1.png</iconset>
+                      <string>1</string>
                      </property>
                      <property name="iconSize">
                       <size>
@@ -2177,7 +2644,7 @@ border-color: rgb(235, 240, 235);</string>
                       <bool>true</bool>
                      </property>
                      <property name="flat">
-                      <bool>true</bool>
+                      <bool>false</bool>
                      </property>
                     </widget>
                    </item>
@@ -2195,13 +2662,15 @@ border-color: rgb(235, 240, 235);</string>
                   <property name="font">
                    <font>
                     <pointsize>11</pointsize>
+                    <weight>75</weight>
+                    <bold>true</bold>
                    </font>
                   </property>
                   <property name="styleSheet">
                    <string notr="true"/>
                   </property>
                   <property name="text">
-                   <string>Switch</string>
+                   <string>Internal</string>
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignCenter</set>
@@ -2210,25 +2679,27 @@ border-color: rgb(235, 240, 235);</string>
                  <widget class="QLabel" name="label_GW_rec">
                   <property name="geometry">
                    <rect>
-                    <x>-10</x>
+                    <x>40</x>
                     <y>185</y>
-                    <width>171</width>
+                    <width>111</width>
                     <height>41</height>
                    </rect>
                   </property>
                   <property name="font">
                    <font>
                     <pointsize>11</pointsize>
+                    <weight>75</weight>
+                    <bold>true</bold>
                    </font>
                   </property>
                   <property name="styleSheet">
                    <string notr="true"/>
                   </property>
                   <property name="text">
-                   <string>Recirculation  </string>
+                   <string>External</string>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+                   <set>Qt::AlignCenter</set>
                   </property>
                  </widget>
                  <widget class="Line" name="line_GW_waste">
@@ -2394,13 +2865,8 @@ p, li { white-space: pre-wrap; }
                  <zorder>progressBar_switchOut</zorder>
                  <zorder>progressBar_switchIn</zorder>
                  <zorder>progressBar_recircIn</zorder>
-                 <zorder>label_GW_biopenView</zorder>
                  <zorder>graphicsView</zorder>
                  <zorder>widget_solutionArrow</zorder>
-                 <zorder>widget_sol4</zorder>
-                 <zorder>widget_sol3</zorder>
-                 <zorder>widget_sol2</zorder>
-                 <zorder>widget_sol1</zorder>
                  <zorder>label_GW_sw</zorder>
                  <zorder>label_GW_rec</zorder>
                  <zorder>line_GW_waste</zorder>
@@ -2408,6 +2874,11 @@ p, li { white-space: pre-wrap; }
                  <zorder>label_GW_waste</zorder>
                  <zorder>label_GW_sol</zorder>
                  <zorder>textEdit_emptyTime_2</zorder>
+                 <zorder>label_GW_biopenView</zorder>
+                 <zorder>widget_sol3</zorder>
+                 <zorder>widget_sol2</zorder>
+                 <zorder>widget_sol1</zorder>
+                 <zorder>widget_sol4</zorder>
                 </widget>
                </item>
                <item row="2" column="0" colspan="2">
@@ -2498,9 +2969,7 @@ p, li { white-space: pre-wrap; }
   <widget class="QToolBar" name="toolBar_2">
    <property name="font">
     <font>
-     <pointsize>11</pointsize>
-     <weight>50</weight>
-     <bold>false</bold>
+     <pointsize>-1</pointsize>
     </font>
    </property>
    <property name="windowTitle">
@@ -2620,7 +3089,7 @@ p, li { white-space: pre-wrap; }
         <enum>QTabWidget::Triangular</enum>
        </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>1</number>
        </property>
        <property name="elideMode">
         <enum>Qt::ElideNone</enum>
@@ -2780,12 +3249,45 @@ border-top-left-radius: 5px;
              <widget class="QPushButton" name="pushButton_switchUp">
               <property name="maximumSize">
                <size>
-                <width>50</width>
-                <height>50</height>
+                <width>52</width>
+                <height>52</height>
                </size>
               </property>
               <property name="toolTip">
                <string>Fine tuning: single step increment</string>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"> QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 10px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+     min-width: 50px;
+	 min-height: 50px;
+     max-width: 50px;
+	 max-height: 50px;
+ }
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
               </property>
               <property name="text">
                <string/>
@@ -3040,12 +3542,45 @@ border-radius: 4px;
              <widget class="QPushButton" name="pushButton_switchDown">
               <property name="maximumSize">
                <size>
-                <width>50</width>
-                <height>50</height>
+                <width>52</width>
+                <height>52</height>
                </size>
               </property>
               <property name="toolTip">
                <string>Fine tuning: single step decrement</string>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"> QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 10px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+     min-width: 50px;
+	 min-height: 50px;
+     max-width: 50px;
+	 max-height: 50px;
+ }
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
               </property>
               <property name="text">
                <string/>
@@ -3132,18 +3667,51 @@ border-radius: 4px;
              <widget class="QPushButton" name="pushButton_p_off_up">
               <property name="minimumSize">
                <size>
-                <width>0</width>
-                <height>0</height>
+                <width>52</width>
+                <height>52</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
-                <width>50</width>
-                <height>50</height>
+                <width>52</width>
+                <height>52</height>
                </size>
               </property>
               <property name="toolTip">
                <string>Fine tuning: single step increment</string>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"> QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 10px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+     min-width: 50px;
+	 min-height: 50px;
+     max-width: 50px;
+	 max-height: 50px;
+ }
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
               </property>
               <property name="text">
                <string/>
@@ -3293,21 +3861,51 @@ border:0px solid white;
               </property>
               <property name="minimumSize">
                <size>
-                <width>0</width>
-                <height>0</height>
+                <width>52</width>
+                <height>52</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
-                <width>50</width>
-                <height>50</height>
+                <width>52</width>
+                <height>52</height>
                </size>
               </property>
               <property name="toolTip">
                <string>Fine tuning: single step decrement</string>
               </property>
               <property name="styleSheet">
-               <string notr="true"/>
+               <string notr="true"> QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 10px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+     min-width: 50px;
+	 min-height: 50px;
+     max-width: 50px;
+	 max-height: 50px;
+ }
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
               </property>
               <property name="text">
                <string/>
@@ -3899,18 +4497,51 @@ border:0px solid white;
               </property>
               <property name="minimumSize">
                <size>
-                <width>0</width>
-                <height>0</height>
+                <width>52</width>
+                <height>52</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
-                <width>50</width>
-                <height>50</height>
+                <width>52</width>
+                <height>52</height>
                </size>
               </property>
               <property name="toolTip">
                <string>Fine tuning: single step increment</string>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"> QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 10px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+     min-width: 50px;
+	 min-height: 50px;
+     max-width: 50px;
+	 max-height: 50px;
+ }
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
               </property>
               <property name="text">
                <string/>
@@ -3960,18 +4591,51 @@ border:0px solid white;
               </property>
               <property name="minimumSize">
                <size>
-                <width>0</width>
-                <height>0</height>
+                <width>52</width>
+                <height>52</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
-                <width>50</width>
-                <height>50</height>
+                <width>52</width>
+                <height>52</height>
                </size>
               </property>
               <property name="toolTip">
                <string>Fine tuning: single step decrement</string>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"> QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 10px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+     min-width: 50px;
+	 min-height: 50px;
+     max-width: 50px;
+	 max-height: 50px;
+ }
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
               </property>
               <property name="text">
                <string/>
@@ -4250,12 +4914,45 @@ border-top-left-radius: 5px;
              <widget class="QPushButton" name="pushButton_recirculationUp">
               <property name="maximumSize">
                <size>
-                <width>50</width>
-                <height>50</height>
+                <width>52</width>
+                <height>52</height>
                </size>
               </property>
               <property name="toolTip">
                <string>Fine tuning: single step increment</string>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"> QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 10px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+     min-width: 50px;
+	 min-height: 50px;
+     max-width: 50px;
+	 max-height: 50px;
+ }
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
               </property>
               <property name="text">
                <string/>
@@ -4381,12 +5078,45 @@ border:0px solid white;
              <widget class="QPushButton" name="pushButton_recirculationDown">
               <property name="maximumSize">
                <size>
-                <width>50</width>
-                <height>50</height>
+                <width>52</width>
+                <height>52</height>
                </size>
               </property>
               <property name="toolTip">
                <string>Fine tuning: single step decrement</string>
+              </property>
+              <property name="styleSheet">
+               <string notr="true"> QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 10px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+     min-width: 50px;
+	 min-height: 50px;
+     max-width: 50px;
+	 max-height: 50px;
+ }
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
               </property>
               <property name="text">
                <string/>
@@ -4411,8 +5141,43 @@ border:0px solid white;
          </item>
          <item row="6" column="2" colspan="2">
           <widget class="QPushButton" name="pushButton_setValuesAsDefault">
+           <property name="font">
+            <font>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
            <property name="toolTip">
             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set the current values as default values for the operational condition&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+           </property>
+           <property name="styleSheet">
+            <string notr="true"> QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 10px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+
+ }
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
            </property>
            <property name="text">
             <string>Set as default</string>
@@ -4508,13 +5273,13 @@ border:0px solid white;
            <property name="minimumSize">
             <size>
              <width>0</width>
-             <height>250</height>
+             <height>190</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
              <width>16777215</width>
-             <height>190</height>
+             <height>300</height>
             </size>
            </property>
            <property name="font">
@@ -4594,14 +5359,6 @@ border:0px solid white;
             </property>
             <property name="flags">
              <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Progress (%)</string>
-            </property>
-            <property name="text">
-             <string>0</string>
             </property>
            </item>
            <item>
@@ -4768,8 +5525,8 @@ color: rgb(0, 0, 0);</string>
             <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:7.8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
          </item>
@@ -4813,8 +5570,8 @@ color: rgb(0, 0, 0);</string>
             <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
          </item>
@@ -4837,10 +5594,10 @@ p, li { white-space: pre-wrap; }
      <normaloff>icons/open.png</normaloff>icons/open.png</iconset>
    </property>
    <property name="text">
-    <string>Open</string>
+    <string>Load profile</string>
    </property>
    <property name="toolTip">
-    <string>Open configuration file</string>
+    <string>Load a profile configuration file</string>
    </property>
    <property name="statusTip">
     <string/>
@@ -4867,13 +5624,13 @@ p, li { white-space: pre-wrap; }
      <normaloff>icons/save.png</normaloff>icons/save.png</iconset>
    </property>
    <property name="text">
-    <string>startAction3</string>
+    <string>Save profile</string>
    </property>
    <property name="iconText">
-    <string>Save</string>
+    <string>Save profile</string>
    </property>
    <property name="toolTip">
-    <string>Save the current configuration to a file</string>
+    <string>Save the current profile to a configuration file</string>
    </property>
    <property name="statusTip">
     <string/>
@@ -4921,7 +5678,7 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>icons/shutdown.png</normaloff>icons/shutdown.png</iconset>
+     <normaloff>icons/sshutdown2.png</normaloff>icons/sshutdown2.png</iconset>
    </property>
    <property name="text">
     <string>shutdown</string>
@@ -4996,7 +5753,7 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="icon">
     <iconset>
-     <normaloff>icons/reset.png</normaloff>icons/reset.png</iconset>
+     <normaloff>icons/reboot.png</normaloff>icons/reboot.png</iconset>
    </property>
    <property name="text">
     <string>Reset</string>

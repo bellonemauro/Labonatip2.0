@@ -35,9 +35,13 @@ Labonatip_chart::Labonatip_chart(  )
 	max_v_recirc = 300;
 	max_v_switch = 300;
 
-	m_base_sol_value = 43.0;
-	m_top_sol_value = 47.0;
+	m_base_sol_value = 42.0;
+	m_top_sol_value = 48.0;
 
+	m_pen_s1 = new QPen();
+	m_pen_s2 = new QPen();
+	m_pen_s3 = new QPen();
+	m_pen_s4 = new QPen();
 	m_col_sol1 = new QColor(0xFFBA00); //(255, 189, 0);
 	m_col_sol2 = new QColor(0xFF2800);
 	m_col_sol3 = new QColor(0x009EFF);
@@ -352,9 +356,7 @@ void Labonatip_chart::updateChartMacro(f_macro *_macro)
 void Labonatip_chart::setGUIchart()
 {
 
-	//![1]
-	m_series_X = new QtCharts::QLineSeries();
-	m_series_Y = new QtCharts::QLineSeries();
+	//initialize chart objects
 	m_series_Pon = new QtCharts::QLineSeries();
 	m_series_Poff = new QtCharts::QLineSeries();
 	m_series_V_switch = new QtCharts::QLineSeries();
@@ -374,75 +376,34 @@ void Labonatip_chart::setGUIchart()
 	m_time_line_b = new QtCharts::QLineSeries();
 	m_time_line_t = new QtCharts::QLineSeries();
 
-
-	//![1]
-
-	//![2]
-	*m_series_X << QPointF(0.0, 0.0) << QPointF(10.0, 0.0)
-		<< QPointF(20.0, 0.0) << QPointF(30.0, 0.0)
-		<< QPointF(40.0, 0.0) << QPointF(50.0, 0.0)
-		<< QPointF(60.0, 0.0) << QPointF(70.0, 0.0)
-		<< QPointF(80.0, 0.0) << QPointF(90.0, 0.0)
-		<< QPointF(100.0, 0.0);
-
-	*m_series_Y << QPointF(0.0, 0.0) << QPointF(0.0, 10.0)
-		<< QPointF(0.0, 20.0) << QPointF(0.0, 30.0)
-		<< QPointF(0.0, 40.0) << QPointF(0.0, 50.0)
-		<< QPointF(0.0, 60.0) << QPointF(0.0, 70.0)
-		<< QPointF(0.0, 80.0) << QPointF(0.0, 90.0);
-//		<< QPointF(0.0, 100.0);
-
-	*m_series_Pon << QPointF(0.0, 85.0)  /*<< QPointF(10.0, 90.0)
-										 << QPointF(10.0, 85.0) << QPointF(50.0, 85.0)
-										 << QPointF(50.0, 80.0) << QPointF(70.0, 80.0)
-										 << QPointF(70.0, 90.0) */ << QPointF(100.0, 85.0);
-
-	*m_series_Poff << QPointF(0.0, 75.0) /*<< QPointF(30.0, 70.0)
-										 << QPointF(30.0, 80.0) << QPointF(40.0, 80.0)
-										 << QPointF(40.0, 70.0) << QPointF(70.0, 70.0)
-										 << QPointF(70.0, 75.0) */ << QPointF(100.0, 75.0);
-
+	// add two points for each series, start and end
+	*m_series_Pon << QPointF(0.0, 85.0) << QPointF(100.0, 85.0);
+	*m_series_Poff << QPointF(0.0, 75.0) << QPointF(100.0, 75.0);
 	*m_series_V_switch << QPointF(0.0, 65.0) << QPointF(100.0, 65.0);
-
 	*m_series_V_recirc << QPointF(0.0, 55.0) << QPointF(100.0, 55.0);
-
-	*m_series_solution1 
-		<< QPointF(0.0, m_base_sol_value) << QPointF(20.0, m_base_sol_value)
-		<< QPointF(20.0, m_top_sol_value) << QPointF(40.0, m_top_sol_value)
-		<< QPointF(40.0, m_base_sol_value) << QPointF(100.0, m_base_sol_value);
-	*m_series_solution2
-		<< QPointF(0.0, m_base_sol_value) << QPointF(40.0, m_base_sol_value)
-		<< QPointF(40.0, m_top_sol_value) << QPointF(65.0, m_top_sol_value)
-		<< QPointF(65.0, m_base_sol_value) << QPointF(100.0, m_base_sol_value);
-	*m_series_solution3
-		<< QPointF(0.0, m_base_sol_value) << QPointF(70.0, m_base_sol_value)
-		<< QPointF(70.0, m_top_sol_value) << QPointF(80.0, m_top_sol_value)
-		<< QPointF(80.0, m_base_sol_value) << QPointF(100.0, m_base_sol_value);
-	*m_series_solution4
-		<< QPointF(0.0, m_base_sol_value) << QPointF(85.0, m_base_sol_value)
-		<< QPointF(85.0, m_top_sol_value) << QPointF(95.0, m_top_sol_value)
-		<< QPointF(95.0, m_base_sol_value) << QPointF(100.0, m_base_sol_value);
 	*m_series_solution << QPointF(0.0, m_base_sol_value) << QPointF(100.0, m_base_sol_value);
+	*m_series_ask << QPointF(0.0, 35.0) << QPointF(100.0, 35.0);
+	*m_series_sync_in << QPointF(0.0, 25.0) << QPointF(100.0, 25.0);
+	*m_series_sync_out << QPointF(0.0, 15.0) << QPointF(100.0, 15.0);
 
-	QPen pen_as(0x333333);
+
+	QPen pen_as(0x333333); // pen for ask and sync series
 	pen_as.setWidth(3);
 
-	*m_series_ask << QPointF(0.0, 35.0) << QPointF(60.0, 35.0) << QPointF(100.0, 35.0);
 	m_series_ask->setPointsVisible(true);
 	m_series_ask->setPen(pen_as);
 
-	*m_series_sync_in << QPointF(0.0, 25.0) << QPointF(30.0, 25.0) << QPointF(100.0, 25.0);
 	m_series_sync_in->setPointsVisible(true);
 	m_series_sync_in->setPen(pen_as);
 
-	*m_series_sync_out << QPointF(0.0, 15.0) << QPointF(40.0, 15.0) << QPointF(50.0, 15.0) << QPointF(100.0, 15.0);
 	m_series_sync_out->setPointsVisible(true);
 	m_series_sync_out->setPen(pen_as);
 
-
+	// set the vertical time line
 	*m_time_line_b << QPointF(0.0, 0.0) << QPointF(0.0, 100.0);
 	*m_time_line_t << QPointF(1.0, 0.0) << QPointF(1.0, 100.0);
 
+	// the pen is creates as the area between two vertical lines
 	m_past_time_area = new QtCharts::QAreaSeries(m_time_line_b, m_time_line_t);
 	m_past_time_area->setName("Time line");
 	QPen pen_t(0xFFFFFF);
@@ -452,103 +413,74 @@ void Labonatip_chart::setGUIchart()
 	QPen pen_b(0xAAAAAA);
 	pen_b.setWidth(1);
 	m_time_line_t->setPen(pen_b);
+	QLinearGradient gradient(QPointF(1, 50), QPointF(0, 50));
+	QColor c1;
+	c1.setRgb(0xAAAAAA);
+	c1.setAlpha(150);
+	gradient.setColorAt(0.0, c1);
+	QColor c2;
+	c2.setRgb(0xFFFFFF);
+	c2.setAlpha(150);
+	gradient.setColorAt(1.0, c2);
+	gradient.setCoordinateMode(QGradient::ObjectBoundingMode);
+	m_past_time_area->setBrush(gradient);
 
-	// set colors to lines for different solutions
-	QPen pen_s1(*m_col_sol1);
-	pen_s1.setWidth(0); //(20);
-	pen_s1.setColor(*m_col_sol1);
-	m_series_solution1->setPen(pen_s1);
+	// set colors to lines for the different solutions series
+	m_pen_s1->setWidth(0); //(20);
+	m_pen_s1->setColor(*m_col_sol1);
 
-	QPen pen_s2(*m_col_sol2);
-	pen_s2.setWidth(0); //(20);
-	pen_s2.setColor(*m_col_sol2);
-	m_series_solution2->setPen(pen_s2);
+	m_pen_s2->setWidth(0); //(20);
+	m_pen_s2->setColor(*m_col_sol2);
 
-	QPen pen_s3(*m_col_sol3);
-	pen_s3.setWidth(0); //(20);
-	pen_s3.setColor(*m_col_sol3);
-	m_series_solution3->setPen(pen_s3);
+	m_pen_s3->setWidth(0); //(20);
+	m_pen_s3->setColor(*m_col_sol3);
 
-	QPen pen_s4(*m_col_sol4);
-	pen_s4.setWidth(0); //(20);
-	pen_s4.setColor(*m_col_sol4);
-	m_series_solution4->setPen(pen_s4);
+	m_pen_s4->setWidth(0); //(20);
+	m_pen_s4->setColor(*m_col_sol4);
 
+	// the areas for all the solution are defines as the area between the base solution and series_solution_n
 	m_area_solution1->setLowerSeries(m_series_solution);
 	m_area_solution1->setUpperSeries(m_series_solution1);
-	m_area_solution1->setPen(pen_s1);
+	m_area_solution1->setPen(*m_pen_s1);
 	m_area_solution1->setColor(*m_col_sol1);
 
 	m_area_solution2->setLowerSeries(m_series_solution);
 	m_area_solution2->setUpperSeries(m_series_solution2);
-	m_area_solution2->setPen(pen_s2);
+	m_area_solution2->setPen(*m_pen_s2);
 	m_area_solution2->setColor(*m_col_sol2);
 
 	m_area_solution3->setLowerSeries(m_series_solution);
 	m_area_solution3->setUpperSeries(m_series_solution3);
-	m_area_solution3->setPen(pen_s3);
+	m_area_solution3->setPen(*m_pen_s3);
 	m_area_solution3->setColor(*m_col_sol3);
 
 	m_area_solution4->setLowerSeries(m_series_solution);
 	m_area_solution4->setUpperSeries(m_series_solution4);
-	m_area_solution4->setPen(pen_s4);
+	m_area_solution4->setPen(*m_pen_s4);
 	m_area_solution4->setColor(*m_col_sol4);
 
-	QPen pen_s(0xBBBBBB);
-	pen_s.setWidth(1); //(20);
-	m_series_solution->setPen(pen_s);
-
-	QLinearGradient gradient(QPointF(1, 50), QPointF(0, 50));
-	gradient.setColorAt(0.0, 0xAAAAAA);
-	gradient.setColorAt(1.0, 0xFFFFFF);
-	gradient.setCoordinateMode(QGradient::ObjectBoundingMode);
-	m_past_time_area->setBrush(gradient);
-	//![2]
-
-	//![3]
-	QPen pen(0x059605);
-	pen.setWidth(3);
-
-	QLinearGradient gradient1(QPointF(0, 0), QPointF(0, 1));
-	gradient1.setColorAt(0.0, 0x3cc63c);
-	gradient1.setColorAt(1.0, 0x26f626);
-	gradient1.setCoordinateMode(QGradient::ObjectBoundingMode);
-	//series1A->setBrush(gradient1);
-	QLinearGradient gradient2(QPointF(0, 0), QPointF(0, 1));
-	gradient2.setColorAt(0.0, 0xc63c3c);
-	gradient2.setColorAt(1.0, 0xf62626);
-	gradient2.setCoordinateMode(QGradient::ObjectBoundingMode);
-	//series2A->setBrush(gradient2);
-	//![3]
-
-
-
-	//![4]
+	// set the chart
 	m_chart = new QtCharts::QChart();
 	m_chart->legend()->hide();
-	m_chart->addSeries(m_past_time_area);
+
+	// add the series to the chart
+
 	m_chart->addSeries(m_series_Pon);
 	m_chart->addSeries(m_series_Poff);
 	m_chart->addSeries(m_series_V_switch);
 	m_chart->addSeries(m_series_V_recirc);
-	//m_chart->addSeries(m_series_solution1);
-	//m_chart->addSeries(m_series_solution2);
-	//m_chart->addSeries(m_series_solution3);
-	//m_chart->addSeries(m_series_solution4);
 	m_chart->addSeries(m_area_solution1);
 	m_chart->addSeries(m_area_solution2);
 	m_chart->addSeries(m_area_solution3);
 	m_chart->addSeries(m_area_solution4);
-	m_chart->addSeries(m_series_solution);
 	m_chart->addSeries(m_series_ask);
 	m_chart->addSeries(m_series_sync_in);
 	m_chart->addSeries(m_series_sync_out);
 	m_chart->addSeries(m_time_line_b);
 	m_chart->addSeries(m_time_line_t);
-	
+	m_chart->addSeries(m_past_time_area);
 
-	//  chart->setTitle("Simple areachart example");
-	//  chart->createDefaultAxes();
+	// set the axis
 	QtCharts::QCategoryAxis *axisX = new QtCharts::QCategoryAxis();
 	QtCharts::QCategoryAxis *axisY = new QtCharts::QCategoryAxis();
 
@@ -558,7 +490,6 @@ void Labonatip_chart::setGUIchart()
 	axisX->setLabelsFont(labelsFont);
 	axisX->setLabelsPosition(QtCharts::QCategoryAxis::AxisLabelsPositionOnValue);
 	axisY->setLabelsFont(labelsFont);
-	//axisY->setLabelsPosition(QtCharts::QCategoryAxis::AxisLabelsPositionOnValue);
 
 	// Customize axis colors
 	QPen axisPen(QRgb(0xd18952));
@@ -577,15 +508,11 @@ void Labonatip_chart::setGUIchart()
 	axisY->setShadesBrush(QBrush(QColor(0x99, 0xcc, 0xcc, 0x55)));
 	axisY->setShadesVisible(true);
 
-	//axisX->append("10", 10);
+    // Set X axis labels
 	axisX->append("20 %", 20);
-	//axisX->append("30", 30);
 	axisX->append("40 %", 40);
-	//axisX->append("50", 50);
 	axisX->append("60 %", 60);
-	//axisX->append("70", 70);
 	axisX->append("80 %", 80);
-	//axisX->append("90", 90);
 	axisX->append("100 %", 100);
 	axisX->setRange(0, 100);
 
@@ -600,58 +527,39 @@ void Labonatip_chart::setGUIchart()
 	axisY->append("Solution", min_series_solution + chart_width);
 	s = QStringLiteral("<html><head/><body><p>V<span style=\" vertical-align:sub;\">switch</span></p></body></html>");
 	axisY->append(s, min_series_V_switch + chart_width);
-	//axisY->append("V_switch", min_series_V_switch + chart_width);
+
 	s.clear();
 	s = QStringLiteral("<html><head/><body><p>V<span style=\" vertical-align:sub;\">recirc</span></p></body></html>");
 	axisY->append(s, min_series_V_recirc + chart_width);
-	//axisY->append("V_recirc", min_series_V_recirc + chart_width);
+
 	s.clear();
 	s = QStringLiteral("<html><head/><body><p>P<span style=\" vertical-align:sub;\">off</span></p></body></html>");
 	axisY->append(s, min_series_poff + chart_width);
-	//axisY->append("P_off", min_series_poff + chart_width);
+	
 	s.clear();
 	s = QStringLiteral("<html><head/><body><p>P<span style=\" vertical-align:sub;\">on</span></p></body></html>");
 	axisY->append(s, min_series_pon + chart_width);
-	//axisY->append("P_on", min_series_pon + chart_width);
+	
 	axisY->setRange(10, 90);
 
-	m_chart->setAxisX(axisX, m_series_X);
 	m_chart->setAxisY(axisY, m_series_Pon);
 	m_chart->setAxisY(axisY, m_series_Poff);
 	m_chart->setAxisY(axisY, m_series_V_switch);
 	m_chart->setAxisY(axisY, m_series_V_recirc);
-	//m_chart->setAxisY(axisY, m_series_solution1);
-	//m_chart->setAxisY(axisY, m_series_solution2);
-	//m_chart->setAxisY(axisY, m_series_solution3);
-	//m_chart->setAxisY(axisY, m_series_solution4);
 	m_chart->setAxisY(axisY, m_area_solution1);	
 	m_chart->setAxisY(axisY, m_area_solution2);
 	m_chart->setAxisY(axisY, m_area_solution3);
 	m_chart->setAxisY(axisY, m_area_solution4);
-	m_chart->setAxisY(axisY, m_series_solution);
 	m_chart->setAxisY(axisY, m_series_ask);
 	m_chart->setAxisY(axisY, m_series_sync_in);
 	m_chart->setAxisY(axisY, m_series_sync_out);
 	m_chart->setAxisX(axisX, m_past_time_area);
-	//chart->setAxisX(axisY, m_time_line_b);
-	//chart->setAxisX(axisY, m_time_line_t);
-	//chart->createDefaultAxes();
+
 	m_chart->setMargins(QMargins(0, 0, 8, 0));
 	m_chart->setBackgroundBrush(QBrush(QColor(0xFA, 0xFA, 0xFA)));
-	//chart->setContentsMargins(0, 0, 0, 0);
 
-	//chart->axisX()->setRange(0, 100);
-	//chart->axisY()->setRange(0, 100);
-	//![4]
-
-	//![5]
 	m_chartView = new QtCharts::QChartView(m_chart);
 	m_chartView->setRenderHint(QPainter::Antialiasing);
 	m_chartView->setBackgroundBrush(QBrush(QColor(0xFA, 0xFA, 0xFA)));
-	//chartView->setContentsMargins(0, 0, 0, 0);
-	//![5]
-
-	//ui->gridLayout_12->addWidget(chartView);
-
 
 }

@@ -62,7 +62,7 @@ signals:
 	void resultReady(const QString &_s);
 	void sendStatusMessage(const QString &_message);
 	void sendAskMessage(const QString &_message);
-	void timeStatus(const int &_time);
+	void timeStatus(const double &_time);
 
 private: 
 

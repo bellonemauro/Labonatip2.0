@@ -473,4 +473,5 @@ void Labonatip_GUI::updateFlowControlPercentages()
 	ui->progressBar_switchOut->setValue(ui->horizontalSlider_switch->value());
 
 	//updateDrawing(ui->progressBar_dropletSize->value());
+	updateFlows();
 }

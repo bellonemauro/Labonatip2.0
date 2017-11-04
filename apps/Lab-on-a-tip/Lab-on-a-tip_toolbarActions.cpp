@@ -123,7 +123,9 @@ void Labonatip_GUI::disCon() {
 
 			if (!m_ppc1->isConnected())
 				if (!m_ppc1->connectCOM()) {
-					ui->statusBar->showMessage("STATUS: NOT Connected  ");
+					//ui->statusBar->showMessage("STATUS: NOT Connected  ");
+					this->setStatusLed(false);
+					status_PPC1_label->setText("PPC1 STATUS: NOT Connected  ");
 					ui->actionDisCon->setIconText("Connect");
 					ui->actionSimulation->setEnabled(true);
 					QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
@@ -141,7 +143,9 @@ void Labonatip_GUI::disCon() {
 				m_pipette_active = true;
 				ui->actionDisCon->setChecked(true);
 				m_update_GUI->start();
-				ui->statusBar->showMessage("STATUS: Connected  ");
+				//ui->statusBar->showMessage("STATUS: Connected  ");
+				this->setStatusLed(true);
+				status_PPC1_label->setText("PPC1 STATUS: Connected  ");
 				ui->actionDisCon->setIconText("Disconnect");
 				ui->actionSimulation->setEnabled(false);
 			}
@@ -153,7 +157,9 @@ void Labonatip_GUI::disCon() {
 				m_ppc1->disconnectCOM();
 
 				m_pipette_active = false;
-				ui->statusBar->showMessage("STATUS: NOT Connected  ");
+				//ui->statusBar->showMessage("STATUS: NOT Connected  ");
+				this->setStatusLed(false);
+				status_PPC1_label->setText("PPC1 STATUS: NOT Connected  ");
 				ui->actionDisCon->setIconText("Connect");
 				ui->actionSimulation->setEnabled(true);
 				ui->actionDisCon->setChecked(false);
@@ -169,7 +175,9 @@ void Labonatip_GUI::disCon() {
 			QThread::msleep(500);
 
 			if (!m_ppc1->isRunning()) { // verify that it really stopped
-				ui->statusBar->showMessage("STATUS: NOT Connected  ");
+				//ui->statusBar->showMessage("STATUS: NOT Connected  ");
+				this->setStatusLed(false);
+				status_PPC1_label->setText("PPC1 STATUS: NOT Connected  ");
 				ui->actionDisCon->setIconText("Connect");
 				m_pipette_active = false;
 				ui->actionSimulation->setEnabled(true);
@@ -177,7 +185,9 @@ void Labonatip_GUI::disCon() {
 			else {
 				ui->actionDisCon->setChecked(false);
 				m_update_GUI->stop();
-				ui->statusBar->showMessage("STATUS: Connected  ");
+				//ui->statusBar->showMessage("STATUS: Connected  ");
+				this->setStatusLed(true);
+				status_PPC1_label->setText("PPC1 STATUS: Connected  ");
 				ui->actionDisCon->setIconText("Disconnect");
 				ui->actionSimulation->setEnabled(false);
 				QMessageBox::information(this, "Warning !",

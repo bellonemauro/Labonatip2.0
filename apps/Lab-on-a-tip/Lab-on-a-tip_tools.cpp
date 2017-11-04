@@ -15,6 +15,7 @@ Labonatip_tools::Labonatip_tools(QWidget *parent ):
 	m_comSettings(new COMSettings()),
 	m_solutionParams(new solutionsParams()),
 	m_pr_params(new pr_params()),
+	m_GUI_params(new GUIparams()),
 	ui_tools (new Ui::Labonatip_tools),
 	m_setting_file_name("./settings/settings.ini")
 {
@@ -22,6 +23,9 @@ Labonatip_tools::Labonatip_tools(QWidget *parent ):
 
 	//load settings from file
 	loadSettings(m_setting_file_name);
+
+	//make sure to start from the initial page
+	ui_tools->stackedWidget->setCurrentIndex(0);
 
 	ui_tools->comboBox_serialInfo->clear();
 	connect(ui_tools->comboBox_serialInfo,
@@ -32,6 +36,11 @@ Labonatip_tools::Labonatip_tools(QWidget *parent ):
 		static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this,
 		&Labonatip_tools::languageChanged);
 
+
+	connect(ui_tools->comboBox_toolButtonStyle,
+		static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this,
+		&Labonatip_tools::toolButtonStyleChanged);
+	
 	// enumerate connected com ports
 	enumerate();
 
@@ -109,12 +118,12 @@ Labonatip_tools::Labonatip_tools(QWidget *parent ):
 	connect(ui_tools->pushButton_toDefault,
 		SIGNAL(clicked()), this, SLOT(resetToDefaultValues()));
 
-	// connect tool window events Ok, Discard, Apply
+	// connect tool window events Ok, Cancel, Apply
 	connect(ui_tools->buttonBox->button(QDialogButtonBox::Ok), 
 		SIGNAL(clicked()), this, SLOT(okPressed()));
 
-	connect(ui_tools->buttonBox->button(QDialogButtonBox::Discard), 
-		SIGNAL(clicked()), this, SLOT(discardPressed()));
+	connect(ui_tools->buttonBox->button(QDialogButtonBox::Cancel), 
+		SIGNAL(clicked()), this, SLOT(cancelPressed()));
 
 	connect(ui_tools->buttonBox->button(QDialogButtonBox::Apply), 
 		SIGNAL(clicked()), this, SLOT(applyPressed()));
@@ -146,6 +155,7 @@ void Labonatip_tools::okPressed() {
 	getCOMsettings();
 	getSolutionSettings();
 	addAllCommandsToMacro();
+	getGUIsettings();
 
 	//TODO manual save for now
 	//saveSettings();
@@ -155,11 +165,11 @@ void Labonatip_tools::okPressed() {
 	this->close();
 }
 
-void Labonatip_tools::discardPressed() {
+void Labonatip_tools::cancelPressed() {
 	cout << QDate::currentDate().toString().toStdString() << "  "
 		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_tools::discardPressed " << endl;
-	emit discard();
+		<< "Labonatip_tools::cancelPressed " << endl;
+	emit cancel();
 	this->close();
 }
 
@@ -177,9 +187,11 @@ void Labonatip_tools::applyPressed() {
 	cout << QDate::currentDate().toString().toStdString() << "  "
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_tools::applyPressed " << endl;
+
 	getCOMsettings();
 	getSolutionSettings();
 	addAllCommandsToMacro(); 
+	getGUIsettings();
 
 	//TODO manual save for now
 	//saveSettings();
@@ -920,6 +932,13 @@ void Labonatip_tools::languageChanged(int _idx)
 	language = _idx;
 }
 
+void Labonatip_tools::toolButtonStyleChanged(int _idx)
+{
+	m_GUI_params->showTextToolBar = Qt::ToolButtonStyle(_idx);
+}
+
+
+
 void Labonatip_tools::colorSol1Changed(int _value)
 {
 
@@ -1051,6 +1070,12 @@ void Labonatip_tools::getSolutionSettings()
 	//TODO other settings ! 
 }
 
+void Labonatip_tools::getGUIsettings()
+{
+	m_GUI_params->showTextToolBar = Qt::ToolButtonStyle(ui_tools->comboBox_toolButtonStyle->currentIndex());
+
+	//TODO other settings ! 
+}
 
 bool Labonatip_tools::loadSettings(QString _path)
 {
@@ -1129,9 +1154,19 @@ bool Labonatip_tools::loadSettings(QString _path)
 	QString flowControl = m_settings->value("COM/FlowControl", "noFlow").toString();
 	m_comSettings->flowControl = serial::flowcontrol_none; //TODO: no intepretation yet
 
+	//read GUI params
+	bool ok = false;
+	int tbs = m_settings->value("GUI/ToolButtonStyle", "3").toInt(&ok);
+	if (!ok) {
+		cerr << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_tools::loadSettings ::: Warning !  ::  in GUI params, ToolButtonStyle is corrupted in setting file, using default value " << endl;
+	}
+	ui_tools->comboBox_toolButtonStyle->setCurrentIndex(tbs);
+	m_GUI_params->showTextToolBar = Qt::ToolButtonStyle(tbs);
+
 	
 	// read pr_limits group
-	bool ok = false;
 	int p_on_max = m_settings->value("pr_limits/p_on_max", "450").toInt(&ok);
 	if (!ok) {
 		cerr << QDate::currentDate().toString().toStdString() << "  "
@@ -1350,6 +1385,10 @@ bool Labonatip_tools::saveSettings(QString _file_name)
 	settings->setValue("COM/StopBits", ui_tools->comboBox_stopBit->currentText());
 	// FlowControl = noFlow
 	settings->setValue("COM/FlowControl", ui_tools->comboBox_flowControl->currentText());
+
+	// [GUI]
+	settings->setValue("GUI/ToolButtonStyle", ui_tools->comboBox_toolButtonStyle->currentIndex());
+
 
 	// [pr_limits]
 	// p_on_max = 

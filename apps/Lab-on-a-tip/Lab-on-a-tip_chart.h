@@ -46,10 +46,32 @@ public:
 
 	void setGUIchart();
 
-	void setSolutionColor1(QColor _col_sol) { *m_col_sol1 = _col_sol; }
-	void setSolutionColor2(QColor _col_sol) { *m_col_sol2 = _col_sol; }
-	void setSolutionColor3(QColor _col_sol) { *m_col_sol3 = _col_sol; }
-	void setSolutionColor4(QColor _col_sol) { *m_col_sol4 = _col_sol; }
+	void setSolutionColor1(QColor _col_sol) {
+		*m_col_sol1 = _col_sol; 
+		m_pen_s1->setColor(*m_col_sol1);
+		m_area_solution1->setPen(*m_pen_s1);
+		m_area_solution1->setColor(*m_col_sol1);
+	
+	}
+	void setSolutionColor2(QColor _col_sol) { 
+		*m_col_sol2 = _col_sol;
+		m_pen_s2->setColor(*m_col_sol2);
+		m_area_solution2->setPen(*m_pen_s2);
+		m_area_solution2->setColor(*m_col_sol2);
+		}
+
+	void setSolutionColor3(QColor _col_sol) { 
+		*m_col_sol3 = _col_sol;
+		m_pen_s3->setColor(*m_col_sol3); 
+		m_area_solution3->setPen(*m_pen_s3);
+		m_area_solution3->setColor(*m_col_sol3);
+	}
+	void setSolutionColor4(QColor _col_sol) { 
+		*m_col_sol4 = _col_sol; 
+		m_pen_s4->setColor(*m_col_sol4); 
+		m_area_solution4->setPen(*m_pen_s4);
+		m_area_solution4->setColor(*m_col_sol4);
+	}
 
 	void updateChartTime(int _time_value);
 
@@ -59,8 +81,6 @@ public:
 public: //private:
 
 	// line series for the chart
-	QtCharts::QLineSeries *m_series_X;
-	QtCharts::QLineSeries *m_series_Y;
 	QtCharts::QLineSeries *m_series_Pon;
 	QtCharts::QLineSeries *m_series_Poff;
 	QtCharts::QLineSeries *m_series_V_switch;
@@ -73,6 +93,10 @@ public: //private:
 	QtCharts::QAreaSeries *m_area_solution2;
 	QtCharts::QAreaSeries *m_area_solution3;
 	QtCharts::QAreaSeries *m_area_solution4;
+	QPen *m_pen_s1;
+	QPen *m_pen_s2;
+	QPen *m_pen_s3;
+	QPen *m_pen_s4;
 	QColor *m_col_sol1;
 	QColor *m_col_sol2;
 	QColor *m_col_sol3;

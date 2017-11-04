@@ -70,7 +70,6 @@ void Labonatip_macroRunner::run()  {
 					message.append(QString::fromStdString(m_macro->at(i).getStatusMessage()));
 
 					//TODO : the simulation does not give the actual commands, only messages are out ! 
-
 					emit sendStatusMessage(message);
 
 					if (m_macro->at(i).getInstruction() ==
@@ -101,8 +100,8 @@ void Labonatip_macroRunner::run()  {
 							}
 							msleep(sleepFor);// (m_macro->at(i).Duration);					
 							time_elapsed = time_elapsed + 1.0;
-							int status = int(100 * time_elapsed / macro_duration);
-							
+							double status = 100.0 * time_elapsed / macro_duration;
+														
 							emit timeStatus(status);
 							if (!m_threadTerminationHandler) {
 								result = " MACRO STOPPED ";

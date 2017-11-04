@@ -140,9 +140,32 @@ void Labonatip_GUI::runMacro() {
 				QMessageBox::Ok);
 			if (resBtn != QMessageBox::Cancel) {
 				// do nothing for now
+
 			}
 			else {
 				// do nothing for now
+				m_macroRunner_thread->disconnect();
+
+				m_macroRunner_thread->setSimulationFlag(m_simulationOnly);
+				m_macroRunner_thread->killMacro(true);
+
+
+				ui->groupBox_deliveryZone->setEnabled(true);
+				ui->pushButton_operational->setEnabled(true);
+				ui->pushButton_newTip->setEnabled(true);
+				ui->pushButton_standby->setEnabled(true);
+				ui->pushButton_stop->setEnabled(true);
+				//ui->tabWidget->setEnabled(false);
+				ui->tab_2->setEnabled(true);
+				ui->tab_4->setEnabled(true);
+				setEnableSolutionButtons(true);
+				ui->actionDisCon->setEnabled(!m_simulationOnly);
+				ui->actionRun->setEnabled(!m_simulationOnly);
+				ui->actionReset->setEnabled(!m_simulationOnly);
+				ui->actionSleep->setEnabled(!m_simulationOnly);
+				ui->actionShutdown->setEnabled(!m_simulationOnly);
+				ui->label_runMacro->setText("Run Macro");
+				return;
 			}
 		}
 
@@ -196,7 +219,7 @@ void Labonatip_GUI::runMacro() {
 		ui->pushButton_operational->setEnabled(true);
 		ui->pushButton_newTip->setEnabled(true);
 		ui->pushButton_standby->setEnabled(true);
-		ui->pushButton_stop->setEnabled(true);
+		//ui->pushButton_stop->setEnabled(true);
 		//ui->tabWidget->setEnabled(false);
 		ui->tab_2->setEnabled(true);
 		ui->tab_4->setEnabled(true);
@@ -235,6 +258,22 @@ void Labonatip_GUI::macroFinished(const QString &_result) {
 	ui->actionReset->setEnabled(!m_simulationOnly);
 	ui->actionSleep->setEnabled(!m_simulationOnly);
 	ui->actionShutdown->setEnabled(!m_simulationOnly);
+
+	disconnect(m_macroRunner_thread,
+		&Labonatip_macroRunner::resultReady, this,
+		&Labonatip_GUI::macroFinished);
+
+	disconnect(m_macroRunner_thread,
+		&Labonatip_macroRunner::sendStatusMessage, this,
+		&Labonatip_GUI::updateMacroStatusMessage);
+
+	disconnect(m_macroRunner_thread,
+		&Labonatip_macroRunner::timeStatus, this,
+		&Labonatip_GUI::updateMacroTimeStatus);
+
+	disconnect(m_macroRunner_thread,
+		&Labonatip_macroRunner::sendAskMessage, this,
+		&Labonatip_GUI::askMessage);
 
 }
 

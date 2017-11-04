@@ -199,7 +199,7 @@ private slots:
 	*
 	* \note
 	*/	
-	void updateMacroTimeStatus(const int &_status);
+	void updateMacroTimeStatus(const double &_status);
 
 	/** \brief Ask message
 	*
@@ -580,6 +580,11 @@ private:
   */
   void updateDrawing(int _value);
 
+  /** set status led to connect or disconnect
+  *
+  */
+  void setStatusLed( bool _connect = false );
+
   /** group all the connects are in this function
   *
   */
@@ -653,7 +658,14 @@ private:
   QString m_settings_path;
   QTranslator m_translator;
 
-
+  QLabel * status_PPC1_led; 
+  QLabel * status_PPC1_label;
+  QProgressBar * macro_progress;
+  QLabel * status_label;
+  QPixmap * led_green;
+  QPixmap * led_red;
+  QPainter * painter_led_green;
+  QPainter * painter_led_red;
 };
 
 #endif /* Labonatip_GUI_H_ */
