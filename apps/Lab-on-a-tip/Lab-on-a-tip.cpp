@@ -17,12 +17,10 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	ui(new Ui::Labonatip_GUI),
 	m_pipette_active(false),
 	m_ppc1 ( new fluicell::PPC1api() ),
-	macro_progress(new QProgressBar),
-	status_label(new QLabel),
-	status_PPC1_led(new QLabel), 
-	status_PPC1_label(new QLabel),
 	led_green (new QPixmap( QSize(20, 20))),
 	led_red (new QPixmap( QSize(20, 20))),
+	m_g_spacer ( new QGroupBox()),
+	m_a_spacer (new QAction()),
 	m_macro (NULL),
 	m_pen_line_width(7),
 	l_x1(-24.0),
@@ -73,8 +71,6 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 
   qApp->installTranslator(&m_translator);
   
-
-
   // init the object to handle the internal dialogs
   m_dialog_tools = new Labonatip_tools();
 
@@ -115,23 +111,12 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   painter_led_red->drawEllipse(2, 2, 16, 16);
 
   this->setStatusLed(false);
-  status_PPC1_led->setToolTip("Connection indicator \n red : PPC-1 not connected \n green : PPC-1 connected");
 
-  ui->statusBar->addWidget(status_PPC1_led);
-  status_PPC1_label->setText("PPC1 STATUS: NOT Connected  ");
-  ui->statusBar->addWidget(status_PPC1_label);
-
-  macro_progress->setMinimum(0);
-  macro_progress->setMaximum(100);
-  macro_progress->setValue(0);
-  macro_progress->setMaximumWidth(150);
-  macro_progress->setToolTip("Protocol progress indicator 0 - 100 %");
-  ui->statusBar->addWidget(macro_progress);
-  ui->statusBar->addWidget(status_label);
-  status_label->setText("No macro running  ");
+  ui->status_PPC1_label->setText("PPC1 STATUS: NOT Connected  ");
+  ui->label_macroStatus->setText("No macro running  ");
   //ui->statusBar->showMessage("STATUS: NOT Connected  ");
 
-  ui->toolBar_2->setToolButtonStyle(m_dialog_tools->m_GUI_params->showTextToolBar);
+//  ui->toolBar_2->setToolButtonStyle(m_dialog_tools->m_GUI_params->showTextToolBar);
 
   // hide the warning label
   ui->label_warning->hide();
@@ -193,6 +178,9 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   //simulation button activated by default
   ui->actionSimulation->setChecked(true);
   m_simulationOnly = ui->actionSimulation->isChecked();
+  ui->actionConnectDisconnect->setEnabled(!m_simulationOnly);
+  ui->actionReboot->setEnabled(!m_simulationOnly);
+  ui->actionShudown->setEnabled(!m_simulationOnly);
 
   //init the chart view
   m_labonatip_chart_view = new Labonatip_chart();
@@ -254,8 +242,8 @@ void Labonatip_GUI::updateMacroTimeStatus(const double &_status) {
 	s.append(" min,   ");
 	s.append(QString::number(remaining_secs));
 	s.append(" sec   ");
-	macro_progress->setValue(_status);
-	status_label->setText(s);
+	ui->progressBar_macroStatus->setValue(_status);
+	ui->label_macroStatus->setText(s);
 
 	double totalTime = ui->treeWidget_macroInfo->topLevelItem(4)->text(1).toDouble();
 	double currentTime = _status * totalTime / 100.0 ;
@@ -725,12 +713,12 @@ void Labonatip_GUI::changeEvent(QEvent* _event)
 
 void Labonatip_GUI::setStatusLed( bool _connect ) {
 	
-	status_PPC1_led->clear();
+	ui->status_PPC1_led->clear();
 	if (_connect) {
-		status_PPC1_led->setPixmap(*led_green);
+		ui->status_PPC1_led->setPixmap(*led_green);
 	}
 	else {
-		status_PPC1_led->setPixmap(*led_red);
+		ui->status_PPC1_led->setPixmap(*led_red);
 	}
 }
 
@@ -742,44 +730,48 @@ void Labonatip_GUI::initConnects()
 	connect(ui->actionTools, 
 		SIGNAL(triggered()), this, 
 		SLOT(showToolsDialog()));
-
-	connect(ui->actionOpen, 
+	
+	
+	connect(ui->actionLoad_profile, 
 		SIGNAL(triggered()), this, 
 		SLOT(openFile()));
 
-	connect(ui->actionSave, 
+
+	connect(ui->actionSave_profile,
 		SIGNAL(triggered()), this, 
 		SLOT(saveFile()));
 
-	connect(ui->actionAbout, 
+	connect(ui->actionAbout,
 		SIGNAL(triggered()), this, 
 		SLOT(about()));
 
-	connect(ui->actionNerdy, 
+	connect(ui->actionAdvanced, 
 		SIGNAL(triggered()), this, 
 		SLOT(closeOpenDockTools()));
 
-	connect(ui->actionDisCon, 
+
+	connect(ui->actionConnectDisconnect, 
 		SIGNAL(triggered()), this, 
 		SLOT(disCon()));
 
-	connect(ui->actionSimulation, 
+
+	connect(ui->actionSimulation,
 		SIGNAL(triggered()), this, 
 		SLOT(simulationOnly()));
 
 	//connect(ui->actionRun, SIGNAL(triggered()), this, SLOT(runOperations()));
-	connect(ui->actionReset, 
+	connect(ui->actionReboot, 
 		SIGNAL(triggered()), this, 
 		SLOT(reboot()));
-
+	
 	//connect(ui->actionSleep, SIGNAL(triggered()), this, SLOT(pumpingOff()));
-	connect(ui->actionShutdown, 
+	connect(ui->actionShudown,
 		SIGNAL(triggered()), this, 
 		SLOT(shutdown()));
 
-	connect(ui->actionWhatsthis, 
-		SIGNAL(triggered()), this, 
-		SLOT(ewst()));
+//	connect(ui->actionWhatsthis, 
+//		SIGNAL(triggered()), this, 
+//		SLOT(ewst()));
 
 	// connect buttons
 	connect(ui->pushButton_p_on_down, 
@@ -973,6 +965,8 @@ void Labonatip_GUI::toolApply()
 
 	ui->toolBar_2->setToolButtonStyle(m_dialog_tools->m_GUI_params->showTextToolBar);
 	ui->toolBar_2->update();
+	ui->toolBar_3->setToolButtonStyle(m_dialog_tools->m_GUI_params->showTextToolBar);
+	ui->toolBar_3->update();
 
 	//switchLanguage(m_dialog_tools->language);
 
@@ -1021,7 +1015,7 @@ void Labonatip_GUI::setEnableMainWindow(bool _enable) {
 	ui->dockWidget->setEnabled(_enable);
 	ui->toolBar->setEnabled(_enable);
 	ui->toolBar_2->setEnabled(_enable);
-
+	ui->toolBar_3->setEnabled(_enable);
 }
 
 
@@ -1074,21 +1068,21 @@ void Labonatip_GUI::ewst() {
 
 void Labonatip_GUI::about() {
 
-	cout << QDate::currentDate().toString().toStdString() << "  " 
-		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::about  " << endl;
-
 	QMessageBox messageBox;
-	QString msg_title = "About Fluicell Lab-on-a-tip Wizard";
+	QString msg_title = "About Fluicell Lab-on-a-tip ";
 	QString msg_content = tr("<b>Lab-on-a-tip</b> is a <a href='http://fluicell.com/'>Fluicell</a> AB software <br>"
 		//"Lab-on-a-tip Wizard <br>"
 		"Copyright Fluicell AB, Sweden 2017 <br> <br>"
-		"Developer: Mauro Bellone <a href='http://www.maurobellone.com'>http://www.maurobellone.com</a> <br>"
+		"Arvid Wallgrens Backe 20<br>"
+		"SE-41346 Gothenburg, Sweden<br>"
+		"Tel: +46 76 208 3354 <br>"
+		"e-mail: info@fluicell.com <br><br>"
+		"Developer:<a href='http://www.maurobellone.com'>Mauro Bellone</a> <br>"
 		"Version: ");
 	msg_content.append(m_version);
 	messageBox.about(this, msg_title, msg_content); 
 	messageBox.setIconPixmap(QPixmap("./icons/fluicell_iconBIG.ico"));
-	messageBox.setFixedSize(500, 700);
+	messageBox.setFixedSize(600, 800);
 }
 
 

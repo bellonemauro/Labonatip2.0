@@ -70,6 +70,7 @@ QToolButton:hover {
 QToolBar {
 background-color:rgb(199, 223, 197);
 font-size: 16px;
+border:0;
 }</string>
   </property>
   <property name="tabShape">
@@ -85,7 +86,7 @@ font-size: 16px;
    <property name="autoFillBackground">
     <bool>true</bool>
    </property>
-   <layout class="QHBoxLayout" name="horizontalLayout">
+   <layout class="QVBoxLayout" name="verticalLayout_2">
     <property name="spacing">
      <number>0</number>
     </property>
@@ -138,8 +139,8 @@ font-size: 16px;
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>1078</width>
-         <height>708</height>
+         <width>1079</width>
+         <height>737</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout_2">
@@ -147,7 +148,7 @@ font-size: 16px;
          <number>0</number>
         </property>
         <property name="topMargin">
-         <number>0</number>
+         <number>5</number>
         </property>
         <property name="rightMargin">
          <number>0</number>
@@ -155,7 +156,7 @@ font-size: 16px;
         <property name="bottomMargin">
          <number>0</number>
         </property>
-        <item row="0" column="0">
+        <item row="1" column="0">
          <widget class="QScrollArea" name="Viewer_scrollArea">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -180,8 +181,8 @@ font-size: 16px;
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>1078</width>
-             <height>708</height>
+             <width>1079</width>
+             <height>704</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout">
@@ -197,1327 +198,10 @@ font-size: 16px;
             <property name="bottomMargin">
              <number>0</number>
             </property>
-            <item row="0" column="0">
-             <widget class="QGroupBox" name="groupBox_5">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>280</width>
-                <height>130</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>380</height>
-               </size>
-              </property>
-              <property name="styleSheet">
-               <string notr="true">QGroupBox { 
-     border: 2px solid  rgb(250, 250, 250); ; 
-     border-radius: 10px; 
-    color: rgb(80, 80, 80);
-    background-color: rgb(250, 250, 250);
- } </string>
-              </property>
-              <property name="title">
-               <string/>
-              </property>
-              <property name="flat">
-               <bool>false</bool>
-              </property>
-              <layout class="QGridLayout" name="gridLayout_14">
-               <property name="leftMargin">
-                <number>5</number>
-               </property>
-               <property name="rightMargin">
-                <number>5</number>
-               </property>
-               <item row="1" column="1">
-                <widget class="QLabel" name="label_warningIcon">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="minimumSize">
-                  <size>
-                   <width>90</width>
-                   <height>90</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>90</width>
-                   <height>90</height>
-                  </size>
-                 </property>
-                 <property name="text">
-                  <string/>
-                 </property>
-                 <property name="pixmap">
-                  <pixmap>icons/warning.png</pixmap>
-                 </property>
-                 <property name="scaledContents">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="0" rowspan="5">
-                <spacer name="horizontalSpacer_6">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>0</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-               <item row="1" column="2">
-                <widget class="QLabel" name="label_warning">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="font">
-                  <font>
-                   <pointsize>14</pointsize>
-                  </font>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true"/>
-                 </property>
-                 <property name="text">
-                  <string>Warning!!! The solution is running out</string>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="5" rowspan="6">
-                <spacer name="horizontalSpacer_8">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>0</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-               <item row="4" column="3">
-                <spacer name="horizontalSpacer_5">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>10</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-               <item row="2" column="2">
-                <spacer name="verticalSpacer_4">
-                 <property name="orientation">
-                  <enum>Qt::Vertical</enum>
-                 </property>
-                 <property name="sizeType">
-                  <enum>QSizePolicy::Expanding</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>20</width>
-                   <height>40</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-               <item row="3" column="1" rowspan="3" colspan="2">
-                <widget class="QGroupBox" name="groupBox_action">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="minimumSize">
-                  <size>
-                   <width>280</width>
-                   <height>200</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>16777215</width>
-                   <height>16777215</height>
-                  </size>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">QGroupBox { 
-     border: 2px solid  rgb(200, 200, 200); ; 
-     border-radius: 10px; 
-    color: rgb(80, 80, 80);
-    background-color: rgb(235, 235, 240);
- } </string>
-                 </property>
-                 <property name="title">
-                  <string/>
-                 </property>
-                 <property name="flat">
-                  <bool>false</bool>
-                 </property>
-                 <layout class="QGridLayout" name="gridLayout_22">
-                  <property name="topMargin">
-                   <number>0</number>
-                  </property>
-                  <property name="horizontalSpacing">
-                   <number>20</number>
-                  </property>
-                  <item row="3" column="4">
-                   <widget class="QPushButton" name="pushButton_standby">
-                    <property name="minimumSize">
-                     <size>
-                      <width>92</width>
-                      <height>90</height>
-                     </size>
-                    </property>
-                    <property name="toolTip">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shutdown button, it runs the following commands: &lt;br/&gt;&lt;br/&gt;allOff()&lt;br/&gt;setPon(0)&lt;br/&gt;setPoff(0)&lt;br/&gt;sleep(10)&lt;br/&gt;setVswitch(0)&lt;br/&gt;setVrecirc(0)&lt;br/&gt;sleep(15)&lt;br/&gt;pumpsOff()&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                    </property>
-                    <property name="whatsThis">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shutdown button, it runs the following commands: &lt;br/&gt;&lt;br/&gt;
-allOff()&lt;br/&gt;
-setPon(0)&lt;br/&gt;
-setPoff(0)&lt;br/&gt;
-sleep(10)&lt;br/&gt;
-setVswitch(0)&lt;br/&gt;
-setVrecirc(0)&lt;br/&gt;
-sleep(15)&lt;br/&gt;
-pumpsOff()&lt;br/&gt;
-&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true"> QPushButton {
-     border: 1px solid #8f8f91;
-     border-radius: 10px;
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
-     min-width: 90px;
- }
-
-
- QPushButton:pressed {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
- }
-
- QPushButton:hover {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
- }
-
-QPushButton:disabled{ background-color: #CCCCCC; }
-
- QPushButton:flat {
-     border: none; /* no border for a flat push button */
- }
-
- QPushButton:default {
-     border-color: navy; /* make the default button prominent */
- }</string>
-                    </property>
-                    <property name="text">
-                     <string/>
-                    </property>
-                    <property name="icon">
-                     <iconset>
-                      <normaloff>icons/shutdown.png</normaloff>icons/shutdown.png</iconset>
-                    </property>
-                    <property name="iconSize">
-                     <size>
-                      <width>60</width>
-                      <height>60</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="3" column="0">
-                   <widget class="QPushButton" name="pushButton_newTip">
-                    <property name="minimumSize">
-                     <size>
-                      <width>92</width>
-                      <height>90</height>
-                     </size>
-                    </property>
-                    <property name="toolTip">
-                     <string>New tip button</string>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true"> QPushButton {
-     border: 1px solid #8f8f91;
-     border-radius: 10px;
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
-     min-width: 90px;
- }
-
-
- QPushButton:pressed {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
- }
-
- QPushButton:hover {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
- }
-
-QPushButton:disabled{ background-color: #CCCCCC; }
-
- QPushButton:flat {
-     border: none; /* no border for a flat push button */
- }
-
- QPushButton:default {
-     border-color: navy; /* make the default button prominent */
- }</string>
-                    </property>
-                    <property name="text">
-                     <string/>
-                    </property>
-                    <property name="icon">
-                     <iconset>
-                      <normaloff>icons/newTip.png</normaloff>icons/newTip.png</iconset>
-                    </property>
-                    <property name="iconSize">
-                     <size>
-                      <width>60</width>
-                      <height>60</height>
-                     </size>
-                    </property>
-                    <property name="checkable">
-                     <bool>false</bool>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="3" column="3">
-                   <widget class="QPushButton" name="pushButton_stop">
-                    <property name="enabled">
-                     <bool>false</bool>
-                    </property>
-                    <property name="minimumSize">
-                     <size>
-                      <width>92</width>
-                      <height>90</height>
-                     </size>
-                    </property>
-                    <property name="toolTip">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Stop button: If one of the solutions is flowing, it will stop the flow&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                    </property>
-                    <property name="whatsThis">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Stop button, it runs the following commands: &lt;br/&gt;&lt;br/&gt;
-closeAllValves()&lt;br/&gt;
-&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true"> QPushButton {
-     border: 1px solid #8f8f91;
-     border-radius: 10px;
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
-     min-width: 90px;
- }
-
-
- QPushButton:pressed {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
- }
-
- QPushButton:hover {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
- }
-
-QPushButton:disabled{ background-color: #CCCCCC; }
-
- QPushButton:flat {
-     border: none; /* no border for a flat push button */
- }
-
- QPushButton:default {
-     border-color: navy; /* make the default button prominent */
- }</string>
-                    </property>
-                    <property name="text">
-                     <string/>
-                    </property>
-                    <property name="icon">
-                     <iconset>
-                      <normaloff>icons/stop.png</normaloff>icons/stop.png</iconset>
-                    </property>
-                    <property name="iconSize">
-                     <size>
-                      <width>60</width>
-                      <height>60</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="3" column="2">
-                   <widget class="QPushButton" name="pushButton_operational">
-                    <property name="minimumSize">
-                     <size>
-                      <width>92</width>
-                      <height>90</height>
-                     </size>
-                    </property>
-                    <property name="toolTip">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Operational mode button, it runs the following commands: &lt;br/&gt;&lt;br/&gt;allOff()&lt;br/&gt;setVswitch(-115)&lt;br/&gt;setVrecirc(-115)&lt;br/&gt;sleep(5)&lt;br/&gt;setPoff(21)&lt;br/&gt;setPon(190)&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                    </property>
-                    <property name="whatsThis">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Operational mode button, it runs the following commands: &lt;br/&gt;&lt;br/&gt;allOff()&lt;br/&gt;setVswitch(-115)&lt;br/&gt;setVrecirc(-115)&lt;br/&gt;sleep(5)&lt;br/&gt;setPoff(21)&lt;br/&gt;setPon(190)&lt;br/&gt;
-&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true"> QPushButton {
-     border: 1px solid #8f8f91;
-     border-radius: 10px;
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
-     min-width: 90px;
- }
-
-
- QPushButton:pressed {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
- }
-
- QPushButton:hover {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
- }
-
-QPushButton:disabled{ background-color: #CCCCCC; }
-
- QPushButton:flat {
-     border: none; /* no border for a flat push button */
- }
-
- QPushButton:default {
-     border-color: navy; /* make the default button prominent */
- }</string>
-                    </property>
-                    <property name="text">
-                     <string/>
-                    </property>
-                    <property name="icon">
-                     <iconset>
-                      <normaloff>icons/run.png</normaloff>icons/run.png</iconset>
-                    </property>
-                    <property name="iconSize">
-                     <size>
-                      <width>60</width>
-                      <height>60</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="4" column="2">
-                   <widget class="QLabel" name="label_action_operational">
-                    <property name="font">
-                     <font>
-                      <pointsize>11</pointsize>
-                     </font>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true"/>
-                    </property>
-                    <property name="text">
-                     <string>Operational</string>
-                    </property>
-                    <property name="alignment">
-                     <set>Qt::AlignHCenter|Qt::AlignTop</set>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="1" column="0" colspan="3">
-                   <widget class="QLabel" name="label_action_title">
-                    <property name="minimumSize">
-                     <size>
-                      <width>0</width>
-                      <height>55</height>
-                     </size>
-                    </property>
-                    <property name="font">
-                     <font>
-                      <pointsize>16</pointsize>
-                     </font>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true"/>
-                    </property>
-                    <property name="text">
-                     <string>ACTIONS</string>
-                    </property>
-                    <property name="alignment">
-                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="4" column="4">
-                   <widget class="QLabel" name="label_action_standby">
-                    <property name="font">
-                     <font>
-                      <pointsize>11</pointsize>
-                     </font>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true"/>
-                    </property>
-                    <property name="text">
-                     <string>Standby</string>
-                    </property>
-                    <property name="alignment">
-                     <set>Qt::AlignHCenter|Qt::AlignTop</set>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="4" column="3">
-                   <widget class="QLabel" name="label_action_stop">
-                    <property name="font">
-                     <font>
-                      <pointsize>11</pointsize>
-                     </font>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true"/>
-                    </property>
-                    <property name="text">
-                     <string>Stop</string>
-                    </property>
-                    <property name="alignment">
-                     <set>Qt::AlignHCenter|Qt::AlignTop</set>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="4" column="0">
-                   <widget class="QLabel" name="label_action_newtip">
-                    <property name="font">
-                     <font>
-                      <pointsize>11</pointsize>
-                     </font>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true"/>
-                    </property>
-                    <property name="text">
-                     <string>New tip</string>
-                    </property>
-                    <property name="alignment">
-                     <set>Qt::AlignHCenter|Qt::AlignTop</set>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="3" column="1">
-                   <widget class="QPushButton" name="pushButton_runMacro">
-                    <property name="minimumSize">
-                     <size>
-                      <width>92</width>
-                      <height>90</height>
-                     </size>
-                    </property>
-                    <property name="toolTip">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Run macro runs the macro that can be loaded in the tools window&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                    </property>
-                    <property name="whatsThis">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Run macro runs the macro that can be loaded in the tools window&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true"> QPushButton {
-     border: 1px solid #8f8f91;
-     border-radius: 10px;
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
-     min-width: 90px;
- }
-
-
- QPushButton:pressed {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
- }
-
- QPushButton:hover {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
- }
-
-QPushButton:disabled{ background-color: #CCCCCC; }
-
- QPushButton:flat {
-     border: none; /* no border for a flat push button */
- }
-
- QPushButton:default {
-     border-color: navy; /* make the default button prominent */
- }</string>
-                    </property>
-                    <property name="text">
-                     <string/>
-                    </property>
-                    <property name="icon">
-                     <iconset>
-                      <normaloff>icons/play.png</normaloff>icons/play.png</iconset>
-                    </property>
-                    <property name="iconSize">
-                     <size>
-                      <width>60</width>
-                      <height>60</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="4" column="1">
-                   <widget class="QLabel" name="label_runMacro">
-                    <property name="font">
-                     <font>
-                      <pointsize>11</pointsize>
-                     </font>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true"/>
-                    </property>
-                    <property name="text">
-                     <string>Run protocol</string>
-                    </property>
-                    <property name="alignment">
-                     <set>Qt::AlignHCenter|Qt::AlignTop</set>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </widget>
-               </item>
-               <item row="0" column="4" rowspan="7">
-                <widget class="QGroupBox" name="groupBox_deliveryZone">
-                 <property name="sizePolicy">
-                  <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-                   <horstretch>0</horstretch>
-                   <verstretch>0</verstretch>
-                  </sizepolicy>
-                 </property>
-                 <property name="minimumSize">
-                  <size>
-                   <width>330</width>
-                   <height>40</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>16777215</width>
-                   <height>16777215</height>
-                  </size>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">QGroupBox { 
-     border: 2px solid  rgb(200, 200, 200); ; 
-     border-radius: 10px; 
-    color: rgb(80, 80, 80);
-    background-color: rgb(235, 235, 240);
- } </string>
-                 </property>
-                 <property name="title">
-                  <string/>
-                 </property>
-                 <property name="flat">
-                  <bool>false</bool>
-                 </property>
-                 <layout class="QGridLayout" name="gridLayout_21">
-                  <property name="topMargin">
-                   <number>0</number>
-                  </property>
-                  <property name="spacing">
-                   <number>0</number>
-                  </property>
-                  <item row="8" column="6" colspan="2">
-                   <widget class="QPushButton" name="pushButton_vacuum_plus">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="maximumSize">
-                     <size>
-                      <width>52</width>
-                      <height>46</height>
-                     </size>
-                    </property>
-                    <property name="toolTip">
-                     <string>Increase vacuum</string>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true"> QPushButton {
-     border: 1px solid #8f8f91;
-     border-radius: 10px;
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
-     min-width: 50px;
-	 min-height: 44px;
-     max-width: 50px;
-	 max-height: 44px;
- }
-
-
- QPushButton:pressed {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
- }
-
- QPushButton:hover {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
- }
-
-QPushButton:disabled{ background-color: #CCCCCC; }
-
- QPushButton:flat {
-     border: none; /* no border for a flat push button */
- }
-
- QPushButton:default {
-     border-color: navy; /* make the default button prominent */
- }</string>
-                    </property>
-                    <property name="text">
-                     <string/>
-                    </property>
-                    <property name="icon">
-                     <iconset>
-                      <normaloff>icons/plus.png</normaloff>icons/plus.png</iconset>
-                    </property>
-                    <property name="iconSize">
-                     <size>
-                      <width>35</width>
-                      <height>35</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="3" column="4">
-                   <widget class="QLCDNumber" name="lcdNumber_dropletSize_percentage">
-                    <property name="toolTip">
-                     <string>Droplet size percentage</string>
-                    </property>
-                    <property name="frameShape">
-                     <enum>QFrame::NoFrame</enum>
-                    </property>
-                    <property name="digitCount">
-                     <number>3</number>
-                    </property>
-                    <property name="value" stdset="0">
-                     <double>0.000000000000000</double>
-                    </property>
-                    <property name="intValue" stdset="0">
-                     <number>0</number>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="5" column="5">
-                   <widget class="QLabel" name="label_flowspeed_percentage">
-                    <property name="font">
-                     <font>
-                      <pointsize>14</pointsize>
-                     </font>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true"/>
-                    </property>
-                    <property name="text">
-                     <string>%</string>
-                    </property>
-                    <property name="alignment">
-                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="5" column="6" colspan="2">
-                   <widget class="QPushButton" name="pushButton_flowspeed_plus">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="maximumSize">
-                     <size>
-                      <width>52</width>
-                      <height>46</height>
-                     </size>
-                    </property>
-                    <property name="toolTip">
-                     <string>Increase flow speed</string>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true"> QPushButton {
-     border: 1px solid #8f8f91;
-     border-radius: 10px;
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
-     min-width: 50px;
-	 min-height: 44px;
-     max-width: 50px;
-	 max-height: 44px;
- }
-
-
- QPushButton:pressed {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
- }
-
- QPushButton:hover {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
- }
-
-QPushButton:disabled{ background-color: #CCCCCC; }
-
- QPushButton:flat {
-     border: none; /* no border for a flat push button */
- }
-
- QPushButton:default {
-     border-color: navy; /* make the default button prominent */
- }</string>
-                    </property>
-                    <property name="text">
-                     <string/>
-                    </property>
-                    <property name="icon">
-                     <iconset>
-                      <normaloff>icons/plus.png</normaloff>icons/plus.png</iconset>
-                    </property>
-                    <property name="iconSize">
-                     <size>
-                      <width>35</width>
-                      <height>35</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="8" column="4">
-                   <widget class="QLCDNumber" name="lcdNumber_vacuum_percentage">
-                    <property name="toolTip">
-                     <string>Vacuum percentage</string>
-                    </property>
-                    <property name="frameShape">
-                     <enum>QFrame::NoFrame</enum>
-                    </property>
-                    <property name="digitCount">
-                     <number>3</number>
-                    </property>
-                    <property name="value" stdset="0">
-                     <double>0.000000000000000</double>
-                    </property>
-                    <property name="intValue" stdset="0">
-                     <number>0</number>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="5" column="4">
-                   <widget class="QLCDNumber" name="lcdNumber_flowspeed_percentage">
-                    <property name="toolTip">
-                     <string>Flow speed percentage</string>
-                    </property>
-                    <property name="frameShape">
-                     <enum>QFrame::NoFrame</enum>
-                    </property>
-                    <property name="digitCount">
-                     <number>3</number>
-                    </property>
-                    <property name="value" stdset="0">
-                     <double>0.000000000000000</double>
-                    </property>
-                    <property name="intValue" stdset="0">
-                     <number>0</number>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="8" column="5">
-                   <widget class="QLabel" name="label_vacuum_percentage">
-                    <property name="maximumSize">
-                     <size>
-                      <width>30</width>
-                      <height>16777215</height>
-                     </size>
-                    </property>
-                    <property name="font">
-                     <font>
-                      <pointsize>14</pointsize>
-                     </font>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true"/>
-                    </property>
-                    <property name="text">
-                     <string>%</string>
-                    </property>
-                    <property name="alignment">
-                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="2" column="3" colspan="4">
-                   <spacer name="verticalSpacer_3">
-                    <property name="orientation">
-                     <enum>Qt::Vertical</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>20</width>
-                      <height>40</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                  <item row="3" column="3">
-                   <widget class="QPushButton" name="pushButton_dropSize_minus">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="maximumSize">
-                     <size>
-                      <width>52</width>
-                      <height>46</height>
-                     </size>
-                    </property>
-                    <property name="font">
-                     <font>
-                      <pointsize>8</pointsize>
-                     </font>
-                    </property>
-                    <property name="toolTip">
-                     <string>Decrease droplet size</string>
-                    </property>
-                    <property name="autoFillBackground">
-                     <bool>false</bool>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true"> QPushButton {
-     border: 1px solid #8f8f91;
-     border-radius: 10px;
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
-     min-width: 50px;
-	 min-height: 44px;
-     max-width: 50px;
-	 max-height: 44px;
- }
-
-
- QPushButton:pressed {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
- }
-
- QPushButton:hover {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
- }
-
-QPushButton:disabled{ background-color: #CCCCCC; }
-
- QPushButton:flat {
-     border: none; /* no border for a flat push button */
- }
-
- QPushButton:default {
-     border-color: navy; /* make the default button prominent */
- }</string>
-                    </property>
-                    <property name="text">
-                     <string/>
-                    </property>
-                    <property name="icon">
-                     <iconset>
-                      <normaloff>icons/minus.png</normaloff>icons/minus.png</iconset>
-                    </property>
-                    <property name="iconSize">
-                     <size>
-                      <width>35</width>
-                      <height>35</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="3" column="5">
-                   <widget class="QLabel" name="label_dropletSize_percentage">
-                    <property name="font">
-                     <font>
-                      <pointsize>14</pointsize>
-                     </font>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true"/>
-                    </property>
-                    <property name="text">
-                     <string>%  </string>
-                    </property>
-                    <property name="alignment">
-                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="8" column="3">
-                   <widget class="QPushButton" name="pushButton_vacuum_minus">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="maximumSize">
-                     <size>
-                      <width>52</width>
-                      <height>46</height>
-                     </size>
-                    </property>
-                    <property name="toolTip">
-                     <string>Decrease vacuum</string>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true"> QPushButton {
-     border: 1px solid #8f8f91;
-     border-radius: 10px;
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
-     min-width: 50px;
-	 min-height: 44px;
-     max-width: 50px;
-	 max-height: 44px;
- }
-
-
- QPushButton:pressed {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
- }
-
- QPushButton:hover {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
- }
-
-QPushButton:disabled{ background-color: #CCCCCC; }
-
- QPushButton:flat {
-     border: none; /* no border for a flat push button */
- }
-
- QPushButton:default {
-     border-color: navy; /* make the default button prominent */
- }</string>
-                    </property>
-                    <property name="text">
-                     <string/>
-                    </property>
-                    <property name="icon">
-                     <iconset>
-                      <normaloff>icons/minus.png</normaloff>icons/minus.png</iconset>
-                    </property>
-                    <property name="iconSize">
-                     <size>
-                      <width>35</width>
-                      <height>35</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="5" column="3">
-                   <widget class="QPushButton" name="pushButton_flowspeed_minus">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="maximumSize">
-                     <size>
-                      <width>52</width>
-                      <height>46</height>
-                     </size>
-                    </property>
-                    <property name="toolTip">
-                     <string>Decrease flow speed</string>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true"> QPushButton {
-     border: 1px solid #8f8f91;
-     border-radius: 10px;
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
-     min-width: 50px;
-	 min-height: 44px;
-     max-width: 50px;
-	 max-height: 44px;
- }
-
-
- QPushButton:pressed {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
- }
-
- QPushButton:hover {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
- }
-
-QPushButton:disabled{ background-color: #CCCCCC; }
-
- QPushButton:flat {
-     border: none; /* no border for a flat push button */
- }
-
- QPushButton:default {
-     border-color: navy; /* make the default button prominent */
- }</string>
-                    </property>
-                    <property name="text">
-                     <string/>
-                    </property>
-                    <property name="icon">
-                     <iconset>
-                      <normaloff>icons/minus.png</normaloff>icons/minus.png</iconset>
-                    </property>
-                    <property name="iconSize">
-                     <size>
-                      <width>35</width>
-                      <height>35</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="3" column="6" colspan="2">
-                   <widget class="QPushButton" name="pushButton_dropSize_plus">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="maximumSize">
-                     <size>
-                      <width>52</width>
-                      <height>46</height>
-                     </size>
-                    </property>
-                    <property name="toolTip">
-                     <string>Increase droplet size</string>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true"> QPushButton {
-     border: 1px solid #8f8f91;
-     border-radius: 10px;
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
-     min-width: 50px;
-	 min-height: 44px;
-     max-width: 50px;
-	 max-height: 44px;
- }
-
-
- QPushButton:pressed {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
- }
-
- QPushButton:hover {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
- }
-
-QPushButton:disabled{ background-color: #CCCCCC; }
-
- QPushButton:flat {
-     border: none; /* no border for a flat push button */
- }
-
- QPushButton:default {
-     border-color: navy; /* make the default button prominent */
- }</string>
-                    </property>
-                    <property name="text">
-                     <string/>
-                    </property>
-                    <property name="icon">
-                     <iconset>
-                      <normaloff>icons/plus.png</normaloff>icons/plus.png</iconset>
-                    </property>
-                    <property name="iconSize">
-                     <size>
-                      <width>35</width>
-                      <height>35</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="4" column="1" colspan="6">
-                   <spacer name="verticalSpacer_2">
-                    <property name="orientation">
-                     <enum>Qt::Vertical</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>20</width>
-                      <height>40</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                  <item row="5" column="1">
-                   <widget class="QLabel" name="label_DZC_flowSpeed">
-                    <property name="font">
-                     <font>
-                      <pointsize>11</pointsize>
-                     </font>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true"/>
-                    </property>
-                    <property name="text">
-                     <string>Flow speed</string>
-                    </property>
-                    <property name="alignment">
-                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="7" column="1" rowspan="2">
-                   <widget class="QLabel" name="label_DZC_vacuum">
-                    <property name="font">
-                     <font>
-                      <pointsize>11</pointsize>
-                     </font>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true"/>
-                    </property>
-                    <property name="text">
-                     <string>Vacuum</string>
-                    </property>
-                    <property name="alignment">
-                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="0" column="1" colspan="6">
-                   <widget class="QLabel" name="label_DZC_title">
-                    <property name="minimumSize">
-                     <size>
-                      <width>320</width>
-                      <height>55</height>
-                     </size>
-                    </property>
-                    <property name="font">
-                     <font>
-                      <pointsize>16</pointsize>
-                     </font>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true"/>
-                    </property>
-                    <property name="text">
-                     <string>DELIVERY ZONE CONTROL</string>
-                    </property>
-                    <property name="alignment">
-                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="3" column="1">
-                   <widget class="QLabel" name="label_DZV_dropletSize">
-                    <property name="minimumSize">
-                     <size>
-                      <width>110</width>
-                      <height>0</height>
-                     </size>
-                    </property>
-                    <property name="font">
-                     <font>
-                      <pointsize>11</pointsize>
-                     </font>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true"/>
-                    </property>
-                    <property name="text">
-                     <string>Zone size</string>
-                    </property>
-                    <property name="alignment">
-                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="3" column="2">
-                   <spacer name="horizontalSpacer_7">
-                    <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="sizeType">
-                     <enum>QSizePolicy::Fixed</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>10</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                  <item row="6" column="1" colspan="6">
-                   <spacer name="verticalSpacer">
-                    <property name="orientation">
-                     <enum>Qt::Vertical</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>20</width>
-                      <height>40</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                 </layout>
-                </widget>
-               </item>
-              </layout>
-             </widget>
-            </item>
-            <item row="1" column="0">
+            <property name="verticalSpacing">
+             <number>7</number>
+            </property>
+            <item row="2" column="0">
              <widget class="QGroupBox" name="groupBox_2">
               <property name="minimumSize">
                <size>
@@ -1552,7 +236,26 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                <property name="rightMargin">
                 <number>5</number>
                </property>
-               <item row="1" column="0">
+               <property name="verticalSpacing">
+                <number>15</number>
+               </property>
+               <item row="2" column="1">
+                <spacer name="verticalSpacer_7">
+                 <property name="orientation">
+                  <enum>Qt::Vertical</enum>
+                 </property>
+                 <property name="sizeType">
+                  <enum>QSizePolicy::Minimum</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>20</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="3" column="0">
                 <spacer name="horizontalSpacer_3">
                  <property name="orientation">
                   <enum>Qt::Horizontal</enum>
@@ -1565,7 +268,20 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                  </property>
                 </spacer>
                </item>
-               <item row="1" column="2">
+               <item row="4" column="0" colspan="2">
+                <spacer name="verticalSpacer_6">
+                 <property name="orientation">
+                  <enum>Qt::Vertical</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>20</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="3" column="2">
                 <spacer name="horizontalSpacer_4">
                  <property name="orientation">
                   <enum>Qt::Horizontal</enum>
@@ -1578,20 +294,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                  </property>
                 </spacer>
                </item>
-               <item row="0" column="1">
-                <spacer name="verticalSpacer_7">
-                 <property name="orientation">
-                  <enum>Qt::Vertical</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>20</width>
-                   <height>40</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-               <item row="1" column="1">
+               <item row="3" column="1">
                 <widget class="QGroupBox" name="groupBox_3">
                  <property name="enabled">
                   <bool>true</bool>
@@ -2881,10 +1584,63 @@ p, li { white-space: pre-wrap; }
                  <zorder>widget_sol4</zorder>
                 </widget>
                </item>
-               <item row="2" column="0" colspan="2">
-                <spacer name="verticalSpacer_6">
+              </layout>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QGroupBox" name="groupBox_5">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="minimumSize">
+               <size>
+                <width>280</width>
+                <height>130</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>380</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QGroupBox { 
+     border: 2px solid  rgb(250, 250, 250); ; 
+     border-radius: 10px; 
+    color: rgb(80, 80, 80);
+    background-color: rgb(250, 250, 250);
+ } </string>
+              </property>
+              <property name="title">
+               <string/>
+              </property>
+              <property name="flat">
+               <bool>false</bool>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_14">
+               <property name="leftMargin">
+                <number>5</number>
+               </property>
+               <property name="topMargin">
+                <number>5</number>
+               </property>
+               <property name="rightMargin">
+                <number>5</number>
+               </property>
+               <property name="bottomMargin">
+                <number>5</number>
+               </property>
+               <item row="2" column="2">
+                <spacer name="verticalSpacer_4">
                  <property name="orientation">
                   <enum>Qt::Vertical</enum>
+                 </property>
+                 <property name="sizeType">
+                  <enum>QSizePolicy::Expanding</enum>
                  </property>
                  <property name="sizeHint" stdset="0">
                   <size>
@@ -2894,6 +1650,1266 @@ p, li { white-space: pre-wrap; }
                  </property>
                 </spacer>
                </item>
+               <item row="1" column="1">
+                <widget class="QLabel" name="label_warningIcon">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>90</width>
+                   <height>90</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>90</width>
+                   <height>90</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="pixmap">
+                  <pixmap>icons/warning.png</pixmap>
+                 </property>
+                 <property name="scaledContents">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="3">
+                <spacer name="horizontalSpacer_5">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>10</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="1" column="5" rowspan="6">
+                <spacer name="horizontalSpacer_8">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>0</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="1" column="2">
+                <widget class="QLabel" name="label_warning">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <pointsize>14</pointsize>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true"/>
+                 </property>
+                 <property name="text">
+                  <string>Warning!!! The solution is running out</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0" rowspan="5">
+                <spacer name="horizontalSpacer_6">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>0</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
+               <item row="0" column="4" rowspan="7">
+                <widget class="QGroupBox" name="groupBox_deliveryZone">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>330</width>
+                   <height>40</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QGroupBox { 
+     border: 2px solid  rgb(200, 200, 200); ; 
+     border-radius: 10px; 
+    color: rgb(80, 80, 80);
+    background-color: rgb(235, 235, 240);
+ } </string>
+                 </property>
+                 <property name="title">
+                  <string/>
+                 </property>
+                 <property name="flat">
+                  <bool>false</bool>
+                 </property>
+                 <layout class="QGridLayout" name="gridLayout_21">
+                  <property name="topMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="spacing">
+                   <number>0</number>
+                  </property>
+                  <item row="8" column="6" colspan="2">
+                   <widget class="QPushButton" name="pushButton_vacuum_plus">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>52</width>
+                      <height>46</height>
+                     </size>
+                    </property>
+                    <property name="toolTip">
+                     <string>Increase vacuum</string>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"> QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 10px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+     min-width: 50px;
+	 min-height: 44px;
+     max-width: 50px;
+	 max-height: 44px;
+ }
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="icon">
+                     <iconset>
+                      <normaloff>icons/plus.png</normaloff>icons/plus.png</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>35</width>
+                      <height>35</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="4">
+                   <widget class="QLCDNumber" name="lcdNumber_dropletSize_percentage">
+                    <property name="toolTip">
+                     <string>Droplet size percentage</string>
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::NoFrame</enum>
+                    </property>
+                    <property name="digitCount">
+                     <number>3</number>
+                    </property>
+                    <property name="value" stdset="0">
+                     <double>0.000000000000000</double>
+                    </property>
+                    <property name="intValue" stdset="0">
+                     <number>0</number>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="5" column="5">
+                   <widget class="QLabel" name="label_flowspeed_percentage">
+                    <property name="font">
+                     <font>
+                      <pointsize>14</pointsize>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"/>
+                    </property>
+                    <property name="text">
+                     <string>%</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="5" column="6" colspan="2">
+                   <widget class="QPushButton" name="pushButton_flowspeed_plus">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>52</width>
+                      <height>46</height>
+                     </size>
+                    </property>
+                    <property name="toolTip">
+                     <string>Increase flow speed</string>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"> QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 10px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+     min-width: 50px;
+	 min-height: 44px;
+     max-width: 50px;
+	 max-height: 44px;
+ }
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="icon">
+                     <iconset>
+                      <normaloff>icons/plus.png</normaloff>icons/plus.png</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>35</width>
+                      <height>35</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="8" column="4">
+                   <widget class="QLCDNumber" name="lcdNumber_vacuum_percentage">
+                    <property name="toolTip">
+                     <string>Vacuum percentage</string>
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::NoFrame</enum>
+                    </property>
+                    <property name="digitCount">
+                     <number>3</number>
+                    </property>
+                    <property name="value" stdset="0">
+                     <double>0.000000000000000</double>
+                    </property>
+                    <property name="intValue" stdset="0">
+                     <number>0</number>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="5" column="4">
+                   <widget class="QLCDNumber" name="lcdNumber_flowspeed_percentage">
+                    <property name="toolTip">
+                     <string>Flow speed percentage</string>
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::NoFrame</enum>
+                    </property>
+                    <property name="digitCount">
+                     <number>3</number>
+                    </property>
+                    <property name="value" stdset="0">
+                     <double>0.000000000000000</double>
+                    </property>
+                    <property name="intValue" stdset="0">
+                     <number>0</number>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="8" column="5">
+                   <widget class="QLabel" name="label_vacuum_percentage">
+                    <property name="maximumSize">
+                     <size>
+                      <width>30</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <pointsize>14</pointsize>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"/>
+                    </property>
+                    <property name="text">
+                     <string>%</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="3" colspan="4">
+                   <spacer name="verticalSpacer_3">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item row="3" column="3">
+                   <widget class="QPushButton" name="pushButton_dropSize_minus">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>52</width>
+                      <height>46</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <pointsize>8</pointsize>
+                     </font>
+                    </property>
+                    <property name="toolTip">
+                     <string>Decrease droplet size</string>
+                    </property>
+                    <property name="autoFillBackground">
+                     <bool>false</bool>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"> QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 10px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+     min-width: 50px;
+	 min-height: 44px;
+     max-width: 50px;
+	 max-height: 44px;
+ }
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="icon">
+                     <iconset>
+                      <normaloff>icons/minus.png</normaloff>icons/minus.png</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>35</width>
+                      <height>35</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="5">
+                   <widget class="QLabel" name="label_dropletSize_percentage">
+                    <property name="font">
+                     <font>
+                      <pointsize>14</pointsize>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"/>
+                    </property>
+                    <property name="text">
+                     <string>%  </string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="8" column="3">
+                   <widget class="QPushButton" name="pushButton_vacuum_minus">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>52</width>
+                      <height>46</height>
+                     </size>
+                    </property>
+                    <property name="toolTip">
+                     <string>Decrease vacuum</string>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"> QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 10px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+     min-width: 50px;
+	 min-height: 44px;
+     max-width: 50px;
+	 max-height: 44px;
+ }
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="icon">
+                     <iconset>
+                      <normaloff>icons/minus.png</normaloff>icons/minus.png</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>35</width>
+                      <height>35</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="5" column="3">
+                   <widget class="QPushButton" name="pushButton_flowspeed_minus">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>52</width>
+                      <height>46</height>
+                     </size>
+                    </property>
+                    <property name="toolTip">
+                     <string>Decrease flow speed</string>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"> QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 10px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+     min-width: 50px;
+	 min-height: 44px;
+     max-width: 50px;
+	 max-height: 44px;
+ }
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="icon">
+                     <iconset>
+                      <normaloff>icons/minus.png</normaloff>icons/minus.png</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>35</width>
+                      <height>35</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="6" colspan="2">
+                   <widget class="QPushButton" name="pushButton_dropSize_plus">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>52</width>
+                      <height>46</height>
+                     </size>
+                    </property>
+                    <property name="toolTip">
+                     <string>Increase droplet size</string>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"> QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 10px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+     min-width: 50px;
+	 min-height: 44px;
+     max-width: 50px;
+	 max-height: 44px;
+ }
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="icon">
+                     <iconset>
+                      <normaloff>icons/plus.png</normaloff>icons/plus.png</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>35</width>
+                      <height>35</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="4" column="1" colspan="6">
+                   <spacer name="verticalSpacer_2">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item row="5" column="1">
+                   <widget class="QLabel" name="label_DZC_flowSpeed">
+                    <property name="font">
+                     <font>
+                      <pointsize>11</pointsize>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"/>
+                    </property>
+                    <property name="text">
+                     <string>Flow speed</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="7" column="1" rowspan="2">
+                   <widget class="QLabel" name="label_DZC_vacuum">
+                    <property name="font">
+                     <font>
+                      <pointsize>11</pointsize>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"/>
+                    </property>
+                    <property name="text">
+                     <string>Vacuum</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="1" colspan="6">
+                   <widget class="QLabel" name="label_DZC_title">
+                    <property name="minimumSize">
+                     <size>
+                      <width>320</width>
+                      <height>55</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <pointsize>16</pointsize>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"/>
+                    </property>
+                    <property name="text">
+                     <string>DELIVERY ZONE CONTROL</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="1">
+                   <widget class="QLabel" name="label_DZV_dropletSize">
+                    <property name="minimumSize">
+                     <size>
+                      <width>110</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <pointsize>11</pointsize>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"/>
+                    </property>
+                    <property name="text">
+                     <string>Zone size</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="2">
+                   <spacer name="horizontalSpacer_7">
+                    <property name="orientation">
+                     <enum>Qt::Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                     <enum>QSizePolicy::Fixed</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>10</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item row="6" column="1" colspan="6">
+                   <spacer name="verticalSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+               <item row="3" column="1" rowspan="3" colspan="2">
+                <widget class="QGroupBox" name="groupBox_action">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>280</width>
+                   <height>200</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>16777215</width>
+                   <height>16777215</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QGroupBox { 
+     border: 2px solid  rgb(200, 200, 200); ; 
+     border-radius: 10px; 
+    color: rgb(80, 80, 80);
+    background-color: rgb(235, 235, 240);
+ } </string>
+                 </property>
+                 <property name="title">
+                  <string/>
+                 </property>
+                 <property name="flat">
+                  <bool>false</bool>
+                 </property>
+                 <layout class="QGridLayout" name="gridLayout_22">
+                  <property name="topMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="horizontalSpacing">
+                   <number>20</number>
+                  </property>
+                  <item row="3" column="4">
+                   <widget class="QPushButton" name="pushButton_standby">
+                    <property name="minimumSize">
+                     <size>
+                      <width>92</width>
+                      <height>90</height>
+                     </size>
+                    </property>
+                    <property name="toolTip">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shutdown button, it runs the following commands: &lt;br/&gt;&lt;br/&gt;allOff()&lt;br/&gt;setPon(0)&lt;br/&gt;setPoff(0)&lt;br/&gt;sleep(10)&lt;br/&gt;setVswitch(0)&lt;br/&gt;setVrecirc(0)&lt;br/&gt;sleep(15)&lt;br/&gt;pumpsOff()&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    </property>
+                    <property name="whatsThis">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shutdown button, it runs the following commands: &lt;br/&gt;&lt;br/&gt;
+allOff()&lt;br/&gt;
+setPon(0)&lt;br/&gt;
+setPoff(0)&lt;br/&gt;
+sleep(10)&lt;br/&gt;
+setVswitch(0)&lt;br/&gt;
+setVrecirc(0)&lt;br/&gt;
+sleep(15)&lt;br/&gt;
+pumpsOff()&lt;br/&gt;
+&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"> QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 10px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+     min-width: 90px;
+ }
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="icon">
+                     <iconset>
+                      <normaloff>icons/shutdown.png</normaloff>icons/shutdown.png</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>60</width>
+                      <height>60</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="0">
+                   <widget class="QPushButton" name="pushButton_newTip">
+                    <property name="minimumSize">
+                     <size>
+                      <width>92</width>
+                      <height>90</height>
+                     </size>
+                    </property>
+                    <property name="toolTip">
+                     <string>New tip button</string>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"> QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 10px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+     min-width: 90px;
+ }
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="icon">
+                     <iconset>
+                      <normaloff>icons/newTip.png</normaloff>icons/newTip.png</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>60</width>
+                      <height>60</height>
+                     </size>
+                    </property>
+                    <property name="checkable">
+                     <bool>false</bool>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="3">
+                   <widget class="QPushButton" name="pushButton_stop">
+                    <property name="enabled">
+                     <bool>false</bool>
+                    </property>
+                    <property name="minimumSize">
+                     <size>
+                      <width>92</width>
+                      <height>90</height>
+                     </size>
+                    </property>
+                    <property name="toolTip">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Stop button: If one of the solutions is flowing, it will stop the flow&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    </property>
+                    <property name="whatsThis">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Stop button, it runs the following commands: &lt;br/&gt;&lt;br/&gt;
+closeAllValves()&lt;br/&gt;
+&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"> QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 10px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+     min-width: 90px;
+ }
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="icon">
+                     <iconset>
+                      <normaloff>icons/stop.png</normaloff>icons/stop.png</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>60</width>
+                      <height>60</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="2">
+                   <widget class="QPushButton" name="pushButton_operational">
+                    <property name="minimumSize">
+                     <size>
+                      <width>92</width>
+                      <height>90</height>
+                     </size>
+                    </property>
+                    <property name="toolTip">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Operational mode button, it runs the following commands: &lt;br/&gt;&lt;br/&gt;allOff()&lt;br/&gt;setVswitch(-115)&lt;br/&gt;setVrecirc(-115)&lt;br/&gt;sleep(5)&lt;br/&gt;setPoff(21)&lt;br/&gt;setPon(190)&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    </property>
+                    <property name="whatsThis">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Operational mode button, it runs the following commands: &lt;br/&gt;&lt;br/&gt;allOff()&lt;br/&gt;setVswitch(-115)&lt;br/&gt;setVrecirc(-115)&lt;br/&gt;sleep(5)&lt;br/&gt;setPoff(21)&lt;br/&gt;setPon(190)&lt;br/&gt;
+&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"> QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 10px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+     min-width: 90px;
+ }
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="icon">
+                     <iconset>
+                      <normaloff>icons/run.png</normaloff>icons/run.png</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>60</width>
+                      <height>60</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="4" column="2">
+                   <widget class="QLabel" name="label_action_operational">
+                    <property name="font">
+                     <font>
+                      <pointsize>11</pointsize>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"/>
+                    </property>
+                    <property name="text">
+                     <string>Operational</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignHCenter|Qt::AlignTop</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="0" colspan="3">
+                   <widget class="QLabel" name="label_action_title">
+                    <property name="minimumSize">
+                     <size>
+                      <width>0</width>
+                      <height>55</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <pointsize>16</pointsize>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"/>
+                    </property>
+                    <property name="text">
+                     <string>ACTIONS</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="4" column="4">
+                   <widget class="QLabel" name="label_action_standby">
+                    <property name="font">
+                     <font>
+                      <pointsize>11</pointsize>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"/>
+                    </property>
+                    <property name="text">
+                     <string>Standby</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignHCenter|Qt::AlignTop</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="4" column="3">
+                   <widget class="QLabel" name="label_action_stop">
+                    <property name="font">
+                     <font>
+                      <pointsize>11</pointsize>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"/>
+                    </property>
+                    <property name="text">
+                     <string>Stop</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignHCenter|Qt::AlignTop</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="4" column="0">
+                   <widget class="QLabel" name="label_action_newtip">
+                    <property name="font">
+                     <font>
+                      <pointsize>11</pointsize>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"/>
+                    </property>
+                    <property name="text">
+                     <string>New tip</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignHCenter|Qt::AlignTop</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="1">
+                   <widget class="QPushButton" name="pushButton_runMacro">
+                    <property name="minimumSize">
+                     <size>
+                      <width>92</width>
+                      <height>90</height>
+                     </size>
+                    </property>
+                    <property name="toolTip">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Run macro runs the macro that can be loaded in the tools window&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    </property>
+                    <property name="whatsThis">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Run macro runs the macro that can be loaded in the tools window&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"> QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 10px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+     min-width: 90px;
+ }
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="icon">
+                     <iconset>
+                      <normaloff>icons/play.png</normaloff>icons/play.png</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>60</width>
+                      <height>60</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="4" column="1">
+                   <widget class="QLabel" name="label_runMacro">
+                    <property name="font">
+                     <font>
+                      <pointsize>11</pointsize>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"/>
+                    </property>
+                    <property name="text">
+                     <string>Run protocol</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignHCenter|Qt::AlignTop</set>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
               </layout>
              </widget>
             </item>
@@ -2901,109 +2917,98 @@ p, li { white-space: pre-wrap; }
           </widget>
          </widget>
         </item>
+        <item row="2" column="0">
+         <widget class="QGroupBox" name="groupBox_4">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">QGroupBox { 
+     border: 1px solid  rgb(200, 200, 200); ; 
+ 
+    color: rgb(80, 80, 80);
+
+ } </string>
+          </property>
+          <property name="title">
+           <string/>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_10">
+           <property name="leftMargin">
+            <number>4</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>4</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item row="0" column="3">
+            <widget class="QLabel" name="label_macroStatus">
+             <property name="text">
+              <string>Macro Running</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="status_PPC1_label">
+             <property name="maximumSize">
+              <size>
+               <width>220</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>PPC1 status</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QProgressBar" name="progressBar_macroStatus">
+             <property name="maximumSize">
+              <size>
+               <width>200</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Protocol progress indicator 0 - 100 %&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="value">
+              <number>0</number>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="status_PPC1_led">
+             <property name="maximumSize">
+              <size>
+               <width>30</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Connection indicator &lt;/p&gt;&lt;p&gt; red : PPC-1 not connected &lt;/p&gt;&lt;p&gt; green : PPC-1 connected&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
        </layout>
       </widget>
      </widget>
     </item>
    </layout>
-  </widget>
-  <widget class="QStatusBar" name="statusBar">
-   <property name="statusTip">
-    <string/>
-   </property>
-   <property name="whatsThis">
-    <string>Status bar</string>
-   </property>
-  </widget>
-  <widget class="QToolBar" name="toolBar">
-   <property name="sizePolicy">
-    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-     <horstretch>0</horstretch>
-     <verstretch>0</verstretch>
-    </sizepolicy>
-   </property>
-   <property name="minimumSize">
-    <size>
-     <width>0</width>
-     <height>0</height>
-    </size>
-   </property>
-   <property name="maximumSize">
-    <size>
-     <width>250</width>
-     <height>16777215</height>
-    </size>
-   </property>
-   <property name="windowTitle">
-    <string>toolBar</string>
-   </property>
-   <property name="autoFillBackground">
-    <bool>false</bool>
-   </property>
-   <property name="movable">
-    <bool>false</bool>
-   </property>
-   <property name="allowedAreas">
-    <set>Qt::AllToolBarAreas</set>
-   </property>
-   <property name="iconSize">
-    <size>
-     <width>200</width>
-     <height>95</height>
-    </size>
-   </property>
-   <property name="toolButtonStyle">
-    <enum>Qt::ToolButtonIconOnly</enum>
-   </property>
-   <property name="floatable">
-    <bool>false</bool>
-   </property>
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
-   <addaction name="actionAbout"/>
-  </widget>
-  <widget class="QToolBar" name="toolBar_2">
-   <property name="font">
-    <font>
-     <pointsize>-1</pointsize>
-    </font>
-   </property>
-   <property name="windowTitle">
-    <string>toolBar_2</string>
-   </property>
-   <property name="movable">
-    <bool>false</bool>
-   </property>
-   <property name="iconSize">
-    <size>
-     <width>90</width>
-     <height>60</height>
-    </size>
-   </property>
-   <property name="toolButtonStyle">
-    <enum>Qt::ToolButtonTextUnderIcon</enum>
-   </property>
-   <property name="floatable">
-    <bool>false</bool>
-   </property>
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
-   <addaction name="actionOpen"/>
-   <addaction name="actionSave"/>
-   <addaction name="actionTools"/>
-   <addaction name="actionSimulation"/>
-   <addaction name="actionDisCon"/>
-   <addaction name="actionReset"/>
-   <addaction name="actionShutdown"/>
-   <addaction name="actionNerdy"/>
   </widget>
   <widget class="QDockWidget" name="dockWidget">
    <property name="enabled">
@@ -3018,7 +3023,7 @@ p, li { white-space: pre-wrap; }
    <property name="minimumSize">
     <size>
      <width>317</width>
-     <height>523</height>
+     <height>609</height>
     </size>
    </property>
    <property name="maximumSize">
@@ -3031,6 +3036,9 @@ p, li { white-space: pre-wrap; }
     <font>
      <pointsize>11</pointsize>
     </font>
+   </property>
+   <property name="floating">
+    <bool>false</bool>
    </property>
    <property name="features">
     <set>QDockWidget::NoDockWidgetFeatures</set>
@@ -3055,7 +3063,7 @@ p, li { white-space: pre-wrap; }
      <property name="bottomMargin">
       <number>2</number>
      </property>
-     <item row="0" column="0">
+     <item row="1" column="0">
       <widget class="QTabWidget" name="tabWidget">
        <property name="maximumSize">
         <size>
@@ -5279,13 +5287,21 @@ QPushButton:disabled{ background-color: #CCCCCC; }
            <property name="maximumSize">
             <size>
              <width>16777215</width>
-             <height>300</height>
+             <height>380</height>
             </size>
            </property>
            <property name="font">
             <font>
              <pointsize>11</pointsize>
             </font>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QTreeWidget { 
+     border: 2px solid  rgb(200, 200, 200); ; 
+     border-radius: 10px; 
+    color: rgb(80, 80, 80);
+    background-color: rgb(235, 235, 240);
+ } </string>
            </property>
            <property name="uniformRowHeights">
             <bool>false</bool>
@@ -5582,254 +5598,111 @@ p, li { white-space: pre-wrap; }
     </layout>
    </widget>
   </widget>
-  <action name="actionOpen">
-   <property name="checkable">
+  <widget class="QToolBar" name="toolBar">
+   <property name="minimumSize">
+    <size>
+     <width>0</width>
+     <height>0</height>
+    </size>
+   </property>
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <property name="movable">
     <bool>false</bool>
    </property>
-   <property name="enabled">
-    <bool>true</bool>
+   <property name="iconSize">
+    <size>
+     <width>220</width>
+     <height>60</height>
+    </size>
    </property>
-   <property name="icon">
-    <iconset>
-     <normaloff>icons/open.png</normaloff>icons/open.png</iconset>
-   </property>
-   <property name="text">
-    <string>Load profile</string>
-   </property>
-   <property name="toolTip">
-    <string>Load a profile configuration file</string>
-   </property>
-   <property name="statusTip">
-    <string/>
-   </property>
-   <property name="whatsThis">
-    <string>Open configuration file</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+O</string>
-   </property>
-  </action>
-  <action name="actionSave">
-   <property name="checkable">
+   <property name="floatable">
     <bool>false</bool>
    </property>
-   <property name="checked">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionAbout"/>
+  </widget>
+  <widget class="QToolBar" name="toolBar_2">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="windowTitle">
+    <string>toolBar_2</string>
+   </property>
+   <property name="movable">
     <bool>false</bool>
    </property>
-   <property name="enabled">
-    <bool>true</bool>
+   <property name="iconSize">
+    <size>
+     <width>100</width>
+     <height>70</height>
+    </size>
    </property>
-   <property name="icon">
-    <iconset>
-     <normaloff>icons/save.png</normaloff>icons/save.png</iconset>
+   <property name="toolButtonStyle">
+    <enum>Qt::ToolButtonTextUnderIcon</enum>
    </property>
-   <property name="text">
-    <string>Save profile</string>
-   </property>
-   <property name="iconText">
-    <string>Save profile</string>
-   </property>
-   <property name="toolTip">
-    <string>Save the current profile to a configuration file</string>
-   </property>
-   <property name="statusTip">
-    <string/>
-   </property>
-   <property name="whatsThis">
-    <string>Save the current configuration to a file</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+S</string>
-   </property>
-  </action>
-  <action name="actionTools">
-   <property name="checkable">
+   <property name="floatable">
     <bool>false</bool>
    </property>
-   <property name="checked">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionLoad_profile"/>
+   <addaction name="actionSave_profile"/>
+   <addaction name="actionTools"/>
+   <addaction name="actionSimulation"/>
+   <addaction name="actionConnectDisconnect"/>
+   <addaction name="actionReboot"/>
+   <addaction name="actionShudown"/>
+  </widget>
+  <widget class="QToolBar" name="toolBar_3">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="windowTitle">
+    <string>toolBar_3</string>
+   </property>
+   <property name="movable">
     <bool>false</bool>
    </property>
-   <property name="enabled">
-    <bool>true</bool>
+   <property name="allowedAreas">
+    <set>Qt::TopToolBarArea</set>
    </property>
-   <property name="icon">
-    <iconset>
-     <normaloff>icons/tools.png</normaloff>icons/tools.png</iconset>
+   <property name="iconSize">
+    <size>
+     <width>100</width>
+     <height>70</height>
+    </size>
    </property>
-   <property name="text">
-    <string>Tools</string>
+   <property name="toolButtonStyle">
+    <enum>Qt::ToolButtonTextUnderIcon</enum>
    </property>
-   <property name="toolTip">
-    <string>Application settings</string>
-   </property>
-   <property name="statusTip">
-    <string/>
-   </property>
-   <property name="whatsThis">
-    <string>Applications settings</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+T</string>
-   </property>
-  </action>
-  <action name="actionShutdown">
-   <property name="enabled">
+   <property name="floatable">
     <bool>false</bool>
    </property>
-   <property name="icon">
-    <iconset>
-     <normaloff>icons/sshutdown2.png</normaloff>icons/sshutdown2.png</iconset>
-   </property>
-   <property name="text">
-    <string>shutdown</string>
-   </property>
-   <property name="toolTip">
-    <string>Shutdown</string>
-   </property>
-  </action>
-  <action name="actionSleep">
-   <property name="enabled">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
     <bool>false</bool>
-   </property>
-   <property name="icon">
-    <iconset>
-     <normaloff>icons/sleep.png</normaloff>icons/sleep.png</iconset>
-   </property>
-   <property name="text">
-    <string>Standby</string>
-   </property>
-   <property name="toolTip">
-    <string>Put device in standby with minimum recirculation</string>
-   </property>
-   <property name="statusTip">
-    <string/>
-   </property>
-   <property name="whatsThis">
-    <string>Put device in standby with minimum recirculation</string>
-   </property>
-  </action>
-  <action name="actionRun">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="icon">
-    <iconset>
-     <normaloff>icons/run.png</normaloff>icons/run.png</iconset>
-   </property>
-   <property name="text">
-    <string>run</string>
-   </property>
-  </action>
-  <action name="actionDisCon">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="icon">
-    <iconset>
-     <normaloff>icons/plug.png</normaloff>icons/plug.png</iconset>
-   </property>
-   <property name="text">
-    <string>Connect</string>
-   </property>
-   <property name="iconText">
-    <string>Connect</string>
-   </property>
-   <property name="toolTip">
-    <string>Connect and disconnect to PPC1</string>
-   </property>
-   <property name="statusTip">
-    <string/>
-   </property>
-   <property name="whatsThis">
-    <string>Connect and disconnect to PPC1</string>
-   </property>
-  </action>
-  <action name="actionReset">
-   <property name="enabled">
-    <bool>false</bool>
-   </property>
-   <property name="icon">
-    <iconset>
-     <normaloff>icons/reboot.png</normaloff>icons/reboot.png</iconset>
-   </property>
-   <property name="text">
-    <string>Reset</string>
-   </property>
-   <property name="toolTip">
-    <string>Reset device</string>
-   </property>
-   <property name="statusTip">
-    <string/>
-   </property>
-   <property name="whatsThis">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Reset the device&lt;br/&gt;&lt;br/&gt;
-The procedure will take around 30 seconds, &lt;br/&gt;
-It will be impossible to use the application during the reset process. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-   </property>
-  </action>
-  <action name="actionNerdy">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="icon">
-    <iconset>
-     <normaloff>icons/controls_2.png</normaloff>icons/controls_2.png</iconset>
-   </property>
-   <property name="text">
-    <string>Advanced</string>
-   </property>
-   <property name="toolTip">
-    <string>Visualize advanced control and monitor panel</string>
-   </property>
-   <property name="statusTip">
-    <string/>
-   </property>
-   <property name="whatsThis">
-    <string>Visualize advanced control and monitor panel</string>
-   </property>
-  </action>
-  <action name="actionSimulation">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="checked">
-    <bool>false</bool>
-   </property>
-   <property name="icon">
-    <iconset>
-     <normaloff>icons/simulation.png</normaloff>icons/simulation.png</iconset>
-   </property>
-   <property name="text">
-    <string>Simulation</string>
-   </property>
-   <property name="toolTip">
-    <string>Simulation mode: when ACTIVE the pump is NOT used</string>
-   </property>
-   <property name="statusTip">
-    <string/>
-   </property>
-   <property name="whatsThis">
-    <string>Simulation mode: when ACTIVE the pump is NOT used</string>
-   </property>
-  </action>
-  <action name="actionFile">
-   <property name="checkable">
-    <bool>false</bool>
-   </property>
-   <property name="icon">
-    <iconset>
-     <normaloff>icons/file.png</normaloff>icons/file.png</iconset>
-   </property>
-   <property name="text">
-    <string>startAction1</string>
-   </property>
-   <property name="toolTip">
-    <string>File</string>
-   </property>
-  </action>
+   </attribute>
+   <addaction name="actionAdvanced"/>
+  </widget>
   <action name="actionWhatsthis">
    <property name="icon">
     <iconset>
@@ -5884,6 +5757,123 @@ click on any object to have quick help
    </property>
    <property name="iconVisibleInMenu">
     <bool>true</bool>
+   </property>
+  </action>
+  <action name="actionLoad_profile">
+   <property name="icon">
+    <iconset>
+     <normaloff>icons/open.png</normaloff>icons/open.png</iconset>
+   </property>
+   <property name="text">
+    <string>Load profile</string>
+   </property>
+   <property name="toolTip">
+    <string>Load a profile configuration file</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="actionSave_profile">
+   <property name="icon">
+    <iconset>
+     <normaloff>icons/save.png</normaloff>icons/save.png</iconset>
+   </property>
+   <property name="text">
+    <string>Save profile</string>
+   </property>
+   <property name="toolTip">
+    <string>Save the current profile to a configuration file</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionTools">
+   <property name="icon">
+    <iconset>
+     <normaloff>icons/tools.png</normaloff>icons/tools.png</iconset>
+   </property>
+   <property name="text">
+    <string>Tools</string>
+   </property>
+   <property name="toolTip">
+    <string>Open the application settings page</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+T</string>
+   </property>
+  </action>
+  <action name="actionSimulation">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>icons/simulation.png</normaloff>icons/simulation.png</iconset>
+   </property>
+   <property name="text">
+    <string>Simulation</string>
+   </property>
+   <property name="toolTip">
+    <string>Simulation mode: when ACTIVE the pump is NOT used</string>
+   </property>
+   <property name="shortcut">
+    <string>F4</string>
+   </property>
+  </action>
+  <action name="actionConnectDisconnect">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>icons/plug.png</normaloff>icons/plug.png</iconset>
+   </property>
+   <property name="text">
+    <string>Connect</string>
+   </property>
+   <property name="toolTip">
+    <string>Connect and disconnect to PPC1</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+A</string>
+   </property>
+  </action>
+  <action name="actionReboot">
+   <property name="icon">
+    <iconset>
+     <normaloff>icons/reboot.png</normaloff>icons/reboot.png</iconset>
+   </property>
+   <property name="text">
+    <string>Reboot</string>
+   </property>
+   <property name="toolTip">
+    <string>&amp;lt;html&amp;gt;&amp;lt;head/&amp;gt;&amp;lt;body&amp;gt;&amp;lt;p&amp;gt;Reset the device&amp;lt;br/&amp;gt;&amp;lt;br/&amp;gt;
+The procedure will take around 30 seconds, &amp;lt;br/&amp;gt;
+It will be impossible to use the application during the reset process. &amp;lt;/p&amp;gt;&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;</string>
+   </property>
+  </action>
+  <action name="actionShudown">
+   <property name="icon">
+    <iconset>
+     <normaloff>icons/sshutdown2.png</normaloff>icons/sshutdown2.png</iconset>
+   </property>
+   <property name="text">
+    <string>Shudown</string>
+   </property>
+  </action>
+  <action name="actionAdvanced">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset>
+     <normaloff>icons/openAdvanced.png</normaloff>
+     <normalon>icons/closeAdvanced.png</normalon>icons/openAdvanced.png</iconset>
+   </property>
+   <property name="text">
+    <string>Advanced</string>
    </property>
   </action>
  </widget>

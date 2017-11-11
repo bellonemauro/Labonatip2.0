@@ -658,14 +658,13 @@ private:
   QString m_settings_path;
   QTranslator m_translator;
 
-  QLabel * status_PPC1_led; 
-  QLabel * status_PPC1_label;
-  QProgressBar * macro_progress;
-  QLabel * status_label;
   QPixmap * led_green;
   QPixmap * led_red;
   QPainter * painter_led_green;
   QPainter * painter_led_red;
+
+  QGroupBox * m_g_spacer;
+  QAction *m_a_spacer;
 };
 
 #endif /* Labonatip_GUI_H_ */

@@ -159,11 +159,10 @@ void Labonatip_GUI::runMacro() {
 				ui->tab_2->setEnabled(true);
 				ui->tab_4->setEnabled(true);
 				setEnableSolutionButtons(true);
-				ui->actionDisCon->setEnabled(!m_simulationOnly);
-				ui->actionRun->setEnabled(!m_simulationOnly);
-				ui->actionReset->setEnabled(!m_simulationOnly);
-				ui->actionSleep->setEnabled(!m_simulationOnly);
-				ui->actionShutdown->setEnabled(!m_simulationOnly);
+				ui->actionConnectDisconnect->setEnabled(!m_simulationOnly);
+				ui->actionSimulation->setEnabled(!m_simulationOnly);
+				ui->actionReboot->setEnabled(!m_simulationOnly);
+				ui->actionShudown->setEnabled(!m_simulationOnly);
 				ui->label_runMacro->setText("Run Macro");
 				return;
 			}
@@ -201,11 +200,10 @@ void Labonatip_GUI::runMacro() {
 		ui->tab_2->setEnabled(false);
 		ui->tab_4->setEnabled(false);
 		setEnableSolutionButtons(false);
-		ui->actionDisCon->setEnabled(false);
-		ui->actionRun->setEnabled(false);
-		ui->actionReset->setEnabled(false);
-		ui->actionSleep->setEnabled(false);
-		ui->actionShutdown->setEnabled(false);
+		ui->actionConnectDisconnect->setEnabled(false);
+		ui->actionSimulation->setEnabled(false);
+		ui->actionReboot->setEnabled(false);
+		ui->actionShudown->setEnabled(false);
 		ui->label_runMacro->setText("Stop Macro");
 	}
 	else {
@@ -224,11 +222,10 @@ void Labonatip_GUI::runMacro() {
 		ui->tab_2->setEnabled(true);
 		ui->tab_4->setEnabled(true);
 		setEnableSolutionButtons(true);
-		ui->actionDisCon->setEnabled(!m_simulationOnly);
-		ui->actionRun->setEnabled(!m_simulationOnly);
-		ui->actionReset->setEnabled(!m_simulationOnly);
-		ui->actionSleep->setEnabled(!m_simulationOnly);
-		ui->actionShutdown->setEnabled(!m_simulationOnly);
+		ui->actionConnectDisconnect->setEnabled(!m_simulationOnly);
+		ui->actionSimulation->setEnabled(m_simulationOnly);
+		ui->actionReboot->setEnabled(!m_simulationOnly);
+		ui->actionShudown->setEnabled(!m_simulationOnly);
 		ui->label_runMacro->setText("Run Macro");
 	}
 
@@ -242,7 +239,7 @@ void Labonatip_GUI::macroFinished(const QString &_result) {
 		 << "Labonatip_GUI::macroFinished    " << endl;
 
 	QMessageBox::information(this, " Information !", _result);
-	ui->statusBar->showMessage("MACRO FINISHED");
+	//ui->statusBar->showMessage("MACRO FINISHED");
 	ui->label_runMacro->setText("Run Macro");
 	ui->groupBox_deliveryZone->setEnabled(true);
 	ui->pushButton_operational->setEnabled(true);
@@ -253,11 +250,10 @@ void Labonatip_GUI::macroFinished(const QString &_result) {
 	ui->tab_2->setEnabled(true);
 	ui->tab_4->setEnabled(true);
 	setEnableSolutionButtons(true);
-	ui->actionDisCon->setEnabled(!m_simulationOnly);
-	ui->actionRun->setEnabled(!m_simulationOnly);
-	ui->actionReset->setEnabled(!m_simulationOnly);
-	ui->actionSleep->setEnabled(!m_simulationOnly);
-	ui->actionShutdown->setEnabled(!m_simulationOnly);
+	ui->actionConnectDisconnect->setEnabled(!m_simulationOnly);
+	ui->actionSimulation->setEnabled(m_simulationOnly);
+	ui->actionReboot->setEnabled(!m_simulationOnly);
+	ui->actionShudown->setEnabled(!m_simulationOnly);
 
 	disconnect(m_macroRunner_thread,
 		&Labonatip_macroRunner::resultReady, this,

@@ -89,11 +89,11 @@ void Labonatip_GUI::simulationOnly()
 {
 	m_simulationOnly = ui->actionSimulation->isChecked();
 
-	ui->actionDisCon->setEnabled(!m_simulationOnly);
-	ui->actionRun->setEnabled(!m_simulationOnly);
-	ui->actionReset->setEnabled(!m_simulationOnly);
-	ui->actionSleep->setEnabled(!m_simulationOnly);
-	ui->actionShutdown->setEnabled(!m_simulationOnly);
+	ui->actionConnectDisconnect->setEnabled(!m_simulationOnly);
+	//ui->actionRun->setEnabled(!m_simulationOnly);
+	ui->actionReboot->setEnabled(!m_simulationOnly);
+	ui->actionShudown->setEnabled(!m_simulationOnly);
+	//ui->actionShutdown->setEnabled(!m_simulationOnly);
 	m_macroRunner_thread->setSimulationFlag(m_simulationOnly);
 
 	if (m_simulationOnly)ui->treeWidget_macroInfo->topLevelItem(0)->setText(1, "Simulation");
@@ -125,14 +125,14 @@ void Labonatip_GUI::disCon() {
 				if (!m_ppc1->connectCOM()) {
 					//ui->statusBar->showMessage("STATUS: NOT Connected  ");
 					this->setStatusLed(false);
-					status_PPC1_label->setText("PPC1 STATUS: NOT Connected  ");
-					ui->actionDisCon->setIconText("Connect");
+					ui->status_PPC1_label->setText("PPC1 STATUS: NOT Connected  ");
+					ui->actionConnectDisconnect->setText("Connect");
 					ui->actionSimulation->setEnabled(true);
 					QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 					QMessageBox::information(this, "Warning !",
 						"Lab-on-a-tip could not connect to PPC1, \n please check the cable and settings  ");
 					m_pipette_active = false;
-					ui->actionDisCon->setChecked(false);
+					ui->actionConnectDisconnect->setChecked(false);
 					return;
 				}
 			QThread::msleep(500);
@@ -141,12 +141,12 @@ void Labonatip_GUI::disCon() {
 			QThread::msleep(500);
 			if (m_ppc1->isRunning()) {
 				m_pipette_active = true;
-				ui->actionDisCon->setChecked(true);
+				ui->actionConnectDisconnect->setChecked(true);
 				m_update_GUI->start();
 				//ui->statusBar->showMessage("STATUS: Connected  ");
 				this->setStatusLed(true);
-				status_PPC1_label->setText("PPC1 STATUS: Connected  ");
-				ui->actionDisCon->setIconText("Disconnect");
+				ui->status_PPC1_label->setText("PPC1 STATUS: Connected  ");
+				ui->actionConnectDisconnect->setText("Disconnect");
 				ui->actionSimulation->setEnabled(false);
 			}
 			else {
@@ -159,10 +159,10 @@ void Labonatip_GUI::disCon() {
 				m_pipette_active = false;
 				//ui->statusBar->showMessage("STATUS: NOT Connected  ");
 				this->setStatusLed(false);
-				status_PPC1_label->setText("PPC1 STATUS: NOT Connected  ");
-				ui->actionDisCon->setIconText("Connect");
+				ui->status_PPC1_label->setText("PPC1 STATUS: NOT Connected  ");
+				ui->actionConnectDisconnect->setText("Connect");
 				ui->actionSimulation->setEnabled(true);
-				ui->actionDisCon->setChecked(false);
+				ui->actionConnectDisconnect->setChecked(false);
 				return;
 			}
 		} // if m_ppc1 not running 
@@ -177,18 +177,18 @@ void Labonatip_GUI::disCon() {
 			if (!m_ppc1->isRunning()) { // verify that it really stopped
 				//ui->statusBar->showMessage("STATUS: NOT Connected  ");
 				this->setStatusLed(false);
-				status_PPC1_label->setText("PPC1 STATUS: NOT Connected  ");
-				ui->actionDisCon->setIconText("Connect");
+				ui->status_PPC1_label->setText("PPC1 STATUS: NOT Connected  ");
+				ui->actionConnectDisconnect->setText("Connect");
 				m_pipette_active = false;
 				ui->actionSimulation->setEnabled(true);
 			}
 			else {
-				ui->actionDisCon->setChecked(false);
+				ui->actionConnectDisconnect->setChecked(false);
 				m_update_GUI->stop();
 				//ui->statusBar->showMessage("STATUS: Connected  ");
 				this->setStatusLed(true);
-				status_PPC1_label->setText("PPC1 STATUS: Connected  ");
-				ui->actionDisCon->setIconText("Disconnect");
+				ui->status_PPC1_label->setText("PPC1 STATUS: Connected  ");
+				ui->actionConnectDisconnect->setText("Disconnect");
 				ui->actionSimulation->setEnabled(false);
 				QMessageBox::information(this, "Warning !",
 					"Unable to stop and disconnect ");
@@ -339,20 +339,41 @@ void Labonatip_GUI::closeOpenDockTools() {
 
 	if (!ui->dockWidget->isHidden()) {
 		ui->dockWidget->hide();
+		ui->toolBar_2->removeAction(m_a_spacer);
+		m_g_spacer = new QGroupBox();
+		m_a_spacer = new QAction();
 		if (!this->isMaximized())
 			this->resize(QSize(this->width(), this->height()));//	this->resize(QSize(this->minimumWidth(), this->height()));
 	}
 	else {
+		
+		QRect rec = this->geometry();
+		int app_height = rec.height();
+		int app_width = rec.width();
+
+		//TODO: this is a really shitty method
+		m_g_spacer->setFixedWidth(app_width - 1130);
+		m_g_spacer->setStyleSheet("border:0;");
+		m_g_spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+		m_a_spacer = ui->toolBar_2->addWidget(m_g_spacer);
+
+		//W->setEnabled(false);
+		//ui->toolBar_2->addWidget(W);// , 0, 3, Qt::AlignRight);
 
 		if (this->width() < this->minimumWidth() + ui->dockWidget->width())
 		{
 			ui->dockWidget->show();
+			ui->toolBar_3->setGeometry(1200, 0, 132, 104);
+			
 			if (!this->isMaximized())
 				this->resize(QSize(this->width() + ui->dockWidget->width(), this->height()));
 		}
 		else
 		{
 			ui->dockWidget->show();
+			ui->toolBar_3->setGeometry(1400, 0, 132, 104);
+
+
 			if (!this->isMaximized())
 				this->resize(QSize(this->width(), this->height()));
 		}

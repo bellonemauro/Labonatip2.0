@@ -218,7 +218,7 @@
             <number>0</number>
            </property>
            <property name="currentIndex">
-            <number>3</number>
+            <number>0</number>
            </property>
            <widget class="QWidget" name="page_0">
             <layout class="QGridLayout" name="gridLayout_7">
@@ -662,6 +662,9 @@
              </item>
              <item row="2" column="0" rowspan="2" colspan="2">
               <widget class="QGroupBox" name="groupBox_GUISettings">
+               <property name="enabled">
+                <bool>true</bool>
+               </property>
                <property name="font">
                 <font>
                  <pointsize>11</pointsize>
