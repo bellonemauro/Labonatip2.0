@@ -84,39 +84,9 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   // all the connects are in this function
   initConnects();
   
-  // status bar to not connected
-  led_green->fill(Qt::transparent);
-  painter_led_green = new QPainter(led_green);
-  QRadialGradient radialGradient_green(8, 8, 12);
-  radialGradient_green.setColorAt(0.0, 0xF0F0F0);
-  radialGradient_green.setColorAt(0.5, 0x30D030);
-  radialGradient_green.setColorAt(1.0, Qt::transparent);
-  painter_led_green->setBackground(Qt::blue);
-  //painter_led_green->setBrush(Qt::green);
-  painter_led_green->setBrush(radialGradient_green);
-  painter_led_green->setPen(Qt::gray);
-
-  painter_led_green->drawEllipse(2, 2, 16, 16);
-
-  led_red->fill(Qt::transparent);
-  painter_led_red = new QPainter(led_red);
-  QRadialGradient radialGradient_red(8, 8, 12);
-  radialGradient_red.setColorAt(0.0, 0xF0F0F0);
-  radialGradient_red.setColorAt(0.5, 0xFF5050);
-  radialGradient_red.setColorAt(1.0, Qt::transparent);
-  painter_led_red->setBackground(Qt::blue);
-  //painter_led_red->setBrush(Qt::red);
-  painter_led_red->setBrush(radialGradient_red);
-  painter_led_red->setPen(Qt::gray);
-  painter_led_red->drawEllipse(2, 2, 16, 16);
-
-  this->setStatusLed(false);
-
-  ui->status_PPC1_label->setText("PPC1 STATUS: NOT Connected  ");
-  ui->label_macroStatus->setText("No macro running  ");
-  //ui->statusBar->showMessage("STATUS: NOT Connected  ");
-
-//  ui->toolBar_2->setToolButtonStyle(m_dialog_tools->m_GUI_params->showTextToolBar);
+  // set the toolbar text icons
+  ui->toolBar_2->setToolButtonStyle(m_dialog_tools->m_GUI_params->showTextToolBar);
+  ui->toolBar_3->setToolButtonStyle(m_dialog_tools->m_GUI_params->showTextToolBar);
 
   // hide the warning label
   ui->label_warning->hide();
@@ -158,6 +128,36 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   m_macroRunner_thread = new Labonatip_macroRunner(this);
   m_macroRunner_thread->setDevice(m_ppc1);
 
+  // status bar to not connected
+  led_green->fill(Qt::transparent);
+  painter_led_green = new QPainter(led_green);
+  QRadialGradient radialGradient_green(8, 8, 12);
+  radialGradient_green.setColorAt(0.0, 0xF0F0F0);
+  radialGradient_green.setColorAt(0.5, 0x30D030);
+  radialGradient_green.setColorAt(1.0, Qt::transparent);
+  painter_led_green->setBackground(Qt::blue);
+  //painter_led_green->setBrush(Qt::green);
+  painter_led_green->setBrush(radialGradient_green);
+  painter_led_green->setPen(Qt::gray);
+
+  painter_led_green->drawEllipse(2, 2, 16, 16);
+
+  led_red->fill(Qt::transparent);
+  painter_led_red = new QPainter(led_red);
+  QRadialGradient radialGradient_red(8, 8, 12);
+  radialGradient_red.setColorAt(0.0, 0xF0F0F0);
+  radialGradient_red.setColorAt(0.5, 0xFF5050);
+  radialGradient_red.setColorAt(1.0, Qt::transparent);
+  painter_led_red->setBackground(Qt::blue);
+  //painter_led_red->setBrush(Qt::red);
+  painter_led_red->setBrush(radialGradient_red);
+  painter_led_red->setPen(Qt::gray);
+  painter_led_red->drawEllipse(2, 2, 16, 16);
+
+  this->setStatusLed(false);
+
+  ui->status_PPC1_label->setText("PPC1 STATUS: NOT Connected  ");
+  ui->label_macroStatus->setText("No macro running  ");
 
   // init the timers 
   m_update_flowing_sliders = new QTimer();
@@ -968,6 +968,16 @@ void Labonatip_GUI::toolApply()
 	ui->toolBar_3->setToolButtonStyle(m_dialog_tools->m_GUI_params->showTextToolBar);
 	ui->toolBar_3->update();
 
+
+	if (m_dialog_tools->getMacroPath().isEmpty()) {
+		QString s = " No protocol loaded : ";
+		ui->label_macroStatus->setText(s);
+	}
+	else {
+		QString s = " Protocol loaded : ";
+		s.append(m_dialog_tools->getMacroPath());
+		ui->label_macroStatus->setText(s);
+	}
 	//switchLanguage(m_dialog_tools->language);
 
 	/////////////////////////////////////////

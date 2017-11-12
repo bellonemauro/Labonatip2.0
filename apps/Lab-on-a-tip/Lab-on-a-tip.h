@@ -28,6 +28,7 @@
 #include <QSettings>
 #include "ui_Lab-on-a-tip.h"
 #include "ui_Lab-on-a-tip_tools.h"
+#include "ui_Labonatip_macroWizard.h"
 
 #include <QTextStream>
 #include <QCoreApplication>
@@ -51,6 +52,7 @@
 #include "Q_DebugStream.h"
 #include "Lab-on-a-tip_tools.h"
 #include "Lab-on-a-tip_macroRunner.h"
+#include "Lab-on-a-tip_macroWizard.h"
 #include "Lab-on-a-tip_chart.h"
 
 
@@ -70,8 +72,8 @@ using namespace std;
 
 class Labonatip_tools;
 class Labonatip_macroRunner;
+class Labonatip_macroWizard;
 class Labonatip_chart;
-
 
 
 // new shorter class name = Lab-on-a-tip  -- Loat 

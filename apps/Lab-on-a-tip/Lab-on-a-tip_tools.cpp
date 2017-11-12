@@ -24,6 +24,9 @@ Labonatip_tools::Labonatip_tools(QWidget *parent ):
 	//load settings from file
 	loadSettings(m_setting_file_name);
 
+	// initialize the macro wizard
+	macroWizard = new Labonatip_macroWizard(),
+
 	//make sure to start from the initial page
 	ui_tools->stackedWidget->setCurrentIndex(0);
 
@@ -115,6 +118,9 @@ Labonatip_tools::Labonatip_tools(QWidget *parent ):
 	connect(ui_tools->pushButton_loadMacro, 
 		SIGNAL(clicked()), this, SLOT(loadMacro()));
 
+	connect(ui_tools->pushButton_macroWizard,
+		SIGNAL(clicked()), this, SLOT(newMacroWizard()));
+
 	connect(ui_tools->pushButton_toDefault,
 		SIGNAL(clicked()), this, SLOT(resetToDefaultValues()));
 
@@ -171,6 +177,13 @@ void Labonatip_tools::cancelPressed() {
 		<< "Labonatip_tools::cancelPressed " << endl;
 	emit cancel();
 	this->close();
+}
+
+void Labonatip_tools::newMacroWizard()
+{
+
+	macroWizard->show();
+
 }
 
 void Labonatip_tools::emptyWellsPressed() {

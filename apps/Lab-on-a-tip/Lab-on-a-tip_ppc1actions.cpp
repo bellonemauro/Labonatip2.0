@@ -126,14 +126,14 @@ void Labonatip_GUI::runMacro() {
 
 		if (!m_macro) {
 			QMessageBox::information(this, "Lab-on-a-tip information ",
-				"No macro loaded, load a macro first");
+				"No execution protocol loaded, load a protocol first");
 				return;
 		}
 		else {
 			QString macro_path = m_dialog_tools->getMacroPath();
-			QString msg = tr("The macro loaded is : \n");
+			QString msg = tr("The protocol loaded is : \n");
 			msg.append(macro_path);
-			msg.append("\n press ''ok'' to run the macro, or press ''cancel'' to load a new macro. ");
+			msg.append("\n press ''ok'' to run the protocol, or press ''cancel'' to load a new one. ");
 			QMessageBox::StandardButton resBtn = 
 				QMessageBox::question(this, "Lab-on-a-tip information ", msg,
 				QMessageBox::Cancel | QMessageBox::Ok,
@@ -155,6 +155,7 @@ void Labonatip_GUI::runMacro() {
 				ui->pushButton_newTip->setEnabled(true);
 				ui->pushButton_standby->setEnabled(true);
 				ui->pushButton_stop->setEnabled(true);
+				ui->toolBar_2->setEnabled(true);
 				//ui->tabWidget->setEnabled(false);
 				ui->tab_2->setEnabled(true);
 				ui->tab_4->setEnabled(true);
@@ -163,7 +164,25 @@ void Labonatip_GUI::runMacro() {
 				ui->actionSimulation->setEnabled(!m_simulationOnly);
 				ui->actionReboot->setEnabled(!m_simulationOnly);
 				ui->actionShudown->setEnabled(!m_simulationOnly);
-				ui->label_runMacro->setText("Run Macro");
+				ui->label_runMacro->setText("Run protocol");
+
+				QString s = " Protocol execution stopped : ";
+				s.append(m_dialog_tools->getMacroPath());
+				int duration = ui->treeWidget_macroInfo->topLevelItem(4)->text(1).toInt();
+				int remaining_time_sec = duration - 0 * duration / 100;
+				s.append(" ----- remaining time,  ");
+				int remaining_hours = floor(remaining_time_sec / 3600); // 3600 sec in a hour
+				int remaining_mins = floor((remaining_time_sec % 3600) / 60); // 60 minutes in a hour
+				int remaining_secs = remaining_time_sec - remaining_hours * 3600 - remaining_mins * 60; // 60 minutes in a hour
+				s.append(QString::number(remaining_hours));
+				s.append(" h,   ");
+				s.append(QString::number(remaining_mins));
+				s.append(" min,   ");
+				s.append(QString::number(remaining_secs));
+				s.append(" sec   ");
+				ui->progressBar_macroStatus->setValue(0);
+				ui->label_macroStatus->setText(s);
+
 				return;
 			}
 		}
@@ -196,6 +215,7 @@ void Labonatip_GUI::runMacro() {
 		ui->pushButton_newTip->setEnabled(false);
 		ui->pushButton_standby->setEnabled(false);
 		ui->pushButton_stop->setEnabled(false);
+		ui->toolBar_2->setEnabled(false);
 		//ui->tabWidget->setEnabled(false);
 		ui->tab_2->setEnabled(false);
 		ui->tab_4->setEnabled(false);
@@ -204,7 +224,7 @@ void Labonatip_GUI::runMacro() {
 		ui->actionSimulation->setEnabled(false);
 		ui->actionReboot->setEnabled(false);
 		ui->actionShudown->setEnabled(false);
-		ui->label_runMacro->setText("Stop Macro");
+		ui->label_runMacro->setText("Stop protocol");
 	}
 	else {
 		m_macroRunner_thread->disconnect();
@@ -217,6 +237,7 @@ void Labonatip_GUI::runMacro() {
 		ui->pushButton_operational->setEnabled(true);
 		ui->pushButton_newTip->setEnabled(true);
 		ui->pushButton_standby->setEnabled(true);
+		ui->toolBar_2->setEnabled(true);
 		//ui->pushButton_stop->setEnabled(true);
 		//ui->tabWidget->setEnabled(false);
 		ui->tab_2->setEnabled(true);
@@ -226,7 +247,7 @@ void Labonatip_GUI::runMacro() {
 		ui->actionSimulation->setEnabled(m_simulationOnly);
 		ui->actionReboot->setEnabled(!m_simulationOnly);
 		ui->actionShudown->setEnabled(!m_simulationOnly);
-		ui->label_runMacro->setText("Run Macro");
+		ui->label_runMacro->setText("Run protocol");
 	}
 
 }
@@ -240,12 +261,13 @@ void Labonatip_GUI::macroFinished(const QString &_result) {
 
 	QMessageBox::information(this, " Information !", _result);
 	//ui->statusBar->showMessage("MACRO FINISHED");
-	ui->label_runMacro->setText("Run Macro");
+	ui->label_runMacro->setText("Run protocol");
 	ui->groupBox_deliveryZone->setEnabled(true);
 	ui->pushButton_operational->setEnabled(true);
 	ui->pushButton_newTip->setEnabled(true);
 	ui->pushButton_stop->setEnabled(true);
 	ui->pushButton_standby->setEnabled(true);
+	ui->toolBar_2->setEnabled(true);
 	//ui->tabWidget->setEnabled(false);
 	ui->tab_2->setEnabled(true);
 	ui->tab_4->setEnabled(true);

@@ -218,7 +218,7 @@
             <number>0</number>
            </property>
            <property name="currentIndex">
-            <number>0</number>
+            <number>1</number>
            </property>
            <widget class="QWidget" name="page_0">
             <layout class="QGridLayout" name="gridLayout_7">
@@ -764,7 +764,161 @@
            </widget>
            <widget class="QWidget" name="page_1">
             <layout class="QGridLayout" name="gridLayout_5">
-             <item row="0" column="0" colspan="10">
+             <item row="1" column="3">
+              <widget class="QPushButton" name="pushButton_removeMacroCommand">
+               <property name="minimumSize">
+                <size>
+                 <width>40</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>40</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="toolTip">
+                <string>Remove command</string>
+               </property>
+               <property name="statusTip">
+                <string>Remove command</string>
+               </property>
+               <property name="whatsThis">
+                <string>Remove command</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normaloff>icons/minus.png</normaloff>icons/minus.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>25</width>
+                 <height>25</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="2">
+              <widget class="QPushButton" name="pushButton_duplicateLine">
+               <property name="toolTip">
+                <string>duplicate command</string>
+               </property>
+               <property name="statusTip">
+                <string>duplicate command</string>
+               </property>
+               <property name="whatsThis">
+                <string>duplicate command</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normaloff>icons/duplicate.png</normaloff>icons/duplicate.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>30</width>
+                 <height>30</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QPushButton" name="pushButton_plusIndent">
+               <property name="minimumSize">
+                <size>
+                 <width>40</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>40</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="toolTip">
+                <string>Add new command in the loop</string>
+               </property>
+               <property name="statusTip">
+                <string>Add new command in the loop</string>
+               </property>
+               <property name="whatsThis">
+                <string>Add new command in the loop</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normaloff>icons/indentPlus.png</normaloff>icons/indentPlus.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>25</width>
+                 <height>25</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QPushButton" name="pushButton_addMacroCommand">
+               <property name="minimumSize">
+                <size>
+                 <width>40</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>40</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="toolTip">
+                <string>Add new command</string>
+               </property>
+               <property name="statusTip">
+                <string>Add new command</string>
+               </property>
+               <property name="whatsThis">
+                <string>Add new command</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normaloff>icons/plus.png</normaloff>icons/plus.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0" colspan="11">
               <widget class="QTreeWidget" name="treeWidget_macroTable">
                <property name="font">
                 <font>
@@ -851,14 +1005,8 @@
                </column>
               </widget>
              </item>
-             <item row="1" column="0">
-              <widget class="QPushButton" name="pushButton_addMacroCommand">
-               <property name="minimumSize">
-                <size>
-                 <width>40</width>
-                 <height>40</height>
-                </size>
-               </property>
+             <item row="1" column="8">
+              <widget class="QPushButton" name="pushButton_moveDown">
                <property name="maximumSize">
                 <size>
                  <width>40</width>
@@ -873,20 +1021,20 @@
                 </font>
                </property>
                <property name="toolTip">
-                <string>Add new command</string>
+                <string>Move down</string>
                </property>
                <property name="statusTip">
-                <string>Add new command</string>
+                <string>Move down</string>
                </property>
                <property name="whatsThis">
-                <string>Add new command</string>
+                <string>Move down</string>
                </property>
                <property name="text">
                 <string/>
                </property>
                <property name="icon">
                 <iconset>
-                 <normaloff>icons/plus.png</normaloff>icons/plus.png</iconset>
+                 <normaloff>icons/downArrow.png</normaloff>icons/downArrow.png</iconset>
                </property>
                <property name="iconSize">
                 <size>
@@ -896,77 +1044,49 @@
                </property>
               </widget>
              </item>
-             <item row="1" column="1">
-              <widget class="QPushButton" name="pushButton_plusIndent">
-               <property name="minimumSize">
-                <size>
-                 <width>40</width>
-                 <height>40</height>
-                </size>
-               </property>
+             <item row="1" column="7">
+              <widget class="QPushButton" name="pushButton_moveUp">
                <property name="maximumSize">
                 <size>
                  <width>40</width>
                  <height>40</height>
                 </size>
                </property>
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
                <property name="toolTip">
-                <string>Add new command in the loop</string>
+                <string>Move up</string>
                </property>
                <property name="statusTip">
-                <string>Add new command in the loop</string>
+                <string>Move up</string>
                </property>
                <property name="whatsThis">
-                <string>Add new command in the loop</string>
+                <string>Move up</string>
                </property>
                <property name="text">
                 <string/>
                </property>
                <property name="icon">
                 <iconset>
-                 <normaloff>icons/indentPlus.png</normaloff>icons/indentPlus.png</iconset>
+                 <normaloff>icons/upArrow.png</normaloff>icons/upArrow.png</iconset>
                </property>
                <property name="iconSize">
                 <size>
-                 <width>25</width>
-                 <height>25</height>
+                 <width>20</width>
+                 <height>20</height>
                 </size>
                </property>
               </widget>
              </item>
-             <item row="1" column="2">
-              <widget class="QPushButton" name="pushButton_duplicateLine">
-               <property name="toolTip">
-                <string>duplicate command</string>
-               </property>
-               <property name="statusTip">
-                <string>duplicate command</string>
-               </property>
-               <property name="whatsThis">
-                <string>duplicate command</string>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="icon">
-                <iconset>
-                 <normaloff>icons/duplicate.png</normaloff>icons/duplicate.png</iconset>
-               </property>
-               <property name="iconSize">
-                <size>
-                 <width>30</width>
-                 <height>30</height>
-                </size>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="3">
-              <widget class="QPushButton" name="pushButton_removeMacroCommand">
-               <property name="minimumSize">
-                <size>
-                 <width>40</width>
-                 <height>40</height>
-                </size>
+             <item row="1" column="10">
+              <widget class="QPushButton" name="pushButton_becomeChild">
+               <property name="enabled">
+                <bool>false</bool>
                </property>
                <property name="maximumSize">
                 <size>
@@ -982,26 +1102,40 @@
                 </font>
                </property>
                <property name="toolTip">
-                <string>Remove command</string>
+                <string>Level down</string>
                </property>
                <property name="statusTip">
-                <string>Remove command</string>
+                <string>Level down</string>
                </property>
                <property name="whatsThis">
-                <string>Remove command</string>
+                <string>Level down</string>
                </property>
                <property name="text">
                 <string/>
                </property>
                <property name="icon">
                 <iconset>
-                 <normaloff>icons/minus.png</normaloff>icons/minus.png</iconset>
+                 <normaloff>icons/indent.png</normaloff>icons/indent.png</iconset>
                </property>
                <property name="iconSize">
                 <size>
-                 <width>25</width>
-                 <height>25</height>
+                 <width>20</width>
+                 <height>20</height>
                 </size>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="2" colspan="2">
+              <widget class="QPushButton" name="pushButton_saveMacro">
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                 <weight>50</weight>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Save</string>
                </property>
               </widget>
              </item>
@@ -1050,7 +1184,21 @@
                </property>
               </widget>
              </item>
-             <item row="1" column="5">
+             <item row="2" column="0" colspan="2">
+              <widget class="QPushButton" name="pushButton_loadMacro">
+               <property name="font">
+                <font>
+                 <pointsize>12</pointsize>
+                 <weight>50</weight>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Load</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="6">
               <spacer name="horizontalSpacer_9">
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
@@ -1063,88 +1211,10 @@
                </property>
               </spacer>
              </item>
-             <item row="1" column="6">
-              <widget class="QPushButton" name="pushButton_moveUp">
-               <property name="maximumSize">
-                <size>
-                 <width>40</width>
-                 <height>40</height>
-                </size>
-               </property>
-               <property name="font">
-                <font>
-                 <pointsize>12</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="toolTip">
-                <string>Move up</string>
-               </property>
-               <property name="statusTip">
-                <string>Move up</string>
-               </property>
-               <property name="whatsThis">
-                <string>Move up</string>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="icon">
-                <iconset>
-                 <normaloff>icons/upArrow.png</normaloff>icons/upArrow.png</iconset>
-               </property>
-               <property name="iconSize">
-                <size>
-                 <width>20</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="7">
-              <widget class="QPushButton" name="pushButton_moveDown">
-               <property name="maximumSize">
-                <size>
-                 <width>40</width>
-                 <height>40</height>
-                </size>
-               </property>
-               <property name="font">
-                <font>
-                 <pointsize>12</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
-               <property name="toolTip">
-                <string>Move down</string>
-               </property>
-               <property name="statusTip">
-                <string>Move down</string>
-               </property>
-               <property name="whatsThis">
-                <string>Move down</string>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-               <property name="icon">
-                <iconset>
-                 <normaloff>icons/downArrow.png</normaloff>icons/downArrow.png</iconset>
-               </property>
-               <property name="iconSize">
-                <size>
-                 <width>20</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="8">
+             <item row="1" column="9">
               <widget class="QPushButton" name="pushButton_becomeParent">
                <property name="enabled">
-                <bool>true</bool>
+                <bool>false</bool>
                </property>
                <property name="maximumSize">
                 <size>
@@ -1183,73 +1253,23 @@
                </property>
               </widget>
              </item>
-             <item row="1" column="9">
-              <widget class="QPushButton" name="pushButton_becomeChild">
-               <property name="enabled">
-                <bool>true</bool>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>40</width>
-                 <height>40</height>
-                </size>
-               </property>
-               <property name="font">
-                <font>
-                 <pointsize>12</pointsize>
-                 <weight>75</weight>
-                 <bold>true</bold>
-                </font>
-               </property>
+             <item row="1" column="5">
+              <widget class="QPushButton" name="pushButton_macroWizard">
                <property name="toolTip">
-                <string>Level down</string>
-               </property>
-               <property name="statusTip">
-                <string>Level down</string>
-               </property>
-               <property name="whatsThis">
-                <string>Level down</string>
+                <string>Start new macro using wizard</string>
                </property>
                <property name="text">
                 <string/>
                </property>
                <property name="icon">
                 <iconset>
-                 <normaloff>icons/indent.png</normaloff>icons/indent.png</iconset>
+                 <normaloff>icons/wizard.png</normaloff>icons/wizard.png</iconset>
                </property>
                <property name="iconSize">
                 <size>
-                 <width>20</width>
-                 <height>20</height>
+                 <width>30</width>
+                 <height>30</height>
                 </size>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="0" colspan="2">
-              <widget class="QPushButton" name="pushButton_loadMacro">
-               <property name="font">
-                <font>
-                 <pointsize>12</pointsize>
-                 <weight>50</weight>
-                 <bold>false</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>Load</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="2" colspan="2">
-              <widget class="QPushButton" name="pushButton_saveMacro">
-               <property name="font">
-                <font>
-                 <pointsize>12</pointsize>
-                 <weight>50</weight>
-                 <bold>false</bold>
-                </font>
-               </property>
-               <property name="text">
-                <string>Save</string>
                </property>
               </widget>
              </item>

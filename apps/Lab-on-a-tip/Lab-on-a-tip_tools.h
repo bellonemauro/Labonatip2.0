@@ -16,7 +16,7 @@
 #include <string>
 
 #include "Lab-on-a-tip.h"
-#include "ui_Lab-on-a-tip.h"
+
 
 // PPC1api 
 #include <fluicell/ppc1api/ppc1api.h>
@@ -26,6 +26,7 @@
 using namespace std;
 
 class Labonatip_macroRunner;
+class Labonatip_macroWizard;
 
 //custom combo behavior
 class macroCombobox :public QComboBox {
@@ -163,6 +164,8 @@ public:
 
 	void switchLanguage(QString _translation_file);
 
+	void updateDevices() { this->enumerate(); }
+
 	bool setLoadSettingsFileName(QString _filename) { 
 		m_setting_file_name = _filename; 
 		return loadSettings(m_setting_file_name);
@@ -243,6 +246,12 @@ private slots:
 	*   
 	*/
 	void applyPressed();
+
+	/** new macro widard
+	*
+	*/
+	void newMacroWizard();
+
 
 	void emptyWellsPressed();
 
@@ -372,6 +381,8 @@ private:
 	QString m_macro_path;
 
 	QTranslator m_translator_tool;
+
+	Labonatip_macroWizard * macroWizard;
 
 protected:
 	Ui::Labonatip_tools *ui_tools;    //!<  the user interface

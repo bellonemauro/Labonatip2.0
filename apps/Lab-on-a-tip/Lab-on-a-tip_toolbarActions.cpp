@@ -130,10 +130,33 @@ void Labonatip_GUI::disCon() {
 					ui->actionSimulation->setEnabled(true);
 					QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 					QMessageBox::information(this, "Warning !",
-						"Lab-on-a-tip could not connect to PPC1, \n please check the cable and settings  ");
-					m_pipette_active = false;
-					ui->actionConnectDisconnect->setChecked(false);
-					return;
+						"Lab-on-a-tip could not connect to PPC1, \n please check cables and settings and press ok ");
+
+					QMessageBox::StandardButton resBtn =
+						QMessageBox::question(this, "Lab-on-a-tip",
+							tr("I can try to automatically find the device, \n Should I do it?\n"),
+							QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
+							QMessageBox::Yes);
+					if (resBtn != QMessageBox::Yes) {
+						m_pipette_active = false;
+						ui->actionConnectDisconnect->setChecked(false);
+						return;
+					}
+					else {
+						m_dialog_tools->updateDevices();
+						m_ppc1->setCOMport(m_dialog_tools->m_comSettings->name);
+						m_ppc1->setBaudRate((int)m_dialog_tools->m_comSettings->baudRate);
+						if (!m_ppc1->connectCOM())
+						{
+							QMessageBox::information(this, "Warning !",
+								"Lab-on-a-tip could not connect to PPC1 twice, \n please check cables and settings  ");
+							m_pipette_active = false;
+							ui->actionConnectDisconnect->setChecked(false);
+							return;
+						}
+					}
+
+
 				}
 			QThread::msleep(500);
 
@@ -342,6 +365,8 @@ void Labonatip_GUI::closeOpenDockTools() {
 		ui->toolBar_2->removeAction(m_a_spacer);
 		m_g_spacer = new QGroupBox();
 		m_a_spacer = new QAction();
+		ui->actionAdvanced->setText("Advanced");
+		ui->toolBar_3->update();
 		if (!this->isMaximized())
 			this->resize(QSize(this->width(), this->height()));//	this->resize(QSize(this->minimumWidth(), this->height()));
 	}
@@ -356,6 +381,9 @@ void Labonatip_GUI::closeOpenDockTools() {
 		m_g_spacer->setStyleSheet("border:0;");
 		m_g_spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 		m_a_spacer = ui->toolBar_2->addWidget(m_g_spacer);
+
+		ui->actionAdvanced->setText("Basic");
+		ui->toolBar_3->update();
 
 		//W->setEnabled(false);
 		//ui->toolBar_2->addWidget(W);// , 0, 3, Qt::AlignRight);
