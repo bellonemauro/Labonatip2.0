@@ -561,6 +561,8 @@ protected:
 	// event control, so far only translations are handled
 	void changeEvent(QEvent*); 
 
+	bool eventFilter(QObject *_obj, QEvent *_event);
+
 private:
 
 	void setEnableMainWindow(bool _enable = false);

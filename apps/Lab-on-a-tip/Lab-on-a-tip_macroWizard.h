@@ -28,11 +28,26 @@ public:
 
 	~Labonatip_macroWizard() {}
 
+	void setMacroPath(QString _path) { m_macro_path = _path; }
+
 private slots:
 	
 	void next();
 
 	void back();
+
+	bool save();
+
+	void exit();
+	
+	void closeEvent(QCloseEvent *event);
+
+
+private:
+
+	QString m_macro_path;
+
+	void setBanner(int _current_index);
 
 protected:
 	Ui::Labonatip_macroWizard *ui_wizard;    //!<  the user interface

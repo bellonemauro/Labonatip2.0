@@ -182,7 +182,7 @@ int main(int argc, char **argv)//(int argc, char *argv[])
 	  QString macro_user_path;
 	  QString settings_user_path;
 
-	  if (!initPaths(window, macro_user_path, settings_user_path)) return 0;
+	  //if (!initPaths(window, macro_user_path, settings_user_path)) return 0;
 	  // set default paths for settings and macros in the GUI app
 	  window.setMacroUserPath(macro_user_path);
 	  window.setSettingsUserPath(settings_user_path);

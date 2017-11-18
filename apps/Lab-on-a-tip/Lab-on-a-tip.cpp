@@ -74,6 +74,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   // init the object to handle the internal dialogs
   m_dialog_tools = new Labonatip_tools();
 
+
   default_pon = m_dialog_tools->m_pr_params->p_on_default;
   default_poff = m_dialog_tools->m_pr_params->p_off_default;
   default_v_switch = -m_dialog_tools->m_pr_params->v_switch_default;
@@ -200,6 +201,8 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 
   ui->textEdit_emptyTime->setText(" ");
 
+  // instal the event filter on -everything- in the app
+  qApp->installEventFilter(this);
 }
 
 
@@ -689,11 +692,12 @@ void Labonatip_GUI::switchLanguage(int _value )
 }
 
 
+
 void Labonatip_GUI::changeEvent(QEvent* _event)
 {
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::changeEvent   " << _event->type() << endl;
+//	cout << QDate::currentDate().toString().toStdString() << "  "
+//		<< QTime::currentTime().toString().toStdString() << "  "
+//		<< "Labonatip_GUI::changeEvent   " << _event->type() << endl;
 
 	if (0 != _event) {
 		switch (_event->type()) {
@@ -710,6 +714,28 @@ void Labonatip_GUI::changeEvent(QEvent* _event)
 
 }
 
+
+bool Labonatip_GUI::eventFilter(QObject *_obj, QEvent *_event)
+{
+	// activate/deactivate tool tips http://www.qtcentre.org/threads/11056-enable-all-Tooltips
+	// http://doc.qt.io/qt-4.8/qobject.html#installEventFilter
+
+	if (_event->type() == QEvent::ToolTip) {
+		
+		if (!m_dialog_tools->m_GUI_params->enableToolTips) { 
+			return true; //this filter the event
+		}
+		else	{		
+			// standard event processing
+			return QObject::eventFilter(_obj, _event);
+		}
+	}
+	else {
+		// standard event processing
+		return QObject::eventFilter(_obj, _event);
+	}
+
+}
 
 void Labonatip_GUI::setStatusLed( bool _connect ) {
 	

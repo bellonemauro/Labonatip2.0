@@ -8,7 +8,7 @@
 *  +---------------------------------------------------------------------------+ */
 
 #include "Lab-on-a-tip_tools.h"
-
+#include  <QCheckBox>
 
 Labonatip_tools::Labonatip_tools(QWidget *parent ):
 	QDialog (parent),
@@ -43,7 +43,10 @@ Labonatip_tools::Labonatip_tools(QWidget *parent ):
 	connect(ui_tools->comboBox_toolButtonStyle,
 		static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this,
 		&Labonatip_tools::toolButtonStyleChanged);
-	
+
+	connect(ui_tools->checkBox_enableToolTips,
+		SIGNAL(stateChanged(int)), this, SLOT(enableToolTip()));
+
 	// enumerate connected com ports
 	enumerate();
 
@@ -181,7 +184,7 @@ void Labonatip_tools::cancelPressed() {
 
 void Labonatip_tools::newMacroWizard()
 {
-
+	macroWizard->setMacroPath(m_macro_path);
 	macroWizard->show();
 
 }
@@ -950,7 +953,10 @@ void Labonatip_tools::toolButtonStyleChanged(int _idx)
 	m_GUI_params->showTextToolBar = Qt::ToolButtonStyle(_idx);
 }
 
-
+void Labonatip_tools::enableToolTip(int _inx)
+{
+	m_GUI_params->enableToolTips = ui_tools->checkBox_enableToolTips->isChecked();
+}
 
 void Labonatip_tools::colorSol1Changed(int _value)
 {
@@ -1086,7 +1092,7 @@ void Labonatip_tools::getSolutionSettings()
 void Labonatip_tools::getGUIsettings()
 {
 	m_GUI_params->showTextToolBar = Qt::ToolButtonStyle(ui_tools->comboBox_toolButtonStyle->currentIndex());
-
+	m_GUI_params->enableToolTips = ui_tools->checkBox_enableToolTips->isChecked();
 	//TODO other settings ! 
 }
 
@@ -1178,6 +1184,10 @@ bool Labonatip_tools::loadSettings(QString _path)
 	ui_tools->comboBox_toolButtonStyle->setCurrentIndex(tbs);
 	m_GUI_params->showTextToolBar = Qt::ToolButtonStyle(tbs);
 
+	//TODO  ENABLE TOOL TIPS NOT READ
+	bool enable_tool_tips = m_settings->value("GUI/EnableToolTips", "0").toBool();
+	ui_tools->checkBox_enableToolTips->setChecked(enable_tool_tips);
+	m_GUI_params->enableToolTips = enable_tool_tips;
 	
 	// read pr_limits group
 	int p_on_max = m_settings->value("pr_limits/p_on_max", "450").toInt(&ok);
@@ -1401,7 +1411,7 @@ bool Labonatip_tools::saveSettings(QString _file_name)
 
 	// [GUI]
 	settings->setValue("GUI/ToolButtonStyle", ui_tools->comboBox_toolButtonStyle->currentIndex());
-
+	settings->setValue("GUI/enableToolTips", ui_tools->checkBox_enableToolTips->isChecked());
 
 	// [pr_limits]
 	// p_on_max = 

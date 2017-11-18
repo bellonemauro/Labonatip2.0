@@ -139,10 +139,11 @@ public:
 
   struct GUIparams {
 	  Qt::ToolButtonStyle showTextToolBar;     //!<  ToolButtonIconOnly --- n 
+	  bool enableToolTips;
 
 	  GUIparams() {   // default values
 		  this->showTextToolBar = Qt::ToolButtonIconOnly;
-
+		  this->enableToolTips = false;
 	  }
 
   }; // END COMSettings struct
@@ -202,6 +203,8 @@ private slots:
 	void languageChanged(int _idx);
 
 	void toolButtonStyleChanged(int _idx);
+
+	void enableToolTip(int _inx);
 
 	/** Color solution 1 changed
 	* \note
