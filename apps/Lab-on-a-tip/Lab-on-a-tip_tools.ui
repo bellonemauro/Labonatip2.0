@@ -77,7 +77,7 @@
         <x>0</x>
         <y>0</y>
         <width>1010</width>
-        <height>721</height>
+        <height>725</height>
        </rect>
       </property>
       <property name="sizePolicy">
@@ -218,10 +218,13 @@
             <number>0</number>
            </property>
            <property name="currentIndex">
-            <number>1</number>
+            <number>0</number>
            </property>
            <widget class="QWidget" name="page_0">
             <layout class="QGridLayout" name="gridLayout_7">
+             <property name="topMargin">
+              <number>0</number>
+             </property>
              <item row="6" column="1">
               <spacer name="verticalSpacer_5">
                <property name="orientation">
@@ -771,6 +774,9 @@
            </widget>
            <widget class="QWidget" name="page_1">
             <layout class="QGridLayout" name="gridLayout_5">
+             <property name="topMargin">
+              <number>0</number>
+             </property>
              <item row="1" column="3">
               <widget class="QPushButton" name="pushButton_removeMacroCommand">
                <property name="minimumSize">
@@ -1284,6 +1290,9 @@
            </widget>
            <widget class="QWidget" name="page_2">
             <layout class="QGridLayout" name="gridLayout">
+             <property name="topMargin">
+              <number>0</number>
+             </property>
              <item row="0" column="0">
               <widget class="QGroupBox" name="groupBox_solutionNames">
                <property name="font">
@@ -2074,6 +2083,9 @@ border-radius: 4px;
            </widget>
            <widget class="QWidget" name="page_3">
             <layout class="QGridLayout" name="gridLayout_9">
+             <property name="topMargin">
+              <number>0</number>
+             </property>
              <item row="0" column="0">
               <widget class="QGroupBox" name="groupBox_comSettings">
                <property name="sizePolicy">
