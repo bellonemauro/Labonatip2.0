@@ -62,6 +62,9 @@
        <height>200</height>
       </size>
      </property>
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
      <property name="verticalScrollBarPolicy">
       <enum>Qt::ScrollBarAsNeeded</enum>
      </property>
@@ -76,8 +79,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>1010</width>
-        <height>725</height>
+        <width>1012</width>
+        <height>723</height>
        </rect>
       </property>
       <property name="sizePolicy">
