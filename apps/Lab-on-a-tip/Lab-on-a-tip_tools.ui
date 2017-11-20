@@ -80,7 +80,7 @@
         <x>0</x>
         <y>0</y>
         <width>1012</width>
-        <height>723</height>
+        <height>728</height>
        </rect>
       </property>
       <property name="sizePolicy">
@@ -221,7 +221,7 @@
             <number>0</number>
            </property>
            <property name="currentIndex">
-            <number>0</number>
+            <number>1</number>
            </property>
            <widget class="QWidget" name="page_0">
             <layout class="QGridLayout" name="gridLayout_7">
@@ -1023,6 +1023,12 @@
              </item>
              <item row="1" column="8">
               <widget class="QPushButton" name="pushButton_moveDown">
+               <property name="minimumSize">
+                <size>
+                 <width>40</width>
+                 <height>40</height>
+                </size>
+               </property>
                <property name="maximumSize">
                 <size>
                  <width>40</width>
@@ -1062,6 +1068,12 @@
              </item>
              <item row="1" column="7">
               <widget class="QPushButton" name="pushButton_moveUp">
+               <property name="minimumSize">
+                <size>
+                 <width>40</width>
+                 <height>40</height>
+                </size>
+               </property>
                <property name="maximumSize">
                 <size>
                  <width>40</width>
@@ -1271,6 +1283,18 @@
              </item>
              <item row="1" column="5">
               <widget class="QPushButton" name="pushButton_macroWizard">
+               <property name="minimumSize">
+                <size>
+                 <width>40</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>40</width>
+                 <height>40</height>
+                </size>
+               </property>
                <property name="toolTip">
                 <string>Start new macro using wizard</string>
                </property>

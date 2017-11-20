@@ -44,18 +44,30 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   
   // setup the user interface
   ui->setupUi (this);
+  //TODO: remove the title from the dockwidget
+  //ui->dockWidget->setWindowFlags(Qt::Window | Qt::WindowStaysOnTopHint |
+  //	  Qt::X11BypassWindowManagerHint | Qt::FramelessWindowHint);
   ui->dockWidget->close();  //close the advaced dock page
   //ui->treeWidget_macroInfo->setHeaderHidden(true);
   ui->treeWidget_macroInfo->resizeColumnToContents(0);
 
   // debug stuff -- set 1 to remove all messages and tab
-  if (0)
+  if (1)
   {
-  ui->checkBox_dumpToFile->setChecked(false);
-  ui->checkBox_to_terminal->setChecked(false);
-  ui->checkBox_verboseOut->setChecked(false);
-  ui->tabWidget->removeTab(2);
-  setPpc1Verbose(false);
+	  ui->checkBox_dumpToFile->setChecked(false);
+	  ui->checkBox_to_terminal->setChecked(false);
+	  ui->checkBox_verboseOut->setChecked(false);
+	  ui->tabWidget->removeTab(2);
+	  setPpc1Verbose(false);
+  }
+  else {
+	  // init the redirect buffer
+	  qout = new QDebugStream(std::cout, ui->textEdit_qcout);
+	  qout->copyOutToTerminal(ui->checkBox_to_terminal->isChecked());
+	  //  QTextStream standardOutput(stdout);
+	  qerr = new QDebugStream(std::cerr, ui->textEdit_qcerr);
+	  qerr->copyOutToTerminal(ui->checkBox_to_terminal->isChecked());
+	  //  QTextStream standardOutput(stderr);// (stdout);
   }
 
   // set translation
@@ -73,7 +85,6 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   
   // init the object to handle the internal dialogs
   m_dialog_tools = new Labonatip_tools();
-
 
   default_pon = m_dialog_tools->m_pr_params->p_on_default;
   default_poff = m_dialog_tools->m_pr_params->p_off_default;
@@ -115,14 +126,6 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   m_ppc1->setCOMport(m_dialog_tools->m_comSettings->name);
   m_ppc1->setBaudRate((int)m_dialog_tools->m_comSettings->baudRate);
   m_ppc1->setVebose(ui->checkBox_verboseOut->isChecked());
-
-  // init the redirect buffer
-  qout = new QDebugStream(std::cout, ui->textEdit_qcout);
-  qout->copyOutToTerminal(ui->checkBox_to_terminal->isChecked());
-  //  QTextStream standardOutput(stdout);
-  qerr = new QDebugStream(std::cerr, ui->textEdit_qcerr);
-  qerr->copyOutToTerminal(ui->checkBox_to_terminal->isChecked());
-  //  QTextStream standardOutput(stderr);// (stdout);
 
   // init thread macroRunner //TODO: this is just a support, check if needed
   //Labonatip_macroRunner *m_macroRunner_thread = new Labonatip_macroRunner( this );

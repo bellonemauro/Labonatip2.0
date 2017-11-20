@@ -8,7 +8,7 @@
 *  +---------------------------------------------------------------------------+ */
 
 //uncomment to hide the console when the app starts
-//#define HIDE_TERMINAL
+#define HIDE_TERMINAL
 #ifdef HIDE_TERMINAL
 	#if defined (_WIN64) || defined (_WIN32)
 	  #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
@@ -182,7 +182,7 @@ int main(int argc, char **argv)//(int argc, char *argv[])
 	  QString macro_user_path;
 	  QString settings_user_path;
 
-	  //if (!initPaths(window, macro_user_path, settings_user_path)) return 0;
+	  if (!initPaths(window, macro_user_path, settings_user_path)) return 0;
 	  // set default paths for settings and macros in the GUI app
 	  window.setMacroUserPath(macro_user_path);
 	  window.setSettingsUserPath(settings_user_path);

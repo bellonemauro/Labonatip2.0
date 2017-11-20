@@ -77,7 +77,8 @@ void Labonatip_GUI::showToolsDialog() {
 	m_dialog_tools->setMacroPath(m_macro_path); //TODO: reset the macro path in case it is changed in the settings
 
 	m_dialog_tools->setWindowFlags(Qt::WindowFullscreenButtonHint);
-	m_dialog_tools->setModal(false);
+	m_dialog_tools->setWindowFlags(Qt::WindowStaysOnTopHint);
+	m_dialog_tools->setModal(true);
 	m_macro = new std::vector<fluicell::PPC1api::command>();
 	m_dialog_tools->setMacroPrt(m_macro);
 	m_dialog_tools->show();
