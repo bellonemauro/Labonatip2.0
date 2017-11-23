@@ -80,7 +80,7 @@
         <x>0</x>
         <y>0</y>
         <width>1012</width>
-        <height>728</height>
+        <height>723</height>
        </rect>
       </property>
       <property name="sizePolicy">
@@ -138,7 +138,7 @@
            </property>
            <property name="maximumSize">
             <size>
-             <width>150</width>
+             <width>180</width>
              <height>16777215</height>
             </size>
            </property>
@@ -147,27 +147,71 @@
              <pointsize>12</pointsize>
             </font>
            </property>
+           <property name="styleSheet">
+            <string notr="true">QListView {
+
+}</string>
+           </property>
            <property name="frameShape">
             <enum>QFrame::StyledPanel</enum>
            </property>
            <property name="frameShadow">
             <enum>QFrame::Sunken</enum>
            </property>
+           <property name="dragDropMode">
+            <enum>QAbstractItemView::NoDragDrop</enum>
+           </property>
+           <property name="iconSize">
+            <size>
+             <width>40</width>
+             <height>40</height>
+            </size>
+           </property>
+           <property name="textElideMode">
+            <enum>Qt::ElideMiddle</enum>
+           </property>
+           <property name="movement">
+            <enum>QListView::Static</enum>
+           </property>
+           <property name="flow">
+            <enum>QListView::LeftToRight</enum>
+           </property>
+           <property name="layoutMode">
+            <enum>QListView::Batched</enum>
+           </property>
            <property name="spacing">
             <number>0</number>
            </property>
            <property name="gridSize">
             <size>
-             <width>175</width>
+             <width>160</width>
              <height>80</height>
             </size>
            </property>
            <property name="viewMode">
             <enum>QListView::IconMode</enum>
            </property>
+           <property name="modelColumn">
+            <number>0</number>
+           </property>
+           <property name="uniformItemSizes">
+            <bool>false</bool>
+           </property>
+           <property name="batchSize">
+            <number>100</number>
+           </property>
+           <property name="currentRow">
+            <number>-1</number>
+           </property>
+           <property name="sortingEnabled">
+            <bool>false</bool>
+           </property>
            <item>
             <property name="text">
              <string>General</string>
+            </property>
+            <property name="textAlignment">
+             <set>AlignLeading|AlignVCenter</set>
             </property>
             <property name="icon">
              <iconset>
@@ -178,6 +222,9 @@
             <property name="text">
              <string>Protocols</string>
             </property>
+            <property name="textAlignment">
+             <set>AlignLeading|AlignVCenter</set>
+            </property>
             <property name="icon">
              <iconset>
               <normaloff>icons/fluicell_iconBIG.png</normaloff>icons/fluicell_iconBIG.png</iconset>
@@ -185,7 +232,10 @@
            </item>
            <item>
             <property name="text">
-             <string>Solutions</string>
+             <string> Solutions</string>
+            </property>
+            <property name="textAlignment">
+             <set>AlignLeading|AlignVCenter</set>
             </property>
             <property name="icon">
              <iconset>
@@ -196,6 +246,9 @@
             <property name="text">
              <string>Communication</string>
             </property>
+            <property name="textAlignment">
+             <set>AlignLeading|AlignVCenter</set>
+            </property>
             <property name="icon">
              <iconset>
               <normaloff>icons/Communication.png</normaloff>icons/Communication.png</iconset>
@@ -205,6 +258,11 @@
          </item>
          <item row="1" column="1">
           <widget class="QStackedWidget" name="stackedWidget">
+           <property name="font">
+            <font>
+             <pointsize>11</pointsize>
+            </font>
+           </property>
            <property name="acceptDrops">
             <bool>false</bool>
            </property>
@@ -221,7 +279,7 @@
             <number>0</number>
            </property>
            <property name="currentIndex">
-            <number>1</number>
+            <number>3</number>
            </property>
            <widget class="QWidget" name="page_0">
             <layout class="QGridLayout" name="gridLayout_7">
@@ -292,6 +350,11 @@
                   <property name="enabled">
                    <bool>false</bool>
                   </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="accessibleDescription">
                    <string/>
                   </property>
@@ -304,6 +367,11 @@
                  <widget class="QLineEdit" name="lineEdit_v_switch_min">
                   <property name="enabled">
                    <bool>false</bool>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
                   </property>
                   <property name="accessibleDescription">
                    <string/>
@@ -318,6 +386,11 @@
                   <property name="enabled">
                    <bool>false</bool>
                   </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="accessibleDescription">
                    <string/>
                   </property>
@@ -330,6 +403,11 @@
                  <widget class="QLineEdit" name="lineEdit_v_switch_max">
                   <property name="enabled">
                    <bool>false</bool>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
                   </property>
                   <property name="accessibleDescription">
                    <string/>
@@ -370,6 +448,11 @@
                   <property name="enabled">
                    <bool>false</bool>
                   </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="accessibleDescription">
                    <string/>
                   </property>
@@ -380,6 +463,11 @@
                 </item>
                 <item row="0" column="4">
                  <widget class="QLabel" name="label_25">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="text">
                    <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt; P&lt;span style=&quot; vertical-align:sub;&quot;&gt;off&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
@@ -387,6 +475,11 @@
                 </item>
                 <item row="0" column="2">
                  <widget class="QLabel" name="label_27">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="text">
                    <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt; P&lt;span style=&quot; vertical-align:sub;&quot;&gt;on&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
@@ -394,6 +487,11 @@
                 </item>
                 <item row="0" column="6">
                  <widget class="QLabel" name="label_26">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="text">
                    <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt; V&lt;span style=&quot; vertical-align:sub;&quot;&gt;switch&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
@@ -403,6 +501,11 @@
                  <widget class="QLineEdit" name="lineEdit_v_recirc_max">
                   <property name="enabled">
                    <bool>false</bool>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
                   </property>
                   <property name="accessibleDescription">
                    <string/>
@@ -414,6 +517,11 @@
                 </item>
                 <item row="1" column="0">
                  <widget class="QLabel" name="label_29">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="text">
                    <string>Max</string>
                   </property>
@@ -421,6 +529,11 @@
                 </item>
                 <item row="2" column="0">
                  <widget class="QLabel" name="label_30">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="text">
                    <string>Min</string>
                   </property>
@@ -428,6 +541,11 @@
                 </item>
                 <item row="3" column="0">
                  <widget class="QLabel" name="label_28">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="text">
                    <string>Default operational values</string>
                   </property>
@@ -437,6 +555,11 @@
                  <widget class="QLineEdit" name="lineEdit_p_on_max">
                   <property name="enabled">
                    <bool>false</bool>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
                   </property>
                   <property name="accessibleDescription">
                    <string/>
@@ -448,6 +571,11 @@
                 </item>
                 <item row="0" column="8">
                  <widget class="QLabel" name="label_31">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="text">
                    <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt; V&lt;span style=&quot; vertical-align:sub;&quot;&gt;recirc&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
@@ -457,6 +585,11 @@
                  <widget class="QLineEdit" name="lineEdit_p_on_min">
                   <property name="enabled">
                    <bool>false</bool>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
                   </property>
                   <property name="accessibleDescription">
                    <string/>
@@ -468,6 +601,11 @@
                 </item>
                 <item row="3" column="2">
                  <widget class="QLineEdit" name="lineEdit_p_on_default">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="toolTip">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Default operational value for P&lt;span style=&quot; vertical-align:sub;&quot;&gt;on&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
@@ -481,6 +619,11 @@
                 </item>
                 <item row="3" column="4">
                  <widget class="QLineEdit" name="lineEdit_p_off_default">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="accessibleDescription">
                    <string/>
                   </property>
@@ -491,6 +634,11 @@
                 </item>
                 <item row="3" column="6">
                  <widget class="QLineEdit" name="lineEdit_v_switch_default">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="accessibleDescription">
                    <string/>
                   </property>
@@ -501,6 +649,11 @@
                 </item>
                 <item row="3" column="8">
                  <widget class="QLineEdit" name="lineEdit_v_recirc_default">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="accessibleDescription">
                    <string/>
                   </property>
@@ -525,12 +678,20 @@
                  <pointsize>12</pointsize>
                 </font>
                </property>
+               <property name="styleSheet">
+                <string notr="true"/>
+               </property>
                <property name="title">
                 <string>General Settings</string>
                </property>
                <layout class="QGridLayout" name="gridLayout_13">
                 <item row="2" column="0">
                  <widget class="QLabel" name="label_19">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="text">
                    <string>Month</string>
                   </property>
@@ -538,6 +699,11 @@
                 </item>
                 <item row="1" column="1">
                  <widget class="QLineEdit" name="lineEdit_year">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="accessibleDescription">
                    <string/>
                   </property>
@@ -548,6 +714,11 @@
                 </item>
                 <item row="3" column="1">
                  <widget class="QComboBox" name="comboBox_language">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="currentText">
                    <string notr="true">English</string>
                   </property>
@@ -588,13 +759,23 @@
                 </item>
                 <item row="0" column="0">
                  <widget class="QLabel" name="label_17">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="text">
-                   <string>User name</string>
+                   <string>Profile name</string>
                   </property>
                  </widget>
                 </item>
                 <item row="0" column="1">
                  <widget class="QLineEdit" name="lineEdit_userName">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="accessibleName">
                    <string/>
                   </property>
@@ -608,6 +789,11 @@
                 </item>
                 <item row="2" column="1">
                  <widget class="QLineEdit" name="lineEdit_month">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="accessibleDescription">
                    <string/>
                   </property>
@@ -618,6 +804,11 @@
                 </item>
                 <item row="1" column="0">
                  <widget class="QLabel" name="label_22">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="text">
                    <string>Year</string>
                   </property>
@@ -625,6 +816,11 @@
                 </item>
                 <item row="3" column="0">
                  <widget class="QLabel" name="label_15">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="text">
                    <string>Language</string>
                   </property>
@@ -632,6 +828,11 @@
                 </item>
                 <item row="3" column="2">
                  <widget class="QPushButton" name="pushButton_2">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="text">
                    <string>Apply New Language</string>
                   </property>
@@ -673,7 +874,7 @@
                </property>
                <property name="font">
                 <font>
-                 <pointsize>11</pointsize>
+                 <pointsize>12</pointsize>
                 </font>
                </property>
                <property name="title">
@@ -682,6 +883,11 @@
                <layout class="QGridLayout" name="gridLayout_11">
                 <item row="0" column="2">
                  <widget class="QComboBox" name="comboBox_toolButtonStyle">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="accessibleDescription">
                    <string notr="true"/>
                   </property>
@@ -717,6 +923,11 @@
                 </item>
                 <item row="0" column="0">
                  <widget class="QLabel" name="label_16">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="text">
                    <string>Tool button style</string>
                   </property>
@@ -737,6 +948,11 @@
                 </item>
                 <item row="1" column="0" colspan="3">
                  <widget class="QCheckBox" name="checkBox_enableToolTips">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="text">
                    <string>Enable toop tips</string>
                   </property>
@@ -938,7 +1154,7 @@
               <widget class="QTreeWidget" name="treeWidget_macroTable">
                <property name="font">
                 <font>
-                 <pointsize>12</pointsize>
+                 <pointsize>11</pointsize>
                 </font>
                </property>
                <property name="accessibleDescription">
@@ -1452,6 +1668,11 @@ border-radius: 4px;
                 </item>
                 <item row="10" column="2">
                  <widget class="QSpinBox" name="spinBox_ds_increment">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="suffix">
                    <string notr="true"> %</string>
                   </property>
@@ -1471,6 +1692,11 @@ border-radius: 4px;
                 </item>
                 <item row="11" column="2">
                  <widget class="QSpinBox" name="spinBox_fs_increment">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="suffix">
                    <string notr="true"> %</string>
                   </property>
@@ -1492,6 +1718,7 @@ border-radius: 4px;
                  <widget class="QLabel" name="label_12">
                   <property name="font">
                    <font>
+                    <pointsize>11</pointsize>
                     <weight>50</weight>
                     <bold>false</bold>
                    </font>
@@ -1515,6 +1742,7 @@ border-radius: 4px;
                  <widget class="QLabel" name="label_14">
                   <property name="font">
                    <font>
+                    <pointsize>11</pointsize>
                     <weight>50</weight>
                     <bold>false</bold>
                    </font>
@@ -1599,6 +1827,7 @@ border-radius: 4px;
                  <widget class="QLabel" name="label_11">
                   <property name="font">
                    <font>
+                    <pointsize>11</pointsize>
                     <weight>50</weight>
                     <bold>false</bold>
                    </font>
@@ -1802,6 +2031,11 @@ background-color: rgb(255, 255, 255);</string>
                 </item>
                 <item row="12" column="2">
                  <widget class="QSpinBox" name="spinBox_v_increment">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="suffix">
                    <string notr="true"> %</string>
                   </property>
@@ -2080,6 +2314,7 @@ border-radius: 4px;
                  <widget class="QLabel" name="label_13">
                   <property name="font">
                    <font>
+                    <pointsize>11</pointsize>
                     <weight>50</weight>
                     <bold>false</bold>
                    </font>
@@ -2091,6 +2326,11 @@ border-radius: 4px;
                 </item>
                 <item row="5" column="1">
                  <widget class="QPushButton" name="pushButton_emptyWells">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="text">
                    <string>Empty wells</string>
                   </property>
@@ -2157,9 +2397,15 @@ border-radius: 4px;
                 </item>
                 <item row="8" column="0">
                  <widget class="QLabel" name="label_4">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <property name="font">
                    <font>
-                    <pointsize>10</pointsize>
+                    <pointsize>11</pointsize>
                    </font>
                   </property>
                   <property name="text">
@@ -2169,9 +2415,15 @@ border-radius: 4px;
                 </item>
                 <item row="6" column="0">
                  <widget class="QLabel" name="label_5">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <property name="font">
                    <font>
-                    <pointsize>10</pointsize>
+                    <pointsize>11</pointsize>
                    </font>
                   </property>
                   <property name="text">
@@ -2183,7 +2435,7 @@ border-radius: 4px;
                  <widget class="QLabel" name="vidLabel">
                   <property name="font">
                    <font>
-                    <pointsize>10</pointsize>
+                    <pointsize>11</pointsize>
                    </font>
                   </property>
                   <property name="text">
@@ -2193,9 +2445,15 @@ border-radius: 4px;
                 </item>
                 <item row="4" column="0">
                  <widget class="QLabel" name="label">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <property name="font">
                    <font>
-                    <pointsize>10</pointsize>
+                    <pointsize>11</pointsize>
                    </font>
                   </property>
                   <property name="text">
@@ -2207,7 +2465,7 @@ border-radius: 4px;
                  <widget class="QLabel" name="pidLabel">
                   <property name="font">
                    <font>
-                    <pointsize>10</pointsize>
+                    <pointsize>11</pointsize>
                    </font>
                   </property>
                   <property name="text">
@@ -2217,9 +2475,15 @@ border-radius: 4px;
                 </item>
                 <item row="1" column="0">
                  <widget class="QLabel" name="label_6">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <property name="font">
                    <font>
-                    <pointsize>10</pointsize>
+                    <pointsize>11</pointsize>
                    </font>
                   </property>
                   <property name="text">
@@ -2229,9 +2493,15 @@ border-radius: 4px;
                 </item>
                 <item row="7" column="0">
                  <widget class="QLabel" name="label_7">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <property name="font">
                    <font>
-                    <pointsize>10</pointsize>
+                    <pointsize>11</pointsize>
                    </font>
                   </property>
                   <property name="text">
@@ -2241,9 +2511,15 @@ border-radius: 4px;
                 </item>
                 <item row="5" column="0">
                  <widget class="QLabel" name="label_2">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <property name="font">
                    <font>
-                    <pointsize>10</pointsize>
+                    <pointsize>11</pointsize>
                    </font>
                   </property>
                   <property name="text">
@@ -2260,6 +2536,12 @@ border-radius: 4px;
                 </item>
                 <item row="1" column="3">
                  <widget class="QLabel" name="descriptionLabel">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
                   <property name="minimumSize">
                    <size>
                     <width>300</width>
@@ -2268,7 +2550,7 @@ border-radius: 4px;
                   </property>
                   <property name="font">
                    <font>
-                    <pointsize>10</pointsize>
+                    <pointsize>11</pointsize>
                    </font>
                   </property>
                   <property name="text">
@@ -2280,7 +2562,7 @@ border-radius: 4px;
                  <widget class="QLabel" name="manufacturerLabel">
                   <property name="font">
                    <font>
-                    <pointsize>10</pointsize>
+                    <pointsize>11</pointsize>
                    </font>
                   </property>
                   <property name="text">
@@ -2290,6 +2572,11 @@ border-radius: 4px;
                 </item>
                 <item row="1" column="1">
                  <widget class="QComboBox" name="comboBox_serialInfo">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="toolTip">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Port name COM1 ... N &lt;br/&gt;Display the available port only;&lt;/p&gt;&lt;p&gt;Select the port to see device details below.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
@@ -2305,7 +2592,7 @@ border-radius: 4px;
                  <widget class="QLabel" name="serialNumberLabel">
                   <property name="font">
                    <font>
-                    <pointsize>10</pointsize>
+                    <pointsize>11</pointsize>
                    </font>
                   </property>
                   <property name="text">
@@ -2317,7 +2604,7 @@ border-radius: 4px;
                  <widget class="QLabel" name="locationLabel">
                   <property name="font">
                    <font>
-                    <pointsize>10</pointsize>
+                    <pointsize>11</pointsize>
                    </font>
                   </property>
                   <property name="text">
@@ -2327,6 +2614,11 @@ border-radius: 4px;
                 </item>
                 <item row="5" column="1">
                  <widget class="QComboBox" name="comboBox_dataBit">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="toolTip">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The number of data bits in each character can be 5 (for Baudot code), &lt;br/&gt;6 (rarely used), 7 (for true ASCII), 8 (for most kinds of data, &lt;br/&gt;as this size matches the size of a byte), or 9 (rarely used). &lt;br/&gt;8 data bits are almost universally used in newer applications.&lt;br/&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Default value:&lt;/span&gt; 8&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
@@ -2365,6 +2657,11 @@ border-radius: 4px;
                 </item>
                 <item row="4" column="1">
                  <widget class="QComboBox" name="comboBox_baudRate">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="toolTip">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The baud rate is the speed of communication in bit/s&lt;br/&gt;Supported values : 1200; 2400; 4800; 9600; 19200; 38400; 57600; 115200 bit/s&lt;br/&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Default value:&lt;/span&gt; 9600&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
@@ -2426,6 +2723,11 @@ border-radius: 4px;
                 </item>
                 <item row="7" column="1">
                  <widget class="QComboBox" name="comboBox_stopBit">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="toolTip">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Stop bits sent at the end of every character allow the receiving signal hardware to detect the end of a character and to resynchronise with the character stream. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
@@ -2456,6 +2758,11 @@ border-radius: 4px;
                 </item>
                 <item row="6" column="1">
                  <widget class="QComboBox" name="comboBox_parity">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="toolTip">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Parity is a method of detecting errors in transmission.&lt;br/&gt;When parity is used with a serial port, an extra data bit is sent with each data character, &lt;br/&gt;arranged so that the number of 1 bits in each character, including the parity bit, &lt;br/&gt;is always odd or always even. If a byte is received with the wrong number of 1s, &lt;br/&gt;then it must have been corrupted.&lt;br/&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Default value:&lt;/span&gt; NoParity&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
@@ -2496,6 +2803,11 @@ border-radius: 4px;
                 </item>
                 <item row="8" column="1">
                  <widget class="QComboBox" name="comboBox_flowControl">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="toolTip">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-family:'sans-serif'; font-size:14px; color:#222222; background-color:#ffffff;&quot;&gt;A serial port may use signals in the interface to pause and resume the transmission of data.&lt;/span&gt;&lt;br&gt;&lt;span style=&quot; font-family:'sans-serif'; font-size:14px; font-weight:600; color:#222222; background-color:#ffffff;&quot;&gt;Default value:&lt;/span&gt;&lt;span style=&quot; font-family:'sans-serif'; font-size:14px; color:#222222; background-color:#ffffff;&quot;&gt; NoFlowControl&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
@@ -2529,9 +2841,12 @@ border-radius: 4px;
                   <property name="orientation">
                    <enum>Qt::Horizontal</enum>
                   </property>
+                  <property name="sizeType">
+                   <enum>QSizePolicy::Minimum</enum>
+                  </property>
                   <property name="sizeHint" stdset="0">
                    <size>
-                    <width>20</width>
+                    <width>30</width>
                     <height>20</height>
                    </size>
                   </property>
@@ -2575,6 +2890,11 @@ border-radius: 4px;
                <layout class="QGridLayout" name="gridLayout_10">
                 <item row="1" column="2">
                  <widget class="QLineEdit" name="lineEdit_serverPort">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="text">
                    <string>12345</string>
                   </property>
@@ -2582,6 +2902,11 @@ border-radius: 4px;
                 </item>
                 <item row="1" column="1">
                  <widget class="QLabel" name="label_8">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="text">
                    <string>Port number</string>
                   </property>
@@ -2589,6 +2914,11 @@ border-radius: 4px;
                 </item>
                 <item row="2" column="2">
                  <widget class="QPushButton" name="pushButton">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="text">
                    <string>Start server/client</string>
                   </property>
@@ -2596,6 +2926,11 @@ border-radius: 4px;
                 </item>
                 <item row="0" column="2">
                  <widget class="QLineEdit" name="lineEdit_IP">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="text">
                    <string>127.0.0.1</string>
                   </property>
@@ -2606,6 +2941,11 @@ border-radius: 4px;
                 </item>
                 <item row="0" column="1">
                  <widget class="QLabel" name="label_3">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="text">
                    <string>IP address</string>
                   </property>

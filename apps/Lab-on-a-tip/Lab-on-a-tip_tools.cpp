@@ -21,11 +21,13 @@ Labonatip_tools::Labonatip_tools(QWidget *parent ):
 {
 	ui_tools->setupUi(this );
 
+
+
 	//load settings from file
 	loadSettings(m_setting_file_name);
 
 	// initialize the macro wizard
-	macroWizard = new Labonatip_macroWizard(),
+	macroWizard = new Labonatip_macroWizard(this),
 
 	//make sure to start from the initial page
 	ui_tools->stackedWidget->setCurrentIndex(0);
@@ -185,6 +187,8 @@ void Labonatip_tools::cancelPressed() {
 void Labonatip_tools::newMacroWizard()
 {
 	macroWizard->setMacroPath(m_macro_path);
+	//macroWizard->setWindowFlags(Qt::Window | Qt::WindowStaysOnTopHint);
+	macroWizard->setModal(true);
 	macroWizard->show();
 
 }

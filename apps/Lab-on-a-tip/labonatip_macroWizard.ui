@@ -55,14 +55,50 @@
        </property>
        <item row="0" column="1">
         <widget class="QStackedWidget" name="stackedWidget">
+         <property name="font">
+          <font>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
          <property name="currentIndex">
-          <number>1</number>
+          <number>4</number>
          </property>
          <widget class="QWidget" name="page">
           <layout class="QGridLayout" name="gridLayout_3">
            <property name="bottomMargin">
             <number>0</number>
            </property>
+           <item row="0" column="1" colspan="4">
+            <widget class="QLabel" name="label_3">
+             <property name="font">
+              <font>
+               <pointsize>14</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>Labonatip Protocol Wizard</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label">
+             <property name="maximumSize">
+              <size>
+               <width>140</width>
+               <height>230</height>
+              </size>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="pixmap">
+              <pixmap>icons/wizard.png</pixmap>
+             </property>
+             <property name="scaledContents">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
            <item row="1" column="1" rowspan="2" colspan="4">
             <widget class="QPlainTextEdit" name="plainTextEdit">
              <property name="font">
@@ -90,11 +126,12 @@ This winzard will help you to create a new execution protocol for the biopen dev
 
 
 
-This is still a concept and it will not generate a protocol yet</string>
+Insert the name of your protocol and click next to continue
+</string>
              </property>
             </widget>
            </item>
-           <item row="3" column="1" colspan="4">
+           <item row="6" column="1" colspan="4">
             <widget class="QGroupBox" name="groupBox">
              <property name="maximumSize">
               <size>
@@ -153,38 +190,32 @@ This is still a concept and it will not generate a protocol yet</string>
              </layout>
             </widget>
            </item>
-           <item row="0" column="1" colspan="4">
-            <widget class="QLabel" name="label_3">
+           <item row="3" column="1">
+            <widget class="QLineEdit" name="lineEdit_3">
              <property name="font">
               <font>
-               <pointsize>14</pointsize>
+               <pointsize>11</pointsize>
               </font>
              </property>
              <property name="text">
-              <string>Labonatip Protocol Wizard</string>
+              <string>my_protocol</string>
              </property>
             </widget>
            </item>
-           <item row="1" column="0">
-            <widget class="QLabel" name="label">
-             <property name="maximumSize">
+           <item row="4" column="1">
+            <spacer name="verticalSpacer_8">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
               <size>
-               <width>140</width>
-               <height>230</height>
+               <width>20</width>
+               <height>40</height>
               </size>
              </property>
-             <property name="text">
-              <string/>
-             </property>
-             <property name="pixmap">
-              <pixmap>icons/wizard.png</pixmap>
-             </property>
-             <property name="scaledContents">
-              <bool>true</bool>
-             </property>
-            </widget>
+            </spacer>
            </item>
-           <item row="2" column="0">
+           <item row="3" column="0" rowspan="4">
             <spacer name="verticalSpacer_4">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
@@ -200,12 +231,51 @@ This is still a concept and it will not generate a protocol yet</string>
           </layout>
          </widget>
          <widget class="QWidget" name="page_2">
-          <layout class="QGridLayout" name="gridLayout_4">
+          <layout class="QGridLayout" name="gridLayout_14">
            <property name="bottomMargin">
             <number>0</number>
            </property>
-           <item row="1" column="1" colspan="4">
+           <item row="3" column="1">
+            <widget class="QRadioButton" name="radioButton_2">
+             <property name="font">
+              <font>
+               <pointsize>11</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>Set new solution names and pressure/vacuum values</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="1">
+            <widget class="QRadioButton" name="radioButton">
+             <property name="font">
+              <font>
+               <pointsize>11</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>Load a new setting file</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1" colspan="2">
             <widget class="QPlainTextEdit" name="plainTextEdit_2">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>80</height>
+              </size>
+             </property>
              <property name="font">
               <font>
                <pointsize>11</pointsize>
@@ -222,18 +292,7 @@ This is still a concept and it will not generate a protocol yet</string>
               <enum>QFrame::NoFrame</enum>
              </property>
              <property name="plainText">
-              <string>The best way to start is the inizialization, put your device into a standard init mode
-
-
-
-The operational mode will run the following commands:
-   setVswitch(-115)
-   setVrecirc(-115)
-   wait (5)
-   setPoff(190)
-   setPon(21)
-
-Whereas the initialize sequence will add ....</string>
+              <string>choose to load a settings file or new settings (this will bring in pressures and solution names)</string>
              </property>
             </widget>
            </item>
@@ -243,7 +302,7 @@ Whereas the initialize sequence will add ....</string>
               <enum>Qt::Vertical</enum>
              </property>
              <property name="sizeType">
-              <enum>QSizePolicy::Minimum</enum>
+              <enum>QSizePolicy::Expanding</enum>
              </property>
              <property name="sizeHint" stdset="0">
               <size>
@@ -253,19 +312,51 @@ Whereas the initialize sequence will add ....</string>
              </property>
             </spacer>
            </item>
-           <item row="3" column="1">
-            <widget class="QRadioButton" name="radioButton_2">
-             <property name="font">
-              <font>
-               <pointsize>11</pointsize>
-              </font>
+           <item row="0" column="0" rowspan="7">
+            <widget class="QLabel" name="label_5">
+             <property name="maximumSize">
+              <size>
+               <width>140</width>
+               <height>16777215</height>
+              </size>
              </property>
              <property name="text">
-              <string>Run operational mode</string>
+              <string/>
+             </property>
+             <property name="pixmap">
+              <pixmap>icons/watermark2.png</pixmap>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
              </property>
             </widget>
            </item>
-           <item row="6" column="1" colspan="4">
+           <item row="1" column="1">
+            <spacer name="verticalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="label_4">
+             <property name="font">
+              <font>
+               <pointsize>14</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>Initial settings</string>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="1" colspan="2">
             <widget class="QGroupBox" name="groupBox_2">
              <property name="maximumSize">
               <size>
@@ -322,32 +413,28 @@ Whereas the initialize sequence will add ....</string>
              </layout>
             </widget>
            </item>
-           <item row="4" column="1">
-            <widget class="QRadioButton" name="radioButton_3">
-             <property name="font">
-              <font>
-               <pointsize>11</pointsize>
-              </font>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="page_3">
+          <layout class="QGridLayout" name="gridLayout_17">
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item row="2" column="1">
+            <spacer name="verticalSpacer_7">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
              </property>
-             <property name="text">
-              <string>Add initialize sequence</string>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
              </property>
-            </widget>
+            </spacer>
            </item>
-           <item row="0" column="1" colspan="2">
-            <widget class="QLabel" name="label_4">
-             <property name="font">
-              <font>
-               <pointsize>14</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>Initialize</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0" rowspan="7">
-            <widget class="QLabel" name="label_5">
+           <item row="0" column="0" rowspan="4">
+            <widget class="QLabel" name="label_9">
              <property name="maximumSize">
               <size>
                <width>140</width>
@@ -358,35 +445,14 @@ Whereas the initialize sequence will add ....</string>
               <string/>
              </property>
              <property name="pixmap">
-              <pixmap>icons/watermark2.png</pixmap>
+              <pixmap>icons/watermark1.png</pixmap>
              </property>
              <property name="alignment">
               <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
              </property>
             </widget>
            </item>
-          </layout>
-         </widget>
-         <widget class="QWidget" name="page_3">
-          <layout class="QGridLayout" name="gridLayout_5">
-           <property name="bottomMargin">
-            <number>0</number>
-           </property>
-           <item row="1" column="1" colspan="3">
-            <widget class="QPlainTextEdit" name="plainTextEdit_3">
-             <property name="styleSheet">
-              <string notr="true">QPlainTextEdit {
-    background-color: transparent;
-    /*background-image: url(draft.png);*/
-    background-attachment: scroll;
-}</string>
-             </property>
-             <property name="plainText">
-              <string>sdasdas</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1" colspan="3">
+           <item row="0" column="1">
             <widget class="QLabel" name="label_6">
              <property name="font">
               <font>
@@ -394,11 +460,87 @@ Whereas the initialize sequence will add ....</string>
               </font>
              </property>
              <property name="text">
-              <string>Add custom procedures</string>
+              <string>Set solution names</string>
              </property>
             </widget>
            </item>
-           <item row="2" column="1" colspan="3">
+           <item row="1" column="1">
+            <widget class="QGroupBox" name="groupBox_10">
+             <property name="font">
+              <font>
+               <pointsize>11</pointsize>
+              </font>
+             </property>
+             <property name="title">
+              <string/>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_5">
+              <item row="0" column="0" colspan="2">
+               <widget class="QLabel" name="label_25">
+                <property name="minimumSize">
+                 <size>
+                  <width>70</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>Sol 1:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="2">
+               <widget class="QLineEdit" name="lineEdit_13">
+                <property name="text">
+                 <string>name 2</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0" colspan="2">
+               <widget class="QLabel" name="label_26">
+                <property name="text">
+                 <string>Sol 3:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0" colspan="2">
+               <widget class="QLabel" name="label_27">
+                <property name="text">
+                 <string>Sol 2:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="2">
+               <widget class="QLineEdit" name="lineEdit_14">
+                <property name="text">
+                 <string>name 1</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="0" colspan="2">
+               <widget class="QLabel" name="label_28">
+                <property name="text">
+                 <string>Sol 4:</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="2">
+               <widget class="QLineEdit" name="lineEdit_15">
+                <property name="text">
+                 <string>name 4</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="2">
+               <widget class="QLineEdit" name="lineEdit_16">
+                <property name="text">
+                 <string>name 3</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item row="3" column="1">
             <widget class="QGroupBox" name="groupBox_3">
              <property name="maximumSize">
               <size>
@@ -455,8 +597,15 @@ Whereas the initialize sequence will add ....</string>
              </layout>
             </widget>
            </item>
-           <item row="0" column="0" rowspan="3">
-            <widget class="QLabel" name="label_9">
+          </layout>
+         </widget>
+         <widget class="QWidget" name="page_4">
+          <layout class="QGridLayout" name="gridLayout_4">
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item row="0" column="0" rowspan="4">
+            <widget class="QLabel" name="label_12">
              <property name="maximumSize">
               <size>
                <width>140</width>
@@ -474,9 +623,413 @@ Whereas the initialize sequence will add ....</string>
              </property>
             </widget>
            </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="label_7">
+             <property name="font">
+              <font>
+               <pointsize>14</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>Pressure/vacuum standard value</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QGroupBox" name="groupBox_11">
+             <property name="font">
+              <font>
+               <pointsize>11</pointsize>
+              </font>
+             </property>
+             <property name="title">
+              <string/>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_18">
+              <item row="0" column="0">
+               <widget class="QLabel" name="label_29">
+                <property name="minimumSize">
+                 <size>
+                  <width>70</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="text">
+                 <string>Pon</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QLineEdit" name="lineEdit_wizard_setPon">
+                <property name="text">
+                 <string>0</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="label_30">
+                <property name="text">
+                 <string>Poff</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QLineEdit" name="lineEdit_wizard_setPoff">
+                <property name="text">
+                 <string>0</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QLabel" name="label_31">
+                <property name="text">
+                 <string>Vswitch</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QLineEdit" name="lineEdit_wizard_setVs">
+                <property name="text">
+                 <string>0</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="0">
+               <widget class="QLabel" name="label_32">
+                <property name="text">
+                 <string>Vrecirc</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="1">
+               <widget class="QLineEdit" name="lineEdit_wizard_setVr">
+                <property name="text">
+                 <string>0</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QGroupBox" name="groupBox_7">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>45</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QGroupBox {
+    border: 2px solid transparent;
+}</string>
+             </property>
+             <property name="title">
+              <string/>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_15">
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <item row="0" column="2">
+               <widget class="QPushButton" name="pushButton_next4">
+                <property name="text">
+                 <string>Next</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="3">
+               <widget class="QPushButton" name="pushButton_cancel4">
+                <property name="text">
+                 <string>Cancel</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QPushButton" name="pushButton_back4">
+                <property name="text">
+                 <string>Back</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0">
+               <spacer name="horizontalSpacer_8">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <spacer name="verticalSpacer_6">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
           </layout>
          </widget>
-         <widget class="QWidget" name="page_4">
+         <widget class="QWidget" name="page_5">
+          <layout class="QGridLayout" name="gridLayout_13">
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item row="4" column="1">
+            <spacer name="verticalSpacer_5">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="3" column="1">
+            <widget class="QComboBox" name="comboBox">
+             <item>
+              <property name="text">
+               <string>Pressure ON (mbar)</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Pressure OFF (mbar)</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Vacuum Switch (mbar)</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Vacuum Recirculation (mbar)</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Solution 1 (open/close)</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Solution 2 (open/close)</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Solution 3 (open/close)</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Solution 4 (open/close)</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Wait (sec)</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Ask</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>All off</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Pump off</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Valve state</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Wait sync</string>
+              </property>
+             </item>
+             <item>
+              <property name="text">
+               <string>Sync out</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+           <item row="3" column="2">
+            <widget class="QLineEdit" name="lineEdit_2">
+             <property name="text">
+              <string>0</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="3">
+            <widget class="QLineEdit" name="lineEdit">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1" colspan="3">
+            <widget class="QPlainTextEdit" name="plainTextEdit_6">
+             <property name="font">
+              <font>
+               <pointsize>11</pointsize>
+              </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QPlainTextEdit {
+    background-color: transparent;
+    /*background-image: url(draft.png);*/
+    background-attachment: scroll;
+}</string>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::NoFrame</enum>
+             </property>
+             <property name="plainText">
+              <string>
+Add a new line
+</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLabel" name="label_20">
+             <property name="font">
+              <font>
+               <pointsize>14</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>Add a new line</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="1" colspan="3">
+            <widget class="QGroupBox" name="groupBox_8">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>45</height>
+              </size>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QGroupBox {
+    border: 2px solid transparent;
+}</string>
+             </property>
+             <property name="title">
+              <string/>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_16">
+              <property name="bottomMargin">
+               <number>0</number>
+              </property>
+              <item row="0" column="2">
+               <widget class="QPushButton" name="pushButton_next5">
+                <property name="text">
+                 <string>Next</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="3">
+               <widget class="QPushButton" name="pushButton_cancel5">
+                <property name="text">
+                 <string>Cancel</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QPushButton" name="pushButton_back5">
+                <property name="text">
+                 <string>Back</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0">
+               <spacer name="horizontalSpacer_9">
+                <property name="orientation">
+                 <enum>Qt::Horizontal</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>40</width>
+                  <height>20</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item row="0" column="0" rowspan="6">
+            <widget class="QLabel" name="label_19">
+             <property name="maximumSize">
+              <size>
+               <width>140</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="pixmap">
+              <pixmap>icons/watermark1.png</pixmap>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLabel" name="label_13">
+             <property name="text">
+              <string>Command</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="2">
+            <widget class="QLabel" name="label_14">
+             <property name="text">
+              <string>Value</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="3">
+            <widget class="QLabel" name="label_15">
+             <property name="text">
+              <string>Message</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="page_6">
           <layout class="QGridLayout" name="gridLayout_6">
            <property name="bottomMargin">
             <number>0</number>
@@ -548,14 +1101,14 @@ Whereas the initialize sequence will add ....</string>
                </widget>
               </item>
               <item row="0" column="3">
-               <widget class="QPushButton" name="pushButton_cancel4">
+               <widget class="QPushButton" name="pushButton_cancel6">
                 <property name="text">
                  <string>Cancel</string>
                 </property>
                </widget>
               </item>
               <item row="0" column="1">
-               <widget class="QPushButton" name="pushButton_back4">
+               <widget class="QPushButton" name="pushButton_back6">
                 <property name="text">
                  <string>Back</string>
                 </property>
@@ -598,7 +1151,7 @@ Whereas the initialize sequence will add ....</string>
            </item>
           </layout>
          </widget>
-         <widget class="QWidget" name="page_5">
+         <widget class="QWidget" name="page_67">
           <layout class="QGridLayout" name="gridLayout_12">
            <property name="bottomMargin">
             <number>0</number>

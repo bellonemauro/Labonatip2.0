@@ -52,7 +52,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   ui->treeWidget_macroInfo->resizeColumnToContents(0);
 
   // debug stuff -- set 1 to remove all messages and tab
-  if (1)
+  if (0)
   {
 	  ui->checkBox_dumpToFile->setChecked(false);
 	  ui->checkBox_to_terminal->setChecked(false);
@@ -84,7 +84,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   qApp->installTranslator(&m_translator);
   
   // init the object to handle the internal dialogs
-  m_dialog_tools = new Labonatip_tools();
+  m_dialog_tools = new Labonatip_tools(); // TODO: if I put this here is mess up the list widget
 
   default_pon = m_dialog_tools->m_pr_params->p_on_default;
   default_poff = m_dialog_tools->m_pr_params->p_off_default;

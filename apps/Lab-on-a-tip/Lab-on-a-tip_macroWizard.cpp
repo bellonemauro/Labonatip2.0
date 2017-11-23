@@ -50,14 +50,34 @@ Labonatip_macroWizard::Labonatip_macroWizard(QWidget *parent)
 		SIGNAL(clicked()), this, SLOT(exit()));
 
 	// page 4
+	connect(ui_wizard->pushButton_next4,
+		SIGNAL(clicked()), this, SLOT(next()));
 
 	connect(ui_wizard->pushButton_back4,
+		SIGNAL(clicked()), this, SLOT(back()));
+
+	connect(ui_wizard->pushButton_cancel4,
+		SIGNAL(clicked()), this, SLOT(exit()));
+
+	//page 5
+	connect(ui_wizard->pushButton_next5,
+		SIGNAL(clicked()), this, SLOT(next()));
+
+	connect(ui_wizard->pushButton_back5,
+		SIGNAL(clicked()), this, SLOT(back()));
+
+	connect(ui_wizard->pushButton_cancel5,
+		SIGNAL(clicked()), this, SLOT(exit()));
+
+
+	//page 6
+	connect(ui_wizard->pushButton_back6,
 		SIGNAL(clicked()), this, SLOT(back()));
 
 	connect(ui_wizard->pushButton_save,
 		SIGNAL(clicked()), this, SLOT(save()));
 
-	connect(ui_wizard->pushButton_cancel4,
+	connect(ui_wizard->pushButton_cancel6,
 		SIGNAL(clicked()), this, SLOT(exit()));
 
 	// last page
