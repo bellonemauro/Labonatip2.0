@@ -32,6 +32,10 @@ public:
 
 private slots:
 	
+	void next_page1to2();
+
+	void next_page2to();
+
 	void next();
 
 	void back();
@@ -48,6 +52,8 @@ private:
 	QString m_macro_path;
 
 	void setBanner(int _current_index);
+
+	QString m_protocol_name;
 
 protected:
 	Ui::Labonatip_macroWizard *ui_wizard;    //!<  the user interface

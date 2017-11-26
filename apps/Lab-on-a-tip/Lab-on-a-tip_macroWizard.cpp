@@ -14,7 +14,8 @@
 
 Labonatip_macroWizard::Labonatip_macroWizard(QWidget *parent)
     : ui_wizard(new Ui::Labonatip_macroWizard),
-	QDialog(parent)
+	QDialog(parent),
+	m_protocol_name("")
 {
 	ui_wizard->setupUi(this);
 
@@ -24,14 +25,15 @@ Labonatip_macroWizard::Labonatip_macroWizard(QWidget *parent)
 
 	// page 1
 	connect(ui_wizard->pushButton_next1,
-		SIGNAL(clicked()), this, SLOT(next()));
+		SIGNAL(clicked()), this, SLOT(next_page1to2()));
 
 	connect(ui_wizard->pushButton_cancel,
 		SIGNAL(clicked()), this, SLOT(exit()));
 
 	// page 2
+
 	connect(ui_wizard->pushButton_next2,
-		SIGNAL(clicked()), this, SLOT(next()));
+		SIGNAL(clicked()), this, SLOT(next_page2to()));
 
 	connect(ui_wizard->pushButton_back2,
 		SIGNAL(clicked()), this, SLOT(back()));
@@ -86,6 +88,59 @@ Labonatip_macroWizard::Labonatip_macroWizard(QWidget *parent)
 	
 }
 
+void Labonatip_macroWizard::next_page1to2()
+{
+	m_protocol_name = ui_wizard->lineEdit_protocol_name->text();
+    
+	int current_idx = ui_wizard->stackedWidget->currentIndex() + 1;
+	ui_wizard->stackedWidget->setCurrentIndex(current_idx);
+	setBanner(current_idx);
+
+}
+
+void Labonatip_macroWizard::next_page2to()
+{
+	if (ui_wizard->radioButton_loadSetting_1->isChecked())
+	{
+
+		int current_idx = ui_wizard->stackedWidget->currentIndex() + 1;
+		ui_wizard->stackedWidget->setCurrentIndex(current_idx);
+		setBanner(current_idx);
+
+		return;
+	}
+
+	if (ui_wizard->radioButton_loadSetting_2->isChecked())
+	{
+		
+		// load the file
+		QString _path = QFileDialog::getOpenFileName(this, tr("Open Settings file"), "",  // dialog to open files
+			"Settings file (*.ini);; All Files(*.*)", 0);
+
+		if (_path.isEmpty()) {
+			QMessageBox::information(this, "Information !", "No file loaded ! <br>" + _path);
+			return;
+		}
+
+		QMessageBox::information(this, "Information !", "No function implemented yet ! <br>" + _path);
+
+		// go directly to page 4
+		int current_idx = 4; // ui_wizard->stackedWidget->currentIndex() + 1;
+		ui_wizard->stackedWidget->setCurrentIndex(current_idx);
+		setBanner(current_idx);
+
+
+		return;
+	}
+
+	
+
+
+
+}
+
+
+
 void Labonatip_macroWizard::next()
 {
 	int current_idx = ui_wizard->stackedWidget->currentIndex() + 1;
@@ -100,6 +155,7 @@ void Labonatip_macroWizard::back()
 	ui_wizard->stackedWidget->setCurrentIndex(current_idx);
 	setBanner(current_idx);
 }
+
 
 
 bool Labonatip_macroWizard::save()
@@ -192,6 +248,15 @@ void Labonatip_macroWizard::setBanner(int _current_index)
 		break;
 	}
 	case 4:
+	{
+		ui_wizard->pushButton_home->setChecked(true);
+		ui_wizard->pushButton_second->setChecked(true);
+		ui_wizard->pushButton_4->setChecked(true);
+		ui_wizard->pushButton_saved->setChecked(false);
+		ui_wizard->pushButton_finished->setChecked(false);
+		break;
+	}
+	case 5:
 	{		
 		ui_wizard->pushButton_home->setChecked(true);
 		ui_wizard->pushButton_second->setChecked(true);
@@ -201,7 +266,7 @@ void Labonatip_macroWizard::setBanner(int _current_index)
 		break;
 
 	}
-	case 5: 
+	case 6: 
 	{		
 		ui_wizard->pushButton_home->setChecked(true);
 		ui_wizard->pushButton_second->setChecked(true);

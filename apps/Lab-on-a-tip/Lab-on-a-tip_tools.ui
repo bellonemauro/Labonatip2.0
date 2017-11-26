@@ -279,7 +279,7 @@
             <number>0</number>
            </property>
            <property name="currentIndex">
-            <number>3</number>
+            <number>2</number>
            </property>
            <widget class="QWidget" name="page_0">
             <layout class="QGridLayout" name="gridLayout_7">
@@ -2338,6 +2338,13 @@ border-radius: 4px;
                 </item>
                 <item row="0" column="3">
                  <widget class="QLabel" name="label_18">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                    <weight>75</weight>
+                    <bold>true</bold>
+                   </font>
+                  </property>
                   <property name="text">
                    <string>Color</string>
                   </property>
