@@ -28,7 +28,7 @@
 #include <QSettings>
 #include "ui_Lab-on-a-tip.h"
 #include "ui_Lab-on-a-tip_tools.h"
-#include "ui_Labonatip_macroWizard.h"
+#include "ui_labonatip_macroWizard.h"
 
 #include <QTextStream>
 #include <QCoreApplication>

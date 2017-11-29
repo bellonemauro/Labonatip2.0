@@ -26,12 +26,12 @@ public:
   // output anything that is left
 	 if (!m_string.empty()) {
 		 log_window->append(m_string.c_str());
-		 if (to_terminal) { printf(m_string.c_str()); printf("\n"); }
+		 if (to_terminal) { printf("%s", m_string.c_str()); printf("\n"); }
 	 }
   m_stream.rdbuf(m_old_buf);
  }
 
- void QDebugStream::copyOutToTerminal(bool _to_terminal) { to_terminal = _to_terminal; }
+ void copyOutToTerminal(bool _to_terminal) { to_terminal = _to_terminal; }
 
 protected:
  virtual int_type overflow(int_type v)
@@ -39,7 +39,7 @@ protected:
   if (v == '\n')
   {
    log_window->append(m_string.c_str());
-   if (to_terminal) { printf(m_string.c_str()); printf("\n"); }
+   if (to_terminal) { printf("%s", m_string.c_str()); printf("\n"); }
    m_string.erase(m_string.begin(), m_string.end());
   }
   else
@@ -60,7 +60,7 @@ protected:
    {
     std::string tmp(m_string.begin(), m_string.begin() + pos);
     log_window->append(tmp.c_str());
-	if (to_terminal) { printf(tmp.c_str()); printf("\n"); }
+	if (to_terminal) { printf("%s", tmp.c_str()); printf("\n"); }
     m_string.erase(m_string.begin(), m_string.begin() + pos + 1);
    }
   }

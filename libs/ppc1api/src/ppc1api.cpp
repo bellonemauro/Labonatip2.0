@@ -362,7 +362,8 @@ bool fluicell::PPC1api::connectCOM()
 		m_PPC1_serial->setBaudrate(m_baud_rate);
 		m_PPC1_serial->setFlowcontrol(serial::flowcontrol_none);
 		m_PPC1_serial->setParity(serial::parity_none);
-		m_PPC1_serial->setTimeout(serial::Timeout::simpleTimeout(m_COM_timeout));// (my_timeout);
+		//TODO: for some reason this does not work on Ubuntu
+		//m_PPC1_serial->setTimeout(serial::Timeout::simpleTimeout(m_COM_timeout));// (my_timeout);
 
 		if (!checkVIDPID(m_COMport)) {
 			cerr << currentDateTime() 

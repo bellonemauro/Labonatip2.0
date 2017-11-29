@@ -30,12 +30,14 @@
 #endif
 
 // standard libraries 
+#define _USE_MATH_DEFINES
+#include <cmath>
+
 #include <iostream>
 #include <string>
 #include <cstdio>
 
-#define _USE_MATH_DEFINES
-#include <math.h>
+
 
 #include <ctime>
 #include <thread>
