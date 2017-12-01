@@ -73,6 +73,12 @@ Add a screen shot
 
 TODO
 
+
+# Contribute to the code:
+
+New uses can contribute to the code by compiling in Windows or linux.
+QT GUI must be modified using QT creator/designer
+
 ---------------------------------------------------------------------
 <sup> Software released under GNU GPL License. <br>
 Author: <a href="http://fluicell.com/">Fluicell</a> AB , Mauro Bellone, http://www.maurobellone.com <br> </sup>
