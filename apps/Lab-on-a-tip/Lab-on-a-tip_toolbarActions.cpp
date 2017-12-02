@@ -74,7 +74,7 @@ void Labonatip_GUI::showToolsDialog() {
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_GUI::showToolsDialog    " << endl;
 
-	m_dialog_tools->setMacroPath(m_macro_path); //TODO: reset the macro path in case it is changed in the settings
+	//m_dialog_tools->setMacroPath(m_macro_path); //TODO: reset the macro path in case it is changed in the settings
 
 	//m_dialog_tools->setWindowFlags(Qt::WindowFullscreenButtonHint);
 	//m_dialog_tools->setWindowFlags(Qt::WindowStaysOnTopHint);
@@ -82,11 +82,29 @@ void Labonatip_GUI::showToolsDialog() {
 	m_dialog_tools->setWindowFlags(Qt::Window);
 	m_dialog_tools->setModal(true);
 	m_macro = new std::vector<fluicell::PPC1api::command>();
-	m_dialog_tools->setMacroPrt(m_macro);
+	//m_dialog_tools->setMacroPrt(m_macro);
 	m_dialog_tools->show();
 
 }
 
+void Labonatip_GUI::showProtocolEditorDialog() {
+
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::showProtocolEditorDialog    " << endl;
+
+	m_dialog_p_editor->setMacroPath(m_macro_path); //TODO: reset the macro path in case it is changed in the settings
+
+												//m_dialog_tools->setWindowFlags(Qt::WindowFullscreenButtonHint);
+												//m_dialog_tools->setWindowFlags(Qt::WindowStaysOnTopHint);
+	m_dialog_p_editor->setParent(this);
+	m_dialog_p_editor->setWindowFlags(Qt::Window);
+	m_dialog_p_editor->setModal(true);
+	m_macro = new std::vector<fluicell::PPC1api::command>();
+	m_dialog_p_editor->setMacroPrt(m_macro);
+	m_dialog_p_editor->show();
+
+}
 
 void Labonatip_GUI::simulationOnly()
 {
@@ -380,7 +398,7 @@ void Labonatip_GUI::closeOpenDockTools() {
 		int app_width = rec.width();
 
 		//TODO: this is a really shitty method
-		m_g_spacer->setFixedWidth(app_width - 1130);
+		m_g_spacer->setFixedWidth(app_width - 1230);
 		m_g_spacer->setStyleSheet("border:0;");
 		m_g_spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 		m_a_spacer = ui->toolBar_2->addWidget(m_g_spacer);

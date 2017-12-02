@@ -84,7 +84,9 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   qApp->installTranslator(&m_translator);
   
   // init the object to handle the internal dialogs
+  m_dialog_p_editor = new Labonatip_protocol_editor();
   m_dialog_tools = new Labonatip_tools(); // TODO: if I put this here is mess up the list widget
+  
 
   default_pon = m_dialog_tools->m_pr_params->p_on_default;
   default_poff = m_dialog_tools->m_pr_params->p_off_default;
@@ -213,7 +215,7 @@ void Labonatip_GUI::updateMacroStatusMessage(const QString &_message) {
 
     
 	QString s = " MACRO RUNNING : <<<  ";
-	s.append(m_dialog_tools->getMacroPath());
+	s.append(m_dialog_p_editor->getMacroPath());
 	s.append(" >>> remaining time = ");
 	
 
@@ -235,7 +237,7 @@ void Labonatip_GUI::updateMacroTimeStatus(const double &_status) {
 	m_labonatip_chart_view->updateChartTime(_status); // update the vertical line for the time status on the chart
 
 	QString s = " MACRO RUNNING : ";
-	s.append(m_dialog_tools->getMacroPath());
+	s.append(m_dialog_p_editor->getMacroPath());
 	int duration = ui->treeWidget_macroInfo->topLevelItem(4)->text(1).toInt();
 	int remaining_time_sec = duration - _status * duration / 100;
 	s.append(" ----- remaining time,  ");
@@ -760,7 +762,10 @@ void Labonatip_GUI::initConnects()
 		SIGNAL(triggered()), this, 
 		SLOT(showToolsDialog()));
 	
-	
+	connect(ui->actionEditor,
+		SIGNAL(triggered()), this,
+		SLOT(showProtocolEditorDialog()));
+
 	connect(ui->actionLoad_profile, 
 		SIGNAL(triggered()), this, 
 		SLOT(openFile()));
@@ -939,6 +944,14 @@ void Labonatip_GUI::initConnects()
 	connect(m_dialog_tools, 
 		SIGNAL(apply()), this, 
 		SLOT(toolApply()));
+	
+	connect(m_dialog_p_editor,
+		SIGNAL(ok()), this,
+		SLOT(editorOk()));
+
+	connect(m_dialog_p_editor,
+		SIGNAL(apply()), this,
+		SLOT(editorApply()));
 
 	connect(m_dialog_tools,
 		&Labonatip_tools::colSol1Changed, this,
@@ -998,15 +1011,6 @@ void Labonatip_GUI::toolApply()
 	ui->toolBar_3->update();
 
 
-	if (m_dialog_tools->getMacroPath().isEmpty()) {
-		QString s = " No protocol loaded : ";
-		ui->label_macroStatus->setText(s);
-	}
-	else {
-		QString s = " Protocol loaded : ";
-		s.append(m_dialog_tools->getMacroPath());
-		ui->label_macroStatus->setText(s);
-	}
 	//switchLanguage(m_dialog_tools->language);
 
 	/////////////////////////////////////////
@@ -1034,6 +1038,36 @@ void Labonatip_GUI::toolApply()
 		s.append(" sec ");
 	}
 
+
+}
+
+void Labonatip_GUI::editorOk()
+{
+
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::editorOk   " << endl;
+
+	editorApply();
+}
+
+
+void Labonatip_GUI::editorApply()
+{
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::editorAppy  " << endl;
+
+	if (m_dialog_p_editor->getMacroPath().isEmpty()) {
+		QString s = " No protocol loaded : ";
+		ui->label_macroStatus->setText(s);
+	}
+	else {
+		QString s = " Protocol loaded : ";
+		s.append(m_dialog_p_editor->getMacroPath());
+		ui->label_macroStatus->setText(s);
+	}
+
 	m_labonatip_chart_view->updateChartMacro(m_macro);
 
 	// compute the duration of the macro
@@ -1045,9 +1079,8 @@ void Labonatip_GUI::toolApply()
 	}
 	// visualize it in the chart information panel 
 	ui->treeWidget_macroInfo->topLevelItem(4)->setText(1, QString::number(macro_duration));
+
 }
-
-
 void Labonatip_GUI::setEnableMainWindow(bool _enable) {
 
 	ui->centralwidget->setEnabled(_enable);
@@ -1152,6 +1185,7 @@ void Labonatip_GUI::closeEvent(QCloseEvent *event) {
 			m_ppc1->disconnectCOM(); //if is active, disconnect
 		}
 		delete m_dialog_tools;
+		delete m_dialog_p_editor;
 		event->accept();
 	}
 }

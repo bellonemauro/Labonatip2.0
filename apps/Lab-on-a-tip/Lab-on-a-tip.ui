@@ -5800,6 +5800,7 @@ p, li { white-space: pre-wrap; }
    </attribute>
    <addaction name="actionLoad_profile"/>
    <addaction name="actionSave_profile"/>
+   <addaction name="actionEditor"/>
    <addaction name="actionTools"/>
    <addaction name="actionSimulation"/>
    <addaction name="actionConnectDisconnect"/>
@@ -6016,6 +6017,18 @@ It will be impossible to use the application during the reset process. &amp;lt;/
    </property>
    <property name="shortcut">
     <string>Ctrl+E</string>
+   </property>
+  </action>
+  <action name="actionEditor">
+   <property name="icon">
+    <iconset>
+     <normaloff>icons/protocolEditor.png</normaloff>icons/protocolEditor.png</iconset>
+   </property>
+   <property name="text">
+    <string>Editor</string>
+   </property>
+   <property name="shortcut">
+    <string>F3</string>
    </property>
   </action>
  </widget>

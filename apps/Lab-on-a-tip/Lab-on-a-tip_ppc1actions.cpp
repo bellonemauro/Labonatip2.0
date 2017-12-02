@@ -130,7 +130,7 @@ void Labonatip_GUI::runMacro() {
 				return;
 		}
 		else {
-			QString macro_path = m_dialog_tools->getMacroPath();
+			QString macro_path = m_dialog_p_editor->getMacroPath();
 			QString msg = tr("The protocol loaded is : \n");
 			msg.append(macro_path);
 			msg.append("\n press ''ok'' to run the protocol, or press ''cancel'' to load a new one. ");
@@ -167,7 +167,7 @@ void Labonatip_GUI::runMacro() {
 				ui->label_runMacro->setText("Run protocol");
 
 				QString s = " Protocol execution stopped : ";
-				s.append(m_dialog_tools->getMacroPath());
+				s.append(m_dialog_p_editor->getMacroPath());
 				int duration = ui->treeWidget_macroInfo->topLevelItem(4)->text(1).toInt();
 				int remaining_time_sec = duration - 0 * duration / 100;
 				s.append(" ----- remaining time,  ");

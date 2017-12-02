@@ -29,6 +29,7 @@
 #include "ui_Lab-on-a-tip.h"
 #include "ui_Lab-on-a-tip_tools.h"
 #include "ui_labonatip_macroWizard.h"
+#include "ui_Lab-on-a-tip_protocolEditor.h"
 
 #include <QTextStream>
 #include <QCoreApplication>
@@ -51,6 +52,7 @@
 
 #include "Q_DebugStream.h"
 #include "Lab-on-a-tip_tools.h"
+#include "Lab-on-a-tip_protocolEditor.h"
 #include "Lab-on-a-tip_macroRunner.h"
 #include "Lab-on-a-tip_macroWizard.h"
 #include "Lab-on-a-tip_chart.h"
@@ -64,17 +66,12 @@
 
 using namespace std;
 
-//namespace Ui
-//{
-  class Labonatip_GUI;
-
-//}
-
-class Labonatip_tools;
-class Labonatip_macroRunner;
-class Labonatip_macroWizard;
 class Labonatip_chart;
-
+class Labonatip_macroRunner;
+class Labonatip_GUI;
+class Labonatip_tools;
+class Labonatip_protocol_editor;
+class Labonatip_macroWizard;
 
 // new shorter class name = Lab-on-a-tip  -- Loat 
 class Labonatip_GUI : public QMainWindow
@@ -366,6 +363,9 @@ private slots:
 	*/
 	void toolApply();
 
+	void editorOk();
+
+	void editorApply();
 
 //DELIVERY
 
@@ -458,6 +458,13 @@ private slots:
 	* \note
 	*/
 	void showToolsDialog();
+
+
+	/** \brief This function shows a protocol editor dialog,
+	*       
+	*
+	* \note
+	*/	void showProtocolEditorDialog();
 
 
 	/** \brief Enter simulation mode - the PPC1 will not be used
@@ -602,6 +609,8 @@ private:
   QDebugStream *qerr;            //--> redirect for messages into the GUI
 
   Labonatip_tools * m_dialog_tools; //!< pointer to the tools dialog
+
+  Labonatip_protocol_editor * m_dialog_p_editor; //!< pointer to the tools dialog
 
   QGraphicsScene *m_scene_solution;   //!< scene to draw the solution flow
   

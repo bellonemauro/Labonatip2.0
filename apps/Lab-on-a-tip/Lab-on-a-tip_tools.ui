@@ -220,18 +220,6 @@
            </item>
            <item>
             <property name="text">
-             <string>Protocols</string>
-            </property>
-            <property name="textAlignment">
-             <set>AlignLeading|AlignVCenter</set>
-            </property>
-            <property name="icon">
-             <iconset>
-              <normaloff>icons/fluicell_iconBIG.png</normaloff>icons/fluicell_iconBIG.png</iconset>
-            </property>
-           </item>
-           <item>
-            <property name="text">
              <string> Solutions</string>
             </property>
             <property name="textAlignment">
@@ -279,7 +267,7 @@
             <number>0</number>
            </property>
            <property name="currentIndex">
-            <number>2</number>
+            <number>1</number>
            </property>
            <widget class="QWidget" name="page_0">
             <layout class="QGridLayout" name="gridLayout_7">
@@ -992,6 +980,9 @@
             </layout>
            </widget>
            <widget class="QWidget" name="page_1">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <layout class="QGridLayout" name="gridLayout_5">
              <property name="topMargin">
               <number>0</number>
@@ -2318,29 +2309,61 @@ border-radius: 4px;
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="suffix">
                    <string>  uL</string>
+                  </property>
+                  <property name="maximum">
+                   <number>10000</number>
                   </property>
                  </widget>
                 </item>
                 <item row="2" column="1">
                  <widget class="QSpinBox" name="spinBox_vol_sol2">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="suffix">
                    <string>  uL</string>
+                  </property>
+                  <property name="maximum">
+                   <number>10000</number>
                   </property>
                  </widget>
                 </item>
                 <item row="3" column="1">
                  <widget class="QSpinBox" name="spinBox_vol_sol3">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="suffix">
                    <string>  uL</string>
+                  </property>
+                  <property name="maximum">
+                   <number>10000</number>
                   </property>
                  </widget>
                 </item>
                 <item row="4" column="1">
                  <widget class="QSpinBox" name="spinBox_vol_sol4">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="suffix">
                    <string>  uL</string>
+                  </property>
+                  <property name="maximum">
+                   <number>10000</number>
                   </property>
                  </widget>
                 </item>

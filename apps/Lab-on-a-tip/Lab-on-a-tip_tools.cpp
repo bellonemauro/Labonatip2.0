@@ -63,23 +63,6 @@ Labonatip_tools::Labonatip_tools(QWidget *parent ):
 		SIGNAL(itemClicked(QListWidgetItem*)), this, 
 		SLOT(onListMailItemClicked(QListWidgetItem*)));
 
-	// connect solution line edits
-	connect(ui_tools->lineEdit_volume_sol1, 
-		SIGNAL(textChanged(const QString &)), this, 
-		SLOT(changedVolume1()));
-
-	connect(ui_tools->lineEdit_volume_sol2,
-		SIGNAL(textChanged(const QString &)), this,
-		SLOT(changedVolume2()));
-
-	connect(ui_tools->lineEdit_volume_sol3,
-		SIGNAL(textChanged(const QString &)), this,
-		SLOT(changedVolume3()));
-
-	connect(ui_tools->lineEdit_volume_sol4,
-		SIGNAL(textChanged(const QString &)), this,
-		SLOT(changedVolume4()));
-
 	// connect color solution settings
 	connect(ui_tools->horizontalSlider_colorSol1,
 		SIGNAL(valueChanged(int)), this,
@@ -161,13 +144,13 @@ void Labonatip_tools::onListMailItemClicked(QListWidgetItem* _item)
 	if (ui_tools->listWidget_options->item(0) == _item) {
 		ui_tools->stackedWidget->setCurrentIndex(0);
 	}
+	//if (ui_tools->listWidget_options->item(1) == _item) {
+	//	ui_tools->stackedWidget->setCurrentIndex(1);
+	//}
 	if (ui_tools->listWidget_options->item(1) == _item) {
-		ui_tools->stackedWidget->setCurrentIndex(1);
-	}
-	if (ui_tools->listWidget_options->item(2) == _item) {
 		ui_tools->stackedWidget->setCurrentIndex(2);
 	}
-	if (ui_tools->listWidget_options->item(3) == _item) {
+	if (ui_tools->listWidget_options->item(2) == _item) {
 		ui_tools->stackedWidget->setCurrentIndex(3);
 	}
 }
@@ -176,7 +159,7 @@ void Labonatip_tools::okPressed() {
 
 	getCOMsettings();
 	getSolutionSettings();
-	addAllCommandsToMacro();
+	//addAllCommandsToMacro();
 	getGUIsettings();
 
 	//TODO manual save for now
@@ -215,7 +198,7 @@ void Labonatip_tools::applyPressed() {
 
 	getCOMsettings();
 	getSolutionSettings();
-	addAllCommandsToMacro(); 
+	//addAllCommandsToMacro(); 
 	getGUIsettings();
 
 	//TODO manual save for now
@@ -833,12 +816,6 @@ void Labonatip_tools::enableToolTip(int _inx)
 	m_GUI_params->enableToolTips = ui_tools->checkBox_enableToolTips->isChecked();
 }
 
-void Labonatip_tools::changedVolume1()
-{
-
-
-
-}
 
 void Labonatip_tools::colorSol1Changed(int _value)
 {
@@ -948,10 +925,10 @@ void Labonatip_tools::getCOMsettings()
 void Labonatip_tools::getSolutionSettings()
 {
 #pragma message ("TODO : tools there is no check on the lines yet (numbers or string)")
-	m_solutionParams->volume_sol1 = ui_tools->lineEdit_volume_sol1->text().toInt();
-	m_solutionParams->volume_sol2 = ui_tools->lineEdit_volume_sol2->text().toInt();
-	m_solutionParams->volume_sol3 = ui_tools->lineEdit_volume_sol3->text().toInt();
-	m_solutionParams->volume_sol4 = ui_tools->lineEdit_volume_sol4->text().toInt();
+	m_solutionParams->volume_sol1 = ui_tools->spinBox_vol_sol1->value();
+	m_solutionParams->volume_sol2 = ui_tools->spinBox_vol_sol2->value();
+	m_solutionParams->volume_sol3 = ui_tools->spinBox_vol_sol3->value();
+	m_solutionParams->volume_sol4 = ui_tools->spinBox_vol_sol4->value();
 
 	m_solutionParams->sol1 = ui_tools->lineEdit_sol1_name->text();
 	m_solutionParams->sol2 = ui_tools->lineEdit_sol2_name->text();
@@ -1226,7 +1203,7 @@ bool Labonatip_tools::loadSettings(QString _path)
 			<< QTime::currentTime().toString().toStdString() << "  "
 			<< "Labonatip_tools::loadSettings ::: Warning !  ::  volume of solution 1 corrupted in setting file, using default value " << endl;
 	}
-	ui_tools->lineEdit_volume_sol1->setText(QString::number(vol_sol1));
+	ui_tools->spinBox_vol_sol1->setValue(vol_sol1);
 	m_solutionParams->volume_sol1 = vol_sol1;
 
 	int vol_sol2 = m_settings->value("solutions/volSol2", "0").toInt(&ok);
@@ -1235,7 +1212,7 @@ bool Labonatip_tools::loadSettings(QString _path)
 			<< QTime::currentTime().toString().toStdString() << "  "
 			<< "Labonatip_tools::loadSettings ::: Warning !  ::  volume of solution 2 corrupted in setting file, using default value " << endl;
 	}
-	ui_tools->lineEdit_volume_sol2->setText(QString::number(vol_sol2));
+	ui_tools->spinBox_vol_sol2->setValue(vol_sol2);
 	m_solutionParams->volume_sol2 = vol_sol2;
 
 	int vol_sol3 = m_settings->value("solutions/volSol3", "0").toInt(&ok);
@@ -1244,7 +1221,7 @@ bool Labonatip_tools::loadSettings(QString _path)
 			<< QTime::currentTime().toString().toStdString() << "  "
 			<< "Labonatip_tools::loadSettings ::: Warning !  ::  volume of solution 3 corrupted in setting file, using default value " << endl;
 	}
-	ui_tools->lineEdit_volume_sol3->setText(QString::number(vol_sol3));
+	ui_tools->spinBox_vol_sol2->setValue(vol_sol3);
 	m_solutionParams->volume_sol3 = vol_sol3;
 
 	int vol_sol4 = m_settings->value("solutions/volSol4", "0").toInt(&ok);
@@ -1253,7 +1230,7 @@ bool Labonatip_tools::loadSettings(QString _path)
 			<< QTime::currentTime().toString().toStdString() << "  "
 			<< "Labonatip_tools::loadSettings ::: Warning !  ::  volume of solution 4 corrupted in setting file, using default value " << endl;
 	}
-	ui_tools->lineEdit_volume_sol4->setText(QString::number(vol_sol4));
+	ui_tools->spinBox_vol_sol4->setValue(vol_sol4);
 	m_solutionParams->volume_sol4 = vol_sol4;
 
 
@@ -1363,13 +1340,13 @@ bool Labonatip_tools::saveSettings(QString _file_name)
 
 	// [solutionNames]
 	// solution1 = CuSO4
-	settings->setValue("solutions/volSol1", ui_tools->lineEdit_volume_sol1->text());
+	settings->setValue("solutions/volSol1", ui_tools->spinBox_vol_sol1->value());
 	// solution2 = NaCl
-	settings->setValue("solutions/volSol2", ui_tools->lineEdit_volume_sol2->text());
+	settings->setValue("solutions/volSol2", ui_tools->spinBox_vol_sol2->value());
 	// solution3 = NaHCO3
-	settings->setValue("solutions/volSol3", ui_tools->lineEdit_volume_sol3->text());
+	settings->setValue("solutions/volSol3", ui_tools->spinBox_vol_sol3->value());
 	// solution4 = FeS
-	settings->setValue("solutions/volSol4", ui_tools->lineEdit_volume_sol4->text());
+	settings->setValue("solutions/volSol4", ui_tools->spinBox_vol_sol4->value());
 	// solution1 = CuSO4
 	settings->setValue("solutions/sol1", ui_tools->lineEdit_sol1_name->text());
 	// solution2 = NaCl
