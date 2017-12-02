@@ -139,7 +139,7 @@ border:0;
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>1078</width>
+         <width>1079</width>
          <height>737</height>
         </rect>
        </property>
@@ -181,8 +181,8 @@ border:0;
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>1078</width>
-             <height>689</height>
+             <width>1079</width>
+             <height>690</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout">
@@ -1530,7 +1530,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;0 sec&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                  </widget>
-                 <widget class="QTextEdit" name="textEdit_emptyTime_2">
+                 <widget class="QTextEdit" name="textEdit_emptyTime_waste">
                   <property name="geometry">
                    <rect>
                     <x>20</x>
@@ -1576,7 +1576,7 @@ p, li { white-space: pre-wrap; }
                  <zorder>line_GW_sol</zorder>
                  <zorder>label_GW_waste</zorder>
                  <zorder>label_GW_sol</zorder>
-                 <zorder>textEdit_emptyTime_2</zorder>
+                 <zorder>textEdit_emptyTime_waste</zorder>
                  <zorder>label_GW_biopenView</zorder>
                  <zorder>widget_sol3</zorder>
                  <zorder>widget_sol2</zorder>
@@ -5680,8 +5680,8 @@ color: rgb(0, 0, 0);</string>
             <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:7.8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
          </item>
@@ -5725,7 +5725,7 @@ color: rgb(0, 0, 0);</string>
             <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>

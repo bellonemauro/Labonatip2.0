@@ -214,6 +214,12 @@ private slots:
 
 	void enableToolTip(int _inx);
 
+
+	void changedVolume1();
+	void changedVolume2();
+	void changedVolume3();
+	void changedVolume4();
+
 	/** Color solution 1 changed
 	* \note
 	*/

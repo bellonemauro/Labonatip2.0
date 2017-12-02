@@ -405,27 +405,41 @@ void Labonatip_GUI::updateTimingSliders()
 {
 	QProgressBar *_bar;
 	QPushButton *_button;
+	double waste_remaining_time_in_sec;
 
 	switch (m_flowing_solution)
 	{
 	case 1: {
 		_bar = ui->progressBar_solution1;
 		_button = ui->pushButton_solution1;
+		waste_remaining_time_in_sec = 1000.0 * (  // this it to convert in sec
+			m_dialog_tools->m_solutionParams->volume_sol1 /  //this is in micro liters 10^-6
+			ui->treeWidget_macroInfo->topLevelItem(5)->text(1).toDouble()); // this is in nano liters 10^-9
+
 		break;
 	}
 	case 2: {
 		_bar = ui->progressBar_solution2;
 		_button = ui->pushButton_solution2;
+		waste_remaining_time_in_sec = 1000.0 * (
+			m_dialog_tools->m_solutionParams->volume_sol2 /
+			ui->treeWidget_macroInfo->topLevelItem(6)->text(1).toDouble());
 		break;
 	}
 	case 3: {
 		_bar = ui->progressBar_solution3;
 		_button = ui->pushButton_solution3;
+		waste_remaining_time_in_sec = 1000.0 * (
+			m_dialog_tools->m_solutionParams->volume_sol3 /
+			ui->treeWidget_macroInfo->topLevelItem(7)->text(1).toDouble());
 		break;
 	}
 	case 4: {
 		_bar = ui->progressBar_solution4;
 		_button = ui->pushButton_solution4;
+		waste_remaining_time_in_sec = 1000.0 * (
+			m_dialog_tools->m_solutionParams->volume_sol4 /
+			ui->treeWidget_macroInfo->topLevelItem(8)->text(1).toDouble());
 		break;
 	}
 	default: {
@@ -461,6 +475,23 @@ void Labonatip_GUI::updateTimingSliders()
 			s.append(" Continuous \n flowing");
 		}
 		ui->textEdit_emptyTime->setText(s);
+
+		// build the string for the waste label
+		s.clear();
+		s.append("Waste full in \n");
+		
+		int remaining_hours = floor(waste_remaining_time_in_sec / 3600); // 3600 sec in a hour
+		int remaining_mins = floor(((int)waste_remaining_time_in_sec % 3600) / 60); // 60 minutes in a hour
+		int remaining_secs = waste_remaining_time_in_sec - remaining_hours * 3600 - remaining_mins * 60; // 60 minutes in a hour
+		s.append(QString::number(remaining_hours));
+		s.append(" h, \n");
+		s.append(QString::number(remaining_mins));
+		s.append(" min \n");
+		s.append(QString::number(remaining_secs));
+		s.append(" sec ");
+
+		ui->textEdit_emptyTime_waste->setText(s);
+
 		m_timer_solution++;
 
 		if (m_pipette_active) updateDrawing(m_ppc1->getDropletSize());

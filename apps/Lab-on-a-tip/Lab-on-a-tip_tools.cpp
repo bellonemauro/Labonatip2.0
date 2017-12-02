@@ -63,6 +63,23 @@ Labonatip_tools::Labonatip_tools(QWidget *parent ):
 		SIGNAL(itemClicked(QListWidgetItem*)), this, 
 		SLOT(onListMailItemClicked(QListWidgetItem*)));
 
+	// connect solution line edits
+	connect(ui_tools->lineEdit_volume_sol1, 
+		SIGNAL(textChanged(const QString &)), this, 
+		SLOT(changedVolume1()));
+
+	connect(ui_tools->lineEdit_volume_sol2,
+		SIGNAL(textChanged(const QString &)), this,
+		SLOT(changedVolume2()));
+
+	connect(ui_tools->lineEdit_volume_sol3,
+		SIGNAL(textChanged(const QString &)), this,
+		SLOT(changedVolume3()));
+
+	connect(ui_tools->lineEdit_volume_sol4,
+		SIGNAL(textChanged(const QString &)), this,
+		SLOT(changedVolume4()));
+
 	// connect color solution settings
 	connect(ui_tools->horizontalSlider_colorSol1,
 		SIGNAL(valueChanged(int)), this,
@@ -816,6 +833,13 @@ void Labonatip_tools::enableToolTip(int _inx)
 	m_GUI_params->enableToolTips = ui_tools->checkBox_enableToolTips->isChecked();
 }
 
+void Labonatip_tools::changedVolume1()
+{
+
+
+
+}
+
 void Labonatip_tools::colorSol1Changed(int _value)
 {
 
@@ -923,6 +947,12 @@ void Labonatip_tools::getCOMsettings()
 
 void Labonatip_tools::getSolutionSettings()
 {
+#pragma message ("TODO : tools there is no check on the lines yet (numbers or string)")
+	m_solutionParams->volume_sol1 = ui_tools->lineEdit_volume_sol1->text().toInt();
+	m_solutionParams->volume_sol2 = ui_tools->lineEdit_volume_sol2->text().toInt();
+	m_solutionParams->volume_sol3 = ui_tools->lineEdit_volume_sol3->text().toInt();
+	m_solutionParams->volume_sol4 = ui_tools->lineEdit_volume_sol4->text().toInt();
+
 	m_solutionParams->sol1 = ui_tools->lineEdit_sol1_name->text();
 	m_solutionParams->sol2 = ui_tools->lineEdit_sol2_name->text();
 	m_solutionParams->sol3 = ui_tools->lineEdit_sol3_name->text();
