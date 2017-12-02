@@ -1189,6 +1189,45 @@ bool Labonatip_tools::loadSettings(QString _path)
 	// read server group
 
 
+	//Read solution volumes block
+	int vol_sol1 = m_settings->value("solutions/volSol1", "0").toInt(&ok);
+	if (!ok) {
+		cerr << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_tools::loadSettings ::: Warning !  ::  volume of solution 1 corrupted in setting file, using default value " << endl;
+	}
+	ui_tools->lineEdit_volume_sol1->setText(QString::number(vol_sol1));
+	m_solutionParams->volume_sol1 = vol_sol1;
+
+	int vol_sol2 = m_settings->value("solutions/volSol2", "0").toInt(&ok);
+	if (!ok) {
+		cerr << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_tools::loadSettings ::: Warning !  ::  volume of solution 2 corrupted in setting file, using default value " << endl;
+	}
+	ui_tools->lineEdit_volume_sol2->setText(QString::number(vol_sol2));
+	m_solutionParams->volume_sol2 = vol_sol2;
+
+	int vol_sol3 = m_settings->value("solutions/volSol3", "0").toInt(&ok);
+	if (!ok) {
+		cerr << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_tools::loadSettings ::: Warning !  ::  volume of solution 3 corrupted in setting file, using default value " << endl;
+	}
+	ui_tools->lineEdit_volume_sol3->setText(QString::number(vol_sol3));
+	m_solutionParams->volume_sol3 = vol_sol3;
+
+	int vol_sol4 = m_settings->value("solutions/volSol4", "0").toInt(&ok);
+	if (!ok) {
+		cerr << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_tools::loadSettings ::: Warning !  ::  volume of solution 4 corrupted in setting file, using default value " << endl;
+	}
+	ui_tools->lineEdit_volume_sol4->setText(QString::number(vol_sol4));
+	m_solutionParams->volume_sol4 = vol_sol4;
+
+
+
 	//Read solution names block
 	QString solname1 = m_settings->value("solutions/sol1", "no name").toString();
 	ui_tools->lineEdit_sol1_name->setText(solname1);
@@ -1293,6 +1332,14 @@ bool Labonatip_tools::saveSettings(QString _file_name)
 
 
 	// [solutionNames]
+	// solution1 = CuSO4
+	settings->setValue("solutions/volSol1", ui_tools->lineEdit_volume_sol1->text());
+	// solution2 = NaCl
+	settings->setValue("solutions/volSol2", ui_tools->lineEdit_volume_sol2->text());
+	// solution3 = NaHCO3
+	settings->setValue("solutions/volSol3", ui_tools->lineEdit_volume_sol3->text());
+	// solution4 = FeS
+	settings->setValue("solutions/volSol4", ui_tools->lineEdit_volume_sol4->text());
 	// solution1 = CuSO4
 	settings->setValue("solutions/sol1", ui_tools->lineEdit_sol1_name->text());
 	// solution2 = NaCl

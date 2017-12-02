@@ -88,6 +88,10 @@ public:
 
   // structure to handle solutions name parameters
   struct solutionsParams {
+	  int volume_sol1;                 //!<  volume of solution in the well 1
+	  int volume_sol2;                 //!<  volume of solution in the well 2
+	  int volume_sol3;                 //!<  volume of solution in the well 3
+	  int volume_sol4;                 //!<  volume of solution in the well 4
 	  QString sol1;                    //!<  name of the solution 1
 	  QString sol2;                    //!<  name of the solution 2
 	  QString sol3;                    //!<  name of the solution 3
@@ -98,6 +102,10 @@ public:
 	  QColor sol4_color;               //!<  color of the solution 4
 
 	  solutionsParams() {   // default values
+		  this->volume_sol1 = 0;
+		  this->volume_sol2 = 0;
+		  this->volume_sol3 = 0;
+		  this->volume_sol4 = 0;
 		  this->sol1 = "No name given to sol 1";
 		  this->sol2 = "No name given to sol 2";
 		  this->sol3 = "No name given to sol 3";
