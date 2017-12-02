@@ -28,21 +28,6 @@ using namespace std;
 class Labonatip_macroRunner;
 class Labonatip_macroWizard;
 
-//custom combo behavior
-class macroCombobox :public QComboBox {
-	Q_OBJECT
-
-public:
-	explicit macroCombobox(QWidget* parent = 0) : QComboBox(parent) {}
-
-	void wheelEvent(QWheelEvent *e)
-	{
-		if (hasFocus())
-			QComboBox::wheelEvent(e);
-	}
-};
-
-
 class Labonatip_tools : public  QDialog
 {
 	Q_OBJECT
@@ -169,8 +154,6 @@ public:
 
 	int language; //TODO add an enumerator
 
-	void setMacroPrt(std::vector<fluicell::PPC1api::command> *_macro) { m_macro = _macro; };
-
 	void switchLanguage(QString _translation_file);
 
 	void updateDevices() { this->enumerate(); }
@@ -188,9 +171,6 @@ public:
 	void setDefaultPressuresVacuums(int _p_on_default, int _p_off_default, 
 		                            int _v_recirc_default, int _v_switch_default);
 
-	QString getMacroPath() { return m_current_macro_file_name; };
-
-	inline void setMacroPath(QString _path) { m_macro_path = _path; }
 
 	double getSolutionTime() { return (double)ui_tools->doubleSpinBox_solution->value(); }
 
@@ -259,11 +239,6 @@ private slots:
 	*/
 	void applyPressed();
 
-	/** new macro widard
-	*
-	*/
-	void newMacroWizard();
-
 
 	void emptyWellsPressed();
 
@@ -272,52 +247,6 @@ private slots:
 	*/
 	void enumerate();
 
-	/** Load a macro fron file, only one type of macro is currently supported
-	*
-	*/
-	bool loadMacro( );
-
-	/** Save the macro to file
-	*
-	*/
-	bool saveMacro( );
-
-	/** Clear all the macro commands
-	*
-	*/
-	void clearAllCommands();
-
-	/** Add a new macro command
-	*
-	*/
-	void addMacroCommand();
-
-	/** remove a macro command
-	*
-	*/
-	void removeMacroCommand();
-
-	/** The selected element will become a child for the preceding element
-	*
-	*/
-	void becomeChild();
-
-	/** The selected element will become parent 
-	*
-	*/
-	void becomeParent();
-	
-	void moveUp();
-
-	void moveDown();
-
-	void plusIndent();
-
-	void duplicateItem();
-
-	bool checkValidity(QTreeWidgetItem *_item, int _column);
-
-	void commandChanged(int _idx);
 
 	/** Load an ini setting file
 	* in the GUI initialization it takes a default value ./settings/setting.ini
@@ -331,14 +260,6 @@ private slots:
 	*/
 	bool saveSettings(QString _file_name = QString("./settings/setting_save.ini"));
 
-	/** Put all the commands in the macro editor to the macro structure for running
-	*
-	* \note
-	*/
-	void addAllCommandsToMacro();
-
-
-
 	void resetToDefaultValues();
 
 
@@ -346,37 +267,7 @@ private:
 
 	QSettings *m_settings;
 
-	//void createNewCommand(QTreeWidgetItem &_command); // deprecated
-
-	void createNewCommand(QTreeWidgetItem &_command, macroCombobox &_combo_box);
-	
-	/** overload to allow creating the combobox only without the item
-	*
-	*/
-	void createNewCommand(macroCombobox &_combo_box) {
-		QTreeWidgetItem item;
-		createNewCommand(item, _combo_box);
-	}
-		
-	QString createHeader();
-	
-	bool loadMacro(const QString _file_name);
-	
-	bool saveMacro(QString _file_name);
-	
-	void getLastNode(QTreeWidget *_tree, QTreeWidgetItem *_item);
-
-	int getLevel(QTreeWidgetItem _item);
-
-	//void visitTree(QTreeWidgetItem *_item);
-
-	void visitTree(QList<QStringList> &_list, QTreeWidget *_tree, QTreeWidgetItem *_item);
-
-	QList<QStringList> visitTree(QTreeWidget *_tree);
-
 	int interpreteLanguage(QString _language);
-
-	bool decodeMacroCommand(QByteArray &_command, QTreeWidgetItem &_out_item);
 
 	void getCOMsettings();
 
@@ -386,15 +277,9 @@ private:
 
 	uint32_t giveRainbowColor(float _position);
 
-	std::vector<fluicell::PPC1api::command> *m_macro;
-
 	QString m_setting_file_name;
-	QString m_current_macro_file_name;
-	QString m_macro_path;
 
 	QTranslator m_translator_tool;
-
-	Labonatip_macroWizard * macroWizard;
 
 protected:
 	Ui::Labonatip_tools *ui_tools;    //!<  the user interface
