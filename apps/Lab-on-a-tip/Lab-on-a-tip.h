@@ -497,6 +497,8 @@ private slots:
 	*/
 	void closeOpenDockTools();
 
+	void resizeToolbar();
+
 //END TOOLSACTIONS
 
 //PPC1ACTIONS:
@@ -566,7 +568,11 @@ private slots:
 
 protected:
 	// event control, so far only translations are handled
-	void changeEvent(QEvent*); 
+	void closeEvent(QCloseEvent *event); 
+	
+	void changeEvent(QEvent*);
+
+	void resizeEvent(QResizeEvent*);
 
 	bool eventFilter(QObject *_obj, QEvent *_event);
 
@@ -603,7 +609,7 @@ private:
 
   Ui::Labonatip_GUI *ui;    //!< the user interface
 
-  void closeEvent(QCloseEvent *event);
+
 
   QDebugStream *qout;            //--> redirect for messages into the GUI
   QDebugStream *qerr;            //--> redirect for messages into the GUI

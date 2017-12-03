@@ -377,9 +377,7 @@ void Labonatip_GUI::closeOpenDockTools() {
 
 	// get the screen resolution of the current screen
 	// so we can resize the application in case of small screens
-	//QRect rec = QApplication::desktop()->screenGeometry();
-	//int screen_height = rec.height();
-	//int screen_width = rec.width();
+
 
 	if (!ui->dockWidget->isHidden()) {
 		ui->dockWidget->hide();
@@ -387,46 +385,67 @@ void Labonatip_GUI::closeOpenDockTools() {
 		m_g_spacer = new QGroupBox();
 		m_a_spacer = new QAction();
 		ui->actionAdvanced->setText("Advanced");
+		m_g_spacer->setFixedWidth(1);
+		ui->toolBar_2->update(); 
 		ui->toolBar_3->update();
 		if (!this->isMaximized())
 			this->resize(QSize(this->width(), this->height()));//	this->resize(QSize(this->minimumWidth(), this->height()));
 	}
 	else {
 		
+		if (this->width() < this->minimumWidth() + ui->dockWidget->width())
+		{
+			if (!this->isMaximized())
+				this->resize(QSize(this->width() + ui->dockWidget->width(), this->height()));
+
+			ui->dockWidget->show();
+		}
+		else
+		{
+			ui->dockWidget->show();
+			if (!this->isMaximized())
+				this->resize(QSize(this->width(), this->height()));
+		}
+
 		QRect rec = this->geometry();
 		int app_height = rec.height();
 		int app_width = rec.width();
 
+
 		//TODO: this is a really shitty method
-		m_g_spacer->setFixedWidth(app_width - 1230);
+		int spacer = ui->toolBar->width() +
+			ui->toolBar_2->width() +
+			ui->toolBar_2->iconSize().width() + 12; //12px is to avoid the widget to go to a new line
+
+		m_g_spacer->setFixedWidth(app_width - spacer);
 		m_g_spacer->setStyleSheet("border:0;");
 		m_g_spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 		m_a_spacer = ui->toolBar_2->addWidget(m_g_spacer);
 
 		ui->actionAdvanced->setText("Basic");
+		ui->toolBar_2->update(); 
 		ui->toolBar_3->update();
-
-		//W->setEnabled(false);
-		//ui->toolBar_2->addWidget(W);// , 0, 3, Qt::AlignRight);
-
-		if (this->width() < this->minimumWidth() + ui->dockWidget->width())
-		{
-			ui->dockWidget->show();
-			ui->toolBar_3->setGeometry(1200, 0, 132, 104);
-			
-			if (!this->isMaximized())
-				this->resize(QSize(this->width() + ui->dockWidget->width(), this->height()));
-		}
-		else
-		{
-			ui->dockWidget->show();
-			ui->toolBar_3->setGeometry(1400, 0, 132, 104);
-
-
-			if (!this->isMaximized())
-				this->resize(QSize(this->width(), this->height()));
-		}
-
 	}
+
+}
+
+
+void Labonatip_GUI::resizeToolbar()
+{
+
+	if (!ui->actionAdvanced->isChecked())return;  // it does nothing if the advanced tab is closed
+
+		QRect rec_app = this->geometry();
+		int app_height = rec_app.height();
+		int app_width = rec_app.width();
+
+		//TODO: this is a really shitty method
+		int spacer = ui->toolBar->width() +
+				10 * ui->toolBar_2->iconSize().width(); //10 is the number of icons 
+	
+		m_g_spacer->setFixedWidth(app_width - spacer);
+
+		ui->toolBar_3->update();
+		ui->toolBar_2->update();
 
 }

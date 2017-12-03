@@ -44,6 +44,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   
   // setup the user interface
   ui->setupUi (this);
+  
   //TODO: remove the title from the dockwidget
   //ui->dockWidget->setWindowFlags(Qt::Window | Qt::WindowStaysOnTopHint |
   //	  Qt::X11BypassWindowManagerHint | Qt::FramelessWindowHint);
@@ -700,9 +701,9 @@ void Labonatip_GUI::switchLanguage(int _value )
 
 void Labonatip_GUI::changeEvent(QEvent* _event)
 {
-//	cout << QDate::currentDate().toString().toStdString() << "  "
-//		<< QTime::currentTime().toString().toStdString() << "  "
-//		<< "Labonatip_GUI::changeEvent   " << _event->type() << endl;
+	//cout << QDate::currentDate().toString().toStdString() << "  "
+	//	<< QTime::currentTime().toString().toStdString() << "  "
+	//	<< "Labonatip_GUI::changeEvent   " << _event->type() << endl;
 
 	if (0 != _event) {
 		switch (_event->type()) {
@@ -710,13 +711,29 @@ void Labonatip_GUI::changeEvent(QEvent* _event)
 		case QEvent::LanguageChange:
 			ui->retranslateUi(this);
 			break;
-
-
+		case QEvent::Resize:
+			this->resizeToolbar();
+			break;
+		case QEvent::WindowStateChange:
+			this->resizeToolbar();
+			break;
 		break;
 		}
 	}
+
+
+	// event 105 --- maximize
+
 	QMainWindow::changeEvent(_event);
 
+}
+
+void Labonatip_GUI::resizeEvent(QResizeEvent *_event)
+{
+	//cout << QDate::currentDate().toString().toStdString() << "  "
+	//	<< QTime::currentTime().toString().toStdString() << "  "
+	//	<< "Labonatip_GUI::resizeEvent   " << _event->type() << endl;
+	this->resizeToolbar();
 }
 
 
