@@ -121,6 +121,7 @@ void Labonatip_GUI::pressurePonDown() {
 		 << QTime::currentTime().toString().toStdString() << "  "
 		 << "Labonatip_GUI::pressurePonDown    " << endl;
 
+	if (m_pon_set_point > m_dialog_tools->m_pr_params->p_on_min)
 	// update the set point
 	updatePonSetPoint(m_pon_set_point - 1.0);
 }
@@ -130,6 +131,7 @@ void Labonatip_GUI::pressurePonUp() {
 		 << QTime::currentTime().toString().toStdString() << "  "
 		 << "Labonatip_GUI::pressurePonUp    " << endl;
 
+	if (m_pon_set_point < m_dialog_tools->m_pr_params->p_on_max)
 	// update the set point
 	updatePonSetPoint(m_pon_set_point + 1.0);
 
@@ -140,6 +142,7 @@ void Labonatip_GUI::pressurePoffDown() {
 		 << QTime::currentTime().toString().toStdString() << "  "
 		 << "Labonatip_GUI::pressurePoffDown    " << endl;
 
+	if (m_poff_set_point > m_dialog_tools->m_pr_params->p_off_min)
 	// update the set point
 	updatePoffSetPoint(m_poff_set_point - 1.0);
 
@@ -150,6 +153,7 @@ void Labonatip_GUI::pressurePoffUp() {
 		 << QTime::currentTime().toString().toStdString() << "  "
 		 << "Labonatip_GUI::pressurePoffUp    " << endl;
 
+	if (m_poff_set_point < m_dialog_tools->m_pr_params->p_off_max)
 	// update the set point
 	updatePoffSetPoint(m_poff_set_point + 1.0); 
 
@@ -160,6 +164,7 @@ void Labonatip_GUI::pressButtonPressed_switchDown() {
 		 << QTime::currentTime().toString().toStdString() << "  "
 		 << "Labonatip_GUI::pressButtonPressed_switchDown    " << endl;
 
+	if (m_v_switch_set_point > m_dialog_tools->m_pr_params->v_switch_max)
 	// update the set point
 	updateVswitchSetPoint(m_v_switch_set_point - 1.0);
 
@@ -170,6 +175,7 @@ void Labonatip_GUI::pressButtonPressed_switchUp() {
 		 << QTime::currentTime().toString().toStdString() << "  "
 		 << "Labonatip_GUI::pressButtonPressed_switchUp    " << endl;
 
+	if (m_v_switch_set_point < -m_dialog_tools->m_pr_params->v_switch_min)
 	// update the set point
 	updateVswitchSetPoint(m_v_switch_set_point + 1.0);
 
@@ -180,7 +186,8 @@ void Labonatip_GUI::recirculationDown() {
 		 << QTime::currentTime().toString().toStdString() << "  "
 		 << "Labonatip_GUI::recirculationDown    " << endl;
 
-	// update the set point
+	if (m_v_recirc_set_point > m_dialog_tools->m_pr_params->v_recirc_max)
+		// update the set point
 	updateVrecircSetPoint(m_v_recirc_set_point - 1.0);
 
 }
@@ -190,6 +197,7 @@ void Labonatip_GUI::recirculationUp() {
 		 << QTime::currentTime().toString().toStdString() << "  "
 		 << "Labonatip_GUI::recirculationUp    " << endl;
 
+	if (m_v_recirc_set_point < -m_dialog_tools->m_pr_params->v_recirc_min)
 	// update the set point
 	updateVrecircSetPoint(m_v_recirc_set_point + 1.0);
 
