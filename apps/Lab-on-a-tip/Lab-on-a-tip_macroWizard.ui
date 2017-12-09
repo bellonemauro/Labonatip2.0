@@ -743,6 +743,11 @@ Insert the name of your protocol and click next to continue
                <height>45</height>
               </size>
              </property>
+             <property name="font">
+              <font>
+               <pointsize>11</pointsize>
+              </font>
+             </property>
              <property name="styleSheet">
               <string notr="true">QGroupBox {
     border: 2px solid transparent;
