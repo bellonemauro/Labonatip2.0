@@ -45,11 +45,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   // setup the user interface
   ui->setupUi (this);
   
-  //TODO: remove the title from the dockwidget
-  //ui->dockWidget->setWindowFlags(Qt::Window | Qt::WindowStaysOnTopHint |
-  //	  Qt::X11BypassWindowManagerHint | Qt::FramelessWindowHint);
   ui->dockWidget->close();  //close the advaced dock page
-  //ui->treeWidget_macroInfo->setHeaderHidden(true);
   ui->treeWidget_macroInfo->resizeColumnToContents(0);
 
   // debug stuff -- set 1 to remove all messages and tab
@@ -213,8 +209,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 
 
 void Labonatip_GUI::updateMacroStatusMessage(const QString &_message) {
-
-    
+  
 	QString s = " MACRO RUNNING : <<<  ";
 	s.append(m_dialog_p_editor->getMacroPath());
 	s.append(" >>> remaining time = ");
@@ -265,8 +260,9 @@ void Labonatip_GUI::updateMacroTimeStatus(const double &_status) {
 	if (m_pipette_active) updateDrawing(m_ppc1->getDropletSize());
 	else updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
 
-	//cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-	//	<< "Labonatip_GUI::updateMacroTimeStatus :::: " << _status << endl;
+	//cout << QDate::currentDate().toString().toStdString() << "  " 
+	//     << QTime::currentTime().toString().toStdString() << "  "
+	//	   << "Labonatip_GUI::updateMacroTimeStatus :::: " << _status << endl;
 
 }
 
@@ -721,12 +717,9 @@ void Labonatip_GUI::changeEvent(QEvent* _event)
 		}
 	}
 
-
-	// event 105 --- maximize
-
 	QMainWindow::changeEvent(_event);
-
 }
+
 
 void Labonatip_GUI::resizeEvent(QResizeEvent *_event)
 {
@@ -760,7 +753,11 @@ bool Labonatip_GUI::eventFilter(QObject *_obj, QEvent *_event)
 }
 
 void Labonatip_GUI::setStatusLed( bool _connect ) {
-	
+
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::setStatusLed   " << _connect << endl;
+
 	ui->status_PPC1_led->clear();
 	if (_connect) {
 		ui->status_PPC1_led->setPixmap(*led_green);
@@ -810,12 +807,10 @@ void Labonatip_GUI::initConnects()
 		SIGNAL(triggered()), this, 
 		SLOT(simulationOnly()));
 
-	//connect(ui->actionRun, SIGNAL(triggered()), this, SLOT(runOperations()));
 	connect(ui->actionReboot, 
 		SIGNAL(triggered()), this, 
 		SLOT(reboot()));
 	
-	//connect(ui->actionSleep, SIGNAL(triggered()), this, SLOT(pumpingOff()));
 	connect(ui->actionShudown,
 		SIGNAL(triggered()), this, 
 		SLOT(shutdown()));
@@ -933,8 +928,6 @@ void Labonatip_GUI::initConnects()
 	connect(ui->checkBox_verboseOut, 
 		SIGNAL(stateChanged(int)), this, 
 		SLOT(setPpc1Verbose(int)));
-
-	//connect(ui->checkBox_dumpToFile, SIGNAL(stateChanged(int)), this, SLOT(dumpToTerminal(int)));
 
 	// connect sliders
 	connect(ui->horizontalSlider_p_on, 
@@ -1114,6 +1107,11 @@ void Labonatip_GUI::setEnableMainWindow(bool _enable) {
 
 bool Labonatip_GUI::visualizeProgressMessage(int _seconds, QString _message)
 {
+
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::visualizeProgressMessage   " << _message.toStdString() << endl;
+
 	QString msg = _message;
 	msg.append("<br>This operation will take ");
 	msg.append(QString::number(_seconds));
@@ -1160,6 +1158,7 @@ void Labonatip_GUI::ewst() {
 
 void Labonatip_GUI::cleanHistory()
 {
+
 	cout << QDate::currentDate().toString().toStdString() << "  "
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_GUI::cleanHistory   " << endl;
@@ -1191,6 +1190,10 @@ void Labonatip_GUI::cleanHistory()
 
 void Labonatip_GUI::about() {
 
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::about   " << endl;
+
 	QMessageBox messageBox;
 	QString msg_title = "About Fluicell Lab-on-a-tip ";
 	QString msg_content = tr("<b>Lab-on-a-tip</b> is a <a href='http://fluicell.com/'>Fluicell</a> AB software <br>"
@@ -1211,6 +1214,10 @@ void Labonatip_GUI::about() {
 
 
 void Labonatip_GUI::closeEvent(QCloseEvent *event) {
+
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::closeEvent   " << endl;
 
 	QMessageBox::StandardButton resBtn = 
 		QMessageBox::question(this, "Lab-on-a-tip",
@@ -1243,6 +1250,10 @@ void Labonatip_GUI::closeEvent(QCloseEvent *event) {
 
 void Labonatip_GUI::dumpLogs()
 {
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::dumpLogs   " << endl;
+
 	// save log data, messages from the console ect. 
 	QString cout_file_name = m_ext_data_path;
 	cout_file_name.append("/Cout_");

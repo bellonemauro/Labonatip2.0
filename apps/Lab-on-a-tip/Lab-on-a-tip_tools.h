@@ -15,8 +15,11 @@
 #include <iostream>
 #include <string>
 
-#include "Lab-on-a-tip.h"
-
+#include "ui_Lab-on-a-tip_tools.h"
+#include <QDialog>
+#include <QSettings>
+#include <QTranslator>
+#include <QDateTime>
 
 // PPC1api 
 #include <fluicell/ppc1api/ppc1api.h>
@@ -25,8 +28,7 @@
 
 using namespace std;
 
-class Labonatip_macroRunner;
-class Labonatip_macroWizard;
+
 
 class Labonatip_tools : public  QDialog
 {
@@ -144,7 +146,6 @@ public:
 	explicit Labonatip_tools(QWidget *parent = 0);
 
 	~Labonatip_tools();
-
 
 	// TODO: members should not be public .... add get functions instead
 	COMSettings *m_comSettings;

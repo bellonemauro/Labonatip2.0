@@ -15,8 +15,10 @@
 #include <iostream>
 #include <string>
 
-#include "Lab-on-a-tip.h"
+#include "ui_Lab-on-a-tip_protocolEditor.h"
+#include "Lab-on-a-tip_macroWizard.h"
 
+#include <QDialog>
 
 // PPC1api 
 #include <fluicell/ppc1api/ppc1api.h>
@@ -25,8 +27,6 @@
 
 using namespace std;
 
-class Labonatip_macroRunner;
-class Labonatip_macroWizard;
 
 //custom combo behavior
 class macroCombobox_2 :public QComboBox {

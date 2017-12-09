@@ -18,6 +18,7 @@ void Labonatip_GUI::updatePonSetPoint(double _pon_set_point)
 	cout << QDate::currentDate().toString().toStdString() << "  " 
 		 << QTime::currentTime().toString().toStdString() << "  "
 		 << "Labonatip_GUI::updatePonSetPoint   ::::  value  =  " << m_pon_set_point << endl;
+
 	ui->label_PonPressure->setText(QString(QString::number(int(m_pon_set_point)) + " mbar"));
 
 	// if the pipette is active we send the set point to the device
@@ -44,6 +45,7 @@ void Labonatip_GUI::updatePoffSetPoint(double _poff_set_point)
 	cout << QDate::currentDate().toString().toStdString() << "  " 
 		 << QTime::currentTime().toString().toStdString() << "  "
 		 << "Labonatip_GUI::updatePoffSetPoint   ::::  value  =  " << m_poff_set_point << endl;
+
 	ui->label_PoffPressure->setText(QString(QString::number(int(m_poff_set_point)) + " mbar"));
 
 	// if the pipette is active we send the set point to the device

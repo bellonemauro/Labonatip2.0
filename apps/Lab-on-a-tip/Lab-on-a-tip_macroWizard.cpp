@@ -9,7 +9,6 @@
 
 
 
-
 #include "Lab-on-a-tip_macroWizard.h"
 
 Labonatip_macroWizard::Labonatip_macroWizard(QWidget *parent)
@@ -17,6 +16,10 @@ Labonatip_macroWizard::Labonatip_macroWizard(QWidget *parent)
 	QDialog(parent),
 	m_protocol_name("")
 {
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_macroWizard::Labonatip_macroWizard    " << endl;
+
 	ui_wizard->setupUi(this);
 
 	m_macro_path = "";
@@ -90,6 +93,10 @@ Labonatip_macroWizard::Labonatip_macroWizard(QWidget *parent)
 
 void Labonatip_macroWizard::next_page1to2()
 {
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_macroWizard::next_page1to2    " << endl;
+
 	m_protocol_name = ui_wizard->lineEdit_protocol_name->text();
     
 	int current_idx = ui_wizard->stackedWidget->currentIndex() + 1;
@@ -100,6 +107,10 @@ void Labonatip_macroWizard::next_page1to2()
 
 void Labonatip_macroWizard::next_page2to()
 {
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_macroWizard::next_page2to    " << endl;
+
 	if (ui_wizard->radioButton_loadSetting_1->isChecked())
 	{
 
@@ -143,6 +154,10 @@ void Labonatip_macroWizard::next_page2to()
 
 void Labonatip_macroWizard::next()
 {
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_macroWizard::next    " << endl;
+
 	int current_idx = ui_wizard->stackedWidget->currentIndex() + 1;
 	ui_wizard->stackedWidget->setCurrentIndex(current_idx);
 	setBanner(current_idx);
@@ -151,6 +166,10 @@ void Labonatip_macroWizard::next()
 
 void Labonatip_macroWizard::back()
 {
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_macroWizard::back    " << endl;
+
 	int current_idx = ui_wizard->stackedWidget->currentIndex() - 1;
 	ui_wizard->stackedWidget->setCurrentIndex(current_idx);
 	setBanner(current_idx);
@@ -160,6 +179,10 @@ void Labonatip_macroWizard::back()
 
 bool Labonatip_macroWizard::save()
 {
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_macroWizard::save    " << endl;
+
 	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
 
 	QString fileName = QFileDialog::getSaveFileName(this,
@@ -185,11 +208,19 @@ bool Labonatip_macroWizard::save()
 
 void Labonatip_macroWizard::exit()
 {
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_macroWizard::exit    " << endl;
+
 	//emit ok();  // emit the signal ??
 	this->close();
 }
 
 void Labonatip_macroWizard::closeEvent(QCloseEvent *event) {
+	
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_macroWizard::closeEvent    " << endl;
 
 	QMessageBox::StandardButton resBtn =
 		QMessageBox::question(this, "Lab-on-a-tip",

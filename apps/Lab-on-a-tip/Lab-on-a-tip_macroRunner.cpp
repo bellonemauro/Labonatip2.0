@@ -227,8 +227,3 @@ void Labonatip_macroRunner::run()  {
 	}
 	
 }
-
-Labonatip_macroRunner::~Labonatip_macroRunner ()
-{
-	// if nothing is to be done here, is better to leave the compiler do it
-}

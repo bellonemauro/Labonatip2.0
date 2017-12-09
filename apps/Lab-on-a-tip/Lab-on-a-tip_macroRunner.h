@@ -15,19 +15,16 @@
 #include <iostream>
 #include <string>
 
-#include "Lab-on-a-tip.h"
-
-
-// PPC1api test
-#include <fluicell/ppc1api/ppc1api.h>
+// Qt
+#include <QMainWindow>
+#include <QDateTime>
 
 // QT threads
 #include <qthread.h>
 #include <qmutex.h>
 
-using namespace std;
-
-
+// PPC1api test
+#include <fluicell/ppc1api/ppc1api.h>
 
 class Labonatip_macroRunner : public  QThread
 {
@@ -37,8 +34,7 @@ public:
 
 	explicit Labonatip_macroRunner(QMainWindow *parent = nullptr);
 	
-	~Labonatip_macroRunner();
-
+//	~Labonatip_macroRunner(){};
 
 	void run() Q_DECL_OVERRIDE;
 
@@ -48,15 +44,11 @@ public:
 	
 	void setMacroPrt(std::vector<fluicell::PPC1api::command> *_macro) { m_macro = _macro; };
 
-	int m_number_of_iterations;
-
 	void killMacro(bool _kill) { m_threadTerminationHandler = !_kill; }
 
 	void setSimulationFlag(bool _sim_flag){ m_simulation_only = _sim_flag; }
 
 	void askOkEvent(bool _ask_ok) { m_ask_ok = _ask_ok; }
-
-	fluicell::PPC1api *m_ppc1;
 
 signals:
 	void resultReady(const QString &_s);
@@ -66,10 +58,12 @@ signals:
 
 private: 
 
+	fluicell::PPC1api *m_ppc1;
 	std::vector<fluicell::PPC1api::command> *m_macro;
 	bool m_simulation_only;
 	bool m_threadTerminationHandler;
 	bool m_ask_ok;
+	int m_number_of_iterations;
 
 };
 

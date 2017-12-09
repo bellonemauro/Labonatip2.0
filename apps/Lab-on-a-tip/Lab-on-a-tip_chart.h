@@ -11,23 +11,14 @@
 #ifndef Labonatip_chart_H_
 #define Labonatip_chart_H_
 
-// standard libraries
-#include <iostream>
-#include <string>
-
-#include "Lab-on-a-tip.h"
-
+// Qt
+#include <QDateTime>
+#include <QtCharts/QChartView>
+#include <QtCharts/QLineSeries>
+#include <QtCharts/QAreaSeries>
 
 // PPC1api test
 #include <fluicell/ppc1api/ppc1api.h>
-
-// QT threads
-#include <qthread.h>
-#include <qmutex.h>
-
-using namespace std;
-
-
 
 class Labonatip_chart 
 {
@@ -38,13 +29,11 @@ public:
 
 	explicit Labonatip_chart( );
 	
-	~Labonatip_chart() {};
+//	~Labonatip_chart() {};
 
 	QtCharts::QChartView* getChartView() {
 		return m_chartView;
 	}
-
-	void setGUIchart();
 
 	void setSolutionColor1(QColor _col_sol) {
 		*m_col_sol1 = _col_sol; 
@@ -78,7 +67,9 @@ public:
 	void updateChartMacro(f_macro *_macro);
 
 
-public: //private:
+private:
+	
+	void setGUIchart();
 
 	// line series for the chart
 	QtCharts::QLineSeries *m_series_Pon;

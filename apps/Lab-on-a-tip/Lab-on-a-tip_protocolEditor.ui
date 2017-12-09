@@ -586,18 +586,6 @@
          </property>
         </widget>
        </item>
-       <item row="3" column="6" colspan="9">
-        <widget class="QDialogButtonBox" name="buttonBox">
-         <property name="font">
-          <font>
-           <pointsize>11</pointsize>
-          </font>
-         </property>
-         <property name="standardButtons">
-          <set>QDialogButtonBox::Apply|QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-         </property>
-        </widget>
-       </item>
        <item row="1" column="11">
         <widget class="QPushButton" name="pushButton_saveMacro">
          <property name="minimumSize">
@@ -667,6 +655,21 @@
            <width>25</width>
            <height>25</height>
           </size>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0" colspan="15">
+        <widget class="QDialogButtonBox" name="buttonBox">
+         <property name="font">
+          <font>
+           <pointsize>11</pointsize>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="standardButtons">
+          <set>QDialogButtonBox::Apply|QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
          </property>
         </widget>
        </item>

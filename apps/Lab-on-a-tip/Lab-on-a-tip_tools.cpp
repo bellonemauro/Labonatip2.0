@@ -780,9 +780,9 @@ bool Labonatip_tools::saveSettings(QString _file_name)
 
 	// [server]
 	// solution1 = CuSO4
-	settings->setValue("server/IP", ui_tools->lineEdit_IP->text());
+	//settings->setValue("server/IP", ui_tools->lineEdit_IP->text());
 	// solution2 = NaCl
-	settings->setValue("server/port", ui_tools->lineEdit_serverPort->text());
+	//settings->setValue("server/port", ui_tools->lineEdit_serverPort->text());
 
 	
 	settings->sync();
@@ -796,8 +796,8 @@ void Labonatip_tools::resetToDefaultValues()
 {
 #pragma message ("TODO : tools resetToDefalut")
 	//TODO
-	QMessageBox::warning(this, "Warning ",
-		"TODO ");
+//	QMessageBox::warning(this, "Warning ",
+//		"TODO ");
 
 }
 

@@ -63,6 +63,11 @@ void Labonatip_chart::updateChartTime(int _time_value)
 
 void Labonatip_chart::updateChartMacro(f_macro *_macro)
 {
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_chart::updateChartMacro   " << endl;
+	
+	
 	//TODO:: check if _macro is a valid pointer
 
 
@@ -335,26 +340,15 @@ void Labonatip_chart::updateChartMacro(f_macro *_macro)
 			break;
 		}
 
-
-		// TODO CONTINUE FROM HERE !!!! 
-		/*
-
-		//		m_series_V_recirc->append(
-		//			m_series_Pon->at(m_series_Pon->count() - 1).x() + qreal(m_macro->at(i).Duration / duration), 
-		//			i * 12);//m_macro->at(i).V_recirc); // in [60; 70]
-		//		m_series_V_switch->append(
-		//			m_series_Pon->at(m_series_Pon->count() - 1).x() + qreal(m_macro->at(i).Duration / duration), 
-		//			i * 15);//m_macro->at(i).V_switch); // in [50; 60]
-*/
 	}
-
-
-
 	m_chart->update();
 }
 
 void Labonatip_chart::setGUIchart()
 {
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_chart::setGUIchart   " << endl;
 
 	//initialize chart objects
 	m_series_Pon = new QtCharts::QLineSeries();
