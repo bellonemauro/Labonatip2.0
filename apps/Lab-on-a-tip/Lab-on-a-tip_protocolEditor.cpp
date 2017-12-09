@@ -14,6 +14,10 @@ Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 	QDialog (parent),
 	ui_p_editor(new Ui::Labonatip_protocol_editor)
 {
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_protocol_editor::Labonatip_protocol_editor    " << endl;
+
 	ui_p_editor->setupUi(this );
 
 	// initialize the macro wizard
@@ -87,6 +91,10 @@ Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 
 void Labonatip_protocol_editor::okPressed() {
 
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_protocol_editor::okPressed    " << endl;
+
 	addAllCommandsToMacro();
 	//TODO manual save for now
 	//saveSettings();
@@ -98,12 +106,20 @@ void Labonatip_protocol_editor::okPressed() {
 
 void Labonatip_protocol_editor::cancelPressed() {
 
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_protocol_editor::cancelPressed    " << endl;
+
 	emit cancel();
 	this->close();
 }
 
 
 void Labonatip_protocol_editor::applyPressed() {
+
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_protocol_editor::applyPressed    " << endl;
 
 	addAllCommandsToMacro();
 	//TODO manual save for now
@@ -116,6 +132,10 @@ void Labonatip_protocol_editor::applyPressed() {
 
 void Labonatip_protocol_editor::newMacroWizard()
 {
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_protocol_editor::newMacroWizard    " << endl;
+
 	macroWizard->setMacroPath(m_macro_path);
 	macroWizard->setModal(true);
 	macroWizard->show();
@@ -169,6 +189,9 @@ void Labonatip_protocol_editor::addMacroCommand()
 
 void Labonatip_protocol_editor::removeMacroCommand()
 {
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_protocol_editor::removeMacroCommand    " << endl;
 
 	if (ui_p_editor->treeWidget_macroTable->currentItem() &&
 		ui_p_editor->treeWidget_macroTable->topLevelItemCount() > 0) {// avoid crash is no elements in the table or no selection
@@ -179,6 +202,10 @@ void Labonatip_protocol_editor::removeMacroCommand()
 
 void Labonatip_protocol_editor::becomeChild()
 {
+
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_protocol_editor::becomeChild    " << endl;
 
 	if (!ui_p_editor->treeWidget_macroTable->currentItem()) return; // avoid crash if no selection
 	
@@ -208,6 +235,10 @@ void Labonatip_protocol_editor::becomeChild()
 void Labonatip_protocol_editor::becomeParent()
 {
 
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_protocol_editor::becomeParent    " << endl;
+
 	if (!ui_p_editor->treeWidget_macroTable->currentItem()) return; // avoid crash if no selection
 
 	QTreeWidgetItem *item = new QTreeWidgetItem;
@@ -229,6 +260,10 @@ void Labonatip_protocol_editor::becomeParent()
 
 void Labonatip_protocol_editor::moveUp()
 {
+
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_protocol_editor::moveUp    " << endl;
 
 	// create a combo
 	macroCombobox_2 *comboBox = new macroCombobox_2();
@@ -260,6 +295,10 @@ void Labonatip_protocol_editor::moveUp()
 
 void Labonatip_protocol_editor::moveDown()
 {
+
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_protocol_editor::moveDown    " << endl;
 
 	// create a combo
 	macroCombobox_2 *comboBox = new macroCombobox_2();
@@ -295,6 +334,10 @@ void Labonatip_protocol_editor::moveDown()
 
 void Labonatip_protocol_editor::plusIndent()
 {
+
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_protocol_editor::plusIndent    " << endl;
 
 	// create a new item
 	QTreeWidgetItem *newItem = new QTreeWidgetItem;
@@ -567,6 +610,10 @@ void Labonatip_protocol_editor::commandChanged(int _idx)
 
 void Labonatip_protocol_editor::duplicateItem()
 {
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_protocol_editor::duplicateItem    " << endl;
+
 	if (!ui_p_editor->treeWidget_macroTable->currentItem()) return; // avoid crash if no selection
 
 	// get the current selected item
@@ -635,6 +682,10 @@ void Labonatip_protocol_editor::duplicateItem()
 void Labonatip_protocol_editor::createNewCommand(QTreeWidgetItem & _command, macroCombobox_2 & _combo_box)
 {
 
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_protocol_editor::createNewCommand    " << endl;
+
 	_command.setText(0, "Command"); // 
 	_command.setText(1, "1"); // 
 	_command.setCheckState(2, Qt::CheckState::Unchecked); // status message
@@ -658,6 +709,11 @@ void Labonatip_protocol_editor::createNewCommand(QTreeWidgetItem & _command, mac
 
 void Labonatip_protocol_editor::addAllCommandsToMacro()
 {
+
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_protocol_editor::addAllCommandsToMacro    " << endl;
+
 	// all the items 
 	std::vector<QTreeWidgetItem*> commands_vector;
 	m_macro->clear();
@@ -724,6 +780,7 @@ bool Labonatip_protocol_editor::loadMacro()
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_tools::loadMacro :::  "
 		<< m_macro_path.toStdString() << "  " << endl;
+	
 	QString file_name = QFileDialog::getOpenFileName(this, tr("Open file"), m_macro_path,  // dialog to open files
 		"Lab-on-a-tip macro File (*.macro);; Data (*.dat);; All Files(*.*)", 0);
 	
@@ -839,6 +896,10 @@ bool Labonatip_protocol_editor::loadMacro(const QString _file_name)
 bool Labonatip_protocol_editor::saveMacro()
 {
 	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
+
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_protocol_editor::saveMacro    " << endl;
 
 	QString fileName = QFileDialog::getSaveFileName(this, 
 		tr("Save something"), m_macro_path,  // dialog to open files
@@ -976,6 +1037,10 @@ QList<QStringList> Labonatip_protocol_editor::visitTree(QTreeWidget *_tree) {
 
 int Labonatip_protocol_editor::interpreteLanguage(QString _language)
 {
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_protocol_editor::interpreteLanguage    " << endl;
+
 	if (_language == "English")
 	{
 		return 0;
@@ -1132,6 +1197,10 @@ QString Labonatip_protocol_editor::createHeader()
 
 
 void Labonatip_protocol_editor::clearAllCommands() {
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_protocol_editor::clearAllCommands    " << endl;
+
 	ui_p_editor->treeWidget_macroTable->clear();
 }
 

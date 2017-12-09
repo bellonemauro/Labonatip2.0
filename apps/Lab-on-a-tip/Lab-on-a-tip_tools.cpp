@@ -42,7 +42,7 @@ Labonatip_tools::Labonatip_tools(QWidget *parent ):
 		&Labonatip_tools::toolButtonStyleChanged);
 
 	connect(ui_tools->checkBox_enableToolTips,
-		SIGNAL(stateChanged(int)), this, SLOT(enableToolTip()));
+		SIGNAL(stateChanged(int)), this, SLOT(enableToolTip(int))); //TODO:
 
 	// enumerate connected com ports
 	enumerate();
@@ -79,7 +79,6 @@ Labonatip_tools::Labonatip_tools(QWidget *parent ):
 		SIGNAL(stateChanged(int)), this,
 		SLOT(setContinuousFow(int))); 
 
-
 	connect(ui_tools->pushButton_toDefault,
 		SIGNAL(clicked()), this, SLOT(resetToDefaultValues()));
 
@@ -113,10 +112,10 @@ void Labonatip_tools::okPressed() {
 	getCOMsettings();
 	getSolutionSettings();
 	getGUIsettings();
+	getPRsettings();
 
 	//TODO manual save for now
 	//saveSettings();
-	//TODO other settings ! 
 
 	emit ok();
 	this->close();
@@ -133,15 +132,12 @@ void Labonatip_tools::applyPressed() {
 
 	getCOMsettings();
 	getSolutionSettings();
-	//addAllCommandsToMacro(); 
 	getGUIsettings();
-
+	getPRsettings();
 	//TODO manual save for now
 	//saveSettings();
-	//TODO other settings ! 
 
 	emit apply();
-
 }
 
 
@@ -182,15 +178,24 @@ void Labonatip_tools::enumerate()
 
 void Labonatip_tools::setDefaultPressuresVacuums(int _p_on_default, int _p_off_default, int _v_recirc_default, int _v_switch_default)
 {
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_tools::setDefaultPressuresVacuums " 
+		<< "  _p_on_default = "  << _p_on_default
+		<< "  _p_off_default = " << _p_off_default
+		<< "  _v_recirc_default = " << _v_recirc_default
+		<< "  _v_switch_default = " << _v_switch_default
+		<< endl;
+
 	m_pr_params->p_on_default = _p_on_default;
 	m_pr_params->p_off_default = _p_off_default;
 	m_pr_params->v_recirc_default = _v_recirc_default;
 	m_pr_params->v_switch_default = _v_switch_default;
 
-	ui_tools->lineEdit_p_on_default->setText(QString::number(_p_on_default));
-	ui_tools->lineEdit_p_off_default->setText(QString::number(_p_off_default));
-	ui_tools->lineEdit_v_recirc_default->setText(QString::number(_v_recirc_default));
-	ui_tools->lineEdit_v_switch_default->setText(QString::number(_v_switch_default));
+	ui_tools->spinBox_p_on_default->setValue(_p_on_default);
+	ui_tools->spinBox_p_off_default->setValue(_p_off_default);
+	ui_tools->spinBox_v_recirc_default->setValue(-_v_recirc_default);
+	ui_tools->spinBox_v_switch_default->setValue(-_v_switch_default);
 	
 }
 
@@ -362,6 +367,17 @@ void Labonatip_tools::getGUIsettings()
 	//TODO other settings ! 
 }
 
+void Labonatip_tools::getPRsettings()
+{
+
+	m_pr_params->p_on_default = ui_tools->spinBox_p_on_default->value();
+	m_pr_params->p_off_default = ui_tools->spinBox_p_off_default->value();
+	m_pr_params->v_recirc_default = ui_tools->spinBox_v_recirc_default->value();
+	m_pr_params->v_switch_default = ui_tools->spinBox_v_switch_default->value();
+
+	//TODO other settings ! 
+}
+
 bool Labonatip_tools::loadSettings(QString _path)
 {
 
@@ -463,7 +479,7 @@ bool Labonatip_tools::loadSettings(QString _path)
 			<< "Labonatip_tools::loadSettings ::: Warning !  ::  p_on_max corrupted in setting file, using default value " << endl;
 		p_on_max = 450;
 	}
-	ui_tools->lineEdit_p_on_max->setText(QString::number(p_on_max));
+	ui_tools->spinBox_p_on_max->setValue(p_on_max);
 	m_pr_params->p_on_max = p_on_max;
 
 	int p_on_min = m_settings->value("pr_limits/p_on_min", "0").toInt(&ok);
@@ -473,7 +489,7 @@ bool Labonatip_tools::loadSettings(QString _path)
 			<< "Labonatip_tools::loadSettings ::: Warning !  ::  p_on_min corrupted in setting file, using default value " << endl;
 		p_on_min = 0;
 	}
-	ui_tools->lineEdit_p_on_min->setText(QString::number(p_on_min));
+	ui_tools->spinBox_p_on_min->setValue(p_on_min);
 	m_pr_params->p_on_min = p_on_min;
 
 	int p_on_default = m_settings->value("pr_limits/p_on_default", "190").toInt(&ok);
@@ -483,7 +499,7 @@ bool Labonatip_tools::loadSettings(QString _path)
 			<< "Labonatip_tools::loadSettings ::: Warning !  ::  p_on_default corrupted in setting file, using default value " << endl;
 		p_on_default = 190;
 	}
-	ui_tools->lineEdit_p_on_default->setText(QString::number(p_on_default));
+	ui_tools->spinBox_p_on_default->setValue(p_on_default);
 	m_pr_params->p_on_default = p_on_default;
 
 	int p_off_max = m_settings->value("pr_limits/p_off_max", "450").toInt(&ok);
@@ -493,7 +509,7 @@ bool Labonatip_tools::loadSettings(QString _path)
 			<< "Labonatip_tools::loadSettings ::: Warning !  ::  p_off_max corrupted in setting file, using default value " << endl;
 		p_off_max = 450;
 	}
-	ui_tools->lineEdit_p_off_max->setText(QString::number(p_off_max)); //TODO
+	ui_tools->spinBox_p_off_max->setValue(p_off_max); //TODO
 	m_pr_params->p_off_max = p_off_max;
 
 	int p_off_min = m_settings->value("pr_limits/p_off_min", "0").toInt(&ok);
@@ -503,7 +519,7 @@ bool Labonatip_tools::loadSettings(QString _path)
 			<< "Labonatip_tools::loadSettings ::: Warning !  ::  p_off_min corrupted in setting file, using default value " << endl;
 		p_off_min = 0;
 	}
-	ui_tools->lineEdit_p_off_min->setText(QString::number(p_off_min));
+	ui_tools->spinBox_p_off_min->setValue(p_off_min);
 	m_pr_params->p_off_min = p_off_min;
 
 	int p_off_default = m_settings->value("pr_limits/p_off_default", "21").toInt(&ok);
@@ -513,7 +529,7 @@ bool Labonatip_tools::loadSettings(QString _path)
 			<< "Labonatip_tools::loadSettings ::: Warning !  ::  p_off_default corrupted in setting file, using default value " << endl;
 		p_off_default = 21;
 	}
-	ui_tools->lineEdit_p_off_default->setText(QString::number(p_off_default));
+	ui_tools->spinBox_p_off_default->setValue(p_off_default);
 	m_pr_params->p_off_default = p_off_default;
 
 	int v_switch_max = m_settings->value("pr_limits/v_switch_max", "0").toInt(&ok);
@@ -523,7 +539,7 @@ bool Labonatip_tools::loadSettings(QString _path)
 			<< "Labonatip_tools::loadSettings ::: Warning !  ::  v_switch_max corrupted in setting file, using default value " << endl;
 		v_switch_max = 0;
 	}
-	ui_tools->lineEdit_v_switch_max->setText(QString::number(v_switch_max));
+	ui_tools->spinBox_v_switch_max->setValue(v_switch_max);
 	m_pr_params->v_switch_max = v_switch_max;
 
 	int v_switch_min = m_settings->value("pr_limits/v_switch_min", "-300").toInt(&ok);
@@ -533,7 +549,7 @@ bool Labonatip_tools::loadSettings(QString _path)
 			<< "Labonatip_tools::loadSettings ::: Warning !  ::  v_switch_min corrupted in setting file, using default value " << endl;
 		v_switch_min = -300;
 	}
-	ui_tools->lineEdit_v_switch_min->setText(QString::number(v_switch_min));
+	ui_tools->spinBox_v_switch_min->setValue(v_switch_min);
 	m_pr_params->v_switch_min = v_switch_min;
 
 	int v_switch_default = m_settings->value("pr_limits/v_switch_default", "-115").toInt(&ok);
@@ -543,7 +559,7 @@ bool Labonatip_tools::loadSettings(QString _path)
 			<< "Labonatip_tools::loadSettings ::: Warning !  ::  v_switch_default corrupted in setting file, using default value " << endl;
 		v_switch_default = -115;
 	}
-	ui_tools->lineEdit_v_switch_default->setText(QString::number(v_switch_default));
+	ui_tools->spinBox_v_switch_default->setValue(v_switch_default);
 	m_pr_params->v_switch_default = v_switch_default;
 
 	int v_recirc_max = m_settings->value("pr_limits/v_recirc_max", "0").toInt(&ok);
@@ -553,7 +569,7 @@ bool Labonatip_tools::loadSettings(QString _path)
 			<< "Labonatip_tools::loadSettings ::: Warning !  ::  v_recirc_max corrupted in setting file, using default value " << endl;
 		v_recirc_max = 0;
 	}
-	ui_tools->lineEdit_v_recirc_max->setText(QString::number(v_recirc_max));
+	ui_tools->spinBox_v_recirc_max->setValue(v_recirc_max);
 	m_pr_params->v_recirc_max = v_recirc_max;
 
 	int v_recirc_min = m_settings->value("pr_limits/v_recirc_min", "-300").toInt(&ok);
@@ -563,7 +579,7 @@ bool Labonatip_tools::loadSettings(QString _path)
 			<< "Labonatip_tools::loadSettings ::: Warning !  ::  v_recirc_min corrupted in setting file, using default value " << endl;
 		v_recirc_min = -300;
 	}
-	ui_tools->lineEdit_v_recirc_min->setText(QString::number(v_recirc_min));
+	ui_tools->spinBox_v_recirc_min->setValue(v_recirc_min);
 	m_pr_params->v_recirc_min = v_recirc_min;
 
 	int v_recirc_default = m_settings->value("pr_limits/v_recirc_default", "-115").toInt(&ok);
@@ -573,7 +589,7 @@ bool Labonatip_tools::loadSettings(QString _path)
 			<< "Labonatip_tools::loadSettings ::: Warning !  ::  v_recirc_default corrupted in setting file, using default value " << endl;
 		v_recirc_default = -115;
 	}
-	ui_tools->lineEdit_v_recirc_default->setText(QString::number(v_recirc_default));
+	ui_tools->spinBox_v_recirc_default->setValue(v_recirc_default);
 	m_pr_params->v_recirc_default = v_recirc_default;
 
 	int base_ds_increment = m_settings->value("pr_limits/base_ds_increment", "10").toInt(&ok);
@@ -634,7 +650,7 @@ bool Labonatip_tools::loadSettings(QString _path)
 			<< QTime::currentTime().toString().toStdString() << "  "
 			<< "Labonatip_tools::loadSettings ::: Warning !  ::  volume of solution 3 corrupted in setting file, using default value " << endl;
 	}
-	ui_tools->spinBox_vol_sol2->setValue(vol_sol3);
+	ui_tools->spinBox_vol_sol3->setValue(vol_sol3);
 	m_solutionParams->volume_sol3 = vol_sol3;
 
 	int vol_sol4 = m_settings->value("solutions/volSol4", "0").toInt(&ok);
@@ -720,29 +736,29 @@ bool Labonatip_tools::saveSettings(QString _file_name)
 
 	// [pr_limits]
 	// p_on_max = 
-	settings->setValue("pr_limits/p_on_max", ui_tools->lineEdit_p_on_max->text());
+	settings->setValue("pr_limits/p_on_max", ui_tools->spinBox_p_on_max->value());
 	// p_on_min =
-	settings->setValue("pr_limits/p_on_min", ui_tools->lineEdit_p_on_min->text());
+	settings->setValue("pr_limits/p_on_min", ui_tools->spinBox_p_on_min->value());
 	// p_on_default = 
-	settings->setValue("pr_limits/p_on_default", ui_tools->lineEdit_p_on_default->text());
+	settings->setValue("pr_limits/p_on_default", ui_tools->spinBox_p_on_default->value());
 	// p_off_max = 
-	settings->setValue("pr_limits/p_off_max", ui_tools->lineEdit_p_off_max->text());
+	settings->setValue("pr_limits/p_off_max", ui_tools->spinBox_p_off_max->value());
 	// p_off_min = 
-	settings->setValue("pr_limits/p_off_min", ui_tools->lineEdit_p_off_min->text());
+	settings->setValue("pr_limits/p_off_min", ui_tools->spinBox_p_off_min->value());
 	// p_off_default = 
-	settings->setValue("pr_limits/p_off_default", ui_tools->lineEdit_p_off_default->text());
+	settings->setValue("pr_limits/p_off_default", ui_tools->spinBox_p_off_default->value());
 	// v_switch_max = 
-	settings->setValue("pr_limits/v_switch_max", ui_tools->lineEdit_v_switch_max->text());
+	settings->setValue("pr_limits/v_switch_max", ui_tools->spinBox_v_switch_max->value());
 	// v_switch_min = 
-	settings->setValue("pr_limits/v_switch_min", ui_tools->lineEdit_v_switch_min->text());
+	settings->setValue("pr_limits/v_switch_min", ui_tools->spinBox_v_switch_min->value());
 	// v_switch_default = 
-	settings->setValue("pr_limits/v_switch_default", ui_tools->lineEdit_v_switch_default->text());
+	settings->setValue("pr_limits/v_switch_default", ui_tools->spinBox_v_switch_default->value());
 	// v_recirc_max = 
-	settings->setValue("pr_limits/v_recirc_max", ui_tools->lineEdit_v_recirc_max->text());
+	settings->setValue("pr_limits/v_recirc_max", ui_tools->spinBox_v_recirc_max->value());
 	// v_recirc_min = 
-	settings->setValue("pr_limits/v_recirc_min", ui_tools->lineEdit_v_recirc_min->text());
+	settings->setValue("pr_limits/v_recirc_min", ui_tools->spinBox_v_recirc_min->value());
 	// v_recirc_default = 
-	settings->setValue("pr_limits/v_recirc_default", ui_tools->lineEdit_v_recirc_default->text());
+	settings->setValue("pr_limits/v_recirc_default", ui_tools->spinBox_v_recirc_default->value());
 	// base_ds_increment = 
 	settings->setValue("pr_limits/base_ds_increment", ui_tools->spinBox_ds_increment->value());
 	// base_ds_increment = 
@@ -777,14 +793,6 @@ bool Labonatip_tools::saveSettings(QString _file_name)
 	// sol4colSlider
 	settings->setValue("solutions/sol4colSlider", ui_tools->horizontalSlider_colorSol4->value());
 
-
-	// [server]
-	// solution1 = CuSO4
-	//settings->setValue("server/IP", ui_tools->lineEdit_IP->text());
-	// solution2 = NaCl
-	//settings->setValue("server/port", ui_tools->lineEdit_serverPort->text());
-
-	
 	settings->sync();
 	//m_settings->sync();
 	
@@ -794,11 +802,7 @@ bool Labonatip_tools::saveSettings(QString _file_name)
 
 void Labonatip_tools::resetToDefaultValues()
 {
-#pragma message ("TODO : tools resetToDefalut")
-	//TODO
-//	QMessageBox::warning(this, "Warning ",
-//		"TODO ");
-
+	loadSettings("");
 }
 
 

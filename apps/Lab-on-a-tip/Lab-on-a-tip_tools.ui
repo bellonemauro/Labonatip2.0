@@ -267,7 +267,7 @@
             <number>0</number>
            </property>
            <property name="currentIndex">
-            <number>1</number>
+            <number>0</number>
            </property>
            <widget class="QWidget" name="page_0">
             <layout class="QGridLayout" name="gridLayout_7">
@@ -332,78 +332,6 @@
                   </property>
                  </spacer>
                 </item>
-                <item row="2" column="4">
-                 <widget class="QLineEdit" name="lineEdit_p_off_min">
-                  <property name="enabled">
-                   <bool>false</bool>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <pointsize>11</pointsize>
-                   </font>
-                  </property>
-                  <property name="accessibleDescription">
-                   <string/>
-                  </property>
-                  <property name="text">
-                   <string notr="true"/>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="6">
-                 <widget class="QLineEdit" name="lineEdit_v_switch_min">
-                  <property name="enabled">
-                   <bool>false</bool>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <pointsize>11</pointsize>
-                   </font>
-                  </property>
-                  <property name="accessibleDescription">
-                   <string/>
-                  </property>
-                  <property name="text">
-                   <string notr="true"/>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="8">
-                 <widget class="QLineEdit" name="lineEdit_v_recirc_min">
-                  <property name="enabled">
-                   <bool>false</bool>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <pointsize>11</pointsize>
-                   </font>
-                  </property>
-                  <property name="accessibleDescription">
-                   <string/>
-                  </property>
-                  <property name="text">
-                   <string notr="true"/>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="6">
-                 <widget class="QLineEdit" name="lineEdit_v_switch_max">
-                  <property name="enabled">
-                   <bool>false</bool>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <pointsize>11</pointsize>
-                   </font>
-                  </property>
-                  <property name="accessibleDescription">
-                   <string/>
-                  </property>
-                  <property name="text">
-                   <string notr="true"/>
-                  </property>
-                 </widget>
-                </item>
                 <item row="1" column="5">
                  <spacer name="horizontalSpacer_7">
                   <property name="orientation">
@@ -429,24 +357,6 @@
                    </size>
                   </property>
                  </spacer>
-                </item>
-                <item row="1" column="4">
-                 <widget class="QLineEdit" name="lineEdit_p_off_max">
-                  <property name="enabled">
-                   <bool>false</bool>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <pointsize>11</pointsize>
-                   </font>
-                  </property>
-                  <property name="accessibleDescription">
-                   <string/>
-                  </property>
-                  <property name="text">
-                   <string notr="true"/>
-                  </property>
-                 </widget>
                 </item>
                 <item row="0" column="4">
                  <widget class="QLabel" name="label_25">
@@ -481,24 +391,6 @@
                   </property>
                   <property name="text">
                    <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt; V&lt;span style=&quot; vertical-align:sub;&quot;&gt;switch&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="8">
-                 <widget class="QLineEdit" name="lineEdit_v_recirc_max">
-                  <property name="enabled">
-                   <bool>false</bool>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <pointsize>11</pointsize>
-                   </font>
-                  </property>
-                  <property name="accessibleDescription">
-                   <string/>
-                  </property>
-                  <property name="text">
-                   <string notr="true"/>
                   </property>
                  </widget>
                 </item>
@@ -538,24 +430,6 @@
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="2">
-                 <widget class="QLineEdit" name="lineEdit_p_on_max">
-                  <property name="enabled">
-                   <bool>false</bool>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <pointsize>11</pointsize>
-                   </font>
-                  </property>
-                  <property name="accessibleDescription">
-                   <string/>
-                  </property>
-                  <property name="text">
-                   <string notr="true"/>
-                  </property>
-                 </widget>
-                </item>
                 <item row="0" column="8">
                  <widget class="QLabel" name="label_31">
                   <property name="font">
@@ -568,84 +442,177 @@
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="2">
-                 <widget class="QLineEdit" name="lineEdit_p_on_min">
+                <item row="1" column="2">
+                 <widget class="QSpinBox" name="spinBox_p_on_max">
                   <property name="enabled">
                    <bool>false</bool>
                   </property>
-                  <property name="font">
-                   <font>
-                    <pointsize>11</pointsize>
-                   </font>
+                  <property name="maximum">
+                   <number>1000</number>
                   </property>
-                  <property name="accessibleDescription">
-                   <string/>
-                  </property>
-                  <property name="text">
-                   <string notr="true"/>
+                  <property name="value">
+                   <number>450</number>
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="2">
-                 <widget class="QLineEdit" name="lineEdit_p_on_default">
-                  <property name="font">
-                   <font>
-                    <pointsize>11</pointsize>
-                   </font>
+                <item row="2" column="2">
+                 <widget class="QSpinBox" name="spinBox_p_on_min">
+                  <property name="enabled">
+                   <bool>false</bool>
                   </property>
-                  <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Default operational value for P&lt;span style=&quot; vertical-align:sub;&quot;&gt;on&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                  <property name="accessibleDescription">
-                   <string/>
-                  </property>
-                  <property name="text">
-                   <string notr="true"/>
+                  <property name="maximum">
+                   <number>1000</number>
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="4">
-                 <widget class="QLineEdit" name="lineEdit_p_off_default">
-                  <property name="font">
-                   <font>
-                    <pointsize>11</pointsize>
-                   </font>
+                <item row="1" column="4">
+                 <widget class="QSpinBox" name="spinBox_p_off_max">
+                  <property name="enabled">
+                   <bool>false</bool>
                   </property>
-                  <property name="accessibleDescription">
-                   <string/>
+                  <property name="maximum">
+                   <number>1000</number>
                   </property>
-                  <property name="text">
-                   <string notr="true"/>
+                  <property name="value">
+                   <number>450</number>
                   </property>
                  </widget>
                 </item>
-                <item row="3" column="6">
-                 <widget class="QLineEdit" name="lineEdit_v_switch_default">
-                  <property name="font">
-                   <font>
-                    <pointsize>11</pointsize>
-                   </font>
+                <item row="2" column="4">
+                 <widget class="QSpinBox" name="spinBox_p_off_min">
+                  <property name="enabled">
+                   <bool>false</bool>
                   </property>
-                  <property name="accessibleDescription">
-                   <string/>
+                  <property name="maximum">
+                   <number>1000</number>
                   </property>
-                  <property name="text">
-                   <string notr="true"/>
+                 </widget>
+                </item>
+                <item row="1" column="6">
+                 <widget class="QSpinBox" name="spinBox_v_switch_max">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="minimum">
+                   <number>-1000</number>
+                  </property>
+                  <property name="maximum">
+                   <number>0</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="6">
+                 <widget class="QSpinBox" name="spinBox_v_switch_min">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="minimum">
+                   <number>-1000</number>
+                  </property>
+                  <property name="maximum">
+                   <number>0</number>
+                  </property>
+                  <property name="value">
+                   <number>-300</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="8">
+                 <widget class="QSpinBox" name="spinBox_v_recirc_max">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="minimum">
+                   <number>-1000</number>
+                  </property>
+                  <property name="maximum">
+                   <number>0</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="8">
+                 <widget class="QSpinBox" name="spinBox_v_recirc_min">
+                  <property name="enabled">
+                   <bool>false</bool>
+                  </property>
+                  <property name="minimum">
+                   <number>-1000</number>
+                  </property>
+                  <property name="maximum">
+                   <number>0</number>
+                  </property>
+                  <property name="value">
+                   <number>-300</number>
                   </property>
                  </widget>
                 </item>
                 <item row="3" column="8">
-                 <widget class="QLineEdit" name="lineEdit_v_recirc_default">
-                  <property name="font">
-                   <font>
-                    <pointsize>11</pointsize>
-                   </font>
+                 <widget class="QSpinBox" name="spinBox_v_recirc_default">
+                  <property name="minimumSize">
+                   <size>
+                    <width>70</width>
+                    <height>0</height>
+                   </size>
                   </property>
-                  <property name="accessibleDescription">
-                   <string/>
+                  <property name="minimum">
+                   <number>-300</number>
                   </property>
-                  <property name="text">
-                   <string notr="true"/>
+                  <property name="maximum">
+                   <number>0</number>
+                  </property>
+                  <property name="value">
+                   <number>-115</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="6">
+                 <widget class="QSpinBox" name="spinBox_v_switch_default">
+                  <property name="minimumSize">
+                   <size>
+                    <width>70</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="minimum">
+                   <number>-300</number>
+                  </property>
+                  <property name="maximum">
+                   <number>0</number>
+                  </property>
+                  <property name="value">
+                   <number>-115</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="4">
+                 <widget class="QSpinBox" name="spinBox_p_off_default">
+                  <property name="minimumSize">
+                   <size>
+                    <width>70</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximum">
+                   <number>450</number>
+                  </property>
+                  <property name="value">
+                   <number>21</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="2">
+                 <widget class="QSpinBox" name="spinBox_p_on_default">
+                  <property name="minimumSize">
+                   <size>
+                    <width>70</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximum">
+                   <number>450</number>
+                  </property>
+                  <property name="value">
+                   <number>190</number>
                   </property>
                  </widget>
                 </item>

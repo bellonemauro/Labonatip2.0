@@ -276,6 +276,8 @@ private:
 
 	void getGUIsettings();
 
+	void getPRsettings();
+
 	uint32_t giveRainbowColor(float _position);
 
 	QString m_setting_file_name;

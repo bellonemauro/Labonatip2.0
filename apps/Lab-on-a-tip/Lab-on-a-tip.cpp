@@ -1023,6 +1023,10 @@ void Labonatip_GUI::toolApply()
 	ui->toolBar_3->setToolButtonStyle(m_dialog_tools->m_GUI_params->showTextToolBar);
 	ui->toolBar_3->update();
 
+	default_poff = m_dialog_tools->m_pr_params->p_off_default;
+	default_pon = m_dialog_tools->m_pr_params->p_on_default;
+	default_v_recirc = -m_dialog_tools->m_pr_params->v_recirc_default;
+	default_v_switch = -m_dialog_tools->m_pr_params->v_switch_default;
 
 	//switchLanguage(m_dialog_tools->language);
 
