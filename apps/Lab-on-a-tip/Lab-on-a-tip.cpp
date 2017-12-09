@@ -922,7 +922,10 @@ void Labonatip_GUI::initConnects()
 		SIGNAL(clicked()), this, 
 		SLOT(newTip()));
 
-	
+	connect(ui->pushButton_cleanHistory,
+		SIGNAL(clicked()), this,
+		SLOT(cleanHistory()));
+
 	connect(ui->checkBox_to_terminal, 
 		SIGNAL(stateChanged(int)), this, 
 		SLOT(dumpToTerminal(int)));
@@ -1155,6 +1158,37 @@ void Labonatip_GUI::ewst() {
 
 }
 
+void Labonatip_GUI::cleanHistory()
+{
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::cleanHistory   " << endl;
+
+
+	QMessageBox::StandardButton resBtn =
+		QMessageBox::question(this, "Lab-on-a-tip",
+			tr("This will remove all the files in the history folder.\nDo you want to proceed?\n"),
+			QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
+			QMessageBox::Yes);
+	if (resBtn != QMessageBox::Yes) {
+	
+		QMessageBox::question(this, "Information ", " Operation cancelled  ", "Ok");
+	}
+	else {
+		QDir dir(m_ext_data_path);
+		dir.setNameFilters(QStringList() << "*.txt");
+		dir.setFilter(QDir::Files);
+		foreach(QString dirFile, dir.entryList())
+		{
+			dir.remove(dirFile);
+		}
+		QMessageBox::question(this, "Information ", " History cleaned  ", "Ok");
+	}
+
+
+
+}
+
 void Labonatip_GUI::about() {
 
 	QMessageBox messageBox;
@@ -1210,7 +1244,8 @@ void Labonatip_GUI::closeEvent(QCloseEvent *event) {
 void Labonatip_GUI::dumpLogs()
 {
 	// save log data, messages from the console ect. 
-	QString cout_file_name = QString("./Ext_data/Cout_");
+	QString cout_file_name = m_ext_data_path;
+	cout_file_name.append("/Cout_");
 	cout_file_name.append(QDate::currentDate().toString());
 	cout_file_name.append("_");
 	cout_file_name.append(QString::number(QTime::currentTime().hour()));
@@ -1227,7 +1262,8 @@ void Labonatip_GUI::dumpLogs()
 	c_out << ui->textEdit_qcout->toPlainText() << endl;
 
 	// save log data, messages from the console ect. 
-	QString Err_file_name = QString("./Ext_data/Err_");
+	QString Err_file_name = m_ext_data_path;
+	Err_file_name.append("/Err_");
 	Err_file_name.append(QDate::currentDate().toString());
 	Err_file_name.append("_");
 	Err_file_name.append(QString::number(QTime::currentTime().hour()));

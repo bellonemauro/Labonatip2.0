@@ -259,7 +259,7 @@ void Labonatip_GUI::macroFinished(const QString &_result) {
 		 << QTime::currentTime().toString().toStdString() << "  "
 		 << "Labonatip_GUI::macroFinished    " << endl;
 
-	QMessageBox::information(this, " Information !", _result);
+	QMessageBox::information(this, " Information ", _result);
 	//ui->statusBar->showMessage("MACRO FINISHED");
 	ui->label_runMacro->setText("Run protocol");
 	ui->groupBox_deliveryZone->setEnabled(true);

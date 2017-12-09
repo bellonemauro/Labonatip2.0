@@ -796,7 +796,7 @@ void Labonatip_tools::resetToDefaultValues()
 {
 #pragma message ("TODO : tools resetToDefalut")
 	//TODO
-	QMessageBox::warning(this, "Warning !",
+	QMessageBox::warning(this, "Warning ",
 		"TODO ");
 
 }

@@ -32,7 +32,7 @@ void Labonatip_GUI::dropletSizePlus() {
 		//if (!m_ppc1->setDropletSize(ui->lcdNumber_dropletSize_percentage->value() +
 		//	m_dialog_tools->m_pr_params->base_ds_increment)) {
 		if(!success) {
-			QMessageBox::information(this, "Warning !",
+			QMessageBox::information(this, "Warning ",
 				" Operation cannot be done. <br> Please, check for out of bound values. ");
 		}
 		else
@@ -55,7 +55,7 @@ void Labonatip_GUI::dropletSizePlus() {
 			m_dialog_tools->m_pr_params->base_ds_increment) / 100.0;
 
 		if (ui->horizontalSlider_recirculation->value() == 0) {
-			QMessageBox::information(this, "Warning !", 
+			QMessageBox::information(this, "Warning ", 
 				" Recirculation zero, operation cannot be done ");
 			return;
 		}
@@ -108,7 +108,7 @@ void Labonatip_GUI::dropletSizeMinus() {
 		//		ui->lcdNumber_dropletSize_percentage->value() -
 		//		m_dialog_tools->m_pr_params->base_ds_increment)) {
 		if (!success){
-			QMessageBox::information(this, "Warning !",
+			QMessageBox::information(this, "Warning ",
 				" Operation cannot be done. <br> Please, check for out of bound values. ");
 		}
 		else
@@ -131,7 +131,7 @@ void Labonatip_GUI::dropletSizeMinus() {
 			m_dialog_tools->m_pr_params->base_ds_increment) / 100.0;
 
 		if (ui->horizontalSlider_p_on->value() == 0) {
-			QMessageBox::information(this, "Warning !", 
+			QMessageBox::information(this, "Warning ", 
 				" P_on zero, operation cannot be done ");
 			return;
 		}
@@ -185,7 +185,7 @@ void Labonatip_GUI::flowSpeedPlus() {
 		//if (!m_ppc1->setFlowspeed(ui->lcdNumber_flowspeed_percentage->value() +
 		//	m_dialog_tools->m_pr_params->base_fs_increment)) 
 		if (!success) {
-			QMessageBox::information(this, "Warning !", 
+			QMessageBox::information(this, "Warning ", 
 				" Operation cannot be done. <br> Please, check for out of bound values. ");
 		}
 		else
@@ -275,7 +275,7 @@ void Labonatip_GUI::flowSpeedMinus() {
 		//if (!m_ppc1->setFlowspeed(ui->lcdNumber_flowspeed_percentage->value() -
 		//		m_dialog_tools->m_pr_params->base_fs_increment)) 
 		if (!success) {
-				QMessageBox::information(this, "Warning !",
+				QMessageBox::information(this, "Warning ",
 				" Operation cannot be done. <br> Please, check for out of bound values. ");
 		}
 		else
@@ -341,7 +341,7 @@ void Labonatip_GUI::vacuumPlus() {
 		//if (!m_ppc1->setVacuumPercentage(ui->lcdNumber_vacuum_percentage->value() + 
 		//	m_dialog_tools->m_pr_params->base_v_increment)) {
 		if (!success) {
-			QMessageBox::information(this, "Warning !",
+			QMessageBox::information(this, "Warning ",
 				" Operation cannot be done. <br> Please, check for out of bound values.");
 		}
 		else {
@@ -393,7 +393,7 @@ void Labonatip_GUI::vacuumMinus() {
 		//if (!m_ppc1->setVacuumPercentage(ui->lcdNumber_vacuum_percentage->value() -
 		//	m_dialog_tools->m_pr_params->base_v_increment)) {
 		if (!success) {
-			QMessageBox::information(this, "Warning !",
+			QMessageBox::information(this, "Warning ",
 				" Operation cannot be done. <br> Please, check for out of bound values. ");
 		}
 		else {
@@ -411,7 +411,7 @@ void Labonatip_GUI::vacuumMinus() {
 	if (m_simulationOnly) {
 
 		if (ui->horizontalSlider_recirculation->value() == 0) {
-			QMessageBox::information(this, "Warning !", 
+			QMessageBox::information(this, "Warning ", 
 				" Operation cannot be done. <br> Recirculation is zero. ");
 		}
 

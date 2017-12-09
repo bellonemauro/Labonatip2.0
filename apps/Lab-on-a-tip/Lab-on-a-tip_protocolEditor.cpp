@@ -413,13 +413,13 @@ bool Labonatip_protocol_editor::checkValidity(QTreeWidgetItem *_item, int _colum
 
 		int number = _item->text(_column).toInt(&isNumeric);
 		if (!isNumeric) {
-			QMessageBox::warning(this, "Warning !", " Solution is not a valid number, \n its value must be 0 or 1 ! \n where 0 = open. \nOnly one valve can be open.");
+			QMessageBox::warning(this, "Warning ", " Solution is not a valid number, \n its value must be 0 or 1 ! \n where 0 = open. \nOnly one valve can be open.");
 			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
 			return false;
 		}
 		if (number != 0 && 
 			number != 1) {
-			QMessageBox::warning(this, "Warning !", 
+			QMessageBox::warning(this, "Warning ", 
 				" Solution is out of range, \n its value must be 0 or 1 ! \n where 0 = open. \nOnly one valve can be open.");
 			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
 			return false;
@@ -729,7 +729,7 @@ bool Labonatip_protocol_editor::loadMacro()
 	
 	if (file_name.isEmpty()) {
 		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-		QMessageBox::warning(this, "Warning !", 
+		QMessageBox::warning(this, "Warning ", 
 			"Empty path, file not found ! <br>" + file_name);
 		return false;
 	}
@@ -825,7 +825,7 @@ bool Labonatip_protocol_editor::loadMacro(const QString _file_name)
 
 	}
 	else {
-		QMessageBox::warning(this, "Warning !", 
+		QMessageBox::warning(this, "Warning ", 
 			"File not found ! <br>" + _file_name);
 		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 		return false;
@@ -846,7 +846,7 @@ bool Labonatip_protocol_editor::saveMacro()
 
 	if (!saveMacro(fileName)) {
 		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-		QMessageBox::warning(this, "Warning !", "File not saved ! <br>" + fileName);
+		QMessageBox::warning(this, "Warning ", "File not saved ! <br>" + fileName);
 		return false;
 	}
 	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
@@ -896,7 +896,7 @@ bool Labonatip_protocol_editor::saveMacro(QString _file_name)
 	}
 	else {
 		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-		QMessageBox::warning(this, "Warning !", 
+		QMessageBox::warning(this, "Warning ", 
 			"File not saved ! <br>" + _file_name);
 		return false;
 	}
@@ -963,7 +963,7 @@ QList<QStringList> Labonatip_protocol_editor::visitTree(QTreeWidget *_tree) {
 	for (int i = 0; i < _tree->topLevelItemCount(); ++i){
 		
 		if (!checkValidity(_tree->topLevelItem(i), 1)) { 
-			QMessageBox::information(this, "Warning !", 
+			QMessageBox::information(this, "Warning ", 
 				"Check validity failed during macro saving, <br>please check your settings and try again. ");
 			list.clear();
 			return list;

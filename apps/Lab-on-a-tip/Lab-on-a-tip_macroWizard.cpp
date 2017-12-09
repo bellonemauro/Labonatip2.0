@@ -118,11 +118,11 @@ void Labonatip_macroWizard::next_page2to()
 			"Settings file (*.ini);; All Files(*.*)", 0);
 
 		if (_path.isEmpty()) {
-			QMessageBox::information(this, "Information !", "No file loaded ! <br>" + _path);
+			QMessageBox::information(this, "Information ", "No file loaded ! <br>" + _path);
 			return;
 		}
 
-		QMessageBox::information(this, "Information !", "No function implemented yet ! <br>" + _path);
+		QMessageBox::information(this, "Information ", "No function implemented yet ! <br>" + _path);
 
 		// go directly to page 4
 		int current_idx = 4; // ui_wizard->stackedWidget->currentIndex() + 1;
@@ -169,7 +169,7 @@ bool Labonatip_macroWizard::save()
 	//if (!saveMacro(fileName)) 
 	{
 		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-		QMessageBox::warning(this, "Warning !", "File not saved ! <br>" + fileName);
+		QMessageBox::warning(this, "Warning ", "File not saved ! <br>" + fileName);
 
 		ui_wizard->stackedWidget->setCurrentIndex(ui_wizard->stackedWidget->count() -1 );
 		setBanner(5);

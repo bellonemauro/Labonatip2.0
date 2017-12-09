@@ -24,13 +24,13 @@ void Labonatip_GUI::openFile() {
 	if (_path.isEmpty()) {
 		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 
-    QMessageBox::information(this, "Information !", "No file loaded ! <br>" + _path);
+    QMessageBox::information(this, "Information ", "No file loaded ! <br>" + _path);
 		return;
 	}
 
 	if (!m_dialog_tools->setLoadSettingsFileName(_path)) {
 		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-		QMessageBox::warning(this, "Warning !", "Cannot load the file ! <br>" + _path);
+		QMessageBox::warning(this, "Warning ", "Cannot load the file ! <br>" + _path);
 		return;
 	}
 
@@ -52,14 +52,14 @@ void Labonatip_GUI::saveFile() {
 	if (_path.isEmpty()) {
 		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 												  
-	QMessageBox::information(this, "Information !", "No file saved ! <br>" + _path);
+	QMessageBox::information(this, "Information ", "No file saved ! <br>" + _path);
 	
 		return;
 	}
 
 	if (!m_dialog_tools->setSaveSettingsFileName(_path)) {
 		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-		QMessageBox::warning(this, "Warning !", "Cannot save the file ! <br>" + _path);
+		QMessageBox::warning(this, "Warning ", "Cannot save the file ! <br>" + _path);
 		return;
 	}
 
@@ -133,7 +133,7 @@ void Labonatip_GUI::disCon() {
 
 	if (m_simulationOnly) {
 		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-		QMessageBox::information(this, "Warning !", "Lab-on-a-tip is in simulation only  ");
+		QMessageBox::information(this, "Warning ", "Lab-on-a-tip is in simulation only  ");
 		return;
 	}
 
@@ -150,7 +150,7 @@ void Labonatip_GUI::disCon() {
 					ui->actionConnectDisconnect->setText("Connect");
 					ui->actionSimulation->setEnabled(true);
 					QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-					QMessageBox::information(this, "Warning !",
+					QMessageBox::information(this, "Warning ",
 						"Lab-on-a-tip could not connect to PPC1, \n please check cables and settings and press ok ");
 
 					QMessageBox::StandardButton resBtn =
@@ -169,7 +169,7 @@ void Labonatip_GUI::disCon() {
 						m_ppc1->setBaudRate((int)m_dialog_tools->m_comSettings->baudRate);
 						if (!m_ppc1->connectCOM())
 						{
-							QMessageBox::information(this, "Warning !",
+							QMessageBox::information(this, "Warning ",
 								"Lab-on-a-tip could not connect to PPC1 twice, \n please check cables and settings  ");
 							m_pipette_active = false;
 							ui->actionConnectDisconnect->setChecked(false);
@@ -195,7 +195,7 @@ void Labonatip_GUI::disCon() {
 			}
 			else {
 				QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-				QMessageBox::information(this, "Warning !",
+				QMessageBox::information(this, "Warning ",
 					"Lab-on-a-tip connected but not running on PPC1 ");
 				m_ppc1->stop();
 				m_ppc1->disconnectCOM();
@@ -234,7 +234,7 @@ void Labonatip_GUI::disCon() {
 				ui->status_PPC1_label->setText("PPC1 STATUS: Connected  ");
 				ui->actionConnectDisconnect->setText("Disconnect");
 				ui->actionSimulation->setEnabled(false);
-				QMessageBox::information(this, "Warning !",
+				QMessageBox::information(this, "Warning ",
 					"Unable to stop and disconnect ");
 				QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 				return;
@@ -287,7 +287,7 @@ void Labonatip_GUI::shutdown() {
 
 	setEnableMainWindow(false);
 	QMessageBox::StandardButton resBtn = QMessageBox::question(this, "Lab-on-a-tip",
-		tr("shutdown pressed, this will take 30 seconds, press ok to continue, cancel to abort. \n"),
+		tr("Shutdown pressed, this will take 30 seconds, press ok to continue, cancel to abort. \n"),
 		QMessageBox::Cancel | QMessageBox::Ok,
 		QMessageBox::Ok);
 	if (resBtn != QMessageBox::Cancel) {

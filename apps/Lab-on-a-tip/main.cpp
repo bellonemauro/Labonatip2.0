@@ -8,7 +8,7 @@
 *  +---------------------------------------------------------------------------+ */
 
 //uncomment to hide the console when the app starts
-#define HIDE_TERMINAL
+//#define HIDE_TERMINAL
 #ifdef HIDE_TERMINAL
 	#if defined (_WIN64) || defined (_WIN32)
 	  #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
@@ -32,7 +32,7 @@
 // if it is the first time that the software runs,
 // it will check if required paths already exist and set up useful files and folders in the user files
 // if this function return false, some path may be broken
-bool initPaths(Labonatip_GUI &_l, QString &_macro_user_path, QString &_settings_user_path )
+bool initPaths(Labonatip_GUI &_l, QString &_macro_user_path, QString &_settings_user_path, QString &_ext_data_user_path)
 {
 	QString home_path = QDir::homePath();   // detect the home path ... C:/users/user/
 	QDir app_dir = QDir::currentPath();     // is the installation folder  ... C:/Program Files/Labonatip
@@ -40,6 +40,8 @@ bool initPaths(Labonatip_GUI &_l, QString &_macro_user_path, QString &_settings_
 	macro_path.append("/presetMacros/");   
 	QString settings_path = app_dir.path(); // default setting path into the installation folder
 	settings_path.append("/settings/");
+	QString ext_data_path = app_dir.path(); // default ext_data path into the installation folder
+	ext_data_path.append("/Ext_data/");
 
 	// if the directory Labonatip does not exist in the home folder, create it
 	home_path.append("/Labonatip/");
@@ -61,7 +63,7 @@ bool initPaths(Labonatip_GUI &_l, QString &_macro_user_path, QString &_settings_
 	macro_dir.setPath(macro_path);
 	if (!macro_dir.exists(macro_path) ) {
 		cerr << "ERROR: Labonatip macro directory does not exists in the installation folder"
-			 << " reinstallation may solve the problem "<< endl;
+			 << "A reinstallation may solve the problem "<< endl;
 		QString ss = "Macro directory does not exists in the installation folder,";
 		ss.append("Labonatip cannot run  <br>"); 
 		ss.append ("A reinstallation of Labonatip may solve the problem ");
@@ -90,6 +92,22 @@ bool initPaths(Labonatip_GUI &_l, QString &_macro_user_path, QString &_settings_
 			settings_path.toStdString() << " exists" << endl;
 	}
 
+	// check if the ext_data directory exists in the program files path, 
+	// if it doesn't the installation may be broken
+	QDir ext_data_dir;
+	ext_data_dir.setPath(ext_data_path);
+	if (!ext_data_dir.exists(ext_data_path)) {
+		cerr << "Labonatip ext_data directory does not exists" << endl;
+		QString ss = "Ext_data directory does not exists in the installation folder,";
+		ss.append("Labonatip cannot run  <br>");
+		ss.append("A reinstallation of Labonatip may solve the problem ");
+		QMessageBox::warning(&_l, "ERROR", ss);
+		return false;
+	}
+	else {
+		cout << "directory " <<
+			ext_data_path.toStdString() << " exists" << endl;
+	}
 
 	// here we set the macro path in the user folder 
 	QDir macro_user_dir;
@@ -126,6 +144,7 @@ bool initPaths(Labonatip_GUI &_l, QString &_macro_user_path, QString &_settings_
 		}
 	}
 
+	// here we set the setting path in the user folder 
 	QDir settings_user_dir;
 	QString settings_home_path = home_path;
 	settings_home_path.append("/settings/");
@@ -134,7 +153,7 @@ bool initPaths(Labonatip_GUI &_l, QString &_macro_user_path, QString &_settings_
 		_settings_user_path = settings_home_path;
 		if (!settings_user_dir.mkpath(_settings_user_path)) {
 			cerr << "Could not create settings folder in the user directory" << endl;
-			QString ss = "Could not create presetMacros folder in the user directory";
+			QString ss = "Could not create settings folder in the user directory";
 			QMessageBox::warning(&_l, "ERROR", ss);
 			return false;
 		}
@@ -142,7 +161,6 @@ bool initPaths(Labonatip_GUI &_l, QString &_macro_user_path, QString &_settings_
 	}
 	else {
 		_settings_user_path = settings_home_path;
-
 	}
 
 	// directory exists, copy files
@@ -161,6 +179,27 @@ bool initPaths(Labonatip_GUI &_l, QString &_macro_user_path, QString &_settings_
 				QFile::copy(file2.fileName(), file1.fileName());
 		}
 	}
+
+
+	// here we set the ext data path in the user folder 
+	QDir ext_data_user_dir;
+	QString ext_data_home_path = home_path;
+	ext_data_home_path.append("/Ext_data/");
+	if (!ext_data_user_dir.exists(ext_data_home_path))
+	{
+		_ext_data_user_path = ext_data_home_path;
+		if (!ext_data_user_dir.mkpath(_ext_data_user_path)) {
+			cerr << "Could not create ext_data folder in the user directory" << endl;
+			QString ss = "Could not create ext_data folder in the user directory";
+			QMessageBox::warning(&_l, "ERROR", ss);
+			return false;
+		}
+
+	}
+	else {
+		_ext_data_user_path = ext_data_home_path;
+	}
+
 
 	return true;
 }
@@ -181,11 +220,17 @@ int main(int argc, char **argv)//(int argc, char *argv[])
 
 	  QString macro_user_path;
 	  QString settings_user_path;
+	  QString ext_data_user_path;
 
-	  if (!initPaths(window, macro_user_path, settings_user_path)) return 0;
+	  if (!initPaths(window, macro_user_path, settings_user_path, ext_data_user_path)) return 0;
 	  // set default paths for settings and macros in the GUI app
 	  window.setMacroUserPath(macro_user_path);
+	  cout << " Set macro_user_path " << macro_user_path.toStdString() << endl;
 	  window.setSettingsUserPath(settings_user_path);
+	  cout << " Set settings_user_path " << settings_user_path.toStdString() << endl;
+	  //window.setExtDataUserPath(ext_data_user_path);
+	  window.setExtDataUserPath("./Ext_data/");  // this is just for now to be taken out for the release
+	  cout << " Set ext_data_user_path " << ext_data_user_path.toStdString() << endl;
 
 #ifdef LABONATIP_VERSION
 	  window.setVersion(version);
