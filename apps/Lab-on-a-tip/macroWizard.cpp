@@ -22,16 +22,10 @@ Labonatip_macroWizard::Labonatip_macroWizard(QWidget *parent)
 
 	ui_wizard->setupUi(this);
 
-	m_macro_path = "";
-	m_name_sol1 = "";
-	m_name_sol2 = "";
-	m_name_sol3 = "";
-	m_name_sol4 = "";
+	m_solutionParams = new solutionsParams();
+	m_pr_params = new pr_params();
 
-	m_p_on_def = 190;
-	m_p_off_def = 21;
-	m_v_rec_def = -115;
-	m_v_sw_def = -115;
+	m_macro_path = "";
 
 	ui_wizard->stackedWidget->setCurrentIndex(0);
 
@@ -127,6 +121,7 @@ void Labonatip_macroWizard::next_page2to()
 		ui_wizard->stackedWidget->setCurrentIndex(current_idx);
 		setBanner(current_idx);
 
+		updateSolPrFields();
 		return;
 	}
 
@@ -134,28 +129,15 @@ void Labonatip_macroWizard::next_page2to()
 	{
 		
 		// load the file
-		QString _path = QFileDialog::getOpenFileName(this, tr("Open Settings file"), "",  // dialog to open files
-			"Settings file (*.ini);; All Files(*.*)", 0);
+		emit loadSettings();
 
-		if (_path.isEmpty()) {
-			QMessageBox::information(this, "Information ", "No file loaded ! <br>" + _path);
-			return;
-		}
-
-		QMessageBox::information(this, "Information ", "No function implemented yet ! <br>" + _path);
-
-		// go directly to page 4
-		int current_idx = 4; // ui_wizard->stackedWidget->currentIndex() + 1;
+		int current_idx = ui_wizard->stackedWidget->currentIndex() + 1;
 		ui_wizard->stackedWidget->setCurrentIndex(current_idx);
 		setBanner(current_idx);
 
 
 		return;
 	}
-
-	
-
-
 
 }
 
@@ -326,4 +308,17 @@ void Labonatip_macroWizard::setBanner(int _current_index)
 	}
 	}
 
+}
+
+void Labonatip_macroWizard::updateSolPrFields()
+{
+	ui_wizard->lineEdit_solName1->setText(m_solutionParams->sol1);
+	ui_wizard->lineEdit_solName2->setText(m_solutionParams->sol2);
+	ui_wizard->lineEdit_solName3->setText(m_solutionParams->sol3);
+	ui_wizard->lineEdit_solName4->setText(m_solutionParams->sol4);
+
+	ui_wizard->spinBox_pon_def->setValue(m_pr_params->p_on_default);
+	ui_wizard->spinBox_poff_def->setValue(m_pr_params->p_off_default);
+	ui_wizard->spinBox_v_r_def->setValue(m_pr_params->v_recirc_default);
+	ui_wizard->spinBox_v_s_def->setValue(m_pr_params->v_switch_default);
 }

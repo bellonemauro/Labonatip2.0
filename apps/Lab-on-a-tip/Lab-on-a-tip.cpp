@@ -956,7 +956,11 @@ void Labonatip_GUI::initConnects()
 	connect(m_dialog_tools, 
 		SIGNAL(apply()), this, 
 		SLOT(toolApply()));
-	
+
+	connect(m_dialog_p_editor,
+		SIGNAL(loadSettingsRequest()), this,
+		SLOT(openFile()));
+
 	connect(m_dialog_p_editor,
 		SIGNAL(ok()), this,
 		SLOT(editorOk()));
@@ -1020,6 +1024,8 @@ void Labonatip_GUI::toolApply()
 	*m_pr_params = m_dialog_tools->getPr_params();
 	*m_GUI_params = m_dialog_tools->getGUIparams();
 
+	m_dialog_p_editor->setPrParams(*m_pr_params);
+	m_dialog_p_editor->setSolParams(*m_solutionParams);
 
 	m_ppc1->setCOMport(m_comSettings->getName());
 	m_ppc1->setBaudRate((int)m_comSettings->getBaudRate());

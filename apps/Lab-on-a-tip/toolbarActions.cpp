@@ -34,6 +34,8 @@ void Labonatip_GUI::openFile() {
 		return;
 	}
 
+	toolApply();
+
 	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 
 }
@@ -94,12 +96,12 @@ void Labonatip_GUI::showProtocolEditorDialog() {
 		<< "Labonatip_GUI::showProtocolEditorDialog    " << endl;
 
 	m_dialog_p_editor->setMacroPath(m_macro_path); //TODO: reset the macro path in case it is changed in the settings
+	m_dialog_p_editor->setPrParams(*m_pr_params);
+	m_dialog_p_editor->setSolParams(*m_solutionParams);
 
-												//m_dialog_tools->setWindowFlags(Qt::WindowFullscreenButtonHint);
-												//m_dialog_tools->setWindowFlags(Qt::WindowStaysOnTopHint);
 	m_dialog_p_editor->setParent(this);
 	m_dialog_p_editor->setWindowFlags(Qt::Window);
-	m_dialog_p_editor->setModal(true);
+	//m_dialog_p_editor->setModal(true);
 	m_macro = new std::vector<fluicell::PPC1api::command>();
 	m_dialog_p_editor->setMacroPrt(m_macro);
 	m_dialog_p_editor->show();

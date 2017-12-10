@@ -11,7 +11,7 @@
 #include  <QCheckBox>
 
 Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
-	QDialog (parent),
+	QMainWindow (parent),
 	ui_p_editor(new Ui::Labonatip_protocol_editor)
 {
 	cout << QDate::currentDate().toString().toStdString() << "  "
@@ -21,16 +21,10 @@ Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 	ui_p_editor->setupUi(this );
 
 	// initialize the macro wizard
-	macroWizard = new Labonatip_macroWizard(this),
+	macroWizard = new Labonatip_macroWizard(this);
 
-	p_on_min = 0;
-	p_on_max = 450;
-	p_off_min = 0;
-	p_off_max = 450;
-	v_switch_min = -300;
-	v_switch_max = 0;
-	v_recirc_min = -300;
-	v_recirc_max = 0;
+	m_solutionParams = new solutionsParams();
+	m_pr_params = new pr_params();
 
 	// connect GUI elements: macro tab
 	connect(ui_p_editor->treeWidget_macroTable,
@@ -75,6 +69,8 @@ Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 	connect(ui_p_editor->pushButton_macroWizard,
 		SIGNAL(clicked()), this, SLOT(newMacroWizard()));
 
+	connect(macroWizard,
+		SIGNAL(loadSettings()), this, SLOT(emitLoadSettings()));
 
 	// connect tool window events Ok, Cancel, Apply
 	connect(ui_p_editor->buttonBox->button(QDialogButtonBox::Ok),
@@ -137,6 +133,9 @@ void Labonatip_protocol_editor::newMacroWizard()
 		<< "Labonatip_protocol_editor::newMacroWizard    " << endl;
 
 	macroWizard->setMacroPath(m_macro_path);
+	macroWizard->setPrParams(*m_pr_params);
+	macroWizard->setSolParams(*m_solutionParams);
+
 	macroWizard->setModal(true);
 	//macroWizard->setSolNames();
 	//macroWizard->setDefPreVac();
@@ -389,8 +388,8 @@ bool Labonatip_protocol_editor::checkValidity(QTreeWidgetItem *_item, int _colum
 			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
 			return false;
 		}
-		if (number < p_on_min || 
-			number > p_on_max) { // if is not the range
+		if (number < m_pr_params->p_on_min || 
+			number > m_pr_params->p_on_max) { // if is not the range
 			QMessageBox::warning(this, "Warning", 
 				" Pressure ON is out of range, \n its value must be a positive number in [0, 450]");
 			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
@@ -408,8 +407,8 @@ bool Labonatip_protocol_editor::checkValidity(QTreeWidgetItem *_item, int _colum
 			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
 			return false;
 		}
-		if (number < p_off_min || 
-			number > p_off_max) { // if is not the range
+		if (number < m_pr_params->p_off_min ||
+			number > m_pr_params->p_off_max) { // if is not the range
 			QMessageBox::warning(this, "Warning", 
 				" Pressure ON is out of range, \n its value must be a positive number in [0, 450]");
 			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
@@ -426,8 +425,8 @@ bool Labonatip_protocol_editor::checkValidity(QTreeWidgetItem *_item, int _colum
 			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
 			return false;
 		}
-		if (number < v_switch_min || 
-			number > v_switch_max) { // if is not the range
+		if (number < m_pr_params->v_switch_min ||
+			number > m_pr_params->v_switch_max) { // if is not the range
 			QMessageBox::warning(this, "Warning", 
 				"Vacuum switch is out of range, \n its value must be a positive number in [-300, 0]");
 			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
@@ -444,8 +443,8 @@ bool Labonatip_protocol_editor::checkValidity(QTreeWidgetItem *_item, int _colum
 			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
 			return false;
 		}
-		if (number < v_recirc_min || 
-			number > v_recirc_max) { // if is not the range
+		if (number < m_pr_params->v_recirc_min   ||
+			number > m_pr_params->v_recirc_max) { // if is not the range
 			QMessageBox::warning(this, "Warning", 
 				"Vacuum recirculation is out of range, \n its value must be a positive number in [-300, 0]");
 			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero

@@ -18,12 +18,13 @@
 #include "ui_protocolEditor.h"
 #include "macroWizard.h"
 
-#include <QDialog>
+#include <QMainWindow>
 
 // PPC1api 
 #include <fluicell/ppc1api/ppc1api.h>
 #include <serial/serial.h>
 
+#include "toolDataStructures.h"
 
 using namespace std;
 
@@ -43,7 +44,7 @@ public:
 };
 
 
-class Labonatip_protocol_editor : public  QDialog
+class Labonatip_protocol_editor : public  QMainWindow
 {
 	Q_OBJECT
 
@@ -54,7 +55,7 @@ signals :
 	void ok();  // generated when ok is pressed
 	void apply(); // generated when apply is pressed
 	void cancel(); // generated when cancel is pressed
-
+	void loadSettingsRequest();  // forward the signal to GUI
 
 public:
 
@@ -62,8 +63,16 @@ public:
 
 	~Labonatip_protocol_editor();
 
-
-
+	void setSolParams(solutionsParams _params) {
+		*m_solutionParams = _params; 
+		macroWizard->setSolParams(*m_solutionParams);
+	}
+	void setPrParams(pr_params _params) { 
+		*m_pr_params = _params; 
+		macroWizard->setPrParams(*m_pr_params);
+	}
+	
+	
 	QString getMacroPath() { return m_current_macro_file_name; };
 
 	inline void setMacroPath(QString _path) { m_macro_path = _path; }
@@ -88,6 +97,8 @@ private slots:
 	*   
 	*/
 	void applyPressed();
+
+	void emitLoadSettings() { emit loadSettingsRequest(); }
 
 	/** new macro widard
 	*
@@ -191,16 +202,10 @@ private:
 	QString m_current_macro_file_name;
 	QString m_macro_path;
 
-	int p_on_min;
-	int p_on_max;
-	int p_off_min;
-	int p_off_max;
-	int v_switch_min;
-	int v_switch_max;
-	int v_recirc_min;
-	int v_recirc_max;
-
 	Labonatip_macroWizard * macroWizard;
+
+	solutionsParams *m_solutionParams;
+	pr_params *m_pr_params;
 
 protected:
 	Ui::Labonatip_protocol_editor *ui_p_editor;    //!<  the user interface
