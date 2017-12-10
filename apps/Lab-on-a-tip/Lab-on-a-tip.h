@@ -572,6 +572,11 @@ private:
 
   Labonatip_tools * m_dialog_tools; //!< pointer to the tools dialog
 
+  COMSettings *m_comSettings;
+  solutionsParams *m_solutionParams;
+  pr_params *m_pr_params;
+  GUIparams *m_GUI_params;
+
   Labonatip_protocol_editor * m_dialog_p_editor; //!< pointer to the tools dialog
 
   QGraphicsScene *m_scene_solution;   //!< scene to draw the solution flow
@@ -615,10 +620,6 @@ private:
   QtCharts::QChartView *m_chartView;
   Labonatip_chart *m_labonatip_chart_view;
 
-  double default_pon;
-  double default_poff;
-  double default_v_recirc;
-  double default_v_switch;
   double m_pon_set_point;
   double m_poff_set_point;
   double m_v_recirc_set_point;

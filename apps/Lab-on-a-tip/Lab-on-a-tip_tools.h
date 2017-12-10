@@ -25,6 +25,7 @@
 #include <fluicell/ppc1api/ppc1api.h>
 #include <serial/serial.h>
 
+#include <toolDataStructures.h>
 
 using namespace std;
 
@@ -50,108 +51,15 @@ signals :
 
 public:
 
-
-	// TODO: exclude QTserial and bring this structure to serial ! 
-	// structure to handle COM port parameters
-	struct COMSettings {
-		std::string name;                    //!<  COM1 --- n 
-		int baudRate;                        //!<  4200 - 9600 --- 
-		serial::bytesize_t dataBits;         //!<  5 - 6 - 7 - 8
-		serial::parity_t parity;             //!<  None, Even, Odd, Mark, Space 
-		serial::stopbits_t stopBits;         //!<  1, 1.5, 2
-		serial::flowcontrol_t flowControl;   //!<  None, RTS/CTS, XON/XOFF 
-		bool localEchoEnabled;
-
-		COMSettings() {   // default values
-			this->name = "COM5";
-			this->baudRate = 115200;
-			this->dataBits = serial::eightbits;
-			this->parity = serial::parity_none;
-			this->stopBits = serial::stopbits_one;
-			this->flowControl = serial::flowcontrol_none;
-		}
-
-	}; // END COMSettings struct
-
-  // structure to handle solutions name parameters
-  struct solutionsParams {
-	  int volume_sol1;                 //!<  volume of solution in the well 1
-	  int volume_sol2;                 //!<  volume of solution in the well 2
-	  int volume_sol3;                 //!<  volume of solution in the well 3
-	  int volume_sol4;                 //!<  volume of solution in the well 4
-	  QString sol1;                    //!<  name of the solution 1
-	  QString sol2;                    //!<  name of the solution 2
-	  QString sol3;                    //!<  name of the solution 3
-	  QString sol4;                    //!<  name of the solution 4
-	  QColor sol1_color;               //!<  color of the solution 1
-	  QColor sol2_color;               //!<  color of the solution 2
-	  QColor sol3_color;               //!<  color of the solution 3
-	  QColor sol4_color;               //!<  color of the solution 4
-
-	  solutionsParams() {   // default values
-		  this->volume_sol1 = 0;
-		  this->volume_sol2 = 0;
-		  this->volume_sol3 = 0;
-		  this->volume_sol4 = 0;
-		  this->sol1 = "No name given to sol 1";
-		  this->sol2 = "No name given to sol 2";
-		  this->sol3 = "No name given to sol 3";
-		  this->sol4 = "No name given to sol 4";
-		  this->sol1_color = QColor::fromRgb(255, 189, 0);
-		  this->sol2_color = QColor::fromRgb(255, 40, 0);
-		  this->sol3_color = QColor::fromRgb(0, 158, 255);
-		  this->sol4_color = QColor::fromRgb(130, 255, 0);
-	  }
-  }; // END solutionsNames struct
-
-	 // structure to handle solutions name parameters
-  struct pr_params {
-	  int p_on_max;                    //!< name of the solution 1
-	  int p_on_min;                     
-	  int p_on_default;                     
-	  int p_off_max;                     
-	  int p_off_min;                     
-	  int p_off_default;                    
-	  int v_switch_max;                     
-	  int v_switch_min;                  
-	  int v_switch_default;               
-	  int v_recirc_max;
-	  int v_recirc_min;
-	  int v_recirc_default;
-	  int base_ds_increment;
-	  int base_fs_increment;
-	  int base_v_increment;
-
-	  pr_params() : p_on_max (450), p_on_min(0), p_on_default(190),
-				    p_off_max(450), p_off_min(0), p_off_default(21),
-				    v_switch_max(0), v_switch_min(-300), v_switch_default(-115),
-					v_recirc_max(0), v_recirc_min(-300), v_recirc_default(-115),
-					base_ds_increment(10), base_fs_increment(5), base_v_increment(5)
-	  {   // default values
-	  }
-  }; // END pr_params struct
-
-
-  struct GUIparams {
-	  Qt::ToolButtonStyle showTextToolBar;     //!<  ToolButtonIconOnly --- n 
-	  bool enableToolTips;
-
-	  GUIparams() {   // default values
-		  this->showTextToolBar = Qt::ToolButtonIconOnly;
-		  this->enableToolTips = false;
-	  }
-
-  }; // END COMSettings struct
-
 	explicit Labonatip_tools(QWidget *parent = 0);
 
 	~Labonatip_tools();
 
-	// TODO: members should not be public .... add get functions instead
-	COMSettings *m_comSettings;
-	solutionsParams *m_solutionParams;
-	pr_params *m_pr_params;
-	GUIparams *m_GUI_params;
+	COMSettings getComSettings() { return *m_comSettings; }
+	solutionsParams getSolutionsParams() { return *m_solutionParams; }
+	pr_params getPr_params() { return *m_pr_params; }
+	GUIparams getGUIparams() { return *m_GUI_params; }
+
 
 	int language; //TODO add an enumerator
 
@@ -270,19 +178,25 @@ private:
 
 	int interpreteLanguage(QString _language);
 
-	void getCOMsettings();
+	void getCOMsettingsFromGUI();
 
-	void getSolutionSettings();
+	void getSolutionSettingsFromGUI();
 
-	void getGUIsettings();
+	void getGUIsettingsFromGUI();
 
-	void getPRsettings();
+	void getPRsettingsFromGUI();
 
 	uint32_t giveRainbowColor(float _position);
 
 	QString m_setting_file_name;
 
 	QTranslator m_translator_tool;
+
+
+	COMSettings *m_comSettings;
+	solutionsParams *m_solutionParams;
+	pr_params *m_pr_params;
+	GUIparams *m_GUI_params;
 
 protected:
 	Ui::Labonatip_tools *ui_tools;    //!<  the user interface

@@ -35,6 +35,22 @@ public:
 
 	void setMacroPath(QString _path) { m_macro_path = _path; }
 
+	void setSolNames(QString _name1, QString _name2, QString _name3, QString _name4)
+	{
+		m_name_sol1 = _name1;
+		m_name_sol2 = _name2;
+		m_name_sol3 = _name3;
+		m_name_sol4 = _name4;
+	}
+
+	void setDefPreVac(int _p_on_def, int _p_off_def, int _v_rec_def, int _v_sw_def)
+	{
+		m_p_on_def = _p_on_def;
+		m_p_off_def = _p_off_def;
+		m_v_rec_def = _v_rec_def;
+		m_v_sw_def = _v_sw_def;
+	}
+
 private slots:
 	
 	void next_page1to2();
@@ -59,6 +75,16 @@ private:
 	void setBanner(int _current_index);
 
 	QString m_protocol_name;
+
+	QString m_name_sol1;
+	QString m_name_sol2;
+	QString m_name_sol3;
+	QString m_name_sol4;
+
+	int m_p_on_def;
+	int m_p_off_def;
+	int m_v_rec_def;
+	int m_v_sw_def;
 
 protected:
 	Ui::Labonatip_macroWizard *ui_wizard;    //!<  the user interface

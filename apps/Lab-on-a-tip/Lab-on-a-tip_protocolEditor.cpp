@@ -138,6 +138,8 @@ void Labonatip_protocol_editor::newMacroWizard()
 
 	macroWizard->setMacroPath(m_macro_path);
 	macroWizard->setModal(true);
+	//macroWizard->setSolNames();
+	//macroWizard->setDefPreVac();
 	macroWizard->show();
 
 }

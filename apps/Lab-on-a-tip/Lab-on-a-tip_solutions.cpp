@@ -133,7 +133,7 @@ void Labonatip_GUI::pushSolution1()
 
 	// move the arrow in the drawing to point on the solution 1
 	ui->widget_solutionArrow->setVisible(true);
-	ui->label_arrowSolution->setText(m_dialog_tools->m_solutionParams->sol1);
+	ui->label_arrowSolution->setText(m_solutionParams->sol1);
 	// calculate the middle point between the two widget to align the arrow to the progressbar
 	int pos_x = ui->progressBar_solution1->pos().x() -
 		ui->widget_solutionArrow->width() / 2 +
@@ -208,7 +208,7 @@ void Labonatip_GUI::pushSolution2() {
 
 	// move the arrow in the drawing to point on the solution 2
 	ui->widget_solutionArrow->setVisible(true);
-	ui->label_arrowSolution->setText(m_dialog_tools->m_solutionParams->sol2);
+	ui->label_arrowSolution->setText(m_solutionParams->sol2);
 
 	int pos_x = ui->progressBar_solution2->pos().x() -
 		ui->widget_solutionArrow->width() / 2 +
@@ -282,7 +282,7 @@ void Labonatip_GUI::pushSolution3() {
 
 	// move the arrow in the drawing to point on the solution 3
 	ui->widget_solutionArrow->setVisible(true);
-	ui->label_arrowSolution->setText(m_dialog_tools->m_solutionParams->sol3);
+	ui->label_arrowSolution->setText(m_solutionParams->sol3);
 	//ui->widget_solutionArrow->move(QPoint(290, ui->widget_solutionArrow->pos().ry()));
 
 	// calculate the middle point between the two widget to align the arrow to the progressbar
@@ -359,7 +359,7 @@ void Labonatip_GUI::pushSolution4() {
 
 	// move the arrow in the drawing to point on the solution 4
 	ui->widget_solutionArrow->setVisible(true);
-	ui->label_arrowSolution->setText(m_dialog_tools->m_solutionParams->sol4);
+	ui->label_arrowSolution->setText(m_solutionParams->sol4);
 
 	// calculate the middle point between the two widget to align the arrow to the progressbar
 	int pos_x = ui->progressBar_solution4->pos().x() -
@@ -413,7 +413,7 @@ void Labonatip_GUI::updateTimingSliders()
 		_bar = ui->progressBar_solution1;
 		_button = ui->pushButton_solution1;
 		waste_remaining_time_in_sec = 1000.0 * (  // this it to convert in sec
-			m_dialog_tools->m_solutionParams->volume_sol1 /  //this is in micro liters 10^-6
+			m_solutionParams->volume_sol1 /  //this is in micro liters 10^-6
 			ui->treeWidget_macroInfo->topLevelItem(5)->text(1).toDouble()); // this is in nano liters 10^-9
 
 		break;
@@ -422,7 +422,7 @@ void Labonatip_GUI::updateTimingSliders()
 		_bar = ui->progressBar_solution2;
 		_button = ui->pushButton_solution2;
 		waste_remaining_time_in_sec = 1000.0 * (
-			m_dialog_tools->m_solutionParams->volume_sol2 /
+			m_solutionParams->volume_sol2 /
 			ui->treeWidget_macroInfo->topLevelItem(6)->text(1).toDouble());
 		break;
 	}
@@ -430,7 +430,7 @@ void Labonatip_GUI::updateTimingSliders()
 		_bar = ui->progressBar_solution3;
 		_button = ui->pushButton_solution3;
 		waste_remaining_time_in_sec = 1000.0 * (
-			m_dialog_tools->m_solutionParams->volume_sol3 /
+			m_solutionParams->volume_sol3 /
 			ui->treeWidget_macroInfo->topLevelItem(7)->text(1).toDouble());
 		break;
 	}
@@ -438,7 +438,7 @@ void Labonatip_GUI::updateTimingSliders()
 		_bar = ui->progressBar_solution4;
 		_button = ui->pushButton_solution4;
 		waste_remaining_time_in_sec = 1000.0 * (
-			m_dialog_tools->m_solutionParams->volume_sol4 /
+			m_solutionParams->volume_sol4 /
 			ui->treeWidget_macroInfo->topLevelItem(8)->text(1).toDouble());
 		break;
 	}

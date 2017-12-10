@@ -84,20 +84,23 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   m_dialog_p_editor = new Labonatip_protocol_editor();
   m_dialog_tools = new Labonatip_tools(); // TODO: if I put this here is mess up the list widget
   
-
-  default_pon = m_dialog_tools->m_pr_params->p_on_default;
-  default_poff = m_dialog_tools->m_pr_params->p_off_default;
-  default_v_switch = -m_dialog_tools->m_pr_params->v_switch_default;
-  default_v_recirc = -m_dialog_tools->m_pr_params->v_recirc_default;
-  
+  m_comSettings = new COMSettings();
+  m_solutionParams = new solutionsParams();
+  m_pr_params = new pr_params();
+  m_GUI_params = new GUIparams();
+  *m_comSettings = m_dialog_tools->getComSettings();
+  *m_solutionParams = m_dialog_tools->getSolutionsParams();
+  *m_pr_params = m_dialog_tools->getPr_params();
+  *m_GUI_params = m_dialog_tools->getGUIparams();
+ 
   //switchLanguage(m_dialog_tools->language);
 
   // all the connects are in this function
   initConnects();
   
   // set the toolbar text icons
-  ui->toolBar_2->setToolButtonStyle(m_dialog_tools->m_GUI_params->showTextToolBar);
-  ui->toolBar_3->setToolButtonStyle(m_dialog_tools->m_GUI_params->showTextToolBar);
+  ui->toolBar_2->setToolButtonStyle(m_GUI_params->showTextToolBar);
+  ui->toolBar_3->setToolButtonStyle(m_GUI_params->showTextToolBar);
 
   // hide the warning label
   ui->label_warning->hide();
@@ -105,7 +108,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 
   // move the arrow in the drawing to point at the solution 1
   ui->widget_solutionArrow->setVisible(false);
-  ui->label_arrowSolution->setText(m_dialog_tools->m_solutionParams->sol1);
+  ui->label_arrowSolution->setText(m_solutionParams->sol1);
    
   // set the scene for the graphic depiction of the solution flow
   m_scene_solution = new QGraphicsScene;
@@ -122,8 +125,8 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   m_pen_line.setWidth(m_pen_line_width);
  
   // initialize PPC1api
-  m_ppc1->setCOMport(m_dialog_tools->m_comSettings->name);
-  m_ppc1->setBaudRate((int)m_dialog_tools->m_comSettings->baudRate);
+  m_ppc1->setCOMport(m_comSettings->getName());
+  m_ppc1->setBaudRate((int)m_comSettings->getBaudRate());
   m_ppc1->setVebose(ui->checkBox_verboseOut->isChecked());
 
   // init thread macroRunner //TODO: this is just a support, check if needed
@@ -191,13 +194,13 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   ui->gridLayout_12->addWidget(m_chartView);
 
   //get the solution colors from the setting file
-  QColor c1 = m_dialog_tools->m_solutionParams->sol1_color;
+  QColor c1 = m_solutionParams->sol1_color;
   this->colSolution1Changed(c1.red(), c1.green(), c1.blue());
-  QColor c2 = m_dialog_tools->m_solutionParams->sol2_color;
+  QColor c2 = m_solutionParams->sol2_color;
   this->colSolution2Changed(c2.red(), c2.green(), c2.blue());
-  QColor c3 = m_dialog_tools->m_solutionParams->sol3_color;
+  QColor c3 = m_solutionParams->sol3_color;
   this->colSolution3Changed(c3.red(), c3.green(), c3.blue());
-  QColor c4 = m_dialog_tools->m_solutionParams->sol4_color;
+  QColor c4 = m_solutionParams->sol4_color;
   this->colSolution4Changed(c4.red(), c4.green(), c4.blue());
 //  m_labonatip_chart_view->setGUIchart();
 
@@ -436,20 +439,16 @@ void Labonatip_GUI::updateDrawing( int _value) {
 
 void Labonatip_GUI::setAsDefault()
 {
+	m_pr_params->setDefValues(m_pon_set_point, m_poff_set_point, m_v_switch_set_point, m_v_recirc_set_point);
 
-	default_pon = m_pon_set_point;// ui->horizontalSlider_p_on->value();
-	default_poff = m_poff_set_point;// ui->horizontalSlider_p_off->value();
-	default_v_recirc = m_v_recirc_set_point;// ui->horizontalSlider_recirculation->value();
-	default_v_switch = m_v_switch_set_point;// ui->horizontalSlider_switch->value();
-
-	m_dialog_tools->setDefaultPressuresVacuums( default_pon, default_poff,
-			default_v_recirc, default_v_switch);
+	m_dialog_tools->setDefaultPressuresVacuums(m_pr_params->p_on_default, m_pr_params->p_off_default,
+		m_pr_params->v_recirc_default, m_pr_params->v_switch_default);
 
 	updateFlowControlPercentages();
 
 	if (m_ppc1)
-		m_ppc1->setDefaultPV(default_pon, default_poff, 
-			default_v_recirc, default_v_switch);
+		m_ppc1->setDefaultPV(m_pr_params->p_on_default, m_pr_params->p_off_default,
+			m_pr_params->v_recirc_default, m_pr_params->v_switch_default);
 
 }
 
@@ -737,7 +736,7 @@ bool Labonatip_GUI::eventFilter(QObject *_obj, QEvent *_event)
 
 	if (_event->type() == QEvent::ToolTip) {
 		
-		if (!m_dialog_tools->m_GUI_params->enableToolTips) { 
+		if (!m_GUI_params->enableToolTips) { 
 			return true; //this filter the event
 		}
 		else	{		
@@ -1015,18 +1014,20 @@ void Labonatip_GUI::toolApply()
 		 << QTime::currentTime().toString().toStdString() << "  "
 		 << "Labonatip_GUI::toolApply   " << endl;
 
-	m_ppc1->setCOMport(m_dialog_tools->m_comSettings->name);
-	m_ppc1->setBaudRate((int)m_dialog_tools->m_comSettings->baudRate);
 
-	ui->toolBar_2->setToolButtonStyle(m_dialog_tools->m_GUI_params->showTextToolBar);
+	*m_comSettings = m_dialog_tools->getComSettings();
+	*m_solutionParams = m_dialog_tools->getSolutionsParams();
+	*m_pr_params = m_dialog_tools->getPr_params();
+	*m_GUI_params = m_dialog_tools->getGUIparams();
+
+
+	m_ppc1->setCOMport(m_comSettings->getName());
+	m_ppc1->setBaudRate((int)m_comSettings->getBaudRate());
+
+	ui->toolBar_2->setToolButtonStyle(m_GUI_params->showTextToolBar);
 	ui->toolBar_2->update();
-	ui->toolBar_3->setToolButtonStyle(m_dialog_tools->m_GUI_params->showTextToolBar);
+	ui->toolBar_3->setToolButtonStyle(m_GUI_params->showTextToolBar);
 	ui->toolBar_3->update();
-
-	default_poff = m_dialog_tools->m_pr_params->p_off_default;
-	default_pon = m_dialog_tools->m_pr_params->p_on_default;
-	default_v_recirc = -m_dialog_tools->m_pr_params->v_recirc_default;
-	default_v_switch = -m_dialog_tools->m_pr_params->v_switch_default;
 
 	//switchLanguage(m_dialog_tools->language);
 
@@ -1201,7 +1202,6 @@ void Labonatip_GUI::about() {
 	QMessageBox messageBox;
 	QString msg_title = "About Fluicell Lab-on-a-tip ";
 	QString msg_content = tr("<b>Lab-on-a-tip</b> is a <a href='http://fluicell.com/'>Fluicell</a> AB software <br>"
-		//"Lab-on-a-tip Wizard <br>"
 		"Copyright Fluicell AB, Sweden 2017 <br> <br>"
 		"Arvid Wallgrens Backe 20<br>"
 		"SE-41346 Gothenburg, Sweden<br>"

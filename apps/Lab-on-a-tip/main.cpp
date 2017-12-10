@@ -222,7 +222,7 @@ int main(int argc, char **argv)//(int argc, char *argv[])
 	  QString settings_user_path;
 	  QString ext_data_user_path;
 
-	  if (!initPaths(window, macro_user_path, settings_user_path, ext_data_user_path)) return 0;
+	  //if (!initPaths(window, macro_user_path, settings_user_path, ext_data_user_path)) return 0;
 	  // set default paths for settings and macros in the GUI app
 	  window.setMacroUserPath(macro_user_path);
 	  cout << " Set macro_user_path " << macro_user_path.toStdString() << endl;

@@ -165,8 +165,8 @@ void Labonatip_GUI::disCon() {
 					}
 					else {
 						m_dialog_tools->updateDevices();
-						m_ppc1->setCOMport(m_dialog_tools->m_comSettings->name);
-						m_ppc1->setBaudRate((int)m_dialog_tools->m_comSettings->baudRate);
+						m_ppc1->setCOMport(m_comSettings->getName());
+						m_ppc1->setBaudRate((int)m_comSettings->getBaudRate());
 						if (!m_ppc1->connectCOM())
 						{
 							QMessageBox::information(this, "Warning ",

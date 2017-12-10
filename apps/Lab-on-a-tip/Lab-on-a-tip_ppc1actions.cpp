@@ -92,19 +92,19 @@ void Labonatip_GUI::newTip()
 	if (!visualizeProgressMessage(90, "Purging the vacuum  channels.")) return;
 
 	//C21
-	updatePoffSetPoint(default_poff);// (21.0);
+	updatePoffSetPoint(m_pr_params->p_off_default );// (21.0);
 
 	//D190
-	updatePonSetPoint(default_pon);// (190.0);
+	updatePonSetPoint(m_pr_params->p_on_default );// (190.0);
 
 	//Wait 5 seconds
 	if (!visualizeProgressMessage(5, "Establishing operational pressures.")) return;
 
 	//B - 115
-	updateVswitchSetPoint(default_v_switch);// (115);
+	updateVswitchSetPoint(-m_pr_params->v_switch_default);// (115);
 
 	//A - 115
-	updateVrecircSetPoint(default_v_recirc);// (115);
+	updateVrecircSetPoint(-m_pr_params->v_recirc_default );// (115);
 
 	//Ask: Pipette is ready for operation.PRESS OK TO START.
 	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
@@ -309,11 +309,11 @@ void Labonatip_GUI::operationalMode() {
 		if (m_ppc1->isConnected()) m_ppc1->closeAllValves();
 	}
 
-	updateVrecircSetPoint(default_v_recirc);// update the set point
-	updateVswitchSetPoint(default_v_switch);// update the set point
+	updateVrecircSetPoint(-m_pr_params->v_recirc_default );// update the set point
+	updateVswitchSetPoint(-m_pr_params->v_switch_default );// update the set point
 	if (!visualizeProgressMessage(5, " waiting ... ")) return;
-	updatePoffSetPoint(default_poff);// update the set point
-	updatePonSetPoint(default_pon);// update the set point
+	updatePoffSetPoint(m_pr_params->p_off_default );// update the set point
+	updatePonSetPoint(m_pr_params->p_on_default);// update the set point
 
 	setEnableMainWindow(true);
 	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode

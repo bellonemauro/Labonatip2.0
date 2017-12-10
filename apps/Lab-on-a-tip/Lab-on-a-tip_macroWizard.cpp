@@ -23,6 +23,15 @@ Labonatip_macroWizard::Labonatip_macroWizard(QWidget *parent)
 	ui_wizard->setupUi(this);
 
 	m_macro_path = "";
+	m_name_sol1 = "";
+	m_name_sol2 = "";
+	m_name_sol3 = "";
+	m_name_sol4 = "";
+
+	m_p_on_def = 190;
+	m_p_off_def = 21;
+	m_v_rec_def = -115;
+	m_v_sw_def = -115;
 
 	ui_wizard->stackedWidget->setCurrentIndex(0);
 

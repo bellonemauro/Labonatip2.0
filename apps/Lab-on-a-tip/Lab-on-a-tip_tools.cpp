@@ -144,10 +144,10 @@ void Labonatip_tools::goToPage4()
 
 void Labonatip_tools::okPressed() {
 
-	getCOMsettings();
-	getSolutionSettings();
-	getGUIsettings();
-	getPRsettings();
+	getCOMsettingsFromGUI();
+	getSolutionSettingsFromGUI();
+	getGUIsettingsFromGUI();
+	getPRsettingsFromGUI();
 
 	//TODO manual save for now
 	//saveSettings();
@@ -165,10 +165,10 @@ void Labonatip_tools::cancelPressed() {
 
 void Labonatip_tools::applyPressed() {
 
-	getCOMsettings();
-	getSolutionSettings();
-	getGUIsettings();
-	getPRsettings();
+	getCOMsettingsFromGUI();
+	getSolutionSettingsFromGUI();
+	getGUIsettingsFromGUI();
+	getPRsettingsFromGUI();
 	//TODO manual save for now
 	//saveSettings();
 
@@ -365,10 +365,10 @@ void Labonatip_tools::colorSol4Changed(int _value)
 
 }
 
-void Labonatip_tools::getCOMsettings()
+void Labonatip_tools::getCOMsettingsFromGUI()
 {
-	m_comSettings->name = ui_tools->comboBox_serialInfo->currentText().toStdString();
-	m_comSettings->baudRate = ui_tools->comboBox_baudRate->currentText().toInt();
+	m_comSettings->setName (ui_tools->comboBox_serialInfo->currentText().toStdString());
+	m_comSettings->setBaudRate ( ui_tools->comboBox_baudRate->currentText().toInt());
 	//m_comSettings->dataBits = 
 	//m_comSettings->flowControl =
 	//m_comSettings->parity =
@@ -377,7 +377,7 @@ void Labonatip_tools::getCOMsettings()
 	//TODO other settings ! 
 }
 
-void Labonatip_tools::getSolutionSettings()
+void Labonatip_tools::getSolutionSettingsFromGUI()
 {
 #pragma message ("TODO : tools there is no check on the lines yet (numbers or string)")
 	m_solutionParams->volume_sol1 = ui_tools->spinBox_vol_sol1->value();
@@ -397,14 +397,14 @@ void Labonatip_tools::getSolutionSettings()
 	//TODO other settings ! 
 }
 
-void Labonatip_tools::getGUIsettings()
+void Labonatip_tools::getGUIsettingsFromGUI()
 {
 	m_GUI_params->showTextToolBar = Qt::ToolButtonStyle(ui_tools->comboBox_toolButtonStyle->currentIndex());
 	m_GUI_params->enableToolTips = ui_tools->checkBox_enableToolTips->isChecked();
 	//TODO other settings ! 
 }
 
-void Labonatip_tools::getPRsettings()
+void Labonatip_tools::getPRsettingsFromGUI()
 {
 
 	m_pr_params->p_on_default = ui_tools->spinBox_p_on_default->value();
@@ -450,47 +450,47 @@ bool Labonatip_tools::loadSettings(QString _path)
 	// read com group
 	//ComName
 	QString comPort = m_settings->value("COM/ComName", "COM1").toString();
-	m_comSettings->name = comPort.toStdString();
+	m_comSettings->setName ( comPort.toStdString());
 
 	//BaudRate
 	int baudRate = m_settings->value("COM/BaudRate", "115200").toInt();
-	m_comSettings->baudRate = baudRate;
+	m_comSettings->setBaudRate(baudRate);
 	ui_tools->comboBox_baudRate->setCurrentIndex(7);  // baudrate forced value 115200 
 
 	//DataBits
 	int dataBits = m_settings->value("COM/DataBits", "8").toInt();
 	switch (dataBits) {
 	case 5:
-		m_comSettings->dataBits = serial::fivebits;
+		m_comSettings->setDataBits (serial::fivebits);
 		break;
 	case 6:
-		m_comSettings->dataBits = serial::sixbits;
+		m_comSettings->setDataBits(serial::sixbits);
 		break;
 	case 7:
-		m_comSettings->dataBits = serial::sevenbits;
+		m_comSettings->setDataBits(serial::sevenbits);
 		break;
 	case 8:
-		m_comSettings->dataBits = serial::eightbits;
+		m_comSettings->setDataBits(serial::eightbits);
 		break;
 	default:
 		cerr << QDate::currentDate().toString().toStdString() << "  " 
 			 << QTime::currentTime().toString().toStdString() << "  "
 			 << " Error data bit cannot be read, using default value 8" << endl;
-		m_comSettings->dataBits = serial::eightbits;
+		m_comSettings->setDataBits(serial::eightbits);
 		break;
 	}
 
 	//Parity = NoParity
 	QString parity = m_settings->value("COM/Parity", "NoParity").toString();
-	m_comSettings->parity = serial::parity_none;  //TODO: no intepretation yet
+	m_comSettings->setParity (serial::parity_none);  //TODO: no intepretation yet
 
 	//StopBits = 1
 	int stopBits = m_settings->value("COM/StopBits", "1").toInt();
-	m_comSettings->stopBits = serial::stopbits_one;  //TODO: no intepretation yet
+	m_comSettings->setStopBits(serial::stopbits_one);  //TODO: no intepretation yet
 
 	//FlowControl = noFlow
 	QString flowControl = m_settings->value("COM/FlowControl", "noFlow").toString();
-	m_comSettings->flowControl = serial::flowcontrol_none; //TODO: no intepretation yet
+	m_comSettings->setFlowControl (serial::flowcontrol_none); //TODO: no intepretation yet
 
 	//read GUI params
 	bool ok = false;
@@ -755,9 +755,9 @@ bool Labonatip_tools::saveSettings(QString _file_name)
 
 	// [COM]
 	// ComName = COM_
-	settings->setValue("COM/ComName", QString::fromStdString(m_comSettings->name));
+	settings->setValue("COM/ComName", QString::fromStdString(m_comSettings->getName())); //TODO weird that here I get the actual setting
 	// BaudRate = 115200
-	settings->setValue("COM/BaudRate", ui_tools->comboBox_baudRate->currentText());
+	settings->setValue("COM/BaudRate", ui_tools->comboBox_baudRate->currentText());//TODO whereas here I get the GUI value
 	// DataBits = 8
 	settings->setValue("COM/DataBits", ui_tools->comboBox_dataBit->currentText());
 	// Parity = NoParity
