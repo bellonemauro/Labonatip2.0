@@ -33,10 +33,10 @@
 
 
 #include "Q_DebugStream.h"
-#include "Lab-on-a-tip_tools.h"
-#include "Lab-on-a-tip_protocolEditor.h"
-#include "Lab-on-a-tip_macroRunner.h"
-#include "Lab-on-a-tip_chart.h"
+#include "tools.h"
+#include "protocolEditor.h"
+#include "macroRunner.h"
+#include "chart.h"
 
 // serial
 #include <serial/serial.h>

@@ -8,7 +8,7 @@
 *  +---------------------------------------------------------------------------+ */
 
 
-#include "Lab-on-a-tip_chart.h"
+#include "chart.h"
 #include <QtCharts/QCategoryAxis>
 #include <QtCharts/QAbstractAxis>
 

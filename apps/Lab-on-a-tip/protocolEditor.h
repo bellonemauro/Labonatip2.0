@@ -15,8 +15,8 @@
 #include <iostream>
 #include <string>
 
-#include "ui_Lab-on-a-tip_protocolEditor.h"
-#include "Lab-on-a-tip_macroWizard.h"
+#include "ui_protocolEditor.h"
+#include "macroWizard.h"
 
 #include <QDialog>
 

@@ -9,7 +9,7 @@
 
 
 
-#include "Lab-on-a-tip_macroWizard.h"
+#include "macroWizard.h"
 
 Labonatip_macroWizard::Labonatip_macroWizard(QWidget *parent)
     : ui_wizard(new Ui::Labonatip_macroWizard),

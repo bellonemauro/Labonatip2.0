@@ -15,7 +15,7 @@
 #include <iostream>
 #include <string>
 
-#include "ui_Lab-on-a-tip_tools.h"
+#include "ui_tools.h"
 #include <QMainWindow>
 #include <QSettings>
 #include <QTranslator>

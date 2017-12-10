@@ -7,7 +7,7 @@
 *  | Released under GNU GPL License.                                           |
 *  +---------------------------------------------------------------------------+ */
 
-#include "Lab-on-a-tip_tools.h"
+#include "tools.h"
 #include  <QCheckBox>
 
 Labonatip_tools::Labonatip_tools(QWidget *parent ):

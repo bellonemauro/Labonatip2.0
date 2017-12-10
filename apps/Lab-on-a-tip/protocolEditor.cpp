@@ -7,7 +7,7 @@
 *  | Released under GNU GPL License.                                           |
 *  +---------------------------------------------------------------------------+ */
 
-#include "Lab-on-a-tip_protocolEditor.h"
+#include "protocolEditor.h"
 #include  <QCheckBox>
 
 Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
