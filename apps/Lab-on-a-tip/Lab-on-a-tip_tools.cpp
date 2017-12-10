@@ -11,12 +11,12 @@
 #include  <QCheckBox>
 
 Labonatip_tools::Labonatip_tools(QWidget *parent ):
-	QDialog (parent),
+	QMainWindow(parent),
+	ui_tools(new Ui::Labonatip_tools), 
 	m_comSettings(new COMSettings()),
 	m_solutionParams(new solutionsParams()),
 	m_pr_params(new pr_params()),
 	m_GUI_params(new GUIparams()),
-	ui_tools (new Ui::Labonatip_tools),
 	m_setting_file_name("./settings/settings.ini")
 {
 	ui_tools->setupUi(this );
@@ -24,7 +24,9 @@ Labonatip_tools::Labonatip_tools(QWidget *parent ):
 	//load settings from file
 	loadSettings(m_setting_file_name);
 
+
 	//make sure to start from the initial page
+	ui_tools->actionGeneral->setChecked(true);
 	ui_tools->stackedWidget->setCurrentIndex(0);
 
 	ui_tools->comboBox_serialInfo->clear();
@@ -51,9 +53,21 @@ Labonatip_tools::Labonatip_tools(QWidget *parent ):
 	connect(ui_tools->pushButton_enumerate,
 		SIGNAL(clicked()), this, SLOT(enumerate()));
 
-	connect(ui_tools->listWidget_options,
-		SIGNAL(itemClicked(QListWidgetItem*)), this, 
-		SLOT(onListMailItemClicked(QListWidgetItem*)));
+	connect(ui_tools->actionGeneral,
+		SIGNAL(triggered()), this,
+		SLOT(goToPage1()));
+
+	connect(ui_tools->actionSolution,
+		SIGNAL(triggered()), this,
+		SLOT(goToPage2()));
+
+	connect(ui_tools->actionPressure,
+		SIGNAL(triggered()), this,
+		SLOT(goToPage3()));
+
+	connect(ui_tools->actionCommunication,
+		SIGNAL(triggered()), this,
+		SLOT(goToPage4()));
 
 	// connect color solution settings
 	connect(ui_tools->horizontalSlider_colorSol1,
@@ -94,17 +108,38 @@ Labonatip_tools::Labonatip_tools(QWidget *parent ):
 
 }
 
-void Labonatip_tools::onListMailItemClicked(QListWidgetItem* _item)
+void Labonatip_tools::goToPage1()
 {
-	if (ui_tools->listWidget_options->item(0) == _item) {
-		ui_tools->stackedWidget->setCurrentIndex(0);
-	}
-	if (ui_tools->listWidget_options->item(1) == _item) {
-		ui_tools->stackedWidget->setCurrentIndex(1);
-	}
-	if (ui_tools->listWidget_options->item(2) == _item) {
-		ui_tools->stackedWidget->setCurrentIndex(2);
-	}
+	ui_tools->actionGeneral->setChecked(true);
+	ui_tools->actionSolution->setChecked(false);
+	ui_tools->actionPressure->setChecked(false);
+	ui_tools->actionCommunication->setChecked(false);
+	ui_tools->stackedWidget->setCurrentIndex(0);
+
+}
+void Labonatip_tools::goToPage2()
+{
+	ui_tools->actionGeneral->setChecked(false);
+	ui_tools->actionSolution->setChecked(true);
+	ui_tools->actionPressure->setChecked(false);
+	ui_tools->actionCommunication->setChecked(false);
+	ui_tools->stackedWidget->setCurrentIndex(1);
+}
+void Labonatip_tools::goToPage3()
+{
+	ui_tools->actionGeneral->setChecked(false);
+	ui_tools->actionSolution->setChecked(false);
+	ui_tools->actionPressure->setChecked(true);
+	ui_tools->actionCommunication->setChecked(false);
+	ui_tools->stackedWidget->setCurrentIndex(2);
+}
+void Labonatip_tools::goToPage4()
+{
+	ui_tools->actionGeneral->setChecked(false);
+	ui_tools->actionSolution->setChecked(false);
+	ui_tools->actionPressure->setChecked(false);
+	ui_tools->actionCommunication->setChecked(true);
+	ui_tools->stackedWidget->setCurrentIndex(3);
 }
 
 void Labonatip_tools::okPressed() {
@@ -198,6 +233,8 @@ void Labonatip_tools::setDefaultPressuresVacuums(int _p_on_default, int _p_off_d
 	ui_tools->spinBox_v_switch_default->setValue(-_v_switch_default);
 	
 }
+
+
 
 void Labonatip_tools::showPortInfo(int idx)
 {

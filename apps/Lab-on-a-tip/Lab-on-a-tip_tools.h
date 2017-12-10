@@ -16,7 +16,7 @@
 #include <string>
 
 #include "ui_Lab-on-a-tip_tools.h"
-#include <QDialog>
+#include <QMainWindow>
 #include <QSettings>
 #include <QTranslator>
 #include <QDateTime>
@@ -30,7 +30,7 @@ using namespace std;
 
 
 
-class Labonatip_tools : public  QDialog
+class Labonatip_tools : public  QMainWindow
 {
 	Q_OBJECT
 
@@ -179,10 +179,10 @@ public:
 
 private slots:
 
-	/** Allows to switch windows tabs in the interface from the list widget
-	* \note
-	*/
-	void onListMailItemClicked(QListWidgetItem* _item);
+	void goToPage1();
+	void goToPage2();
+	void goToPage3();
+	void goToPage4();
 
 	/** Show information for the serial port communication
 	* \note
