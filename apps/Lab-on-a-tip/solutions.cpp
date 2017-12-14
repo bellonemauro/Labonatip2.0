@@ -409,37 +409,45 @@ void Labonatip_GUI::updateTimingSliders()
 
 	switch (m_flowing_solution)
 	{
-	case 1: {
+	case 1: { //TODO : the waste time is not well calculated 
 		_bar = ui->progressBar_solution1;
 		_button = ui->pushButton_solution1;
-		waste_remaining_time_in_sec = 1000.0 * (  // this it to convert in sec
-			m_solutionParams->volume_sol1 /  //this is in micro liters 10^-6
-			ui->treeWidget_macroInfo->topLevelItem(5)->text(1).toDouble()); // this is in nano liters 10^-9
+		m_solutionParams->rem_vol_well1 = m_solutionParams->rem_vol_well1 + 
+			0.001 * ui->treeWidget_macroInfo->topLevelItem(5)->text(1).toDouble();
+		waste_remaining_time_in_sec = 1000.0 * ( m_solutionParams->vol_well1 - // this it to convert in sec
+			m_solutionParams->rem_vol_well1 )/  //this is in micro liters 10^-6
+			ui->treeWidget_macroInfo->topLevelItem(5)->text(1).toDouble(); // this is in nano liters 10^-9
 
 		break;
 	}
 	case 2: {
 		_bar = ui->progressBar_solution2;
 		_button = ui->pushButton_solution2;
-		waste_remaining_time_in_sec = 1000.0 * (
-			m_solutionParams->volume_sol2 /
-			ui->treeWidget_macroInfo->topLevelItem(6)->text(1).toDouble());
+		m_solutionParams->rem_vol_well2 = m_solutionParams->rem_vol_well2 + 
+			0.001 * ui->treeWidget_macroInfo->topLevelItem(6)->text(1).toDouble();
+		waste_remaining_time_in_sec = 1000.0 * ( m_solutionParams->vol_well2 -
+			m_solutionParams->rem_vol_well2 )/
+			ui->treeWidget_macroInfo->topLevelItem(6)->text(1).toDouble();
 		break;
 	}
 	case 3: {
 		_bar = ui->progressBar_solution3;
 		_button = ui->pushButton_solution3;
-		waste_remaining_time_in_sec = 1000.0 * (
-			m_solutionParams->volume_sol3 /
-			ui->treeWidget_macroInfo->topLevelItem(7)->text(1).toDouble());
+		m_solutionParams->rem_vol_well3 = m_solutionParams->rem_vol_well3 + 
+			0.001 * ui->treeWidget_macroInfo->topLevelItem(7)->text(1).toDouble();
+		waste_remaining_time_in_sec = 1000.0 * ( m_solutionParams->vol_well3 -
+			m_solutionParams->rem_vol_well3 )/
+			ui->treeWidget_macroInfo->topLevelItem(7)->text(1).toDouble();
 		break;
 	}
 	case 4: {
 		_bar = ui->progressBar_solution4;
 		_button = ui->pushButton_solution4;
-		waste_remaining_time_in_sec = 1000.0 * (
-			m_solutionParams->volume_sol4 /
-			ui->treeWidget_macroInfo->topLevelItem(8)->text(1).toDouble());
+		m_solutionParams->rem_vol_well4 = m_solutionParams->rem_vol_well4 + 
+			0.001 * ui->treeWidget_macroInfo->topLevelItem(8)->text(1).toDouble();
+		waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well4 -
+			m_solutionParams->rem_vol_well4) /
+			ui->treeWidget_macroInfo->topLevelItem(8)->text(1).toDouble();
 		break;
 	}
 	default: {
@@ -450,6 +458,21 @@ void Labonatip_GUI::updateTimingSliders()
 		return;
 	}
 	}
+	
+	m_solutionParams->rem_vol_well5 = m_solutionParams->rem_vol_well5 + 0.001 * ui->treeWidget_macroInfo->topLevelItem(9)->text(1).toDouble();
+	m_solutionParams->rem_vol_well6 = m_solutionParams->rem_vol_well6 + 0.001 * ui->treeWidget_macroInfo->topLevelItem(10)->text(1).toDouble();
+	m_solutionParams->rem_vol_well7 = m_solutionParams->rem_vol_well7 + 0.001 * ui->treeWidget_macroInfo->topLevelItem(11)->text(1).toDouble();
+	m_solutionParams->rem_vol_well8 = m_solutionParams->rem_vol_well8 + 0.001 * ui->treeWidget_macroInfo->topLevelItem(12)->text(1).toDouble();
+
+	ui->treeWidget_macroInfo->topLevelItem(13)->setText(1, QString::number(m_solutionParams->rem_vol_well1));
+	ui->treeWidget_macroInfo->topLevelItem(14)->setText(1, QString::number(m_solutionParams->rem_vol_well2));
+	ui->treeWidget_macroInfo->topLevelItem(15)->setText(1, QString::number(m_solutionParams->rem_vol_well3));
+	ui->treeWidget_macroInfo->topLevelItem(16)->setText(1, QString::number(m_solutionParams->rem_vol_well4));
+	ui->treeWidget_macroInfo->topLevelItem(17)->setText(1, QString::number(m_solutionParams->rem_vol_well5));
+	ui->treeWidget_macroInfo->topLevelItem(18)->setText(1, QString::number(m_solutionParams->rem_vol_well6));
+	ui->treeWidget_macroInfo->topLevelItem(19)->setText(1, QString::number(m_solutionParams->rem_vol_well7));
+	ui->treeWidget_macroInfo->topLevelItem(20)->setText(1, QString::number(m_solutionParams->rem_vol_well8));
+
 
 
 	if (m_timer_solution < m_time_multipilcator) {
@@ -478,8 +501,9 @@ void Labonatip_GUI::updateTimingSliders()
 
 		// build the string for the waste label
 		s.clear();
-		s.append("Waste full in \n");
-		
+		s.append("Waste ");
+		s.append(QString::number(m_flowing_solution));
+		s.append(" full in \n");		
 		int remaining_hours = floor(waste_remaining_time_in_sec / 3600); // 3600 sec in a hour
 		int remaining_mins = floor(((int)waste_remaining_time_in_sec % 3600) / 60); // 60 minutes in a hour
 		int remaining_secs = waste_remaining_time_in_sec - remaining_hours * 3600 - remaining_mins * 60; // 60 minutes in a hour

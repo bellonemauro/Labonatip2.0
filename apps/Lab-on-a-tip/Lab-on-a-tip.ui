@@ -3202,7 +3202,7 @@ QTabBar::tab:!selected {
         <enum>QTabWidget::Triangular</enum>
        </property>
        <property name="currentIndex">
-        <number>2</number>
+        <number>1</number>
        </property>
        <property name="elideMode">
         <enum>Qt::ElideNone</enum>
@@ -5572,6 +5572,70 @@ QPushButton:disabled{ background-color: #CCCCCC; }
            <item>
             <property name="text">
              <string>Flow rate 8 ( nL/s )</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Volume in waste well 1 (nL)</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Volume in waste well 2 (nL)</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Volume in waste well 3 (nL)</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Volume in waste well 4 (nL)</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Volume in waste well 5 (nL)</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Volume in waste well 6 (nL)</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Volume in waste well 7 (nL)</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Volume in waste well 8 (nL)</string>
             </property>
             <property name="text">
              <string>0</string>

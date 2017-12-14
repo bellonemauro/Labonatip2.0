@@ -70,10 +70,23 @@ struct solutionsParams {
 
 
 	solutionsParams() {   // default values
-		this->volume_sol1 = 0;
-		this->volume_sol2 = 0;
-		this->volume_sol3 = 0;
-		this->volume_sol4 = 0;
+		this->vol_well1 = 0;
+		this->vol_well2 = 0;
+		this->vol_well3 = 0;
+		this->vol_well4 = 0;
+		this->vol_well5 = 0;
+		this->vol_well6 = 0;
+		this->vol_well7 = 0;
+		this->vol_well8 = 0;
+		this->rem_vol_well1 = 0;
+		this->rem_vol_well2 = 0;
+		this->rem_vol_well3 = 0;
+		this->rem_vol_well4 = 0;
+		this->rem_vol_well5 = 0;
+		this->rem_vol_well6 = 0;
+		this->rem_vol_well7 = 0;
+		this->rem_vol_well8 = 0;
+
 		this->sol1 = "No name given to sol 1";
 		this->sol2 = "No name given to sol 2";
 		this->sol3 = "No name given to sol 3";
@@ -84,18 +97,30 @@ struct solutionsParams {
 		this->sol4_color = QColor::fromRgb(130, 255, 0);
 	}
 
-	int volume_sol1;                 //!<  volume of solution in the well 1
-	int volume_sol2;                 //!<  volume of solution in the well 2
-	int volume_sol3;                 //!<  volume of solution in the well 3
-	int volume_sol4;                 //!<  volume of solution in the well 4
-	QString sol1;                    //!<  name of the solution 1
-	QString sol2;                    //!<  name of the solution 2
-	QString sol3;                    //!<  name of the solution 3
-	QString sol4;                    //!<  name of the solution 4
-	QColor sol1_color;               //!<  color of the solution 1
-	QColor sol2_color;               //!<  color of the solution 2
-	QColor sol3_color;               //!<  color of the solution 3
-	QColor sol4_color;               //!<  color of the solution 4
+	double vol_well1;                 //!<  initial volume of solution in the well 1
+	double vol_well2;                 //!<  initial volume of solution in the well 2
+	double vol_well3;                 //!<  initial volume of solution in the well 3
+	double vol_well4;                 //!<  initial volume of solution in the well 4
+	double vol_well5;                 //!<  initial volume of solution in the well 5
+	double vol_well6;                 //!<  initial volume of solution in the well 6
+	double vol_well7;                 //!<  initial volume of solution in the well 7
+	double vol_well8;                 //!<  initial volume of solution in the well 8
+	double rem_vol_well1;             //!<  remaining volume of solution in the well 1
+	double rem_vol_well2;             //!<  remaining volume of solution in the well 2
+	double rem_vol_well3;             //!<  remaining volume of solution in the well 3
+	double rem_vol_well4;             //!<  remaining volume of solution in the well 4
+	double rem_vol_well5;             //!<  remaining volume of solution in the well 5
+	double rem_vol_well6;             //!<  remaining volume of solution in the well 6
+	double rem_vol_well7;             //!<  remaining volume of solution in the well 7
+	double rem_vol_well8;             //!<  remaining volume of solution in the well 8
+	QString sol1;                  //!<  name of the solution 1
+	QString sol2;                  //!<  name of the solution 2
+	QString sol3;                  //!<  name of the solution 3
+	QString sol4;                  //!<  name of the solution 4
+	QColor sol1_color;             //!<  color of the solution 1
+	QColor sol2_color;             //!<  color of the solution 2
+	QColor sol3_color;             //!<  color of the solution 3
+	QColor sol4_color;             //!<  color of the solution 4
 }; // END solutionsNames struct
 
 	// structure to handle solutions name parameters

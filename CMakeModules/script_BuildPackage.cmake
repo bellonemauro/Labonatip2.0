@@ -45,7 +45,7 @@ set (CPACK_PACKAGE_VERSION "${CMAKE_Fluicell_FULL_VERSION}")
 set (CPACK_NSIS_MUI_ICON "${CMAKE_CURRENT_SOURCE_DIR}/Resources/fluicell_iconBIG.ico") #program icon
 #set (CPACK_NSIS_MUI_UNIICON "${CMAKE_CURRENT_SOURCE_DIR}/Resources/fluicell_iconBIG.ico") #uninstall icon
 
-set (CPACK_PACKAGE_ICON "${CMAKE_CURRENT_SOURCE_DIR}/Resources/fluicell_iconBIG.ico")# -- NOT FOUND -- ??
+#set (CPACK_PACKAGE_ICON "${CMAKE_CURRENT_SOURCE_DIR}/Resources/fluicell_iconBIG.png")# -- NOT FOUND -- ??
 
 set(CPACK_NSIS_MENU_LINKS 
             "${WEBSITE}" "Homepage for Fluicell Lab-on-a-tip ${WEBSITE}"          
@@ -59,7 +59,7 @@ set(CPACK_NSIS_MENU_LINKS
 set(CPACK_NSIS_DISPLAY_NAME "Fluicell Lab-on-a-tip V.${CMAKE_Fluicell_FULL_VERSION}")
 			
 #allows NSIS to modify paths
-#set (CPACK_NSIS_MODIFY_PATH "ON")     
+set (CPACK_NSIS_MODIFY_PATH "ON")     
 
 #SET(CPACK_PACKAGE_EXECUTABLES "Target_Name" "Target Name")
 SET(CPACK_PACKAGE_EXECUTABLES "Lab-on-a-tip" "Lab-on-a-tip")
