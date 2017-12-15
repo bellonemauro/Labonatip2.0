@@ -92,6 +92,11 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   *m_solutionParams = m_dialog_tools->getSolutionsParams();
   *m_pr_params = m_dialog_tools->getPr_params();
   *m_GUI_params = m_dialog_tools->getGUIparams();
+
+  ui->treeWidget_macroInfo->topLevelItem(13)->setText(1, QString::number(m_solutionParams->rem_vol_well1));
+  ui->treeWidget_macroInfo->topLevelItem(14)->setText(1, QString::number(m_solutionParams->rem_vol_well2));
+  ui->treeWidget_macroInfo->topLevelItem(15)->setText(1, QString::number(m_solutionParams->rem_vol_well3));
+  ui->treeWidget_macroInfo->topLevelItem(16)->setText(1, QString::number(m_solutionParams->rem_vol_well4));
  
   //switchLanguage(m_dialog_tools->language);
 
@@ -168,18 +173,26 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   // init the timers 
   m_update_flowing_sliders = new QTimer();
   m_update_GUI = new QTimer();  
+  m_update_waste = new QTimer();
   m_timer_solution = 0;
 
   m_update_flowing_sliders->setInterval(m_base_time_step);
-  m_update_GUI->setInterval(10); //(m_base_time_step);
+  m_update_GUI->setInterval(10);// (m_base_time_step);
+  m_update_waste->setInterval(m_base_time_step);
 
   connect(m_update_flowing_sliders, 
 	  SIGNAL(timeout()), this, 
 	  SLOT(updateTimingSliders()));
+
   connect(m_update_GUI, 
 	  SIGNAL(timeout()), this, 
 	  SLOT(updateGUI()));
   m_update_GUI->start();
+
+  connect(m_update_waste,
+	  SIGNAL(timeout()), this,
+	  SLOT(updateWaste()));
+  m_update_waste->start();
 
   //simulation button activated by default
   ui->actionSimulation->setChecked(true);
@@ -642,12 +655,84 @@ void Labonatip_GUI::updateGUI() {
 	if (m_pipette_active) updateDrawing(m_ppc1->getDropletSize());
 	else updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
 
-
 	updateFlows();
 
 
 	if (m_ppc1->isRunning())
   	    m_update_GUI->start();
+}
+
+void Labonatip_GUI::updateWaste()
+{
+
+	m_update_waste->start();
+
+	double waste_remaining_time_in_sec;
+
+	if (ui->pushButton_solution1->isChecked()) {
+		m_solutionParams->rem_vol_well1 = m_solutionParams->rem_vol_well1 - //TODO: add check and block for negative values
+			0.001 * ui->treeWidget_macroInfo->topLevelItem(5)->text(1).toDouble();
+		waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well1 - // this is in micro liters 10^-6
+			m_solutionParams->rem_vol_well1) /  //this is in micro liters 10^-6
+			ui->treeWidget_macroInfo->topLevelItem(5)->text(1).toDouble(); // this is in nano liters 10^-9
+	}
+	if (ui->pushButton_solution2->isChecked()) {
+		m_solutionParams->rem_vol_well2 = m_solutionParams->rem_vol_well2 -
+			0.001 * ui->treeWidget_macroInfo->topLevelItem(6)->text(1).toDouble();
+		waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well2 -
+			m_solutionParams->rem_vol_well2) /
+			ui->treeWidget_macroInfo->topLevelItem(6)->text(1).toDouble();
+	}
+	if (ui->pushButton_solution3->isChecked()) {
+		m_solutionParams->rem_vol_well3 = m_solutionParams->rem_vol_well3 -
+			0.001 * ui->treeWidget_macroInfo->topLevelItem(7)->text(1).toDouble();
+		waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well3 -
+			m_solutionParams->rem_vol_well3) /
+			ui->treeWidget_macroInfo->topLevelItem(7)->text(1).toDouble();
+	}
+	if (ui->pushButton_solution4->isChecked()) {
+		m_solutionParams->rem_vol_well4 = m_solutionParams->rem_vol_well4 -
+			0.001 * ui->treeWidget_macroInfo->topLevelItem(8)->text(1).toDouble();
+		waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well4 -
+			m_solutionParams->rem_vol_well4) /
+			ui->treeWidget_macroInfo->topLevelItem(8)->text(1).toDouble();
+	}
+
+
+
+	m_solutionParams->rem_vol_well5 = m_solutionParams->rem_vol_well5 + 0.001 * ui->treeWidget_macroInfo->topLevelItem(9)->text(1).toDouble();
+	m_solutionParams->rem_vol_well6 = m_solutionParams->rem_vol_well6 + 0.001 * ui->treeWidget_macroInfo->topLevelItem(10)->text(1).toDouble();
+	m_solutionParams->rem_vol_well7 = m_solutionParams->rem_vol_well7 + 0.001 * ui->treeWidget_macroInfo->topLevelItem(11)->text(1).toDouble();
+	m_solutionParams->rem_vol_well8 = m_solutionParams->rem_vol_well8 + 0.001 * ui->treeWidget_macroInfo->topLevelItem(12)->text(1).toDouble();
+
+	ui->treeWidget_macroInfo->topLevelItem(13)->setText(1, QString::number(m_solutionParams->rem_vol_well1));
+	ui->treeWidget_macroInfo->topLevelItem(14)->setText(1, QString::number(m_solutionParams->rem_vol_well2));
+	ui->treeWidget_macroInfo->topLevelItem(15)->setText(1, QString::number(m_solutionParams->rem_vol_well3));
+	ui->treeWidget_macroInfo->topLevelItem(16)->setText(1, QString::number(m_solutionParams->rem_vol_well4));
+	ui->treeWidget_macroInfo->topLevelItem(17)->setText(1, QString::number(m_solutionParams->rem_vol_well5));
+	ui->treeWidget_macroInfo->topLevelItem(18)->setText(1, QString::number(m_solutionParams->rem_vol_well6));
+	ui->treeWidget_macroInfo->topLevelItem(19)->setText(1, QString::number(m_solutionParams->rem_vol_well7));
+	ui->treeWidget_macroInfo->topLevelItem(20)->setText(1, QString::number(m_solutionParams->rem_vol_well8));
+
+	QString s;
+
+	// build the string for the waste label
+	s.clear();
+	s.append("Waste ");
+	s.append(QString::number(m_flowing_solution));
+	s.append(" full in \n");
+	int remaining_hours = floor(waste_remaining_time_in_sec / 3600); // 3600 sec in a hour
+	int remaining_mins = floor(((int)waste_remaining_time_in_sec % 3600) / 60); // 60 minutes in a hour
+	int remaining_secs = waste_remaining_time_in_sec - remaining_hours * 3600 - remaining_mins * 60; // 60 minutes in a hour
+	s.append(QString::number(remaining_hours));
+	s.append(" h, \n");
+	s.append(QString::number(remaining_mins));
+	s.append(" min \n");
+	s.append(QString::number(remaining_secs));
+	s.append(" sec ");
+
+	ui->textEdit_emptyTime_waste->setText(s);
+
 }
 
 

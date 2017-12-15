@@ -291,6 +291,7 @@ private slots:
 
 	void updateGUI();
 
+	void updateWaste();
 
 	/** \brief Visualize a message and a progress bar 
 	* \note
@@ -595,6 +596,7 @@ private:
   QTimer *m_update_flowing_sliders;        //!< connected to an update visualization function relative to solutions flow
   int m_flowing_solution;            //!< needed for the visualization function relative to solution 1 - 2 - 3- 4
   QTimer *m_update_GUI;            //!< update GUI to show PPC1 values
+  QTimer *m_update_waste;            //!< update GUI to show PPC1 values
   const int m_base_time_step;         //!< used to set the update timers, every step is by default 1000 ms
 
   //!< set the multiplicators for the time step, 

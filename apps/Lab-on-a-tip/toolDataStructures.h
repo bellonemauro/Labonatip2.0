@@ -97,22 +97,22 @@ struct solutionsParams {
 		this->sol4_color = QColor::fromRgb(130, 255, 0);
 	}
 
-	double vol_well1;                 //!<  initial volume of solution in the well 1
-	double vol_well2;                 //!<  initial volume of solution in the well 2
-	double vol_well3;                 //!<  initial volume of solution in the well 3
-	double vol_well4;                 //!<  initial volume of solution in the well 4
-	double vol_well5;                 //!<  initial volume of solution in the well 5
-	double vol_well6;                 //!<  initial volume of solution in the well 6
-	double vol_well7;                 //!<  initial volume of solution in the well 7
-	double vol_well8;                 //!<  initial volume of solution in the well 8
-	double rem_vol_well1;             //!<  remaining volume of solution in the well 1
-	double rem_vol_well2;             //!<  remaining volume of solution in the well 2
-	double rem_vol_well3;             //!<  remaining volume of solution in the well 3
-	double rem_vol_well4;             //!<  remaining volume of solution in the well 4
-	double rem_vol_well5;             //!<  remaining volume of solution in the well 5
-	double rem_vol_well6;             //!<  remaining volume of solution in the well 6
-	double rem_vol_well7;             //!<  remaining volume of solution in the well 7
-	double rem_vol_well8;             //!<  remaining volume of solution in the well 8
+	double vol_well1;                 //!<  initial volume of solution in the well 1 in uL
+	double vol_well2;                 //!<  initial volume of solution in the well 2 in uL
+	double vol_well3;                 //!<  initial volume of solution in the well 3 in uL
+	double vol_well4;                 //!<  initial volume of solution in the well 4 in uL
+	double vol_well5;                 //!<  initial volume of solution in the well 5 in uL
+	double vol_well6;                 //!<  initial volume of solution in the well 6 in uL
+	double vol_well7;                 //!<  initial volume of solution in the well 7 in uL
+	double vol_well8;                 //!<  initial volume of solution in the well 8 in uL
+	double rem_vol_well1;             //!<  remaining volume of solution in the well 1 in mL
+	double rem_vol_well2;             //!<  remaining volume of solution in the well 2 in mL
+	double rem_vol_well3;             //!<  remaining volume of solution in the well 3 in mL
+	double rem_vol_well4;             //!<  remaining volume of solution in the well 4 in mL
+	double rem_vol_well5;             //!<  remaining volume of solution in the well 5 in mL
+	double rem_vol_well6;             //!<  remaining volume of solution in the well 6 in mL
+	double rem_vol_well7;             //!<  remaining volume of solution in the well 7 in mL
+	double rem_vol_well8;             //!<  remaining volume of solution in the well 8 in mL
 	QString sol1;                  //!<  name of the solution 1
 	QString sol2;                  //!<  name of the solution 2
 	QString sol3;                  //!<  name of the solution 3

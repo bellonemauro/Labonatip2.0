@@ -388,10 +388,10 @@ void Labonatip_tools::getSolutionSettingsFromGUI()
 	m_solutionParams->vol_well6 = ui_tools->spinBox_vol_sol6->value();
 	m_solutionParams->vol_well7 = ui_tools->spinBox_vol_sol7->value();
 	m_solutionParams->vol_well8 = ui_tools->spinBox_vol_sol8->value();
-	m_solutionParams->rem_vol_well1 = 0.0;
-	m_solutionParams->rem_vol_well2 = 0.0;
-	m_solutionParams->rem_vol_well3 = 0.0;
-	m_solutionParams->rem_vol_well4 = 0.0;
+	m_solutionParams->rem_vol_well1 = m_solutionParams->vol_well1;
+	m_solutionParams->rem_vol_well2 = m_solutionParams->vol_well2;
+	m_solutionParams->rem_vol_well3 = m_solutionParams->vol_well3;
+	m_solutionParams->rem_vol_well4 = m_solutionParams->vol_well4;
 	m_solutionParams->rem_vol_well5 = 0.0;
 	m_solutionParams->rem_vol_well6 = 0.0;
 	m_solutionParams->rem_vol_well7 = 0.0;
@@ -683,6 +683,7 @@ bool Labonatip_tools::loadSettings(QString _path)
 	}
 	ui_tools->spinBox_vol_sol1->setValue(vol_sol1);
 	m_solutionParams->vol_well1 = vol_sol1;
+	m_solutionParams->rem_vol_well1 = vol_sol1;
 
 	int vol_sol2 = m_settings->value("solutions/volWell2", "0").toInt(&ok);
 	if (!ok) {
@@ -692,6 +693,7 @@ bool Labonatip_tools::loadSettings(QString _path)
 	}
 	ui_tools->spinBox_vol_sol2->setValue(vol_sol2);
 	m_solutionParams->vol_well2 = vol_sol2;
+	m_solutionParams->rem_vol_well2 = vol_sol2;
 
 	int vol_sol3 = m_settings->value("solutions/volWell3", "0").toInt(&ok);
 	if (!ok) {
@@ -701,6 +703,7 @@ bool Labonatip_tools::loadSettings(QString _path)
 	}
 	ui_tools->spinBox_vol_sol3->setValue(vol_sol3);
 	m_solutionParams->vol_well3 = vol_sol3;
+	m_solutionParams->rem_vol_well3 = vol_sol3;
 
 	int vol_sol4 = m_settings->value("solutions/volWell4", "0").toInt(&ok);
 	if (!ok) {
@@ -710,6 +713,7 @@ bool Labonatip_tools::loadSettings(QString _path)
 	}
 	ui_tools->spinBox_vol_sol4->setValue(vol_sol4);
 	m_solutionParams->vol_well4 = vol_sol4;
+	m_solutionParams->rem_vol_well4 = vol_sol4;
 
 	int vol_sol5 = m_settings->value("solutions/volWell5", "0").toInt(&ok);
 	if (!ok) {
