@@ -68,8 +68,13 @@ public:
 
 	void setSolParams(solutionsParams _params) {
 		*m_solutionParams = _params; 
+		ui_p_editor->treeWidget_sol_name->topLevelItem(0)->setText(0, m_solutionParams->sol1);
+		ui_p_editor->treeWidget_sol_name->topLevelItem(1)->setText(0, m_solutionParams->sol2); 
+		ui_p_editor->treeWidget_sol_name->topLevelItem(2)->setText(0, m_solutionParams->sol3); 
+		ui_p_editor->treeWidget_sol_name->topLevelItem(3)->setText(0, m_solutionParams->sol4); 
 		macroWizard->setSolParams(*m_solutionParams);
 	}
+
 	void setPrParams(pr_params _params) { 
 		*m_pr_params = _params; 
 		macroWizard->setPrParams(*m_pr_params);

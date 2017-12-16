@@ -895,7 +895,7 @@ border:0;
        </property>
        <layout class="QGridLayout" name="gridLayout_7">
         <item row="1" column="0">
-         <widget class="QTreeWidget" name="treeWidget_3">
+         <widget class="QTreeWidget" name="treeWidget_sol_name">
           <property name="maximumSize">
            <size>
             <width>16777215</width>

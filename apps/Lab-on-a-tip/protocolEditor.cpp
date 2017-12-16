@@ -46,8 +46,14 @@ Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 	connect(ui_p_editor->pushButton_addMacroCommand,
 		SIGNAL(clicked()), this, SLOT(addMacroCommand()));
 
+	connect(ui_p_editor->actionPlus,
+		SIGNAL(triggered()), this, SLOT(addMacroCommand()));
+
 	connect(ui_p_editor->pushButton_removeMacroCommand,
 		SIGNAL(clicked()), this, SLOT(removeMacroCommand()));
+
+	connect(ui_p_editor->actionMinus,
+		SIGNAL(triggered()), this, SLOT(removeMacroCommand()));
 
 	connect(ui_p_editor->pushButton_becomeChild,
 		SIGNAL(clicked()), this, SLOT(becomeChild()));
@@ -58,26 +64,50 @@ Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 	connect(ui_p_editor->pushButton_moveDown,
 		SIGNAL(clicked()), this, SLOT(moveDown()));
 
+	connect(ui_p_editor->actionDown,
+		SIGNAL(triggered()), this, SLOT(moveDown()));
+
 	connect(ui_p_editor->pushButton_moveUp,
 		SIGNAL(clicked()), this, SLOT(moveUp()));
+
+	connect(ui_p_editor->actionUp,
+		SIGNAL(triggered()), this, SLOT(moveUp()));
 
 	connect(ui_p_editor->pushButton_plusIndent,
 		SIGNAL(clicked()), this, SLOT(plusIndent()));
 
+	connect(ui_p_editor->actionIndent,
+		SIGNAL(triggered()), this, SLOT(plusIndent()));
+
 	connect(ui_p_editor->pushButton_duplicateLine,
 		SIGNAL(clicked()), this, SLOT(duplicateItem()));
+
+	connect(ui_p_editor->actionDuplicate,
+		SIGNAL(triggered()), this, SLOT(duplicateItem()));
 
 	connect(ui_p_editor->pushButton_clearCommands,
 		SIGNAL(clicked()), this, SLOT(clearAllCommands()));
 
+	connect(ui_p_editor->actionClear,
+		SIGNAL(triggered()), this, SLOT(clearAllCommands()));
+
 	connect(ui_p_editor->pushButton_saveMacro,
 		SIGNAL(clicked()), this, SLOT(saveMacro()));
+
+	connect(ui_p_editor->actionSave,
+		SIGNAL(triggered()), this, SLOT(saveMacro()));
 
 	connect(ui_p_editor->pushButton_loadMacro,
 		SIGNAL(clicked()), this, SLOT(loadMacro()));
 
+	connect(ui_p_editor->actionLoad,
+		SIGNAL(triggered()), this, SLOT(loadMacro()));
+
 	connect(ui_p_editor->pushButton_macroWizard,
 		SIGNAL(clicked()), this, SLOT(newMacroWizard()));
+
+	connect(ui_p_editor->actionWizard,
+		SIGNAL(triggered()), this, SLOT(newMacroWizard()));
 
 	connect(ui_p_editor->pushButton_openFolder,
 		SIGNAL(clicked()), this, SLOT(openProtocolFolder()));
@@ -1297,6 +1327,18 @@ void Labonatip_protocol_editor::on_protocol_clicked(QTreeWidgetItem *item, int c
 	QString protocol_path = m_protocol_path;
 	protocol_path.append("/");
 	protocol_path.append(file);
+
+	QMessageBox::StandardButton resBtn =
+		QMessageBox::question(this, "Lab-on-a-tip",
+			tr("Do you want to clean your workspace before loading the new protocol?\n Click no to add the macro at the bottom"),
+			QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
+			QMessageBox::Yes);
+	if (resBtn != QMessageBox::Yes) {
+		// do nothing
+	}
+	else {
+		this->clearAllCommands();
+	}
 
 	loadMacro(protocol_path);
 }
