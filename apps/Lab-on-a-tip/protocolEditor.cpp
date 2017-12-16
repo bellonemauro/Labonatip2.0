@@ -79,6 +79,13 @@ Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 	connect(ui_p_editor->pushButton_macroWizard,
 		SIGNAL(clicked()), this, SLOT(newMacroWizard()));
 
+	connect(ui_p_editor->pushButton_openFolder,
+		SIGNAL(clicked()), this, SLOT(openProtocolFolder()));
+
+	connect(ui_p_editor->treeWidget_protocol_folder, 
+		SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)),
+		this, SLOT(on_protocol_clicked(QTreeWidgetItem*, int)));
+
 	connect(macroWizard,
 		SIGNAL(loadSettings()), this, SLOT(emitLoadSettings()));
 
@@ -142,7 +149,7 @@ void Labonatip_protocol_editor::newMacroWizard()
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_protocol_editor::newMacroWizard    " << endl;
 
-	macroWizard->setMacroPath(m_macro_path);
+	macroWizard->setMacroPath(m_protocol_path);
 	macroWizard->setPrParams(*m_pr_params);
 	macroWizard->setSolParams(*m_solutionParams);
 
@@ -585,7 +592,12 @@ void Labonatip_protocol_editor::commandChanged(int _idx)
 {
 
 	if (!ui_p_editor->treeWidget_macroTable->currentItem()) return; // avoid crash if no selection
-																 
+			
+	if (!ui_p_editor->treeWidget_macroTable->focusWidget()) return; // avoid crash if no focus
+
+	if (!qobject_cast<QComboBox*>(
+		ui_p_editor->treeWidget_macroTable->focusWidget())) return; // avoid crash
+
 	int idx = qobject_cast<QComboBox*>(
 		ui_p_editor->treeWidget_macroTable->focusWidget())->currentIndex();
 
@@ -790,9 +802,9 @@ bool Labonatip_protocol_editor::loadMacro()
 	cout << QDate::currentDate().toString().toStdString() << "  "
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_tools::loadMacro :::  "
-		<< m_macro_path.toStdString() << "  " << endl;
+		<< m_protocol_path.toStdString() << "  " << endl;
 	
-	QString file_name = QFileDialog::getOpenFileName(this, tr("Open file"), m_macro_path,  // dialog to open files
+	QString file_name = QFileDialog::getOpenFileName(this, tr("Open file"), m_protocol_path,  // dialog to open files
 		"Lab-on-a-tip macro File (*.macro);; Data (*.dat);; All Files(*.*)", 0);
 	
 	if (file_name.isEmpty()) {
@@ -913,7 +925,7 @@ bool Labonatip_protocol_editor::saveMacro()
 		<< "Labonatip_protocol_editor::saveMacro    " << endl;
 
 	QString fileName = QFileDialog::getSaveFileName(this, 
-		tr("Save something"), m_macro_path,  // dialog to open files
+		tr("Save something"), m_protocol_path,  // dialog to open files
 		"Lab-on-a-tip macro File (*.macro);; Data (*.dat);; All Files(*.*)", 0);
 
 	if (!saveMacro(fileName)) {
@@ -1266,6 +1278,53 @@ void Labonatip_protocol_editor::setGUIcharts()
 	//gridLayout_13  bottom right
 
 }
+
+void Labonatip_protocol_editor::openProtocolFolder()
+{
+	QDir path = QFileDialog::getExistingDirectory(this, tr("Open folder"), QDir::currentPath());
+	setMacroPath(path.path());
+
+}
+
+void Labonatip_protocol_editor::on_protocol_clicked(QTreeWidgetItem *item, int column)
+{
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString()
+		<< "Labonatip_tools::on_protocol_clicked "<< endl;
+
+	QString file = item->text(0);
+
+	QString protocol_path = m_protocol_path;
+	protocol_path.append("/");
+	protocol_path.append(file);
+
+	loadMacro(protocol_path);
+}
+
+void Labonatip_protocol_editor::readProtocolFolder(QString _path)
+{
+	ui_p_editor->treeWidget_protocol_folder->clear();
+
+	ui_p_editor->lineEdit_protocolPath->setText(_path);
+	
+	QStringList filters;
+	filters << "*.macro";
+
+	QDir protocol_path;
+	protocol_path.setPath(_path);
+	QStringList list = protocol_path.entryList(filters);
+
+	for(int i = 0; i < list.size(); i++ ) // starting from 2 it will not add ./ and ../
+	{
+		QTreeWidgetItem *item = new QTreeWidgetItem();
+		item->setText(0, list.at(i));
+		ui_p_editor->treeWidget_protocol_folder->addTopLevelItem(item);
+	}
+
+}
+
+
+
 
 QString Labonatip_protocol_editor::createHeader()
 {

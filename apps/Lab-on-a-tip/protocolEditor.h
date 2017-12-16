@@ -78,7 +78,9 @@ public:
 	
 	QString getMacroPath() { return m_current_macro_file_name; };
 
-	inline void setMacroPath(QString _path) { m_macro_path = _path; }
+	inline void setMacroPath(QString _path) { m_protocol_path = _path; 
+	readProtocolFolder(m_protocol_path);
+	}
 
 	void setMacroPrt(std::vector<fluicell::PPC1api::command> *_macro) { m_macro = _macro; };
 
@@ -156,6 +158,9 @@ private slots:
 
 	void commandChanged(int _idx);
 
+	void openProtocolFolder();
+
+	void on_protocol_clicked(QTreeWidgetItem *item, int column);
 
 	/** Put all the commands in the macro editor to the macro structure for running
 	*
@@ -199,11 +204,13 @@ private:
 
 	void setGUIcharts();
 
+	void readProtocolFolder(QString _path);
+
 	std::vector<fluicell::PPC1api::command> *m_macro;
 
 
 	QString m_current_macro_file_name;
-	QString m_macro_path;
+	QString m_protocol_path;
 
 	Labonatip_macroWizard * macroWizard;
 
