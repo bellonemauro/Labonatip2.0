@@ -443,7 +443,9 @@ void Labonatip_GUI::updateTimingSliders()
 		_bar->setValue(100 - status);
 		QString s;
 		if (!m_dialog_tools->isContinuousFlowing()) {
-			s.append("Well empty in \n");
+			s.append("Well ");
+			s.append(QString::number(m_flowing_solution));
+			s.append(" empty in \n");
 			int remaining_time_in_sec = (m_time_multipilcator - m_timer_solution);
 			int remaining_hours = floor(remaining_time_in_sec / 3600); // 3600 sec in a hour
 			int remaining_mins = floor((remaining_time_in_sec % 3600) / 60); // 60 minutes in a hour

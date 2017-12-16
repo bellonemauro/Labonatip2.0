@@ -636,11 +636,11 @@ void Labonatip_GUI::updateGUI() {
 			", " + QString::number(set_point) + " mbar"));
 		ui->progressBar_pressure_p_on->setValue(sensor_reading);
 
-		ui->progressBar_recircIn->setValue(ui->horizontalSlider_recirculation->value());
-		ui->progressBar_recircOut->setValue(ui->horizontalSlider_recirculation->value());
+		//ui->progressBar_recircIn->setValue(ui->horizontalSlider_recirculation->value());
+		//ui->progressBar_recircOut->setValue(ui->horizontalSlider_recirculation->value());
 
-		ui->progressBar_switchIn->setValue(ui->horizontalSlider_switch->value());
-		ui->progressBar_switchOut->setValue(ui->horizontalSlider_switch->value());
+		//ui->progressBar_switchIn->setValue(ui->horizontalSlider_switch->value());
+		//ui->progressBar_switchOut->setValue(ui->horizontalSlider_switch->value());
 
 		ui->lcdNumber_dropletSize_percentage->display(m_ppc1->getDropletSize());
 		//ui->progressBar_dropletSize->setValue(m_ppc1->getDropletSizePercentage());
@@ -667,52 +667,134 @@ void Labonatip_GUI::updateWaste()
 
 	m_update_waste->start();
 
+	if (m_ds_perc < 10) return;
+
 	double waste_remaining_time_in_sec;
 
 	if (ui->pushButton_solution1->isChecked()) {
 		m_solutionParams->rem_vol_well1 = m_solutionParams->rem_vol_well1 - //TODO: add check and block for negative values
 			0.001 * ui->treeWidget_macroInfo->topLevelItem(5)->text(1).toDouble();
-		waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well1 - // this is in micro liters 10^-6
-			m_solutionParams->rem_vol_well1) /  //this is in micro liters 10^-6
-			ui->treeWidget_macroInfo->topLevelItem(5)->text(1).toDouble(); // this is in nano liters 10^-9
+		//waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well1 - // this is in micro liters 10^-6
+		//	m_solutionParams->rem_vol_well1) /  //this is in micro liters 10^-6
+		//	ui->treeWidget_macroInfo->topLevelItem(5)->text(1).toDouble(); // this is in nano liters 10^-9
 	}
 	if (ui->pushButton_solution2->isChecked()) {
 		m_solutionParams->rem_vol_well2 = m_solutionParams->rem_vol_well2 -
 			0.001 * ui->treeWidget_macroInfo->topLevelItem(6)->text(1).toDouble();
-		waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well2 -
-			m_solutionParams->rem_vol_well2) /
-			ui->treeWidget_macroInfo->topLevelItem(6)->text(1).toDouble();
+		//waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well2 -
+		//	m_solutionParams->rem_vol_well2) /
+		//	ui->treeWidget_macroInfo->topLevelItem(6)->text(1).toDouble();
 	}
 	if (ui->pushButton_solution3->isChecked()) {
 		m_solutionParams->rem_vol_well3 = m_solutionParams->rem_vol_well3 -
 			0.001 * ui->treeWidget_macroInfo->topLevelItem(7)->text(1).toDouble();
-		waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well3 -
-			m_solutionParams->rem_vol_well3) /
-			ui->treeWidget_macroInfo->topLevelItem(7)->text(1).toDouble();
+		//waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well3 -
+		//	m_solutionParams->rem_vol_well3) /
+		//	ui->treeWidget_macroInfo->topLevelItem(7)->text(1).toDouble();
 	}
 	if (ui->pushButton_solution4->isChecked()) {
 		m_solutionParams->rem_vol_well4 = m_solutionParams->rem_vol_well4 -
 			0.001 * ui->treeWidget_macroInfo->topLevelItem(8)->text(1).toDouble();
-		waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well4 -
-			m_solutionParams->rem_vol_well4) /
-			ui->treeWidget_macroInfo->topLevelItem(8)->text(1).toDouble();
+		//waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well4 -
+		//	m_solutionParams->rem_vol_well4) /
+		//	ui->treeWidget_macroInfo->topLevelItem(8)->text(1).toDouble();
 	}
 
 
 
-	m_solutionParams->rem_vol_well5 = m_solutionParams->rem_vol_well5 + 0.001 * ui->treeWidget_macroInfo->topLevelItem(9)->text(1).toDouble();
-	m_solutionParams->rem_vol_well6 = m_solutionParams->rem_vol_well6 + 0.001 * ui->treeWidget_macroInfo->topLevelItem(10)->text(1).toDouble();
-	m_solutionParams->rem_vol_well7 = m_solutionParams->rem_vol_well7 + 0.001 * ui->treeWidget_macroInfo->topLevelItem(11)->text(1).toDouble();
-	m_solutionParams->rem_vol_well8 = m_solutionParams->rem_vol_well8 + 0.001 * ui->treeWidget_macroInfo->topLevelItem(12)->text(1).toDouble();
+	m_solutionParams->rem_vol_well5 = m_solutionParams->rem_vol_well5 + 
+		0.001 * ui->treeWidget_macroInfo->topLevelItem(9)->text(1).toDouble();
+	m_solutionParams->rem_vol_well6 = m_solutionParams->rem_vol_well6 + 
+		0.001 * ui->treeWidget_macroInfo->topLevelItem(10)->text(1).toDouble();
+	m_solutionParams->rem_vol_well7 = m_solutionParams->rem_vol_well7 + 
+		0.001 * ui->treeWidget_macroInfo->topLevelItem(11)->text(1).toDouble();
+	m_solutionParams->rem_vol_well8 = m_solutionParams->rem_vol_well8 +
+		0.001 * ui->treeWidget_macroInfo->topLevelItem(12)->text(1).toDouble();
 
-	ui->treeWidget_macroInfo->topLevelItem(13)->setText(1, QString::number(m_solutionParams->rem_vol_well1));
-	ui->treeWidget_macroInfo->topLevelItem(14)->setText(1, QString::number(m_solutionParams->rem_vol_well2));
-	ui->treeWidget_macroInfo->topLevelItem(15)->setText(1, QString::number(m_solutionParams->rem_vol_well3));
-	ui->treeWidget_macroInfo->topLevelItem(16)->setText(1, QString::number(m_solutionParams->rem_vol_well4));
-	ui->treeWidget_macroInfo->topLevelItem(17)->setText(1, QString::number(m_solutionParams->rem_vol_well5));
-	ui->treeWidget_macroInfo->topLevelItem(18)->setText(1, QString::number(m_solutionParams->rem_vol_well6));
-	ui->treeWidget_macroInfo->topLevelItem(19)->setText(1, QString::number(m_solutionParams->rem_vol_well7));
-	ui->treeWidget_macroInfo->topLevelItem(20)->setText(1, QString::number(m_solutionParams->rem_vol_well8));
+	vector<double> v1;
+	v1.push_back(m_solutionParams->vol_well5 - m_solutionParams->rem_vol_well5);
+	v1.push_back(m_solutionParams->vol_well6 - m_solutionParams->rem_vol_well6);
+	v1.push_back(m_solutionParams->vol_well7 - m_solutionParams->rem_vol_well7);
+	v1.push_back(m_solutionParams->vol_well8 - m_solutionParams->rem_vol_well8);
+
+	auto max = std::max_element(v1.begin(), v1.end());
+	int max_index = std::distance(v1.begin(), max);
+
+	switch (max_index)
+	{
+	case 1: { //TODO : the waste time is not well calculated 
+		waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well5 -
+			m_solutionParams->rem_vol_well5) /
+			ui->treeWidget_macroInfo->topLevelItem(9)->text(1).toDouble();
+		break;
+	}
+	case 2: {
+		waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well6 -
+			m_solutionParams->rem_vol_well6) /
+			ui->treeWidget_macroInfo->topLevelItem(10)->text(1).toDouble();
+		break;
+	}
+	case 3: {
+		waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well7 -
+			m_solutionParams->rem_vol_well7) /
+			ui->treeWidget_macroInfo->topLevelItem(11)->text(1).toDouble();
+		break;
+	}
+	case 4: {
+		waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well8 -
+			m_solutionParams->rem_vol_well8) /
+			ui->treeWidget_macroInfo->topLevelItem(12)->text(1).toDouble();
+		break;
+	}
+	default: {
+		cerr << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_GUI::updateWaste  error --- no max found " << endl;
+	}
+	}
+
+
+
+
+	int v = m_solutionParams->rem_vol_well1 * 10;
+	double value = v / 10.0;
+	ui->treeWidget_macroInfo->topLevelItem(13)->setText(1, QString::number(value));
+	v = m_solutionParams->rem_vol_well2 * 10;
+	value = v / 10.0;
+	ui->treeWidget_macroInfo->topLevelItem(14)->setText(1, QString::number(value));
+	v = m_solutionParams->rem_vol_well3 * 10;
+	value = v / 10.0;
+	ui->treeWidget_macroInfo->topLevelItem(15)->setText(1, QString::number(value));
+	v = m_solutionParams->rem_vol_well4 * 10;
+	value = v / 10.0;
+	ui->treeWidget_macroInfo->topLevelItem(16)->setText(1, QString::number(value));
+	v = m_solutionParams->rem_vol_well5 * 10;
+	value = v / 10.0;
+	ui->treeWidget_macroInfo->topLevelItem(17)->setText(1, QString::number(value));
+	v = m_solutionParams->rem_vol_well6 * 10;
+	value = v / 10.0;
+	ui->treeWidget_macroInfo->topLevelItem(18)->setText(1, QString::number(value));
+	v = m_solutionParams->rem_vol_well7 * 10;
+	value = v / 10.0;
+	ui->treeWidget_macroInfo->topLevelItem(19)->setText(1, QString::number(value));
+	v = m_solutionParams->rem_vol_well8 * 10;
+	value = v / 10.0;
+	ui->treeWidget_macroInfo->topLevelItem(20)->setText(1, QString::number(value));
+
+	value = 100 - (m_solutionParams->vol_well5 - m_solutionParams->rem_vol_well5) * 100 / m_solutionParams->vol_well5;
+	ui->progressBar_switchOut->setValue(value);
+
+	value = 100 - (m_solutionParams->vol_well6 - m_solutionParams->rem_vol_well6) * 100 / m_solutionParams->vol_well6;
+	ui->progressBar_switchIn->setValue(value);
+
+	value = 100 - (m_solutionParams->vol_well7 - m_solutionParams->rem_vol_well7) * 100 / m_solutionParams->vol_well7;
+	ui->progressBar_recircOut->setValue(value);
+
+	value = 100 - (m_solutionParams->vol_well8 - m_solutionParams->rem_vol_well8) * 100 / m_solutionParams->vol_well8; 
+	ui->progressBar_recircIn->setValue(value);
+
+
+
 
 	QString s;
 
@@ -1078,10 +1160,10 @@ void Labonatip_GUI::toolEmptyWells()
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_GUI::toolEmptyWells   " << endl;
 
-	ui->progressBar_recircIn->setValue(0);
-	ui->progressBar_recircOut->setValue(0);
-	ui->progressBar_switchIn->setValue(0); 
-	ui->progressBar_switchOut->setValue(0);
+	//ui->progressBar_recircIn->setValue(0);
+	//ui->progressBar_recircOut->setValue(0);
+	//ui->progressBar_switchIn->setValue(0); 
+	//ui->progressBar_switchOut->setValue(0);
 
 	
 }

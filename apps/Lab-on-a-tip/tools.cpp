@@ -379,7 +379,6 @@ void Labonatip_tools::getCOMsettingsFromGUI()
 
 void Labonatip_tools::getSolutionSettingsFromGUI()
 {
-#pragma message ("TODO : tools there is no check on the lines yet (numbers or string)")
 	m_solutionParams->vol_well1 = ui_tools->spinBox_vol_sol1->value();
 	m_solutionParams->vol_well2 = ui_tools->spinBox_vol_sol2->value();
 	m_solutionParams->vol_well3 = ui_tools->spinBox_vol_sol3->value();
@@ -406,14 +405,13 @@ void Labonatip_tools::getSolutionSettingsFromGUI()
 	m_pr_params->base_fs_increment = ui_tools->spinBox_fs_increment->value();
 	m_pr_params->base_v_increment = ui_tools->spinBox_v_increment->value();
 
-	//TODO other settings ! 
 }
 
 void Labonatip_tools::getGUIsettingsFromGUI()
 {
 	m_GUI_params->showTextToolBar = Qt::ToolButtonStyle(ui_tools->comboBox_toolButtonStyle->currentIndex());
 	m_GUI_params->enableToolTips = ui_tools->checkBox_enableToolTips->isChecked();
-	//TODO other settings ! 
+
 }
 
 void Labonatip_tools::getPRsettingsFromGUI()
@@ -424,7 +422,6 @@ void Labonatip_tools::getPRsettingsFromGUI()
 	m_pr_params->v_recirc_default = ui_tools->spinBox_v_recirc_default->value();
 	m_pr_params->v_switch_default = ui_tools->spinBox_v_switch_default->value();
 
-	//TODO other settings ! 
 }
 
 bool Labonatip_tools::loadSettings(QString _path)
@@ -675,7 +672,7 @@ bool Labonatip_tools::loadSettings(QString _path)
 
 
 	//Read solution volumes block
-	int vol_sol1 = m_settings->value("solutions/volWell1", "0").toInt(&ok);
+	int vol_sol1 = m_settings->value("solutions/volWell1", "30").toInt(&ok);
 	if (!ok) {
 		cerr << QDate::currentDate().toString().toStdString() << "  "
 			<< QTime::currentTime().toString().toStdString() << "  "
@@ -685,7 +682,7 @@ bool Labonatip_tools::loadSettings(QString _path)
 	m_solutionParams->vol_well1 = vol_sol1;
 	m_solutionParams->rem_vol_well1 = vol_sol1;
 
-	int vol_sol2 = m_settings->value("solutions/volWell2", "0").toInt(&ok);
+	int vol_sol2 = m_settings->value("solutions/volWell2", "30").toInt(&ok);
 	if (!ok) {
 		cerr << QDate::currentDate().toString().toStdString() << "  "
 			<< QTime::currentTime().toString().toStdString() << "  "
@@ -695,7 +692,7 @@ bool Labonatip_tools::loadSettings(QString _path)
 	m_solutionParams->vol_well2 = vol_sol2;
 	m_solutionParams->rem_vol_well2 = vol_sol2;
 
-	int vol_sol3 = m_settings->value("solutions/volWell3", "0").toInt(&ok);
+	int vol_sol3 = m_settings->value("solutions/volWell3", "30").toInt(&ok);
 	if (!ok) {
 		cerr << QDate::currentDate().toString().toStdString() << "  "
 			<< QTime::currentTime().toString().toStdString() << "  "
@@ -705,7 +702,7 @@ bool Labonatip_tools::loadSettings(QString _path)
 	m_solutionParams->vol_well3 = vol_sol3;
 	m_solutionParams->rem_vol_well3 = vol_sol3;
 
-	int vol_sol4 = m_settings->value("solutions/volWell4", "0").toInt(&ok);
+	int vol_sol4 = m_settings->value("solutions/volWell4", "30").toInt(&ok);
 	if (!ok) {
 		cerr << QDate::currentDate().toString().toStdString() << "  "
 			<< QTime::currentTime().toString().toStdString() << "  "
@@ -715,7 +712,7 @@ bool Labonatip_tools::loadSettings(QString _path)
 	m_solutionParams->vol_well4 = vol_sol4;
 	m_solutionParams->rem_vol_well4 = vol_sol4;
 
-	int vol_sol5 = m_settings->value("solutions/volWell5", "0").toInt(&ok);
+	int vol_sol5 = m_settings->value("solutions/volWell5", "35").toInt(&ok);
 	if (!ok) {
 		cerr << QDate::currentDate().toString().toStdString() << "  "
 			<< QTime::currentTime().toString().toStdString() << "  "
@@ -724,7 +721,7 @@ bool Labonatip_tools::loadSettings(QString _path)
 	ui_tools->spinBox_vol_sol5->setValue(vol_sol5);
 	m_solutionParams->vol_well5 = vol_sol5;
 
-	int vol_sol6 = m_settings->value("solutions/volWell6", "0").toInt(&ok);
+	int vol_sol6 = m_settings->value("solutions/volWell6", "35").toInt(&ok);
 	if (!ok) {
 		cerr << QDate::currentDate().toString().toStdString() << "  "
 			<< QTime::currentTime().toString().toStdString() << "  "
@@ -733,7 +730,7 @@ bool Labonatip_tools::loadSettings(QString _path)
 	ui_tools->spinBox_vol_sol6->setValue(vol_sol6);
 	m_solutionParams->vol_well6 = vol_sol6;
 
-	int vol_sol7 = m_settings->value("solutions/volWell7", "0").toInt(&ok);
+	int vol_sol7 = m_settings->value("solutions/volWell7", "35").toInt(&ok);
 	if (!ok) {
 		cerr << QDate::currentDate().toString().toStdString() << "  "
 			<< QTime::currentTime().toString().toStdString() << "  "
@@ -742,7 +739,7 @@ bool Labonatip_tools::loadSettings(QString _path)
 	ui_tools->spinBox_vol_sol7->setValue(vol_sol7);
 	m_solutionParams->vol_well7 = vol_sol7;
 
-	int vol_sol8 = m_settings->value("solutions/volWell8", "0").toInt(&ok);
+	int vol_sol8 = m_settings->value("solutions/volWell8", "35").toInt(&ok);
 	if (!ok) {
 		cerr << QDate::currentDate().toString().toStdString() << "  "
 			<< QTime::currentTime().toString().toStdString() << "  "
