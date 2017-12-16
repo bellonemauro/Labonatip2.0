@@ -19,6 +19,9 @@
 #include "macroWizard.h"
 
 #include <QMainWindow>
+#include <QtCharts/QChartView>
+#include <QtCharts/QLineSeries>
+#include <QtCharts/QAreaSeries>
 
 // PPC1api 
 #include <fluicell/ppc1api/ppc1api.h>
@@ -194,7 +197,7 @@ private:
 
 	bool decodeMacroCommand(QByteArray &_command, QTreeWidgetItem &_out_item);
 
-
+	void setGUIcharts();
 
 	std::vector<fluicell::PPC1api::command> *m_macro;
 
@@ -206,6 +209,29 @@ private:
 
 	solutionsParams *m_solutionParams;
 	pr_params *m_pr_params;
+
+
+	// line series for the chart
+	QtCharts::QLineSeries *m_series_Pon;
+	QtCharts::QChart *m_chart_p_on;
+	QtCharts::QChartView *m_chartView_p_on;
+
+	QtCharts::QLineSeries *m_series_Poff;
+	QtCharts::QChart *m_chart_p_off;
+	QtCharts::QChartView *m_chartView_p_off;
+
+	QtCharts::QLineSeries *m_series_v_s;
+	QtCharts::QChart *m_chart_v_s;
+	QtCharts::QChartView *m_chartView_v_s;
+
+	QtCharts::QLineSeries *m_series_v_r;
+	QtCharts::QChart *m_chart_v_r;
+	QtCharts::QChartView *m_chartView_v_r;
+
+	double max_pon;// = 450;
+	double max_poff;// = 450;
+	double max_v_recirc;// = 300;
+	double max_v_switch;// = 300;
 
 protected:
 	Ui::Labonatip_protocol_editor *ui_p_editor;    //!<  the user interface

@@ -9,6 +9,8 @@
 
 #include "protocolEditor.h"
 #include  <QCheckBox>
+#include <QtCharts/QValueAxis>
+#include <QtCharts/QAbstractAxis>
 
 Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 	QMainWindow (parent),
@@ -25,6 +27,14 @@ Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 
 	m_solutionParams = new solutionsParams();
 	m_pr_params = new pr_params();
+
+	max_pon = 450;
+	max_poff = 450;
+	max_v_recirc = 300;
+	max_v_switch = 300;
+
+
+	setGUIcharts();
 
 	// connect GUI elements: macro tab
 	connect(ui_p_editor->treeWidget_macroTable,
@@ -1127,6 +1137,134 @@ bool Labonatip_protocol_editor::decodeMacroCommand(QByteArray &_command, QTreeWi
 	_out_item.setFlags(_out_item.flags() | (Qt::ItemIsEditable));
 
 	return true;
+}
+
+void Labonatip_protocol_editor::setGUIcharts()
+{
+	m_series_Pon = new QtCharts::QLineSeries();
+	*m_series_Pon << QPointF(0.0, 0.0)
+		<< QPointF(30.0, 00.0) << QPointF(30.0, 190.0)
+		<< QPointF(80.0, 190.0) << QPointF(80.0, 20.0)
+		<< QPointF(90.0, 20.0) << QPointF(90.0, 0.0)
+		<< QPointF(100.0, 0.0);
+	m_series_Pon->setPointsVisible(true);
+
+	m_series_Poff = new QtCharts::QLineSeries();
+	*m_series_Poff << QPointF(0.0, 0.0)
+		<< QPointF(30.0, 00.0) << QPointF(30.0, 21.0)
+		<< QPointF(80.0, 21.0) << QPointF(80.0, 15.0)
+		<< QPointF(90.0, 15.0) << QPointF(90.0, 0.0)
+		<< QPointF(100.0, 0.0);
+	m_series_Poff->setPointsVisible(true);
+
+	m_series_v_s = new QtCharts::QLineSeries();
+	*m_series_v_s << QPointF(0.0, 0.0)
+		<< QPointF(30.0, 00.0) << QPointF(30.0, 115.0)
+		<< QPointF(80.0, 115.0) << QPointF(80.0, 20.0)
+		<< QPointF(90.0, 20.0) << QPointF(90.0, 0.0)
+		<< QPointF(100.0, 0.0);
+	m_series_v_s->setPointsVisible(true);
+
+	m_series_v_r = new QtCharts::QLineSeries();
+	*m_series_v_r << QPointF(0.0, 0.0)
+		<< QPointF(30.0, 00.0) << QPointF(30.0, 115.0)
+		<< QPointF(80.0, 115.0) << QPointF(80.0, 60.0)
+		<< QPointF(90.0, 60.0) << QPointF(90.0, 0.0)
+		<< QPointF(100.0, 0.0);
+	m_series_v_r->setPointsVisible(true);
+
+	m_chart_p_on = new QtCharts::QChart();
+	m_chart_p_on->legend()->hide();
+
+	m_chart_p_off = new QtCharts::QChart();
+	m_chart_p_off->legend()->hide();
+
+	m_chart_v_s = new QtCharts::QChart();
+	m_chart_v_s->legend()->hide();
+
+	m_chart_v_r = new QtCharts::QChart();
+	m_chart_v_r->legend()->hide();
+
+	QtCharts::QValueAxis *axisX_pon = new QtCharts::QValueAxis;
+	axisX_pon->setRange(0, 100);
+	axisX_pon->setTitleText("Simulation time percentage");
+	QtCharts::QValueAxis *axisY_pon = new QtCharts::QValueAxis;
+	axisY_pon->setRange(0, max_pon);
+	axisY_pon->setTitleText(QStringLiteral("<html><head/><body><p>P<span style=\" vertical-align:sub;\">on</span></p></body></html>"));
+
+	QtCharts::QValueAxis *axisX_poff = new QtCharts::QValueAxis;
+	axisX_poff->setRange(0, 100);
+	axisX_poff->setTitleText("Simulation time percentage");
+	QtCharts::QValueAxis *axisY_poff = new QtCharts::QValueAxis;
+	axisY_poff->setRange(0, max_poff);
+	axisY_poff->setTitleText(QStringLiteral("<html><head/><body><p>P<span style=\" vertical-align:sub;\">off</span></p></body></html>"));
+
+	QtCharts::QValueAxis *axisX_v_s = new QtCharts::QValueAxis;
+	axisX_v_s->setRange(0, 100);
+	axisX_v_s->setTitleText("Simulation time percentage");
+	QtCharts::QValueAxis *axisY_v_s = new QtCharts::QValueAxis;
+	axisY_v_s->setRange(0, max_v_recirc);
+	axisY_v_s->setTitleText(QStringLiteral("<html><head/><body><p>V<span style=\" vertical-align:sub;\">switch</span></p></body></html>"));
+
+
+	QtCharts::QValueAxis *axisX_v_r = new QtCharts::QValueAxis;
+	axisX_v_r->setRange(0, 100);
+	axisX_v_r->setTitleText("Simulation time percentage");
+	QtCharts::QValueAxis *axisY_v_r = new QtCharts::QValueAxis;
+	axisY_v_r->setRange(0, max_v_switch);
+	axisY_v_r->setTitleText(QStringLiteral("<html><head/><body><p>V<span style=\" vertical-align:sub;\">recirc</span></p></body></html>"));
+
+
+	m_chart_p_on->addSeries(m_series_Pon);
+	m_chart_p_off->addSeries(m_series_Poff);
+	m_chart_v_s->addSeries(m_series_v_s);
+	m_chart_v_r->addSeries(m_series_v_r);
+
+	//m_chart_p_on->createDefaultAxes();
+	m_chart_p_on->setAxisX(axisX_pon, m_series_Pon);
+	m_chart_p_on->setAxisY(axisY_pon, m_series_Pon);
+	m_chart_p_on->setMargins(QMargins(0, 0, 8, 0));
+	m_chart_p_on->setBackgroundBrush(QBrush(QColor(0xFA, 0xFA, 0xFA)));
+
+	m_chart_p_off->setAxisX(axisX_poff, m_series_Poff);
+	m_chart_p_off->setAxisY(axisY_poff, m_series_Poff);
+	m_chart_p_off->setMargins(QMargins(0, 0, 8, 0));
+	m_chart_p_off->setBackgroundBrush(QBrush(QColor(0xFA, 0xFA, 0xFA)));
+
+	m_chart_v_s->setAxisX(axisX_v_s, m_series_v_s);
+	m_chart_v_s->setAxisY(axisY_v_s, m_series_v_s);
+	m_chart_v_s->setMargins(QMargins(0, 0, 8, 0));
+	m_chart_v_s->setBackgroundBrush(QBrush(QColor(0xFA, 0xFA, 0xFA)));
+
+	m_chart_v_r->setAxisX(axisX_v_r, m_series_v_r);
+	m_chart_v_r->setAxisY(axisY_v_r, m_series_v_r);
+	m_chart_v_r->setMargins(QMargins(0, 0, 8, 0));
+	m_chart_v_r->setBackgroundBrush(QBrush(QColor(0xFA, 0xFA, 0xFA)));
+
+	m_chartView_p_on = new QtCharts::QChartView(m_chart_p_on);
+	m_chartView_p_on->setRenderHint(QPainter::Antialiasing);
+	m_chartView_p_on->setBackgroundBrush(QBrush(QColor(0xFA, 0xFA, 0xFA)));
+
+	m_chartView_p_off = new QtCharts::QChartView(m_chart_p_off);
+	m_chartView_p_off->setRenderHint(QPainter::Antialiasing);
+	m_chartView_p_off->setBackgroundBrush(QBrush(QColor(0xFA, 0xFA, 0xFA)));
+
+	m_chartView_v_s = new QtCharts::QChartView(m_chart_v_s);
+	m_chartView_v_s->setRenderHint(QPainter::Antialiasing);
+	m_chartView_v_s->setBackgroundBrush(QBrush(QColor(0xFA, 0xFA, 0xFA)));
+
+	m_chartView_v_r = new QtCharts::QChartView(m_chart_v_r);
+	m_chartView_v_r->setRenderHint(QPainter::Antialiasing);
+	m_chartView_v_r->setBackgroundBrush(QBrush(QColor(0xFA, 0xFA, 0xFA)));
+
+	ui_p_editor->gridLayout_14->addWidget(m_chartView_p_on);
+	ui_p_editor->gridLayout_15->addWidget(m_chartView_p_off);
+	ui_p_editor->gridLayout_12->addWidget(m_chartView_v_r);
+	ui_p_editor->gridLayout_13->addWidget(m_chartView_v_s);
+
+	//gridLayout_12  top right
+	//gridLayout_13  bottom right
+
 }
 
 QString Labonatip_protocol_editor::createHeader()
