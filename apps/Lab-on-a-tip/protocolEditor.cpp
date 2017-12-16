@@ -817,10 +817,14 @@ void Labonatip_protocol_editor::addAllCommandsToMacro()
 		m_macro->push_back(new_command);
 	}
 
+	double duration = protocolDuration(*m_macro);
+	ui_p_editor->statusbar->showMessage(QString::number(duration));
+
 	cout << QDate::currentDate().toString().toStdString() << "  " 
 		 << QTime::currentTime().toString().toStdString() << "  "
 		 << "Labonatip_tools::addAllCommandsToMacro ::: the current macro will run " 
-		 << m_macro->size() << " commands " << endl;
+		 << m_macro->size() << " commands " 
+		 << " its duration is " << duration << endl;
 
 }
 
@@ -1363,6 +1367,19 @@ void Labonatip_protocol_editor::readProtocolFolder(QString _path)
 		ui_p_editor->treeWidget_protocol_folder->addTopLevelItem(item);
 	}
 
+}
+
+double Labonatip_protocol_editor::protocolDuration(std::vector<fluicell::PPC1api::command> _macro)
+{
+	// compute the duration of the macro
+	double macro_duration = 0.0;
+	for (size_t i = 0; i < m_macro->size(); i++) {
+		if (m_macro->at(i).getInstruction() ==
+			fluicell::PPC1api::command::instructions::sleep)
+			macro_duration += m_macro->at(i).getValue();
+	}
+
+	return macro_duration;
 }
 
 

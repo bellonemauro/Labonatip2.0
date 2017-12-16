@@ -213,6 +213,7 @@ private:
 
 	std::vector<fluicell::PPC1api::command> *m_macro;
 
+	double protocolDuration(std::vector<fluicell::PPC1api::command> _macro);
 
 	QString m_current_macro_file_name;
 	QString m_protocol_path;
