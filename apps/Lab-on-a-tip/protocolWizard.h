@@ -51,6 +51,9 @@ signals:
 	void loadStdProtocol();
 	void loadOptProtocol();
 	void loadCustomProtocol();
+	void loadSleepProtocol();
+	void loadAllOffProtocol();
+	void saveProtocol();
 
 private slots:
 	

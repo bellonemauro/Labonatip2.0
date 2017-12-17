@@ -84,7 +84,7 @@ border:0;
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>864</width>
+         <width>862</width>
          <height>794</height>
         </rect>
        </property>
@@ -732,6 +732,7 @@ border:0;
 QTreeWidget QHeaderView:section
 {
     font-size:11pt;
+    height:27px;
     color: rgb(80, 80, 80);
     background-color: transparent;
 }</string>

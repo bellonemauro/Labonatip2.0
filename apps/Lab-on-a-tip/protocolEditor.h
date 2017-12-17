@@ -163,6 +163,10 @@ private slots:
 
 	void loadCustomP();
 
+	void loadSleepP();
+
+	void loadAlloffP();
+
 	void on_protocol_clicked(QTreeWidgetItem *item, int column);
 
 	/** Put all the commands in the macro editor to the macro structure for running

@@ -149,6 +149,8 @@ void Labonatip_macroWizard::next_page2to()
 		return;
 	}
 
+
+
 }
 
 void Labonatip_macroWizard::on_next4_clicked()
@@ -160,20 +162,23 @@ void Labonatip_macroWizard::on_next4_clicked()
 
 
 	if (ui_wizard->radioButton_init_stand->isChecked()) {
-		loadStdProtocol();
+		emit loadStdProtocol();
 		this->next();
+		return;
 	}
 	if (ui_wizard->radioButton_init_oper->isChecked()) {
-		loadOptProtocol();
+		emit loadOptProtocol();
 		this->next();
+		return;
 	}
 	if (ui_wizard->radioButton_init_custom->isChecked()) {
-		loadCustomProtocol();
+		emit loadCustomProtocol();
 		this->next();
+		return;
 	}
 
-
-
+	this->next();
+	return;
 
 }
 
@@ -221,22 +226,25 @@ bool Labonatip_macroWizard::save()
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_macroWizard::save    " << endl;
 
-	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
 
-	QString fileName = QFileDialog::getSaveFileName(this,
-		tr("Save something"), m_macro_path,  // dialog to open files
-		"Lab-on-a-tip macro File (*.macro);; Data (*.dat);; All Files(*.*)", 0);
-
-	//if (!saveMacro(fileName)) 
-	{
-		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-		QMessageBox::warning(this, "Warning ", "File not saved ! <br>" + fileName);
-
-		ui_wizard->stackedWidget->setCurrentIndex(ui_wizard->stackedWidget->count() -1 );
-		setBanner(5);
-		return false;
+	if (ui_wizard->radioButton_end_sleep->isChecked()) {
+		emit loadSleepProtocol();
 	}
-	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
+	if (ui_wizard->radioButton_end_oper->isChecked()) {
+		emit loadOptProtocol();
+	}
+	if (ui_wizard->radioButton_end_alloff->isChecked()) {
+		emit loadAllOffProtocol();
+	}
+	if (ui_wizard->radioButton_end_custom->isChecked()) {
+		emit loadCustomProtocol();
+	}
+	if (ui_wizard->radioButton_end_none->isChecked()) {
+		//do nothing so far
+	}
+
+
+	emit saveProtocol();
 
 	ui_wizard->stackedWidget->setCurrentIndex(ui_wizard->stackedWidget->count() - 1);
 	setBanner(5);

@@ -119,6 +119,14 @@ Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 	connect(protocolWizard,
 		SIGNAL(loadCustomProtocol()), this, SLOT(loadCustomP()));
 
+	connect(protocolWizard,
+		SIGNAL(loadSleepProtocol()), this, SLOT(loadSleepP()));
+
+	connect(protocolWizard,
+		SIGNAL(loadAllOffProtocol()), this, SLOT(loadAlloffP()));
+
+	connect(protocolWizard,
+		SIGNAL(saveProtocol()), this, SLOT(saveMacro()));
 
 	// connect tool window events Ok, Cancel, Apply
 	connect(ui_p_editor->buttonBox->button(QDialogButtonBox::Ok),
@@ -1322,7 +1330,7 @@ void Labonatip_protocol_editor::setGUIcharts()
 
 void Labonatip_protocol_editor::openProtocolFolder()
 {
-	QDir path = QFileDialog::getExistingDirectory(this, tr("Open folder"), QDir::currentPath());
+	QDir path = QFileDialog::getExistingDirectory(this, tr("Open folder"), m_protocol_path);
 	setMacroPath(path.path());
 
 }
@@ -1342,6 +1350,23 @@ void Labonatip_protocol_editor::loadOptP()
 	QString protocol_path = m_protocol_path;
 	protocol_path.append("/");
 	protocol_path.append("run.macro");
+	loadMacro(protocol_path);
+}
+
+
+void Labonatip_protocol_editor::loadSleepP()
+{
+	QString protocol_path = m_protocol_path;
+	protocol_path.append("/");
+	protocol_path.append("sleep.macro");
+	loadMacro(protocol_path);
+}
+
+void Labonatip_protocol_editor::loadAlloffP()
+{
+	QString protocol_path = m_protocol_path;
+	protocol_path.append("/");
+	protocol_path.append("alloff.macro");
 	loadMacro(protocol_path);
 }
 
