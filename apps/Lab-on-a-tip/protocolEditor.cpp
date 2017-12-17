@@ -119,6 +119,16 @@ Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 	connect(macroWizard,
 		SIGNAL(loadSettings()), this, SLOT(emitLoadSettings()));
 
+	connect(macroWizard,
+		SIGNAL(loadStdProtocol()), this, SLOT(loadStdP()));
+
+	connect(macroWizard,
+		SIGNAL(loadOptProtocol()), this, SLOT(loadOptP()));
+
+	connect(macroWizard,
+		SIGNAL(loadCustomProtocol()), this, SLOT(loadCustomP()));
+
+
 	// connect tool window events Ok, Cancel, Apply
 	connect(ui_p_editor->buttonBox->button(QDialogButtonBox::Ok),
 		SIGNAL(clicked()), this, SLOT(okPressed()));
@@ -198,7 +208,7 @@ void Labonatip_protocol_editor::addMacroCommand()
 	
 	// create a new item
 	QTreeWidgetItem *newItem = new QTreeWidgetItem;
-	macroCombobox_2 *comboBox = new macroCombobox_2();
+	macroCombobox *comboBox = new macroCombobox();
 	createNewCommand(*newItem, *comboBox);
 
 
@@ -259,7 +269,7 @@ void Labonatip_protocol_editor::becomeChild()
 	
     // create a new item
 	QTreeWidgetItem *item = new QTreeWidgetItem();
-	macroCombobox_2 *comboBox = new macroCombobox_2();
+	macroCombobox *comboBox = new macroCombobox();
 	createNewCommand(*item, *comboBox); 
 	
 	// clone the current selected item
@@ -290,7 +300,7 @@ void Labonatip_protocol_editor::becomeParent()
 	if (!ui_p_editor->treeWidget_macroTable->currentItem()) return; // avoid crash if no selection
 
 	QTreeWidgetItem *item = new QTreeWidgetItem;
-	macroCombobox_2 *comboBox = new macroCombobox_2();
+	macroCombobox *comboBox = new macroCombobox();
 	createNewCommand(*item, *comboBox);
 
 	item = ui_p_editor->treeWidget_macroTable->currentItem()->clone();
@@ -314,7 +324,7 @@ void Labonatip_protocol_editor::moveUp()
 		<< "Labonatip_protocol_editor::moveUp    " << endl;
 
 	// create a combo
-	macroCombobox_2 *comboBox = new macroCombobox_2();
+	macroCombobox *comboBox = new macroCombobox();
 	createNewCommand(*comboBox);
 
 	// get the current selected item
@@ -349,7 +359,7 @@ void Labonatip_protocol_editor::moveDown()
 		<< "Labonatip_protocol_editor::moveDown    " << endl;
 
 	// create a combo
-	macroCombobox_2 *comboBox = new macroCombobox_2();
+	macroCombobox *comboBox = new macroCombobox();
 	createNewCommand(*comboBox);
 
 	// get the current selected item
@@ -389,7 +399,7 @@ void Labonatip_protocol_editor::plusIndent()
 
 	// create a new item
 	QTreeWidgetItem *newItem = new QTreeWidgetItem;
-	macroCombobox_2 *comboBox = new macroCombobox_2();
+	macroCombobox *comboBox = new macroCombobox();
 	createNewCommand(*newItem, *comboBox);
 
     // if no item selected, add to the top level
@@ -680,7 +690,7 @@ void Labonatip_protocol_editor::duplicateItem()
 
 			parent->insertChild(row + 1, newItem);
 			// create a combo
-			macroCombobox_2 *comboBox = new macroCombobox_2();
+			macroCombobox *comboBox = new macroCombobox();
 			createNewCommand(*comboBox);
 			// get the index in the combobox of the current item and set it to the new widget
 			int idx = qobject_cast<QComboBox*>(
@@ -695,10 +705,10 @@ void Labonatip_protocol_editor::duplicateItem()
 			
 			ui_p_editor->treeWidget_macroTable->insertTopLevelItem(row + 1, newItem);
 			// create a combo
-			macroCombobox_2 *comboBox = new macroCombobox_2();
+			macroCombobox *comboBox = new macroCombobox();
 			createNewCommand(*comboBox);
 			// get the index in the combobox of the current item and set it to the new widget
-			int idx = qobject_cast<macroCombobox_2*>(
+			int idx = qobject_cast<macroCombobox*>(
 				ui_p_editor->treeWidget_macroTable->itemWidget(
 					ui_p_editor->treeWidget_macroTable->currentItem(), 0))->currentIndex();
 			comboBox->blockSignals(true);
@@ -711,7 +721,7 @@ void Labonatip_protocol_editor::duplicateItem()
 				for (int i = 0; i < newItem->childCount(); i++)	{
 
 					// create a new combobox for each child
-					macroCombobox_2 *comboBox_child = new macroCombobox_2();
+					macroCombobox *comboBox_child = new macroCombobox();
 					createNewCommand(*comboBox_child);
 					// get the index in the combobox of the current item and set it to the new widget
 					int idx = qobject_cast<QComboBox*>(
@@ -732,7 +742,7 @@ void Labonatip_protocol_editor::duplicateItem()
 	return;
 }
 
-void Labonatip_protocol_editor::createNewCommand(QTreeWidgetItem & _command, macroCombobox_2 & _combo_box)
+void Labonatip_protocol_editor::createNewCommand(QTreeWidgetItem & _command, macroCombobox & _combo_box)
 {
 
 	cout << QDate::currentDate().toString().toStdString() << "  "
@@ -866,7 +876,7 @@ bool Labonatip_protocol_editor::loadMacro(const QString _file_name)
 		{
 			QTreeWidgetItem *newItem = new QTreeWidgetItem();
 			QTreeWidgetItem *parent = new QTreeWidgetItem();
-			macroCombobox_2 *comboBox = new macroCombobox_2();
+			macroCombobox *comboBox = new macroCombobox();
 			createNewCommand(*newItem, *comboBox);
 
 			if (decodeMacroCommand(content, *newItem)) {
@@ -1318,6 +1328,29 @@ void Labonatip_protocol_editor::openProtocolFolder()
 	QDir path = QFileDialog::getExistingDirectory(this, tr("Open folder"), QDir::currentPath());
 	setMacroPath(path.path());
 
+}
+
+void Labonatip_protocol_editor::loadStdP()
+{
+
+	QString protocol_path = m_protocol_path;
+	protocol_path.append("/");
+	protocol_path.append("initialize.macro");
+	loadMacro(protocol_path);
+
+}
+
+void Labonatip_protocol_editor::loadOptP()
+{
+	QString protocol_path = m_protocol_path;
+	protocol_path.append("/");
+	protocol_path.append("run.macro");
+	loadMacro(protocol_path);
+}
+
+void Labonatip_protocol_editor::loadCustomP()
+{
+	loadMacro();
 }
 
 void Labonatip_protocol_editor::on_protocol_clicked(QTreeWidgetItem *item, int column)

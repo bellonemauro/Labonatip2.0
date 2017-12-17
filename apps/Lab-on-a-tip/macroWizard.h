@@ -21,7 +21,7 @@
 #include <QtWidgets>
 #include <QDateTime>
 
-#include "toolDataStructures.h"
+#include "dataStructures.h"
 
 using namespace std;
 
@@ -48,12 +48,17 @@ public:
 
 signals:
 	void loadSettings();  // generated when loadsettings is pressed
+	void loadStdProtocol();
+	void loadOptProtocol();
+	void loadCustomProtocol();
 
 private slots:
 	
 	void next_page1to2();
 
 	void next_page2to();
+
+	void on_next4_clicked();
 
 	void next();
 

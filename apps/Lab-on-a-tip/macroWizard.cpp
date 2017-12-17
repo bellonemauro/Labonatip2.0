@@ -59,7 +59,7 @@ Labonatip_macroWizard::Labonatip_macroWizard(QWidget *parent)
 
 	// page 4
 	connect(ui_wizard->pushButton_next4,
-		SIGNAL(clicked()), this, SLOT(next()));
+		SIGNAL(clicked()), this, SLOT(on_next4_clicked()));
 
 	connect(ui_wizard->pushButton_back4,
 		SIGNAL(clicked()), this, SLOT(back()));
@@ -79,13 +79,23 @@ Labonatip_macroWizard::Labonatip_macroWizard(QWidget *parent)
 
 
 	//page 6
+	connect(ui_wizard->pushButton_next6,
+		SIGNAL(clicked()), this, SLOT(next()));
+
 	connect(ui_wizard->pushButton_back6,
+		SIGNAL(clicked()), this, SLOT(back()));
+
+	connect(ui_wizard->pushButton_cancel6,
+		SIGNAL(clicked()), this, SLOT(exit()));
+
+	//page 7
+	connect(ui_wizard->pushButton_back7,
 		SIGNAL(clicked()), this, SLOT(back()));
 
 	connect(ui_wizard->pushButton_save,
 		SIGNAL(clicked()), this, SLOT(save()));
 
-	connect(ui_wizard->pushButton_cancel6,
+	connect(ui_wizard->pushButton_cancel7,
 		SIGNAL(clicked()), this, SLOT(exit()));
 
 	// last page
@@ -138,6 +148,32 @@ void Labonatip_macroWizard::next_page2to()
 
 		return;
 	}
+
+}
+
+void Labonatip_macroWizard::on_next4_clicked()
+{
+
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_macroWizard::on_next4_clicked    " << endl;
+
+
+	if (ui_wizard->radioButton_init_stand->isChecked()) {
+		loadStdProtocol();
+		this->next();
+	}
+	if (ui_wizard->radioButton_init_oper->isChecked()) {
+		loadOptProtocol();
+		this->next();
+	}
+	if (ui_wizard->radioButton_init_custom->isChecked()) {
+		loadCustomProtocol();
+		this->next();
+	}
+
+
+
 
 }
 

@@ -27,24 +27,10 @@
 #include <fluicell/ppc1api/ppc1api.h>
 #include <serial/serial.h>
 
-#include "toolDataStructures.h"
+#include "dataStructures.h"
 
 using namespace std;
 
-
-//custom combo behavior
-class macroCombobox_2 :public QComboBox {
-	Q_OBJECT
-
-public:
-	explicit macroCombobox_2(QWidget* parent = 0) : QComboBox(parent) {}
-
-	void wheelEvent(QWheelEvent *e)
-	{
-		if (hasFocus())
-			QComboBox::wheelEvent(e);
-	}
-};
 
 
 class Labonatip_protocol_editor : public  QMainWindow
@@ -165,6 +151,12 @@ private slots:
 
 	void openProtocolFolder();
 
+	void loadStdP();
+
+	void loadOptP();
+
+	void loadCustomP();
+
 	void on_protocol_clicked(QTreeWidgetItem *item, int column);
 
 	/** Put all the commands in the macro editor to the macro structure for running
@@ -177,12 +169,12 @@ private slots:
 private:
 
 
-	void createNewCommand(QTreeWidgetItem &_command, macroCombobox_2 &_combo_box);
+	void createNewCommand(QTreeWidgetItem &_command, macroCombobox &_combo_box);
 	
 	/** overload to allow creating the combobox only without the item
 	*
 	*/
-	void createNewCommand(macroCombobox_2 &_combo_box) {
+	void createNewCommand(macroCombobox &_combo_box) {
 		QTreeWidgetItem item;
 		createNewCommand(item, _combo_box);
 	}
