@@ -139,7 +139,7 @@ border:0;
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>1086</width>
+         <width>1078</width>
          <height>737</height>
         </rect>
        </property>
@@ -181,8 +181,8 @@ border:0;
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>1086</width>
-             <height>690</height>
+             <width>1078</width>
+             <height>689</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout">
@@ -388,7 +388,7 @@ height: 0.5px;
                    <number>100</number>
                   </property>
                   <property name="value">
-                   <number>50</number>
+                   <number>0</number>
                   </property>
                   <property name="textVisible">
                    <bool>false</bool>
@@ -445,7 +445,7 @@ height: 0.5px;
                    <number>100</number>
                   </property>
                   <property name="value">
-                   <number>50</number>
+                   <number>0</number>
                   </property>
                   <property name="textVisible">
                    <bool>false</bool>
@@ -501,7 +501,7 @@ height: 0.5px;
                    <number>100</number>
                   </property>
                   <property name="value">
-                   <number>50</number>
+                   <number>0</number>
                   </property>
                   <property name="textVisible">
                    <bool>false</bool>
@@ -558,7 +558,7 @@ height: 0.5px;
                    <number>100</number>
                   </property>
                   <property name="value">
-                   <number>50</number>
+                   <number>0</number>
                   </property>
                   <property name="textVisible">
                    <bool>false</bool>
@@ -3067,7 +3067,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
    </property>
    <property name="minimumSize">
     <size>
-     <width>310</width>
+     <width>317</width>
      <height>609</height>
     </size>
    </property>

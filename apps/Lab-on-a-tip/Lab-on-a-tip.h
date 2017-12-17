@@ -35,7 +35,7 @@
 #include "Q_DebugStream.h"
 #include "tools.h"
 #include "protocolEditor.h"
-#include "macroRunner.h"
+#include "protocolRunner.h"
 #include "chart.h"
 
 // serial

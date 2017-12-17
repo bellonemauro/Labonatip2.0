@@ -16,7 +16,7 @@
 #include <string>
 
 #include "ui_protocolEditor.h"
-#include "macroWizard.h"
+#include "protocolWizard.h"
 
 #include <QMainWindow>
 #include <QtCharts/QChartView>
@@ -36,7 +36,7 @@ using namespace std;
 class Labonatip_protocol_editor : public  QMainWindow
 {
 	Q_OBJECT
-
+		typedef std::vector<fluicell::PPC1api::command> f_macro; // define a type for fluicel macro
 /** Create signals to be passed to the main app
 * 
 */
@@ -54,15 +54,19 @@ public:
 
 	void setSolParams(solutionsParams _params) {
 		*m_solutionParams = _params; 
-		ui_p_editor->treeWidget_sol_name->topLevelItem(0)->setText(0, m_solutionParams->sol1);
-		ui_p_editor->treeWidget_sol_name->topLevelItem(1)->setText(0, m_solutionParams->sol2); 
-		ui_p_editor->treeWidget_sol_name->topLevelItem(2)->setText(0, m_solutionParams->sol3); 
-		ui_p_editor->treeWidget_sol_name->topLevelItem(3)->setText(0, m_solutionParams->sol4); 
+		ui_p_editor->treeWidget_params->topLevelItem(0)->setText(1, m_solutionParams->sol1);
+		ui_p_editor->treeWidget_params->topLevelItem(1)->setText(1, m_solutionParams->sol2);
+		ui_p_editor->treeWidget_params->topLevelItem(2)->setText(1, m_solutionParams->sol3);
+		ui_p_editor->treeWidget_params->topLevelItem(3)->setText(1, m_solutionParams->sol4);
 		macroWizard->setSolParams(*m_solutionParams);
 	}
 
 	void setPrParams(pr_params _params) { 
 		*m_pr_params = _params; 
+		ui_p_editor->treeWidget_params->topLevelItem(4)->setText(1, QString::number(m_pr_params->p_on_default));
+		ui_p_editor->treeWidget_params->topLevelItem(5)->setText(1, QString::number(m_pr_params->p_off_default));
+		ui_p_editor->treeWidget_params->topLevelItem(6)->setText(1, QString::number(m_pr_params->v_recirc_default));
+		ui_p_editor->treeWidget_params->topLevelItem(7)->setText(1, QString::number(m_pr_params->v_switch_default));
 		macroWizard->setPrParams(*m_pr_params);
 	}
 	
@@ -73,7 +77,7 @@ public:
 	readProtocolFolder(m_protocol_path);
 	}
 
-	void setMacroPrt(std::vector<fluicell::PPC1api::command> *_macro) { m_macro = _macro; };
+	void setMacroPrt(f_macro *_macro) { m_macro = _macro; };
 
 private slots:
 
@@ -116,6 +120,8 @@ private slots:
 	*
 	*/
 	void clearAllCommands();
+
+	void updateChartMacro(f_macro * _macro);
 
 	/** Add a new macro command
 	*
@@ -203,7 +209,7 @@ private:
 
 	void readProtocolFolder(QString _path);
 
-	std::vector<fluicell::PPC1api::command> *m_macro;
+	f_macro *m_macro;
 
 	double protocolDuration(std::vector<fluicell::PPC1api::command> _macro);
 

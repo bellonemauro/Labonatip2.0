@@ -91,20 +91,11 @@ Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 	connect(ui_p_editor->actionClear,
 		SIGNAL(triggered()), this, SLOT(clearAllCommands()));
 
-	connect(ui_p_editor->pushButton_saveMacro,
-		SIGNAL(clicked()), this, SLOT(saveMacro()));
-
 	connect(ui_p_editor->actionSave,
 		SIGNAL(triggered()), this, SLOT(saveMacro()));
 
-	connect(ui_p_editor->pushButton_loadMacro,
-		SIGNAL(clicked()), this, SLOT(loadMacro()));
-
 	connect(ui_p_editor->actionLoad,
 		SIGNAL(triggered()), this, SLOT(loadMacro()));
-
-	connect(ui_p_editor->pushButton_macroWizard,
-		SIGNAL(clicked()), this, SLOT(newMacroWizard()));
 
 	connect(ui_p_editor->actionWizard,
 		SIGNAL(triggered()), this, SLOT(newMacroWizard()));
@@ -175,6 +166,7 @@ void Labonatip_protocol_editor::applyPressed() {
 		<< "Labonatip_protocol_editor::applyPressed    " << endl;
 
 	addAllCommandsToMacro();
+	updateChartMacro(m_macro);
 	//TODO manual save for now
 	//saveSettings();
 	//TODO other settings ! 
@@ -222,7 +214,6 @@ void Labonatip_protocol_editor::addMacroCommand()
 		ui_p_editor->treeWidget_macroTable->setItemWidget(newItem, 0, comboBox); // set the combowidget
 		ui_p_editor->treeWidget_macroTable->resizeColumnToContents(0);
 
-		return;
 	}
 	else { 	//else we add the item at a specific row
 		int row = ui_p_editor->treeWidget_macroTable->currentIndex().row();
@@ -240,9 +231,10 @@ void Labonatip_protocol_editor::addMacroCommand()
 		}
 
 		ui_p_editor->treeWidget_macroTable->resizeColumnToContents(0);
-		return;
 	}
 
+	addAllCommandsToMacro();
+	updateChartMacro(m_macro);
 }
 
 void Labonatip_protocol_editor::removeMacroCommand()
@@ -828,7 +820,20 @@ void Labonatip_protocol_editor::addAllCommandsToMacro()
 	}
 
 	double duration = protocolDuration(*m_macro);
-	ui_p_editor->statusbar->showMessage(QString::number(duration));
+	ui_p_editor->treeWidget_params->topLevelItem(7)->setText(1, QString::number(duration));
+	int remaining_time_sec = duration;
+	QString s;
+	s.append("Protocol duration :  ");
+	int remaining_hours = floor(remaining_time_sec / 3600); // 3600 sec in a hour
+	int remaining_mins = floor((remaining_time_sec % 3600) / 60); // 60 minutes in a hour
+	int remaining_secs = remaining_time_sec - remaining_hours * 3600 - remaining_mins * 60; // 60 minutes in a hour
+	s.append(QString::number(remaining_hours));
+	s.append(" h,   ");
+	s.append(QString::number(remaining_mins));
+	s.append(" min,   ");
+	s.append(QString::number(remaining_secs));
+	s.append(" sec   ");
+	ui_p_editor->label_protocolDuration->setText(s);
 
 	cout << QDate::currentDate().toString().toStdString() << "  " 
 		 << QTime::currentTime().toString().toStdString() << "  "
@@ -956,6 +961,8 @@ bool Labonatip_protocol_editor::loadMacro(const QString _file_name)
 
 	}
 
+	addAllCommandsToMacro();
+	updateChartMacro(m_macro);
 	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 	return true;
 }
@@ -1199,35 +1206,23 @@ void Labonatip_protocol_editor::setGUIcharts()
 {
 	m_series_Pon = new QtCharts::QLineSeries();
 	*m_series_Pon << QPointF(0.0, 0.0)
-		<< QPointF(30.0, 00.0) << QPointF(30.0, 190.0)
-		<< QPointF(80.0, 190.0) << QPointF(80.0, 20.0)
-		<< QPointF(90.0, 20.0) << QPointF(90.0, 0.0)
 		<< QPointF(100.0, 0.0);
-	m_series_Pon->setPointsVisible(true);
+	m_series_Pon->setPointsVisible(false);
 
 	m_series_Poff = new QtCharts::QLineSeries();
 	*m_series_Poff << QPointF(0.0, 0.0)
-		<< QPointF(30.0, 00.0) << QPointF(30.0, 21.0)
-		<< QPointF(80.0, 21.0) << QPointF(80.0, 15.0)
-		<< QPointF(90.0, 15.0) << QPointF(90.0, 0.0)
 		<< QPointF(100.0, 0.0);
-	m_series_Poff->setPointsVisible(true);
+	m_series_Poff->setPointsVisible(false);
 
 	m_series_v_s = new QtCharts::QLineSeries();
 	*m_series_v_s << QPointF(0.0, 0.0)
-		<< QPointF(30.0, 00.0) << QPointF(30.0, 115.0)
-		<< QPointF(80.0, 115.0) << QPointF(80.0, 20.0)
-		<< QPointF(90.0, 20.0) << QPointF(90.0, 0.0)
 		<< QPointF(100.0, 0.0);
-	m_series_v_s->setPointsVisible(true);
+	m_series_v_s->setPointsVisible(false);
 
 	m_series_v_r = new QtCharts::QLineSeries();
 	*m_series_v_r << QPointF(0.0, 0.0)
-		<< QPointF(30.0, 00.0) << QPointF(30.0, 115.0)
-		<< QPointF(80.0, 115.0) << QPointF(80.0, 60.0)
-		<< QPointF(90.0, 60.0) << QPointF(90.0, 0.0)
 		<< QPointF(100.0, 0.0);
-	m_series_v_r->setPointsVisible(true);
+	m_series_v_r->setPointsVisible(false);
 
 	m_chart_p_on = new QtCharts::QChart();
 	m_chart_p_on->legend()->hide();
@@ -1243,32 +1238,32 @@ void Labonatip_protocol_editor::setGUIcharts()
 
 	QtCharts::QValueAxis *axisX_pon = new QtCharts::QValueAxis;
 	axisX_pon->setRange(0, 100);
-	axisX_pon->setTitleText("Simulation time percentage");
+	axisX_pon->setTitleText("Simulation time (%)");
 	QtCharts::QValueAxis *axisY_pon = new QtCharts::QValueAxis;
 	axisY_pon->setRange(0, max_pon);
-	axisY_pon->setTitleText(QStringLiteral("<html><head/><body><p>P<span style=\" vertical-align:sub;\">on</span></p></body></html>"));
+	axisY_pon->setTitleText(QStringLiteral("<html><head/><body><p>P<span style=\" vertical-align:sub;\">on</span> (mbar)</p></body></html>"));
 
 	QtCharts::QValueAxis *axisX_poff = new QtCharts::QValueAxis;
 	axisX_poff->setRange(0, 100);
-	axisX_poff->setTitleText("Simulation time percentage");
+	axisX_poff->setTitleText("Simulation time (%)");
 	QtCharts::QValueAxis *axisY_poff = new QtCharts::QValueAxis;
 	axisY_poff->setRange(0, max_poff);
-	axisY_poff->setTitleText(QStringLiteral("<html><head/><body><p>P<span style=\" vertical-align:sub;\">off</span></p></body></html>"));
+	axisY_poff->setTitleText(QStringLiteral("<html><head/><body><p>P<span style=\" vertical-align:sub;\">off</span> (mbar)</p></body></html>"));
 
 	QtCharts::QValueAxis *axisX_v_s = new QtCharts::QValueAxis;
 	axisX_v_s->setRange(0, 100);
-	axisX_v_s->setTitleText("Simulation time percentage");
+	axisX_v_s->setTitleText("Simulation time (%)");
 	QtCharts::QValueAxis *axisY_v_s = new QtCharts::QValueAxis;
 	axisY_v_s->setRange(0, max_v_recirc);
-	axisY_v_s->setTitleText(QStringLiteral("<html><head/><body><p>V<span style=\" vertical-align:sub;\">switch</span></p></body></html>"));
+	axisY_v_s->setTitleText(QStringLiteral("<html><head/><body><p>V<span style=\" vertical-align:sub;\">switch</span> (mbar)</p></body></html>"));
 
 
 	QtCharts::QValueAxis *axisX_v_r = new QtCharts::QValueAxis;
 	axisX_v_r->setRange(0, 100);
-	axisX_v_r->setTitleText("Simulation time percentage");
+	axisX_v_r->setTitleText("Simulation time (%)");
 	QtCharts::QValueAxis *axisY_v_r = new QtCharts::QValueAxis;
 	axisY_v_r->setRange(0, max_v_switch);
-	axisY_v_r->setTitleText(QStringLiteral("<html><head/><body><p>V<span style=\" vertical-align:sub;\">recirc</span></p></body></html>"));
+	axisY_v_r->setTitleText(QStringLiteral("<html><head/><body><p>V<span style=\" vertical-align:sub;\">recirc</span> (mbar)</p></body></html>"));
 
 
 	m_chart_p_on->addSeries(m_series_Pon);
@@ -1367,7 +1362,7 @@ void Labonatip_protocol_editor::on_protocol_clicked(QTreeWidgetItem *item, int c
 
 	QMessageBox::StandardButton resBtn =
 		QMessageBox::question(this, "Lab-on-a-tip",
-			tr("Do you want to clean your workspace before loading the new protocol?\n Click no to add the macro at the bottom"),
+			tr("Do you want to clean your workspace before loading the new protocol?\n Click NO to add the macro at the bottom"),
 			QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
 			QMessageBox::Yes);
 	if (resBtn != QMessageBox::Yes) {
@@ -1493,6 +1488,201 @@ void Labonatip_protocol_editor::clearAllCommands() {
 
 	ui_p_editor->treeWidget_macroTable->clear();
 }
+
+
+
+void Labonatip_protocol_editor::updateChartMacro(f_macro *_macro)
+{
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_protocol_editor::updateChartMacro   " << endl;
+
+
+	//TODO:: check if _macro is a valid pointer
+
+
+	m_series_Pon->clear();
+	m_series_Poff->clear();
+	m_series_v_s->clear();
+	m_series_v_r->clear();
+
+
+	double current_time = 0.0; //!> starts from zero and will be updated according to the duration of the macro
+	double max_time_line = 100.0;  //!> the duration is scaled in the interval [0; 100]
+
+
+   // append zero
+	m_series_Pon->append(current_time,
+		0.0);  
+	m_series_Poff->append(current_time,
+		0.0); 
+	m_series_v_s->append(current_time,
+		0.0); 
+	m_series_v_r->append(current_time,
+		0.0); // in [50; 60]
+
+
+
+	// if the macro is empty it does not update the chart
+	//if (m_macro->size() < 1) return;
+
+	double total_duration = protocolDuration(*m_macro);
+
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::updateChartMacro ::: the complete duration is : " << total_duration << endl;
+
+
+	for (size_t i = 0; i < _macro->size(); i++) {
+		// in every iteration a new segment is added to the chart
+		// hence two points are always needed
+
+		switch (_macro->at(i).getInstruction())
+		{
+		case 0: { // Pon
+				  // remove the tail of the chart
+			m_series_Pon->remove(m_series_Pon->at(m_series_Pon->count() - 1));
+
+			// the first point is calculated starting from the last value to the new value an the current time
+			double first_x = current_time;
+			double first_y = m_series_Pon->at(m_series_Pon->count() - 1).y(); // last added point 
+			double second_x = current_time;
+			double second_y = _macro->at(i).getValue();  // new point
+
+			m_series_Pon->append(first_x, first_y); // add the fist point
+			m_series_Pon->append(second_x, second_y); // add the second point 
+
+													  //the last point is added at each step, and it must be removed every time a new point is added
+			m_series_Pon->append(max_time_line, second_y);
+
+			break;
+		}
+		case 1: { // Poff
+				  // remove the tail of the chart
+			m_series_Poff->remove(m_series_Poff->at(m_series_Poff->count() - 1));
+
+			// the first point is calculated starting from the last value to the new value an the current time
+			double first_x = current_time;
+			double first_y = m_series_Poff->at(m_series_Poff->count() - 1).y(); // last added point 
+			double second_x = current_time;
+			double second_y = _macro->at(i).getValue();  // new point
+
+			m_series_Poff->append(first_x, first_y); // add the fist point
+			m_series_Poff->append(second_x, second_y); // add the second point 
+
+													   //the last point is added at each step, and it must be removed every time a new point is added
+			m_series_Poff->append(max_time_line, second_y);
+
+			break;
+		}
+		case 2: { // v_switch
+				  // remove the tail of the chart
+			m_series_v_s->remove(m_series_v_s->at(m_series_v_s->count() - 1));
+
+			// the first point is calculated starting from the last value to the new value an the current time
+			double first_x = current_time;
+			double first_y = m_series_v_s->at(m_series_v_s->count() - 1).y(); // last added point 
+			double second_x = current_time;
+			double second_y = - _macro->at(i).getValue();  // new point
+
+			m_series_v_s->append(first_x, first_y); // add the fist point
+			m_series_v_s->append(second_x, second_y); // add the second point 
+
+			//the last point is added at each step, and it must be removed every time a new point is added
+			m_series_v_s->append(max_time_line, second_y);
+			break;
+		}
+		case 3: { // V_recirc
+				  // remove the tail of the chart
+			m_series_v_r->remove(m_series_v_r->at(m_series_v_r->count() - 1));
+
+			// the first point is calculated starting from the last value to the new value an the current time
+			double first_x = current_time;
+			double first_y = m_series_v_r->at(m_series_v_r->count() - 1).y(); // last added point 
+			double second_x = current_time;
+			double second_y = - _macro->at(i).getValue();  // new point
+
+			m_series_v_r->append(first_x, first_y); // add the fist point
+			m_series_v_r->append(second_x, second_y); // add the second point 
+
+														   //the last point is added at each step, and it must be removed every time a new point is added
+			m_series_v_r->append(max_time_line, second_y);
+			break;
+		}
+		case 4: { //solution 1
+				  
+
+			break;
+		}
+		case 5: { //solution 2
+				  
+
+			break;
+		}
+		case 6: { //solution 3
+			
+			break;
+		}
+		case 7: { //solution 4
+			
+			break;
+		}
+		case 8: { //dropletSize 
+
+			break;
+		}
+		case 9: { //flowSpeed
+
+			break;
+		}
+		case 10: { //vacuum
+
+			break;
+		}
+		case 11: { //loop
+
+			break;
+		}
+		case 12: { //sleep ---- update the current time
+			current_time += 100.0 * _macro->at(i).getValue() / total_duration; //the duration is scaled in the interval [0; 100]
+			break;
+		}
+		case 13: { //ask_msg
+			
+			break;
+		}
+		case 14: { //allOff
+
+			break;
+		}
+		case 15: { //pumpsOff
+
+			break;
+		}
+		case 16: { //setValveState
+
+			break;
+		}
+		case 17: { //waitSync
+			
+			break;
+		}
+		case 18: { //syncOut
+			
+			break;
+		}
+		default:
+			break;
+		}
+
+	}
+
+	m_chart_p_on->update();
+	m_chart_p_off->update();
+	m_chart_v_s->update();
+	m_chart_v_r->update();
+}
+
 
 
 Labonatip_protocol_editor::~Labonatip_protocol_editor() {

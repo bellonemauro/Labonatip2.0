@@ -7,7 +7,7 @@
 *  | Released under GNU GPL License.                                           |
 *  +---------------------------------------------------------------------------+ */
 
-#include "macroRunner.h"
+#include "protocolRunner.h"
 
 
 Labonatip_macroRunner::Labonatip_macroRunner(QMainWindow *parent ) :
