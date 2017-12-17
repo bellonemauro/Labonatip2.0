@@ -60,6 +60,8 @@ private slots:
 
 	void on_next4_clicked();
 
+	void on_next5_clicked();
+
 	void next();
 
 	void back();

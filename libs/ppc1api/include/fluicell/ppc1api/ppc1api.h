@@ -321,13 +321,13 @@ namespace fluicell
 		*
 		*
 		*    The command data structure contains the information to run a command in the PPC1 controller.
-		*    The final objective is to define a class of commands able to control the PPC1 controller and run a macro
+		*    The final objective is to define a class of commands able to control the PPC1 controller and run a protocol
 		*    as a set of commands.
 		*
 		*
 		*  <b>Usage:</b><br>
 		*		- 	define the object :                   fluicell::PPC1api::command *my_command;
-		*	    -   a macro is a vector of commands :     std::vector<fluicell::PPC1api::command> *_macro;
+		*	    -   a protocol is a vector of commands :     std::vector<fluicell::PPC1api::command> *_protocol;
 		*	    -   run the command still missing implementation !! 
 		*
 		*/
@@ -380,7 +380,7 @@ namespace fluicell
 			//bool open_valve_b;      //!< closes other valves, then opens valve b for solution 2 valve
 			//bool open_valve_c;      //!< closes other valves, then opens valve c for solution 3 valve
 			//bool open_valve_d;      //!< closes other valves, then opens valve d for solution 4 valve
-			//bool wait_sync;         //!< macro stops until trigger signal is received
+			//bool wait_sync;         //!< protocol stops until trigger signal is received
 			//int sync_out;           //!< if negative then default state is 1 and pulse is 0, if positive, then pulse is 1 and default is 0
 			
 

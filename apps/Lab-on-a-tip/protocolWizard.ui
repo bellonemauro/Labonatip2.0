@@ -795,11 +795,11 @@ Insert the name of your protocol and click next to continue</string>
           </layout>
          </widget>
          <widget class="QWidget" name="page_4">
-          <layout class="QGridLayout" name="gridLayout_4">
+          <layout class="QVBoxLayout" name="verticalLayout">
            <property name="bottomMargin">
             <number>0</number>
            </property>
-           <item row="0" column="0" rowspan="2" colspan="4">
+           <item>
             <widget class="QLabel" name="label_7">
              <property name="font">
               <font>
@@ -811,7 +811,63 @@ Insert the name of your protocol and click next to continue</string>
              </property>
             </widget>
            </item>
-           <item row="9" column="0" colspan="4">
+           <item>
+            <spacer name="verticalSpacer_10">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="radioButton_init_stand">
+             <property name="styleSheet">
+              <string notr="true"/>
+             </property>
+             <property name="text">
+              <string>Standard initialization protocol</string>
+             </property>
+             <property name="icon">
+              <iconset>
+               <normaloff>icons/newTip.png</normaloff>icons/newTip.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>50</width>
+               <height>50</height>
+              </size>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="radioButton_init_oper">
+             <property name="styleSheet">
+              <string notr="true"/>
+             </property>
+             <property name="text">
+              <string>Operational</string>
+             </property>
+             <property name="icon">
+              <iconset>
+               <normaloff>icons/run.png</normaloff>icons/run.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>50</width>
+               <height>50</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item>
             <widget class="QRadioButton" name="radioButton_init_custom">
              <property name="styleSheet">
               <string notr="true"/>
@@ -819,9 +875,32 @@ Insert the name of your protocol and click next to continue</string>
              <property name="text">
               <string>Custom initialization</string>
              </property>
+             <property name="icon">
+              <iconset>
+               <normaloff>icons/custom.png</normaloff>icons/custom.png</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>50</width>
+               <height>50</height>
+              </size>
+             </property>
             </widget>
            </item>
-           <item row="11" column="0" colspan="4">
+           <item>
+            <spacer name="verticalSpacer_6">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
             <widget class="QGroupBox" name="groupBox_7">
              <property name="maximumSize">
               <size>
@@ -881,109 +960,6 @@ Insert the name of your protocol and click next to continue</string>
                </spacer>
               </item>
              </layout>
-            </widget>
-           </item>
-           <item row="8" column="0" colspan="4">
-            <widget class="QRadioButton" name="radioButton_init_oper">
-             <property name="styleSheet">
-              <string notr="true"/>
-             </property>
-             <property name="text">
-              <string>Operational</string>
-             </property>
-             <property name="icon">
-              <iconset>
-               <normaloff>icons/run.png</normaloff>icons/run.png</iconset>
-             </property>
-             <property name="iconSize">
-              <size>
-               <width>50</width>
-               <height>50</height>
-              </size>
-             </property>
-            </widget>
-           </item>
-           <item row="5" column="0">
-            <spacer name="verticalSpacer_10">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="6" column="0">
-            <widget class="QPlainTextEdit" name="plainTextEdit_3">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>80</height>
-              </size>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>11</pointsize>
-              </font>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">QPlainTextEdit {
-    background-color: transparent;
-    /*background-image: url(draft.png);*/
-    background-attachment: scroll;
-}</string>
-             </property>
-             <property name="frameShape">
-              <enum>QFrame::NoFrame</enum>
-             </property>
-             <property name="plainText">
-              <string>Choose how to initialize your macro</string>
-             </property>
-            </widget>
-           </item>
-           <item row="10" column="0" colspan="2">
-            <spacer name="verticalSpacer_6">
-             <property name="orientation">
-              <enum>Qt::Vertical</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>20</width>
-               <height>40</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="7" column="0" colspan="4">
-            <widget class="QRadioButton" name="radioButton_init_stand">
-             <property name="styleSheet">
-              <string notr="true"/>
-             </property>
-             <property name="text">
-              <string>Standard initialization protocol</string>
-             </property>
-             <property name="icon">
-              <iconset>
-               <normaloff>icons/newTip.png</normaloff>icons/newTip.png</iconset>
-             </property>
-             <property name="iconSize">
-              <size>
-               <width>50</width>
-               <height>50</height>
-              </size>
-             </property>
-             <property name="checked">
-              <bool>true</bool>
-             </property>
             </widget>
            </item>
           </layout>
@@ -1852,7 +1828,18 @@ QPushButton:checked{
 </string>
         </property>
         <property name="text">
-         <string>2</string>
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>icons/init.png</normaloff>
+          <disabledoff>icons/init.png</disabledoff>icons/init.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>25</width>
+          <height>25</height>
+         </size>
         </property>
         <property name="checkable">
          <bool>true</bool>

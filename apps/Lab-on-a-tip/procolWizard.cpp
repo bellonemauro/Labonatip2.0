@@ -178,6 +178,17 @@ void Labonatip_macroWizard::on_next4_clicked()
 }
 
 
+void Labonatip_macroWizard::on_next5_clicked()
+{
+
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_macroWizard::on_next5_clicked    " << endl;
+
+
+
+}
+
 
 void Labonatip_macroWizard::next()
 {

@@ -36,7 +36,7 @@ using namespace std;
 class Labonatip_protocol_editor : public  QMainWindow
 {
 	Q_OBJECT
-		typedef std::vector<fluicell::PPC1api::command> f_macro; // define a type for fluicel macro
+		typedef std::vector<fluicell::PPC1api::command> f_protocol; // define a type for fluicell protocol
 /** Create signals to be passed to the main app
 * 
 */
@@ -58,7 +58,7 @@ public:
 		ui_p_editor->treeWidget_params->topLevelItem(1)->setText(1, m_solutionParams->sol2);
 		ui_p_editor->treeWidget_params->topLevelItem(2)->setText(1, m_solutionParams->sol3);
 		ui_p_editor->treeWidget_params->topLevelItem(3)->setText(1, m_solutionParams->sol4);
-		macroWizard->setSolParams(*m_solutionParams);
+		protocolWizard->setSolParams(*m_solutionParams);
 	}
 
 	void setPrParams(pr_params _params) { 
@@ -67,7 +67,7 @@ public:
 		ui_p_editor->treeWidget_params->topLevelItem(5)->setText(1, QString::number(m_pr_params->p_off_default));
 		ui_p_editor->treeWidget_params->topLevelItem(6)->setText(1, QString::number(m_pr_params->v_recirc_default));
 		ui_p_editor->treeWidget_params->topLevelItem(7)->setText(1, QString::number(m_pr_params->v_switch_default));
-		macroWizard->setPrParams(*m_pr_params);
+		protocolWizard->setPrParams(*m_pr_params);
 	}
 	
 	
@@ -77,7 +77,7 @@ public:
 	readProtocolFolder(m_protocol_path);
 	}
 
-	void setMacroPrt(f_macro *_macro) { m_macro = _macro; };
+	void setMacroPrt(f_protocol *_macro) { m_macro = _macro; };
 
 private slots:
 
@@ -103,7 +103,7 @@ private slots:
 	/** new macro widard
 	*
 	*/
-	void newMacroWizard();
+	void newProtocolWizard();
 
 
 	/** Load a macro fron file, only one type of macro is currently supported
@@ -121,7 +121,7 @@ private slots:
 	*/
 	void clearAllCommands();
 
-	void updateChartMacro(f_macro * _macro);
+	void updateChartProtocol(f_protocol * _macro);
 
 	/** Add a new macro command
 	*
@@ -209,14 +209,14 @@ private:
 
 	void readProtocolFolder(QString _path);
 
-	f_macro *m_macro;
+	f_protocol *m_macro;
 
 	double protocolDuration(std::vector<fluicell::PPC1api::command> _macro);
 
 	QString m_current_macro_file_name;
 	QString m_protocol_path;
 
-	Labonatip_macroWizard * macroWizard;
+	Labonatip_macroWizard * protocolWizard;
 
 	solutionsParams *m_solutionParams;
 	pr_params *m_pr_params;

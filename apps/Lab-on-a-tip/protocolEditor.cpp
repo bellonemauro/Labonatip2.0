@@ -23,7 +23,7 @@ Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 	ui_p_editor->setupUi(this );
 
 	// initialize the macro wizard
-	macroWizard = new Labonatip_macroWizard(this);
+	protocolWizard = new Labonatip_macroWizard();
 
 	m_solutionParams = new solutionsParams();
 	m_pr_params = new pr_params();
@@ -98,7 +98,7 @@ Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 		SIGNAL(triggered()), this, SLOT(loadMacro()));
 
 	connect(ui_p_editor->actionWizard,
-		SIGNAL(triggered()), this, SLOT(newMacroWizard()));
+		SIGNAL(triggered()), this, SLOT(newProtocolWizard()));
 
 	connect(ui_p_editor->pushButton_openFolder,
 		SIGNAL(clicked()), this, SLOT(openProtocolFolder()));
@@ -107,16 +107,16 @@ Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 		SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)),
 		this, SLOT(on_protocol_clicked(QTreeWidgetItem*, int)));
 
-	connect(macroWizard,
+	connect(protocolWizard,
 		SIGNAL(loadSettings()), this, SLOT(emitLoadSettings()));
 
-	connect(macroWizard,
+	connect(protocolWizard,
 		SIGNAL(loadStdProtocol()), this, SLOT(loadStdP()));
 
-	connect(macroWizard,
+	connect(protocolWizard,
 		SIGNAL(loadOptProtocol()), this, SLOT(loadOptP()));
 
-	connect(macroWizard,
+	connect(protocolWizard,
 		SIGNAL(loadCustomProtocol()), this, SLOT(loadCustomP()));
 
 
@@ -166,7 +166,7 @@ void Labonatip_protocol_editor::applyPressed() {
 		<< "Labonatip_protocol_editor::applyPressed    " << endl;
 
 	addAllCommandsToMacro();
-	updateChartMacro(m_macro);
+	updateChartProtocol(m_macro);
 	//TODO manual save for now
 	//saveSettings();
 	//TODO other settings ! 
@@ -175,20 +175,20 @@ void Labonatip_protocol_editor::applyPressed() {
 
 }
 
-void Labonatip_protocol_editor::newMacroWizard()
+void Labonatip_protocol_editor::newProtocolWizard()
 {
 	cout << QDate::currentDate().toString().toStdString() << "  "
 		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_protocol_editor::newMacroWizard    " << endl;
+		<< "Labonatip_protocol_editor::newProtocolWizard    " << endl;
 
-	macroWizard->setMacroPath(m_protocol_path);
-	macroWizard->setPrParams(*m_pr_params);
-	macroWizard->setSolParams(*m_solutionParams);
+	protocolWizard->setMacroPath(m_protocol_path);
+	protocolWizard->setPrParams(*m_pr_params);
+	protocolWizard->setSolParams(*m_solutionParams);
 
-	macroWizard->setModal(true);
-	//macroWizard->setSolNames();
-	//macroWizard->setDefPreVac();
-	macroWizard->show();
+	protocolWizard->setModal(true);
+	//protocolWizard->setSolNames();
+	//protocolWizard->setDefPreVac();
+	protocolWizard->show();
 
 }
 
@@ -234,7 +234,7 @@ void Labonatip_protocol_editor::addMacroCommand()
 	}
 
 	addAllCommandsToMacro();
-	updateChartMacro(m_macro);
+	updateChartProtocol(m_macro);
 }
 
 void Labonatip_protocol_editor::removeMacroCommand()
@@ -617,6 +617,8 @@ bool Labonatip_protocol_editor::checkValidity(QTreeWidgetItem *_item, int _colum
 	}
 	}
 
+	addAllCommandsToMacro();
+	updateChartProtocol(m_macro);
 	return true;
 }
 
@@ -820,7 +822,7 @@ void Labonatip_protocol_editor::addAllCommandsToMacro()
 	}
 
 	double duration = protocolDuration(*m_macro);
-	ui_p_editor->treeWidget_params->topLevelItem(7)->setText(1, QString::number(duration));
+	ui_p_editor->treeWidget_params->topLevelItem(8)->setText(1, QString::number(duration));
 	int remaining_time_sec = duration;
 	QString s;
 	s.append("Protocol duration :  ");
@@ -962,7 +964,7 @@ bool Labonatip_protocol_editor::loadMacro(const QString _file_name)
 	}
 
 	addAllCommandsToMacro();
-	updateChartMacro(m_macro);
+	updateChartProtocol(m_macro);
 	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 	return true;
 }
@@ -1491,7 +1493,7 @@ void Labonatip_protocol_editor::clearAllCommands() {
 
 
 
-void Labonatip_protocol_editor::updateChartMacro(f_macro *_macro)
+void Labonatip_protocol_editor::updateChartProtocol(f_protocol *_macro)
 {
 	cout << QDate::currentDate().toString().toStdString() << "  "
 		<< QTime::currentTime().toString().toStdString() << "  "

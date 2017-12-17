@@ -84,8 +84,8 @@ border:0;
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>862</width>
-         <height>789</height>
+         <width>864</width>
+         <height>794</height>
         </rect>
        </property>
        <property name="sizePolicy">
@@ -837,7 +837,7 @@ QTreeWidget QHeaderView:section
           </item>
           <item>
            <property name="text">
-            <string>Default Pon (mbar)</string>
+            <string>Pon def (mbar)</string>
            </property>
            <property name="text">
             <string>190</string>
@@ -845,7 +845,7 @@ QTreeWidget QHeaderView:section
           </item>
           <item>
            <property name="text">
-            <string>Default Poff (mbar)</string>
+            <string>Poff def (mbar)</string>
            </property>
            <property name="text">
             <string>21</string>
@@ -853,7 +853,7 @@ QTreeWidget QHeaderView:section
           </item>
           <item>
            <property name="text">
-            <string>Default Vrecirc (mbar)</string>
+            <string>Vrecirc def (mbar)</string>
            </property>
            <property name="text">
             <string>-115</string>
@@ -861,7 +861,7 @@ QTreeWidget QHeaderView:section
           </item>
           <item>
            <property name="text">
-            <string>Default VSwitch (mbar)</string>
+            <string>Vswitch def (mbar)</string>
            </property>
            <property name="text">
             <string>-115</string>
