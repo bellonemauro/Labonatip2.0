@@ -717,30 +717,30 @@ void Labonatip_GUI::updateWaste()
 	v1.push_back(m_solutionParams->vol_well7 - m_solutionParams->rem_vol_well7);
 	v1.push_back(m_solutionParams->vol_well8 - m_solutionParams->rem_vol_well8);
 
-	auto max = std::max_element(v1.begin(), v1.end());
-	int max_index = std::distance(v1.begin(), max);
+	auto min = std::min_element(v1.begin(), v1.end());
+	int min_index = std::distance(v1.begin(), min);
 
-	switch (max_index)
+	switch (min_index)
 	{
-	case 1: { //TODO : the waste time is not well calculated 
+	case 0: { //TODO : the waste time is not well calculated 
 		waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well5 -
 			m_solutionParams->rem_vol_well5) /
 			ui->treeWidget_macroInfo->topLevelItem(9)->text(1).toDouble();
 		break;
 	}
-	case 2: {
+	case 1: {
 		waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well6 -
 			m_solutionParams->rem_vol_well6) /
 			ui->treeWidget_macroInfo->topLevelItem(10)->text(1).toDouble();
 		break;
 	}
-	case 3: {
+	case 2: {
 		waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well7 -
 			m_solutionParams->rem_vol_well7) /
 			ui->treeWidget_macroInfo->topLevelItem(11)->text(1).toDouble();
 		break;
 	}
-	case 4: {
+	case 3: {
 		waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well8 -
 			m_solutionParams->rem_vol_well8) /
 			ui->treeWidget_macroInfo->topLevelItem(12)->text(1).toDouble();
@@ -801,7 +801,7 @@ void Labonatip_GUI::updateWaste()
 	// build the string for the waste label
 	s.clear();
 	s.append("Waste ");
-	s.append(QString::number(m_flowing_solution));
+	s.append(QString::number(min_index + 5));
 	s.append(" full in \n");
 	int remaining_hours = floor(waste_remaining_time_in_sec / 3600); // 3600 sec in a hour
 	int remaining_mins = floor(((int)waste_remaining_time_in_sec % 3600) / 60); // 60 minutes in a hour

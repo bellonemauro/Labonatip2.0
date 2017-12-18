@@ -139,7 +139,7 @@ border:0;
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>1078</width>
+         <width>1022</width>
          <height>737</height>
         </rect>
        </property>
@@ -181,7 +181,7 @@ border:0;
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>1078</width>
+             <width>1022</width>
              <height>689</height>
             </rect>
            </property>
@@ -3067,7 +3067,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
    </property>
    <property name="minimumSize">
     <size>
-     <width>317</width>
+     <width>373</width>
      <height>609</height>
     </size>
    </property>
@@ -5579,7 +5579,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
            </item>
            <item>
             <property name="text">
-             <string>Volume in waste well 1 (mL)</string>
+             <string>Volume in well 1 (uL)</string>
             </property>
             <property name="text">
              <string>0</string>
@@ -5587,7 +5587,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
            </item>
            <item>
             <property name="text">
-             <string>Volume in waste well 2 (mL)</string>
+             <string>Volume in well 2 (uL)</string>
             </property>
             <property name="text">
              <string>0</string>
@@ -5595,7 +5595,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
            </item>
            <item>
             <property name="text">
-             <string>Volume in waste well 3 (mL)</string>
+             <string>Volume in well 3 (uL)</string>
             </property>
             <property name="text">
              <string>0</string>
@@ -5603,7 +5603,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
            </item>
            <item>
             <property name="text">
-             <string>Volume in waste well 4 (mL)</string>
+             <string>Volume in well 4 (uL)</string>
             </property>
             <property name="text">
              <string>0</string>
@@ -5611,7 +5611,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
            </item>
            <item>
             <property name="text">
-             <string>Volume in waste well 5 (mL)</string>
+             <string>Volume in well 5 (uL)</string>
             </property>
             <property name="text">
              <string>0</string>
@@ -5619,7 +5619,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
            </item>
            <item>
             <property name="text">
-             <string>Volume in waste well 6 (mL)</string>
+             <string>Volume in well 6 (uL)</string>
             </property>
             <property name="text">
              <string>0</string>
@@ -5627,7 +5627,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
            </item>
            <item>
             <property name="text">
-             <string>Volume in waste well 7 (mL)</string>
+             <string>Volume in well 7 (uL)</string>
             </property>
             <property name="text">
              <string>0</string>
@@ -5635,7 +5635,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
            </item>
            <item>
             <property name="text">
-             <string>Volume in waste well 8 (mL)</string>
+             <string>Volume in well 8 (uL)</string>
             </property>
             <property name="text">
              <string>0</string>
