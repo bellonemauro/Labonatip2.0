@@ -459,7 +459,10 @@ void Labonatip_GUI::updateTimingSliders()
 		}
 		else
 		{
-			s.append(" Continuous \n flowing");
+			s.append("Well ");
+			s.append(QString::number(m_flowing_solution));
+			s.append(" in \n");
+			s.append(" continuous \n flowing");
 		}
 		ui->textEdit_emptyTime->setText(s);
 
@@ -481,7 +484,10 @@ void Labonatip_GUI::updateTimingSliders()
 		{
 			m_update_flowing_sliders->start();
 			QString s;
-			s.append(" Continuous \n flowing");
+			s.append("Well ");
+			s.append(QString::number(m_flowing_solution));
+			s.append(" in \n");
+			s.append(" continuous \n flowing");
 			ui->textEdit_emptyTime->setText(s);
 			return;
 		}

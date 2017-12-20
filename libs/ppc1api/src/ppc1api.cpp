@@ -683,29 +683,28 @@ bool fluicell::PPC1api::setDropletSize(double _percentage)
 {
 	double percentage = _percentage / 100.0;
 	
-	double value;// = m_default_v_recirc + m_default_v_recirc * (1.0 -
-	//	std::pow(percentage, (1.0 / 3.0)));
+	double value = m_default_v_recirc + m_default_v_recirc * (1.0 -
+		std::pow(percentage, (1.0 / 3.0)));
 	// the droplet size is actually the cubic root of the display value
 
-	//if(m_verbose) cout << currentDateTime()
-	//	<< "fluicell::PPC1api::setDropletSize " << percentage
-	//	<< " new recirculation value << " << value << " >> " 
-	//	<< " m_default_v_recirc " << m_default_v_recirc << endl;
+	if(m_verbose) cout << currentDateTime()
+		<< "fluicell::PPC1api::setDropletSize " << percentage
+		<< " new recirculation value << " << value << " >> " 
+		<< " m_default_v_recirc " << m_default_v_recirc << endl;
 
-	//if (value <= MIN_CHAN_A || value >= MAX_CHAN_A) {
-	//	cerr << currentDateTime()
-	//		 << " fluicell::setDropletSize -- recirculation value out of bound " << endl;
-	//	return false; // out of bound
-	//}
+	if (value <= MIN_CHAN_A || value >= MAX_CHAN_A) {
+		cerr << currentDateTime()
+			 << " fluicell::setDropletSize -- recirculation value out of bound " << endl;
+		return false; // out of bound
+	}
 
-	//if (!setVacuumChannelA(value)) {
-	//	return false;
-	//}
-	//std::this_thread::sleep_for(std::chrono::microseconds(10000)); // wait 10msec
+	if (!setVacuumChannelA(value)) {
+		return false;
+	}
+	std::this_thread::sleep_for(std::chrono::microseconds(10000)); // wait 10msec
 
-	//value = m_default_pon - m_default_pon * (1.0 -
-	//	std::pow(percentage, (1.0 / 3.0))); 
-	value = m_default_pon * percentage;
+	value = m_default_pon - m_default_pon * (1.0 -
+		std::pow(percentage, (1.0 / 3.0))); 
 	// the droplet size is actually the cubic root of the display value
 
 	if (m_verbose) cout << currentDateTime()
@@ -729,32 +728,31 @@ bool fluicell::PPC1api::setDropletSize(double _percentage)
 
 bool fluicell::PPC1api::changeDropletSizeBy(double _percentage)
 {	
-	//double percentage = 1.0 + _percentage / 100.0;
-	double percentage = _percentage / 100.0;
+	double percentage = 1.0 + _percentage / 100.0;
+	//double percentage = _percentage / 100.0;
 
-	double value;// = m_PPC1_data->channel_A->set_point + (m_default_v_recirc * (2.0 -
-	//	std::pow(percentage, (1.0 / 3.0))) - m_default_v_recirc);
+	double value = m_PPC1_data->channel_A->set_point + (m_default_v_recirc * (2.0 -
+		std::pow(percentage, (1.0 / 3.0))) - m_default_v_recirc);
 	// the droplet size is actually the cubic root of the display value
 
-	//if (m_verbose) cout << currentDateTime()
-	//	<< " fluicell::PPC1api::changeDropletSizeBy " << percentage
-	//	<< " new recirculation value << " << value << " >> "
-	//	<< " m_default_v_recirc " << m_default_v_recirc << endl;
+	if (m_verbose) cout << currentDateTime()
+		<< " fluicell::PPC1api::changeDropletSizeBy " << percentage
+		<< " new recirculation value << " << value << " >> "
+		<< " m_default_v_recirc " << m_default_v_recirc << endl;
 
-	//if (value <= MIN_CHAN_A || value >= MAX_CHAN_A) {
-	//	cerr << currentDateTime()
-	//		<< " fluicell::setDropletSize -- recirculation value out of bound " << endl;
-	//	return false; // out of bound
-	//}
+	if (value <= MIN_CHAN_A || value >= MAX_CHAN_A) {
+		cerr << currentDateTime()
+			<< " fluicell::setDropletSize -- recirculation value out of bound " << endl;
+		return false; // out of bound
+	}
 
-	//if (!setVacuumChannelA(value)) {
-	//	return false;
-	//}
-	//std::this_thread::sleep_for(std::chrono::microseconds(10000)); // wait 10msec
+	if (!setVacuumChannelA(value)) {
+		return false;
+	}
+	std::this_thread::sleep_for(std::chrono::microseconds(10000)); // wait 10msec
 
-	//value = m_PPC1_data->channel_D->set_point + (m_default_pon * (
-	//	std::pow(percentage, (1.0 / 3.0))) - m_default_pon);
-	value = m_PPC1_data->channel_D->set_point + m_default_pon * percentage;
+	value = m_PPC1_data->channel_D->set_point + (m_default_pon * (
+		std::pow(percentage, (1.0 / 3.0))) - m_default_pon);
 
 	// the droplet size is actually the cubic root of the display value
 
@@ -780,10 +778,9 @@ bool fluicell::PPC1api::changeDropletSizeBy(double _percentage)
 double fluicell::PPC1api::getDropletSize()
 {
 
-	//double p1 = std::abs(m_PPC1_data->channel_A->sensor_reading / m_default_v_recirc);
+	double p1 = std::abs(m_PPC1_data->channel_A->sensor_reading / m_default_v_recirc);
 	double p2 = std::abs(m_PPC1_data->channel_D->sensor_reading / m_default_pon);
-	//double mean_percentage = std::pow(1.0 + (p2 - p1) / 2.0, 3.0) * 100.0; 
-	double mean_percentage = 100.0 * p2;
+	double mean_percentage = std::pow(1.0 + (p2 - p1) / 2.0, 3.0) * 100.0; 
 	// the percentage of the droplet is the cube power of the real value
 
 	return mean_percentage;
