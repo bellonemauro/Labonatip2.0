@@ -1785,7 +1785,234 @@ p, li { white-space: pre-wrap; }
                   <property name="spacing">
                    <number>0</number>
                   </property>
+                  <item row="3" column="4">
+                   <widget class="QLabel" name="label_dropletSize_percentage">
+                    <property name="maximumSize">
+                     <size>
+                      <width>30</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <pointsize>14</pointsize>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"/>
+                    </property>
+                    <property name="text">
+                     <string>%  </string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
                   <item row="3" column="3">
+                   <widget class="QLCDNumber" name="lcdNumber_dropletSize_percentage">
+                    <property name="maximumSize">
+                     <size>
+                      <width>80</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                    <property name="toolTip">
+                     <string>Droplet size percentage</string>
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::NoFrame</enum>
+                    </property>
+                    <property name="digitCount">
+                     <number>3</number>
+                    </property>
+                    <property name="value" stdset="0">
+                     <double>0.000000000000000</double>
+                    </property>
+                    <property name="intValue" stdset="0">
+                     <number>0</number>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="5" column="4">
+                   <widget class="QLabel" name="label_flowspeed_percentage">
+                    <property name="maximumSize">
+                     <size>
+                      <width>30</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <pointsize>14</pointsize>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"/>
+                    </property>
+                    <property name="text">
+                     <string>%</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="5" column="5" colspan="2">
+                   <widget class="QPushButton" name="pushButton_flowspeed_plus">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>52</width>
+                      <height>46</height>
+                     </size>
+                    </property>
+                    <property name="toolTip">
+                     <string>Increase flow speed</string>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"> QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 10px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+     min-width: 50px;
+	 min-height: 44px;
+     max-width: 50px;
+	 max-height: 44px;
+ }
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="icon">
+                     <iconset>
+                      <normaloff>icons/plus.png</normaloff>icons/plus.png</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>35</width>
+                      <height>35</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="8" column="4">
+                   <widget class="QLabel" name="label_vacuum_percentage">
+                    <property name="maximumSize">
+                     <size>
+                      <width>30</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <pointsize>14</pointsize>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"/>
+                    </property>
+                    <property name="text">
+                     <string>%</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="8" column="5" colspan="2">
+                   <widget class="QPushButton" name="pushButton_vacuum_plus">
+                    <property name="sizePolicy">
+                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                      <horstretch>0</horstretch>
+                      <verstretch>0</verstretch>
+                     </sizepolicy>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>52</width>
+                      <height>46</height>
+                     </size>
+                    </property>
+                    <property name="toolTip">
+                     <string>Increase vacuum</string>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"> QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 10px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+     min-width: 50px;
+	 min-height: 44px;
+     max-width: 50px;
+	 max-height: 44px;
+ }
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
+                    </property>
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="icon">
+                     <iconset>
+                      <normaloff>icons/plus.png</normaloff>icons/plus.png</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>35</width>
+                      <height>35</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="2">
                    <widget class="QPushButton" name="pushButton_dropSize_minus">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -1858,32 +2085,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                     </property>
                    </widget>
                   </item>
-                  <item row="8" column="4">
-                   <widget class="QLCDNumber" name="lcdNumber_vacuum_percentage">
-                    <property name="maximumSize">
-                     <size>
-                      <width>80</width>
-                      <height>16777215</height>
-                     </size>
-                    </property>
-                    <property name="toolTip">
-                     <string>Vacuum percentage</string>
-                    </property>
-                    <property name="frameShape">
-                     <enum>QFrame::NoFrame</enum>
-                    </property>
-                    <property name="digitCount">
-                     <number>3</number>
-                    </property>
-                    <property name="value" stdset="0">
-                     <double>0.000000000000000</double>
-                    </property>
-                    <property name="intValue" stdset="0">
-                     <number>0</number>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="5" column="4">
+                  <item row="5" column="3">
                    <widget class="QLCDNumber" name="lcdNumber_flowspeed_percentage">
                     <property name="maximumSize">
                      <size>
@@ -1909,6 +2111,31 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                    </widget>
                   </item>
                   <item row="8" column="3">
+                   <widget class="QLCDNumber" name="lcdNumber_vacuum_percentage">
+                    <property name="maximumSize">
+                     <size>
+                      <width>80</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                    <property name="toolTip">
+                     <string>Vacuum percentage</string>
+                    </property>
+                    <property name="frameShape">
+                     <enum>QFrame::NoFrame</enum>
+                    </property>
+                    <property name="digitCount">
+                     <number>3</number>
+                    </property>
+                    <property name="value" stdset="0">
+                     <double>0.000000000000000</double>
+                    </property>
+                    <property name="intValue" stdset="0">
+                     <number>0</number>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="8" column="2">
                    <widget class="QPushButton" name="pushButton_vacuum_minus">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -1973,7 +2200,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                     </property>
                    </widget>
                   </item>
-                  <item row="5" column="3">
+                  <item row="5" column="2">
                    <widget class="QPushButton" name="pushButton_flowspeed_minus">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -2038,7 +2265,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                     </property>
                    </widget>
                   </item>
-                  <item row="3" column="6" colspan="2">
+                  <item row="3" column="5" colspan="2">
                    <widget class="QPushButton" name="pushButton_dropSize_plus">
                     <property name="sizePolicy">
                      <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -2103,257 +2330,6 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                     </property>
                    </widget>
                   </item>
-                  <item row="5" column="1">
-                   <widget class="QLabel" name="label_DZC_flowSpeed">
-                    <property name="minimumSize">
-                     <size>
-                      <width>100</width>
-                      <height>0</height>
-                     </size>
-                    </property>
-                    <property name="font">
-                     <font>
-                      <pointsize>11</pointsize>
-                     </font>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true"/>
-                    </property>
-                    <property name="text">
-                     <string>Flow speed</string>
-                    </property>
-                    <property name="alignment">
-                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="5" column="6" colspan="2">
-                   <widget class="QPushButton" name="pushButton_flowspeed_plus">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="maximumSize">
-                     <size>
-                      <width>52</width>
-                      <height>46</height>
-                     </size>
-                    </property>
-                    <property name="toolTip">
-                     <string>Increase flow speed</string>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true"> QPushButton {
-     border: 1px solid #8f8f91;
-     border-radius: 10px;
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
-     min-width: 50px;
-	 min-height: 44px;
-     max-width: 50px;
-	 max-height: 44px;
- }
-
-
- QPushButton:pressed {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
- }
-
- QPushButton:hover {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
- }
-
-QPushButton:disabled{ background-color: #CCCCCC; }
-
- QPushButton:flat {
-     border: none; /* no border for a flat push button */
- }
-
- QPushButton:default {
-     border-color: navy; /* make the default button prominent */
- }</string>
-                    </property>
-                    <property name="text">
-                     <string/>
-                    </property>
-                    <property name="icon">
-                     <iconset>
-                      <normaloff>icons/plus.png</normaloff>icons/plus.png</iconset>
-                    </property>
-                    <property name="iconSize">
-                     <size>
-                      <width>35</width>
-                      <height>35</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="8" column="5">
-                   <widget class="QLabel" name="label_vacuum_percentage">
-                    <property name="maximumSize">
-                     <size>
-                      <width>30</width>
-                      <height>16777215</height>
-                     </size>
-                    </property>
-                    <property name="font">
-                     <font>
-                      <pointsize>14</pointsize>
-                     </font>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true"/>
-                    </property>
-                    <property name="text">
-                     <string>%</string>
-                    </property>
-                    <property name="alignment">
-                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="8" column="6" colspan="2">
-                   <widget class="QPushButton" name="pushButton_vacuum_plus">
-                    <property name="sizePolicy">
-                     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                      <horstretch>0</horstretch>
-                      <verstretch>0</verstretch>
-                     </sizepolicy>
-                    </property>
-                    <property name="maximumSize">
-                     <size>
-                      <width>52</width>
-                      <height>46</height>
-                     </size>
-                    </property>
-                    <property name="toolTip">
-                     <string>Increase vacuum</string>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true"> QPushButton {
-     border: 1px solid #8f8f91;
-     border-radius: 10px;
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
-     min-width: 50px;
-	 min-height: 44px;
-     max-width: 50px;
-	 max-height: 44px;
- }
-
-
- QPushButton:pressed {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
- }
-
- QPushButton:hover {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
- }
-
-QPushButton:disabled{ background-color: #CCCCCC; }
-
- QPushButton:flat {
-     border: none; /* no border for a flat push button */
- }
-
- QPushButton:default {
-     border-color: navy; /* make the default button prominent */
- }</string>
-                    </property>
-                    <property name="text">
-                     <string/>
-                    </property>
-                    <property name="icon">
-                     <iconset>
-                      <normaloff>icons/plus.png</normaloff>icons/plus.png</iconset>
-                    </property>
-                    <property name="iconSize">
-                     <size>
-                      <width>35</width>
-                      <height>35</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="3" column="5">
-                   <widget class="QLabel" name="label_dropletSize_percentage">
-                    <property name="maximumSize">
-                     <size>
-                      <width>30</width>
-                      <height>16777215</height>
-                     </size>
-                    </property>
-                    <property name="font">
-                     <font>
-                      <pointsize>14</pointsize>
-                     </font>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true"/>
-                    </property>
-                    <property name="text">
-                     <string>%  </string>
-                    </property>
-                    <property name="alignment">
-                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="3" column="4">
-                   <widget class="QLCDNumber" name="lcdNumber_dropletSize_percentage">
-                    <property name="maximumSize">
-                     <size>
-                      <width>80</width>
-                      <height>16777215</height>
-                     </size>
-                    </property>
-                    <property name="toolTip">
-                     <string>Droplet size percentage</string>
-                    </property>
-                    <property name="frameShape">
-                     <enum>QFrame::NoFrame</enum>
-                    </property>
-                    <property name="digitCount">
-                     <number>3</number>
-                    </property>
-                    <property name="value" stdset="0">
-                     <double>0.000000000000000</double>
-                    </property>
-                    <property name="intValue" stdset="0">
-                     <number>0</number>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="5" column="5">
-                   <widget class="QLabel" name="label_flowspeed_percentage">
-                    <property name="maximumSize">
-                     <size>
-                      <width>30</width>
-                      <height>16777215</height>
-                     </size>
-                    </property>
-                    <property name="font">
-                     <font>
-                      <pointsize>14</pointsize>
-                     </font>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true"/>
-                    </property>
-                    <property name="text">
-                     <string>%</string>
-                    </property>
-                    <property name="alignment">
-                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                    </property>
-                   </widget>
-                  </item>
                   <item row="7" column="1" rowspan="2">
                    <widget class="QLabel" name="label_DZC_vacuum">
                     <property name="font">
@@ -2382,7 +2358,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                     </property>
                     <property name="maximumSize">
                      <size>
-                      <width>80</width>
+                      <width>120</width>
                       <height>16777215</height>
                      </size>
                     </property>
@@ -2402,46 +2378,31 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                     </property>
                    </widget>
                   </item>
-                  <item row="6" column="1" colspan="5">
-                   <spacer name="verticalSpacer">
-                    <property name="orientation">
-                     <enum>Qt::Vertical</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
+                  <item row="5" column="1">
+                   <widget class="QLabel" name="label_DZC_flowSpeed">
+                    <property name="minimumSize">
                      <size>
-                      <width>20</width>
-                      <height>40</height>
+                      <width>100</width>
+                      <height>0</height>
                      </size>
                     </property>
-                   </spacer>
+                    <property name="font">
+                     <font>
+                      <pointsize>11</pointsize>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true"/>
+                    </property>
+                    <property name="text">
+                     <string>Flow speed</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                    </property>
+                   </widget>
                   </item>
-                  <item row="4" column="1" colspan="5">
-                   <spacer name="verticalSpacer_2">
-                    <property name="orientation">
-                     <enum>Qt::Vertical</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>20</width>
-                      <height>40</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                  <item row="2" column="3" colspan="4">
-                   <spacer name="verticalSpacer_3">
-                    <property name="orientation">
-                     <enum>Qt::Vertical</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>20</width>
-                      <height>40</height>
-                     </size>
-                    </property>
-                   </spacer>
-                  </item>
-                  <item row="0" column="1" colspan="5">
+                  <item row="0" column="1" colspan="4">
                    <widget class="QLabel" name="label_DZC_title">
                     <property name="minimumSize">
                      <size>
@@ -2465,18 +2426,41 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                     </property>
                    </widget>
                   </item>
-                  <item row="3" column="2">
-                   <spacer name="horizontalSpacer_7">
+                  <item row="4" column="1" colspan="4">
+                   <spacer name="verticalSpacer_2">
                     <property name="orientation">
-                     <enum>Qt::Horizontal</enum>
-                    </property>
-                    <property name="sizeType">
-                     <enum>QSizePolicy::Fixed</enum>
+                     <enum>Qt::Vertical</enum>
                     </property>
                     <property name="sizeHint" stdset="0">
                      <size>
-                      <width>5</width>
-                      <height>20</height>
+                      <width>20</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item row="2" column="2" colspan="4">
+                   <spacer name="verticalSpacer_3">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                  <item row="6" column="1" colspan="4">
+                   <spacer name="verticalSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>40</height>
                      </size>
                     </property>
                    </spacer>
