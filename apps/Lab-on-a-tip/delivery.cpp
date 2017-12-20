@@ -26,8 +26,7 @@ void Labonatip_GUI::dropletSizePlus() {
 		}
 		else {
 			success = m_ppc1->setDropletSize(
-				//m_ds_perc + //
-				ui->lcdNumber_dropletSize_percentage->value() +
+				m_ds_perc + // ui->lcdNumber_dropletSize_percentage->value() +
 				m_pr_params->base_ds_increment);
 		}
 		//if (!m_ppc1->setDropletSize(ui->lcdNumber_dropletSize_percentage->value() +
@@ -55,31 +54,31 @@ void Labonatip_GUI::dropletSizePlus() {
 		double perc = (m_ds_perc + 
 			m_pr_params->base_ds_increment) / 100.0;
 
-		//if (ui->horizontalSlider_recirculation->value() == 0) {
-		//	QMessageBox::information(this, "Warning ", 
-		//		" Recirculation zero, operation cannot be done ");
-		//	return;
-		//}
-		//else {
-		//	double value = -m_pr_params->v_recirc_default - m_pr_params->v_recirc_default * (1.0 -
-		//		std::pow(perc, (1.0 / 3.0)));
+		if (ui->horizontalSlider_recirculation->value() == 0) {
+			QMessageBox::information(this, "Warning ", 
+				" Recirculation zero, operation cannot be done ");
+			return;
+		}
+		else {
+			double value = -m_pr_params->v_recirc_default - m_pr_params->v_recirc_default * (1.0 -
+				std::pow(perc, (1.0 / 3.0)));
 			//TODO: the new value must consider the current set point!!!
 			//double value = m_v_recirc_set_point + (default_v_recirc * 
 			//	(2.0 - std::pow(1.0 + m_dialog_tools->m_pr_params->base_ds_increment/100.0, (1.0 / 3.0))) - default_v_recirc);
 
-		//	updateVrecircSetPoint(value);
-		//}
+			updateVrecircSetPoint(value);
+		}
 
 		if (ui->horizontalSlider_p_on->value() == 0) {
 			updatePonSetPoint(3.0);
 		}
 		else {
-			//double value = m_pr_params->p_on_default - m_pr_params->p_on_default  * (1.0 -
-			//	std::pow(perc, (1.0 / 3.0)));
-			double value = m_pr_params->p_on_default  * perc;
+			double value = m_pr_params->p_on_default - m_pr_params->p_on_default  * (1.0 -
+				std::pow(perc, (1.0 / 3.0)));
+			//double value = m_pr_params->p_on_default  * perc;
 			//TODO: the new value must consider the current set point!!!
-			//double value = m_pon_set_point + (default_pon * 
-			//	( std::pow(1.0 + m_dialog_tools->m_pr_params->base_ds_increment / 100.0, (1.0 / 3.0))) - default_pon);
+			//double value = m_pon_set_point + (m_pr_params->p_on_default *
+			//	( std::pow(1.0 + m_pr_params->base_ds_increment / 100.0, (1.0 / 3.0))) - m_pr_params->p_on_default);
 
 			updatePonSetPoint(value);
 		}
@@ -103,8 +102,7 @@ void Labonatip_GUI::dropletSizeMinus() {
 			success = m_ppc1->changeDropletSizeBy(-m_pr_params->base_ds_increment);
 		}
 		else {
-			success = m_ppc1->setDropletSize( //m_ds_perc -
-				ui->lcdNumber_dropletSize_percentage->value() - 
+			success = m_ppc1->setDropletSize( m_ds_perc - // ui->lcdNumber_dropletSize_percentage->value() - 
 				m_pr_params->base_ds_increment);
 		}
 		//if (!m_ppc1->setDropletSize(
@@ -139,28 +137,28 @@ void Labonatip_GUI::dropletSizeMinus() {
 			return;
 		}
 		else {
-			//double value = m_pr_params->p_on_default - m_pr_params->p_on_default  * ( 1.0 -
-			//	std::pow(perc, (1.0/3.0) )); //TODO: this must be explained
-			double value = m_pr_params->p_on_default   * perc;
+			double value = m_pr_params->p_on_default - m_pr_params->p_on_default  * ( 1.0 -
+				std::pow(perc, (1.0/3.0) )); //TODO: this must be explained
+			//double value = m_pr_params->p_on_default   * perc;
 			//TODO: the new value must consider the current set point!!!
 
-			//double value = m_pon_set_point + (default_pon *
-			//	(std::pow(1.0 - m_dialog_tools->m_pr_params->base_ds_increment / 100.0, (1.0 / 3.0))) - default_pon);
+			//double value = m_pon_set_point + (m_pr_params->p_on_default *
+			//	(std::pow(1.0 - m_pr_params->base_ds_increment / 100.0, (1.0 / 3.0))) - m_pr_params->p_on_default);
 			updatePonSetPoint(value);
 		}
 
-		//if (ui->horizontalSlider_recirculation->value() == 0) {
-		//	updateVrecircSetPoint(-3.0);
-		//}
-		//else {
-		//	double value = -m_pr_params->v_recirc_default - m_pr_params->v_recirc_default * (1.0 -
-		//		std::pow(perc, (1.0 / 3.0)));
+		if (ui->horizontalSlider_recirculation->value() == 0) {
+			updateVrecircSetPoint(-3.0);
+		}
+		else {
+			double value = -m_pr_params->v_recirc_default - m_pr_params->v_recirc_default * (1.0 -
+				std::pow(perc, (1.0 / 3.0)));
 			//TODO: the new value must consider the current set point!!!
 			//double value = m_v_recirc_set_point + (default_v_recirc *
 			//	(2.0 - std::pow(1.0 - m_dialog_tools->m_pr_params->base_ds_increment / 100.0, (1.0 / 3.0))) - default_v_recirc);
 
-		//	updateVrecircSetPoint(value);
-		//}
+			updateVrecircSetPoint(value);
+		}
 		updateFlowControlPercentages();
 
 	}
@@ -440,11 +438,11 @@ void Labonatip_GUI::updateFlowControlPercentages()
 			//double droplet_percentage = 100.0 + (ponp - vrp) / 2.0;
 			
 			double ponp =  100.0 * std::pow(m_pon_set_point / m_pr_params->p_on_default, 3.0);
-			double vrp = 0.0;// -100.0 * std::pow((m_v_recirc_set_point + 2.0 * m_pr_params->v_recirc_default) / (-m_pr_params->v_recirc_default), 3.0);
+			double vrp = -100.0 * std::pow((m_v_recirc_set_point + 2.0 * m_pr_params->v_recirc_default) / (-m_pr_params->v_recirc_default), 3.0);
 
 			//double droplet_percentage = std::pow(1.0 + (ponp - vrp) / 2.0, 3);
-			//m_ds_perc =  (ponp + vrp) / 2.0;
-			m_ds_perc = 100.0 * m_pon_set_point / m_pr_params->p_on_default;
+			m_ds_perc =  (ponp + vrp) / 2.0;
+			//m_ds_perc = 100.0 * m_pon_set_point / m_pr_params->p_on_default;
 			cout << "Labonatip_GUI::updateFlowControlPercentages  ::: " 
 				 << " ponp " << ponp
 				 << " vrp " << vrp 
