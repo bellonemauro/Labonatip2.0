@@ -449,6 +449,18 @@ void Labonatip_GUI::updateFlowControlPercentages()
 				 << " droplet_percentage " << m_ds_perc << endl;
 
 			ui->lcdNumber_dropletSize_percentage->display(m_ds_perc);
+
+			if (ui->pushButton_solution1->isChecked() ||
+				ui->pushButton_solution2->isChecked() ||
+				ui->pushButton_solution3->isChecked() ||
+				ui->pushButton_solution4->isChecked()) // flow when solution is off // TODO : check on off
+			{
+				m_ds_perc_2 = 100.0*(ui->treeWidget_macroInfo->topLevelItem(3)->text(1).toDouble()+0.21)/0.31;
+			}
+			else { m_ds_perc_2 = 100.0 * m_pon_set_point / m_pr_params->p_on_default; }
+
+			ui->lcdNumber_dropletSize_percentage_2->display(m_ds_perc_2);
+
 		}
 
 		// calculate flow speed percentage

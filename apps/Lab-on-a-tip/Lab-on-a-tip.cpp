@@ -543,7 +543,7 @@ void Labonatip_GUI::updateFlows()
 		ui->pushButton_solution4->isChecked()) // flow when solution is off // TODO : check on off
 		{
 
-		delta_pressure = 100.0 * (p_on + p_off * 3 - v_s * 2.0);
+		delta_pressure = 100.0 * (p_on + p_off * 3.0 - v_s * 2.0);
 
 		outflow = m_ppc1->getFlowSimple( delta_pressure, LENGTH_TO_TIP);
 
@@ -604,6 +604,7 @@ void Labonatip_GUI::updateFlows()
 	ui->treeWidget_macroInfo->topLevelItem(11)->setText(1,
 		QString::number(flow_rate_8, 'g', 2));
 	}
+
 
 	return;
 }

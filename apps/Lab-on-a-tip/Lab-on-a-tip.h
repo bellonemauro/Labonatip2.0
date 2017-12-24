@@ -629,6 +629,7 @@ private:
   double m_v_switch_set_point;
 
   double m_ds_perc;  //!< droplet size percentage
+  double m_ds_perc_2;  //!< droplet size percentage
   double m_fs_perc;  //!< flow speed percentage
   double m_v_perc;   //!< vacuum percentage
 

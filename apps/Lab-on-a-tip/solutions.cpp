@@ -104,6 +104,7 @@ void Labonatip_GUI::pushSolution1()
 		m_pen_line.setColor(Qt::transparent);
 		ui->pushButton_stop->setEnabled(false);
 		ui->textEdit_emptyTime->setText(" ");
+		updateFlowControlPercentages();
 		return;
 	}
 
@@ -158,6 +159,8 @@ void Labonatip_GUI::pushSolution1()
 	ui->pushButton_stop->setEnabled(true);
 
 	//	setEnableSolutionButtons(false);
+	updateFlows();
+	updateFlowControlPercentages();
 
 }
 
@@ -180,6 +183,7 @@ void Labonatip_GUI::pushSolution2() {
 		m_pen_line.setColor(Qt::transparent);
 		ui->pushButton_stop->setEnabled(false);
 		ui->textEdit_emptyTime->setText(" ");
+		updateFlowControlPercentages();
 		return;
 	}
 
@@ -231,6 +235,8 @@ void Labonatip_GUI::pushSolution2() {
 	ui->pushButton_stop->setEnabled(true);
 
 	//setEnableSolutionButtons(false);
+	updateFlows();
+	updateFlowControlPercentages();
 
 }
 
@@ -254,6 +260,7 @@ void Labonatip_GUI::pushSolution3() {
 		m_pen_line.setColor(Qt::transparent);
 		ui->pushButton_stop->setEnabled(false);
 		ui->textEdit_emptyTime->setText(" ");
+		updateFlowControlPercentages();
 		return;
 	}
 
@@ -307,6 +314,8 @@ void Labonatip_GUI::pushSolution3() {
 	ui->pushButton_stop->setEnabled(true);
 
 	//setEnableSolutionButtons(false);
+	updateFlows();
+	updateFlowControlPercentages();
 
 }
 
@@ -330,6 +339,7 @@ void Labonatip_GUI::pushSolution4() {
 		m_pen_line.setColor(Qt::transparent);
 		ui->pushButton_stop->setEnabled(false);
 		ui->textEdit_emptyTime->setText(" ");
+		updateFlowControlPercentages();
 		return;
 	}
 
@@ -383,6 +393,8 @@ void Labonatip_GUI::pushSolution4() {
 	ui->pushButton_stop->setEnabled(true);
 
 	//setEnableSolutionButtons(false);
+	updateFlows();
+	updateFlowControlPercentages();
 
 }
 
