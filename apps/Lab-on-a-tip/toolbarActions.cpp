@@ -119,8 +119,8 @@ void Labonatip_GUI::simulationOnly()
 	//ui->actionShutdown->setEnabled(!m_simulationOnly);
 	m_macroRunner_thread->setSimulationFlag(m_simulationOnly);
 
-	if (m_simulationOnly)ui->treeWidget_macroInfo->topLevelItem(0)->setText(1, "Simulation");
-	else ui->treeWidget_macroInfo->topLevelItem(0)->setText(1, "PPC1");
+//	if (m_simulationOnly)ui->treeWidget_macroInfo->topLevelItem(0)->setText(1, "Simulation");
+//	else ui->treeWidget_macroInfo->topLevelItem(0)->setText(1, "PPC1");
 
 }
 

@@ -881,7 +881,7 @@ bool Labonatip_protocol_editor::loadMacro(const QString _file_name)
 {
 	//TODO: there is no check for validity in macro the loading procedure
 	QFile macroFile(_file_name);
-	m_current_macro_file_name = _file_name;
+	m_current_protocol_file_name = _file_name;
 	if (macroFile.exists() && macroFile.open(QIODevice::ReadWrite))
 	{
 		QByteArray content = macroFile.readLine();

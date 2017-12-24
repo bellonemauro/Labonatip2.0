@@ -103,7 +103,7 @@ void Labonatip_GUI::pushSolution1()
 		//updateDrawing(-1);
 		m_pen_line.setColor(Qt::transparent);
 		ui->pushButton_stop->setEnabled(false);
-
+		ui->textEdit_emptyTime->setText(" ");
 		return;
 	}
 
@@ -179,7 +179,7 @@ void Labonatip_GUI::pushSolution2() {
 		//updateDrawing(-1);
 		m_pen_line.setColor(Qt::transparent);
 		ui->pushButton_stop->setEnabled(false);
-
+		ui->textEdit_emptyTime->setText(" ");
 		return;
 	}
 
@@ -253,7 +253,7 @@ void Labonatip_GUI::pushSolution3() {
 		//updateDrawing(-1);
 		m_pen_line.setColor(Qt::transparent);
 		ui->pushButton_stop->setEnabled(false);
-
+		ui->textEdit_emptyTime->setText(" ");
 		return;
 	}
 
@@ -329,7 +329,7 @@ void Labonatip_GUI::pushSolution4() {
 		//updateDrawing(-1);
 		m_pen_line.setColor(Qt::transparent);
 		ui->pushButton_stop->setEnabled(false);
-
+		ui->textEdit_emptyTime->setText(" ");
 		return;
 	}
 
@@ -462,7 +462,7 @@ void Labonatip_GUI::updateTimingSliders()
 			s.append("Well ");
 			s.append(QString::number(m_flowing_solution));
 			s.append(" in \n");
-			s.append(" continuous \n flowing");
+			s.append("continuous \nflowing");
 		}
 		ui->textEdit_emptyTime->setText(s);
 
@@ -480,17 +480,17 @@ void Labonatip_GUI::updateTimingSliders()
 	}
 	else  // here we are ending the release process of the solution
 	{
-		if (m_dialog_tools->isContinuousFlowing())//(ui->checkBox_disableTimer->isChecked() ) // TODO: bring the param to settings
+		/*if (m_dialog_tools->isContinuousFlowing())//(ui->checkBox_disableTimer->isChecked() ) // TODO: bring the param to settings
 		{
 			m_update_flowing_sliders->start();
 			QString s;
 			s.append("Well ");
 			s.append(QString::number(m_flowing_solution));
 			s.append(" in \n");
-			s.append(" continuous \n flowing");
+			s.append("continuous \nflowing");
 			ui->textEdit_emptyTime->setText(s);
 			return;
-		}
+		}*/
 
 		double solution_release_time = m_dialog_tools->getSolutionTime();
 		m_time_multipilcator = (int)solution_release_time;
@@ -517,7 +517,7 @@ void Labonatip_GUI::updateTimingSliders()
 		ui->label_warningIcon->hide();
 		ui->label_warning->hide();
 		ui->pushButton_stop->setEnabled(false);
-
+		ui->textEdit_emptyTime->setText(" ");
 		return;
 	}
 

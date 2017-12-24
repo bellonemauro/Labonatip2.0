@@ -2978,23 +2978,26 @@ QPushButton:disabled{ background-color: #CCCCCC; }
            <property name="bottomMargin">
             <number>0</number>
            </property>
-           <item row="0" column="3">
+           <item row="0" column="5">
             <widget class="QLabel" name="label_macroStatus">
              <property name="text">
               <string>No protocol loaded</string>
              </property>
             </widget>
            </item>
-           <item row="0" column="1">
-            <widget class="QLabel" name="status_PPC1_label">
+           <item row="0" column="0">
+            <widget class="QLabel" name="status_PPC1_led">
              <property name="maximumSize">
               <size>
-               <width>220</width>
+               <width>30</width>
                <height>16777215</height>
               </size>
              </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Connection indicator &lt;/p&gt;&lt;p&gt; red : PPC-1 not connected &lt;/p&gt;&lt;p&gt; green : PPC-1 connected&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="text">
-              <string>PPC1 STATUS: NOT Connected</string>
+              <string/>
              </property>
             </widget>
            </item>
@@ -3014,19 +3017,48 @@ QPushButton:disabled{ background-color: #CCCCCC; }
              </property>
             </widget>
            </item>
-           <item row="0" column="0">
-            <widget class="QLabel" name="status_PPC1_led">
+           <item row="0" column="1">
+            <widget class="QLabel" name="status_PPC1_label">
              <property name="maximumSize">
               <size>
-               <width>30</width>
+               <width>220</width>
                <height>16777215</height>
               </size>
              </property>
-             <property name="toolTip">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Connection indicator &lt;/p&gt;&lt;p&gt; red : PPC-1 not connected &lt;/p&gt;&lt;p&gt; green : PPC-1 connected&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <property name="text">
+              <string>PPC1 STATUS: NOT Connected</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="3">
+            <widget class="QLabel" name="label">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
              </property>
              <property name="text">
-              <string/>
+              <string>Duration :  </string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="4">
+            <widget class="QLabel" name="label_duration">
+             <property name="minimumSize">
+              <size>
+               <width>60</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>60</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>0 s</string>
              </property>
             </widget>
            </item>
@@ -5446,7 +5478,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
            </attribute>
            <column>
             <property name="text">
-             <string/>
+             <string>Variable</string>
             </property>
            </column>
            <column>
@@ -5454,14 +5486,6 @@ QPushButton:disabled{ background-color: #CCCCCC; }
              <string>Value</string>
             </property>
            </column>
-           <item>
-            <property name="text">
-             <string>Status</string>
-            </property>
-            <property name="text">
-             <string>Simulation</string>
-            </property>
-           </item>
            <item>
             <property name="text">
              <string>Outflow ( nL/s )</string>
@@ -5472,7 +5496,15 @@ QPushButton:disabled{ background-color: #CCCCCC; }
            </item>
            <item>
             <property name="text">
-             <string>Inflow ( nL/s )</string>
+             <string>Inflow recirc ( nL/s )</string>
+            </property>
+            <property name="text">
+             <string>0</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Inflow switch ( nL/s )</string>
             </property>
             <property name="text">
              <string>0</string>
@@ -5484,17 +5516,6 @@ QPushButton:disabled{ background-color: #CCCCCC; }
             </property>
             <property name="text">
              <string>0</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Duration (s)</string>
-            </property>
-            <property name="text">
-             <string>0</string>
-            </property>
-            <property name="flags">
-             <set>ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
             </property>
            </item>
            <item>

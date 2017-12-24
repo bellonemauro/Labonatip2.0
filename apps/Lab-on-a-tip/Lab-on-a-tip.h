@@ -604,6 +604,7 @@ private:
   //    TODO: KNOWN ISSUE: timing is not well fulfilled --- it is longer than expected
   int m_time_multipilcator;   //!< used to set the update time for the timers
   int m_timer_solution;               //!< duration of injection for solution 
+  double m_protocol_duration;         //!< this is the timeline for the protocol execution
   
   //GUI stuff for drawing solution flow
   QPen m_pen_line;                    //!< pen to draw the solution inside the pipe

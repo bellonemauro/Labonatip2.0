@@ -300,11 +300,11 @@ bool fluicell::PPC1api::decodeChannelLine(const string &_data, vector<double> &_
 void fluicell::PPC1api::updateFlows(const PPC1_data &_PPC1_data, PPC1_status &_PPC1_status)
 {
 	// calculate inflow
-	double delta_pressure = 100.0 * (-_PPC1_data.channel_B->sensor_reading);//   v_s;
+	double delta_pressure = 100.0 * (-_PPC1_data.channel_A->sensor_reading);//   v_r;
 
 	_PPC1_status.inflow_recirculation = 2.0 * this->getFlowSimple(delta_pressure, m_pipe_length2tip);
 
-	delta_pressure = 100.0 * (-_PPC1_data.channel_B->sensor_reading +
+	delta_pressure = 100.0 * (-_PPC1_data.channel_A->sensor_reading +
 		2.0 * _PPC1_data.channel_C->sensor_reading * ( 1 - m_pipe_length2tip / m_pipe_length2zone) ); 
 	_PPC1_status.inflow_switch = 2.0 * this->getFlowSimple(delta_pressure, m_pipe_length2tip);
 
@@ -351,7 +351,7 @@ void fluicell::PPC1api::updateFlows(const PPC1_data &_PPC1_data, PPC1_status &_P
 	_PPC1_status.flow_rate_7 = _PPC1_status.inflow_recirculation / 2.0;
 	_PPC1_status.flow_rate_8 = _PPC1_status.inflow_recirculation / 2.0;
 
-	_PPC1_status.in_out_ratio = std::abs(_PPC1_status.outflow / _PPC1_status.inflow_recirculation);
+	_PPC1_status.in_out_ratio = _PPC1_status.outflow / _PPC1_status.inflow_recirculation;
 
 }
 

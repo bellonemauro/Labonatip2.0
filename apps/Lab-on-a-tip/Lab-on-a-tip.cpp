@@ -22,6 +22,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	m_g_spacer ( new QGroupBox()),
 	m_a_spacer (new QAction()),
 	m_macro (NULL),
+	m_protocol_duration(0.0),
 	m_pen_line_width(7),
 	l_x1(-24.0),
 	l_y1(49.0),
@@ -93,10 +94,10 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   *m_pr_params = m_dialog_tools->getPr_params();
   *m_GUI_params = m_dialog_tools->getGUIparams();
 
-  ui->treeWidget_macroInfo->topLevelItem(13)->setText(1, QString::number(m_solutionParams->rem_vol_well1));
-  ui->treeWidget_macroInfo->topLevelItem(14)->setText(1, QString::number(m_solutionParams->rem_vol_well2));
-  ui->treeWidget_macroInfo->topLevelItem(15)->setText(1, QString::number(m_solutionParams->rem_vol_well3));
-  ui->treeWidget_macroInfo->topLevelItem(16)->setText(1, QString::number(m_solutionParams->rem_vol_well4));
+  ui->treeWidget_macroInfo->topLevelItem(12)->setText(1, QString::number(m_solutionParams->rem_vol_well1));
+  ui->treeWidget_macroInfo->topLevelItem(13)->setText(1, QString::number(m_solutionParams->rem_vol_well2));
+  ui->treeWidget_macroInfo->topLevelItem(14)->setText(1, QString::number(m_solutionParams->rem_vol_well3));
+  ui->treeWidget_macroInfo->topLevelItem(15)->setText(1, QString::number(m_solutionParams->rem_vol_well4));
  
   //switchLanguage(m_dialog_tools->language);
 
@@ -168,7 +169,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   this->setStatusLed(false);
 
   ui->status_PPC1_label->setText("PPC1 STATUS: NOT Connected  ");
-  ui->label_macroStatus->setText("No macro running  ");
+  ui->label_macroStatus->setText("No protocol running  ");
 
   // init the timers 
   m_update_flowing_sliders = new QTimer();
@@ -227,7 +228,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 void Labonatip_GUI::updateMacroStatusMessage(const QString &_message) {
   
 	QString s = " MACRO RUNNING : <<<  ";
-	s.append(m_dialog_p_editor->getMacroPath());
+	s.append(m_dialog_p_editor->getProtocolPath());
 	s.append(" >>> remaining time = ");
 	
 
@@ -243,15 +244,14 @@ void Labonatip_GUI::updateMacroStatusMessage(const QString &_message) {
 
 void Labonatip_GUI::updateMacroTimeStatus(const double &_status) {
 
-	QString s1 = " MACRO RUNNING :: update Macro Time Status >>  ";
+	QString s1 = " PROTOCOL RUNNING :: update Macro Time Status >>  ";
 	s1.append(QString::number(_status));
 
 	m_labonatip_chart_view->updateChartTime(_status); // update the vertical line for the time status on the chart
 
-	QString s = " MACRO RUNNING : ";
-	s.append(m_dialog_p_editor->getMacroPath());
-	int duration = ui->treeWidget_macroInfo->topLevelItem(4)->text(1).toInt();
-	int remaining_time_sec = duration - _status * duration / 100;
+	QString s = " PROTOCOL RUNNING : ";
+	s.append(m_dialog_p_editor->getProtocolName());
+	int remaining_time_sec = m_protocol_duration - _status * m_protocol_duration / 100;
 	s.append(" ----- remaining time,  ");
 	int remaining_hours = floor(remaining_time_sec / 3600); // 3600 sec in a hour
 	int remaining_mins = floor((remaining_time_sec % 3600) / 60); // 60 minutes in a hour
@@ -265,11 +265,7 @@ void Labonatip_GUI::updateMacroTimeStatus(const double &_status) {
 	ui->progressBar_macroStatus->setValue(_status);
 	ui->label_macroStatus->setText(s);
 
-	double totalTime = ui->treeWidget_macroInfo->topLevelItem(4)->text(1).toDouble();
-	double currentTime = _status * totalTime / 100.0 ;
-
-	// visualize it in the chart information panel 
-	//ui->treeWidget_macroInfo->topLevelItem(5)->setText(1, QString::number(currentTime));
+	double currentTime = _status * m_protocol_duration / 100.0 ;
 
 	updateFlowControlPercentages();
 
@@ -486,15 +482,18 @@ void Labonatip_GUI::updateFlows()
 	double flow_rate_7 = 0.0;
 	double flow_rate_8 = 0.0;
 	double v_s = m_v_switch_set_point;
+	double v_r = m_v_recirc_set_point;
 	double p_on = m_pon_set_point;
 	double p_off = m_poff_set_point;
 
 
 	if (!m_simulationOnly) {
-		ui->treeWidget_macroInfo->topLevelItem(1)->setText(1, 
+		ui->treeWidget_macroInfo->topLevelItem(0)->setText(1, 
 			QString::number(m_ppc1->m_PPC1_status->outflow, 'g', 2));
-		ui->treeWidget_macroInfo->topLevelItem(2)->setText(1, 
+		ui->treeWidget_macroInfo->topLevelItem(1)->setText(1, 
 			QString::number(m_ppc1->m_PPC1_status->inflow_recirculation, 'g', 2));
+		ui->treeWidget_macroInfo->topLevelItem(2)->setText(1,
+			QString::number(m_ppc1->m_PPC1_status->inflow_switch, 'g', 2));
 
 		if (m_ppc1->m_PPC1_status->in_out_ratio > 0)
 			ui->treeWidget_macroInfo->topLevelItem(3)->setText(1, 
@@ -504,31 +503,31 @@ void Labonatip_GUI::updateFlows()
 				QString::number(0.0, 'g', 2));
 
 
-		ui->treeWidget_macroInfo->topLevelItem(5)->setText(1, 
+		ui->treeWidget_macroInfo->topLevelItem(4)->setText(1, 
 			QString::number(m_ppc1->m_PPC1_status->flow_rate_1, 'g', 2));
-		ui->treeWidget_macroInfo->topLevelItem(6)->setText(1, 
+		ui->treeWidget_macroInfo->topLevelItem(5)->setText(1, 
 			QString::number(m_ppc1->m_PPC1_status->flow_rate_2, 'g', 2));
-		ui->treeWidget_macroInfo->topLevelItem(7)->setText(1, 
+		ui->treeWidget_macroInfo->topLevelItem(6)->setText(1, 
 			QString::number(m_ppc1->m_PPC1_status->flow_rate_3, 'g', 2));
-		ui->treeWidget_macroInfo->topLevelItem(8)->setText(1, 
+		ui->treeWidget_macroInfo->topLevelItem(7)->setText(1, 
 			QString::number(m_ppc1->m_PPC1_status->flow_rate_4, 'g', 2));
-		ui->treeWidget_macroInfo->topLevelItem(9)->setText(1,
+		ui->treeWidget_macroInfo->topLevelItem(8)->setText(1,
 			QString::number(m_ppc1->m_PPC1_status->flow_rate_5, 'g', 2));
-		ui->treeWidget_macroInfo->topLevelItem(10)->setText(1, 
+		ui->treeWidget_macroInfo->topLevelItem(9)->setText(1, 
 			QString::number(m_ppc1->m_PPC1_status->flow_rate_6, 'g', 2));
-		ui->treeWidget_macroInfo->topLevelItem(11)->setText(1, 
+		ui->treeWidget_macroInfo->topLevelItem(10)->setText(1, 
 			QString::number(m_ppc1->m_PPC1_status->flow_rate_7, 'g', 2));
-		ui->treeWidget_macroInfo->topLevelItem(12)->setText(1, 
+		ui->treeWidget_macroInfo->topLevelItem(11)->setText(1, 
 			QString::number(m_ppc1->m_PPC1_status->flow_rate_8, 'g', 2));
 
 		return;
 	}
 	else{
 	// calculate inflow
-	delta_pressure = 100.0 * v_s;
+	delta_pressure = 100.0 * v_r;
 	inflow_recirculation = 2.0 * m_ppc1->getFlowSimple(delta_pressure, LENGTH_TO_TIP);
 
-	delta_pressure = 100.0 * (v_s + 2.0 * p_off * (1 - LENGTH_TO_ZONE/LENGTH_TO_TIP)); 
+	delta_pressure = 100.0 * (v_r + 2.0 * p_off * (1 - LENGTH_TO_ZONE/LENGTH_TO_TIP)); 
 	inflow_switch = 2 * m_ppc1->getFlowSimple(delta_pressure, LENGTH_TO_TIP);
 
 	delta_pressure = 100.0 * 2.0 * p_off;
@@ -576,32 +575,33 @@ void Labonatip_GUI::updateFlows()
 	flow_rate_7 = inflow_recirculation / 2.0;
 	flow_rate_8 = inflow_recirculation / 2.0;
 
-	in_out_ratio = std::abs(outflow / inflow_recirculation);
+	in_out_ratio = outflow / inflow_recirculation;
 
-	ui->treeWidget_macroInfo->topLevelItem(1)->setText(1,
-		QString::number(outflow, 'g', 2));
-	ui->treeWidget_macroInfo->topLevelItem(2)->setText(1, 
-		QString::number(inflow_recirculation, 'g', 2));
-	if (in_out_ratio > 0) ui->treeWidget_macroInfo->topLevelItem(3)->setText(1, 
+	ui->treeWidget_macroInfo->topLevelItem(0)->setText(1,
+		QString::number(outflow, 'g', 3));
+	ui->treeWidget_macroInfo->topLevelItem(1)->setText(1, 
+		QString::number(inflow_recirculation, 'g', 4));
+	ui->treeWidget_macroInfo->topLevelItem(2)->setText(1,
+		QString::number(inflow_switch, 'g', 4));
+	ui->treeWidget_macroInfo->topLevelItem(3)->setText(1,
 		QString::number(in_out_ratio, 'g', 2));
-	else ui->treeWidget_macroInfo->topLevelItem(3)->setText(1, 
-		QString::number(0, 'g', 2));
+	
 
-	ui->treeWidget_macroInfo->topLevelItem(5)->setText(1,
+	ui->treeWidget_macroInfo->topLevelItem(4)->setText(1,
 		QString::number(flow_rate_1, 'g', 2));
-	ui->treeWidget_macroInfo->topLevelItem(6)->setText(1, 
+	ui->treeWidget_macroInfo->topLevelItem(5)->setText(1, 
 		QString::number(flow_rate_2, 'g', 2));
-	ui->treeWidget_macroInfo->topLevelItem(7)->setText(1, 
+	ui->treeWidget_macroInfo->topLevelItem(6)->setText(1, 
 		QString::number(flow_rate_3, 'g', 2));
-	ui->treeWidget_macroInfo->topLevelItem(8)->setText(1,
+	ui->treeWidget_macroInfo->topLevelItem(7)->setText(1,
 		QString::number(flow_rate_4, 'g', 2));
-	ui->treeWidget_macroInfo->topLevelItem(9)->setText(1, 
+	ui->treeWidget_macroInfo->topLevelItem(8)->setText(1, 
 		QString::number(flow_rate_5, 'g', 2));
-	ui->treeWidget_macroInfo->topLevelItem(10)->setText(1, 
+	ui->treeWidget_macroInfo->topLevelItem(9)->setText(1, 
 		QString::number(flow_rate_6, 'g', 2));
-	ui->treeWidget_macroInfo->topLevelItem(11)->setText(1,
+	ui->treeWidget_macroInfo->topLevelItem(10)->setText(1,
 		QString::number(flow_rate_7, 'g', 2));
-	ui->treeWidget_macroInfo->topLevelItem(12)->setText(1,
+	ui->treeWidget_macroInfo->topLevelItem(11)->setText(1,
 		QString::number(flow_rate_8, 'g', 2));
 	}
 
@@ -673,43 +673,43 @@ void Labonatip_GUI::updateWaste()
 
 	if (ui->pushButton_solution1->isChecked()) {
 		m_solutionParams->rem_vol_well1 = m_solutionParams->rem_vol_well1 - //TODO: add check and block for negative values
-			0.001 * ui->treeWidget_macroInfo->topLevelItem(5)->text(1).toDouble();
+			0.001 * ui->treeWidget_macroInfo->topLevelItem(4)->text(1).toDouble();
 		//waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well1 - // this is in micro liters 10^-6
 		//	m_solutionParams->rem_vol_well1) /  //this is in micro liters 10^-6
-		//	ui->treeWidget_macroInfo->topLevelItem(5)->text(1).toDouble(); // this is in nano liters 10^-9
+		//	ui->treeWidget_macroInfo->topLevelItem(4)->text(1).toDouble(); // this is in nano liters 10^-9
 	}
 	if (ui->pushButton_solution2->isChecked()) {
 		m_solutionParams->rem_vol_well2 = m_solutionParams->rem_vol_well2 -
-			0.001 * ui->treeWidget_macroInfo->topLevelItem(6)->text(1).toDouble();
+			0.001 * ui->treeWidget_macroInfo->topLevelItem(5)->text(1).toDouble();
 		//waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well2 -
 		//	m_solutionParams->rem_vol_well2) /
-		//	ui->treeWidget_macroInfo->topLevelItem(6)->text(1).toDouble();
+		//	ui->treeWidget_macroInfo->topLevelItem(5)->text(1).toDouble();
 	}
 	if (ui->pushButton_solution3->isChecked()) {
 		m_solutionParams->rem_vol_well3 = m_solutionParams->rem_vol_well3 -
-			0.001 * ui->treeWidget_macroInfo->topLevelItem(7)->text(1).toDouble();
+			0.001 * ui->treeWidget_macroInfo->topLevelItem(6)->text(1).toDouble();
 		//waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well3 -
 		//	m_solutionParams->rem_vol_well3) /
-		//	ui->treeWidget_macroInfo->topLevelItem(7)->text(1).toDouble();
+		//	ui->treeWidget_macroInfo->topLevelItem(6)->text(1).toDouble();
 	}
 	if (ui->pushButton_solution4->isChecked()) {
 		m_solutionParams->rem_vol_well4 = m_solutionParams->rem_vol_well4 -
-			0.001 * ui->treeWidget_macroInfo->topLevelItem(8)->text(1).toDouble();
+			0.001 * ui->treeWidget_macroInfo->topLevelItem(7)->text(1).toDouble();
 		//waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well4 -
 		//	m_solutionParams->rem_vol_well4) /
-		//	ui->treeWidget_macroInfo->topLevelItem(8)->text(1).toDouble();
+		//	ui->treeWidget_macroInfo->topLevelItem(7)->text(1).toDouble();
 	}
 
 
 
 	m_solutionParams->rem_vol_well5 = m_solutionParams->rem_vol_well5 + 
-		0.001 * ui->treeWidget_macroInfo->topLevelItem(9)->text(1).toDouble();
+		0.001 * ui->treeWidget_macroInfo->topLevelItem(8)->text(1).toDouble();
 	m_solutionParams->rem_vol_well6 = m_solutionParams->rem_vol_well6 + 
-		0.001 * ui->treeWidget_macroInfo->topLevelItem(10)->text(1).toDouble();
+		0.001 * ui->treeWidget_macroInfo->topLevelItem(9)->text(1).toDouble();
 	m_solutionParams->rem_vol_well7 = m_solutionParams->rem_vol_well7 + 
-		0.001 * ui->treeWidget_macroInfo->topLevelItem(11)->text(1).toDouble();
+		0.001 * ui->treeWidget_macroInfo->topLevelItem(10)->text(1).toDouble();
 	m_solutionParams->rem_vol_well8 = m_solutionParams->rem_vol_well8 +
-		0.001 * ui->treeWidget_macroInfo->topLevelItem(12)->text(1).toDouble();
+		0.001 * ui->treeWidget_macroInfo->topLevelItem(11)->text(1).toDouble();
 
 	vector<double> v1;
 	v1.push_back(m_solutionParams->vol_well5 - m_solutionParams->rem_vol_well5);
@@ -725,25 +725,25 @@ void Labonatip_GUI::updateWaste()
 	case 0: { //TODO : the waste time is not well calculated 
 		waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well5 -
 			m_solutionParams->rem_vol_well5) /
-			ui->treeWidget_macroInfo->topLevelItem(9)->text(1).toDouble();
+			ui->treeWidget_macroInfo->topLevelItem(8)->text(1).toDouble();
 		break;
 	}
 	case 1: {
 		waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well6 -
 			m_solutionParams->rem_vol_well6) /
-			ui->treeWidget_macroInfo->topLevelItem(10)->text(1).toDouble();
+			ui->treeWidget_macroInfo->topLevelItem(9)->text(1).toDouble();
 		break;
 	}
 	case 2: {
 		waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well7 -
 			m_solutionParams->rem_vol_well7) /
-			ui->treeWidget_macroInfo->topLevelItem(11)->text(1).toDouble();
+			ui->treeWidget_macroInfo->topLevelItem(10)->text(1).toDouble();
 		break;
 	}
 	case 3: {
 		waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well8 -
 			m_solutionParams->rem_vol_well8) /
-			ui->treeWidget_macroInfo->topLevelItem(12)->text(1).toDouble();
+			ui->treeWidget_macroInfo->topLevelItem(11)->text(1).toDouble();
 		break;
 	}
 	default: {
@@ -758,28 +758,28 @@ void Labonatip_GUI::updateWaste()
 
 	int v = m_solutionParams->rem_vol_well1 * 10;
 	double value = v / 10.0;
-	ui->treeWidget_macroInfo->topLevelItem(13)->setText(1, QString::number(value));
+	ui->treeWidget_macroInfo->topLevelItem(12)->setText(1, QString::number(value));
 	v = m_solutionParams->rem_vol_well2 * 10;
 	value = v / 10.0;
-	ui->treeWidget_macroInfo->topLevelItem(14)->setText(1, QString::number(value));
+	ui->treeWidget_macroInfo->topLevelItem(13)->setText(1, QString::number(value));
 	v = m_solutionParams->rem_vol_well3 * 10;
 	value = v / 10.0;
-	ui->treeWidget_macroInfo->topLevelItem(15)->setText(1, QString::number(value));
+	ui->treeWidget_macroInfo->topLevelItem(14)->setText(1, QString::number(value));
 	v = m_solutionParams->rem_vol_well4 * 10;
 	value = v / 10.0;
-	ui->treeWidget_macroInfo->topLevelItem(16)->setText(1, QString::number(value));
+	ui->treeWidget_macroInfo->topLevelItem(15)->setText(1, QString::number(value));
 	v = m_solutionParams->rem_vol_well5 * 10;
 	value = v / 10.0;
-	ui->treeWidget_macroInfo->topLevelItem(17)->setText(1, QString::number(value));
+	ui->treeWidget_macroInfo->topLevelItem(16)->setText(1, QString::number(value));
 	v = m_solutionParams->rem_vol_well6 * 10;
 	value = v / 10.0;
-	ui->treeWidget_macroInfo->topLevelItem(18)->setText(1, QString::number(value));
+	ui->treeWidget_macroInfo->topLevelItem(17)->setText(1, QString::number(value));
 	v = m_solutionParams->rem_vol_well7 * 10;
 	value = v / 10.0;
-	ui->treeWidget_macroInfo->topLevelItem(19)->setText(1, QString::number(value));
+	ui->treeWidget_macroInfo->topLevelItem(18)->setText(1, QString::number(value));
 	v = m_solutionParams->rem_vol_well8 * 10;
 	value = v / 10.0;
-	ui->treeWidget_macroInfo->topLevelItem(20)->setText(1, QString::number(value));
+	ui->treeWidget_macroInfo->topLevelItem(19)->setText(1, QString::number(value));
 
 	value = 100 - (m_solutionParams->vol_well5 - m_solutionParams->rem_vol_well5) * 100 / m_solutionParams->vol_well5;
 	ui->progressBar_switchOut->setValue(value);
@@ -1206,11 +1206,12 @@ void Labonatip_GUI::toolApply()
 
 	/////////////////////////////////////////
 	// TODO set all the other options
-	if (m_dialog_tools->isContinuousFlowing())
+	/*if (m_dialog_tools->isContinuousFlowing())
 	{
 		m_update_flowing_sliders->start();
 		QString s;
-		s.append(" Continuous \n flowing");
+		s.append("Well n in \n"); 
+		s.append("Continuous \n flowing");
 		ui->textEdit_emptyTime->setText(s);
 	}
 	else
@@ -1231,7 +1232,7 @@ void Labonatip_GUI::toolApply()
 		s.append(" min \n");
 		s.append(QString::number(remaining_secs));
 		s.append(" sec ");
-	}
+	}*/
 
 
 }
@@ -1253,13 +1254,13 @@ void Labonatip_GUI::editorApply()
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_GUI::editorAppy  " << endl;
 
-	if (m_dialog_p_editor->getMacroPath().isEmpty()) {
+	if (m_dialog_p_editor->getProtocolPath().isEmpty()) {
 		QString s = " No protocol loaded : ";
 		ui->label_macroStatus->setText(s);
 	}
 	else {
 		QString s = " Protocol loaded : ";
-		s.append(m_dialog_p_editor->getMacroPath());
+		s.append(m_dialog_p_editor->getProtocolName());
 		ui->label_macroStatus->setText(s);
 	}
 
@@ -1273,7 +1274,10 @@ void Labonatip_GUI::editorApply()
 			macro_duration += m_macro->at(i).getValue();
 	}
 	// visualize it in the chart information panel 
-	ui->treeWidget_macroInfo->topLevelItem(4)->setText(1, QString::number(macro_duration));
+	m_protocol_duration = macro_duration;
+	QString s = QString::number(m_protocol_duration);
+	s.append(" s");
+	ui->label_duration->setText(s);
 
 }
 void Labonatip_GUI::setEnableMainWindow(bool _enable) {

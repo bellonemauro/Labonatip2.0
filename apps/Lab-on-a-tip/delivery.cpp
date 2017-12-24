@@ -458,7 +458,9 @@ void Labonatip_GUI::updateFlowControlPercentages()
 			double vsp = 100.0 * m_v_switch_set_point / (-m_pr_params->v_switch_default);
 			double vrp = 100.0 * m_v_recirc_set_point / (-m_pr_params->v_recirc_default);
 
-			m_fs_perc = (ponp + poffp + vsp + vrp) / 4.0; // 4 is the number of elements in the average
+			//m_fs_perc = (ponp + poffp + vsp + vrp) / 4.0; // 4 is the number of elements in the average
+			//MB: mod to consider pon only in the calculation of the speed
+			m_fs_perc = ponp;
 			ui->lcdNumber_flowspeed_percentage->display(m_fs_perc);
 		}
 

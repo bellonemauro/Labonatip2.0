@@ -71,7 +71,12 @@ public:
 	}
 	
 	
-	QString getMacroPath() { return m_current_macro_file_name; };
+	QString getProtocolPath() { return m_current_protocol_file_name; }
+
+	QString getProtocolName() {
+		QFileInfo fi(m_current_protocol_file_name);
+		return fi.fileName();
+	}
 
 	inline void setMacroPath(QString _path) { m_protocol_path = _path; 
 	readProtocolFolder(m_protocol_path);
@@ -217,7 +222,7 @@ private:
 
 	double protocolDuration(std::vector<fluicell::PPC1api::command> _macro);
 
-	QString m_current_macro_file_name;
+	QString m_current_protocol_file_name;
 	QString m_protocol_path;
 
 	Labonatip_macroWizard * protocolWizard;
