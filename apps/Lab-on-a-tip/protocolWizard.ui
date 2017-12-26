@@ -17,7 +17,7 @@
    <string notr="true">QRadioButton {
     background-color:       transparent;
     color:                  black;
-    font-size: 15px;
+    font-size: 16px;
 }
 
 QRadioButton::checked {
@@ -94,7 +94,7 @@ QRadioButton::indicator:unchecked {
           </font>
          </property>
          <property name="currentIndex">
-          <number>6</number>
+          <number>0</number>
          </property>
          <widget class="QWidget" name="page">
           <layout class="QGridLayout" name="gridLayout_3">
@@ -112,7 +112,39 @@ QRadioButton::indicator:unchecked {
              <property name="styleSheet">
               <string notr="true">QGroupBox {
     border: 2px solid transparent;
-}</string>
+}
+
+ QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 6px;
+     width: 100px;
+     height: 25px;
+     font-size: 16px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+
+ }
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
              </property>
              <property name="title">
               <string/>
@@ -256,7 +288,7 @@ QRadioButton::indicator:unchecked {
             <widget class="QPlainTextEdit" name="plainTextEdit">
              <property name="font">
               <font>
-               <pointsize>11</pointsize>
+               <pointsize>10</pointsize>
               </font>
              </property>
              <property name="styleSheet">
@@ -274,13 +306,7 @@ QRadioButton::indicator:unchecked {
              </property>
              <property name="plainText">
               <string>
-
 This wizard will help you to create a new execution protocol for the biopen device
-
-
-
-
-
 
 
 
@@ -306,7 +332,39 @@ Insert the name of your protocol and click next to continue</string>
              <property name="styleSheet">
               <string notr="true">QGroupBox {
     border: 2px solid transparent;
-}</string>
+}
+
+ QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 6px;
+     width: 100px;
+     height: 25px;
+     font-size: 16px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+
+ }
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
              </property>
              <property name="title">
               <string/>
@@ -368,7 +426,7 @@ Insert the name of your protocol and click next to continue</string>
              </property>
              <property name="font">
               <font>
-               <pointsize>11</pointsize>
+               <pointsize>10</pointsize>
               </font>
              </property>
              <property name="styleSheet">
@@ -465,8 +523,11 @@ Insert the name of your protocol and click next to continue</string>
             <widget class="QGroupBox" name="groupBox_10">
              <property name="font">
               <font>
-               <pointsize>11</pointsize>
+               <pointsize>-1</pointsize>
               </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">font-size: 16px;</string>
              </property>
              <property name="title">
               <string/>
@@ -482,7 +543,7 @@ Insert the name of your protocol and click next to continue</string>
                 </property>
                 <property name="font">
                  <font>
-                  <pointsize>11</pointsize>
+                  <pointsize>-1</pointsize>
                  </font>
                 </property>
                 <property name="text">
@@ -494,7 +555,7 @@ Insert the name of your protocol and click next to continue</string>
                <widget class="QLineEdit" name="lineEdit_solName2">
                 <property name="font">
                  <font>
-                  <pointsize>11</pointsize>
+                  <pointsize>-1</pointsize>
                  </font>
                 </property>
                 <property name="text">
@@ -506,7 +567,7 @@ Insert the name of your protocol and click next to continue</string>
                <widget class="QLabel" name="label_26">
                 <property name="font">
                  <font>
-                  <pointsize>11</pointsize>
+                  <pointsize>-1</pointsize>
                  </font>
                 </property>
                 <property name="text">
@@ -518,7 +579,7 @@ Insert the name of your protocol and click next to continue</string>
                <widget class="QLabel" name="label_27">
                 <property name="font">
                  <font>
-                  <pointsize>11</pointsize>
+                  <pointsize>-1</pointsize>
                  </font>
                 </property>
                 <property name="text">
@@ -530,7 +591,7 @@ Insert the name of your protocol and click next to continue</string>
                <widget class="QLineEdit" name="lineEdit_solName1">
                 <property name="font">
                  <font>
-                  <pointsize>11</pointsize>
+                  <pointsize>-1</pointsize>
                  </font>
                 </property>
                 <property name="text">
@@ -542,7 +603,7 @@ Insert the name of your protocol and click next to continue</string>
                <widget class="QLabel" name="label_28">
                 <property name="font">
                  <font>
-                  <pointsize>11</pointsize>
+                  <pointsize>-1</pointsize>
                  </font>
                 </property>
                 <property name="text">
@@ -554,7 +615,7 @@ Insert the name of your protocol and click next to continue</string>
                <widget class="QLineEdit" name="lineEdit_solName4">
                 <property name="font">
                  <font>
-                  <pointsize>11</pointsize>
+                  <pointsize>-1</pointsize>
                  </font>
                 </property>
                 <property name="text">
@@ -566,7 +627,7 @@ Insert the name of your protocol and click next to continue</string>
                <widget class="QLineEdit" name="lineEdit_solName3">
                 <property name="font">
                  <font>
-                  <pointsize>11</pointsize>
+                  <pointsize>-1</pointsize>
                  </font>
                 </property>
                 <property name="text">
@@ -581,8 +642,11 @@ Insert the name of your protocol and click next to continue</string>
             <widget class="QGroupBox" name="groupBox_11">
              <property name="font">
               <font>
-               <pointsize>11</pointsize>
+               <pointsize>-1</pointsize>
               </font>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">font-size: 16px;</string>
              </property>
              <property name="title">
               <string/>
@@ -590,6 +654,17 @@ Insert the name of your protocol and click next to continue</string>
              <layout class="QGridLayout" name="gridLayout_18">
               <item row="3" column="1">
                <widget class="QSpinBox" name="spinBox_v_s_def">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>30</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>-1</pointsize>
+                 </font>
+                </property>
                 <property name="suffix">
                  <string>  mbar</string>
                 </property>
@@ -605,7 +680,7 @@ Insert the name of your protocol and click next to continue</string>
                <widget class="QLabel" name="label_32">
                 <property name="font">
                  <font>
-                  <pointsize>11</pointsize>
+                  <pointsize>-1</pointsize>
                  </font>
                 </property>
                 <property name="text">
@@ -617,7 +692,7 @@ Insert the name of your protocol and click next to continue</string>
                <widget class="QLabel" name="label_31">
                 <property name="font">
                  <font>
-                  <pointsize>11</pointsize>
+                  <pointsize>-1</pointsize>
                  </font>
                 </property>
                 <property name="text">
@@ -629,7 +704,7 @@ Insert the name of your protocol and click next to continue</string>
                <widget class="QLabel" name="label_30">
                 <property name="font">
                  <font>
-                  <pointsize>11</pointsize>
+                  <pointsize>-1</pointsize>
                  </font>
                 </property>
                 <property name="text">
@@ -647,7 +722,7 @@ Insert the name of your protocol and click next to continue</string>
                 </property>
                 <property name="font">
                  <font>
-                  <pointsize>11</pointsize>
+                  <pointsize>-1</pointsize>
                  </font>
                 </property>
                 <property name="text">
@@ -657,6 +732,17 @@ Insert the name of your protocol and click next to continue</string>
               </item>
               <item row="1" column="1">
                <widget class="QSpinBox" name="spinBox_poff_def">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>30</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>-1</pointsize>
+                 </font>
+                </property>
                 <property name="suffix">
                  <string>  mbar</string>
                 </property>
@@ -670,8 +756,13 @@ Insert the name of your protocol and click next to continue</string>
                 <property name="minimumSize">
                  <size>
                   <width>100</width>
-                  <height>0</height>
+                  <height>30</height>
                  </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>-1</pointsize>
+                 </font>
                 </property>
                 <property name="styleSheet">
                  <string notr="true"/>
@@ -686,6 +777,17 @@ Insert the name of your protocol and click next to continue</string>
               </item>
               <item row="2" column="1">
                <widget class="QSpinBox" name="spinBox_v_r_def">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>30</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>-1</pointsize>
+                 </font>
+                </property>
                 <property name="suffix">
                  <string>  mbar</string>
                 </property>
@@ -761,7 +863,39 @@ Insert the name of your protocol and click next to continue</string>
              <property name="styleSheet">
               <string notr="true">QGroupBox {
     border: 2px solid transparent;
-}</string>
+}
+
+ QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 6px;
+     width: 100px;
+     height: 25px;
+     font-size: 16px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+
+ }
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
              </property>
              <property name="title">
               <string/>
@@ -948,7 +1082,39 @@ Insert the name of your protocol and click next to continue</string>
              <property name="styleSheet">
               <string notr="true">QGroupBox {
     border: 2px solid transparent;
-}</string>
+}
+
+ QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 6px;
+     width: 100px;
+     height: 25px;
+     font-size: 16px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+
+ }
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
              </property>
              <property name="title">
               <string/>
@@ -1029,7 +1195,7 @@ Insert the name of your protocol and click next to continue</string>
              </property>
              <property name="font">
               <font>
-               <pointsize>11</pointsize>
+               <pointsize>10</pointsize>
               </font>
              </property>
              <property name="styleSheet">
@@ -1043,8 +1209,7 @@ Insert the name of your protocol and click next to continue</string>
               <enum>QFrame::NoFrame</enum>
              </property>
              <property name="plainText">
-              <string>Here you can add a new procedure
-</string>
+              <string>Here you can add a new procedure</string>
              </property>
             </widget>
            </item>
@@ -1138,7 +1303,39 @@ Insert the name of your protocol and click next to continue</string>
              <property name="styleSheet">
               <string notr="true">QGroupBox {
     border: 2px solid transparent;
-}</string>
+}
+
+ QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 6px;
+     width: 100px;
+     height: 25px;
+     font-size: 16px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+
+ }
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
              </property>
              <property name="title">
               <string/>
@@ -1195,7 +1392,7 @@ Insert the name of your protocol and click next to continue</string>
             <widget class="QPlainTextEdit" name="plainTextEdit_6">
              <property name="font">
               <font>
-               <pointsize>11</pointsize>
+               <pointsize>10</pointsize>
               </font>
              </property>
              <property name="styleSheet">
@@ -1365,7 +1562,39 @@ Add a new line
              <property name="styleSheet">
               <string notr="true">QGroupBox {
     border: 2px solid transparent;
-}</string>
+}
+
+ QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 6px;
+     width: 100px;
+     height: 25px;
+     font-size: 16px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+
+ }
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
              </property>
              <property name="title">
               <string/>
@@ -1515,7 +1744,7 @@ Add a new line
              </property>
              <property name="font">
               <font>
-               <pointsize>11</pointsize>
+               <pointsize>10</pointsize>
               </font>
              </property>
              <property name="styleSheet">
@@ -1556,7 +1785,39 @@ Add a new line
              <property name="styleSheet">
               <string notr="true">QGroupBox {
     border: 2px solid transparent;
-}</string>
+}
+
+ QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 6px;
+     width: 100px;
+     height: 25px;
+     font-size: 16px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+
+ }
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
              </property>
              <property name="title">
               <string/>
@@ -1627,7 +1888,39 @@ Add a new line
              <property name="styleSheet">
               <string notr="true">QGroupBox {
     border: 2px solid transparent;
-}</string>
+}
+
+ QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 6px;
+     width: 100px;
+     height: 25px;
+     font-size: 18px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+
+ }
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
              </property>
              <property name="title">
               <string/>
@@ -1663,7 +1956,7 @@ Add a new line
             <widget class="QPlainTextEdit" name="plainTextEdit_5">
              <property name="font">
               <font>
-               <pointsize>11</pointsize>
+               <pointsize>10</pointsize>
               </font>
              </property>
              <property name="styleSheet">

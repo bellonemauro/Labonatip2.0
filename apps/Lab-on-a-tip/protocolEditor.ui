@@ -84,8 +84,8 @@ border:0;
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>862</width>
-         <height>794</height>
+         <width>864</width>
+         <height>789</height>
         </rect>
        </property>
        <property name="sizePolicy">
@@ -645,7 +645,37 @@ border:0;
            </font>
           </property>
           <property name="styleSheet">
-           <string notr="true"/>
+           <string notr="true"> QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 6px;
+     width: 100px;
+     height: 25px;
+     font-size: 16px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+
+ }
+
+
+ QPushButton:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
           </property>
           <property name="standardButtons">
            <set>QDialogButtonBox::Apply|QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
