@@ -139,7 +139,7 @@ border:0;
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>1022</width>
+         <width>992</width>
          <height>737</height>
         </rect>
        </property>
@@ -181,7 +181,7 @@ border:0;
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>1022</width>
+             <width>992</width>
              <height>689</height>
             </rect>
            </property>
@@ -3098,7 +3098,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
    </property>
    <property name="minimumSize">
     <size>
-     <width>373</width>
+     <width>403</width>
      <height>609</height>
     </size>
    </property>
@@ -3224,6 +3224,42 @@ QTabBar::tab:selected {
 
 QTabBar::tab:!selected {
     margin-bottom: 2px; /* make non-selected tabs look smaller */
+}
+
+QCheckBox {
+    background-color: transparent;
+    color: black;
+}
+
+
+QCheckBox::indicator {
+    width: 13px;
+    height: 13px;
+    margin-left:5px;
+    margin-top:3px;
+    margin-bottom:3px;
+    border: 1px solid darkgrey;
+}
+
+QCheckBox::indicator::checked:hover  {
+     background-color: #F0FFF0;
+ }
+
+QCheckBox::indicator::unchecked:hover  {
+     background-color: #F0FFF0;
+ }
+
+QCheckBox::indicator:checked {
+    background-color: #FAFAFA;
+    border: 1px solid black;
+    image: url(./icons/radioOn.png);
+    width: 13px;
+    height: 13px;
+}
+
+QCheckBox::indicator:unchecked {
+    background-color: #FAFAFA;
+    border: 1px solid darkgrey;
 }</string>
        </property>
        <property name="tabPosition">
@@ -3233,7 +3269,7 @@ QTabBar::tab:!selected {
         <enum>QTabWidget::Triangular</enum>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <property name="elideMode">
         <enum>Qt::ElideNone</enum>
@@ -5468,7 +5504,29 @@ QPushButton:disabled{ background-color: #CCCCCC; }
      border-radius: 10px; 
     color: rgb(80, 80, 80);
     background-color: rgb(235, 235, 240);
- } </string>
+ } 
+
+
+QTreeView::item {
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+}
+
+QTreeView::item:hover {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+}
+
+QTreeView::item:selected {
+	color: rgb(20, 20, 20);
+}
+
+QTreeView::item:selected:active{
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #F0FFF0, stop: 1 #F0FFF0);
+}
+
+QTreeView::item:selected:!active {
+       background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #EEEEEE, stop: 1 #EEEEEE);
+}</string>
            </property>
            <property name="uniformRowHeights">
             <bool>false</bool>
@@ -5741,6 +5799,9 @@ p, li { white-space: pre-wrap; }
          </item>
          <item row="10" column="1">
           <widget class="QCheckBox" name="checkBox_to_terminal">
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
            <property name="text">
             <string>Enable history</string>
            </property>
@@ -5823,6 +5884,7 @@ p, li { white-space: pre-wrap; }
             <string notr="true"> QPushButton {
      border: 1px solid #8f8f91;
      border-radius: 10px;
+     height: 20px;
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                        stop: 0 #f6f7fa, stop: 1 #dadbde);
 

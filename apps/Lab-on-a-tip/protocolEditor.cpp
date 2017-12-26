@@ -21,6 +21,8 @@ Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 		<< "Labonatip_protocol_editor::Labonatip_protocol_editor    " << endl;
 
 	ui_p_editor->setupUi(this );
+	ui_p_editor->treeWidget_params->resizeColumnToContents(0);
+	//ui_p_editor->treeWidget_macroTable->setColumnWidth(0, 350);
 
 	// initialize the macro wizard
 	protocolWizard = new Labonatip_macroWizard();
@@ -239,6 +241,7 @@ void Labonatip_protocol_editor::addMacroCommand()
 		}
 
 		ui_p_editor->treeWidget_macroTable->resizeColumnToContents(0);
+
 	}
 
 	addAllCommandsToMacro();

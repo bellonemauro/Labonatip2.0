@@ -28,7 +28,42 @@ font-size: 16px;
 border:0;
 }
 
-</string>
+
+QCheckBox {
+    background-color: transparent;
+    color: black;
+}
+
+
+QCheckBox::indicator {
+    width: 13px;
+    height: 13px;
+    margin-left:5px;
+    margin-top:3px;
+    margin-bottom:3px;
+    border: 1px solid darkgrey;
+}
+
+QCheckBox::indicator::checked:hover  {
+     background-color: #F0FFF0;
+ }
+
+QCheckBox::indicator::unchecked:hover  {
+     background-color: #F0FFF0;
+ }
+
+QCheckBox::indicator:checked {
+    background-color: #FAFAFA;
+    border: 1px solid black;
+    image: url(./icons/radioOn.png);
+    width: 13px;
+    height: 13px;
+}
+
+QCheckBox::indicator:unchecked {
+    background-color: #FAFAFA;
+    border: 1px solid darkgrey;
+}</string>
   </property>
   <property name="iconSize">
    <size>
@@ -64,7 +99,7 @@ border:0;
        <number>0</number>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="page_0">
        <property name="styleSheet">
@@ -181,10 +216,11 @@ QPushButton:disabled{ background-color: #CCCCCC; }
              <property name="styleSheet">
               <string notr="true">QComboBox {
     border: 1px solid gray;
-    border-radius: 3px;
+    border-radius: 6px;
 	border-color: rgb(170, 170, 170);
     min-width: 6em;
-	background-color: rgb(225, 225, 225);
+	background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
 }
 
 QComboBox:hover{
@@ -425,10 +461,11 @@ QPushButton:disabled{ background-color: #CCCCCC; }
              <property name="styleSheet">
               <string notr="true">QComboBox {
     border: 1px solid gray;
-    border-radius: 3px;
+    border-radius: 6px;
 	border-color: rgb(170, 170, 170);
     min-width: 6em;
-	background-color: rgb(225, 225, 225);
+	background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
 }
 
 QComboBox:hover{
@@ -2135,6 +2172,8 @@ QPushButton:disabled{ background-color: #CCCCCC; }
          </widget>
         </item>
        </layout>
+       <zorder>groupBox</zorder>
+       <zorder>groupBox_generalSettings_2</zorder>
       </widget>
       <widget class="QWidget" name="page_3">
        <layout class="QGridLayout" name="gridLayout_9">
@@ -2367,10 +2406,11 @@ QPushButton:disabled{ background-color: #CCCCCC; }
              <property name="styleSheet">
               <string notr="true">QComboBox {
     border: 1px solid gray;
-    border-radius: 3px;
+    border-radius: 6px;
 	border-color: rgb(170, 170, 170);
     min-width: 6em;
-	background-color: rgb(225, 225, 225);
+	background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
 }
 
 QComboBox:hover{
@@ -2444,10 +2484,11 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
              <property name="styleSheet">
               <string notr="true">QComboBox {
     border: 1px solid gray;
-    border-radius: 3px;
+    border-radius: 6px;
 	border-color: rgb(170, 170, 170);
     min-width: 6em;
-	background-color: rgb(225, 225, 225);
+	background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
 }
 
 QComboBox:hover{
@@ -2528,10 +2569,11 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
              <property name="styleSheet">
               <string notr="true">QComboBox {
     border: 1px solid gray;
-    border-radius: 3px;
+    border-radius: 6px;
 	border-color: rgb(170, 170, 170);
     min-width: 6em;
-	background-color: rgb(225, 225, 225);
+	background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
 }
 
 QComboBox:hover{
@@ -2629,10 +2671,11 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
              <property name="styleSheet">
               <string notr="true">QComboBox {
     border: 1px solid gray;
-    border-radius: 3px;
+    border-radius: 6px;
 	border-color: rgb(170, 170, 170);
     min-width: 6em;
-	background-color: rgb(225, 225, 225);
+	background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
 }
 
 QComboBox:hover{
@@ -2702,10 +2745,11 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
              <property name="styleSheet">
               <string notr="true">QComboBox {
     border: 1px solid gray;
-    border-radius: 3px;
+    border-radius: 6px;
 	border-color: rgb(170, 170, 170);
     min-width: 6em;
-	background-color: rgb(225, 225, 225);
+	background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
 }
 
 QComboBox:hover{
@@ -2785,10 +2829,11 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
              <property name="styleSheet">
               <string notr="true">QComboBox {
     border: 1px solid gray;
-    border-radius: 3px;
+    border-radius: 6px;
 	border-color: rgb(170, 170, 170);
     min-width: 6em;
-	background-color: rgb(225, 225, 225);
+	background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
 }
 
 QComboBox:hover{
