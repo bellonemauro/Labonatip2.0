@@ -221,7 +221,7 @@ QComboBox::drop-down {
 
 
 QComboBox::down-arrow {
-    image: url(./icons/comboDown.png);
+    image: url(:/icons/comboDown.png);
     width: 15px;
 }
 
@@ -353,10 +353,9 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
 
  }
 
-
- QPushButton:pressed {
+ QPushButton:focus:pressed {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+                                       stop: 0 #F0FFF0, stop: 1 #f6f7fa);
  }
 
  QPushButton:hover {
@@ -793,10 +792,9 @@ QPushButton:disabled{ background-color: #CCCCCC; }
 
  }
 
-
- QPushButton:pressed {
+ QPushButton:focus:pressed {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+                                       stop: 0 #F0FFF0, stop: 1 #f6f7fa);
  }
 
  QPushButton:hover {
@@ -1163,10 +1161,9 @@ QTreeView::item:selected:!active {
 
  }
 
-
- QPushButton:pressed {
+ QPushButton:focus:pressed {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+                                       stop: 0 #F0FFF0, stop: 1 #f6f7fa);
  }
 
  QPushButton:hover {

@@ -725,27 +725,47 @@ void Labonatip_GUI::updateWaste()
 	switch (min_index)
 	{
 	case 0: { //TODO : the waste time is not well calculated 
-		waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well5 -
-			m_solutionParams->rem_vol_well5) /
-			ui->treeWidget_macroInfo->topLevelItem(8)->text(1).toDouble();
+		if (ui->treeWidget_macroInfo->topLevelItem(8)->text(1).toDouble() != 0) {
+			waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well5 -
+				m_solutionParams->rem_vol_well5) /
+				ui->treeWidget_macroInfo->topLevelItem(8)->text(1).toDouble();
+		}
+		else {
+			waste_remaining_time_in_sec = 0;
+		}
 		break;
 	}
 	case 1: {
-		waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well6 -
+		if (ui->treeWidget_macroInfo->topLevelItem(9)->text(1).toDouble() != 0) {
+			waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well6 -
 			m_solutionParams->rem_vol_well6) /
 			ui->treeWidget_macroInfo->topLevelItem(9)->text(1).toDouble();
+		}
+		else {
+			waste_remaining_time_in_sec = 0;
+		}
 		break;
 	}
 	case 2: {
-		waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well7 -
+		if (ui->treeWidget_macroInfo->topLevelItem(10)->text(1).toDouble() != 0) {
+			waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well7 -
 			m_solutionParams->rem_vol_well7) /
 			ui->treeWidget_macroInfo->topLevelItem(10)->text(1).toDouble();
+		}
+		else {
+			waste_remaining_time_in_sec = 0;
+		}
 		break;
 	}
 	case 3: {
-		waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well8 -
-			m_solutionParams->rem_vol_well8) /
-			ui->treeWidget_macroInfo->topLevelItem(11)->text(1).toDouble();
+		if (ui->treeWidget_macroInfo->topLevelItem(11)->text(1).toDouble() != 0) {
+			waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well8 -
+				m_solutionParams->rem_vol_well8) /
+				ui->treeWidget_macroInfo->topLevelItem(11)->text(1).toDouble();
+		}
+		else {
+			waste_remaining_time_in_sec = 0;
+		}
 		break;
 	}
 	default: {

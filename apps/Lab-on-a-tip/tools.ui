@@ -175,9 +175,9 @@ QCheckBox::indicator:unchecked {
  }
 
 
- QPushButton:pressed {
+ QPushButton:focus:pressed {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+                                       stop: 0 #F0FFF0, stop: 1 #f6f7fa);
  }
 
  QPushButton:hover {
@@ -240,7 +240,7 @@ QComboBox::drop-down {
 }
 
 QComboBox::down-arrow {
-    image: url(./icons/comboDown.png);
+    image: url(:/icons/comboDown.png);
     width: 15px;
 }
 
@@ -394,9 +394,9 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
  }
 
 
- QPushButton:pressed {
+ QPushButton:focus:pressed {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+                                       stop: 0 #F0FFF0, stop: 1 #f6f7fa);
  }
 
  QPushButton:hover {
@@ -486,7 +486,7 @@ QComboBox::drop-down {
 
 
 QComboBox::down-arrow {
-    image: url(./icons/comboDown.png);
+    image: url(:/icons/comboDown.png);
     width: 15px;
 }
 
@@ -1379,9 +1379,9 @@ border-radius: 4px;
  }
 
 
- QPushButton:pressed {
+ QPushButton:focus:pressed {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+                                       stop: 0 #F0FFF0, stop: 1 #f6f7fa);
  }
 
  QPushButton:hover {
@@ -2007,78 +2007,6 @@ QPushButton:disabled{ background-color: #CCCCCC; }
            <string>Base increments</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_4">
-           <item row="1" column="0">
-            <widget class="QLabel" name="label_13">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>10</pointsize>
-               <weight>50</weight>
-               <bold>false</bold>
-              </font>
-             </property>
-             <property name="text">
-              <string>Flow speed</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QSpinBox" name="spinBox_fs_increment">
-             <property name="font">
-              <font>
-               <pointsize>10</pointsize>
-               <weight>50</weight>
-               <bold>false</bold>
-              </font>
-             </property>
-             <property name="suffix">
-              <string notr="true"> %</string>
-             </property>
-             <property name="prefix">
-              <string notr="true"/>
-             </property>
-             <property name="minimum">
-              <number>1</number>
-             </property>
-             <property name="maximum">
-              <number>20</number>
-             </property>
-             <property name="value">
-              <number>5</number>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="1">
-            <widget class="QSpinBox" name="spinBox_v_increment">
-             <property name="font">
-              <font>
-               <pointsize>10</pointsize>
-               <weight>50</weight>
-               <bold>false</bold>
-              </font>
-             </property>
-             <property name="suffix">
-              <string notr="true"> %</string>
-             </property>
-             <property name="prefix">
-              <string notr="true"/>
-             </property>
-             <property name="minimum">
-              <number>1</number>
-             </property>
-             <property name="maximum">
-              <number>20</number>
-             </property>
-             <property name="value">
-              <number>5</number>
-             </property>
-            </widget>
-           </item>
            <item row="0" column="1">
             <widget class="QSpinBox" name="spinBox_ds_increment">
              <property name="font">
@@ -2145,21 +2073,84 @@ QPushButton:disabled{ background-color: #CCCCCC; }
              </property>
             </widget>
            </item>
-           <item row="0" column="2" rowspan="3">
-            <spacer name="horizontalSpacer_bi">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
+           <item row="2" column="1">
+            <widget class="QSpinBox" name="spinBox_v_increment">
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+               <weight>50</weight>
+               <bold>false</bold>
+              </font>
              </property>
-             <property name="sizeType">
-              <enum>QSizePolicy::Minimum</enum>
+             <property name="suffix">
+              <string notr="true"> %</string>
              </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>40</width>
-               <height>20</height>
-              </size>
+             <property name="prefix">
+              <string notr="true"/>
              </property>
-            </spacer>
+             <property name="minimum">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <number>20</number>
+             </property>
+             <property name="value">
+              <number>5</number>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QSpinBox" name="spinBox_fs_increment">
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+               <weight>50</weight>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="suffix">
+              <string notr="true"> %</string>
+             </property>
+             <property name="prefix">
+              <string notr="true"/>
+             </property>
+             <property name="minimum">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <number>20</number>
+             </property>
+             <property name="value">
+              <number>5</number>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_13">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+               <weight>50</weight>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Flow speed</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2">
+            <widget class="QLabel" name="label_23">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
            </item>
           </layout>
           <zorder>label_14</zorder>
@@ -2168,7 +2159,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
           <zorder>spinBox_fs_increment</zorder>
           <zorder>label_12</zorder>
           <zorder>spinBox_ds_increment</zorder>
-          <zorder>horizontalSpacer_bi</zorder>
+          <zorder>label_23</zorder>
          </widget>
         </item>
        </layout>
@@ -2431,7 +2422,7 @@ QComboBox::drop-down {
 
 
 QComboBox::down-arrow {
-    image: url(./icons/comboDown.png);
+    image: url(:/icons/comboDown.png);
     width: 15px;
 }
 
@@ -2509,7 +2500,7 @@ QComboBox::drop-down {
 
 
 QComboBox::down-arrow {
-    image: url(./icons/comboDown.png);
+    image: url(:/icons/comboDown.png);
     width: 15px;
 }
 
@@ -2594,7 +2585,7 @@ QComboBox::drop-down {
 
 
 QComboBox::down-arrow {
-    image: url(./icons/comboDown.png);
+    image: url(:/icons/comboDown.png);
     width: 15px;
 }
 
@@ -2696,7 +2687,7 @@ QComboBox::drop-down {
 
 
 QComboBox::down-arrow {
-    image: url(./icons/comboDown.png);
+    image: url(:/icons/comboDown.png);
     width: 15px;
 }
 
@@ -2770,7 +2761,7 @@ QComboBox::drop-down {
 
 
 QComboBox::down-arrow {
-    image: url(./icons/comboDown.png);
+    image: url(:/icons/comboDown.png);
     width: 15px;
 }
 
@@ -2854,7 +2845,7 @@ QComboBox::drop-down {
 
 
 QComboBox::down-arrow {
-    image: url(./icons/comboDown.png);
+    image: url(:/icons/comboDown.png);
     width: 15px;
 }
 
@@ -2925,9 +2916,9 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
  }
 
 
- QPushButton:pressed {
+ QPushButton:focus:pressed {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+                                       stop: 0 #F0FFF0, stop: 1 #f6f7fa);
  }
 
  QPushButton:hover {
@@ -2990,9 +2981,9 @@ QPushButton:disabled{ background-color: #CCCCCC; }
  }
 
 
- QPushButton:pressed {
+ QPushButton:focus:pressed {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+                                       stop: 0 #F0FFF0, stop: 1 #f6f7fa);
  }
 
  QPushButton:hover {

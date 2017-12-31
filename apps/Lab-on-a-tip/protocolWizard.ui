@@ -94,7 +94,7 @@ QRadioButton::indicator:unchecked {
           </font>
          </property>
          <property name="currentIndex">
-          <number>3</number>
+          <number>6</number>
          </property>
          <widget class="QWidget" name="page">
           <layout class="QGridLayout" name="gridLayout_3">
@@ -126,9 +126,9 @@ QRadioButton::indicator:unchecked {
  }
 
 
- QPushButton:pressed {
+ QPushButton:focus:pressed {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+                                       stop: 0 #F0FFF0, stop: 1 #f6f7fa);
  }
 
  QPushButton:hover {
@@ -345,10 +345,9 @@ Insert the name of your protocol and click next to continue</string>
 
  }
 
-
- QPushButton:pressed {
+ QPushButton:focus:pressed {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+                                       stop: 0 #F0FFF0, stop: 1 #f6f7fa);
  }
 
  QPushButton:hover {
@@ -876,10 +875,9 @@ QPushButton:disabled{ background-color: #CCCCCC; }
 
  }
 
-
- QPushButton:pressed {
+ QPushButton:focus:pressed {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+                                       stop: 0 #F0FFF0, stop: 1 #f6f7fa);
  }
 
  QPushButton:hover {
@@ -1005,8 +1003,8 @@ QPushButton:disabled{ background-color: #CCCCCC; }
               <string>Operational</string>
              </property>
              <property name="icon">
-              <iconset>
-               <normaloff>icons/run.png</normaloff>icons/run.png</iconset>
+              <iconset resource="resources.qrc">
+               <normaloff>:/icons/run.png</normaloff>:/icons/run.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -1095,10 +1093,9 @@ QPushButton:disabled{ background-color: #CCCCCC; }
 
  }
 
-
- QPushButton:pressed {
+ QPushButton:focus:pressed {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+                                       stop: 0 #F0FFF0, stop: 1 #f6f7fa);
  }
 
  QPushButton:hover {
@@ -1316,10 +1313,9 @@ QPushButton:disabled{ background-color: #CCCCCC; }
 
  }
 
-
- QPushButton:pressed {
+ QPushButton:focus:pressed {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+                                       stop: 0 #F0FFF0, stop: 1 #f6f7fa);
  }
 
  QPushButton:hover {
@@ -1576,9 +1572,9 @@ Add a new line
  }
 
 
- QPushButton:pressed {
+ QPushButton:focus:pressed {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+                                       stop: 0 #F0FFF0, stop: 1 #f6f7fa);
  }
 
  QPushButton:hover {
@@ -1798,10 +1794,9 @@ QPushButton:disabled{ background-color: #CCCCCC; }
 
  }
 
-
- QPushButton:pressed {
+ QPushButton:focus:pressed {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+                                       stop: 0 #F0FFF0, stop: 1 #f6f7fa);
  }
 
  QPushButton:hover {

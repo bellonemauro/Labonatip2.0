@@ -18,7 +18,7 @@ FILE(GLOB myProject_HEADERS "${PROJECT_SOURCE_DIR}/*.h")
 FILE(GLOB myProject_SOURCES "${PROJECT_SOURCE_DIR}/*.cpp")  
 # select all files for the graphical interface
 FILE(GLOB myProject_FORMS "${PROJECT_SOURCE_DIR}/*.ui")
-
+# select all files for the resources
 FILE(GLOB myProject_UI_RESOURCES "${PROJECT_SOURCE_DIR}/*.qrc")
 
 
@@ -144,9 +144,11 @@ elseif(  BUILD_QT5)
 	# Find includes in corresponding build directories
 	set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-	 
+    # allows the gui to be automatically compiled and generate the ui_* headers 
+ 	QT5_WRAP_UI(myProject_FORMS_HEADERS ${myProject_FORMS})
+	
+	#this allows the executable to encode all the icons 
     QT5_ADD_RESOURCES(UI_RESOURCES_RCC ${myProject_UI_RESOURCES})
-	QT5_WRAP_UI(myProject_FORMS_HEADERS ${myProject_FORMS})
 
 	if ( ENABLE_verbose )
 		message (STATUS "${PROJECT_NAME} MESSAGE: myProject_FORMS_HEADERS  :: ${myProject_FORMS_HEADERS} ")

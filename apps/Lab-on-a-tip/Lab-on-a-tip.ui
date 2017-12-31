@@ -43,8 +43,8 @@
    <string>Lab-on-a-tip</string>
   </property>
   <property name="windowIcon">
-   <iconset>
-    <normaloff>icons/fluicell_iconBIG.png</normaloff>icons/fluicell_iconBIG.png</iconset>
+   <iconset resource="resources.qrc">
+    <normaloff>:/icons/fluicell_iconBIG.png</normaloff>:/icons/fluicell_iconBIG.png</iconset>
   </property>
   <property name="windowOpacity">
    <double>1.000000000000000</double>
@@ -1770,7 +1770,39 @@ p, li { white-space: pre-wrap; }
      border-radius: 10px; 
     color: rgb(80, 80, 80);
     background-color: rgb(235, 235, 240);
- } </string>
+ } 
+
+ QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 10px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+     min-width: 50px;
+	 min-height: 44px;
+     max-width: 50px;
+	 max-height: 44px;
+ }
+
+
+QPushButton:focus:pressed{
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #F0FFF0, stop: 1 #f6f7fa);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
                  </property>
                  <property name="title">
                   <string/>
@@ -1876,37 +1908,8 @@ p, li { white-space: pre-wrap; }
                      <string>Increase flow speed</string>
                     </property>
                     <property name="styleSheet">
-                     <string notr="true"> QPushButton {
-     border: 1px solid #8f8f91;
-     border-radius: 10px;
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
-     min-width: 50px;
-	 min-height: 44px;
-     max-width: 50px;
-	 max-height: 44px;
- }
-
-
- QPushButton:pressed {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
- }
-
- QPushButton:hover {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
- }
-
-QPushButton:disabled{ background-color: #CCCCCC; }
-
- QPushButton:flat {
-     border: none; /* no border for a flat push button */
- }
-
- QPushButton:default {
-     border-color: navy; /* make the default button prominent */
- }</string>
+                     <string notr="true">
+</string>
                     </property>
                     <property name="text">
                      <string/>
@@ -1965,37 +1968,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                      <string>Increase vacuum</string>
                     </property>
                     <property name="styleSheet">
-                     <string notr="true"> QPushButton {
-     border: 1px solid #8f8f91;
-     border-radius: 10px;
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
-     min-width: 50px;
-	 min-height: 44px;
-     max-width: 50px;
-	 max-height: 44px;
- }
-
-
- QPushButton:pressed {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
- }
-
- QPushButton:hover {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
- }
-
-QPushButton:disabled{ background-color: #CCCCCC; }
-
- QPushButton:flat {
-     border: none; /* no border for a flat push button */
- }
-
- QPushButton:default {
-     border-color: navy; /* make the default button prominent */
- }</string>
+                     <string notr="true"/>
                     </property>
                     <property name="text">
                      <string/>
@@ -2038,37 +2011,8 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                      <bool>false</bool>
                     </property>
                     <property name="styleSheet">
-                     <string notr="true"> QPushButton {
-     border: 1px solid #8f8f91;
-     border-radius: 10px;
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
-     min-width: 50px;
-	 min-height: 44px;
-     max-width: 50px;
-	 max-height: 44px;
- }
-
-
- QPushButton:pressed {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
- }
-
- QPushButton:hover {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
- }
-
-QPushButton:disabled{ background-color: #CCCCCC; }
-
- QPushButton:flat {
-     border: none; /* no border for a flat push button */
- }
-
- QPushButton:default {
-     border-color: navy; /* make the default button prominent */
- }</string>
+                     <string notr="true">
+</string>
                     </property>
                     <property name="text">
                      <string/>
@@ -2153,37 +2097,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                      <string>Decrease vacuum</string>
                     </property>
                     <property name="styleSheet">
-                     <string notr="true"> QPushButton {
-     border: 1px solid #8f8f91;
-     border-radius: 10px;
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
-     min-width: 50px;
-	 min-height: 44px;
-     max-width: 50px;
-	 max-height: 44px;
- }
-
-
- QPushButton:pressed {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
- }
-
- QPushButton:hover {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
- }
-
-QPushButton:disabled{ background-color: #CCCCCC; }
-
- QPushButton:flat {
-     border: none; /* no border for a flat push button */
- }
-
- QPushButton:default {
-     border-color: navy; /* make the default button prominent */
- }</string>
+                     <string notr="true"/>
                     </property>
                     <property name="text">
                      <string/>
@@ -2218,37 +2132,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                      <string>Decrease flow speed</string>
                     </property>
                     <property name="styleSheet">
-                     <string notr="true"> QPushButton {
-     border: 1px solid #8f8f91;
-     border-radius: 10px;
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
-     min-width: 50px;
-	 min-height: 44px;
-     max-width: 50px;
-	 max-height: 44px;
- }
-
-
- QPushButton:pressed {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
- }
-
- QPushButton:hover {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
- }
-
-QPushButton:disabled{ background-color: #CCCCCC; }
-
- QPushButton:flat {
-     border: none; /* no border for a flat push button */
- }
-
- QPushButton:default {
-     border-color: navy; /* make the default button prominent */
- }</string>
+                     <string notr="true"/>
                     </property>
                     <property name="text">
                      <string/>
@@ -2283,37 +2167,8 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                      <string>Increase droplet size</string>
                     </property>
                     <property name="styleSheet">
-                     <string notr="true"> QPushButton {
-     border: 1px solid #8f8f91;
-     border-radius: 10px;
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
-     min-width: 50px;
-	 min-height: 44px;
-     max-width: 50px;
-	 max-height: 44px;
- }
-
-
- QPushButton:pressed {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
- }
-
- QPushButton:hover {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
- }
-
-QPushButton:disabled{ background-color: #CCCCCC; }
-
- QPushButton:flat {
-     border: none; /* no border for a flat push button */
- }
-
- QPushButton:default {
-     border-color: navy; /* make the default button prominent */
- }</string>
+                     <string notr="true">
+</string>
                     </property>
                     <property name="text">
                      <string/>
@@ -2509,7 +2364,35 @@ QPushButton:disabled{ background-color: #CCCCCC; }
      border-radius: 10px; 
     color: rgb(80, 80, 80);
     background-color: rgb(235, 235, 240);
- } </string>
+ } 
+
+ QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 10px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+     min-width: 90px;
+ }
+
+QPushButton:focus:pressed{
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #F0FFF0, stop: 1 #f6f7fa);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
                  </property>
                  <property name="title">
                   <string/>
@@ -2548,34 +2431,7 @@ pumpsOff()&lt;br/&gt;
 &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="styleSheet">
-                     <string notr="true"> QPushButton {
-     border: 1px solid #8f8f91;
-     border-radius: 10px;
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
-     min-width: 90px;
- }
-
-
- QPushButton:pressed {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
- }
-
- QPushButton:hover {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
- }
-
-QPushButton:disabled{ background-color: #CCCCCC; }
-
- QPushButton:flat {
-     border: none; /* no border for a flat push button */
- }
-
- QPushButton:default {
-     border-color: navy; /* make the default button prominent */
- }</string>
+                     <string notr="true"/>
                     </property>
                     <property name="text">
                      <string/>
@@ -2589,6 +2445,12 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                       <width>60</width>
                       <height>60</height>
                      </size>
+                    </property>
+                    <property name="checkable">
+                     <bool>false</bool>
+                    </property>
+                    <property name="checked">
+                     <bool>false</bool>
                     </property>
                    </widget>
                   </item>
@@ -2604,34 +2466,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                      <string>New tip button</string>
                     </property>
                     <property name="styleSheet">
-                     <string notr="true"> QPushButton {
-     border: 1px solid #8f8f91;
-     border-radius: 10px;
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
-     min-width: 90px;
- }
-
-
- QPushButton:pressed {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
- }
-
- QPushButton:hover {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
- }
-
-QPushButton:disabled{ background-color: #CCCCCC; }
-
- QPushButton:flat {
-     border: none; /* no border for a flat push button */
- }
-
- QPushButton:default {
-     border-color: navy; /* make the default button prominent */
- }</string>
+                     <string notr="true"/>
                     </property>
                     <property name="text">
                      <string/>
@@ -2671,34 +2506,7 @@ closeAllValves()&lt;br/&gt;
 &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="styleSheet">
-                     <string notr="true"> QPushButton {
-     border: 1px solid #8f8f91;
-     border-radius: 10px;
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
-     min-width: 90px;
- }
-
-
- QPushButton:pressed {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
- }
-
- QPushButton:hover {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
- }
-
-QPushButton:disabled{ background-color: #CCCCCC; }
-
- QPushButton:flat {
-     border: none; /* no border for a flat push button */
- }
-
- QPushButton:default {
-     border-color: navy; /* make the default button prominent */
- }</string>
+                     <string notr="true"/>
                     </property>
                     <property name="text">
                      <string/>
@@ -2731,34 +2539,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
 &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="styleSheet">
-                     <string notr="true"> QPushButton {
-     border: 1px solid #8f8f91;
-     border-radius: 10px;
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
-     min-width: 90px;
- }
-
-
- QPushButton:pressed {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
- }
-
- QPushButton:hover {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
- }
-
-QPushButton:disabled{ background-color: #CCCCCC; }
-
- QPushButton:flat {
-     border: none; /* no border for a flat push button */
- }
-
- QPushButton:default {
-     border-color: navy; /* make the default button prominent */
- }</string>
+                     <string notr="true"/>
                     </property>
                     <property name="text">
                      <string/>
@@ -2886,34 +2667,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Run macro runs the macro that can be loaded in the tools window&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="styleSheet">
-                     <string notr="true"> QPushButton {
-     border: 1px solid #8f8f91;
-     border-radius: 10px;
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
-     min-width: 90px;
- }
-
-
- QPushButton:pressed {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
- }
-
- QPushButton:hover {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
- }
-
-QPushButton:disabled{ background-color: #CCCCCC; }
-
- QPushButton:flat {
-     border: none; /* no border for a flat push button */
- }
-
- QPushButton:default {
-     border-color: navy; /* make the default button prominent */
- }</string>
+                     <string notr="true"/>
                     </property>
                     <property name="text">
                      <string/>
@@ -3336,7 +3090,39 @@ QCheckBox::indicator:unchecked {
     color: rgb(80, 80, 80);
     background-color: rgb(235, 235, 240);
    /* background-color: rgb(235, 240, 235);*/
- } </string>
+ } 
+
+ QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 10px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+     min-width: 50px;
+	 min-height: 50px;
+     max-width: 50px;
+	 max-height: 50px;
+ }
+
+
+ QPushButton:focus:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #F0FFF0, stop: 1 #f6f7fa);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
            </property>
            <property name="title">
             <string/>
@@ -3387,37 +3173,7 @@ QCheckBox::indicator:unchecked {
                <string>Fine tuning: single step increment</string>
               </property>
               <property name="styleSheet">
-               <string notr="true"> QPushButton {
-     border: 1px solid #8f8f91;
-     border-radius: 10px;
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
-     min-width: 50px;
-	 min-height: 50px;
-     max-width: 50px;
-	 max-height: 50px;
- }
-
-
- QPushButton:pressed {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
- }
-
- QPushButton:hover {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
- }
-
-QPushButton:disabled{ background-color: #CCCCCC; }
-
- QPushButton:flat {
-     border: none; /* no border for a flat push button */
- }
-
- QPushButton:default {
-     border-color: navy; /* make the default button prominent */
- }</string>
+               <string notr="true"/>
               </property>
               <property name="text">
                <string/>
@@ -3581,37 +3337,7 @@ border:0px solid white;
                <string>Fine tuning: single step decrement</string>
               </property>
               <property name="styleSheet">
-               <string notr="true"> QPushButton {
-     border: 1px solid #8f8f91;
-     border-radius: 10px;
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
-     min-width: 50px;
-	 min-height: 50px;
-     max-width: 50px;
-	 max-height: 50px;
- }
-
-
- QPushButton:pressed {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
- }
-
- QPushButton:hover {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
- }
-
-QPushButton:disabled{ background-color: #CCCCCC; }
-
- QPushButton:flat {
-     border: none; /* no border for a flat push button */
- }
-
- QPushButton:default {
-     border-color: navy; /* make the default button prominent */
- }</string>
+               <string notr="true"/>
               </property>
               <property name="text">
                <string/>
@@ -3873,7 +3599,39 @@ border-radius: 4px;
     color: rgb(80, 80, 80);
     background-color: rgb(235, 235, 240);
    /* background-color: rgb(235, 240, 235);*/
- } </string>
+ } 
+
+ QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 10px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+     min-width: 50px;
+	 min-height: 50px;
+     max-width: 50px;
+	 max-height: 50px;
+ }
+
+
+ QPushButton:focus:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #F0FFF0, stop: 1 #f6f7fa);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
            </property>
            <property name="title">
             <string/>
@@ -4217,37 +3975,7 @@ border:0px solid white;
                <string>Fine tuning: single step increment</string>
               </property>
               <property name="styleSheet">
-               <string notr="true"> QPushButton {
-     border: 1px solid #8f8f91;
-     border-radius: 10px;
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
-     min-width: 50px;
-	 min-height: 50px;
-     max-width: 50px;
-	 max-height: 50px;
- }
-
-
- QPushButton:pressed {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
- }
-
- QPushButton:hover {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
- }
-
-QPushButton:disabled{ background-color: #CCCCCC; }
-
- QPushButton:flat {
-     border: none; /* no border for a flat push button */
- }
-
- QPushButton:default {
-     border-color: navy; /* make the default button prominent */
- }</string>
+               <string notr="true"/>
               </property>
               <property name="text">
                <string/>
@@ -4311,37 +4039,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                <string>Fine tuning: single step decrement</string>
               </property>
               <property name="styleSheet">
-               <string notr="true"> QPushButton {
-     border: 1px solid #8f8f91;
-     border-radius: 10px;
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
-     min-width: 50px;
-	 min-height: 50px;
-     max-width: 50px;
-	 max-height: 50px;
- }
-
-
- QPushButton:pressed {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
- }
-
- QPushButton:hover {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
- }
-
-QPushButton:disabled{ background-color: #CCCCCC; }
-
- QPushButton:flat {
-     border: none; /* no border for a flat push button */
- }
-
- QPushButton:default {
-     border-color: navy; /* make the default button prominent */
- }</string>
+               <string notr="true"/>
               </property>
               <property name="text">
                <string/>
@@ -4398,7 +4096,39 @@ QPushButton:disabled{ background-color: #CCCCCC; }
     background-color: rgb(235, 235, 240);
    /* background-color: rgb(235, 240, 235);*/
  } 
-   </string>
+   
+
+ QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 10px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+     min-width: 50px;
+	 min-height: 50px;
+     max-width: 50px;
+	 max-height: 50px;
+ }
+
+
+ QPushButton:focus:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #F0FFF0, stop: 1 #f6f7fa);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
            </property>
            <property name="title">
             <string/>
@@ -4628,37 +4358,7 @@ border-top-left-radius: 5px;
                <string>Fine tuning: single step increment</string>
               </property>
               <property name="styleSheet">
-               <string notr="true"> QPushButton {
-     border: 1px solid #8f8f91;
-     border-radius: 10px;
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
-     min-width: 50px;
-	 min-height: 50px;
-     max-width: 50px;
-	 max-height: 50px;
- }
-
-
- QPushButton:pressed {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
- }
-
- QPushButton:hover {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
- }
-
-QPushButton:disabled{ background-color: #CCCCCC; }
-
- QPushButton:flat {
-     border: none; /* no border for a flat push button */
- }
-
- QPushButton:default {
-     border-color: navy; /* make the default button prominent */
- }</string>
+               <string notr="true"/>
               </property>
               <property name="text">
                <string/>
@@ -4792,37 +4492,7 @@ border:0px solid white;
                <string>Fine tuning: single step decrement</string>
               </property>
               <property name="styleSheet">
-               <string notr="true"> QPushButton {
-     border: 1px solid #8f8f91;
-     border-radius: 10px;
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
-     min-width: 50px;
-	 min-height: 50px;
-     max-width: 50px;
-	 max-height: 50px;
- }
-
-
- QPushButton:pressed {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
- }
-
- QPushButton:hover {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
- }
-
-QPushButton:disabled{ background-color: #CCCCCC; }
-
- QPushButton:flat {
-     border: none; /* no border for a flat push button */
- }
-
- QPushButton:default {
-     border-color: navy; /* make the default button prominent */
- }</string>
+               <string notr="true"/>
               </property>
               <property name="text">
                <string/>
@@ -4872,7 +4542,39 @@ QPushButton:disabled{ background-color: #CCCCCC; }
     color: rgb(80, 80, 80);
     background-color: rgb(235, 235, 240);
    /* background-color: rgb(235, 240, 235);*/
- } </string>
+ } 
+
+ QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 10px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+     min-width: 50px;
+	 min-height: 50px;
+     max-width: 50px;
+	 max-height: 50px;
+ }
+
+
+ QPushButton:focus:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #F0FFF0, stop: 1 #f6f7fa);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
            </property>
            <property name="title">
             <string/>
@@ -4973,37 +4675,7 @@ border-top-left-radius: 5px;
                <string>Fine tuning: single step increment</string>
               </property>
               <property name="styleSheet">
-               <string notr="true"> QPushButton {
-     border: 1px solid #8f8f91;
-     border-radius: 10px;
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
-     min-width: 50px;
-	 min-height: 50px;
-     max-width: 50px;
-	 max-height: 50px;
- }
-
-
- QPushButton:pressed {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
- }
-
- QPushButton:hover {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
- }
-
-QPushButton:disabled{ background-color: #CCCCCC; }
-
- QPushButton:flat {
-     border: none; /* no border for a flat push button */
- }
-
- QPushButton:default {
-     border-color: navy; /* make the default button prominent */
- }</string>
+               <string notr="true"/>
               </property>
               <property name="text">
                <string/>
@@ -5266,37 +4938,7 @@ border-radius: 4px;
                <string>Fine tuning: single step decrement</string>
               </property>
               <property name="styleSheet">
-               <string notr="true"> QPushButton {
-     border: 1px solid #8f8f91;
-     border-radius: 10px;
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
-     min-width: 50px;
-	 min-height: 50px;
-     max-width: 50px;
-	 max-height: 50px;
- }
-
-
- QPushButton:pressed {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
- }
-
- QPushButton:hover {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
- }
-
-QPushButton:disabled{ background-color: #CCCCCC; }
-
- QPushButton:flat {
-     border: none; /* no border for a flat push button */
- }
-
- QPushButton:default {
-     border-color: navy; /* make the default button prominent */
- }</string>
+               <string notr="true"/>
               </property>
               <property name="text">
                <string/>
@@ -5339,9 +4981,9 @@ QPushButton:disabled{ background-color: #CCCCCC; }
  }
 
 
- QPushButton:pressed {
+ QPushButton:focus:pressed {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+                                       stop: 0 #F0FFF0, stop: 1 #f6f7fa);
  }
 
  QPushButton:hover {
@@ -5891,9 +5533,9 @@ p, li { white-space: pre-wrap; }
  }
 
 
- QPushButton:pressed {
+ QPushButton:focus:pressed {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #f6ff5a);
+                                       stop: 0 #F0FFF0, stop: 1 #f6f7fa);
  }
 
  QPushButton:hover {
