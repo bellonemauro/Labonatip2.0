@@ -94,7 +94,7 @@ QRadioButton::indicator:unchecked {
           </font>
          </property>
          <property name="currentIndex">
-          <number>1</number>
+          <number>3</number>
          </property>
          <widget class="QWidget" name="page">
           <layout class="QGridLayout" name="gridLayout_3">
@@ -982,8 +982,8 @@ QPushButton:disabled{ background-color: #CCCCCC; }
               <string>Standard initialization protocol</string>
              </property>
              <property name="icon">
-              <iconset>
-               <normaloff>icons/newTip.png</normaloff>icons/newTip.png</iconset>
+              <iconset resource="resources.qrc">
+               <normaloff>:/icons/newTip.png</normaloff>:/icons/newTip.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -1025,8 +1025,8 @@ QPushButton:disabled{ background-color: #CCCCCC; }
               <string>Custom initialization</string>
              </property>
              <property name="icon">
-              <iconset>
-               <normaloff>icons/custom.png</normaloff>icons/custom.png</iconset>
+              <iconset resource="resources.qrc">
+               <normaloff>:/icons/custom.png</normaloff>:/icons/custom.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -1042,8 +1042,8 @@ QPushButton:disabled{ background-color: #CCCCCC; }
               <string>Ok as it is, do nothing</string>
              </property>
              <property name="icon">
-              <iconset>
-               <normaloff>icons/success.png</normaloff>icons/success.png</iconset>
+              <iconset resource="resources.qrc">
+               <normaloff>:/icons/success.png</normaloff>:/icons/success.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -2106,7 +2106,7 @@ QPushButton:checked{
         <property name="icon">
          <iconset>
           <normaloff>icons/home.png</normaloff>
-          <disabledoff>icons/home.png</disabledoff>icons/home.png</iconset>
+          <disabledoff>:/icons/home.png</disabledoff>icons/home.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -2170,9 +2170,9 @@ QPushButton:checked{
          <string/>
         </property>
         <property name="icon">
-         <iconset>
-          <normaloff>icons/init.png</normaloff>
-          <disabledoff>icons/init.png</disabledoff>icons/init.png</iconset>
+         <iconset resource="resources.qrc">
+          <normaloff>:/icons/init.png</normaloff>
+          <disabledoff>:/icons/init.png</disabledoff>:/icons/init.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -2289,9 +2289,9 @@ QPushButton:checked{
          <string/>
         </property>
         <property name="icon">
-         <iconset>
-          <normaloff>icons/save_orange.png</normaloff>
-          <disabledoff>icons/save_orange.png</disabledoff>icons/save_orange.png</iconset>
+         <iconset resource="resources.qrc">
+          <normaloff>:/icons/save_orange.png</normaloff>
+          <disabledoff>:/icons/save_orange.png</disabledoff>:/icons/save_orange.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -2359,9 +2359,9 @@ QPushButton:checked{
          <string/>
         </property>
         <property name="icon">
-         <iconset>
-          <normaloff>icons/success.png</normaloff>
-          <disabledoff>icons/success.png</disabledoff>icons/success.png</iconset>
+         <iconset resource="resources.qrc">
+          <normaloff>:/icons/success.png</normaloff>
+          <disabledoff>:/icons/success.png</disabledoff>:/icons/success.png</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -2395,6 +2395,8 @@ QPushButton:checked{
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

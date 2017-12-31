@@ -576,6 +576,7 @@ void Labonatip_GUI::updateFlows()
 	flow_rate_8 = inflow_recirculation / 2.0;
 
 	in_out_ratio = outflow / inflow_recirculation;
+	if (isnan(in_out_ratio)) in_out_ratio = 0;
 
 	ui->treeWidget_macroInfo->topLevelItem(0)->setText(1,
 		QString::number(outflow, 'g', 3));

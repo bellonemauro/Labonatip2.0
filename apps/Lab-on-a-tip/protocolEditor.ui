@@ -413,8 +413,8 @@ QPushButton:disabled{ background-color: #CCCCCC; }
               <string/>
              </property>
              <property name="icon">
-              <iconset>
-               <normaloff>icons/plus.png</normaloff>icons/plus.png</iconset>
+              <iconset resource="resources.qrc">
+               <normaloff>:/icons/plus.png</normaloff>:/icons/plus.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -442,8 +442,8 @@ QPushButton:disabled{ background-color: #CCCCCC; }
               <string/>
              </property>
              <property name="icon">
-              <iconset>
-               <normaloff>icons/duplicate.png</normaloff>icons/duplicate.png</iconset>
+              <iconset resource="resources.qrc">
+               <normaloff>:/icons/duplicate.png</normaloff>:/icons/duplicate.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -483,8 +483,8 @@ QPushButton:disabled{ background-color: #CCCCCC; }
               <string/>
              </property>
              <property name="icon">
-              <iconset>
-               <normaloff>icons/indentPlus.png</normaloff>icons/indentPlus.png</iconset>
+              <iconset resource="resources.qrc">
+               <normaloff>:/icons/indentPlus.png</normaloff>:/icons/indentPlus.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -529,8 +529,8 @@ QPushButton:disabled{ background-color: #CCCCCC; }
               <string/>
              </property>
              <property name="icon">
-              <iconset>
-               <normaloff>icons/minus.png</normaloff>icons/minus.png</iconset>
+              <iconset resource="resources.qrc">
+               <normaloff>:/icons/minus.png</normaloff>:/icons/minus.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -575,8 +575,8 @@ QPushButton:disabled{ background-color: #CCCCCC; }
               <string/>
              </property>
              <property name="icon">
-              <iconset>
-               <normaloff>icons/clearAll.png</normaloff>icons/clearAll.png</iconset>
+              <iconset resource="resources.qrc">
+               <normaloff>:/icons/clearAll.png</normaloff>:/icons/clearAll.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -621,8 +621,8 @@ QPushButton:disabled{ background-color: #CCCCCC; }
               <string/>
              </property>
              <property name="icon">
-              <iconset>
-               <normaloff>icons/upArrow.png</normaloff>icons/upArrow.png</iconset>
+              <iconset resource="resources.qrc">
+               <normaloff>:/icons/upArrow.png</normaloff>:/icons/upArrow.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -667,8 +667,8 @@ QPushButton:disabled{ background-color: #CCCCCC; }
               <string/>
              </property>
              <property name="icon">
-              <iconset>
-               <normaloff>icons/downArrow.png</normaloff>icons/downArrow.png</iconset>
+              <iconset resource="resources.qrc">
+               <normaloff>:/icons/downArrow.png</normaloff>:/icons/downArrow.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -720,8 +720,8 @@ QPushButton:disabled{ background-color: #CCCCCC; }
               <string/>
              </property>
              <property name="icon">
-              <iconset>
-               <normaloff>icons/indentUp.png</normaloff>icons/indentUp.png</iconset>
+              <iconset resource="resources.qrc">
+               <normaloff>:/icons/indentUp.png</normaloff>:/icons/indentUp.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -760,8 +760,8 @@ QPushButton:disabled{ background-color: #CCCCCC; }
               <string/>
              </property>
              <property name="icon">
-              <iconset>
-               <normaloff>icons/indent.png</normaloff>icons/indent.png</iconset>
+              <iconset resource="resources.qrc">
+               <normaloff>:/icons/indent.png</normaloff>:/icons/indent.png</iconset>
              </property>
              <property name="iconSize">
               <size>
@@ -1188,8 +1188,8 @@ QPushButton:disabled{ background-color: #CCCCCC; }
            <string/>
           </property>
           <property name="icon">
-           <iconset>
-            <normaloff>icons/open.png</normaloff>icons/open.png</iconset>
+           <iconset resource="resources.qrc">
+            <normaloff>:/icons/open.png</normaloff>:/icons/open.png</iconset>
           </property>
          </widget>
         </item>
@@ -1482,8 +1482,8 @@ QPushButton:disabled{ background-color: #CCCCCC; }
   </widget>
   <action name="actionSave">
    <property name="icon">
-    <iconset>
-     <normaloff>icons/save.png</normaloff>icons/save.png</iconset>
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/save.png</normaloff>:/icons/save.png</iconset>
    </property>
    <property name="text">
     <string>Save</string>
@@ -1491,8 +1491,8 @@ QPushButton:disabled{ background-color: #CCCCCC; }
   </action>
   <action name="actionLoad">
    <property name="icon">
-    <iconset>
-     <normaloff>icons/open.png</normaloff>icons/open.png</iconset>
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/open.png</normaloff>:/icons/open.png</iconset>
    </property>
    <property name="text">
     <string>Load</string>
@@ -1500,8 +1500,8 @@ QPushButton:disabled{ background-color: #CCCCCC; }
   </action>
   <action name="actionWizard">
    <property name="icon">
-    <iconset>
-     <normaloff>icons/wand.png</normaloff>icons/wand.png</iconset>
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/wand.png</normaloff>:/icons/wand.png</iconset>
    </property>
    <property name="text">
     <string>Wizard</string>
@@ -1509,8 +1509,8 @@ QPushButton:disabled{ background-color: #CCCCCC; }
   </action>
   <action name="actionPlus">
    <property name="icon">
-    <iconset>
-     <normaloff>icons/plus.png</normaloff>icons/plus.png</iconset>
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/plus.png</normaloff>:/icons/plus.png</iconset>
    </property>
    <property name="text">
     <string>Plus</string>
@@ -1518,8 +1518,8 @@ QPushButton:disabled{ background-color: #CCCCCC; }
   </action>
   <action name="actionDuplicate">
    <property name="icon">
-    <iconset>
-     <normaloff>icons/duplicate.png</normaloff>icons/duplicate.png</iconset>
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/duplicate.png</normaloff>:/icons/duplicate.png</iconset>
    </property>
    <property name="text">
     <string>Duplicate</string>
@@ -1527,8 +1527,8 @@ QPushButton:disabled{ background-color: #CCCCCC; }
   </action>
   <action name="actionIndent">
    <property name="icon">
-    <iconset>
-     <normaloff>icons/indentPlus.png</normaloff>icons/indentPlus.png</iconset>
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/indentPlus.png</normaloff>:/icons/indentPlus.png</iconset>
    </property>
    <property name="text">
     <string>Indent</string>
@@ -1536,8 +1536,8 @@ QPushButton:disabled{ background-color: #CCCCCC; }
   </action>
   <action name="actionMinus">
    <property name="icon">
-    <iconset>
-     <normaloff>icons/minus.png</normaloff>icons/minus.png</iconset>
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/minus.png</normaloff>:/icons/minus.png</iconset>
    </property>
    <property name="text">
     <string>Minus</string>
@@ -1545,8 +1545,8 @@ QPushButton:disabled{ background-color: #CCCCCC; }
   </action>
   <action name="actionClear">
    <property name="icon">
-    <iconset>
-     <normaloff>icons/clearAll.png</normaloff>icons/clearAll.png</iconset>
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/clearAll.png</normaloff>:/icons/clearAll.png</iconset>
    </property>
    <property name="text">
     <string>Clear</string>
@@ -1554,8 +1554,8 @@ QPushButton:disabled{ background-color: #CCCCCC; }
   </action>
   <action name="actionDown">
    <property name="icon">
-    <iconset>
-     <normaloff>icons/downArrow.png</normaloff>icons/downArrow.png</iconset>
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/downArrow.png</normaloff>:/icons/downArrow.png</iconset>
    </property>
    <property name="text">
     <string>Down</string>
@@ -1563,14 +1563,16 @@ QPushButton:disabled{ background-color: #CCCCCC; }
   </action>
   <action name="actionUp">
    <property name="icon">
-    <iconset>
-     <normaloff>icons/upArrow.png</normaloff>icons/upArrow.png</iconset>
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/upArrow.png</normaloff>:/icons/upArrow.png</iconset>
    </property>
    <property name="text">
     <string>Up</string>
    </property>
   </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections/>
 </ui>
