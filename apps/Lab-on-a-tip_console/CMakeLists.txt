@@ -18,6 +18,8 @@ FILE(GLOB myProject_HEADERS "${PROJECT_SOURCE_DIR}/*.h")
 FILE(GLOB myProject_SOURCES "${PROJECT_SOURCE_DIR}/*.cpp")  
 # select all files for the graphical interface
 FILE(GLOB myProject_FORMS "${PROJECT_SOURCE_DIR}/*.ui")  
+# select all files for the resources
+FILE(GLOB myProject_UI_RESOURCES "${PROJECT_SOURCE_DIR}/*.qrc")
 
 SET (ENABLE_WINDEPLOYQT 0 CACHE BOOL "Set to 1 to activate deployment of QT apps, 0 by default" )
 
@@ -29,26 +31,6 @@ ENDIF()
 # this is necessary to find in the code the ui____.h file built in the build folder
 include_directories(${PROJECT_BINARY_DIR}) 
 
-# copy icons and configuration files to the building folder
-if(MSVC)	
-
-  FILE(GLOB myProject_SETTINGS "${PROJECT_SOURCE_DIR}/icons/*.*") 
-  #install (FILES  ${myProject_ICONS}  DESTINATION bin/icons)
-  FOREACH(F ${myProject_SETTINGS})
-	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/icons/)
-	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Debug/icons/)
-  ENDFOREACH(F)
-  
-elseif( NOT MSVC)	
-
-  FILE(GLOB myProject_SETTINGS "${PROJECT_SOURCE_DIR}/icons/*.*") 
-  #install (FILES  ${myProject_ICONS}  DESTINATION bin/icons)
-  FOREACH(F ${myProject_SETTINGS})
-	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/icons/)
-	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/icons/)
-  ENDFOREACH(F)
-  
-endif()
 
 # Add options to build specific targets
 option(BUILD_QT5 "Build support with QT 5" "ON") #this will be removed as qt4 will be no longer supported
@@ -84,6 +66,9 @@ elseif(  BUILD_QT5)
 
 	QT5_WRAP_UI(myProject_FORMS_HEADERS ${myProject_FORMS})
 
+	#this allows the executable to encode all the icons 
+    QT5_ADD_RESOURCES(UI_RESOURCES_RCC ${myProject_UI_RESOURCES})
+	
 	if ( ENABLE_verbose )
 		message (STATUS "${PROJECT_NAME} MESSAGE: myProject_FORMS_HEADERS  :: ${myProject_FORMS_HEADERS} ")
 	endif ( ENABLE_verbose )
@@ -91,7 +76,7 @@ elseif(  BUILD_QT5)
 	add_definitions (${QT_DEFINITIONS})   #required to use QT and gui
 
 	add_executable (${PROJECT_NAME}  	${myProject_SOURCES} ${myProject_HEADERS}
-									${myProject_FORMS_HEADERS})
+									${myProject_FORMS_HEADERS} ${UI_RESOURCES_RCC})
 	qt5_use_modules(${PROJECT_NAME} Widgets)
 
     target_link_libraries ( ${PROJECT_NAME}  ${QT_LIBRARIES} ${Qt5SerialPort_LIBRARIES})
