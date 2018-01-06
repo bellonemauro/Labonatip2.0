@@ -238,7 +238,7 @@ int main(int argc, char **argv)//(int argc, char *argv[])
 
 	  // show the slashscreen
 	  QSplashScreen *s = new QSplashScreen();
-	  s->setPixmap(QPixmap("./icons/splash_screen.png"));
+	  s->setPixmap(QPixmap(":/icons/splash_screen.png"));  //TODO: the splash screen is not found
 	  s->show();
 	  QTimer::singleShot(5000, s, SLOT(close()));
 

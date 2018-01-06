@@ -11,36 +11,29 @@
 #include "Lab-on-a-tip.h"
 
 
-void Labonatip_GUI::openFile() {
+void Labonatip_GUI::openSettingsFile() {  // open setting file
 
 	cout << QDate::currentDate().toString().toStdString() << "  "
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_GUI::openFile    " << endl;
 
-	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
 	QString _path = QFileDialog::getOpenFileName(this, tr("Open Settings file"), m_settings_path,  // dialog to open files
 		"Settings file (*.ini);; All Files(*.*)", 0);
 
 	if (_path.isEmpty()) {
-		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-
-    QMessageBox::information(this, "Information ", "No file loaded ! <br>" + _path);
+        QMessageBox::information(this, "Information ", "No file loaded ! <br>" + _path);
 		return;
 	}
 
 	if (!m_dialog_tools->setLoadSettingsFileName(_path)) {
-		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 		QMessageBox::warning(this, "Warning ", "Cannot load the file ! <br>" + _path);
 		return;
 	}
 
 	toolApply();
-
-	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-
 }
 
-void Labonatip_GUI::saveFile() {
+void Labonatip_GUI::saveSettingsFile() {
 
 	cout << QDate::currentDate().toString().toStdString() << "  "
 		<< QTime::currentTime().toString().toStdString() << "  "

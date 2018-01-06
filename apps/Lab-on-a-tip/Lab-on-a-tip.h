@@ -228,12 +228,6 @@ private slots:
 	*/
 	void setAsDefault();
 
-	/** \brief Put to zero the indicators
-	*
-	* \note
-	*/
-	void resetWells();
-
 	/** \brief Increase/reduce the area for the solution depiction
 	*
 	* \note
@@ -401,7 +395,7 @@ private slots:
 	*  
 	* \note
 	*/
-	void openFile();
+	void openSettingsFile();
 
 	/** \brief save the settings to a file
 	*
@@ -409,7 +403,7 @@ private slots:
 	*
 	* \note
 	*/
-	void saveFile();
+	void saveSettingsFile();
 
 	/** \brief This function shows a tool dialog,
 	*        all the settings must be implemented here

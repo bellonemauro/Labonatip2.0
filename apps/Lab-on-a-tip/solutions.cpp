@@ -398,20 +398,6 @@ void Labonatip_GUI::pushSolution4() {
 
 }
 
-void Labonatip_GUI::resetWells() {
-
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::resetWells   " << endl;
-
-
-	ui->progressBar_solution1->setValue(100);
-	ui->progressBar_solution2->setValue(100);
-	ui->progressBar_solution3->setValue(100);
-	ui->progressBar_solution4->setValue(100);
-}
-
-
 
 void Labonatip_GUI::updateTimingSliders()
 {

@@ -148,10 +148,8 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   radialGradient_green.setColorAt(0.5, 0x30D030);
   radialGradient_green.setColorAt(1.0, Qt::transparent);
   painter_led_green->setBackground(Qt::blue);
-  //painter_led_green->setBrush(Qt::green);
   painter_led_green->setBrush(radialGradient_green);
   painter_led_green->setPen(Qt::gray);
-
   painter_led_green->drawEllipse(2, 2, 16, 16);
 
   led_red->fill(Qt::transparent);
@@ -231,14 +229,11 @@ void Labonatip_GUI::updateMacroStatusMessage(const QString &_message) {
 	s.append(m_dialog_p_editor->getProtocolPath());
 	s.append(" >>> remaining time = ");
 	
-
-	//ui->statusBar->showMessage(s);
 	s.append(_message);
 	cout << QDate::currentDate().toString().toStdString() << "  " 
 		 << QTime::currentTime().toString().toStdString() << "  "
 		 << "Labonatip_GUI::updateMacroStatusMessage :::: " 
 		 << _message.toStdString() << endl;
-
 }
 
 
@@ -309,8 +304,6 @@ void Labonatip_GUI::pumpingOff() {
 	//this will stop the solution flow 
 	m_timer_solution = std::numeric_limits<int>::max();
 
-	// reset the wells
-	resetWells();
 }
 
 
@@ -321,15 +314,12 @@ void Labonatip_GUI::closeAllValves() {
 		 << "Labonatip_GUI::closeAllValves   " << endl;
 
 	if (m_pipette_active) {
-
 		m_ppc1->closeAllValves();
 	}
 
 	//this will stop the solution flow 
 	m_timer_solution = std::numeric_limits<int>::max();
 
-	// reset the wells
-	//resetWells();
 }
 
 
@@ -443,7 +433,6 @@ void Labonatip_GUI::updateDrawing( int _value) {
 
 	return;
 }
-
 
 
 void Labonatip_GUI::setAsDefault()
@@ -586,8 +575,6 @@ void Labonatip_GUI::updateFlows()
 		QString::number(inflow_switch, 'g', 4));
 	ui->treeWidget_macroInfo->topLevelItem(3)->setText(1,
 		QString::number(in_out_ratio, 'g', 2));
-	
-
 	ui->treeWidget_macroInfo->topLevelItem(4)->setText(1,
 		QString::number(flow_rate_1, 'g', 2));
 	ui->treeWidget_macroInfo->topLevelItem(5)->setText(1, 
@@ -702,8 +689,6 @@ void Labonatip_GUI::updateWaste()
 		//	ui->treeWidget_macroInfo->topLevelItem(7)->text(1).toDouble();
 	}
 
-
-
 	m_solutionParams->rem_vol_well5 = m_solutionParams->rem_vol_well5 + 
 		0.001 * ui->treeWidget_macroInfo->topLevelItem(8)->text(1).toDouble();
 	m_solutionParams->rem_vol_well6 = m_solutionParams->rem_vol_well6 + 
@@ -775,9 +760,6 @@ void Labonatip_GUI::updateWaste()
 	}
 	}
 
-
-
-
 	int v = m_solutionParams->rem_vol_well1 * 10;
 	double value = v / 10.0;
 	ui->treeWidget_macroInfo->topLevelItem(12)->setText(1, QString::number(value));
@@ -814,9 +796,6 @@ void Labonatip_GUI::updateWaste()
 
 	value = 100 - (m_solutionParams->vol_well8 - m_solutionParams->rem_vol_well8) * 100 / m_solutionParams->vol_well8; 
 	ui->progressBar_recircIn->setValue(value);
-
-
-
 
 	QString s;
 
@@ -970,12 +949,11 @@ void Labonatip_GUI::initConnects()
 
 	connect(ui->actionLoad_profile, 
 		SIGNAL(triggered()), this, 
-		SLOT(openFile()));
-
+		SLOT(openSettingsFile()));
 
 	connect(ui->actionSave_profile,
 		SIGNAL(triggered()), this, 
-		SLOT(saveFile()));
+		SLOT(saveSettingsFile()));
 
 	connect(ui->actionAbout,
 		SIGNAL(triggered()), this, 
@@ -985,11 +963,9 @@ void Labonatip_GUI::initConnects()
 		SIGNAL(triggered()), this, 
 		SLOT(closeOpenDockTools()));
 
-
 	connect(ui->actionConnectDisconnect, 
 		SIGNAL(triggered()), this, 
 		SLOT(disCon()));
-
 
 	connect(ui->actionSimulation,
 		SIGNAL(triggered()), this, 
@@ -1007,7 +983,6 @@ void Labonatip_GUI::initConnects()
 //		SIGNAL(triggered()), this, 
 //		SLOT(ewst()));
 
-	// connect buttons
 	connect(ui->pushButton_p_on_down, 
 		SIGNAL(clicked()), this, 
 		SLOT(pressurePonDown()));
@@ -1059,7 +1034,6 @@ void Labonatip_GUI::initConnects()
 	connect(ui->pushButton_setValuesAsDefault, 
 		SIGNAL(clicked()), this, 
 		SLOT(setAsDefault()));
-
 
 	connect(ui->pushButton_dropSize_minus, 
 		SIGNAL(clicked()), this, 
@@ -1148,7 +1122,7 @@ void Labonatip_GUI::initConnects()
 
 	connect(m_dialog_p_editor,
 		SIGNAL(loadSettingsRequest()), this,
-		SLOT(openFile()));
+		SLOT(openSettingsFile()));
 
 	connect(m_dialog_p_editor,
 		SIGNAL(ok()), this,
@@ -1182,11 +1156,7 @@ void Labonatip_GUI::toolEmptyWells()
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_GUI::toolEmptyWells   " << endl;
 
-	//ui->progressBar_recircIn->setValue(0);
-	//ui->progressBar_recircOut->setValue(0);
-	//ui->progressBar_switchIn->setValue(0); 
-	//ui->progressBar_switchOut->setValue(0);
-
+	//TODO: this now is empty and it does not work
 	
 }
 
@@ -1197,7 +1167,6 @@ void Labonatip_GUI::toolOk() {
 		 << "Labonatip_GUI::toolOk   " << endl;
 
 	toolApply();
-
 }
 
 void Labonatip_GUI::toolApply()
@@ -1206,7 +1175,6 @@ void Labonatip_GUI::toolApply()
 	cout << QDate::currentDate().toString().toStdString() << "  " 
 		 << QTime::currentTime().toString().toStdString() << "  "
 		 << "Labonatip_GUI::toolApply   " << endl;
-
 
 	*m_comSettings = m_dialog_tools->getComSettings();
 	*m_solutionParams = m_dialog_tools->getSolutionsParams();
@@ -1225,37 +1193,6 @@ void Labonatip_GUI::toolApply()
 	ui->toolBar_3->update();
 
 	//switchLanguage(m_dialog_tools->language);
-
-	/////////////////////////////////////////
-	// TODO set all the other options
-	/*if (m_dialog_tools->isContinuousFlowing())
-	{
-		m_update_flowing_sliders->start();
-		QString s;
-		s.append("Well n in \n"); 
-		s.append("Continuous \n flowing");
-		ui->textEdit_emptyTime->setText(s);
-	}
-	else
-	{
-		QString s;
-		s.append("Well ");
-		if (m_flowing_solution=0)s.append("n"); 
-		else s.append(QString::number(m_flowing_solution));
-
-		s.append(" empty in \n");
-		int remaining_time_in_sec = (m_time_multipilcator - m_timer_solution);
-		int remaining_hours = floor(remaining_time_in_sec / 3600); // 3600 sec in a hour
-		int remaining_mins = floor((remaining_time_in_sec % 3600) / 60); // 60 minutes in a hour
-		int remaining_secs = remaining_time_in_sec - remaining_hours * 3600 - remaining_mins * 60; // 60 minutes in a hour
-		s.append(QString::number(remaining_hours));
-		s.append(" h, \n");
-		s.append(QString::number(remaining_mins));
-		s.append(" min \n");
-		s.append(QString::number(remaining_secs));
-		s.append(" sec ");
-	}*/
-
 
 }
 
@@ -1302,6 +1239,8 @@ void Labonatip_GUI::editorApply()
 	ui->label_duration->setText(s);
 
 }
+
+
 void Labonatip_GUI::setEnableMainWindow(bool _enable) {
 
 	ui->centralwidget->setEnabled(_enable);
@@ -1310,7 +1249,6 @@ void Labonatip_GUI::setEnableMainWindow(bool _enable) {
 	ui->toolBar_2->setEnabled(_enable);
 	ui->toolBar_3->setEnabled(_enable);
 }
-
 
 
 bool Labonatip_GUI::visualizeProgressMessage(int _seconds, QString _message)
@@ -1354,7 +1292,6 @@ bool Labonatip_GUI::visualizeProgressMessage(int _seconds, QString _message)
 
 }
 
-
 void Labonatip_GUI::ewst() {
 
 	cout << QDate::currentDate().toString().toStdString() << "  " 
@@ -1392,8 +1329,6 @@ void Labonatip_GUI::cleanHistory()
 		QMessageBox::question(this, "Information ", " History cleaned  ", "Ok");
 	}
 
-
-
 }
 
 void Labonatip_GUI::about() {
@@ -1417,8 +1352,6 @@ void Labonatip_GUI::about() {
 	messageBox.setIconPixmap(QPixmap("./icons/fluicell_iconBIG.ico"));
 	messageBox.setFixedSize(600, 800);
 }
-
-
 
 void Labonatip_GUI::closeEvent(QCloseEvent *event) {
 
