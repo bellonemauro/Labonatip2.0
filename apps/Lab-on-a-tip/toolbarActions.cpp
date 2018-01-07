@@ -39,28 +39,19 @@ void Labonatip_GUI::saveSettingsFile() {
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_GUI::saveFile    " << endl;
 
-	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
-	
 	QString _path = QFileDialog::getSaveFileName(this, tr("Save configuration file"), m_settings_path,  // dialog to open files
 		"Settings file (*.ini);; All Files(*.*)", 0);
 
-	if (_path.isEmpty()) {
-		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-												  
-	QMessageBox::information(this, "Information ", "No file saved ! <br>" + _path);
-	
+	if (_path.isEmpty()) { 
+	    QMessageBox::information(this, "Information ", "No file saved ! <br>" + _path);
 		return;
 	}
 
-	if (!m_dialog_tools->setSaveSettingsFileName(_path)) {
-		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
+	if (!m_dialog_tools->setFileNameAndSaveSettings(_path)) {
 		QMessageBox::warning(this, "Warning ", "Cannot save the file ! <br>" + _path);
 		return;
 	}
-
-	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 }
-
 
 
 void Labonatip_GUI::showToolsDialog() {
@@ -69,18 +60,11 @@ void Labonatip_GUI::showToolsDialog() {
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_GUI::showToolsDialog    " << endl;
 
-	//m_dialog_tools->setMacroPath(m_macro_path); //TODO: reset the macro path in case it is changed in the settings
-
-	//m_dialog_tools->setWindowFlags(Qt::WindowFullscreenButtonHint);
-	//m_dialog_tools->setWindowFlags(Qt::WindowStaysOnTopHint);
 	m_dialog_tools->setParent(this);
 	m_dialog_tools->setWindowFlags(Qt::Window);
-//	m_dialog_tools->setModal(true);
-	m_macro = new std::vector<fluicell::PPC1api::command>();
-	//m_dialog_tools->setMacroPrt(m_macro);
 	m_dialog_tools->show();
-
 }
+
 
 void Labonatip_GUI::showProtocolEditorDialog() {
 
@@ -88,37 +72,34 @@ void Labonatip_GUI::showProtocolEditorDialog() {
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_GUI::showProtocolEditorDialog    " << endl;
 
-	m_dialog_p_editor->setMacroPath(m_macro_path); //TODO: reset the macro path in case it is changed in the settings
+	m_dialog_p_editor->setMacroPath(m_protocol_path); //TODO: reset the path in case it is changed in the settings
 	m_dialog_p_editor->setPrParams(*m_pr_params);
 	m_dialog_p_editor->setSolParams(*m_solutionParams);
 
 	m_dialog_p_editor->setParent(this);
 	m_dialog_p_editor->setWindowFlags(Qt::Window);
 	//m_dialog_p_editor->setModal(true);
-	m_macro = new std::vector<fluicell::PPC1api::command>();
-	m_dialog_p_editor->setMacroPrt(m_macro);
+	m_dialog_p_editor->setMacroPrt(m_protocol);   //TODO: this is wrong, two classes act on the same memory location
 	m_dialog_p_editor->show();
-
 }
+
 
 void Labonatip_GUI::simulationOnly()
 {
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::simulationOnly    " << ui->actionSimulation->isChecked() << endl;
+
 	m_simulationOnly = ui->actionSimulation->isChecked();
 
 	ui->actionConnectDisconnect->setEnabled(!m_simulationOnly);
-	//ui->actionRun->setEnabled(!m_simulationOnly);
 	ui->actionReboot->setEnabled(!m_simulationOnly);
 	ui->actionShudown->setEnabled(!m_simulationOnly);
-	//ui->actionShutdown->setEnabled(!m_simulationOnly);
 	m_macroRunner_thread->setSimulationFlag(m_simulationOnly);
-
-//	if (m_simulationOnly)ui->treeWidget_macroInfo->topLevelItem(0)->setText(1, "Simulation");
-//	else ui->treeWidget_macroInfo->topLevelItem(0)->setText(1, "PPC1");
-
 }
 
 
-void Labonatip_GUI::disCon() {
+void Labonatip_GUI::disCon() {   //TODO, add an argument to connect and disconnect
 
 	cout << QDate::currentDate().toString().toStdString() << "  "
 		<< QTime::currentTime().toString().toStdString() << "  "
@@ -128,18 +109,17 @@ void Labonatip_GUI::disCon() {
 
 	if (m_simulationOnly) {
 		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-		QMessageBox::information(this, "Warning ", "Lab-on-a-tip is in simulation only  ");
+		QMessageBox::information(this, "Warning ", "Lab-on-a-tip is in simulation only ");
 		return;
 	}
 
 	try
 	{
+		if (!m_ppc1->isRunning()) { // if not running already
 
-		if (!m_ppc1->isRunning()) {
+			if (!m_ppc1->isConnected())  // if not already connected
+				if (!m_ppc1->connectCOM()) {  // if the connection is NOT success
 
-			if (!m_ppc1->isConnected())
-				if (!m_ppc1->connectCOM()) {
-					//ui->statusBar->showMessage("STATUS: NOT Connected  ");
 					this->setStatusLed(false);
 					ui->status_PPC1_label->setText("PPC1 STATUS: NOT Connected  ");
 					ui->actionConnectDisconnect->setText("Connect");
@@ -148,17 +128,18 @@ void Labonatip_GUI::disCon() {
 					QMessageBox::information(this, "Warning ",
 						"Lab-on-a-tip could not connect to PPC1, \n please check cables and settings and press ok ");
 
+					// ask for a new attempt to connect
 					QMessageBox::StandardButton resBtn =
 						QMessageBox::question(this, "Lab-on-a-tip",
 							tr("I can try to automatically find the device, \n Should I do it?\n"),
 							QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
 							QMessageBox::Yes);
-					if (resBtn != QMessageBox::Yes) {
+					if (resBtn != QMessageBox::Yes) {  // if the answer is not YES
 						m_pipette_active = false;
 						ui->actionConnectDisconnect->setChecked(false);
 						return;
 					}
-					else {
+					else {  // new attempt to connect 
 						m_dialog_tools->updateDevices();
 						m_ppc1->setCOMport(m_comSettings->getName());
 						m_ppc1->setBaudRate((int)m_comSettings->getBaudRate());
@@ -171,32 +152,28 @@ void Labonatip_GUI::disCon() {
 							return;
 						}
 					}
-
-
 				}
-			QThread::msleep(500);
+			// if we are here the PPC1 is connected 
+			QThread::msleep(250);  // just to be sure that the device is properly running
 
 			m_ppc1->run();   // TODO: this is not the best way of running the device as it cannot handle exeptions
-			QThread::msleep(500);
-			if (m_ppc1->isRunning()) {
+			QThread::msleep(250);
+			if (m_ppc1->isRunning()) {  // if running, everything is fine
 				m_pipette_active = true;
 				ui->actionConnectDisconnect->setChecked(true);
 				m_update_GUI->start();
-				//ui->statusBar->showMessage("STATUS: Connected  ");
 				this->setStatusLed(true);
 				ui->status_PPC1_label->setText("PPC1 STATUS: Connected  ");
 				ui->actionConnectDisconnect->setText("Disconnect");
 				ui->actionSimulation->setEnabled(false);
 			}
-			else {
-				QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
+			else {  // otherwise something is wrong
 				QMessageBox::information(this, "Warning ",
-					"Lab-on-a-tip connected but not running on PPC1 ");
+					"Lab-on-a-tip connected but PPC1 is not running ");
+				QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 				m_ppc1->stop();
 				m_ppc1->disconnectCOM();
-
 				m_pipette_active = false;
-				//ui->statusBar->showMessage("STATUS: NOT Connected  ");
 				this->setStatusLed(false);
 				ui->status_PPC1_label->setText("PPC1 STATUS: NOT Connected  ");
 				ui->actionConnectDisconnect->setText("Connect");
@@ -204,9 +181,20 @@ void Labonatip_GUI::disCon() {
 				ui->actionConnectDisconnect->setChecked(false);
 				return;
 			}
-		} // if m_ppc1 not running 
-		else
+		}  
+		else // else if m_ppc1 is already running, we stop it (so we can use the same button to activate, deactivate)
 		{
+			// the used should confirm to stop the device
+			QMessageBox::StandardButton resBtn =
+				QMessageBox::question(this, "Lab-on-a-tip",
+					tr("This will stop the PPC1, \n Are you sure?\n"),
+					QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
+					QMessageBox::Yes);
+			if (resBtn != QMessageBox::Yes) {  // if the answer is not YES
+				return;
+			}
+
+			// stop the PPC1
 			m_ppc1->stop();
 			QThread::msleep(500);
 			if (m_ppc1->isConnected())
@@ -214,7 +202,6 @@ void Labonatip_GUI::disCon() {
 			QThread::msleep(500);
 
 			if (!m_ppc1->isRunning()) { // verify that it really stopped
-				//ui->statusBar->showMessage("STATUS: NOT Connected  ");
 				this->setStatusLed(false);
 				ui->status_PPC1_label->setText("PPC1 STATUS: NOT Connected  ");
 				ui->actionConnectDisconnect->setText("Connect");
@@ -224,7 +211,6 @@ void Labonatip_GUI::disCon() {
 			else {
 				ui->actionConnectDisconnect->setChecked(false);
 				m_update_GUI->stop();
-				//ui->statusBar->showMessage("STATUS: Connected  ");
 				this->setStatusLed(true);
 				ui->status_PPC1_label->setText("PPC1 STATUS: Connected  ");
 				ui->actionConnectDisconnect->setText("Disconnect");
@@ -235,7 +221,6 @@ void Labonatip_GUI::disCon() {
 				return;
 			}
 		}
-
 	}
 	catch (serial::IOException &e)
 	{
@@ -243,6 +228,7 @@ void Labonatip_GUI::disCon() {
 			<< QTime::currentTime().toString().toStdString() << "  "
 			<< " Labonatip_GUI::disCon ::: IOException : " << e.what() << endl;
 		//m_PPC1_serial->close();
+		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 		return;
 	}
 	catch (serial::PortNotOpenedException &e)
@@ -251,6 +237,7 @@ void Labonatip_GUI::disCon() {
 			<< QTime::currentTime().toString().toStdString() << "  "
 			<< " Labonatip_GUI::disCon ::: PortNotOpenedException : " << e.what() << endl;
 		//m_PPC1_serial->close();
+		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 		return;
 	}
 	catch (serial::SerialException &e)
@@ -259,6 +246,7 @@ void Labonatip_GUI::disCon() {
 			<< QTime::currentTime().toString().toStdString() << "  "
 			<< " Labonatip_GUI::disCon ::: SerialException : " << e.what() << endl;
 		//m_PPC1_serial->close();
+		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 		return;
 	}
 	catch (exception &e) {
@@ -266,9 +254,9 @@ void Labonatip_GUI::disCon() {
 			<< QTime::currentTime().toString().toStdString() << "  "
 			<< " Labonatip_GUI::disCon ::: Unhandled Exception: " << e.what() << endl;
 		//m_PPC1_serial->close();
+		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 		return;
 	}
-
 
 	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 }
@@ -305,13 +293,15 @@ void Labonatip_GUI::shutdown() {
 		updatePoffSetPoint(0.0);
 		
 		//Wait 10 seconds
-		if (!visualizeProgressMessage(10, " The pressure is off, waiting for the vacuum. ")) return;
+		if (!visualizeProgressMessage(10, 
+			" The pressure is off, waiting for the vacuum. ")) return;
 		
 		updateVrecircSetPoint(0.0);
 		updateVswitchSetPoint(0.0);
 
 		//Wait 15 seconds
-		if (!visualizeProgressMessage(15, " Vacuum off. Stopping the flow in the device. ")) return; 
+		if (!visualizeProgressMessage(15, 
+			" Vacuum off. Stopping the flow in the device. ")) return; 
 		
 	}
 	else {
@@ -321,8 +311,6 @@ void Labonatip_GUI::shutdown() {
 	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 
 }
-
-
 
 
 void Labonatip_GUI::reboot() {
@@ -355,12 +343,11 @@ void Labonatip_GUI::reboot() {
 		// m_ppc1->isConnected();
 		// m_ppc1->isRunning();
 
-		disCon();
+		disCon(); //TODO: check this, it is not clear if we connect or disconnect
 	}
 
 	setEnableMainWindow(true);
 	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-
 }
 
 
@@ -372,7 +359,6 @@ void Labonatip_GUI::closeOpenDockTools() {
 
 	// get the screen resolution of the current screen
 	// so we can resize the application in case of small screens
-
 
 	if (!ui->dockWidget->isHidden()) {
 		ui->dockWidget->hide();
@@ -421,7 +407,6 @@ void Labonatip_GUI::closeOpenDockTools() {
 		ui->toolBar_2->update(); 
 		ui->toolBar_3->update();
 	}
-
 }
 
 
@@ -442,5 +427,4 @@ void Labonatip_GUI::resizeToolbar()
 
 		ui->toolBar_3->update();
 		ui->toolBar_2->update();
-
 }

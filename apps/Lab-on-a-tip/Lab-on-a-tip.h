@@ -63,7 +63,7 @@ public:
 	*/
 	void setVersion(string _version);
 
-	void setMacroUserPath(QString _path) { m_macro_path = _path; }
+	void setProtocolUserPath(QString _path) { m_protocol_path = _path; }
 
 	void setSettingsUserPath(QString _path) { m_settings_path = _path; }
 
@@ -427,6 +427,8 @@ private slots:
 
 	/** \brief Connect and disconnect the PPC1
 	*
+	*   //TODO: add an argument _connect = true to connect, false to disconnect
+	* 
 	* \note
 	*/
 	void disCon();
@@ -560,32 +562,27 @@ private:
   */
   void initConnects();
 
-  Ui::Labonatip_GUI *ui;    //!< the user interface
+  Ui::Labonatip_GUI *ui;         //!< the main user interface
+  Labonatip_tools * m_dialog_tools;    //!< pointer to the tools dialog
+  Labonatip_protocol_editor * m_dialog_p_editor; //!< pointer to the protocol editor dialog
 
-  QDebugStream *qout;            //--> redirect cout for messages into the GUI
-  QDebugStream *qerr;            //--> redirect cerr for messages into the GUI
+  QDebugStream *qout;                 //!< redirect cout for messages into the GUI
+  QDebugStream *qerr;                 //!< redirect cerr for messages into the GUI
 
-  Labonatip_tools * m_dialog_tools; //!< pointer to the tools dialog
+  //settings
+  COMSettings *m_comSettings;         //!< communication settings
+  solutionsParams *m_solutionParams;  //!< solution parameters, names a default values
+  pr_params *m_pr_params;             //!< pressure and vacuum parameters
+  GUIparams *m_GUI_params;            //!< GUI parameters
 
-  COMSettings *m_comSettings;
-  solutionsParams *m_solutionParams;
-  pr_params *m_pr_params;
-  GUIparams *m_GUI_params;
-
-  Labonatip_protocol_editor * m_dialog_p_editor; //!< pointer to the tools dialog
-
-  QGraphicsScene *m_scene_solution;   //!< scene to draw the solution flow
-  
-  // for serial communication
-  QLabel *status;
-
+  // for serial communication with PPC1 API
   fluicell::PPC1api *m_ppc1;  //!< object for the PPC1api connection
-  std::vector<fluicell::PPC1api::command> *m_macro;
-  bool m_pipette_active;    //!< true when the pipette is active and communicating, false otherwise
+  std::vector<fluicell::PPC1api::command> *m_protocol;   //!< this is the current protocol to run
 
+  bool m_pipette_active;    //!< true when the pipette is active and communicating, false otherwise
   bool m_simulationOnly;    //!< if active the software will run without the hardware device connected
   
-  // Threding
+  // Threding for protocols
   Labonatip_macroRunner *m_macroRunner_thread;
   QTimer *m_update_flowing_sliders;        //!< connected to an update visualization function relative to solutions flow
   int m_flowing_solution;            //!< needed for the visualization function relative to solution 1 - 2 - 3- 4
@@ -601,43 +598,48 @@ private:
   double m_protocol_duration;         //!< this is the timeline for the protocol execution
   
   //GUI stuff for drawing solution flow
+  QGraphicsScene *m_scene_solution;   //!< scene to draw the solution flow
   QPen m_pen_line;                    //!< pen to draw the solution inside the pipe
   const int m_pen_line_width;         //!< pen line width, value = 5
-  const float l_x1;                   //x-coordinate of the line starting point, value = -18.0
-  const float l_y1;                   //y-coordinate of the line starting point, value = 49.0  
-  const float l_x2;                   //x-coordinate of the line ending point, value = 55.0  
-  const float l_y2;                   //y-coordinate of the line ending point, value = l_y1
+  const float l_x1;                   //!< x-coordinate of the line starting point, value = -18.0
+  const float l_y1;                   //!< y-coordinate of the line starting point, value = 49.0  
+  const float l_x2;                   //!< x-coordinate of the line ending point, value = 55.0  
+  const float l_y2;                   //!< y-coordinate of the line ending point, value = l_y1
 
   QColor m_sol1_color;      //!< my solution 1 color
   QColor m_sol2_color;      //!< my solution 2 color
   QColor m_sol3_color;      //!< my solution 3 color
   QColor m_sol4_color;      //!< my solution 4 color
 
-  // objects for the chart
+  // chart
   QtCharts::QChartView *m_chartView;
-  Labonatip_chart *m_labonatip_chart_view;
+  Labonatip_chart *m_labonatip_chart_view;   //!< the main chart is built in a different class
 
-  double m_pon_set_point;
-  double m_poff_set_point;
-  double m_v_recirc_set_point;
-  double m_v_switch_set_point;
+  double m_pon_set_point;       //!< holds the set point during the execution
+  double m_poff_set_point;      //!< holds the set point during the execution
+  double m_v_recirc_set_point;  //!< holds the set point during the execution
+  double m_v_switch_set_point;  //!< holds the set point during the execution
 
-  double m_ds_perc;  //!< droplet size percentage
-  double m_ds_perc_2;  //!< droplet size percentage
-  double m_fs_perc;  //!< flow speed percentage
-  double m_v_perc;   //!< vacuum percentage
+  // zone controls
+  double m_ds_perc;          //!< droplet size percentage
+  double m_ds_perc_2;        //!< droplet size percentage --- TODO: this is for the second calculation way
+  double m_fs_perc;          //!< flow speed percentage
+  double m_v_perc;           //!< vacuum percentage
 
-  QString m_version;
-  QString m_macro_path;
-  QString m_settings_path;
-  QString m_ext_data_path;
+  QString m_version;         //!< software version
+  QString m_protocol_path;   //!< protocol path 
+  QString m_settings_path;   //!< settings path
+  QString m_ext_data_path;   //!< ext data path (save history)
   QTranslator m_translator;
 
+  // to visualize the led on the status bar, 
+  // I create two different leds and switch between them to create the effect on/off
   QPixmap * led_green;
   QPixmap * led_red;
   QPainter * painter_led_green;
   QPainter * painter_led_red;
 
+  // spacers for the toolbar to create the basic->advanced effect
   QGroupBox * m_g_spacer;
   QAction *m_a_spacer;
 };

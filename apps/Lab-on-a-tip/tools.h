@@ -72,7 +72,7 @@ public:
 		return loadSettings(m_setting_file_name);
 	}
 
-	bool setSaveSettingsFileName(QString _filename) {
+	bool setFileNameAndSaveSettings(QString _filename) {
 		m_setting_file_name = _filename;
 		return saveSettings(_filename);
 	}

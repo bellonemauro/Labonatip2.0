@@ -21,9 +21,8 @@
 
 // QT threads
 #include <qthread.h>
-#include <qmutex.h>
 
-// PPC1api test
+// PPC1api 
 #include <fluicell/ppc1api/ppc1api.h>
 
 class Labonatip_macroRunner : public  QThread
@@ -34,15 +33,11 @@ public:
 
 	explicit Labonatip_macroRunner(QMainWindow *parent = nullptr);
 	
-//	~Labonatip_macroRunner(){};
-
 	void run() Q_DECL_OVERRIDE;
-
-	void setNumberOfIteration(int _number) { m_number_of_iterations = _number; }
 
 	void setDevice(fluicell::PPC1api *_ppc1) { m_ppc1 = _ppc1; }
 	
-	void setMacroPrt(std::vector<fluicell::PPC1api::command> *_macro) { m_macro = _macro; };
+	void setProtocolPrt(std::vector<fluicell::PPC1api::command> *_protocol) { m_protocol = _protocol; };
 
 	void killMacro(bool _kill) { m_threadTerminationHandler = !_kill; }
 
@@ -58,12 +53,11 @@ signals:
 
 private: 
 
-	fluicell::PPC1api *m_ppc1;
-	std::vector<fluicell::PPC1api::command> *m_macro;
-	bool m_simulation_only;
-	bool m_threadTerminationHandler;
+	fluicell::PPC1api *m_ppc1;                            //!< device to run the protocol 
+	std::vector<fluicell::PPC1api::command> *m_protocol;  //!< protocol to run
+	bool m_simulation_only;                               //!< true if simulation, false use the PPC1
+	bool m_threadTerminationHandler;                      //!< true to terminate the macro
 	bool m_ask_ok;
-	int m_number_of_iterations;
 
 };
 

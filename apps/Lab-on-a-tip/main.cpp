@@ -200,7 +200,6 @@ bool initPaths(Labonatip_GUI &_l, QString &_macro_user_path, QString &_settings_
 		_ext_data_user_path = ext_data_home_path;
 	}
 
-
 	return true;
 }
 
@@ -224,7 +223,7 @@ int main(int argc, char **argv)//(int argc, char *argv[])
 
 	  if (!initPaths(window, macro_user_path, settings_user_path, ext_data_user_path)) return 0;
 	  // set default paths for settings and macros in the GUI app
-	  window.setMacroUserPath(macro_user_path);
+	  window.setProtocolUserPath(macro_user_path);
 	  cout << " Set macro_user_path " << macro_user_path.toStdString() << endl;
 	  window.setSettingsUserPath(settings_user_path);
 	  cout << " Set settings_user_path " << settings_user_path.toStdString() << endl;
@@ -238,7 +237,7 @@ int main(int argc, char **argv)//(int argc, char *argv[])
 
 	  // show the slashscreen
 	  QSplashScreen *s = new QSplashScreen();
-	  s->setPixmap(QPixmap(":/icons/splash_screen.png"));  //TODO: the splash screen is not found
+	  s->setPixmap(QPixmap(":/icons/splash_screen.png"));
 	  s->show();
 	  QTimer::singleShot(5000, s, SLOT(close()));
 

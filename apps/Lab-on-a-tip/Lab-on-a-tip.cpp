@@ -21,7 +21,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	led_red (new QPixmap( QSize(20, 20))),
 	m_g_spacer ( new QGroupBox()),
 	m_a_spacer (new QAction()),
-	m_macro (NULL),
+	m_protocol ( new std::vector<fluicell::PPC1api::command> ),
 	m_protocol_duration(0.0),
 	m_pen_line_width(7),
 	l_x1(-24.0),
@@ -41,7 +41,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 {
 
   // allows to use path alias
-  QDir::setSearchPaths("icons", QStringList(QDir::currentPath() + "/icons/"));
+  //QDir::setSearchPaths("icons", QStringList(QDir::currentPath() + "/icons/"));
   
   // setup the user interface
   ui->setupUi (this);
@@ -83,7 +83,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   
   // init the object to handle the internal dialogs
   m_dialog_p_editor = new Labonatip_protocol_editor();
-  m_dialog_tools = new Labonatip_tools(); // TODO: if I put this here is mess up the list widget
+  m_dialog_tools = new Labonatip_tools(); 
   
   m_comSettings = new COMSettings();
   m_solutionParams = new solutionsParams();
@@ -94,6 +94,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   *m_pr_params = m_dialog_tools->getPr_params();
   *m_GUI_params = m_dialog_tools->getGUIparams();
 
+  // set the flows in the table
   ui->treeWidget_macroInfo->topLevelItem(12)->setText(1, QString::number(m_solutionParams->rem_vol_well1));
   ui->treeWidget_macroInfo->topLevelItem(13)->setText(1, QString::number(m_solutionParams->rem_vol_well2));
   ui->treeWidget_macroInfo->topLevelItem(14)->setText(1, QString::number(m_solutionParams->rem_vol_well3));
@@ -136,7 +137,6 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   m_ppc1->setVebose(ui->checkBox_verboseOut->isChecked());
 
   // init thread macroRunner //TODO: this is just a support, check if needed
-  //Labonatip_macroRunner *m_macroRunner_thread = new Labonatip_macroRunner( this );
   m_macroRunner_thread = new Labonatip_macroRunner(this);
   m_macroRunner_thread->setDevice(m_ppc1);
 
@@ -1223,14 +1223,14 @@ void Labonatip_GUI::editorApply()
 		ui->label_macroStatus->setText(s);
 	}
 
-	m_labonatip_chart_view->updateChartMacro(m_macro);
+	m_labonatip_chart_view->updateChartMacro(m_protocol);
 
 	// compute the duration of the macro
 	double macro_duration = 0.0;
-	for (size_t i = 0; i < m_macro->size(); i++) {
-		if (m_macro->at(i).getInstruction() ==
+	for (size_t i = 0; i < m_protocol->size(); i++) {
+		if (m_protocol->at(i).getInstruction() ==
 			fluicell::PPC1api::command::instructions::sleep)
-			macro_duration += m_macro->at(i).getValue();
+			macro_duration += m_protocol->at(i).getValue();
 	}
 	// visualize it in the chart information panel 
 	m_protocol_duration = macro_duration;

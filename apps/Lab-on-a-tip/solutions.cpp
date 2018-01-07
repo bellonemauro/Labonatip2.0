@@ -14,32 +14,30 @@
 QString Labonatip_GUI::generateStyleSheet(const int _r, const int _g, const int _b)
 {
 
-	QString styleSheet(" QProgressBar{	border: 1px solid white;");
-	styleSheet.append("padding: 1px;");
-	styleSheet.append("color: rgb(255, 255, 255, 0); ");
-	styleSheet.append("border-bottom-right-radius: 2px;");
-	styleSheet.append("border-bottom-left-radius: 2px;");
-	styleSheet.append("border-top-right-radius: 2px;");
-	styleSheet.append("border-top-left-radius: 2px;");
-	styleSheet.append("text-align:right;");
-	//	margin-right: 25ex;
-	styleSheet.append("background-color: rgb(255, 255, 255, 0);");
-	styleSheet.append("width: 15px;}");
-
-	styleSheet.append("QProgressBar::chunk{");
-	styleSheet.append("background-color: rgb(");
+	QString styleSheet(" QProgressBar{	border: 1px solid white;"
+	                   " padding: 1px;"
+	                   " color: rgb(255, 255, 255, 0); "
+	                   " border-bottom-right-radius: 2px;"
+	                   " border-bottom-left-radius: 2px;"
+	                   " border-top-right-radius: 2px;"
+	                   " border-top-left-radius: 2px;"
+	                   " text-align:right;"
+	                   " background-color: rgb(255, 255, 255, 0);"
+	                   " width: 15px;}"
+	                   " QProgressBar::chunk{"
+	                   " background-color: rgb(");
 	styleSheet.append(QString::number(_r));
 	styleSheet.append(", ");
 	styleSheet.append(QString::number(_g));
 	styleSheet.append(", ");
 	styleSheet.append(QString::number(_b));
 	styleSheet.append("); ");
-	styleSheet.append("border-bottom-right-radius: 2px;");
-	styleSheet.append("border-bottom-left-radius: 2px;");
-	styleSheet.append("border-top-right-radius: 2px;");
-	styleSheet.append("border-top-left-radius: 2px;");
-	styleSheet.append("border: 0px solid white;");
-	styleSheet.append("height: 0.5px;}");
+	styleSheet.append(" border-bottom-right-radius: 2px;"
+	                  " border-bottom-left-radius: 2px;"
+	                  " border-top-right-radius: 2px;"
+	                  " border-top-left-radius: 2px;"
+	                  " border: 0px solid white;"
+	                  " height: 0.5px;}");
 
 	return styleSheet;
 }
@@ -129,9 +127,6 @@ void Labonatip_GUI::pushSolution1()
 	m_pen_line.setColor(m_sol1_color);
 	m_flowing_solution = 1;
 
-	//if (m_pipette_active) updateDrawing(m_ppc1->getDropletSizePercentage());
-	//else updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
-
 	// move the arrow in the drawing to point on the solution 1
 	ui->widget_solutionArrow->setVisible(true);
 	ui->label_arrowSolution->setText(m_solutionParams->sol1);
@@ -158,7 +153,6 @@ void Labonatip_GUI::pushSolution1()
 	m_update_flowing_sliders->start();
 	ui->pushButton_stop->setEnabled(true);
 
-	//	setEnableSolutionButtons(false);
 	updateFlows();
 	updateFlowControlPercentages();
 
@@ -207,9 +201,6 @@ void Labonatip_GUI::pushSolution2() {
 	m_pen_line.setColor(m_sol2_color);
 	m_flowing_solution = 2;
 
-	//if (m_pipette_active) updateDrawing(m_ppc1->getDropletSizePercentage());
-	//else updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
-
 	// move the arrow in the drawing to point on the solution 2
 	ui->widget_solutionArrow->setVisible(true);
 	ui->label_arrowSolution->setText(m_solutionParams->sol2);
@@ -234,7 +225,6 @@ void Labonatip_GUI::pushSolution2() {
 	m_update_flowing_sliders->start();
 	ui->pushButton_stop->setEnabled(true);
 
-	//setEnableSolutionButtons(false);
 	updateFlows();
 	updateFlowControlPercentages();
 
@@ -284,9 +274,6 @@ void Labonatip_GUI::pushSolution3() {
 	m_pen_line.setColor(m_sol3_color);
 	m_flowing_solution = 3;
 
-	//if (m_pipette_active) updateDrawing(m_ppc1->getDropletSizePercentage());
-	//else updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
-
 	// move the arrow in the drawing to point on the solution 3
 	ui->widget_solutionArrow->setVisible(true);
 	ui->label_arrowSolution->setText(m_solutionParams->sol3);
@@ -313,7 +300,6 @@ void Labonatip_GUI::pushSolution3() {
 	m_update_flowing_sliders->start();
 	ui->pushButton_stop->setEnabled(true);
 
-	//setEnableSolutionButtons(false);
 	updateFlows();
 	updateFlowControlPercentages();
 
@@ -364,9 +350,6 @@ void Labonatip_GUI::pushSolution4() {
 	m_pen_line.setColor(m_sol4_color);
 	m_flowing_solution = 4;
 
-	//if (m_pipette_active) updateDrawing(m_ppc1->getDropletSizePercentage());
-	//else updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
-
 	// move the arrow in the drawing to point on the solution 4
 	ui->widget_solutionArrow->setVisible(true);
 	ui->label_arrowSolution->setText(m_solutionParams->sol4);
@@ -392,7 +375,6 @@ void Labonatip_GUI::pushSolution4() {
 	m_update_flowing_sliders->start();
 	ui->pushButton_stop->setEnabled(true);
 
-	//setEnableSolutionButtons(false);
 	updateFlows();
 	updateFlowControlPercentages();
 
@@ -478,18 +460,6 @@ void Labonatip_GUI::updateTimingSliders()
 	}
 	else  // here we are ending the release process of the solution
 	{
-		/*if (m_dialog_tools->isContinuousFlowing())//(ui->checkBox_disableTimer->isChecked() ) // TODO: bring the param to settings
-		{
-			m_update_flowing_sliders->start();
-			QString s;
-			s.append("Well ");
-			s.append(QString::number(m_flowing_solution));
-			s.append(" in \n");
-			s.append("continuous \nflowing");
-			ui->textEdit_emptyTime->setText(s);
-			return;
-		}*/
-
 		double solution_release_time = m_dialog_tools->getSolutionTime();
 		m_time_multipilcator = (int)solution_release_time;
 		double rest = solution_release_time - m_time_multipilcator;

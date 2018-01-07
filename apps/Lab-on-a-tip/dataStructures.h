@@ -127,14 +127,14 @@ struct solutionsParams {
 	double rem_vol_well6;             //!<  remaining volume of solution in the well 6 in mL
 	double rem_vol_well7;             //!<  remaining volume of solution in the well 7 in mL
 	double rem_vol_well8;             //!<  remaining volume of solution in the well 8 in mL
-	QString sol1;                  //!<  name of the solution 1
-	QString sol2;                  //!<  name of the solution 2
-	QString sol3;                  //!<  name of the solution 3
-	QString sol4;                  //!<  name of the solution 4
-	QColor sol1_color;             //!<  color of the solution 1
-	QColor sol2_color;             //!<  color of the solution 2
-	QColor sol3_color;             //!<  color of the solution 3
-	QColor sol4_color;             //!<  color of the solution 4
+	QString sol1;                     //!<  name of the solution 1
+	QString sol2;                     //!<  name of the solution 2
+	QString sol3;                     //!<  name of the solution 3
+	QString sol4;                     //!<  name of the solution 4
+	QColor sol1_color;                //!<  color of the solution 1
+	QColor sol2_color;                //!<  color of the solution 2
+	QColor sol3_color;                //!<  color of the solution 3
+	QColor sol4_color;                //!<  color of the solution 4
 }; // END solutionsNames struct
 
 	// structure to handle solutions name parameters
@@ -156,21 +156,21 @@ struct pr_params {
 		v_recirc_default = _v_rec_def;
 	}
 
-	int p_on_max;                    //!< name of the solution 1
-	int p_on_min;
-	int p_on_default;
-	int p_off_max;
-	int p_off_min;
-	int p_off_default;
-	int v_switch_max;
-	int v_switch_min;
-	int v_switch_default;
-	int v_recirc_max;
-	int v_recirc_min;
-	int v_recirc_default;
-	int base_ds_increment;
-	int base_fs_increment;
-	int base_v_increment;
+	int p_on_max;                //!< max P_on value
+	int p_on_min;                //!< min P_on value
+	int p_on_default;            //!< default P_on value
+	int p_off_max;               //!< max P_off value
+	int p_off_min;               //!< min P_off value
+	int p_off_default;           //!< default P_off value
+	int v_switch_max;            //!< max V_switch value
+	int v_switch_min;            //!< min V_switch value
+	int v_switch_default;        //!< default V_switch value
+	int v_recirc_max;            //!< max V_recirc value
+	int v_recirc_min;            //!< min V_recirc value
+	int v_recirc_default;        //!< defauls V_recirc value 
+	int base_ds_increment;       //!< base increment for droplet size in zone control
+	int base_fs_increment;       //!< base increment for flow speed in zone control
+	int base_v_increment;        //!< base increment for vacuum size in zone control
 
 }; // END pr_params struct
 
@@ -185,6 +185,5 @@ struct GUIparams {
 	}
 
 }; // END COMSettings struct
-
 
 #endif /* Labonatip_TOOLSDATASTRUCTURES_H_ */

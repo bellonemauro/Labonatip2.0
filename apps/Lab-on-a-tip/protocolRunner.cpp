@@ -11,9 +11,8 @@
 
 
 Labonatip_macroRunner::Labonatip_macroRunner(QMainWindow *parent ) :
-	m_number_of_iterations(100),
 	m_ppc1(NULL),
-	m_macro(NULL),
+	m_protocol(NULL),
 	m_simulation_only(true),
 	m_threadTerminationHandler(false)
 {
@@ -32,21 +31,21 @@ void Labonatip_macroRunner::run()  {
 	try
 	{
 
-		if (m_ppc1 && m_macro)
+		if (m_ppc1 && m_protocol)
 		{
 			cout << QDate::currentDate().toString().toStdString() << "  " 
 				 << QTime::currentTime().toString().toStdString() << "  " 
-				 << " macro size " << m_macro->size() << endl;
+				 << " macro size " << m_protocol->size() << endl;
 			// compute the duration of the macro
 			double macro_duration = 0.0;
-			for (size_t i = 0; i < m_macro->size(); i++) {
-				if (m_macro->at(i).getInstruction() ==
+			for (size_t i = 0; i < m_protocol->size(); i++) {
+				if (m_protocol->at(i).getInstruction() ==
 					fluicell::PPC1api::command::instructions::sleep)
-					macro_duration += m_macro->at(i).getValue();
+					macro_duration += m_protocol->at(i).getValue();
 			}
 			double time_elapsed = 0.0;
 
-			for (size_t i = 0; i < m_macro->size(); i++)
+			for (size_t i = 0; i < m_protocol->size(); i++)
 			{
 				if (!m_threadTerminationHandler) {
 					result = " MACRO STOPPED ";
@@ -61,35 +60,33 @@ void Labonatip_macroRunner::run()  {
 				if (m_simulation_only)
 				{
 
-					QString message = QString::fromStdString(m_macro->at(i).getStatusMessage());
+					QString message = QString::fromStdString(m_protocol->at(i).getStatusMessage());
 					message.append(" >>> command :  ");
-					message.append(QString::fromStdString(m_macro->at(i).getCommandAsString()));
+					message.append(QString::fromStdString(m_protocol->at(i).getCommandAsString()));
 					message.append(" value ");
-					message.append(QString::number(m_macro->at(i).getValue()));
+					message.append(QString::number(m_protocol->at(i).getValue()));
 					message.append(" status message ");
-					message.append(QString::fromStdString(m_macro->at(i).getStatusMessage()));
+					message.append(QString::fromStdString(m_protocol->at(i).getStatusMessage()));
 
 					//TODO : the simulation does not give the actual commands, only messages are out ! 
 					emit sendStatusMessage(message);
 
-					if (m_macro->at(i).getInstruction() ==
+					if (m_protocol->at(i).getInstruction() ==
 						fluicell::PPC1api::command::instructions::ask_msg) {
-						QString msg = QString::fromStdString(m_macro->at(i).getStatusMessage());
+						QString msg = QString::fromStdString(m_protocol->at(i).getStatusMessage());
 
 						emit sendAskMessage(msg); // send ask message event
 						m_ask_ok = false;
 						while (!m_ask_ok) {  // wait until the signal ok is pressed on the GUI
 							msleep(500);
 						}
-	
-
 					}
 
 					//sleep(1);
 
-					if (m_macro->at(i).getInstruction() ==
+					if (m_protocol->at(i).getInstruction() ==
 						fluicell::PPC1api::command::instructions::sleep) {
-						int val = static_cast<int>(m_macro->at(i).getValue());
+						int val = static_cast<int>(m_protocol->at(i).getValue());
 						const qint64 kInterval = 1000;
 						qint64 mtime = QDateTime::currentMSecsSinceEpoch();
 						for (int j = 0; j < val; j++) {					
@@ -117,9 +114,9 @@ void Labonatip_macroRunner::run()  {
 						//cout  << QDate::currentDate().toString().toStdString() << "  "
 						//      << QTime::currentTime().toString().toStdString() << "  " 
 						//      << " ppc1 is running the command " << m_macro->at(i).status_message << endl;
-						if (m_macro->at(i).getInstruction() ==
+						if (m_protocol->at(i).getInstruction() ==
 							fluicell::PPC1api::command::instructions::ask_msg) {
-							QString msg = QString::fromStdString(m_macro->at(i).getStatusMessage());
+							QString msg = QString::fromStdString(m_protocol->at(i).getStatusMessage());
 
 							emit sendAskMessage(msg); // send ask message event
 							m_ask_ok = false;
@@ -127,10 +124,10 @@ void Labonatip_macroRunner::run()  {
 								msleep(500);
 							}
 						}
-						if (m_macro->at(i).getInstruction() == // If the command is to wait, we do it here
+						if (m_protocol->at(i).getInstruction() == // If the command is to wait, we do it here
 							fluicell::PPC1api::command::instructions::sleep) {
 							//TODO : check the time update with the real device 
-							int val = static_cast<int>(m_macro->at(i).getValue());
+							int val = static_cast<int>(m_protocol->at(i).getValue());
 							const qint64 kInterval = 1000;
 							qint64 mtime = QDateTime::currentMSecsSinceEpoch(); 
 							for (int j = 0; j < val; j++) {
@@ -151,10 +148,10 @@ void Labonatip_macroRunner::run()  {
 								}
 							}
 						}
-						else m_ppc1->run(m_macro->at(i)); // otherwise we run the actual command on the PPC1
+						else m_ppc1->run(m_protocol->at(i)); // otherwise we run the actual command on the PPC1
 						
-						if (m_macro->at(i).isStatusVisualized()) {
-							QString message = QString::fromStdString(m_macro->at(i).getStatusMessage());
+						if (m_protocol->at(i).isStatusVisualized()) {
+							QString message = QString::fromStdString(m_protocol->at(i).getStatusMessage());
 							emit sendStatusMessage(message);
 						}
 					}
@@ -164,7 +161,6 @@ void Labonatip_macroRunner::run()  {
 							 << " Labonatip_macroRunner::run  ---- error --- MESSAGE: ppc1 is NOT running " << endl;
 
 						result = " ppc1 is NOT running ";
-
 						emit resultReady(result);
 						return;
 					}
@@ -181,7 +177,6 @@ void Labonatip_macroRunner::run()  {
 			return;
 		}
 		result = " Success";
-
 		emit resultReady(result);
 		return;
 

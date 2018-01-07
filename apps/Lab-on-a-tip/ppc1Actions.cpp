@@ -116,7 +116,7 @@ void Labonatip_GUI::newTip()
 }
 
 
-void Labonatip_GUI::runMacro() {
+void Labonatip_GUI::runMacro() { //TODO: give it as an argument instead of a class member
 
 	cout << QDate::currentDate().toString().toStdString() << "  " 
 		 << QTime::currentTime().toString().toStdString() << "  "
@@ -124,7 +124,7 @@ void Labonatip_GUI::runMacro() {
 
 	if (!m_macroRunner_thread->isRunning()) {
 
-		if (!m_macro) {
+		if (!m_protocol) {
 			QMessageBox::information(this, "Lab-on-a-tip information ",
 				"No execution protocol loaded, load a protocol first");
 				return;
@@ -186,7 +186,7 @@ void Labonatip_GUI::runMacro() {
 			}
 		}
 
-		m_macroRunner_thread->setMacroPrt(m_macro);
+		m_macroRunner_thread->setMacroPrt(m_protocol);
 		cout << QDate::currentDate().toString().toStdString() << "  " 
 			 << QTime::currentTime().toString().toStdString() << "  "
 			 << "Labonatip_GUI::runMacro    RUNNING" << endl;

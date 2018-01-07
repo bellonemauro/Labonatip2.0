@@ -82,7 +82,7 @@ public:
 	readProtocolFolder(m_protocol_path);
 	}
 
-	void setMacroPrt(f_protocol *_macro) { m_macro = _macro; };
+	void setMacroPrt(f_protocol *_protocol) { m_macro = _protocol; };
 
 private slots:
 
