@@ -575,6 +575,8 @@ private:
   pr_params *m_pr_params;             //!< pressure and vacuum parameters
   GUIparams *m_GUI_params;            //!< GUI parameters
 
+  pipetteStatus *m_pipette_status;
+
   // for serial communication with PPC1 API
   fluicell::PPC1api *m_ppc1;  //!< object for the PPC1api connection
   std::vector<fluicell::PPC1api::command> *m_protocol;   //!< this is the current protocol to run
@@ -614,11 +616,6 @@ private:
   // chart
   QtCharts::QChartView *m_chartView;
   Labonatip_chart *m_labonatip_chart_view;   //!< the main chart is built in a different class
-
-  double m_pon_set_point;       //!< holds the set point during the execution
-  double m_poff_set_point;      //!< holds the set point during the execution
-  double m_v_recirc_set_point;  //!< holds the set point during the execution
-  double m_v_switch_set_point;  //!< holds the set point during the execution
 
   // zone controls
   double m_ds_perc;          //!< droplet size percentage

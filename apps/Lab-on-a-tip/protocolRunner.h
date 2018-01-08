@@ -37,7 +37,7 @@ public:
 
 	void setDevice(fluicell::PPC1api *_ppc1) { m_ppc1 = _ppc1; }
 	
-	void setProtocolPrt(std::vector<fluicell::PPC1api::command> *_protocol) { m_protocol = _protocol; };
+	void setProtocol(std::vector<fluicell::PPC1api::command> _protocol) { m_protocol = &_protocol; };
 
 	void killMacro(bool _kill) { m_threadTerminationHandler = !_kill; }
 
@@ -45,21 +45,20 @@ public:
 
 	void askOkEvent(bool _ask_ok) { m_ask_ok = _ask_ok; }
 
+// interactions between protocol runner and main GUI is done using signals
 signals:
-	void resultReady(const QString &_s);
-	void sendStatusMessage(const QString &_message);
-	void sendAskMessage(const QString &_message);
-	void timeStatus(const double &_time);
+	void resultReady(const QString &_s);                //!< emit a string when the result is ready
+	void sendStatusMessage(const QString &_message);    //!< send a status message
+	void sendAskMessage(const QString &_message);       //!< send a message to ask to the user 
+	void timeStatus(const double &_time);               //!< send the time status
 
 private: 
 
-	fluicell::PPC1api *m_ppc1;                            //!< device to run the protocol 
+	fluicell::PPC1api *m_ppc1;                            //!< pointer to the device to run the protocol 
 	std::vector<fluicell::PPC1api::command> *m_protocol;  //!< protocol to run
 	bool m_simulation_only;                               //!< true if simulation, false use the PPC1
 	bool m_threadTerminationHandler;                      //!< true to terminate the macro
-	bool m_ask_ok;
-
+	bool m_ask_ok;                                        //!< false when a message dialg is out, true to continue
 };
-
 
 #endif /* Labonatip_macroRunner_H_ */

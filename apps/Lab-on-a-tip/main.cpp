@@ -8,7 +8,7 @@
 *  +---------------------------------------------------------------------------+ */
 
 //uncomment to hide the console when the app starts
-#define HIDE_TERMINAL
+//#define HIDE_TERMINAL
 #ifdef HIDE_TERMINAL
 	#if defined (_WIN64) || defined (_WIN32)
 	  #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
@@ -221,7 +221,7 @@ int main(int argc, char **argv)//(int argc, char *argv[])
 	  QString settings_user_path;
 	  QString ext_data_user_path;
 
-	  if (!initPaths(window, macro_user_path, settings_user_path, ext_data_user_path)) return 0;
+	  //if (!initPaths(window, macro_user_path, settings_user_path, ext_data_user_path)) return 0;
 	  // set default paths for settings and macros in the GUI app
 	  window.setProtocolUserPath(macro_user_path);
 	  cout << " Set macro_user_path " << macro_user_path.toStdString() << endl;
@@ -230,7 +230,7 @@ int main(int argc, char **argv)//(int argc, char *argv[])
 	  //window.setExtDataUserPath(ext_data_user_path);
 	  window.setExtDataUserPath("./Ext_data/");  // this is just for now to be taken out for the release
 	  cout << " Set ext_data_user_path " << ext_data_user_path.toStdString() << endl;
-
+	   
 #ifdef LABONATIP_VERSION
 	  window.setVersion(version);
 #endif

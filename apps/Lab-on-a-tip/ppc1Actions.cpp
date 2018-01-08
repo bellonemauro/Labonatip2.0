@@ -186,7 +186,7 @@ void Labonatip_GUI::runMacro() { //TODO: give it as an argument instead of a cla
 			}
 		}
 
-		m_macroRunner_thread->setMacroPrt(m_protocol);
+		m_macroRunner_thread->setProtocol(*m_protocol);
 		cout << QDate::currentDate().toString().toStdString() << "  " 
 			 << QTime::currentTime().toString().toStdString() << "  "
 			 << "Labonatip_GUI::runMacro    RUNNING" << endl;

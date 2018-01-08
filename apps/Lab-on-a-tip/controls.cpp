@@ -14,26 +14,26 @@
 void Labonatip_GUI::updatePonSetPoint(double _pon_set_point)
 {
 	// update the set point
-	m_pon_set_point = _pon_set_point;
+	m_pipette_status->pon_set_point = _pon_set_point;
 	cout << QDate::currentDate().toString().toStdString() << "  " 
 		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::updatePonSetPoint   ::::  value  =  " << m_pon_set_point << endl;
+		 << "Labonatip_GUI::updatePonSetPoint   ::::  value  =  " << _pon_set_point << endl;
 
-	ui->label_PonPressure->setText(QString(QString::number(int(m_pon_set_point)) + " mbar"));
+	ui->label_PonPressure->setText(QString(QString::number(int(_pon_set_point)) + " mbar"));
 
 	// if the pipette is active we send the set point to the device
 	if (m_pipette_active) {
-		m_ppc1->setPressureChannelD(m_pon_set_point);
+		m_ppc1->setPressureChannelD(_pon_set_point);
 	}
 
 	// update the slider for the GUI
 	ui->horizontalSlider_p_on->blockSignals(true);
-	ui->horizontalSlider_p_on->setValue(m_pon_set_point);
+	ui->horizontalSlider_p_on->setValue(_pon_set_point);
 	ui->horizontalSlider_p_on->blockSignals(false);
 
 	if (m_simulationOnly) {
 
-		ui->progressBar_pressure_p_on->setValue(m_pon_set_point);
+		ui->progressBar_pressure_p_on->setValue(_pon_set_point);
 		updateFlowControlPercentages();
 	}
 }
@@ -41,26 +41,26 @@ void Labonatip_GUI::updatePonSetPoint(double _pon_set_point)
 void Labonatip_GUI::updatePoffSetPoint(double _poff_set_point)
 {	
 	// update the set point
-	m_poff_set_point = _poff_set_point;
+	m_pipette_status->poff_set_point = _poff_set_point;
 	cout << QDate::currentDate().toString().toStdString() << "  " 
 		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::updatePoffSetPoint   ::::  value  =  " << m_poff_set_point << endl;
+		 << "Labonatip_GUI::updatePoffSetPoint   ::::  value  =  " << _poff_set_point << endl;
 
-	ui->label_PoffPressure->setText(QString(QString::number(int(m_poff_set_point)) + " mbar"));
+	ui->label_PoffPressure->setText(QString(QString::number(int(_poff_set_point)) + " mbar"));
 
 	// if the pipette is active we send the set point to the device
 	if (m_pipette_active) {
-		m_ppc1->setPressureChannelC(m_poff_set_point);
+		m_ppc1->setPressureChannelC(_poff_set_point);
 	}
 
 	// update the slider for the GUI
 	ui->horizontalSlider_p_off->blockSignals(true);
-	ui->horizontalSlider_p_off->setValue(m_poff_set_point);
+	ui->horizontalSlider_p_off->setValue(_poff_set_point);
 	ui->horizontalSlider_p_off->blockSignals(false);
 
 	if (m_simulationOnly) {
 
-		ui->progressBar_pressure_p_off->setValue(m_poff_set_point);
+		ui->progressBar_pressure_p_off->setValue(_poff_set_point);
 		updateFlowControlPercentages();
 	}
 }
@@ -68,25 +68,25 @@ void Labonatip_GUI::updatePoffSetPoint(double _poff_set_point)
 void Labonatip_GUI::updateVrecircSetPoint(double _v_recirc_set_point)
 {
 	// update the set point
-	m_v_recirc_set_point = _v_recirc_set_point;
+	m_pipette_status->v_recirc_set_point = _v_recirc_set_point;
 	cout << QDate::currentDate().toString().toStdString() << "  " 
 		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::updateVrecircSetPoint   ::::  value  =  " << m_v_recirc_set_point << endl;
-	ui->label_recircPressure->setText(QString(QString::number(-int(m_v_recirc_set_point)) + " mbar"));
+		 << "Labonatip_GUI::updateVrecircSetPoint   ::::  value  =  " << _v_recirc_set_point << endl;
+	ui->label_recircPressure->setText(QString(QString::number(-int(_v_recirc_set_point)) + " mbar"));
 
 	// if the pipette is active we send the set point to the device
 	if (m_pipette_active) {
-		m_ppc1->setVacuumChannelA(-m_v_recirc_set_point);
+		m_ppc1->setVacuumChannelA(-_v_recirc_set_point);
 	}
 
 	// update the slider for the GUI
 	ui->horizontalSlider_recirculation->blockSignals(true);
-	ui->horizontalSlider_recirculation->setValue(m_v_recirc_set_point);
+	ui->horizontalSlider_recirculation->setValue(_v_recirc_set_point);
 	ui->horizontalSlider_recirculation->blockSignals(false);
 
 	if (m_simulationOnly) {
 
-		ui->progressBar_recirc->setValue(m_v_recirc_set_point);
+		ui->progressBar_recirc->setValue(_v_recirc_set_point);
 		updateFlowControlPercentages();
 	}
 }
@@ -94,24 +94,24 @@ void Labonatip_GUI::updateVrecircSetPoint(double _v_recirc_set_point)
 void Labonatip_GUI::updateVswitchSetPoint(double _v_switch_set_point)
 {
 	// update the set point
-	m_v_switch_set_point = _v_switch_set_point;
+	m_pipette_status->v_switch_set_point = _v_switch_set_point;
 	cout << QDate::currentDate().toString().toStdString() << "  " 
 		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::updateVswitchSetPoint   ::::  value  =  " << m_v_switch_set_point << endl;
-	ui->label_switchPressure->setText(QString(QString::number(-int(m_v_switch_set_point)) + " mbar"));
+		 << "Labonatip_GUI::updateVswitchSetPoint   ::::  value  =  " << _v_switch_set_point << endl;
+	ui->label_switchPressure->setText(QString(QString::number(-int(_v_switch_set_point)) + " mbar"));
 
 	// if the pipette is active we send the set point to the device
 	if (m_pipette_active) {
-		m_ppc1->setVacuumChannelB(-m_v_switch_set_point);
+		m_ppc1->setVacuumChannelB(-_v_switch_set_point);
 	}
 
 	// update the slider for the GUI
 	ui->horizontalSlider_switch->blockSignals(true);
-	ui->horizontalSlider_switch->setValue(m_v_switch_set_point);
+	ui->horizontalSlider_switch->setValue(_v_switch_set_point);
 	ui->horizontalSlider_switch->blockSignals(false);
 
 	if (m_simulationOnly) {
-		ui->progressBar_switch->setValue(m_v_switch_set_point);
+		ui->progressBar_switch->setValue(_v_switch_set_point);
 		updateFlowControlPercentages();
 	}
 }
@@ -121,9 +121,9 @@ void Labonatip_GUI::pressurePonDown() {
 		 << QTime::currentTime().toString().toStdString() << "  "
 		 << "Labonatip_GUI::pressurePonDown    " << endl;
 
-	if (m_pon_set_point > m_pr_params->p_on_min)
-	// update the set point
-	updatePonSetPoint(m_pon_set_point - 1.0);
+	if (m_pipette_status->pon_set_point > m_pr_params->p_on_min)  // check if in range
+		// update the set point
+		updatePonSetPoint(m_pipette_status->pon_set_point - 1.0);
 }
 
 void Labonatip_GUI::pressurePonUp() {
@@ -131,10 +131,9 @@ void Labonatip_GUI::pressurePonUp() {
 		 << QTime::currentTime().toString().toStdString() << "  "
 		 << "Labonatip_GUI::pressurePonUp    " << endl;
 
-	if (m_pon_set_point < m_pr_params->p_on_max)
-	// update the set point
-	updatePonSetPoint(m_pon_set_point + 1.0);
-
+	if (m_pipette_status->pon_set_point < m_pr_params->p_on_max)  // check if in range
+		// update the set point
+		updatePonSetPoint(m_pipette_status->pon_set_point + 1.0);
 }
 
 void Labonatip_GUI::pressurePoffDown() {
@@ -142,10 +141,8 @@ void Labonatip_GUI::pressurePoffDown() {
 		 << QTime::currentTime().toString().toStdString() << "  "
 		 << "Labonatip_GUI::pressurePoffDown    " << endl;
 
-	if (m_poff_set_point > m_pr_params->p_off_min)
-	// update the set point
-	updatePoffSetPoint(m_poff_set_point - 1.0);
-
+	if (m_pipette_status->poff_set_point > m_pr_params->p_off_min)  // check if in range
+		updatePoffSetPoint(m_pipette_status->poff_set_point - 1.0);
 }
 
 void Labonatip_GUI::pressurePoffUp() {
@@ -153,10 +150,8 @@ void Labonatip_GUI::pressurePoffUp() {
 		 << QTime::currentTime().toString().toStdString() << "  "
 		 << "Labonatip_GUI::pressurePoffUp    " << endl;
 
-	if (m_poff_set_point < m_pr_params->p_off_max)
-	// update the set point
-	updatePoffSetPoint(m_poff_set_point + 1.0); 
-
+	if (m_pipette_status->poff_set_point < m_pr_params->p_off_max)  // check if in range
+		updatePoffSetPoint(m_pipette_status->poff_set_point + 1.0);
 }
 
 void Labonatip_GUI::pressButtonPressed_switchDown() {
@@ -164,10 +159,8 @@ void Labonatip_GUI::pressButtonPressed_switchDown() {
 		 << QTime::currentTime().toString().toStdString() << "  "
 		 << "Labonatip_GUI::pressButtonPressed_switchDown    " << endl;
 
-	if (m_v_switch_set_point > m_pr_params->v_switch_max)
-	// update the set point
-	updateVswitchSetPoint(m_v_switch_set_point - 1.0);
-
+	if (m_pipette_status->v_switch_set_point > m_pr_params->v_switch_max)  // check if in range
+		updateVswitchSetPoint(m_pipette_status->v_switch_set_point - 1.0);
 }
 
 void Labonatip_GUI::pressButtonPressed_switchUp() {
@@ -175,10 +168,8 @@ void Labonatip_GUI::pressButtonPressed_switchUp() {
 		 << QTime::currentTime().toString().toStdString() << "  "
 		 << "Labonatip_GUI::pressButtonPressed_switchUp    " << endl;
 
-	if (m_v_switch_set_point < -m_pr_params->v_switch_min)
-	// update the set point
-	updateVswitchSetPoint(m_v_switch_set_point + 1.0);
-
+	if (m_pipette_status->v_switch_set_point < -m_pr_params->v_switch_min)  // check if in range
+		updateVswitchSetPoint(m_pipette_status->v_switch_set_point + 1.0);
 }
 
 void Labonatip_GUI::recirculationDown() {
@@ -186,10 +177,8 @@ void Labonatip_GUI::recirculationDown() {
 		 << QTime::currentTime().toString().toStdString() << "  "
 		 << "Labonatip_GUI::recirculationDown    " << endl;
 
-	if (m_v_recirc_set_point > m_pr_params->v_recirc_max)
-		// update the set point
-	updateVrecircSetPoint(m_v_recirc_set_point - 1.0);
-
+	if (m_pipette_status->v_recirc_set_point > m_pr_params->v_recirc_max)  // check if in range
+		updateVrecircSetPoint(m_pipette_status->v_recirc_set_point - 1.0);
 }
 
 void Labonatip_GUI::recirculationUp() {
@@ -197,10 +186,8 @@ void Labonatip_GUI::recirculationUp() {
 		 << QTime::currentTime().toString().toStdString() << "  "
 		 << "Labonatip_GUI::recirculationUp    " << endl;
 
-	if (m_v_recirc_set_point < -m_pr_params->v_recirc_min)
-	// update the set point
-	updateVrecircSetPoint(m_v_recirc_set_point + 1.0);
-
+	if (m_pipette_status->v_recirc_set_point < -m_pr_params->v_recirc_min)  // check if in range
+		updateVrecircSetPoint(m_pipette_status->v_recirc_set_point + 1.0);
 }
 
 void Labonatip_GUI::sliderPonChanged(int _value) {
@@ -219,7 +206,6 @@ void Labonatip_GUI::sliderPonChanged(int _value) {
 		return;
 	}
 	ui->progressBar_ledPon->setValue(m_ppc1->m_PPC1_data->channel_D->state); // turn the led on
-
 }
 
 
@@ -250,10 +236,6 @@ void Labonatip_GUI::sliderRecircChanged(int _value) {
 		updateFlowControlPercentages();
 	}
 
-	// this updates the bars in the pipette drawing
-	//ui->progressBar_recircIn->setValue(_value);
-	//ui->progressBar_recircOut->setValue(_value);
-
 	updateVrecircSetPoint(_value);
 
 	// if we decrease the pressure to zero, clean the scene and return, so the flow disappear
@@ -262,7 +244,6 @@ void Labonatip_GUI::sliderRecircChanged(int _value) {
 		return;
 	}
 	ui->progressBar_ledRecirc->setValue(m_ppc1->m_PPC1_data->channel_A->state); // turn the led on
-
 }
 
 
@@ -273,10 +254,6 @@ void Labonatip_GUI::sliderSwitchChanged(int _value) {
 		updateFlowControlPercentages();
 	}
 
-	// this updates the bars in the pipette drawing
-	//ui->progressBar_switchIn->setValue(_value);
-	//ui->progressBar_switchOut->setValue(_value);
-
 	updateVswitchSetPoint(_value);
 
 	// if we decrease the pressure to zero, clean the scene and return, so the flow disappear
@@ -285,5 +262,4 @@ void Labonatip_GUI::sliderSwitchChanged(int _value) {
 		return;
 	}
 	ui->progressBar_ledSwitch->setValue(m_ppc1->m_PPC1_data->channel_B->state);
-
 }

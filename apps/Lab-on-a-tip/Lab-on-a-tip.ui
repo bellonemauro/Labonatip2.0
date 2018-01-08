@@ -845,7 +845,7 @@ height: 0.5px;
                       <string/>
                      </property>
                      <property name="pixmap">
-                      <pixmap>icons/darkArrow.png</pixmap>
+                      <pixmap resource="resources.qrc">:/icons/darkArrow.png</pixmap>
                      </property>
                      <property name="scaledContents">
                       <bool>true</bool>
@@ -1908,8 +1908,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                      <string>Increase flow speed</string>
                     </property>
                     <property name="styleSheet">
-                     <string notr="true">
-</string>
+                     <string notr="true"/>
                     </property>
                     <property name="text">
                      <string/>
@@ -2011,8 +2010,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                      <bool>false</bool>
                     </property>
                     <property name="styleSheet">
-                     <string notr="true">
-</string>
+                     <string notr="true"/>
                     </property>
                     <property name="text">
                      <string/>
@@ -2167,8 +2165,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                      <string>Increase droplet size</string>
                     </property>
                     <property name="styleSheet">
-                     <string notr="true">
-</string>
+                     <string notr="true"/>
                     </property>
                     <property name="text">
                      <string/>

@@ -72,17 +72,15 @@ void Labonatip_macroRunner::run()  {
 					emit sendStatusMessage(message);
 
 					if (m_protocol->at(i).getInstruction() ==
-						fluicell::PPC1api::command::instructions::ask_msg) {
+						fluicell::PPC1api::command::instructions::ask_msg) // if is askMsg we send the signals
+					{
 						QString msg = QString::fromStdString(m_protocol->at(i).getStatusMessage());
-
 						emit sendAskMessage(msg); // send ask message event
 						m_ask_ok = false;
 						while (!m_ask_ok) {  // wait until the signal ok is pressed on the GUI
 							msleep(500);
 						}
 					}
-
-					//sleep(1);
 
 					if (m_protocol->at(i).getInstruction() ==
 						fluicell::PPC1api::command::instructions::sleep) {

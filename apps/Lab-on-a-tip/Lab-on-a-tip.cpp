@@ -30,10 +30,6 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	l_y2(l_y1),
 	m_base_time_step(1000), //TODO : solve this! there is an issue with the timing of the solution pumped https://stackoverflow.com/questions/21232520/precise-interval-in-qthread
 	m_flowing_solution(0),
-	m_pon_set_point(0.0),
-	m_poff_set_point(0.0),
-	m_v_recirc_set_point(0.0),
-	m_v_switch_set_point(0.0),
 	m_sol1_color(QColor::fromRgb(255, 189, 0)),//(189, 62, 71)),
 	m_sol2_color(QColor::fromRgb(255, 40, 0)),//96, 115, 158)),
 	m_sol3_color(QColor::fromRgb(0, 158, 255)),//193, 130, 50)),
@@ -85,6 +81,8 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   m_dialog_p_editor = new Labonatip_protocol_editor();
   m_dialog_tools = new Labonatip_tools(); 
   
+  m_pipette_status = new pipetteStatus();
+
   m_comSettings = new COMSettings();
   m_solutionParams = new solutionsParams();
   m_pr_params = new pr_params();
@@ -437,7 +435,10 @@ void Labonatip_GUI::updateDrawing( int _value) {
 
 void Labonatip_GUI::setAsDefault()
 {
-	m_pr_params->setDefValues(m_pon_set_point, m_poff_set_point, m_v_switch_set_point, m_v_recirc_set_point);
+	m_pr_params->setDefValues(m_pipette_status->pon_set_point, 
+		m_pipette_status->poff_set_point, 
+		m_pipette_status->v_switch_set_point, 
+		m_pipette_status->v_recirc_set_point);
 
 	m_dialog_tools->setDefaultPressuresVacuums(m_pr_params->p_on_default, m_pr_params->p_off_default,
 		m_pr_params->v_recirc_default, m_pr_params->v_switch_default);
@@ -455,25 +456,17 @@ void Labonatip_GUI::updateFlows()
 {
 
 	// calculate the flow
-	double delta_pressure = 0.0;
+	double delta_pressure = 0.0;  
 	double outflow = 0.0;
 	double inflow_recirculation = 0.0;
 	double inflow_switch = 0.0;
 	double in_out_ratio = 0.0;
 	double solution_usage_off = 0.0;
 	double solution_usage_on = 0.0;
-	double flow_rate_1 = 0.0;
-	double flow_rate_2 = 0.0;
-	double flow_rate_3 = 0.0;
-	double flow_rate_4 = 0.0;
-	double flow_rate_5 = 0.0;
-	double flow_rate_6 = 0.0;
-	double flow_rate_7 = 0.0;
-	double flow_rate_8 = 0.0;
-	double v_s = m_v_switch_set_point;
-	double v_r = m_v_recirc_set_point;
-	double p_on = m_pon_set_point;
-	double p_off = m_poff_set_point;
+	double v_s = m_pipette_status->v_switch_set_point;
+	double v_r = m_pipette_status->v_recirc_set_point;
+	double p_on = m_pipette_status->pon_set_point;
+	double p_off = m_pipette_status->poff_set_point;
 
 
 	if (!m_simulationOnly) {
@@ -536,14 +529,14 @@ void Labonatip_GUI::updateFlows()
 
 		outflow = m_ppc1->getFlowSimple( delta_pressure, LENGTH_TO_TIP);
 
-		if (ui->pushButton_solution1->isChecked() ) flow_rate_1 = solution_usage_on;
-		else flow_rate_1 = solution_usage_off;
-		if (ui->pushButton_solution2->isChecked()) flow_rate_2 = solution_usage_on;
-		else flow_rate_2 = solution_usage_off;
-		if (ui->pushButton_solution3->isChecked()) flow_rate_3 = solution_usage_on;
-		else flow_rate_3 = solution_usage_off;
-		if (ui->pushButton_solution4->isChecked()) flow_rate_4 = solution_usage_on;
-		else flow_rate_4 = solution_usage_off;
+		if (ui->pushButton_solution1->isChecked() ) m_pipette_status->flow_well1 = solution_usage_on;
+		else m_pipette_status->flow_well1 = solution_usage_off;
+		if (ui->pushButton_solution2->isChecked()) m_pipette_status->flow_well2 = solution_usage_on;
+		else m_pipette_status->flow_well2 = solution_usage_off;
+		if (ui->pushButton_solution3->isChecked()) m_pipette_status->flow_well3 = solution_usage_on;
+		else m_pipette_status->flow_well3 = solution_usage_off;
+		if (ui->pushButton_solution4->isChecked()) m_pipette_status->flow_well4 = solution_usage_on;
+		else m_pipette_status->flow_well4 = solution_usage_off;
 
 	}
 	else // flow when solution is on // TODO : check on off
@@ -552,17 +545,17 @@ void Labonatip_GUI::updateFlows()
 
 		outflow = 2.0 * m_ppc1->getFlowSimple( delta_pressure, 2*LENGTH_TO_ZONE);
 
-		flow_rate_1 = solution_usage_off;
-		flow_rate_2 = solution_usage_off;
-		flow_rate_3 = solution_usage_off;
-		flow_rate_4 = solution_usage_off;
+		m_pipette_status->flow_well1 = solution_usage_off;
+		m_pipette_status->flow_well2 = solution_usage_off;
+		m_pipette_status->flow_well3 = solution_usage_off;
+		m_pipette_status->flow_well4 = solution_usage_off;
 
 	}
 
-	flow_rate_5 = inflow_switch / 2.0;
-	flow_rate_6 = inflow_switch / 2.0;
-	flow_rate_7 = inflow_recirculation / 2.0;
-	flow_rate_8 = inflow_recirculation / 2.0;
+	m_pipette_status->flow_well5 = inflow_switch / 2.0;
+	m_pipette_status->flow_well6 = inflow_switch / 2.0;
+	m_pipette_status->flow_well7 = inflow_recirculation / 2.0;
+	m_pipette_status->flow_well8 = inflow_recirculation / 2.0;
 
 	in_out_ratio = outflow / inflow_recirculation;
 	if (isnan(in_out_ratio)) in_out_ratio = 0;
@@ -576,21 +569,21 @@ void Labonatip_GUI::updateFlows()
 	ui->treeWidget_macroInfo->topLevelItem(3)->setText(1,
 		QString::number(in_out_ratio, 'g', 2));
 	ui->treeWidget_macroInfo->topLevelItem(4)->setText(1,
-		QString::number(flow_rate_1, 'g', 2));
+		QString::number(m_pipette_status->flow_well1, 'g', 2));
 	ui->treeWidget_macroInfo->topLevelItem(5)->setText(1, 
-		QString::number(flow_rate_2, 'g', 2));
+		QString::number(m_pipette_status->flow_well2, 'g', 2));
 	ui->treeWidget_macroInfo->topLevelItem(6)->setText(1, 
-		QString::number(flow_rate_3, 'g', 2));
+		QString::number(m_pipette_status->flow_well3, 'g', 2));
 	ui->treeWidget_macroInfo->topLevelItem(7)->setText(1,
-		QString::number(flow_rate_4, 'g', 2));
+		QString::number(m_pipette_status->flow_well4, 'g', 2));
 	ui->treeWidget_macroInfo->topLevelItem(8)->setText(1, 
-		QString::number(flow_rate_5, 'g', 2));
+		QString::number(m_pipette_status->flow_well5, 'g', 2));
 	ui->treeWidget_macroInfo->topLevelItem(9)->setText(1, 
-		QString::number(flow_rate_6, 'g', 2));
+		QString::number(m_pipette_status->flow_well6, 'g', 2));
 	ui->treeWidget_macroInfo->topLevelItem(10)->setText(1,
-		QString::number(flow_rate_7, 'g', 2));
+		QString::number(m_pipette_status->flow_well7, 'g', 2));
 	ui->treeWidget_macroInfo->topLevelItem(11)->setText(1,
-		QString::number(flow_rate_8, 'g', 2));
+		QString::number(m_pipette_status->flow_well8, 'g', 2));
 	}
 
 
@@ -625,34 +618,26 @@ void Labonatip_GUI::updateGUI() {
 			", " + QString::number(set_point) + " mbar"));
 		ui->progressBar_pressure_p_on->setValue(sensor_reading);
 
-		//ui->progressBar_recircIn->setValue(ui->horizontalSlider_recirculation->value());
-		//ui->progressBar_recircOut->setValue(ui->horizontalSlider_recirculation->value());
-
-		//ui->progressBar_switchIn->setValue(ui->horizontalSlider_switch->value());
-		//ui->progressBar_switchOut->setValue(ui->horizontalSlider_switch->value());
-
 		ui->lcdNumber_dropletSize_percentage->display(m_ppc1->getDropletSize());
-		//ui->progressBar_dropletSize->setValue(m_ppc1->getDropletSizePercentage());
 		ui->lcdNumber_flowspeed_percentage->display(m_ppc1->getFlowSpeed());
-		//ui->progressBar_flowSpeed->setValue(m_ppc1->getFlowSpeedPercentage());
 		ui->lcdNumber_vacuum_percentage->display(m_ppc1->getVacuum());
-		//ui->progressBar_vacuum->setValue(m_ppc1->getVacuumPercentage());
-
-		//updateDrawing(m_ppc1->getDropletSizePercentage());
 	}
-
-	if (m_pipette_active) updateDrawing(m_ppc1->getDropletSize());
-	else updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
 
 	updateFlows();
 
+	if (m_pipette_active) updateDrawing(m_ppc1->getDropletSize());
+	else updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
 
 	if (m_ppc1->isRunning())
   	    m_update_GUI->start();
 }
 
-void Labonatip_GUI::updateWaste()
+void Labonatip_GUI::updateWaste()  // this is updated every second
 {
+	//TODO: here there is a calculation of the volume as follows:
+	//      remaining volume = current_volume (mL) - delta_t * flow_rate (nL/s)
+	//      there is an assumption of this to run every second hence delta_t = 1  
+	//TODO: check the conversions
 
 	m_update_waste->start();
 
@@ -662,42 +647,58 @@ void Labonatip_GUI::updateWaste()
 
 	if (ui->pushButton_solution1->isChecked()) {
 		m_solutionParams->rem_vol_well1 = m_solutionParams->rem_vol_well1 - //TODO: add check and block for negative values
-			0.001 * ui->treeWidget_macroInfo->topLevelItem(4)->text(1).toDouble();
+			0.001 * m_pipette_status->flow_well1;
+
+		double perc = 100.0 -  100.0 *
+			(m_solutionParams->vol_well1 - m_solutionParams->rem_vol_well1)
+			/ m_solutionParams->vol_well1;
+		ui->progressBar_solution1->setValue(int(perc));
+
+		// TODO: there is no check if the remaining solution is zero !
+
 		//waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well1 - // this is in micro liters 10^-6
 		//	m_solutionParams->rem_vol_well1) /  //this is in micro liters 10^-6
 		//	ui->treeWidget_macroInfo->topLevelItem(4)->text(1).toDouble(); // this is in nano liters 10^-9
 	}
 	if (ui->pushButton_solution2->isChecked()) {
 		m_solutionParams->rem_vol_well2 = m_solutionParams->rem_vol_well2 -
-			0.001 * ui->treeWidget_macroInfo->topLevelItem(5)->text(1).toDouble();
-		//waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well2 -
-		//	m_solutionParams->rem_vol_well2) /
-		//	ui->treeWidget_macroInfo->topLevelItem(5)->text(1).toDouble();
+			0.001 * m_pipette_status->flow_well2;
+
+		double perc = 100.0 - 100.0 *
+			(m_solutionParams->vol_well2 - m_solutionParams->rem_vol_well2)
+			/ m_solutionParams->vol_well2;
+		ui->progressBar_solution2->setValue(int(perc));
 	}
 	if (ui->pushButton_solution3->isChecked()) {
 		m_solutionParams->rem_vol_well3 = m_solutionParams->rem_vol_well3 -
-			0.001 * ui->treeWidget_macroInfo->topLevelItem(6)->text(1).toDouble();
-		//waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well3 -
-		//	m_solutionParams->rem_vol_well3) /
-		//	ui->treeWidget_macroInfo->topLevelItem(6)->text(1).toDouble();
+			0.001 * m_pipette_status->flow_well3;
+
+		double perc = 100.0 - 100.0 *
+			(m_solutionParams->vol_well3 - m_solutionParams->rem_vol_well3)
+			/ m_solutionParams->vol_well3;
+		ui->progressBar_solution3->setValue(int(perc));
 	}
 	if (ui->pushButton_solution4->isChecked()) {
 		m_solutionParams->rem_vol_well4 = m_solutionParams->rem_vol_well4 -
-			0.001 * ui->treeWidget_macroInfo->topLevelItem(7)->text(1).toDouble();
-		//waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well4 -
-		//	m_solutionParams->rem_vol_well4) /
-		//	ui->treeWidget_macroInfo->topLevelItem(7)->text(1).toDouble();
+			0.001 * m_pipette_status->flow_well4;
+
+		double perc = 100.0 - 100.0 *
+			(m_solutionParams->vol_well4 - m_solutionParams->rem_vol_well4)
+			/ m_solutionParams->vol_well4;
+		ui->progressBar_solution4->setValue(int(perc));
 	}
 
 	m_solutionParams->rem_vol_well5 = m_solutionParams->rem_vol_well5 + 
-		0.001 * ui->treeWidget_macroInfo->topLevelItem(8)->text(1).toDouble();
+		0.001 * m_pipette_status->flow_well5;
 	m_solutionParams->rem_vol_well6 = m_solutionParams->rem_vol_well6 + 
-		0.001 * ui->treeWidget_macroInfo->topLevelItem(9)->text(1).toDouble();
+		0.001 * m_pipette_status->flow_well6;
 	m_solutionParams->rem_vol_well7 = m_solutionParams->rem_vol_well7 + 
-		0.001 * ui->treeWidget_macroInfo->topLevelItem(10)->text(1).toDouble();
+		0.001 * m_pipette_status->flow_well7;
 	m_solutionParams->rem_vol_well8 = m_solutionParams->rem_vol_well8 +
-		0.001 * ui->treeWidget_macroInfo->topLevelItem(11)->text(1).toDouble();
+		0.001 * m_pipette_status->flow_well8;
 
+
+	// only the minimum of the remaining solution is shown and important
 	vector<double> v1;
 	v1.push_back(m_solutionParams->vol_well5 - m_solutionParams->rem_vol_well5);
 	v1.push_back(m_solutionParams->vol_well6 - m_solutionParams->rem_vol_well6);
@@ -710,10 +711,9 @@ void Labonatip_GUI::updateWaste()
 	switch (min_index)
 	{
 	case 0: { //TODO : the waste time is not well calculated 
-		if (ui->treeWidget_macroInfo->topLevelItem(8)->text(1).toDouble() != 0) {
+		if (m_pipette_status->flow_well5 != 0) {
 			waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well5 -
-				m_solutionParams->rem_vol_well5) /
-				ui->treeWidget_macroInfo->topLevelItem(8)->text(1).toDouble();
+				m_solutionParams->rem_vol_well5) / m_pipette_status->flow_well5;
 		}
 		else {
 			waste_remaining_time_in_sec = 0;
@@ -721,10 +721,9 @@ void Labonatip_GUI::updateWaste()
 		break;
 	}
 	case 1: {
-		if (ui->treeWidget_macroInfo->topLevelItem(9)->text(1).toDouble() != 0) {
+		if (m_pipette_status->flow_well6 != 0) {
 			waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well6 -
-			m_solutionParams->rem_vol_well6) /
-			ui->treeWidget_macroInfo->topLevelItem(9)->text(1).toDouble();
+				m_solutionParams->rem_vol_well6) / m_pipette_status->flow_well6;
 		}
 		else {
 			waste_remaining_time_in_sec = 0;
@@ -732,10 +731,9 @@ void Labonatip_GUI::updateWaste()
 		break;
 	}
 	case 2: {
-		if (ui->treeWidget_macroInfo->topLevelItem(10)->text(1).toDouble() != 0) {
+		if (m_pipette_status->flow_well7 != 0) {
 			waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well7 -
-			m_solutionParams->rem_vol_well7) /
-			ui->treeWidget_macroInfo->topLevelItem(10)->text(1).toDouble();
+				m_solutionParams->rem_vol_well7) / m_pipette_status->flow_well7;
 		}
 		else {
 			waste_remaining_time_in_sec = 0;
@@ -743,10 +741,9 @@ void Labonatip_GUI::updateWaste()
 		break;
 	}
 	case 3: {
-		if (ui->treeWidget_macroInfo->topLevelItem(11)->text(1).toDouble() != 0) {
+		if (m_pipette_status->flow_well8 != 0) {
 			waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well8 -
-				m_solutionParams->rem_vol_well8) /
-				ui->treeWidget_macroInfo->topLevelItem(11)->text(1).toDouble();
+				m_solutionParams->rem_vol_well8) / m_pipette_status->flow_well8;
 		}
 		else {
 			waste_remaining_time_in_sec = 0;
@@ -797,10 +794,16 @@ void Labonatip_GUI::updateWaste()
 	value = 100 - (m_solutionParams->vol_well8 - m_solutionParams->rem_vol_well8) * 100 / m_solutionParams->vol_well8; 
 	ui->progressBar_recircIn->setValue(value);
 
-	QString s;
+
+	if (waste_remaining_time_in_sec < 0) {
+		toolEmptyWells();
+		//TODO: what to do in this case?
+		QMessageBox::information(this, "Warning !", " Waste full ---- MB : WHAT TO DO? ");
+		return;
+	}
 
 	// build the string for the waste label
-	s.clear();
+	QString s;
 	s.append("Waste ");
 	s.append(QString::number(min_index + 5));
 	s.append(" full in \n");
@@ -861,7 +864,6 @@ void Labonatip_GUI::switchLanguage(int _value )
 }
 
 
-
 void Labonatip_GUI::changeEvent(QEvent* _event)
 {
 	//cout << QDate::currentDate().toString().toStdString() << "  "
@@ -887,7 +889,6 @@ void Labonatip_GUI::changeEvent(QEvent* _event)
 	QMainWindow::changeEvent(_event);
 }
 
-
 void Labonatip_GUI::resizeEvent(QResizeEvent *_event)
 {
 	//cout << QDate::currentDate().toString().toStdString() << "  "
@@ -895,7 +896,6 @@ void Labonatip_GUI::resizeEvent(QResizeEvent *_event)
 	//	<< "Labonatip_GUI::resizeEvent   " << _event->type() << endl;
 	this->resizeToolbar();
 }
-
 
 bool Labonatip_GUI::eventFilter(QObject *_obj, QEvent *_event)
 {
@@ -933,7 +933,6 @@ void Labonatip_GUI::setStatusLed( bool _connect ) {
 		ui->status_PPC1_led->setPixmap(*led_red);
 	}
 }
-
 
 void Labonatip_GUI::initConnects()
 {
@@ -1157,6 +1156,8 @@ void Labonatip_GUI::toolEmptyWells()
 		<< "Labonatip_GUI::toolEmptyWells   " << endl;
 
 	//TODO: this now is empty and it does not work
+	*m_solutionParams = m_dialog_tools->getSolutionsParams();
+
 	
 }
 
@@ -1206,7 +1207,6 @@ void Labonatip_GUI::editorOk()
 	editorApply();
 }
 
-
 void Labonatip_GUI::editorApply()
 {
 	cout << QDate::currentDate().toString().toStdString() << "  "
@@ -1240,7 +1240,6 @@ void Labonatip_GUI::editorApply()
 
 }
 
-
 void Labonatip_GUI::setEnableMainWindow(bool _enable) {
 
 	ui->centralwidget->setEnabled(_enable);
@@ -1249,7 +1248,6 @@ void Labonatip_GUI::setEnableMainWindow(bool _enable) {
 	ui->toolBar_2->setEnabled(_enable);
 	ui->toolBar_3->setEnabled(_enable);
 }
-
 
 bool Labonatip_GUI::visualizeProgressMessage(int _seconds, QString _message)
 {

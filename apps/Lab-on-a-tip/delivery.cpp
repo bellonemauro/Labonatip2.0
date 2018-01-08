@@ -38,15 +38,15 @@ void Labonatip_GUI::dropletSizePlus() {
 		else
 		{
 			// update the set point
-			m_v_recirc_set_point = -m_ppc1->m_PPC1_data->channel_A->set_point;
-			m_pon_set_point = m_ppc1->m_PPC1_data->channel_D->set_point;
+			m_pipette_status->v_recirc_set_point = -m_ppc1->m_PPC1_data->channel_A->set_point;
+			m_pipette_status->pon_set_point = m_ppc1->m_PPC1_data->channel_D->set_point;
 
 			// update the slider for the GUI
 			ui->horizontalSlider_recirculation->blockSignals(true);
-			ui->horizontalSlider_recirculation->setValue(m_v_recirc_set_point);
+			ui->horizontalSlider_recirculation->setValue(m_pipette_status->v_recirc_set_point);
 			ui->horizontalSlider_recirculation->blockSignals(false);
 			ui->horizontalSlider_p_on->blockSignals(true);
-			ui->horizontalSlider_p_on->setValue(m_pon_set_point);
+			ui->horizontalSlider_p_on->setValue(m_pipette_status->pon_set_point);
 			ui->horizontalSlider_p_on->blockSignals(false);
 		}
 	}
@@ -115,15 +115,15 @@ void Labonatip_GUI::dropletSizeMinus() {
 		else
 		{
 			// update the set point
-			m_v_recirc_set_point = -m_ppc1->m_PPC1_data->channel_A->set_point;
-			m_pon_set_point = m_ppc1->m_PPC1_data->channel_D->set_point;
+			m_pipette_status->v_recirc_set_point = -m_ppc1->m_PPC1_data->channel_A->set_point;
+			m_pipette_status->pon_set_point = m_ppc1->m_PPC1_data->channel_D->set_point;
 
 			// update the slider for the GUI
 			ui->horizontalSlider_recirculation->blockSignals(true);
-			ui->horizontalSlider_recirculation->setValue(m_v_recirc_set_point);
+			ui->horizontalSlider_recirculation->setValue(m_pipette_status->v_recirc_set_point);
 			ui->horizontalSlider_recirculation->blockSignals(false);
 			ui->horizontalSlider_p_on->blockSignals(true);
-			ui->horizontalSlider_p_on->setValue(m_pon_set_point);
+			ui->horizontalSlider_p_on->setValue(m_pipette_status->pon_set_point);
 			ui->horizontalSlider_p_on->blockSignals(false);
 		}
 	}
@@ -193,23 +193,23 @@ void Labonatip_GUI::flowSpeedPlus() {
 		else
 		{
 			// update the set point
-			m_v_recirc_set_point = -m_ppc1->m_PPC1_data->channel_A->set_point;
-			m_v_switch_set_point = -m_ppc1->m_PPC1_data->channel_B->set_point;
-			m_poff_set_point = m_ppc1->m_PPC1_data->channel_C->set_point;
-			m_pon_set_point = m_ppc1->m_PPC1_data->channel_D->set_point;
+			m_pipette_status->v_recirc_set_point = -m_ppc1->m_PPC1_data->channel_A->set_point;
+			m_pipette_status->v_switch_set_point = -m_ppc1->m_PPC1_data->channel_B->set_point;
+			m_pipette_status->poff_set_point = m_ppc1->m_PPC1_data->channel_C->set_point;
+			m_pipette_status->pon_set_point = m_ppc1->m_PPC1_data->channel_D->set_point;
 
 			// update the slider for the GUI
 			ui->horizontalSlider_recirculation->blockSignals(true);
-			ui->horizontalSlider_recirculation->setValue(m_v_recirc_set_point);
+			ui->horizontalSlider_recirculation->setValue(m_pipette_status->v_recirc_set_point);
 			ui->horizontalSlider_recirculation->blockSignals(false);
 			ui->horizontalSlider_switch->blockSignals(true);
-			ui->horizontalSlider_switch->setValue(m_v_switch_set_point);
+			ui->horizontalSlider_switch->setValue(m_pipette_status->v_switch_set_point);
 			ui->horizontalSlider_switch->blockSignals(false);
 			ui->horizontalSlider_p_off->blockSignals(true);
-			ui->horizontalSlider_p_off->setValue(m_poff_set_point);
+			ui->horizontalSlider_p_off->setValue(m_pipette_status->poff_set_point);
 			ui->horizontalSlider_p_off->blockSignals(false);
 			ui->horizontalSlider_p_on->blockSignals(true);
-			ui->horizontalSlider_p_on->setValue(m_pon_set_point);
+			ui->horizontalSlider_p_on->setValue(m_pipette_status->pon_set_point);
 			ui->horizontalSlider_p_on->blockSignals(false);
 		}
 	}
@@ -219,7 +219,7 @@ void Labonatip_GUI::flowSpeedPlus() {
 			updatePonSetPoint(5.0);
 		}
 		else {
-			double value = m_pon_set_point + 
+			double value = m_pipette_status->pon_set_point +
 				m_pr_params->p_on_default *  m_pr_params->base_fs_increment / 100.0;
 			updatePonSetPoint(value);
 		}
@@ -228,7 +228,7 @@ void Labonatip_GUI::flowSpeedPlus() {
 			updatePoffSetPoint(5.0);
 		}
 		else {
-			double value = m_poff_set_point + 
+			double value = m_pipette_status->poff_set_point +
 				m_pr_params->p_off_default * m_pr_params->base_fs_increment / 100.0;
 			updatePoffSetPoint(value);
 		}
@@ -237,7 +237,7 @@ void Labonatip_GUI::flowSpeedPlus() {
 			updateVswitchSetPoint ( 5.0 );
 		}
 		else {
-			double value = m_v_switch_set_point - 
+			double value = m_pipette_status->v_switch_set_point -
 				m_pr_params->v_switch_default * m_pr_params->base_fs_increment / 100.0;
 			updateVswitchSetPoint(value);
 		}
@@ -246,7 +246,7 @@ void Labonatip_GUI::flowSpeedPlus() {
 			updateVrecircSetPoint(5.0);
 		}
 		else {
-			double value = m_v_recirc_set_point - 
+			double value = m_pipette_status->v_recirc_set_point -
 				m_pr_params->v_recirc_default * m_pr_params->base_fs_increment / 100.0;
 			updateVrecircSetPoint(value);
 		}
@@ -284,23 +284,23 @@ void Labonatip_GUI::flowSpeedMinus() {
 		{
 
 			// update the set point
-			m_v_recirc_set_point = -m_ppc1->m_PPC1_data->channel_A->set_point;
-			m_v_switch_set_point = -m_ppc1->m_PPC1_data->channel_B->set_point;
-			m_poff_set_point = m_ppc1->m_PPC1_data->channel_C->set_point;
-			m_pon_set_point = m_ppc1->m_PPC1_data->channel_D->set_point;
+			m_pipette_status->v_recirc_set_point = -m_ppc1->m_PPC1_data->channel_A->set_point;
+			m_pipette_status->v_switch_set_point = -m_ppc1->m_PPC1_data->channel_B->set_point;
+			m_pipette_status->poff_set_point = m_ppc1->m_PPC1_data->channel_C->set_point;
+			m_pipette_status->pon_set_point = m_ppc1->m_PPC1_data->channel_D->set_point;
 
 			// update the slider for the GUI
 			ui->horizontalSlider_recirculation->blockSignals(true);
-			ui->horizontalSlider_recirculation->setValue(m_v_recirc_set_point);
+			ui->horizontalSlider_recirculation->setValue(m_pipette_status->v_recirc_set_point);
 			ui->horizontalSlider_recirculation->blockSignals(false);
 			ui->horizontalSlider_switch->blockSignals(true);
-			ui->horizontalSlider_switch->setValue(m_v_switch_set_point);
+			ui->horizontalSlider_switch->setValue(m_pipette_status->v_switch_set_point);
 			ui->horizontalSlider_switch->blockSignals(false);
 			ui->horizontalSlider_p_off->blockSignals(true);
-			ui->horizontalSlider_p_off->setValue(m_poff_set_point);
+			ui->horizontalSlider_p_off->setValue(m_pipette_status->poff_set_point);
 			ui->horizontalSlider_p_off->blockSignals(false);
 			ui->horizontalSlider_p_on->blockSignals(true);
-			ui->horizontalSlider_p_on->setValue(m_pon_set_point);
+			ui->horizontalSlider_p_on->setValue(m_pipette_status->pon_set_point);
 			ui->horizontalSlider_p_on->blockSignals(false);
 		}
 	}
@@ -309,13 +309,13 @@ void Labonatip_GUI::flowSpeedMinus() {
 		//double perc = (m_fs_perc - //ui->lcdNumber_flowspeed_percentage->value() -
 		//	m_dialog_tools->m_pr_params->base_fs_increment) / 100.0;
 
-		double value = m_pon_set_point - m_pr_params->p_on_default * m_pr_params->base_fs_increment / 100.0;
+		double value = m_pipette_status->pon_set_point - m_pr_params->p_on_default * m_pr_params->base_fs_increment / 100.0;
 		updatePonSetPoint(value);
-		value = m_poff_set_point - m_pr_params->p_off_default * m_pr_params->base_fs_increment / 100.0;
+		value = m_pipette_status->poff_set_point - m_pr_params->p_off_default * m_pr_params->base_fs_increment / 100.0;
 		updatePoffSetPoint(value);
-		value = m_v_switch_set_point + m_pr_params->v_switch_default * m_pr_params->base_fs_increment / 100.0;
+		value = m_pipette_status->v_switch_set_point + m_pr_params->v_switch_default * m_pr_params->base_fs_increment / 100.0;
 		updateVswitchSetPoint(value);
-		value = m_v_recirc_set_point + m_pr_params->v_recirc_default * m_pr_params->base_fs_increment / 100.0;
+		value = m_pipette_status->v_recirc_set_point + m_pr_params->v_recirc_default * m_pr_params->base_fs_increment / 100.0;
 		updateVrecircSetPoint(value);
 
 		updateFlowControlPercentages();
@@ -348,11 +348,11 @@ void Labonatip_GUI::vacuumPlus() {
 		}
 		else {
 			// update the set point
-			m_v_recirc_set_point = -m_ppc1->m_PPC1_data->channel_A->set_point;
+			m_pipette_status->v_recirc_set_point = -m_ppc1->m_PPC1_data->channel_A->set_point;
 
 			// update the slider for the GUI
 			ui->horizontalSlider_recirculation->blockSignals(true);
-			ui->horizontalSlider_recirculation->setValue(m_v_recirc_set_point);
+			ui->horizontalSlider_recirculation->setValue(m_pipette_status->v_recirc_set_point);
 			ui->horizontalSlider_recirculation->blockSignals(false);
 		}
 	}
@@ -363,7 +363,7 @@ void Labonatip_GUI::vacuumPlus() {
 		}
 		else {
 
-			double value = m_v_recirc_set_point - m_pr_params->v_recirc_default * m_pr_params->base_v_increment / 100.0;
+			double value = m_pipette_status->v_recirc_set_point - m_pr_params->v_recirc_default * m_pr_params->base_v_increment / 100.0;
 			cout << "Labonatip_GUI::vacuumPlus    ::: new recirculation value " << value << endl;
 			updateVrecircSetPoint(value);
 			
@@ -400,12 +400,12 @@ void Labonatip_GUI::vacuumMinus() {
 		}
 		else {
 			// update the set point
-			m_v_recirc_set_point = -m_ppc1->m_PPC1_data->channel_A->set_point;
+			m_pipette_status->v_recirc_set_point = -m_ppc1->m_PPC1_data->channel_A->set_point;
 			//ui->label_recircPressure->setText(QString(QString::number(m_v_recirc_set_point) + " mbar"));
 
 			// update the slider for the GUI
 			ui->horizontalSlider_recirculation->blockSignals(true);
-			ui->horizontalSlider_recirculation->setValue(m_v_recirc_set_point);
+			ui->horizontalSlider_recirculation->setValue(m_pipette_status->v_recirc_set_point);
 			ui->horizontalSlider_recirculation->blockSignals(false);
 
 		}
@@ -417,7 +417,7 @@ void Labonatip_GUI::vacuumMinus() {
 				" Operation cannot be done. <br> Recirculation is zero. ");
 		}
 
-		double value = m_v_recirc_set_point + m_pr_params->v_recirc_default * m_pr_params->base_v_increment / 100.0;
+		double value = m_pipette_status->v_recirc_set_point + m_pr_params->v_recirc_default * m_pr_params->base_v_increment / 100.0;
 		cout << "Labonatip_GUI::vacuumMinus    ::: new recirculation value " << value << endl;
 		updateVrecircSetPoint(value);
 
@@ -437,8 +437,8 @@ void Labonatip_GUI::updateFlowControlPercentages()
 
 			//double droplet_percentage = 100.0 + (ponp - vrp) / 2.0;
 			
-			double ponp =  100.0 * std::pow(m_pon_set_point / m_pr_params->p_on_default, 3.0);
-			double vrp = -100.0 * std::pow((m_v_recirc_set_point + 2.0 * m_pr_params->v_recirc_default) / (-m_pr_params->v_recirc_default), 3.0);
+			double ponp =  100.0 * std::pow(m_pipette_status->pon_set_point / m_pr_params->p_on_default, 3.0);
+			double vrp = -100.0 * std::pow((m_pipette_status->v_recirc_set_point + 2.0 * m_pr_params->v_recirc_default) / (-m_pr_params->v_recirc_default), 3.0);
 
 			//double droplet_percentage = std::pow(1.0 + (ponp - vrp) / 2.0, 3);
 			m_ds_perc =  (ponp + vrp) / 2.0;
@@ -457,7 +457,7 @@ void Labonatip_GUI::updateFlowControlPercentages()
 			{
 				m_ds_perc_2 = 100.0*(ui->treeWidget_macroInfo->topLevelItem(3)->text(1).toDouble()+0.21)/0.31;
 			}
-			else { m_ds_perc_2 = 100.0 * m_pon_set_point / m_pr_params->p_on_default; }
+			else { m_ds_perc_2 = 100.0 * m_pipette_status->pon_set_point / m_pr_params->p_on_default; }
 
 			ui->lcdNumber_dropletSize_percentage_2->display(m_ds_perc_2);
 
@@ -465,10 +465,10 @@ void Labonatip_GUI::updateFlowControlPercentages()
 
 		// calculate flow speed percentage
 		{
-			double ponp = 100.0 * m_pon_set_point / m_pr_params->p_on_default;
-			double poffp = 100.0 * m_poff_set_point / m_pr_params->p_off_default;
-			double vsp = 100.0 * m_v_switch_set_point / (-m_pr_params->v_switch_default);
-			double vrp = 100.0 * m_v_recirc_set_point / (-m_pr_params->v_recirc_default);
+			double ponp = 100.0 * m_pipette_status->pon_set_point / m_pr_params->p_on_default;
+			double poffp = 100.0 * m_pipette_status->poff_set_point / m_pr_params->p_off_default;
+			double vsp = 100.0 * m_pipette_status->v_switch_set_point / (-m_pr_params->v_switch_default);
+			double vrp = 100.0 * m_pipette_status->v_recirc_set_point / (-m_pr_params->v_recirc_default);
 
 			//m_fs_perc = (ponp + poffp + vsp + vrp) / 4.0; // 4 is the number of elements in the average
 			//MB: mod to consider pon only in the calculation of the speed
@@ -478,7 +478,7 @@ void Labonatip_GUI::updateFlowControlPercentages()
 
 		//calculate vacuum percentage
 		{
-			m_v_perc = 100.0 * m_v_recirc_set_point / (-m_pr_params->v_recirc_default);
+			m_v_perc = 100.0 * m_pipette_status->v_recirc_set_point / (-m_pr_params->v_recirc_default);
 			ui->lcdNumber_vacuum_percentage->display(m_v_perc);
 		}
 	}

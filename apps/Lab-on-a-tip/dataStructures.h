@@ -82,26 +82,24 @@ private:
 // structure to handle solutions name parameters
 struct solutionsParams {
 
-
 	solutionsParams() {   // default values
-		this->vol_well1 = 0;
-		this->vol_well2 = 0;
-		this->vol_well3 = 0;
-		this->vol_well4 = 0;
-		this->vol_well5 = 0;
-		this->vol_well6 = 0;
-		this->vol_well7 = 0;
-		this->vol_well8 = 0;
-		this->rem_vol_well1 = 0;
-		this->rem_vol_well2 = 0;
-		this->rem_vol_well3 = 0;
-		this->rem_vol_well4 = 0;
-		this->rem_vol_well5 = 0;
-		this->rem_vol_well6 = 0;
-		this->rem_vol_well7 = 0;
-		this->rem_vol_well8 = 0;
-
-		this->sol1 = "No name given to sol 1";
+		this->vol_well1 = 0.0;
+		this->vol_well2 = 0.0;
+		this->vol_well3 = 0.0;
+		this->vol_well4 = 0.0;
+		this->vol_well5 = 0.0;
+		this->vol_well6 = 0.0;
+		this->vol_well7 = 0.0;
+		this->vol_well8 = 0.0;
+		this->rem_vol_well1 = 0.0;
+		this->rem_vol_well2 = 0.0;
+		this->rem_vol_well3 = 0.0;
+		this->rem_vol_well4 = 0.0;
+		this->rem_vol_well5 = 0.0;
+		this->rem_vol_well6 = 0.0;
+		this->rem_vol_well7 = 0.0;
+		this->rem_vol_well8 = 0.0;
+	    this->sol1 = "No name given to sol 1";
 		this->sol2 = "No name given to sol 2";
 		this->sol3 = "No name given to sol 3";
 		this->sol4 = "No name given to sol 4";
@@ -136,6 +134,53 @@ struct solutionsParams {
 	QColor sol3_color;                //!<  color of the solution 3
 	QColor sol4_color;                //!<  color of the solution 4
 }; // END solutionsNames struct
+
+
+struct pipetteStatus{
+
+	pipetteStatus() {   // default values
+		this->pon_set_point = 0.0;
+		this->poff_set_point = 0.0;
+		this->v_recirc_set_point = 0.0;
+		this->v_switch_set_point = 0.0;
+		this->delta_pressure = 0.0;
+		this->outflow = 0.0;
+		this->inflow_recirculation = 0.0;
+		this->inflow_switch = 0.0;
+		this->in_out_ratio = 0.0;
+		this->solution_usage_off = 0.0;
+		this->solution_usage_on = 0.0;
+		this->flow_well1 = 0.0;
+		this->flow_well2 = 0.0;
+		this->flow_well3 = 0.0;
+		this->flow_well4 = 0.0;
+		this->flow_well5 = 0.0;
+		this->flow_well6 = 0.0;
+		this->flow_well7 = 0.0;
+		this->flow_well8 = 0.0;
+	}
+
+	double pon_set_point;          //!< holds the set point during the execution
+	double poff_set_point;         //!< holds the set point during the execution
+	double v_recirc_set_point;     //!< holds the set point during the execution
+	double v_switch_set_point;     //!< holds the set point during the execution
+	double delta_pressure;   
+	double outflow;
+	double inflow_recirculation;
+	double inflow_switch;
+	double in_out_ratio;
+	double solution_usage_off;
+	double solution_usage_on;
+	double flow_well1;                //!<  flow in the well 1 nL/s
+	double flow_well2;                //!<  flow in the well 2 nL/s
+	double flow_well3;                //!<  flow in the well 3 nL/s
+	double flow_well4;                //!<  flow in the well 4 nL/s
+	double flow_well5;                //!<  flow in the well 5 nL/s
+	double flow_well6;                //!<  flow in the well 6 nL/s
+	double flow_well7;                //!<  flow in the well 7 nL/s
+	double flow_well8;                //!<  flow in the well 8 nL/s
+
+};
 
 	// structure to handle solutions name parameters
 struct pr_params {

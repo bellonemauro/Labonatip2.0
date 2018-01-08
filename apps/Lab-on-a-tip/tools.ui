@@ -55,7 +55,7 @@ QCheckBox::indicator::unchecked:hover  {
 QCheckBox::indicator:checked {
     background-color: #FAFAFA;
     border: 1px solid black;
-    image: url(./icons/radioOn.png);
+    image: url(:/icons/radioOn.png);
     width: 13px;
     height: 13px;
 }
@@ -99,7 +99,7 @@ QCheckBox::indicator:unchecked {
        <number>0</number>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="page_0">
        <property name="styleSheet">

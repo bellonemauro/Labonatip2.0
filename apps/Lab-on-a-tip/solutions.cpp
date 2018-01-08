@@ -420,7 +420,7 @@ void Labonatip_GUI::updateTimingSliders()
 	if (m_timer_solution < m_time_multipilcator) {
 		m_update_flowing_sliders->start();
 		int status = int(100 * m_timer_solution / m_time_multipilcator);
-		_bar->setValue(100 - status);
+		//_bar->setValue(100 - status); //TODO: this must be set into the update flow
 		QString s;
 		if (!m_dialog_tools->isContinuousFlowing()) {
 			s.append("Well ");
@@ -470,7 +470,7 @@ void Labonatip_GUI::updateTimingSliders()
 
 		m_update_flowing_sliders->stop();
 		m_timer_solution = 0;
-		_bar->setValue(10); //set the minimum just to visualize something
+		//_bar->setValue(10); //set the minimum just to visualize something
 							//ui->widget_sol1->setValue(100);
 		if (m_pipette_active)
 		{

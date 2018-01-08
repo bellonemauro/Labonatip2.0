@@ -370,7 +370,7 @@ void Labonatip_GUI::closeOpenDockTools() {
 		ui->toolBar_2->update(); 
 		ui->toolBar_3->update();
 		if (!this->isMaximized())
-			this->resize(QSize(this->width(), this->height()));//	this->resize(QSize(this->minimumWidth(), this->height()));
+			this->resize(QSize(this->width(), this->height()));
 	}
 	else {
 		
