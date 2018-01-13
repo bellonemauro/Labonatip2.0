@@ -332,6 +332,9 @@ void Labonatip_protocol_editor::moveUp()
 
 	// get the current selected item
 	QTreeWidgetItem *moveItem = ui_p_editor->treeWidget_macroTable->currentItem();
+	int move_item_combo_index = qobject_cast<QComboBox*>(
+			ui_p_editor->treeWidget_macroTable->itemWidget(moveItem, 0))->currentIndex();
+	comboBox->setCurrentIndex(move_item_combo_index);
 	int row = ui_p_editor->treeWidget_macroTable->currentIndex().row();
 
 	if (moveItem && row > 0) // if the selection is valid and we are not at the first row
@@ -367,7 +370,9 @@ void Labonatip_protocol_editor::moveDown()
 
 	// get the current selected item
 	QTreeWidgetItem *moveItem = ui_p_editor->treeWidget_macroTable->currentItem();
-
+	int move_item_combo_index = qobject_cast<QComboBox*>(
+		ui_p_editor->treeWidget_macroTable->itemWidget(moveItem, 0))->currentIndex();
+	comboBox->setCurrentIndex(move_item_combo_index);
 	int row = ui_p_editor->treeWidget_macroTable->currentIndex().row();
 	int number_of_items = ui_p_editor->treeWidget_macroTable->topLevelItemCount();
 
@@ -980,7 +985,7 @@ bool Labonatip_protocol_editor::loadMacro(const QString _file_name)
 	return true;
 }
 
-bool Labonatip_protocol_editor::saveMacro()
+bool Labonatip_protocol_editor::saveMacro() //TODO update the folder when save
 {
 	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
 
@@ -997,6 +1002,7 @@ bool Labonatip_protocol_editor::saveMacro()
 		QMessageBox::warning(this, "Warning ", "File not saved ! <br>" + fileName);
 		return false;
 	}
+	readProtocolFolder(m_protocol_path);
 	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 	return true;
 }
@@ -1571,7 +1577,7 @@ void Labonatip_protocol_editor::updateChartProtocol(f_protocol *_macro)
 		{
 		case 0: { // Pon
 				  // remove the tail of the chart
-			m_series_Pon->remove(m_series_Pon->at(m_series_Pon->count() - 1));
+			if (m_series_Pon->count()>1) m_series_Pon->remove(m_series_Pon->at(m_series_Pon->count() - 1));
 
 			// the first point is calculated starting from the last value to the new value an the current time
 			double first_x = current_time;
@@ -1589,7 +1595,7 @@ void Labonatip_protocol_editor::updateChartProtocol(f_protocol *_macro)
 		}
 		case 1: { // Poff
 				  // remove the tail of the chart
-			m_series_Poff->remove(m_series_Poff->at(m_series_Poff->count() - 1));
+			if (m_series_Poff->count()>1) m_series_Poff->remove(m_series_Poff->at(m_series_Poff->count() - 1));
 
 			// the first point is calculated starting from the last value to the new value an the current time
 			double first_x = current_time;
@@ -1607,7 +1613,7 @@ void Labonatip_protocol_editor::updateChartProtocol(f_protocol *_macro)
 		}
 		case 2: { // v_switch
 				  // remove the tail of the chart
-			m_series_v_s->remove(m_series_v_s->at(m_series_v_s->count() - 1));
+			if (m_series_v_s->count()>1) m_series_v_s->remove(m_series_v_s->at(m_series_v_s->count() - 1));
 
 			// the first point is calculated starting from the last value to the new value an the current time
 			double first_x = current_time;
@@ -1624,7 +1630,7 @@ void Labonatip_protocol_editor::updateChartProtocol(f_protocol *_macro)
 		}
 		case 3: { // V_recirc
 				  // remove the tail of the chart
-			m_series_v_r->remove(m_series_v_r->at(m_series_v_r->count() - 1));
+			if (m_series_v_r->count()>1) m_series_v_r->remove(m_series_v_r->at(m_series_v_r->count() - 1));
 
 			// the first point is calculated starting from the last value to the new value an the current time
 			double first_x = current_time;

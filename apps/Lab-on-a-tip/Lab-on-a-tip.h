@@ -562,7 +562,7 @@ private:
   */
   void initConnects();
 
-  Ui::Labonatip_GUI *ui;         //!< the main user interface
+  Ui::Labonatip_GUI *ui;               //!< the main user interface
   Labonatip_tools * m_dialog_tools;    //!< pointer to the tools dialog
   Labonatip_protocol_editor * m_dialog_p_editor; //!< pointer to the protocol editor dialog
 
@@ -575,7 +575,7 @@ private:
   pr_params *m_pr_params;             //!< pressure and vacuum parameters
   GUIparams *m_GUI_params;            //!< GUI parameters
 
-  pipetteStatus *m_pipette_status;
+  pipetteStatus *m_pipette_status;    //!< pipette status in terms of pressures, vacuum and flows
 
   // for serial communication with PPC1 API
   fluicell::PPC1api *m_ppc1;  //!< object for the PPC1api connection
@@ -584,13 +584,13 @@ private:
   bool m_pipette_active;    //!< true when the pipette is active and communicating, false otherwise
   bool m_simulationOnly;    //!< if active the software will run without the hardware device connected
   
-  // Threding for protocols
+  // Threding for protocols and update GUI
   Labonatip_macroRunner *m_macroRunner_thread;
   QTimer *m_update_flowing_sliders;        //!< connected to an update visualization function relative to solutions flow
-  int m_flowing_solution;            //!< needed for the visualization function relative to solution 1 - 2 - 3- 4
-  QTimer *m_update_GUI;            //!< update GUI to show PPC1 values
-  QTimer *m_update_waste;            //!< update GUI to show PPC1 values
-  const int m_base_time_step;         //!< used to set the update timers, every step is by default 1000 ms
+  QTimer *m_update_GUI;                    //!< update GUI to show PPC1 values
+  QTimer *m_update_waste;                  //!< update GUI to show PPC1 values
+  const int m_base_time_step;              //!< used to set the update timers, every step is by default 1000 ms
+  int m_flowing_solution;                  //!< needed for the visualization function relative to solution 1 - 2 - 3- 4
 
   //!< set the multiplicators for the time step, 
   //    e.g. desired_duration (sec) = multiplicator * m_base_time_step (100ms)

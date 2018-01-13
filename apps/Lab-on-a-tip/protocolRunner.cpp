@@ -48,7 +48,7 @@ void Labonatip_macroRunner::run()  {
 			for (size_t i = 0; i < m_protocol->size(); i++)
 			{
 				if (!m_threadTerminationHandler) {
-					result = " MACRO STOPPED ";
+					result = " PROTOCOL STOPPED ";
 					emit resultReady(result);
 					return;
 				}
@@ -99,7 +99,7 @@ void Labonatip_macroRunner::run()  {
 														
 							emit timeStatus(status);
 							if (!m_threadTerminationHandler) {
-								result = " MACRO STOPPED ";
+								result = " PROTOCOL STOPPED ";
 								emit resultReady(result);
 								return;
 							}
@@ -140,7 +140,7 @@ void Labonatip_macroRunner::run()  {
 
 								emit timeStatus(status);
 								if (!m_threadTerminationHandler) {
-									result = " MACRO STOPPED ";
+									result = " PROTOCOL STOPPED ";
 									emit resultReady(result);
 									return;
 								}
@@ -158,7 +158,7 @@ void Labonatip_macroRunner::run()  {
 							 << QTime::currentTime().toString().toStdString() << "  "
 							 << " Labonatip_macroRunner::run  ---- error --- MESSAGE: ppc1 is NOT running " << endl;
 
-						result = " ppc1 is NOT running ";
+						result = " PPC1 is NOT running, connect and try again ";
 						emit resultReady(result);
 						return;
 					}

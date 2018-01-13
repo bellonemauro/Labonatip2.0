@@ -186,7 +186,7 @@ void Labonatip_GUI::runMacro() { //TODO: give it as an argument instead of a cla
 			}
 		}
 
-		m_macroRunner_thread->setProtocol(*m_protocol);
+		m_macroRunner_thread->setProtocol(m_protocol);
 		cout << QDate::currentDate().toString().toStdString() << "  " 
 			 << QTime::currentTime().toString().toStdString() << "  "
 			 << "Labonatip_GUI::runMacro    RUNNING" << endl;
@@ -219,8 +219,13 @@ void Labonatip_GUI::runMacro() { //TODO: give it as an argument instead of a cla
 		ui->tab_2->setEnabled(false);
 		ui->tab_4->setEnabled(false);
 		setEnableSolutionButtons(false);
-		ui->actionConnectDisconnect->setEnabled(false);
-		ui->actionSimulation->setEnabled(false);
+		if (!ui->actionConnectDisconnect->isChecked()) { 
+			ui->actionSimulation->setEnabled(true); 
+		}
+		else { 
+			ui->actionSimulation->setEnabled(false); 
+		}
+		//ui->actionSimulation->setEnabled(false);
 		ui->actionReboot->setEnabled(false);
 		ui->actionShudown->setEnabled(false);
 		ui->label_runMacro->setText("Stop protocol");
@@ -243,7 +248,14 @@ void Labonatip_GUI::runMacro() { //TODO: give it as an argument instead of a cla
 		ui->tab_4->setEnabled(true);
 		setEnableSolutionButtons(true);
 		ui->actionConnectDisconnect->setEnabled(!m_simulationOnly);
-		ui->actionSimulation->setEnabled(m_simulationOnly);
+		if (!ui->actionConnectDisconnect->isChecked()) { 
+			ui->actionSimulation->setEnabled(true); 
+		}
+		else { 
+			ui->actionSimulation->setEnabled(false); 
+		}
+			//ui->actionSimulation->setEnabled(m_simulationOnly);
+
 		ui->actionReboot->setEnabled(!m_simulationOnly);
 		ui->actionShudown->setEnabled(!m_simulationOnly);
 		ui->label_runMacro->setText("Run protocol");
@@ -259,7 +271,6 @@ void Labonatip_GUI::macroFinished(const QString &_result) {
 		 << "Labonatip_GUI::macroFinished    " << endl;
 
 	QMessageBox::information(this, " Information ", _result);
-	//ui->statusBar->showMessage("MACRO FINISHED");
 	ui->label_runMacro->setText("Run protocol");
 	ui->groupBox_deliveryZone->setEnabled(true);
 	ui->pushButton_operational->setEnabled(true);
@@ -272,7 +283,13 @@ void Labonatip_GUI::macroFinished(const QString &_result) {
 	ui->tab_4->setEnabled(true);
 	setEnableSolutionButtons(true);
 	ui->actionConnectDisconnect->setEnabled(!m_simulationOnly);
-	ui->actionSimulation->setEnabled(m_simulationOnly);
+	if (!ui->actionConnectDisconnect->isChecked()) { 
+		ui->actionSimulation->setEnabled(true);
+	}
+	else { 
+		ui->actionSimulation->setEnabled(false); 
+	}
+
 	ui->actionReboot->setEnabled(!m_simulationOnly);
 	ui->actionShudown->setEnabled(!m_simulationOnly);
 

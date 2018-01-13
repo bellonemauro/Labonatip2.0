@@ -37,7 +37,7 @@ public:
 
 	void setDevice(fluicell::PPC1api *_ppc1) { m_ppc1 = _ppc1; }
 	
-	void setProtocol(std::vector<fluicell::PPC1api::command> _protocol) { m_protocol = &_protocol; };
+	void setProtocol(std::vector<fluicell::PPC1api::command> *_protocol) { m_protocol = _protocol; };
 
 	void killMacro(bool _kill) { m_threadTerminationHandler = !_kill; }
 

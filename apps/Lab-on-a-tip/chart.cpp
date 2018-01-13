@@ -140,7 +140,7 @@ void Labonatip_chart::updateChartMacro(f_macro *_macro)
 		{
 		case 0: { // Pon
 			// remove the tail of the chart
-			m_series_Pon->remove(m_series_Pon->at(m_series_Pon->count()-1));
+			if (m_series_Pon->count()>1) m_series_Pon->remove(m_series_Pon->at(m_series_Pon->count()-1));
 
 			// the first point is calculated starting from the last value to the new value an the current time
 			double first_x = current_time;
@@ -159,7 +159,7 @@ void Labonatip_chart::updateChartMacro(f_macro *_macro)
 		}
 		case 1: { // Poff
 			// remove the tail of the chart
-			m_series_Poff->remove(m_series_Poff->at(m_series_Poff->count() - 1));
+			if (m_series_Poff->count()>1) m_series_Poff->remove(m_series_Poff->at(m_series_Poff->count() - 1));
 
 			// the first point is calculated starting from the last value to the new value an the current time
 			double first_x = current_time;
@@ -178,7 +178,7 @@ void Labonatip_chart::updateChartMacro(f_macro *_macro)
 		}
 		case 2: { // v_switch
 			// remove the tail of the chart
-			m_series_V_switch->remove(m_series_V_switch->at(m_series_V_switch->count() - 1));
+			if (m_series_V_switch->count()>1)  m_series_V_switch->remove(m_series_V_switch->at(m_series_V_switch->count() - 1));
 
 			// the first point is calculated starting from the last value to the new value an the current time
 			double first_x = current_time;
@@ -196,7 +196,7 @@ void Labonatip_chart::updateChartMacro(f_macro *_macro)
 		}
 		case 3: { // V_recirc
 			// remove the tail of the chart
-			m_series_V_recirc->remove(m_series_V_recirc->at(m_series_V_recirc->count() - 1));
+			if (m_series_V_recirc->count()>1) m_series_V_recirc->remove(m_series_V_recirc->at(m_series_V_recirc->count() - 1));
 
 			// the first point is calculated starting from the last value to the new value an the current time
 			double first_x = current_time;

@@ -443,10 +443,6 @@ void Labonatip_GUI::updateFlowControlPercentages()
 			//double droplet_percentage = std::pow(1.0 + (ponp - vrp) / 2.0, 3);
 			m_ds_perc =  (ponp + vrp) / 2.0;
 			//m_ds_perc = 100.0 * m_pon_set_point / m_pr_params->p_on_default;
-			cout << "Labonatip_GUI::updateFlowControlPercentages  ::: " 
-				 << " ponp " << ponp
-				 << " vrp " << vrp 
-				 << " droplet_percentage " << m_ds_perc << endl;
 
 			ui->lcdNumber_dropletSize_percentage->display(m_ds_perc);
 
@@ -455,10 +451,12 @@ void Labonatip_GUI::updateFlowControlPercentages()
 				ui->pushButton_solution3->isChecked() ||
 				ui->pushButton_solution4->isChecked()) // flow when solution is off // TODO : check on off
 			{
-				m_ds_perc_2 = 100.0*(ui->treeWidget_macroInfo->topLevelItem(3)->text(1).toDouble()+0.21)/0.31;
+				//m_ds_perc_2 = 100.0*(ui->treeWidget_macroInfo->topLevelItem(3)->text(1).toDouble()+0.21)/0.31;
+				m_ds_perc_2 = 100.0*(m_pipette_status->in_out_ratio + 0.21) / 0.31;
 			}
 			else { m_ds_perc_2 = 100.0 * m_pipette_status->pon_set_point / m_pr_params->p_on_default; }
 
+			//m_ds_perc_2 = 100.0*(m_pipette_status->in_out_ratio + 0.21) / 0.31;
 			ui->lcdNumber_dropletSize_percentage_2->display(m_ds_perc_2);
 
 		}
