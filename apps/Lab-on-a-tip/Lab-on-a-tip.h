@@ -629,6 +629,12 @@ private:
   QString m_ext_data_path;   //!< ext data path (save history)
   QTranslator m_translator;
 
+  // custom strings for translations
+  QString m_str_areyousure;
+  QString m_str_waiting;
+  QString m_str_advanced;
+  QString m_str_basic;
+
   // to visualize the led on the status bar, 
   // I create two different leds and switch between them to create the effect on/off
   QPixmap * led_green;

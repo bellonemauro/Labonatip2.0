@@ -20,14 +20,6 @@
         <translation>Spara profil</translation>
     </message>
     <message>
-        <source>Open</source>
-        <translation>Öppna</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation>Spara</translation>
-    </message>
-    <message>
         <source>Editor</source>
         <translation>Editera</translation>
     </message>
@@ -144,6 +136,10 @@
         <translation>Info</translation>
 	</message>
 	<message>
+        <source>Waiting ...</source>
+        <translation>Vänta ...</translation>
+	</message>
+	<message>
         <source>Are you sure?</source>
         <translation>Är du säker?</translation>
 	</message>
@@ -151,7 +147,26 @@
         <source>Set as default</source>
         <translation>Ange som standard</translation>
 	</message>
-	
+	<message>
+        <source>Yes</source>
+        <translation>Ja</translation>
+	</message>
+	<message>
+        <source>No</source>
+        <translation>Nej</translation>
+	</message>	
+	<message>
+        <source>Ok</source>
+        <translation>Okey</translation>
+	</message>
+	<message>
+        <source>Cancel</source>
+        <translation>Avbryt</translation>
+    </message>	
+	<message>
+        <source>Apply</source>
+        <translation>Tillämpa</translation>
+    </message>		
 </context>
 <context>
     <name>Labonatip_tools</name>
@@ -200,6 +215,10 @@
         <translation>Volym</translation>
     </message>
 	<message>
+        <source>Name</source>
+        <translation>Namn</translation>
+    </message>	
+	<message>
         <source>Color</source>
         <translation>Färg</translation>
     </message>	
@@ -232,14 +251,45 @@
         <translation>Inkrement-inställningar</translation>
     </message>	
 	<message>
-        <source>Well 1</source>
-        <translation>Well 1</translation>
+        <source>Well 1 :</source>
+        <translation>Brunn 1 :</translation>
+    </message>	
+	<message>
+        <source>Well 2 :</source>
+        <translation>Brunn 2 :</translation>
+    </message>	
+	<message>
+        <source>Well 3 :</source>
+        <translation>Brunn 3 :</translation>
+    </message>	
+	<message>
+        <source>Well 4 :</source>
+        <translation>Brunn 4 :</translation>
+    </message>	
+	<message>
+        <source>Well 5 :</source>
+        <translation>Brunn 5 :</translation>
+    </message>	
+	<message>
+        <source>Well 6 :</source>
+        <translation>Brunn 6 :</translation>
+    </message>	
+	<message>
+        <source>Well 7 :</source>
+        <translation>Brunn 7 :</translation>
+    </message>	
+	<message>
+        <source>Well 8 :</source>
+        <translation>Brunn 8 :</translation>
     </message>	
 	<message>
         <source>Cancel</source>
         <translation>Avbryt</translation>
     </message>	
-
+	<message>
+        <source>Apply</source>
+        <translation>Tillämpa</translation>
+    </message>	
 </context>
 <context>
     <name>Labonatip_protocol_editor</name>
@@ -247,5 +297,80 @@
         <source>E&amp;xit</source>
         <translation>E&amp;xit</translation>
     </message>	
+</context>
+<context>
+    <name>QPlatformTheme</name>
+    <message>
+        <source>OK</source>
+        <translation>OK</translation>
+    </message>
+    <message>
+        <source>&amp;No</source>
+        <translation>&amp;Nej</translation>
+    </message>
+    <message>
+        <source>&amp;Yes</source>
+        <translation>&amp;Ja</translation>
+    </message>
+    <message>
+        <source>Help</source>
+        <translation>Hejlp</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation>Öppna</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Spara</translation>
+    </message>
+    <message>
+        <source>Abort</source>
+        <translation>Avbryt</translation>
+    </message>
+    <message>
+        <source>Apply</source>
+        <translation>Tillämpa</translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation>Stäng</translation>
+    </message>
+    <message>
+        <source>Reset</source>
+        <translation>Reset</translation>
+    </message>
+    <message>
+        <source>Retry</source>
+        <translation>Försök igen</translation>
+    </message>
+    <message>
+        <source>Restore Defaults</source>
+        <translation>Restore Defaults</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Avbryt</translation>
+    </message>
+    <message>
+        <source>Ignore</source>
+        <translation>Ignore</translation>
+    </message>
+    <message>
+        <source>N&amp;o to All</source>
+        <translation>N&amp;o to All</translation>
+    </message>
+    <message>
+        <source>Save All</source>
+        <translation>Save All</translation>
+    </message>
+    <message>
+        <source>Discard</source>
+        <translation>Discard</translation>
+    </message>
+    <message>
+        <source>Yes to &amp;All</source>
+        <translation>Yes to &amp;All</translation>
+    </message>
 </context>
 </TS>

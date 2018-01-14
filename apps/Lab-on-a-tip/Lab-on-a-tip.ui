@@ -139,7 +139,7 @@ border:0;
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>992</width>
+         <width>993</width>
          <height>737</height>
         </rect>
        </property>
@@ -181,8 +181,8 @@ border:0;
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>992</width>
-             <height>689</height>
+             <width>993</width>
+             <height>690</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout">
@@ -1754,13 +1754,13 @@ p, li { white-space: pre-wrap; }
                  </property>
                  <property name="minimumSize">
                   <size>
-                   <width>350</width>
+                   <width>370</width>
                    <height>40</height>
                   </size>
                  </property>
                  <property name="maximumSize">
                   <size>
-                   <width>370</width>
+                   <width>390</width>
                    <height>16777215</height>
                   </size>
                  </property>
@@ -2234,7 +2234,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                    <widget class="QLabel" name="label_DZC_flowSpeed">
                     <property name="minimumSize">
                      <size>
-                      <width>100</width>
+                      <width>120</width>
                       <height>0</height>
                      </size>
                     </property>
@@ -5825,7 +5825,10 @@ It will be impossible to use the application during the reset process. &amp;lt;/
      <normaloff>://icons/sshutdown2.png</normaloff>://icons/sshutdown2.png</iconset>
    </property>
    <property name="text">
-    <string>Shudown</string>
+    <string>Shutdown</string>
+   </property>
+   <property name="toolTip">
+    <string>Shutdown</string>
    </property>
   </action>
   <action name="actionAdvanced">

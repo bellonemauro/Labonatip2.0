@@ -41,6 +41,12 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   
   // setup the user interface
   ui->setupUi (this);
+
+  //setting custom strings to translate 
+  m_str_areyousure.append(tr("Are you sure?"));
+  m_str_waiting.append(tr("Waiting ..."));
+  m_str_advanced.append(tr("Advanced"));
+  m_str_basic.append(tr("Basic"));
   
   ui->dockWidget->close();  //close the advaced dock page
   ui->treeWidget_macroInfo->resizeColumnToContents(0);
@@ -375,11 +381,12 @@ void Labonatip_GUI::switchLanguage(int _value )
 	}
 	case 2:
 	{
-		translation_file = ":/languages/ita.qm";
+		//translation_file = ":/languages/ita.qm";
+		translation_file = "./translations/qt_it.qm"; 
 		break;
 	}
 	default: 
-		translation_file = ":/languages/eng.qm";
+		translation_file = ":/languages/eng.qm"; 
 		qApp->removeTranslator(&m_translator);
 		break;
 	}
@@ -805,6 +812,8 @@ bool Labonatip_GUI::visualizeProgressMessage(int _seconds, QString _message)
 	PD->show(); // Make sure dialog is displayed immediately
 	PD->setValue(1); 
 	PD->setWindowModality(Qt::WindowModal);
+	PD->setCancelButtonText(QApplication::translate("Labonatip_GUI", "Cancel", Q_NULLPTR));
+
 	for (int i = 0; i < _seconds; i++) {
 		PD->setValue(i);
 		QThread::sleep(1);
@@ -888,9 +897,10 @@ void Labonatip_GUI::closeEvent(QCloseEvent *event) {
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_GUI::closeEvent   " << endl;
 
+
 	QMessageBox::StandardButton resBtn = 
 		QMessageBox::question(this, "Lab-on-a-tip",
-		tr("Are you sure?\n"),
+			QApplication::translate("Labonatip_GUI", qPrintable(m_str_areyousure), Q_NULLPTR),
 		QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
 		QMessageBox::Yes);
 	if (resBtn != QMessageBox::Yes) {

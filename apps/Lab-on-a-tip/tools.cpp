@@ -1014,6 +1014,14 @@ void Labonatip_tools::switchLanguage(QString _translation_file)
 
 		ui_tools->retranslateUi(this); 
 
+
+		// my custom translations
+		ui_tools->buttonBox->button(QDialogButtonBox::Ok)->setText(QApplication::translate("Labonatip_tools", "Ok", Q_NULLPTR));
+		ui_tools->buttonBox->button(QDialogButtonBox::Cancel)->setText(QApplication::translate("Labonatip_tools", "Cancel", Q_NULLPTR));
+		ui_tools->buttonBox->button(QDialogButtonBox::Apply)->setText(QApplication::translate("Labonatip_tools", "Apply", Q_NULLPTR));
+
+
+
 		cout << QDate::currentDate().toString().toStdString() << "  "
 			 << QTime::currentTime().toString().toStdString() << "  "
 			 << "Labonatip_tools::switchLanguage   installTranslator" << endl;

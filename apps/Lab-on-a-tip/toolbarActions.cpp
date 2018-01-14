@@ -365,7 +365,7 @@ void Labonatip_GUI::closeOpenDockTools() {
 		ui->toolBar_2->removeAction(m_a_spacer);
 		m_g_spacer = new QGroupBox();
 		m_a_spacer = new QAction();
-		ui->actionAdvanced->setText("Advanced");
+		ui->actionAdvanced->setText(QApplication::translate("Labonatip_GUI", qPrintable(m_str_advanced), Q_NULLPTR) );
 		m_g_spacer->setFixedWidth(1);
 		ui->toolBar_2->update(); 
 		ui->toolBar_3->update();
@@ -402,8 +402,7 @@ void Labonatip_GUI::closeOpenDockTools() {
 		m_g_spacer->setStyleSheet("border:0;");
 		m_g_spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 		m_a_spacer = ui->toolBar_2->addWidget(m_g_spacer);
-
-		ui->actionAdvanced->setText("Basic");
+		ui->actionAdvanced->setText(QApplication::translate("Labonatip_GUI", qPrintable(m_str_basic), Q_NULLPTR));
 		ui->toolBar_2->update(); 
 		ui->toolBar_3->update();
 	}
