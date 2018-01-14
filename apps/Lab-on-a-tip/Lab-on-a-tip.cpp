@@ -64,18 +64,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	  //  QTextStream standardOutput(stderr);// (stdout);
   }
 
-  // set translation
-  QString translation_file = "./languages/eng.qm";
-  if (!m_translator.load(translation_file)) 
-	  cout  << QDate::currentDate().toString().toStdString() << "  "
-			<< QTime::currentTime().toString().toStdString() << "  " 
-			<< "Labonatip_GUI::Labonatip_GUI ::: translation not loaded" << endl;
-  else 
-	  cout  << QDate::currentDate().toString().toStdString() << "  "
-			<< QTime::currentTime().toString().toStdString() << "  " 
-			<< " Translation loaded " << endl;
 
-  qApp->installTranslator(&m_translator);
   
   // init the object to handle the internal dialogs
   m_dialog_p_editor = new Labonatip_protocol_editor();
@@ -98,7 +87,19 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   ui->treeWidget_macroInfo->topLevelItem(14)->setText(1, QString::number(m_solutionParams->rem_vol_well3));
   ui->treeWidget_macroInfo->topLevelItem(15)->setText(1, QString::number(m_solutionParams->rem_vol_well4));
  
-  //switchLanguage(m_dialog_tools->language);
+  // set translation
+  QString translation_file = "./languages/eng.qm";
+  if (!m_translator.load(translation_file))
+	  cout << QDate::currentDate().toString().toStdString() << "  "
+	  << QTime::currentTime().toString().toStdString() << "  "
+	  << "Labonatip_GUI::Labonatip_GUI ::: translation not loaded" << endl;
+  else
+	  cout << QDate::currentDate().toString().toStdString() << "  "
+	  << QTime::currentTime().toString().toStdString() << "  "
+	  << " Translation loaded " << endl;
+
+  qApp->installTranslator(&m_translator);
+  switchLanguage(m_dialog_tools->language);
 
   // all the connects are in this function
   initConnects();
@@ -723,7 +724,7 @@ void Labonatip_GUI::toolApply()
 	ui->toolBar_3->setToolButtonStyle(m_GUI_params->showTextToolBar);
 	ui->toolBar_3->update();
 
-	//switchLanguage(m_dialog_tools->language);
+	switchLanguage(m_dialog_tools->language);
 
 }
 
