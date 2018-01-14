@@ -128,7 +128,7 @@ QCheckBox::indicator:unchecked {
            <string notr="true"/>
           </property>
           <property name="title">
-           <string>General Settings</string>
+           <string>General settings</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_13">
            <item row="0" column="0">
@@ -433,7 +433,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
            </font>
           </property>
           <property name="title">
-           <string>GUI Settings</string>
+           <string>GUI settings</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_11">
            <item row="0" column="0">

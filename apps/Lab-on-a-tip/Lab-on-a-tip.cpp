@@ -365,21 +365,21 @@ void Labonatip_GUI::switchLanguage(int _value )
 	{ 
 	case 0:
 	{
-		translation_file = "./languages/eng.qm";
+		translation_file = ":/languages/eng.qm";
 		break;
 	}
 	case 1:
 	{
-		translation_file = "./languages/sve.qm";
+		translation_file = ":/languages/sve.qm";
 		break;
 	}
 	case 2:
 	{
-		translation_file = "./languages/ita.qm";
+		translation_file = ":/languages/ita.qm";
 		break;
 	}
 	default: 
-		translation_file = "./languages/eng.qm";
+		translation_file = ":/languages/eng.qm";
 		qApp->removeTranslator(&m_translator);
 		break;
 	}

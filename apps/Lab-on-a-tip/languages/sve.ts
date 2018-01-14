@@ -135,6 +135,22 @@
         <source>Internal</source>
         <translation>Intern</translation>
 	</message>	
+	<message>
+        <source>Controls</source>
+        <translation>Kontroller</translation>
+	</message>
+	<message>
+        <source>Info</source>
+        <translation>Info</translation>
+	</message>
+	<message>
+        <source>Are you sure?</source>
+        <translation>Är du säker?</translation>
+	</message>
+	<message>
+        <source>Set as default</source>
+        <translation>Ange som standard</translation>
+	</message>
 	
 </context>
 <context>
@@ -145,31 +161,91 @@
     </message>
     <message>
         <source>General</source>
-        <translation>Allmän</translation>
+        <translation>Generellt</translation>
     </message>
     <message>
-        <source>Macros</source>
-        <translation>Macros</translation>
-    </message>
-    <message>
-        <source>Solutions</source>
+        <source>Solution</source>
         <translation>Lösningar</translation>
+    </message>
+    <message>
+        <source>Empty wells</source>
+        <translation>Töm brunnarna</translation>
+    </message>
+    <message>
+        <source>Pressure</source>
+        <translation>Tryck</translation>
     </message>
     <message>
         <source>Communication</source>
         <translation>Kommunikation</translation>
     </message>
 	    <message>
-        <source>Change</source>
-        <translation>Korssdd</translation>
+        <source>General settings</source>
+        <translation>Allmänna Inställningar</translation>
     </message>
 	<message>
         <source>Year</source>
         <translation>År</translation>
     </message>
 	<message>
-        <source>General settings</source>
-        <translation>Blabla</translation>
+        <source>Month</source>
+        <translation>Månad</translation>
     </message>
+	<message>
+        <source>Language</source>
+        <translation>Språk</translation>
+    </message>
+	<message>
+        <source>Volume</source>
+        <translation>Volym</translation>
+    </message>
+	<message>
+        <source>Color</source>
+        <translation>Färg</translation>
+    </message>	
+	<message>
+        <source>Pulse duration</source>
+        <translation>Pulsvaraktighet</translation>
+    </message>	
+	<message>
+        <source>Continuous flowing</source>
+        <translation>Kontinuerligt flöde</translation>
+    </message>	
+	<message>
+        <source>Vacuum settings</source>
+        <translation>Vakuuminställningar</translation>
+    </message>	
+    <message>
+        <source>Zone size</source>
+        <translation>Zonstorlek</translation>
+	</message>	
+    <message>
+        <source>Flow speed</source>
+        <translation>Flödestakt</translation>
+	</message>	
+	<message>
+        <source>Vacuum</source>
+        <translation>Vakuumtryck</translation>
+	</message>	
+	<message>
+        <source>Base increments</source>
+        <translation>Inkrement-inställningar</translation>
+    </message>	
+	<message>
+        <source>Well 1</source>
+        <translation>Well 1</translation>
+    </message>	
+	<message>
+        <source>Cancel</source>
+        <translation>Avbryt</translation>
+    </message>	
+
+</context>
+<context>
+    <name>Labonatip_protocol_editor</name>
+    <message>
+        <source>E&amp;xit</source>
+        <translation>E&amp;xit</translation>
+    </message>	
 </context>
 </TS>

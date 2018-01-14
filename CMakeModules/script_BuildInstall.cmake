@@ -152,10 +152,10 @@ if (WIN32 AND NOT UNIX)
 		INSTALL(FILES "${F}" DESTINATION ./settings)
 	ENDFOREACH(F)	
 
-	FILE(GLOB myProject_LANGUAGES "${PROJECT_BINARY_DIR}/bin/Release/languages/*.*") 
-	FOREACH(F ${myProject_LANGUAGES})
-		INSTALL(FILES "${F}" DESTINATION ./languages)
-	ENDFOREACH(F)	
+#	FILE(GLOB myProject_LANGUAGES "${PROJECT_BINARY_DIR}/bin/Release/languages/*.*") 
+#	FOREACH(F ${myProject_LANGUAGES})
+#		INSTALL(FILES "${F}" DESTINATION ./languages)
+#	ENDFOREACH(F)	
 
 
 	# For additional libraries just copy and past the following code changing the name of the library
