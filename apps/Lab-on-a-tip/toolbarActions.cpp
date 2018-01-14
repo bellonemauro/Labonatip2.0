@@ -21,12 +21,12 @@ void Labonatip_GUI::openSettingsFile() {  // open setting file
 		"Settings file (*.ini);; All Files(*.*)", 0);
 
 	if (_path.isEmpty()) {
-        QMessageBox::information(this, "Information ", "No file loaded ! <br>" + _path);
+        QMessageBox::information(this, "Information ", m_str_no_file_loaded + "<br>" + _path);
 		return;
 	}
 
 	if (!m_dialog_tools->setLoadSettingsFileName(_path)) {
-		QMessageBox::warning(this, "Warning ", "Cannot load the file ! <br>" + _path);
+		QMessageBox::warning(this, "Warning ", "Cannot load the file<br>" + _path);
 		return;
 	}
 
@@ -43,12 +43,12 @@ void Labonatip_GUI::saveSettingsFile() {
 		"Settings file (*.ini);; All Files(*.*)", 0);
 
 	if (_path.isEmpty()) { 
-	    QMessageBox::information(this, "Information ", "No file saved ! <br>" + _path);
+	    QMessageBox::information(this, "Information ", m_str_no_file_loaded + "<br>" + _path);
 		return;
 	}
 
 	if (!m_dialog_tools->setFileNameAndSaveSettings(_path)) {
-		QMessageBox::warning(this, "Warning ", "Cannot save the file ! <br>" + _path);
+		QMessageBox::warning(this, "Warning ", "Cannot save the file<br>" + _path);
 		return;
 	}
 }
@@ -365,7 +365,7 @@ void Labonatip_GUI::closeOpenDockTools() {
 		ui->toolBar_2->removeAction(m_a_spacer);
 		m_g_spacer = new QGroupBox();
 		m_a_spacer = new QAction();
-		ui->actionAdvanced->setText(QApplication::translate("Labonatip_GUI", qPrintable(m_str_advanced), Q_NULLPTR) );
+		ui->actionAdvanced->setText(m_str_advanced);
 		m_g_spacer->setFixedWidth(1);
 		ui->toolBar_2->update(); 
 		ui->toolBar_3->update();
@@ -402,7 +402,7 @@ void Labonatip_GUI::closeOpenDockTools() {
 		m_g_spacer->setStyleSheet("border:0;");
 		m_g_spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 		m_a_spacer = ui->toolBar_2->addWidget(m_g_spacer);
-		ui->actionAdvanced->setText(QApplication::translate("Labonatip_GUI", qPrintable(m_str_basic), Q_NULLPTR));
+		ui->actionAdvanced->setText(m_str_basic);
 		ui->toolBar_2->update(); 
 		ui->toolBar_3->update();
 	}

@@ -46,7 +46,7 @@ Labonatip_console::Labonatip_console(QWidget *parent ):
 		  << (info.productIdentifier() ? QString::number(info.productIdentifier(), 16) : blankString);
 
 	  ui_console->comboBox_serialInfo->addItem(list.first(), list);
-  }// TODO: in debug the detor of infos crushes !
+  }// TODO: in debug the detor of infos crushes
 
   // enable/disable GUI buttons
   ui_console->pushButton_connectCOM->setEnabled(true);
@@ -161,7 +161,7 @@ void Labonatip_console::emumeratePorts()
 		{//TODO: this only attempt to match the vendor, is it also possible to check the product?
 			ui_console->textEdit_console->append(" THIS SHOULD BE THE FUILCELL DEVICE \n\n");
 		}
-	} // TODO: in debug the detor crushes !
+	} // TODO: in debug the detor crushes
 	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 	return;
 }

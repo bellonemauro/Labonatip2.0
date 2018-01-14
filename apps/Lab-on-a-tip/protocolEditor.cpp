@@ -522,14 +522,14 @@ bool Labonatip_protocol_editor::checkValidity(QTreeWidgetItem *_item, int _colum
 
 		int number = _item->text(_column).toInt(&isNumeric);
 		if (!isNumeric) {
-			QMessageBox::warning(this, "Warning ", " Solution is not a valid number, \n its value must be 0 or 1 ! \n where 0 = open. \nOnly one valve can be open.");
+			QMessageBox::warning(this, "Warning ", " Solution is not a valid number, \n its value must be 0 or 1 \n where 0 = open. \nOnly one valve can be open.");
 			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
 			return false;
 		}
 		if (number != 0 && 
 			number != 1) {
 			QMessageBox::warning(this, "Warning ", 
-				" Solution is out of range, \n its value must be 0 or 1 ! \n where 0 = open. \nOnly one valve can be open.");
+				" Solution is out of range, \n its value must be 0 or 1 \n where 0 = open. \nOnly one valve can be open.");
 			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
 			return false;
 		}
@@ -564,7 +564,7 @@ bool Labonatip_protocol_editor::checkValidity(QTreeWidgetItem *_item, int _colum
 
 		int number = _item->text(_column).toInt(&isNumeric);
 		if (!isNumeric) {
-			QMessageBox::warning(this, "Warning !", " Loop is not a valid number, \n value must be a positive integer number!");
+			QMessageBox::warning(this, "Warning", " Loop is not a valid number, \n value must be a positive integer number!");
 			_item->setText(_column, QString("1"));
 			return false;
 		}
@@ -581,7 +581,7 @@ bool Labonatip_protocol_editor::checkValidity(QTreeWidgetItem *_item, int _colum
 
 		int number = _item->text(_column).toInt(&isNumeric);
 		if (!isNumeric) {
-			QMessageBox::warning(this, "Warning !", " Loop is not a valid number, \n value must be a positive integer number!");
+			QMessageBox::warning(this, "Warning", " Loop is not a valid number, \n value must be a positive integer number!");
 			_item->setText(_column, QString("1"));
 			return false;
 		}
@@ -762,7 +762,7 @@ void Labonatip_protocol_editor::createNewCommand(QTreeWidgetItem & _command, mac
 	_command.setText(0, "Command"); // 
 	_command.setText(1, "1"); // 
 	_command.setCheckState(2, Qt::CheckState::Unchecked); // status message
-	_command.setText(2, "go science !!!"); // status message
+	_command.setText(2, " "); // status message
 	_command.setFlags(_command.flags() | (Qt::ItemIsEditable) | (Qt::ItemIsSelectable));
 
 	_combo_box.setFocusPolicy(Qt::StrongFocus);
@@ -877,7 +877,7 @@ bool Labonatip_protocol_editor::loadMacro()
 	if (file_name.isEmpty()) {
 		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 		QMessageBox::warning(this, "Warning ", 
-			"Empty path, file not found ! <br>" + file_name);
+			"Empty path, file not found <br>" + file_name);
 		return false;
 	}
 	
@@ -973,7 +973,7 @@ bool Labonatip_protocol_editor::loadMacro(const QString _file_name)
 	}
 	else {
 		QMessageBox::warning(this, "Warning ", 
-			"File not found ! <br>" + _file_name);
+			"File not found<br>" + _file_name);
 		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 		return false;
 
@@ -999,7 +999,7 @@ bool Labonatip_protocol_editor::saveMacro() //TODO update the folder when save
 
 	if (!saveMacro(fileName)) {
 		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-		QMessageBox::warning(this, "Warning ", "File not saved ! <br>" + fileName);
+		QMessageBox::warning(this, "Warning ", "File not saved <br>" + fileName);
 		return false;
 	}
 	readProtocolFolder(m_protocol_path);
@@ -1051,7 +1051,7 @@ bool Labonatip_protocol_editor::saveMacro(QString _file_name)
 	else {
 		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 		QMessageBox::warning(this, "Warning ", 
-			"File not saved ! <br>" + _file_name);
+			"File not saved <br>" + _file_name);
 		return false;
 	}
 

@@ -634,6 +634,8 @@ private:
   QString m_str_waiting;
   QString m_str_advanced;
   QString m_str_basic;
+  QString m_str_operation_cancelled;
+  QString m_str_no_file_loaded;
 
   // to visualize the led on the status bar, 
   // I create two different leds and switch between them to create the effect on/off

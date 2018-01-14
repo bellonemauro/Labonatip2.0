@@ -509,7 +509,7 @@ void Labonatip_GUI::updateWaste()  // this is updated every second
 		//TODO: what to do in this case?
 		cerr << QDate::currentDate().toString().toStdString() << "  "
 			<< QTime::currentTime().toString().toStdString() << "  "
-			<< "Labonatip_GUI::updateWaste  error ! Waste full ---- MB : WHAT TO DO? " << endl;
+			<< "Labonatip_GUI::updateWaste  error : Waste full ---- MB : WHAT TO DO? " << endl;
 		//QMessageBox::information(this, "Warning !", " Waste full ---- MB : WHAT TO DO? ");
 		return;
 	}

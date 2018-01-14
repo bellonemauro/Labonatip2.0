@@ -60,7 +60,7 @@ public:
 
 	void emumeratePorts();
 
-protected: //TODO: maybe the events are not necessary !
+protected: //TODO: maybe the events are not necessary
 	void keyPressEvent(QKeyEvent *e) Q_DECL_OVERRIDE;
 	void mousePressEvent(QMouseEvent *e) Q_DECL_OVERRIDE;
 	void mouseDoubleClickEvent(QMouseEvent *e) Q_DECL_OVERRIDE;

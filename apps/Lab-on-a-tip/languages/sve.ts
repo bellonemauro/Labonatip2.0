@@ -148,6 +148,14 @@
         <translation>Ange som standard</translation>
 	</message>
 	<message>
+        <source>Operation cancelled</source>
+        <translation>Process avbruten</translation>
+	</message>
+	<message>
+        <source>No file loaded</source>
+        <translation>Ingen fil laddad</translation>
+	</message>
+	<message>
         <source>Yes</source>
         <translation>Ja</translation>
 	</message>

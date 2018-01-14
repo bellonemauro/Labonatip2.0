@@ -1724,7 +1724,7 @@ p, li { white-space: pre-wrap; }
                   <string notr="true"/>
                  </property>
                  <property name="text">
-                  <string>Warning!!! The solution is running out</string>
+                  <string>Warning: the solution is running out</string>
                  </property>
                  <property name="alignment">
                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>

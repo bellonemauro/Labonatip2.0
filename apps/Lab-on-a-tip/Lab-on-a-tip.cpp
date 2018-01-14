@@ -47,6 +47,8 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   m_str_waiting.append(tr("Waiting ..."));
   m_str_advanced.append(tr("Advanced"));
   m_str_basic.append(tr("Basic"));
+  m_str_operation_cancelled.append(tr("Operation cancelled"));
+  m_str_no_file_loaded.append(tr("No file loaded"));
   
   ui->dockWidget->close();  //close the advaced dock page
   ui->treeWidget_macroInfo->resizeColumnToContents(0);
@@ -398,6 +400,14 @@ void Labonatip_GUI::switchLanguage(int _value )
 		m_dialog_tools->switchLanguage(translation_file);
 	}
 	else cout << " translation not loaded " << endl;
+
+	m_str_areyousure = QApplication::translate("Labonatip_GUI", qPrintable(m_str_areyousure), Q_NULLPTR);
+	m_str_waiting = QApplication::translate("Labonatip_GUI", qPrintable(m_str_waiting), Q_NULLPTR);
+	m_str_advanced = QApplication::translate("Labonatip_GUI", qPrintable(m_str_advanced), Q_NULLPTR);
+	m_str_basic = QApplication::translate("Labonatip_GUI", qPrintable(m_str_basic), Q_NULLPTR);
+	m_str_operation_cancelled = QApplication::translate("Labonatip_GUI", qPrintable(m_str_operation_cancelled));
+	m_str_no_file_loaded = QApplication::translate("Labonatip_GUI", qPrintable(m_str_no_file_loaded));
+
 
 }
 
@@ -820,7 +830,7 @@ bool Labonatip_GUI::visualizeProgressMessage(int _seconds, QString _message)
 		if (PD->wasCanceled()) // the operation cannot be cancelled
 		{
 			QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-			QMessageBox::information(this, "Warning !", " Operation cancelled  ");
+			QMessageBox::information(this, "Warning", m_str_operation_cancelled );
 			setEnableMainWindow(true);
 			return false;
 		}
@@ -854,7 +864,7 @@ void Labonatip_GUI::cleanHistory()
 			QMessageBox::Yes);
 	if (resBtn != QMessageBox::Yes) {
 	
-		QMessageBox::question(this, "Information ", " Operation cancelled  ", "Ok");
+		QMessageBox::question(this, "Information", m_str_operation_cancelled, "Ok");
 	}
 	else {
 		QDir dir(m_ext_data_path);
@@ -864,7 +874,7 @@ void Labonatip_GUI::cleanHistory()
 		{
 			dir.remove(dirFile);
 		}
-		QMessageBox::question(this, "Information ", " History cleaned  ", "Ok");
+		QMessageBox::question(this, "Information", "History cleaned", "Ok");
 	}
 
 }
@@ -899,8 +909,7 @@ void Labonatip_GUI::closeEvent(QCloseEvent *event) {
 
 
 	QMessageBox::StandardButton resBtn = 
-		QMessageBox::question(this, "Lab-on-a-tip",
-			QApplication::translate("Labonatip_GUI", qPrintable(m_str_areyousure), Q_NULLPTR),
+		QMessageBox::question(this, "Lab-on-a-tip", m_str_areyousure,
 		QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
 		QMessageBox::Yes);
 	if (resBtn != QMessageBox::Yes) {

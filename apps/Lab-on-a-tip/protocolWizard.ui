@@ -94,7 +94,7 @@ QRadioButton::indicator:unchecked {
           </font>
          </property>
          <property name="currentIndex">
-          <number>6</number>
+          <number>3</number>
          </property>
          <widget class="QWidget" name="page">
           <layout class="QGridLayout" name="gridLayout_3">
@@ -216,7 +216,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
               <string/>
              </property>
              <property name="pixmap">
-              <pixmap>icons/wizard.png</pixmap>
+              <pixmap resource="resources.qrc">:/icons/wizard.png</pixmap>
              </property>
              <property name="scaledContents">
               <bool>true</bool>
@@ -1970,8 +1970,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
              <property name="plainText">
               <string>
 
-yeee !!! finished and saved, you can exit now
-</string>
+Protocol completed</string>
              </property>
             </widget>
            </item>

@@ -327,7 +327,7 @@ void Labonatip_GUI::operationalMode() {
 
 	updateVrecircSetPoint(-m_pr_params->v_recirc_default );// update the set point
 	updateVswitchSetPoint(-m_pr_params->v_switch_default );// update the set point
-	if (!visualizeProgressMessage(5, QApplication::translate("Labonatip_GUI", qPrintable(m_str_waiting), Q_NULLPTR))) return;
+	if (!visualizeProgressMessage(5, m_str_waiting)) return;
 	updatePoffSetPoint(m_pr_params->p_off_default );// update the set point
 	updatePonSetPoint(m_pr_params->p_on_default);// update the set point
 
