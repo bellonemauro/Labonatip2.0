@@ -17,16 +17,16 @@ void Labonatip_GUI::openSettingsFile() {  // open setting file
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_GUI::openFile    " << endl;
 
-	QString _path = QFileDialog::getOpenFileName(this, tr("Open Settings file"), m_settings_path,  // dialog to open files
-		"Settings file (*.ini);; All Files(*.*)", 0);
+	QString _path = QFileDialog::getOpenFileName(this, m_str_load_profile, m_settings_path,  // dialog to open files
+		"Profile file (*.ini);; All Files(*.*)", 0);
 
 	if (_path.isEmpty()) {
-        QMessageBox::information(this, "Information ", m_str_no_file_loaded + "<br>" + _path);
+        QMessageBox::information(this, m_str_information, m_str_no_file_loaded + "<br>" + _path);
 		return;
 	}
 
 	if (!m_dialog_tools->setLoadSettingsFileName(_path)) {
-		QMessageBox::warning(this, "Warning ", "Cannot load the file<br>" + _path);
+		QMessageBox::warning(this, m_str_warning, m_str_cannot_load_profile + "<br>" + _path);
 		return;
 	}
 
@@ -39,16 +39,16 @@ void Labonatip_GUI::saveSettingsFile() {
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_GUI::saveFile    " << endl;
 
-	QString _path = QFileDialog::getSaveFileName(this, tr("Save configuration file"), m_settings_path,  // dialog to open files
-		"Settings file (*.ini);; All Files(*.*)", 0);
+	QString _path = QFileDialog::getSaveFileName(this, m_str_save_profile, m_settings_path,  // dialog to open files
+		"Profile file (*.ini);; All Files(*.*)", 0);
 
 	if (_path.isEmpty()) { 
-	    QMessageBox::information(this, "Information ", m_str_no_file_loaded + "<br>" + _path);
+	    QMessageBox::information(this, m_str_information, m_str_no_file_loaded + "<br>" + _path);
 		return;
 	}
 
 	if (!m_dialog_tools->setFileNameAndSaveSettings(_path)) {
-		QMessageBox::warning(this, "Warning ", "Cannot save the file<br>" + _path);
+		QMessageBox::warning(this, m_str_warning, m_str_cannot_save_profile + "<br>" + _path);
 		return;
 	}
 }
@@ -109,7 +109,7 @@ void Labonatip_GUI::disCon() {   //TODO, add an argument to connect and disconne
 
 	if (m_simulationOnly) {
 		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-		QMessageBox::information(this, "Warning ", "Lab-on-a-tip is in simulation only ");
+		QMessageBox::information(this, m_str_warning, m_str_warning_simulation_only);
 		return;
 	}
 
@@ -121,17 +121,17 @@ void Labonatip_GUI::disCon() {   //TODO, add an argument to connect and disconne
 				if (!m_ppc1->connectCOM()) {  // if the connection is NOT success
 
 					this->setStatusLed(false);
-					ui->status_PPC1_label->setText("PPC1 STATUS: NOT Connected  ");
-					ui->actionConnectDisconnect->setText("Connect");
+					ui->status_PPC1_label->setText(m_str_PPC1_status_discon);
+					ui->actionConnectDisconnect->setText(m_str_connect);
 					ui->actionSimulation->setEnabled(true);
 					QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-					QMessageBox::information(this, "Warning ",
-						"Lab-on-a-tip could not connect to PPC1, \n please check cables and settings and press ok ");
+					QMessageBox::information(this, m_str_warning,
+						m_str_cannot_connect_ppc1);
 
 					// ask for a new attempt to connect
 					QMessageBox::StandardButton resBtn =
-						QMessageBox::question(this, "Lab-on-a-tip",
-							tr("I can try to automatically find the device, \n Should I do it?\n"),
+						QMessageBox::question(this, m_str_information,
+							m_str_question_find_device,
 							QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
 							QMessageBox::Yes);
 					if (resBtn != QMessageBox::Yes) {  // if the answer is not YES
@@ -145,8 +145,8 @@ void Labonatip_GUI::disCon() {   //TODO, add an argument to connect and disconne
 						m_ppc1->setBaudRate((int)m_comSettings->getBaudRate());
 						if (!m_ppc1->connectCOM())
 						{
-							QMessageBox::information(this, "Warning ",
-								"Lab-on-a-tip could not connect to PPC1 twice, \n please check cables and settings  ");
+							QMessageBox::information(this, m_str_warning,
+								m_str_cannot_connect_ppc1_twice);
 							m_pipette_active = false;
 							ui->actionConnectDisconnect->setChecked(false);
 							return;
@@ -163,20 +163,20 @@ void Labonatip_GUI::disCon() {   //TODO, add an argument to connect and disconne
 				ui->actionConnectDisconnect->setChecked(true);
 				m_update_GUI->start();
 				this->setStatusLed(true);
-				ui->status_PPC1_label->setText("PPC1 STATUS: Connected  ");
-				ui->actionConnectDisconnect->setText("Disconnect");
+				ui->status_PPC1_label->setText(m_str_PPC1_status_con);
+				ui->actionConnectDisconnect->setText(m_str_disconnect);
 				ui->actionSimulation->setEnabled(false);
 			}
 			else {  // otherwise something is wrong
-				QMessageBox::information(this, "Warning ",
-					"Lab-on-a-tip connected but PPC1 is not running ");
+				QMessageBox::information(this, m_str_warning,
+					m_str_ppc1_connected_but_not_running);
 				QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 				m_ppc1->stop();
 				m_ppc1->disconnectCOM();
 				m_pipette_active = false;
 				this->setStatusLed(false);
-				ui->status_PPC1_label->setText("PPC1 STATUS: NOT Connected  ");
-				ui->actionConnectDisconnect->setText("Connect");
+				ui->status_PPC1_label->setText(m_str_PPC1_status_discon);
+				ui->actionConnectDisconnect->setText(m_str_connect);
 				ui->actionSimulation->setEnabled(true);
 				ui->actionConnectDisconnect->setChecked(false);
 				return;
@@ -186,8 +186,8 @@ void Labonatip_GUI::disCon() {   //TODO, add an argument to connect and disconne
 		{
 			// the used should confirm to stop the device
 			QMessageBox::StandardButton resBtn =
-				QMessageBox::question(this, "Lab-on-a-tip",
-					tr("This will stop the PPC1, \n Are you sure?\n"),
+				QMessageBox::question(this, m_str_warning,
+					m_str_question_stop_ppc1,
 					QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
 					QMessageBox::Yes);
 			if (resBtn != QMessageBox::Yes) {  // if the answer is not YES
@@ -203,8 +203,8 @@ void Labonatip_GUI::disCon() {   //TODO, add an argument to connect and disconne
 
 			if (!m_ppc1->isRunning()) { // verify that it really stopped
 				this->setStatusLed(false);
-				ui->status_PPC1_label->setText("PPC1 STATUS: NOT Connected  ");
-				ui->actionConnectDisconnect->setText("Connect");
+				ui->status_PPC1_label->setText(m_str_PPC1_status_discon);
+				ui->actionConnectDisconnect->setText(m_str_connect);
 				m_pipette_active = false;
 				ui->actionSimulation->setEnabled(true);
 			}
@@ -212,11 +212,11 @@ void Labonatip_GUI::disCon() {   //TODO, add an argument to connect and disconne
 				ui->actionConnectDisconnect->setChecked(false);
 				m_update_GUI->stop();
 				this->setStatusLed(true);
-				ui->status_PPC1_label->setText("PPC1 STATUS: Connected  ");
-				ui->actionConnectDisconnect->setText("Disconnect");
+				ui->status_PPC1_label->setText(m_str_PPC1_status_con);
+				ui->actionConnectDisconnect->setText(m_str_disconnect);
 				ui->actionSimulation->setEnabled(false);
-				QMessageBox::information(this, "Warning ",
-					"Unable to stop and disconnect ");
+				QMessageBox::information(this, m_str_warning,
+					m_str_unable_stop_ppc1);
 				QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 				return;
 			}
@@ -269,8 +269,8 @@ void Labonatip_GUI::shutdown() {
 		 << "Labonatip_GUI::shutdown   " << endl;
 
 	setEnableMainWindow(false);
-	QMessageBox::StandardButton resBtn = QMessageBox::question(this, "Lab-on-a-tip",
-		tr("Shutdown pressed, this will take 30 seconds, press ok to continue, cancel to abort. \n"),
+	QMessageBox::StandardButton resBtn = QMessageBox::question(this, m_str_warning,
+		m_str_shutdown_pressed,
 		QMessageBox::Cancel | QMessageBox::Ok,
 		QMessageBox::Ok);
 	if (resBtn != QMessageBox::Cancel) {
@@ -294,14 +294,14 @@ void Labonatip_GUI::shutdown() {
 		
 		//Wait 10 seconds
 		if (!visualizeProgressMessage(10, 
-			" The pressure is off, waiting for the vacuum. ")) return;
+			m_str_shutdown_pressed_p_off)) return;
 		
 		updateVrecircSetPoint(0.0);
 		updateVswitchSetPoint(0.0);
 
 		//Wait 15 seconds
 		if (!visualizeProgressMessage(15, 
-			" Vacuum off. Stopping the flow in the device. ")) return; 
+			m_str_shutdown_pressed_v_off)) return;
 		
 	}
 	else {
@@ -333,11 +333,11 @@ void Labonatip_GUI::reboot() {
 		updateVrecircSetPoint(0.0);
 		updateVswitchSetPoint(0.0);
 
-		if (!visualizeProgressMessage(200, " Rebooting ... ")) return;
+		if (!visualizeProgressMessage(200, m_str_rebooting)) return;
 
 		m_ppc1->connectCOM();
 
-		if (!visualizeProgressMessage(5, " Reconnecting ... ")) return;
+		if (!visualizeProgressMessage(5, m_str_reconnecting)) return;
 
 		// TODO : check if connected and fine 
 		// m_ppc1->isConnected();

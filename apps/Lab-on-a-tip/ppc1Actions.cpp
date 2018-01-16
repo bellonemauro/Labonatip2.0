@@ -19,8 +19,8 @@ void Labonatip_GUI::newTip()
 	setEnableMainWindow(false);
 
 	//Ask: Place the pipette into the holder and tighten.THEN PRESS OK.
-	QMessageBox::information(this, " Information ",
-		"Place the pipette into the holder and tighten.THEN PRESS OK");
+	QMessageBox::information(this, m_str_information,
+		m_str_newtip_msg1);
 	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
 
 														//vf0
@@ -41,13 +41,13 @@ void Labonatip_GUI::newTip()
 	updateVrecircSetPoint(0.0);
 
 	//Wait 5 seconds
-	if (!visualizeProgressMessage(5, "Initialization.")) return;
+	if (!visualizeProgressMessage(5, m_str_initialization)) return;
 
 	//D200
 	updatePonSetPoint(200.0);
 
 	//Wait 5 seconds
-	if (!visualizeProgressMessage(5, "Pressurize the system.")) return;
+	if (!visualizeProgressMessage(5, m_str_newtip_msg2)) return;
 
 	//vff
 	if (m_pipette_active) {
@@ -56,12 +56,12 @@ void Labonatip_GUI::newTip()
 
 	//Ask : wait until a droplet appears at the tip of the pipette and THEN PRESS OK.
 	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-	QMessageBox::information(this, " Information ",
-		"Wait until a droplet appears at the tip of the pipette and THEN PRESS OK");
+	QMessageBox::information(this, m_str_information,
+		m_str_newtip_msg3);
 	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
 
 	//Wait 40 seconds
-	if (!visualizeProgressMessage(40, "Purging the liquid channels.")) return;
+	if (!visualizeProgressMessage(40, m_str_newtip_msg4)) return;
 
 	//vf0
 	if (m_pipette_active) {
@@ -72,14 +72,14 @@ void Labonatip_GUI::newTip()
 	updatePonSetPoint(0.0);
 
 	//Wait 10 seconds
-	if (!visualizeProgressMessage(10, "Still purging the liquid channels.")) return;
+	if (!visualizeProgressMessage(10, m_str_newtip_msg5)) return;
 
 	//Ask : Remove the droplet using a lens tissue and put the pipette into solution.THEN PRESS OK.
 	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-	QMessageBox::information(this, " Information ",
-		"Remove the droplet using a lens tissue. THEN PRESS OK");
-	QMessageBox::information(this, " Information ",
-		"Put the pipette into solution. THEN PRESS OK");
+	QMessageBox::information(this, m_str_information,
+		m_str_newtip_msg6);
+	QMessageBox::information(this, m_str_information,
+		m_str_newtip_msg7);
 	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
 
 	//B - 200
@@ -89,7 +89,7 @@ void Labonatip_GUI::newTip()
 	updateVrecircSetPoint(200.0);
 
 	//Wait 90 seconds
-	if (!visualizeProgressMessage(90, "Purging the vacuum  channels.")) return;
+	if (!visualizeProgressMessage(90, m_str_newtip_msg8)) return;
 
 	//C21
 	updatePoffSetPoint(m_pr_params->p_off_default );// (21.0);
@@ -98,7 +98,7 @@ void Labonatip_GUI::newTip()
 	updatePonSetPoint(m_pr_params->p_on_default );// (190.0);
 
 	//Wait 5 seconds
-	if (!visualizeProgressMessage(5, "Establishing operational pressures.")) return;
+	if (!visualizeProgressMessage(5, m_str_newtip_msg9)) return;
 
 	//B - 115
 	updateVswitchSetPoint(-m_pr_params->v_switch_default);// (115);
@@ -108,8 +108,8 @@ void Labonatip_GUI::newTip()
 
 	//Ask: Pipette is ready for operation.PRESS OK TO START.
 	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-	QMessageBox::information(this, " Information ",
-		"Pipette is ready for operation. PRESS OK TO START");
+	QMessageBox::information(this, m_str_information,
+		m_str_newtip_msg10);
 
 	setEnableMainWindow(true);
 
@@ -125,17 +125,17 @@ void Labonatip_GUI::runMacro() { //TODO: give it as an argument instead of a cla
 	if (!m_macroRunner_thread->isRunning()) {
 
 		if (!m_protocol) {
-			QMessageBox::information(this, "Lab-on-a-tip information ",
-				"No execution protocol loaded, load a protocol first");
+			QMessageBox::information(this, m_str_information,
+				m_str_no_protocol_load_first);
 				return;
 		}
 		else {
 			QString macro_path = m_dialog_p_editor->getProtocolPath();
-			QString msg = tr("The protocol loaded is : \n");
+			QString msg = m_str_loaded_protocol_is;
 			msg.append(macro_path);
-			msg.append("\n press ''ok'' to run the protocol, or press ''cancel'' to load a new one. ");
+			msg.append(m_str_protocol_confirm);
 			QMessageBox::StandardButton resBtn = 
-				QMessageBox::question(this, "Lab-on-a-tip information ", msg,
+				QMessageBox::question(this, m_str_information, msg,
 				QMessageBox::Cancel | QMessageBox::Ok,
 				QMessageBox::Ok);
 			if (resBtn != QMessageBox::Cancel) {
@@ -164,7 +164,7 @@ void Labonatip_GUI::runMacro() { //TODO: give it as an argument instead of a cla
 				ui->actionSimulation->setEnabled(!m_simulationOnly);
 				ui->actionReboot->setEnabled(!m_simulationOnly);
 				ui->actionShudown->setEnabled(!m_simulationOnly);
-				ui->label_runMacro->setText("Run protocol");
+				ui->label_runMacro->setText(m_str_label_run_protocol);
 
 				QString s = " Protocol execution stopped : ";
 				s.append(m_dialog_p_editor->getProtocolName());
@@ -190,6 +190,7 @@ void Labonatip_GUI::runMacro() { //TODO: give it as an argument instead of a cla
 		cout << QDate::currentDate().toString().toStdString() << "  " 
 			 << QTime::currentTime().toString().toStdString() << "  "
 			 << "Labonatip_GUI::runMacro    RUNNING" << endl;
+
 		m_macroRunner_thread->setSimulationFlag(m_simulationOnly);
 		connect(m_macroRunner_thread,
 			&Labonatip_macroRunner::resultReady, this,
@@ -228,7 +229,7 @@ void Labonatip_GUI::runMacro() { //TODO: give it as an argument instead of a cla
 		//ui->actionSimulation->setEnabled(false);
 		ui->actionReboot->setEnabled(false);
 		ui->actionShudown->setEnabled(false);
-		ui->label_runMacro->setText("Stop protocol");
+		ui->label_runMacro->setText(m_str_label_stop_protocol);
 	}
 	else {
 		m_macroRunner_thread->disconnect();
@@ -258,7 +259,7 @@ void Labonatip_GUI::runMacro() { //TODO: give it as an argument instead of a cla
 
 		ui->actionReboot->setEnabled(!m_simulationOnly);
 		ui->actionShudown->setEnabled(!m_simulationOnly);
-		ui->label_runMacro->setText("Run protocol");
+		ui->label_runMacro->setText(m_str_label_run_protocol);
 	}
 
 }
@@ -270,8 +271,8 @@ void Labonatip_GUI::macroFinished(const QString &_result) {
 		 << QTime::currentTime().toString().toStdString() << "  "
 		 << "Labonatip_GUI::macroFinished    " << endl;
 
-	QMessageBox::information(this, " Information ", _result);
-	ui->label_runMacro->setText("Run protocol");
+	QMessageBox::information(this, m_str_information, _result);
+	ui->label_runMacro->setText(m_str_label_run_protocol);
 	ui->groupBox_deliveryZone->setEnabled(true);
 	ui->pushButton_operational->setEnabled(true);
 	ui->pushButton_newTip->setEnabled(true);
@@ -408,7 +409,7 @@ void Labonatip_GUI::standby()
 	updatePonSetPoint(0.0);
 	updatePoffSetPoint(11.0);
 
-	if (!visualizeProgressMessage(5, " Standby operation progress ")) return;
+	if (!visualizeProgressMessage(5, m_str_standby_operation)) return;
 	updateVswitchSetPoint(45.0);
 	updateVrecircSetPoint(45.0);
 

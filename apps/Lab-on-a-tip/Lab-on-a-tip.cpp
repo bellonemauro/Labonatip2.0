@@ -49,7 +49,48 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   m_str_basic.append(tr("Basic"));
   m_str_operation_cancelled.append(tr("Operation cancelled"));
   m_str_no_file_loaded.append(tr("No file loaded"));
-  
+  m_str_information.append(tr("Information"));
+  m_str_warning.append(tr("Warning"));
+  m_str_error.append(tr("Error"));
+  m_str_cancel.append(tr("Cancel"));
+  m_str_PPC1_status_con.append(tr("PPC1 STATUS: Connected  "));
+  m_str_PPC1_status_discon.append(tr("PPC1 STATUS: NOT Connected  "));
+  m_str_protocol_running.append(tr("Cancel"));
+  m_str_protocol_not_running.append(tr("No protocol running  "));
+  m_str_connect.append(tr("Connect"));
+  m_str_disconnect.append(tr("Disconnect"));
+  m_str_save_profile.append(tr("Save profile"));
+  m_str_load_profile.append(tr("Load profile"));
+  m_str_cannot_save_profile.append(tr("Cannot save the file"));
+  m_str_cannot_load_profile.append(tr("Cannot load the file"));
+  m_str_warning_simulation_only.append(tr("Lab-on-a-tip is in simulation only"));
+  m_str_cannot_connect_ppc1.append(tr("Lab-on-a-tip could not connect to PPC1, \n please check cables and settings and press Ok"));
+  m_str_cannot_connect_ppc1_twice.append(tr("Lab-on-a-tip could not connect to PPC1 twice, \n please check cables and settings"));
+  m_str_question_find_device.append(tr("I can try to automatically find the device, \n Should I do it?"));
+  m_str_ppc1_connected_but_not_running.append(tr("Lab-on-a-tip connected but PPC1 is not running"));
+  m_str_question_stop_ppc1.append(tr("This will stop the PPC1, \n Are you sure?"));
+  m_str_unable_stop_ppc1.append(tr("Unable to stop and disconnect PPC1"));
+  m_str_shutdown_pressed.append(tr("Shutdown pressed, this will take 30 seconds, press ok to continue, cancel to abort. \n"));
+  m_str_shutdown_pressed_p_off.append(tr("The pressure is off, waiting for the vacuum."));
+  m_str_shutdown_pressed_v_off.append(tr("Vacuum off. Stopping the flow in the device."));
+  m_str_rebooting.append(tr("Rebooting ..."));
+  m_str_reconnecting.append(tr("Reconnecting ..."));
+  m_str_initialization.append(tr("Initialization"));
+  m_str_newtip_msg1.append(tr("Place the pipette into the holder and tighten. THEN PRESS OK"));
+  m_str_newtip_msg2.append(tr("Pressurize the system"));
+  m_str_newtip_msg3.append(tr("Wait until a droplet appears at the tip of the pipette and THEN PRESS OK"));
+  m_str_newtip_msg4.append(tr("Purging the liquid channels"));
+  m_str_newtip_msg5.append(tr("Still purging the liquid channels."));
+  m_str_newtip_msg6.append(tr("Remove the droplet using a lens tissue. THEN PRESS OK"));
+  m_str_newtip_msg7.append(tr("Put the pipette into solution. THEN PRESS OK"));
+  m_str_newtip_msg8.append(tr("Purging the vacuum channels"));
+  m_str_newtip_msg9.append(tr("Establishing operational pressures"));
+  m_str_newtip_msg10.append(tr("Pipette is ready for operation. PRESS OK TO START"));
+  m_str_standby_operation.append(tr("Standby operation progress"));
+  m_str_label_run_protocol.append(tr("Run protocol"));
+  m_str_label_stop_protocol.append(tr("Stop protocol"));
+  m_str_no_protocol_load_first.append(tr("No protocol loaded, load one first"));
+
   ui->dockWidget->close();  //close the advaced dock page
   ui->treeWidget_macroInfo->resizeColumnToContents(0);
 
@@ -173,8 +214,8 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 
   this->setStatusLed(false);
 
-  ui->status_PPC1_label->setText("PPC1 STATUS: NOT Connected  ");
-  ui->label_macroStatus->setText("No protocol running  ");
+  ui->status_PPC1_label->setText(m_str_PPC1_status_discon);
+  ui->label_macroStatus->setText(m_str_protocol_not_running);
 
   // init the timers 
   m_update_flowing_sliders = new QTimer();
@@ -232,7 +273,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 
 void Labonatip_GUI::updateMacroStatusMessage(const QString &_message) {
   
-	QString s = " MACRO RUNNING : <<<  ";
+	QString s = " PROTOCOL RUNNING : <<<  ";
 	s.append(m_dialog_p_editor->getProtocolPath());
 	s.append(" >>> remaining time = ");
 	
@@ -401,13 +442,17 @@ void Labonatip_GUI::switchLanguage(int _value )
 	}
 	else cout << " translation not loaded " << endl;
 
+	// translate the custom strings
 	m_str_areyousure = QApplication::translate("Labonatip_GUI", qPrintable(m_str_areyousure), Q_NULLPTR);
 	m_str_waiting = QApplication::translate("Labonatip_GUI", qPrintable(m_str_waiting), Q_NULLPTR);
 	m_str_advanced = QApplication::translate("Labonatip_GUI", qPrintable(m_str_advanced), Q_NULLPTR);
 	m_str_basic = QApplication::translate("Labonatip_GUI", qPrintable(m_str_basic), Q_NULLPTR);
 	m_str_operation_cancelled = QApplication::translate("Labonatip_GUI", qPrintable(m_str_operation_cancelled));
 	m_str_no_file_loaded = QApplication::translate("Labonatip_GUI", qPrintable(m_str_no_file_loaded));
-
+	m_str_information = QApplication::translate("Labonatip_GUI", qPrintable(m_str_information));
+	m_str_warning = QApplication::translate("Labonatip_GUI", qPrintable(m_str_warning));
+	m_str_error = QApplication::translate("Labonatip_GUI", qPrintable(m_str_error));
+	m_str_cancel = QApplication::translate("Labonatip_GUI", qPrintable(m_str_cancel));
 
 }
 
@@ -809,7 +854,7 @@ bool Labonatip_GUI::visualizeProgressMessage(int _seconds, QString _message)
 	msg.append(QString::number(_seconds));
 	msg.append(" seconds.");
 
-	QProgressDialog *PD = new QProgressDialog(msg, "Cancel", 0, _seconds, this);
+	QProgressDialog *PD = new QProgressDialog(msg, m_str_cancel, 0, _seconds, this);
 	//QFont font;
 	//font.setPixelSize(16);
 	//PD->setFont(font);  // TODO uniform all the font in the application
@@ -822,7 +867,7 @@ bool Labonatip_GUI::visualizeProgressMessage(int _seconds, QString _message)
 	PD->show(); // Make sure dialog is displayed immediately
 	PD->setValue(1); 
 	PD->setWindowModality(Qt::WindowModal);
-	PD->setCancelButtonText(QApplication::translate("Labonatip_GUI", "Cancel", Q_NULLPTR));
+	//PD->setCancelButtonText(m_str_cancel);// (QApplication::translate("Labonatip_GUI", "Cancel", Q_NULLPTR));
 
 	for (int i = 0; i < _seconds; i++) {
 		PD->setValue(i);
@@ -830,7 +875,7 @@ bool Labonatip_GUI::visualizeProgressMessage(int _seconds, QString _message)
 		if (PD->wasCanceled()) // the operation cannot be cancelled
 		{
 			QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-			QMessageBox::information(this, "Warning", m_str_operation_cancelled );
+			QMessageBox::information(this, m_str_warning, m_str_operation_cancelled );
 			setEnableMainWindow(true);
 			return false;
 		}
@@ -864,7 +909,7 @@ void Labonatip_GUI::cleanHistory()
 			QMessageBox::Yes);
 	if (resBtn != QMessageBox::Yes) {
 	
-		QMessageBox::question(this, "Information", m_str_operation_cancelled, "Ok");
+		QMessageBox::question(this, m_str_information, m_str_operation_cancelled, "Ok");
 	}
 	else {
 		QDir dir(m_ext_data_path);
@@ -874,7 +919,7 @@ void Labonatip_GUI::cleanHistory()
 		{
 			dir.remove(dirFile);
 		}
-		QMessageBox::question(this, "Information", "History cleaned", "Ok");
+		QMessageBox::question(this, m_str_information, "History cleaned", "Ok");
 	}
 
 }

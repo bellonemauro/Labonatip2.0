@@ -26,7 +26,7 @@ void Labonatip_macroRunner::run()  {
 	m_threadTerminationHandler = true;
 	cout << QDate::currentDate().toString().toStdString() << "  " 
 		 << QTime::currentTime().toString().toStdString() << "  "
-		 << " Macro running " << endl;
+		 << " Protocol running " << endl;
 	
 	try
 	{
@@ -35,7 +35,7 @@ void Labonatip_macroRunner::run()  {
 		{
 			cout << QDate::currentDate().toString().toStdString() << "  " 
 				 << QTime::currentTime().toString().toStdString() << "  " 
-				 << " macro size " << m_protocol->size() << endl;
+				 << " protocol size " << m_protocol->size() << endl;
 			// compute the duration of the macro
 			double macro_duration = 0.0;
 			for (size_t i = 0; i < m_protocol->size(); i++) {
