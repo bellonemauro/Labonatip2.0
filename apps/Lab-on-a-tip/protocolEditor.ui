@@ -84,8 +84,8 @@ border:0;
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>888</width>
-         <height>795</height>
+         <width>886</width>
+         <height>790</height>
         </rect>
        </property>
        <property name="sizePolicy">
@@ -264,7 +264,7 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
               <bool>true</bool>
              </property>
              <property name="selectionMode">
-              <enum>QAbstractItemView::SingleSelection</enum>
+              <enum>QAbstractItemView::NoSelection</enum>
              </property>
              <property name="selectionBehavior">
               <enum>QAbstractItemView::SelectRows</enum>
@@ -456,7 +456,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
            <item>
             <widget class="QPushButton" name="pushButton_plusIndent">
              <property name="enabled">
-              <bool>false</bool>
+              <bool>true</bool>
              </property>
              <property name="minimumSize">
               <size>
@@ -830,7 +830,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
     <string>toolBar</string>
    </property>
    <property name="movable">
-    <bool>true</bool>
+    <bool>false</bool>
    </property>
    <property name="iconSize">
     <size>
@@ -840,6 +840,9 @@ QPushButton:disabled{ background-color: #CCCCCC; }
    </property>
    <property name="toolButtonStyle">
     <enum>Qt::ToolButtonIconOnly</enum>
+   </property>
+   <property name="floatable">
+    <bool>false</bool>
    </property>
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>
@@ -855,11 +858,17 @@ QPushButton:disabled{ background-color: #CCCCCC; }
    <property name="windowTitle">
     <string>toolBar_2</string>
    </property>
+   <property name="movable">
+    <bool>false</bool>
+   </property>
    <property name="iconSize">
     <size>
      <width>30</width>
      <height>30</height>
     </size>
+   </property>
+   <property name="floatable">
+    <bool>false</bool>
    </property>
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>

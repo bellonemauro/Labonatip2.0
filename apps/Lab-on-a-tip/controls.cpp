@@ -35,6 +35,7 @@ void Labonatip_GUI::updatePonSetPoint(double _pon_set_point)
 
 		ui->progressBar_pressure_p_on->setValue(_pon_set_point);
 		updateFlowControlPercentages();
+		updateGUI();
 	}
 }
 
@@ -62,6 +63,7 @@ void Labonatip_GUI::updatePoffSetPoint(double _poff_set_point)
 
 		ui->progressBar_pressure_p_off->setValue(_poff_set_point);
 		updateFlowControlPercentages();
+		updateGUI();
 	}
 }
 
@@ -88,6 +90,7 @@ void Labonatip_GUI::updateVrecircSetPoint(double _v_recirc_set_point)
 
 		ui->progressBar_recirc->setValue(_v_recirc_set_point);
 		updateFlowControlPercentages();
+		updateGUI();
 	}
 }
 
@@ -113,6 +116,7 @@ void Labonatip_GUI::updateVswitchSetPoint(double _v_switch_set_point)
 	if (m_simulationOnly) {
 		ui->progressBar_switch->setValue(_v_switch_set_point);
 		updateFlowControlPercentages();
+		updateGUI();
 	}
 }
 

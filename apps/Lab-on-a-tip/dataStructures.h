@@ -144,10 +144,14 @@ struct pipetteStatus{
 		this->v_recirc_set_point = 0.0;
 		this->v_switch_set_point = 0.0;
 		this->delta_pressure = 0.0;
-		this->outflow = 0.0;
+		this->outflow_on = 0.0;
+		this->outflow_off = 0.0; 
+		this->outflow_tot = 0.0; 
 		this->inflow_recirculation = 0.0;
 		this->inflow_switch = 0.0;
-		this->in_out_ratio = 0.0;
+		this->in_out_ratio_on = 0.0;
+		this->in_out_ratio_off = 0.0;
+		this->in_out_ratio_tot = 0.0;
 		this->solution_usage_off = 0.0;
 		this->solution_usage_on = 0.0;
 		this->flow_well1 = 0.0;
@@ -165,10 +169,14 @@ struct pipetteStatus{
 	double v_recirc_set_point;     //!< holds the set point during the execution
 	double v_switch_set_point;     //!< holds the set point during the execution
 	double delta_pressure;   
-	double outflow;
+	double outflow_on;
+	double outflow_off;
+	double outflow_tot;
 	double inflow_recirculation;
 	double inflow_switch;
-	double in_out_ratio;
+	double in_out_ratio_on;
+	double in_out_ratio_off;
+	double in_out_ratio_tot;
 	double solution_usage_off;
 	double solution_usage_on;
 	double flow_well1;                //!<  flow in the well 1 nL/s

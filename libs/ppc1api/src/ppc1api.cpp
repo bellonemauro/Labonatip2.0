@@ -314,6 +314,18 @@ void fluicell::PPC1api::updateFlows(const PPC1_data &_PPC1_data, PPC1_status &_P
 	delta_pressure = 100.0 * _PPC1_data.channel_D->sensor_reading;
 	_PPC1_status.solution_usage_on = this->getFlowSimple(delta_pressure, m_pipe_length2tip);
 
+	delta_pressure = 100.0 * (_PPC1_data.channel_D->sensor_reading +
+		(_PPC1_data.channel_C->sensor_reading * 3.0) -
+		(-_PPC1_data.channel_B->sensor_reading * 2.0));
+	_PPC1_status.outflow_on = this->getFlowSimple(delta_pressure, m_pipe_length2tip);
+
+	delta_pressure = 100.0 * ((_PPC1_data.channel_C->sensor_reading * 4.0) -
+		(-_PPC1_data.channel_B->sensor_reading * 2.0));
+	_PPC1_status.outflow_off = 2.0 * this->getFlowSimple(delta_pressure, 2.0 * m_pipe_length2zone);
+
+	_PPC1_status.in_out_ratio_on = _PPC1_status.outflow_on / _PPC1_status.inflow_recirculation;
+	_PPC1_status.in_out_ratio_off = _PPC1_status.outflow_off / _PPC1_status.inflow_recirculation;
+
 	if (_PPC1_data.i || _PPC1_data.j ||
 		_PPC1_data.k || _PPC1_data.l) // if one of the solutions is on
 	{
@@ -321,7 +333,8 @@ void fluicell::PPC1api::updateFlows(const PPC1_data &_PPC1_data, PPC1_status &_P
 			(_PPC1_data.channel_C->sensor_reading * 3.0) -
 			(-_PPC1_data.channel_B->sensor_reading * 2.0));
 
-		_PPC1_status.outflow = this->getFlowSimple(delta_pressure, m_pipe_length2tip);
+		_PPC1_status.outflow_tot = _PPC1_status.outflow_on;
+		_PPC1_status.in_out_ratio_tot = _PPC1_status.in_out_ratio_on;
 
 		_PPC1_status.flow_rate_1 = _PPC1_status.solution_usage_off;
 		_PPC1_status.flow_rate_2 = _PPC1_status.solution_usage_off;
@@ -335,10 +348,8 @@ void fluicell::PPC1api::updateFlows(const PPC1_data &_PPC1_data, PPC1_status &_P
 	}
 	else {
 
-		delta_pressure = 100.0 * ((_PPC1_data.channel_C->sensor_reading * 4.0) -
-			(-_PPC1_data.channel_B->sensor_reading * 2.0));
-
-		_PPC1_status.outflow = 2.0 * this->getFlowSimple(delta_pressure, 2.0 * m_pipe_length2zone);
+		_PPC1_status.outflow_tot = _PPC1_status.outflow_off;
+		_PPC1_status.in_out_ratio_tot = _PPC1_status.in_out_ratio_off;
 
 		_PPC1_status.flow_rate_1 = _PPC1_status.solution_usage_off;
 		_PPC1_status.flow_rate_2 = _PPC1_status.solution_usage_off;
@@ -350,8 +361,6 @@ void fluicell::PPC1api::updateFlows(const PPC1_data &_PPC1_data, PPC1_status &_P
 	_PPC1_status.flow_rate_6 = _PPC1_status.inflow_switch / 2.0;
 	_PPC1_status.flow_rate_7 = _PPC1_status.inflow_recirculation / 2.0;
 	_PPC1_status.flow_rate_8 = _PPC1_status.inflow_recirculation / 2.0;
-
-	_PPC1_status.in_out_ratio = _PPC1_status.outflow / _PPC1_status.inflow_recirculation;
 
 }
 
@@ -778,12 +787,13 @@ bool fluicell::PPC1api::changeDropletSizeBy(double _percentage)
 double fluicell::PPC1api::getDropletSize()
 {
 
-	double p1 = std::abs(m_PPC1_data->channel_A->sensor_reading / m_default_v_recirc);
-	double p2 = std::abs(m_PPC1_data->channel_D->sensor_reading / m_default_pon);
-	double mean_percentage = std::pow(1.0 + (p2 - p1) / 2.0, 3.0) * 100.0; 
+	//double p1 = std::abs(m_PPC1_data->channel_A->sensor_reading / m_default_v_recirc);
+	//double p2 = std::abs(m_PPC1_data->channel_D->sensor_reading / m_default_pon);
+	//double mean_percentage = std::pow(1.0 + (p2 - p1) / 2.0, 3.0) * 100.0; 
 	// the percentage of the droplet is the cube power of the real value
 
-	return mean_percentage;
+	double ds = 100.0*(m_PPC1_status->in_out_ratio_on + 0.21) / 0.31;
+	return ds;// mean_percentage;
 }
 
 
@@ -1097,16 +1107,16 @@ bool fluicell::PPC1api::run(command _cmd)
 	}
 	case 8: {//dropletSize
 		cout << currentDateTime()
-			<< " fluicell::PPC1api::run(command _cmd) ::: dropletSize  " 
+			<< " fluicell::PPC1api::run(command _cmd) ::: dropletSize  NOT entirely implemented in the API" 
 			<< _cmd.getValue() << endl;
-		setDropletSize(_cmd.getValue()); // TODO this command will now not work as it is
+		//setDropletSize(_cmd.getValue()); // TODO this command will now not work as it is
 		break;
 	}
 	case 9: {//flowSpeed
 		cout << currentDateTime()
-			<< " fluicell::PPC1api::run(command _cmd) ::: flowSpeed  " 
+			<< " fluicell::PPC1api::run(command _cmd) ::: flowSpeed  NOT entirely implemented in the API" 
 			<< _cmd.getValue() << endl;
-		setFlowspeed(_cmd.getValue()); // TODO this command will now not work as it is
+		//setFlowspeed(_cmd.getValue()); // TODO this command will now not work as it is
 		break;
 	}
 	case 10: {//vacuum

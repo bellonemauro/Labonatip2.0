@@ -41,6 +41,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   
   // setup the user interface
   ui->setupUi (this);
+  this->setWindowTitle(tr("new title"));
 
   //setting custom strings to translate 
   m_str_areyousure.append(tr("Are you sure?"));
@@ -90,6 +91,8 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   m_str_label_run_protocol.append(tr("Run protocol"));
   m_str_label_stop_protocol.append(tr("Stop protocol"));
   m_str_no_protocol_load_first.append(tr("No protocol loaded, load one first"));
+  m_str_loaded_protocol_is.append(tr("The protocol loaded is : \n"));
+  m_str_protocol_confirm.append(tr("\n press ''Ok'' to run the protocol, or press ''Cancel'' to load a new one."));
 
   ui->dockWidget->close();  //close the advaced dock page
   ui->treeWidget_macroInfo->resizeColumnToContents(0);
@@ -424,8 +427,7 @@ void Labonatip_GUI::switchLanguage(int _value )
 	}
 	case 2:
 	{
-		//translation_file = ":/languages/ita.qm";
-		translation_file = "./translations/qt_it.qm"; 
+		translation_file = ":/languages/ita.qm";
 		break;
 	}
 	default: 
@@ -788,6 +790,8 @@ void Labonatip_GUI::toolApply()
 
 	switchLanguage(m_dialog_tools->language);
 
+	
+
 }
 
 void Labonatip_GUI::editorOk()
@@ -903,7 +907,7 @@ void Labonatip_GUI::cleanHistory()
 
 
 	QMessageBox::StandardButton resBtn =
-		QMessageBox::question(this, "Lab-on-a-tip",
+		QMessageBox::question(this, m_str_warning,
 			tr("This will remove all the files in the history folder.\nDo you want to proceed?\n"),
 			QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
 			QMessageBox::Yes);

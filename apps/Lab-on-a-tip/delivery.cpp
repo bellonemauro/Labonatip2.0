@@ -32,7 +32,7 @@ void Labonatip_GUI::dropletSizePlus() {
 		//if (!m_ppc1->setDropletSize(ui->lcdNumber_dropletSize_percentage->value() +
 		//	m_dialog_tools->m_pr_params->base_ds_increment)) {
 		if(!success) {
-			QMessageBox::information(this, "Warning ",
+			QMessageBox::information(this, m_str_warning,
 				" Operation cannot be done. <br> Please, check for out of bound values. ");
 		}
 		else
@@ -55,7 +55,7 @@ void Labonatip_GUI::dropletSizePlus() {
 			m_pr_params->base_ds_increment) / 100.0;
 
 		if (ui->horizontalSlider_recirculation->value() == 0) {
-			QMessageBox::information(this, "Warning ", 
+			QMessageBox::information(this, m_str_warning,
 				" Recirculation zero, operation cannot be done ");
 			return;
 		}
@@ -109,7 +109,7 @@ void Labonatip_GUI::dropletSizeMinus() {
 		//		ui->lcdNumber_dropletSize_percentage->value() -
 		//		m_dialog_tools->m_pr_params->base_ds_increment)) {
 		if (!success){
-			QMessageBox::information(this, "Warning ",
+			QMessageBox::information(this, m_str_warning,
 				" Operation cannot be done. <br> Please, check for out of bound values. ");
 		}
 		else
@@ -132,7 +132,7 @@ void Labonatip_GUI::dropletSizeMinus() {
 			m_pr_params->base_ds_increment) / 100.0;
 
 		if (ui->horizontalSlider_p_on->value() == 0) {
-			QMessageBox::information(this, "Warning ", 
+			QMessageBox::information(this, m_str_warning, 
 				" P_on zero, operation cannot be done ");
 			return;
 		}
@@ -187,7 +187,7 @@ void Labonatip_GUI::flowSpeedPlus() {
 		//if (!m_ppc1->setFlowspeed(ui->lcdNumber_flowspeed_percentage->value() +
 		//	m_dialog_tools->m_pr_params->base_fs_increment)) 
 		if (!success) {
-			QMessageBox::information(this, "Warning ", 
+			QMessageBox::information(this, m_str_warning,
 				" Operation cannot be done. <br> Please, check for out of bound values. ");
 		}
 		else
@@ -277,7 +277,7 @@ void Labonatip_GUI::flowSpeedMinus() {
 		//if (!m_ppc1->setFlowspeed(ui->lcdNumber_flowspeed_percentage->value() -
 		//		m_dialog_tools->m_pr_params->base_fs_increment)) 
 		if (!success) {
-				QMessageBox::information(this, "Warning ",
+				QMessageBox::information(this, m_str_warning,
 				" Operation cannot be done. <br> Please, check for out of bound values. ");
 		}
 		else
@@ -343,7 +343,7 @@ void Labonatip_GUI::vacuumPlus() {
 		//if (!m_ppc1->setVacuumPercentage(ui->lcdNumber_vacuum_percentage->value() + 
 		//	m_dialog_tools->m_pr_params->base_v_increment)) {
 		if (!success) {
-			QMessageBox::information(this, "Warning ",
+			QMessageBox::information(this, m_str_warning,
 				" Operation cannot be done. <br> Please, check for out of bound values.");
 		}
 		else {
@@ -395,7 +395,7 @@ void Labonatip_GUI::vacuumMinus() {
 		//if (!m_ppc1->setVacuumPercentage(ui->lcdNumber_vacuum_percentage->value() -
 		//	m_dialog_tools->m_pr_params->base_v_increment)) {
 		if (!success) {
-			QMessageBox::information(this, "Warning ",
+			QMessageBox::information(this, m_str_warning,
 				" Operation cannot be done. <br> Please, check for out of bound values. ");
 		}
 		else {
@@ -413,7 +413,7 @@ void Labonatip_GUI::vacuumMinus() {
 	if (m_simulationOnly) {
 
 		if (ui->horizontalSlider_recirculation->value() == 0) {
-			QMessageBox::information(this, "Warning ", 
+			QMessageBox::information(this, m_str_warning,
 				" Operation cannot be done. <br> Recirculation is zero. ");
 		}
 
@@ -427,11 +427,11 @@ void Labonatip_GUI::vacuumMinus() {
 
 void Labonatip_GUI::updateFlowControlPercentages()
 {
-
+	updateFlows();
 	if (m_simulationOnly) {
 
 		// calculate droplet size percentage
-		{
+		{/*
 			//double ponp = 100.0 * m_pon_set_point / default_pon;
 			//double vrp = 100.0 * m_v_recirc_set_point / default_v_recirc;
 
@@ -444,7 +444,7 @@ void Labonatip_GUI::updateFlowControlPercentages()
 			m_ds_perc =  (ponp + vrp) / 2.0;
 			//m_ds_perc = 100.0 * m_pon_set_point / m_pr_params->p_on_default;
 
-			ui->lcdNumber_dropletSize_percentage->display(m_ds_perc);
+			//ui->lcdNumber_dropletSize_percentage->display(m_ds_perc);
 
 			if (ui->pushButton_solution1->isChecked() ||
 				ui->pushButton_solution2->isChecked() ||
@@ -454,10 +454,11 @@ void Labonatip_GUI::updateFlowControlPercentages()
 				//m_ds_perc_2 = 100.0*(ui->treeWidget_macroInfo->topLevelItem(3)->text(1).toDouble()+0.21)/0.31;
 				m_ds_perc_2 = 100.0*(m_pipette_status->in_out_ratio + 0.21) / 0.31;
 			}
-			else { m_ds_perc_2 = 100.0 * m_pipette_status->pon_set_point / m_pr_params->p_on_default; }
+			else { m_ds_perc_2 = 100.0 * m_pipette_status->pon_set_point / m_pr_params->p_on_default; }*/
 
+			m_ds_perc = 100.0*(m_pipette_status->in_out_ratio_on + 0.21) / 0.31;
 			//m_ds_perc_2 = 100.0*(m_pipette_status->in_out_ratio + 0.21) / 0.31;
-			ui->lcdNumber_dropletSize_percentage_2->display(m_ds_perc_2);
+			ui->lcdNumber_dropletSize_percentage->display(m_ds_perc);
 
 		}
 
@@ -482,5 +483,5 @@ void Labonatip_GUI::updateFlowControlPercentages()
 	}
 
 	//updateDrawing(ui->progressBar_dropletSize->value());
-	updateFlows();
+	//updateFlows();
 }

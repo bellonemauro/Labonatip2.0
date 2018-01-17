@@ -266,10 +266,14 @@ namespace fluicell
 
 			double delta_pressure;
 			double pipe_length;
-			double outflow;
+			double outflow_on;
+			double outflow_off; 
+			double outflow_tot; 
 			double inflow_recirculation;
 			double inflow_switch;
-			double in_out_ratio;
+			double in_out_ratio_on; 
+			double in_out_ratio_off; 
+			double in_out_ratio_tot;
 			double solution_usage_off;
 			double solution_usage_on;
 			double flow_rate_1;
@@ -282,8 +286,11 @@ namespace fluicell
 			double flow_rate_8;
 
 			PPC1_status() :
-				delta_pressure(0.0), pipe_length(0.0), outflow(0.0), inflow_recirculation(0.0),
-				inflow_switch(0.0), in_out_ratio(0.0), solution_usage_off(0.0), solution_usage_on(0.0),
+				delta_pressure(0.0), pipe_length(0.0), 
+				outflow_on(0.0), outflow_off(0.0), outflow_tot(0.0), 
+				inflow_recirculation(0.0), inflow_switch(0.0), 
+				in_out_ratio_on(0.0), in_out_ratio_off(0.0), in_out_ratio_tot(0.0), 
+				solution_usage_off(0.0), solution_usage_on(0.0),
 				flow_rate_1(0.0), flow_rate_2(0.0), flow_rate_3(0.0), flow_rate_4(0.0),
 				flow_rate_5(0.0), flow_rate_6(0.0), flow_rate_7(0.0), flow_rate_8(0.0)
 			{}

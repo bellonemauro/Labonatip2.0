@@ -133,10 +133,14 @@ void Labonatip_GUI::updateFlows()
 
 
 	if (!m_simulationOnly) {  // if we are not in simulation, we just get the numbers from the PPC1api
-		m_pipette_status->outflow = m_ppc1->m_PPC1_status->outflow;
+		m_pipette_status->outflow_on = m_ppc1->m_PPC1_status->outflow_on;
+		m_pipette_status->outflow_off = m_ppc1->m_PPC1_status->outflow_off; 
+		m_pipette_status->outflow_tot = m_ppc1->m_PPC1_status->outflow_tot; 
 		m_pipette_status->inflow_recirculation = m_ppc1->m_PPC1_status->inflow_recirculation;
 		m_pipette_status->inflow_switch = m_ppc1->m_PPC1_status->inflow_switch;
-		m_pipette_status->in_out_ratio = m_ppc1->m_PPC1_status->in_out_ratio;
+		m_pipette_status->in_out_ratio_on = m_ppc1->m_PPC1_status->in_out_ratio_on;
+		m_pipette_status->in_out_ratio_off = m_ppc1->m_PPC1_status->in_out_ratio_off;
+		m_pipette_status->in_out_ratio_tot = m_ppc1->m_PPC1_status->in_out_ratio_tot;
 		m_pipette_status->flow_well1 = m_ppc1->m_PPC1_status->flow_rate_1;
 		m_pipette_status->flow_well2 = m_ppc1->m_PPC1_status->flow_rate_2;
 		m_pipette_status->flow_well3 = m_ppc1->m_PPC1_status->flow_rate_3;
@@ -161,6 +165,17 @@ void Labonatip_GUI::updateFlows()
 		m_pipette_status->delta_pressure = 100.0 * p_on;
 		m_pipette_status->solution_usage_on = m_ppc1->getFlowSimple(m_pipette_status->delta_pressure, LENGTH_TO_TIP);
 
+		m_pipette_status->delta_pressure = 100.0 * (p_on + p_off * 3.0 - v_s * 2.0);   // TODO magic numbers
+		m_pipette_status->outflow_on = m_ppc1->getFlowSimple(m_pipette_status->delta_pressure, LENGTH_TO_TIP);
+
+		m_pipette_status->delta_pressure = 100.0 * (p_off * 4.0 - v_s * 2.0);
+		m_pipette_status->outflow_off = 2.0 * m_ppc1->getFlowSimple(m_pipette_status->delta_pressure, 2 * LENGTH_TO_ZONE);
+
+		m_pipette_status->in_out_ratio_on = m_pipette_status->outflow_on / m_pipette_status->inflow_recirculation;
+		if (isnan(m_pipette_status->in_out_ratio_on)) m_pipette_status->in_out_ratio_on = 0;
+
+		m_pipette_status->in_out_ratio_off = m_pipette_status->outflow_off / m_pipette_status->inflow_recirculation;
+		if (isnan(m_pipette_status->in_out_ratio_off)) m_pipette_status->in_out_ratio_off = 0;
 
 		if (ui->pushButton_solution1->isChecked() ||
 			ui->pushButton_solution2->isChecked() ||
@@ -168,9 +183,12 @@ void Labonatip_GUI::updateFlows()
 			ui->pushButton_solution4->isChecked()) // flow when solution is off // TODO : check on off
 		{
 
-			m_pipette_status->delta_pressure = 100.0 * (p_on + p_off * 3.0 - v_s * 2.0);   // TODO magic numbers
+			//m_pipette_status->delta_pressure = 100.0 * (p_on + p_off * 3.0 - v_s * 2.0);   // TODO magic numbers
+			//m_pipette_status->outflow = m_ppc1->getFlowSimple(m_pipette_status->delta_pressure, LENGTH_TO_TIP);
 
-			m_pipette_status->outflow = m_ppc1->getFlowSimple(m_pipette_status->delta_pressure, LENGTH_TO_TIP);
+			
+			m_pipette_status->in_out_ratio_tot = m_pipette_status->in_out_ratio_on;
+			m_pipette_status->outflow_tot = m_pipette_status->outflow_on;
 
 			if (ui->pushButton_solution1->isChecked()) m_pipette_status->flow_well1 = m_pipette_status->solution_usage_on;
 			else m_pipette_status->flow_well1 = m_pipette_status->solution_usage_off;
@@ -184,9 +202,11 @@ void Labonatip_GUI::updateFlows()
 		}
 		else // flow when solution is on // TODO : check on off
 		{
-			m_pipette_status->delta_pressure = 100.0 * (p_off * 4.0 - v_s * 2.0);
+			//m_pipette_status->delta_pressure = 100.0 * (p_off * 4.0 - v_s * 2.0);
+			//m_pipette_status->outflow = 2.0 * m_ppc1->getFlowSimple(m_pipette_status->delta_pressure, 2 * LENGTH_TO_ZONE);
 
-			m_pipette_status->outflow = 2.0 * m_ppc1->getFlowSimple(m_pipette_status->delta_pressure, 2 * LENGTH_TO_ZONE);
+			m_pipette_status->in_out_ratio_tot = m_pipette_status->in_out_ratio_off;
+			m_pipette_status->outflow_tot = m_pipette_status->outflow_off;
 
 			m_pipette_status->flow_well1 = m_pipette_status->solution_usage_off;
 			m_pipette_status->flow_well2 = m_pipette_status->solution_usage_off;
@@ -194,26 +214,21 @@ void Labonatip_GUI::updateFlows()
 			m_pipette_status->flow_well4 = m_pipette_status->solution_usage_off;
 
 		}
-
 		m_pipette_status->flow_well5 = m_pipette_status->inflow_switch / 2.0;
 		m_pipette_status->flow_well6 = m_pipette_status->inflow_switch / 2.0;
 		m_pipette_status->flow_well7 = m_pipette_status->inflow_recirculation / 2.0;
 		m_pipette_status->flow_well8 = m_pipette_status->inflow_recirculation / 2.0;
-
-		m_pipette_status->in_out_ratio = m_pipette_status->outflow / m_pipette_status->inflow_recirculation;
-		if (isnan(m_pipette_status->in_out_ratio)) m_pipette_status->in_out_ratio = 0;
-
 	}
 
 	// update the tree widget
 	ui->treeWidget_macroInfo->topLevelItem(0)->setText(1,
-		QString::number(m_pipette_status->outflow, 'g', 3));
+		QString::number(m_pipette_status->outflow_tot, 'g', 3));
 	ui->treeWidget_macroInfo->topLevelItem(1)->setText(1,
 		QString::number(m_pipette_status->inflow_recirculation, 'g', 4));
 	ui->treeWidget_macroInfo->topLevelItem(2)->setText(1,
 		QString::number(m_pipette_status->inflow_switch, 'g', 4));
 	ui->treeWidget_macroInfo->topLevelItem(3)->setText(1,
-		QString::number(m_pipette_status->in_out_ratio, 'g', 2));
+		QString::number(m_pipette_status->in_out_ratio_tot, 'g', 2));
 	ui->treeWidget_macroInfo->topLevelItem(4)->setText(1,
 		QString::number(m_pipette_status->flow_well1, 'g', 2));
 	ui->treeWidget_macroInfo->topLevelItem(5)->setText(1,
