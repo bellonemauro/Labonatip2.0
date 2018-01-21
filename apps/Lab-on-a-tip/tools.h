@@ -20,6 +20,7 @@
 #include <QSettings>
 #include <QTranslator>
 #include <QDateTime>
+#include <QMessageBox>
 
 // PPC1api 
 #include <fluicell/ppc1api/ppc1api.h>
@@ -42,7 +43,8 @@ signals :
 	void ok();  // generated when ok is pressed
 	void apply(); // generated when apply is pressed
 	void cancel(); // generated when cancel is pressed
-	void emptyWells(); // generated when empty wells is pressed
+	void emptyWaste(); // generated when empty wells is pressed
+	void refillSolution(); // generated when empty wells is pressed
 	void colSol1Changed(const int _r, const int _g, const int _b);
 	void colSol2Changed(const int _r, const int _g, const int _b);
 	void colSol3Changed(const int _r, const int _g, const int _b);
@@ -149,7 +151,9 @@ private slots:
 	void applyPressed();
 
 
-	void emptyWellsPressed();
+	void emptyWastePressed();
+
+	void refillSolutionPressed();
 
 	/** Enumerate serial ports
 	*

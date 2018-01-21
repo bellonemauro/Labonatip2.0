@@ -91,14 +91,6 @@ struct solutionsParams {
 		this->vol_well6 = 0.0;
 		this->vol_well7 = 0.0;
 		this->vol_well8 = 0.0;
-		this->rem_vol_well1 = 0.0;
-		this->rem_vol_well2 = 0.0;
-		this->rem_vol_well3 = 0.0;
-		this->rem_vol_well4 = 0.0;
-		this->rem_vol_well5 = 0.0;
-		this->rem_vol_well6 = 0.0;
-		this->rem_vol_well7 = 0.0;
-		this->rem_vol_well8 = 0.0;
 	    this->sol1 = "No name given to sol 1";
 		this->sol2 = "No name given to sol 2";
 		this->sol3 = "No name given to sol 3";
@@ -117,14 +109,6 @@ struct solutionsParams {
 	double vol_well6;                 //!<  initial volume of solution in the well 6 in uL
 	double vol_well7;                 //!<  initial volume of solution in the well 7 in uL
 	double vol_well8;                 //!<  initial volume of solution in the well 8 in uL
-	double rem_vol_well1;             //!<  remaining volume of solution in the well 1 in mL
-	double rem_vol_well2;             //!<  remaining volume of solution in the well 2 in mL
-	double rem_vol_well3;             //!<  remaining volume of solution in the well 3 in mL
-	double rem_vol_well4;             //!<  remaining volume of solution in the well 4 in mL
-	double rem_vol_well5;             //!<  remaining volume of solution in the well 5 in mL
-	double rem_vol_well6;             //!<  remaining volume of solution in the well 6 in mL
-	double rem_vol_well7;             //!<  remaining volume of solution in the well 7 in mL
-	double rem_vol_well8;             //!<  remaining volume of solution in the well 8 in mL
 	QString sol1;                     //!<  name of the solution 1
 	QString sol2;                     //!<  name of the solution 2
 	QString sol3;                     //!<  name of the solution 3
@@ -162,6 +146,15 @@ struct pipetteStatus{
 		this->flow_well6 = 0.0;
 		this->flow_well7 = 0.0;
 		this->flow_well8 = 0.0;
+		this->rem_vol_well1 = 0.0;
+		this->rem_vol_well2 = 0.0;
+		this->rem_vol_well3 = 0.0;
+		this->rem_vol_well4 = 0.0;
+		this->rem_vol_well5 = 0.0;
+		this->rem_vol_well6 = 0.0;
+		this->rem_vol_well7 = 0.0;
+		this->rem_vol_well8 = 0.0;
+
 	}
 
 	double pon_set_point;          //!< holds the set point during the execution
@@ -187,7 +180,14 @@ struct pipetteStatus{
 	double flow_well6;                //!<  flow in the well 6 nL/s
 	double flow_well7;                //!<  flow in the well 7 nL/s
 	double flow_well8;                //!<  flow in the well 8 nL/s
-
+	double rem_vol_well1;             //!<  remaining volume of solution in the well 1 in mL
+	double rem_vol_well2;             //!<  remaining volume of solution in the well 2 in mL
+	double rem_vol_well3;             //!<  remaining volume of solution in the well 3 in mL
+	double rem_vol_well4;             //!<  remaining volume of solution in the well 4 in mL
+	double rem_vol_well5;             //!<  remaining volume of solution in the well 5 in mL
+	double rem_vol_well6;             //!<  remaining volume of solution in the well 6 in mL
+	double rem_vol_well7;             //!<  remaining volume of solution in the well 7 in mL
+	double rem_vol_well8;             //!<  remaining volume of solution in the well 8 in mL
 };
 
 	// structure to handle solutions name parameters

@@ -162,6 +162,10 @@ private slots:
 
 	void openProtocolFolder();
 
+	void showChartsPanel();
+
+	void showParamsPanel();
+
 	void loadStdP();
 
 	void loadOptP();

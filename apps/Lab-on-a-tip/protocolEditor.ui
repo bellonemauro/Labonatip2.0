@@ -10,6 +10,12 @@
     <height>856</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>1024</width>
+    <height>750</height>
+   </size>
+  </property>
   <property name="windowTitle">
    <string>Protocol editor</string>
   </property>
@@ -84,8 +90,8 @@ border:0;
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>886</width>
-         <height>790</height>
+         <width>888</width>
+         <height>732</height>
         </rect>
        </property>
        <property name="sizePolicy">
@@ -834,8 +840,8 @@ QPushButton:disabled{ background-color: #CCCCCC; }
    </property>
    <property name="iconSize">
     <size>
-     <width>30</width>
-     <height>30</height>
+     <width>220</width>
+     <height>70</height>
     </size>
    </property>
    <property name="toolButtonStyle">
@@ -850,9 +856,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="actionLoad"/>
-   <addaction name="actionSave"/>
-   <addaction name="actionWizard"/>
+   <addaction name="actionAbout"/>
   </widget>
   <widget class="QToolBar" name="toolBar_2">
    <property name="windowTitle">
@@ -863,9 +867,12 @@ QPushButton:disabled{ background-color: #CCCCCC; }
    </property>
    <property name="iconSize">
     <size>
-     <width>30</width>
-     <height>30</height>
+     <width>100</width>
+     <height>70</height>
     </size>
+   </property>
+   <property name="toolButtonStyle">
+    <enum>Qt::ToolButtonTextUnderIcon</enum>
    </property>
    <property name="floatable">
     <bool>false</bool>
@@ -876,19 +883,17 @@ QPushButton:disabled{ background-color: #CCCCCC; }
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="actionPlus"/>
-   <addaction name="actionDuplicate"/>
-   <addaction name="actionIndent"/>
-   <addaction name="actionMinus"/>
-   <addaction name="actionClear"/>
-   <addaction name="actionUp"/>
-   <addaction name="actionDown"/>
+   <addaction name="actionLoad"/>
+   <addaction name="actionSave"/>
+   <addaction name="actionCharts"/>
+   <addaction name="actionParams"/>
+   <addaction name="actionWizard"/>
   </widget>
-  <widget class="QDockWidget" name="dockWidget_2">
+  <widget class="QDockWidget" name="dockWidget_params">
    <property name="minimumSize">
     <size>
      <width>280</width>
-     <height>787</height>
+     <height>600</height>
     </size>
    </property>
    <property name="maximumSize">
@@ -1255,11 +1260,11 @@ QPushButton:disabled{ background-color: #CCCCCC; }
     </layout>
    </widget>
   </widget>
-  <widget class="QDockWidget" name="dockWidget">
+  <widget class="QDockWidget" name="dockWidget_charts">
    <property name="minimumSize">
     <size>
      <width>280</width>
-     <height>790</height>
+     <height>600</height>
     </size>
    </property>
    <property name="features">
@@ -1293,13 +1298,13 @@ QPushButton:disabled{ background-color: #CCCCCC; }
        <property name="minimumSize">
         <size>
          <width>0</width>
-         <height>180</height>
+         <height>140</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
          <width>16777215</width>
-         <height>220</height>
+         <height>300</height>
         </size>
        </property>
        <property name="font">
@@ -1342,13 +1347,13 @@ QPushButton:disabled{ background-color: #CCCCCC; }
        <property name="minimumSize">
         <size>
          <width>0</width>
-         <height>180</height>
+         <height>140</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
          <width>16777215</width>
-         <height>220</height>
+         <height>300</height>
         </size>
        </property>
        <property name="font">
@@ -1391,13 +1396,13 @@ QPushButton:disabled{ background-color: #CCCCCC; }
        <property name="minimumSize">
         <size>
          <width>0</width>
-         <height>180</height>
+         <height>140</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
          <width>16777215</width>
-         <height>220</height>
+         <height>300</height>
         </size>
        </property>
        <property name="font">
@@ -1440,13 +1445,13 @@ QPushButton:disabled{ background-color: #CCCCCC; }
        <property name="minimumSize">
         <size>
          <width>0</width>
-         <height>180</height>
+         <height>140</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
          <width>16777215</width>
-         <height>220</height>
+         <height>300</height>
         </size>
        </property>
        <property name="font">
@@ -1578,6 +1583,45 @@ QPushButton:disabled{ background-color: #CCCCCC; }
    </property>
    <property name="text">
     <string>Up</string>
+   </property>
+  </action>
+  <action name="actionCharts">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/protocolEditor.png</normaloff>:/icons/protocolEditor.png</iconset>
+   </property>
+   <property name="text">
+    <string>Charts</string>
+   </property>
+   <property name="toolTip">
+    <string>show chart panel</string>
+   </property>
+  </action>
+  <action name="actionParams">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/protocolEditor.png</normaloff>:/icons/protocolEditor.png</iconset>
+   </property>
+   <property name="text">
+    <string>Params</string>
+   </property>
+   <property name="toolTip">
+    <string>show params panel</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/fluicell_logo_BIG.png</normaloff>:/icons/fluicell_logo_BIG.png</iconset>
+   </property>
+   <property name="text">
+    <string>About</string>
    </property>
   </action>
  </widget>

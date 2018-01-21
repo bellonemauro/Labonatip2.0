@@ -41,7 +41,6 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   
   // setup the user interface
   ui->setupUi (this);
-  this->setWindowTitle(tr("new title"));
 
   //setting custom strings to translate 
   m_str_areyousure.append(tr("Are you sure?"));
@@ -133,12 +132,18 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   *m_pr_params = m_dialog_tools->getPr_params();
   *m_GUI_params = m_dialog_tools->getGUIparams();
 
+  toolRefillSolution();
+  toolEmptyWells();
+
   // set the flows in the table
-  ui->treeWidget_macroInfo->topLevelItem(12)->setText(1, QString::number(m_solutionParams->rem_vol_well1));
-  ui->treeWidget_macroInfo->topLevelItem(13)->setText(1, QString::number(m_solutionParams->rem_vol_well2));
-  ui->treeWidget_macroInfo->topLevelItem(14)->setText(1, QString::number(m_solutionParams->rem_vol_well3));
-  ui->treeWidget_macroInfo->topLevelItem(15)->setText(1, QString::number(m_solutionParams->rem_vol_well4));
- 
+  ui->treeWidget_macroInfo->topLevelItem(12)->setText(1, QString::number(m_pipette_status->rem_vol_well1));
+  ui->treeWidget_macroInfo->topLevelItem(13)->setText(1, QString::number(m_pipette_status->rem_vol_well2));
+  ui->treeWidget_macroInfo->topLevelItem(14)->setText(1, QString::number(m_pipette_status->rem_vol_well3));
+  ui->treeWidget_macroInfo->topLevelItem(15)->setText(1, QString::number(m_pipette_status->rem_vol_well4));
+
+
+
+
   // set translation
   QString translation_file = "./languages/eng.qm";
   if (!m_translator.load(translation_file))
@@ -269,8 +274,18 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 
   ui->textEdit_emptyTime->setText(" ");
 
+
+  // set a few shortcuts
+  ui->pushButton_solution1->setShortcut(QApplication::translate("Labonatip_GUI", "F1", Q_NULLPTR));
+  ui->pushButton_solution2->setShortcut(QApplication::translate("Labonatip_GUI", "F2", Q_NULLPTR));
+  ui->pushButton_solution3->setShortcut(QApplication::translate("Labonatip_GUI", "F3", Q_NULLPTR));
+  ui->pushButton_solution4->setShortcut(QApplication::translate("Labonatip_GUI", "F4", Q_NULLPTR));
+
   // instal the event filter on -everything- in the app
   qApp->installEventFilter(this);
+
+  this->setWindowModified(true); 
+  this->setWindowTitle(tr("My crazy MainWindow[*]"));
 }
 
 
@@ -703,8 +718,12 @@ void Labonatip_GUI::initConnects()
 		SLOT(sliderSwitchChanged(int)));
 	
 	connect(m_dialog_tools,
-		SIGNAL(emptyWells()), this,
+		SIGNAL(emptyWaste()), this,
 		SLOT(toolEmptyWells()));
+
+	connect(m_dialog_tools,
+		SIGNAL(refillSolution()), this,
+		SLOT(toolRefillSolution()));
 
 	connect(m_dialog_tools,
 		SIGNAL(ok()), this, 
@@ -753,8 +772,29 @@ void Labonatip_GUI::toolEmptyWells()
 	//TODO: this now is empty and it does not work
 	*m_solutionParams = m_dialog_tools->getSolutionsParams();
 
+	m_pipette_status->rem_vol_well5 = 0.0;
+	m_pipette_status->rem_vol_well6 = 0.0; 
+	m_pipette_status->rem_vol_well7 = 0.0;
+	m_pipette_status->rem_vol_well8 = 0.0;
 	
 }
+
+void Labonatip_GUI::toolRefillSolution()
+{
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::toolRefillSolution   " << endl;
+
+	//TODO: this now is empty and it does not work
+	*m_solutionParams = m_dialog_tools->getSolutionsParams();
+
+	m_pipette_status->rem_vol_well1 = m_solutionParams->vol_well1;
+	m_pipette_status->rem_vol_well2 = m_solutionParams->vol_well2;
+	m_pipette_status->rem_vol_well3 = m_solutionParams->vol_well3;
+	m_pipette_status->rem_vol_well4 = m_solutionParams->vol_well4;
+
+}
+
 
 void Labonatip_GUI::toolOk() {
 
@@ -783,15 +823,7 @@ void Labonatip_GUI::toolApply()
 	m_ppc1->setCOMport(m_comSettings->getName());
 	m_ppc1->setBaudRate((int)m_comSettings->getBaudRate());
 
-	ui->toolBar_2->setToolButtonStyle(m_GUI_params->showTextToolBar);
-	ui->toolBar_2->update();
-	ui->toolBar_3->setToolButtonStyle(m_GUI_params->showTextToolBar);
-	ui->toolBar_3->update();
-
 	switchLanguage(m_dialog_tools->language);
-
-	
-
 }
 
 void Labonatip_GUI::editorOk()

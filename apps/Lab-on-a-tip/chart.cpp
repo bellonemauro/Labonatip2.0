@@ -511,7 +511,7 @@ void Labonatip_chart::setGUIchart()
 	axisX->setRange(0, 100);
 
 
-	axisX->setTitleText("Simulation time percentage");
+	axisX->setTitleText("Simulation time");
 
 	//axisY->append(" ", 10);
 	QString s;

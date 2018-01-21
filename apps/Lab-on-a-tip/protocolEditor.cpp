@@ -38,6 +38,10 @@ Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 
 	setGUIcharts();
 
+	ui_p_editor->dockWidget_charts->hide();
+	ui_p_editor->actionCharts->setChecked(false);
+	ui_p_editor->actionParams->setChecked(true);
+
 	// connect GUI elements: macro tab
 	connect(ui_p_editor->treeWidget_macroTable,
 		SIGNAL(itemChanged(QTreeWidgetItem *, int)), this, 
@@ -104,6 +108,12 @@ Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 
 	connect(ui_p_editor->pushButton_openFolder,
 		SIGNAL(clicked()), this, SLOT(openProtocolFolder()));
+
+	connect(ui_p_editor->actionCharts,
+		SIGNAL(triggered()), this, SLOT(showChartsPanel()));
+	
+	connect(ui_p_editor->actionParams,
+		SIGNAL(triggered()), this, SLOT(showParamsPanel()));
 
 	connect(ui_p_editor->treeWidget_protocol_folder, 
 		SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)),
@@ -1343,6 +1353,21 @@ void Labonatip_protocol_editor::openProtocolFolder()
 	setMacroPath(path.path());
 
 }
+
+void Labonatip_protocol_editor::showChartsPanel()
+{
+	if (ui_p_editor->actionCharts->isChecked()) ui_p_editor->dockWidget_charts->show();
+	else ui_p_editor->dockWidget_charts->hide();
+}
+
+void Labonatip_protocol_editor::showParamsPanel()
+{
+	if (ui_p_editor->actionParams->isChecked()) ui_p_editor->dockWidget_params->show();
+	else ui_p_editor->dockWidget_params->hide();
+
+}
+
+
 
 void Labonatip_protocol_editor::loadStdP()
 {

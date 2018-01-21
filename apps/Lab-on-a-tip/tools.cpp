@@ -86,8 +86,12 @@ Labonatip_tools::Labonatip_tools(QWidget *parent ):
 		SIGNAL(valueChanged(int)), this,
 		SLOT(colorSol4Changed(int)));
 
-	connect(ui_tools->pushButton_emptyWells,
-		SIGNAL(clicked()), this, SLOT(emptyWellsPressed()));
+	connect(ui_tools->pushButton_emptyWaste,
+		SIGNAL(clicked()), this, SLOT(emptyWastePressed()));
+
+	
+	connect(ui_tools->pushButton_refillSolution,
+		SIGNAL(clicked()), this, SLOT(refillSolutionPressed()));
 
 	connect(ui_tools->checkBox_disableTimer,
 		SIGNAL(stateChanged(int)), this,
@@ -175,12 +179,19 @@ void Labonatip_tools::applyPressed() {
 	emit apply();
 }
 
+void Labonatip_tools::refillSolutionPressed() {
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_tools::refillSolutionPressed " << endl;
+	emit refillSolution();
 
-void Labonatip_tools::emptyWellsPressed() {
+}
+
+void Labonatip_tools::emptyWastePressed() {
 	cout << QDate::currentDate().toString().toStdString() << "  "
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_tools::emptyWellsPressed " << endl;
-	emit emptyWells();
+	emit emptyWaste();
 
 }
 
@@ -387,14 +398,6 @@ void Labonatip_tools::getSolutionSettingsFromGUI()
 	m_solutionParams->vol_well6 = ui_tools->spinBox_vol_sol6->value();
 	m_solutionParams->vol_well7 = ui_tools->spinBox_vol_sol7->value();
 	m_solutionParams->vol_well8 = ui_tools->spinBox_vol_sol8->value();
-	m_solutionParams->rem_vol_well1 = m_solutionParams->vol_well1;
-	m_solutionParams->rem_vol_well2 = m_solutionParams->vol_well2;
-	m_solutionParams->rem_vol_well3 = m_solutionParams->vol_well3;
-	m_solutionParams->rem_vol_well4 = m_solutionParams->vol_well4;
-	m_solutionParams->rem_vol_well5 = 0.0;
-	m_solutionParams->rem_vol_well6 = 0.0;
-	m_solutionParams->rem_vol_well7 = 0.0;
-	m_solutionParams->rem_vol_well8 = 0.0;
 
 	m_solutionParams->sol1 = ui_tools->lineEdit_sol1_name->text();
 	m_solutionParams->sol2 = ui_tools->lineEdit_sol2_name->text();
@@ -680,7 +683,6 @@ bool Labonatip_tools::loadSettings(QString _path)
 	}
 	ui_tools->spinBox_vol_sol1->setValue(vol_sol1);
 	m_solutionParams->vol_well1 = vol_sol1;
-	m_solutionParams->rem_vol_well1 = vol_sol1;
 
 	int vol_sol2 = m_settings->value("solutions/volWell2", "30").toInt(&ok);
 	if (!ok) {
@@ -690,7 +692,6 @@ bool Labonatip_tools::loadSettings(QString _path)
 	}
 	ui_tools->spinBox_vol_sol2->setValue(vol_sol2);
 	m_solutionParams->vol_well2 = vol_sol2;
-	m_solutionParams->rem_vol_well2 = vol_sol2;
 
 	int vol_sol3 = m_settings->value("solutions/volWell3", "30").toInt(&ok);
 	if (!ok) {
@@ -700,7 +701,7 @@ bool Labonatip_tools::loadSettings(QString _path)
 	}
 	ui_tools->spinBox_vol_sol3->setValue(vol_sol3);
 	m_solutionParams->vol_well3 = vol_sol3;
-	m_solutionParams->rem_vol_well3 = vol_sol3;
+
 
 	int vol_sol4 = m_settings->value("solutions/volWell4", "30").toInt(&ok);
 	if (!ok) {
@@ -710,7 +711,7 @@ bool Labonatip_tools::loadSettings(QString _path)
 	}
 	ui_tools->spinBox_vol_sol4->setValue(vol_sol4);
 	m_solutionParams->vol_well4 = vol_sol4;
-	m_solutionParams->rem_vol_well4 = vol_sol4;
+
 
 	int vol_sol5 = m_settings->value("solutions/volWell5", "35").toInt(&ok);
 	if (!ok) {
@@ -897,7 +898,19 @@ bool Labonatip_tools::saveSettings(QString _file_name)
 
 void Labonatip_tools::resetToDefaultValues()
 {
-	loadSettings("");
+
+	QMessageBox::StandardButton resBtn =
+		QMessageBox::question(this, "Lab-on-a-tip", "This will reset used defined settings and parameters to the factory default value. \nAre you sure ?",
+			QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
+			QMessageBox::Yes);
+	if (resBtn != QMessageBox::Yes) {
+		return;
+	}
+	else {
+		loadSettings("");
+	}
+
+	
 }
 
 

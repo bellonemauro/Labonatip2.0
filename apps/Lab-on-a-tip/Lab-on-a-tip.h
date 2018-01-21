@@ -306,6 +306,8 @@ private slots:
 
 	void toolEmptyWells();
 
+	void toolRefillSolution();
+
 	/** \brief Catch ok signal from tool dialog
 	* \note
 	*/

@@ -423,9 +423,9 @@ void Labonatip_GUI::updateTimingSliders()
 		//_bar->setValue(100 - status); //TODO: this must be set into the update flow
 		QString s;
 		if (!m_dialog_tools->isContinuousFlowing()) {
-			s.append("Well ");
-			s.append(QString::number(m_flowing_solution));
-			s.append(" empty in \n");
+			s.append("Pulse time remaining:");
+			//s.append(QString::number(m_flowing_solution));
+			//s.append(" empty in \n");
 			int remaining_time_in_sec = (m_time_multipilcator - m_timer_solution);
 			int remaining_hours = floor(remaining_time_in_sec / 3600); // 3600 sec in a hour
 			int remaining_mins = floor((remaining_time_in_sec % 3600) / 60); // 60 minutes in a hour
@@ -439,9 +439,9 @@ void Labonatip_GUI::updateTimingSliders()
 		}
 		else
 		{
-			s.append("Well ");
-			s.append(QString::number(m_flowing_solution));
-			s.append(" in \n");
+			//s.append("Well ");
+			//s.append(QString::number(m_flowing_solution));
+			//s.append(" in \n");
 			s.append("continuous \nflowing");
 		}
 		ui->textEdit_emptyTime->setText(s);
@@ -480,7 +480,9 @@ void Labonatip_GUI::updateTimingSliders()
 		setEnableSolutionButtons(true);
 		_button->setChecked(false);
 		ui->widget_solutionArrow->setVisible(false);
-		updateDrawing(-1); // remove the droplet from the drawing
+		
+		m_pen_line.setColor(Qt::transparent);
+		updateDrawing(ui->lcdNumber_dropletSize_percentage->value());// (-1); // remove the droplet from the drawing
 
 		ui->label_warningIcon->hide();
 		ui->label_warning->hide();

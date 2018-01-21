@@ -259,6 +259,10 @@ void Labonatip_GUI::updateDrawing(int _value) {
 		m_scene_solution->clear();
 		ui->graphicsView->update();
 		ui->graphicsView->show();
+
+		cout << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_GUI::updateDrawing   cleaned " << endl;
 		return;
 	}
 
@@ -370,11 +374,11 @@ void Labonatip_GUI::updateWaste()  // this is updated every second
 	double waste_remaining_time_in_sec;
 
 	if (ui->pushButton_solution1->isChecked()) {
-		m_solutionParams->rem_vol_well1 = m_solutionParams->rem_vol_well1 - //TODO: add check and block for negative values
+		m_pipette_status->rem_vol_well1 = m_pipette_status->rem_vol_well1 - //TODO: add check and block for negative values
 			0.001 * m_pipette_status->flow_well1;
 
 		double perc = 100.0 - 100.0 *
-			(m_solutionParams->vol_well1 - m_solutionParams->rem_vol_well1)
+			(m_solutionParams->vol_well1 - m_pipette_status->rem_vol_well1)
 			/ m_solutionParams->vol_well1;
 		ui->progressBar_solution1->setValue(int(perc));
 
@@ -385,49 +389,49 @@ void Labonatip_GUI::updateWaste()  // this is updated every second
 		//	ui->treeWidget_macroInfo->topLevelItem(4)->text(1).toDouble(); // this is in nano liters 10^-9
 	}
 	if (ui->pushButton_solution2->isChecked()) {
-		m_solutionParams->rem_vol_well2 = m_solutionParams->rem_vol_well2 -
+		m_pipette_status->rem_vol_well2 = m_pipette_status->rem_vol_well2 -
 			0.001 * m_pipette_status->flow_well2;
 
 		double perc = 100.0 - 100.0 *
-			(m_solutionParams->vol_well2 - m_solutionParams->rem_vol_well2)
+			(m_solutionParams->vol_well2 - m_pipette_status->rem_vol_well2)
 			/ m_solutionParams->vol_well2;
 		ui->progressBar_solution2->setValue(int(perc));
 	}
 	if (ui->pushButton_solution3->isChecked()) {
-		m_solutionParams->rem_vol_well3 = m_solutionParams->rem_vol_well3 -
+		m_pipette_status->rem_vol_well3 = m_pipette_status->rem_vol_well3 -
 			0.001 * m_pipette_status->flow_well3;
 
 		double perc = 100.0 - 100.0 *
-			(m_solutionParams->vol_well3 - m_solutionParams->rem_vol_well3)
+			(m_solutionParams->vol_well3 - m_pipette_status->rem_vol_well3)
 			/ m_solutionParams->vol_well3;
 		ui->progressBar_solution3->setValue(int(perc));
 	}
 	if (ui->pushButton_solution4->isChecked()) {
-		m_solutionParams->rem_vol_well4 = m_solutionParams->rem_vol_well4 -
+		m_pipette_status->rem_vol_well4 = m_pipette_status->rem_vol_well4 -
 			0.001 * m_pipette_status->flow_well4;
 
 		double perc = 100.0 - 100.0 *
-			(m_solutionParams->vol_well4 - m_solutionParams->rem_vol_well4)
+			(m_solutionParams->vol_well4 - m_pipette_status->rem_vol_well4)
 			/ m_solutionParams->vol_well4;
 		ui->progressBar_solution4->setValue(int(perc));
 	}
 
-	m_solutionParams->rem_vol_well5 = m_solutionParams->rem_vol_well5 +
+	m_pipette_status->rem_vol_well5 = m_pipette_status->rem_vol_well5 +
 		0.001 * m_pipette_status->flow_well5;
-	m_solutionParams->rem_vol_well6 = m_solutionParams->rem_vol_well6 +
+	m_pipette_status->rem_vol_well6 = m_pipette_status->rem_vol_well6 +
 		0.001 * m_pipette_status->flow_well6;
-	m_solutionParams->rem_vol_well7 = m_solutionParams->rem_vol_well7 +
+	m_pipette_status->rem_vol_well7 = m_pipette_status->rem_vol_well7 +
 		0.001 * m_pipette_status->flow_well7;
-	m_solutionParams->rem_vol_well8 = m_solutionParams->rem_vol_well8 +
+	m_pipette_status->rem_vol_well8 = m_pipette_status->rem_vol_well8 +
 		0.001 * m_pipette_status->flow_well8;
 
 
 	// only the minimum of the remaining solution is shown and important
 	vector<double> v1;
-	v1.push_back(m_solutionParams->vol_well5 - m_solutionParams->rem_vol_well5);
-	v1.push_back(m_solutionParams->vol_well6 - m_solutionParams->rem_vol_well6);
-	v1.push_back(m_solutionParams->vol_well7 - m_solutionParams->rem_vol_well7);
-	v1.push_back(m_solutionParams->vol_well8 - m_solutionParams->rem_vol_well8);
+	v1.push_back(m_solutionParams->vol_well5 - m_pipette_status->rem_vol_well5);
+	v1.push_back(m_solutionParams->vol_well6 - m_pipette_status->rem_vol_well6);
+	v1.push_back(m_solutionParams->vol_well7 - m_pipette_status->rem_vol_well7);
+	v1.push_back(m_solutionParams->vol_well8 - m_pipette_status->rem_vol_well8);
 
 	auto min = std::min_element(v1.begin(), v1.end());
 	int min_index = std::distance(v1.begin(), min);
@@ -437,7 +441,7 @@ void Labonatip_GUI::updateWaste()  // this is updated every second
 	case 0: { //TODO : the waste time is not well calculated 
 		if (m_pipette_status->flow_well5 != 0) {
 			waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well5 -
-				m_solutionParams->rem_vol_well5) / m_pipette_status->flow_well5;
+				m_pipette_status->rem_vol_well5) / m_pipette_status->flow_well5;
 		}
 		else {
 			waste_remaining_time_in_sec = 0;
@@ -447,7 +451,7 @@ void Labonatip_GUI::updateWaste()  // this is updated every second
 	case 1: {
 		if (m_pipette_status->flow_well6 != 0) {
 			waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well6 -
-				m_solutionParams->rem_vol_well6) / m_pipette_status->flow_well6;
+				m_pipette_status->rem_vol_well6) / m_pipette_status->flow_well6;
 		}
 		else {
 			waste_remaining_time_in_sec = 0;
@@ -457,7 +461,7 @@ void Labonatip_GUI::updateWaste()  // this is updated every second
 	case 2: {
 		if (m_pipette_status->flow_well7 != 0) {
 			waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well7 -
-				m_solutionParams->rem_vol_well7) / m_pipette_status->flow_well7;
+				m_pipette_status->rem_vol_well7) / m_pipette_status->flow_well7;
 		}
 		else {
 			waste_remaining_time_in_sec = 0;
@@ -467,7 +471,7 @@ void Labonatip_GUI::updateWaste()  // this is updated every second
 	case 3: {
 		if (m_pipette_status->flow_well8 != 0) {
 			waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well8 -
-				m_solutionParams->rem_vol_well8) / m_pipette_status->flow_well8;
+				m_pipette_status->rem_vol_well8) / m_pipette_status->flow_well8;
 		}
 		else {
 			waste_remaining_time_in_sec = 0;
@@ -481,41 +485,41 @@ void Labonatip_GUI::updateWaste()  // this is updated every second
 	}
 	}
 
-	int v = m_solutionParams->rem_vol_well1 * 10;
+	int v = m_pipette_status->rem_vol_well1 * 10;
 	double value = v / 10.0;
 	ui->treeWidget_macroInfo->topLevelItem(12)->setText(1, QString::number(value));
-	v = m_solutionParams->rem_vol_well2 * 10;
+	v = m_pipette_status->rem_vol_well2 * 10;
 	value = v / 10.0;
 	ui->treeWidget_macroInfo->topLevelItem(13)->setText(1, QString::number(value));
-	v = m_solutionParams->rem_vol_well3 * 10;
+	v = m_pipette_status->rem_vol_well3 * 10;
 	value = v / 10.0;
 	ui->treeWidget_macroInfo->topLevelItem(14)->setText(1, QString::number(value));
-	v = m_solutionParams->rem_vol_well4 * 10;
+	v = m_pipette_status->rem_vol_well4 * 10;
 	value = v / 10.0;
 	ui->treeWidget_macroInfo->topLevelItem(15)->setText(1, QString::number(value));
-	v = m_solutionParams->rem_vol_well5 * 10;
+	v = m_pipette_status->rem_vol_well5 * 10;
 	value = v / 10.0;
 	ui->treeWidget_macroInfo->topLevelItem(16)->setText(1, QString::number(value));
-	v = m_solutionParams->rem_vol_well6 * 10;
+	v = m_pipette_status->rem_vol_well6 * 10;
 	value = v / 10.0;
 	ui->treeWidget_macroInfo->topLevelItem(17)->setText(1, QString::number(value));
-	v = m_solutionParams->rem_vol_well7 * 10;
+	v = m_pipette_status->rem_vol_well7 * 10;
 	value = v / 10.0;
 	ui->treeWidget_macroInfo->topLevelItem(18)->setText(1, QString::number(value));
-	v = m_solutionParams->rem_vol_well8 * 10;
+	v = m_pipette_status->rem_vol_well8 * 10;
 	value = v / 10.0;
 	ui->treeWidget_macroInfo->topLevelItem(19)->setText(1, QString::number(value));
 
-	value = 100 - (m_solutionParams->vol_well5 - m_solutionParams->rem_vol_well5) * 100 / m_solutionParams->vol_well5;
+	value = 100 - (m_solutionParams->vol_well5 - m_pipette_status->rem_vol_well5) * 100 / m_solutionParams->vol_well5;
 	ui->progressBar_switchOut->setValue(value);
 
-	value = 100 - (m_solutionParams->vol_well6 - m_solutionParams->rem_vol_well6) * 100 / m_solutionParams->vol_well6;
+	value = 100 - (m_solutionParams->vol_well6 - m_pipette_status->rem_vol_well6) * 100 / m_solutionParams->vol_well6;
 	ui->progressBar_switchIn->setValue(value);
 
-	value = 100 - (m_solutionParams->vol_well7 - m_solutionParams->rem_vol_well7) * 100 / m_solutionParams->vol_well7;
+	value = 100 - (m_solutionParams->vol_well7 - m_pipette_status->rem_vol_well7) * 100 / m_solutionParams->vol_well7;
 	ui->progressBar_recircOut->setValue(value);
 
-	value = 100 - (m_solutionParams->vol_well8 - m_solutionParams->rem_vol_well8) * 100 / m_solutionParams->vol_well8;
+	value = 100 - (m_solutionParams->vol_well8 - m_pipette_status->rem_vol_well8) * 100 / m_solutionParams->vol_well8;
 	ui->progressBar_recircIn->setValue(value);
 
 
@@ -533,7 +537,7 @@ void Labonatip_GUI::updateWaste()  // this is updated every second
 	QString s;
 	s.append("Waste ");
 	s.append(QString::number(min_index + 5));
-	s.append(" full in \n");
+	s.append(" full in: ");
 	int remaining_hours = floor(waste_remaining_time_in_sec / 3600); // 3600 sec in a hour
 	int remaining_mins = floor(((int)waste_remaining_time_in_sec % 3600) / 60); // 60 minutes in a hour
 	int remaining_secs = waste_remaining_time_in_sec - remaining_hours * 3600 - remaining_mins * 60; // 60 minutes in a hour
