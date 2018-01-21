@@ -916,17 +916,21 @@ void Labonatip_tools::resetToDefaultValues()
 
 int Labonatip_tools::interpreteLanguage(QString _language)
 {
-	if (_language == "English")
+	if (_language == "Chinese")
 	{
 		return 0;
 	}
-	if (_language == "Svenska")
+	if (_language == "English")
 	{
 		return 1;
 	}
 	if (_language == "Italiano")
 	{
 		return 2;
+	}
+	if (_language == "Svenska")
+	{
+		return 3;
 	}
 	return 0;
 }
