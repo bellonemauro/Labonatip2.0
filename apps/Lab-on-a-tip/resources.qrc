@@ -3,12 +3,14 @@
     <file>icons/about.png</file>
     <file>icons/arrow_down.png</file>
     <file>icons/arrow_up.png</file>
+	<file>icons/chart.png</file>
     <file>icons/clearAll.png</file>
     <file>icons/closeAdvanced.png</file>
     <file>icons/comboDown.png</file>
     <file>icons/Communication.png</file>
     <file>icons/custom.png</file>
-    <file>icons/darkArrow.png</file>
+    <file>icons/dummy.png</file>
+	<file>icons/darkArrow.png</file>
     <file>icons/downArrow.png</file>
     <file>icons/duplicate.png</file>
     <file>icons/english.png</file>

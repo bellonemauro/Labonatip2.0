@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1456</width>
-    <height>856</height>
+    <width>1375</width>
+    <height>803</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -90,8 +90,8 @@ border:0;
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>888</width>
-         <height>732</height>
+         <width>807</width>
+         <height>679</height>
         </rect>
        </property>
        <property name="sizePolicy">
@@ -106,7 +106,7 @@ border:0;
          <height>200</height>
         </size>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout_2">
+       <layout class="QGridLayout" name="gridLayout_3">
         <property name="leftMargin">
          <number>6</number>
         </property>
@@ -119,225 +119,69 @@ border:0;
         <property name="bottomMargin">
          <number>6</number>
         </property>
-        <item>
-         <widget class="QGroupBox" name="groupBox">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>233</height>
-           </size>
+        <item row="3" column="1">
+         <widget class="QDialogButtonBox" name="buttonBox">
+          <property name="font">
+           <font>
+            <pointsize>11</pointsize>
+           </font>
           </property>
           <property name="styleSheet">
-           <string notr="true">QGroupBox { 
-     border: 2px solid  rgb(250, 250, 250); ; 
-     border-radius: 10px; 
-    color: rgb( 250, 250, 250);
-    background-color: rgb(250, 250, 250);
-
- } </string>
-          </property>
-          <property name="title">
-           <string>GroupBox</string>
-          </property>
-          <layout class="QGridLayout" name="gridLayout">
-           <property name="leftMargin">
-            <number>5</number>
-           </property>
-           <property name="topMargin">
-            <number>5</number>
-           </property>
-           <property name="rightMargin">
-            <number>5</number>
-           </property>
-           <property name="bottomMargin">
-            <number>5</number>
-           </property>
-           <item row="0" column="0">
-            <widget class="QTreeWidget" name="treeWidget_macroTable">
-             <property name="font">
-              <font>
-               <pointsize>11</pointsize>
-              </font>
-             </property>
-             <property name="accessibleDescription">
-              <string notr="true"/>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">QTreeView {
-    show-decoration-selected: 1;
-	color: rgb(80, 80, 80);
-}
-
-QTreeView QHeaderView:section
-{
-    font-size:11pt;
-    height:27px;
-    color: rgb(80, 80, 80);
-    background-color: transparent;
-}
-
-QTreeView::item {
-    border-top-color: transparent;
-    border-bottom-color: transparent;
-    border-right: 1px solid #dddddd;
-    height:27px;
-}
-
-QTreeView::item:hover {
-    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #f6f7fa, stop: 1 #F0FFF0);
-}
-
-QTreeView::item:selected {
-    border: 1px solid #F0FFF0;
-	color: rgb(20, 20, 20);
-}
-
-QTreeView::item:selected:active{
-    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #F0FFF0, stop: 1 #F0FFF0);
-}
-
-QTreeView::item:selected:!active {
-       background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #EEEEEE, stop: 1 #EEEEEE);
-}
-
-QComboBox {
-    border: 1px solid gray;
-    border-radius: 6px;
-	border-color: rgb(170, 170, 170);
-    min-width: 6em;
-    height:27px;
-	background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+           <string notr="true"> QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 6px;
+     width: 100px;
+     height: 25px;
+     font-size: 16px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                        stop: 0 #f6f7fa, stop: 1 #dadbde);
-}
 
-QComboBox:hover{
-  background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+ }
+
+ QPushButton:focus:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #F0FFF0, stop: 1 #f6f7fa);
+ }
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                        stop: 0 #f6f7fa, stop: 1 #F0FFF0);
  }
 
-QComboBox::drop-down {
-    subcontrol-origin: padding;
-    subcontrol-position: top right;
-    width: 20px;
-    border-style:solid;
-    border-left-color: darkgray;
-    border-left-style: solid; /* just a single line */
-    border-top-right-radius: 3px; /* same radius as the QComboBox */
-    border-bottom-right-radius: 3px;
-}
+QPushButton:disabled{ background-color: #CCCCCC; }
 
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
 
-QComboBox::down-arrow {
-    image: url(:/icons/comboDown.png);
-    width: 15px;
-}
-
-QComboBox::down-arrow:on { /* shift the arrow when popup is open */
-    top: 1px;
-    left: 1px;
-}
-
-</string>
-             </property>
-             <property name="frameShape">
-              <enum>QFrame::Box</enum>
-             </property>
-             <property name="frameShadow">
-              <enum>QFrame::Raised</enum>
-             </property>
-             <property name="lineWidth">
-              <number>0</number>
-             </property>
-             <property name="midLineWidth">
-              <number>0</number>
-             </property>
-             <property name="autoScroll">
-              <bool>true</bool>
-             </property>
-             <property name="editTriggers">
-              <set>QAbstractItemView::CurrentChanged|QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed|QAbstractItemView::SelectedClicked</set>
-             </property>
-             <property name="dragEnabled">
-              <bool>false</bool>
-             </property>
-             <property name="dragDropMode">
-              <enum>QAbstractItemView::NoDragDrop</enum>
-             </property>
-             <property name="defaultDropAction">
-              <enum>Qt::MoveAction</enum>
-             </property>
-             <property name="alternatingRowColors">
-              <bool>true</bool>
-             </property>
-             <property name="selectionMode">
-              <enum>QAbstractItemView::NoSelection</enum>
-             </property>
-             <property name="selectionBehavior">
-              <enum>QAbstractItemView::SelectRows</enum>
-             </property>
-             <property name="textElideMode">
-              <enum>Qt::ElideNone</enum>
-             </property>
-             <property name="animated">
-              <bool>true</bool>
-             </property>
-             <property name="wordWrap">
-              <bool>true</bool>
-             </property>
-             <property name="headerHidden">
-              <bool>false</bool>
-             </property>
-             <property name="columnCount">
-              <number>3</number>
-             </property>
-             <column>
-              <property name="text">
-               <string>Command</string>
-              </property>
-              <property name="textAlignment">
-               <set>AlignCenter</set>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>Value</string>
-              </property>
-              <property name="textAlignment">
-               <set>AlignCenter</set>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>Status Message</string>
-              </property>
-              <property name="toolTip">
-               <string>The status message will be visualized in the status bar</string>
-              </property>
-              <property name="statusTip">
-               <string>The status message will be visualized in the status bar</string>
-              </property>
-              <property name="whatsThis">
-               <string>The status message will be visualized in the status bar</string>
-              </property>
-             </column>
-            </widget>
-           </item>
-          </layout>
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
+          </property>
+          <property name="standardButtons">
+           <set>QDialogButtonBox::Apply|QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+          </property>
          </widget>
         </item>
-        <item>
+        <item row="3" column="0">
          <widget class="QLabel" name="label_protocolDuration">
+          <property name="minimumSize">
+           <size>
+            <width>300</width>
+            <height>0</height>
+           </size>
+          </property>
           <property name="font">
            <font>
             <pointsize>10</pointsize>
            </font>
           </property>
           <property name="text">
-           <string>Protocol  duration: 0 h, 0 min, 0 sec</string>
+           <string>  Protocol  duration: 0 h, 0 min, 0 sec</string>
           </property>
          </widget>
         </item>
-        <item>
+        <item row="1" column="0" colspan="2">
          <widget class="QGroupBox" name="groupBox_6">
           <property name="enabled">
            <bool>true</bool>
@@ -780,48 +624,210 @@ QPushButton:disabled{ background-color: #CCCCCC; }
           </layout>
          </widget>
         </item>
-        <item>
-         <widget class="QDialogButtonBox" name="buttonBox">
-          <property name="font">
-           <font>
-            <pointsize>11</pointsize>
-           </font>
+        <item row="0" column="0" colspan="2">
+         <widget class="QGroupBox" name="groupBox">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>233</height>
+           </size>
           </property>
           <property name="styleSheet">
-           <string notr="true"> QPushButton {
-     border: 1px solid #8f8f91;
-     border-radius: 6px;
-     width: 100px;
-     height: 25px;
-     font-size: 16px;
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+           <string notr="true">QGroupBox { 
+     border: 2px solid  rgb(250, 250, 250); ; 
+     border-radius: 10px; 
+    color: rgb( 250, 250, 250);
+    background-color: rgb(250, 250, 250);
+
+ } </string>
+          </property>
+          <property name="title">
+           <string>GroupBox</string>
+          </property>
+          <layout class="QGridLayout" name="gridLayout">
+           <property name="leftMargin">
+            <number>5</number>
+           </property>
+           <property name="topMargin">
+            <number>5</number>
+           </property>
+           <property name="rightMargin">
+            <number>5</number>
+           </property>
+           <property name="bottomMargin">
+            <number>5</number>
+           </property>
+           <item row="0" column="0">
+            <widget class="QTreeWidget" name="treeWidget_macroTable">
+             <property name="font">
+              <font>
+               <pointsize>11</pointsize>
+              </font>
+             </property>
+             <property name="accessibleDescription">
+              <string notr="true"/>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">QTreeView {
+    show-decoration-selected: 1;
+	color: rgb(80, 80, 80);
+}
+
+QTreeView QHeaderView:section
+{
+    font-size:11pt;
+    height:27px;
+    color: rgb(80, 80, 80);
+    background-color: transparent;
+}
+
+QTreeView::item {
+    border-top-color: transparent;
+    border-bottom-color: transparent;
+    border-right: 1px solid #dddddd;
+    height:27px;
+}
+
+QTreeView::item:hover {
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+}
+
+QTreeView::item:selected {
+    border: 1px solid #F0FFF0;
+	color: rgb(20, 20, 20);
+}
+
+QTreeView::item:selected:active{
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #F0FFF0, stop: 1 #F0FFF0);
+}
+
+QTreeView::item:selected:!active {
+       background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #EEEEEE, stop: 1 #EEEEEE);
+}
+
+QComboBox {
+    border: 1px solid gray;
+    border-radius: 6px;
+	border-color: rgb(170, 170, 170);
+    min-width: 6em;
+    height:27px;
+	background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                        stop: 0 #f6f7fa, stop: 1 #dadbde);
+}
 
- }
-
- QPushButton:focus:pressed {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #F0FFF0, stop: 1 #f6f7fa);
- }
-
- QPushButton:hover {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+QComboBox:hover{
+  background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                        stop: 0 #f6f7fa, stop: 1 #F0FFF0);
  }
 
-QPushButton:disabled{ background-color: #CCCCCC; }
+QComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 20px;
+    border-style:solid;
+    border-left-color: darkgray;
+    border-left-style: solid; /* just a single line */
+    border-top-right-radius: 3px; /* same radius as the QComboBox */
+    border-bottom-right-radius: 3px;
+}
 
- QPushButton:flat {
-     border: none; /* no border for a flat push button */
- }
 
- QPushButton:default {
-     border-color: navy; /* make the default button prominent */
- }</string>
-          </property>
-          <property name="standardButtons">
-           <set>QDialogButtonBox::Apply|QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-          </property>
+QComboBox::down-arrow {
+    image: url(:/icons/comboDown.png);
+    width: 15px;
+}
+
+QComboBox::down-arrow:on { /* shift the arrow when popup is open */
+    top: 1px;
+    left: 1px;
+}
+
+</string>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::Box</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <property name="lineWidth">
+              <number>0</number>
+             </property>
+             <property name="midLineWidth">
+              <number>0</number>
+             </property>
+             <property name="autoScroll">
+              <bool>true</bool>
+             </property>
+             <property name="editTriggers">
+              <set>QAbstractItemView::CurrentChanged|QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed|QAbstractItemView::SelectedClicked</set>
+             </property>
+             <property name="dragEnabled">
+              <bool>false</bool>
+             </property>
+             <property name="dragDropMode">
+              <enum>QAbstractItemView::NoDragDrop</enum>
+             </property>
+             <property name="defaultDropAction">
+              <enum>Qt::MoveAction</enum>
+             </property>
+             <property name="alternatingRowColors">
+              <bool>true</bool>
+             </property>
+             <property name="selectionMode">
+              <enum>QAbstractItemView::NoSelection</enum>
+             </property>
+             <property name="selectionBehavior">
+              <enum>QAbstractItemView::SelectRows</enum>
+             </property>
+             <property name="textElideMode">
+              <enum>Qt::ElideNone</enum>
+             </property>
+             <property name="animated">
+              <bool>true</bool>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+             <property name="headerHidden">
+              <bool>false</bool>
+             </property>
+             <property name="columnCount">
+              <number>3</number>
+             </property>
+             <column>
+              <property name="text">
+               <string>Command</string>
+              </property>
+              <property name="textAlignment">
+               <set>AlignCenter</set>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Value</string>
+              </property>
+              <property name="textAlignment">
+               <set>AlignCenter</set>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Status Message</string>
+              </property>
+              <property name="toolTip">
+               <string>The status message will be visualized in the status bar</string>
+              </property>
+              <property name="statusTip">
+               <string>The status message will be visualized in the status bar</string>
+              </property>
+              <property name="whatsThis">
+               <string>The status message will be visualized in the status bar</string>
+              </property>
+             </column>
+            </widget>
+           </item>
+          </layout>
          </widget>
         </item>
        </layout>
@@ -962,13 +968,13 @@ QTreeView::item:selected:!active {
        <property name="minimumSize">
         <size>
          <width>0</width>
-         <height>300</height>
+         <height>200</height>
         </size>
        </property>
        <property name="maximumSize">
         <size>
          <width>16777215</width>
-         <height>320</height>
+         <height>260</height>
         </size>
        </property>
        <property name="styleSheet">
@@ -1264,7 +1270,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
    <property name="minimumSize">
     <size>
      <width>280</width>
-     <height>600</height>
+     <height>607</height>
     </size>
    </property>
    <property name="features">
@@ -1591,7 +1597,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
    </property>
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/icons/protocolEditor.png</normaloff>:/icons/protocolEditor.png</iconset>
+     <normaloff>:/icons/chart.png</normaloff>:/icons/chart.png</iconset>
    </property>
    <property name="text">
     <string>Charts</string>
@@ -1606,7 +1612,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
    </property>
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/icons/protocolEditor.png</normaloff>:/icons/protocolEditor.png</iconset>
+     <normaloff>:/icons/dummy.png</normaloff>:/icons/dummy.png</iconset>
    </property>
    <property name="text">
     <string>Params</string>

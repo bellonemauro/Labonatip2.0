@@ -341,10 +341,10 @@ void fluicell::PPC1api::updateFlows(const PPC1_data &_PPC1_data, PPC1_status &_P
 		_PPC1_status.flow_rate_3 = _PPC1_status.solution_usage_off;
 		_PPC1_status.flow_rate_4 = _PPC1_status.solution_usage_off;
 
-		if (_PPC1_data.i) _PPC1_status.flow_rate_1 = _PPC1_status.solution_usage_on;
-		if (_PPC1_data.j) _PPC1_status.flow_rate_2 = _PPC1_status.solution_usage_on;
-		if (_PPC1_data.k) _PPC1_status.flow_rate_3 = _PPC1_status.solution_usage_on;
-		if (_PPC1_data.l) _PPC1_status.flow_rate_4 = _PPC1_status.solution_usage_on;
+		if (_PPC1_data.l) _PPC1_status.flow_rate_1 = _PPC1_status.solution_usage_on;
+		if (_PPC1_data.k) _PPC1_status.flow_rate_2 = _PPC1_status.solution_usage_on;
+		if (_PPC1_data.j) _PPC1_status.flow_rate_3 = _PPC1_status.solution_usage_on;
+		if (_PPC1_data.i) _PPC1_status.flow_rate_4 = _PPC1_status.solution_usage_on;
 	}
 	else {
 

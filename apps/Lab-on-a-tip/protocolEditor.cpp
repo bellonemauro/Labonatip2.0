@@ -1429,14 +1429,19 @@ void Labonatip_protocol_editor::on_protocol_clicked(QTreeWidgetItem *item, int c
 			tr("Do you want to clean your workspace before loading the new protocol?\n Click NO to add the macro at the bottom"),
 			QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
 			QMessageBox::Yes);
-	if (resBtn != QMessageBox::Yes) {
-		// do nothing
+	if (resBtn == QMessageBox::No) {
+		loadMacro(protocol_path);
 	}
-	else {
+	if (resBtn == QMessageBox::Yes)
+	{
 		this->clearAllCommands();
+		loadMacro(protocol_path);
 	}
-
-	loadMacro(protocol_path);
+	if (resBtn == QMessageBox::Cancel)
+	{
+		//do nothing
+	}
+	
 }
 
 void Labonatip_protocol_editor::readProtocolFolder(QString _path)
