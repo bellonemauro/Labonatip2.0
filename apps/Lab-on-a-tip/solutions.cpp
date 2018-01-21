@@ -428,7 +428,7 @@ void Labonatip_GUI::updateTimingSliders()
 		//_bar->setValue(100 - status); //TODO: this must be set into the update flow
 		QString s;
 		if (!m_dialog_tools->isContinuousFlowing()) {
-			s.append("Pulse time remaining:");
+			s.append(m_str_pulse_remaining_time);
 			//s.append(QString::number(m_flowing_solution));
 			//s.append(" empty in \n");
 			int remaining_time_in_sec = (m_time_multipilcator - m_timer_solution);

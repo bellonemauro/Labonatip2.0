@@ -13,47 +13,48 @@
     </message>
     <message>
         <source>Load profile</source>
-        <translation>Ladda profil</translation>
+        <translation type="unfinished">加载配置文件</translation>
     </message>
     <message>
         <source>Save profile</source>
-        <translation>Spara profil</translation>
+        <translation type="unfinished">保存配置文件</translation>
     </message>
     <message>
         <source>Editor</source>
-        <translation>Editera</translation>
+        <translation type="unfinished">编辑器</translation>
     </message>
     <message>
         <source>Tools</source>
-        <translation>Verktyg</translation>
+        <translation type="unfinished">工具</translation>
     </message>
     <message>
         <source>Simulation</source>
-        <translation>Simuleringsläge</translation>
+        <translation type="unfinished">仿真</translation>
     </message>
     <message>
         <source>Connect</source>
-        <translation>Anslut</translation>
+        <translation type="unfinished"> 连接</translation>
     </message>
     <message>
         <source>Reset</source>
-        <translation>Reset</translation>
+        <translation type="unfinished">重置</translation>
     </message>
     <message>
         <source>Reboot</source>
-        <translation>Starta om</translation>
+        <translation type="unfinished">重启
+</translation>
     </message>
     <message>
         <source>Shutdown</source>
-        <translation type="unfinished">Stäng ner</translation>
+        <translation type="unfinished">关闭</translation>
     </message>
     <message>
         <source>Advanced</source>
-        <translation type="unfinished">先进</translation>
+        <translation type="unfinished">高级</translation>
     </message>
     <message>
         <source>Basic</source>
-        <translation>Normal vy</translation>
+        <translation type="unfinished">基本</translation>
     </message>
     <message>
         <source>Actions</source>

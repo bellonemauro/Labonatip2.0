@@ -99,7 +99,7 @@ QCheckBox::indicator:unchecked {
        <number>0</number>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="page_0">
        <property name="styleSheet">
@@ -860,7 +860,7 @@ background-color: rgb(255, 255, 255);</string>
               <enum>Qt::LeftToRight</enum>
              </property>
              <property name="text">
-              <string>Continuos flowing</string>
+              <string>Continuous flowing</string>
              </property>
              <property name="checked">
               <bool>true</bool>
@@ -2279,7 +2279,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
               </font>
              </property>
              <property name="text">
-              <string>FlowControl</string>
+              <string>Flow control</string>
              </property>
             </widget>
            </item>
@@ -2327,7 +2327,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
               </font>
              </property>
              <property name="text">
-              <string>BaudRate</string>
+              <string>Baud rate</string>
              </property>
             </widget>
            </item>
@@ -2357,7 +2357,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
               </font>
              </property>
              <property name="text">
-              <string>PortName</string>
+              <string>Port name</string>
              </property>
             </widget>
            </item>
@@ -2375,7 +2375,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
               </font>
              </property>
              <property name="text">
-              <string>StopBit</string>
+              <string>Stop bit</string>
              </property>
             </widget>
            </item>
@@ -2393,7 +2393,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
               </font>
              </property>
              <property name="text">
-              <string>DataBit</string>
+              <string>Data bit</string>
              </property>
             </widget>
            </item>

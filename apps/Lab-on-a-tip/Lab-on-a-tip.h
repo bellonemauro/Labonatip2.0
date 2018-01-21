@@ -651,6 +651,7 @@ private:
   QString m_str_warning;
   QString m_str_error;
   QString m_str_cancel;
+  QString m_str_ok;
   QString m_str_PPC1_status_con;
   QString m_str_PPC1_status_discon;
   QString m_str_protocol_running;
@@ -690,6 +691,16 @@ private:
   QString m_str_no_protocol_load_first;
   QString m_str_loaded_protocol_is;
   QString m_str_protocol_confirm;
+  QString m_str_progress_msg1;
+  QString m_str_progress_msg2;
+  QString m_str_ask_msg;
+  QString m_str_editor_apply_msg1;
+  QString m_str_editor_apply_msg2;
+  QString m_str_cleaning_history_msg1;
+  QString m_str_cleaning_history_msg2;
+  QString m_str_update_time_macro_msg1;
+  QString m_str_update_time_macro_msg2;
+  QString m_str_pulse_remaining_time;
 
   // to visualize the led on the status bar, 
   // I create two different leds and switch between them to create the effect on/off

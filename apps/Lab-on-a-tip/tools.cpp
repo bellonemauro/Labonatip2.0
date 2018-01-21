@@ -24,6 +24,8 @@ Labonatip_tools::Labonatip_tools(QWidget *parent ):
 	//load settings from file
 	loadSettings(m_setting_file_name);
 
+	m_str_warning.append(tr("Warning"));
+	m_str_factory_reset.append(tr("This will reset used defined settings and parameters to the factory default value. \nAre you sure ?"));
 
 	//make sure to start from the initial page
 	ui_tools->actionGeneral->setChecked(true);
@@ -900,7 +902,7 @@ void Labonatip_tools::resetToDefaultValues()
 {
 
 	QMessageBox::StandardButton resBtn =
-		QMessageBox::question(this, "Lab-on-a-tip", "This will reset used defined settings and parameters to the factory default value. \nAre you sure ?",
+		QMessageBox::question(this, m_str_warning, m_str_factory_reset,
 			QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
 			QMessageBox::Yes);
 	if (resBtn != QMessageBox::Yes) {
@@ -1031,6 +1033,8 @@ void Labonatip_tools::switchLanguage(QString _translation_file)
 
 		ui_tools->retranslateUi(this); 
 
+		m_str_warning = QApplication::translate("Labonatip_GUI", qPrintable(m_str_warning));
+		m_str_factory_reset = QApplication::translate("Labonatip_GUI", qPrintable(m_str_factory_reset));
 
 		cout << QDate::currentDate().toString().toStdString() << "  "
 			 << QTime::currentTime().toString().toStdString() << "  "

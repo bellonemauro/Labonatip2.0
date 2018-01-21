@@ -3143,7 +3143,7 @@ closeAllValves()&lt;br/&gt;
               </size>
              </property>
              <property name="text">
-              <string>PPC1 STATUS: NOT Connected</string>
+              <string>PPC1 STATUS: NOT Connected  </string>
              </property>
             </widget>
            </item>
@@ -5512,7 +5512,7 @@ QTreeView::item:selected:!active {
             <bool>false</bool>
            </property>
            <property name="headerHidden">
-            <bool>true</bool>
+            <bool>false</bool>
            </property>
            <property name="columnCount">
             <number>2</number>
@@ -5531,7 +5531,7 @@ QTreeView::item:selected:!active {
            </attribute>
            <column>
             <property name="text">
-             <string>Variable</string>
+             <string/>
             </property>
            </column>
            <column>

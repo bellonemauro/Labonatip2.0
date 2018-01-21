@@ -72,10 +72,6 @@
         <translation>New tip</translation>
 	</message>	
     <message>
-        <source>Run protocol</source>
-        <translation>Esegui protocollo</translation>
-	</message>		
-    <message>
         <source>Operational</source>
         <translation>Esercizio</translation>
 	</message>		
@@ -216,6 +212,10 @@
         <translation>Percorso file</translation>
 	</message>	
 	<message>
+        <source>Value</source>
+        <translation>Valore</translation>
+	</message>	
+	<message>
         <source>Outflow ( nL/s )</source>
         <translation>Flusso di mandata ( nL/s )</translation>
 	</message>	
@@ -295,7 +295,198 @@
         <source>Volume in well 8 (uL)</source>
         <translation>Volume nell'ugello 8 ( nL/s )</translation>
 	</message>	
-	
+    <message>
+        <source>Information</source>
+        <translation>Informazione</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Attenzione</translation>
+    </message>
+    <message>
+        <source>Error</source>
+        <translation>Errore</translation>
+    </message>
+    <message>
+        <source>PPC1 STATUS: Connected  </source>
+        <translation>Stato PPC1: Connesso  </translation>
+    </message>
+    <message>
+        <source>PPC1 STATUS: NOT Connected  </source>
+        <translation>Stato PPC1: NON Connesso  </translation>
+    </message>
+    <message>
+        <source>No protocol running  </source>
+        <translation>Nessun protocollo in esecuzione  </translation>
+    </message>
+    <message>
+        <source>Disconnect</source>
+        <translation>Disconnetti</translation>
+    </message>
+    <message>
+        <source>Cannot save the file</source>
+        <translation>Impossibile salvare il file</translation>
+    </message>
+    <message>
+        <source>Cannot load the file</source>
+        <translation>Impossibile caricare il file</translation>
+    </message>
+    <message>
+        <source>Lab-on-a-tip is in simulation only</source>
+        <translation>Lab-on-a-tip è in modalità di simulazione</translation>
+    </message>
+    <message>
+        <source>Lab-on-a-tip could not connect to PPC1, \n please, check cables and settings and press Ok</source>
+        <translation>Lab-on-a-tip non è riuscito a connettere il PPC1, \n controlla cavi e settaggi e premi Ok</translation>
+    </message>
+    <message>
+        <source>Lab-on-a-tip could not connect to PPC1 twice, \n please, check cables and settings</source>
+        <translation>Lab-on-a-tip non è riuscito a connettersi di nuovo, \n controlla cavi e settaggi</translation>
+    </message>
+    <message>
+        <source>I can try to automatically find the device, \n Should I do it?</source>
+        <translation>Posso provare a trovare automaticamente il dispositivo, \n dovrei farlo ?</translation>
+    </message>
+    <message>
+        <source>Lab-on-a-tip connected but PPC1 is not running</source>
+        <translation>Lab-on-a-tip connesso ma il PPC1 non è in esecuzione</translation>
+    </message>
+    <message>
+        <source>This will stop the PPC1, \n Are you sure?</source>
+        <translation>Questo fermerà il PPC1, \n Sei sicuro?</translation>
+    </message>
+    <message>
+        <source>Unable to stop and disconnect PPC1</source>
+        <translation>Impossibile fermare e disconnettere il PPC1</translation>
+    </message>
+    <message>
+        <source>Shutdown pressed, this will take 30 seconds, press Ok to continue, cancel to abort.</source>
+        <translation>Shutdown avviato, la procedura richiederà 30 secondi, premi Ok per continuare, annulla per uscire.</translation>
+    </message>
+    <message>
+        <source>The pressure is off, waiting for the vacuum.</source>
+        <translation>La pressione è disattivata, aspetta l'attivazione dell'aspirazione.</translation>
+    </message>    
+	<message>
+        <source>Vacuum off. Stopping the flow in the device.</source>
+        <translation>Aspirazione disattivata. Sto fermando il flusso nel dispositivo.</translation>
+    </message>    
+	<message>
+        <source>Rebooting ...</source>
+        <translation>Riavvio ...</translation>
+    </message>    
+	<message>
+        <source>Reconnecting ...</source>
+        <translation>Riconnessione ...</translation>
+    </message>
+    <message>
+        <source>Initialization</source>
+        <translation>Inizializzazione</translation>
+    </message>
+    <message>
+        <source>Place the pipette into the holder and tighten. THEN PRESS OK</source>
+        <translation>Inserisci la pippetta nel supporto è schiaccia. DOPO PREMI OK</translation>
+    </message>
+    <message>
+        <source>Pressurize the system</source>
+        <translation>Pressurizzazione del sistema</translation>
+    </message>
+    <message>
+        <source>Wait until a droplet appears at the tip of the pipette and THEN PRESS OK</source>
+        <translation>Aspetta che la goccia appaia alla punta della pippetta e POI PREMI OK</translation>
+    </message>
+    <message>
+        <source>Purging the liquid channels</source>
+        <translation>Pulizia del liquido nei canali</translation>
+    </message>    
+	<message>
+        <source>Still purging the liquid channels</source>
+        <translation>Sto ancora pulendo il liquido</translation>
+    </message>
+    <message>
+        <source>Remove the droplet using a lens tissue. THEN PRESS OK</source>
+        <translation>Rimuovi la goccia usando la lente. POI PREMI OK</translation>
+    </message>
+    <message>
+        <source>Put the pipette into solution. THEN PRESS OK</source>
+        <translation>Metti la pippetta nella soluzione. POI PREMI OK</translation>
+    </message>
+    <message>
+        <source>Purging the vacuum channels</source>
+        <translation>Pulisco i canali di aspirazione</translation>
+    </message>    
+	<message>
+        <source>Establishing operational pressures</source>
+        <translation>Riattivazione delle pressioni operative</translation>
+    </message>
+    <message>
+        <source>Pipette is ready for operation. PRESS OK TO START</source>
+        <translation>La pippetta è pronta a operare. PREMI OK PER INIZIARE</translation>
+    </message>    
+	<message>
+        <source>Standby operation progress</source>
+        <translation>Operazione di spegnimento</translation>
+    </message>    
+	<message>
+        <source>Run protocol</source>
+        <translation>Esegui protocollo</translation>
+    </message>
+    <message>
+        <source>Stop protocol</source>
+        <translation>Ferma protocollo</translation>
+    </message>
+    <message>
+        <source>No protocol loaded, load one first</source>
+        <translation>Nessun protocollo caricato</translation>
+    </message>
+    <message>
+        <source>The protocol loaded is : </source>
+        <translation>Il protocollo caricato è : </translation>
+    </message>
+    <message>
+        <source>\n press ''Ok'' to run the protocol, or press ''Cancel'' to load a new one.</source>
+        <translation>\n premi ''Ok'' per eseguire il protocollo, oppure premi ''Annulla'' per caricarne uno.</translation>
+    </message>
+    <message>
+        <source>This operation will take </source>
+        <translation>Questa operazione richiederà </translation>
+    </message>	
+    <message>
+        <source> seconds.</source>
+        <translation> secondi.</translation>
+    </message>	
+    <message>
+        <source>Ask message command</source>
+        <translation>Comando di richiesta messaggio</translation>
+    </message>		
+    <message>
+        <source> No protocol loaded : </source>
+        <translation> Nessun protocollo caricato : </translation>
+    </message>	
+    <message>
+        <source> Protocol loaded : </source>
+        <translation> Protocollo caricato : </translation>
+    </message>	
+    <message>
+        <source>This will remove all the files in the history folder.\nDo you want to proceed?\n</source>
+        <translation>Questa operazione rimuoverà tutti i file della cronologia.\nVuoi proseguire?\n</translation>
+    </message>	
+    <message>
+        <source>History cleaned</source>
+        <translation>Cronologia pulita</translation>
+	</message>
+	<message>
+        <source> PROTOCOL RUNNING : </source>
+        <translation> PROTOCOLLO IN ESECUZIONE : </translation>
+	</message>
+	<message>
+        <source> ----- remaining time,  </source>
+        <translation> ----- tempo rimanente,  </translation>
+	</message>
+	<message>
+        <source>Pulse time remaining: </source>
+        <translation>Tempo di pulsazione rimanente:</translation>
+	</message>	
 </context>
 <context>
     <name>Labonatip_tools</name>
@@ -311,7 +502,11 @@
         <source>Solution</source>
         <translation>Soluzione</translation>
     </message>
-    <message>
+     <message>
+        <source>Solutions</source>
+        <translation>Soluzioni</translation>
+    </message>
+	<message>
         <source>Empty wells</source>
         <translation>Svuota ugelli</translation>
     </message>
@@ -348,6 +543,14 @@
         <translation>Lingua</translation>
     </message>
 	<message>
+        <source>Reset to factory defaults</source>
+        <translation>Resetta impostazioni di fabbrica</translation>
+	</message>
+	<message>
+        <source>Enable tool tips</source>
+        <translation>Abilita tool tips</translation>
+	</message>
+	<message>
         <source>Volume</source>
         <translation>Volume</translation>
     </message>
@@ -366,6 +569,10 @@
 	<message>
         <source>Continuous flowing</source>
         <translation>Flusso continuo</translation>
+    </message>	
+	<message>
+        <source>Pressure / Vacuum settings</source>
+        <translation>Settaggi di pressione / aspirazione</translation>
     </message>	
 	<message>
         <source>Vacuum settings</source>
@@ -423,6 +630,86 @@
     <source>Well :</source>
         <translation>Ugello :</translation>
     </message>	
+	<message>
+        <source>Max</source>
+        <translation>Max</translation>
+	</message>
+	<message>
+        <source>Min</source>
+        <translation>Min</translation>
+	</message>
+	<message>
+        <source>Default</source>
+        <translation>Default</translation>
+	</message>
+	<message>
+        <source>COM settings</source>
+        <translation>Settaggi porta seriale</translation>
+	</message>
+	<message>
+        <source>Port name</source>
+        <translation>Porta</translation>
+	</message>
+	<message>
+        <source>Baud rate</source>
+        <translation>Baud rate</translation>
+	</message>
+	<message>
+        <source>Data bit</source>
+        <translation>Data bit</translation>
+	</message>
+	<message>
+        <source>Parity</source>
+        <translation>Parità</translation>
+	</message>
+	<message>
+        <source>Stop bit</source>
+        <translation>Stop bit</translation>
+	</message>
+	<message>
+        <source>Flow control</source>
+        <translation>Flow control</translation>
+	</message>
+	<message>
+        <source>Description:</source>
+        <translation>Descrizione:</translation>
+	</message>
+	<message>
+        <source>Manufacturer:</source>
+        <translation>Costruttore:</translation>
+	</message>
+	<message>
+        <source>Serial number:</source>
+        <translation>Numero seriale:</translation>
+	</message>
+	<message>
+        <source>Location:</source>
+        <translation>Locazione:</translation>
+	</message>
+	<message>
+        <source>Vendor ID:</source>
+        <translation>Vendor ID:</translation>
+	</message>
+	<message>
+        <source>Product ID:</source>
+        <translation>Product ID:</translation>
+	</message>
+	<message>
+        <source>Update available devices</source>
+        <translation>Aggiorna dispositivi connessi</translation>
+	</message>
+	<message>
+        <source>Warning</source>
+        <translation>Attenzione</translation>
+    </message>
+	<message>
+        <source>This will reset used defined settings and parameters to the factory default value. \nAre you sure ?</source>
+        <translation>Questa operazione resetterà il sistema alle impostazioni di fabbrica. \nSei sicuro ?</translation>
+	</message>
+	<message>
+        <source>Ok</source>
+        <translation>Ok</translation>
+	</message>
 	<message>
         <source>Cancel</source>
         <translation>Annulla</translation>
@@ -507,7 +794,7 @@
     </message>
     <message>
         <source>Discard</source>
-        <translation>Non salvare</translation>
+        <translation>Discard</translation>
     </message>
     <message>
         <source>Yes to &amp;All</source>

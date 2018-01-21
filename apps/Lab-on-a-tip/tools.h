@@ -202,6 +202,10 @@ private:
 	pr_params *m_pr_params;
 	GUIparams *m_GUI_params;
 
+	// translatable strings
+	QString m_str_warning;
+	QString m_str_factory_reset;
+
 protected:
 	Ui::Labonatip_tools *ui_tools;    //!<  the user interface
 };
