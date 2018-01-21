@@ -479,6 +479,8 @@ void Labonatip_GUI::switchLanguage(int _value )
 	m_str_error = QApplication::translate("Labonatip_GUI", qPrintable(m_str_error));
 	m_str_cancel = QApplication::translate("Labonatip_GUI", qPrintable(m_str_cancel));
 
+
+	ui->treeWidget_macroInfo->resizeColumnToContents(0);
 }
 
 

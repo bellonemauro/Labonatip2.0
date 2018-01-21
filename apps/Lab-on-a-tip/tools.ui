@@ -99,7 +99,7 @@ QCheckBox::indicator:unchecked {
        <number>0</number>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="page_0">
        <property name="styleSheet">
@@ -1481,7 +1481,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
  }</string>
              </property>
              <property name="text">
-              <string>Rifill solution</string>
+              <string>Refill solutions</string>
              </property>
             </widget>
            </item>
@@ -1525,7 +1525,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
  }</string>
              </property>
              <property name="text">
-              <string>Empty Waste</string>
+              <string>Empty waste</string>
              </property>
             </widget>
            </item>
@@ -3111,7 +3111,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
      <normaloff>:/icons/solutions.png</normaloff>:/icons/solutions.png</iconset>
    </property>
    <property name="text">
-    <string>Solution</string>
+    <string>Solutions</string>
    </property>
    <property name="toolTip">
     <string>Solution</string>
@@ -3126,7 +3126,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
      <normaloff>:/icons/pressure.png</normaloff>:/icons/pressure.png</iconset>
    </property>
    <property name="text">
-    <string>Pressure</string>
+    <string>Pressures</string>
    </property>
   </action>
   <action name="actionCommunication">
