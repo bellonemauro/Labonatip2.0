@@ -79,6 +79,11 @@ TODO
 New uses can contribute to the code by compiling in Windows or linux.
 QT GUI must be modified using QT creator/designer
 
+
+# Known issues
+The uninstaller does not completely remove the start-menu folder sometimes, 
+if it happens, remove manually from C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Lab-on-a-tip______
+
 ---------------------------------------------------------------------
 <sup> Software released under GNU GPL License. <br>
 Author: <a href="http://fluicell.com/">Fluicell</a> AB , Mauro Bellone, http://www.maurobellone.com <br> </sup>

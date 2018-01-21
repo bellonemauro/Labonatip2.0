@@ -373,48 +373,7 @@ void Labonatip_GUI::updateWaste()  // this is updated every second
 
 	double waste_remaining_time_in_sec;
 
-	if (ui->pushButton_solution1->isChecked()) {
-		m_pipette_status->rem_vol_well1 = m_pipette_status->rem_vol_well1 - //TODO: add check and block for negative values
-			0.001 * m_pipette_status->flow_well1;
-
-		double perc = 100.0 - 100.0 *
-			(m_solutionParams->vol_well1 - m_pipette_status->rem_vol_well1)
-			/ m_solutionParams->vol_well1;
-		ui->progressBar_solution1->setValue(int(perc));
-
-		// TODO: there is no check if the remaining solution is zero !
-
-		//waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well1 - // this is in micro liters 10^-6
-		//	m_solutionParams->rem_vol_well1) /  //this is in micro liters 10^-6
-		//	ui->treeWidget_macroInfo->topLevelItem(4)->text(1).toDouble(); // this is in nano liters 10^-9
-	}
-	if (ui->pushButton_solution2->isChecked()) {
-		m_pipette_status->rem_vol_well2 = m_pipette_status->rem_vol_well2 -
-			0.001 * m_pipette_status->flow_well2;
-
-		double perc = 100.0 - 100.0 *
-			(m_solutionParams->vol_well2 - m_pipette_status->rem_vol_well2)
-			/ m_solutionParams->vol_well2;
-		ui->progressBar_solution2->setValue(int(perc));
-	}
-	if (ui->pushButton_solution3->isChecked()) {
-		m_pipette_status->rem_vol_well3 = m_pipette_status->rem_vol_well3 -
-			0.001 * m_pipette_status->flow_well3;
-
-		double perc = 100.0 - 100.0 *
-			(m_solutionParams->vol_well3 - m_pipette_status->rem_vol_well3)
-			/ m_solutionParams->vol_well3;
-		ui->progressBar_solution3->setValue(int(perc));
-	}
-	if (ui->pushButton_solution4->isChecked()) {
-		m_pipette_status->rem_vol_well4 = m_pipette_status->rem_vol_well4 -
-			0.001 * m_pipette_status->flow_well4;
-
-		double perc = 100.0 - 100.0 *
-			(m_solutionParams->vol_well4 - m_pipette_status->rem_vol_well4)
-			/ m_solutionParams->vol_well4;
-		ui->progressBar_solution4->setValue(int(perc));
-	}
+	updateWells();
 
 	m_pipette_status->rem_vol_well5 = m_pipette_status->rem_vol_well5 +
 		0.001 * m_pipette_status->flow_well5;
@@ -549,5 +508,59 @@ void Labonatip_GUI::updateWaste()  // this is updated every second
 	s.append(" sec ");
 
 	ui->textEdit_emptyTime_waste->setText(s);
+
+}
+
+void Labonatip_GUI::updateWells()
+{
+	int max_vol_in_well = 30;
+
+	// update wells when the solution is flowing
+	if (ui->pushButton_solution1->isChecked()) {
+		m_pipette_status->rem_vol_well1 = m_pipette_status->rem_vol_well1 - //TODO: add check and block for negative values
+			0.001 * m_pipette_status->flow_well1;
+
+		double perc = 100.0 - 100.0 *
+			(max_vol_in_well - m_pipette_status->rem_vol_well1)
+			/ max_vol_in_well;
+		ui->progressBar_solution1->setValue(int(perc));
+
+		// TODO: there is no check if the remaining solution is zero !
+
+		//waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well1 - // this is in micro liters 10^-6
+		//	m_solutionParams->rem_vol_well1) /  //this is in micro liters 10^-6
+		//	ui->treeWidget_macroInfo->topLevelItem(4)->text(1).toDouble(); // this is in nano liters 10^-9
+		return;
+	}
+	if (ui->pushButton_solution2->isChecked()) {
+		m_pipette_status->rem_vol_well2 = m_pipette_status->rem_vol_well2 -
+			0.001 * m_pipette_status->flow_well2;
+
+		double perc = 100.0 - 100.0 *
+			(max_vol_in_well - m_pipette_status->rem_vol_well2)
+			/ max_vol_in_well;
+		ui->progressBar_solution2->setValue(int(perc));
+		return;
+	}
+	if (ui->pushButton_solution3->isChecked()) {
+		m_pipette_status->rem_vol_well3 = m_pipette_status->rem_vol_well3 -
+			0.001 * m_pipette_status->flow_well3;
+
+		double perc = 100.0 - 100.0 *
+			(max_vol_in_well - m_pipette_status->rem_vol_well3)
+			/ max_vol_in_well;
+		ui->progressBar_solution3->setValue(int(perc));
+		return;
+	}
+	if (ui->pushButton_solution4->isChecked()) {
+		m_pipette_status->rem_vol_well4 = m_pipette_status->rem_vol_well4 -
+			0.001 * m_pipette_status->flow_well4;
+
+		double perc = 100.0 - 100.0 *
+			(max_vol_in_well - m_pipette_status->rem_vol_well4)
+			/ max_vol_in_well;
+		ui->progressBar_solution4->setValue(int(perc));
+		return;
+	}
 
 }

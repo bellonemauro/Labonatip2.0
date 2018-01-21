@@ -385,27 +385,32 @@ void Labonatip_GUI::updateTimingSliders()
 {
 	QProgressBar *_bar;
 	QPushButton *_button;
+	double status;
 
 	switch (m_flowing_solution)
 	{
 	case 1: { //TODO : the waste time is not well calculated 
 		_bar = ui->progressBar_solution1;
 		_button = ui->pushButton_solution1;
+		status = m_pipette_status->rem_vol_well1;
 		break;
 	}
 	case 2: {
 		_bar = ui->progressBar_solution2;
 		_button = ui->pushButton_solution2;
+		status = m_pipette_status->rem_vol_well2;
 		break;
 	}
 	case 3: {
 		_bar = ui->progressBar_solution3;
 		_button = ui->pushButton_solution3;
+		status = m_pipette_status->rem_vol_well3;
 		break;
 	}
 	case 4: {
 		_bar = ui->progressBar_solution4;
 		_button = ui->pushButton_solution4;
+		status = m_pipette_status->rem_vol_well4;
 		break;
 	}
 	default: {
@@ -419,7 +424,7 @@ void Labonatip_GUI::updateTimingSliders()
 	
 	if (m_timer_solution < m_time_multipilcator) {
 		m_update_flowing_sliders->start();
-		int status = int(100 * m_timer_solution / m_time_multipilcator);
+		//int status = int(100 * m_timer_solution / m_time_multipilcator);
 		//_bar->setValue(100 - status); //TODO: this must be set into the update flow
 		QString s;
 		if (!m_dialog_tools->isContinuousFlowing()) {
@@ -436,27 +441,37 @@ void Labonatip_GUI::updateTimingSliders()
 			s.append(" min \n");
 			s.append(QString::number(remaining_secs));
 			s.append(" sec ");
+			ui->textEdit_emptyTime->setText(s);
+			m_timer_solution++;
+
+			if (m_pipette_active) updateDrawing(m_ppc1->getDropletSize());
+			else updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
+
+			// show the warning label
+			if (status < 5) {  // TODO: 5 uL is the limit to warn the user that the solution is ending
+				ui->label_warningIcon->show();
+				ui->label_warning->show();
+			}
+			return;
 		}
 		else
 		{
 			//s.append("Well ");
 			//s.append(QString::number(m_flowing_solution));
 			//s.append(" in \n");
-			s.append("continuous \nflowing");
+			s.append("Continuous \nflowing");
+			ui->textEdit_emptyTime->setText(s);
+
+			// show the warning label
+			if (status < 5) {  // TODO: 5 uL is the limit to warn the user that the solution is ending
+				ui->label_warningIcon->show();
+				ui->label_warning->show();
+			}
+			return;
 		}
-		ui->textEdit_emptyTime->setText(s);
+		
 
-		m_timer_solution++;
-
-		if (m_pipette_active) updateDrawing(m_ppc1->getDropletSize());
-		else updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
-
-		// show the warning label
-		if (status > 50) {
-			ui->label_warningIcon->show();
-			ui->label_warning->show();
-		}
-		return;
+		
 	}
 	else  // here we are ending the release process of the solution
 	{

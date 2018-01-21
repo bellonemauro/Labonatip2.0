@@ -52,6 +52,12 @@ class Labonatip_GUI : public QMainWindow
 
 #define LENGTH_TO_TIP 0.065
 #define LENGTH_TO_ZONE 0.062
+#define MIN_ZONE_SIZE_PERC 30
+#define MAX_ZONE_SIZE_PERC 250
+#define MIN_FLOW_SPEED_PERC 60
+#define MAX_FLOW_SPEED_PERC 250
+#define MIN_VACUUM_PERC 10
+#define MAX_VACUUM_PERC 250
 
 public:
 	explicit Labonatip_GUI(QMainWindow *parent = nullptr);
@@ -286,6 +292,8 @@ private slots:
 	void updateGUI();
 
 	void updateWaste();
+
+	void updateWells();
 
 	/** \brief Visualize a message and a progress bar 
 	* \note
@@ -630,6 +638,7 @@ private:
   QString m_settings_path;   //!< settings path
   QString m_ext_data_path;   //!< ext data path (save history)
   QTranslator m_translator;
+  int m_language_idx;
 
   // custom strings for translations
   QString m_str_areyousure;

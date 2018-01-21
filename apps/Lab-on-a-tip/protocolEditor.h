@@ -184,6 +184,7 @@ private slots:
 	*/
 	void addAllCommandsToMacro();
 
+	void about();
 
 private:
 

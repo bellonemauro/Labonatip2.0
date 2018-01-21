@@ -28,6 +28,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	l_y1(49.0),
 	l_x2(55.0),
 	l_y2(l_y1),
+	m_language_idx(0),
 	m_base_time_step(1000), //TODO : solve this! there is an issue with the timing of the solution pumped https://stackoverflow.com/questions/21232520/precise-interval-in-qthread
 	m_flowing_solution(0),
 	m_sol1_color(QColor::fromRgb(255, 189, 0)),//(189, 62, 71)),
@@ -140,9 +141,6 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   ui->treeWidget_macroInfo->topLevelItem(13)->setText(1, QString::number(m_pipette_status->rem_vol_well2));
   ui->treeWidget_macroInfo->topLevelItem(14)->setText(1, QString::number(m_pipette_status->rem_vol_well3));
   ui->treeWidget_macroInfo->topLevelItem(15)->setText(1, QString::number(m_pipette_status->rem_vol_well4));
-
-
-
 
   // set translation
   QString translation_file = "./languages/eng.qm";
@@ -403,11 +401,11 @@ void Labonatip_GUI::setAsDefault()
 {
 	m_pr_params->setDefValues(m_pipette_status->pon_set_point, 
 		m_pipette_status->poff_set_point, 
-		m_pipette_status->v_switch_set_point, 
-		m_pipette_status->v_recirc_set_point);
+		-m_pipette_status->v_switch_set_point, 
+		-m_pipette_status->v_recirc_set_point);
 
 	m_dialog_tools->setDefaultPressuresVacuums(m_pr_params->p_on_default, m_pr_params->p_off_default,
-		m_pr_params->v_recirc_default, m_pr_params->v_switch_default);
+		-m_pr_params->v_recirc_default, -m_pr_params->v_switch_default);
 
 	updateFlowControlPercentages();
 
@@ -426,13 +424,17 @@ void Labonatip_GUI::switchLanguage(int _value )
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_GUI::switchLanguage   " << endl;
 	
+
+	if (_value == m_language_idx) return; // no translation needed
+
 	qApp->removeTranslator(&m_translator);
 	QString translation_file;
+	m_language_idx = _value;
 	switch (_value)
 	{ 
 	case 0:
 	{
-		translation_file = ":/languages/eng.qm";
+		translation_file = ":/languages/eng.qm";	
 		break;
 	}
 	case 1:
@@ -505,6 +507,7 @@ void Labonatip_GUI::resizeEvent(QResizeEvent *_event)
 	//	<< QTime::currentTime().toString().toStdString() << "  "
 	//	<< "Labonatip_GUI::resizeEvent   " << _event->type() << endl;
 	this->resizeToolbar();
+	
 }
 
 bool Labonatip_GUI::eventFilter(QObject *_obj, QEvent *_event)
@@ -792,6 +795,53 @@ void Labonatip_GUI::toolRefillSolution()
 	m_pipette_status->rem_vol_well2 = m_solutionParams->vol_well2;
 	m_pipette_status->rem_vol_well3 = m_solutionParams->vol_well3;
 	m_pipette_status->rem_vol_well4 = m_solutionParams->vol_well4;
+
+	int max_vol_in_well = 30;
+
+	// update wells when the solution is flowing
+	{
+		m_pipette_status->rem_vol_well1 = m_pipette_status->rem_vol_well1 - //TODO: add check and block for negative values
+			0.001 * m_pipette_status->flow_well1;
+
+		double perc = 100.0 - 100.0 *
+			(max_vol_in_well - m_pipette_status->rem_vol_well1)
+			/ max_vol_in_well;
+		ui->progressBar_solution1->setValue(int(perc));
+
+		// TODO: there is no check if the remaining solution is zero !
+
+		//waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well1 - // this is in micro liters 10^-6
+		//	m_solutionParams->rem_vol_well1) /  //this is in micro liters 10^-6
+		//	ui->treeWidget_macroInfo->topLevelItem(4)->text(1).toDouble(); // this is in nano liters 10^-9
+	}
+	{
+		m_pipette_status->rem_vol_well2 = m_pipette_status->rem_vol_well2 -
+			0.001 * m_pipette_status->flow_well2;
+
+		double perc = 100.0 - 100.0 *
+			(max_vol_in_well - m_pipette_status->rem_vol_well2)
+			/ max_vol_in_well;
+		ui->progressBar_solution2->setValue(int(perc));
+	}
+	{
+		m_pipette_status->rem_vol_well3 = m_pipette_status->rem_vol_well3 -
+			0.001 * m_pipette_status->flow_well3;
+
+		double perc = 100.0 - 100.0 *
+			(max_vol_in_well - m_pipette_status->rem_vol_well3)
+			/ max_vol_in_well;
+		ui->progressBar_solution3->setValue(int(perc));
+	}
+	if (ui->pushButton_solution4->isChecked()) {
+		m_pipette_status->rem_vol_well4 = m_pipette_status->rem_vol_well4 -
+			0.001 * m_pipette_status->flow_well4;
+
+		double perc = 100.0 - 100.0 *
+			(max_vol_in_well - m_pipette_status->rem_vol_well4)
+			/ max_vol_in_well;
+		ui->progressBar_solution4->setValue(int(perc));
+	}
+
 
 }
 

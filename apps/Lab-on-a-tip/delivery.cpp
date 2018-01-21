@@ -51,6 +51,13 @@ void Labonatip_GUI::dropletSizePlus() {
 		}
 	}
 	if (m_simulationOnly) {
+
+		if (m_ds_perc > MAX_ZONE_SIZE_PERC - 2*m_pr_params->base_ds_increment) {
+			QMessageBox::information(this, m_str_warning,
+				" Operation cannot be done. ");
+			return;
+		}
+
 		double perc = (m_ds_perc + 
 			m_pr_params->base_ds_increment) / 100.0;
 
@@ -128,7 +135,14 @@ void Labonatip_GUI::dropletSizeMinus() {
 		}
 	}
 	if (m_simulationOnly) {
-		double perc = (m_ds_perc - 
+	
+		if (m_ds_perc < MIN_ZONE_SIZE_PERC + 2*m_pr_params->base_ds_increment) {
+			QMessageBox::information(this, m_str_warning,
+				" Operation cannot be done. ");
+			return;
+		}
+		
+		double perc = (m_ds_perc -
 			m_pr_params->base_ds_increment) / 100.0;
 
 		if (ui->horizontalSlider_p_on->value() == 0) {
@@ -214,6 +228,12 @@ void Labonatip_GUI::flowSpeedPlus() {
 		}
 	}
 	if (m_simulationOnly) {
+
+		if (m_fs_perc > MAX_FLOW_SPEED_PERC - m_pr_params->base_fs_increment) {
+			QMessageBox::information(this, m_str_warning,
+				" Operation cannot be done. ");
+			return;
+		}
 
 		if (ui->horizontalSlider_p_on->value() == 0) {
 			updatePonSetPoint(5.0);
@@ -306,6 +326,12 @@ void Labonatip_GUI::flowSpeedMinus() {
 	}
 	if (m_simulationOnly) {
 		
+		if (m_fs_perc < MIN_FLOW_SPEED_PERC + m_pr_params->base_fs_increment) {
+			QMessageBox::information(this, m_str_warning,
+				" Operation cannot be done. ");
+			return;
+		}
+
 		//double perc = (m_fs_perc - //ui->lcdNumber_flowspeed_percentage->value() -
 		//	m_dialog_tools->m_pr_params->base_fs_increment) / 100.0;
 
@@ -357,6 +383,12 @@ void Labonatip_GUI::vacuumPlus() {
 		}
 	}
 	if (m_simulationOnly) {
+
+		if (m_v_perc > MAX_VACUUM_PERC - m_pr_params->base_v_increment) {
+			QMessageBox::information(this, m_str_warning,
+				" Operation cannot be done. ");
+			return;
+		}
 
 		if (ui->horizontalSlider_recirculation->value() == 0) {
 			ui->horizontalSlider_recirculation->setValue(5);
@@ -411,6 +443,12 @@ void Labonatip_GUI::vacuumMinus() {
 		}
 	}
 	if (m_simulationOnly) {
+
+		if (m_v_perc < MIN_VACUUM_PERC + m_pr_params->base_v_increment) {
+			QMessageBox::information(this, m_str_warning,
+				" Operation cannot be done. ");
+			return;
+		}
 
 		if (ui->horizontalSlider_recirculation->value() == 0) {
 			QMessageBox::information(this, m_str_warning,

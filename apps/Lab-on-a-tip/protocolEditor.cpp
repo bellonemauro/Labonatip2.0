@@ -140,6 +140,9 @@ Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 	connect(protocolWizard,
 		SIGNAL(saveProtocol()), this, SLOT(saveMacro()));
 
+	connect(ui_p_editor->actionAbout,
+		SIGNAL(triggered()), this, SLOT(about()));
+
 	// connect tool window events Ok, Cancel, Apply
 	connect(ui_p_editor->buttonBox->button(QDialogButtonBox::Ok),
 		SIGNAL(clicked()), this, SLOT(okPressed()));
@@ -1745,6 +1748,27 @@ void Labonatip_protocol_editor::updateChartProtocol(f_protocol *_macro)
 }
 
 
+void Labonatip_protocol_editor::about() {
+
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::about   " << endl;
+
+	QMessageBox messageBox;
+	QString msg_title = "About Fluicell Lab-on-a-tip ";
+	QString msg_content = tr("<b>Lab-on-a-tip</b> is a <a href='http://fluicell.com/'>Fluicell</a> AB software <br>"
+		"Copyright Fluicell AB, Sweden 2017 <br> <br>"
+		"Arvid Wallgrens Backe 20<br>"
+		"SE-41346 Gothenburg, Sweden<br>"
+		"Tel: +46 76 208 3354 <br>"
+		"e-mail: info@fluicell.com <br><br>"
+		"Developer:<a href='http://www.maurobellone.com'>Mauro Bellone</a> <br>"
+		"Version: ");
+	//msg_content.append(m_version); //TODO
+	messageBox.about(this, msg_title, msg_content);
+	messageBox.setIconPixmap(QPixmap("./icons/fluicell_iconBIG.ico"));
+	messageBox.setFixedSize(600, 800);
+}
 
 Labonatip_protocol_editor::~Labonatip_protocol_editor() {
   delete ui_p_editor;

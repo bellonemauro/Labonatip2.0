@@ -406,7 +406,7 @@ void Labonatip_GUI::standby()
 	if (m_pipette_active) {
 		m_ppc1->closeAllValves();
 	}
-	updatePonSetPoint(0.0);
+	updatePonSetPoint(45.0);
 	updatePoffSetPoint(11.0);
 
 	if (!visualizeProgressMessage(5, m_str_standby_operation)) return;
