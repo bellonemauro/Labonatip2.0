@@ -365,6 +365,30 @@ void Labonatip_macroWizard::setBanner(int _current_index)
 
 }
 
+void Labonatip_macroWizard::switchLanguage(QString _translation_file)
+{
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_macroWizard::switchLanguage " << endl;
+
+	qApp->removeTranslator(&m_translator_wizard);
+
+	if (m_translator_wizard.load(_translation_file)) {
+		//m_translator_tool.translate("Labonatip_tool", "english");
+		qApp->installTranslator(&m_translator_wizard);
+
+		ui_wizard->retranslateUi(this);
+
+		//m_str_warning = QApplication::translate("Labonatip_GUI", qPrintable(m_str_warning));
+		
+
+		cout << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_macroWizard::switchLanguage   installTranslator" << endl;
+	}
+
+}
+
 void Labonatip_macroWizard::updateSolPrFields()
 {
 	ui_wizard->lineEdit_solName1->setText(m_solutionParams->sol1);

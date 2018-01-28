@@ -46,6 +46,8 @@ public:
 	updateSolPrFields();
 	}
 
+	void switchLanguage(QString _translation_file);
+
 signals:
 	void loadSettings();  // generated when loadsettings is pressed
 	void loadStdProtocol();
@@ -88,6 +90,7 @@ private:
 
 	solutionsParams *m_solutionParams;
 	pr_params *m_pr_params;
+	QTranslator m_translator_wizard;
 
 protected:
 	Ui::Labonatip_macroWizard *ui_wizard;    //!<  the user interface

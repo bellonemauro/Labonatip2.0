@@ -25,7 +25,7 @@ Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 	//ui_p_editor->treeWidget_macroTable->setColumnWidth(0, 350);
 
 	// initialize the macro wizard
-	protocolWizard = new Labonatip_macroWizard();
+	m_protocolWizard = new Labonatip_macroWizard();
 
 	m_solutionParams = new solutionsParams();
 	m_pr_params = new pr_params();
@@ -42,12 +42,38 @@ Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 	ui_p_editor->actionCharts->setChecked(false);
 	ui_p_editor->actionParams->setChecked(true);
 
+	// custom strings
+	m_str_warning.append(tr("Warning"));
+	m_str_save_protocol.append(tr("Save profile"));
+	m_str_load_protocol.append(tr("Load profile"));
+	m_str_file_not_found.append(tr("File not found"));
+	m_str_file_not_saved.append(tr("File not saved"));
+	m_str_protocol_duration.append(tr("Protocol duration : "));
+	m_str_check_validity_msg1.append(tr("Pressure ON is not a valid number, \n its value must be a positive number in [0, 450]"));
+	m_str_check_validity_msg2.append(tr("Pressure ON is out of range, \n its value must be a positive number in [0, 450]"));
+	m_str_check_validity_msg3.append(tr("Pressure OFF is not a valid number, \n its value must be a positive number in [0, 450]"));
+	m_str_check_validity_msg4.append(tr("Pressure OFF is out of range, \n its value must be a positive number in [0, 450]"));
+	m_str_check_validity_msg5.append(tr("Vacuum switch is not a valid number, \n its value must be a negative number in [-300, 0]"));
+	m_str_check_validity_msg6.append(tr("Vacuum switch is out of range, \n its value must be a negative number in [-300, 0]"));
+	m_str_check_validity_msg7.append(tr("Vacuum recirculation is not a valid number, \n its value must be a negative number in [-300, 0]"));
+	m_str_check_validity_msg8.append(tr("Vacuum recirculation is out of range, \n its value must be a negative number in [-300, 0]"));
+	m_str_check_validity_msg9.append(tr("Solution is not a valid number, \n its value must be 0 or 1 \n where 0 = open \nOnly one valve can be open"));
+	m_str_check_validity_msg10.append(tr("Solution is out of range, \n its value must be 0 or 1 \n where 0 = open \nOnly one valve can be open"));
+	m_str_check_validity_msg11.append(tr("The droplet size command is not usable now, \n the content will be automatically changed to index 0"));
+	m_str_check_validity_msg12.append(tr("The flow speed command is not usable now, \n the content will be automatically changed to index 0"));
+	m_str_check_validity_msg13.append(tr("The vacuum command is not usable now, \n the content will be automatically changed to index 0"));
+	m_str_check_validity_msg14.append(tr("Loop is not a valid number, \n value must be a positive integer number"));
+	m_str_check_validity_msg15.append(tr("Loop is out of range, \n its value must be a positive number"));
+	m_str_check_validity_msg16.append(tr("Wait is not a valid number, \n value must be a positive integer number"));
+	m_str_check_validity_msg17.append(tr("Waiting time is out of range, \n its value must be a positive number"));
+	m_str_check_validity_protocol.append(tr("Check validity failed during macro saving, <br>please check your settings and try again"));
+
+
 	// connect GUI elements: macro tab
 	connect(ui_p_editor->treeWidget_macroTable,
 		SIGNAL(itemChanged(QTreeWidgetItem *, int)), this, 
 		SLOT(checkValidity(QTreeWidgetItem *, int)));
-
-
+	
 	// connect GUI elements: NEW macro tab
 	connect(ui_p_editor->pushButton_addMacroCommand,
 		SIGNAL(clicked()), this, SLOT(addMacroCommand()));
@@ -119,25 +145,25 @@ Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 		SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)),
 		this, SLOT(on_protocol_clicked(QTreeWidgetItem*, int)));
 
-	connect(protocolWizard,
+	connect(m_protocolWizard,
 		SIGNAL(loadSettings()), this, SLOT(emitLoadSettings()));
 
-	connect(protocolWizard,
+	connect(m_protocolWizard,
 		SIGNAL(loadStdProtocol()), this, SLOT(loadStdP()));
 
-	connect(protocolWizard,
+	connect(m_protocolWizard,
 		SIGNAL(loadOptProtocol()), this, SLOT(loadOptP()));
 
-	connect(protocolWizard,
+	connect(m_protocolWizard,
 		SIGNAL(loadCustomProtocol()), this, SLOT(loadCustomP()));
 
-	connect(protocolWizard,
+	connect(m_protocolWizard,
 		SIGNAL(loadSleepProtocol()), this, SLOT(loadSleepP()));
 
-	connect(protocolWizard,
+	connect(m_protocolWizard,
 		SIGNAL(loadAllOffProtocol()), this, SLOT(loadAlloffP()));
 
-	connect(protocolWizard,
+	connect(m_protocolWizard,
 		SIGNAL(saveProtocol()), this, SLOT(saveMacro()));
 
 	connect(ui_p_editor->actionAbout,
@@ -204,14 +230,14 @@ void Labonatip_protocol_editor::newProtocolWizard()
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_protocol_editor::newProtocolWizard    " << endl;
 
-	protocolWizard->setMacroPath(m_protocol_path);
-	protocolWizard->setPrParams(*m_pr_params);
-	protocolWizard->setSolParams(*m_solutionParams);
+	m_protocolWizard->setMacroPath(m_protocol_path);
+	m_protocolWizard->setPrParams(*m_pr_params);
+	m_protocolWizard->setSolParams(*m_solutionParams);
 
-	protocolWizard->setModal(true);
+	m_protocolWizard->setModal(true);
 	//protocolWizard->setSolNames();
 	//protocolWizard->setDefPreVac();
-	protocolWizard->show();
+	m_protocolWizard->show();
 
 }
 
@@ -461,15 +487,15 @@ bool Labonatip_protocol_editor::checkValidity(QTreeWidgetItem *_item, int _colum
 		// get the number to be checked
 		int number = _item->text(_column).toInt(&isNumeric);
 		if (!isNumeric) { // if is not a number 
-			QMessageBox::warning(this, "Warning", 
-				"Pressure ON is not a valid number, \n its value must be a positive number in [0, 450]");
+			QMessageBox::warning(this, m_str_warning,
+				m_str_check_validity_msg1);
 			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
 			return false;
 		}
 		if (number < m_pr_params->p_on_min || 
 			number > m_pr_params->p_on_max) { // if is not the range
-			QMessageBox::warning(this, "Warning", 
-				" Pressure ON is out of range, \n its value must be a positive number in [0, 450]");
+			QMessageBox::warning(this, m_str_warning,
+				m_str_check_validity_msg2);
 			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
 			return false;
 		}
@@ -480,15 +506,15 @@ bool Labonatip_protocol_editor::checkValidity(QTreeWidgetItem *_item, int _colum
 		// get the number to be checked
 		int number = _item->text(_column).toInt(&isNumeric);
 		if (!isNumeric) { // if is not a number
-			QMessageBox::warning(this, "Warning", 
-				"Pressure OFF is not a valid number, \n its value must be a positive number in [0, 450]");
+			QMessageBox::warning(this, m_str_warning,
+				m_str_check_validity_msg3);
 			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
 			return false;
 		}
 		if (number < m_pr_params->p_off_min ||
 			number > m_pr_params->p_off_max) { // if is not the range
-			QMessageBox::warning(this, "Warning", 
-				" Pressure ON is out of range, \n its value must be a positive number in [0, 450]");
+			QMessageBox::warning(this, m_str_warning,
+				m_str_check_validity_msg4);
 			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
 			return false;
 		}
@@ -498,15 +524,15 @@ bool Labonatip_protocol_editor::checkValidity(QTreeWidgetItem *_item, int _colum
 
 		int number = _item->text(_column).toInt(&isNumeric);
 		if (!isNumeric) { // if is not a number
-			QMessageBox::warning(this, "Warning", 
-				"Vacuum switch is not a valid number, \n its value must be a positive number in [-300, 0]"); 
+			QMessageBox::warning(this, m_str_warning,
+				m_str_check_validity_msg5);
 			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
 			return false;
 		}
 		if (number < m_pr_params->v_switch_min ||
 			number > m_pr_params->v_switch_max) { // if is not the range
-			QMessageBox::warning(this, "Warning", 
-				"Vacuum switch is out of range, \n its value must be a positive number in [-300, 0]");
+			QMessageBox::warning(this, m_str_warning,
+				m_str_check_validity_msg6);
 			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
 			return false;
 		}
@@ -516,15 +542,15 @@ bool Labonatip_protocol_editor::checkValidity(QTreeWidgetItem *_item, int _colum
 
 		int number = _item->text(_column).toInt(&isNumeric);
 		if (!isNumeric) {
-			QMessageBox::warning(this, "Warning", 
-				"Vacuum recirculation is not a valid number, \n its value must be a positive number in [-300, 0]");
+			QMessageBox::warning(this, m_str_warning,
+				m_str_check_validity_msg7);
 			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
 			return false;
 		}
 		if (number < m_pr_params->v_recirc_min   ||
 			number > m_pr_params->v_recirc_max) { // if is not the range
-			QMessageBox::warning(this, "Warning", 
-				"Vacuum recirculation is out of range, \n its value must be a positive number in [-300, 0]");
+			QMessageBox::warning(this, m_str_warning,
+				m_str_check_validity_msg8);
 			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
 			return false;
 		}
@@ -535,14 +561,15 @@ bool Labonatip_protocol_editor::checkValidity(QTreeWidgetItem *_item, int _colum
 
 		int number = _item->text(_column).toInt(&isNumeric);
 		if (!isNumeric) {
-			QMessageBox::warning(this, "Warning ", " Solution is not a valid number, \n its value must be 0 or 1 \n where 0 = open. \nOnly one valve can be open.");
+			QMessageBox::warning(this, m_str_warning, 
+				m_str_check_validity_msg9);
 			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
 			return false;
 		}
 		if (number != 0 && 
 			number != 1) {
-			QMessageBox::warning(this, "Warning ", 
-				" Solution is out of range, \n its value must be 0 or 1 \n where 0 = open. \nOnly one valve can be open.");
+			QMessageBox::warning(this, m_str_warning,
+				m_str_check_validity_msg10);
 			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
 			return false;
 		}
@@ -552,23 +579,23 @@ bool Labonatip_protocol_editor::checkValidity(QTreeWidgetItem *_item, int _colum
 		// Droplet size (%) //TODO: remove this !!!
 
 		qobject_cast<QComboBox*>(ui_p_editor->treeWidget_macroTable->itemWidget(_item, 0))->setCurrentIndex(0);
-		QMessageBox::warning(this, "Warning",
-			"The droplet size command is not usable now, \n the content will be automatically changed to index 0"); 
+		QMessageBox::warning(this, m_str_warning,
+			m_str_check_validity_msg11);
 		_item->setText(_column, "0"); 
 
 		break;
 	}   
 	case 9:{
 		// Flow speed (%)
-		QMessageBox::warning(this, "Warning",
-			"The flow speed command is not usable now, \n the content will be automatically changed to index 0");
+		QMessageBox::warning(this, m_str_warning,
+			m_str_check_validity_msg12);
 		_item->setText(_column, "0");
 		break;
 	}
 	case 10: {
 		// Vacuum (%) //TODO : remove this 
-		QMessageBox::warning(this, "Warning",
-			"The vacuum command is not usable now, \n the content will be automatically changed to index 0");
+		QMessageBox::warning(this, m_str_warning,
+			m_str_check_validity_msg13);
 		_item->setText(_column, "0");
 		break;
 	}
@@ -577,13 +604,14 @@ bool Labonatip_protocol_editor::checkValidity(QTreeWidgetItem *_item, int _colum
 
 		int number = _item->text(_column).toInt(&isNumeric);
 		if (!isNumeric) {
-			QMessageBox::warning(this, "Warning", " Loop is not a valid number, \n value must be a positive integer number!");
+			QMessageBox::warning(this, m_str_warning, 
+				m_str_check_validity_msg14);
 			_item->setText(_column, QString("1"));
 			return false;
 		}
 		if (number < 1 ) { // if is not the range
-			QMessageBox::warning(this, "Warning",
-				"Loop is out of range, \n its value must be a positive number");
+			QMessageBox::warning(this, m_str_warning,
+				m_str_check_validity_msg15);
 			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
 			return false;
 		}
@@ -594,13 +622,14 @@ bool Labonatip_protocol_editor::checkValidity(QTreeWidgetItem *_item, int _colum
 
 		int number = _item->text(_column).toInt(&isNumeric);
 		if (!isNumeric) {
-			QMessageBox::warning(this, "Warning", " Loop is not a valid number, \n value must be a positive integer number!");
+			QMessageBox::warning(this, m_str_warning, 
+				m_str_check_validity_msg16);
 			_item->setText(_column, QString("1"));
 			return false;
 		}
 		if (number < 1) { // if is not the range
-			QMessageBox::warning(this, "Warning",
-				"Waiting time is out of range, \n its value must be a positive number ");
+			QMessageBox::warning(this, m_str_warning,
+				m_str_check_validity_msg17);
 			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
 			return false;
 		}
@@ -854,7 +883,7 @@ void Labonatip_protocol_editor::addAllCommandsToMacro()
 	ui_p_editor->treeWidget_params->topLevelItem(8)->setText(1, QString::number(duration));
 	int remaining_time_sec = duration;
 	QString s;
-	s.append("Protocol duration :  ");
+	s.append(m_str_protocol_duration);
 	int remaining_hours = floor(remaining_time_sec / 3600); // 3600 sec in a hour
 	int remaining_mins = floor((remaining_time_sec % 3600) / 60); // 60 minutes in a hour
 	int remaining_secs = remaining_time_sec - remaining_hours * 3600 - remaining_mins * 60; // 60 minutes in a hour
@@ -884,13 +913,13 @@ bool Labonatip_protocol_editor::loadMacro()
 		<< "Labonatip_tools::loadMacro :::  "
 		<< m_protocol_path.toStdString() << "  " << endl;
 	
-	QString file_name = QFileDialog::getOpenFileName(this, tr("Open file"), m_protocol_path,  // dialog to open files
+	QString file_name = QFileDialog::getOpenFileName(this, m_str_save_protocol, m_protocol_path,  // dialog to open files
 		"Lab-on-a-tip macro File (*.macro);; Data (*.dat);; All Files(*.*)", 0);
 	
 	if (file_name.isEmpty()) {
 		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-		QMessageBox::warning(this, "Warning ", 
-			"Empty path, file not found <br>" + file_name);
+		QMessageBox::warning(this, m_str_warning,
+			m_str_file_not_found + "<br>" + file_name);
 		return false;
 	}
 	
@@ -967,7 +996,7 @@ bool Labonatip_protocol_editor::loadMacro(const QString _file_name)
 					ui_p_editor->treeWidget_macroTable->update();
 				}
 				else { // there is something wrong !! 
-					   //QMessageBox::warning(this, "Warning !", "Negative level, file corrupted  ! ");
+					   //QMessageBox::warning(this, m_str_warning, "Negative level, file corrupted  ! ");
 				}
 			}
 			content = macroFile.readLine();
@@ -985,8 +1014,8 @@ bool Labonatip_protocol_editor::loadMacro(const QString _file_name)
 
 	}
 	else {
-		QMessageBox::warning(this, "Warning ", 
-			"File not found<br>" + _file_name);
+		QMessageBox::warning(this, m_str_warning,
+			m_str_file_not_found + "<br>" + _file_name);
 		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 		return false;
 
@@ -1007,12 +1036,12 @@ bool Labonatip_protocol_editor::saveMacro() //TODO update the folder when save
 		<< "Labonatip_protocol_editor::saveMacro    " << endl;
 
 	QString fileName = QFileDialog::getSaveFileName(this, 
-		tr("Save something"), m_protocol_path,  // dialog to open files
+		m_str_save_protocol, m_protocol_path,  // dialog to open files
 		"Lab-on-a-tip macro File (*.macro);; Data (*.dat);; All Files(*.*)", 0);
 
 	if (!saveMacro(fileName)) {
 		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-		QMessageBox::warning(this, "Warning ", "File not saved <br>" + fileName);
+		QMessageBox::warning(this, m_str_warning, m_str_file_not_saved + "<br>" + fileName);
 		return false;
 	}
 	readProtocolFolder(m_protocol_path);
@@ -1028,9 +1057,10 @@ bool Labonatip_protocol_editor::saveMacro(QString _file_name)
 
 	if (_file_name.isEmpty()) {
 		_file_name = QFileDialog::getSaveFileName(this, 
-			tr("Save something"), QDir::currentPath(),  // dialog to open files
+			m_str_save_protocol, QDir::currentPath(),  // dialog to open files
 			"Lab-on-a-tip macro File (*.macro);; Data (*.dat);; All Files(*.*)", 0);
 		//TODO check file name validity
+		//TODO check this window may pops out twice
 	}
 
 	if (!_file_name.endsWith(".macro", Qt::CaseSensitive)) {
@@ -1063,8 +1093,8 @@ bool Labonatip_protocol_editor::saveMacro(QString _file_name)
 	}
 	else {
 		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-		QMessageBox::warning(this, "Warning ", 
-			"File not saved <br>" + _file_name);
+		QMessageBox::warning(this, m_str_warning,
+			m_str_file_not_saved + "<br>" + _file_name);
 		return false;
 	}
 
@@ -1130,8 +1160,8 @@ QList<QStringList> Labonatip_protocol_editor::visitTree(QTreeWidget *_tree) {
 	for (int i = 0; i < _tree->topLevelItemCount(); ++i){
 		
 		if (!checkValidity(_tree->topLevelItem(i), 1)) { 
-			QMessageBox::information(this, "Warning ", 
-				"Check validity failed during macro saving, <br>please check your settings and try again. ");
+			QMessageBox::information(this, m_str_warning,
+				m_str_check_validity_protocol);
 			list.clear();
 			return list;
 		}
@@ -1752,6 +1782,59 @@ void Labonatip_protocol_editor::updateChartProtocol(f_protocol *_macro)
 	m_chart_v_r->update();
 }
 
+void Labonatip_protocol_editor::switchLanguage(QString _translation_file)
+{
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_protocol_editor::switchLanguage " << endl;
+
+	qApp->removeTranslator(&m_translator_editor);
+
+	if (m_translator_editor.load(_translation_file)) {
+		//m_translator_tool.translate("Labonatip_tool", "english");
+		qApp->installTranslator(&m_translator_editor);
+
+		ui_p_editor->retranslateUi(this);
+
+		// translate the custom strings
+		m_str_warning = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_warning));
+		m_str_save_protocol = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_save_protocol));
+		m_str_load_protocol = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_load_protocol));
+		m_str_file_not_found = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_file_not_found));
+		m_str_file_not_saved = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_file_not_saved));
+		m_str_protocol_duration = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_protocol_duration));
+		m_str_check_validity_msg1 = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_check_validity_msg1));
+		m_str_check_validity_msg2 = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_check_validity_msg2));
+		m_str_check_validity_msg3 = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_check_validity_msg3));
+		m_str_check_validity_msg4 = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_check_validity_msg4));
+		m_str_check_validity_msg5 = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_check_validity_msg5));
+		m_str_check_validity_msg6 = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_check_validity_msg6));
+		m_str_check_validity_msg7 = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_check_validity_msg7));
+		m_str_check_validity_msg8 = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_check_validity_msg8));
+		m_str_check_validity_msg9 = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_check_validity_msg9));
+		m_str_check_validity_msg10 = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_check_validity_msg10));
+		m_str_check_validity_msg11 = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_check_validity_msg11));
+		m_str_check_validity_msg12 = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_check_validity_msg12));
+		m_str_check_validity_msg13 = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_check_validity_msg13));
+		m_str_check_validity_msg14 = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_check_validity_msg14));
+		m_str_check_validity_msg15 = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_check_validity_msg15));
+		m_str_check_validity_msg16 = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_check_validity_msg16));
+		m_str_check_validity_msg17 = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_check_validity_msg17));
+		m_str_check_validity_protocol = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_check_validity_protocol));
+
+
+
+
+
+		// translate the wizard
+		m_protocolWizard->switchLanguage(_translation_file);
+
+		cout << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_protocol_editor::switchLanguage   installTranslator" << endl;
+	}
+
+}
 
 void Labonatip_protocol_editor::about() {
 

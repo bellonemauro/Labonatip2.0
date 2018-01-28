@@ -58,7 +58,7 @@ public:
 		ui_p_editor->treeWidget_params->topLevelItem(1)->setText(1, m_solutionParams->sol2);
 		ui_p_editor->treeWidget_params->topLevelItem(2)->setText(1, m_solutionParams->sol3);
 		ui_p_editor->treeWidget_params->topLevelItem(3)->setText(1, m_solutionParams->sol4);
-		protocolWizard->setSolParams(*m_solutionParams);
+		m_protocolWizard->setSolParams(*m_solutionParams);
 	}
 
 	void setPrParams(pr_params _params) { 
@@ -67,7 +67,7 @@ public:
 		ui_p_editor->treeWidget_params->topLevelItem(5)->setText(1, QString::number(m_pr_params->p_off_default));
 		ui_p_editor->treeWidget_params->topLevelItem(6)->setText(1, QString::number(m_pr_params->v_recirc_default));
 		ui_p_editor->treeWidget_params->topLevelItem(7)->setText(1, QString::number(m_pr_params->v_switch_default));
-		protocolWizard->setPrParams(*m_pr_params);
+		m_protocolWizard->setPrParams(*m_pr_params);
 	}
 	
 	
@@ -83,6 +83,8 @@ public:
 	}
 
 	void setMacroPrt(f_protocol *_protocol) { m_macro = _protocol; };
+
+	void switchLanguage(QString _translation_file);
 
 private slots:
 
@@ -230,7 +232,7 @@ private:
 	QString m_current_protocol_file_name;
 	QString m_protocol_path;
 
-	Labonatip_macroWizard * protocolWizard;
+	Labonatip_macroWizard * m_protocolWizard;
 
 	solutionsParams *m_solutionParams;
 	pr_params *m_pr_params;
@@ -257,6 +259,34 @@ private:
 	double max_poff;// = 450;
 	double max_v_recirc;// = 300;
 	double max_v_switch;// = 300;
+
+	QTranslator m_translator_editor;
+
+	//custom translatable stringss
+	QString m_str_warning;
+	QString m_str_save_protocol;
+	QString m_str_load_protocol;
+	QString m_str_file_not_found;
+	QString m_str_file_not_saved;
+	QString m_str_protocol_duration;
+	QString m_str_check_validity_msg1;
+	QString m_str_check_validity_msg2;
+	QString m_str_check_validity_msg3;
+	QString m_str_check_validity_msg4;
+	QString m_str_check_validity_msg5;
+	QString m_str_check_validity_msg6;
+	QString m_str_check_validity_msg7;
+	QString m_str_check_validity_msg8;
+	QString m_str_check_validity_msg9;
+	QString m_str_check_validity_msg10;
+	QString m_str_check_validity_msg11;
+	QString m_str_check_validity_msg12;
+	QString m_str_check_validity_msg13;
+	QString m_str_check_validity_msg14;
+	QString m_str_check_validity_msg15;
+	QString m_str_check_validity_msg16;
+	QString m_str_check_validity_msg17;
+	QString m_str_check_validity_protocol;
 
 protected:
 	Ui::Labonatip_protocol_editor *ui_p_editor;    //!<  the user interface

@@ -725,6 +725,169 @@
         <source>E&amp;xit</source>
         <translation>E&amp;sci</translation>
     </message>	
+	<message>
+        <source>Load</source>
+        <translation>Carica</translation>
+	</message>
+	<message>
+        <source>Save</source>
+        <translation>Salva</translation>
+	</message>
+	<message>
+        <source>Charts</source>
+        <translation>Grafici</translation>
+	</message>
+	<message>
+        <source>Params</source>
+        <translation>Parametri</translation>
+	</message>
+	<message>
+        <source>Wizard</source>
+        <translation>Wizard</translation>
+	</message>
+	<message>
+        <source>Command</source>
+        <translation>Comando</translation>
+	</message>	
+	<message>
+        <source>Value</source>
+        <translation>Valore</translation>
+	</message>
+	<message>
+        <source>Status message</source>
+        <translation>Messaggio di stato</translation>
+	</message>
+	<message>
+        <source>Solutions</source>
+        <translation>Soluzioni</translation>
+	</message>
+	<message>
+        <source>Folder</source>
+        <translation>Cartella</translation>
+	</message>
+    <message>
+        <source>Warning</source>
+        <translation>Attenzione</translation>
+    </message>	
+    <message>
+        <source>Information</source>
+        <translation>Informazione</translation>
+    </message>	
+	<message>
+        <source>Load protocol</source>
+        <translation>Carica protocollo</translation>
+    </message>
+	<message>
+        <source>Save protocol</source>
+        <translation>Salva protocollo</translation>
+    </message>
+	<message>
+        <source>File not found</source>
+        <translation>File non trovato</translation>
+    </message>
+	<message>
+        <source>File not saved</source>
+        <translation>File non salvato</translation>
+    </message>	
+	<message>
+        <source>Protocol duration : </source>
+        <translation>Durata del protocollo : </translation>
+    </message>		
+	<message>
+        <source>Pressure ON is not a valid number, \n its value must be a positive number in [0, 450]</source>
+        <translation>Pressione ON non valida, \n il suo valore deve essere un numero positivo in [0, 450]</translation>
+    </message> 
+	<message>
+        <source>Pressure ON is out of range, \n its value must be a positive number in [0, 450]</source>
+        <translation>Pressione ON fuori range, \n il suo valore deve essere un numero positivo in [0, 450]</translation>
+    </message> 
+	<message>
+        <source>Pressure OFF is not a valid number, \n its value must be a positive number in [0, 450]</source>
+        <translation>Pressione OFF non valida, \n il suo valore deve essere un numero positivo in [0, 450]</translation>
+    </message> 
+	<message>
+        <source>Pressure OFF is out of range, \n its value must be a positive number in [0, 450]</source>
+        <translation>Pressione OFF fuori range, \n il suo valore deve essere un numero positivo in [0, 450]</translation>
+    </message> 
+	<message>
+        <source>Vacuum switch is not a valid number, \n its value must be a negative number in [-300, 0]</source>
+        <translation>Aspirazione switch non valida, \n il suo valore deve essere un numero negativo in [-300, 0]</translation>
+    </message> 
+	<message>
+        <source>Vacuum switch is out of range, \n its value must be a negative number in [-300, 0]</source>
+        <translation>Aspirazione switch fuori range, \n il suo valore deve essere un numero negativo in [-300, 0]</translation>
+    </message> 
+	<message>
+        <source>Vacuum recirculation is not a valid number, \n its value must be a negative number in [-300, 0]</source>
+        <translation>Aspirazione recirculation non valida, \n il suo valore deve essere un numero negativo in [-300, 0]</translation>
+    </message> 
+	<message>
+        <source>Vacuum recirculation is out of range, \n its value must be a negative number in [-300, 0]</source>
+        <translation>Aspirazione recirculation fuori range, \n il suo valore deve essere un numero negativo in [-300, 0]</translation>
+    </message> 
+	<message>
+        <source>Solution is not a valid number, \n its value must be 0 or 1 \n where 0 = open \nOnly one valve can be open</source>
+        <translation>Soluzione non valida, \n il suo valore può essere solo 0 o 1 \n dove 0 = aperto \nSolo una valvola può essere aperta</translation>
+    </message> 
+	<message>
+        <source>Solution is out of range, \n its value must be 0 or 1 \n where 0 = open \nOnly one valve can be open</source>
+        <translation>Soluzione fuori range, \n il suo valore può essere solo 0 o 1 \n dove 0 = aperto \nSolo una valvola può essere aperta</translation>
+    </message> 
+    <message>
+        <source>The droplet size command is not usable now, \n the content will be automatically changed to index 0</source>
+        <translation>The droplet size command is not usable now, \n the content will be automatically changed to index 0</translation>
+    </message>		
+    <message>
+        <source>The flow speed command is not usable now, \n the content will be automatically changed to index 0</source>
+        <translation>The flow speed command is not usable now, \n the content will be automatically changed to index 0</translation>
+    </message>		
+    <message>
+        <source>The vacuum command is not usable now, \n the content will be automatically changed to index 0</source>
+        <translation>The vacuum command is not usable now, \n the content will be automatically changed to index 0</translation>
+    </message>		
+    <message>
+        <source>Loop is not a valid number, \n value must be a positive integer number</source>
+        <translation>Numero di Loop non valido, \n deve essere un numero positivo</translation>
+    </message>		
+    <message>
+        <source>Loop is out of range, \n its value must be a positive number</source>
+        <translation>Numero di Loop fuori range, \n il suo valore deve essere un numero positivo</translation>
+    </message>		
+    <message>
+        <source>Wait is not a valid number, \n value must be a positive integer number</source>
+        <translation>Tempo di attesa non valido, \n il valore deve essere un numero positivo</translation>
+    </message>		
+    <message>
+        <source>Waiting time is out of range, \n its value must be a positive number</source>
+        <translation>Tempo di attesa fuori range, \n il suo valore deve essere un numero positivo</translation>
+    </message>		
+    <message>
+        <source>Check validity failed during macro saving, \n please check your settings and try again</source>
+        <translation>Controllo di validità fallito durante il salvataggio del protocollo, \n controlla i settaggi e riprova</translation>
+    </message>		 	
+	<message>
+        <source>Ok</source>
+        <translation>Ok</translation>
+	</message>
+	<message>
+        <source>Cancel</source>
+        <translation>Annulla</translation>
+    </message>	
+	<message>
+        <source>Apply</source>
+        <translation>Applica</translation>
+    </message>	
+</context>
+<context>
+    <name>Labonatip_macroWizard</name>
+    <message>
+        <source>E&amp;xit</source>
+        <translation>E&amp;sci</translation>
+    </message>	
+    <message>
+        <source>Initialization</source>
+        <translation>Inizializzazione</translation>
+    </message>
 </context>
 <context>
     <name>QPlatformTheme</name>

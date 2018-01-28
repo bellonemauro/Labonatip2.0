@@ -471,10 +471,6 @@ void Labonatip_GUI::switchLanguage(int _value )
 		//m_translator.translate("Labonatip_GUI", "english");
 		qApp->installTranslator(&m_translator);
 
-		m_dialog_tools->switchLanguage(translation_file);
-	}
-	else cout << " translation not loaded " << endl;
-
 	// translate the custom strings
 	m_str_areyousure = QApplication::translate("Labonatip_GUI", qPrintable(m_str_areyousure), Q_NULLPTR);
 	m_str_waiting = QApplication::translate("Labonatip_GUI", qPrintable(m_str_waiting), Q_NULLPTR);
@@ -534,6 +530,12 @@ void Labonatip_GUI::switchLanguage(int _value )
 	m_str_update_time_macro_msg2 = QApplication::translate("Labonatip_GUI", qPrintable(m_str_update_time_macro_msg2));
 	m_str_pulse_remaining_time = QApplication::translate("Labonatip_GUI", qPrintable(m_str_pulse_remaining_time));
 	
+	// translate other dialogs
+	m_dialog_tools->switchLanguage(translation_file);
+	m_dialog_p_editor->switchLanguage(translation_file);
+
+	}
+	else cout << " translation not loaded " << endl;
 
 }
 

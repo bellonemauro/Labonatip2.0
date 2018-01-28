@@ -177,7 +177,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
            </font>
           </property>
           <property name="text">
-           <string>  Protocol  duration: 0 h, 0 min, 0 sec</string>
+           <string>  Protocol  duration : 0 h, 0 min, 0 sec</string>
           </property>
          </widget>
         </item>
@@ -813,7 +813,7 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
              </column>
              <column>
               <property name="text">
-               <string>Status Message</string>
+               <string>Status message</string>
               </property>
               <property name="toolTip">
                <string>The status message will be visualized in the status bar</string>
