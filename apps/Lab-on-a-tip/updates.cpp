@@ -259,10 +259,6 @@ void Labonatip_GUI::updateDrawing(int _value) {
 		m_scene_solution->clear();
 		ui->graphicsView->update();
 		ui->graphicsView->show();
-
-		cout << QDate::currentDate().toString().toStdString() << "  "
-			<< QTime::currentTime().toString().toStdString() << "  "
-			<< "Labonatip_GUI::updateDrawing   cleaned " << endl;
 		return;
 	}
 
@@ -276,17 +272,30 @@ void Labonatip_GUI::updateDrawing(int _value) {
 	border_pen->setColor(Qt::transparent);
 	border_pen->setWidth(1);
 
+	double droplet_modifier = (10.0 - _value / 10.0);
 	// TODO: this is an attempt to make the droplet to look a little bit more realistic
-	QPainterPath* path = new QPainterPath();
-	path->arcMoveTo(48, 34, 20, 20, -90);  //TODO: a lot of magic numbers !!!! wow !
-	path->arcTo(48, 36, 15 + _value / 16.0, 25 + _value / 100.0, -90 - _value / 10.0, 180 + _value / 5.0);
-	path->setFillRule(Qt::FillRule::WindingFill);
-	m_scene_solution->addPath(*path, *border_pen, brush);
+	QPainterPath* droplet = new QPainterPath();
+	droplet->arcMoveTo((qreal)ui->doubleSpinBox_d_x->value() + droplet_modifier, (qreal)ui->doubleSpinBox_d_y->value(),
+		(qreal)ui->doubleSpinBox_d_w->value() - droplet_modifier, (qreal)ui->doubleSpinBox_d_h->value(), (qreal)ui->doubleSpinBox_d_a->value());
+	
+	droplet->arcTo((qreal)ui->doubleSpinBox_d2x->value() + droplet_modifier, (qreal)ui->doubleSpinBox_d2y->value(),
+		(qreal)ui->doubleSpinBox_d2w->value() - droplet_modifier, (qreal)ui->doubleSpinBox_d2h->value(),
+		(qreal)ui->doubleSpinBox_d2a->value(), (qreal)ui->doubleSpinBox_d2l->value());
+
+
+	droplet->setFillRule(Qt::FillRule::WindingFill);
+	m_scene_solution->addPath(*droplet, *border_pen, brush);
 
 	//TODO: all this function is rather GUI fix stuff and the number should definitively be changed
 	QPainterPath* circle = new QPainterPath();
-	circle->arcMoveTo(-47, 37, 20, 20, -90);  //TODO: a lot of magic numbers !!!! wow !
-	circle->arcTo(-47, 37, 20, 20, 0, 360);
+	circle->arcMoveTo((qreal)ui->doubleSpinBox_c_x->value(), (qreal)ui->doubleSpinBox_c_y->value(),
+		(qreal)ui->doubleSpinBox_c_w->value(), (qreal)ui->doubleSpinBox_c_h->value(),
+		(qreal)ui->doubleSpinBox_c_a->value());  //TODO: a lot of magic numbers !!!! wow !
+
+	circle->arcTo((qreal)ui->doubleSpinBox_c2x->value(), (qreal)ui->doubleSpinBox_c2y->value(),
+		(qreal)ui->doubleSpinBox_c2w->value(), (qreal)ui->doubleSpinBox_c2h->value(),
+		(qreal)ui->doubleSpinBox_c2a->value(), (qreal)ui->doubleSpinBox_c2l->value());
+
 	circle->setFillRule(Qt::FillRule::WindingFill);
 	m_scene_solution->addPath(*circle, *border_pen, brush);
 
@@ -297,12 +306,16 @@ void Labonatip_GUI::updateDrawing(int _value) {
 	border_pen_pipe1->setWidth(border_pen_pipe_width);
 	QPainterPath* path_pipe1 = new QPainterPath();
 	// void arcTo(qreal x, qreal y, qreal w, qreal h, qreal startAngle, qreal arcLength);
-	path_pipe1->arcMoveTo(-252.0, 40.0,      // qreal x, qreal y,
-		115.0, 50.0,	// qreal w, qreal h, 
-		0.0);
-	path_pipe1->arcTo(-152.0, 40.0,      // qreal x, qreal y,
-		115.0, 50.0,	// qreal w, qreal h,
-		180, 180); //qreal startAngle, qreal arcLength
+
+	path_pipe1->arcMoveTo((qreal)ui->doubleSpinBox_p1_x->value(), (qreal)ui->doubleSpinBox_p1_y->value(),      // qreal x, qreal y,
+		(qreal)ui->doubleSpinBox_p1_w->value(), (qreal)ui->doubleSpinBox_p1_h->value(),	// qreal w, qreal h, 
+		(qreal)ui->doubleSpinBox_p1_a->value());
+
+	path_pipe1->arcTo((qreal)ui->doubleSpinBox_p12x->value(), (qreal)ui->doubleSpinBox_p12y->value(),      // qreal x, qreal y,
+		(qreal)ui->doubleSpinBox_p12w->value(), (qreal)ui->doubleSpinBox_p12h->value(),	// qreal w, qreal h,
+		(qreal)ui->doubleSpinBox_p12a->value(), (qreal)ui->doubleSpinBox_p12l->value()); //qreal startAngle, qreal arcLength
+
+
 	path_pipe1->setFillRule(Qt::FillRule::WindingFill);
 	m_scene_solution->addPath(*path_pipe1, *border_pen_pipe1, brush_pipes);
 
@@ -311,41 +324,47 @@ void Labonatip_GUI::updateDrawing(int _value) {
 	border_pen_pipe2->setWidth(border_pen_pipe_width);
 	QPainterPath* path_pipe2 = new QPainterPath();
 	// void arcTo(qreal x, qreal y, qreal w, qreal h, qreal startAngle, qreal arcLength);
-	path_pipe2->arcMoveTo(-249.0, 30.0,      // qreal x, qreal y,
-		105.0, 20.0,	// qreal w, qreal h, 
-		0.0);
-	path_pipe2->arcTo(-149.0, 50.0,      // qreal x, qreal y,
-		105.0, 20.0,	// qreal w, qreal h,
-		180, 170); //qreal startAngle, qreal arcLength
+
+
+	path_pipe2->arcMoveTo((qreal)ui->doubleSpinBox_p2_x->value(), (qreal)ui->doubleSpinBox_p2_y->value(),      // qreal x, qreal y,
+		(qreal)ui->doubleSpinBox_p2_w->value(), (qreal)ui->doubleSpinBox_p2_h->value(),	// qreal w, qreal h, 
+		(qreal)ui->doubleSpinBox_p2_a->value());
+	path_pipe2->arcTo((qreal)ui->doubleSpinBox_p22x->value(), (qreal)ui->doubleSpinBox_p22y->value(),      // qreal x, qreal y,
+		(qreal)ui->doubleSpinBox_p22w->value(), (qreal)ui->doubleSpinBox_p22h->value(),	// qreal w, qreal h,
+		(qreal)ui->doubleSpinBox_p22a->value(), (qreal)ui->doubleSpinBox_p22l->value()); //qreal startAngle, qreal arcLength
+
 	path_pipe2->setFillRule(Qt::FillRule::WindingFill);
 	m_scene_solution->addPath(*path_pipe2, *border_pen_pipe2, brush_pipes);
 
+	
 	QPen * border_pen_pipe3 = new QPen();
 	border_pen_pipe3->setColor(m_sol2_color);  //TODO: fit the numbers of pipe solution with the colors !
 	border_pen_pipe3->setWidth(border_pen_pipe_width);
 	QPainterPath* path_pipe3 = new QPainterPath();
 	// void arcTo(qreal x, qreal y, qreal w, qreal h, qreal startAngle, qreal arcLength);
-	path_pipe3->arcMoveTo(-149.0, 29.0,      // qreal x, qreal y,
-		105.0, 20.0,	// qreal w, qreal h, 
-		0.0);
-	path_pipe3->arcTo(-149.0, 29.0,      // qreal x, qreal y,
-		105.0, 20.0,	// qreal w, qreal h,
-		0, 130); //qreal startAngle, qreal arcLength
+	path_pipe3->arcMoveTo((qreal)ui->doubleSpinBox_p3_x->value(), (qreal)ui->doubleSpinBox_p3_y->value(),      // qreal x, qreal y,
+		(qreal)ui->doubleSpinBox_p3_w->value(), (qreal)ui->doubleSpinBox_p3_h->value(),	// qreal w, qreal h, 
+		(qreal)ui->doubleSpinBox_p3_a->value());
+	path_pipe3->arcTo((qreal)ui->doubleSpinBox_p32x->value(), (qreal)ui->doubleSpinBox_p32y->value(),      // qreal x, qreal y,
+		(qreal)ui->doubleSpinBox_p32w->value(), (qreal)ui->doubleSpinBox_p32h->value(),	// qreal w, qreal h,
+		(qreal)ui->doubleSpinBox_p32a->value(), (qreal)ui->doubleSpinBox_p32l->value()); //qreal startAngle, qreal arcLength
 	path_pipe3->setFillRule(Qt::FillRule::WindingFill);
 	m_scene_solution->addPath(*path_pipe3, *border_pen_pipe3, brush_pipes);
 
-
+	
 	QPen * border_pen_pipe4 = new QPen();
 	border_pen_pipe4->setColor(m_sol4_color);
 	border_pen_pipe4->setWidth(border_pen_pipe_width);
 	QPainterPath* path_pipe4 = new QPainterPath();
 	// void arcTo(qreal x, qreal y, qreal w, qreal h, qreal startAngle, qreal arcLength);
-	path_pipe4->arcMoveTo(-142.0, 10.0,      // qreal x, qreal y,
-		105.0, 50.0,	// qreal w, qreal h, 
-		0.0);
-	path_pipe4->arcTo(-142.0, 10.0,      // qreal x, qreal y,
-		105.0, 50.0,	// qreal w, qreal h,
-		0, 130); //qreal startAngle, qreal arcLength
+	path_pipe4->arcMoveTo((qreal)ui->doubleSpinBox_p4_x->value(), (qreal)ui->doubleSpinBox_p4_y->value(),      // qreal x, qreal y,
+		(qreal)ui->doubleSpinBox_p4_w->value(), (qreal)ui->doubleSpinBox_p4_h->value(),	// qreal w, qreal h, 
+		(qreal)ui->doubleSpinBox_p4_a->value());
+
+	path_pipe4->arcTo((qreal)ui->doubleSpinBox_p42x->value(), (qreal)ui->doubleSpinBox_p42y->value(),      // qreal x, qreal y,
+		(qreal)ui->doubleSpinBox_p42w->value(), (qreal)ui->doubleSpinBox_p42h->value(),	// qreal w, qreal h,
+		(qreal)ui->doubleSpinBox_p42a->value(), (qreal)ui->doubleSpinBox_p42l->value()); //qreal startAngle, qreal arcLength
+
 	path_pipe4->setFillRule(Qt::FillRule::WindingFill);
 	m_scene_solution->addPath(*path_pipe4, *border_pen_pipe4, brush_pipes);
 

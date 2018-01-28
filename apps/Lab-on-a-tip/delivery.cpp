@@ -67,8 +67,8 @@ void Labonatip_GUI::dropletSizePlus() {
 			return;
 		}
 		else {
-			double value = -m_pr_params->v_recirc_default - m_pr_params->v_recirc_default * (1.0 -
-				std::pow(perc, (1.0 / 3.0)));
+			double delta = (1.0 - std::pow(perc, (1.0 / 3.0)));
+			double value = -m_pr_params->v_recirc_default - m_pr_params->v_recirc_default * delta;
 			//TODO: the new value must consider the current set point!!!
 			//double value = m_v_recirc_set_point + (default_v_recirc * 
 			//	(2.0 - std::pow(1.0 + m_dialog_tools->m_pr_params->base_ds_increment/100.0, (1.0 / 3.0))) - default_v_recirc);
@@ -80,8 +80,8 @@ void Labonatip_GUI::dropletSizePlus() {
 			updatePonSetPoint(3.0);
 		}
 		else {
-			double value = m_pr_params->p_on_default - m_pr_params->p_on_default  * (1.0 -
-				std::pow(perc, (1.0 / 3.0)));
+			double delta = (1.0 - std::pow(perc, (1.0 / 3.0)));
+			double value = m_pr_params->p_on_default - m_pr_params->p_on_default  * delta;
 			//double value = m_pr_params->p_on_default  * perc;
 			//TODO: the new value must consider the current set point!!!
 			//double value = m_pon_set_point + (m_pr_params->p_on_default *
@@ -151,8 +151,8 @@ void Labonatip_GUI::dropletSizeMinus() {
 			return;
 		}
 		else {
-			double value = m_pr_params->p_on_default - m_pr_params->p_on_default  * ( 1.0 -
-				std::pow(perc, (1.0/3.0) )); //TODO: this must be explained
+			double delta = (1.0 - std::pow(perc, (1.0 / 3.0)));
+			double value = m_pr_params->p_on_default - m_pr_params->p_on_default  * delta; //TODO: this must be explained
 			//double value = m_pr_params->p_on_default   * perc;
 			//TODO: the new value must consider the current set point!!!
 
@@ -165,8 +165,8 @@ void Labonatip_GUI::dropletSizeMinus() {
 			updateVrecircSetPoint(-3.0);
 		}
 		else {
-			double value = -m_pr_params->v_recirc_default - m_pr_params->v_recirc_default * (1.0 -
-				std::pow(perc, (1.0 / 3.0)));
+			double delta = (1.0 - std::pow(perc, (1.0 / 3.0)));
+			double value = -m_pr_params->v_recirc_default - m_pr_params->v_recirc_default * delta;
 			//TODO: the new value must consider the current set point!!!
 			//double value = m_v_recirc_set_point + (default_v_recirc *
 			//	(2.0 - std::pow(1.0 - m_dialog_tools->m_pr_params->base_ds_increment / 100.0, (1.0 / 3.0))) - default_v_recirc);

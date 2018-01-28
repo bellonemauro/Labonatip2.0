@@ -24,9 +24,9 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	m_protocol ( new std::vector<fluicell::PPC1api::command> ),
 	m_protocol_duration(0.0),
 	m_pen_line_width(7),
-	l_x1(-24.0),
+	l_x1(-16.0),
 	l_y1(49.0),
-	l_x2(55.0),
+	l_x2(65.0),
 	l_y2(l_y1),
 	m_language_idx(0),
 	m_base_time_step(1000), //TODO : solve this! there is an issue with the timing of the solution pumped https://stackoverflow.com/questions/21232520/precise-interval-in-qthread
@@ -127,6 +127,8 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	  //  QTextStream standardOutput(stderr);// (stdout);
   }
 
+  //TODO: this removes the visualization settings 
+  ui->tabWidget->removeTab(3);
 
   
   // init the object to handle the internal dialogs
@@ -754,6 +756,11 @@ void Labonatip_GUI::initConnects()
 	connect(ui->pushButton_cleanHistory,
 		SIGNAL(clicked()), this,
 		SLOT(cleanHistory()));
+
+	
+	connect(ui->pushButton_updateDrawing,
+		SIGNAL(clicked()), this,
+		SLOT(updateDrawing(100)));
 
 	connect(ui->checkBox_to_terminal, 
 		SIGNAL(stateChanged(int)), this, 
