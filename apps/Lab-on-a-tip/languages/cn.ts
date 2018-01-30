@@ -41,8 +41,7 @@
     </message>
     <message>
         <source>Reboot</source>
-        <translation type="unfinished">重启
-</translation>
+        <translation type="unfinished">重启</translation>
     </message>
     <message>
         <source>Shutdown</source>
@@ -58,123 +57,435 @@
     </message>
     <message>
         <source>Actions</source>
-        <translation>Åtgärder</translation>
+        <translation>Actions</translation>
+    </message>
+    <message>
+        <source>User :</source>
+        <translation>User :</translation>
     </message>
     <message>
         <source>ACTIONS</source>
-        <translation>ÅTGÄRDER</translation>
+        <translation>ACTIONS</translation>
     </message>
     <message>
         <source>New tip</source>
-        <translation>Ny tipp</translation>
-    </message>
-    <message>
-        <source>Run protocol</source>
-        <translation>Kör protokoll</translation>
+        <translation>New tip</translation>
     </message>
     <message>
         <source>Operational</source>
-        <translation>Operativ</translation>
+        <translation>Operational</translation>
     </message>
     <message>
         <source>Stop</source>
-        <translation>Stopp</translation>
+        <translation>Stop</translation>
     </message>
     <message>
         <source>Standby</source>
-        <translation>Viloläge</translation>
+        <translation>Standby</translation>
     </message>
     <message>
         <source>Delivery Zone Control</source>
-        <translation>Zonkontroll</translation>
+        <translation>Delivery Zone Control</translation>
     </message>
     <message>
         <source>DELIVERY ZONE CONTROL</source>
-        <translation>ZONKONTROLL</translation>
+        <translation>DELIVERY ZONE CONTROL</translation>
     </message>
     <message>
         <source>Zone size</source>
-        <translation>Zonstorlek</translation>
+        <translation>Zone size</translation>
     </message>
     <message>
         <source>Flow speed</source>
-        <translation>Flödestakt</translation>
+        <translation>Flow speed</translation>
     </message>
     <message>
         <source>Vacuum</source>
-        <translation>Vakuumtryck</translation>
+        <translation>Vacuum</translation>
     </message>
     <message>
         <source>Waste</source>
-        <translation>Avfall</translation>
+        <translation>Waste</translation>
     </message>
     <message>
         <source>WASTE</source>
-        <translation>AVFALL</translation>
+        <translation>WASTE</translation>
     </message>
     <message>
         <source>Solutions</source>
-        <translation>Lösningar</translation>
+        <translation>Solutions</translation>
     </message>
     <message>
         <source>SOLUTIONS</source>
-        <translation>LÖSNINGAR</translation>
+        <translation>SOLUTIONS</translation>
     </message>
     <message>
         <source>External</source>
-        <translation>Extern</translation>
+        <translation>External</translation>
     </message>
     <message>
         <source>Internal</source>
-        <translation>Intern</translation>
+        <translation>Internal</translation>
     </message>
     <message>
         <source>Controls</source>
-        <translation>Kontroller</translation>
+        <translation>Controls</translation>
     </message>
     <message>
         <source>Info</source>
         <translation>Info</translation>
     </message>
     <message>
+        <source>History</source>
+        <translation>History</translation>
+    </message>
+    <message>
         <source>Waiting ...</source>
-        <translation>Vänta ...</translation>
+        <translation>Waiting ...</translation>
     </message>
     <message>
         <source>Are you sure?</source>
-        <translation>Är du säker?</translation>
+        <translation>Are you sure?</translation>
     </message>
     <message>
         <source>Set as default</source>
-        <translation>Ange som standard</translation>
+        <translation>Set as default</translation>
     </message>
     <message>
         <source>Operation cancelled</source>
-        <translation>Process avbruten</translation>
+        <translation>Operation cancelled</translation>
     </message>
     <message>
         <source>No file loaded</source>
-        <translation>Ingen fil laddad</translation>
+        <translation>No file loaded</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation>Ja</translation>
+        <translation>Yes</translation>
     </message>
     <message>
         <source>No</source>
-        <translation>Nej</translation>
+        <translation>No</translation>
     </message>
     <message>
         <source>Ok</source>
-        <translation>Okey</translation>
+        <translation>Ok</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Avbryt</translation>
+        <translation>Cancel</translation>
     </message>
     <message>
         <source>Apply</source>
-        <translation>Tillämpa</translation>
+        <translation>Apply</translation>
+    </message>
+    <message>
+        <source>Simulation time</source>
+        <translation>Simulation time</translation>
+    </message>
+    <message>
+        <source>Command history</source>
+        <translation>Command history</translation>
+    </message>
+    <message>
+        <source>Error messages</source>
+        <translation>Error messages</translation>
+    </message>
+    <message>
+        <source>Enable history</source>
+        <translation>Enable history</translation>
+    </message>
+    <message>
+        <source>Dump to file</source>
+        <translation>Dump to file</translation>
+    </message>
+    <message>
+        <source>Verbose output</source>
+        <translation>Verbose output</translation>
+    </message>
+    <message>
+        <source>Clear history</source>
+        <translation>Clear history</translation>
+    </message>
+    <message>
+        <source>Out file path</source>
+        <translation>Out file path</translation>
+    </message>
+    <message>
+        <source>Value</source>
+        <translation>Value</translation>
+    </message>
+    <message>
+        <source>Outflow ( nL/s )</source>
+        <translation>Outflow ( nL/s )</translation>
+    </message>
+    <message>
+        <source>Inflow recirc ( nL/s )</source>
+        <translation>Inflow recirc ( nL/s )</translation>
+    </message>
+    <message>
+        <source>Inflow switch ( nL/s )</source>
+        <translation>Inflow switch ( nL/s )</translation>
+    </message>
+    <message>
+        <source>Ratio</source>
+        <translation>Ratio</translation>
+    </message>
+    <message>
+        <source>Flow rate 1 ( nL/s )</source>
+        <translation>Flow rate 1 ( nL/s )</translation>
+    </message>
+    <message>
+        <source>Flow rate 2 ( nL/s )</source>
+        <translation>Flow rate 2 ( nL/s )</translation>
+    </message>
+    <message>
+        <source>Flow rate 3 ( nL/s )</source>
+        <translation>Flow rate 3 ( nL/s )</translation>
+    </message>
+    <message>
+        <source>Flow rate 4 ( nL/s )</source>
+        <translation>Flow rate 4 ( nL/s )</translation>
+    </message>
+    <message>
+        <source>Flow rate 5 ( nL/s )</source>
+        <translation>Flow rate 5 ( nL/s )</translation>
+    </message>
+    <message>
+        <source>Flow rate 6 ( nL/s )</source>
+        <translation>Flow rate 6 ( nL/s )</translation>
+    </message>
+    <message>
+        <source>Flow rate 7 ( nL/s )</source>
+        <translation>Flow rate 7 ( nL/s )</translation>
+    </message>
+    <message>
+        <source>Flow rate 8 ( nL/s )</source>
+        <translation>Flow rate 8 ( nL/s )</translation>
+    </message>
+    <message>
+        <source>Volume in well 1 (uL)</source>
+        <translation>Volume in well 1 (uL)</translation>
+    </message>
+    <message>
+        <source>Volume in well 2 (uL)</source>
+        <translation>Volume in well 2 (uL)</translation>
+    </message>
+    <message>
+        <source>Volume in well 3 (uL)</source>
+        <translation>Volume in well 3 (uL)</translation>
+    </message>
+    <message>
+        <source>Volume in well 4 (uL)</source>
+        <translation>Volume in well 4 (uL)</translation>
+    </message>
+    <message>
+        <source>Volume in well 5 (uL)</source>
+        <translation>Volume in well 5 (uL)</translation>
+    </message>
+    <message>
+        <source>Volume in well 6 (uL)</source>
+        <translation>Volume in well 6 (uL)</translation>
+    </message>
+    <message>
+        <source>Volume in well 7 (uL)</source>
+        <translation>Volume in well 7 (uL)</translation>
+    </message>
+    <message>
+        <source>Volume in well 8 (uL)</source>
+        <translation>Volume in well 8 (uL)</translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <translation>Information</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Warning</translation>
+    </message>
+    <message>
+        <source>Error</source>
+        <translation>Error</translation>
+    </message>
+    <message>
+        <source>PPC1 STATUS: Connected  </source>
+        <translation>PPC1 STATUS: Connected  </translation>
+    </message>
+    <message>
+        <source>PPC1 STATUS: NOT Connected  </source>
+        <translation>PPC1 STATUS: NOT Connected  </translation>
+    </message>
+    <message>
+        <source>No protocol running  </source>
+        <translation>No protocol running  </translation>
+    </message>
+    <message>
+        <source>Disconnect</source>
+        <translation>Disconnect</translation>
+    </message>
+    <message>
+        <source>Cannot save the file</source>
+        <translation>Cannot save the file</translation>
+    </message>
+    <message>
+        <source>Cannot load the file</source>
+        <translation>Cannot load the file</translation>
+    </message>
+    <message>
+        <source>Lab-on-a-tip is in simulation only</source>
+        <translation>Lab-on-a-tip is in simulation only</translation>
+    </message>
+    <message>
+        <source>Lab-on-a-tip could not connect to PPC1, \n please, check cables and settings and press Ok</source>
+        <translation>Lab-on-a-tip could not connect to PPC1, \n please, check cables and settings and press Ok</translation>
+    </message>
+    <message>
+        <source>Lab-on-a-tip could not connect to PPC1 twice, \n please, check cables and settings</source>
+        <translation>Lab-on-a-tip could not connect to PPC1 twice, \n please, check cables and settings</translation>
+    </message>
+    <message>
+        <source>I can try to automatically find the device, \n Should I do it?</source>
+        <translation>I can try to automatically find the device, \n Should I do it?</translation>
+    </message>
+    <message>
+        <source>Lab-on-a-tip connected but PPC1 is not running</source>
+        <translation>Lab-on-a-tip connected but PPC1 is not running</translation>
+    </message>
+    <message>
+        <source>This will stop the PPC1, \n Are you sure?</source>
+        <translation>This will stop the PPC1, \n Are you sure?</translation>
+    </message>
+    <message>
+        <source>Unable to stop and disconnect PPC1</source>
+        <translation>Unable to stop and disconnect PPC1</translation>
+    </message>
+    <message>
+        <source>Shutdown pressed, this will take 30 seconds, press Ok to continue, cancel to abort.</source>
+        <translation>Shutdown pressed, this will take 30 seconds, press Ok to continue, cancel to abort.</translation>
+    </message>
+    <message>
+        <source>The pressure is off, waiting for the vacuum.</source>
+        <translation>The pressure is off, waiting for the vacuum.</translation>
+    </message>
+    <message>
+        <source>Vacuum off. Stopping the flow in the device.</source>
+        <translation>Vacuum off. Stopping the flow in the device.</translation>
+    </message>
+    <message>
+        <source>Rebooting ...</source>
+        <translation>Rebooting ...</translation>
+    </message>
+    <message>
+        <source>Reconnecting ...</source>
+        <translation>Reconnecting ...</translation>
+    </message>
+    <message>
+        <source>Initialization</source>
+        <translation>Initialization</translation>
+    </message>
+    <message>
+        <source>Place the pipette into the holder and tighten. THEN PRESS OK</source>
+        <translation>Place the pipette into the holder and tighten. THEN PRESS OK</translation>
+    </message>
+    <message>
+        <source>Pressurize the system</source>
+        <translation>Pressurize the system</translation>
+    </message>
+    <message>
+        <source>Wait until a droplet appears at the tip of the pipette and THEN PRESS OK</source>
+        <translation>Wait until a droplet appears at the tip of the pipette and THEN PRESS OK</translation>
+    </message>
+    <message>
+        <source>Purging the liquid channels</source>
+        <translation>Purging the liquid channels</translation>
+    </message>
+    <message>
+        <source>Still purging the liquid channels</source>
+        <translation>Still purging the liquid channels</translation>
+    </message>
+    <message>
+        <source>Remove the droplet using a lens tissue. THEN PRESS OK</source>
+        <translation>Remove the droplet using a lens tissue. THEN PRESS OK</translation>
+    </message>
+    <message>
+        <source>Put the pipette into solution. THEN PRESS OK</source>
+        <translation>Put the pipette into solution. THEN PRESS OK</translation>
+    </message>
+    <message>
+        <source>Purging the vacuum channels</source>
+        <translation>Purging the vacuum channels</translation>
+    </message>
+    <message>
+        <source>Establishing operational pressures</source>
+        <translation>Establishing operational pressures</translation>
+    </message>
+    <message>
+        <source>Pipette is ready for operation. PRESS OK TO START</source>
+        <translation>Pipette is ready for operation. PRESS OK TO START</translation>
+    </message>
+    <message>
+        <source>Standby operation progress</source>
+        <translation>Standby operation progress</translation>
+    </message>
+    <message>
+        <source>Run protocol</source>
+        <translation>Run protocol</translation>
+    </message>
+    <message>
+        <source>Stop protocol</source>
+        <translation>Stop protocol</translation>
+    </message>
+    <message>
+        <source>No protocol loaded, load one first</source>
+        <translation>No protocol loaded, load one first</translation>
+    </message>
+    <message>
+        <source>The protocol loaded is : </source>
+        <translation>The protocol loaded is : </translation>
+    </message>
+    <message>
+        <source>\n press &apos;&apos;Ok&apos;&apos; to run the protocol, or press &apos;&apos;Cancel&apos;&apos; to load a new one.</source>
+        <translation>\n press &apos;&apos;Ok&apos;&apos; to run the protocol, or press &apos;&apos;Cancel&apos;&apos; to load a new one.</translation>
+    </message>
+    <message>
+        <source>This operation will take </source>
+        <translation>This operation will take </translation>
+    </message>
+    <message>
+        <source> seconds.</source>
+        <translation> seconds.</translation>
+    </message>
+    <message>
+        <source>Ask message command</source>
+        <translation>Ask message command</translation>
+    </message>
+    <message>
+        <source> No protocol loaded : </source>
+        <translation> No protocol loaded : </translation>
+    </message>
+    <message>
+        <source> Protocol loaded : </source>
+        <translation> Protocol loaded : </translation>
+    </message>
+    <message>
+        <source>This will remove all the files in the history folder.\nDo you want to proceed?\n</source>
+        <translation>This will remove all the files in the history folder.\nDo you want to proceed?\n</translation>
+    </message>
+    <message>
+        <source>History cleaned</source>
+        <translation>History cleaned</translation>
+    </message>
+    <message>
+        <source> PROTOCOL RUNNING : </source>
+        <translation> PROTOCOL RUNNING : </translation>
+    </message>
+    <message>
+        <source> ----- remaining time,  </source>
+        <translation> ----- remaining time,  </translation>
+    </message>
+    <message>
+        <source>Pulse time remaining: </source>
+        <translation>Pulse time remaining: </translation>
     </message>
 </context>
 <context>
@@ -185,119 +496,227 @@
     </message>
     <message>
         <source>General</source>
-        <translation>Generellt</translation>
+        <translation>General</translation>
     </message>
     <message>
         <source>Solution</source>
-        <translation>Lösningar</translation>
+        <translation>Solution</translation>
+    </message>
+    <message>
+        <source>Solutions</source>
+        <translation>Solutions</translation>
     </message>
     <message>
         <source>Empty wells</source>
-        <translation>Töm brunnarna</translation>
+        <translation>Empty wells</translation>
     </message>
     <message>
-        <source>Pressure</source>
-        <translation>Tryck</translation>
+        <source>Empty waste</source>
+        <translation>Empty waste</translation>
+    </message>
+    <message>
+        <source>Refill solutions</source>
+        <translation>Refill solutions</translation>
+    </message>
+    <message>
+        <source>Pressures</source>
+        <translation>Pressures</translation>
     </message>
     <message>
         <source>Communication</source>
-        <translation>Kommunikation</translation>
+        <translation>Communication</translation>
     </message>
     <message>
         <source>General settings</source>
-        <translation>Allmänna Inställningar</translation>
+        <translation>General settings</translation>
     </message>
     <message>
         <source>Year</source>
-        <translation>År</translation>
+        <translation>Year</translation>
     </message>
     <message>
         <source>Month</source>
-        <translation>Månad</translation>
+        <translation>Month</translation>
     </message>
     <message>
         <source>Language</source>
-        <translation>Språk</translation>
+        <translation>Language</translation>
+    </message>
+    <message>
+        <source>Reset to factory defaults</source>
+        <translation>Reset to factory defaults</translation>
+    </message>
+    <message>
+        <source>Enable tool tips</source>
+        <translation>Enable tool tips</translation>
     </message>
     <message>
         <source>Volume</source>
-        <translation>Volym</translation>
+        <translation>Volume</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation>Namn</translation>
+        <translation>Name</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation>Färg</translation>
+        <translation>Color</translation>
     </message>
     <message>
         <source>Pulse duration</source>
-        <translation>Pulsvaraktighet</translation>
+        <translation>Pulse duration</translation>
     </message>
     <message>
         <source>Continuous flowing</source>
-        <translation>Kontinuerligt flöde</translation>
+        <translation>Continuous flowing</translation>
+    </message>
+    <message>
+        <source>Pressure / Vacuum settings</source>
+        <translation>Pressure / Vacuum settings</translation>
     </message>
     <message>
         <source>Vacuum settings</source>
-        <translation>Vakuuminställningar</translation>
+        <translation>Vacuum settings</translation>
     </message>
     <message>
         <source>Zone size</source>
-        <translation>Zonstorlek</translation>
+        <translation>Zone size</translation>
     </message>
     <message>
         <source>Flow speed</source>
-        <translation>Flödestakt</translation>
+        <translation>Flow speed</translation>
     </message>
     <message>
         <source>Vacuum</source>
-        <translation>Vakuumtryck</translation>
+        <translation>Vacuum</translation>
     </message>
     <message>
         <source>Base increments</source>
-        <translation>Inkrement-inställningar</translation>
+        <translation>Base increments</translation>
     </message>
     <message>
         <source>Well 1 :</source>
-        <translation>Brunn 1 :</translation>
+        <translation>Well 1 :</translation>
     </message>
     <message>
         <source>Well 2 :</source>
-        <translation>Brunn 2 :</translation>
+        <translation>Well 2 :</translation>
     </message>
     <message>
         <source>Well 3 :</source>
-        <translation>Brunn 3 :</translation>
+        <translation>Well 3 :</translation>
     </message>
     <message>
         <source>Well 4 :</source>
-        <translation>Brunn 4 :</translation>
+        <translation>Well 4 :</translation>
     </message>
     <message>
         <source>Well 5 :</source>
-        <translation>Brunn 5 :</translation>
+        <translation>Well 5 :</translation>
     </message>
     <message>
         <source>Well 6 :</source>
-        <translation>Brunn 6 :</translation>
+        <translation>Well 6 :</translation>
     </message>
     <message>
         <source>Well 7 :</source>
-        <translation>Brunn 7 :</translation>
+        <translation>Well 7 :</translation>
     </message>
     <message>
         <source>Well 8 :</source>
-        <translation>Brunn 8 :</translation>
+        <translation>Well 8 :</translation>
+    </message>
+    <message>
+        <source>Well :</source>
+        <translation>Well :</translation>
+    </message>
+    <message>
+        <source>Max</source>
+        <translation>Max</translation>
+    </message>
+    <message>
+        <source>Min</source>
+        <translation>Min</translation>
+    </message>
+    <message>
+        <source>Default</source>
+        <translation>Default</translation>
+    </message>
+    <message>
+        <source>COM settings</source>
+        <translation>COM settings</translation>
+    </message>
+    <message>
+        <source>Port name</source>
+        <translation>Port name</translation>
+    </message>
+    <message>
+        <source>Baud rate</source>
+        <translation>Baud rate</translation>
+    </message>
+    <message>
+        <source>Data bit</source>
+        <translation>Data bit</translation>
+    </message>
+    <message>
+        <source>Parity</source>
+        <translation>Parity</translation>
+    </message>
+    <message>
+        <source>Stop bit</source>
+        <translation>Stop bit</translation>
+    </message>
+    <message>
+        <source>Flow control</source>
+        <translation>Flow control</translation>
+    </message>
+    <message>
+        <source>Description:</source>
+        <translation>Description:</translation>
+    </message>
+    <message>
+        <source>Manufacturer:</source>
+        <translation>Manufacturer:</translation>
+    </message>
+    <message>
+        <source>Serial number:</source>
+        <translation>Serial number:</translation>
+    </message>
+    <message>
+        <source>Location:</source>
+        <translation>Location:</translation>
+    </message>
+    <message>
+        <source>Vendor ID:</source>
+        <translation>Vendor ID:</translation>
+    </message>
+    <message>
+        <source>Product ID:</source>
+        <translation>Product ID:</translation>
+    </message>
+    <message>
+        <source>Update available devices</source>
+        <translation>Update available devices</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Warning</translation>
+    </message>
+    <message>
+        <source>This will reset used defined settings and parameters to the factory default value. \nAre you sure ?</source>
+        <translation>This will reset used defined settings and parameters to the factory default value. \nAre you sure ?</translation>
+    </message>
+    <message>
+        <source>Ok</source>
+        <translation>Ok</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Avbryt</translation>
+        <translation>Cancel</translation>
     </message>
     <message>
         <source>Apply</source>
-        <translation>Tillämpa</translation>
+        <translation>Apply</translation>
     </message>
 </context>
 <context>
@@ -305,6 +724,169 @@
     <message>
         <source>E&amp;xit</source>
         <translation>E&amp;xit</translation>
+    </message>
+    <message>
+        <source>Load</source>
+        <translation>Load</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Save</translation>
+    </message>
+    <message>
+        <source>Charts</source>
+        <translation>Charts</translation>
+    </message>
+    <message>
+        <source>Params</source>
+        <translation>Params</translation>
+    </message>
+    <message>
+        <source>Wizard</source>
+        <translation>Wizard</translation>
+    </message>
+    <message>
+        <source>Command</source>
+        <translation>Command</translation>
+    </message>
+    <message>
+        <source>Value</source>
+        <translation>Value</translation>
+    </message>
+    <message>
+        <source>Status message</source>
+        <translation>Status message</translation>
+    </message>
+    <message>
+        <source>Solutions</source>
+        <translation>Solutions</translation>
+    </message>
+    <message>
+        <source>Folder</source>
+        <translation>Folder</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation>Warning</translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <translation>Information</translation>
+    </message>
+    <message>
+        <source>Load protocol</source>
+        <translation>Load protocol</translation>
+    </message>
+    <message>
+        <source>Save protocol</source>
+        <translation>Save protocol</translation>
+    </message>
+    <message>
+        <source>File not found</source>
+        <translation>File not found</translation>
+    </message>
+    <message>
+        <source>File not saved</source>
+        <translation>File not saved</translation>
+    </message>
+    <message>
+        <source>Protocol duration : </source>
+        <translation>Protocol duration : </translation>
+    </message>
+    <message>
+        <source>Pressure ON is not a valid number, \n its value must be a positive number in [0, 450]</source>
+        <translation>Pressure ON is not a valid number, \n its value must be a positive number in [0, 450]</translation>
+    </message>
+    <message>
+        <source>Pressure ON is out of range, \n its value must be a positive number in [0, 450]</source>
+        <translation>Pressure ON is out of range, \n its value must be a positive number in [0, 450]</translation>
+    </message>
+    <message>
+        <source>Pressure OFF is not a valid number, \n its value must be a positive number in [0, 450]</source>
+        <translation>Pressure OFF is not a valid number, \n its value must be a positive number in [0, 450]</translation>
+    </message>
+    <message>
+        <source>Pressure OFF is out of range, \n its value must be a positive number in [0, 450]</source>
+        <translation>Pressure OFF is out of range, \n its value must be a positive number in [0, 450]</translation>
+    </message>
+    <message>
+        <source>Vacuum switch is not a valid number, \n its value must be a negative number in [-300, 0]</source>
+        <translation>Vacuum switch is not a valid number, \n its value must be a negative number in [-300, 0]</translation>
+    </message>
+    <message>
+        <source>Vacuum switch is out of range, \n its value must be a negative number in [-300, 0]</source>
+        <translation>Vacuum switch is out of range, \n its value must be a negative number in [-300, 0]</translation>
+    </message>
+    <message>
+        <source>Vacuum recirculation is not a valid number, \n its value must be a negative number in [-300, 0]</source>
+        <translation>Vacuum recirculation is not a valid number, \n its value must be a negative number in [-300, 0]</translation>
+    </message>
+    <message>
+        <source>Vacuum recirculation is out of range, \n its value must be a negative number in [-300, 0]</source>
+        <translation>Vacuum recirculation is out of range, \n its value must be a negative number in [-300, 0]</translation>
+    </message>
+    <message>
+        <source>Solution is not a valid number, \n its value must be 0 or 1 \n where 0 = open \nOnly one valve can be open</source>
+        <translation>Solution is not a valid number, \n its value must be 0 or 1 \n where 0 = open \nOnly one valve can be open</translation>
+    </message>
+    <message>
+        <source>Solution is out of range, \n its value must be 0 or 1 \n where 0 = open \nOnly one valve can be open</source>
+        <translation>Solution is out of range, \n its value must be 0 or 1 \n where 0 = open \nOnly one valve can be open</translation>
+    </message>
+    <message>
+        <source>The droplet size command is not usable now, \n the content will be automatically changed to index 0</source>
+        <translation>The droplet size command is not usable now, \n the content will be automatically changed to index 0</translation>
+    </message>
+    <message>
+        <source>The flow speed command is not usable now, \n the content will be automatically changed to index 0</source>
+        <translation>The flow speed command is not usable now, \n the content will be automatically changed to index 0</translation>
+    </message>
+    <message>
+        <source>The vacuum command is not usable now, \n the content will be automatically changed to index 0</source>
+        <translation>The vacuum command is not usable now, \n the content will be automatically changed to index 0</translation>
+    </message>
+    <message>
+        <source>Loop is not a valid number, \n value must be a positive integer number</source>
+        <translation>Loop is not a valid number, \n value must be a positive integer number</translation>
+    </message>
+    <message>
+        <source>Loop is out of range, \n its value must be a positive number</source>
+        <translation>Loop is out of range, \n its value must be a positive number</translation>
+    </message>
+    <message>
+        <source>Wait is not a valid number, \n value must be a positive integer number</source>
+        <translation>Wait is not a valid number, \n value must be a positive integer number</translation>
+    </message>
+    <message>
+        <source>Waiting time is out of range, \n its value must be a positive number</source>
+        <translation>Waiting time is out of range, \n its value must be a positive number</translation>
+    </message>
+    <message>
+        <source>Check validity failed during macro saving, \n please check your settings and try again</source>
+        <translation>Check validity failed during macro saving, \n please check your settings and try again</translation>
+    </message>
+    <message>
+        <source>Ok</source>
+        <translation>Ok</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation>Cancel</translation>
+    </message>
+    <message>
+        <source>Apply</source>
+        <translation>Apply</translation>
+    </message>
+</context>
+<context>
+    <name>Labonatip_macroWizard</name>
+    <message>
+        <source>E&amp;xit</source>
+        <translation>E&amp;xit</translation>
+    </message>
+    <message>
+        <source>Initialization</source>
+        <translation>Initialization</translation>
     </message>
 </context>
 <context>
@@ -315,35 +897,35 @@
     </message>
     <message>
         <source>&amp;No</source>
-        <translation>&amp;Nej</translation>
+        <translation>&amp;No</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
-        <translation>&amp;Ja</translation>
+        <translation>&amp;Yes</translation>
     </message>
     <message>
         <source>Help</source>
-        <translation>Hejlp</translation>
+        <translation>Help</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation>Öppna</translation>
+        <translation>Open</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>Spara</translation>
+        <translation>Save</translation>
     </message>
     <message>
         <source>Abort</source>
-        <translation>Avbryt</translation>
+        <translation>Abort</translation>
     </message>
     <message>
         <source>Apply</source>
-        <translation>Tillämpa</translation>
+        <translation>Apply</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation>Stäng</translation>
+        <translation>Close</translation>
     </message>
     <message>
         <source>Reset</source>
@@ -351,7 +933,7 @@
     </message>
     <message>
         <source>Retry</source>
-        <translation>Försök igen</translation>
+        <translation>Retry</translation>
     </message>
     <message>
         <source>Restore Defaults</source>
@@ -359,7 +941,7 @@
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Avbryt</translation>
+        <translation>Cancel</translation>
     </message>
     <message>
         <source>Ignore</source>
