@@ -82,11 +82,6 @@ public:
 	void setDefaultPressuresVacuums(int _p_on_default, int _p_off_default, 
 		                            int _v_recirc_default, int _v_switch_default);
 
-
-	double getSolutionTime() { return (double)ui_tools->doubleSpinBox_solution->value(); }
-
-	bool isContinuousFlowing() { return ui_tools->checkBox_disableTimer->isChecked(); }
-
 private slots:
 
 	void goToPage1();
@@ -130,10 +125,33 @@ private slots:
 	*
 	* \note
 	*/
-	void setContinuousFow(int _state) {
-		  ui_tools->doubleSpinBox_solution->setEnabled(!_state); // TODO !!! this is still not in the setting file
+	void setContinuousFow_s1(int _state) {
+		  ui_tools->doubleSpinBox_pulse_sol1->setEnabled(!_state); // TODO !!! this is still not in the setting file
 	}
 
+	/** \brief Enable/Disable the timer for an infinite solution flow
+	*
+	* \note
+	*/
+	void setContinuousFow_s2(int _state) {
+		ui_tools->doubleSpinBox_pulse_sol2->setEnabled(!_state); // TODO !!! this is still not in the setting file
+	}
+
+	/** \brief Enable/Disable the timer for an infinite solution flow
+	*
+	* \note
+	*/
+	void setContinuousFow_s3(int _state) {
+		ui_tools->doubleSpinBox_pulse_sol3->setEnabled(!_state); // TODO !!! this is still not in the setting file
+	}
+
+	/** \brief Enable/Disable the timer for an infinite solution flow
+	*
+	* \note
+	*/
+	void setContinuousFow_s4(int _state) {
+		ui_tools->doubleSpinBox_pulse_sol4->setEnabled(!_state); // TODO !!! this is still not in the setting file
+	}
 	/** emit ok signal, save the setting, send the current macro to the main
 	*   and close the window
 	* \note

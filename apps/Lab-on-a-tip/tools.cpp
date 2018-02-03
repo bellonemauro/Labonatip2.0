@@ -94,9 +94,21 @@ Labonatip_tools::Labonatip_tools(QWidget *parent ):
 	connect(ui_tools->pushButton_refillSolution,
 		SIGNAL(clicked()), this, SLOT(refillSolutionPressed()));
 
-	connect(ui_tools->checkBox_disableTimer,
+	connect(ui_tools->checkBox_disableTimer_s1,
 		SIGNAL(stateChanged(int)), this,
-		SLOT(setContinuousFow(int))); 
+		SLOT(setContinuousFow_s1(int))); 
+
+	connect(ui_tools->checkBox_disableTimer_s2,
+		SIGNAL(stateChanged(int)), this,
+		SLOT(setContinuousFow_s2(int)));
+
+	connect(ui_tools->checkBox_disableTimer_s3,
+		SIGNAL(stateChanged(int)), this,
+		SLOT(setContinuousFow_s3(int)));
+
+	connect(ui_tools->checkBox_disableTimer_s4,
+		SIGNAL(stateChanged(int)), this,
+		SLOT(setContinuousFow_s4(int)));
 
 	connect(ui_tools->pushButton_toDefault,
 		SIGNAL(clicked()), this, SLOT(resetToDefaultValues()));
@@ -395,15 +407,25 @@ void Labonatip_tools::getSolutionSettingsFromGUI()
 	m_solutionParams->vol_well2 = ui_tools->spinBox_vol_sol2->value();
 	m_solutionParams->vol_well3 = ui_tools->spinBox_vol_sol3->value();
 	m_solutionParams->vol_well4 = ui_tools->spinBox_vol_sol4->value();
-	m_solutionParams->vol_well5 = ui_tools->spinBox_vol_sol5->value();
-	m_solutionParams->vol_well6 = ui_tools->spinBox_vol_sol6->value();
-	m_solutionParams->vol_well7 = ui_tools->spinBox_vol_sol7->value();
-	m_solutionParams->vol_well8 = ui_tools->spinBox_vol_sol8->value();
+	m_solutionParams->vol_well5 = 35; // ui_tools->spinBox_vol_sol5->value();
+	m_solutionParams->vol_well6 = 35; //ui_tools->spinBox_vol_sol6->value();
+	m_solutionParams->vol_well7 = 35; //ui_tools->spinBox_vol_sol7->value();
+	m_solutionParams->vol_well8 = 35; //ui_tools->spinBox_vol_sol8->value();
 
 	m_solutionParams->sol1 = ui_tools->lineEdit_sol1_name->text();
 	m_solutionParams->sol2 = ui_tools->lineEdit_sol2_name->text();
 	m_solutionParams->sol3 = ui_tools->lineEdit_sol3_name->text();
 	m_solutionParams->sol4 = ui_tools->lineEdit_sol4_name->text();
+
+	m_solutionParams->pulse_duration_well1 = ui_tools->doubleSpinBox_pulse_sol1->value();
+	m_solutionParams->pulse_duration_well2 = ui_tools->doubleSpinBox_pulse_sol2->value();
+	m_solutionParams->pulse_duration_well3 = ui_tools->doubleSpinBox_pulse_sol3->value();
+	m_solutionParams->pulse_duration_well4 = ui_tools->doubleSpinBox_pulse_sol4->value();
+
+	m_solutionParams->continuous_flowing_sol1 = ui_tools->checkBox_disableTimer_s1->isChecked();
+	m_solutionParams->continuous_flowing_sol2 = ui_tools->checkBox_disableTimer_s2->isChecked();
+	m_solutionParams->continuous_flowing_sol3 = ui_tools->checkBox_disableTimer_s3->isChecked();
+	m_solutionParams->continuous_flowing_sol4 = ui_tools->checkBox_disableTimer_s4->isChecked();
 
 	m_pr_params->base_ds_increment = ui_tools->spinBox_ds_increment->value();
 	m_pr_params->base_fs_increment = ui_tools->spinBox_fs_increment->value();
@@ -516,7 +538,6 @@ bool Labonatip_tools::loadSettings(QString _path)
 	ui_tools->comboBox_toolButtonStyle->setCurrentIndex(tbs);
 	m_GUI_params->showTextToolBar = Qt::ToolButtonStyle(tbs);
 
-	//TODO  ENABLE TOOL TIPS NOT READ
 	bool enable_tool_tips = m_settings->value("GUI/EnableToolTips", "0").toBool();
 	ui_tools->checkBox_enableToolTips->setChecked(enable_tool_tips);
 	m_GUI_params->enableToolTips = enable_tool_tips;
@@ -713,41 +734,44 @@ bool Labonatip_tools::loadSettings(QString _path)
 	ui_tools->spinBox_vol_sol4->setValue(vol_sol4);
 	m_solutionParams->vol_well4 = vol_sol4;
 
-
+	// TODO: this is not setable anymore - remove
 	int vol_sol5 = m_settings->value("solutions/volWell5", "35").toInt(&ok);
 	if (!ok) {
 		cerr << QDate::currentDate().toString().toStdString() << "  "
 			<< QTime::currentTime().toString().toStdString() << "  "
 			<< "Labonatip_tools::loadSettings ::: Warning  ::  volume of solution 4 corrupted in setting file, using default value " << endl;
 	}
-	ui_tools->spinBox_vol_sol5->setValue(vol_sol5);
+	//ui_tools->spinBox_vol_sol5->setValue(vol_sol5);
 	m_solutionParams->vol_well5 = vol_sol5;
 
+	// TODO: this is not setable anymore - remove
 	int vol_sol6 = m_settings->value("solutions/volWell6", "35").toInt(&ok);
 	if (!ok) {
 		cerr << QDate::currentDate().toString().toStdString() << "  "
 			<< QTime::currentTime().toString().toStdString() << "  "
 			<< "Labonatip_tools::loadSettings ::: Warning  ::  volume of solution 4 corrupted in setting file, using default value " << endl;
 	}
-	ui_tools->spinBox_vol_sol6->setValue(vol_sol6);
+	//ui_tools->spinBox_vol_sol6->setValue(vol_sol6);
 	m_solutionParams->vol_well6 = vol_sol6;
 
+	// TODO: this is not setable anymore - remove
 	int vol_sol7 = m_settings->value("solutions/volWell7", "35").toInt(&ok);
 	if (!ok) {
 		cerr << QDate::currentDate().toString().toStdString() << "  "
 			<< QTime::currentTime().toString().toStdString() << "  "
 			<< "Labonatip_tools::loadSettings ::: Warning  ::  volume of solution 4 corrupted in setting file, using default value " << endl;
 	}
-	ui_tools->spinBox_vol_sol7->setValue(vol_sol7);
+	//ui_tools->spinBox_vol_sol7->setValue(vol_sol7);
 	m_solutionParams->vol_well7 = vol_sol7;
 
+	// TODO: this is not setable anymore - remove
 	int vol_sol8 = m_settings->value("solutions/volWell8", "35").toInt(&ok);
 	if (!ok) {
 		cerr << QDate::currentDate().toString().toStdString() << "  "
 			<< QTime::currentTime().toString().toStdString() << "  "
 			<< "Labonatip_tools::loadSettings ::: Warning  ::  volume of solution 4 corrupted in setting file, using default value " << endl;
 	}
-	ui_tools->spinBox_vol_sol8->setValue(vol_sol8);
+	//ui_tools->spinBox_vol_sol8->setValue(vol_sol8);
 	m_solutionParams->vol_well8 = vol_sol8;
 
 
@@ -784,6 +808,42 @@ bool Labonatip_tools::loadSettings(QString _path)
 	int sol4colSlider = m_settings->value("solutions/sol4colSlider", "1432930").toInt();
 	ui_tools->horizontalSlider_colorSol4->setValue(sol4colSlider);
 	colorSol4Changed(sol4colSlider);
+
+	double pulseDuration1 = m_settings->value("solutions/pulseDuration1", "500.0").toDouble();
+	ui_tools->doubleSpinBox_pulse_sol1->setValue(pulseDuration1);
+	m_solutionParams->pulse_duration_well1 = pulseDuration1; 
+
+	double pulseDuration2 = m_settings->value("solutions/pulseDuration2", "500.0").toDouble();
+	ui_tools->doubleSpinBox_pulse_sol2->setValue(pulseDuration2);
+	m_solutionParams->pulse_duration_well2 = pulseDuration2;
+	
+	double pulseDuration3 = m_settings->value("solutions/pulseDuration3", "500.0").toDouble();
+	ui_tools->doubleSpinBox_pulse_sol3->setValue(pulseDuration3);
+	m_solutionParams->pulse_duration_well3 = pulseDuration3;
+	
+	double pulseDuration4 = m_settings->value("solutions/pulseDuration4", "500.0").toDouble();
+	ui_tools->doubleSpinBox_pulse_sol4->setValue(pulseDuration4);
+	m_solutionParams->pulse_duration_well4 = pulseDuration4;
+
+	bool disableTimer_s1 = m_settings->value("solutions/continuousFlowingWell1", "1").toBool();
+	ui_tools->checkBox_disableTimer_s1->setChecked(disableTimer_s1);
+	ui_tools->doubleSpinBox_pulse_sol1->setEnabled(!disableTimer_s1);
+	m_solutionParams->continuous_flowing_sol1 = disableTimer_s1;
+
+	bool disableTimer_s2 = m_settings->value("solutions/continuousFlowingWell2", "1").toBool();
+	ui_tools->checkBox_disableTimer_s2->setChecked(disableTimer_s2);
+	ui_tools->doubleSpinBox_pulse_sol2->setEnabled(!disableTimer_s2);
+	m_solutionParams->continuous_flowing_sol2 = disableTimer_s2;
+
+	bool disableTimer_s3 = m_settings->value("solutions/continuousFlowingWell3", "1").toBool();
+	ui_tools->checkBox_disableTimer_s3->setChecked(disableTimer_s3);
+	ui_tools->doubleSpinBox_pulse_sol3->setEnabled(!disableTimer_s3);
+	m_solutionParams->continuous_flowing_sol3 = disableTimer_s3;
+
+	bool disableTimer_s4 = m_settings->value("solutions/continuousFlowingWell4", "1").toBool();
+	ui_tools->checkBox_disableTimer_s4->setChecked(disableTimer_s4);
+	ui_tools->doubleSpinBox_pulse_sol4->setEnabled(!disableTimer_s4);
+	m_solutionParams->continuous_flowing_sol4 = disableTimer_s4;
 
 	return true;
 }
@@ -864,13 +924,13 @@ bool Labonatip_tools::saveSettings(QString _file_name)
 	// well 4
 	settings->setValue("solutions/volWell4", ui_tools->spinBox_vol_sol4->value());
 	// well 5
-	settings->setValue("solutions/volWell5", ui_tools->spinBox_vol_sol5->value());
+	settings->setValue("solutions/volWell5", 35);  // TODO: this is not setable anymore - remove
 	// well 6
-	settings->setValue("solutions/volWell6", ui_tools->spinBox_vol_sol6->value());
+	settings->setValue("solutions/volWell6", 35);  // TODO: this is not setable anymore - remove
 	// well 7
-	settings->setValue("solutions/volWell7", ui_tools->spinBox_vol_sol7->value());
+	settings->setValue("solutions/volWell7", 35);  // TODO: this is not setable anymore - remove
 	// well 8
-	settings->setValue("solutions/volWell8", ui_tools->spinBox_vol_sol8->value());
+	settings->setValue("solutions/volWell8", 35);  // TODO: this is not setable anymore - remove
 
 	// [solutionNames]
 	// solution1 = CuSO4
@@ -890,6 +950,24 @@ bool Labonatip_tools::saveSettings(QString _file_name)
 	// sol4colSlider
 	settings->setValue("solutions/sol4colSlider", ui_tools->horizontalSlider_colorSol4->value());
 
+	// pulse time solution 1
+	settings->setValue("solutions/pulseDuration1", ui_tools->doubleSpinBox_pulse_sol1->value());
+	// pulse time solution 2
+	settings->setValue("solutions/pulseDuration2", ui_tools->doubleSpinBox_pulse_sol2->value());
+	// pulse time solution 3
+	settings->setValue("solutions/pulseDuration3", ui_tools->doubleSpinBox_pulse_sol3->value());
+	// pulse time solution 4
+	settings->setValue("solutions/pulseDuration4", ui_tools->doubleSpinBox_pulse_sol4->value());
+	// continuous flowing sol 1
+	settings->setValue("solutions/continuousFlowingWell1", ui_tools->checkBox_disableTimer_s1->isChecked());
+	// continuous flowing sol 2
+	settings->setValue("solutions/continuousFlowingWell2", ui_tools->checkBox_disableTimer_s2->isChecked());
+	// continuous flowing sol 3
+	settings->setValue("solutions/continuousFlowingWell3", ui_tools->checkBox_disableTimer_s3->isChecked());
+	// continuous flowing sol 4
+	settings->setValue("solutions/continuousFlowingWell4", ui_tools->checkBox_disableTimer_s4->isChecked());
+
+	
 	settings->sync();
 	//m_settings->sync();
 	

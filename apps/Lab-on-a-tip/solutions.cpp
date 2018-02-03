@@ -138,7 +138,7 @@ void Labonatip_GUI::pushSolution1()
 		QPoint(pos_x, ui->widget_solutionArrow->pos().ry()));
 
 	// Here start the solution flow 
-	double solution_release_time = m_dialog_tools->getSolutionTime();
+	double solution_release_time = m_solutionParams->pulse_duration_well1; //    m_dialog_tools->getSolutionTime();
 	m_time_multipilcator = (int)solution_release_time;
 
 
@@ -211,7 +211,7 @@ void Labonatip_GUI::pushSolution2() {
 	ui->widget_solutionArrow->move(
 		QPoint(pos_x, ui->widget_solutionArrow->pos().ry()));
 
-	double solution_release_time = m_dialog_tools->getSolutionTime();
+	double solution_release_time = m_solutionParams->pulse_duration_well2; //m_dialog_tools->getSolutionTime();
 	m_time_multipilcator = (int)solution_release_time;
 
 	if (m_pipette_active)
@@ -286,7 +286,7 @@ void Labonatip_GUI::pushSolution3() {
 	ui->widget_solutionArrow->move(
 		QPoint(pos_x, ui->widget_solutionArrow->pos().ry()));
 
-	double solution_release_time = m_dialog_tools->getSolutionTime();
+	double solution_release_time = m_solutionParams->pulse_duration_well3; //m_dialog_tools->getSolutionTime();
 	m_time_multipilcator = (int)solution_release_time;
 
 	if (m_pipette_active)
@@ -361,7 +361,7 @@ void Labonatip_GUI::pushSolution4() {
 	ui->widget_solutionArrow->move(
 		QPoint(pos_x, ui->widget_solutionArrow->pos().ry()));
 
-	double solution_release_time = m_dialog_tools->getSolutionTime();
+	double solution_release_time = m_solutionParams->pulse_duration_well4; //m_dialog_tools->getSolutionTime();
 	m_time_multipilcator = (int)solution_release_time;
 
 	if (m_pipette_active)
@@ -386,6 +386,8 @@ void Labonatip_GUI::updateTimingSliders()
 	QProgressBar *_bar;
 	QPushButton *_button;
 	double status;
+	bool continuous_flowing = false;
+	double release_time = 0.0;
 
 	switch (m_flowing_solution)
 	{
@@ -393,24 +395,32 @@ void Labonatip_GUI::updateTimingSliders()
 		_bar = ui->progressBar_solution1;
 		_button = ui->pushButton_solution1;
 		status = m_pipette_status->rem_vol_well1;
+		continuous_flowing = m_solutionParams->continuous_flowing_sol1;
+		release_time = m_solutionParams->pulse_duration_well1;
 		break;
 	}
 	case 2: {
 		_bar = ui->progressBar_solution2;
 		_button = ui->pushButton_solution2;
 		status = m_pipette_status->rem_vol_well2;
+		continuous_flowing = m_solutionParams->continuous_flowing_sol2;
+		release_time = m_solutionParams->pulse_duration_well1;
 		break;
 	}
 	case 3: {
 		_bar = ui->progressBar_solution3;
 		_button = ui->pushButton_solution3;
 		status = m_pipette_status->rem_vol_well3;
+		continuous_flowing = m_solutionParams->continuous_flowing_sol3;
+		release_time = m_solutionParams->pulse_duration_well1;
 		break;
 	}
 	case 4: {
 		_bar = ui->progressBar_solution4;
 		_button = ui->pushButton_solution4;
 		status = m_pipette_status->rem_vol_well4;
+		continuous_flowing = m_solutionParams->continuous_flowing_sol4;
+		release_time = m_solutionParams->pulse_duration_well1;
 		break;
 	}
 	default: {
@@ -427,7 +437,7 @@ void Labonatip_GUI::updateTimingSliders()
 		//int status = int(100 * m_timer_solution / m_time_multipilcator);
 		//_bar->setValue(100 - status); //TODO: this must be set into the update flow
 		QString s;
-		if (!m_dialog_tools->isContinuousFlowing()) {
+		if (!continuous_flowing) {
 			s.append(m_str_pulse_remaining_time);
 			//s.append(QString::number(m_flowing_solution));
 			//s.append(" empty in \n");
@@ -475,7 +485,7 @@ void Labonatip_GUI::updateTimingSliders()
 	}
 	else  // here we are ending the release process of the solution
 	{
-		double solution_release_time = m_dialog_tools->getSolutionTime();
+		double solution_release_time = release_time; // m_dialog_tools->getSolutionTime();
 		m_time_multipilcator = (int)solution_release_time;
 		double rest = solution_release_time - m_time_multipilcator;
 		QThread::msleep(rest * 1000);
