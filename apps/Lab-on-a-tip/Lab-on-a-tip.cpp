@@ -723,7 +723,6 @@ void Labonatip_GUI::initConnects()
 
 void Labonatip_GUI::initCustomStrings()
 {
-	m_str_areyousure.clear();
 
 	//setting custom strings to translate 
 	m_str_areyousure = tr("Are you sure?");
@@ -748,11 +747,12 @@ void Labonatip_GUI::initCustomStrings()
 	m_str_cannot_save_profile = tr("Cannot save the file");
 	m_str_cannot_load_profile = tr("Cannot load the file");
 	m_str_warning_simulation_only = tr("The program is in simulation mode");
-	m_str_cannot_connect_ppc1 = tr("Unable to connect to PPC1,\n please, check cables and settings and press Ok");
-	m_str_cannot_connect_ppc1_twice = tr("Unable to connect to PPC1 twice,\n please, check cables and settings");
+	m_str_cannot_connect_ppc1 = tr("Unable to connect to PPC1");
+	m_str_cannot_connect_ppc1_twice = tr("Unable to connect to PPC1 twice");
+	m_str_cannot_connect_ppc1_check_cables = tr("Please, check cables and settings and press Ok");
 	m_str_question_find_device = tr("Automatically identify the connected device?");
 	m_str_ppc1_connected_but_not_running = tr("PPC1 is connected but not running");
-	m_str_question_stop_ppc1 = tr("This will stop the PPC1, \n Are you sure?");
+	m_str_question_stop_ppc1 = tr("This will stop the PPC1");
 	m_str_unable_stop_ppc1 = tr("Unable to stop and disconnect PPC1");
 	m_str_shutdown_pressed = tr("Shutdown pressed, this will take 30 seconds, press Ok to continue, cancel to abort");
 	m_str_shutdown_pressed_p_off = tr("The pressure is off, waiting for the vacuum");
@@ -774,14 +774,14 @@ void Labonatip_GUI::initCustomStrings()
 	m_str_label_run_protocol = tr("Run protocol");
 	m_str_label_stop_protocol = tr("Stop protocol");
 	m_str_no_protocol_load_first = tr("No protocol loaded, load one first");
-	m_str_loaded_protocol_is = tr("The protocol loaded is : \n");
+	m_str_loaded_protocol_is = tr("The protocol loaded is : ");
 	m_str_protocol_confirm = tr("Press Ok to run the protocol, or press Cancel to load a new one");
 	m_str_progress_msg1 = tr("This operation will take ");
 	m_str_progress_msg2 = tr(" seconds");
 	m_str_ask_msg = tr("Ask message command");
 	m_str_editor_apply_msg1 = tr(" No protocol loaded : ");
 	m_str_editor_apply_msg2 = tr(" Protocol loaded : ");
-	m_str_cleaning_history_msg1 = tr("This will remove all the files in the history folder.\nDo you want to proceed?");
+	m_str_cleaning_history_msg1 = tr("This will remove all the files in the history folder");
 	m_str_cleaning_history_msg2 = tr("History cleaned");
 	m_str_update_time_macro_msg1 = tr(" PROTOCOL RUNNING : ");
 	m_str_update_time_macro_msg2 = tr(" ----- remaining time,  ");
@@ -1021,7 +1021,7 @@ void Labonatip_GUI::cleanHistory()
 
 	QMessageBox::StandardButton resBtn =
 		QMessageBox::question(this, m_str_warning,
-			m_str_cleaning_history_msg1,
+			QString(m_str_cleaning_history_msg1 + "\n" + m_str_areyousure),
 			QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
 			QMessageBox::Yes);
 	if (resBtn != QMessageBox::Yes) {

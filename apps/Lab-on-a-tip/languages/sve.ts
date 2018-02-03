@@ -336,13 +336,17 @@
         <translation>Programmet är i simuleringsläge</translation>
     </message>
     <message>
-        <source>Unable to connect to PPC1,\n please, check cables and settings and press Ok</source>
-        <translation>Det gick inte att ansluta till PPC1,\n Vänligen kontrollera kablar och inställningar och tryck sedan på Ok</translation>
+        <source>Unable to connect to PPC1</source>
+        <translation>Det gick inte att ansluta till PPC1</translation>
     </message>
     <message>
-        <source>Unable to connect to PPC1 twice,\n please, check cables and settings</source>
-        <translation>Det gick inte att ansluta till PPC1, andra försöket\n Vänligen kontrollera kablar och inställningar och tryck sedan på Ok</translation>
+        <source>Unable to connect to PPC1 twice</source>
+        <translation>Det gick inte att ansluta till PPC1, andra försöket</translation>
     </message>
+    <message>
+        <source>Please, check cables and settings and press Ok</source>
+        <translation>Vänligen kontrollera kablar och inställningar och tryck sedan på Ok</translation>
+    </message>		
     <message>
         <source>Automatically identify the connected device?</source>
         <translation>Identifiera den anslutna enheten automatiskt?</translation>
@@ -352,8 +356,8 @@
         <translation>PPC1 är ansluten, men startar inte</translation>
     </message>
     <message>
-        <source>This will stop the PPC1, \n Are you sure?</source>
-        <translation>Detta kommer att stanna PPC1, \n Är du säker?</translation>
+        <source>This will stop the PPC1</source>
+        <translation>Detta kommer att stanna PPC1</translation>
     </message>
     <message>
         <source>Unable to stop and disconnect PPC1</source>
@@ -468,8 +472,8 @@
         <translation> Protokoll laddat : </translation>
     </message>	
     <message>
-        <source>This will remove all the files in the history folder.\nDo you want to proceed?</source>
-        <translation>Denna åtgärd tar bort alla filer i historikmappen.\n Vill du fortsätta?</translation>
+        <source>This will remove all the files in the history folder</source>
+        <translation>Denna åtgärd tar bort alla filer i historikmappen</translation>
     </message>	
     <message>
         <source>History cleaned</source>
@@ -574,6 +578,10 @@
         <source>Continuous flowing</source>
         <translation>Kontinuerligt flöde</translation>
     </message>	
+	<message>
+        <source>Pressure / Vacuum settings</source>
+        <translation>Tryck / Vakuuminställningar</translation>
+    </message>
 	<message>
         <source>Vacuum settings</source>
         <translation>Vakuuminställningar</translation>
@@ -703,8 +711,12 @@
         <translation>Varning</translation>
     </message>
 	<message>
-        <source>This will reset used defined settings and parameters to the factory default value. \nAre you sure ?</source>
-        <translation>Denna åtgärd, återställer inställningar och parametrar till fabriksinställningarna. \n Är du säker?</translation>
+        <source>This will reset used defined settings and parameters to the factory default values</source>
+        <translation>Denna åtgärd, återställer inställningar och parametrar till fabriksinställningarna</translation>
+	</message>
+	<message>
+        <source>Are you sure?</source>
+        <translation>Är du säker?</translation>
 	</message>
 	<message>
         <source>Ok</source>
@@ -794,36 +806,44 @@
         <translation>Protokoll-duration : </translation>
     </message>
     <message>
-        <source>Pressure ON is not a valid number, \n its value must be a positive number in [0, 450]</source>
-        <translation>Tryck PÅ, är inget giltligt nummer, \n värdet måste vara ett positivt nummer mellan [0, 450]</translation>
+        <source>Pressure ON is not a valid number</source>
+        <translation>Tryck PÅ, är inget giltligt nummer</translation>
     </message>
     <message>
-        <source>Pressure ON is out of range, \n its value must be a positive number in [0, 450]</source>
-        <translation>Tryck PÅ,är utom räckhåll, \n värdet måste vara ett positivt nummer mellan [0, 450]</translation>
+        <source>Pressure ON is out of range</source>
+        <translation>Tryck PÅ,är utom räckhåll</translation>
     </message>
     <message>
-        <source>Pressure OFF is not a valid number, \n its value must be a positive number in [0, 450]</source>
-        <translation>Tryck AV, är inget giltligt nummer, \n värdet måste vara ett positivt nummer mellan [0, 450]</translation>
+        <source>Pressure OFF is not a valid number</source>
+        <translation>Tryck AV, är inget giltligt nummer</translation>
     </message>
     <message>
-        <source>Pressure OFF is out of range, \n its value must be a positive number in [0, 450]</source>
-        <translation>Tryck AV, är utom räckhåll, \n värdet måste vara ett positivt nummer mellan [0, 450]</translation>
+        <source>Pressure OFF is out of range</source>
+        <translation>Tryck AV, är utom räckhåll</translation>
     </message>
     <message>
-        <source>Vacuum switch is not a valid number, \n its value must be a negative number in [-300, 0]</source>
-        <translation>Vakuumväxlare, är inget giltligt nummer, \n värdet måste vara ett negativt nummer mellan [-300, 0]</translation>
+        <source>Its value must be a positive number in [0, 450]</source>
+        <translation>Värdet måste vara ett positivt nummer mellan [0, 450]</translation>
     </message>
     <message>
-        <source>Vacuum switch is out of range, \n its value must be a negative number in [-300, 0]</source>
-        <translation>Vakuumväxlare, är utom räckhåll, \n värdet måste vara ett negativt nummer mellan [-300, 0]</translation>
+        <source>Vacuum switch is not a valid number</source>
+        <translation>Vakuumväxlare är inget giltligt nummer</translation>
     </message>
     <message>
-        <source>Vacuum recirculation is not a valid number, \n its value must be a negative number in [-300, 0]</source>
-        <translation>Vakuum recirkulering, är inget giltligt nummer, \n värdet måste vara ett negativt nummer mellan [-300, 0]</translation>
+        <source>Vacuum switch is out of range</source>
+        <translation>Vakuumväxlare är utom räckhåll</translation>
     </message>
     <message>
-        <source>Vacuum recirculation is out of range, \n its value must be a negative number in [-300, 0]</source>
-        <translation>Vakuum recirkulering, är utom räckhåll, \n värdet måste vara ett negativt nummer mellan [-300, 0]</translation>
+        <source>Vacuum recirculation is not a valid number</source>
+        <translation>Vakuum recirkulering är inget giltligt nummer</translation>
+    </message>
+    <message>
+        <source>Vacuum recirculation is out of range</source>
+        <translation>Vakuum recirkulering är utom räckhåll</translation>
+    </message>
+	<message>
+        <source>Its value must be a negative number in [-300, 0]</source>
+        <translation>Värdet måste vara ett negativt nummer mellan [-300, 0]</translation>
     </message>
     <message>
         <source>Solution is not a valid number, \n its value must be 0 or 1 \n where 0 = open \nOnly one valve can be open</source>
@@ -834,36 +854,56 @@
         <translation>Lösning, är utom räckhåll, \n värdet måste vara 0 eller 1 \n där 0 = öppen\nEndast en ventil kan vara öppen</translation>
     </message>
     <message>
-        <source>The droplet size command is not usable now, \n the content will be automatically changed to index 0</source>
-        <translation>Kontrollen för droppstorleken är inte brukbar, \n innehållet kommer automatiskt ändras till index 0</translation>
+        <source>Its value must be 0 or 1, where 0 = open</source>
+        <translation>Värdet måste vara 0 eller 1, där 0 = öppen</translation>
     </message>
     <message>
-        <source>The flow speed command is not usable now, \n the content will be automatically changed to index 0</source>
-        <translation>Kontrollen för flödestakten är inte brukbar, \n innehållet kommer automatiskt ändras till index 0</translation>
+        <source>Only one valve can be open</source>
+        <translation>Endast en ventil kan vara öppen</translation>
     </message>
     <message>
-        <source>The vacuum command is not usable now, \n the content will be automatically changed to index 0</source>
-        <translation>Kontrollen för vakuum är inte brukbar, \n innehållet kommer automatiskt ändras till index 0</translation>
+        <source>The droplet size command is not usable now, the content will be automatically changed to index 0</source>
+        <translation>Kontrollen för droppstorleken är inte brukbar, innehållet kommer automatiskt ändras till index 0</translation>
     </message>
     <message>
-        <source>Loop is not a valid number, \n value must be a positive integer number</source>
-        <translation>Slingan, är inget giltligt nummer, \n värdet måste vara ett positivt heltal</translation>
+        <source>The flow speed command is not usable now, the content will be automatically changed to index 0</source>
+        <translation>Kontrollen för flödestakten är inte brukbar, innehållet kommer automatiskt ändras till index 0</translation>
     </message>
     <message>
-        <source>Loop is out of range, \n its value must be a positive number</source>
-        <translation>Slingan är utom räckhåll, \n dess värde måste överstiga noll</translation>
+        <source>The vacuum command is not usable now, the content will be automatically changed to index 0</source>
+        <translation>Kontrollen för vakuum är inte brukbar, innehållet kommer automatiskt ändras till index 0</translation>
     </message>
     <message>
-        <source>Wait is not a valid number, \n value must be a positive integer number</source>
-        <translation>Vänta, är inget giltligt nummer, \n värdet måste vara ett positivt heltal</translation>
+        <source>Loop is not a valid number</source>
+        <translation>Slingan, är inget giltligt nummer</translation>
     </message>
     <message>
-        <source>Waiting time is out of range, \n its value must be a positive number</source>
-        <translation>Väntetiden är utom räckhåll, \n dess värde måste överstiga noll</translation>
+        <source>Loop is out of range</source>
+        <translation>Slingan är utom räckhåll</translation>
     </message>
     <message>
-        <source>Check validity failed during macro saving, \n please check your settings and try again</source>
-        <translation>Misslyckades, undersök giltigheten när makrot sparades, \n undersök dina inställningar och prova igen</translation>
+        <source>Wait is not a valid number</source>
+        <translation>Vänta, är inget giltligt nummer</translation>
+    </message>
+    <message>
+        <source>Waiting time is out of range</source>
+        <translation>Väntetiden är utom räckhåll</translation>
+    </message>
+	<message>
+        <source>Its value must be a positive integer number</source>
+        <translation>Värdet måste vara ett positivt heltal</translation>
+    </message>
+    <message>
+        <source>Check validity failed during macro saving</source>
+        <translation>Misslyckades, undersök giltigheten när makrot sparades</translation>
+    </message>
+    <message>
+        <source>Please check your settings and try again</source>
+        <translation>Undersök dina inställningar och prova igen</translation>
+    </message>
+    <message>
+        <source>Select folder</source>
+        <translation>Välj mapp</translation>
     </message>
     <message>
         <source>Ok</source>

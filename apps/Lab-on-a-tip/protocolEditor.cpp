@@ -464,14 +464,14 @@ bool Labonatip_protocol_editor::checkValidity(QTreeWidgetItem *_item, int _colum
 		int number = _item->text(_column).toInt(&isNumeric);
 		if (!isNumeric) { // if is not a number 
 			QMessageBox::warning(this, m_str_warning,
-				m_str_check_validity_msg1);
+				QString(m_str_check_validity_msg1 + "\n" + m_str_check_validity_range_pressures));
 			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
 			return false;
 		}
 		if (number < m_pr_params->p_on_min || 
 			number > m_pr_params->p_on_max) { // if is not the range
 			QMessageBox::warning(this, m_str_warning,
-				m_str_check_validity_msg2);
+				QString(m_str_check_validity_msg2 + "\n" + m_str_check_validity_range_pressures));
 			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
 			return false;
 		}
@@ -483,14 +483,14 @@ bool Labonatip_protocol_editor::checkValidity(QTreeWidgetItem *_item, int _colum
 		int number = _item->text(_column).toInt(&isNumeric);
 		if (!isNumeric) { // if is not a number
 			QMessageBox::warning(this, m_str_warning,
-				m_str_check_validity_msg3);
+				QString(m_str_check_validity_msg3 + "\n" + m_str_check_validity_range_pressures));
 			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
 			return false;
 		}
 		if (number < m_pr_params->p_off_min ||
 			number > m_pr_params->p_off_max) { // if is not the range
 			QMessageBox::warning(this, m_str_warning,
-				m_str_check_validity_msg4);
+				QString(m_str_check_validity_msg4 + "\n" + m_str_check_validity_range_pressures));
 			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
 			return false;
 		}
@@ -501,14 +501,14 @@ bool Labonatip_protocol_editor::checkValidity(QTreeWidgetItem *_item, int _colum
 		int number = _item->text(_column).toInt(&isNumeric);
 		if (!isNumeric) { // if is not a number
 			QMessageBox::warning(this, m_str_warning,
-				m_str_check_validity_msg5);
+				QString(m_str_check_validity_msg5 + "\n" + m_str_check_validity_range_vacuum));
 			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
 			return false;
 		}
 		if (number < m_pr_params->v_switch_min ||
 			number > m_pr_params->v_switch_max) { // if is not the range
 			QMessageBox::warning(this, m_str_warning,
-				m_str_check_validity_msg6);
+				QString(m_str_check_validity_msg6 + "\n" + m_str_check_validity_range_vacuum));
 			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
 			return false;
 		}
@@ -519,14 +519,14 @@ bool Labonatip_protocol_editor::checkValidity(QTreeWidgetItem *_item, int _colum
 		int number = _item->text(_column).toInt(&isNumeric);
 		if (!isNumeric) {
 			QMessageBox::warning(this, m_str_warning,
-				m_str_check_validity_msg7);
+				QString(m_str_check_validity_msg7 + "\n" + m_str_check_validity_range_vacuum));
 			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
 			return false;
 		}
 		if (number < m_pr_params->v_recirc_min   ||
 			number > m_pr_params->v_recirc_max) { // if is not the range
 			QMessageBox::warning(this, m_str_warning,
-				m_str_check_validity_msg8);
+				QString(m_str_check_validity_msg8 + "\n" + m_str_check_validity_range_vacuum));
 			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
 			return false;
 		}
@@ -538,14 +538,14 @@ bool Labonatip_protocol_editor::checkValidity(QTreeWidgetItem *_item, int _colum
 		int number = _item->text(_column).toInt(&isNumeric);
 		if (!isNumeric) {
 			QMessageBox::warning(this, m_str_warning, 
-				m_str_check_validity_msg9);
+				QString(m_str_check_validity_msg9 + "\n" + m_str_check_validity_binary1 + "\n" + m_str_check_validity_binary2));
 			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
 			return false;
 		}
 		if (number != 0 && 
 			number != 1) {
 			QMessageBox::warning(this, m_str_warning,
-				m_str_check_validity_msg10);
+				QString(m_str_check_validity_msg10 + "\n" + m_str_check_validity_binary1 + "\n" + m_str_check_validity_binary2));
 			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
 			return false;
 		}
@@ -581,13 +581,13 @@ bool Labonatip_protocol_editor::checkValidity(QTreeWidgetItem *_item, int _colum
 		int number = _item->text(_column).toInt(&isNumeric);
 		if (!isNumeric) {
 			QMessageBox::warning(this, m_str_warning, 
-				m_str_check_validity_msg14);
+				QString(m_str_check_validity_msg14 + "\n" + m_str_check_validity_positive_number));
 			_item->setText(_column, QString("1"));
 			return false;
 		}
 		if (number < 1 ) { // if is not the range
 			QMessageBox::warning(this, m_str_warning,
-				m_str_check_validity_msg15);
+				QString(m_str_check_validity_msg15 + "\n" + m_str_check_validity_positive_number));
 			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
 			return false;
 		}
@@ -599,13 +599,13 @@ bool Labonatip_protocol_editor::checkValidity(QTreeWidgetItem *_item, int _colum
 		int number = _item->text(_column).toInt(&isNumeric);
 		if (!isNumeric) {
 			QMessageBox::warning(this, m_str_warning, 
-				m_str_check_validity_msg16);
+				QString(m_str_check_validity_msg16 + "\n" + m_str_check_validity_positive_number));
 			_item->setText(_column, QString("1"));
 			return false;
 		}
 		if (number < 1) { // if is not the range
 			QMessageBox::warning(this, m_str_warning,
-				m_str_check_validity_msg17);
+				QString(m_str_check_validity_msg17 + "\n" + m_str_check_validity_positive_number));
 			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
 			return false;
 		}
@@ -1137,7 +1137,7 @@ QList<QStringList> Labonatip_protocol_editor::visitTree(QTreeWidget *_tree) {
 		
 		if (!checkValidity(_tree->topLevelItem(i), 1)) { 
 			QMessageBox::information(this, m_str_warning,
-				m_str_check_validity_protocol);
+				QString(m_str_check_validity_protocol + "\n" + m_str_check_validity_protocol_try_again));
 			list.clear();
 			return list;
 		}
@@ -1342,31 +1342,43 @@ void Labonatip_protocol_editor::initCustomStrings()
 
 
 	// custom strings
-	m_str_warning.append(tr("Warning"));
-	m_str_save_protocol.append(tr("Save profile"));
-	m_str_load_protocol.append(tr("Load profile"));
-	m_str_file_not_found.append(tr("File not found"));
-	m_str_file_not_saved.append(tr("File not saved"));
-	m_str_protocol_duration.append(tr("Protocol duration : "));
-	m_str_check_validity_msg1.append(tr("Pressure ON is not a valid number, \n its value must be a positive number in [0, 450]"));
-	m_str_check_validity_msg2.append(tr("Pressure ON is out of range, \n its value must be a positive number in [0, 450]"));
-	m_str_check_validity_msg3.append(tr("Pressure OFF is not a valid number, \n its value must be a positive number in [0, 450]"));
-	m_str_check_validity_msg4.append(tr("Pressure OFF is out of range, \n its value must be a positive number in [0, 450]"));
-	m_str_check_validity_msg5.append(tr("Vacuum switch is not a valid number, \n its value must be a negative number in [-300, 0]"));
-	m_str_check_validity_msg6.append(tr("Vacuum switch is out of range, \n its value must be a negative number in [-300, 0]"));
-	m_str_check_validity_msg7.append(tr("Vacuum recirculation is not a valid number, \n its value must be a negative number in [-300, 0]"));
-	m_str_check_validity_msg8.append(tr("Vacuum recirculation is out of range, \n its value must be a negative number in [-300, 0]"));
-	m_str_check_validity_msg9.append(tr("Solution is not a valid number, \n its value must be 0 or 1 \n where 0 = open \nOnly one valve can be open"));
-	m_str_check_validity_msg10.append(tr("Solution is out of range, \n its value must be 0 or 1 \n where 0 = open \nOnly one valve can be open"));
-	m_str_check_validity_msg11.append(tr("The droplet size command is not usable now, \n the content will be automatically changed to index 0"));
-	m_str_check_validity_msg12.append(tr("The flow speed command is not usable now, \n the content will be automatically changed to index 0"));
-	m_str_check_validity_msg13.append(tr("The vacuum command is not usable now, \n the content will be automatically changed to index 0"));
-	m_str_check_validity_msg14.append(tr("Loop is not a valid number, \n value must be a positive integer number"));
-	m_str_check_validity_msg15.append(tr("Loop is out of range, \n its value must be a positive number"));
-	m_str_check_validity_msg16.append(tr("Wait is not a valid number, \n value must be a positive integer number"));
-	m_str_check_validity_msg17.append(tr("Waiting time is out of range, \n its value must be a positive number"));
-	m_str_check_validity_protocol.append(tr("Check validity failed during macro saving, <br>please check your settings and try again"));
+	m_str_warning = tr("Warning");
+	m_str_save_protocol = tr("Save profile");
+	m_str_load_protocol = tr("Load profile");
+	m_str_select_folder = tr("Select folder");
+	m_str_file_not_found = tr("File not found");
+	m_str_file_not_saved = tr("File not saved");
+	m_str_protocol_duration = tr("Protocol duration : ");
+	m_str_check_validity_msg1 = tr("Pressure ON is not a valid number");
+	m_str_check_validity_msg2 = tr("Pressure ON is out of range");
+	m_str_check_validity_msg3 = tr("Pressure OFF is not a valid number");
+	m_str_check_validity_msg4 = tr("Pressure OFF is out of range");
+	m_str_check_validity_range_pressures = tr("Its value must be a positive number in [0, 450]");
 
+	m_str_check_validity_msg5 = tr("Vacuum switch is not a valid number");
+	m_str_check_validity_msg6 = tr("Vacuum switch is out of range");
+	m_str_check_validity_msg7 = tr("Vacuum recirculation is not a valid number");
+	m_str_check_validity_msg8 = tr("Vacuum recirculation is out of range");
+	m_str_check_validity_range_vacuum = tr("Its value must be a negative number in [-300, 0]");
+	
+	
+	m_str_check_validity_msg9 = tr("Solution is not a valid number");
+	m_str_check_validity_msg10 = tr("Solution is out of range");
+	m_str_check_validity_binary1 = tr("Its value must be 0 or 1, where 0 = open");
+	m_str_check_validity_binary2 = tr("Only one valve can be open");
+
+	m_str_check_validity_msg11 = tr("The droplet size command is not usable now, the content will be automatically changed to index 0");
+	m_str_check_validity_msg12 = tr("The flow speed command is not usable now, the content will be automatically changed to index 0");
+	m_str_check_validity_msg13 = tr("The vacuum command is not usable now, the content will be automatically changed to index 0");
+
+	m_str_check_validity_msg14 = tr("Loop is not a valid number");
+	m_str_check_validity_msg15 = tr("Loop is out of range");
+	m_str_check_validity_msg16 = tr("Wait is not a valid number");
+	m_str_check_validity_msg17 = tr("Waiting time is out of range");
+	m_str_check_validity_positive_number = tr("Its value must be a positive number");
+
+	m_str_check_validity_protocol = tr("Check validity failed during macro saving");
+	m_str_check_validity_protocol_try_again = tr("Please check your settings and try again");
 
 
 
@@ -1374,7 +1386,7 @@ void Labonatip_protocol_editor::initCustomStrings()
 
 void Labonatip_protocol_editor::openProtocolFolder()
 {
-	QDir path = QFileDialog::getExistingDirectory(this, tr("Open folder"), m_protocol_path);
+	QDir path = QFileDialog::getExistingDirectory(this, m_str_select_folder, m_protocol_path);
 	setMacroPath(path.path());
 
 }

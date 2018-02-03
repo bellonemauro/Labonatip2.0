@@ -20,7 +20,9 @@ FILE(GLOB myProject_SOURCES "${PROJECT_SOURCE_DIR}/*.cpp")
 FILE(GLOB myProject_FORMS "${PROJECT_SOURCE_DIR}/*.ui")
 # select all files for the resources
 FILE(GLOB myProject_UI_RESOURCES "${PROJECT_SOURCE_DIR}/*.qrc")
-
+# select all files for the resources
+SET (myProject_LANGUAGES_DIR "${PROJECT_SOURCE_DIR}/languages/")
+FILE(GLOB myProject_LANGUAGES_TS "${myProject_LANGUAGES_DIR}/*.ts")
 
 SET (ENABLE_WINDEPLOYQT 0 CACHE BOOL "Set to 1 to activate deployment of QT apps, 0 by default" )
 
@@ -126,6 +128,7 @@ elseif(  BUILD_QT5)
 #	find_package( Qt5OpenGL REQUIRED )
 	find_package( Qt5Charts REQUIRED )
 	find_package (Qt5Concurrent REQUIRED)
+	find_package (Qt5LinguistTools REQUIRED)
 
 	if ( ENABLE_verbose )
 		message (STATUS "${PROJECT_NAME} MESSAGE: QT5_BINARY_DIR ---- ${QT5_BINARY_DIR}")
@@ -149,6 +152,13 @@ elseif(  BUILD_QT5)
 	
 	#this allows the executable to encode all the icons 
     QT5_ADD_RESOURCES(UI_RESOURCES_RCC ${myProject_UI_RESOURCES})
+	
+	#this allows the automatic translation from cmake  
+	#TODO check the reason why translations are not properly generated
+	qt5_create_translation(QT_TRANSLATIONS_FILES ${myProject_LANGUAGES_DIR} ${myProject_LANGUAGES_TS})
+	message (STATUS "${PROJECT_NAME} MESSAGE: myProject_LANGUAGES_TS  :: ${myProject_LANGUAGES_TS} ")
+	message (STATUS "${PROJECT_NAME} MESSAGE: myProject_LANGUAGES_DIR  :: ${myProject_LANGUAGES_DIR} ")
+	message (STATUS "${PROJECT_NAME} MESSAGE: QT_TRANSLATIONS_FILES  :: ${QT_TRANSLATIONS_FILES} ")
 
 	if ( ENABLE_verbose )
 		message (STATUS "${PROJECT_NAME} MESSAGE: myProject_FORMS_HEADERS  :: ${myProject_FORMS_HEADERS} ")
@@ -159,6 +169,8 @@ elseif(  BUILD_QT5)
 									#${myProject_HEADERS_MOC})#${myProject_FORMS} )
 	qt5_use_modules(${PROJECT_NAME} Widgets)
 
+
+	
 	target_link_libraries ( ${PROJECT_NAME}  
 							${QT_LIBRARIES}  ${Qt5Charts_LIBRARIES} 
 							PPC1api serial )

@@ -991,9 +991,13 @@ bool Labonatip_tools::saveSettings(QString _file_name)
 
 void Labonatip_tools::resetToDefaultValues()
 {
+	QString msg;
+	msg.append(m_str_factory_reset);
+	msg.append("\n");
+	msg.append(m_str_areyousure);
 
 	QMessageBox::StandardButton resBtn =
-		QMessageBox::question(this, m_str_warning, m_str_factory_reset,
+		QMessageBox::question(this, m_str_warning, msg,
 			QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
 			QMessageBox::Yes);
 	if (resBtn != QMessageBox::Yes) {
@@ -1009,8 +1013,10 @@ void Labonatip_tools::resetToDefaultValues()
 
 void Labonatip_tools::initCustomStrings()
 {
-	m_str_warning.append(tr("Warning"));
-	m_str_factory_reset.append(tr("This will reset used defined settings and parameters to the factory default value. \nAre you sure ?"));
+
+	m_str_warning = tr("Warning");
+	m_str_factory_reset = tr("This will reset used defined settings and parameters to the factory default values");
+	m_str_areyousure = tr("Are you sure?");
 }
 
 int Labonatip_tools::interpreteLanguage(QString _language)

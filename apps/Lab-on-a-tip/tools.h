@@ -225,6 +225,7 @@ private:
 	// translatable strings
 	QString m_str_warning;
 	QString m_str_factory_reset;
+	QString m_str_areyousure;
 
 protected:
 	Ui::Labonatip_tools *ui_tools;    //!<  the user interface

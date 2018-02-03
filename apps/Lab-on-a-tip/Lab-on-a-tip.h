@@ -671,6 +671,7 @@ private:
   QString m_str_warning_simulation_only;
   QString m_str_cannot_connect_ppc1;
   QString m_str_cannot_connect_ppc1_twice;
+  QString m_str_cannot_connect_ppc1_check_cables; 
   QString m_str_question_find_device;
   QString m_str_ppc1_connected_but_not_running;
   QString m_str_question_stop_ppc1;

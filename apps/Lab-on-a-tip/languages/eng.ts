@@ -336,12 +336,16 @@
         <translation>The program is in simulation mode</translation>
     </message>
     <message>
-        <source>Unable to connect to PPC1,\n please, check cables and settings and press Ok</source>
-        <translation>Unable to connect to PPC1,\n please, check cables and settings and press Ok</translation>
+        <source>Unable to connect to PPC1</source>
+        <translation>Unable to connect to PPC1</translation>
     </message>
     <message>
-        <source>Unable to connect to PPC1 twice,\n please, check cables and settings</source>
-        <translation>Unable to connect to PPC1 twice,\n please, check cables and settings</translation>
+        <source>Unable to connect to PPC1 twice</source>
+        <translation>Unable to connect to PPC1 twice</translation>
+    </message>
+	<message>
+        <source>Please, check cables and settings and press Ok</source>
+        <translation>Please, check cables and settings and press Ok</translation>
     </message>
     <message>
         <source>Automatically identify the connected device?</source>
@@ -352,8 +356,8 @@
         <translation>PPC1 is connected but not running</translation>
     </message>
     <message>
-        <source>This will stop the PPC1, \n Are you sure?</source>
-        <translation>This will stop the PPC1, \n Are you sure?</translation>
+        <source>This will stop the PPC1</source>
+        <translation>This will stop the PPC1</translation>
     </message>
     <message>
         <source>Unable to stop and disconnect PPC1</source>
@@ -468,8 +472,8 @@
         <translation> Protocol loaded : </translation>
     </message>
     <message>
-        <source>This will remove all the files in the history folder.\nDo you want to proceed?</source>
-        <translation>This will remove all the files in the history folder.\nDo you want to proceed?</translation>
+        <source>This will remove all the files in the history folder</source>
+        <translation>This will remove all the files in the history folder</translation>
     </message>
     <message>
         <source>History cleaned</source>
@@ -706,10 +710,14 @@
         <source>Warning</source>
         <translation>Warning</translation>
     </message>
-    <message>
-        <source>This will reset used defined settings and parameters to the factory default value. \nAre you sure ?</source>
-        <translation>This will reset used defined settings and parameters to the factory default value. \nAre you sure ?</translation>
-    </message>
+	<message>
+        <source>This will reset used defined settings and parameters to the factory default values</source>
+        <translation>This will reset used defined settings and parameters to the factory default values</translation>
+	</message>
+	<message>
+        <source>Are you sure?</source>
+        <translation>Are you sure?</translation>
+	</message>
     <message>
         <source>Ok</source>
         <translation>Ok</translation>
@@ -798,76 +806,104 @@
         <translation>Protocol duration : </translation>
     </message>
     <message>
-        <source>Pressure ON is not a valid number, \n its value must be a positive number in [0, 450]</source>
-        <translation>Pressure ON is not a valid number, \n its value must be a positive number in [0, 450]</translation>
+        <source>Pressure ON is not a valid number</source>
+        <translation>Pressure ON is not a valid number</translation>
     </message>
     <message>
-        <source>Pressure ON is out of range, \n its value must be a positive number in [0, 450]</source>
-        <translation>Pressure ON is out of range, \n its value must be a positive number in [0, 450]</translation>
+        <source>Pressure ON is out of range</source>
+        <translation>Pressure ON is out of range</translation>
     </message>
     <message>
-        <source>Pressure OFF is not a valid number, \n its value must be a positive number in [0, 450]</source>
-        <translation>Pressure OFF is not a valid number, \n its value must be a positive number in [0, 450]</translation>
+        <source>Pressure OFF is not a valid number</source>
+        <translation>Pressure OFF is not a valid number</translation>
     </message>
     <message>
-        <source>Pressure OFF is out of range, \n its value must be a positive number in [0, 450]</source>
-        <translation>Pressure OFF is out of range, \n its value must be a positive number in [0, 450]</translation>
+        <source>Pressure OFF is out of range</source>
+        <translation>Pressure OFF is out of range</translation>
     </message>
     <message>
-        <source>Vacuum switch is not a valid number, \n its value must be a negative number in [-300, 0]</source>
-        <translation>Vacuum switch is not a valid number, \n its value must be a negative number in [-300, 0]</translation>
+        <source>Its value must be a positive number in [0, 450]</source>
+        <translation>Its value must be a positive number in [0, 450]</translation>
+    </message>	
+    <message>
+        <source>Vacuum switch is not a valid number</source>
+        <translation>Vacuum switch is not a valid number</translation>
     </message>
     <message>
-        <source>Vacuum switch is out of range, \n its value must be a negative number in [-300, 0]</source>
-        <translation>Vacuum switch is out of range, \n its value must be a negative number in [-300, 0]</translation>
+        <source>Vacuum switch is out of range</source>
+        <translation>Vacuum switch is out of range</translation>
     </message>
     <message>
-        <source>Vacuum recirculation is not a valid number, \n its value must be a negative number in [-300, 0]</source>
-        <translation>Vacuum recirculation is not a valid number, \n its value must be a negative number in [-300, 0]</translation>
+        <source>Vacuum recirculation is not a valid number</source>
+        <translation>Vacuum recirculation is not a valid number</translation>
     </message>
     <message>
-        <source>Vacuum recirculation is out of range, \n its value must be a negative number in [-300, 0]</source>
-        <translation>Vacuum recirculation is out of range, \n its value must be a negative number in [-300, 0]</translation>
+        <source>Vacuum recirculation is out of range</source>
+        <translation>Vacuum recirculation is out of range</translation>
+    </message>
+	<message>
+        <source>Its value must be a negative number in [-300, 0]</source>
+        <translation>Its value must be a negative number in [-300, 0]</translation>
     </message>
     <message>
-        <source>Solution is not a valid number, \n its value must be 0 or 1 \n where 0 = open \nOnly one valve can be open</source>
-        <translation>Solution is not a valid number, \n its value must be 0 or 1 \n where 0 = open \nOnly one valve can be open</translation>
+        <source>Solution is not a valid number</source>
+        <translation>Solution is not a valid number</translation>
     </message>
     <message>
-        <source>Solution is out of range, \n its value must be 0 or 1 \n where 0 = open \nOnly one valve can be open</source>
-        <translation>Solution is out of range, \n its value must be 0 or 1 \n where 0 = open \nOnly one valve can be open</translation>
+        <source>Solution is out of range</source>
+        <translation>Solution is out of range</translation>
+    </message>
+	<message>
+        <source>Its value must be 0 or 1, where 0 = open</source>
+        <translation>Its value must be 0 or 1, where 0 = open</translation>
+    </message>
+	<message>
+        <source>Only one valve can be open</source>
+        <translation>Only one valve can be open</translation>
     </message>
     <message>
-        <source>The droplet size command is not usable now, \n the content will be automatically changed to index 0</source>
-        <translation>The droplet size command is not usable now, \n the content will be automatically changed to index 0</translation>
+        <source>The droplet size command is not usable now, the content will be automatically changed to index 0</source>
+        <translation>The droplet size command is not usable now, the content will be automatically changed to index 0</translation>
     </message>
     <message>
-        <source>The flow speed command is not usable now, \n the content will be automatically changed to index 0</source>
-        <translation>The flow speed command is not usable now, \n the content will be automatically changed to index 0</translation>
+        <source>The flow speed command is not usable now, the content will be automatically changed to index 0</source>
+        <translation>The flow speed command is not usable now, the content will be automatically changed to index 0</translation>
     </message>
     <message>
-        <source>The vacuum command is not usable now, \n the content will be automatically changed to index 0</source>
-        <translation>The vacuum command is not usable now, \n the content will be automatically changed to index 0</translation>
+        <source>The vacuum command is not usable now, the content will be automatically changed to index 0</source>
+        <translation>The vacuum command is not usable now, the content will be automatically changed to index 0</translation>
     </message>
     <message>
-        <source>Loop is not a valid number, \n value must be a positive integer number</source>
-        <translation>Loop is not a valid number, \n value must be a positive integer number</translation>
+        <source>Loop is not a valid number</source>
+        <translation>Loop is not a valid number</translation>
     </message>
     <message>
-        <source>Loop is out of range, \n its value must be a positive number</source>
-        <translation>Loop is out of range, \n its value must be a positive number</translation>
+        <source>Loop is out of range</source>
+        <translation>Loop is out of range</translation>
     </message>
     <message>
-        <source>Wait is not a valid number, \n value must be a positive integer number</source>
-        <translation>Wait is not a valid number, \n value must be a positive integer number</translation>
+        <source>Wait is not a valid number</source>
+        <translation>Wait is not a valid number</translation>
     </message>
     <message>
-        <source>Waiting time is out of range, \n its value must be a positive number</source>
-        <translation>Waiting time is out of range, \n its value must be a positive number</translation>
+        <source>Waiting time is out of range</source>
+        <translation>Waiting time is out of range</translation>
+    </message>
+    <message>
+        <source>Its value must be a positive number</source>
+        <translation>Its value must be a positive number</translation>
     </message>
     <message>
         <source>Check validity failed during macro saving, \n please check your settings and try again</source>
         <translation>Check validity failed during macro saving, \n please check your settings and try again</translation>
+    </message>
+    <message>
+        <source>Please check your settings and try again</source>
+        <translation>Please check your settings and try again</translation>
+    </message>
+    <message>
+        <source>Select folder</source>
+        <translation>Select folder</translation>
     </message>
     <message>
         <source>Ok</source>

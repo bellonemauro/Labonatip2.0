@@ -126,7 +126,7 @@ void Labonatip_GUI::disCon() {   //TODO, add an argument to connect and disconne
 					ui->actionSimulation->setEnabled(true);
 					QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 					QMessageBox::information(this, m_str_warning,
-						m_str_cannot_connect_ppc1);
+						QString(m_str_cannot_connect_ppc1 + "\n" + m_str_cannot_connect_ppc1_check_cables));
 
 					// ask for a new attempt to connect
 					QMessageBox::StandardButton resBtn =
@@ -146,7 +146,7 @@ void Labonatip_GUI::disCon() {   //TODO, add an argument to connect and disconne
 						if (!m_ppc1->connectCOM())
 						{
 							QMessageBox::information(this, m_str_warning,
-								m_str_cannot_connect_ppc1_twice);
+								QString(m_str_cannot_connect_ppc1_twice + "\n" + m_str_cannot_connect_ppc1_check_cables));
 							m_pipette_active = false;
 							ui->actionConnectDisconnect->setChecked(false);
 							return;
@@ -187,7 +187,7 @@ void Labonatip_GUI::disCon() {   //TODO, add an argument to connect and disconne
 			// the used should confirm to stop the device
 			QMessageBox::StandardButton resBtn =
 				QMessageBox::question(this, m_str_warning,
-					m_str_question_stop_ppc1,
+					QString(m_str_question_stop_ppc1 + "\n" + m_str_areyousure),
 					QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
 					QMessageBox::Yes);
 			if (resBtn != QMessageBox::Yes) {  // if the answer is not YES

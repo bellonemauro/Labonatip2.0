@@ -268,7 +268,13 @@ private:
 	QString m_str_load_protocol;
 	QString m_str_file_not_found;
 	QString m_str_file_not_saved;
+	QString m_str_select_folder;
 	QString m_str_protocol_duration;
+	QString m_str_check_validity_range_pressures;
+	QString m_str_check_validity_range_vacuum;
+	QString m_str_check_validity_positive_number;
+	QString m_str_check_validity_binary1;
+	QString m_str_check_validity_binary2;
 	QString m_str_check_validity_msg1;
 	QString m_str_check_validity_msg2;
 	QString m_str_check_validity_msg3;
@@ -287,6 +293,7 @@ private:
 	QString m_str_check_validity_msg16;
 	QString m_str_check_validity_msg17;
 	QString m_str_check_validity_protocol;
+	QString m_str_check_validity_protocol_try_again;
 
 protected:
 	Ui::Labonatip_protocol_editor *ui_p_editor;    //!<  the user interface

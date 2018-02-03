@@ -336,12 +336,16 @@
         <translation>L'applicazione è in modalità di simulazione</translation>
     </message>
     <message>
-        <source>Unable to connect to PPC1,\n please, check cables and settings and press Ok</source>
-        <translation>Impossibile connettersi al PPC1, \n controlla cavi e settaggi e premi Ok</translation>
+        <source>Unable to connect to PPC1</source>
+        <translation>Impossibile connettersi al PPC1</translation>
     </message>
     <message>
-        <source>Unable to connect to PPC1 twice,\n please, check cables and settings</source>
-        <translation>Impossibile collegarsi per la seconda volta, \n controlla cavi e settaggi</translation>
+        <source>Unable to connect to PPC1 twice</source>
+        <translation>Impossibile collegarsi per la seconda volta</translation>
+    </message>
+	<message>
+        <source>Please, check cables and settings and press Ok</source>
+        <translation>Controlla cavi e settaggi e premi Ok</translation>
     </message>
     <message>
         <source>Automatically identify the connected device?</source>
@@ -352,8 +356,8 @@
         <translation>PPC1 connesso ma non è in esecuzione</translation>
     </message>
     <message>
-        <source>This will stop the PPC1, \n Are you sure?</source>
-        <translation>Questo fermerà il PPC1, \n Sei sicuro?</translation>
+        <source>This will stop the PPC1</source>
+        <translation>Questo fermerà il PPC1</translation>
     </message>
     <message>
         <source>Unable to stop and disconnect PPC1</source>
@@ -468,8 +472,8 @@
         <translation> Protocollo caricato : </translation>
     </message>	
     <message>
-        <source>This will remove all the files in the history folder.\nDo you want to proceed?</source>
-        <translation>Questa operazione rimuoverà tutti i file della cronologia.\nVuoi proseguire?</translation>
+        <source>This will remove all the files in the history folder</source>
+        <translation>Questa operazione rimuoverà tutti i file della cronologia</translation>
     </message>	
     <message>
         <source>History cleaned</source>
@@ -707,8 +711,12 @@
         <translation>Attenzione</translation>
     </message>
 	<message>
-        <source>This will reset used defined settings and parameters to the factory default value. \nAre you sure ?</source>
-        <translation>Questa operazione resetterà il sistema alle impostazioni di fabbrica. \nSei sicuro ?</translation>
+        <source>This will reset used defined settings and parameters to the factory default values</source>
+        <translation>Questa operazione resetterà il sistema alle impostazioni di fabbrica</translation>
+	</message>
+	<message>
+        <source>Are you sure?</source>
+        <translation>Sei sicuro?</translation>
 	</message>
 	<message>
         <source>Ok</source>
@@ -798,77 +806,105 @@
         <translation>Durata del protocollo : </translation>
     </message>		
 	<message>
-        <source>Pressure ON is not a valid number, \n its value must be a positive number in [0, 450]</source>
-        <translation>Pressione ON non valida, \n il suo valore deve essere un numero positivo in [0, 450]</translation>
+        <source>Pressure ON is not a valid number</source>
+        <translation>Pressione ON non valida</translation>
     </message> 
 	<message>
-        <source>Pressure ON is out of range, \n its value must be a positive number in [0, 450]</source>
-        <translation>Pressione ON fuori range, \n il suo valore deve essere un numero positivo in [0, 450]</translation>
+        <source>Pressure ON is out of range</source>
+        <translation>Pressione ON fuori range</translation>
     </message> 
 	<message>
-        <source>Pressure OFF is not a valid number, \n its value must be a positive number in [0, 450]</source>
-        <translation>Pressione OFF non valida, \n il suo valore deve essere un numero positivo in [0, 450]</translation>
+        <source>Pressure OFF is not a valid number</source>
+        <translation>Pressione OFF non valida</translation>
     </message> 
 	<message>
-        <source>Pressure OFF is out of range, \n its value must be a positive number in [0, 450]</source>
-        <translation>Pressione OFF fuori range, \n il suo valore deve essere un numero positivo in [0, 450]</translation>
+        <source>Pressure OFF is out of range</source>
+        <translation>Pressione OFF fuori range</translation>
     </message> 
 	<message>
-        <source>Vacuum switch is not a valid number, \n its value must be a negative number in [-300, 0]</source>
-        <translation>Aspirazione switch non valida, \n il suo valore deve essere un numero negativo in [-300, 0]</translation>
+        <source>Its value must be a positive number in [0, 450]</source>
+        <translation>il suo valore deve essere un numero positivo in [0, 450]</translation>
+    </message>
+	<message>
+        <source>Vacuum switch is not a valid number</source>
+        <translation>Aspirazione switch non valida</translation>
     </message> 
 	<message>
-        <source>Vacuum switch is out of range, \n its value must be a negative number in [-300, 0]</source>
-        <translation>Aspirazione switch fuori range, \n il suo valore deve essere un numero negativo in [-300, 0]</translation>
+        <source>Vacuum switch is out of range</source>
+        <translation>Aspirazione switch fuori range</translation>
     </message> 
 	<message>
-        <source>Vacuum recirculation is not a valid number, \n its value must be a negative number in [-300, 0]</source>
-        <translation>Aspirazione recirculation non valida, \n il suo valore deve essere un numero negativo in [-300, 0]</translation>
+        <source>Vacuum recirculation is not a valid number</source>
+        <translation>Aspirazione recirculation non valida</translation>
     </message> 
 	<message>
-        <source>Vacuum recirculation is out of range, \n its value must be a negative number in [-300, 0]</source>
-        <translation>Aspirazione recirculation fuori range, \n il suo valore deve essere un numero negativo in [-300, 0]</translation>
+        <source>Vacuum recirculation is out of range</source>
+        <translation>Aspirazione recirculation fuori range</translation>
     </message> 
 	<message>
-        <source>Solution is not a valid number, \n its value must be 0 or 1 \n where 0 = open \nOnly one valve can be open</source>
-        <translation>Soluzione non valida, \n il suo valore può essere solo 0 o 1 \n dove 0 = aperto \nSolo una valvola può essere aperta</translation>
+        <source>Its value must be a negative number in [-300, 0]</source>
+        <translation>Il suo valore deve essere un numero negativo in [-300, 0]</translation>
+    </message>
+	<message>
+        <source>Solution is not a valid number</source>
+        <translation>Soluzione non valida</translation>
     </message> 
 	<message>
-        <source>Solution is out of range, \n its value must be 0 or 1 \n where 0 = open \nOnly one valve can be open</source>
-        <translation>Soluzione fuori range, \n il suo valore può essere solo 0 o 1 \n dove 0 = aperto \nSolo una valvola può essere aperta</translation>
+        <source>Solution is out of range</source>
+        <translation>Soluzione fuori range</translation>
+    </message> 
+	<message>
+        <source>Its value must be 0 or 1, where 0 = open</source>
+        <translation>Il suo valore può essere solo 0 o 1, dove 0 = aperto</translation>
+    </message> 	
+		<message>
+        <source>Only one valve can be open</source>
+        <translation>Solo una valvola può essere aperta</translation>
     </message> 
     <message>
-        <source>The droplet size command is not usable now, \n the content will be automatically changed to index 0</source>
-        <translation>The droplet size command is not usable now, \n the content will be automatically changed to index 0</translation>
+        <source>The droplet size command is not usable now, the content will be automatically changed to index 0</source>
+        <translation>The droplet size command is not usable now, the content will be automatically changed to index 0</translation>
     </message>		
     <message>
-        <source>The flow speed command is not usable now, \n the content will be automatically changed to index 0</source>
-        <translation>The flow speed command is not usable now, \n the content will be automatically changed to index 0</translation>
+        <source>The flow speed command is not usable now, the content will be automatically changed to index 0</source>
+        <translation>The flow speed command is not usable now, the content will be automatically changed to index 0</translation>
     </message>		
     <message>
-        <source>The vacuum command is not usable now, \n the content will be automatically changed to index 0</source>
-        <translation>The vacuum command is not usable now, \n the content will be automatically changed to index 0</translation>
+        <source>The vacuum command is not usable now, the content will be automatically changed to index 0</source>
+        <translation>The vacuum command is not usable now, the content will be automatically changed to index 0</translation>
     </message>		
     <message>
-        <source>Loop is not a valid number, \n value must be a positive integer number</source>
-        <translation>Numero di Loop non valido, \n deve essere un numero positivo</translation>
+        <source>Loop is not a valid number</source>
+        <translation>Numero di Loop non valido</translation>
     </message>		
     <message>
-        <source>Loop is out of range, \n its value must be a positive number</source>
-        <translation>Numero di Loop fuori range, \n il suo valore deve essere un numero positivo</translation>
+        <source>Loop is out of range</source>
+        <translation>Numero di Loop fuori range</translation>
     </message>		
     <message>
-        <source>Wait is not a valid number, \n value must be a positive integer number</source>
-        <translation>Tempo di attesa non valido, \n il valore deve essere un numero positivo</translation>
+        <source>Wait is not a valid number</source>
+        <translation>Tempo di attesa non valido</translation>
     </message>		
     <message>
-        <source>Waiting time is out of range, \n its value must be a positive number</source>
-        <translation>Tempo di attesa fuori range, \n il suo valore deve essere un numero positivo</translation>
+        <source>Waiting time is out of range</source>
+        <translation>Tempo di attesa fuori range</translation>
+    </message>	
+    <message>
+        <source>Its value must be a positive number</source>
+        <translation>Il suo valore deve essere un numero positivo</translation>
     </message>		
     <message>
-        <source>Check validity failed during macro saving, \n please check your settings and try again</source>
-        <translation>Controllo di validità fallito durante il salvataggio del protocollo, \n controlla i settaggi e riprova</translation>
-    </message>		 	
+        <source>Check validity failed during macro saving</source>
+        <translation>Controllo di validità fallito durante il salvataggio del protocollo</translation>
+    </message>	
+    <message>
+        <source>please check your settings and try again</source>
+        <translation>Controlla i settaggi e riprova</translation>
+    </message>	
+	<message>
+        <source>Select folder</source>
+        <translation>Seleziona la cartella</translation>
+    </message>
 	<message>
         <source>Ok</source>
         <translation>Ok</translation>
