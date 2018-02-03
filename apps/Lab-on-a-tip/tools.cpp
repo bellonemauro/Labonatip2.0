@@ -24,8 +24,7 @@ Labonatip_tools::Labonatip_tools(QWidget *parent ):
 	//load settings from file
 	loadSettings(m_setting_file_name);
 
-	m_str_warning.append(tr("Warning"));
-	m_str_factory_reset.append(tr("This will reset used defined settings and parameters to the factory default value. \nAre you sure ?"));
+	initCustomStrings();
 
 	//make sure to start from the initial page
 	ui_tools->actionGeneral->setChecked(true);
@@ -916,6 +915,12 @@ void Labonatip_tools::resetToDefaultValues()
 }
 
 
+void Labonatip_tools::initCustomStrings()
+{
+	m_str_warning.append(tr("Warning"));
+	m_str_factory_reset.append(tr("This will reset used defined settings and parameters to the factory default value. \nAre you sure ?"));
+}
+
 int Labonatip_tools::interpreteLanguage(QString _language)
 {
 	if (_language == "Chinese")
@@ -1033,8 +1038,7 @@ void Labonatip_tools::switchLanguage(QString _translation_file)
 
 		ui_tools->retranslateUi(this); 
 
-		m_str_warning = QApplication::translate("Labonatip_GUI", qPrintable(m_str_warning));
-		m_str_factory_reset = QApplication::translate("Labonatip_GUI", qPrintable(m_str_factory_reset));
+		initCustomStrings();
 
 		cout << QDate::currentDate().toString().toStdString() << "  "
 			 << QTime::currentTime().toString().toStdString() << "  "

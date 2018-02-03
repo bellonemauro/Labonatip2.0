@@ -53,7 +53,7 @@ class Labonatip_GUI : public QMainWindow
 #define LENGTH_TO_TIP 0.065
 #define LENGTH_TO_ZONE 0.062
 #define MIN_ZONE_SIZE_PERC 30
-#define MAX_ZONE_SIZE_PERC 250
+#define MAX_ZONE_SIZE_PERC 210
 #define MIN_FLOW_SPEED_PERC 60
 #define MAX_FLOW_SPEED_PERC 250
 #define MIN_VACUUM_PERC 10
@@ -571,6 +571,11 @@ private:
   *
   */
   void initConnects();
+
+  /** group all the connects are in this function
+  *
+  */
+  void initCustomStrings();
 
   Ui::Labonatip_GUI *ui;               //!< the main user interface
   Labonatip_tools * m_dialog_tools;    //!< pointer to the tools dialog

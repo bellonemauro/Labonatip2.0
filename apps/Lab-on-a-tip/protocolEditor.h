@@ -217,11 +217,11 @@ private:
 
 	QList<QStringList> visitTree(QTreeWidget *_tree);
 
-	int interpreteLanguage(QString _language);
-
 	bool decodeMacroCommand(QByteArray &_command, QTreeWidgetItem &_out_item);
 
 	void setGUIcharts();
+
+	void initCustomStrings();
 
 	void readProtocolFolder(QString _path);
 

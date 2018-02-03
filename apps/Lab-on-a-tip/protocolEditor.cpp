@@ -24,6 +24,8 @@ Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 	ui_p_editor->treeWidget_params->resizeColumnToContents(0);
 	//ui_p_editor->treeWidget_macroTable->setColumnWidth(0, 350);
 
+	initCustomStrings();
+
 	// initialize the macro wizard
 	m_protocolWizard = new Labonatip_macroWizard();
 
@@ -41,32 +43,6 @@ Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 	ui_p_editor->dockWidget_charts->hide();
 	ui_p_editor->actionCharts->setChecked(false);
 	ui_p_editor->actionParams->setChecked(true);
-
-	// custom strings
-	m_str_warning.append(tr("Warning"));
-	m_str_save_protocol.append(tr("Save profile"));
-	m_str_load_protocol.append(tr("Load profile"));
-	m_str_file_not_found.append(tr("File not found"));
-	m_str_file_not_saved.append(tr("File not saved"));
-	m_str_protocol_duration.append(tr("Protocol duration : "));
-	m_str_check_validity_msg1.append(tr("Pressure ON is not a valid number, \n its value must be a positive number in [0, 450]"));
-	m_str_check_validity_msg2.append(tr("Pressure ON is out of range, \n its value must be a positive number in [0, 450]"));
-	m_str_check_validity_msg3.append(tr("Pressure OFF is not a valid number, \n its value must be a positive number in [0, 450]"));
-	m_str_check_validity_msg4.append(tr("Pressure OFF is out of range, \n its value must be a positive number in [0, 450]"));
-	m_str_check_validity_msg5.append(tr("Vacuum switch is not a valid number, \n its value must be a negative number in [-300, 0]"));
-	m_str_check_validity_msg6.append(tr("Vacuum switch is out of range, \n its value must be a negative number in [-300, 0]"));
-	m_str_check_validity_msg7.append(tr("Vacuum recirculation is not a valid number, \n its value must be a negative number in [-300, 0]"));
-	m_str_check_validity_msg8.append(tr("Vacuum recirculation is out of range, \n its value must be a negative number in [-300, 0]"));
-	m_str_check_validity_msg9.append(tr("Solution is not a valid number, \n its value must be 0 or 1 \n where 0 = open \nOnly one valve can be open"));
-	m_str_check_validity_msg10.append(tr("Solution is out of range, \n its value must be 0 or 1 \n where 0 = open \nOnly one valve can be open"));
-	m_str_check_validity_msg11.append(tr("The droplet size command is not usable now, \n the content will be automatically changed to index 0"));
-	m_str_check_validity_msg12.append(tr("The flow speed command is not usable now, \n the content will be automatically changed to index 0"));
-	m_str_check_validity_msg13.append(tr("The vacuum command is not usable now, \n the content will be automatically changed to index 0"));
-	m_str_check_validity_msg14.append(tr("Loop is not a valid number, \n value must be a positive integer number"));
-	m_str_check_validity_msg15.append(tr("Loop is out of range, \n its value must be a positive number"));
-	m_str_check_validity_msg16.append(tr("Wait is not a valid number, \n value must be a positive integer number"));
-	m_str_check_validity_msg17.append(tr("Waiting time is out of range, \n its value must be a positive number"));
-	m_str_check_validity_protocol.append(tr("Check validity failed during macro saving, <br>please check your settings and try again"));
 
 
 	// connect GUI elements: macro tab
@@ -1171,26 +1147,7 @@ QList<QStringList> Labonatip_protocol_editor::visitTree(QTreeWidget *_tree) {
 	return list;
 }
 
-int Labonatip_protocol_editor::interpreteLanguage(QString _language)
-{
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_protocol_editor::interpreteLanguage    " << endl;
 
-	if (_language == "English")
-	{
-		return 0;
-	}
-	if (_language == "Svenska")
-	{
-		return 1;
-	}
-	if (_language == "Italiano")
-	{
-		return 2;
-	}
-	return 0;
-}
 
 bool Labonatip_protocol_editor::decodeMacroCommand(QByteArray &_command, QTreeWidgetItem &_out_item)
 {
@@ -1377,6 +1334,41 @@ void Labonatip_protocol_editor::setGUIcharts()
 
 	//gridLayout_12  top right
 	//gridLayout_13  bottom right
+
+}
+
+void Labonatip_protocol_editor::initCustomStrings()
+{
+
+
+	// custom strings
+	m_str_warning.append(tr("Warning"));
+	m_str_save_protocol.append(tr("Save profile"));
+	m_str_load_protocol.append(tr("Load profile"));
+	m_str_file_not_found.append(tr("File not found"));
+	m_str_file_not_saved.append(tr("File not saved"));
+	m_str_protocol_duration.append(tr("Protocol duration : "));
+	m_str_check_validity_msg1.append(tr("Pressure ON is not a valid number, \n its value must be a positive number in [0, 450]"));
+	m_str_check_validity_msg2.append(tr("Pressure ON is out of range, \n its value must be a positive number in [0, 450]"));
+	m_str_check_validity_msg3.append(tr("Pressure OFF is not a valid number, \n its value must be a positive number in [0, 450]"));
+	m_str_check_validity_msg4.append(tr("Pressure OFF is out of range, \n its value must be a positive number in [0, 450]"));
+	m_str_check_validity_msg5.append(tr("Vacuum switch is not a valid number, \n its value must be a negative number in [-300, 0]"));
+	m_str_check_validity_msg6.append(tr("Vacuum switch is out of range, \n its value must be a negative number in [-300, 0]"));
+	m_str_check_validity_msg7.append(tr("Vacuum recirculation is not a valid number, \n its value must be a negative number in [-300, 0]"));
+	m_str_check_validity_msg8.append(tr("Vacuum recirculation is out of range, \n its value must be a negative number in [-300, 0]"));
+	m_str_check_validity_msg9.append(tr("Solution is not a valid number, \n its value must be 0 or 1 \n where 0 = open \nOnly one valve can be open"));
+	m_str_check_validity_msg10.append(tr("Solution is out of range, \n its value must be 0 or 1 \n where 0 = open \nOnly one valve can be open"));
+	m_str_check_validity_msg11.append(tr("The droplet size command is not usable now, \n the content will be automatically changed to index 0"));
+	m_str_check_validity_msg12.append(tr("The flow speed command is not usable now, \n the content will be automatically changed to index 0"));
+	m_str_check_validity_msg13.append(tr("The vacuum command is not usable now, \n the content will be automatically changed to index 0"));
+	m_str_check_validity_msg14.append(tr("Loop is not a valid number, \n value must be a positive integer number"));
+	m_str_check_validity_msg15.append(tr("Loop is out of range, \n its value must be a positive number"));
+	m_str_check_validity_msg16.append(tr("Wait is not a valid number, \n value must be a positive integer number"));
+	m_str_check_validity_msg17.append(tr("Waiting time is out of range, \n its value must be a positive number"));
+	m_str_check_validity_protocol.append(tr("Check validity failed during macro saving, <br>please check your settings and try again"));
+
+
+
 
 }
 
@@ -1795,36 +1787,7 @@ void Labonatip_protocol_editor::switchLanguage(QString _translation_file)
 		qApp->installTranslator(&m_translator_editor);
 
 		ui_p_editor->retranslateUi(this);
-
-		// translate the custom strings
-		m_str_warning = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_warning));
-		m_str_save_protocol = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_save_protocol));
-		m_str_load_protocol = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_load_protocol));
-		m_str_file_not_found = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_file_not_found));
-		m_str_file_not_saved = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_file_not_saved));
-		m_str_protocol_duration = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_protocol_duration));
-		m_str_check_validity_msg1 = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_check_validity_msg1));
-		m_str_check_validity_msg2 = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_check_validity_msg2));
-		m_str_check_validity_msg3 = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_check_validity_msg3));
-		m_str_check_validity_msg4 = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_check_validity_msg4));
-		m_str_check_validity_msg5 = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_check_validity_msg5));
-		m_str_check_validity_msg6 = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_check_validity_msg6));
-		m_str_check_validity_msg7 = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_check_validity_msg7));
-		m_str_check_validity_msg8 = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_check_validity_msg8));
-		m_str_check_validity_msg9 = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_check_validity_msg9));
-		m_str_check_validity_msg10 = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_check_validity_msg10));
-		m_str_check_validity_msg11 = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_check_validity_msg11));
-		m_str_check_validity_msg12 = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_check_validity_msg12));
-		m_str_check_validity_msg13 = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_check_validity_msg13));
-		m_str_check_validity_msg14 = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_check_validity_msg14));
-		m_str_check_validity_msg15 = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_check_validity_msg15));
-		m_str_check_validity_msg16 = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_check_validity_msg16));
-		m_str_check_validity_msg17 = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_check_validity_msg17));
-		m_str_check_validity_protocol = QApplication::translate("Labonatip_protocol_editor", qPrintable(m_str_check_validity_protocol));
-
-
-
-
+		initCustomStrings();
 
 		// translate the wizard
 		m_protocolWizard->switchLanguage(_translation_file);

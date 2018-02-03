@@ -208,7 +208,7 @@
         <translation>Pulisci cronologia</translation>
 	</message>	
 	<message>
-        <source>Out file path</source>
+        <source>Output file path</source>
         <translation>Percorso file</translation>
 	</message>	
 	<message>
@@ -332,24 +332,24 @@
         <translation>Impossibile caricare il file</translation>
     </message>
     <message>
-        <source>Lab-on-a-tip is in simulation only</source>
-        <translation>Lab-on-a-tip è in modalità di simulazione</translation>
+        <source>The program is in simulation mode</source>
+        <translation>L'applicazione è in modalità di simulazione</translation>
     </message>
     <message>
-        <source>Lab-on-a-tip could not connect to PPC1, \n please, check cables and settings and press Ok</source>
-        <translation>Lab-on-a-tip non è riuscito a connettere il PPC1, \n controlla cavi e settaggi e premi Ok</translation>
+        <source>Unable to connect to PPC1,\n please, check cables and settings and press Ok</source>
+        <translation>Impossibile connettersi al PPC1, \n controlla cavi e settaggi e premi Ok</translation>
     </message>
     <message>
-        <source>Lab-on-a-tip could not connect to PPC1 twice, \n please, check cables and settings</source>
-        <translation>Lab-on-a-tip non è riuscito a connettersi di nuovo, \n controlla cavi e settaggi</translation>
+        <source>Unable to connect to PPC1 twice,\n please, check cables and settings</source>
+        <translation>Impossibile collegarsi per la seconda volta, \n controlla cavi e settaggi</translation>
     </message>
     <message>
-        <source>I can try to automatically find the device, \n Should I do it?</source>
-        <translation>Posso provare a trovare automaticamente il dispositivo, \n dovrei farlo ?</translation>
+        <source>Automatically identify the connected device?</source>
+        <translation>Identificare automaticamente il dispositivo ?</translation>
     </message>
     <message>
-        <source>Lab-on-a-tip connected but PPC1 is not running</source>
-        <translation>Lab-on-a-tip connesso ma il PPC1 non è in esecuzione</translation>
+        <source>PPC1 is connected but not running</source>
+        <translation>PPC1 connesso ma non è in esecuzione</translation>
     </message>
     <message>
         <source>This will stop the PPC1, \n Are you sure?</source>
@@ -360,16 +360,16 @@
         <translation>Impossibile fermare e disconnettere il PPC1</translation>
     </message>
     <message>
-        <source>Shutdown pressed, this will take 30 seconds, press Ok to continue, cancel to abort.</source>
+        <source>Shutdown pressed, this will take 30 seconds, press Ok to continue, cancel to abort</source>
         <translation>Shutdown avviato, la procedura richiederà 30 secondi, premi Ok per continuare, annulla per uscire.</translation>
     </message>
     <message>
-        <source>The pressure is off, waiting for the vacuum.</source>
-        <translation>La pressione è disattivata, aspetta l'attivazione dell'aspirazione.</translation>
+        <source>The pressure is off, waiting for the vacuum</source>
+        <translation>La pressione è disattivata, aspetta l'attivazione dell'aspirazione</translation>
     </message>    
 	<message>
-        <source>Vacuum off. Stopping the flow in the device.</source>
-        <translation>Aspirazione disattivata. Sto fermando il flusso nel dispositivo.</translation>
+        <source>Vacuum off, stopping the flow in the device</source>
+        <translation>Aspirazione disattivata, sto fermando il flusso nel dispositivo</translation>
     </message>    
 	<message>
         <source>Rebooting ...</source>
@@ -444,16 +444,16 @@
         <translation>Il protocollo caricato è : </translation>
     </message>
     <message>
-        <source>\n press ''Ok'' to run the protocol, or press ''Cancel'' to load a new one.</source>
-        <translation>\n premi ''Ok'' per eseguire il protocollo, oppure premi ''Annulla'' per caricarne uno.</translation>
+        <source>Press Ok to run the protocol, or press Cancel to load a new one</source>
+        <translation>Premi Ok per eseguire il protocollo, oppure premi Annulla per caricarne uno</translation>
     </message>
     <message>
         <source>This operation will take </source>
         <translation>Questa operazione richiederà </translation>
     </message>	
     <message>
-        <source> seconds.</source>
-        <translation> secondi.</translation>
+        <source> seconds</source>
+        <translation> secondi</translation>
     </message>	
     <message>
         <source>Ask message command</source>
@@ -468,8 +468,8 @@
         <translation> Protocollo caricato : </translation>
     </message>	
     <message>
-        <source>This will remove all the files in the history folder.\nDo you want to proceed?\n</source>
-        <translation>Questa operazione rimuoverà tutti i file della cronologia.\nVuoi proseguire?\n</translation>
+        <source>This will remove all the files in the history folder.\nDo you want to proceed?</source>
+        <translation>Questa operazione rimuoverà tutti i file della cronologia.\nVuoi proseguire?</translation>
     </message>	
     <message>
         <source>History cleaned</source>

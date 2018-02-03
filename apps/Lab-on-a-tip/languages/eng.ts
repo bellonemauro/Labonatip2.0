@@ -208,8 +208,8 @@
         <translation>Clear history</translation>
     </message>
     <message>
-        <source>Out file path</source>
-        <translation>Out file path</translation>
+        <source>Output file path</source>
+        <translation>Output file path</translation>
     </message>
     <message>
         <source>Value</source>
@@ -332,24 +332,24 @@
         <translation>Cannot load the file</translation>
     </message>
     <message>
-        <source>Lab-on-a-tip is in simulation only</source>
-        <translation>Lab-on-a-tip is in simulation only</translation>
+        <source>The program is in simulation mode</source>
+        <translation>The program is in simulation mode</translation>
     </message>
     <message>
-        <source>Lab-on-a-tip could not connect to PPC1, \n please, check cables and settings and press Ok</source>
-        <translation>Lab-on-a-tip could not connect to PPC1, \n please, check cables and settings and press Ok</translation>
+        <source>Unable to connect to PPC1,\n please, check cables and settings and press Ok</source>
+        <translation>Unable to connect to PPC1,\n please, check cables and settings and press Ok</translation>
     </message>
     <message>
-        <source>Lab-on-a-tip could not connect to PPC1 twice, \n please, check cables and settings</source>
-        <translation>Lab-on-a-tip could not connect to PPC1 twice, \n please, check cables and settings</translation>
+        <source>Unable to connect to PPC1 twice,\n please, check cables and settings</source>
+        <translation>Unable to connect to PPC1 twice,\n please, check cables and settings</translation>
     </message>
     <message>
-        <source>I can try to automatically find the device, \n Should I do it?</source>
-        <translation>I can try to automatically find the device, \n Should I do it?</translation>
+        <source>Automatically identify the connected device?</source>
+        <translation>Automatically identify the connected device?</translation>
     </message>
     <message>
-        <source>Lab-on-a-tip connected but PPC1 is not running</source>
-        <translation>Lab-on-a-tip connected but PPC1 is not running</translation>
+        <source>PPC1 is connected but not running</source>
+        <translation>PPC1 is connected but not running</translation>
     </message>
     <message>
         <source>This will stop the PPC1, \n Are you sure?</source>
@@ -360,16 +360,16 @@
         <translation>Unable to stop and disconnect PPC1</translation>
     </message>
     <message>
-        <source>Shutdown pressed, this will take 30 seconds, press Ok to continue, cancel to abort.</source>
-        <translation>Shutdown pressed, this will take 30 seconds, press Ok to continue, cancel to abort.</translation>
+        <source>Shutdown pressed, this will take 30 seconds, press Ok to continue, cancel to abort</source>
+        <translation>Shutdown pressed, this will take 30 seconds, press Ok to continue, cancel to abort</translation>
     </message>
     <message>
-        <source>The pressure is off, waiting for the vacuum.</source>
-        <translation>The pressure is off, waiting for the vacuum.</translation>
+        <source>The pressure is off, waiting for the vacuum</source>
+        <translation>The pressure is off, waiting for the vacuum</translation>
     </message>
     <message>
-        <source>Vacuum off. Stopping the flow in the device.</source>
-        <translation>Vacuum off. Stopping the flow in the device.</translation>
+        <source>Vacuum off, stopping the flow in the device</source>
+        <translation>Vacuum off, stopping the flow in the device</translation>
     </message>
     <message>
         <source>Rebooting ...</source>
@@ -444,16 +444,16 @@
         <translation>The protocol loaded is : </translation>
     </message>
     <message>
-        <source>\n press &apos;&apos;Ok&apos;&apos; to run the protocol, or press &apos;&apos;Cancel&apos;&apos; to load a new one.</source>
-        <translation>\n press &apos;&apos;Ok&apos;&apos; to run the protocol, or press &apos;&apos;Cancel&apos;&apos; to load a new one.</translation>
+        <source>Press Ok to run the protocol, or press Cancel to load a new one</source>
+        <translation>Press Ok to run the protocol, or press Cancel to load a new one</translation>
     </message>
     <message>
         <source>This operation will take </source>
         <translation>This operation will take </translation>
     </message>
     <message>
-        <source> seconds.</source>
-        <translation> seconds.</translation>
+        <source> seconds</source>
+        <translation> seconds</translation>
     </message>
     <message>
         <source>Ask message command</source>
@@ -468,8 +468,8 @@
         <translation> Protocol loaded : </translation>
     </message>
     <message>
-        <source>This will remove all the files in the history folder.\nDo you want to proceed?\n</source>
-        <translation>This will remove all the files in the history folder.\nDo you want to proceed?\n</translation>
+        <source>This will remove all the files in the history folder.\nDo you want to proceed?</source>
+        <translation>This will remove all the files in the history folder.\nDo you want to proceed?</translation>
     </message>
     <message>
         <source>History cleaned</source>

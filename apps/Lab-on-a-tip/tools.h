@@ -180,6 +180,8 @@ private:
 
 	QSettings *m_settings;
 
+	void initCustomStrings();
+
 	int interpreteLanguage(QString _language);
 
 	void getCOMsettingsFromGUI();

@@ -43,67 +43,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   // setup the user interface
   ui->setupUi (this);
 
-  //setting custom strings to translate 
-  m_str_areyousure.append(tr("Are you sure?"));
-  m_str_waiting.append(tr("Waiting ..."));
-  m_str_advanced.append(tr("Advanced"));
-  m_str_basic.append(tr("Basic"));
-  m_str_operation_cancelled.append(tr("Operation cancelled"));
-  m_str_no_file_loaded.append(tr("No file loaded"));
-  m_str_information.append(tr("Information"));
-  m_str_warning.append(tr("Warning"));
-  m_str_error.append(tr("Error"));
-  m_str_cancel.append(tr("Cancel"));
-  m_str_ok.append(tr("Ok"));
-  m_str_PPC1_status_con.append(tr("PPC1 STATUS: Connected  "));
-  m_str_PPC1_status_discon.append(tr("PPC1 STATUS: NOT Connected  "));
-  m_str_protocol_running.append(tr("Cancel"));
-  m_str_protocol_not_running.append(tr("No protocol running  "));
-  m_str_connect.append(tr("Connect"));
-  m_str_disconnect.append(tr("Disconnect"));
-  m_str_save_profile.append(tr("Save profile"));
-  m_str_load_profile.append(tr("Load profile"));
-  m_str_cannot_save_profile.append(tr("Cannot save the file"));
-  m_str_cannot_load_profile.append(tr("Cannot load the file"));
-  m_str_warning_simulation_only.append(tr("Lab-on-a-tip is in simulation only"));
-  m_str_cannot_connect_ppc1.append(tr("Lab-on-a-tip could not connect to PPC1, \n please, check cables and settings and press Ok"));
-  m_str_cannot_connect_ppc1_twice.append(tr("Lab-on-a-tip could not connect to PPC1 twice, \n please, check cables and settings"));
-  m_str_question_find_device.append(tr("I can try to automatically find the device, \n Should I do it?"));
-  m_str_ppc1_connected_but_not_running.append(tr("Lab-on-a-tip connected but PPC1 is not running"));
-  m_str_question_stop_ppc1.append(tr("This will stop the PPC1, \n Are you sure?"));
-  m_str_unable_stop_ppc1.append(tr("Unable to stop and disconnect PPC1"));
-  m_str_shutdown_pressed.append(tr("Shutdown pressed, this will take 30 seconds, press Ok to continue, cancel to abort."));
-  m_str_shutdown_pressed_p_off.append(tr("The pressure is off, waiting for the vacuum."));
-  m_str_shutdown_pressed_v_off.append(tr("Vacuum off. Stopping the flow in the device."));
-  m_str_rebooting.append(tr("Rebooting ..."));
-  m_str_reconnecting.append(tr("Reconnecting ..."));
-  m_str_initialization.append(tr("Initialization"));
-  m_str_newtip_msg1.append(tr("Place the pipette into the holder and tighten. THEN PRESS OK"));
-  m_str_newtip_msg2.append(tr("Pressurize the system"));
-  m_str_newtip_msg3.append(tr("Wait until a droplet appears at the tip of the pipette and THEN PRESS OK"));
-  m_str_newtip_msg4.append(tr("Purging the liquid channels"));
-  m_str_newtip_msg5.append(tr("Still purging the liquid channels"));
-  m_str_newtip_msg6.append(tr("Remove the droplet using a lens tissue. THEN PRESS OK"));
-  m_str_newtip_msg7.append(tr("Put the pipette into solution. THEN PRESS OK"));
-  m_str_newtip_msg8.append(tr("Purging the vacuum channels"));
-  m_str_newtip_msg9.append(tr("Establishing operational pressures"));
-  m_str_newtip_msg10.append(tr("Pipette is ready for operation. PRESS OK TO START"));
-  m_str_standby_operation.append(tr("Standby operation progress"));
-  m_str_label_run_protocol.append(tr("Run protocol"));
-  m_str_label_stop_protocol.append(tr("Stop protocol"));
-  m_str_no_protocol_load_first.append(tr("No protocol loaded, load one first"));
-  m_str_loaded_protocol_is.append(tr("The protocol loaded is : \n"));
-  m_str_protocol_confirm.append(tr("\n press ''Ok'' to run the protocol, or press ''Cancel'' to load a new one."));
-  m_str_progress_msg1.append(tr("This operation will take "));
-  m_str_progress_msg2.append(tr(" seconds."));
-  m_str_ask_msg.append(tr("Ask message command"));
-  m_str_editor_apply_msg1.append(tr(" No protocol loaded : "));
-  m_str_editor_apply_msg2.append(tr(" Protocol loaded : "));
-  m_str_cleaning_history_msg1.append(tr("This will remove all the files in the history folder.\nDo you want to proceed?\n"));
-  m_str_cleaning_history_msg2.append(tr("History cleaned"));
-  m_str_update_time_macro_msg1.append(tr(" PROTOCOL RUNNING : "));
-  m_str_update_time_macro_msg2.append(tr(" ----- remaining time,  "));
-  m_str_pulse_remaining_time.append(tr("Pulse time remaining: "));
+  initCustomStrings();
 
   ui->dockWidget->close();  //close the advaced dock page
   //ui->treeWidget_macroInfo->resizeColumnToContents(0);
@@ -433,8 +373,10 @@ void Labonatip_GUI::switchLanguage(int _value )
 		<< "Labonatip_GUI::switchLanguage   " << endl;
 	
 
-	if (_value == m_language_idx) return; // no translation needed
+	if (_value == m_language_idx) 
+		return; // no translation needed
 
+	// this will re-init custom strings to english for re-translation
 	qApp->removeTranslator(&m_translator);
 	QString translation_file;
 	m_language_idx = _value;
@@ -460,7 +402,6 @@ void Labonatip_GUI::switchLanguage(int _value )
 		translation_file = ":/languages/sve.qm";
 		break;
 	}
-
 	default: 
 		translation_file = ":/languages/eng.qm"; 
 		qApp->removeTranslator(&m_translator);
@@ -468,71 +409,17 @@ void Labonatip_GUI::switchLanguage(int _value )
 	}
 
 	if (m_translator.load(translation_file)) {
-		//m_translator.translate("Labonatip_GUI", "english");
+
+		// translate app
 		qApp->installTranslator(&m_translator);
 
-	// translate the custom strings
-	m_str_areyousure = QApplication::translate("Labonatip_GUI", qPrintable(m_str_areyousure), Q_NULLPTR);
-	m_str_waiting = QApplication::translate("Labonatip_GUI", qPrintable(m_str_waiting), Q_NULLPTR);
-	m_str_advanced = QApplication::translate("Labonatip_GUI", qPrintable(m_str_advanced), Q_NULLPTR);
-	m_str_basic = QApplication::translate("Labonatip_GUI", qPrintable(m_str_basic), Q_NULLPTR);
-	m_str_operation_cancelled = QApplication::translate("Labonatip_GUI", qPrintable(m_str_operation_cancelled));
-	m_str_no_file_loaded = QApplication::translate("Labonatip_GUI", qPrintable(m_str_no_file_loaded));
-	m_str_information = QApplication::translate("Labonatip_GUI", qPrintable(m_str_information));
-	m_str_warning = QApplication::translate("Labonatip_GUI", qPrintable(m_str_warning));
-	m_str_error = QApplication::translate("Labonatip_GUI", qPrintable(m_str_error));
-	m_str_ok = QApplication::translate("Labonatip_GUI", qPrintable(m_str_ok));
-	m_str_PPC1_status_con = QApplication::translate("Labonatip_GUI", qPrintable(m_str_PPC1_status_con));
-	m_str_PPC1_status_discon = QApplication::translate("Labonatip_GUI", qPrintable(m_str_PPC1_status_discon));
-	m_str_protocol_running = QApplication::translate("Labonatip_GUI", qPrintable(m_str_protocol_running));
-	m_str_connect = QApplication::translate("Labonatip_GUI", qPrintable(m_str_connect));
-	m_str_disconnect = QApplication::translate("Labonatip_GUI", qPrintable(m_str_disconnect));
-	m_str_save_profile = QApplication::translate("Labonatip_GUI", qPrintable(m_str_save_profile));
-	m_str_load_profile = QApplication::translate("Labonatip_GUI", qPrintable(m_str_load_profile));
-	m_str_cannot_save_profile = QApplication::translate("Labonatip_GUI", qPrintable(m_str_cannot_save_profile));
-	m_str_cannot_load_profile = QApplication::translate("Labonatip_GUI", qPrintable(m_str_cannot_load_profile));
-	m_str_warning_simulation_only = QApplication::translate("Labonatip_GUI", qPrintable(m_str_warning_simulation_only));
-	m_str_cannot_connect_ppc1 = QApplication::translate("Labonatip_GUI", qPrintable(m_str_cannot_connect_ppc1));
-	m_str_cannot_connect_ppc1_twice = QApplication::translate("Labonatip_GUI", qPrintable(m_str_cannot_connect_ppc1_twice));
-	m_str_ppc1_connected_but_not_running = QApplication::translate("Labonatip_GUI", qPrintable(m_str_ppc1_connected_but_not_running));
-	m_str_question_stop_ppc1 = QApplication::translate("Labonatip_GUI", qPrintable(m_str_question_stop_ppc1));
-	m_str_unable_stop_ppc1 = QApplication::translate("Labonatip_GUI", qPrintable(m_str_unable_stop_ppc1));
-	m_str_shutdown_pressed = QApplication::translate("Labonatip_GUI", qPrintable(m_str_shutdown_pressed));
-	m_str_shutdown_pressed_p_off = QApplication::translate("Labonatip_GUI", qPrintable(m_str_shutdown_pressed_p_off));
-	m_str_shutdown_pressed_v_off = QApplication::translate("Labonatip_GUI", qPrintable(m_str_shutdown_pressed_v_off));
-	m_str_rebooting = QApplication::translate("Labonatip_GUI", qPrintable(m_str_rebooting));
-	m_str_reconnecting = QApplication::translate("Labonatip_GUI", qPrintable(m_str_reconnecting));
-	m_str_initialization = QApplication::translate("Labonatip_GUI", qPrintable(m_str_initialization));
-	m_str_newtip_msg1 = QApplication::translate("Labonatip_GUI", qPrintable(m_str_newtip_msg1));
-	m_str_newtip_msg2 = QApplication::translate("Labonatip_GUI", qPrintable(m_str_newtip_msg2));
-	m_str_newtip_msg3 = QApplication::translate("Labonatip_GUI", qPrintable(m_str_newtip_msg3));
-	m_str_newtip_msg4 = QApplication::translate("Labonatip_GUI", qPrintable(m_str_newtip_msg4));
-	m_str_newtip_msg5 = QApplication::translate("Labonatip_GUI", qPrintable(m_str_newtip_msg5));
-	m_str_newtip_msg6 = QApplication::translate("Labonatip_GUI", qPrintable(m_str_newtip_msg6));
-	m_str_newtip_msg7 = QApplication::translate("Labonatip_GUI", qPrintable(m_str_newtip_msg7));
-	m_str_newtip_msg8 = QApplication::translate("Labonatip_GUI", qPrintable(m_str_newtip_msg8));
-	m_str_newtip_msg9 = QApplication::translate("Labonatip_GUI", qPrintable(m_str_newtip_msg9));
-	m_str_newtip_msg10 = QApplication::translate("Labonatip_GUI", qPrintable(m_str_newtip_msg10));
-	m_str_standby_operation = QApplication::translate("Labonatip_GUI", qPrintable(m_str_standby_operation));
-	m_str_label_run_protocol = QApplication::translate("Labonatip_GUI", qPrintable(m_str_label_run_protocol));
-	m_str_label_stop_protocol = QApplication::translate("Labonatip_GUI", qPrintable(m_str_label_stop_protocol));
-	m_str_no_protocol_load_first = QApplication::translate("Labonatip_GUI", qPrintable(m_str_no_protocol_load_first));
-	m_str_loaded_protocol_is = QApplication::translate("Labonatip_GUI", qPrintable(m_str_loaded_protocol_is));
-	m_str_protocol_confirm = QApplication::translate("Labonatip_GUI", qPrintable(m_str_protocol_confirm));
-	m_str_progress_msg1 = QApplication::translate("Labonatip_GUI", qPrintable(m_str_progress_msg1));
-	m_str_progress_msg2 = QApplication::translate("Labonatip_GUI", qPrintable(m_str_progress_msg2));
-	m_str_ask_msg = QApplication::translate("Labonatip_GUI", qPrintable(m_str_ask_msg));
-	m_str_editor_apply_msg1 = QApplication::translate("Labonatip_GUI", qPrintable(m_str_editor_apply_msg1));
-	m_str_editor_apply_msg2 = QApplication::translate("Labonatip_GUI", qPrintable(m_str_editor_apply_msg2));
-	m_str_cleaning_history_msg1 = QApplication::translate("Labonatip_GUI", qPrintable(m_str_cleaning_history_msg1));
-	m_str_cleaning_history_msg2 = QApplication::translate("Labonatip_GUI", qPrintable(m_str_cleaning_history_msg2));
-	m_str_update_time_macro_msg1 = QApplication::translate("Labonatip_GUI", qPrintable(m_str_update_time_macro_msg1));
-	m_str_update_time_macro_msg2 = QApplication::translate("Labonatip_GUI", qPrintable(m_str_update_time_macro_msg2));
-	m_str_pulse_remaining_time = QApplication::translate("Labonatip_GUI", qPrintable(m_str_pulse_remaining_time));
+		initCustomStrings();
 	
-	// translate other dialogs
-	m_dialog_tools->switchLanguage(translation_file);
-	m_dialog_p_editor->switchLanguage(translation_file);
+		// translate other dialogs
+		m_dialog_tools->switchLanguage(translation_file);
+		m_dialog_p_editor->switchLanguage(translation_file);
+
+
 
 	}
 	else cout << " translation not loaded " << endl;
@@ -834,6 +721,74 @@ void Labonatip_GUI::initConnects()
 		&Labonatip_GUI::colSolution4Changed);
 }
 
+void Labonatip_GUI::initCustomStrings()
+{
+	m_str_areyousure.clear();
+
+	//setting custom strings to translate 
+	m_str_areyousure = tr("Are you sure?");
+	m_str_waiting = tr("Waiting ...");
+	m_str_advanced = tr("Advanced");
+	m_str_basic = tr("Basic");
+	m_str_operation_cancelled = tr("Operation cancelled");
+	m_str_no_file_loaded = tr("No file loaded");
+	m_str_information = tr("Information");
+	m_str_warning = tr("Warning");
+	m_str_error = tr("Error");
+	m_str_cancel = tr("Cancel");
+	m_str_ok = tr("Ok");
+	m_str_PPC1_status_con = tr("PPC1 STATUS: Connected  ");
+	m_str_PPC1_status_discon = tr("PPC1 STATUS: NOT Connected  ");
+	m_str_protocol_running = tr("Cancel");
+	m_str_protocol_not_running = tr("No protocol running  ");
+	m_str_connect = tr("Connect");
+	m_str_disconnect = tr("Disconnect");
+	m_str_save_profile = tr("Save profile");
+	m_str_load_profile = tr("Load profile");
+	m_str_cannot_save_profile = tr("Cannot save the file");
+	m_str_cannot_load_profile = tr("Cannot load the file");
+	m_str_warning_simulation_only = tr("The program is in simulation mode");
+	m_str_cannot_connect_ppc1 = tr("Unable to connect to PPC1,\n please, check cables and settings and press Ok");
+	m_str_cannot_connect_ppc1_twice = tr("Unable to connect to PPC1 twice,\n please, check cables and settings");
+	m_str_question_find_device = tr("Automatically identify the connected device?");
+	m_str_ppc1_connected_but_not_running = tr("PPC1 is connected but not running");
+	m_str_question_stop_ppc1 = tr("This will stop the PPC1, \n Are you sure?");
+	m_str_unable_stop_ppc1 = tr("Unable to stop and disconnect PPC1");
+	m_str_shutdown_pressed = tr("Shutdown pressed, this will take 30 seconds, press Ok to continue, cancel to abort");
+	m_str_shutdown_pressed_p_off = tr("The pressure is off, waiting for the vacuum");
+	m_str_shutdown_pressed_v_off = tr("Vacuum off, stopping the flow in the device");
+	m_str_rebooting = tr("Rebooting ...");
+	m_str_reconnecting = tr("Reconnecting ...");
+	m_str_initialization = tr("Initialization");
+	m_str_newtip_msg1 = tr("Place the pipette into the holder and tighten. THEN PRESS OK");
+	m_str_newtip_msg2 = tr("Pressurize the system");
+	m_str_newtip_msg3 = tr("Wait until a droplet appears at the tip of the pipette and THEN PRESS OK");
+	m_str_newtip_msg4 = tr("Purging the liquid channels");
+	m_str_newtip_msg5 = tr("Still purging the liquid channels");
+	m_str_newtip_msg6 = tr("Remove the droplet using a lens tissue. THEN PRESS OK");
+	m_str_newtip_msg7 = tr("Put the pipette into solution. THEN PRESS OK");
+	m_str_newtip_msg8 = tr("Purging the vacuum channels");
+	m_str_newtip_msg9 = tr("Establishing operational pressures");
+	m_str_newtip_msg10 = tr("Pipette is ready for operation. PRESS OK TO START");
+	m_str_standby_operation = tr("Standby operation progress");
+	m_str_label_run_protocol = tr("Run protocol");
+	m_str_label_stop_protocol = tr("Stop protocol");
+	m_str_no_protocol_load_first = tr("No protocol loaded, load one first");
+	m_str_loaded_protocol_is = tr("The protocol loaded is : \n");
+	m_str_protocol_confirm = tr("Press Ok to run the protocol, or press Cancel to load a new one");
+	m_str_progress_msg1 = tr("This operation will take ");
+	m_str_progress_msg2 = tr(" seconds");
+	m_str_ask_msg = tr("Ask message command");
+	m_str_editor_apply_msg1 = tr(" No protocol loaded : ");
+	m_str_editor_apply_msg2 = tr(" Protocol loaded : ");
+	m_str_cleaning_history_msg1 = tr("This will remove all the files in the history folder.\nDo you want to proceed?");
+	m_str_cleaning_history_msg2 = tr("History cleaned");
+	m_str_update_time_macro_msg1 = tr(" PROTOCOL RUNNING : ");
+	m_str_update_time_macro_msg2 = tr(" ----- remaining time,  ");
+	m_str_pulse_remaining_time = tr("Pulse time remaining: ");
+
+}
+
 void Labonatip_GUI::toolEmptyWells()
 {
 
@@ -1023,7 +978,7 @@ bool Labonatip_GUI::visualizeProgressMessage(int _seconds, QString _message)
 	PD->show(); // Make sure dialog is displayed immediately
 	PD->setValue(1); 
 	PD->setWindowModality(Qt::WindowModal);
-	PD->setCancelButtonText(m_str_cancel);// (QApplication::translate("Labonatip_GUI", "Cancel", Q_NULLPTR));
+	//PD->setCancelButtonText(m_str_cancel);// (QApplication::translate("Labonatip_GUI", "Cancel", Q_NULLPTR));
 
 	for (int i = 0; i < _seconds; i++) {
 		PD->setValue(i);
