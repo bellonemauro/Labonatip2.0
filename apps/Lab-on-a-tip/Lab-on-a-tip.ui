@@ -139,7 +139,7 @@ border:0;
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>846</width>
+         <width>943</width>
          <height>737</height>
         </rect>
        </property>
@@ -181,8 +181,8 @@ border:0;
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>978</width>
-             <height>672</height>
+             <width>976</width>
+             <height>673</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout">
@@ -1536,9 +1536,9 @@ p, li { white-space: pre-wrap; }
                  <widget class="QTextEdit" name="textEdit_emptyTime_waste">
                   <property name="geometry">
                    <rect>
-                    <x>800</x>
+                    <x>740</x>
                     <y>0</y>
-                    <width>151</width>
+                    <width>181</width>
                     <height>101</height>
                    </rect>
                   </property>
@@ -1556,10 +1556,7 @@ border:0;</string>
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Waste full in: &lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;0 h&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;0 min &lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;0 sec&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Waste full in: 0 h 0 min&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                  </widget>
                  <widget class="QLabel" name="label_4">
@@ -2720,6 +2717,12 @@ closeAllValves()&lt;br/&gt;
                </item>
                <item row="4" column="1" colspan="2">
                 <widget class="QGroupBox" name="groupBox">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
                  <property name="title">
                   <string/>
                  </property>
@@ -2769,6 +2772,22 @@ closeAllValves()&lt;br/&gt;
                      <bool>true</bool>
                     </property>
                    </widget>
+                  </item>
+                  <item>
+                   <spacer name="verticalSpacer_8">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeType">
+                     <enum>QSizePolicy::Fixed</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>72</height>
+                     </size>
+                    </property>
+                   </spacer>
                   </item>
                   <item>
                    <widget class="QLabel" name="label_warning">
@@ -5741,8 +5760,8 @@ QPushButton:disabled{ background-color: #CCCCCC; }
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>492</width>
-              <height>1145</height>
+              <width>400</width>
+              <height>940</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_3">

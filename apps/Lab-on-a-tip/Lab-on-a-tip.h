@@ -58,6 +58,7 @@ class Labonatip_GUI : public QMainWindow
 #define MAX_FLOW_SPEED_PERC 250
 #define MIN_VACUUM_PERC 10
 #define MAX_VACUUM_PERC 250
+#define MIN_WARNING_VOLUME 15
 
 public:
 	explicit Labonatip_GUI(QMainWindow *parent = nullptr);

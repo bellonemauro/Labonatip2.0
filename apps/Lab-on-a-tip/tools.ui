@@ -99,7 +99,7 @@ QCheckBox::indicator:unchecked {
        <number>0</number>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="page_0">
        <property name="styleSheet">
@@ -371,109 +371,6 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
           </property>
           <layout class="QGridLayout" name="gridLayout_11">
            <item row="0" column="0">
-            <widget class="QLabel" name="label_16">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>10</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>Tool button style TO REMOVE</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="2">
-            <widget class="QComboBox" name="comboBox_toolButtonStyle">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>10</pointsize>
-              </font>
-             </property>
-             <property name="accessibleDescription">
-              <string notr="true"/>
-             </property>
-             <property name="styleSheet">
-              <string notr="true">QComboBox {
-    border: 1px solid gray;
-    border-radius: 6px;
-	border-color: rgb(170, 170, 170);
-    min-width: 6em;
-	background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
-}
-
-QComboBox:hover{
-  background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
- }
-
-QComboBox::drop-down {
-    subcontrol-origin: padding;
-    subcontrol-position: top right;
-    width: 20px;
-    border-style:solid;
-    border-left-color: darkgray;
-    border-left-style: solid; /* just a single line */
-    border-top-right-radius: 3px; /* same radius as the QComboBox */
-    border-bottom-right-radius: 3px;
-}
-
-
-QComboBox::down-arrow {
-    image: url(:/icons/comboDown.png);
-    width: 15px;
-}
-
-QComboBox::down-arrow:on { /* shift the arrow when popup is open */
-    top: 1px;
-    left: 1px;
-}
-
-</string>
-             </property>
-             <property name="currentText">
-              <string>ToolButtonTextUnderIcon</string>
-             </property>
-             <property name="currentIndex">
-              <number>3</number>
-             </property>
-             <property name="frame">
-              <bool>true</bool>
-             </property>
-             <item>
-              <property name="text">
-               <string>ToolButtonIconOnly</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>ToolButtonTextOnly</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>ToolButtonTextBesideIcon</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>ToolButtonTextUnderIcon</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string>ToolButtonFollowStyle</string>
-              </property>
-             </item>
-            </widget>
-           </item>
-           <item row="1" column="0">
             <widget class="QCheckBox" name="checkBox_enableToolTips">
              <property name="font">
               <font>

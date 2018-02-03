@@ -487,6 +487,10 @@
         <source>Pulse time remaining: </source>
         <translation>Pulse time remaining: </translation>
     </message>
+	<message>
+        <source>Warning: the solution is running out</source>
+        <translation>Warning: the solution is running out</translation>
+	</message>	
 </context>
 <context>
     <name>Labonatip_tools</name>

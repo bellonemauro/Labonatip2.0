@@ -96,7 +96,7 @@ private slots:
 
 	void languageChanged(int _idx);
 
-	void toolButtonStyleChanged(int _idx);
+	//void toolButtonStyleChanged(int _idx);
 
 	void enableToolTip(int _inx);
 

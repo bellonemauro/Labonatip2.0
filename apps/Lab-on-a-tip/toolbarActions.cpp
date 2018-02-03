@@ -43,7 +43,7 @@ void Labonatip_GUI::saveSettingsFile() {
 		"Profile file (*.ini);; All Files(*.*)", 0);
 
 	if (_path.isEmpty()) { 
-	    QMessageBox::information(this, m_str_information, m_str_no_file_loaded + "<br>" + _path);
+	    QMessageBox::information(this, m_str_information, m_str_cannot_save_profile + "<br>" + _path);
 		return;
 	}
 

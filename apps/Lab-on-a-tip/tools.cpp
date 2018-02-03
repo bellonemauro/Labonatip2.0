@@ -40,9 +40,9 @@ Labonatip_tools::Labonatip_tools(QWidget *parent ):
 		&Labonatip_tools::languageChanged);
 
 
-	connect(ui_tools->comboBox_toolButtonStyle,
-		static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this,
-		&Labonatip_tools::toolButtonStyleChanged);
+//	connect(ui_tools->comboBox_toolButtonStyle,
+//		static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this,
+//		&Labonatip_tools::toolButtonStyleChanged);
 
 	connect(ui_tools->checkBox_enableToolTips,
 		SIGNAL(stateChanged(int)), this, SLOT(enableToolTip(int))); //TODO:
@@ -196,6 +196,14 @@ void Labonatip_tools::refillSolutionPressed() {
 	cout << QDate::currentDate().toString().toStdString() << "  "
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_tools::refillSolutionPressed " << endl;
+
+	m_solutionParams->vol_well1 = ui_tools->spinBox_vol_sol1->value();
+	m_solutionParams->vol_well2 = ui_tools->spinBox_vol_sol2->value();
+	m_solutionParams->vol_well3 = ui_tools->spinBox_vol_sol3->value();
+	m_solutionParams->vol_well4 = ui_tools->spinBox_vol_sol4->value();
+
+
+
 	emit refillSolution();
 
 }
@@ -204,6 +212,12 @@ void Labonatip_tools::emptyWastePressed() {
 	cout << QDate::currentDate().toString().toStdString() << "  "
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_tools::emptyWellsPressed " << endl;
+
+	m_solutionParams->vol_well5 = 35; // ui_tools->spinBox_vol_sol5->value();
+	m_solutionParams->vol_well6 = 35; //ui_tools->spinBox_vol_sol6->value();
+	m_solutionParams->vol_well7 = 35; //ui_tools->spinBox_vol_sol7->value();
+	m_solutionParams->vol_well8 = 35; //ui_tools->spinBox_vol_sol8->value();
+
 	emit emptyWaste();
 
 }
@@ -285,10 +299,10 @@ void Labonatip_tools::languageChanged(int _idx)
 	language = _idx;
 }
 
-void Labonatip_tools::toolButtonStyleChanged(int _idx)
-{
-	m_GUI_params->showTextToolBar = Qt::ToolButtonStyle(_idx);
-}
+//void Labonatip_tools::toolButtonStyleChanged(int _idx)
+//{
+//	m_GUI_params->showTextToolBar = Qt::ToolButtonStyle(_idx);
+//}
 
 void Labonatip_tools::enableToolTip(int _inx)
 {
@@ -435,7 +449,7 @@ void Labonatip_tools::getSolutionSettingsFromGUI()
 
 void Labonatip_tools::getGUIsettingsFromGUI()
 {
-	m_GUI_params->showTextToolBar = Qt::ToolButtonStyle(ui_tools->comboBox_toolButtonStyle->currentIndex());
+//	m_GUI_params->showTextToolBar = Qt::ToolButtonStyle(ui_tools->comboBox_toolButtonStyle->currentIndex());
 	m_GUI_params->enableToolTips = ui_tools->checkBox_enableToolTips->isChecked();
 
 }
@@ -529,14 +543,14 @@ bool Labonatip_tools::loadSettings(QString _path)
 
 	//read GUI params
 	bool ok = false;
-	int tbs = m_settings->value("GUI/ToolButtonStyle", "3").toInt(&ok);
-	if (!ok) {
-		cerr << QDate::currentDate().toString().toStdString() << "  "
-			<< QTime::currentTime().toString().toStdString() << "  "
-			<< "Labonatip_tools::loadSettings ::: Warning  ::  in GUI params, ToolButtonStyle is corrupted in setting file, using default value " << endl;
-	}
-	ui_tools->comboBox_toolButtonStyle->setCurrentIndex(tbs);
-	m_GUI_params->showTextToolBar = Qt::ToolButtonStyle(tbs);
+	//int tbs = m_settings->value("GUI/ToolButtonStyle", "3").toInt(&ok);
+	//if (!ok) {
+	//	cerr << QDate::currentDate().toString().toStdString() << "  "
+	//		<< QTime::currentTime().toString().toStdString() << "  "
+	//		<< "Labonatip_tools::loadSettings ::: Warning  ::  in GUI params, ToolButtonStyle is corrupted in setting file, using default value " << endl;
+	//}
+	//ui_tools->comboBox_toolButtonStyle->setCurrentIndex(tbs);
+	//m_GUI_params->showTextToolBar = Qt::ToolButtonStyle(tbs);
 
 	bool enable_tool_tips = m_settings->value("GUI/EnableToolTips", "0").toBool();
 	ui_tools->checkBox_enableToolTips->setChecked(enable_tool_tips);
@@ -878,8 +892,8 @@ bool Labonatip_tools::saveSettings(QString _file_name)
 	settings->setValue("COM/FlowControl", ui_tools->comboBox_flowControl->currentText());
 
 	// [GUI]
-	settings->setValue("GUI/ToolButtonStyle", ui_tools->comboBox_toolButtonStyle->currentIndex());
-	settings->setValue("GUI/enableToolTips", ui_tools->checkBox_enableToolTips->isChecked());
+//	settings->setValue("GUI/ToolButtonStyle", ui_tools->comboBox_toolButtonStyle->currentIndex());
+	settings->setValue("GUI/enableToolTips", int(ui_tools->checkBox_enableToolTips->isChecked()));
 
 	// [pr_limits]
 	// p_on_max = 
@@ -959,13 +973,13 @@ bool Labonatip_tools::saveSettings(QString _file_name)
 	// pulse time solution 4
 	settings->setValue("solutions/pulseDuration4", ui_tools->doubleSpinBox_pulse_sol4->value());
 	// continuous flowing sol 1
-	settings->setValue("solutions/continuousFlowingWell1", ui_tools->checkBox_disableTimer_s1->isChecked());
+	settings->setValue("solutions/continuousFlowingWell1", int(ui_tools->checkBox_disableTimer_s1->isChecked()));
 	// continuous flowing sol 2
-	settings->setValue("solutions/continuousFlowingWell2", ui_tools->checkBox_disableTimer_s2->isChecked());
+	settings->setValue("solutions/continuousFlowingWell2", int(ui_tools->checkBox_disableTimer_s2->isChecked()));
 	// continuous flowing sol 3
-	settings->setValue("solutions/continuousFlowingWell3", ui_tools->checkBox_disableTimer_s3->isChecked());
+	settings->setValue("solutions/continuousFlowingWell3", int(ui_tools->checkBox_disableTimer_s3->isChecked()));
 	// continuous flowing sol 4
-	settings->setValue("solutions/continuousFlowingWell4", ui_tools->checkBox_disableTimer_s4->isChecked());
+	settings->setValue("solutions/continuousFlowingWell4", int(ui_tools->checkBox_disableTimer_s4->isChecked()));
 
 	
 	settings->sync();

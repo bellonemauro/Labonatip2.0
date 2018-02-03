@@ -113,8 +113,8 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   initConnects();
   
   // set the toolbar text icons
-  ui->toolBar_2->setToolButtonStyle(m_GUI_params->showTextToolBar);
-  ui->toolBar_3->setToolButtonStyle(m_GUI_params->showTextToolBar);
+  //ui->toolBar_2->setToolButtonStyle(m_GUI_params->showTextToolBar);
+  //ui->toolBar_3->setToolButtonStyle(m_GUI_params->showTextToolBar);
 
   // hide the warning label
   ui->label_warning->hide();
@@ -803,6 +803,9 @@ void Labonatip_GUI::toolEmptyWells()
 	m_pipette_status->rem_vol_well6 = 0.0; 
 	m_pipette_status->rem_vol_well7 = 0.0;
 	m_pipette_status->rem_vol_well8 = 0.0;
+
+	ui->label_warningIcon->hide();
+	ui->label_warning->hide();
 	
 }
 
@@ -819,6 +822,9 @@ void Labonatip_GUI::toolRefillSolution()
 	m_pipette_status->rem_vol_well2 = m_solutionParams->vol_well2;
 	m_pipette_status->rem_vol_well3 = m_solutionParams->vol_well3;
 	m_pipette_status->rem_vol_well4 = m_solutionParams->vol_well4;
+
+	ui->label_warningIcon->hide();
+	ui->label_warning->hide();
 
 	int max_vol_in_well = 30;
 

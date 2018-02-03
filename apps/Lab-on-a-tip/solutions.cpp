@@ -458,7 +458,7 @@ void Labonatip_GUI::updateTimingSliders()
 			else updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
 
 			// show the warning label
-			if (status < 5) {  // TODO: 5 uL is the limit to warn the user that the solution is ending
+			if (status < MIN_WARNING_VOLUME) {  // TODO: 5 uL is the limit to warn the user that the solution is ending
 				ui->label_warningIcon->show();
 				ui->label_warning->show();
 			}
@@ -469,11 +469,11 @@ void Labonatip_GUI::updateTimingSliders()
 			//s.append("Well ");
 			//s.append(QString::number(m_flowing_solution));
 			//s.append(" in \n");
-			s.append("Continuous \nflowing");
+			s.append("Continuous \nflowing");  //TODO STRING
 			ui->textEdit_emptyTime->setText(s);
 
 			// show the warning label
-			if (status < 5) {  // TODO: 5 uL is the limit to warn the user that the solution is ending
+			if (status < MIN_WARNING_VOLUME) {  // TODO: 5 uL is the limit to warn the user that the solution is ending
 				ui->label_warningIcon->show();
 				ui->label_warning->show();
 			}

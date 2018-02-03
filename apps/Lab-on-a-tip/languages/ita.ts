@@ -487,6 +487,10 @@
         <source>Pulse time remaining: </source>
         <translation>Tempo di pulsazione rimanente:</translation>
 	</message>	
+	<message>
+        <source>Warning: the solution is running out</source>
+        <translation>Attenzione: la soluzione sta finendo</translation>
+	</message>		
 </context>
 <context>
     <name>Labonatip_tools</name>
@@ -516,7 +520,7 @@
     </message>
     <message>
         <source>Refill solutions</source>
-        <translation>Riempi solutioni</translation>
+        <translation>Riempi soluzioni</translation>
     </message>
     <message>
         <source>Pressures</source>
