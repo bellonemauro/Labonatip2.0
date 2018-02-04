@@ -539,6 +539,10 @@
         <translation>Impostazioni generali</translation>
     </message>
 	<message>
+        <source>Profile name</source>
+        <translation>Nome profilo</translation>
+    </message>
+	<message>
         <source>Year</source>
         <translation>Anno</translation>
     </message>
@@ -574,6 +578,22 @@
         <source>Pulse duration</source>
         <translation>Durata dell'impulso</translation>
     </message>	
+    <message>
+        <source>Pulse duration well 1 :</source>
+        <translation>Durata dell'impulso ugello 1 :</translation>
+    </message>
+    <message>
+        <source>Pulse duration well 2 :</source>
+        <translation>Durata dell'impulso ugello 2 :</translation>
+    </message>
+	<message>
+        <source>Pulse duration well 3 :</source>
+        <translation>Durata dell'impulso ugello 3 :</translation>
+    </message>
+	<message>
+        <source>Pulse duration well 4 :</source>
+        <translation>Durata dell'impulso ugello 4 :</translation>
+    </message>
 	<message>
         <source>Continuous flowing</source>
         <translation>Flusso continuo</translation>

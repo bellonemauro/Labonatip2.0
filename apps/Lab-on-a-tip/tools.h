@@ -81,6 +81,8 @@ public:
 
 	void setDefaultPressuresVacuums(int _p_on_default, int _p_off_default, 
 		                            int _v_recirc_default, int _v_switch_default);
+	
+	QString getUserName() { return ui_tools->lineEdit_userName->text(); }
 
 private slots:
 

@@ -44,7 +44,7 @@ bool initPaths(Labonatip_GUI &_l, QString &_macro_user_path, QString &_settings_
 	ext_data_path.append("/Ext_data/");
 
 	// if the directory Labonatip does not exist in the home folder, create it
-	home_path.append("/Labonatip/");
+	home_path.append("/Documents/Labonatip2/");
 	QDir home_dir;
 	if (!home_dir.exists(home_path)) {
 		cerr << "Labonatip directory does not exists in the home folder .... creating it" << endl;
@@ -232,8 +232,8 @@ int main(int argc, char **argv)//(int argc, char *argv[])
 	  cout << " Set macro_user_path " << macro_user_path.toStdString() << endl;
 	  window.setSettingsUserPath(settings_user_path);
 	  cout << " Set settings_user_path " << settings_user_path.toStdString() << endl;
-	  //window.setExtDataUserPath(ext_data_user_path);
-	  window.setExtDataUserPath("./Ext_data/");  // this is just for now to be taken out for the release
+	  window.setExtDataUserPath(ext_data_user_path);
+	  //window.setExtDataUserPath("./Ext_data/");  // this is just for now to be taken out for the release
 	  cout << " Set ext_data_user_path " << ext_data_user_path.toStdString() << endl;
 	   
 #ifdef LABONATIP_VERSION

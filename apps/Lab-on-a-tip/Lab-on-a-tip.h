@@ -708,6 +708,7 @@ private:
   QString m_str_update_time_macro_msg1;
   QString m_str_update_time_macro_msg2;
   QString m_str_pulse_remaining_time;
+  QString m_str_user;
 
   // to visualize the led on the status bar, 
   // I create two different leds and switch between them to create the effect on/off

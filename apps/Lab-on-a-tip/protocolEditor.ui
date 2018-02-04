@@ -1612,7 +1612,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
    </property>
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/icons/dummy.png</normaloff>:/icons/dummy.png</iconset>
+     <normaloff>:/icons/params.png</normaloff>:/icons/params.png</iconset>
    </property>
    <property name="text">
     <string>Params</string>

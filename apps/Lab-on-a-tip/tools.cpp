@@ -17,7 +17,7 @@ Labonatip_tools::Labonatip_tools(QWidget *parent ):
 	m_solutionParams(new solutionsParams()),
 	m_pr_params(new pr_params()),
 	m_GUI_params(new GUIparams()),
-	m_setting_file_name("./settings/settings.ini")
+	m_setting_file_name("./settings/settings.ini")   //TODO: this has to point to the user folder
 {
 	ui_tools->setupUi(this );
 

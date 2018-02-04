@@ -538,6 +538,10 @@
         <source>General settings</source>
         <translation>General settings</translation>
     </message>
+	<message>
+        <source>Profile name</source>
+        <translation>Profile name</translation>
+    </message>
     <message>
         <source>Year</source>
         <translation>Year</translation>
@@ -573,6 +577,22 @@
     <message>
         <source>Pulse duration</source>
         <translation>Pulse duration</translation>
+    </message>
+    <message>
+        <source>Pulse duration well 1 :</source>
+        <translation>Pulse duration well 1 :</translation>
+    </message>
+    <message>
+        <source>Pulse duration well 2 :</source>
+        <translation>Pulse duration well 2 :</translation>
+    </message>
+	<message>
+        <source>Pulse duration well 3 :</source>
+        <translation>Pulse duration well 3 :</translation>
+    </message>
+	<message>
+        <source>Pulse duration well 4 :</source>
+        <translation>Pulse duration well 4 :</translation>
     </message>
     <message>
         <source>Continuous flowing</source>

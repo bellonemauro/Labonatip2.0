@@ -56,7 +56,7 @@ set(CPACK_NSIS_MENU_LINKS
             "${WEB_DOCS}" "Documentation"
             "${WEB_DEV}" "Developer Website" )
 
-set(CPACK_NSIS_DISPLAY_NAME "Fluicell Lab-on-a-tip V.${CMAKE_Fluicell_FULL_VERSION}")
+set(CPACK_NSIS_DISPLAY_NAME "Fluicell Lab-on-a-tip2 ") #V.${CMAKE_Fluicell_FULL_VERSION}")
 			
 #allows NSIS to modify paths
 set (CPACK_NSIS_MODIFY_PATH "ON")     
@@ -73,12 +73,12 @@ set(CPACK_PACKAGE_INSTALL_REGISTRY_KEY "${CMAKE_PROJECT_NAME}")#-${CMAKE_Fluicel
 
 # this is to create the user folders during the installation
 set( CPACK_NSIS_EXTRA_INSTALL_COMMANDS "
-	CreateDirectory \\\"$PROFILE\\\\Labonatip\\\" 
-	CreateDirectory \\\"$PROFILE\\\\Labonatip\\\\presetMacros\\\"
-	CreateDirectory \\\"$PROFILE\\\\Labonatip\\\\settings\\\" 
-	CreateDirectory \\\"$PROFILE\\\\Labonatip\\\\Ext_data\\\" 
-	CopyFiles \\\"$INSTDIR\\\\presetMacros\\\\*.macro\\\" \\\"$PROFILE\\\\Labonatip\\\\presetMacros\\\"
-	CopyFiles \\\"$INSTDIR\\\\settings\\\\*.ini\\\" \\\"$PROFILE\\\\Labonatip\\\\settings\\\"
+	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\" 
+	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\presetMacros\\\"
+	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\settings\\\" 
+	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\Ext_data\\\" 
+	CopyFiles \\\"$INSTDIR\\\\presetMacros\\\\*.macro\\\" \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\presetMacros\\\"
+	CopyFiles \\\"$INSTDIR\\\\settings\\\\*.ini\\\" \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\settings\\\"
 	")
 
 set(CPACK_NSIS_EXECUTABLES_DIRECTORY ".")
@@ -102,13 +102,13 @@ set(CPACK_NSIS_MUI_FINISHPAGE_RUN Lab-on-a-tip.exe)
 
 #add a command to remove user created files - ATTENTION: it will also remove user created files !!!
 set( CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS "
-	Delete \\\"$PROFILE\\\\Labonatip\\\\presetMacros\\\\*.macro\\\" 
-	Delete \\\"$PROFILE\\\\Labonatip\\\\settings\\\\*.ini\\\" 
-	Delete \\\"$PROFILE\\\\Labonatip\\\\Ext_data\\\\*.*\\\" 
-	RMDir \\\"$PROFILE\\\\Labonatip\\\\presetMacros\\\"
-	RMDir \\\"$PROFILE\\\\Labonatip\\\\settings\\\" 
-	RMDir \\\"$PROFILE\\\\Labonatip\\\\Ext_data\\\" 
-	RMDir \\\"$PROFILE\\\\Labonatip\\\" 
+	Delete \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\presetMacros\\\\*.macro\\\" 
+	Delete \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\settings\\\\*.ini\\\" 
+	Delete \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\Ext_data\\\\*.*\\\" 
+	RMDir \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\presetMacros\\\"
+	RMDir \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\settings\\\" 
+	RMDir \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\Ext_data\\\" 
+	RMDir \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\" 
 ")
 
 												   

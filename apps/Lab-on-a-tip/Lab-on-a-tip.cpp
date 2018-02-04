@@ -46,6 +46,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   initCustomStrings();
 
   ui->dockWidget->close();  //close the advaced dock page
+  ui->tabWidget->setCurrentIndex(1);  // put the tab widget to the chart page
   //ui->treeWidget_macroInfo->resizeColumnToContents(0);
   ui->treeWidget_macroInfo->setColumnWidth(0, 200);
   // debug stuff -- set 1 to remove all messages and tab
@@ -235,6 +236,13 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   // instal the event filter on -everything- in the app
   qApp->installEventFilter(this);
 
+  toolApply(); // this is to be sure that the settings are brought into the app at startup
+
+  QString s;
+  s.append(m_str_user);
+  s.append(" ");
+  s.append(m_dialog_tools->getUserName());
+  ui->label_user->setText(s);
 }
 
 
@@ -786,6 +794,7 @@ void Labonatip_GUI::initCustomStrings()
 	m_str_update_time_macro_msg1 = tr(" PROTOCOL RUNNING : ");
 	m_str_update_time_macro_msg2 = tr(" ----- remaining time,  ");
 	m_str_pulse_remaining_time = tr("Pulse time remaining: ");
+	m_str_user = tr("User :");
 
 }
 
@@ -904,6 +913,13 @@ void Labonatip_GUI::toolApply()
 	m_ppc1->setBaudRate((int)m_comSettings->getBaudRate());
 
 	switchLanguage(m_dialog_tools->language);
+
+	QString s;
+	s.append(m_str_user);
+	s.append(" ");
+	s.append(m_dialog_tools->getUserName());
+	ui->label_user->setText(s);
+
 }
 
 void Labonatip_GUI::editorOk()
