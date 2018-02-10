@@ -1958,8 +1958,6 @@ void Labonatip_protocol_editor::about() {
 
 Labonatip_protocol_editor::~Labonatip_protocol_editor() {
 
-	//TODO it crash on exit here !!!
-
     //delete class members
 	delete m_macro;
 	delete m_protocolWizard;

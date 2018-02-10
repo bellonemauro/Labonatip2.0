@@ -243,6 +243,12 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   s.append(" ");
   s.append(m_dialog_tools->getUserName());
   ui->label_user->setText(s);
+
+  cout << QDate::currentDate().toString().toStdString() << "  "
+	  << QTime::currentTime().toString().toStdString() << "  "
+	  << "Labonatip_GUI::constructor :::: "
+	  << m_dialog_tools->getUserName().toStdString() << endl;
+
 }
 
 

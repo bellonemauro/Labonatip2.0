@@ -2849,7 +2849,7 @@ closeAllValves()&lt;br/&gt;
                   </font>
                  </property>
                  <property name="text">
-                  <string>User :</string>
+                  <string notr="true">User :</string>
                  </property>
                  <property name="alignment">
                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -5766,7 +5766,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>373</width>
+              <width>367</width>
               <height>912</height>
              </rect>
             </property>
