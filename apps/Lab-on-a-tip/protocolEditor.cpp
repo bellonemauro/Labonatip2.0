@@ -24,6 +24,8 @@ Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 	ui_p_editor->treeWidget_params->resizeColumnToContents(0);
 	//ui_p_editor->treeWidget_macroTable->setColumnWidth(0, 350);
 
+	m_macro = new f_protocol();
+
 	initCustomStrings();
 
 	// initialize the macro wizard
@@ -468,6 +470,11 @@ bool Labonatip_protocol_editor::checkValidity(QTreeWidgetItem *_item, int _colum
 			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
 			return false;
 		}
+		if (number < 0)
+		{
+			number = -number;
+			_item->setText(_column, QString::number(number));
+		}
 		if (number < m_pr_params->p_on_min || 
 			number > m_pr_params->p_on_max) { // if is not the range
 			QMessageBox::warning(this, m_str_warning,
@@ -487,6 +494,11 @@ bool Labonatip_protocol_editor::checkValidity(QTreeWidgetItem *_item, int _colum
 			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
 			return false;
 		}
+		if (number < 0)
+		{
+			number = -number;
+			_item->setText(_column, QString::number(number));
+		}
 		if (number < m_pr_params->p_off_min ||
 			number > m_pr_params->p_off_max) { // if is not the range
 			QMessageBox::warning(this, m_str_warning,
@@ -496,7 +508,7 @@ bool Labonatip_protocol_editor::checkValidity(QTreeWidgetItem *_item, int _colum
 		}
 		break;
 	}
-	case 2:{// check v_s
+	case 2: {// check v_s
 
 		int number = _item->text(_column).toInt(&isNumeric);
 		if (!isNumeric) { // if is not a number
@@ -504,6 +516,11 @@ bool Labonatip_protocol_editor::checkValidity(QTreeWidgetItem *_item, int _colum
 				QString(m_str_check_validity_msg5 + "\n" + m_str_check_validity_range_vacuum));
 			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
 			return false;
+		}
+		if (number > 0)
+		{
+			number = -number; 
+			_item->setText(_column, QString::number(number));
 		}
 		if (number < m_pr_params->v_switch_min ||
 			number > m_pr_params->v_switch_max) { // if is not the range
@@ -522,6 +539,11 @@ bool Labonatip_protocol_editor::checkValidity(QTreeWidgetItem *_item, int _colum
 				QString(m_str_check_validity_msg7 + "\n" + m_str_check_validity_range_vacuum));
 			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
 			return false;
+		}
+		if (number > 0)
+		{
+			number = -number;
+			_item->setText(_column, QString::number(number));
 		}
 		if (number < m_pr_params->v_recirc_min   ||
 			number > m_pr_params->v_recirc_max) { // if is not the range
@@ -695,6 +717,8 @@ void Labonatip_protocol_editor::commandChanged(int _idx)
 		<< "  currentParent " << parent
 		<< endl;
 
+	setRangeColumn(*ui_p_editor->treeWidget_macroTable->currentItem());
+
 	checkValidity(ui_p_editor->treeWidget_macroTable->currentItem(), _idx);
 }
 
@@ -779,8 +803,9 @@ void Labonatip_protocol_editor::createNewCommand(QTreeWidgetItem & _command, mac
 
 	_command.setText(0, "Command"); // 
 	_command.setText(1, "1"); // 
-	_command.setCheckState(2, Qt::CheckState::Unchecked); // status message
-	_command.setText(2, " "); // status message
+	_command.setText(2, "[0, 450] mbar"); // 
+	_command.setCheckState(3, Qt::CheckState::Unchecked); // status message
+	_command.setText(3, " "); // status message
 	_command.setFlags(_command.flags() | (Qt::ItemIsEditable) | (Qt::ItemIsSelectable));
 
 	_combo_box.setFocusPolicy(Qt::StrongFocus);
@@ -894,8 +919,8 @@ bool Labonatip_protocol_editor::loadMacro()
 	
 	if (file_name.isEmpty()) {
 		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-		QMessageBox::warning(this, m_str_warning,
-			m_str_file_not_found + "<br>" + file_name);
+		//QMessageBox::warning(this, m_str_warning,
+		//	m_str_file_not_found + "<br>" + file_name);
 		return false;
 	}
 	
@@ -921,6 +946,7 @@ bool Labonatip_protocol_editor::loadMacro(const QString _file_name)
 			createNewCommand(*newItem, *comboBox);
 
 			if (decodeMacroCommand(content, *newItem)) {
+				
 				if (getLevel(*newItem) == 0) // we are at top level
 				{
 
@@ -969,6 +995,7 @@ bool Labonatip_protocol_editor::loadMacro(const QString _file_name)
 						comboBox->setCurrentIndex(newItem->text(0).toInt());
 						ui_p_editor->treeWidget_macroTable->setItemWidget(newItem, 0, comboBox);
 					}
+					
 					ui_p_editor->treeWidget_macroTable->update();
 				}
 				else { // there is something wrong !! 
@@ -976,7 +1003,8 @@ bool Labonatip_protocol_editor::loadMacro(const QString _file_name)
 				}
 			}
 			content = macroFile.readLine();
-		}
+		}		
+		//TODO: here there is a possible memory leak, the pointers will never be removed anymore outside the cycle
 
 		//resize columns to content
 		for (int i = 0; i < ui_p_editor->treeWidget_macroTable->columnCount(); i++) {
@@ -1032,11 +1060,9 @@ bool Labonatip_protocol_editor::saveMacro(QString _file_name)
 	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
 
 	if (_file_name.isEmpty()) {
-		_file_name = QFileDialog::getSaveFileName(this, 
-			m_str_save_protocol, QDir::currentPath(),  // dialog to open files
-			"Lab-on-a-tip macro File (*.macro);; Data (*.dat);; All Files(*.*)", 0);
-		//TODO check file name validity
-		//TODO check this window may pops out twice
+
+		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
+		return false;
 	}
 
 	if (!_file_name.endsWith(".macro", Qt::CaseSensitive)) {
@@ -1044,7 +1070,8 @@ bool Labonatip_protocol_editor::saveMacro(QString _file_name)
 	}
 
 	QFile macroFile(_file_name);
-	if (macroFile.open(QIODevice::ReadWrite))
+
+	if (macroFile.open(QIODevice::WriteOnly))
 	{
 		QTextStream stream(&macroFile);
 		QString header = createHeader();
@@ -1083,9 +1110,9 @@ int Labonatip_protocol_editor::getLevel(QTreeWidgetItem _item)
 {
 	int level;
 
-	// for our item structure the level is on the column number 3
+	// for our item structure the level is on the column number 4
 	bool success = false;
-	level = _item.text(3).toInt(&success);
+	level = _item.text(4).toInt(&success);
 	if (success) return level;
 	else return -1;
 
@@ -1121,8 +1148,8 @@ void Labonatip_protocol_editor::visitTree(QList<QStringList> &_list, QTreeWidget
 	//there is a problem with the size of the column --- fixed for now, change this!
 	_string_list.push_back(QString::number(idx));
 	_string_list.push_back(_item->text(1));
-	_string_list.push_back(QString::number(_item->checkState(2)));
-	_string_list.push_back(_item->text(2));
+	_string_list.push_back(QString::number(_item->checkState(3)));
+	_string_list.push_back(_item->text(3));
 	_string_list.push_back(QString::number(depth)); // push the depth of the command as last
 
 	_list.push_back(_string_list);
@@ -1199,24 +1226,26 @@ bool Labonatip_protocol_editor::decodeMacroCommand(QByteArray &_command, QTreeWi
 	
 	
 	if (data_string.at(2) == "2") {
-		_out_item.setCheckState(2, Qt::CheckState::Checked); 
+		_out_item.setCheckState(3, Qt::CheckState::Checked); 
 	}
 	else {
-		_out_item.setCheckState(2, Qt::CheckState::Unchecked); 
+		_out_item.setCheckState(3, Qt::CheckState::Unchecked); 
 	}
-	_out_item.setText(2, data_string.at(3)); 
+	_out_item.setText(3, data_string.at(3)); 
 	cout << QDate::currentDate().toString().toStdString() << "  " 
 		 << QTime::currentTime().toString().toStdString() 
 		 << "Labonatip_tools::decodeMacroCommand ::: data_string.at(3) " 
 		<< data_string.at(3).toStdString() << endl;
 	
-	_out_item.setText(3, data_string.at(4));
+	_out_item.setText(4, data_string.at(4));
 	cout << QDate::currentDate().toString().toStdString() << "  " 
 		 << QTime::currentTime().toString().toStdString() 
 		 << "Labonatip_tools::decodeMacroCommand ::: data_string.at(4) " 
 		 << data_string.at(4).toStdString() << endl;
 
 	_out_item.setFlags(_out_item.flags() | (Qt::ItemIsEditable));
+
+	setRangeColumn(_out_item, data_string.at(0).toInt());
 
 	return true;
 }
@@ -1384,6 +1413,99 @@ void Labonatip_protocol_editor::initCustomStrings()
 
 }
 
+void Labonatip_protocol_editor::setRangeColumn(QTreeWidgetItem & _out_item)
+{
+	int idx =
+		qobject_cast<QComboBox*>(
+			ui_p_editor->treeWidget_macroTable->itemWidget(
+				&_out_item, 0))->currentIndex();
+
+	setRangeColumn(_out_item, idx);
+
+}
+
+void Labonatip_protocol_editor::setRangeColumn(QTreeWidgetItem & _out_item, int _idx)
+{
+	
+
+	switch (_idx) {
+	case 0: case 1: { // check pressures
+		_out_item.setText(2, "[0, 450] mbar");
+		break;
+	}
+	case 2:	case 3: { // check vacuums
+		_out_item.setText(2, "[-300, 0] mbar");
+		break;
+	}
+	case 4: case 5: case 6: case 7: { //from 4 to 7
+									  // check open valve : 0 = no valve, 1,2,3,4 valves 1,2,3,4
+		_out_item.setText(2, "1/0 open/close");
+		break;
+	}
+	case 8: {
+		// Droplet size (%) //TODO: remove this !!!
+		_out_item.setText(2, "50 - 200 %");
+		break;
+	}
+	case 9: {
+		// Flow speed (%)
+		_out_item.setText(2, "50 - 250 %");
+		break;
+	}
+	case 10: {
+		// Vacuum (%) //TODO : remove this 
+		_out_item.setText(2, "50 - 250 %");
+		break;
+	}
+	case 11: {
+		// check loops
+		_out_item.setText(2, " > 0");
+		break;
+	}
+	case 12: {
+		// check Wait (s)
+		_out_item.setText(2, " > 0");
+		break;
+	}
+	case 13: {
+		// ask 	
+		_out_item.setText(2, " ");
+		break;
+	}
+	case 14: {
+		// all off	
+		_out_item.setText(2, " ");
+		break;
+	}
+	case 15: {
+		// pumps off
+		_out_item.setText(2, " ");
+		break;
+	}
+	case 16: {
+		// Valve state"
+		_out_item.setText(2, " ");
+		break;
+	}
+	case 17: {
+		// Wait sync"
+		_out_item.setText(2, " ");
+		break;
+	}
+	case 18: {
+		// Sync out"
+		_out_item.setText(2, " ");
+		break;
+	}
+	default: {
+		// default function active if none of the previous
+
+		break;
+	}
+	}
+
+}
+
 void Labonatip_protocol_editor::openProtocolFolder()
 {
 	QDir path = QFileDialog::getExistingDirectory(this, m_str_select_folder, m_protocol_path);
@@ -1460,13 +1582,13 @@ void Labonatip_protocol_editor::on_protocol_clicked(QTreeWidgetItem *item, int c
 
 	QMessageBox::StandardButton resBtn =
 		QMessageBox::question(this, "Lab-on-a-tip",
-			tr("Do you want to clean your workspace before loading the new protocol?\n Click NO to add the macro at the bottom"),
+			tr("Do you want to add to the bottom of the protocol?\n Click NO clean the workspace and load the new protocol"),
 			QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
 			QMessageBox::Yes);
-	if (resBtn == QMessageBox::No) {
+	if (resBtn == QMessageBox::Yes) {
 		loadMacro(protocol_path);
 	}
-	if (resBtn == QMessageBox::Yes)
+	if (resBtn == QMessageBox::No)
 	{
 		this->clearAllCommands();
 		loadMacro(protocol_path);
@@ -1496,6 +1618,9 @@ void Labonatip_protocol_editor::readProtocolFolder(QString _path)
 		QTreeWidgetItem *item = new QTreeWidgetItem();
 		item->setText(0, list.at(i));
 		ui_p_editor->treeWidget_protocol_folder->addTopLevelItem(item);
+		//TODO: here there is a possible memory leak, the pointer *item will never be removed anymore outside the cycle
+		//      however, ->addTopLevelItem only accepts pointers 
+		//      this means that if one dereferentiate *item that will be removed automatically from the list
 	}
 
 }
@@ -1512,8 +1637,6 @@ double Labonatip_protocol_editor::protocolDuration(std::vector<fluicell::PPC1api
 
 	return macro_duration;
 }
-
-
 
 
 QString Labonatip_protocol_editor::createHeader()
@@ -1834,5 +1957,31 @@ void Labonatip_protocol_editor::about() {
 }
 
 Labonatip_protocol_editor::~Labonatip_protocol_editor() {
+
+	//TODO it crash on exit here !!!
+
+    //delete class members
+	delete m_macro;
+	delete m_protocolWizard;
+	delete m_solutionParams;
+	delete m_pr_params;
+	
+	// delete pointers to charts
+	delete m_series_Pon;
+	delete m_chart_p_on;
+	delete m_chartView_p_on;
+
+	delete m_series_Poff;
+	delete m_chart_p_off;
+	delete m_chartView_p_off;
+
+	delete m_series_v_s;
+	delete m_chart_v_s;
+	delete m_chartView_v_s;
+
+	delete m_series_v_r;
+	delete m_chart_v_r;
+	delete m_chartView_v_r;
+  // delete UI
   delete ui_p_editor;
 }

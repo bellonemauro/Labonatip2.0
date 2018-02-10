@@ -8,7 +8,7 @@
 *  +---------------------------------------------------------------------------+ */
 
 //uncomment to hide the console when the app starts
-#define HIDE_TERMINAL
+//#define HIDE_TERMINAL
 #ifdef HIDE_TERMINAL
 	#if defined (_WIN64) || defined (_WIN32)
 	  #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
@@ -241,10 +241,10 @@ int main(int argc, char **argv)//(int argc, char *argv[])
 #endif
 
 	  // show the slashscreen
-	  QSplashScreen *s = new QSplashScreen();
-	  s->setPixmap(QPixmap(":/icons/splash_screen.png"));
-	  s->show();
-	  QTimer::singleShot(5000, s, SLOT(close()));
+	  QSplashScreen s;
+	  s.setPixmap(QPixmap(":/icons/splash_screen.png"));
+	  s.show();
+	  QTimer::singleShot(5000, &s, SLOT(close()));
 
 	  // get the screen resolution of the current screen
 	  // so we can resize the application in case of small screens

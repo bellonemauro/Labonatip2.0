@@ -223,6 +223,10 @@ private:
 
 	void initCustomStrings();
 
+	void setRangeColumn(QTreeWidgetItem &_out_item, int _idx);
+
+	void setRangeColumn(QTreeWidgetItem &_out_item);
+
 	void readProtocolFolder(QString _path);
 
 	f_protocol *m_macro;

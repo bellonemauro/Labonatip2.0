@@ -694,11 +694,12 @@ QTreeView::item:hover {
 
 QTreeView::item:selected {
     border: 1px solid #F0FFF0;
-	color: rgb(20, 20, 20);
+   color: rgb(20, 20, 20);
 }
 
 QTreeView::item:selected:active{
-    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #F0FFF0, stop: 1 #F0FFF0);
+    border: 1px solid #C0C0C0;
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #C0C0C0, stop: 1 #C0C0C0);
 }
 
 QTreeView::item:selected:!active {
@@ -775,7 +776,7 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
               <bool>true</bool>
              </property>
              <property name="selectionMode">
-              <enum>QAbstractItemView::NoSelection</enum>
+              <enum>QAbstractItemView::SingleSelection</enum>
              </property>
              <property name="selectionBehavior">
               <enum>QAbstractItemView::SelectRows</enum>
@@ -793,7 +794,7 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
               <bool>false</bool>
              </property>
              <property name="columnCount">
-              <number>3</number>
+              <number>4</number>
              </property>
              <column>
               <property name="text">
@@ -806,6 +807,14 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
              <column>
               <property name="text">
                <string>Value</string>
+              </property>
+              <property name="textAlignment">
+               <set>AlignCenter</set>
+              </property>
+             </column>
+             <column>
+              <property name="text">
+               <string>Range</string>
               </property>
               <property name="textAlignment">
                <set>AlignCenter</set>

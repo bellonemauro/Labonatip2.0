@@ -51,6 +51,15 @@ include(${CMAKE_MODULE_PATH}/UtilsMacros.cmake REQUIRED)		        # CMake macros
 set (Fluicell_SOURCE_DIR ${PROJECT_SOURCE_DIR})
 
 
+option(VLD_MemoryCheck "Try to find memory leaks using VLS - FOR DEBUG" "OFF")
+if(MSVC AND VLD_MemoryCheck)
+	find_package(VLD REQUIRED)
+	include_directories (${VLD_INCLUDE_DIR})
+	link_directories(${VLD_INCLUDE_DIR}/../bin)
+	add_definitions(-DVLD_MEMORY_CHECK)
+endif(MSVC AND VLD_MemoryCheck)
+
+
 # find Eigen 
 option(ENABLE_internalEigen "Use internal Eigen library " "OFF")
 If (NOT EIGEN_INCLUDE_DIR OR ENABLE_internalEigen)

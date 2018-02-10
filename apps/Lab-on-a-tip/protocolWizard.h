@@ -32,7 +32,7 @@ class Labonatip_macroWizard : public QDialog
 public:
 	explicit Labonatip_macroWizard(QWidget *parent = 0);
 
-	~Labonatip_macroWizard() {}
+	~Labonatip_macroWizard();
 
 	void setMacroPath(QString _path) { m_macro_path = _path; }
 

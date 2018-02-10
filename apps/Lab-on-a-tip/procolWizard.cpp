@@ -401,3 +401,11 @@ void Labonatip_macroWizard::updateSolPrFields()
 	ui_wizard->spinBox_v_r_def->setValue(m_pr_params->v_recirc_default);
 	ui_wizard->spinBox_v_s_def->setValue(m_pr_params->v_switch_default);
 }
+
+Labonatip_macroWizard::~Labonatip_macroWizard() {
+
+	//TODO: add delete class members
+	delete m_solutionParams;
+	delete m_pr_params;
+	delete ui_wizard;
+}

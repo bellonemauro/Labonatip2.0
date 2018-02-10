@@ -10,7 +10,7 @@
 #include "fluicell/ppc1api/ppc1api.h"
 #include <iomanip>
 
-
+//#include <vld.h>
 
 fluicell::PPC1api::PPC1api() :
 	m_PPC1_data(new PPC1_data),
@@ -108,7 +108,7 @@ void fluicell::PPC1api::threadSerial()
 }
 
 
-bool fluicell::PPC1api::decodeDataLine(const string &_data, PPC1_data &_PPC1_data)
+bool fluicell::PPC1api::decodeDataLine(const string &_data, PPC1_data &_PPC1_data) //TODO: this class modifies the class member m_PPC1_data instead of the argument
 {
 	// check for empty data
 	if (_data.empty())
@@ -233,7 +233,7 @@ bool fluicell::PPC1api::decodeDataLine(const string &_data, PPC1_data &_PPC1_dat
 
 	if (_data.at(0) == 'I') {
 		//cout << " line tipe I " << _data << endl;
-		// string format: IN1|OUT1
+		// string format: IN1|OUT1 or IN0|OUT0
 		// char index:    01234567
 		int value = toDigit(_data.at(2));
 		if (value == 0 || value == 1) { // admitted values are only 0 and 1
@@ -647,7 +647,7 @@ bool fluicell::PPC1api::setTTLstate(const bool _value)
 bool fluicell::PPC1api::setPulsePeriod(const int _value)
 {
 
-	if (_value < MIN_PULSE_PERIOD )
+	if (_value >= MIN_PULSE_PERIOD )
 	{
 		string ss;
 		ss.append("p");
@@ -792,7 +792,7 @@ double fluicell::PPC1api::getDropletSize()
 	//double mean_percentage = std::pow(1.0 + (p2 - p1) / 2.0, 3.0) * 100.0; 
 	// the percentage of the droplet is the cube power of the real value
 
-	double ds = 100.0*(m_PPC1_status->in_out_ratio_on + 0.21) / 0.31;
+	double ds = 100.0 *(m_PPC1_status->in_out_ratio_on + 0.21) / 0.31;
 	return ds;// mean_percentage;
 }
 
@@ -1024,7 +1024,7 @@ double fluicell::PPC1api::getFlow(double _square_channel_mod,
 
 bool fluicell::PPC1api::run(command _cmd)
 {
-	
+	//TODO: here there is no check of validity for the commands
 	if (m_verbose) cout << currentDateTime()
 		<< "fluicell::PPC1api::run(command _cmd)" 
 		<< " ::: running the command " << _cmd.getCommandAsString()
@@ -1072,7 +1072,7 @@ bool fluicell::PPC1api::run(command _cmd)
 		setValve_l(valve_status);
 		break;
 	}
-	case 5: {//solution3
+	case 5: {//solution2
 		cout << currentDateTime()
 			<< " fluicell::PPC1api::run(command _cmd) ::: solution2  " 
 			<< _cmd.getValue() << endl;
@@ -1165,13 +1165,24 @@ bool fluicell::PPC1api::run(command _cmd)
 		break;
 	}
 	case 17: {//waitSync
+		//waitsync(front type : can be : RISE or FALL), macro stops until triger signal is received
+		bool state = static_cast<bool>(_cmd.getValue());
 		cout << currentDateTime()
-			<< " fluicell::PPC1api::run(command _cmd) ::: waitSync NOT implemented in the API " << endl;
+			<< " fluicell::PPC1api::run(command _cmd) ::: waitSync NOT implemented in the API ::: test value = " << state << endl;
+		setTTLstate(state);
 		break;
 	}
 	case 18: {//syncOut
+		//syncout(int: pulse length in ms) if negative then default state is 1 and pulse is 0, if positive, then pulse is 1 and default is 0
+		int v = static_cast<int>(_cmd.getValue());
 		cout << currentDateTime()
-			<< " fluicell::PPC1api::run(command _cmd) ::: syncOut NOT implemented in the API " << endl;
+			<< " fluicell::PPC1api::run(command _cmd) ::: syncOut NOT implemented in the API ::: test value = " << v << endl;
+		setPulsePeriod(v);
+		std::this_thread::sleep_for(std::chrono::milliseconds(20));
+		while (!m_PPC1_data->ppc1_OUT)
+		{
+			std::this_thread::sleep_for(std::chrono::milliseconds(1));
+		}
 		break;
 	}
 	default:{
@@ -1343,8 +1354,8 @@ const std::string fluicell::PPC1api::currentDateTime() {
 fluicell::PPC1api::~PPC1api()
 {
 	// make sure the thread and the communications are properly closed
-	if (!m_threadTerminationHandler) {
-		this->stop();
+	if (m_threadTerminationHandler) {
+		//this->stop();
 	}
 	if (m_PPC1_serial->isOpen()) {
 		m_PPC1_serial->close();
@@ -1352,4 +1363,6 @@ fluicell::PPC1api::~PPC1api()
 
 	// free memory
 	delete m_PPC1_data;
+	delete m_PPC1_status;
+	delete m_PPC1_serial;
 }

@@ -1147,5 +1147,8 @@ void Labonatip_tools::switchLanguage(QString _translation_file)
 
 
 Labonatip_tools::~Labonatip_tools() {
+
+	//TODO: add delete class members
+
 	delete ui_tools;
 }

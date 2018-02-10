@@ -9,11 +9,14 @@
 
 #include "Lab-on-a-tip.h"
 
+//#include <vld.h>
+
 
 void Labonatip_GUI::updateGUI() {
 
 	if (!m_simulationOnly) {
 
+		
 		int sensor_reading = (int)(m_ppc1->m_PPC1_data->channel_B->sensor_reading);  // rounded to second decimal
 		m_pipette_status->v_switch_set_point = - m_ppc1->m_PPC1_data->channel_B->set_point;
 		ui->label_switchPressure->setText(QString(QString::number(sensor_reading) +
@@ -37,14 +40,15 @@ void Labonatip_GUI::updateGUI() {
 		ui->label_PonPressure->setText(QString(QString::number(sensor_reading) +
 			", " + QString::number(int(m_pipette_status->pon_set_point)) + " mbar"));
 		ui->progressBar_pressure_p_on->setValue(sensor_reading);
-
+		
+		
 		m_ds_perc = m_ppc1->getDropletSize();
-		m_fs_perc = m_ppc1->getFlowSpeed();
-		m_v_perc = m_ppc1->getVacuum();
+		m_fs_perc =  m_ppc1->getFlowSpeed();
+		m_v_perc =  m_ppc1->getVacuum();
 
-		ui->lcdNumber_dropletSize_percentage->display(m_ppc1->getDropletSize());
-		ui->lcdNumber_flowspeed_percentage->display(m_ppc1->getFlowSpeed());
-		ui->lcdNumber_vacuum_percentage->display(m_ppc1->getVacuum());
+		ui->lcdNumber_dropletSize_percentage->display(m_ds_perc);// (m_ppc1->getDropletSize());
+		ui->lcdNumber_flowspeed_percentage->display(m_fs_perc);// (m_ppc1->getFlowSpeed());
+		ui->lcdNumber_vacuum_percentage->display(m_v_perc);// (m_ppc1->getVacuum());
 
 		
 		// check if some of the wells is open
@@ -107,7 +111,7 @@ void Labonatip_GUI::updateGUI() {
 			ui->widget_solutionArrow->setVisible(false);
 		}
 	}
-
+	
 	updateFlows();
 
 	if (m_pipette_active) { 
@@ -268,109 +272,109 @@ void Labonatip_GUI::updateDrawing(int _value) {
 	// draw the circle 
 	QBrush brush(m_pen_line.color(), Qt::SolidPattern);
 
-	QPen * border_pen = new QPen();
-	border_pen->setColor(Qt::transparent);
-	border_pen->setWidth(1);
+	QPen border_pen;
+	border_pen.setColor(Qt::transparent);
+	border_pen.setWidth(1);
 
 	double droplet_modifier = (10.0 - _value / 10.0);
 	// TODO: this is an attempt to make the droplet to look a little bit more realistic
-	QPainterPath* droplet = new QPainterPath();
-	droplet->arcMoveTo((qreal)ui->doubleSpinBox_d_x->value() + droplet_modifier, (qreal)ui->doubleSpinBox_d_y->value(),
+	QPainterPath droplet;
+	droplet.arcMoveTo((qreal)ui->doubleSpinBox_d_x->value() + droplet_modifier, (qreal)ui->doubleSpinBox_d_y->value(),
 		(qreal)ui->doubleSpinBox_d_w->value() - droplet_modifier, (qreal)ui->doubleSpinBox_d_h->value(), (qreal)ui->doubleSpinBox_d_a->value());
 	
-	droplet->arcTo((qreal)ui->doubleSpinBox_d2x->value() + droplet_modifier, (qreal)ui->doubleSpinBox_d2y->value(),
+	droplet.arcTo((qreal)ui->doubleSpinBox_d2x->value() + droplet_modifier, (qreal)ui->doubleSpinBox_d2y->value(),
 		(qreal)ui->doubleSpinBox_d2w->value() - droplet_modifier, (qreal)ui->doubleSpinBox_d2h->value(),
 		(qreal)ui->doubleSpinBox_d2a->value(), (qreal)ui->doubleSpinBox_d2l->value());
 
 
-	droplet->setFillRule(Qt::FillRule::WindingFill);
-	m_scene_solution->addPath(*droplet, *border_pen, brush);
+	droplet.setFillRule(Qt::FillRule::WindingFill);
+	m_scene_solution->addPath(droplet, border_pen, brush);
 
 	//TODO: all this function is rather GUI fix stuff and the number should definitively be changed
-	QPainterPath* circle = new QPainterPath();
-	circle->arcMoveTo((qreal)ui->doubleSpinBox_c_x->value(), (qreal)ui->doubleSpinBox_c_y->value(),
+	QPainterPath circle;
+	circle.arcMoveTo((qreal)ui->doubleSpinBox_c_x->value(), (qreal)ui->doubleSpinBox_c_y->value(),
 		(qreal)ui->doubleSpinBox_c_w->value(), (qreal)ui->doubleSpinBox_c_h->value(),
 		(qreal)ui->doubleSpinBox_c_a->value());  //TODO: a lot of magic numbers !!!! wow !
 
-	circle->arcTo((qreal)ui->doubleSpinBox_c2x->value(), (qreal)ui->doubleSpinBox_c2y->value(),
+	circle.arcTo((qreal)ui->doubleSpinBox_c2x->value(), (qreal)ui->doubleSpinBox_c2y->value(),
 		(qreal)ui->doubleSpinBox_c2w->value(), (qreal)ui->doubleSpinBox_c2h->value(),
 		(qreal)ui->doubleSpinBox_c2a->value(), (qreal)ui->doubleSpinBox_c2l->value());
 
-	circle->setFillRule(Qt::FillRule::WindingFill);
-	m_scene_solution->addPath(*circle, *border_pen, brush);
+	circle.setFillRule(Qt::FillRule::WindingFill);
+	m_scene_solution->addPath(circle, border_pen, brush);
 
 	int border_pen_pipe_width = 7;
 	QBrush brush_pipes(Qt::transparent, Qt::NoBrush);
-	QPen * border_pen_pipe1 = new QPen();
-	border_pen_pipe1->setColor(m_sol3_color); //TODO: fit the numbers of pipe solution with the colors !
-	border_pen_pipe1->setWidth(border_pen_pipe_width);
-	QPainterPath* path_pipe1 = new QPainterPath();
+	QPen border_pen_pipe1;
+	border_pen_pipe1.setColor(m_sol3_color); //TODO: fit the numbers of pipe solution with the colors !
+	border_pen_pipe1.setWidth(border_pen_pipe_width);
+	QPainterPath path_pipe1;
 	// void arcTo(qreal x, qreal y, qreal w, qreal h, qreal startAngle, qreal arcLength);
 
-	path_pipe1->arcMoveTo((qreal)ui->doubleSpinBox_p1_x->value(), (qreal)ui->doubleSpinBox_p1_y->value(),      // qreal x, qreal y,
+	path_pipe1.arcMoveTo((qreal)ui->doubleSpinBox_p1_x->value(), (qreal)ui->doubleSpinBox_p1_y->value(),      // qreal x, qreal y,
 		(qreal)ui->doubleSpinBox_p1_w->value(), (qreal)ui->doubleSpinBox_p1_h->value(),	// qreal w, qreal h, 
 		(qreal)ui->doubleSpinBox_p1_a->value());
 
-	path_pipe1->arcTo((qreal)ui->doubleSpinBox_p12x->value(), (qreal)ui->doubleSpinBox_p12y->value(),      // qreal x, qreal y,
+	path_pipe1.arcTo((qreal)ui->doubleSpinBox_p12x->value(), (qreal)ui->doubleSpinBox_p12y->value(),      // qreal x, qreal y,
 		(qreal)ui->doubleSpinBox_p12w->value(), (qreal)ui->doubleSpinBox_p12h->value(),	// qreal w, qreal h,
 		(qreal)ui->doubleSpinBox_p12a->value(), (qreal)ui->doubleSpinBox_p12l->value()); //qreal startAngle, qreal arcLength
 
 
-	path_pipe1->setFillRule(Qt::FillRule::WindingFill);
-	m_scene_solution->addPath(*path_pipe1, *border_pen_pipe1, brush_pipes);
+	path_pipe1.setFillRule(Qt::FillRule::WindingFill);
+	m_scene_solution->addPath(path_pipe1, border_pen_pipe1, brush_pipes);
 
-	QPen * border_pen_pipe2 = new QPen();
-	border_pen_pipe2->setColor(m_sol1_color); //TODO: fit the numbers of pipe solution with the colors !
-	border_pen_pipe2->setWidth(border_pen_pipe_width);
-	QPainterPath* path_pipe2 = new QPainterPath();
+	QPen border_pen_pipe2;
+	border_pen_pipe2.setColor(m_sol1_color); //TODO: fit the numbers of pipe solution with the colors !
+	border_pen_pipe2.setWidth(border_pen_pipe_width);
+	QPainterPath path_pipe2;
 	// void arcTo(qreal x, qreal y, qreal w, qreal h, qreal startAngle, qreal arcLength);
 
 
-	path_pipe2->arcMoveTo((qreal)ui->doubleSpinBox_p2_x->value(), (qreal)ui->doubleSpinBox_p2_y->value(),      // qreal x, qreal y,
+	path_pipe2.arcMoveTo((qreal)ui->doubleSpinBox_p2_x->value(), (qreal)ui->doubleSpinBox_p2_y->value(),      // qreal x, qreal y,
 		(qreal)ui->doubleSpinBox_p2_w->value(), (qreal)ui->doubleSpinBox_p2_h->value(),	// qreal w, qreal h, 
 		(qreal)ui->doubleSpinBox_p2_a->value());
-	path_pipe2->arcTo((qreal)ui->doubleSpinBox_p22x->value(), (qreal)ui->doubleSpinBox_p22y->value(),      // qreal x, qreal y,
+	path_pipe2.arcTo((qreal)ui->doubleSpinBox_p22x->value(), (qreal)ui->doubleSpinBox_p22y->value(),      // qreal x, qreal y,
 		(qreal)ui->doubleSpinBox_p22w->value(), (qreal)ui->doubleSpinBox_p22h->value(),	// qreal w, qreal h,
 		(qreal)ui->doubleSpinBox_p22a->value(), (qreal)ui->doubleSpinBox_p22l->value()); //qreal startAngle, qreal arcLength
 
-	path_pipe2->setFillRule(Qt::FillRule::WindingFill);
-	m_scene_solution->addPath(*path_pipe2, *border_pen_pipe2, brush_pipes);
+	path_pipe2.setFillRule(Qt::FillRule::WindingFill);
+	m_scene_solution->addPath(path_pipe2, border_pen_pipe2, brush_pipes);
 
 	
-	QPen * border_pen_pipe3 = new QPen();
-	border_pen_pipe3->setColor(m_sol2_color);  //TODO: fit the numbers of pipe solution with the colors !
-	border_pen_pipe3->setWidth(border_pen_pipe_width);
-	QPainterPath* path_pipe3 = new QPainterPath();
+	QPen border_pen_pipe3;
+	border_pen_pipe3.setColor(m_sol2_color);  //TODO: fit the numbers of pipe solution with the colors !
+	border_pen_pipe3.setWidth(border_pen_pipe_width);
+	QPainterPath path_pipe3; 
 	// void arcTo(qreal x, qreal y, qreal w, qreal h, qreal startAngle, qreal arcLength);
-	path_pipe3->arcMoveTo((qreal)ui->doubleSpinBox_p3_x->value(), (qreal)ui->doubleSpinBox_p3_y->value(),      // qreal x, qreal y,
+	path_pipe3.arcMoveTo((qreal)ui->doubleSpinBox_p3_x->value(), (qreal)ui->doubleSpinBox_p3_y->value(),      // qreal x, qreal y,
 		(qreal)ui->doubleSpinBox_p3_w->value(), (qreal)ui->doubleSpinBox_p3_h->value(),	// qreal w, qreal h, 
 		(qreal)ui->doubleSpinBox_p3_a->value());
-	path_pipe3->arcTo((qreal)ui->doubleSpinBox_p32x->value(), (qreal)ui->doubleSpinBox_p32y->value(),      // qreal x, qreal y,
+	path_pipe3.arcTo((qreal)ui->doubleSpinBox_p32x->value(), (qreal)ui->doubleSpinBox_p32y->value(),      // qreal x, qreal y,
 		(qreal)ui->doubleSpinBox_p32w->value(), (qreal)ui->doubleSpinBox_p32h->value(),	// qreal w, qreal h,
 		(qreal)ui->doubleSpinBox_p32a->value(), (qreal)ui->doubleSpinBox_p32l->value()); //qreal startAngle, qreal arcLength
-	path_pipe3->setFillRule(Qt::FillRule::WindingFill);
-	m_scene_solution->addPath(*path_pipe3, *border_pen_pipe3, brush_pipes);
+	path_pipe3.setFillRule(Qt::FillRule::WindingFill);
+	m_scene_solution->addPath(path_pipe3, border_pen_pipe3, brush_pipes);
 
 	
-	QPen * border_pen_pipe4 = new QPen();
-	border_pen_pipe4->setColor(m_sol4_color);
-	border_pen_pipe4->setWidth(border_pen_pipe_width);
-	QPainterPath* path_pipe4 = new QPainterPath();
+	QPen border_pen_pipe4;
+	border_pen_pipe4.setColor(m_sol4_color);
+	border_pen_pipe4.setWidth(border_pen_pipe_width);
+	QPainterPath path_pipe4;
 	// void arcTo(qreal x, qreal y, qreal w, qreal h, qreal startAngle, qreal arcLength);
-	path_pipe4->arcMoveTo((qreal)ui->doubleSpinBox_p4_x->value(), (qreal)ui->doubleSpinBox_p4_y->value(),      // qreal x, qreal y,
+	path_pipe4.arcMoveTo((qreal)ui->doubleSpinBox_p4_x->value(), (qreal)ui->doubleSpinBox_p4_y->value(),      // qreal x, qreal y,
 		(qreal)ui->doubleSpinBox_p4_w->value(), (qreal)ui->doubleSpinBox_p4_h->value(),	// qreal w, qreal h, 
 		(qreal)ui->doubleSpinBox_p4_a->value());
 
-	path_pipe4->arcTo((qreal)ui->doubleSpinBox_p42x->value(), (qreal)ui->doubleSpinBox_p42y->value(),      // qreal x, qreal y,
+	path_pipe4.arcTo((qreal)ui->doubleSpinBox_p42x->value(), (qreal)ui->doubleSpinBox_p42y->value(),      // qreal x, qreal y,
 		(qreal)ui->doubleSpinBox_p42w->value(), (qreal)ui->doubleSpinBox_p42h->value(),	// qreal w, qreal h,
 		(qreal)ui->doubleSpinBox_p42a->value(), (qreal)ui->doubleSpinBox_p42l->value()); //qreal startAngle, qreal arcLength
 
-	path_pipe4->setFillRule(Qt::FillRule::WindingFill);
-	m_scene_solution->addPath(*path_pipe4, *border_pen_pipe4, brush_pipes);
+	path_pipe4.setFillRule(Qt::FillRule::WindingFill);
+	m_scene_solution->addPath(path_pipe4, border_pen_pipe4, brush_pipes);
 
 	// draw a line from the injector to the solution release point 
 	m_scene_solution->addLine(l_x1, l_y1, l_x2, l_y2, m_pen_line);
-
+	
 	ui->graphicsView->setScene(m_scene_solution);
 	ui->graphicsView->show();
 

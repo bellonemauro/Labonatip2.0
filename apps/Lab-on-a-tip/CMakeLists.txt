@@ -175,6 +175,13 @@ elseif(  BUILD_QT5)
 							${QT_LIBRARIES}  ${Qt5Charts_LIBRARIES} 
 							PPC1api serial )
 
+							
+							
+	if (VLD_MemoryCheck)
+        message (STATUS "${PROJECT_NAME} Memory leak detector activated ")
+		target_link_libraries (${PROJECT_NAME} 	${VLD_LIBRARY_VLD})
+	endif ( )
+
 	# differently than others, QT has the windeployqt file that takes care of dlls and other stuff
 	# see this post: http://stackoverflow.com/questions/36981942/how-to-use-add-custom-command-to-copy-dlls-using-generator-expressions
 	# Windows specific build steps

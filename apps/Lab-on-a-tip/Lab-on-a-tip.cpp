@@ -334,11 +334,12 @@ void Labonatip_GUI::closeAllValves() {
 		 << "Labonatip_GUI::closeAllValves   " << endl;
 
 	if (m_pipette_active) {
-		m_ppc1->closeAllValves();
+		if (m_ppc1->isConnected()) m_ppc1->closeAllValves();
 	}
 
 	//this will stop the solution flow 
 	m_timer_solution = std::numeric_limits<int>::max();
+	updateDrawing(-1);
 
 }
 
@@ -654,7 +655,8 @@ void Labonatip_GUI::initConnects()
 		SIGNAL(clicked()), this,
 		SLOT(cleanHistory()));
 
-	
+// this button is connected only if the developer settings tab is visualized
+if (ui->tabWidget->count() > 3) 
 	connect(ui->pushButton_updateDrawing,
 		SIGNAL(clicked()), this,
 		SLOT(updateDrawing(100)));
@@ -1014,6 +1016,7 @@ bool Labonatip_GUI::visualizeProgressMessage(int _seconds, QString _message)
 		}
 	}
 	PD->cancel();
+	delete PD;
 	return true;
 
 }
@@ -1167,6 +1170,10 @@ void Labonatip_GUI::setVersion(string _version) {
 
 Labonatip_GUI::~Labonatip_GUI ()
 {
+
+	//TODO: add delete class members
+  delete m_ppc1;
+
   delete ui;
   qApp->quit();
 }

@@ -54,6 +54,10 @@ set_target_properties(${PROJECT_NAME}  PROPERTIES DEBUG_POSTFIX "_d")
 add_dependencies(${PROJECT_NAME} serial)
 target_link_libraries ( ${PROJECT_NAME}  serial)
 
+if (VLD_MemoryCheck)
+    message (STATUS "${PROJECT_NAME} Memory leak detector activated ")
+	target_link_libraries (${PROJECT_NAME} 	${VLD_LIBRARY_VLD})
+endif ( )
 
 # allows folders for MSVC
 if (MSVC AND ENABLE_SOLUTION_FOLDERS) 

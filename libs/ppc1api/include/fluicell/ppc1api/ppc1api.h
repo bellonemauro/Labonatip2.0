@@ -256,6 +256,13 @@ namespace fluicell
 				ppc1_IN(0), ppc1_OUT(0)
 			{ }
 
+			~PPC1_data() {
+				delete channel_A;
+				delete channel_B;
+				delete channel_C;
+				delete channel_D;
+			}
+
 		};
 
 
@@ -1103,6 +1110,9 @@ namespace fluicell
 									 maybe this will be changed in the future */
 		PPC1_status *m_PPC1_status;/*!< data structure member exposed to be used by the user, 
 									 maybe this will be changed in the future */
+
+		//     "pX" is sent to make pulse output, where X is integer number equal or larger than 20 indicating the pulse length in milliseconds
+		//     "P" or "R" are use wait pulse input, either falling or rising front
    };
 
 }

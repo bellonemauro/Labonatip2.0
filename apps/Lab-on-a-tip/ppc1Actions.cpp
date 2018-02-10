@@ -23,10 +23,9 @@ void Labonatip_GUI::newTip()
 		m_str_newtip_msg1);
 	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
 
-														//vf0
-	if (m_pipette_active) {
-		m_ppc1->closeAllValves();
-	}
+	
+	//vf0
+	closeAllValves();
 
 	//D0
 	updatePonSetPoint(0.0);
@@ -322,9 +321,9 @@ void Labonatip_GUI::operationalMode() {
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_GUI::operationalMode    " << endl;
 
-	if (m_pipette_active) {
-		if (m_ppc1->isConnected()) m_ppc1->closeAllValves();
-	}
+	//vf0
+	closeAllValves();
+	
 
 	updateVrecircSetPoint(-m_pr_params->v_recirc_default );// update the set point
 	updateVswitchSetPoint(-m_pr_params->v_switch_default );// update the set point
@@ -403,9 +402,10 @@ void Labonatip_GUI::standby()
 	// setVrecirc(-45)
 	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
 
-	if (m_pipette_active) {
-		m_ppc1->closeAllValves();
-	}
+	//vf0
+	closeAllValves();
+	
+
 	updatePonSetPoint(45.0);
 	updatePoffSetPoint(11.0);
 
