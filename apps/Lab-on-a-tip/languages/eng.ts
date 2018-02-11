@@ -107,6 +107,10 @@
         <source>Waste</source>
         <translation>Waste</translation>
     </message>
+	<message>
+        <source>full in</source>
+        <translation>full in</translation>
+	</message>
     <message>
         <source>WASTE</source>
         <translation>WASTE</translation>
@@ -491,6 +495,10 @@
         <source>Pulse time remaining: </source>
         <translation>Pulse time remaining: </translation>
     </message>
+	<message>
+        <source>Continuous flowing</source>
+        <translation>Continuous flowing</translation>
+    </message>	
 	<message>
         <source>Warning: the solution is running out</source>
         <translation>Warning: the solution is running out</translation>

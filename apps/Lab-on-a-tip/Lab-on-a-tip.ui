@@ -1507,9 +1507,9 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                  <widget class="QTextEdit" name="textEdit_emptyTime">
                   <property name="geometry">
                    <rect>
-                    <x>280</x>
-                    <y>0</y>
-                    <width>151</width>
+                    <x>300</x>
+                    <y>50</y>
+                    <width>201</width>
                     <height>101</height>
                    </rect>
                   </property>
@@ -1528,18 +1528,16 @@ border:0;</string>
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Pulse time remaining: &lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;0 h&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;0 min &lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;0 sec&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;0 h 0 min 0 sec&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                  </widget>
                  <widget class="QTextEdit" name="textEdit_emptyTime_waste">
                   <property name="geometry">
                    <rect>
-                    <x>740</x>
-                    <y>0</y>
-                    <width>181</width>
-                    <height>101</height>
+                    <x>710</x>
+                    <y>50</y>
+                    <width>221</width>
+                    <height>51</height>
                    </rect>
                   </property>
                   <property name="font">
@@ -5766,7 +5764,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>367</width>
+              <width>373</width>
               <height>912</height>
              </rect>
             </property>

@@ -108,6 +108,10 @@
         <translation>Scarto</translation>
 	</message>	
 	<message>
+        <source>full in</source>
+        <translation>pieno in</translation>
+	</message>
+	<message>
         <source>WASTE</source>
         <translation>SCARTO</translation>
 	</message>
@@ -491,6 +495,10 @@
         <source>Pulse time remaining: </source>
         <translation>Tempo di pulsazione rimanente:</translation>
 	</message>	
+	<message>
+        <source>Continuous flowing</source>
+        <translation>Flusso continuo</translation>
+    </message>	
 	<message>
         <source>Warning: the solution is running out</source>
         <translation>Attenzione: la soluzione sta finendo</translation>

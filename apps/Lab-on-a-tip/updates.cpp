@@ -517,14 +517,14 @@ void Labonatip_GUI::updateWaste()  // this is updated every second
 
 	// build the string for the waste label
 	QString s;
-	s.append("Waste "); //TODO: strings
+	s.append(m_str_pulse_waste + " "); //TODO: strings
 	s.append(QString::number(min_index + 5));
-	s.append(" full in: ");
+	s.append(" " + m_str_pulse_full_in + ": ");
 	int remaining_hours = floor(waste_remaining_time_in_sec / 3600); // 3600 sec in a hour
 	int remaining_mins = floor(((int)waste_remaining_time_in_sec % 3600) / 60); // 60 minutes in a hour
 	int remaining_secs = waste_remaining_time_in_sec - remaining_hours * 3600 - remaining_mins * 60; // 60 minutes in a hour
 	s.append(QString::number(remaining_hours));
-	s.append(" h, ");
+	s.append(" h ");
 	s.append(QString::number(remaining_mins));
 	s.append(" min ");
 	//s.append(QString::number(remaining_secs));

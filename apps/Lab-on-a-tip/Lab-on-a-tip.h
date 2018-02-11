@@ -709,6 +709,9 @@ private:
   QString m_str_update_time_macro_msg1;
   QString m_str_update_time_macro_msg2;
   QString m_str_pulse_remaining_time;
+  QString m_str_pulse_continuous_flowing;
+  QString m_str_pulse_waste;
+  QString m_str_pulse_full_in;
   QString m_str_user;
 
   // to visualize the led on the status bar, 

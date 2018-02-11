@@ -438,7 +438,7 @@ void Labonatip_GUI::updateTimingSliders()
 		//_bar->setValue(100 - status); //TODO: this must be set into the update flow
 		QString s;
 		if (!continuous_flowing) {
-			s.append(m_str_pulse_remaining_time);
+			s.append(m_str_pulse_remaining_time + "\n");
 			//s.append(QString::number(m_flowing_solution));
 			//s.append(" empty in \n");
 			int remaining_time_in_sec = (m_time_multipilcator - m_timer_solution);
@@ -446,9 +446,9 @@ void Labonatip_GUI::updateTimingSliders()
 			int remaining_mins = floor((remaining_time_in_sec % 3600) / 60); // 60 minutes in a hour
 			int remaining_secs = remaining_time_in_sec - remaining_hours * 3600 - remaining_mins * 60; // 60 minutes in a hour
 			s.append(QString::number(remaining_hours));
-			s.append(" h, \n");
+			s.append(" h ");
 			s.append(QString::number(remaining_mins));
-			s.append(" min \n");
+			s.append(" min ");
 			s.append(QString::number(remaining_secs));
 			s.append(" sec ");
 			ui->textEdit_emptyTime->setText(s);
@@ -466,10 +466,7 @@ void Labonatip_GUI::updateTimingSliders()
 		}
 		else
 		{
-			//s.append("Well ");
-			//s.append(QString::number(m_flowing_solution));
-			//s.append(" in \n");
-			s.append("Continuous \nflowing");  //TODO STRING
+			s.append(m_str_pulse_continuous_flowing);  //TODO STRING
 			ui->textEdit_emptyTime->setText(s);
 
 			// show the warning label

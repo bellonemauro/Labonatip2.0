@@ -108,6 +108,10 @@
         <translation>Avfall</translation>
 	</message>	
 	<message>
+        <source>full in</source>
+        <translation>fullt på</translation>
+	</message>	
+	<message>
         <source>WASTE</source>
         <translation>AVFALL</translation>
 	</message>
@@ -491,6 +495,10 @@
         <source>Pulse time remaining: </source>
         <translation>Återstående pulstid: </translation>
 	</message>	
+	<message>
+        <source>Continuous flowing</source>
+        <translation>Kontinuerligt flöde</translation>
+    </message>	
 	<message>
         <source>Warning: the solution is running out</source>
         <translation>Varning: lösningen avslutar</translation>

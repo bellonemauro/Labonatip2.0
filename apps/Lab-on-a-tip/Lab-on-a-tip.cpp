@@ -802,6 +802,9 @@ void Labonatip_GUI::initCustomStrings()
 	m_str_update_time_macro_msg1 = tr(" PROTOCOL RUNNING : ");
 	m_str_update_time_macro_msg2 = tr(" ----- remaining time,  ");
 	m_str_pulse_remaining_time = tr("Pulse time remaining: ");
+	m_str_pulse_continuous_flowing = tr("Continuous flowing");
+	m_str_pulse_waste = tr("Waste");
+	m_str_pulse_full_in = tr("full in");
 	m_str_user = tr("User :");
 
 }
@@ -996,10 +999,7 @@ bool Labonatip_GUI::visualizeProgressMessage(int _seconds, QString _message)
 	msg.append(m_str_progress_msg2);
 
 	QProgressDialog *PD = new QProgressDialog(msg, m_str_cancel, 0, _seconds, this);
-	//QFont font;
-	//font.setPixelSize(16);
-	//PD->setFont(font);  // TODO uniform all the font in the application
-	PD->setMinimumWidth(350);
+	PD->setMinimumWidth(350);   // here there is a warning that the geometry cannot be set, forget about it!
 	PD->setMinimumHeight(150);
 	PD->setMaximumWidth(700);
 	PD->setMaximumHeight(300);
