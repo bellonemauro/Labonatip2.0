@@ -32,17 +32,14 @@
 // standard libraries 
 #define _USE_MATH_DEFINES
 #include <cmath>
-
 #include <iostream>
 #include <string>
 #include <cstdio>
-
-
-
 #include <ctime>
 #include <thread>
 #include <mutex>
 
+// third party serial library
 #include <serial/serial.h>
 
 #include "ppc1api_data_structures.h"
@@ -136,7 +133,6 @@ namespace fluicell
 	#define PPC1_VID "16D0"  //!< device vendor ID
 	#define PPC1_PID "083A"  //!< device product ID
 
-	
 
 	public:
 	
@@ -206,16 +202,25 @@ namespace fluicell
 		bool decodeChannelLine(const string &_data, vector<double> &_line);
 
 
-		/** \brief Update flow calculation //TODO: write guide here
+		/** \brief Update inflow and outflow calculation 
 		*
-		* \note -
+		*   This function updates flows calculation (inflow and outflow)
+		*   to allow the user to get the current status of the PPC1. 
+		*   This is currently based on calculation no sensor data are available.
+		*   
+		*
+		*  @param _PPC1_data  input data stream from PPC1 
+		*  @param _PPC1_status  output _PPC1_status with current flows
+		*
+		* \note - For details about the specific calculations, refer to the
+		*         excel sheet in the resources folder
 		*/
 		void updateFlows(const PPC1_data &_PPC1_data, PPC1_status &_PPC1_status);
 
 
 		/** \brief Send a string to the PPC1 controller
 		  *
-		  * \note: does not return exceptions, but it print errors in the serial port fail
+		  * \note: does not return exceptions, but it prints errors in the serial port fail
 		  *
 		  */
 		bool sendData(const string &_data);
@@ -255,30 +260,31 @@ namespace fluicell
 		// Serial port configuration parameters, only serial port number 
 		// and baud rate are configurable for the user, this is intentional!
 		serial::Serial *m_PPC1_serial;  //!< Pointer to serial port communication class
-		//std::vector<serialDeviceInfo> m_devices;   //!< infos of connected devices
-		string m_COMport;   //!< port number
-		int m_baud_rate;    //!< baud rate
-		int m_dataStreamPeriod; //!< data stream for the PPC1
-		int m_COM_timeout;  //!< timeout for the serial communication --- default value 250 ms
-
-
-		thread m_thread; //!< Member for the thread handling
+		string m_COMport;	            //!< port number
+		int m_baud_rate;                //!< baud rate	
+		int m_COM_timeout;              //!< timeout for the serial communication --- default value 250 ms
 		
-		bool m_threadTerminationHandler;  //!< set to TRUE to stop the thread, automatically set to false during the thread starting
-		bool m_isRunning; //!< true when the thread is running
+		// threads
+		thread m_thread;                   //!< Member for the thread handling		
+		bool m_threadTerminationHandler;   //!< set to TRUE to stop the thread, automatically set to false during the thread starting
+		bool m_isRunning;                  //!< true when the thread is running
 
 	    // this values are the constants to have 100% droplet size 
-		double m_default_pon;   //!< in mbar  -- default value  190.0 mbar
-		double m_default_poff;  //!< in mbar  -- default value   21.0 mbar
-		double m_default_v_recirc;  //!< in mbar (negative value!)  -- default value 115 mbar
-		double m_default_v_switch;  //!< in mbar (negative value!)  -- default value 115 mbar
-		double m_pipe_length2tip;  /*!< length of the pipe to the tip, this value is used for the calculation 
-								        of the flow using the Poiseuille equation see function getFlow() -- default value 0.065 m; */
-		double m_pipe_length2zone; /*!< length of the pipe to the zone, this value is used for the calculation 
-								        of the flow using the Poiseuille equation see function getFlow() -- default value 0.124 m;*/
-		bool m_verbose;
-		bool m_filter_enabled;  //!< if active enable data filtering from PPC1
-		int m_filter_size;     //!< if m_filter_enabled active define the number of samples to be considered in the filter
+		double m_default_pon;              //!< in mbar  -- default value  190.0 mbar
+		double m_default_poff;             //!< in mbar  -- default value   21.0 mbar
+		double m_default_v_recirc;         //!< in mbar (negative value!)  -- default value 115 mbar
+		double m_default_v_switch;         //!< in mbar (negative value!)  -- default value 115 mbar
+		double m_pipe_length2tip;          /*!< length of the pipe to the tip, this value is used  
+								                for the calculation of the flow using the Poiseuille equation
+												see function getFlow() -- default value 0.065 m; */
+		double m_pipe_length2zone;         /*!< length of the pipe to the zone, this value is used 
+								                for the calculation of the flow using the Poiseuille equation 
+												see function getFlow() -- default value 0.124 m;*/
+		
+		int m_dataStreamPeriod;             //!< data stream for the PPC1
+		bool m_verbose;                     //!< verbose output when active
+		bool m_filter_enabled;              //!< if active enable data filtering from PPC1
+		int m_filter_size;                  //!< if m_filter_enabled active define the number of samples to be considered in the filter
 
 	public:
 

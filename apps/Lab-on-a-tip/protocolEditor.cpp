@@ -1952,7 +1952,7 @@ void Labonatip_protocol_editor::about() {
 		"Version: ");
 	//msg_content.append(m_version); //TODO
 	messageBox.about(this, msg_title, msg_content);
-	messageBox.setIconPixmap(QPixmap("./icons/fluicell_iconBIG.ico"));
+	messageBox.setIconPixmap(QPixmap(":/icons/fluicell_iconBIG.ico"));
 	messageBox.setFixedSize(600, 800);
 }
 

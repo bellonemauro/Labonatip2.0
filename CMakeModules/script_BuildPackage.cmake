@@ -42,8 +42,8 @@ set(CPACK_RESOURCE_FILE_README "${CMAKE_CURRENT_SOURCE_DIR}/README.md")#AUTHORS.
 set (CPACK_PACKAGE_VERSION "${CMAKE_Fluicell_FULL_VERSION}")     
 
 #set a cool icon to start the application
-set (CPACK_NSIS_MUI_ICON "${CMAKE_CURRENT_SOURCE_DIR}/Resources/fluicell_iconBIG.ico") #program icon
-#set (CPACK_NSIS_MUI_UNIICON "${CMAKE_CURRENT_SOURCE_DIR}/Resources/fluicell_iconBIG.ico") #uninstall icon
+set (CPACK_NSIS_MUI_ICON "${CMAKE_CURRENT_SOURCE_DIR}/resources/fluicell_logo.ico") #program icon
+#set (CPACK_NSIS_MUI_UNIICON "${CMAKE_CURRENT_SOURCE_DIR}/resources/fluicell_iconBIG.ico") #uninstall icon
 
 #set (CPACK_PACKAGE_ICON "${CMAKE_CURRENT_SOURCE_DIR}/Resources/fluicell_iconBIG.png")# -- NOT FOUND -- ??
 

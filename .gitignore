@@ -4,6 +4,7 @@
 .\build_qt5.8
 .\build_qt5.8_32bit
 .\docs\DoxygenDocs
+.\resources\deprecated
 
 #qt user filed
 *.user
