@@ -153,13 +153,38 @@ elseif(  BUILD_QT5)
 	#this allows the executable to encode all the icons 
     QT5_ADD_RESOURCES(UI_RESOURCES_RCC ${myProject_UI_RESOURCES})
 	
-	#this allows the automatic translation from cmake  
-	#TODO check the reason why translations are not properly generated
+	# this allows the automatic translation from cmake  
+	# step1:
+	# set the output folder we have to run this command, 
+    # see https://stackoverflow.com/questions/44782914/cmake-qt5-add-translation-how-to-specify-the-output-path
+	set_source_files_properties(${myProject_LANGUAGES_TS} PROPERTIES OUTPUT_LOCATION ${myProject_LANGUAGES_DIR})
+	# step2: 
+	# create translation files
 	qt5_create_translation(QT_TRANSLATIONS_FILES ${myProject_LANGUAGES_DIR} ${myProject_LANGUAGES_TS})
-	message (STATUS "${PROJECT_NAME} MESSAGE: myProject_LANGUAGES_TS  :: ${myProject_LANGUAGES_TS} ")
-	message (STATUS "${PROJECT_NAME} MESSAGE: myProject_LANGUAGES_DIR  :: ${myProject_LANGUAGES_DIR} ")
-	message (STATUS "${PROJECT_NAME} MESSAGE: QT_TRANSLATIONS_FILES  :: ${QT_TRANSLATIONS_FILES} ")
+	SET (TRANSLATION_GENERATOR "${QT5_BINARY_DIR}/lrelease.exe")
+	if ( ENABLE_verbose )
+		message (STATUS "${PROJECT_NAME} MESSAGE: myProject_LANGUAGES_TS  :: ${myProject_LANGUAGES_TS} ")
+		message (STATUS "${PROJECT_NAME} MESSAGE: myProject_LANGUAGES_DIR  :: ${myProject_LANGUAGES_DIR} ")
+		message (STATUS "${PROJECT_NAME} MESSAGE: QT_TRANSLATIONS_FILES  :: ${QT_TRANSLATIONS_FILES} ")	
+		message (STATUS "${TRANSLATION_GENERATOR} MESSAGE: TRANSLATION_GENERATOR  :: ${TRANSLATION_GENERATOR} ")
+	endif ( ENABLE_verbose )
 
+	# step 3 
+	# run the command  " lrelease.exe _file.ts _file.qm " for each ts file 
+	# TODO: this is to be checked in linux as in windows visual studio is able to generate the translations at step 2
+#	if(WIN32)
+#	set (idx 0)
+#	  FOREACH(F1 ${myProject_LANGUAGES_TS})
+#		list (GET QT_TRANSLATIONS_FILES ${idx} F2)
+		#execute_process(COMMAND ${TRANSLATION_GENERATOR} ${F1} ${F2})
+		
+#		if ( ENABLE_verbose )
+#			message (STATUS " Added custom command ::: ${TRANSLATION_GENERATOR} ${F1} ${F2} ")
+#		endif ( ENABLE_verbose )	  
+#		MATH(EXPR idx "${idx}+1")
+#	  ENDFOREACH(F1)	
+#	endif()		
+	
 	if ( ENABLE_verbose )
 		message (STATUS "${PROJECT_NAME} MESSAGE: myProject_FORMS_HEADERS  :: ${myProject_FORMS_HEADERS} ")
 	endif ( ENABLE_verbose )
@@ -174,9 +199,7 @@ elseif(  BUILD_QT5)
 	target_link_libraries ( ${PROJECT_NAME}  
 							${QT_LIBRARIES}  ${Qt5Charts_LIBRARIES} 
 							PPC1api serial )
-
-							
-							
+						
 	if (VLD_MemoryCheck)
         message (STATUS "${PROJECT_NAME} Memory leak detector activated ")
 		target_link_libraries (${PROJECT_NAME} 	${VLD_LIBRARY_VLD})
