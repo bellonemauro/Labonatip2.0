@@ -228,7 +228,32 @@ namespace fluicell
 		};
 
 
-		//TODO write guide 
+		/**  \brief PPC1_status structure contains the inflow and outflow data for each well in the pipette
+		*
+		*  @param delta_pressure
+		*  @param pipe_length
+		*  @param outflow_on
+		*  @param outflow_off
+		*  @param outflow_tot
+		*  @param inflow_recirculation
+		*  @param inflow_switch
+		*  @param in_out_ratio_on
+		*  @param in_out_ratio_off
+		*  @param in_out_ratio_tot
+		*  @param solution_usage_off
+		*  @param solution_usage_on
+		*  @param flow_rate_1
+		*  @param flow_rate_2
+		*  @param flow_rate_3
+		*  @param flow_rate_4
+		*  @param flow_rate_5
+		*  @param flow_rate_6
+		*  @param flow_rate_7
+		*  @param flow_rate_8
+		*
+		*
+		*  \note : TODO: the guide is still not entirely complete
+		**/
 		struct PPC1API_EXPORT PPC1_status
 		{
 		public: //protected: //TODO: this should be protected
@@ -379,7 +404,7 @@ namespace fluicell
 			**/
 			instructions getInstruction() { return this->instruction; }
 
-			/**  \brief Set the command .
+			/**  \brief Set the command.
 			*
 			**/
 			void setInstruction(instructions _instruction) { this->instruction = _instruction; }

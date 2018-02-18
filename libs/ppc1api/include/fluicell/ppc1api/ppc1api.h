@@ -546,7 +546,19 @@ namespace fluicell
 		**/
 		bool setDropletSize(double _percentage = 100.0);
 
-		//TODO: missing guide
+		/** \brief Change the droplet size by a specific amound + or - 
+		*
+		*  Change the droplet size by adding a specific _percentage with respect to the default values
+		*  of vacuum and pressures.
+		*
+		*  \note: the droplet size linear increment corresponds to a cubic power
+		*         of the desired values for pressures and vacuums
+		*  \note: example: if _percentage = 5% ==> the size goes to 105%
+		*
+		*  @param  _percentage is the desired percentage value
+		*
+		*  \return -  false in case of errors
+		**/
 		bool changeDropletSizeBy(double _percentage = 0.0);
 
 		/** \brief Get the current droplet size as percentage
