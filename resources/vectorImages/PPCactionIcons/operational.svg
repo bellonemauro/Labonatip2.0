@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="60"
+   height="60"
+   viewBox="0 0 56.249998 56.249998"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.92.1 r15371"
+   sodipodi:docname="run2.svg"
+   inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\run.png"
+   inkscape:export-xdpi="300"
+   inkscape:export-ydpi="300">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="5.656854"
+     inkscape:cx="34.567794"
+     inkscape:cy="17.452572"
+     inkscape:document-units="px"
+     inkscape:current-layer="g4494"
+     showgrid="false"
+     inkscape:snap-bbox="true"
+     inkscape:bbox-paths="true"
+     inkscape:bbox-nodes="true"
+     inkscape:snap-bbox-edge-midpoints="true"
+     inkscape:snap-bbox-midpoints="true"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     units="px" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(1252.0673,-523.19025)">
+    <path
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#505050;stroke-width:4.68749983;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="path4146"
+       sodipodi:type="arc"
+       sodipodi:cx="-1225.8407"
+       sodipodi:cy="551.78467"
+       sodipodi:rx="23.414856"
+       sodipodi:ry="23.306602"
+       sodipodi:start="1.3299409"
+       sodipodi:end="0.51487213"
+       d="m -1220.2555,574.41851 a 23.414856,23.306602 0 0 1 -26.7235,-12.60927 23.414856,23.306602 0 0 1 6.998,-28.60127 23.414856,23.306602 0 0 1 29.5557,1.03377 23.414856,23.306602 0 0 1 4.9639,29.01965"
+       sodipodi:open="true"
+       inkscape:export-filename="C:\code\Fluicell\apps\Lab-on-a-tip\icons\run.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <g
+       id="g4490"
+       transform="matrix(0.83990544,-0.85965573,0.85965573,0.83990544,-673.12912,-958.25748)">
+      <g
+         id="g4494"
+         transform="rotate(-15.381016,-1213.6497,567.1935)">
+        <path
+           style="fill:none;fill-rule:evenodd;stroke:#505050;stroke-width:3.9002293;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="m -1218.4373,567.1935 4.7706,-6.3177"
+           id="path4144-2-9"
+           inkscape:connector-curvature="0"
+           inkscape:export-filename="C:\code\Fluicell\apps\Lab-on-a-tip\icons\run.png"
+           inkscape:export-xdpi="300"
+           inkscape:export-ydpi="300" />
+        <path
+           style="fill:none;fill-rule:evenodd;stroke:#505050;stroke-width:3.9002293;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="m -1218.4373,567.1935 4.7706,6.3177"
+           id="path4144-2-5-3"
+           inkscape:connector-curvature="0"
+           inkscape:export-filename="C:\code\Fluicell\apps\Lab-on-a-tip\icons\run.png"
+           inkscape:export-xdpi="300"
+           inkscape:export-ydpi="300" />
+      </g>
+    </g>
+  </g>
+</svg>

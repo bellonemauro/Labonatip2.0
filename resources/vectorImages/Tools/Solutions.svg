@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="Layer_1"
+   data-name="Layer 1"
+   viewBox="0 0 84.227133 185.35867"
+   version="1.1"
+   sodipodi:docname="Solutions.svg"
+   inkscape:version="0.92.1 r15371"
+   width="84.227135"
+   height="185.35867"
+   inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\solutions.png"
+   inkscape:export-xdpi="180"
+   inkscape:export-ydpi="180">
+  <metadata
+     id="metadata35">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Solution</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1001"
+     id="namedview33"
+     showgrid="false"
+     inkscape:zoom="4.162808"
+     inkscape:cx="38.362063"
+     inkscape:cy="54.430678"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="Layer_1"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <defs
+     id="defs4">
+    <style
+       id="style2">.cls-1,.cls-4{fill:none;}.cls-1,.cls-2{stroke:#000;stroke-miterlimit:10;}.cls-1{stroke-width:4px;}.cls-3{fill:#fff;}</style>
+  </defs>
+  <title
+     id="title6">Solution</title>
+  <line
+     x1="25.363564"
+     y1="82.740005"
+     x2="25.363564"
+     y2="96.699989"
+     id="line8"
+     inkscape:export-xdpi="180"
+     inkscape:export-ydpi="180"
+     style="stroke:#505050;stroke-opacity:1" />
+  <line
+     x1="47.043564"
+     y1="82.740005"
+     x2="47.043564"
+     y2="73.169998"
+     id="line10"
+     inkscape:export-xdpi="180"
+     inkscape:export-ydpi="180"
+     style="stroke:#505050;stroke-opacity:1" />
+  <line
+     x1="47.043564"
+     y1="95.869995"
+     x2="47.043564"
+     y2="82.740005"
+     id="line12"
+     inkscape:export-xdpi="180"
+     inkscape:export-ydpi="180"
+     style="stroke:#505050;stroke-opacity:1" />
+  <circle
+     class="cls-1"
+     cx="51.813568"
+     cy="54.880001"
+     r="7.77"
+     id="circle14"
+     inkscape:export-xdpi="180"
+     inkscape:export-ydpi="180"
+     style="fill:none;stroke:#505050;stroke-width:4px;stroke-miterlimit:10;stroke-opacity:1" />
+  <circle
+     class="cls-1"
+     cx="17.153564"
+     cy="35.580002"
+     r="9.8000002"
+     id="circle16"
+     inkscape:export-xdpi="180"
+     inkscape:export-ydpi="180"
+     style="fill:none;stroke:#505050;stroke-width:4px;stroke-miterlimit:10;stroke-opacity:1" />
+  <circle
+     class="cls-1"
+     cx="55.71357"
+     cy="15.56"
+     r="13.56"
+     id="circle18"
+     inkscape:export-xdpi="180"
+     inkscape:export-ydpi="180"
+     style="fill:none;stroke:#505050;stroke-width:4px;stroke-miterlimit:10;stroke-opacity:1" />
+  <path
+     inkscape:connector-curvature="0"
+     class="cls-2"
+     d="m 59.413566,184.83999 a 3.66,3.66 0 0 0 2,-0.78 41.61,41.61 0 1 0 -38.599997,0 c 0,0 2.06,1 3.06,0.75 z"
+     id="path20"
+     inkscape:export-xdpi="180"
+     inkscape:export-ydpi="180"
+     style="stroke:#505050;stroke-miterlimit:10;stroke-opacity:1;fill:#505050;fill-opacity:1" />
+  <polyline
+     transform="translate(-75.656431,-21.3)"
+     points="127.57 129.87 127.57 99.12 130.09 99.12 130.09 94.47 103.38 94.47 103.38 99.12 105.89 99.12 105.89 129.87"
+     id="polyline22"
+     inkscape:export-xdpi="180"
+     inkscape:export-ydpi="180"
+     style="stroke:#505050;stroke-opacity:1;fill:#505050;fill-opacity:1" />
+  <circle
+     class="cls-3"
+     cx="47.973564"
+     cy="125.17"
+     r="10.21"
+     id="circle24"
+     inkscape:export-xdpi="180"
+     inkscape:export-ydpi="180"
+     style="fill:#ffffff;stroke:#505050;stroke-opacity:1" />
+  <circle
+     class="cls-3"
+     cx="56.663574"
+     cy="161.05"
+     r="12.4"
+     id="circle26"
+     inkscape:export-xdpi="180"
+     inkscape:export-ydpi="180"
+     style="fill:#ffffff;stroke:#505050;stroke-opacity:1" />
+  <circle
+     class="cls-3"
+     cx="24.533569"
+     cy="149.64"
+     r="7.4499998"
+     id="circle28"
+     inkscape:export-xdpi="180"
+     inkscape:export-ydpi="180"
+     style="fill:#ffffff;stroke:#505050;stroke-opacity:1" />
+</svg>

@@ -1,0 +1,41 @@
+%% +---------------------------------------------------------------------------+
+%% |                           FLUICELL LAB-ON-A-TIP                           |
+%% |                                                                           |
+%% |                                                                           |
+%% |                          http://www.fluicell.com/                         |
+%% +---------------------------------------------------------------------------+
+%% 
+%% Macro Header V. 0.1 
+%% file created on dd/mm/yyyy 
+%% Fluicell Lab-on-a-tip macro file description 
+%% +---------------------------------------------------------------------------+
+%% List of parameters: 
+%%  - index           
+%%  - P_on (mbar)           
+%%  - P_off (mbar)        
+%%  - V_switch (mbar)   
+%%  - V_recirc (mbar)   
+%%  - Duration (sec)              
+%%  - OpenSol1 (bool)                
+%%  - OpenSol2 (bool) 
+%%  - OpenSol3 (bool) 
+%%  - OpenSol4 (bool) 
+%%  - waitSync (bool) 
+%%  - syncOut (bool) 
+%%  - ask (bool) 
+%%  - ask_message (bool) 
+%%  - status_message (bool) 
+%% +---------------------------------------------------------------------------+ 
+%% index P_on P_off  V_switch  V_recirc  Duration  OpenSol1 OpenSol2 OpenSol3 OpenSol4  waitSync  syncOut  ask ask_message status_message 
+
+1#200#234#-342#-223#100.54#1#1#0#0#1#0#1#ask_message#status_message#
+1#200#234#-342#-223#100.54#1#1#0#0#1#0#1#ask_message#status_message#
+1#200#234#-342#-223#100.54#1#1#0#0#1#0#1#ask_message#status_message#
+1#200#234#-342#-223#100.54#1#1#0#0#1#0#1#ask_message#status_message#
+1#200#234#-342#-223#100.54#1#1#0#0#1#0#1#ask_message#status_message#
+1#200#234#-342#-223#100.54#1#1#0#0#1#0#1#ask_message#status_message#
+1#200#234#-342#-223#100.54#1#1#0#0#1#0#1#ask_message#status_message#
+1#200#234#-342#-223#100.54#1#1#0#0#1#0#1#ask_message#status_message#
+1#200#234#-342#-223#100.54#1#1#0#0#1#0#1#ask_message#status_message#
+1#200#234#-342#-223#100.54#1#1#0#0#1#0#1#ask_message#status_message#
+1#200#234#-342#-223#100.54#1#1#0#0#1#0#1#ask_message#status_message#
