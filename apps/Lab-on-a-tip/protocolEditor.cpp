@@ -1033,11 +1033,44 @@ bool Labonatip_protocol_editor::loadMacro(const QString _file_name)
 
 bool Labonatip_protocol_editor::saveMacro() //TODO update the folder when save
 {
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_protocol_editor::saveMacro    " << endl;
+
+
+	QMessageBox::StandardButton resBtn = QMessageBox::question(this, m_str_warning,
+		tr("Current protocol file name is <br>") + m_current_protocol_file_name +
+		tr("<br> Do you want to override? <br> Yes = override, NO = saveAs, Cancel = no nothing"),
+		QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
+		QMessageBox::Yes);
+	if (resBtn == QMessageBox::Yes) {
+		if (!saveMacro(m_current_protocol_file_name)) {
+			QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
+			QMessageBox::warning(this, m_str_warning, m_str_file_not_saved + "<br>" + m_current_protocol_file_name);
+			return false;
+		}
+	}
+	if (resBtn == QMessageBox::No)
+	{
+		if (!saveMacroAs()) return false;
+	}
+	if (resBtn == QMessageBox::Cancel)
+	{
+		//do nothing
+	}
+
+
+	
+	return true;
+}
+
+bool Labonatip_protocol_editor::saveMacroAs() //TODO update the folder when save
+{
 	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
 
 	cout << QDate::currentDate().toString().toStdString() << "  "
 		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_protocol_editor::saveMacro    " << endl;
+		<< "Labonatip_protocol_editor::saveMacroAs    " << endl;
 
 	QString fileName = QFileDialog::getSaveFileName(this, 
 		m_str_save_protocol, m_protocol_path,  // dialog to open files
@@ -1580,7 +1613,7 @@ void Labonatip_protocol_editor::on_protocol_clicked(QTreeWidgetItem *item, int c
 	protocol_path.append("/");
 	protocol_path.append(file);
 
-	QMessageBox::StandardButton resBtn =
+	QMessageBox::StandardButton resBtn = //TODO: translation
 		QMessageBox::question(this, "Lab-on-a-tip",
 			tr("Do you want to add to the bottom of the protocol?\n Click NO clean the workspace and load the new protocol"),
 			QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,

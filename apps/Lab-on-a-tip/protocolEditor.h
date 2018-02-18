@@ -123,6 +123,8 @@ private slots:
 	*/
 	bool saveMacro( );
 
+	bool saveMacroAs();
+
 	/** Clear all the macro commands
 	*
 	*/
