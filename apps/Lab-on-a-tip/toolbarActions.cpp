@@ -191,6 +191,7 @@ void Labonatip_GUI::disCon() {   //TODO, add an argument to connect and disconne
 					QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
 					QMessageBox::Yes);
 			if (resBtn != QMessageBox::Yes) {  // if the answer is not YES
+				QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 				return;
 			}
 
@@ -324,6 +325,13 @@ void Labonatip_GUI::reboot() {
 
 	if (m_pipette_active) {
 		disCon(); // with the pipette active this will stop the threads
+
+		if (m_pipette_active) { // if it is still active, the disconnection failed and and we cannot continue
+			setEnableMainWindow(true);
+			QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
+			return;
+		}
+
 		ui->actionSimulation->setChecked(false);
 	
 		m_ppc1->reboot();

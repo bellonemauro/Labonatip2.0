@@ -451,6 +451,10 @@ void Labonatip_tools::getGUIsettingsFromGUI()
 {
 //	m_GUI_params->showTextToolBar = Qt::ToolButtonStyle(ui_tools->comboBox_toolButtonStyle->currentIndex());
 	m_GUI_params->enableToolTips = ui_tools->checkBox_enableToolTips->isChecked();
+	m_GUI_params->verboseOutput = ui_tools->checkBox_verboseOut->isChecked();
+	m_GUI_params->enableHistory = ui_tools->checkBox_EnableHistory->isChecked();
+	m_GUI_params->dumpHistoryToFile = ui_tools->checkBox_dumpToFile->isChecked();
+	m_GUI_params->outFilePath = ui_tools->lineEdit_msg_out_file_path->text();
 
 }
 
@@ -461,7 +465,9 @@ void Labonatip_tools::getPRsettingsFromGUI()
 	m_pr_params->p_off_default = ui_tools->spinBox_p_off_default->value();
 	m_pr_params->v_recirc_default = ui_tools->spinBox_v_recirc_default->value();
 	m_pr_params->v_switch_default = ui_tools->spinBox_v_switch_default->value();
-
+	m_pr_params->verboseOut = ui_tools->checkBox_enablePPC1verboseOut->isChecked();
+	m_pr_params->enableFilter = ui_tools->checkBox_enablePPC1filter->isChecked();
+	m_pr_params->filterSize = ui_tools->spinBox_PPC1filterSize->value();
 }
 
 bool Labonatip_tools::loadSettings(QString _path)
@@ -556,6 +562,21 @@ bool Labonatip_tools::loadSettings(QString _path)
 	ui_tools->checkBox_enableToolTips->setChecked(enable_tool_tips);
 	m_GUI_params->enableToolTips = enable_tool_tips;
 	
+	bool verb_out = m_settings->value("GUI/VerboseOutput", "1").toBool();
+	ui_tools->checkBox_verboseOut->setChecked(verb_out);
+	m_GUI_params->verboseOutput = verb_out;
+
+	bool en_history = m_settings->value("GUI/EnableHistory", "1").toBool();
+	ui_tools->checkBox_EnableHistory->setChecked(en_history);
+	m_GUI_params->enableHistory = en_history;
+
+	bool dump_to_file = m_settings->value("GUI/DumpHistoryToFile", "1").toBool();
+	ui_tools->checkBox_dumpToFile->setChecked(dump_to_file);
+	m_GUI_params->dumpHistoryToFile = dump_to_file;
+
+	QString out_file_path = m_settings->value("GUI/OutFilePath", "./Ext_data/").toString();
+	m_GUI_params->outFilePath = out_file_path; //TODO: no intepretation yet
+
 	// read pr_limits group
 	int p_on_max = m_settings->value("pr_limits/p_on_max", "450").toInt(&ok);
 	if (!ok) {
@@ -706,6 +727,28 @@ bool Labonatip_tools::loadSettings(QString _path)
 	}
 	ui_tools->spinBox_v_increment->setValue(base_v_increment);
 	m_pr_params->base_v_increment = base_v_increment;
+
+	bool verbose_out = m_settings->value("PPC1/VerboseOut", "1").toBool();
+	ui_tools->checkBox_enablePPC1verboseOut->setChecked(verbose_out);
+	m_pr_params->verboseOut = verbose_out;
+
+	bool use_def_v_set_p = m_settings->value("PPC1/UseDefValSetPoint", "1").toBool();
+	ui_tools->checkBox_useSetPoint->setChecked(use_def_v_set_p);
+	m_pr_params->useDefValSetPoint = use_def_v_set_p;
+
+	bool enable_filter = m_settings->value("PPC1/EnableFilter", "1").toBool();
+	ui_tools->checkBox_enablePPC1filter->setChecked(enable_filter);
+	m_pr_params->enableFilter = enable_filter;
+
+	int filter_size = m_settings->value("PPC1/FilterSize", "10").toInt(&ok);
+	if (!ok) {
+		cerr << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_tools::loadSettings ::: Warning  ::  filter size is not valid " << endl;
+		filter_size = 10;
+	}
+	ui_tools->spinBox_PPC1filterSize->setValue(filter_size);
+	m_pr_params->filterSize = filter_size;
 
 	// read server group
 
@@ -893,7 +936,11 @@ bool Labonatip_tools::saveSettings(QString _file_name)
 
 	// [GUI]
 //	settings->setValue("GUI/ToolButtonStyle", ui_tools->comboBox_toolButtonStyle->currentIndex());
-	settings->setValue("GUI/enableToolTips", int(ui_tools->checkBox_enableToolTips->isChecked()));
+	settings->setValue("GUI/EnableToolTips", int(ui_tools->checkBox_enableToolTips->isChecked()));
+	settings->setValue("GUI/VerboseOutput", int(ui_tools->checkBox_verboseOut->isChecked()));
+	settings->setValue("GUI/EnableHistory", int(ui_tools->checkBox_EnableHistory->isChecked()));
+	settings->setValue("GUI/DumpHistoryToFile", int(ui_tools->checkBox_dumpToFile->isChecked()));
+	settings->setValue("GUI/OutFilePath", QString(ui_tools->lineEdit_msg_out_file_path->text()));
 
 	// [pr_limits]
 	// p_on_max = 
@@ -926,7 +973,11 @@ bool Labonatip_tools::saveSettings(QString _file_name)
 	settings->setValue("pr_limits/base_fs_increment", ui_tools->spinBox_fs_increment->value());
 	// base_ds_increment = 
 	settings->setValue("pr_limits/base_v_increment", ui_tools->spinBox_v_increment->value());
-
+	
+	settings->setValue("PPC1/VerboseOut", int(ui_tools->checkBox_enablePPC1verboseOut->isChecked()));
+	settings->setValue("PPC1/UseDefValSetPoint", int(ui_tools->checkBox_useSetPoint->isChecked()));
+	settings->setValue("PPC1/EnableFilter", int(ui_tools->checkBox_enablePPC1filter->isChecked()));
+	settings->setValue("PPC1/FilterSize", int(ui_tools->spinBox_PPC1filterSize->value()));
 
 	// [Well volumes]
 	// well 1

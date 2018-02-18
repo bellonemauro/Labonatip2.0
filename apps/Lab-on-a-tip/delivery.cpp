@@ -20,7 +20,7 @@ void Labonatip_GUI::dropletSizePlus() {
 	// V_recirc - percentage
 	if (m_pipette_active) {
 		bool success = false;
-		if (ui->checkBox_useSetPoint->isChecked())
+		if (m_pr_params->useDefValSetPoint)
 		{
 			success = m_ppc1->changeDropletSizeBy(m_pr_params->base_ds_increment);
 		}
@@ -104,7 +104,7 @@ void Labonatip_GUI::dropletSizeMinus() {
 	// V_recirc + percentage
 	if (m_pipette_active) {
 		bool success = false;
-		if (ui->checkBox_useSetPoint->isChecked())
+		if (m_pr_params->useDefValSetPoint)
 		{
 			success = m_ppc1->changeDropletSizeBy(-m_pr_params->base_ds_increment);
 		}
@@ -189,7 +189,7 @@ void Labonatip_GUI::flowSpeedPlus() {
 	// if 5% different is less than 5 mbar .... start -> start + 5 --> start - 5%
 	if (m_pipette_active) {
 		bool success = false;
-		if (ui->checkBox_useSetPoint->isChecked())
+		if (m_pr_params->useDefValSetPoint)
 		{
 			success = m_ppc1->changeFlowspeedBy(m_pr_params->base_fs_increment);
 		}
@@ -285,7 +285,7 @@ void Labonatip_GUI::flowSpeedMinus() {
 	// -percentage to all values
 	if (m_pipette_active) {
 		bool success = false;
-		if (ui->checkBox_useSetPoint->isChecked())
+		if (m_pr_params->useDefValSetPoint)
 		{
 			success = m_ppc1->changeFlowspeedBy(-m_pr_params->base_fs_increment);
 		}
@@ -357,7 +357,7 @@ void Labonatip_GUI::vacuumPlus() {
 	// +percentage to v_recirculation
 	if (m_pipette_active) {
 		bool success = false;
-		if (ui->checkBox_useSetPoint->isChecked())
+		if (m_pr_params->useDefValSetPoint)
 		{
 			success = m_ppc1->changeVacuumPercentageBy(m_pr_params->base_v_increment);
 		}
@@ -414,7 +414,7 @@ void Labonatip_GUI::vacuumMinus() {
 	// -5% v_recirculation
 	if (m_pipette_active) {
 		bool success = false; 
-		if (ui->checkBox_useSetPoint->isChecked())
+		if (m_pr_params->useDefValSetPoint)
 		{
 			success = m_ppc1->changeVacuumPercentageBy(-m_pr_params->base_v_increment);
 		}

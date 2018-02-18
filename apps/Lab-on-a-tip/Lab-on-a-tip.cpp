@@ -52,19 +52,16 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   // debug stuff -- set 1 to remove all messages and tab
   if (0)
   {
-	  ui->checkBox_dumpToFile->setChecked(false);
-	  ui->checkBox_to_terminal->setChecked(false);
-	  ui->checkBox_verboseOut->setChecked(false);
 	  ui->tabWidget->removeTab(2);
 	  setPpc1Verbose(false);
   }
   else {
 	  // init the redirect buffer
 	  qout = new QDebugStream(std::cout, ui->textEdit_qcout);
-	  qout->copyOutToTerminal(ui->checkBox_to_terminal->isChecked());
+	  qout->copyOutToTerminal(true);// (ui->checkBox_to_terminal->isChecked()); //TODO
 	  //  QTextStream standardOutput(stdout);
 	  qerr = new QDebugStream(std::cerr, ui->textEdit_qcerr);
-	  qerr->copyOutToTerminal(ui->checkBox_to_terminal->isChecked());
+	  qerr->copyOutToTerminal(true);//(ui->checkBox_to_terminal->isChecked()); //TODO
 	  //  QTextStream standardOutput(stderr);// (stdout);
   }
 
@@ -142,9 +139,10 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   // initialize PPC1api
   m_ppc1->setCOMport(m_comSettings->getName());
   m_ppc1->setBaudRate((int)m_comSettings->getBaudRate());
-  m_ppc1->setVebose(ui->checkBox_verboseOut->isChecked());
+  m_ppc1->setVebose(m_pr_params->enableFilter);
+  m_ppc1->setFilterSize(m_pr_params->filterSize);
 
-  // init thread macroRunner //TODO: this is just a support, check if needed
+  // init thread macroRunner 
   m_macroRunner_thread = new Labonatip_macroRunner(this);
   m_macroRunner_thread->setDevice(m_ppc1);
 
@@ -667,14 +665,6 @@ if (ui->tabWidget->count() > 3)
 		SIGNAL(clicked()), this,
 		SLOT(updateDrawing(100)));
 
-	connect(ui->checkBox_to_terminal, 
-		SIGNAL(stateChanged(int)), this, 
-		SLOT(dumpToTerminal(int)));
-
-	connect(ui->checkBox_verboseOut, 
-		SIGNAL(stateChanged(int)), this, 
-		SLOT(setPpc1Verbose(int)));
-
 	// connect sliders
 	connect(ui->horizontalSlider_p_on, 
 		SIGNAL(valueChanged(int)), this, 
@@ -922,6 +912,7 @@ void Labonatip_GUI::toolApply()
 
 	m_ppc1->setCOMport(m_comSettings->getName());
 	m_ppc1->setBaudRate((int)m_comSettings->getBaudRate());
+	m_ppc1->setFilterSize(m_pr_params->filterSize);
 
 	switchLanguage(m_dialog_tools->language);
 
@@ -1109,7 +1100,7 @@ void Labonatip_GUI::closeEvent(QCloseEvent *event) {
 		if (m_macroRunner_thread->isRunning()) this->runMacro(); // this will stop the macro if running
 
 		// dump log file
-		if (ui->checkBox_dumpToFile->isChecked())
+		if (m_GUI_params->dumpHistoryToFile)
 		{
 			// save log data, messages from the console ect. 
 			dumpLogs();

@@ -13,8 +13,8 @@
 //#include <vld.h>
 
 fluicell::PPC1api::PPC1api() :
-	m_PPC1_data(new PPC1_data),
-	m_PPC1_status(new PPC1_status),
+	m_PPC1_data(new PPC1api::PPC1_data),
+	m_PPC1_status(new PPC1api::PPC1_status),
 	m_verbose(false)
 {
 	// initialize and connect serial port objects
@@ -37,6 +37,10 @@ fluicell::PPC1api::PPC1api() :
 	m_pipe_length2tip = 0.065; 
 	m_pipe_length2zone = 0.062;
 
+	// set default filter values
+	m_filter_enabled = false;
+	m_filter_size = 20;
+
 	// initialize thread variables
 	m_threadTerminationHandler = false; // it will be true when the thread starts
 	m_isRunning = false;
@@ -55,7 +59,7 @@ void fluicell::PPC1api::threadSerial()
 			{
 				string data;
 				if (readData(data))
-					if (!decodeDataLine(data, *m_PPC1_data)) 
+					if (!decodeDataLine(data, m_PPC1_data)) 
 						cerr << currentDateTime() 
 						     << " fluicell::PPC1api::threadSerial  ---- error --- MESSAGE: corrupted data " << endl;
 				
@@ -108,7 +112,7 @@ void fluicell::PPC1api::threadSerial()
 }
 
 
-bool fluicell::PPC1api::decodeDataLine(const string &_data, PPC1_data &_PPC1_data) //TODO: this class modifies the class member m_PPC1_data instead of the argument
+bool fluicell::PPC1api::decodeDataLine(const string &_data, PPC1_data *_PPC1_data) 
 {
 	// check for empty data
 	if (_data.empty())
@@ -118,15 +122,21 @@ bool fluicell::PPC1api::decodeDataLine(const string &_data, PPC1_data &_PPC1_dat
 		return false;
 	}
 
+	// check for _PPC1_data initialized
+	if (_PPC1_data == NULL)
+	{
+		cerr << currentDateTime()
+			<< " fluicell::PPC1api::decodeDataLine ::: Error in decoding line - _PPC1_data not initalized " << endl;
+		return false;
+	}
+
 	vector<double> line;  // decoded line 
 
 	if (_data.at(0) == 'A') {
 		if (decodeChannelLine(_data, line))  // decode the line 
 		{   // and fill the right place in the data structure
-			m_PPC1_data->channel_A->set_point = line.at(0);
-			m_PPC1_data->channel_A->sensor_reading = line.at(1);
-			m_PPC1_data->channel_A->PID_out_DC = line.at(2);
-			m_PPC1_data->channel_A->state = (int)line.at(3);
+			_PPC1_data->channel_A->setChannelData ( line.at(0), line.at(1),
+				line.at(2), (int)line.at(3));
 			return true;
 		}
 		else {
@@ -139,10 +149,8 @@ bool fluicell::PPC1api::decodeDataLine(const string &_data, PPC1_data &_PPC1_dat
 	if (_data.at(0) == 'B') {
 		if (decodeChannelLine(_data, line))  // decode the line 
 		{   // and fill the right place in the data structure
-			m_PPC1_data->channel_B->set_point = line.at(0);
-			m_PPC1_data->channel_B->sensor_reading = line.at(1);
-			m_PPC1_data->channel_B->PID_out_DC = line.at(2);
-			m_PPC1_data->channel_B->state = (int)line.at(3);
+			_PPC1_data->channel_B->setChannelData(line.at(0), line.at(1),
+				line.at(2), (int)line.at(3));
 			return true;
 		}
 		else {
@@ -155,10 +163,8 @@ bool fluicell::PPC1api::decodeDataLine(const string &_data, PPC1_data &_PPC1_dat
 	if (_data.at(0) == 'C') {
 		if (decodeChannelLine(_data, line))  // decode the line 
 		{   // and fill the right place in the data structure
-			m_PPC1_data->channel_C->set_point = line.at(0);
-			m_PPC1_data->channel_C->sensor_reading = line.at(1);
-			m_PPC1_data->channel_C->PID_out_DC = line.at(2);
-			m_PPC1_data->channel_C->state = (int)line.at(3);
+			_PPC1_data->channel_C->setChannelData(line.at(0), line.at(1),
+				line.at(2), (int)line.at(3));
 			return true;
 		}
 		else {
@@ -171,10 +177,8 @@ bool fluicell::PPC1api::decodeDataLine(const string &_data, PPC1_data &_PPC1_dat
 	if (_data.at(0) == 'D') {
 		if (decodeChannelLine(_data, line))  // decode the line 
 		{   // and fill the right place in the data structure
-			m_PPC1_data->channel_D->set_point = line.at(0);
-			m_PPC1_data->channel_D->sensor_reading = line.at(1);
-			m_PPC1_data->channel_D->PID_out_DC = line.at(2);
-			m_PPC1_data->channel_D->state = (int)line.at(3);
+			_PPC1_data->channel_D->setChannelData(line.at(0), line.at(1),
+				line.at(2), (int)line.at(3));
 			return true;
 		}
 		else {
@@ -190,42 +194,42 @@ bool fluicell::PPC1api::decodeDataLine(const string &_data, PPC1_data &_PPC1_dat
 		// char index   :  0123456789
 		int value = toDigit(_data.at(1));  
 		if (value == 0 || value == 1) { // admitted values are only 0 and 1
-			m_PPC1_data->i = value;
+			_PPC1_data->i = value;
 		}
 		else {
 			cerr << currentDateTime() 
-				 << " fluicell::PPC1api::decodeDataLine ::: Error in decoding line m_PPC1_data->i string:" 
+				 << " fluicell::PPC1api::decodeDataLine ::: Error in decoding line _PPC1_data->i string:" 
 				 << _data << " value " << value << endl;
 			return false;
 		}
 
 		value = toDigit(_data.at(4));
 		if (value == 0 || value == 1) { // admitted values are only 0 and 1
-			m_PPC1_data->j = value;
+			_PPC1_data->j = value;
 		}
 		else {
 			cerr << currentDateTime() 
-				 << " fluicell::PPC1api::decodeDataLine ::: Error in decoding line m_PPC1_data->j" << endl;
+				 << " fluicell::PPC1api::decodeDataLine ::: Error in decoding line _PPC1_data->j" << endl;
 			return false;
 		}
 
 		value = toDigit(_data.at(7));
 		if (value == 0 || value == 1) { // admitted values are only 0 and 1
-			m_PPC1_data->k = value;
+			_PPC1_data->k = value;
 		}
 		else { 
 			cerr << currentDateTime() 
-				 << " fluicell::PPC1api::decodeDataLine ::: Error in decoding line m_PPC1_data->k" << endl;
+				 << " fluicell::PPC1api::decodeDataLine ::: Error in decoding line _PPC1_data->k" << endl;
 			return false;
 		}
 
 		value = toDigit(_data.at(10));
 		if (value == 0 || value == 1) { // admitted values are only 0 and 1
-			m_PPC1_data->l = value;
+			_PPC1_data->l = value;
 		}
 		else {
 			cerr << currentDateTime() 
-				 << " fluicell::PPC1api::decodeDataLine ::: Error in decoding line m_PPC1_data->l" << endl;
+				 << " fluicell::PPC1api::decodeDataLine ::: Error in decoding line _PPC1_data->l" << endl;
 			return false;
 		}
 		return true;
@@ -237,20 +241,20 @@ bool fluicell::PPC1api::decodeDataLine(const string &_data, PPC1_data &_PPC1_dat
 		// char index:    01234567
 		int value = toDigit(_data.at(2));
 		if (value == 0 || value == 1) { // admitted values are only 0 and 1
-			m_PPC1_data->ppc1_IN = value;
+			_PPC1_data->ppc1_IN = value;
 		}
 		else {
 			cerr << currentDateTime() 
-				 << " fluicell::PPC1api::decodeDataLine ::: Error in decoding line m_PPC1_data->ppc1_IN" << endl;
+				 << " fluicell::PPC1api::decodeDataLine ::: Error in decoding line _PPC1_data->ppc1_IN" << endl;
 			return false;
 		}
 		value = toDigit(_data.at(7));
 		if (value == 0 || value == 1) { // admitted values are only 0 and 1
-			m_PPC1_data->ppc1_OUT = value;
+			_PPC1_data->ppc1_OUT = value;
 		}
 		else {
 			cerr << currentDateTime() 
-				 << " fluicell::PPC1api::decodeDataLine ::: Error in decoding line m_PPC1_data->ppc1_OUT" << endl;
+				 << " fluicell::PPC1api::decodeDataLine ::: Error in decoding line _PPC1_data->ppc1_OUT" << endl;
 			return false;
 		}
 		return true;
@@ -1246,6 +1250,14 @@ string fluicell::PPC1api::getDeviceID()
 	//<< m_dataStreamPeriod << endl;
 
 	return serialNumber;
+}
+
+void fluicell::PPC1api::setFilterSize(int _size)
+{
+	if (m_verbose) cout << currentDateTime()
+		<< "fluicell::PPC1api::setFilterSize"
+		<< " new filter size value << " << _size << " >> " << endl;
+	 m_PPC1_data->setFilterSize(_size); 
 }
 
 bool fluicell::PPC1api::sendData(const string &_data) {

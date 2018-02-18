@@ -215,7 +215,8 @@ struct pr_params {
 				p_off_max(450), p_off_min(0), p_off_default(21),
 				v_switch_max(0), v_switch_min(-300), v_switch_default(-115),
 				v_recirc_max(0), v_recirc_min(-300), v_recirc_default(-115),
-				base_ds_increment(10), base_fs_increment(5), base_v_increment(5)
+				base_ds_increment(10), base_fs_increment(5), base_v_increment(5),
+		        verboseOut(true), useDefValSetPoint(true), enableFilter(true), filterSize (20)
 	{   // default values
 	}
 
@@ -242,16 +243,33 @@ struct pr_params {
 	int base_fs_increment;       //!< base increment for flow speed in zone control
 	int base_v_increment;        //!< base increment for vacuum size in zone control
 
+	//this are now here, but maybe I will set a new structure
+	bool verboseOut;             //!< Verbose out on PPC1 api 
+	bool useDefValSetPoint;      //!< Use default value instead of set points for the calculation of percentages
+	bool enableFilter;           //!< Enable data filtering
+	int	filterSize;              //!< Filter window size
+
+
 }; // END pr_params struct
 
 
 struct GUIparams {
 	Qt::ToolButtonStyle showTextToolBar;     //!<  ToolButtonIconOnly --- n 
 	bool enableToolTips;
+	bool verboseOutput;
+	bool enableHistory;
+	bool dumpHistoryToFile;
+	QString	outFilePath;
+
 
 	GUIparams() {   // default values
 		this->showTextToolBar = Qt::ToolButtonIconOnly;
 		this->enableToolTips = false;
+		this->verboseOutput = true;
+		this->enableHistory = true;
+		this->dumpHistoryToFile = true;
+		this->outFilePath = "./Ext_data/";
+
 	}
 
 }; // END COMSettings struct
