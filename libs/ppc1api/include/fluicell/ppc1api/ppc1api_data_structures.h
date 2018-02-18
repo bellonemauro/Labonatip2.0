@@ -177,7 +177,7 @@ namespace fluicell
 
 			private:
 				bool filter_enabled;
-				int filter_size;
+				unsigned int filter_size;
 			};
 
 		public: //protected: //TODO: this should be protected

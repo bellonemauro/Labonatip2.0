@@ -200,8 +200,8 @@
         <translation>Möjliggör historik</translation>
 	</message>
 	<message>
-        <source>Dump to file</source>
-        <translation>Skicka till fil</translation>
+        <source>Dump history to file</source>
+        <translation>Skicka historiken till fil</translation>
 	</message>
 	<message>
         <source>Verbose output</source>
@@ -563,6 +563,22 @@
         <translation>Språk</translation>
     </message>
 	<message>
+        <source>Enable history</source>
+        <translation>Möjliggör historik</translation>
+	</message>
+	<message>
+        <source>Dump history to file</source>
+        <translation>Skicka historiken till fil</translation>
+	</message>
+	<message>
+        <source>Verbose output</source>
+        <translation>Fullständig output</translation>
+	</message>
+	<message>
+        <source>Output file path</source>
+        <translation>Output filväg</translation>
+	</message>	
+	<message>
         <source>Reset to factory defaults</source>
         <translation>Återställ till fabriksinställningarna</translation>
 	</message>
@@ -629,6 +645,22 @@
 	<message>
         <source>Base increments</source>
         <translation>Inkrement-inställningar</translation>
+    </message>	
+    <message>
+        <source>Verbose</source>
+        <translation>Fullständig</translation>
+    </message>	
+    <message>
+        <source>use set point / default values</source>
+        <translation>use set point / default values</translation>
+    </message>	
+    <message>
+        <source>Enable filter</source>
+        <translation>Aktivera filter</translation>
+    </message>
+    <message>
+        <source>Filter window size</source>
+        <translation>Filterfönsterstorlek</translation>
     </message>	
 	<message>
         <source>Well 1 :</source>

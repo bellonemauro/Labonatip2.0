@@ -180,6 +180,10 @@ private slots:
 	*/
 	void enumerate();
 
+	void enablePPC1filtering() {
+		ui_tools->spinBox_PPC1filterSize->setEnabled(ui_tools->checkBox_enablePPC1filter->isChecked());
+	}
+
 
 	/** Load an ini setting file
 	* in the GUI initialization it takes a default value ./settings/setting.ini

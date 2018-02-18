@@ -912,6 +912,7 @@ void Labonatip_GUI::toolApply()
 
 	m_ppc1->setCOMport(m_comSettings->getName());
 	m_ppc1->setBaudRate((int)m_comSettings->getBaudRate());
+	m_ppc1->setFilterEnabled(m_pr_params->enableFilter);
 	m_ppc1->setFilterSize(m_pr_params->filterSize);
 
 	switchLanguage(m_dialog_tools->language);

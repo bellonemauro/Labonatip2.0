@@ -45,7 +45,10 @@ Labonatip_tools::Labonatip_tools(QWidget *parent ):
 //		&Labonatip_tools::toolButtonStyleChanged);
 
 	connect(ui_tools->checkBox_enableToolTips,
-		SIGNAL(stateChanged(int)), this, SLOT(enableToolTip(int))); //TODO:
+		SIGNAL(stateChanged(int)), this, SLOT(enableToolTip(int))); 
+
+	connect(ui_tools->checkBox_enablePPC1filter,
+		SIGNAL(stateChanged(int)), this, SLOT(enablePPC1filtering()));
 
 	// enumerate connected com ports
 	enumerate();
@@ -739,6 +742,7 @@ bool Labonatip_tools::loadSettings(QString _path)
 	bool enable_filter = m_settings->value("PPC1/EnableFilter", "1").toBool();
 	ui_tools->checkBox_enablePPC1filter->setChecked(enable_filter);
 	m_pr_params->enableFilter = enable_filter;
+	ui_tools->spinBox_PPC1filterSize->setEnabled(enable_filter);
 
 	int filter_size = m_settings->value("PPC1/FilterSize", "10").toInt(&ok);
 	if (!ok) {

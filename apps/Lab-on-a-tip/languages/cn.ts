@@ -563,6 +563,22 @@
         <translation>Language</translation>
     </message>
     <message>
+        <source>Enable history</source>
+        <translation>Enable history</translation>
+    </message>
+    <message>
+        <source>Dump history to file</source>
+        <translation>Dump history to file</translation>
+    </message>
+    <message>
+        <source>Verbose output</source>
+        <translation>Verbose output</translation>
+    </message>
+    <message>
+        <source>Output file path</source>
+        <translation>Output file path</translation>
+    </message>
+    <message>
         <source>Reset to factory defaults</source>
         <translation>Reset to factory defaults</translation>
     </message>
@@ -630,6 +646,22 @@
         <source>Base increments</source>
         <translation>Base increments</translation>
     </message>
+    <message>
+        <source>Verbose</source>
+        <translation>Verbose</translation>
+    </message>	
+    <message>
+        <source>use set point / default values</source>
+        <translation>use set point / default values</translation>
+    </message>	
+    <message>
+        <source>Enable filter</source>
+        <translation>Enable filter</translation>
+    </message>
+    <message>
+        <source>Filter window size</source>
+        <translation>Filter window size</translation>
+    </message>	
     <message>
         <source>Well 1 :</source>
         <translation>Well 1 :</translation>

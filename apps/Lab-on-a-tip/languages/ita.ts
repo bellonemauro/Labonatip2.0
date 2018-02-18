@@ -200,8 +200,8 @@
         <translation>Abilita cronologia</translation>
 	</message>
 	<message>
-        <source>Dump to file</source>
-        <translation>Salva su file</translation>
+        <source>Dump history to file</source>
+        <translation>Salva cronologia su file</translation>
 	</message>
 	<message>
         <source>Verbose output</source>
@@ -563,6 +563,22 @@
         <translation>Lingua</translation>
     </message>
 	<message>
+        <source>Enable history</source>
+        <translation>Abilita cronologia</translation>
+	</message>
+	<message>
+        <source>Dump history to file</source>
+        <translation>Salva cronologia su file</translation>
+	</message>
+	<message>
+        <source>Verbose output</source>
+        <translation>Verbose output</translation>
+	</message>
+	<message>
+        <source>Output file path</source>
+        <translation>Percorso file</translation>
+	</message>	
+	<message>
         <source>Reset to factory defaults</source>
         <translation>Resetta impostazioni di fabbrica</translation>
 	</message>
@@ -629,6 +645,22 @@
 	<message>
         <source>Base increments</source>
         <translation>Incrementi di base</translation>
+    </message>	
+    <message>
+        <source>Verbose</source>
+        <translation>Verboso</translation>
+    </message>	
+    <message>
+        <source>use set point / default values</source>
+        <translation>use settaggi / o valori standard</translation>
+    </message>	
+    <message>
+        <source>Enable filter</source>
+        <translation>Enable filter</translation>
+    </message>
+    <message>
+        <source>Filter window size</source>
+        <translation>Filter window size</translation>
     </message>	
 	<message>
         <source>Well 1 :</source>

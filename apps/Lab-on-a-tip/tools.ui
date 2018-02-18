@@ -225,18 +225,6 @@ QPushButton:disabled{ background-color: #CCCCCC; }
            <string>GUI settings</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_11">
-           <item row="0" column="0">
-            <widget class="QCheckBox" name="checkBox_enableToolTips">
-             <property name="font">
-              <font>
-               <pointsize>10</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>Enable tool tips</string>
-             </property>
-            </widget>
-           </item>
            <item row="1" column="0">
             <widget class="QCheckBox" name="checkBox_verboseOut">
              <property name="font">
@@ -246,21 +234,6 @@ QPushButton:disabled{ background-color: #CCCCCC; }
              </property>
              <property name="text">
               <string>Verbose output</string>
-             </property>
-             <property name="checked">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="2">
-            <widget class="QCheckBox" name="checkBox_dumpToFile">
-             <property name="font">
-              <font>
-               <pointsize>10</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>Dump history to file to file</string>
              </property>
              <property name="checked">
               <bool>true</bool>
@@ -285,7 +258,34 @@ QPushButton:disabled{ background-color: #CCCCCC; }
              </property>
             </widget>
            </item>
-           <item row="2" column="0">
+           <item row="0" column="0">
+            <widget class="QCheckBox" name="checkBox_enableToolTips">
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>Enable tool tips</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="2">
+            <widget class="QCheckBox" name="checkBox_dumpToFile">
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>Dump history to file</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="2">
             <widget class="QLabel" name="label_8">
              <property name="font">
               <font>
@@ -297,7 +297,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
              </property>
             </widget>
            </item>
-           <item row="2" column="1" colspan="2">
+           <item row="2" column="0" colspan="2">
             <widget class="QLineEdit" name="lineEdit_msg_out_file_path">
              <property name="enabled">
               <bool>false</bool>
@@ -2439,7 +2439,49 @@ background-color: rgb(255, 255, 255);</string>
            <string>PPC1</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_7">
-           <item row="2" column="0">
+           <item row="0" column="0">
+            <widget class="QCheckBox" name="checkBox_enablePPC1verboseOut">
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>Verbose</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QCheckBox" name="checkBox_enablePPC1filter">
+             <property name="maximumSize">
+              <size>
+               <width>130</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>Enable filter</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="2">
+            <widget class="QLabel" name="label_3">
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>Filter window size</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
             <widget class="QSpinBox" name="spinBox_PPC1filterSize">
              <property name="maximumSize">
               <size>
@@ -2463,38 +2505,7 @@ background-color: rgb(255, 255, 255);</string>
              </property>
             </widget>
            </item>
-           <item row="2" column="2">
-            <widget class="QLabel" name="label_3">
-             <property name="text">
-              <string>Filter window size</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QCheckBox" name="checkBox_enablePPC1filter">
-             <property name="font">
-              <font>
-               <pointsize>10</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>Enable filter</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0">
-            <widget class="QCheckBox" name="checkBox_enablePPC1verboseOut">
-             <property name="font">
-              <font>
-               <pointsize>10</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>Verbose</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="1">
+           <item row="0" column="1" colspan="2">
             <widget class="QCheckBox" name="checkBox_useSetPoint">
              <property name="font">
               <font>
