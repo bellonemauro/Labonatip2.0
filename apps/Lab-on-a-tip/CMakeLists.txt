@@ -160,7 +160,7 @@ elseif(  BUILD_QT5)
 	set_source_files_properties(${myProject_LANGUAGES_TS} PROPERTIES OUTPUT_LOCATION ${myProject_LANGUAGES_DIR})
 	# step2: 
 	# create translation files
-	qt5_create_translation(QT_TRANSLATIONS_FILES ${myProject_LANGUAGES_DIR} ${myProject_LANGUAGES_TS})
+	#qt5_create_translation(QT_TRANSLATIONS_FILES ${myProject_LANGUAGES_DIR} ${myProject_LANGUAGES_TS})
 	SET (TRANSLATION_GENERATOR "${QT5_BINARY_DIR}/lrelease.exe")
 	if ( ENABLE_verbose )
 		message (STATUS "${PROJECT_NAME} MESSAGE: myProject_LANGUAGES_TS  :: ${myProject_LANGUAGES_TS} ")

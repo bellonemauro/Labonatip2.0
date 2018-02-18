@@ -13,8 +13,5 @@ Open QTlinguist
 One can also use the tranlateAll.bat file to generate everything in the same folder
 ATTENTION: tranlateAll.bat contains a static link to linguist.exe !!!!
 
-ATTENTION: this has been fixed so visual studio should be able to run it, to be checked in linux
-
-
 this will be changed in the future to automatically add the translations:
 see https://stackoverflow.com/questions/44782914/cmake-qt5-add-translation-how-to-specify-the-output-path
