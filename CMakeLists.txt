@@ -60,24 +60,6 @@ if(MSVC AND VLD_MemoryCheck)
 endif(MSVC AND VLD_MemoryCheck)
 
 
-# find Eigen 
-option(ENABLE_internalEigen "Use internal Eigen library " "OFF")
-If (NOT EIGEN_INCLUDE_DIR OR ENABLE_internalEigen)
-  find_package(Eigen )
-  message(STATUS "Using internal Eigen lib " )
-  set (EIGEN_INCLUDE_DIR  ${PROJECT_SOURCE_DIR}/3rdParty/Eigen_3.2.2/Eigen  CACHE PATH "Path to the internal Eigen version" FORCE)
-  include_directories(${EIGEN_INCLUDE_DIR})
-  message(STATUS "     EIGEN_INCLUDE_DIR : ${EIGEN_INCLUDE_DIR} \n" )
-  add_definitions(-DEIGEN_NO_DEBUG) 
-  add_definitions(-DNDEBUG)
-else ()
-  #include_directories(SYSTEM ${EIGEN_INCLUDE_DIRS})
-  #include_directories(${EIGEN_INCLUDE_DIR})
-  #add_definitions(-DEIGEN_NO_DEBUG) 
-  #add_definitions(-DNDEBUG)
-endif()
-
-
 #  Add option enable visual studio to create folders
 option(ENABLE_SOLUTION_FOLDERS "Enable folders for MSVC - ON by default if MSVC - OFF otherwise" ON)
 if (MSVC)
