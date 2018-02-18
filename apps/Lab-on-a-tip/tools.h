@@ -21,6 +21,7 @@
 #include <QTranslator>
 #include <QDateTime>
 #include <QMessageBox>
+#include <QDir>
 
 // PPC1api 
 #include <fluicell/ppc1api/ppc1api.h>
@@ -72,6 +73,11 @@ public:
 	bool setLoadSettingsFileName(QString _filename) { 
 		m_setting_file_name = _filename; 
 		return loadSettings(m_setting_file_name);
+	}
+
+	void setExtDataPath(QString _filename) {
+		m_GUI_params->outFilePath = _filename;
+		ui_tools->lineEdit_msg_out_file_path->setText(_filename);
 	}
 
 	bool setFileNameAndSaveSettings(QString _filename) {
@@ -217,6 +223,8 @@ private:
 	void getPRsettingsFromGUI();
 
 	uint32_t giveRainbowColor(float _position);
+
+	int calculateFolderSize(const QString _wantedDirPath);
 
 	QString m_setting_file_name;
 

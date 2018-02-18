@@ -8,7 +8,7 @@
 *  +---------------------------------------------------------------------------+ */
 
 //uncomment to hide the console when the app starts
-#define HIDE_TERMINAL
+//#define HIDE_TERMINAL 
 #ifdef HIDE_TERMINAL
 	#if defined (_WIN64) || defined (_WIN32)
 	  #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")

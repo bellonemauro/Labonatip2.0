@@ -192,8 +192,64 @@ void Labonatip_tools::applyPressed() {
 	//TODO manual save for now
 	//saveSettings();
 
+	int folder_size = calculateFolderSize(m_GUI_params->outFilePath);
+
+	//TODO: traslate strings
+	if (folder_size > 1000000) {
+		QMessageBox::StandardButton resBtn = QMessageBox::question(this, m_str_warning,
+			tr("It looks you have many files in the history folder <br>") + m_GUI_params->outFilePath +
+			tr("<br> Do you want to clean the history? <br> Yes = clean, NO = abort operation, "),
+			QMessageBox::No | QMessageBox::Yes,
+			QMessageBox::Yes);
+		if (resBtn != QMessageBox::Yes) {
+			QMessageBox::question(this, m_str_warning, "operation cancelled", "Ok");
+		}
+		else {
+			QDir dir(m_GUI_params->outFilePath);
+			dir.setNameFilters(QStringList() << "*.txt");
+			dir.setFilter(QDir::Files);
+			foreach(QString dirFile, dir.entryList())
+			{
+				dir.remove(dirFile);
+			}
+			QMessageBox::question(this, m_str_warning, "History cleaned", "Ok");
+		}
+
+	}
+
 	emit apply();
 }
+
+int Labonatip_tools::calculateFolderSize(const QString _dirPath)
+{
+	long int sizex = 0;
+	QFileInfo str_info(_dirPath);
+	if (str_info.isDir())
+	{
+		QDir dir(_dirPath);
+		
+		QStringList ext_list;
+		dir.setFilter(QDir::Files | QDir::Dirs | QDir::Hidden | QDir::NoSymLinks);
+		QFileInfoList list = dir.entryInfoList();
+
+		for (int i = 0; i < list.size(); ++i)
+		{
+			QFileInfo fileInfo = list.at(i);
+			if ((fileInfo.fileName() != ".") && (fileInfo.fileName() != ".."))
+			{
+				//sizex += this->calculateFolderSize(fileInfo.filePath());			
+				sizex += (fileInfo.isDir()) ? this->calculateFolderSize(fileInfo.filePath()) : fileInfo.size();
+				QApplication::processEvents();
+			}
+		}
+	}
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_tools::calculateFolderSize ::: folder  " << _dirPath.toStdString()
+		<< " size = " << sizex << endl;
+	return sizex;
+}
+
 
 void Labonatip_tools::refillSolutionPressed() {
 	cout << QDate::currentDate().toString().toStdString() << "  "

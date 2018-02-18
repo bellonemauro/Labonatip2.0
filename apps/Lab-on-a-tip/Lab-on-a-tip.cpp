@@ -72,7 +72,8 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   // init the object to handle the internal dialogs
   m_dialog_p_editor = new Labonatip_protocol_editor();
   m_dialog_tools = new Labonatip_tools(); 
-  
+  m_dialog_tools->setExtDataPath(m_ext_data_path);
+
   m_pipette_status = new pipetteStatus();
 
   m_comSettings = new COMSettings();
@@ -914,6 +915,7 @@ void Labonatip_GUI::toolApply()
 	m_ppc1->setBaudRate((int)m_comSettings->getBaudRate());
 	m_ppc1->setFilterEnabled(m_pr_params->enableFilter);
 	m_ppc1->setFilterSize(m_pr_params->filterSize);
+	m_ext_data_path = m_GUI_params->outFilePath;
 
 	switchLanguage(m_dialog_tools->language);
 

@@ -63,6 +63,7 @@ void Labonatip_GUI::showToolsDialog() {
 	m_dialog_tools->setParent(this);
 	m_dialog_tools->setWindowFlags(Qt::Window);
 	m_dialog_tools->show();
+	m_dialog_tools->setExtDataPath(m_ext_data_path); //TODO: this force the file path in the tools
 }
 
 
