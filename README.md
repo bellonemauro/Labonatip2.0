@@ -1,4 +1,4 @@
-![](https://github.com/bellonemauro/Labonatip2.0/blob/master/apps/Lab-on-a-tip/icons/fluicell_logo_BIG.png  | width=50)
+<img src="https://github.com/bellonemauro/Labonatip2.0/blob/master/apps/Lab-on-a-tip/icons/fluicell_logo_BIG.png"  width="200" height="70" />
 
 # LAB-ON-A-TIP 2.0
 
