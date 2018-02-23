@@ -36,20 +36,18 @@ In my experience everything is automatically found, but sometimes some QT specif
 
 configure --->  generate
 
-Io build the package in windows the varialble WINDDEPLOYQT_EXECUTABLE need to point to "your_qt_folder/bin/windeployqt.exe "
+To build the package in windows the variable WINDDEPLOYQT_EXECUTABLE need to point to "your_qt_folder/bin/windeployqt.exe "
 
 
-<img src="https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipWin.png"  width="380" height="230" /> <img src="https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipWin1.png"  width="380" height="230" /> 
-<img src="https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipWin2.png"  width="380" height="230" /> <img src="https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipWin3.png"  width="380" height="230" />
+<img src="https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipWin.png?raw=true"  width="380" height="230" /> <img src="https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipWin1.png?raw=true"  width="380" height="230" /> 
+<img src="https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipWin2.png?raw=true"  width="380" height="230" /> <img src="https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipWin3.png?raw=true"  width="380" height="230" />
 
 ### Linux 
 
 CMake --> configure --> generate 
 
-Add a screen shot
-
-<img src="https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipUbuntu1.png"  width="380" height="230" />  <img src="https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipUbuntu3.png"  width="380" height="230" />
-<img src="https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipUbuntu4.png"  width="380" height="230" />
+<img src="https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipUbuntu1.png?raw=true"  width="380" height="230" />  <img src="https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipUbuntu3.png?raw=true"  width="380" height="230" />
+<img src="https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipUbuntu4.png?raw=true"  width="380" height="230" />
 
 
 # Contribute to the code:
