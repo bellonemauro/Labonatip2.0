@@ -26,7 +26,7 @@ Use CMake to generate the solution for your system, see http://www.cmake.org
 It is advised to set your build folder OUT of the source code folder, the build should be independent from the code. 
 
 
-## Windows 
+### Windows 
 in the case you don't have environmental variables set you should find manually some dependences path:
 " \__\" folder, in case of QT libraries, C:/___/Qt/__your_version___/__compiler__ersion__/lib/cmake/Qt5_library 
 
@@ -40,7 +40,7 @@ Io build the package in windows the varialble WINDDEPLOYQT_EXECUTABLE need to po
 <img src="https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipWin.png"  width="380" height="230" /> <img src="https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipWin1.png"  width="380" height="230" /> 
 <img src="https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipWin2.png"  width="380" height="230" /> <img src="https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipWin3.png"  width="380" height="230" />
 
-## Linux 
+### Linux 
 
 CMake --> configure --> generate 
 
