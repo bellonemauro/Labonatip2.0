@@ -10,7 +10,9 @@
 #include "fluicell/ppc1api/ppc1api.h"
 #include <iomanip>
 
-//#include <vld.h>
+#ifdef VLD_MEMORY_CHECK
+ #include <vld.h>
+#endif
 
 fluicell::PPC1api::PPC1api() :
 	m_PPC1_data(new PPC1api::PPC1_data),
@@ -1221,6 +1223,51 @@ bool fluicell::PPC1api::setDataStreamPeriod(const int _value) {
 
 }
 
+bool fluicell::PPC1api::setDefaultPV(double _default_pon, double _default_poff, double _default_v_recirc, double _default_v_switch)
+{
+	if (m_verbose) cout << currentDateTime()
+		<< "fluicell::PPC1api::setDefaultPV"
+		<< " _default_pon << " << _default_pon << " >> "
+		<< " _default_poff << " << _default_poff << " >> "
+		<< " _default_v_recirc << " << _default_v_recirc << " >> "
+		<< " _default_v_switch << " << _default_v_switch << " >> " << endl;
+
+if (_default_pon > MIN_CHAN_D && _default_pon < MAX_CHAN_D) {
+		m_default_pon = _default_pon;
+	}
+	else {
+		cerr << currentDateTime()
+			<< " fluicell::PPC1api::setDefaultPV ::: default pon out of range = " << _default_pon << endl;
+		return false;
+	}
+	if (_default_pon > MIN_CHAN_C && _default_pon < MAX_CHAN_C) {
+		m_default_poff = _default_poff;
+	}
+	else {
+		cerr << currentDateTime()
+			<< " fluicell::PPC1api::setDefaultPV ::: default poff out of range = " << _default_poff << endl;
+		return false;
+	}
+	if (_default_pon > MIN_CHAN_A && _default_pon < MAX_CHAN_A) {
+		m_default_v_recirc = _default_v_recirc;
+	}
+	else {
+		cerr << currentDateTime()
+			<< " fluicell::PPC1api::setDefaultPV ::: default v recirc out of range = " << _default_v_recirc << endl;
+		return false;
+	}
+	if (_default_pon > MIN_CHAN_B && _default_pon < MAX_CHAN_B) {
+		m_default_v_switch = _default_v_switch;
+	}
+	else {
+		cerr << currentDateTime()
+			<< " fluicell::PPC1api::setDefaultPV ::: default v switch out of range = " << _default_v_switch << endl;
+		return false;
+	}
+
+	return true;
+}
+
 string fluicell::PPC1api::getDeviceID()
 {
 	string serialNumber; //device serial number
@@ -1319,21 +1366,21 @@ bool fluicell::PPC1api::checkVIDPID(std::string _port)
 		if (hw_info.length() < 1) {
 			cerr << currentDateTime()
 				<< " fluicell::PPC1api::checkVIDPID ::: hardware info string length not correct" << endl;
-			return false; //TODO: check if this works
+			return false; 
 		}
 
 		for (unsigned int j = 0; j < hw_info.size() - 2; j++)
 		{
 			// extract 3 characters looking for the strings VID or PID
 			string s = hw_info.substr(j, 3);
-			if (s.compare(v) == 0 && hw_info.size() >= j + 4) { //TODO: check if the check for length works
+			if (s.compare(v) == 0 && hw_info.size() >= j + 4) { 
 				// extract the 4 characters after VID_
-				string vid = hw_info.substr(j + 4, 4); //TODO: no check for the string length
+				string vid = hw_info.substr(j + 4, 4); 
 				dev.VID = vid;
 			}
 			if (s.compare(p) == 0 && hw_info.size() >= j+4 ) {
 				// extract the 4 characters after PID_
-				string pid = hw_info.substr(j + 4, 4); //TODO: no check for the string length
+				string pid = hw_info.substr(j + 4, 4);
 				dev.PID = pid;
 			}
 		}

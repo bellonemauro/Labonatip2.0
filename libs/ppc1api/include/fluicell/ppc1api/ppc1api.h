@@ -750,18 +750,14 @@ namespace fluicell
 		*  \param  m_default_v_recirc  default value of vacuum 
 		*  \param  m_default_v_switch  default value of vacuum 
 		*
+		*  \return true if success, false for out of range values
+		*
 		*  \note -  values are in mbar
-		*  \note -  there is no actual check on the numbers, TODO too weak implement!
 		**/
-		void setDefaultPV( double _default_pon = 190.0,
-						   double _default_poff = 21.0,
-		                   double _default_v_recirc = -115.0,
-						   double _default_v_switch = -115.0 ) {
-			m_default_pon = _default_pon;
-			m_default_poff = _default_poff;
-			m_default_v_recirc = _default_v_recirc;
-			m_default_v_switch = _default_v_switch;
-		}
+		bool setDefaultPV(double _default_pon = 190.0,
+			double _default_poff = 21.0,
+			double _default_v_recirc = -115.0,
+			double _default_v_switch = -115.0);
 
 		/**  \brief Get device serial number
 		  *
