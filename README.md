@@ -9,6 +9,8 @@ The cross-platform BioPen software allows independent control of each pressure l
 
 Lab-on-a-tip is released under the terms of the <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">GNU GPL</a> license. 
 
+API documentation available <a href="https://bellonemauro.github.io/PPC1API-docs.io/">here</a>
+
 # Dependences
 
 The external dependences for this applications are:
