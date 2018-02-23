@@ -14,73 +14,50 @@ Lab-on-a-tip is released under the terms of the <a href="https://www.gnu.org/lic
 
 The external dependences for this applications are:
   - <a href="https://github.com/wjwwood/serial">Serial</a> for serial port communication, a modified light version is Included as 3rdParty library. <br>
-    NOTE: The official version available on github will not work.
+    NOTE: The official version of serial library available on github will not work, refer to the third party folder in this package.
   - QT  v. >5.4, for GUI - https://www.qt.io/
   - nsis http://nsis.sourceforge.net/Main_Page - only to generate the installation package
   - <a href="http://www.cmake.org">CMake</a> to generate the solution for your system and build. 
   - To install on some previous windows version you may need to update your Universal C Runtime in Windows <a href="https://support.microsoft.com/en-us/help/2999226/update-for-universal-c-runtime-in-windows">here</a>
 
 
-
-
-# Fetching instructions:
-
-From git shell write:
-
-    git clone https://github.com/bellonemauro/Labonatip2.0.git  your_folder
-
-then you should get something like:
-
-    Cloning into 'your_folder'...
-    Username for 'https://github.com/': your_username 
-    Password for '  your_username  ':    your_password  
-    remote: Counting objects: 45, done.
-    remote: Compressing objects: 100% (41/41), done.
-    remote: Total 45 (delta 13), reused 0 (delta 0)
-    Unpacking objects: 100% (45/45), done.
-    Checking connectivity... done.
-
-done !!! 
-
-
 # Building Instructions:
 
 Use CMake to generate the solution for your system, see http://www.cmake.org
-
 It is advised to set your build folder OUT of the source code folder, the build should be independent from the code. 
 
-<b> Windows </b><br>
+
+## Windows 
 in the case you don't have environmental variables set you should find manually some dependences path:
 " \__\" folder, in case of QT libraries, C:/___/Qt/__your_version___/__compiler__ersion__/lib/cmake/Qt5_library 
 
-in my experience everything is automatically found 
+In my experience everything is automatically found, but sometimes some QT specific package folder needs to be set manually, I will solve this soon! 
 
-configure --->  generate and open visual studio
+configure --->  generate
 
-to build the package in windows : windeployqt yourfile.exe
-
-![](https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipWin.png)
+Io build the package in windows the varialble WINDDEPLOYQT_EXECUTABLE need to point to "your_qt_folder/bin/windeployqt.exe "
 
 
-<b> Linux </b>
+<img src="https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipWin.png"  width="380" height="230" /> <img src="https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipWin1.png"  width="380" height="230" /> 
+<img src="https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipWin2.png"  width="380" height="230" /> <img src="https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipWin3.png"  width="380" height="230" />
+
+## Linux 
 
 CMake --> configure --> generate 
 
 Add a screen shot
-![](https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipUbuntu1.png )
-![](https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipUbuntu3.png )
-![](https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipUbuntu4.png )
 
-TODO
+<img src="https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipUbuntu1.png"  width="380" height="230" />  <img src="https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipUbuntu3.png"  width="380" height="230" />
+<img src="https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipUbuntu4.png"  width="380" height="230" />
 
 
 # Contribute to the code:
 
-New uses can contribute to the code by compiling in Windows or linux.
+New developers can contribute to the code by compiling in Windows or linux.
 QT GUI must be modified using QT creator/designer
 
 
-# Known issues
+## Known issues
 The uninstaller does not completely remove the start-menu folder sometimes, 
 if it happens, remove manually from C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Lab-on-a-tip______
 
