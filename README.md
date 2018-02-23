@@ -1,14 +1,13 @@
-<img src="https://github.com/bellonemauro/Labonatip2.0/blob/master/apps/Lab-on-a-tip/icons/fluicell_logo_BIG.png"  width="200" height="70" />
+<a href="http://fluicell.com/"><img src="https://github.com/bellonemauro/Labonatip2.0/blob/master/apps/Lab-on-a-tip/icons/fluicell_logo_BIG.png"  width="200" height="70" /></a>
 
 # LAB-ON-A-TIP 2.0
 
 IMPORTANT: This software is still under development !!! There is no release yet, bugs may be everywhere !!!
 
-The Lab-on-a-tip is a software that enables facile configuration and use of the Fluicell <a href="http://fluicell.com/thebiopensystem/">BioPen</a> system. 
+The Lab-on-a-tip is a software that enables facile configuration and use of the <a href="http://fluicell.com/">Fluicell</a> <a href="http://fluicell.com/thebiopensystem/">BioPen</a> system. 
 The cross-platform BioPen software allows independent control of each pressure line and solution delivery.
 
 Lab-on-a-tip is released under the terms of the <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">GNU GPL</a> license. 
-
 
 # Dependences
 
