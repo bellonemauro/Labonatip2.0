@@ -106,161 +106,9 @@ void Labonatip_GUI::disCon() {   //TODO, add an argument to connect and disconne
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_GUI::disCon    " << endl;
 
-	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
+	//TODO: this function is deprecated, remove the possible references
+	disCon(ui->actionConnectDisconnect->isChecked());
 
-	if (m_simulationOnly) {
-		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-		QMessageBox::information(this, m_str_warning, m_str_warning_simulation_only);
-		return;
-	}
-
-	try
-	{
-		if (!m_ppc1->isRunning()) { // if not running already
-
-			if (!m_ppc1->isConnected())  // if not already connected
-				if (!m_ppc1->connectCOM()) {  // if the connection is NOT success
-
-					this->setStatusLed(false);
-					ui->status_PPC1_label->setText(m_str_PPC1_status_discon);
-					ui->actionConnectDisconnect->setText(m_str_connect);
-					ui->actionSimulation->setEnabled(true);
-					QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-					QMessageBox::information(this, m_str_warning,
-						QString(m_str_cannot_connect_ppc1 + "\n" + m_str_cannot_connect_ppc1_check_cables));
-
-					// ask for a new attempt to connect
-					QMessageBox::StandardButton resBtn =
-						QMessageBox::question(this, m_str_information,
-							m_str_question_find_device,
-							QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
-							QMessageBox::Yes);
-					if (resBtn != QMessageBox::Yes) {  // if the answer is not YES
-						m_pipette_active = false;
-						ui->actionConnectDisconnect->setChecked(false);
-						return;
-					}
-					else {  // new attempt to connect 
-						m_dialog_tools->updateDevices();
-						m_ppc1->setCOMport(m_comSettings->getName());
-						m_ppc1->setBaudRate((int)m_comSettings->getBaudRate());
-						if (!m_ppc1->connectCOM())
-						{
-							QMessageBox::information(this, m_str_warning,
-								QString(m_str_cannot_connect_ppc1_twice + "\n" + m_str_cannot_connect_ppc1_check_cables));
-							m_pipette_active = false;
-							ui->actionConnectDisconnect->setChecked(false);
-							return;
-						}
-					}
-				}
-			// if we are here the PPC1 is connected 
-			QThread::msleep(250);  // just to be sure that the device is properly running
-
-			m_ppc1->run();   // TODO: this is not the best way of running the device as it cannot handle exeptions
-			QThread::msleep(250);
-			if (m_ppc1->isRunning()) {  // if running, everything is fine
-				m_pipette_active = true;
-				ui->actionConnectDisconnect->setChecked(true);
-				m_update_GUI->start();
-				this->setStatusLed(true);
-				ui->status_PPC1_label->setText(m_str_PPC1_status_con);
-				ui->actionConnectDisconnect->setText(m_str_disconnect);
-				ui->actionSimulation->setEnabled(false);
-			}
-			else {  // otherwise something is wrong
-				QMessageBox::information(this, m_str_warning,
-					m_str_ppc1_connected_but_not_running);
-				QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-				m_ppc1->stop();
-				m_ppc1->disconnectCOM();
-				m_pipette_active = false;
-				this->setStatusLed(false);
-				ui->status_PPC1_label->setText(m_str_PPC1_status_discon);
-				ui->actionConnectDisconnect->setText(m_str_connect);
-				ui->actionSimulation->setEnabled(true);
-				ui->actionConnectDisconnect->setChecked(false);
-				return;
-			}
-		}  
-		else // else if m_ppc1 is already running, we stop it (so we can use the same button to activate, deactivate)
-		{
-			// the used should confirm to stop the device
-			QMessageBox::StandardButton resBtn =
-				QMessageBox::question(this, m_str_warning,
-					QString(m_str_question_stop_ppc1 + "\n" + m_str_areyousure),
-					QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
-					QMessageBox::Yes);
-			if (resBtn != QMessageBox::Yes) {  // if the answer is not YES
-				QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-				return;
-			}
-
-			// stop the PPC1
-			m_ppc1->stop();
-			QThread::msleep(500);
-			if (m_ppc1->isConnected())
-				m_ppc1->disconnectCOM();
-			QThread::msleep(500);
-
-			if (!m_ppc1->isRunning()) { // verify that it really stopped
-				this->setStatusLed(false);
-				ui->status_PPC1_label->setText(m_str_PPC1_status_discon);
-				ui->actionConnectDisconnect->setText(m_str_connect);
-				m_pipette_active = false;
-				ui->actionSimulation->setEnabled(true);
-			}
-			else {
-				ui->actionConnectDisconnect->setChecked(false);
-				m_update_GUI->stop();
-				this->setStatusLed(true);
-				ui->status_PPC1_label->setText(m_str_PPC1_status_con);
-				ui->actionConnectDisconnect->setText(m_str_disconnect);
-				ui->actionSimulation->setEnabled(false);
-				QMessageBox::information(this, m_str_warning,
-					m_str_unable_stop_ppc1);
-				QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-				return;
-			}
-		}
-	}
-	catch (serial::IOException &e)
-	{
-		cerr << QDate::currentDate().toString().toStdString() << "  "
-			<< QTime::currentTime().toString().toStdString() << "  "
-			<< " Labonatip_GUI::disCon ::: IOException : " << e.what() << endl;
-		//m_PPC1_serial->close();
-		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-		return;
-	}
-	catch (serial::PortNotOpenedException &e)
-	{
-		cerr << QDate::currentDate().toString().toStdString() << "  "
-			<< QTime::currentTime().toString().toStdString() << "  "
-			<< " Labonatip_GUI::disCon ::: PortNotOpenedException : " << e.what() << endl;
-		//m_PPC1_serial->close();
-		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-		return;
-	}
-	catch (serial::SerialException &e)
-	{
-		cerr << QDate::currentDate().toString().toStdString() << "  "
-			<< QTime::currentTime().toString().toStdString() << "  "
-			<< " Labonatip_GUI::disCon ::: SerialException : " << e.what() << endl;
-		//m_PPC1_serial->close();
-		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-		return;
-	}
-	catch (exception &e) {
-		cerr << QDate::currentDate().toString().toStdString() << "  "
-			<< QTime::currentTime().toString().toStdString() << "  "
-			<< " Labonatip_GUI::disCon ::: Unhandled Exception: " << e.what() << endl;
-		//m_PPC1_serial->close();
-		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-		return;
-	}
-
-	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 }
 
 
@@ -314,6 +162,179 @@ void Labonatip_GUI::shutdown() {
 
 }
 
+
+bool Labonatip_GUI::disCon(bool _connect)
+{
+
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::disCon    " << endl;
+
+
+
+	if (m_simulationOnly) {
+		QMessageBox::information(this, m_str_warning, m_str_warning_simulation_only);
+		return false;
+	}
+
+	try
+	{
+		QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
+
+		if (_connect) {
+		    // connect 
+			if (!m_ppc1->isRunning() && !m_ppc1->isConnected() ) { // if not running and connected already
+				// we try to connect
+				if (!m_ppc1->connectCOM()) {  
+					// if the connection is NOT success
+					this->setStatusLed(false);
+					ui->status_PPC1_label->setText(m_str_PPC1_status_discon);
+					ui->actionConnectDisconnect->setText(m_str_connect);
+					ui->actionSimulation->setEnabled(true);
+					QApplication::restoreOverrideCursor();   
+					QMessageBox::information(this, m_str_warning,
+						QString(m_str_cannot_connect_ppc1 + "\n" + m_str_cannot_connect_ppc1_check_cables));
+
+					// ask for a new attempt to connect
+					QMessageBox::StandardButton resBtn =
+						QMessageBox::question(this, m_str_information,
+							m_str_question_find_device,
+							QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
+							QMessageBox::Yes);
+					if (resBtn != QMessageBox::Yes) {  // if the answer is not YES
+						m_pipette_active = false;
+						ui->actionConnectDisconnect->setChecked(false);
+						return false;  // the device is not connected
+					}
+					else {  // new attempt to connect 
+						m_dialog_tools->updateDevices();
+						m_ppc1->setCOMport(m_comSettings->getName());
+						m_ppc1->setBaudRate((int)m_comSettings->getBaudRate());
+						if (!m_ppc1->connectCOM())
+						{
+							QMessageBox::information(this, m_str_warning,
+								QString(m_str_cannot_connect_ppc1_twice + "\n" + m_str_cannot_connect_ppc1_check_cables));
+							m_pipette_active = false;
+							ui->actionConnectDisconnect->setChecked(false);
+							return false;  // we could not connect twice
+						}
+					}
+				}
+
+				// if we are here the PPC1 is connected 
+				QThread::msleep(250);  // just to be sure that the device is properly running
+
+				// run the ppc1 thread
+				m_ppc1->run();   // TODO: this is not the best way of running the device as it cannot handle exeptions
+				QThread::msleep(250);
+
+				// test if we are running properly
+				if (m_ppc1->isRunning()) {  // if running, everything is fine
+					m_pipette_active = true;
+					ui->actionConnectDisconnect->setChecked(true);
+					m_update_GUI->start();
+					this->setStatusLed(true);
+					ui->status_PPC1_label->setText(m_str_PPC1_status_con);
+					ui->actionConnectDisconnect->setText(m_str_disconnect);
+					ui->actionSimulation->setEnabled(false);
+					QApplication::restoreOverrideCursor();
+					return true; // we are finally connected
+				}
+				else {  // otherwise something is wrong
+					QMessageBox::information(this, m_str_warning,
+						m_str_ppc1_connected_but_not_running);
+					
+					m_ppc1->stop();
+					m_ppc1->disconnectCOM();
+					m_pipette_active = false;
+					this->setStatusLed(false);
+					ui->status_PPC1_label->setText(m_str_PPC1_status_discon);
+					ui->actionConnectDisconnect->setText(m_str_connect);
+					ui->actionSimulation->setEnabled(true);
+					ui->actionConnectDisconnect->setChecked(false);
+					QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
+					return false;
+				}
+
+			}
+		} // end connect
+		else {
+			// disconnect 
+			QApplication::restoreOverrideCursor();
+			// the user should confirm to stop the device
+			QMessageBox::StandardButton resBtn =
+				QMessageBox::question(this, m_str_warning,
+					QString(m_str_question_stop_ppc1 + "\n" + m_str_areyousure),
+					QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
+					QMessageBox::Yes);
+			if (resBtn != QMessageBox::Yes) {  // if the answer is not YES
+				//TODO: check !!!
+				ui->actionConnectDisconnect->setChecked(true);
+				return false; // it should be false, but in this case is a user choice? 
+			}
+
+			if (!m_ppc1->isRunning()) return true; // already stop
+
+			// stop the PPC1
+			QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
+			m_ppc1->stop();
+			QThread::msleep(500);
+			if (m_ppc1->isConnected())
+				m_ppc1->disconnectCOM();
+			QThread::msleep(500);
+
+			if (!m_ppc1->isRunning()) { // verify that it really stopped
+				this->setStatusLed(false);
+				ui->status_PPC1_label->setText(m_str_PPC1_status_discon);
+				ui->actionConnectDisconnect->setText(m_str_connect);
+				m_pipette_active = false;
+				ui->actionSimulation->setEnabled(true);
+				QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
+				return true;
+			}
+			else {  // the device was not stopped
+				ui->actionConnectDisconnect->setChecked(false);
+				m_update_GUI->stop();
+				this->setStatusLed(true);
+				ui->status_PPC1_label->setText(m_str_PPC1_status_con);
+				ui->actionConnectDisconnect->setText(m_str_disconnect);
+				ui->actionSimulation->setEnabled(false);
+				QMessageBox::information(this, m_str_warning,
+					m_str_unable_stop_ppc1);
+				QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
+				return false;   
+			}
+		} // end disconnect
+	} // end try
+	catch (serial::IOException &e) 	{
+		cerr << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< " Labonatip_GUI::disCon ::: IOException : " << e.what() << endl;
+		//m_PPC1_serial->close();
+		return false;
+	}
+	catch (serial::PortNotOpenedException &e)	{
+		cerr << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< " Labonatip_GUI::disCon ::: PortNotOpenedException : " << e.what() << endl;
+		//m_PPC1_serial->close();
+		return false;
+	}
+	catch (serial::SerialException &e)	{
+		cerr << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< " Labonatip_GUI::disCon ::: SerialException : " << e.what() << endl;
+		//m_PPC1_serial->close();
+		return false;
+	}
+	catch (exception &e) {
+		cerr << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< " Labonatip_GUI::disCon ::: Unhandled Exception: " << e.what() << endl;
+		//m_PPC1_serial->close();
+		return false;
+	}
+}
 
 void Labonatip_GUI::reboot() {
 

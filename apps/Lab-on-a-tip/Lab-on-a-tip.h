@@ -51,15 +51,15 @@ class Labonatip_GUI : public QMainWindow
 {
 	Q_OBJECT
 
-#define LENGTH_TO_TIP 0.065
-#define LENGTH_TO_ZONE 0.062
-#define MIN_ZONE_SIZE_PERC 30
-#define MAX_ZONE_SIZE_PERC 210
-#define MIN_FLOW_SPEED_PERC 60
-#define MAX_FLOW_SPEED_PERC 250
-#define MIN_VACUUM_PERC 10
-#define MAX_VACUUM_PERC 250
-#define MIN_WARNING_VOLUME 15
+	#define LENGTH_TO_TIP 0.065
+	#define LENGTH_TO_ZONE 0.062
+	#define MIN_ZONE_SIZE_PERC 30
+	#define MAX_ZONE_SIZE_PERC 210
+	#define MIN_FLOW_SPEED_PERC 60
+	#define MAX_FLOW_SPEED_PERC 250
+	#define MIN_VACUUM_PERC 10
+	#define MAX_VACUUM_PERC 250
+	#define MIN_WARNING_VOLUME 15
 
 public:
 	explicit Labonatip_GUI(QMainWindow *parent = nullptr);
@@ -106,8 +106,6 @@ public:
 	void updateVswitchSetPoint(double _v_switch_set_point);
 
 private slots:
-
-
 
 	/** \brief This function is called when the down arrow on Pon is called
 	  *        it decreases the pressure on Pon, it does not accept out-of-range
@@ -444,6 +442,14 @@ private slots:
 	* \note
 	*/
 	void disCon();
+
+	/** \brief Connect and disconnect the PPC1
+	*
+	*   \param _connect = true to connect, false to disconnect
+	*
+	* \note
+	*/
+	bool disCon(bool _connect);
 	
 	/** \brief Reboot the PPC1
 	*
@@ -534,7 +540,7 @@ private slots:
 //END PPC1ACTIONS
 
 protected:
-	// event control, so far only translations are handled
+	// event control
 	void closeEvent(QCloseEvent *event); 
 	
 	void changeEvent(QEvent*);
@@ -612,7 +618,7 @@ private:
   //!< set the multiplicators for the time step, 
   //    e.g. desired_duration (sec) = multiplicator * m_base_time_step (100ms)
   //    TODO: KNOWN ISSUE: timing is not well fulfilled --- it is longer than expected
-  int m_time_multipilcator;   //!< used to set the update time for the timers
+  int m_time_multipilcator;           //!< used to set the update time for the timers
   int m_timer_solution;               //!< duration of injection for solution 
   double m_protocol_duration;         //!< this is the timeline for the protocol execution
   
@@ -636,7 +642,6 @@ private:
 
   // zone controls
   double m_ds_perc;          //!< droplet size percentage
-  double m_ds_perc_2;        //!< droplet size percentage --- TODO: this is for the second calculation way
   double m_fs_perc;          //!< flow speed percentage
   double m_v_perc;           //!< vacuum percentage
 

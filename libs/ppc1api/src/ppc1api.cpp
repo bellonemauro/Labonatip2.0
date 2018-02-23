@@ -1240,7 +1240,7 @@ if (_default_pon > MIN_CHAN_D && _default_pon < MAX_CHAN_D) {
 			<< " fluicell::PPC1api::setDefaultPV ::: default pon out of range = " << _default_pon << endl;
 		return false;
 	}
-	if (_default_pon > MIN_CHAN_C && _default_pon < MAX_CHAN_C) {
+	if (_default_poff > MIN_CHAN_C && _default_poff < MAX_CHAN_C) {
 		m_default_poff = _default_poff;
 	}
 	else {
@@ -1248,7 +1248,7 @@ if (_default_pon > MIN_CHAN_D && _default_pon < MAX_CHAN_D) {
 			<< " fluicell::PPC1api::setDefaultPV ::: default poff out of range = " << _default_poff << endl;
 		return false;
 	}
-	if (_default_pon > MIN_CHAN_A && _default_pon < MAX_CHAN_A) {
+	if (_default_v_recirc > MIN_CHAN_A && _default_v_recirc < MAX_CHAN_A) {
 		m_default_v_recirc = _default_v_recirc;
 	}
 	else {
@@ -1256,7 +1256,7 @@ if (_default_pon > MIN_CHAN_D && _default_pon < MAX_CHAN_D) {
 			<< " fluicell::PPC1api::setDefaultPV ::: default v recirc out of range = " << _default_v_recirc << endl;
 		return false;
 	}
-	if (_default_pon > MIN_CHAN_B && _default_pon < MAX_CHAN_B) {
+	if (_default_v_switch > MIN_CHAN_B && _default_v_switch < MAX_CHAN_B) {
 		m_default_v_switch = _default_v_switch;
 	}
 	else {
