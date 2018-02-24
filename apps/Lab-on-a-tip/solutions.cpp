@@ -391,7 +391,7 @@ void Labonatip_GUI::updateTimingSliders()
 
 	switch (m_flowing_solution)
 	{
-	case 1: { //TODO : the waste time is not well calculated 
+	case 1: { 
 		_bar = ui->progressBar_solution1;
 		_button = ui->pushButton_solution1;
 		status = m_pipette_status->rem_vol_well1;
@@ -435,7 +435,7 @@ void Labonatip_GUI::updateTimingSliders()
 	if (m_timer_solution < m_time_multipilcator) {
 		m_update_flowing_sliders->start();
 		//int status = int(100 * m_timer_solution / m_time_multipilcator);
-		//_bar->setValue(100 - status); //TODO: this must be set into the update flow
+		//_bar->setValue(100 - status); 
 		QString s;
 		if (!continuous_flowing) {
 			s.append(m_str_pulse_remaining_time + "\n");
@@ -458,7 +458,7 @@ void Labonatip_GUI::updateTimingSliders()
 			else updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
 
 			// show the warning label
-			if (status < MIN_WARNING_VOLUME) {  // TODO: 5 uL is the limit to warn the user that the solution is ending
+			if (status < MIN_WARNING_VOLUME) {  
 				ui->label_warningIcon->show();
 				ui->label_warning->show();
 			}
@@ -466,11 +466,11 @@ void Labonatip_GUI::updateTimingSliders()
 		}
 		else
 		{
-			s.append(m_str_pulse_continuous_flowing);  //TODO STRING
+			s.append(m_str_pulse_continuous_flowing);  
 			ui->textEdit_emptyTime->setText(s);
 
 			// show the warning label
-			if (status < MIN_WARNING_VOLUME) {  // TODO: 5 uL is the limit to warn the user that the solution is ending
+			if (status < MIN_WARNING_VOLUME) {  
 				ui->label_warningIcon->show();
 				ui->label_warning->show();
 			}

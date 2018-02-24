@@ -454,6 +454,10 @@
     <message>
         <source>Press Ok to run the protocol, or press Cancel to load a new one</source>
         <translation>Press Ok to run the protocol, or press Cancel to load a new one</translation>
+    </message> 
+    <message>
+        <source>Please, check for out of bound values</source>
+        <translation>Please, check for out of bound values</translation>
     </message>
     <message>
         <source>This operation will take </source>
@@ -503,6 +507,10 @@
         <source>Warning: the solution is running out</source>
         <translation>Warning: the solution is running out</translation>
 	</message>	
+	<message>
+        <source>Operation cannot be done</source>
+        <translation>Operation cannot be done</translation>
+	</message>		
 </context>
 <context>
     <name>Labonatip_tools</name>
@@ -570,6 +578,14 @@
         <source>Dump history to file</source>
         <translation>Dump history to file</translation>
     </message>
+	<message>
+        <source>History cleaned</source>
+        <translation>History cleaned</translation>
+	</message>
+	<message>
+        <source>Operation cancelled</source>
+        <translation>Operation cancelled</translation>
+	</message>
     <message>
         <source>Verbose output</source>
         <translation>Verbose output</translation>
@@ -778,6 +794,10 @@
         <source>Are you sure?</source>
         <translation>Are you sure?</translation>
 	</message>
+    <message>
+        <source>Information</source>
+        <translation>Information</translation>
+    </message>
     <message>
         <source>Ok</source>
         <translation>Ok</translation>

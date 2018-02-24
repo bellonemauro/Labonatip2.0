@@ -720,6 +720,8 @@ private:
   QString m_str_pulse_continuous_flowing;
   QString m_str_pulse_waste;
   QString m_str_pulse_full_in;
+  QString m_str_operation_cannot_be_done; 
+  QString m_str_out_of_bound; 
   QString m_str_user;
 
   // to visualize the led on the status bar, 

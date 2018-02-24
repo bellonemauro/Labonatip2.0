@@ -99,19 +99,6 @@ void Labonatip_GUI::simulationOnly()
 	m_macroRunner_thread->setSimulationFlag(m_simulationOnly);
 }
 
-/*
-void Labonatip_GUI::disCon() {   //TODO, add an argument to connect and disconnect
-
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::disCon    " << endl;
-
-	//TODO: this function is deprecated, remove the possible references
-	disCon(ui->actionConnectDisconnect->isChecked());
-
-}*/
-
-
 void Labonatip_GUI::shutdown() {
 
 	cout << QDate::currentDate().toString().toStdString() << "  " 

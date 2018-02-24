@@ -386,14 +386,15 @@ namespace fluicell
 		*      15          |   pumpsOff      |       -         |  stop pressures and vacuum by setting the channels to 0
 		*      16          |   setValveState |  hex  0x00      |  set solutions flow using a hex value
 		*      17          |   waitSync      |  int [0 MAX]    |  protocol stops until trigger signal is received
-		*      18          |   syncOut       |  int [0 MAX]    |  if negative then default state is 1 and pulse is 0, if positive, then pulse is 1 and default is 0
+		*      18          |   syncOut       |  int [0 MAX]    |  if negative then default state is 1 and pulse is 0, 
+		*                  |                 |                 |  if positive, then pulse is 1 and default is 0
 		*   ---------------+-----------------+-----------------+-------------------------------------------------------------
 		*
         *
 		*  <b>Usage:</b><br>
-		*		- 	define the object :                   fluicell::PPC1api::command *my_command;
+		*		- 	define the object :                      fluicell::PPC1api::command *my_command;
 		*	    -   a protocol is a vector of commands :     std::vector<fluicell::PPC1api::command> *_protocol;
-		*	    -   run the command still missing implementation !! 
+		*	    -   run the command still under development !! 
 		*
 		*/
 		struct PPC1API_EXPORT command

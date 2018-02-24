@@ -23,8 +23,6 @@
 #include <QMessageBox>
 #include <QDir>
 
-// PPC1api 
-#include <fluicell/ppc1api/ppc1api.h>
 #include <serial/serial.h>
 
 #include <dataStructures.h>
@@ -49,34 +47,62 @@ class Labonatip_tools : public  QMainWindow
 {
 	Q_OBJECT
 
-/** Create signals to be passed to the main app
-* 
-*/
-signals :
-	void ok();  // generated when ok is pressed
-	void apply(); // generated when apply is pressed
-	void cancel(); // generated when cancel is pressed
-	void emptyWaste(); // generated when empty wells is pressed
-	void refillSolution(); // generated when empty wells is pressed
-	void colSol1Changed(const int _r, const int _g, const int _b);
-	void colSol2Changed(const int _r, const int _g, const int _b);
-	void colSol3Changed(const int _r, const int _g, const int _b);
-	void colSol4Changed(const int _r, const int _g, const int _b);
+    #define MAX_WASTE_VOLUME 35 // value in mL
+
+	/** Create signals to be passed to the main app,
+	*   the signals allows the tools class to send information to the main class for specific events
+	*   the main class implements a connect to a slot to handle the emitted signals
+	* 
+	*/
+	signals :
+		void ok();  //!< signal generated when ok is pressed
+		void apply(); //!< signal generated when apply is pressed
+		void cancel(); //!< signal generated when cancel is pressed
+		void emptyWaste(); //!< signal generated when empty wells is pressed
+		void refillSolution(); //!< signal generated when empty wells is pressed
+		void colSol1Changed(const int _r, const int _g, const int _b); //!< signal generated when the solution color is changed
+		void colSol2Changed(const int _r, const int _g, const int _b); //!< signal generated when the solution color is changed
+		void colSol3Changed(const int _r, const int _g, const int _b); //!< signal generated when the solution color is changed
+		void colSol4Changed(const int _r, const int _g, const int _b); //!< signal generated when the solution color is changed
 
 
 public:
 
-	explicit Labonatip_tools(QWidget *parent = 0);
+	explicit Labonatip_tools(QWidget *parent = 0); //!< Explicit ctor
 
-	~Labonatip_tools();
+	~Labonatip_tools(); //!< dtor
 
+	/** \brief Get communication settings
+	*
+	*   Expose to the main class the communication settings
+	*
+	*   \return COMSettings
+	*/
 	COMSettings getComSettings() { return *m_comSettings; }
+
+	/** \brief Get solution settings
+	*
+	*   Expose to the main class the solution settings
+	*
+	*   \return solutionsParams
+	*/
 	solutionsParams getSolutionsParams() { return *m_solutionParams; }
+
+	/** \brief Get pressure and vacuum settings
+	*
+	*   Expose to the main class the pressure and vacuum settings
+	*
+	*   \return pr_params
+	*/
 	pr_params getPr_params() { return *m_pr_params; }
+
+	/** \brief Get GUI settings
+	*
+	*   Expose to the main class the GUI settings
+	*
+	*   \return GUIparams
+	*/
 	GUIparams getGUIparams() { return *m_GUI_params; }
-
-
-	int language; //TODO add an enumerator
 
 	void switchLanguage(QString _translation_file);
 
@@ -110,33 +136,33 @@ private slots:
 	void goToPage4();
 
 	/** Show information for the serial port communication
+	*
 	* \note
 	*/
 	void showPortInfo(int idx);
 
-	void languageChanged(int _idx);
-
-	//void toolButtonStyleChanged(int _idx);
-
 	void enableToolTip(int _inx);
 
-
 	/** Color solution 1 changed
+	*
 	* \note
 	*/
 	void colorSol1Changed(int _value);
 
 	/** Color solution 2 changed
+	*
 	* \note
 	*/
 	void colorSol2Changed(int _value);
 
 	/** Color solution 3 changed
+	*
 	* \note
 	*/
 	void colorSol3Changed(int _value);
 
 	/** Color solution 4 changed
+	*
 	* \note
 	*/
 	void colorSol4Changed(int _value);
@@ -188,9 +214,14 @@ private slots:
 	*/
 	void applyPressed();
 
-
+	/** emit empty waste signal on button pressed
+	*
+	*/
 	void emptyWastePressed();
 
+	/** emit empty refill solution signal on button pressed
+	*
+	*/
 	void refillSolutionPressed();
 
 	/** Enumerate serial ports
@@ -198,10 +229,13 @@ private slots:
 	*/
 	void enumerate();
 
+	/** on enable check box clicked, it enable/disable the filtering
+	*
+	*/
 	void enablePPC1filtering() {
-		ui_tools->spinBox_PPC1filterSize->setEnabled(ui_tools->checkBox_enablePPC1filter->isChecked());
+		ui_tools->spinBox_PPC1filterSize->setEnabled(
+			ui_tools->checkBox_enablePPC1filter->isChecked());
 	}
-
 
 	/** Load an ini setting file
 	* in the GUI initialization it takes a default value ./settings/setting.ini
@@ -209,14 +243,13 @@ private slots:
 	*/
 	bool loadSettings(QString _path = QString("./settings/setting.ini"));
 
-	/** save the setting file
+	/** Save the setting file
 	*  
-	* \note
+	* \note 
 	*/
 	bool saveSettings(QString _file_name = QString("./settings/setting_save.ini"));
 
 	void resetToDefaultValues();
-
 
 private:
 
@@ -224,7 +257,7 @@ private:
 
 	void initCustomStrings();
 
-	int interpreteLanguage(QString _language);
+	int parseLanguageString(QString _language);
 
 	void getCOMsettingsFromGUI();
 
@@ -242,7 +275,6 @@ private:
 
 	QTranslator m_translator_tool;
 
-
 	COMSettings *m_comSettings;
 	solutionsParams *m_solutionParams;
 	pr_params *m_pr_params;
@@ -252,6 +284,10 @@ private:
 	QString m_str_warning;
 	QString m_str_factory_reset;
 	QString m_str_areyousure;
+	QString m_str_information; 
+	QString m_str_ok;
+	QString m_str_operation_cancelled;
+	QString m_str_history_cleaned;
 
 protected:
 	Ui::Labonatip_tools *ui_tools;    //!<  the user interface

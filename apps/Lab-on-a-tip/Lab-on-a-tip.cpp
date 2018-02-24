@@ -106,7 +106,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	  << " Translation loaded " << endl;
 
   qApp->installTranslator(&m_translator);
-  switchLanguage(m_dialog_tools->language);
+  this->switchLanguage(m_GUI_params->language);
 
   // all the connects are in this function
   initConnects();
@@ -796,6 +796,8 @@ void Labonatip_GUI::initCustomStrings()
 	m_str_pulse_continuous_flowing = tr("Continuous flowing");
 	m_str_pulse_waste = tr("Waste");
 	m_str_pulse_full_in = tr("full in");
+	m_str_operation_cannot_be_done = tr("Operation cannot be done");
+	m_str_out_of_bound = tr("Please, check for out of bound values");
 	m_str_user = tr("User :");
 
 }
@@ -916,7 +918,7 @@ void Labonatip_GUI::toolApply()
 	m_ppc1->setFilterSize(m_pr_params->filterSize);
 	m_ext_data_path = m_GUI_params->outFilePath;
 
-	switchLanguage(m_dialog_tools->language);
+	this->switchLanguage(m_GUI_params->language);
 
 	QString s;
 	s.append(m_str_user);

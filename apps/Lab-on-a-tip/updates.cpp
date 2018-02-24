@@ -18,7 +18,6 @@ void Labonatip_GUI::updateGUI() {
 
 	if (!m_simulationOnly) {
 
-		
 		int sensor_reading = (int)(m_ppc1->m_PPC1_data->channel_B->sensor_reading);  // rounded to second decimal
 		m_pipette_status->v_switch_set_point = - m_ppc1->m_PPC1_data->channel_B->set_point;
 		ui->label_switchPressure->setText(QString(QString::number(sensor_reading) +
@@ -43,14 +42,13 @@ void Labonatip_GUI::updateGUI() {
 			", " + QString::number(int(m_pipette_status->pon_set_point)) + " mbar"));
 		ui->progressBar_pressure_p_on->setValue(sensor_reading);
 		
-		
 		m_ds_perc = m_ppc1->getDropletSize();
 		m_fs_perc =  m_ppc1->getFlowSpeed();
 		m_v_perc =  m_ppc1->getVacuum();
 
-		ui->lcdNumber_dropletSize_percentage->display(m_ds_perc);// (m_ppc1->getDropletSize());
-		ui->lcdNumber_flowspeed_percentage->display(m_fs_perc);// (m_ppc1->getFlowSpeed());
-		ui->lcdNumber_vacuum_percentage->display(m_v_perc);// (m_ppc1->getVacuum());
+		ui->lcdNumber_dropletSize_percentage->display(m_ds_perc);
+		ui->lcdNumber_flowspeed_percentage->display(m_fs_perc);
+		ui->lcdNumber_vacuum_percentage->display(m_v_perc);
 
 		
 		// check if some of the wells is open
@@ -187,12 +185,11 @@ void Labonatip_GUI::updateFlows()
 		if (ui->pushButton_solution1->isChecked() ||
 			ui->pushButton_solution2->isChecked() ||
 			ui->pushButton_solution3->isChecked() ||
-			ui->pushButton_solution4->isChecked()) // flow when solution is off // TODO : check on off
+			ui->pushButton_solution4->isChecked()) // flow when solution is off 
 		{
 
 			//m_pipette_status->delta_pressure = 100.0 * (p_on + p_off * 3.0 - v_s * 2.0);   // TODO magic numbers
 			//m_pipette_status->outflow = m_ppc1->getFlowSimple(m_pipette_status->delta_pressure, LENGTH_TO_TIP);
-
 			
 			m_pipette_status->in_out_ratio_tot = m_pipette_status->in_out_ratio_on;
 			m_pipette_status->outflow_tot = m_pipette_status->outflow_on;
@@ -207,7 +204,7 @@ void Labonatip_GUI::updateFlows()
 			else m_pipette_status->flow_well4 = m_pipette_status->solution_usage_off;
 
 		}
-		else // flow when solution is on // TODO : check on off
+		else // flow when solution is on 
 		{
 			//m_pipette_status->delta_pressure = 100.0 * (p_off * 4.0 - v_s * 2.0);
 			//m_pipette_status->outflow = 2.0 * m_ppc1->getFlowSimple(m_pipette_status->delta_pressure, 2 * LENGTH_TO_ZONE);

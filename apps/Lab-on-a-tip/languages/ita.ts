@@ -456,6 +456,10 @@
         <translation>Premi Ok per eseguire il protocollo, oppure premi Annulla per caricarne uno</translation>
     </message>
     <message>
+        <source>Please, check for out of bound values</source>
+        <translation>Controlla che i valori siano nei limiti consentiti</translation>
+    </message>
+    <message>
         <source>This operation will take </source>
         <translation>Questa operazione richiederà </translation>
     </message>	
@@ -502,6 +506,10 @@
 	<message>
         <source>Warning: the solution is running out</source>
         <translation>Attenzione: la soluzione sta finendo</translation>
+	</message>		
+	<message>
+        <source>Operation cannot be done</source>
+        <translation>L'operazione non può essere eseguita</translation>
 	</message>		
 </context>
 <context>
@@ -569,6 +577,14 @@
 	<message>
         <source>Dump history to file</source>
         <translation>Salva cronologia su file</translation>
+	</message>
+	<message>
+        <source>History cleaned</source>
+        <translation>Cronologia cangellata</translation>
+	</message>
+	<message>
+        <source>Operation cancelled</source>
+        <translation>Operazione annullata</translation>
 	</message>
 	<message>
         <source>Verbose output</source>
@@ -656,11 +672,11 @@
     </message>	
     <message>
         <source>Enable filter</source>
-        <translation>Enable filter</translation>
+        <translation>Abilita filtraggio</translation>
     </message>
     <message>
         <source>Filter window size</source>
-        <translation>Filter window size</translation>
+        <translation>Dimensione finestra di filtraggio</translation>
     </message>	
 	<message>
         <source>Well 1 :</source>
@@ -778,6 +794,10 @@
         <source>Are you sure?</source>
         <translation>Sei sicuro?</translation>
 	</message>
+    <message>
+        <source>Information</source>
+        <translation>Informazione</translation>
+    </message>
 	<message>
         <source>Ok</source>
         <translation>Ok</translation>

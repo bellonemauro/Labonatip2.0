@@ -275,13 +275,14 @@ struct pr_params {
 
 
 struct GUIparams {
-	Qt::ToolButtonStyle showTextToolBar;     //!<  ToolButtonIconOnly --- n 
-	bool enableToolTips;
-	bool verboseOutput;
-	bool enableHistory;
-	bool dumpHistoryToFile;
-	QString	outFilePath;
 
+
+	enum languages {
+		Chinese = 0,
+		English = 1,
+		Italiano = 2,
+		Svenska = 3,		
+	};
 
 	GUIparams() {   // default values
 		this->showTextToolBar = Qt::ToolButtonIconOnly;
@@ -290,9 +291,30 @@ struct GUIparams {
 		this->enableHistory = true;
 		this->dumpHistoryToFile = true;
 		this->outFilePath = "./Ext_data/";
-
+		this->language = English;
 	}
 
+	void setLanguage(int _language) {	
+		this->language = languages(_language);
+	}
+
+	/**  \brief Simple cast of the enumerator into the corresponding command as a string.
+	*
+	**/
+	std::string getLanguageAsString()
+	{
+		static const char* const text[] =
+		{ "Chinese", "English", "Italiano", "Svenska" };
+		return  text[int(this->language)]; // cast to integer
+	}
+
+	Qt::ToolButtonStyle showTextToolBar;     //!<  ToolButtonIconOnly --- n 
+	bool enableToolTips;
+	bool verboseOutput;
+	bool enableHistory;
+	bool dumpHistoryToFile;
+	QString	outFilePath;
+	languages language;
 }; // END COMSettings struct
 
 #endif /* Labonatip_TOOLSDATASTRUCTURES_H_ */
