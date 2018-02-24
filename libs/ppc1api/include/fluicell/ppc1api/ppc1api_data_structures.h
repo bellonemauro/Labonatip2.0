@@ -97,7 +97,9 @@ namespace fluicell
 		struct PPC1API_EXPORT PPC1_data
 		{
 
-			/**  \brief Channel data structure contains the information about a PPC1 channel
+			/**  \brief Channel data structure 
+			*
+			*         it contains the information about a PPC1 channel
 			*         PPC1 has four channels, A and B for vacuum and C and P for pressure,
 			*         all the channels have the same data structure.
 			*
@@ -117,36 +119,50 @@ namespace fluicell
 			struct PPC1API_EXPORT channel
 			{
 			public:
-				double set_point;
-				double sensor_reading;
-				double filtered_sensor_reading;
-				vector<double> reading_vec;
-				double PID_out_DC;
-				int state;
+				double set_point;                 //!< is the closed loop PID controller input value (in mbar)
+				double sensor_reading;            //!< shows the actual current pressure value (in mbar)
+				double filtered_sensor_reading;   //!< filtered sensor reading (in mbar)
+				double PID_out_DC;                //!< PID_out_DC PID output duty cycle is the output value of closed loop PID controller.
+				int state;                        //!< state shows error flags
 
-
+				/**  \brief Set channel data
+				*
+				*    It allows the to set all the data in the channel in one line by giving all the data in one line.
+				*    this function also includes the data filtering function on the sensor reading, it uses two
+				*    class members: m_filter_enabled and m_filter_size
+				*
+				*    The implemented filted is a rolling average filter that averages the last n samples, 
+				*    where n is defined in the class member m_filter_size
+				*
+				*   @param _set_point 
+				*   @param _sensor_reading  
+				*   @param PID_out_DC 
+				*   @param _state 
+				*    
+				*
+				**/
 				void setChannelData(double _set_point, double _sensor_reading, double PID_out_DC, int _state)
 				{
 					this->set_point = _set_point;
 					this->sensor_reading = _sensor_reading;
 
-					if (filter_enabled)
+					if (m_filter_enabled)
 					{
-						if (this->reading_vec.size() < filter_size) {
-							this->reading_vec.push_back(_sensor_reading);
+						if (this->m_reading_vec.size() < m_filter_size) {
+							this->m_reading_vec.push_back(_sensor_reading);
 						}
 						else {
-							this->reading_vec.erase(this->reading_vec.begin());
-							while (this->reading_vec.size() > filter_size) {
-								this->reading_vec.erase(this->reading_vec.begin());
+							this->m_reading_vec.erase(this->m_reading_vec.begin());
+							while (this->m_reading_vec.size() > m_filter_size) {
+								this->m_reading_vec.erase(this->m_reading_vec.begin());
 							}
-							this->reading_vec.push_back(_sensor_reading);
+							this->m_reading_vec.push_back(_sensor_reading);
 						}
 
-						double sum = std::accumulate(this->reading_vec.begin(), this->reading_vec.end(), 0.0);
-						double mean = sum / this->reading_vec.size();
+						double sum = std::accumulate(this->m_reading_vec.begin(), this->m_reading_vec.end(), 0.0);
+						double mean = sum / this->m_reading_vec.size();
 						this->filtered_sensor_reading = mean;
-						this->sensor_reading = mean;
+						this->sensor_reading = mean; //TODO: this is now the same, is filtered_sensor_reading really necessary ?
 
 					}
 					else {
@@ -166,29 +182,31 @@ namespace fluicell
 					sensor_reading(0.0),
 					PID_out_DC(0.0), 
 					state(0),
-					filter_enabled(true), 
-					filter_size(20)
+					m_filter_enabled(true),
+					m_filter_size(20)
 				{}
 				
-				bool isFilterEnables() { return filter_enabled; }
-				void enableFilter(bool _enable) { filter_enabled = _enable; }
-				int getFiltersize() { return filter_size; }
-				void setFiltersize(int _size) { filter_size = _size; }
+				bool isFilterEnables() { return m_filter_enabled; }
+				void enableFilter(bool _enable) { m_filter_enabled = _enable; }
+				int getFiltersize() { return m_filter_size; }
+				void setFiltersize(int _size) { m_filter_size = _size; }
 
 			private:
-				bool filter_enabled;
-				unsigned int filter_size;
+				bool m_filter_enabled;          //!< class member to enable to filtering in the data reading
+				unsigned int m_filter_size;     //!< class member to set the filter size
+				vector<double> m_reading_vec;   //!< internal vector used for the filter to save the history
 			};
 
 		public: //protected: //TODO: this should be protected
 
-			channel *channel_A;  //!< vacuum channel A   --- V_recirc
-			channel *channel_B;  //!< vacuum channel B   --- V_switch
-			channel *channel_C;  //!< pressure channel C --- P_off
-			channel *channel_D;  //!< pressure channel D --- P_on
+			channel *channel_A;  //!< pointer to vacuum channel A   --- V_recirc
+			channel *channel_B;  //!< pointer to vacuum channel B   --- V_switch
+			channel *channel_C;  //!< pointer to pressure channel C --- P_off
+			channel *channel_D;  //!< pointer to pressure channel D --- P_on
 
-			/*	i%u | j%u | k%u | l%u\n where the characters i, j, k and l mark the output channels 8, 7, 6, 5 respectively and %u is 1 when the
-			*		output channel is connected to pressure channel D and 0 when channel C.
+			/*	i%u | j%u | k%u | l%u\n where the characters i, j, k and l 
+			*   mark the output channels 8, 7, 6, 5 respectively and %u is 1 when the
+			*	output channel is connected to pressure channel D and 0 when channel C.
 			*/
 			int i;  //!< 8
 			int j;  //!< 7
@@ -211,14 +229,30 @@ namespace fluicell
 				ppc1_IN(0), ppc1_OUT(0)
 			{ }
 
-
-			void setFilterSize(int _size) {
+			/**  \brief Set size for the rolling average filter
+			*
+			*   @param _size size of the filter, accepts positive values, resonable values are between [10 - 30]
+		    * 
+			*   \return false in case of negative _size
+			*
+			**/
+			bool setFilterSize(int _size) {
+				if (_size < 0) { 
+					cerr << " fluicell::PPC1_data::channel :: ---- error --- MESSAGE:" 
+						 << "Size of the filter in PPC1api cannot be negative " << endl;
+					return false; 
+				}
 				this->channel_A->setFiltersize(_size);
 				this->channel_B->setFiltersize(_size);
 				this->channel_C->setFiltersize(_size);
 				this->channel_D->setFiltersize(_size);
+				return true;
 			}
 
+			/**  \brief Detor
+			*
+			*    Essentially delete all the channels data structures (pointers) initialized
+			**/
 			~PPC1_data() {
 				delete channel_A;
 				delete channel_B;
@@ -329,7 +363,33 @@ namespace fluicell
 		*    The final objective is to define a class of commands able to control the PPC1 controller and run a protocol
 		*    as a set of commands.
 		*
+		*    Supported commands: 
 		*
+		*    enum index    |   Command       |   value         |
+		*   ---------------+-----------------+-----------------+-------------------------------------------------------------
+		*      0           |   setPon        |  int [0 MAX]    |  (int: pressure in mbar) ---- Channel D
+		*      1           |   setPoff       |  int [0 MAX]    |  (int: pressure in mbar) ---- Channel C
+		*      2           |   setVswitch    |  int [MIN 0]    |  (int: pressure in mbar) ---- Channel B
+		*      3           |   setVrecirc    |  int [MIN 0]    |  (int: pressure in mbar) ---- Channel A
+		*      4           |   solution1     |  true / false   |  closes other valves, then opens valve a for solution 1  
+		*      5           |   solution2     |  true / false   |  closes other valves, then opens valve b for solution 2 
+		*      6           |   solution3     |  true / false   |  closes other valves, then opens valve c for solution 3 
+		*      7           |   solution4     |  true / false   |  closes other valves, then opens valve d for solution 4 
+		*      8           |   dropletSize   |  int [0 MAX]    |  TODO: to be implemented
+		*      9           |   flowSpeed     |  int [0 MAX]    |  TODO: to be implemented
+		*      10          |   vacuum        |  int [0 MAX]    |  TODO: to be implemented
+		*      11          |   loop          |  int [0 MAX]    |  number of loops 
+		*      12          |   sleep         |  int n          |  wait for n seconds
+		*      13          |   ask_msg       |  true / false   |  set true to stop execution and ask confirmation to continue, 
+		*                  |                 |                 |  INTEPRETED but NOT IMPLEMENTED at API level
+		*      14          |   allOff        |       -         |  stop all solutions flow
+		*      15          |   pumpsOff      |       -         |  stop pressures and vacuum by setting the channels to 0
+		*      16          |   setValveState |  hex  0x00      |  set solutions flow using a hex value
+		*      17          |   waitSync      |  int [0 MAX]    |  protocol stops until trigger signal is received
+		*      18          |   syncOut       |  int [0 MAX]    |  if negative then default state is 1 and pulse is 0, if positive, then pulse is 1 and default is 0
+		*   ---------------+-----------------+-----------------+-------------------------------------------------------------
+		*
+        *
 		*  <b>Usage:</b><br>
 		*		- 	define the object :                   fluicell::PPC1api::command *my_command;
 		*	    -   a protocol is a vector of commands :     std::vector<fluicell::PPC1api::command> *_protocol;
@@ -365,29 +425,6 @@ namespace fluicell
 				syncOut = 18
 			};
 
-
-			/**  \brief Command data structure .
-			*
-			*  @param loops
-			*
-			**/
-			//int loops;              //!< number of loops
-			//int P_on;               //!< (int: pressure in mbar) ---- Channel D
-			//int P_off;              //!< (int: pressure in mbar) ---- Channel C
-			//int V_switch;           //!< (int: pressure in mbar) ---- Channel B
-			//int V_recirc;           //!< (int: pressure in mbar) ---- Channel A
-			//int Duration;           //!< duration for the application of the command 
-			//bool ask;               //!< set true to stop execution and ask confirmation to continue
-			//string ask_message;     //!< message to ask if @\param(ask)- is true
-			
-			
-			//bool open_valve_a;      //!< closes other valves, then opens valve a for solution 1 valve only
-			//bool open_valve_b;      //!< closes other valves, then opens valve b for solution 2 valve
-			//bool open_valve_c;      //!< closes other valves, then opens valve c for solution 3 valve
-			//bool open_valve_d;      //!< closes other valves, then opens valve d for solution 4 valve
-			//bool wait_sync;         //!< protocol stops until trigger signal is received
-			//int sync_out;           //!< if negative then default state is 1 and pulse is 0, if positive, then pulse is 1 and default is 0
-			
 
 		public:
 			/**  \brief Command constructor

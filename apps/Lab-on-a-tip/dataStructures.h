@@ -23,7 +23,13 @@
 #include <serial/serial.h>
 
 
-//custom combo behavior
+/*  \brief Custom combo box for protocol editor, 
+*   
+*   The combo box maily inherit from the base QT class,
+*   but it redefine the behaviour on wheelEvent to prevent the 
+*   scroll of the mouse to change the item
+*  
+*/
 class macroCombobox :public QComboBox {
 	Q_OBJECT
 
@@ -37,7 +43,22 @@ public:
 	}
 };
 
-// structure to handle COM port parameters
+
+/**  \brief Structure to handle COM parameters.
+*
+*  @param set_point is the closed loop PID controller input value (in mbar)
+*  @param sensor_reading shows the actual current pressure value (in mbar)
+*  @param PID_out_DC PID output duty cycle is the output value of closed loop PID controller.
+*                    Values 0 to 50000 mark the on time period in microseconds.
+*                    PWM frequency is 20Hz
+*  @param state shows error flags
+*               0 means no errors
+*               1 is set point timeout error, which occurs when the channel has not reached in
+*                 the range of + -5mbar of the set point within 30 seconds.
+*                 In this case the output and set point will be set to 0.
+*                 The error flag clears when a new set point is set.
+*
+**/
 struct COMSettings {
 
 public:

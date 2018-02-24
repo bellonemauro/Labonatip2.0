@@ -51,15 +51,16 @@ class Labonatip_GUI : public QMainWindow
 {
 	Q_OBJECT
 
-	#define LENGTH_TO_TIP 0.065
-	#define LENGTH_TO_ZONE 0.062
-	#define MIN_ZONE_SIZE_PERC 30
-	#define MAX_ZONE_SIZE_PERC 210
-	#define MIN_FLOW_SPEED_PERC 60
-	#define MAX_FLOW_SPEED_PERC 250
-	#define MIN_VACUUM_PERC 10
-	#define MAX_VACUUM_PERC 250
-	#define MIN_WARNING_VOLUME 15
+	#define LENGTH_TO_TIP 0.065     // mm
+	#define LENGTH_TO_ZONE 0.062    // mm
+	#define MIN_ZONE_SIZE_PERC 30   // %
+	#define MAX_ZONE_SIZE_PERC 210  // %
+	#define MIN_FLOW_SPEED_PERC 60  // %
+	#define MAX_FLOW_SPEED_PERC 250 // %
+	#define MIN_VACUUM_PERC 10      // %
+	#define MAX_VACUUM_PERC 250     // %
+	#define MIN_WARNING_VOLUME 5    // in mL
+    #define MAX_VOLUME_IN_WELL 30   // in mL
 
 public:
 	explicit Labonatip_GUI(QMainWindow *parent = nullptr);
@@ -223,7 +224,9 @@ private slots:
 	void pushSolution3();
 
 	/** \brief pushSolution4
-	*
+	*   //TODO: add an argument for all 1-4 _activate 
+	*           if _activate = true, solution flow start
+	*           if _activate = false, solution flow stop
 	* \note
 	*/
 	void pushSolution4();
@@ -438,10 +441,10 @@ private slots:
 	/** \brief Connect and disconnect the PPC1
 	*
 	*   //TODO: add an argument _connect = true to connect, false to disconnect
-	* 
+	*   //DONE: deprecated ---- remove after testing
 	* \note
 	*/
-	void disCon();
+	//void disCon();
 
 	/** \brief Connect and disconnect the PPC1
 	*

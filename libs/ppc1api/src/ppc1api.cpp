@@ -63,14 +63,16 @@ void fluicell::PPC1api::threadSerial()
 				if (readData(data))
 					if (!decodeDataLine(data, m_PPC1_data)) 
 						cerr << currentDateTime() 
-						     << " fluicell::PPC1api::threadSerial  ---- error --- MESSAGE: corrupted data " << endl;
+						     << " fluicell::PPC1api::threadSerial  ---- error --- MESSAGE: " 
+					  	     << "corrupted data " << endl;
 				
 				this->updateFlows(*m_PPC1_data, *m_PPC1_status); 
 				my_mutex.unlock();
 			}
 			else {
 				cerr << currentDateTime() 
-					 << " fluicell::PPC1api::threadSerial  ----  error --- impossible to lock " << endl;
+					 << " fluicell::PPC1api::threadSerial  ----  error --- MESSAGE: "
+					 << " impossible to lock " << endl;
 				my_mutex.unlock();
 				m_threadTerminationHandler = true;
 			}
@@ -120,7 +122,8 @@ bool fluicell::PPC1api::decodeDataLine(const string &_data, PPC1_data *_PPC1_dat
 	if (_data.empty())
 	{
 		cerr << currentDateTime() 
-			 << " fluicell::PPC1api::decodeDataLine ::: Error in decoding line - Empty line " << endl;
+			 << " fluicell::PPC1api::decodeDataLine ::: " 
+			 << "Error in decoding line - Empty line " << endl;
 		return false;
 	}
 
@@ -128,7 +131,8 @@ bool fluicell::PPC1api::decodeDataLine(const string &_data, PPC1_data *_PPC1_dat
 	if (_PPC1_data == NULL)
 	{
 		cerr << currentDateTime()
-			<< " fluicell::PPC1api::decodeDataLine ::: Error in decoding line - _PPC1_data not initalized " << endl;
+			<< " fluicell::PPC1api::decodeDataLine ::: "
+			<< " Error in decoding line - _PPC1_data not initalized " << endl;
 		return false;
 	}
 

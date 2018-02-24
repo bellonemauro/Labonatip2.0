@@ -32,7 +32,19 @@
 using namespace std;
 
 
-
+/** \brief Labonatip_tools class for settings
+*
+*   Tools open a new window to allow the user to choose settings. 
+*   There are 4 main subsection:
+*      - General settings : 
+*      - Solution settings :
+*      - Pressure and vacuum settings :
+*      - Communication settings :
+*
+*   For each of this section a data structure is defined in the 
+*   header dataStructure.h
+*
+*/
 class Labonatip_tools : public  QMainWindow
 {
 	Q_OBJECT

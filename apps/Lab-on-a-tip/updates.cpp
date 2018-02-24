@@ -9,7 +9,9 @@
 
 #include "Lab-on-a-tip.h"
 
-//#include <vld.h>
+#ifdef VLD_MEMORY_CHECK
+  #include <vld.h>
+#endif
 
 
 void Labonatip_GUI::updateGUI() {
@@ -121,7 +123,7 @@ void Labonatip_GUI::updateGUI() {
 		updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
 	}
 
-	if (m_ppc1->isRunning()) {   //TODO check: update GUI only when we are running?
+	if (m_ppc1->isRunning()) {  
 		m_update_GUI->start();
 	}
 }
@@ -158,7 +160,8 @@ void Labonatip_GUI::updateFlows()
 	else {
 		// calculate inflow
 		m_pipette_status->delta_pressure = 100.0 * v_r;
-		m_pipette_status->inflow_recirculation = 2.0 * m_ppc1->getFlowSimple(m_pipette_status->delta_pressure, LENGTH_TO_TIP);
+		m_pipette_status->inflow_recirculation = 
+			2.0 * m_ppc1->getFlowSimple(m_pipette_status->delta_pressure, LENGTH_TO_TIP);
 
 		m_pipette_status->delta_pressure = 100.0 * (v_r + 2.0 * p_off * (1 - LENGTH_TO_ZONE / LENGTH_TO_TIP));
 		m_pipette_status->inflow_switch = 2 * m_ppc1->getFlowSimple(m_pipette_status->delta_pressure, LENGTH_TO_TIP);
@@ -277,7 +280,8 @@ void Labonatip_GUI::updateDrawing(int _value) {
 	border_pen.setWidth(1);
 
 	double droplet_modifier = (10.0 - _value / 10.0);
-	// TODO: this is an attempt to make the droplet to look a little bit more realistic
+
+	// this is an attempt to make the droplet to look a little bit more realistic
 	QPainterPath droplet;
 	droplet.arcMoveTo((qreal)ui->doubleSpinBox_d_x->value() + droplet_modifier, (qreal)ui->doubleSpinBox_d_y->value(),
 		(qreal)ui->doubleSpinBox_d_w->value() - droplet_modifier, (qreal)ui->doubleSpinBox_d_h->value(), (qreal)ui->doubleSpinBox_d_a->value());
@@ -290,11 +294,11 @@ void Labonatip_GUI::updateDrawing(int _value) {
 	droplet.setFillRule(Qt::FillRule::WindingFill);
 	m_scene_solution->addPath(droplet, border_pen, brush);
 
-	//TODO: all this function is rather GUI fix stuff and the number should definitively be changed
+	//all this function is rather GUI fix stuff and the numbers can be set using an hiden visualization tool
 	QPainterPath circle;
 	circle.arcMoveTo((qreal)ui->doubleSpinBox_c_x->value(), (qreal)ui->doubleSpinBox_c_y->value(),
 		(qreal)ui->doubleSpinBox_c_w->value(), (qreal)ui->doubleSpinBox_c_h->value(),
-		(qreal)ui->doubleSpinBox_c_a->value());  //TODO: a lot of magic numbers !!!! wow !
+		(qreal)ui->doubleSpinBox_c_a->value());  
 
 	circle.arcTo((qreal)ui->doubleSpinBox_c2x->value(), (qreal)ui->doubleSpinBox_c2y->value(),
 		(qreal)ui->doubleSpinBox_c2w->value(), (qreal)ui->doubleSpinBox_c2h->value(),
@@ -303,7 +307,7 @@ void Labonatip_GUI::updateDrawing(int _value) {
 	circle.setFillRule(Qt::FillRule::WindingFill);
 	m_scene_solution->addPath(circle, border_pen, brush);
 
-	int border_pen_pipe_width = 7;
+	int border_pen_pipe_width = 7; //TODO: ?
 	QBrush brush_pipes(Qt::transparent, Qt::NoBrush);
 	QPen border_pen_pipe1;
 	border_pen_pipe1.setColor(m_sol3_color); //TODO: fit the numbers of pipe solution with the colors !
@@ -388,8 +392,9 @@ void Labonatip_GUI::updateWaste()  // this is updated every second
 	//TODO: here there is a calculation of the volume as follows:
 	//      remaining volume = current_volume (mL) - delta_t * flow_rate (nL/s)
 	//      there is an assumption of this to run every second hence delta_t = 1  
-	//TODO: check the conversions
+	//      this should be changed to fit the real values of timers
 
+	//TODO: when we switch from simulation to real device, wells should be reset ?
 	m_update_waste->start();
 
 	if (m_ds_perc < 10) return;
@@ -420,8 +425,8 @@ void Labonatip_GUI::updateWaste()  // this is updated every second
 
 	switch (min_index)
 	{
-	case 0: { //TODO : the waste time is not well calculated 
-		if (m_pipette_status->flow_well5 != 0) {
+	case 0: {
+		if (m_pipette_status->flow_well5 > 0) {  // TODO check here, I have changed the if condition from != to >
 			waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well5 -
 				m_pipette_status->rem_vol_well5) / m_pipette_status->flow_well5;
 		}
@@ -431,7 +436,7 @@ void Labonatip_GUI::updateWaste()  // this is updated every second
 		break;
 	}
 	case 1: {
-		if (m_pipette_status->flow_well6 != 0) {
+		if (m_pipette_status->flow_well6 > 0) {
 			waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well6 -
 				m_pipette_status->rem_vol_well6) / m_pipette_status->flow_well6;
 		}
@@ -441,7 +446,7 @@ void Labonatip_GUI::updateWaste()  // this is updated every second
 		break;
 	}
 	case 2: {
-		if (m_pipette_status->flow_well7 != 0) {
+		if (m_pipette_status->flow_well7 > 0) {
 			waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well7 -
 				m_pipette_status->rem_vol_well7) / m_pipette_status->flow_well7;
 		}
@@ -451,7 +456,7 @@ void Labonatip_GUI::updateWaste()  // this is updated every second
 		break;
 	}
 	case 3: {
-		if (m_pipette_status->flow_well8 != 0) {
+		if (m_pipette_status->flow_well8 > 0) {
 			waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well8 -
 				m_pipette_status->rem_vol_well8) / m_pipette_status->flow_well8;
 		}
@@ -467,41 +472,33 @@ void Labonatip_GUI::updateWaste()  // this is updated every second
 	}
 	}
 
-	int v = m_pipette_status->rem_vol_well1 * 10;
-	double value = v / 10.0;
-	ui->treeWidget_macroInfo->topLevelItem(12)->setText(1, QString::number(value));
+	int v = m_pipette_status->rem_vol_well1 * 10; // this is to set a single decimal digit
+	ui->treeWidget_macroInfo->topLevelItem(12)->setText(1, QString::number(v / 10.0));
 	v = m_pipette_status->rem_vol_well2 * 10;
-	value = v / 10.0;
-	ui->treeWidget_macroInfo->topLevelItem(13)->setText(1, QString::number(value));
+	ui->treeWidget_macroInfo->topLevelItem(13)->setText(1, QString::number(v / 10.0));
 	v = m_pipette_status->rem_vol_well3 * 10;
-	value = v / 10.0;
-	ui->treeWidget_macroInfo->topLevelItem(14)->setText(1, QString::number(value));
+	ui->treeWidget_macroInfo->topLevelItem(14)->setText(1, QString::number(v / 10.0));
 	v = m_pipette_status->rem_vol_well4 * 10;
-	value = v / 10.0;
-	ui->treeWidget_macroInfo->topLevelItem(15)->setText(1, QString::number(value));
+	ui->treeWidget_macroInfo->topLevelItem(15)->setText(1, QString::number(v / 10.0));
 	v = m_pipette_status->rem_vol_well5 * 10;
-	value = v / 10.0;
-	ui->treeWidget_macroInfo->topLevelItem(16)->setText(1, QString::number(value));
+	ui->treeWidget_macroInfo->topLevelItem(16)->setText(1, QString::number(v / 10.0));
 	v = m_pipette_status->rem_vol_well6 * 10;
-	value = v / 10.0;
-	ui->treeWidget_macroInfo->topLevelItem(17)->setText(1, QString::number(value));
+	ui->treeWidget_macroInfo->topLevelItem(17)->setText(1, QString::number(v / 10.0));
 	v = m_pipette_status->rem_vol_well7 * 10;
-	value = v / 10.0;
-	ui->treeWidget_macroInfo->topLevelItem(18)->setText(1, QString::number(value));
+	ui->treeWidget_macroInfo->topLevelItem(18)->setText(1, QString::number(v / 10.0));
 	v = m_pipette_status->rem_vol_well8 * 10;
-	value = v / 10.0;
-	ui->treeWidget_macroInfo->topLevelItem(19)->setText(1, QString::number(value));
+	ui->treeWidget_macroInfo->topLevelItem(19)->setText(1, QString::number(v / 10.0));
 
-	value = 100 - (m_solutionParams->vol_well5 - m_pipette_status->rem_vol_well5) * 100 / m_solutionParams->vol_well5;
+	double value = 100.0 *  m_pipette_status->rem_vol_well5 / m_solutionParams->vol_well5;
 	ui->progressBar_switchOut->setValue(value);
 
-	value = 100 - (m_solutionParams->vol_well6 - m_pipette_status->rem_vol_well6) * 100 / m_solutionParams->vol_well6;
+	value = 100.0 * m_pipette_status->rem_vol_well6 / m_solutionParams->vol_well6;
 	ui->progressBar_switchIn->setValue(value);
 
-	value = 100 - (m_solutionParams->vol_well7 - m_pipette_status->rem_vol_well7) * 100 / m_solutionParams->vol_well7;
+	value = 100.0 * m_pipette_status->rem_vol_well7 / m_solutionParams->vol_well7;
 	ui->progressBar_recircOut->setValue(value);
 
-	value = 100 - (m_solutionParams->vol_well8 - m_pipette_status->rem_vol_well8) * 100 / m_solutionParams->vol_well8;
+	value = 100.0 * m_pipette_status->rem_vol_well8 / m_solutionParams->vol_well8;
 	ui->progressBar_recircIn->setValue(value);
 
 
@@ -517,7 +514,7 @@ void Labonatip_GUI::updateWaste()  // this is updated every second
 
 	// build the string for the waste label
 	QString s;
-	s.append(m_str_pulse_waste + " "); //TODO: strings
+	s.append(m_str_pulse_waste + " ");
 	s.append(QString::number(min_index + 5));
 	s.append(" " + m_str_pulse_full_in + ": ");
 	int remaining_hours = floor(waste_remaining_time_in_sec / 3600); // 3600 sec in a hour
@@ -531,59 +528,56 @@ void Labonatip_GUI::updateWaste()  // this is updated every second
 	//s.append(" sec ");
 
 	ui->textEdit_emptyTime_waste->setText(s);
-
 }
 
 void Labonatip_GUI::updateWells()
 {
-	int max_vol_in_well = 30;
+	int max = MAX_VOLUME_IN_WELL;  // just to have a shorter name in formulas
 
 	// update wells when the solution is flowing
 	if (ui->pushButton_solution1->isChecked()) {
-		m_pipette_status->rem_vol_well1 = m_pipette_status->rem_vol_well1 - //TODO: add check and block for negative values
-			0.001 * m_pipette_status->flow_well1;
+		m_pipette_status->rem_vol_well1 = m_pipette_status->rem_vol_well1 -
+			0.001 * m_pipette_status->flow_well1; // 0.001 is to transform in mL/s
 
-		double perc = 100.0 - 100.0 *
-			(max_vol_in_well - m_pipette_status->rem_vol_well1)
-			/ max_vol_in_well;
+		if (m_pipette_status->rem_vol_well1 < 0) {
+			stopSolutionFlow();
+		}
+
+		double perc =  100.0 * m_pipette_status->rem_vol_well1 / max;
 		ui->progressBar_solution1->setValue(int(perc));
-
-		// TODO: there is no check if the remaining solution is zero !
-
-		//waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well1 - // this is in micro liters 10^-6
-		//	m_solutionParams->rem_vol_well1) /  //this is in micro liters 10^-6
-		//	ui->treeWidget_macroInfo->topLevelItem(4)->text(1).toDouble(); // this is in nano liters 10^-9
-		return;
 	}
 	if (ui->pushButton_solution2->isChecked()) {
 		m_pipette_status->rem_vol_well2 = m_pipette_status->rem_vol_well2 -
-			0.001 * m_pipette_status->flow_well2;
+			0.001 * m_pipette_status->flow_well2; // 0.001 is to transform in mL/s
+		
+		if (m_pipette_status->rem_vol_well2 < 0) {
+			stopSolutionFlow();
+		}
 
-		double perc = 100.0 - 100.0 *
-			(max_vol_in_well - m_pipette_status->rem_vol_well2)
-			/ max_vol_in_well;
+		double perc = 100.0 * m_pipette_status->rem_vol_well2 / max;
 		ui->progressBar_solution2->setValue(int(perc));
-		return;
 	}
 	if (ui->pushButton_solution3->isChecked()) {
 		m_pipette_status->rem_vol_well3 = m_pipette_status->rem_vol_well3 -
-			0.001 * m_pipette_status->flow_well3;
+			0.001 * m_pipette_status->flow_well3; // 0.001 is to transform in mL/s
 
-		double perc = 100.0 - 100.0 *
-			(max_vol_in_well - m_pipette_status->rem_vol_well3)
-			/ max_vol_in_well;
+		if (m_pipette_status->rem_vol_well3 < 0) {
+			stopSolutionFlow();
+		}
+
+		double perc = 100.0 * m_pipette_status->rem_vol_well3 / max;
 		ui->progressBar_solution3->setValue(int(perc));
-		return;
 	}
 	if (ui->pushButton_solution4->isChecked()) {
 		m_pipette_status->rem_vol_well4 = m_pipette_status->rem_vol_well4 -
-			0.001 * m_pipette_status->flow_well4;
+			0.001 * m_pipette_status->flow_well4; // 0.001 is to transform in mL/s
 
-		double perc = 100.0 - 100.0 *
-			(max_vol_in_well - m_pipette_status->rem_vol_well4)
-			/ max_vol_in_well;
+		if (m_pipette_status->rem_vol_well4 < 0) {
+			stopSolutionFlow();
+		}
+
+		double perc = 100.0 * m_pipette_status->rem_vol_well4 / max;
 		ui->progressBar_solution4->setValue(int(perc));
-		return;
 	}
 
 }

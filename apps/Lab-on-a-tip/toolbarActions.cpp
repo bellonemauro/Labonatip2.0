@@ -99,7 +99,7 @@ void Labonatip_GUI::simulationOnly()
 	m_macroRunner_thread->setSimulationFlag(m_simulationOnly);
 }
 
-
+/*
 void Labonatip_GUI::disCon() {   //TODO, add an argument to connect and disconnect
 
 	cout << QDate::currentDate().toString().toStdString() << "  "
@@ -109,7 +109,7 @@ void Labonatip_GUI::disCon() {   //TODO, add an argument to connect and disconne
 	//TODO: this function is deprecated, remove the possible references
 	disCon(ui->actionConnectDisconnect->isChecked());
 
-}
+}*/
 
 
 void Labonatip_GUI::shutdown() {
@@ -334,6 +334,7 @@ bool Labonatip_GUI::disCon(bool _connect)
 		//m_PPC1_serial->close();
 		return false;
 	}
+	return false;
 }
 
 void Labonatip_GUI::reboot() {
@@ -346,7 +347,7 @@ void Labonatip_GUI::reboot() {
 	setEnableMainWindow(false);
 
 	if (m_pipette_active) {
-		disCon(); // with the pipette active this will stop the threads
+		disCon(false); // with the pipette active this will stop the threads
 
 		if (m_pipette_active) { // if it is still active, the disconnection failed and and we cannot continue
 			setEnableMainWindow(true);
@@ -373,7 +374,7 @@ void Labonatip_GUI::reboot() {
 		// m_ppc1->isConnected();
 		// m_ppc1->isRunning();
 
-		disCon(); //TODO: check this, it is not clear if we connect or disconnect
+		disCon(true); //TODO: check this, it is not clear if we connect or disconnect
 	}
 
 	setEnableMainWindow(true);

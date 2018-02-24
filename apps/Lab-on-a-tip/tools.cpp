@@ -272,6 +272,7 @@ void Labonatip_tools::emptyWastePressed() {
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_tools::emptyWellsPressed " << endl;
 
+	//TODO: define 35 as the max volume for waste ? check this
 	m_solutionParams->vol_well5 = 35; // ui_tools->spinBox_vol_sol5->value();
 	m_solutionParams->vol_well6 = 35; //ui_tools->spinBox_vol_sol6->value();
 	m_solutionParams->vol_well7 = 35; //ui_tools->spinBox_vol_sol7->value();

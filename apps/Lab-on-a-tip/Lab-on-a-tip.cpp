@@ -65,7 +65,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	  //  QTextStream standardOutput(stderr);// (stdout);
   }
 
-  //TODO: this removes the visualization settings 
+  // this removes the visualization settings 
   ui->tabWidget->removeTab(3);
 
   
@@ -541,8 +541,8 @@ void Labonatip_GUI::initConnects()
 		SLOT(closeOpenDockTools()));
 
 	connect(ui->actionConnectDisconnect, 
-		SIGNAL(triggered()), this, 
-		SLOT(disCon()));
+		SIGNAL(triggered(bool)), this,
+		SLOT(disCon(bool)));
 
 	connect(ui->actionSimulation,
 		SIGNAL(triggered()), this, 
@@ -826,7 +826,6 @@ void Labonatip_GUI::toolRefillSolution()
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_GUI::toolRefillSolution   " << endl;
 
-	//TODO: this now is empty and it does not work
 	*m_solutionParams = m_dialog_tools->getSolutionsParams();
 
 	m_pipette_status->rem_vol_well1 = m_solutionParams->vol_well1;

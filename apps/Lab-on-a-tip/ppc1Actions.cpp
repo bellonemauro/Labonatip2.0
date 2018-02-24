@@ -376,10 +376,6 @@ void Labonatip_GUI::stopSolutionFlow()
 		ui->pushButton_stop->setEnabled(false);
 		return;
 	}
-	// if none is checked, do nothing.
-
-
-
 
 	return;
 }
