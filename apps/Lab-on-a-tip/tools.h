@@ -47,8 +47,6 @@ class Labonatip_tools : public  QMainWindow
 {
 	Q_OBJECT
 
-    #define MAX_WASTE_VOLUME 35 // value in mL
-
 	/** Create signals to be passed to the main app,
 	*   the signals allows the tools class to send information to the main class for specific events
 	*   the main class implements a connect to a slot to handle the emitted signals

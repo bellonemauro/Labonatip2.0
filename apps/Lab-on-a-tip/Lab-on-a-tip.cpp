@@ -1171,10 +1171,27 @@ void Labonatip_GUI::setVersion(string _version) {
 
 Labonatip_GUI::~Labonatip_GUI ()
 {
-
-	//TODO: add delete class members
+  delete qout;
+  delete qerr;
+  delete m_comSettings;
+  delete m_pr_params;
+  delete m_GUI_params;
+  delete m_pipette_status;
+  delete m_protocol;
   delete m_ppc1;
-
+  delete m_macroRunner_thread;
+  delete m_update_flowing_sliders;
+  delete m_update_GUI;
+  delete m_update_waste;
+  delete m_scene_solution;
+  delete painter_led_green;
+  delete led_green;
+  delete painter_led_red;
+  delete led_red;
+  delete m_g_spacer;
+  delete m_a_spacer; 
+  delete m_labonatip_chart_view;
+  
   delete ui;
   qApp->quit();
 }

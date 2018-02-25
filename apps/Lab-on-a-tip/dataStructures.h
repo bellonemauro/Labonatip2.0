@@ -22,6 +22,18 @@
 #include <fluicell/ppc1api/ppc1api.h>
 #include <serial/serial.h>
 
+// Global definitions
+#define LENGTH_TO_TIP 0.065     // mm
+#define LENGTH_TO_ZONE 0.062    // mm
+#define MIN_ZONE_SIZE_PERC 30   // %
+#define MAX_ZONE_SIZE_PERC 210  // %
+#define MIN_FLOW_SPEED_PERC 60  // %
+#define MAX_FLOW_SPEED_PERC 250 // %
+#define MIN_VACUUM_PERC 10      // %
+#define MAX_VACUUM_PERC 250     // %
+#define MIN_WARNING_VOLUME 5    // in mL
+#define MAX_VOLUME_IN_WELL 30   // in mL
+#define MAX_WASTE_VOLUME 35 // value in mL
 
 /*  \brief Custom combo box for protocol editor, 
 *   

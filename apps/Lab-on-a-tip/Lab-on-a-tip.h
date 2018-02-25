@@ -51,17 +51,6 @@ class Labonatip_GUI : public QMainWindow
 {
 	Q_OBJECT
 
-	#define LENGTH_TO_TIP 0.065     // mm
-	#define LENGTH_TO_ZONE 0.062    // mm
-	#define MIN_ZONE_SIZE_PERC 30   // %
-	#define MAX_ZONE_SIZE_PERC 210  // %
-	#define MIN_FLOW_SPEED_PERC 60  // %
-	#define MAX_FLOW_SPEED_PERC 250 // %
-	#define MIN_VACUUM_PERC 10      // %
-	#define MAX_VACUUM_PERC 250     // %
-	#define MIN_WARNING_VOLUME 5    // in mL
-    #define MAX_VOLUME_IN_WELL 30   // in mL
-
 public:
 	explicit Labonatip_GUI(QMainWindow *parent = nullptr);
 
@@ -634,10 +623,10 @@ private:
   const float l_x2;                   //!< x-coordinate of the line ending point, value = 55.0  
   const float l_y2;                   //!< y-coordinate of the line ending point, value = l_y1
 
-  QColor m_sol1_color;      //!< my solution 1 color
-  QColor m_sol2_color;      //!< my solution 2 color
-  QColor m_sol3_color;      //!< my solution 3 color
-  QColor m_sol4_color;      //!< my solution 4 color
+  QColor m_sol1_color;      //!< my solution 1 color for the pipette drawing
+  QColor m_sol2_color;      //!< my solution 2 color for the pipette drawing
+  QColor m_sol3_color;      //!< my solution 3 color for the pipette drawing
+  QColor m_sol4_color;      //!< my solution 4 color for the pipette drawing
 
   // chart
   QtCharts::QChartView *m_chartView;
