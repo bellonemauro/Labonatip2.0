@@ -47,309 +47,6 @@ Labonatip_chart::Labonatip_chart(  )
 	m_col_sol3 = new QColor(0x009EFF);
 	m_col_sol4 = new QColor(0x82FF00);
 
-	setGUIchart();
-}
-
-void Labonatip_chart::updateChartTime(int _time_value)
-{
-	m_time_line_b->clear();
-	m_time_line_t->clear();
-	*m_time_line_b << QPointF(_time_value, 0.0) << QPointF(_time_value, 100.0);
-	*m_time_line_t << QPointF(_time_value + 1.0, 0.0) << QPointF(_time_value + 1.0, 100.0);
-
-	m_chart->update();
-}
-
-
-void Labonatip_chart::updateChartMacro(f_macro *_macro)
-{
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_chart::updateChartMacro   " << endl;
-	
-	
-	//TODO:: check if _macro is a valid pointer
-
-
-	m_series_Pon->clear();
-	m_series_Poff->clear();
-	m_series_V_recirc->clear();
-	m_series_V_switch->clear();
-	m_series_ask->clear();
-	m_series_solution1->clear();
-	m_series_solution2->clear();
-	m_series_solution3->clear();
-	m_series_solution4->clear(); 
-	m_series_solution->clear();
-	m_series_sync_in->clear();
-	m_series_sync_out->clear();
-
-	double current_time = 0.0; //!> starts from zero and will be updated according to the duration of the macro
-	double max_time_line = 100.0;  //!> the duration is scaled in the interval [0; 100]
-	
-
-	// append zero
-	m_series_Pon->append(current_time,
-		min_series_pon);  // in [80; 90]
-	m_series_Poff->append(current_time,
-		min_series_poff); // in [70; 80]
-	m_series_V_recirc->append(current_time,
-		min_series_V_recirc); // in [60; 70]
-	m_series_V_switch->append(current_time,
-		min_series_V_switch); // in [50; 60]
-	m_series_solution->append(current_time,
-		m_base_sol_value); 
-	m_series_ask->append(current_time,
-		min_series_ask + 5.0);  // + 5.0 just to set the line in the middle for now
-	m_series_sync_in->append(current_time,
-		min_series_sync_in + 5.0); // + 5.0 just to set the line in the middle for now
-	m_series_sync_out->append(current_time,
-		min_series_sync_out + 5.0); // + 5.0 just to set the line in the middle for now
-	// this for now is just to show a straight line
-
-	m_series_solution->append(max_time_line,
-		m_base_sol_value ); 
-	m_series_ask->append(max_time_line,
-		min_series_ask + 5.0);  // + 5.0 just to set the line in the middle for now
-	m_series_sync_in->append(max_time_line, 
-		min_series_sync_in + 5.0); // + 5.0 just to set the line in the middle for now
-	m_series_sync_out->append(100.0, 
-		min_series_sync_out + 5.0); // + 5.0 just to set the line in the middle for now
-
-
-	// if the macro is empty it does not update the chart
-	//if (m_macro->size() < 1) return;
-
-	// compute the duration of the macro
-	double total_duration = 0.0;
-	for (size_t i = 0; i < _macro->size(); i++) {
-		if (_macro->at(i).getInstruction() == fluicell::PPC1api::command::instructions::sleep)
-			total_duration += _macro->at(i).getValue();
-	}
-
-	cout << QDate::currentDate().toString().toStdString() << "  " 
-		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::updateChartMacro ::: the complete duration is : " << total_duration << endl;
-
-	
-	for (size_t i = 0; i < _macro->size(); i++) {
-		// in every iteration a new segment is added to the chart
-		// hence two points are always needed
-
-		switch (_macro->at(i).getInstruction())
-		{
-		case 0: { // Pon
-			// remove the tail of the chart
-			if (m_series_Pon->count()>1) m_series_Pon->remove(m_series_Pon->at(m_series_Pon->count()-1));
-
-			// the first point is calculated starting from the last value to the new value an the current time
-			double first_x = current_time;
-			double first_y = m_series_Pon->at(m_series_Pon->count() - 1).y(); // last added point 
-			double second_x = current_time;
-			double normalization_pon = max_pon / chart_width; // the values are normalized in the height reserved for the chart
-			double second_y = min_series_pon + _macro->at(i).getValue() / normalization_pon;  // new point
-
-			m_series_Pon->append(first_x, first_y); // add the fist point
-			m_series_Pon->append(second_x, second_y); // add the second point 
-
-			//the last point is added at each step, and it must be removed every time a new point is added
-			m_series_Pon->append(max_time_line, second_y);  
-
-			break;
-		}
-		case 1: { // Poff
-			// remove the tail of the chart
-			if (m_series_Poff->count()>1) m_series_Poff->remove(m_series_Poff->at(m_series_Poff->count() - 1));
-
-			// the first point is calculated starting from the last value to the new value an the current time
-			double first_x = current_time;
-			double first_y = m_series_Poff->at(m_series_Poff->count() - 1).y(); // last added point 
-			double second_x = current_time;
-			double normalization_poff = max_poff / chart_width; // the values are normalized in the height reserved for the chart
-			double second_y = min_series_poff + _macro->at(i).getValue() / normalization_poff;  // new point
-
-			m_series_Poff->append(first_x, first_y); // add the fist point
-			m_series_Poff->append(second_x, second_y); // add the second point 
-
-			//the last point is added at each step, and it must be removed every time a new point is added
-			m_series_Poff->append(max_time_line, second_y);
-
-			break;
-		}
-		case 2: { // v_switch
-			// remove the tail of the chart
-			if (m_series_V_switch->count()>1)  m_series_V_switch->remove(m_series_V_switch->at(m_series_V_switch->count() - 1));
-
-			// the first point is calculated starting from the last value to the new value an the current time
-			double first_x = current_time;
-			double first_y = m_series_V_switch->at(m_series_V_switch->count() - 1).y(); // last added point 
-			double second_x = current_time;
-			double normalization_vs = max_v_switch / chart_width; // the values are normalized in the height reserved for the chart
-			double second_y = min_series_V_switch - _macro->at(i).getValue() / normalization_vs;  // new point
-
-			m_series_V_switch->append(first_x, first_y); // add the fist point
-			m_series_V_switch->append(second_x, second_y); // add the second point 
-
-													   //the last point is added at each step, and it must be removed every time a new point is added
-			m_series_V_switch->append(max_time_line, second_y);
-			break;
-		}
-		case 3: { // V_recirc
-			// remove the tail of the chart
-			if (m_series_V_recirc->count()>1) m_series_V_recirc->remove(m_series_V_recirc->at(m_series_V_recirc->count() - 1));
-
-			// the first point is calculated starting from the last value to the new value an the current time
-			double first_x = current_time;
-			double first_y = m_series_V_recirc->at(m_series_V_recirc->count() - 1).y(); // last added point 
-			double second_x = current_time;
-			double normalization_vr = max_v_recirc / chart_width; // the values are normalized in the height reserved for the chart
-			double second_y = min_series_V_recirc - _macro->at(i).getValue() / normalization_vr;  // new point
-
-			m_series_V_recirc->append(first_x, first_y); // add the fist point
-			m_series_V_recirc->append(second_x, second_y); // add the second point 
-
-			//the last point is added at each step, and it must be removed every time a new point is added
-			m_series_V_recirc->append(max_time_line, second_y);
-			break;
-		}
-		case 4: { //solution 1
-				  // the first point is calculated starting from the last value to the new value an the current time
-			double first_x = current_time;
-			double second_x = current_time;
-			double first_y = 0;
-			double second_y = 0;
-			if (_macro->at(i).getValue() == 1) {
-				first_y = m_base_sol_value;
- 				second_y = m_top_sol_value;  // new point
-
-			}
-			else {
-				first_y = m_top_sol_value;
-				second_y = m_base_sol_value;
-			}
-
-			m_series_solution1->append(first_x, first_y); // add the fist point
-			m_series_solution1->append(second_x, second_y); // add the second point 
-
-			break;
-		}
-		case 5: { //solution 2
-			 // the first point is calculated starting from the last value to the new value an the current time
-			double first_x = current_time;
-			double second_x = current_time;
-			double first_y = 0;
-			double second_y = 0;
-			if (_macro->at(i).getValue() == 1) {
-				first_y = m_base_sol_value;
-				second_y = m_top_sol_value;  // new point
-
-			}
-			else {
-				first_y = m_top_sol_value;
-				second_y = m_base_sol_value;
-			}
-
-			m_series_solution2->append(first_x, first_y); // add the fist point
-			m_series_solution2->append(second_x, second_y); // add the second point 
-
-			break;
-		}
-		case 6: { //solution 3
-			double first_x = current_time;
-			double second_x = current_time;
-			double first_y = 0;
-			double second_y = 0;
-			if (_macro->at(i).getValue() == 1) {
-				first_y = m_base_sol_value;
-				second_y = m_top_sol_value;  // new point
-
-			}
-			else {
-				first_y = m_top_sol_value;
-				second_y = m_base_sol_value;
-			}
-
-			m_series_solution3->append(first_x, first_y); // add the fist point
-			m_series_solution3->append(second_x, second_y); // add the second point 
-			break;
-		}
-		case 7: { //solution 4
-			double first_x = current_time;
-			double second_x = current_time;
-			double first_y = 0;
-			double second_y = 0;
-			if (_macro->at(i).getValue() == 1) {
-				first_y = m_base_sol_value;
-				second_y = m_top_sol_value;  // new point
-
-			}
-			else {
-				first_y = m_top_sol_value;
-				second_y = m_base_sol_value;
-			}
-
-			m_series_solution4->append(first_x, first_y); // add the fist point
-			m_series_solution4->append(second_x, second_y); // add the second point 
-			break;
-		}
-		case 8: { //dropletSize 
-
-			break;
-		}
-		case 9: { //flowSpeed
-
-			break;
-		}
-		case 10: { //vacuum
-
-			break;
-		}
-		case 11: { //loop
-
-			break;
-		}
-		case 12: { //sleep ---- update the current time
-			current_time +=  100.0 * _macro->at(i).getValue() / total_duration; //the duration is scaled in the interval [0; 100]
-			break;
-		}
-		case 13: { //ask_msg
-			m_series_ask->append(current_time, min_series_ask + 5.0);
-			break;
-		}
-		case 14: { //allOff
-
-			break;
-		}
-		case 15: { //pumpsOff
-
-			break;
-		}
-		case 16: { //setValveState
-
-			break;
-		}
-		case 17: { //waitSync
-			m_series_sync_in->append(current_time, min_series_sync_in + 5.0);
-			break;
-		}
-		case 18: { //syncOut
-			m_series_sync_out->append(current_time, min_series_sync_out + 5.0);
-			break;
-		}
-		default:
-			break;
-		}
-
-	}
-	m_chart->update();
-}
-
-void Labonatip_chart::setGUIchart()
-{
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_chart::setGUIchart   " << endl;
-
 	//initialize chart objects
 	m_series_Pon = new QtCharts::QLineSeries();
 	m_series_Poff = new QtCharts::QLineSeries();
@@ -490,7 +187,7 @@ void Labonatip_chart::setGUIchart()
 	axisPen.setWidth(2);
 	axisX->setLinePen(axisPen);
 	axisY->setLinePen(axisPen);
-	
+
 	// Customize axis label colors
 	QBrush axisBrush(Qt::black);
 	axisX->setLabelsBrush(axisBrush);
@@ -502,7 +199,7 @@ void Labonatip_chart::setGUIchart()
 	axisY->setShadesBrush(QBrush(QColor(0x99, 0xcc, 0xcc, 0x55)));
 	axisY->setShadesVisible(true);
 
-    // Set X axis labels
+	// Set X axis labels
 	axisX->append("20 %", 20);
 	axisX->append("40 %", 40);
 	axisX->append("60 %", 60);
@@ -529,18 +226,18 @@ void Labonatip_chart::setGUIchart()
 	s.clear();
 	s = QStringLiteral("<html><head/><body><p>P<span style=\" vertical-align:sub;\">off</span></p></body></html>");
 	axisY->append(s, min_series_poff + chart_width);
-	
+
 	s.clear();
 	s = QStringLiteral("<html><head/><body><p>P<span style=\" vertical-align:sub;\">on</span></p></body></html>");
 	axisY->append(s, min_series_pon + chart_width);
-	
+
 	axisY->setRange(10, 90);
 
 	m_chart->setAxisY(axisY, m_series_Pon);
 	m_chart->setAxisY(axisY, m_series_Poff);
 	m_chart->setAxisY(axisY, m_series_V_switch);
 	m_chart->setAxisY(axisY, m_series_V_recirc);
-	m_chart->setAxisY(axisY, m_area_solution1);	
+	m_chart->setAxisY(axisY, m_area_solution1);
 	m_chart->setAxisY(axisY, m_area_solution2);
 	m_chart->setAxisY(axisY, m_area_solution3);
 	m_chart->setAxisY(axisY, m_area_solution4);
@@ -555,5 +252,334 @@ void Labonatip_chart::setGUIchart()
 	m_chartView = new QtCharts::QChartView(m_chart);
 	m_chartView->setRenderHint(QPainter::Antialiasing);
 	m_chartView->setBackgroundBrush(QBrush(QColor(0xFA, 0xFA, 0xFA)));
+}
 
+void Labonatip_chart::updateChartTime(int _time_value)
+{
+	m_time_line_b->clear();
+	m_time_line_t->clear();
+	*m_time_line_b << QPointF(_time_value, 0.0) << QPointF(_time_value, 100.0);
+	*m_time_line_t << QPointF(_time_value + 1.0, 0.0) << QPointF(_time_value + 1.0, 100.0);
+
+	m_chart->update();
+}
+
+
+void Labonatip_chart::updateChartProtocol(f_protocol *_protocol)
+{
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_chart::updateChartMacro   " << endl;
+	
+	
+	//TODO:: check if _macro is a valid pointer
+	if (_protocol == NULL) return;      // if is null we do nothing
+
+	m_series_Pon->clear();
+	m_series_Poff->clear();
+	m_series_V_recirc->clear();
+	m_series_V_switch->clear();
+	m_series_ask->clear();
+	m_series_solution1->clear();
+	m_series_solution2->clear();
+	m_series_solution3->clear();
+	m_series_solution4->clear(); 
+	m_series_solution->clear();
+	m_series_sync_in->clear();
+	m_series_sync_out->clear();
+
+	double current_time = 0.0; //!> starts from zero and will be updated according to the duration of the macro
+	double max_time_line = 100.0;  //!> the duration is scaled in the interval [0; 100]
+	
+
+	// append zero
+	m_series_Pon->append(current_time,
+		min_series_pon);  // in [80; 90]
+	m_series_Poff->append(current_time,
+		min_series_poff); // in [70; 80]
+	m_series_V_recirc->append(current_time,
+		min_series_V_recirc); // in [60; 70]
+	m_series_V_switch->append(current_time,
+		min_series_V_switch); // in [50; 60]
+	m_series_solution->append(current_time,
+		m_base_sol_value); 
+	m_series_ask->append(current_time,
+		min_series_ask + 5.0);  // + 5.0 just to set the line in the middle for now
+	m_series_sync_in->append(current_time,
+		min_series_sync_in + 5.0); // + 5.0 just to set the line in the middle for now
+	m_series_sync_out->append(current_time,
+		min_series_sync_out + 5.0); // + 5.0 just to set the line in the middle for now
+	// this for now is just to show a straight line
+
+	m_series_solution->append(max_time_line,
+		m_base_sol_value ); 
+	m_series_ask->append(max_time_line,
+		min_series_ask + 5.0);  // + 5.0 just to set the line in the middle for now
+	m_series_sync_in->append(max_time_line, 
+		min_series_sync_in + 5.0); // + 5.0 just to set the line in the middle for now
+	m_series_sync_out->append(100.0, 
+		min_series_sync_out + 5.0); // + 5.0 just to set the line in the middle for now
+
+
+	// if the macro is empty it does not update the chart
+	m_chart->update();
+	if (_protocol->size() < 1) return;  //TODO: this was commented, why ?
+
+	// compute the duration of the macro
+	double total_duration = 0.0;
+	for (size_t i = 0; i < _protocol->size(); i++) {
+		if (_protocol->at(i).getInstruction() == fluicell::PPC1api::command::instructions::sleep)
+			total_duration += _protocol->at(i).getValue();
+	}
+
+	cout << QDate::currentDate().toString().toStdString() << "  " 
+		 << QTime::currentTime().toString().toStdString() << "  "
+		 << "Labonatip_GUI::updateChartMacro ::: the complete duration is : " << total_duration << endl;
+
+	
+	for (size_t i = 0; i < _protocol->size(); i++) {
+		// in every iteration a new segment is added to the chart
+		// hence two points are always needed
+
+		switch (_protocol->at(i).getInstruction())
+		{
+		case 0: { // Pon
+			// remove the tail of the chart
+			if (m_series_Pon->count()>1) m_series_Pon->remove(m_series_Pon->at(m_series_Pon->count()-1));
+
+			// the first point is calculated starting from the last value to the new value an the current time
+			double first_x = current_time;
+			double first_y = m_series_Pon->at(m_series_Pon->count() - 1).y(); // last added point 
+			double second_x = current_time;
+			double normalization_pon = max_pon / chart_width; // the values are normalized in the height reserved for the chart
+			double second_y = min_series_pon + _protocol->at(i).getValue() / normalization_pon;  // new point
+
+			m_series_Pon->append(first_x, first_y); // add the fist point
+			m_series_Pon->append(second_x, second_y); // add the second point 
+
+			//the last point is added at each step, and it must be removed every time a new point is added
+			m_series_Pon->append(max_time_line, second_y);  
+
+			break;
+		}
+		case 1: { // Poff
+			// remove the tail of the chart
+			if (m_series_Poff->count()>1) m_series_Poff->remove(m_series_Poff->at(m_series_Poff->count() - 1));
+
+			// the first point is calculated starting from the last value to the new value an the current time
+			double first_x = current_time;
+			double first_y = m_series_Poff->at(m_series_Poff->count() - 1).y(); // last added point 
+			double second_x = current_time;
+			double normalization_poff = max_poff / chart_width; // the values are normalized in the height reserved for the chart
+			double second_y = min_series_poff + _protocol->at(i).getValue() / normalization_poff;  // new point
+
+			m_series_Poff->append(first_x, first_y); // add the fist point
+			m_series_Poff->append(second_x, second_y); // add the second point 
+
+			//the last point is added at each step, and it must be removed every time a new point is added
+			m_series_Poff->append(max_time_line, second_y);
+
+			break;
+		}
+		case 2: { // v_switch
+			// remove the tail of the chart
+			if (m_series_V_switch->count()>1)  m_series_V_switch->remove(m_series_V_switch->at(m_series_V_switch->count() - 1));
+
+			// the first point is calculated starting from the last value to the new value an the current time
+			double first_x = current_time;
+			double first_y = m_series_V_switch->at(m_series_V_switch->count() - 1).y(); // last added point 
+			double second_x = current_time;
+			double normalization_vs = max_v_switch / chart_width; // the values are normalized in the height reserved for the chart
+			double second_y = min_series_V_switch - _protocol->at(i).getValue() / normalization_vs;  // new point
+
+			m_series_V_switch->append(first_x, first_y); // add the fist point
+			m_series_V_switch->append(second_x, second_y); // add the second point 
+
+													   //the last point is added at each step, and it must be removed every time a new point is added
+			m_series_V_switch->append(max_time_line, second_y);
+			break;
+		}
+		case 3: { // V_recirc
+			// remove the tail of the chart
+			if (m_series_V_recirc->count()>1) m_series_V_recirc->remove(m_series_V_recirc->at(m_series_V_recirc->count() - 1));
+
+			// the first point is calculated starting from the last value to the new value an the current time
+			double first_x = current_time;
+			double first_y = m_series_V_recirc->at(m_series_V_recirc->count() - 1).y(); // last added point 
+			double second_x = current_time;
+			double normalization_vr = max_v_recirc / chart_width; // the values are normalized in the height reserved for the chart
+			double second_y = min_series_V_recirc - _protocol->at(i).getValue() / normalization_vr;  // new point
+
+			m_series_V_recirc->append(first_x, first_y); // add the fist point
+			m_series_V_recirc->append(second_x, second_y); // add the second point 
+
+			//the last point is added at each step, and it must be removed every time a new point is added
+			m_series_V_recirc->append(max_time_line, second_y);
+			break;
+		}
+		case 4: { //solution 1
+				  // the first point is calculated starting from the last value to the new value an the current time
+			double first_x = current_time;
+			double second_x = current_time;
+			double first_y = 0;
+			double second_y = 0;
+			if (_protocol->at(i).getValue() == 1) {
+				first_y = m_base_sol_value;
+ 				second_y = m_top_sol_value;  // new point
+
+			}
+			else {
+				first_y = m_top_sol_value;
+				second_y = m_base_sol_value;
+			}
+
+			m_series_solution1->append(first_x, first_y); // add the fist point
+			m_series_solution1->append(second_x, second_y); // add the second point 
+
+			break;
+		}
+		case 5: { //solution 2
+			 // the first point is calculated starting from the last value to the new value an the current time
+			double first_x = current_time;
+			double second_x = current_time;
+			double first_y = 0;
+			double second_y = 0;
+			if (_protocol->at(i).getValue() == 1) {
+				first_y = m_base_sol_value;
+				second_y = m_top_sol_value;  // new point
+
+			}
+			else {
+				first_y = m_top_sol_value;
+				second_y = m_base_sol_value;
+			}
+
+			m_series_solution2->append(first_x, first_y); // add the fist point
+			m_series_solution2->append(second_x, second_y); // add the second point 
+
+			break;
+		}
+		case 6: { //solution 3
+			double first_x = current_time;
+			double second_x = current_time;
+			double first_y = 0;
+			double second_y = 0;
+			if (_protocol->at(i).getValue() == 1) {
+				first_y = m_base_sol_value;
+				second_y = m_top_sol_value;  // new point
+
+			}
+			else {
+				first_y = m_top_sol_value;
+				second_y = m_base_sol_value;
+			}
+
+			m_series_solution3->append(first_x, first_y); // add the fist point
+			m_series_solution3->append(second_x, second_y); // add the second point 
+			break;
+		}
+		case 7: { //solution 4
+			double first_x = current_time;
+			double second_x = current_time;
+			double first_y = 0;
+			double second_y = 0;
+			if (_protocol->at(i).getValue() == 1) {
+				first_y = m_base_sol_value;
+				second_y = m_top_sol_value;  // new point
+
+			}
+			else {
+				first_y = m_top_sol_value;
+				second_y = m_base_sol_value;
+			}
+
+			m_series_solution4->append(first_x, first_y); // add the fist point
+			m_series_solution4->append(second_x, second_y); // add the second point 
+			break;
+		}
+		case 8: { //dropletSize 
+
+			break;
+		}
+		case 9: { //flowSpeed
+
+			break;
+		}
+		case 10: { //vacuum
+
+			break;
+		}
+		case 11: { //loop
+
+			break;
+		}
+		case 12: { //sleep ---- update the current time
+			current_time +=  100.0 * _protocol->at(i).getValue() / total_duration; //the duration is scaled in the interval [0; 100]
+			break;
+		}
+		case 13: { //ask_msg
+			m_series_ask->append(current_time, min_series_ask + 5.0);
+			break;
+		}
+		case 14: { //allOff
+
+			break;
+		}
+		case 15: { //pumpsOff
+
+			break;
+		}
+		case 16: { //setValveState
+
+			break;
+		}
+		case 17: { //waitSync
+			m_series_sync_in->append(current_time, min_series_sync_in + 5.0);
+			break;
+		}
+		case 18: { //syncOut
+			m_series_sync_out->append(current_time, min_series_sync_out + 5.0);
+			break;
+		}
+		default:
+			break;
+		}
+
+	}
+	m_chart->update();
+}
+
+
+Labonatip_chart::~Labonatip_chart()
+{
+	delete m_series_Pon;
+	delete m_series_Poff;
+	delete m_series_V_switch;
+	delete m_series_V_recirc;
+	delete m_series_solution1;
+	delete m_series_solution2;
+	delete m_series_solution3;
+	delete m_series_solution4;
+	delete m_area_solution1;
+	delete m_area_solution2;
+	delete m_area_solution3;
+	delete m_area_solution4;
+	delete m_pen_s1;
+	delete m_pen_s2;
+	delete m_pen_s3;
+	delete m_pen_s4;
+	delete m_col_sol1;
+	delete m_col_sol2;
+	delete m_col_sol3;
+	delete m_col_sol4;
+	delete m_series_solution;
+	delete m_series_ask;
+	delete m_series_sync_in;
+	delete m_series_sync_out;
+	delete m_time_line_b;
+	delete m_time_line_t;
+	delete m_past_time_area;
+	delete m_chart;
+
+	delete m_chartView; 
 }

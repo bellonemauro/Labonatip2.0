@@ -954,7 +954,7 @@ void Labonatip_GUI::editorApply()
 		ui->label_macroStatus->setText(s);
 	}
 
-	m_labonatip_chart_view->updateChartMacro(m_protocol);
+	m_labonatip_chart_view->updateChartProtocol(m_protocol);
 
 	// compute the duration of the macro
 	double macro_duration = 0.0;
