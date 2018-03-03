@@ -25,6 +25,7 @@
 #include <QTimer>
 //#include <QWhatsthis>
 #include <qwhatsthis.h>
+#include <QException>
 
 // QT for graphics
 #include <QGraphicsEllipseItem>

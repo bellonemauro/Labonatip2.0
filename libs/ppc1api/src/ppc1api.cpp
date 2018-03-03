@@ -25,6 +25,9 @@ fluicell::PPC1api::PPC1api() :
 	// com port name
 	m_COMport = "COM1";
 
+	// exception handler
+	m_excep_handler = false;
+
 	// baud rate
 	m_baud_rate = 115200;
 
@@ -48,7 +51,7 @@ fluicell::PPC1api::PPC1api() :
 	m_isRunning = false;
 }
 
-void fluicell::PPC1api::threadSerial()
+void fluicell::PPC1api::threadSerial() 
 {
 	try {
 
@@ -78,7 +81,7 @@ void fluicell::PPC1api::threadSerial()
 			}
 
 		}
-
+		
 		m_isRunning = false;
 	}
 	catch (serial::IOException &e) 	{
@@ -88,7 +91,7 @@ void fluicell::PPC1api::threadSerial()
 		cerr << currentDateTime() 
 			 << " fluicell::PPC1api::threadSerial  ---- error --- MESSAGE: IOException : " 
 			 << e.what() << endl;
-		//throw e;
+		m_excep_handler = true;
 		return;
 	}
 	catch (serial::SerialException &e) 	{
@@ -98,7 +101,7 @@ void fluicell::PPC1api::threadSerial()
 		cerr << currentDateTime() 
 			 << " fluicell::PPC1api::threadSerial  ---- error --- MESSAGE: SerialException : " 
 			 << e.what() << endl;
-		//throw e;
+		m_excep_handler = true;
 		return;
 	}
 	catch (exception &e) 	{
@@ -108,7 +111,7 @@ void fluicell::PPC1api::threadSerial()
 		cerr << currentDateTime() 
 			 << " fluicell::PPC1api::threadSerial  ---- error --- MESSAGE: --exception" 
 			 << e.what() << endl;
-		//throw e;
+		m_excep_handler = true;
 		return;
 	}
 
@@ -412,8 +415,10 @@ bool fluicell::PPC1api::connectCOM()
 				 << " fluicell::PPC1api::connectCOM ::: FAILED - Serial port not open." << endl;
 			return false;
 		}
-		else 
+		else {
+			m_excep_handler = false; //only on connection verified we reset the exception handler
 			return true; // open connection verified 
+		}
 	}
 	catch (serial::IOException &e)
 	{
@@ -421,6 +426,7 @@ bool fluicell::PPC1api::connectCOM()
 			 << " fluicell::PPC1api::connectCOM ::: IOException : " << e.what() << endl;
 		m_PPC1_serial->close(); 
 		//throw e;
+		m_excep_handler = true;
 		return false;
 	}
 	catch (serial::PortNotOpenedException &e)
@@ -429,6 +435,7 @@ bool fluicell::PPC1api::connectCOM()
 			<< " fluicell::PPC1api::connectCOM ::: PortNotOpenedException : " << e.what() << endl;
 		m_PPC1_serial->close();
 		//throw e;
+		m_excep_handler = true;
 		return false;
 	}
 	catch (serial::SerialException &e)
@@ -437,13 +444,15 @@ bool fluicell::PPC1api::connectCOM()
 			 << " fluicell::PPC1api::connectCOM ::: SerialException : " << e.what() << endl;
 		m_PPC1_serial->close(); 
 		//throw e;
+		m_excep_handler = true;
 		return false;
 	}
 	catch (exception &e) {
 	cerr << currentDateTime() 
 		 << " fluicell::PPC1api::connectCOM ::: Unhandled Exception: " << e.what() << endl;
 	m_PPC1_serial->close(); 
-	//throw e;
+	//throw e;  // TODO: this crashes
+	m_excep_handler = true;
 	return false;
 	}
 }
@@ -1310,6 +1319,7 @@ void fluicell::PPC1api::setFilterSize(int _size)
 		<< " new filter size value << " << _size << " >> " << endl;
 	 m_PPC1_data->setFilterSize(_size); 
 }
+
 
 bool fluicell::PPC1api::sendData(const string &_data) {
 	//_data->append("\n");

@@ -200,12 +200,18 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	  SLOT(updateWaste()));
   m_update_waste->start();
 
-  //simulation button activated by default
-  ui->actionSimulation->setChecked(true);
+  //simulation button not-activated by default
+  ui->actionSimulation->setChecked(false);
   m_simulationOnly = ui->actionSimulation->isChecked();
   ui->actionConnectDisconnect->setEnabled(!m_simulationOnly);
   ui->actionReboot->setEnabled(!m_simulationOnly);
   ui->actionShudown->setEnabled(!m_simulationOnly);
+  ui->actionReboot->setEnabled(false);
+  ui->actionShudown->setEnabled(false);
+  ui->groupBox_action->setEnabled(false);
+  ui->groupBox_deliveryZone->setEnabled(false);
+  ui->groupBox_3->setEnabled(false);
+  ui->tab_2->setEnabled(false);
 
   //init the chart view
   m_labonatip_chart_view = new Labonatip_chart();
@@ -359,7 +365,7 @@ void Labonatip_GUI::setEnableSolutionButtons(bool _enable ) {
 
 
 
-void Labonatip_GUI::setAsDefault()
+void Labonatip_GUI::setAsDefault()  //TODO: remove this function as it is now in the tools
 {
 	m_pr_params->setDefValues(m_pipette_status->pon_set_point, 
 		m_pipette_status->poff_set_point, 
@@ -608,9 +614,9 @@ void Labonatip_GUI::initConnects()
 		SIGNAL(clicked()), this, 
 		SLOT(pushSolution4()));
 
-	connect(ui->pushButton_setValuesAsDefault, 
-		SIGNAL(clicked()), this, 
-		SLOT(setAsDefault()));
+//	connect(ui->pushButton_setValuesAsDefault, 
+//		SIGNAL(clicked()), this, 
+//		SLOT(setAsDefault())); //TODO: remove this and check
 
 	connect(ui->pushButton_dropSize_minus, 
 		SIGNAL(clicked()), this, 

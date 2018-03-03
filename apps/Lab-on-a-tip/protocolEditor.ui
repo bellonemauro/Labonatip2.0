@@ -900,7 +900,6 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
    </attribute>
    <addaction name="actionLoad"/>
    <addaction name="actionSave"/>
-   <addaction name="actionSaveAs"/>
    <addaction name="actionCharts"/>
    <addaction name="actionParams"/>
    <addaction name="actionWizard"/>
@@ -1527,6 +1526,9 @@ QPushButton:disabled{ background-color: #CCCCCC; }
    </property>
   </action>
   <action name="actionWizard">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset resource="resources.qrc">
      <normaloff>:/icons/wand.png</normaloff>:/icons/wand.png</iconset>

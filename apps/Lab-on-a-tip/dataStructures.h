@@ -31,9 +31,9 @@
 #define MAX_FLOW_SPEED_PERC 250 // %
 #define MIN_VACUUM_PERC 10      // %
 #define MAX_VACUUM_PERC 250     // %
-#define MIN_WARNING_VOLUME 5    // in mL
+#define MIN_WARNING_VOLUME 6    // in mL
 #define MAX_VOLUME_IN_WELL 30   // in mL
-#define MAX_WASTE_VOLUME 35 // value in mL
+#define MAX_WASTE_VOLUME 27 // value in mL
 
 /*  \brief Custom combo box for protocol editor, 
 *   

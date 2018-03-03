@@ -144,7 +144,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
        <number>0</number>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="page_0">
        <property name="styleSheet">
@@ -3465,6 +3465,67 @@ QPushButton:disabled{ background-color: #CCCCCC; }
    </property>
   </action>
  </widget>
+ <tabstops>
+  <tabstop>lineEdit_userName</tabstop>
+  <tabstop>lineEdit_year</tabstop>
+  <tabstop>lineEdit_month</tabstop>
+  <tabstop>comboBox_language</tabstop>
+  <tabstop>checkBox_enableToolTips</tabstop>
+  <tabstop>checkBox_verboseOut</tabstop>
+  <tabstop>checkBox_EnableHistory</tabstop>
+  <tabstop>checkBox_dumpToFile</tabstop>
+  <tabstop>lineEdit_msg_out_file_path</tabstop>
+  <tabstop>pushButton_openFolder</tabstop>
+  <tabstop>pushButton_toDefault</tabstop>
+  <tabstop>spinBox_vol_sol1</tabstop>
+  <tabstop>lineEdit_sol1_name</tabstop>
+  <tabstop>spinBox_vol_sol2</tabstop>
+  <tabstop>lineEdit_sol2_name</tabstop>
+  <tabstop>spinBox_vol_sol3</tabstop>
+  <tabstop>lineEdit_sol3_name</tabstop>
+  <tabstop>spinBox_vol_sol4</tabstop>
+  <tabstop>lineEdit_sol4_name</tabstop>
+  <tabstop>horizontalSlider_colorSol1</tabstop>
+  <tabstop>horizontalSlider_colorSol2</tabstop>
+  <tabstop>horizontalSlider_colorSol3</tabstop>
+  <tabstop>horizontalSlider_colorSol4</tabstop>
+  <tabstop>doubleSpinBox_pulse_sol1</tabstop>
+  <tabstop>checkBox_disableTimer_s1</tabstop>
+  <tabstop>doubleSpinBox_pulse_sol2</tabstop>
+  <tabstop>checkBox_disableTimer_s2</tabstop>
+  <tabstop>doubleSpinBox_pulse_sol3</tabstop>
+  <tabstop>checkBox_disableTimer_s3</tabstop>
+  <tabstop>doubleSpinBox_pulse_sol4</tabstop>
+  <tabstop>checkBox_disableTimer_s4</tabstop>
+  <tabstop>pushButton_refillSolution</tabstop>
+  <tabstop>pushButton_emptyWaste</tabstop>
+  <tabstop>spinBox_p_on_max</tabstop>
+  <tabstop>spinBox_p_off_max</tabstop>
+  <tabstop>spinBox_v_switch_max</tabstop>
+  <tabstop>spinBox_v_recirc_max</tabstop>
+  <tabstop>spinBox_p_on_min</tabstop>
+  <tabstop>spinBox_p_off_min</tabstop>
+  <tabstop>spinBox_v_switch_min</tabstop>
+  <tabstop>spinBox_v_recirc_min</tabstop>
+  <tabstop>spinBox_p_on_default</tabstop>
+  <tabstop>spinBox_p_off_default</tabstop>
+  <tabstop>spinBox_v_switch_default</tabstop>
+  <tabstop>spinBox_v_recirc_default</tabstop>
+  <tabstop>spinBox_ds_increment</tabstop>
+  <tabstop>spinBox_fs_increment</tabstop>
+  <tabstop>spinBox_v_increment</tabstop>
+  <tabstop>checkBox_enablePPC1verboseOut</tabstop>
+  <tabstop>checkBox_useSetPoint</tabstop>
+  <tabstop>checkBox_enablePPC1filter</tabstop>
+  <tabstop>spinBox_PPC1filterSize</tabstop>
+  <tabstop>comboBox_serialInfo</tabstop>
+  <tabstop>comboBox_baudRate</tabstop>
+  <tabstop>comboBox_dataBit</tabstop>
+  <tabstop>comboBox_parity</tabstop>
+  <tabstop>comboBox_stopBit</tabstop>
+  <tabstop>comboBox_flowControl</tabstop>
+  <tabstop>pushButton_enumerate</tabstop>
+ </tabstops>
  <resources>
   <include location="resources.qrc"/>
  </resources>

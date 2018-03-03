@@ -82,7 +82,7 @@ void Labonatip_GUI::colSolution4Changed(const int _r, const int _g, const int _b
 	m_labonatip_chart_view->setSolutionColor4(m_sol4_color);
 }
 
-void Labonatip_GUI::pushSolution1()
+void Labonatip_GUI::pushSolution1() //TODO: if the solution is checked in simulation mode and we switch to connection mode, solution must go off
 {
 	cout << QDate::currentDate().toString().toStdString() << "  "
 		<< QTime::currentTime().toString().toStdString() << "  "
@@ -150,7 +150,8 @@ void Labonatip_GUI::pushSolution1()
 		m_ppc1->setValve_l(true);
 	}
 	m_timer_solution = 0;
-	m_update_flowing_sliders->start();
+	//m_update_flowing_sliders->start();
+	updateTimingSliders();
 	ui->pushButton_stop->setEnabled(true);
 
 	updateFlows();
@@ -222,7 +223,8 @@ void Labonatip_GUI::pushSolution2() {
 	}
 
 	m_timer_solution = 0;
-	m_update_flowing_sliders->start();
+	//m_update_flowing_sliders->start();
+	updateTimingSliders();
 	ui->pushButton_stop->setEnabled(true);
 
 	updateFlows();
@@ -297,7 +299,8 @@ void Labonatip_GUI::pushSolution3() {
 	}
 
 	m_timer_solution = 0;
-	m_update_flowing_sliders->start();
+	//m_update_flowing_sliders->start();
+	updateTimingSliders();
 	ui->pushButton_stop->setEnabled(true);
 
 	updateFlows();
@@ -372,7 +375,8 @@ void Labonatip_GUI::pushSolution4() {
 	}
 
 	m_timer_solution = 0;
-	m_update_flowing_sliders->start();
+	//m_update_flowing_sliders->start();
+	updateTimingSliders();
 	ui->pushButton_stop->setEnabled(true);
 
 	updateFlows();

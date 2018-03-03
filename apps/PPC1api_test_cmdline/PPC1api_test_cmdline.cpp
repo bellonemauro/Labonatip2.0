@@ -64,6 +64,8 @@ int	main (int argc, char** argv)
 		<< " Copyright 2017\n"
 		<< " Authors -  Mauro Bellone\n\n\n" << endl;
 
+	fluicell::PPC1api *my_ppc1 = new fluicell::PPC1api();
+
     try {
 		// analyse parsed arguments 
 		if (argc < 2) {
@@ -91,7 +93,7 @@ int	main (int argc, char** argv)
     sscanf(argv[2], "%lu", &baudRate);
 
     {
-        fluicell::PPC1api *my_ppc1 = new fluicell::PPC1api();
+        
 
 		my_ppc1->setCOMport(COMport);
 		my_ppc1->setBaudRate(baudRate);
@@ -101,23 +103,32 @@ int	main (int argc, char** argv)
 			cin.get();
 			return 0;
 		}
-		my_ppc1->run();
 
-		string id = my_ppc1->getDeviceID();
-		cout << " device id is " << id << "\n\n press enter to exit " << endl;
+		my_ppc1->run();
+		
+		
+		//string id = my_ppc1->getDeviceID();
+		//cout << " device id is " << id << "\n\n press enter to exit " << endl;
 
 		cin.get();
 		
 		// try to just read from the data in the threaded class
 		int count = 0;
-		while (count < 100) {
+		while (count < 10000) {
 			//my_ppc1->readData();
 			cout << " data on channel A " << my_ppc1->m_PPC1_data->channel_A->sensor_reading << endl;
 			cout << " data on channel B " << my_ppc1->m_PPC1_data->channel_B->sensor_reading << endl;
 			cout << " data on channel C " << my_ppc1->m_PPC1_data->channel_C->sensor_reading << endl;
 			cout << " data on channel D " << my_ppc1->m_PPC1_data->channel_D->sensor_reading << endl;
 			count++;
+			
+			std::this_thread::sleep_for(std::chrono::microseconds(1000000));
 
+			if (my_ppc1->isExceptionHappened()) {
+				cout << " Exception has been catched, implement safe exit" << endl;
+				cin.get();
+				break;
+			}
 		}
 
 		// try to send a command and read the result : channel A
@@ -204,19 +215,15 @@ int	main (int argc, char** argv)
 	}
 	
 	}
-	catch (serial::IOException &e)
+	catch ( std::exception &e)
 	{
-		cerr << "IOException : " << e.what() << endl;
+		cerr << "ciaoooooooooooosdasd : " << e.what() << endl;
+		cin.get();
 	}
-
-	catch (serial::SerialException &e)
-	{
-		cerr << "SerialException : " << e.what() << endl;
+	catch ( ... ) {
+		cerr << "Unhandled Exception: " <<  endl;
+		cin.get();
 	}
-	catch (exception &e) {
-		cerr << "Unhandled Exception: " << e.what() << endl;
-	}
-
 
 	std::cout << "\n >>> ciao  <<< \n\n" <<  std::endl;
 

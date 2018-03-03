@@ -18,6 +18,27 @@ void Labonatip_GUI::updateGUI() {
 
 	if (!m_simulationOnly) {
 
+		// check exceptions, TODO: this is not the best way to do it !!!
+		if (m_ppc1->isExceptionHappened()) {
+			QMessageBox::information(this, m_str_warning,
+				" Lost connection with PPC1, <br>swapping to simulation mode " ); // TODO: string
+			m_update_GUI->stop();
+			ui->actionConnectDisconnect->setEnabled(false);
+			ui->actionConnectDisconnect->setChecked(false);
+			ui->actionConnectDisconnect->setText(m_str_connect);
+			ui->actionReboot->setEnabled(false);
+			ui->actionShudown->setEnabled(false);
+			m_ppc1->disconnectCOM();
+			m_ppc1->stop();
+			QThread::msleep(500);
+			if (m_ppc1->isConnected())
+				m_ppc1->disconnectCOM();
+			QThread::msleep(500);
+			ui->actionSimulation->setEnabled(true);
+			ui->actionSimulation->setChecked(true);
+			return;
+		}
+
 		int sensor_reading = (int)(m_ppc1->m_PPC1_data->channel_B->sensor_reading);  // rounded to second decimal
 		m_pipette_status->v_switch_set_point = - m_ppc1->m_PPC1_data->channel_B->set_point;
 		ui->label_switchPressure->setText(QString(QString::number(sensor_reading) +
@@ -111,7 +132,11 @@ void Labonatip_GUI::updateGUI() {
 			ui->widget_solutionArrow->setVisible(false);
 		}
 	}
-	
+
+	if (m_ppc1->isRunning()) {
+		m_update_GUI->start();
+	}
+
 	updateFlows();
 
 	if (m_pipette_active) { 
@@ -121,9 +146,7 @@ void Labonatip_GUI::updateGUI() {
 		updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
 	}
 
-	if (m_ppc1->isRunning()) {  
-		m_update_GUI->start();
-	}
+
 }
 
 
@@ -258,12 +281,16 @@ void Labonatip_GUI::updateFlows()
 void Labonatip_GUI::updateDrawing(int _value) {
 
 
-	if (_value == -1 || _value == 0) { // _value = -1 cleans the scene and make the flow disappear 
+	if (_value <= 0) { // _value = -1 cleans the scene and make the flow disappear 
 
 		m_scene_solution->clear();
 		ui->graphicsView->update();
 		ui->graphicsView->show();
 		return;
+	}
+
+	if (_value >= MAX_ZONE_SIZE_PERC) {
+		_value = MAX_ZONE_SIZE_PERC;
 	}
 
 	//clean the scene
@@ -420,6 +447,15 @@ void Labonatip_GUI::updateWaste()  // this is updated every second
 	auto min = std::min_element(v1.begin(), v1.end());
 	int min_index = std::distance(v1.begin(), min);
 
+	// show the warning label
+	if (m_solutionParams->vol_well5 > MAX_WASTE_VOLUME || 
+		m_solutionParams->vol_well6 > MAX_WASTE_VOLUME || 
+		m_solutionParams->vol_well7 > MAX_WASTE_VOLUME || 
+		m_solutionParams->vol_well8 > MAX_WASTE_VOLUME ) {
+		ui->label_warningIcon->show();
+		ui->label_warning->show();
+	}
+
 	switch (min_index)
 	{
 	case 0: {
@@ -500,12 +536,16 @@ void Labonatip_GUI::updateWaste()  // this is updated every second
 
 
 	if (waste_remaining_time_in_sec < 0) {
-		toolEmptyWells();
+		//toolEmptyWells();
 		//TODO: what to do in this case?
 		cerr << QDate::currentDate().toString().toStdString() << "  "
 			<< QTime::currentTime().toString().toStdString() << "  "
 			<< "Labonatip_GUI::updateWaste  error : Waste full ---- MB : WHAT TO DO? " << endl;
 		//QMessageBox::information(this, "Warning !", " Waste full ---- MB : WHAT TO DO? ");
+
+
+
+
 		return;
 	}
 

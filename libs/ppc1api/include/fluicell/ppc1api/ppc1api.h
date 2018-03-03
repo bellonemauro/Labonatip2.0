@@ -52,6 +52,24 @@ using namespace std;
 namespace fluicell
 {
 	
+	class  ppc1Exception : public std::exception
+	{
+		// Disable copy constructors
+		ppc1Exception& operator=(const ppc1Exception&);
+		std::string e_what_;
+	public:
+		ppc1Exception(const char *description) {
+			std::stringstream ss;
+			ss << "ppc1Exception " << description << " failed.";
+			e_what_ = ss.str();
+		}
+		ppc1Exception(const ppc1Exception& other) : e_what_(other.e_what_) {}
+		virtual ~ppc1Exception() throw() {}
+		virtual const char* what() const throw () {
+			return e_what_.c_str();
+		}
+	};
+
 	/**  \brief Simple API for the communication with the Fluicell PPC1 controller
 	*
 	*  The PPC1 controller allows the control of microfluids in the Fluicell biopen system, 
@@ -285,6 +303,9 @@ namespace fluicell
 		bool m_verbose;                     //!< verbose output when active
 		bool m_filter_enabled;              //!< if active enable data filtering from PPC1
 		int m_filter_size;                  //!< if m_filter_enabled active define the number of samples to be considered in the filter
+
+		bool m_excep_handler;  // normally false, it will be true in case of exception
+							   //TODO: this is an easy and dirty way of forwarding exceptions, find the proper solution to it
 
 	public:
 
@@ -823,10 +844,18 @@ namespace fluicell
 		**/
 		bool isRunning() { return m_isRunning; }
 
+		/** \brief Check if an exception has been catched
+		*
+		*  \return true if exception
+		**/
+		bool isExceptionHappened() { return m_excep_handler; }
+
 		PPC1api::PPC1_data *m_PPC1_data; /*!< data structure member exposed to be used by the user,
 									 maybe this will be changed in the future */
 		PPC1api::PPC1_status *m_PPC1_status;/*!< data structure member exposed to be used by the user,
 									 maybe this will be changed in the future */
+		
+
 
 		//     "pX" is sent to make pulse output, where X is integer number equal or larger than 20 indicating the pulse length in milliseconds
 		//     "P" or "R" are use wait pulse input, either falling or rising front

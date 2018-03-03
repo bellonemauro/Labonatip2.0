@@ -779,7 +779,7 @@ bool Labonatip_tools::loadSettings(QString _path)
 	m_pr_params->enableFilter = enable_filter;
 	ui_tools->spinBox_PPC1filterSize->setEnabled(enable_filter);
 
-	int filter_size = m_settings->value("PPC1/FilterSize", "10").toInt(&ok);
+	int filter_size = m_settings->value("PPC1/FilterSize", "20").toInt(&ok);
 	if (!ok) {
 		cerr << QDate::currentDate().toString().toStdString() << "  "
 			<< QTime::currentTime().toString().toStdString() << "  "
@@ -869,19 +869,19 @@ bool Labonatip_tools::loadSettings(QString _path)
 	ui_tools->horizontalSlider_colorSol4->setValue(sol4colSlider);
 	colorSol4Changed(sol4colSlider);
 
-	double pulseDuration1 = m_settings->value("solutions/pulseDuration1", "500.0").toDouble();
+	double pulseDuration1 = m_settings->value("solutions/pulseDuration1", "10.0").toDouble();
 	ui_tools->doubleSpinBox_pulse_sol1->setValue(pulseDuration1);
 	m_solutionParams->pulse_duration_well1 = pulseDuration1; 
 
-	double pulseDuration2 = m_settings->value("solutions/pulseDuration2", "500.0").toDouble();
+	double pulseDuration2 = m_settings->value("solutions/pulseDuration2", "10.0").toDouble();
 	ui_tools->doubleSpinBox_pulse_sol2->setValue(pulseDuration2);
 	m_solutionParams->pulse_duration_well2 = pulseDuration2;
 	
-	double pulseDuration3 = m_settings->value("solutions/pulseDuration3", "500.0").toDouble();
+	double pulseDuration3 = m_settings->value("solutions/pulseDuration3", "10.0").toDouble();
 	ui_tools->doubleSpinBox_pulse_sol3->setValue(pulseDuration3);
 	m_solutionParams->pulse_duration_well3 = pulseDuration3;
 	
-	double pulseDuration4 = m_settings->value("solutions/pulseDuration4", "500.0").toDouble();
+	double pulseDuration4 = m_settings->value("solutions/pulseDuration4", "10.0").toDouble();
 	ui_tools->doubleSpinBox_pulse_sol4->setValue(pulseDuration4);
 	m_solutionParams->pulse_duration_well4 = pulseDuration4;
 

@@ -91,12 +91,18 @@ void Labonatip_GUI::simulationOnly()
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_GUI::simulationOnly    " << ui->actionSimulation->isChecked() << endl;
 
+	this->stopSolutionFlow();
+	
+
 	m_simulationOnly = ui->actionSimulation->isChecked();
 
 	ui->actionConnectDisconnect->setEnabled(!m_simulationOnly);
-	ui->actionReboot->setEnabled(!m_simulationOnly);
-	ui->actionShudown->setEnabled(!m_simulationOnly);
 	m_macroRunner_thread->setSimulationFlag(m_simulationOnly);
+
+	ui->groupBox_action->setEnabled(m_simulationOnly || ui->actionConnectDisconnect->isChecked());
+	ui->groupBox_deliveryZone->setEnabled(m_simulationOnly || ui->actionConnectDisconnect->isChecked());
+	ui->groupBox_3->setEnabled(m_simulationOnly || ui->actionConnectDisconnect->isChecked());
+	ui->tab_2->setEnabled(m_simulationOnly || ui->actionConnectDisconnect->isChecked());
 }
 
 void Labonatip_GUI::shutdown() {
@@ -157,7 +163,7 @@ bool Labonatip_GUI::disCon(bool _connect)
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_GUI::disCon    " << endl;
 
-
+	
 
 	if (m_simulationOnly) {
 		QMessageBox::information(this, m_str_warning, m_str_warning_simulation_only);
@@ -224,6 +230,12 @@ bool Labonatip_GUI::disCon(bool _connect)
 					ui->status_PPC1_label->setText(m_str_PPC1_status_con);
 					ui->actionConnectDisconnect->setText(m_str_disconnect);
 					ui->actionSimulation->setEnabled(false);
+					ui->groupBox_action->setEnabled(true);
+					ui->groupBox_deliveryZone->setEnabled(true);
+					ui->groupBox_3->setEnabled(true);
+					ui->tab_2->setEnabled(true);
+					ui->actionReboot->setEnabled(true);
+					ui->actionShudown->setEnabled(true);
 					QApplication::restoreOverrideCursor();
 					return true; // we are finally connected
 				}
@@ -264,7 +276,9 @@ bool Labonatip_GUI::disCon(bool _connect)
 
 			// stop the PPC1
 			QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
+			this->stopSolutionFlow(); 
 			m_ppc1->stop();
+			
 			QThread::msleep(500);
 			if (m_ppc1->isConnected())
 				m_ppc1->disconnectCOM();
@@ -276,6 +290,12 @@ bool Labonatip_GUI::disCon(bool _connect)
 				ui->actionConnectDisconnect->setText(m_str_connect);
 				m_pipette_active = false;
 				ui->actionSimulation->setEnabled(true);
+				ui->groupBox_action->setEnabled(false);
+				ui->groupBox_deliveryZone->setEnabled(false);
+				ui->groupBox_3->setEnabled(false);
+				ui->tab_2->setEnabled(false);
+				ui->actionReboot->setEnabled(false);
+				ui->actionShudown->setEnabled(false);
 				QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 				return true;
 			}
@@ -286,6 +306,12 @@ bool Labonatip_GUI::disCon(bool _connect)
 				ui->status_PPC1_label->setText(m_str_PPC1_status_con);
 				ui->actionConnectDisconnect->setText(m_str_disconnect);
 				ui->actionSimulation->setEnabled(false);
+				ui->actionSimulation->setEnabled(true);
+				ui->groupBox_action->setEnabled(true);
+				ui->groupBox_3->setEnabled(true);
+				ui->tab_2->setEnabled(true);
+				ui->actionReboot->setEnabled(true);
+				ui->actionShudown->setEnabled(true);
 				QMessageBox::information(this, m_str_warning,
 					m_str_unable_stop_ppc1);
 				QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
@@ -331,7 +357,7 @@ void Labonatip_GUI::reboot() {
 		 << "Labonatip_GUI::reboot    " << endl;
 
 	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
-	setEnableMainWindow(false);
+	setEnableMainWindow(false);//TODO:check here what happens
 
 	if (m_pipette_active) {
 		disCon(false); // with the pipette active this will stop the threads
@@ -351,17 +377,17 @@ void Labonatip_GUI::reboot() {
 		updateVrecircSetPoint(0.0);
 		updateVswitchSetPoint(0.0);
 
-		if (!visualizeProgressMessage(200, m_str_rebooting)) return;
+		if (!visualizeProgressMessage(50, m_str_rebooting)) return; //TODO try reboot
 
-		m_ppc1->connectCOM();
-
+		//m_ppc1->connectCOM();
+		disCon(true); //TODO: check this, it is not clear if we connect or disconnect
 		if (!visualizeProgressMessage(5, m_str_reconnecting)) return;
 
 		// TODO : check if connected and fine 
 		// m_ppc1->isConnected();
 		// m_ppc1->isRunning();
 
-		disCon(true); //TODO: check this, it is not clear if we connect or disconnect
+		//disCon(true); //TODO: check this, it is not clear if we connect or disconnect
 	}
 
 	setEnableMainWindow(true);
