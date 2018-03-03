@@ -131,6 +131,12 @@ void Labonatip_GUI::updateGUI() {
 			m_pen_line.setColor(Qt::transparent);
 			ui->widget_solutionArrow->setVisible(false);
 		}
+
+		if (m_ppc1->m_PPC1_data->i == 1 && m_ppc1->m_PPC1_data->j == 1 &&
+			m_ppc1->m_PPC1_data->k == 1 && m_ppc1->m_PPC1_data->l == 1) {
+			m_pen_line.setColor(Qt::transparent);
+			ui->widget_solutionArrow->setVisible(false);
+		}
 	}
 
 	if (m_ppc1->isRunning()) {
@@ -448,10 +454,10 @@ void Labonatip_GUI::updateWaste()  // this is updated every second
 	int min_index = std::distance(v1.begin(), min);
 
 	// show the warning label
-	if (m_solutionParams->vol_well5 > MAX_WASTE_VOLUME || 
-		m_solutionParams->vol_well6 > MAX_WASTE_VOLUME || 
-		m_solutionParams->vol_well7 > MAX_WASTE_VOLUME || 
-		m_solutionParams->vol_well8 > MAX_WASTE_VOLUME ) {
+	if (m_pipette_status->rem_vol_well5 > MAX_WASTE_WARNING_VOLUME ||
+		m_pipette_status->rem_vol_well6 > MAX_WASTE_WARNING_VOLUME ||
+		m_pipette_status->rem_vol_well7 > MAX_WASTE_WARNING_VOLUME ||
+		m_pipette_status->rem_vol_well8 > MAX_WASTE_WARNING_VOLUME) {
 		ui->label_warningIcon->show();
 		ui->label_warning->show();
 	}
@@ -540,7 +546,7 @@ void Labonatip_GUI::updateWaste()  // this is updated every second
 		//TODO: what to do in this case?
 		cerr << QDate::currentDate().toString().toStdString() << "  "
 			<< QTime::currentTime().toString().toStdString() << "  "
-			<< "Labonatip_GUI::updateWaste  error : Waste full ---- MB : WHAT TO DO? " << endl;
+			<< "Labonatip_GUI::updateWaste   : Waste full ---- MB : WHAT TO DO? " << endl;
 		//QMessageBox::information(this, "Warning !", " Waste full ---- MB : WHAT TO DO? ");
 
 

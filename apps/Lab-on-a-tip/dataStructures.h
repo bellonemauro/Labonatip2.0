@@ -33,7 +33,8 @@
 #define MAX_VACUUM_PERC 250     // %
 #define MIN_WARNING_VOLUME 6    // in mL
 #define MAX_VOLUME_IN_WELL 30   // in mL
-#define MAX_WASTE_VOLUME 27 // value in mL
+#define MAX_WASTE_VOLUME 35 // value in mL
+#define MAX_WASTE_WARNING_VOLUME 27    // in mL
 
 /*  \brief Custom combo box for protocol editor, 
 *   
@@ -120,10 +121,10 @@ struct solutionsParams {
 		this->vol_well2 = 0.0;
 		this->vol_well3 = 0.0;
 		this->vol_well4 = 0.0;
-		this->vol_well5 = 0.0;
-		this->vol_well6 = 0.0;
-		this->vol_well7 = 0.0;
-		this->vol_well8 = 0.0;
+		this->vol_well5 = 35.0;
+		this->vol_well6 = 35.0;
+		this->vol_well7 = 35.0;
+		this->vol_well8 = 35.0;
 	    this->sol1 = "No name given to sol 1";
 		this->sol2 = "No name given to sol 2";
 		this->sol3 = "No name given to sol 3";

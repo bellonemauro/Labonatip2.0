@@ -377,7 +377,7 @@ void Labonatip_GUI::reboot() {
 		updateVrecircSetPoint(0.0);
 		updateVswitchSetPoint(0.0);
 
-		if (!visualizeProgressMessage(50, m_str_rebooting)) return; //TODO try reboot
+		if (!visualizeProgressMessage(20, m_str_rebooting)) return; //TODO try reboot
 
 		//m_ppc1->connectCOM();
 		disCon(true); //TODO: check this, it is not clear if we connect or disconnect
