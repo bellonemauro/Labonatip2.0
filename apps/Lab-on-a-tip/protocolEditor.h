@@ -180,7 +180,9 @@ private slots:
 
 	void loadAlloffP();
 
-	void on_protocol_clicked(QTreeWidgetItem *item, int column);
+	void createNewLoop();
+
+	void onProtocolClicked(QTreeWidgetItem *item, int column);
 
 	/** Put all the commands in the macro editor to the macro structure for running
 	*
@@ -225,9 +227,9 @@ private:
 
 	void initCustomStrings();
 
-	void setRangeColumn(QTreeWidgetItem &_out_item, int _idx);
+	void setRangeColumn(QTreeWidgetItem *_out_item, int _idx);
 
-	void setRangeColumn(QTreeWidgetItem &_out_item);
+	void setRangeColumn(QTreeWidgetItem *_out_item);
 
 	void readProtocolFolder(QString _path);
 

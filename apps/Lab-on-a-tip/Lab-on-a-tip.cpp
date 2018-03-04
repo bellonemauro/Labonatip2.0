@@ -1183,7 +1183,7 @@ Labonatip_GUI::~Labonatip_GUI ()
   delete m_pr_params;
   delete m_GUI_params;
   delete m_pipette_status;
-  delete m_protocol;
+  //delete m_protocol; //TODO: protocol editor and main GUI share the same memory
   delete m_ppc1;
   delete m_macroRunner_thread;
   delete m_update_flowing_sliders;

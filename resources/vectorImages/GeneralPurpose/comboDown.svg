@@ -9,18 +9,23 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="68.031929mm"
-   height="39.6875mm"
-   viewBox="0 0 241.05802 140.62499"
+   width="6.3525195mm"
+   height="2.9295182mm"
+   viewBox="0 0 22.508928 10.380182"
    id="svg2"
    version="1.1"
-   inkscape:version="0.92.1 r15371"
+   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
    inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\comboDown.png"
-   inkscape:export-xdpi="300"
-   inkscape:export-ydpi="300"
+   inkscape:export-xdpi="899.64301"
+   inkscape:export-ydpi="899.64301"
    sodipodi:docname="comboDown.svg">
   <defs
-     id="defs4" />
+     id="defs4">
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect818"
+       is_visible="true" />
+  </defs>
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -28,9 +33,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2"
-     inkscape:cx="112.48772"
-     inkscape:cy="111.70614"
+     inkscape:zoom="16"
+     inkscape:cx="-4.4978569"
+     inkscape:cy="18.226508"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -38,10 +43,10 @@
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:window-width="1536"
-     inkscape:window-height="801"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
+     inkscape:window-width="1920"
+     inkscape:window-height="1001"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
      inkscape:window-maximized="1" />
   <metadata
      id="metadata7">
@@ -59,10 +64,10 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(644.36892,-479.08801)">
+     transform="translate(640.9387,-597.80313)">
     <path
-       style="fill:#505050;fill-opacity:1;stroke:#505050;stroke-width:14.0625;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="m -620.78339,513.0036 h 187.5 l -93.75,97.52378 z"
+       style="fill:#787878;fill-opacity:1;stroke:#787878;stroke-width:1.3081516;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m -640.28471,598.45721 h 17.44203 l -8.72101,9.07206 z"
        id="path4485"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cccc"

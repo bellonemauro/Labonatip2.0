@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="60"
+   height="60"
+   viewBox="0 0 56.25 56.249999"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
+   sodipodi:docname="loop.svg"
+   inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\reset.png"
+   inkscape:export-xdpi="300"
+   inkscape:export-ydpi="300">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="5.6568542"
+     inkscape:cx="97.33126"
+     inkscape:cy="23.935351"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:snap-bbox="true"
+     inkscape:bbox-paths="true"
+     inkscape:bbox-nodes="true"
+     inkscape:snap-bbox-edge-midpoints="true"
+     inkscape:snap-bbox-midpoints="true"
+     inkscape:window-width="2400"
+     inkscape:window-height="1271"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0.4"
+     units="px" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(1258.5717,-528.85365)">
+    <g
+       id="g4150"
+       transform="matrix(1.3089191,0,0,1.3090426,381.12204,-172.4636)"
+       style="fill:none;fill-opacity:1"
+       inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\loop.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <g
+         style="fill:none;fill-opacity:1;stroke:#505050;stroke-width:0.76395309;stroke-opacity:1"
+         transform="rotate(-52.169356,-1232.8379,554.02629)"
+         id="g4142">
+        <path
+           style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#505050;stroke-width:3.58103013;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="m -1235.3512,538.67068 4.7707,6.3177"
+           id="path4144-2"
+           inkscape:connector-curvature="0" />
+        <path
+           style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#505050;stroke-width:3.58103013;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           d="m -1235.3512,538.87027 4.7707,-6.3177"
+           id="path4144-2-5"
+           inkscape:connector-curvature="0" />
+      </g>
+      <path
+         transform="scale(-1)"
+         sodipodi:open="true"
+         d="m 1245.6329,-544.2654 a 19.482306,19.392235 0 0 1 -24.6505,3.32837 19.482306,19.392235 0 0 1 -7.8419,-23.49876 19.482306,19.392235 0 0 1 21.752,-12.01394 19.482306,19.392235 0 0 1 15.8818,19.05819"
+         sodipodi:end="0"
+         sodipodi:start="0.74351026"
+         sodipodi:ry="19.392235"
+         sodipodi:rx="19.482306"
+         sodipodi:cy="-557.39154"
+         sodipodi:cx="1231.292"
+         sodipodi:type="arc"
+         id="path4146-4"
+         style="opacity:1;fill:none;fill-opacity:1;stroke:#505050;stroke-width:3.58103013;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    </g>
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4142"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0.01%;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman,';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#505050;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       transform="matrix(0.97632254,0,0,0.97632254,18.431511,-30.784601)"
+       inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\loop.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"><flowRegion
+         id="flowRegion4144"><rect
+           id="rect4146"
+           width="60.280815"
+           height="28.1075"
+           x="-1297.8945"
+           y="592.56604"
+           style="fill:#505050;fill-opacity:1" /></flowRegion><flowPara
+         id="flowPara4148"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:15px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;fill:#505050;fill-opacity:1">Loop</flowPara></flowRoot>  </g>
+</svg>
