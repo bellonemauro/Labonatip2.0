@@ -221,12 +221,12 @@ int main(int argc, char **argv)//(int argc, char *argv[])
 	  QString settings_user_path;
 	  QString ext_data_user_path;
 
-
-#ifdef _DEBUG	 
+//TODO: this does not work under ubuntu
+#ifdef _DEBUG
 	  initPaths(window, macro_user_path, settings_user_path, ext_data_user_path);
 #else
-	  if (!initPaths(window, macro_user_path, settings_user_path, ext_data_user_path)) return 0;
-#endif	  
+      if (!initPaths(window, macro_user_path, settings_user_path, ext_data_user_path)) return 0;
+#endif
 	  // set default paths for settings and macros in the GUI app
 	  window.setProtocolUserPath(macro_user_path);
 	  cout << " Set macro_user_path " << macro_user_path.toStdString() << endl;

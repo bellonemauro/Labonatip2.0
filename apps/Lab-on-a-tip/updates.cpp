@@ -206,10 +206,11 @@ void Labonatip_GUI::updateFlows()
 		m_pipette_status->outflow_off = 2.0 * m_ppc1->getFlowSimple(m_pipette_status->delta_pressure, 2 * LENGTH_TO_ZONE);
 
 		m_pipette_status->in_out_ratio_on = m_pipette_status->outflow_on / m_pipette_status->inflow_recirculation;
-		if (isnan(m_pipette_status->in_out_ratio_on)) m_pipette_status->in_out_ratio_on = 0;
-
+        if (m_pipette_status->inflow_recirculation == 0) m_pipette_status->in_out_ratio_on = 0;
+//TODO: check this ---- before it was isnan(m_pipette_status->in_out_ratio_on)
 		m_pipette_status->in_out_ratio_off = m_pipette_status->outflow_off / m_pipette_status->inflow_recirculation;
-		if (isnan(m_pipette_status->in_out_ratio_off)) m_pipette_status->in_out_ratio_off = 0;
+        if (m_pipette_status->inflow_recirculation == 0) m_pipette_status->in_out_ratio_off = 0;
+//TODO: check this ---- before it was isnan(m_pipette_status->in_out_ratio_on)
 
 		if (ui->pushButton_solution1->isChecked() ||
 			ui->pushButton_solution2->isChecked() ||
