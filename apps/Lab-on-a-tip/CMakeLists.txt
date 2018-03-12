@@ -158,6 +158,9 @@ elseif(  BUILD_QT5)
 	# set the output folder we have to run this command, 
     # see https://stackoverflow.com/questions/44782914/cmake-qt5-add-translation-how-to-specify-the-output-path
 	set_source_files_properties(${myProject_LANGUAGES_TS} PROPERTIES OUTPUT_LOCATION ${myProject_LANGUAGES_DIR})
+	
+	#TODO: language files got deleted after clean-build !!!! why?
+	
 	# step2: 
 	# create translation files
 	#qt5_create_translation(QT_TRANSLATIONS_FILES ${myProject_LANGUAGES_DIR} ${myProject_LANGUAGES_TS})

@@ -182,6 +182,8 @@ private slots:
 
 	void createNewLoop();
 
+	void createNewLoop(int _loops);
+
 	void onProtocolClicked(QTreeWidgetItem *item, int column);
 
 	/** Put all the commands in the macro editor to the macro structure for running

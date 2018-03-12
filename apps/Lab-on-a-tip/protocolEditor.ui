@@ -838,7 +838,7 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
              </column>
              <column>
               <property name="text">
-               <string>Value</string>
+               <string>Range</string>
               </property>
               <property name="textAlignment">
                <set>AlignCenter</set>
@@ -846,7 +846,7 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
              </column>
              <column>
               <property name="text">
-               <string>Range</string>
+               <string>Value</string>
               </property>
               <property name="textAlignment">
                <set>AlignCenter</set>
