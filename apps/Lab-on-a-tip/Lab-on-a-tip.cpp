@@ -960,13 +960,14 @@ void Labonatip_GUI::editorApply()
 		ui->label_macroStatus->setText(s);
 	}
 
+	*m_protocol = m_dialog_p_editor->getProtocol();
 	m_labonatip_chart_view->updateChartProtocol(m_protocol);
 
 	// compute the duration of the macro
 	double macro_duration = 0.0;
 	for (size_t i = 0; i < m_protocol->size(); i++) {
 		if (m_protocol->at(i).getInstruction() ==
-			fluicell::PPC1api::command::instructions::sleep)
+			fluicell::PPC1api::command::instructions::wait)
 			macro_duration += m_protocol->at(i).getValue();
 	}
 	// visualize it in the chart information panel 
@@ -1107,8 +1108,12 @@ void Labonatip_GUI::closeEvent(QCloseEvent *event) {
 	}
 	else {
 
-		if (m_macroRunner_thread->isRunning()) this->runMacro(); // this will stop the macro if running
-
+		if (m_macroRunner_thread->isRunning()) {
+			//this->runMacro(); // this will stop the macro if running
+			QMessageBox::question(this, m_str_information, "A protocol is running, stop the protocol first", m_str_ok);
+			event->ignore();
+			return;
+		}
 		// dump log file
 		if (m_GUI_params->dumpHistoryToFile)
 		{
@@ -1177,6 +1182,9 @@ void Labonatip_GUI::setVersion(string _version) {
 
 Labonatip_GUI::~Labonatip_GUI ()
 {
+	
+
+
   delete qout;
   delete qerr;
   delete m_comSettings;
@@ -1198,6 +1206,8 @@ Labonatip_GUI::~Labonatip_GUI ()
   delete m_a_spacer; 
   delete m_labonatip_chart_view;
   
+  // TODO: exit during macro running does not kill some thread causing crash
+
   delete ui;
   qApp->quit();
 }

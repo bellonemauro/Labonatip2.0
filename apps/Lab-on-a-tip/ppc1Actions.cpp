@@ -128,63 +128,60 @@ void Labonatip_GUI::runMacro() { //TODO: give it as an argument instead of a cla
 				m_str_no_protocol_load_first);
 				return;
 		}
-		else {
-			QString macro_path = m_dialog_p_editor->getProtocolPath();
-			QString msg = m_str_loaded_protocol_is;
-			msg.append(macro_path);
-			msg.append(m_str_protocol_confirm);
-			QMessageBox::StandardButton resBtn = 
-				QMessageBox::question(this, m_str_information, msg,
-				QMessageBox::Cancel | QMessageBox::Ok,
-				QMessageBox::Ok);
-			if (resBtn != QMessageBox::Cancel) {
-				// do nothing for now
 
-			}
-			else {
-				// do nothing for now
-				m_macroRunner_thread->disconnect();
+		
+		QString macro_path = m_dialog_p_editor->getProtocolPath();
+		QString msg = m_str_loaded_protocol_is;
+		msg.append(macro_path);
+		msg.append(m_str_protocol_confirm);
+		QMessageBox::StandardButton resBtn = 
+			QMessageBox::question(this, m_str_information, msg,
+			QMessageBox::Cancel | QMessageBox::Ok,
+			QMessageBox::Ok);
+		if (resBtn == QMessageBox::Cancel) 
+		{
+			m_macroRunner_thread->disconnect();
 
-				m_macroRunner_thread->setSimulationFlag(m_simulationOnly);
-				m_macroRunner_thread->killMacro(true);
+			m_macroRunner_thread->setSimulationFlag(m_simulationOnly);
+			m_macroRunner_thread->killMacro(true);
 
 
-				ui->groupBox_deliveryZone->setEnabled(true);
-				ui->pushButton_operational->setEnabled(true);
-				ui->pushButton_newTip->setEnabled(true);
-				ui->pushButton_standby->setEnabled(true);
-				ui->pushButton_stop->setEnabled(true);
-				ui->toolBar_2->setEnabled(true);
-				//ui->tabWidget->setEnabled(false);
-				ui->tab_2->setEnabled(true);
-				ui->tab_4->setEnabled(true);
-				setEnableSolutionButtons(true);
-				ui->actionConnectDisconnect->setEnabled(!m_simulationOnly);
-				ui->actionSimulation->setEnabled(!m_simulationOnly);
-				ui->actionReboot->setEnabled(!m_simulationOnly);
-				ui->actionShudown->setEnabled(!m_simulationOnly);
-				ui->label_runMacro->setText(m_str_label_run_protocol);
+			ui->groupBox_deliveryZone->setEnabled(true);
+			ui->pushButton_operational->setEnabled(true);
+			ui->pushButton_newTip->setEnabled(true);
+			ui->pushButton_standby->setEnabled(true);
+			ui->pushButton_stop->setEnabled(true);
+			ui->toolBar_2->setEnabled(true);
+			//ui->tabWidget->setEnabled(false);
+			ui->tab_2->setEnabled(true);
+			ui->tab_4->setEnabled(true);
+			setEnableSolutionButtons(true);
+			ui->actionConnectDisconnect->setEnabled(!m_simulationOnly);
+			ui->actionSimulation->setEnabled(!m_simulationOnly);
+			ui->actionReboot->setEnabled(!m_simulationOnly);
+			ui->actionShudown->setEnabled(!m_simulationOnly);
+			ui->label_runMacro->setText(m_str_label_run_protocol);
 
-				QString s = " Protocol execution stopped : ";
-				s.append(m_dialog_p_editor->getProtocolName());
-				int remaining_time_sec = m_protocol_duration - 0 * m_protocol_duration / 100;
-				s.append(" ----- remaining time,  ");
-				int remaining_hours = floor(remaining_time_sec / 3600); // 3600 sec in a hour
-				int remaining_mins = floor((remaining_time_sec % 3600) / 60); // 60 minutes in a hour
-				int remaining_secs = remaining_time_sec - remaining_hours * 3600 - remaining_mins * 60; // 60 minutes in a hour
-				s.append(QString::number(remaining_hours));
-				s.append(" h,   ");
-				s.append(QString::number(remaining_mins));
-				s.append(" min,   ");
-				s.append(QString::number(remaining_secs));
-				s.append(" sec   ");
-				ui->progressBar_macroStatus->setValue(0);
-				ui->label_macroStatus->setText(s);
+			QString s = " Protocol execution stopped : ";
+			s.append(m_dialog_p_editor->getProtocolName());
+			int remaining_time_sec = m_protocol_duration - 0 * m_protocol_duration / 100;
+			s.append(" ----- remaining time,  ");
+			int remaining_hours = floor(remaining_time_sec / 3600); // 3600 sec in a hour
+			int remaining_mins = floor((remaining_time_sec % 3600) / 60); // 60 minutes in a hour
+			int remaining_secs = remaining_time_sec - remaining_hours * 3600 - remaining_mins * 60; // 60 minutes in a hour
+			s.append(QString::number(remaining_hours));
+			s.append(" h,   ");
+			s.append(QString::number(remaining_mins));
+			s.append(" min,   ");
+			s.append(QString::number(remaining_secs));
+			s.append(" sec   ");
+			ui->progressBar_macroStatus->setValue(0);
+			ui->label_macroStatus->setText(s);
 
-				return;
-			}
+			return;
 		}
 
+		// if ok was pressed
 		m_macroRunner_thread->setProtocol(m_protocol);
 		cout << QDate::currentDate().toString().toStdString() << "  " 
 			 << QTime::currentTime().toString().toStdString() << "  "
@@ -219,6 +216,7 @@ void Labonatip_GUI::runMacro() { //TODO: give it as an argument instead of a cla
 		ui->tab_2->setEnabled(false);
 		ui->tab_4->setEnabled(false);
 		setEnableSolutionButtons(false);
+
 		if (!ui->actionConnectDisconnect->isChecked()) { 
 			ui->actionSimulation->setEnabled(true); 
 		}

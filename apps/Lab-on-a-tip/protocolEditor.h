@@ -36,7 +36,9 @@ using namespace std;
 class Labonatip_protocol_editor : public  QMainWindow
 {
 	Q_OBJECT
-		typedef std::vector<fluicell::PPC1api::command> f_protocol; // define a type for fluicell protocol
+
+	typedef std::vector<fluicell::PPC1api::command> f_protocol; // define a type for fluicell protocol
+
 /** Create signals to be passed to the main app
 * 
 */
@@ -78,18 +80,19 @@ public:
 		return fi.fileName();
 	}
 
-	inline void setMacroPath(QString _path) { m_protocol_path = _path; 
+	inline void setProtocolPath(QString _path) { m_protocol_path = _path; 
 	readProtocolFolder(m_protocol_path);
 	}
 
-	void setMacroPrt(f_protocol *_protocol) { m_macro = _protocol; };
+	//void setProtocolPrt(f_protocol *_protocol) { m_protocol = _protocol; };
+
+	f_protocol getProtocol() { return *m_protocol; }
 
 	void switchLanguage(QString _translation_file);
 
 private slots:
 
-
-	/** emit ok signal, save the setting, send the current macro to the main
+	/** emit ok signal, save the setting, send the current protocol to the main
 	*   and close the window
 	* \note
 	*/
@@ -100,47 +103,47 @@ private slots:
 	*/
 	void cancelPressed();
 
-	/** emit apply signal, save the setting, and send the current macro to the main
+	/** emit apply signal, save the setting, and send the current protocol to the main
 	*   
 	*/
 	void applyPressed();
 
 	void emitLoadSettings() { emit loadSettingsRequest(); }
 
-	/** new macro widard
+	/** new protocol widard
 	*
 	*/
 	void newProtocolWizard();
 
 
-	/** Load a macro fron file, only one type of macro is currently supported
+	/** Load a protocol fron file, only one type of protocol is currently supported
 	*
 	*/
-	bool loadMacro( );
+	bool loadProtocol( );
 
-	/** Save the macro to file
+	/** Save the protocol to file
 	*
 	*/
-	bool saveMacro( );
+	bool saveProtocol( );
 
-	bool saveMacroAs();
+	bool saveProtocolAs();
 
-	/** Clear all the macro commands
+	/** Clear all the protocol commands
 	*
 	*/
 	void clearAllCommands();
 
-	void updateChartProtocol(f_protocol * _macro);
+	void updateChartProtocol(f_protocol * _protocol);
 
-	/** Add a new macro command
+	/** Add a new protocol command
 	*
 	*/
-	void addMacroCommand();
+	void addCommand();
 
-	/** remove a macro command
+	/** remove a protocol command
 	*
 	*/
-	void removeMacroCommand();
+	void removeCommand();
 
 	/** The selected element will become a child for the preceding element
 	*
@@ -170,6 +173,7 @@ private slots:
 
 	void showParamsPanel();
 
+	// load standard protocol
 	void loadStdP();
 
 	void loadOptP();
@@ -186,32 +190,32 @@ private slots:
 
 	void onProtocolClicked(QTreeWidgetItem *item, int column);
 
-	/** Put all the commands in the macro editor to the macro structure for running
+	/** Put all the commands in the protocol editor to the protocol structure for running
 	*
 	* \note
 	*/
-	void addAllCommandsToMacro();
+	void addAllCommandsToProtocol(); //TODO: I don't like that this function takes no arguments and modifies a class member
 
 	void about();
 
 private:
 
 
-	void createNewCommand(QTreeWidgetItem &_command, macroCombobox &_combo_box);
+	void createNewCommand(QTreeWidgetItem &_command, protocolCommandCombobox &_combo_box);
 	
 	/** overload to allow creating the combobox only without the item
 	*
 	*/
-	void createNewCommand(macroCombobox &_combo_box) {
+	void createNewCommand(protocolCommandCombobox &_combo_box) {
 		QTreeWidgetItem item;
 		createNewCommand(item, _combo_box);
 	}
 		
 	QString createHeader();
 	
-	bool loadMacro(const QString _file_name);
+	bool loadProtocol(const QString _file_name);
 	
-	bool saveMacro(QString _file_name);
+	bool saveProtocol(QString _file_name);
 	
 	void getLastNode(QTreeWidget *_tree, QTreeWidgetItem *_item);
 
@@ -223,7 +227,27 @@ private:
 
 	QList<QStringList> visitTree(QTreeWidget *_tree);
 
-	bool decodeMacroCommand(QByteArray &_command, QTreeWidgetItem &_out_item);
+	/** \brief Decode a protocol command from file  
+	*
+	*  The following line type is expected: 
+	*  
+	*  field0#field1#field2#field3#field4£§
+	*
+	*  int#int#bool#string#int#§
+	*
+	*  where: 
+	*    field 0 (int)     is the command index --- see fluicell::fluicell::PPC1api::command for details
+	*    field 1 (int)     is the value to be applied at the command in 0
+	*    field 2 (bool)    show or not the string in field 3
+	*    field 3 (string)  comprehensible explaination of the command in field 1
+	*    field 4 (int)     level in the execution tree (used for the loop implementation)
+	*
+	*  example:
+	*   3#-45#0#setVrecirc(-45)#0#§
+	*
+	*	
+	*/
+	bool decodeProtocolCommand(QByteArray &_command, QTreeWidgetItem &_out_item);
 
 	void setGUIcharts();
 
@@ -235,9 +259,9 @@ private:
 
 	void readProtocolFolder(QString _path);
 
-	f_protocol *m_macro;
-
-	double protocolDuration(std::vector<fluicell::PPC1api::command> _macro);
+	double protocolDuration(std::vector<fluicell::PPC1api::command> _protocol);
+	
+	f_protocol *m_protocol;
 
 	QString m_current_protocol_file_name;
 	QString m_protocol_path;
@@ -269,6 +293,13 @@ private:
 	double max_poff;// = 450;
 	double max_v_recirc;// = 300;
 	double max_v_switch;// = 300;
+
+	int m_cmd_idx_c;       // index of the column for command index
+	int m_cmd_command_c;   // index of the column for the command
+	int m_cmd_range_c;     // index of the column for the range
+	int m_cmd_value_c;     // index of the column for the value
+	int m_cmd_msg_c;       // index of the column for the command status message
+	int m_cmd_level_c;     // index of the column for the level in the tree
 
 	QTranslator m_translator_editor;
 

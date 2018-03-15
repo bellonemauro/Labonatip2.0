@@ -40,7 +40,7 @@ void Labonatip_macroRunner::run()  {
 			double macro_duration = 0.0;
 			for (size_t i = 0; i < m_protocol->size(); i++) {
 				if (m_protocol->at(i).getInstruction() ==
-					fluicell::PPC1api::command::instructions::sleep)
+					fluicell::PPC1api::command::instructions::wait)
 					macro_duration += m_protocol->at(i).getValue();
 			}
 			double time_elapsed = 0.0;
@@ -83,7 +83,7 @@ void Labonatip_macroRunner::run()  {
 					}
 
 					if (m_protocol->at(i).getInstruction() ==
-						fluicell::PPC1api::command::instructions::sleep) {
+						fluicell::PPC1api::command::instructions::wait) {
 						int val = static_cast<int>(m_protocol->at(i).getValue());
 						const qint64 kInterval = 1000;
 						qint64 mtime = QDateTime::currentMSecsSinceEpoch();
@@ -123,7 +123,7 @@ void Labonatip_macroRunner::run()  {
 							}
 						}
 						if (m_protocol->at(i).getInstruction() == // If the command is to wait, we do it here
-							fluicell::PPC1api::command::instructions::sleep) {
+							fluicell::PPC1api::command::instructions::wait) {
 							//TODO : check the time update with the real device 
 							int val = static_cast<int>(m_protocol->at(i).getValue());
 							const qint64 kInterval = 1000;

@@ -328,7 +328,7 @@ void Labonatip_chart::updateChartProtocol(f_protocol *_protocol)
 	// compute the duration of the macro
 	double total_duration = 0.0;
 	for (size_t i = 0; i < _protocol->size(); i++) {
-		if (_protocol->at(i).getInstruction() == fluicell::PPC1api::command::instructions::sleep)
+		if (_protocol->at(i).getInstruction() == fluicell::PPC1api::command::instructions::wait)
 			total_duration += _protocol->at(i).getValue();
 	}
 
@@ -496,49 +496,49 @@ void Labonatip_chart::updateChartProtocol(f_protocol *_protocol)
 			m_series_solution4->append(first_x, first_y); // add the fist point
 			m_series_solution4->append(second_x, second_y); // add the second point 
 			break;
-		}
-		case 8: { //dropletSize 
-
-			break;
-		}
-		case 9: { //flowSpeed
-
-			break;
-		}
-		case 10: { //vacuum
-
-			break;
-		}
-		case 11: { //loop
-
-			break;
-		}
-		case 12: { //sleep ---- update the current time
+		}	
+		case 8: { //sleep ---- update the current time
 			current_time +=  100.0 * _protocol->at(i).getValue() / total_duration; //the duration is scaled in the interval [0; 100]
 			break;
 		}
-		case 13: { //ask_msg
+		case 9: { //ask_msg
 			m_series_ask->append(current_time, min_series_ask + 5.0);
 			break;
 		}
-		case 14: { //allOff
+		case 10: { //allOff
 
 			break;
 		}
-		case 15: { //pumpsOff
+		case 11: { //pumpsOff
 
 			break;
 		}
-		case 16: { //setValveState
+		case 12: { //setValveState
 
 			break;
 		}
-		case 17: { //waitSync
+		case 13: { //waitSync
 			m_series_sync_in->append(current_time, min_series_sync_in + 5.0);
 			break;
 		}
-		case 18: { //syncOut
+		case 14: { //syncOut
 			m_series_sync_out->append(current_time, min_series_sync_out + 5.0);
+			break;
+		}
+		case 15: { //dropletSize 
+
+			break;
+		}
+		case 16: { //flowSpeed
+
+			break;
+		}
+		case 17: { //vacuum
+
+			break;
+		}
+		case 18: { //loop
+
 			break;
 		}
 		default:

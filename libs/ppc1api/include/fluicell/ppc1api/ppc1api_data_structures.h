@@ -375,19 +375,20 @@ namespace fluicell
 		*      5           |   solution2     |  true / false   |  closes other valves, then opens valve b for solution 2 
 		*      6           |   solution3     |  true / false   |  closes other valves, then opens valve c for solution 3 
 		*      7           |   solution4     |  true / false   |  closes other valves, then opens valve d for solution 4 
-		*      8           |   dropletSize   |  int [0 MAX]    |  TODO: to be implemented
-		*      9           |   flowSpeed     |  int [0 MAX]    |  TODO: to be implemented
-		*      10          |   vacuum        |  int [0 MAX]    |  TODO: to be implemented
-		*      11          |   loop          |  int [0 MAX]    |  number of loops 
-		*      12          |   sleep         |  int n          |  wait for n seconds
-		*      13          |   ask_msg       |  true / false   |  set true to stop execution and ask confirmation to continue, 
-		*                  |                 |                 |  INTEPRETED but NOT IMPLEMENTED at API level
-		*      14          |   allOff        |       -         |  stop all solutions flow
-		*      15          |   pumpsOff      |       -         |  stop pressures and vacuum by setting the channels to 0
-		*      16          |   setValveState |  hex  0x00      |  set solutions flow using a hex value
-		*      17          |   waitSync      |  int [0 MAX]    |  protocol stops until trigger signal is received
-		*      18          |   syncOut       |  int [0 MAX]    |  if negative then default state is 1 and pulse is 0, 
+		*      8           |   wait          |  int n          |  wait for n seconds
+		*      9           |   ask_msg       |  true / false   |  set true to stop execution and ask confirmation to continue,
+		*                  |                 |                 |  INTEPRETED but NO ACTION required at API level
+		*      10          |   allOff        |       -         |  stop all solutions flow
+		*      11          |   pumpsOff      |       -         |  stop pressures and vacuum by setting the channels to 0
+		*      12          |   setValveState |  hex  0x00      |  set solutions flow using a hex value
+		*      13          |   waitSync      |  int [0 MAX]    |  protocol stops until trigger signal is received
+		*      14          |   syncOut       |  int [0 MAX]    |  if negative then default state is 1 and pulse is 0,
 		*                  |                 |                 |  if positive, then pulse is 1 and default is 0
+		*      15          |   dropletSize   |  int [0 MAX]    |  TODO: to be implemented
+		*      16          |   flowSpeed     |  int [0 MAX]    |  TODO: to be implemented
+		*      17          |   vacuum        |  int [0 MAX]    |  TODO: to be implemented
+		*      18          |   loop          |  int [0 MAX]    |  number of loops --- TODO: is this to be implemented at API level?
+		*                  |                 |                 |
 		*   ---------------+-----------------+-----------------+-------------------------------------------------------------
 		*
         *
@@ -413,17 +414,17 @@ namespace fluicell
 				solution2 = 5,
 				solution3 = 6,
 				solution4 = 7,
-				dropletSize = 8,
-				flowSpeed = 9,
-				vacuum = 10,
-				loop = 11,
-				sleep = 12,
-				ask_msg = 13,
-				allOff = 14,
-				pumpsOff = 15,
-				setValveState = 16,
-				waitSync = 17,
-				syncOut = 18
+				wait = 8,
+				ask_msg = 9,
+				allOff = 10,
+				pumpsOff = 11,
+				setValveState = 12,
+				waitSync = 13,
+				syncOut = 14,	
+				zoneSize = 15,
+				flowSpeed = 16,
+				vacuum = 17,
+				loop = 18   // TODO: should this really be considered in the API ? 
 			};
 
 
@@ -453,12 +454,11 @@ namespace fluicell
 			std::string getCommandAsString()
 			{
 				static const char* const text[] =
-				{ "setPon", "setPoff", "setVswitch", "setVrecirc",
+				{   "setPon", "setPoff", "setVswitch", "setVrecirc",
 					"solution1", "solution2","solution3","solution4",
-					"dropletSize", "flowSpeed", "vacuum",
-					"loop", "sleep", "ask_msg",
-					"allOff", "pumpsOff", "setValveState",
-					"waitSync", "syncOut" };
+					"wait", "ask_msg", "allOff", "pumpsOff",
+					"setValveState", "waitSync", "syncOut", 
+					"zoneSize", "flowSpeed", "vacuum", "loop" };
 				return  text[int(this->instruction)]; // cast to integer
 			}
 

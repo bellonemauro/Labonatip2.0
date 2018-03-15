@@ -43,11 +43,11 @@
 *   scroll of the mouse to change the item
 *  
 */
-class macroCombobox :public QComboBox {
+class protocolCommandCombobox :public QComboBox {
 	Q_OBJECT
 
 public:
-	explicit macroCombobox(QWidget* parent = 0) : QComboBox(parent) {}
+	explicit protocolCommandCombobox(QWidget* parent = 0) : QComboBox(parent) {}
 
 	void wheelEvent(QWheelEvent *e)
 	{

@@ -73,14 +73,14 @@ void Labonatip_GUI::showProtocolEditorDialog() {
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_GUI::showProtocolEditorDialog    " << endl;
 
-	m_dialog_p_editor->setMacroPath(m_protocol_path); //TODO: reset the path in case it is changed in the settings
+	m_dialog_p_editor->setProtocolPath(m_protocol_path); //TODO: reset the path in case it is changed in the settings
 	m_dialog_p_editor->setPrParams(*m_pr_params);
 	m_dialog_p_editor->setSolParams(*m_solutionParams);
 
 	m_dialog_p_editor->setParent(this);
 	m_dialog_p_editor->setWindowFlags(Qt::Window);
 	//m_dialog_p_editor->setModal(true);
-	m_dialog_p_editor->setMacroPrt(m_protocol);   //TODO: this is wrong, two classes act on the same memory location
+	//m_dialog_p_editor->setProtocolPrt(m_protocol);   //TODO: this is wrong, two classes act on the same memory location
 	m_dialog_p_editor->show();
 }
 
