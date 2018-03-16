@@ -135,6 +135,11 @@ private slots:
 
 	void updateChartProtocol(f_protocol * _protocol);
 
+	/** Show undo stack
+	*
+	*/
+	void showUndoStack();
+
 	/** Add a new protocol command
 	*
 	*/
@@ -300,6 +305,10 @@ private:
 	int m_cmd_value_c;     // index of the column for the value
 	int m_cmd_msg_c;       // index of the column for the command status message
 	int m_cmd_level_c;     // index of the column for the level in the tree
+
+	// for undo
+	QUndoStack *m_undo_stack;
+	QUndoView *m_undo_view;
 
 	QTranslator m_translator_editor;
 

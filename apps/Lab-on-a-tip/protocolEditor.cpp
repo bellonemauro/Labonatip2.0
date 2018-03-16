@@ -59,6 +59,16 @@ Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 	ui_p_editor->actionCharts->setChecked(false);
 	ui_p_editor->actionParams->setChecked(true);
 
+	// the undo
+	m_undo_stack = new QUndoStack(this);
+	m_undo_view = new QUndoView(m_undo_stack);
+	m_undo_view->setWindowTitle(tr("Command List"));
+	m_undo_view->setAttribute(Qt::WA_QuitOnClose, false);
+
+	
+	connect(ui_p_editor->pushButton_showUndoStack,
+		SIGNAL(clicked()), this, SLOT(showUndoStack()));
+
 	// connect GUI elements: macro tab
 	connect(ui_p_editor->treeWidget_macroTable,
 		SIGNAL(itemChanged(QTreeWidgetItem *, int)), this, 
@@ -272,6 +282,12 @@ void Labonatip_protocol_editor::addCommand()
 	// focus is give to the new added element
 	ui_p_editor->treeWidget_macroTable->setCurrentItem(newItem, m_cmd_value_c, QItemSelectionModel::SelectionFlag::Rows);
 
+	//TODO: this is just a try to support undo command
+	QUndoCommand *new_command = new QUndoCommand();
+	new_command->setText("add command");
+
+	m_undo_stack->push(new_command);
+
 	// every time we add a new command we update the macro command
 	addAllCommandsToProtocol();  // this is not really nice, better to append (much faster)
 	updateChartProtocol(m_protocol);  // TODO: update the charts only if the chart panels is open
@@ -288,6 +304,12 @@ void Labonatip_protocol_editor::removeCommand()
 		// destroy the selected item
 		ui_p_editor->treeWidget_macroTable->currentItem()->~QTreeWidgetItem();
 	}
+
+	//TODO: this is just a try to support undo command
+	QUndoCommand *new_command = new QUndoCommand();
+	new_command->setText("remove command");
+
+	m_undo_stack->push(new_command);
 
 	// every time we remove a command we update the macro command
 	addAllCommandsToProtocol();  // this is not really nice, better to append (much faster)
@@ -2242,6 +2264,19 @@ void Labonatip_protocol_editor::updateChartProtocol(f_protocol *_protocol)
 	m_chart_p_off->update();
 	m_chart_v_s->update();
 	m_chart_v_r->update();
+}
+
+void Labonatip_protocol_editor::showUndoStack()
+{
+
+	if (ui_p_editor->pushButton_showUndoStack->isChecked())
+	{
+		m_undo_view->show();
+	}
+	else
+	{
+		m_undo_view->hide();
+	}
 }
 
 void Labonatip_protocol_editor::switchLanguage(QString _translation_file)

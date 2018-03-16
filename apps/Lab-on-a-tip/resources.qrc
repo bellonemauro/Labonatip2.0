@@ -37,6 +37,7 @@
     <file>icons/protocolEditor.png</file>
     <file>icons/radioOn.png</file>
     <file>icons/reboot.png</file>
+    <file>icons/redo.png</file>
     <file>icons/reset.png</file>
     <file>icons/run.png</file>
     <file>icons/save.png</file>
@@ -51,6 +52,7 @@
     <file>icons/success.png</file>
     <file>icons/svenska.png</file>
     <file>icons/tools.png</file>
+    <file>icons/undo.png</file>
     <file>icons/upArrow.png</file>
     <file>icons/wand.png</file>
     <file>icons/warning.png</file>
