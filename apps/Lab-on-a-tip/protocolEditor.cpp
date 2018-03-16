@@ -69,6 +69,12 @@ Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 	connect(ui_p_editor->pushButton_showUndoStack,
 		SIGNAL(clicked()), this, SLOT(showUndoStack()));
 
+	connect(ui_p_editor->pushButton_undo,
+		SIGNAL(clicked()), this, SLOT(undo()));
+
+	connect(ui_p_editor->pushButton_redo,
+		SIGNAL(clicked()), this, SLOT(redo()));
+
 	// connect GUI elements: macro tab
 	connect(ui_p_editor->treeWidget_macroTable,
 		SIGNAL(itemChanged(QTreeWidgetItem *, int)), this, 
@@ -2277,6 +2283,28 @@ void Labonatip_protocol_editor::showUndoStack()
 	{
 		m_undo_view->hide();
 	}
+}
+
+void Labonatip_protocol_editor::undo()
+{
+
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_protocol_editor::undo " << endl;
+
+	m_undo_stack->undo();
+
+}
+
+void Labonatip_protocol_editor::redo()
+{
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_protocol_editor::redo " << endl;
+
+     
+	m_undo_stack->redo();
+
 }
 
 void Labonatip_protocol_editor::switchLanguage(QString _translation_file)

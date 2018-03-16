@@ -140,6 +140,10 @@ private slots:
 	*/
 	void showUndoStack();
 
+	void undo();
+
+	void redo();
+
 	/** Add a new protocol command
 	*
 	*/
