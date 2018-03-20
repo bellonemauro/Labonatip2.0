@@ -2,7 +2,7 @@
 
 # LAB-ON-A-TIP 2.0
 
-IMPORTANT: This software is still under development !!! There is no release yet, bugs may be everywhere !!!
+**IMPORTANT**: This software is still under development !!! There is no release yet, bugs may be everywhere !!!
 
 The Lab-on-a-tip is a software that enables facile configuration and use of the <a href="http://fluicell.com/">Fluicell</a> <a href="http://fluicell.com/thebiopensystem/">BioPen</a> system. 
 The cross-platform BioPen software allows independent control of each pressure line and solution delivery.
