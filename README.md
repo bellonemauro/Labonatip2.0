@@ -38,10 +38,6 @@ configure --->  generate
 
 To build the package in windows the variable WINDDEPLOYQT_EXECUTABLE need to point to "your_qt_folder/bin/windeployqt.exe "
 
-
-<img src="https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipWin.png?raw=true"  width="380" height="230" /> <img src="https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipWin1.png?raw=true"  width="380" height="230" /> 
-<img src="https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipWin2.png?raw=true"  width="380" height="230" /> <img src="https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipWin3.png?raw=true"  width="380" height="230" />
-
 ### Linux 
 
 CMake --> configure --> generate 
