@@ -42,8 +42,6 @@ To build the package in windows the variable WINDDEPLOYQT_EXECUTABLE need to poi
 
 CMake --> configure --> generate 
 
-<img src="https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipUbuntu1.png?raw=true"  width="380" height="230" />  <img src="https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipUbuntu3.png?raw=true"  width="380" height="230" />
-<img src="https://github.com/bellonemauro/Labonatip2.0/blob/master/Ext_data/labonatipUbuntu4.png?raw=true"  width="380" height="230" />
 
 
 # Contribute to the code:
