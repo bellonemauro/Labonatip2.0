@@ -22,6 +22,9 @@
 #include <QtCharts/QChartView>
 #include <QtCharts/QLineSeries>
 #include <QtCharts/QAreaSeries>
+#include <QTreeWidget>
+
+#include "protocolEditorDelegates.h"
 
 // PPC1api 
 #include <fluicell/ppc1api/ppc1api.h>
@@ -30,7 +33,6 @@
 #include "dataStructures.h"
 
 using namespace std;
-
 
 
 class Labonatip_protocol_editor : public  QMainWindow
@@ -174,8 +176,6 @@ private slots:
 
 	bool checkValidity(QTreeWidgetItem *_item, int _column);
 
-	void commandChanged(int _idx);
-
 	void openProtocolFolder();
 
 	void showChartsPanel();
@@ -210,15 +210,15 @@ private slots:
 private:
 
 
-	void createNewCommand(QTreeWidgetItem &_command, protocolCommandCombobox &_combo_box);
+	void createNewCommand(QTreeWidgetItem &_command);// , protocolCommandCombobox &_combo_box);
 	
 	/** overload to allow creating the combobox only without the item
 	*
 	*/
-	void createNewCommand(protocolCommandCombobox &_combo_box) {
-		QTreeWidgetItem item;
-		createNewCommand(item, _combo_box);
-	}
+	//void createNewCommand(protocolCommandCombobox &_combo_box) {
+	//	QTreeWidgetItem item;
+	//	createNewCommand(item, _combo_box);
+	//}
 		
 	QString createHeader();
 	
@@ -264,8 +264,6 @@ private:
 
 	void setRangeColumn(QTreeWidgetItem *_out_item, int _idx);
 
-	void setRangeColumn(QTreeWidgetItem *_out_item);
-
 	void readProtocolFolder(QString _path);
 
 	double protocolDuration(std::vector<fluicell::PPC1api::command> _protocol);
@@ -279,7 +277,10 @@ private:
 
 	solutionsParams *m_solutionParams;
 	pr_params *m_pr_params;
-
+	ComboBoxDelegate * m_combo_delegate;
+	NoEditDelegate * m_no_edit_delegate;
+	NoEditDelegate * m_no_edit_delegate2;
+	SpinBoxDelegate * m_spinbox_delegate;
 
 	// line series for the chart
 	QtCharts::QLineSeries *m_series_Pon;
@@ -297,11 +298,6 @@ private:
 	QtCharts::QLineSeries *m_series_v_r;
 	QtCharts::QChart *m_chart_v_r;
 	QtCharts::QChartView *m_chartView_v_r;
-
-	double max_pon;// = 450;
-	double max_poff;// = 450;
-	double max_v_recirc;// = 300;
-	double max_v_switch;// = 300;
 
 	int m_cmd_idx_c;       // index of the column for command index
 	int m_cmd_command_c;   // index of the column for the command
@@ -324,28 +320,6 @@ private:
 	QString m_str_file_not_saved;
 	QString m_str_select_folder;
 	QString m_str_protocol_duration;
-	QString m_str_check_validity_range_pressures;
-	QString m_str_check_validity_range_vacuum;
-	QString m_str_check_validity_positive_number;
-	QString m_str_check_validity_binary1;
-	QString m_str_check_validity_binary2;
-	QString m_str_check_validity_msg1;
-	QString m_str_check_validity_msg2;
-	QString m_str_check_validity_msg3;
-	QString m_str_check_validity_msg4;
-	QString m_str_check_validity_msg5;
-	QString m_str_check_validity_msg6;
-	QString m_str_check_validity_msg7;
-	QString m_str_check_validity_msg8;
-	QString m_str_check_validity_msg9;
-	QString m_str_check_validity_msg10;
-	QString m_str_check_validity_msg11;
-	QString m_str_check_validity_msg12;
-	QString m_str_check_validity_msg13;
-	QString m_str_check_validity_msg14;
-	QString m_str_check_validity_msg15;
-	QString m_str_check_validity_msg16;
-	QString m_str_check_validity_msg17;
 	QString m_str_check_validity_protocol;
 	QString m_str_check_validity_protocol_try_again;
 

@@ -12,6 +12,7 @@
 #include <QtCharts/QValueAxis>
 #include <QtCharts/QAbstractAxis>
 
+
 Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 	QMainWindow (parent),
 	ui_p_editor(new Ui::Labonatip_protocol_editor)
@@ -34,12 +35,6 @@ Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 	m_solutionParams = new solutionsParams();
 	m_pr_params = new pr_params();
 
-	// TODO: these values have to come from the constants in the main 
-	max_pon = 450;
-	max_poff = 450;
-	max_v_recirc = 300;
-	max_v_switch = 300;
-
 	// these values represent the columns in the table
 	m_cmd_idx_c = 0;       
 	m_cmd_command_c = 1;
@@ -52,6 +47,16 @@ Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 	ui_p_editor->treeWidget_macroTable->setColumnWidth(m_cmd_command_c, 240);
 	ui_p_editor->treeWidget_macroTable->setColumnWidth(m_cmd_range_c, 160);
 	ui_p_editor->treeWidget_macroTable->setColumnWidth(m_cmd_value_c, 100);
+
+	m_combo_delegate = new ComboBoxDelegate();
+	m_no_edit_delegate = new NoEditDelegate();
+	m_no_edit_delegate2 = new NoEditDelegate();
+	m_spinbox_delegate = new SpinBoxDelegate();
+
+	ui_p_editor->treeWidget_macroTable->setItemDelegateForColumn(0, new NoEditDelegate(this));
+	ui_p_editor->treeWidget_macroTable->setItemDelegateForColumn(1, new ComboBoxDelegate(this));
+	ui_p_editor->treeWidget_macroTable->setItemDelegateForColumn(2, new NoEditDelegate(this));
+	ui_p_editor->treeWidget_macroTable->setItemDelegateForColumn(3, new SpinBoxDelegate(this));
 
 	setGUIcharts();
 
@@ -250,10 +255,9 @@ void Labonatip_protocol_editor::addCommand()
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_tools::addMacroCommand " << endl;
 	
-	// create the new item + combobox for the command selection
+	// create the new item 
 	QTreeWidgetItem *newItem = new QTreeWidgetItem;
-	protocolCommandCombobox *comboBox = new protocolCommandCombobox();
-	createNewCommand(*newItem, *comboBox);
+	createNewCommand(*newItem);
 
 	//if we are at the top level with no element or no selection 
 	// the element is added at the last position
@@ -261,10 +265,6 @@ void Labonatip_protocol_editor::addCommand()
 		!ui_p_editor->treeWidget_macroTable->currentIndex().isValid()) 
 	{
 		ui_p_editor->treeWidget_macroTable->insertTopLevelItem(0, newItem);
-		// the combo widget must be created for every item in the tree 
-		// and it goes always to the first column
-		ui_p_editor->treeWidget_macroTable->setItemWidget(newItem, m_cmd_command_c, comboBox); // set the combowidget
-
 	}
 	else { 	//else we add the item at the selected row
 		int row = ui_p_editor->treeWidget_macroTable->currentIndex().row();
@@ -276,23 +276,20 @@ void Labonatip_protocol_editor::addCommand()
 		{ 
 			// add the new line as a child
 			parent->insertChild(row + 1, newItem);
-			ui_p_editor->treeWidget_macroTable->setItemWidget(newItem, m_cmd_command_c, comboBox);// set the combowidget
 		}
 		else // add the new line at the selected row
 		{  
 			ui_p_editor->treeWidget_macroTable->insertTopLevelItem(row + 1, newItem);
-			ui_p_editor->treeWidget_macroTable->setItemWidget(newItem, m_cmd_command_c, comboBox);// set the combowidget
 		}
-	}
+	} 
 
 	// focus is give to the new added element
 	ui_p_editor->treeWidget_macroTable->setCurrentItem(newItem, m_cmd_value_c, QItemSelectionModel::SelectionFlag::Rows);
 
 	//TODO: this is just a try to support undo command
-	QUndoCommand *new_command = new QUndoCommand();
-	new_command->setText("add command");
-
-	m_undo_stack->push(new_command);
+	//QUndoCommand *new_command = new QUndoCommand();
+	//new_command->setText("add command");
+	//m_undo_stack->push(new_command);
 
 	// every time we add a new command we update the macro command
 	addAllCommandsToProtocol();  // this is not really nice, better to append (much faster)
@@ -312,10 +309,9 @@ void Labonatip_protocol_editor::removeCommand()
 	}
 
 	//TODO: this is just a try to support undo command
-	QUndoCommand *new_command = new QUndoCommand();
-	new_command->setText("remove command");
-
-	m_undo_stack->push(new_command);
+	//QUndoCommand *new_command = new QUndoCommand();
+	//new_command->setText("remove command");
+	//m_undo_stack->push(new_command);
 
 	// every time we remove a command we update the macro command
 	addAllCommandsToProtocol();  // this is not really nice, better to append (much faster)
@@ -333,8 +329,8 @@ void Labonatip_protocol_editor::becomeChild()  //TODO: not used for now
 	
     // create a new item
 	QTreeWidgetItem *item = new QTreeWidgetItem();
-	protocolCommandCombobox *comboBox = new protocolCommandCombobox();
-	createNewCommand(*item, *comboBox); 
+	//protocolCommandCombobox *comboBox = new protocolCommandCombobox();
+	createNewCommand(*item);// , *comboBox);
 	
 	// clone the current selected item
 	item = ui_p_editor->treeWidget_macroTable->currentItem()->clone();
@@ -347,7 +343,7 @@ void Labonatip_protocol_editor::becomeChild()  //TODO: not used for now
 			ui_p_editor->treeWidget_macroTable->currentItem());
 	if(parent){
 		parent->addChild(item); // add the clone of the selected item as a child
-		ui_p_editor->treeWidget_macroTable->setItemWidget(item, m_cmd_command_c, comboBox); // set the combowidget
+		//ui_p_editor->treeWidget_macroTable->setItemWidget(item, m_cmd_command_c, comboBox); // set the combowidget
 		parent->setExpanded(true);
 		// destroy the selected item
 		ui_p_editor->treeWidget_macroTable->currentItem()->~QTreeWidgetItem();
@@ -368,8 +364,8 @@ void Labonatip_protocol_editor::becomeParent()  //TODO: not used for now
 	if (!ui_p_editor->treeWidget_macroTable->currentItem()) return; // avoid crash if no selection
 
 	QTreeWidgetItem *item = new QTreeWidgetItem;
-	protocolCommandCombobox *comboBox = new protocolCommandCombobox();
-	createNewCommand(*item, *comboBox);
+	//protocolCommandCombobox *comboBox = new protocolCommandCombobox();
+	createNewCommand(*item);// , *comboBox);
 
 	item = ui_p_editor->treeWidget_macroTable->currentItem()->clone();
 	int row = ui_p_editor->treeWidget_macroTable->currentIndex().row();
@@ -394,9 +390,6 @@ void Labonatip_protocol_editor::moveUp()
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_protocol_editor::moveUp    " << endl;
 
-	// create a combo
-	protocolCommandCombobox *comboBox = new protocolCommandCombobox();
-	createNewCommand(*comboBox);
 
 	// get the current selected item
 	QTreeWidgetItem *moveItem = ui_p_editor->treeWidget_macroTable->currentItem();
@@ -410,41 +403,24 @@ void Labonatip_protocol_editor::moveUp()
 			ui_p_editor->treeWidget_macroTable->takeTopLevelItem(row);
 			// and add the selected item one row before
 			ui_p_editor->treeWidget_macroTable->insertTopLevelItem(row - 1, moveItem);
-			//ui_p_editor->treeWidget_macroTable->setItemWidget(moveItem, m_cmd_command_c, comboBox); // set the combowidget
-
-			for (int i = 0; i < moveItem->childCount(); i++)
-			{
-				int combo_index = moveItem->child(i)->text(m_cmd_command_c).toInt();
-
-				protocolCommandCombobox *comboBox_child = new protocolCommandCombobox();
-				createNewCommand(*comboBox_child);
-				comboBox_child->setCurrentIndex(combo_index);
-				ui_p_editor->treeWidget_macroTable->setItemWidget(moveItem->child(i), m_cmd_command_c, comboBox_child);
-			}
 
 			ui_p_editor->treeWidget_macroTable->setCurrentItem(moveItem, m_cmd_value_c, QItemSelectionModel::SelectionFlag::Rows);
 
 		}
 		else
 		{
-			int move_item_combo_index = qobject_cast<QComboBox*>(
-				ui_p_editor->treeWidget_macroTable->itemWidget(moveItem, m_cmd_command_c))->currentIndex();
-
-			comboBox->setCurrentIndex(move_item_combo_index);
 
 			QTreeWidgetItem *parent = ui_p_editor->treeWidget_macroTable->currentItem()->parent();
 			// if we are not at the fist level, so the item has a parent
 			if (parent) {
 				parent->takeChild(row); // take the child at the row
 				parent->insertChild(row - 1, moveItem); // add the selected item one row before
-				ui_p_editor->treeWidget_macroTable->setItemWidget(moveItem, m_cmd_command_c, comboBox); // set the combowidget
 			}
 			else {
 				// if we are on the top level, just take the item 
 				ui_p_editor->treeWidget_macroTable->takeTopLevelItem(row);
 				// and add the selected item one row before
 				ui_p_editor->treeWidget_macroTable->insertTopLevelItem(row - 1, moveItem);
-				ui_p_editor->treeWidget_macroTable->setItemWidget(moveItem, m_cmd_command_c, comboBox); // set the combowidget
 			}
 			ui_p_editor->treeWidget_macroTable->setCurrentItem(moveItem, m_cmd_value_c, QItemSelectionModel::SelectionFlag::Rows);
 
@@ -463,10 +439,6 @@ void Labonatip_protocol_editor::moveDown()
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_protocol_editor::moveDown    " << endl;
 
-	// create a combo
-	protocolCommandCombobox *comboBox = new protocolCommandCombobox();
-	createNewCommand(*comboBox);
-
 	// get the current selected item
 	QTreeWidgetItem *moveItem = ui_p_editor->treeWidget_macroTable->currentItem();
 	int row = ui_p_editor->treeWidget_macroTable->currentIndex().row();
@@ -479,29 +451,14 @@ void Labonatip_protocol_editor::moveDown()
 			ui_p_editor->treeWidget_macroTable->takeTopLevelItem(row);
 			// and add the selected item one row before
 			ui_p_editor->treeWidget_macroTable->insertTopLevelItem(row + 1, moveItem);
-			//ui_p_editor->treeWidget_macroTable->setItemWidget(moveItem, m_cmd_command_c, comboBox); // set the combowidget
-
-			for (int i = 0; i < moveItem->childCount(); i++)
-			{
-				int combo_index = moveItem->child(i)->text(m_cmd_command_c).toInt();
-
-				protocolCommandCombobox *comboBox_child = new protocolCommandCombobox();
-				createNewCommand(*comboBox_child);
-				comboBox_child->setCurrentIndex(combo_index);
-				ui_p_editor->treeWidget_macroTable->setItemWidget(moveItem->child(i), m_cmd_command_c, comboBox_child);
-			}
 
 			ui_p_editor->treeWidget_macroTable->setCurrentItem(moveItem, m_cmd_value_c, QItemSelectionModel::SelectionFlag::Rows);
 		}
 		else
 		{
-			int	move_item_combo_index = qobject_cast<QComboBox*>(
-				ui_p_editor->treeWidget_macroTable->itemWidget(moveItem, m_cmd_command_c))->currentIndex();
-			comboBox->setCurrentIndex(move_item_combo_index);
 		
 			ui_p_editor->treeWidget_macroTable->takeTopLevelItem(row);
 			ui_p_editor->treeWidget_macroTable->insertTopLevelItem(row + 1, moveItem);
-			ui_p_editor->treeWidget_macroTable->setItemWidget(moveItem, m_cmd_command_c, comboBox);
 
 			ui_p_editor->treeWidget_macroTable->setCurrentItem(moveItem, m_cmd_value_c, QItemSelectionModel::SelectionFlag::Rows);
 		}
@@ -522,13 +479,11 @@ void Labonatip_protocol_editor::plusIndent()
 
 	// create a new item
 	QTreeWidgetItem *newItem = new QTreeWidgetItem;
-	protocolCommandCombobox *comboBox = new protocolCommandCombobox();
-	createNewCommand(*newItem, *comboBox);
 
     // if no item selected, add to the top level
-	if (!ui_p_editor->treeWidget_macroTable->currentIndex().isValid()) {
+	if (!ui_p_editor->treeWidget_macroTable->currentIndex().isValid()) 
+	{
 		ui_p_editor->treeWidget_macroTable->insertTopLevelItem(0, newItem);
-		ui_p_editor->treeWidget_macroTable->setItemWidget(newItem, m_cmd_command_c, comboBox); // set the combowidget
 	}
 	else { // otherwise it add the item as a child
 		QTreeWidgetItem *parent = ui_p_editor->treeWidget_macroTable->currentItem();
@@ -540,7 +495,6 @@ void Labonatip_protocol_editor::plusIndent()
 		}
 		if (parent->text(m_cmd_command_c) == "Loop") {  //TODO: fix this
 			parent->insertChild(0, newItem);
-			ui_p_editor->treeWidget_macroTable->setItemWidget(newItem, m_cmd_command_c, comboBox); // set the combowidget
 		}
 		else {
 			QMessageBox::warning(this, m_str_warning,
@@ -556,46 +510,37 @@ void Labonatip_protocol_editor::plusIndent()
 bool Labonatip_protocol_editor::checkValidity(QTreeWidgetItem *_item, int _column) // TODO: _column is not used
 {
 	// check validity for the element
-	//int row = ui_p_editor->treeWidget_macroTable->currentIndex().row();
 
+	if (_item->childCount() > 0)
+	{
+		// TODO: check here, if we have children than the item IS a loop
+		_item->setText(m_cmd_command_c, QString::number(17));  
+	}
+
+	int idx = _item->text(m_cmd_command_c).toInt();
+	if (_column == m_cmd_command_c) {	
+		setRangeColumn(_item, idx);
+	}
+
+	// perform the check on column 3 only
 	if (_column != m_cmd_value_c) return true;
-	//if (_column != 1) return false; // perform the check on column 1 only
-	// in this way the check will be called any modification 
-	// but the check will be performed always on the column number 1
-	//_column = m_cmd_value_c;
 
-	int idx = 0;  //TODO: fix this !!!
-	if (_item->text(m_cmd_command_c) == "Loop") idx = 18;
-	else
-	 idx = 
-		qobject_cast<QComboBox*>(
-			ui_p_editor->treeWidget_macroTable->itemWidget(_item, m_cmd_command_c))->currentIndex();
-	
-	// so we also check for the range column
-	setRangeColumn(_item, idx);
-
-	bool isNumeric;
 	switch (idx) {
 	case 0: { // check pon
 		
 		// get the number to be checked
-		int number = _item->text(_column).toInt(&isNumeric);
-		if (!isNumeric) { // if is not a number 
-			QMessageBox::warning(this, m_str_warning,
-				QString(m_str_check_validity_msg1 + "\n" + m_str_check_validity_range_pressures));
-			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
-			return false;
-		}
+		int number = _item->text(_column).toInt();
+
 		if (number < 0)
 		{
 			number = -number;
 			_item->setText(_column, QString::number(number));
 		}
-		if (number < m_pr_params->p_on_min || 
+		if (//number < m_pr_params->p_on_min || not necessary anymore
 			number > m_pr_params->p_on_max) { // if is not the range
-			QMessageBox::warning(this, m_str_warning,
-				QString(m_str_check_validity_msg2 + "\n" + m_str_check_validity_range_pressures));
-			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
+
+		    // values higher than the limit are not allowed
+			_item->setText(_column, QString::number(m_pr_params->p_on_max)); 
 			return false;
 		}
 		break;
@@ -603,69 +548,46 @@ bool Labonatip_protocol_editor::checkValidity(QTreeWidgetItem *_item, int _colum
 	case 1: { // check poff
 		
 		// get the number to be checked
-		int number = _item->text(_column).toInt(&isNumeric);
-		if (!isNumeric) { // if is not a number
-			QMessageBox::warning(this, m_str_warning,
-				QString(m_str_check_validity_msg3 + "\n" + m_str_check_validity_range_pressures));
-			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
-			return false;
-		}
+		int number = _item->text(_column).toInt();
 		if (number < 0)
 		{
 			number = -number;
 			_item->setText(_column, QString::number(number));
 		}
-		if (number < m_pr_params->p_off_min ||
+		if (number < m_pr_params->p_off_min ||//TODO fix this conditions
 			number > m_pr_params->p_off_max) { // if is not the range
-			QMessageBox::warning(this, m_str_warning,
-				QString(m_str_check_validity_msg4 + "\n" + m_str_check_validity_range_pressures));
-			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
+
+			_item->setText(_column, QString::number(m_pr_params->p_off_max)); // if the value is not valid, reset to zero
 			return false;
 		}
 		break;
 	}
 	case 2: {// check v_s
 
-		int number = _item->text(_column).toInt(&isNumeric);
-		if (!isNumeric) { // if is not a number
-			QMessageBox::warning(this, m_str_warning,
-				QString(m_str_check_validity_msg5 + "\n" + m_str_check_validity_range_vacuum));
-			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
-			return false;
-		}
+		int number = _item->text(_column).toInt();
 		if (number > 0)
 		{
 			number = -number; 
 			_item->setText(_column, QString::number(number));
 		}
-		if (number < m_pr_params->v_switch_min ||
+		if (number < m_pr_params->v_switch_min ||//TODO fix this conditions
 			number > m_pr_params->v_switch_max) { // if is not the range
-			QMessageBox::warning(this, m_str_warning,
-				QString(m_str_check_validity_msg6 + "\n" + m_str_check_validity_range_vacuum));
-			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
+			_item->setText(_column, QString::number(m_pr_params->v_switch_min)); // if the value is not valid, reset to zero
 			return false;
 		}
 		break;
 	}
 	case 3: { // check v_r
 
-		int number = _item->text(_column).toInt(&isNumeric);
-		if (!isNumeric) {
-			QMessageBox::warning(this, m_str_warning,
-				QString(m_str_check_validity_msg7 + "\n" + m_str_check_validity_range_vacuum));
-			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
-			return false;
-		}
+		int number = _item->text(_column).toInt();
 		if (number > 0)
 		{
 			number = -number;
 			_item->setText(_column, QString::number(number));
 		}
-		if (number < m_pr_params->v_recirc_min   ||
+		if (number < m_pr_params->v_recirc_min   ||  //TODO fix this conditions
 			number > m_pr_params->v_recirc_max) { // if is not the range
-			QMessageBox::warning(this, m_str_warning,
-				QString(m_str_check_validity_msg8 + "\n" + m_str_check_validity_range_vacuum));
-			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
+			_item->setText(_column, QString::number(m_pr_params->v_switch_min)); // if the value is not valid, reset to zero
 			return false;
 		}
 		break;
@@ -673,17 +595,9 @@ bool Labonatip_protocol_editor::checkValidity(QTreeWidgetItem *_item, int _colum
 	case 4: case 5: case 6: case 7: { //from 4 to 7
 		// check open valve : 0 = no valve, 1,2,3,4 valves 1,2,3,4
 
-		int number = _item->text(_column).toInt(&isNumeric);
-		if (!isNumeric) {
-			QMessageBox::warning(this, m_str_warning, 
-				QString(m_str_check_validity_msg9 + "\n" + m_str_check_validity_binary1 + "\n" + m_str_check_validity_binary2));
-			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
-			return false;
-		}
+		int number = _item->text(_column).toInt();
 		if (number != 0 && 
 			number != 1) {
-			QMessageBox::warning(this, m_str_warning,
-				QString(m_str_check_validity_msg10 + "\n" + m_str_check_validity_binary1 + "\n" + m_str_check_validity_binary2));
 			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
 			return false;
 		}
@@ -692,16 +606,9 @@ bool Labonatip_protocol_editor::checkValidity(QTreeWidgetItem *_item, int _colum
 	case 8: {
 		// check Wait (s)
 
-		int number = _item->text(_column).toInt(&isNumeric);
-		if (!isNumeric) {
-			QMessageBox::warning(this, m_str_warning,
-				QString(m_str_check_validity_msg16 + "\n" + m_str_check_validity_positive_number));
-			_item->setText(_column, QString("1"));
-			return false;
-		}
+		int number = _item->text(_column).toInt();
+
 		if (number < 1) { // if is not the range
-			QMessageBox::warning(this, m_str_warning,
-				QString(m_str_check_validity_msg17 + "\n" + m_str_check_validity_positive_number));
 			_item->setText(_column, QString("1")); // if the value is not valid, reset to zero
 			return false;
 		}
@@ -727,65 +634,39 @@ bool Labonatip_protocol_editor::checkValidity(QTreeWidgetItem *_item, int _colum
 		break;
 	}
 	case 12: {
-		// Valve state"
+		// Wait sync"
+		int number = _item->text(_column).toInt();
 
+		if (number != 0 &&
+			number != 1) {
+			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
+			return false;
+		}
 		break;
 	}
 	case 13: {
-		// Wait sync"
-		int number = _item->text(_column).toInt(&isNumeric);
-		if (!isNumeric) {
-			QMessageBox::warning(this, m_str_warning,
-				QString("Wait sync is not a valid number \n, Its value must be 0 or 1 ")); //TODO translation
-			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
-			return false;
-		}
-		if (number != 0 &&
-			number != 1) {
-			QMessageBox::warning(this, m_str_warning,
-				QString("Wait sync is out of range \n, Its value must be 0 or 1 "));  //TODO translation
-			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
-			return false;
-		}
-		break;
-	}
-	case 14: {
 		// Sync out"
-		int number = _item->text(_column).toInt(&isNumeric);
-		if (!isNumeric) {
-			QMessageBox::warning(this, m_str_warning,
-				QString("Sync out is not a valid number \n, it value must be a positive number > 20 ms")); //TODO translation
-			_item->setText(_column, QString("1"));
-			return false;
-		}
+		int number = _item->text(_column).toInt();
 		if (number < MIN_PULSE_PERIOD ) { // if is not the range
-			QMessageBox::warning(this, m_str_warning,
-				QString("Sync out is out of range \n, it value must be a positive number > 20 ms")); //TODO translation
-			_item->setText(_column, QString("1")); // if the value is not valid, reset to zero
+			_item->setText(_column, QString("20")); // if the value is not valid, reset to zero
 			return false;
 		}
 		break;
 	}
-	case 15:{
+	case 14:{
 		// Droplet size (%) //TODO: remove this !!!
 
 		//qobject_cast<QComboBox*>(ui_p_editor->treeWidget_macroTable->itemWidget(_item, m_cmd_command_c))->setCurrentIndex(0);
 		//QMessageBox::warning(this, m_str_warning,
 		//	m_str_check_validity_msg11);
 		//_item->setText(_column, "0"); 
-		int number = _item->text(_column).toInt(&isNumeric);
-		if (!isNumeric) { // if is not a number 
-			QMessageBox::warning(this, m_str_warning,
-				QString("Zone size is not a valid number "));
-			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
-			return false;
-		}
+		int number = _item->text(_column).toInt();
 		if (number < 0)
 		{
 			number = -number;
 			_item->setText(_column, QString::number(number));
 		}
-		if (number < 50 ||
+		if (number < 50 || //TODO
 			number > 200) { // if is not the range
 			QMessageBox::warning(this, m_str_warning,
 				QString("Zone size is out of range"));
@@ -794,21 +675,15 @@ bool Labonatip_protocol_editor::checkValidity(QTreeWidgetItem *_item, int _colum
 		}
 		break;
 	}   
-	case 16:{
+	case 15:{
 		// Flow speed (%)
-		int number = _item->text(_column).toInt(&isNumeric);
-		if (!isNumeric) { // if is not a number 
-			QMessageBox::warning(this, m_str_warning,
-				QString("Flow speed is not a valid number "));
-			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
-			return false;
-		}
+		int number = _item->text(_column).toInt();
 		if (number < 0)
 		{
 			number = -number;
 			_item->setText(_column, QString::number(number));
 		}
-		if (number < 50 ||
+		if (number < 50 || //TODO
 			number > 250) { // if is not the range
 			QMessageBox::warning(this, m_str_warning,
 				QString("Flow speed is out of range"));
@@ -817,21 +692,15 @@ bool Labonatip_protocol_editor::checkValidity(QTreeWidgetItem *_item, int _colum
 		}
 		break;
 	}
-	case 17: {
+	case 16: {
 		// Vacuum (%) //TODO : remove this 
-		int number = _item->text(_column).toInt(&isNumeric);
-		if (!isNumeric) { // if is not a number 
-			QMessageBox::warning(this, m_str_warning,
-				QString("Vacuum is not a valid number "));
-			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
-			return false;
-		}
+		int number = _item->text(_column).toInt();
 		if (number < 0)
 		{
 			number = -number;
 			_item->setText(_column, QString::number(number));
 		}
-		if (number < 50 ||
+		if (number < 50 || //TODO
 			number > 250) { // if is not the range
 			QMessageBox::warning(this, m_str_warning,
 				QString("Vacuum is out of range"));
@@ -840,19 +709,11 @@ bool Labonatip_protocol_editor::checkValidity(QTreeWidgetItem *_item, int _colum
 		}
 		break;
 	}
-	case 18: {   //TODO: TO BE REMOVED
+	case 17: {   //TODO: TO BE REMOVED
 		// check loops
 
-		int number = _item->text(_column).toInt(&isNumeric);
-		if (!isNumeric) {
-			QMessageBox::warning(this, m_str_warning, 
-				QString(m_str_check_validity_msg14 + "\n" + m_str_check_validity_positive_number));
-			_item->setText(_column, QString("1"));
-			return false;
-		}
+		int number = _item->text(_column).toInt();
 		if (number < 1 ) { // if is not the range
-			QMessageBox::warning(this, m_str_warning,
-				QString(m_str_check_validity_msg15 + "\n" + m_str_check_validity_positive_number));
 			_item->setText(_column, QString("0")); // if the value is not valid, reset to zero
 			return false;
 		}
@@ -869,48 +730,6 @@ bool Labonatip_protocol_editor::checkValidity(QTreeWidgetItem *_item, int _colum
 	addAllCommandsToProtocol();
 	updateChartProtocol(m_protocol);
 	return true;
-}
-
-void Labonatip_protocol_editor::commandChanged(int _idx)
-{
-
-	if (!ui_p_editor->treeWidget_macroTable->currentItem()) return; // avoid crash if no selection
-			
-	if (!ui_p_editor->treeWidget_macroTable->focusWidget()) return; // avoid crash if no focus
-
-	if (!qobject_cast<QComboBox*>(
-		ui_p_editor->treeWidget_macroTable->focusWidget())) return; // avoid crash
-
-	int idx = qobject_cast<QComboBox*>(
-		ui_p_editor->treeWidget_macroTable->focusWidget())->currentIndex();
-
-	int row  = ui_p_editor->treeWidget_macroTable->indexAt(
-		ui_p_editor->treeWidget_macroTable->focusWidget()->pos()).row();
-
-	int column = ui_p_editor->treeWidget_macroTable->indexAt(
-		ui_p_editor->treeWidget_macroTable->focusWidget()->pos()).column();
-
-	QTreeWidgetItem *currentItem = ui_p_editor->treeWidget_macroTable->itemAt(
-		ui_p_editor->treeWidget_macroTable->focusWidget()->pos());
-
-	ui_p_editor->treeWidget_macroTable->itemAt(
-		ui_p_editor->treeWidget_macroTable->focusWidget()->pos())->setText(m_cmd_command_c, QString::number(idx));
-
-	QTreeWidgetItem *currentParent = currentItem->parent();
-	int parent = 0;
-	if (currentParent) parent = 1;
-	//int idx = 1;// ui_p_editor->treeWidget_macroTable->indexOfTopLevelItem(wid);
-		//_combo_box.currentIndex();
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_tools::commandChanged :::: idx "
-		<< idx 
-		<< "  row " << row 
-		<< "  column " << column
-		<< "  currentParent " << parent
-		<< endl;
-
-	checkValidity(ui_p_editor->treeWidget_macroTable->currentItem(), m_cmd_value_c);
 }
 
 
@@ -940,60 +759,17 @@ void Labonatip_protocol_editor::duplicateItem()  //TODO: this crash if the loop 
 	if (parent) {
 
 			parent->insertChild(row + 1, newItem);
-			// create a combo
-			protocolCommandCombobox *comboBox = new protocolCommandCombobox();
-			createNewCommand(*comboBox);
-			// get the index in the combobox of the current item and set it to the new widget
-			int idx = qobject_cast<QComboBox*>(
-				ui_p_editor->treeWidget_macroTable->itemWidget(
-					ui_p_editor->treeWidget_macroTable->currentItem(), m_cmd_command_c))->currentIndex();
-			comboBox->blockSignals(true);
-			comboBox->setCurrentIndex(idx);
-			comboBox->blockSignals(false);
-			ui_p_editor->treeWidget_macroTable->setItemWidget(newItem, m_cmd_command_c, comboBox);
+
 		}
 		else {
 			
 			ui_p_editor->treeWidget_macroTable->insertTopLevelItem(row + 1, newItem);
-			// create a combo
-			protocolCommandCombobox *comboBox = new protocolCommandCombobox();
-			createNewCommand(*comboBox);
-			// get the index in the combobox of the current item and set it to the new widget
-			int idx = qobject_cast<protocolCommandCombobox*>(
-				ui_p_editor->treeWidget_macroTable->itemWidget(
-					ui_p_editor->treeWidget_macroTable->currentItem(), m_cmd_command_c))->currentIndex();
-			comboBox->blockSignals(true);
-			comboBox->setCurrentIndex(idx);
-			comboBox->blockSignals(false);
-
-			ui_p_editor->treeWidget_macroTable->setItemWidget(newItem, m_cmd_command_c, comboBox);
-			if (newItem->childCount() > 0)
-			{
-				for (int i = 0; i < newItem->childCount(); i++)	{
-
-					// create a new combobox for each child
-					protocolCommandCombobox *comboBox_child = new protocolCommandCombobox();
-					createNewCommand(*comboBox_child);
-					// get the index in the combobox of the current item and set it to the new widget
-					int idx = qobject_cast<QComboBox*>(
-						ui_p_editor->treeWidget_macroTable->itemWidget(
-							ui_p_editor->treeWidget_macroTable->currentItem()->child(i), m_cmd_command_c))->currentIndex();
-					
-					comboBox_child->blockSignals(true);
-					comboBox_child->setCurrentIndex(idx);
-					comboBox_child->blockSignals(false);
-					ui_p_editor->treeWidget_macroTable->setItemWidget(
-						newItem->child(i), 0, comboBox_child);
-				}
-			}
-//		}
 		return;
-		//TODO all the children do not have the combobox
 	}
 	return;
 }
 
-void Labonatip_protocol_editor::createNewCommand(QTreeWidgetItem & _command, protocolCommandCombobox & _combo_box)
+void Labonatip_protocol_editor::createNewCommand(QTreeWidgetItem & _command)//, protocolCommandCombobox & _combo_box)
 {
 
 	cout << QDate::currentDate().toString().toStdString() << "  "
@@ -1004,7 +780,7 @@ void Labonatip_protocol_editor::createNewCommand(QTreeWidgetItem & _command, pro
 	font.setBold(true);
 
 	_command.setText(m_cmd_idx_c, "0");
-	_command.setText(m_cmd_command_c, "Command"); // 
+	_command.setText(m_cmd_command_c, QString::number(0)); 
 	_command.setText(m_cmd_range_c, "(mbar) [0, 450]"); // 
 
 	_command.setText(m_cmd_value_c, "1"); // 
@@ -1014,17 +790,7 @@ void Labonatip_protocol_editor::createNewCommand(QTreeWidgetItem & _command, pro
 	_command.setText(m_cmd_msg_c, " "); // status message
 	_command.setFlags(_command.flags() | (Qt::ItemIsEditable) | (Qt::ItemIsSelectable));
 
-	_combo_box.setFocusPolicy(Qt::StrongFocus);
-	_combo_box.addItems(QStringList() << "Pressure ON" << "Pressure OFF" 
-		<< "Vacuum Switch" << "Vacuum Recirculation"
-		<< "Solution 1" << "Solution 2" 
-		<< "Solution 3" << "Solution 4"
-		<< "Wait" << "Ask" << "All Off" << "Pumps Off"
-		<< "Valve state" << "Wait sync" << "Sync out"
-		<< "Zone size" << "Flow speed" << "Vacuum");
 
-	connect(&_combo_box, SIGNAL(currentIndexChanged(int )), 
-		this, SLOT(commandChanged(int )));
 }
 
 void Labonatip_protocol_editor::createNewLoop()
@@ -1042,7 +808,7 @@ void Labonatip_protocol_editor::createNewLoop(int _loops)
 	// create a new item
 	QTreeWidgetItem *newItem = new QTreeWidgetItem;
 	newItem->setText(m_cmd_idx_c, "0");
-	newItem->setText(m_cmd_command_c, "Loop"); // 
+	newItem->setText(m_cmd_command_c, QString::number(17));// "Loop"); // 
 	newItem->setText(m_cmd_range_c, "> 0"); // 
 	newItem->setText(m_cmd_value_c, QString::number(_loops)); // 
 	newItem->setCheckState(m_cmd_msg_c, Qt::CheckState::Unchecked); // status message
@@ -1055,10 +821,6 @@ void Labonatip_protocol_editor::createNewLoop(int _loops)
 	if (ui_p_editor->treeWidget_macroTable->topLevelItemCount() < 1 ||
 		!ui_p_editor->treeWidget_macroTable->currentIndex().isValid()) {
 		ui_p_editor->treeWidget_macroTable->insertTopLevelItem(0, newItem);
-		// the combo widget must be created for every item in the tree 
-		// and it goes always to the first column
-		//ui_p_editor->treeWidget_macroTable->setItemWidget(newItem, 0, comboBox); // set the combowidget
-		//ui_p_editor->treeWidget_macroTable->resizeColumnToContents(0);
 
 	}
 	else { 	//else we add the item at a specific row
@@ -1070,27 +832,20 @@ void Labonatip_protocol_editor::createNewLoop(int _loops)
 																		   // add the new line as a child			
 				QMessageBox::warning(this, m_str_warning,
 					QString("Currently only one loop level is supported"));
-				return;
+				return; //TODO 
 		
-			//ui_p_editor->treeWidget_macroTable->setItemWidget(newItem, 0, comboBox);// set the combowidget
 		}
 		else { // add the new line at the row 
 			ui_p_editor->treeWidget_macroTable->insertTopLevelItem(row + 1, newItem);
-			//ui_p_editor->treeWidget_macroTable->setItemWidget(newItem, 0, comboBox);// set the combowidget
 		}
-
-		//ui_p_editor->treeWidget_macroTable->resizeColumnToContents(0);
 
 	}
 
-
 	// create a new item
 	QTreeWidgetItem *newItem_commandInsideLoop = new QTreeWidgetItem;
-	protocolCommandCombobox *comboBox = new protocolCommandCombobox();
-	createNewCommand(*newItem_commandInsideLoop, *comboBox);
+	createNewCommand(*newItem_commandInsideLoop);
 	
 	newItem->insertChild(0, newItem_commandInsideLoop);
-	ui_p_editor->treeWidget_macroTable->setItemWidget(newItem_commandInsideLoop, m_cmd_command_c, comboBox); // set the combowidget
 
 	addAllCommandsToProtocol();
 	updateChartProtocol(m_protocol);
@@ -1107,7 +862,8 @@ void Labonatip_protocol_editor::addAllCommandsToProtocol()
 
 	// all the items 
 	std::vector<QTreeWidgetItem*> commands_vector;
-	m_protocol->clear();  //TODO: this is not the best way, every time it will re-build the all macro instead of update (waste of time)
+	//TODO: this is not the best way, every time it will re-build the all macro instead of update (waste of time)
+	m_protocol->clear(); 
 
 	// push all the items in the macro table into the command vector
 	for (int i = 0; 
@@ -1222,21 +978,19 @@ bool Labonatip_protocol_editor::loadProtocol(const QString _file_name)
 		{
 			QTreeWidgetItem *newItem = new QTreeWidgetItem();
 			QTreeWidgetItem *parent = new QTreeWidgetItem();
-			protocolCommandCombobox *comboBox = new protocolCommandCombobox();
-			createNewCommand(*newItem, *comboBox);
+			createNewCommand(*newItem);
 
 			//TODO: when the protocol is loaded the loop is not properly interpreted
-
 			if (decodeProtocolCommand(content, *newItem)) {
 				
 				if (getLevel(*newItem) == 0) // we are at top level
 				{
 
-					if (newItem->text(m_cmd_command_c).toInt() == 18) // TODO: so the command is a loop
+					if (newItem->text(m_cmd_command_c).toInt() == 17) // TODO: so the command is a loop
 					{
 						// create a new item
 						QTreeWidgetItem *newLoopItem = new QTreeWidgetItem;
-						newLoopItem->setText(m_cmd_command_c, "Loop"); // 
+						newLoopItem->setText(m_cmd_command_c, QString::number(17)); // 
 						newLoopItem->setText(m_cmd_range_c, "> 0"); // 
 						newLoopItem->setText(m_cmd_value_c, QString::number(newItem->text(m_cmd_value_c).toInt())); // 
 						newLoopItem->setCheckState(m_cmd_msg_c, Qt::CheckState::Unchecked); // status message
@@ -1247,8 +1001,6 @@ bool Labonatip_protocol_editor::loadProtocol(const QString _file_name)
 					else {
 
 						ui_p_editor->treeWidget_macroTable->addTopLevelItem(newItem);
-						comboBox->setCurrentIndex(newItem->text(m_cmd_command_c).toInt());
-						ui_p_editor->treeWidget_macroTable->setItemWidget(newItem, m_cmd_command_c, comboBox);
 					}
 					//list->push_back(newItem);
 					cout << QDate::currentDate().toString().toStdString() << "  "
@@ -1287,14 +1039,10 @@ bool Labonatip_protocol_editor::loadProtocol(const QString _file_name)
 
 					if (current_item_level == new_item_level) {
 						item->parent()->addChild(newItem);
-						comboBox->setCurrentIndex(newItem->text(m_cmd_command_c).toInt());
-						ui_p_editor->treeWidget_macroTable->setItemWidget(newItem, m_cmd_command_c, comboBox);
 						
 					}
 					if (new_item_level == current_item_level + 1) {
 						item->addChild(newItem);
-						comboBox->setCurrentIndex(newItem->text(m_cmd_command_c).toInt());
-						ui_p_editor->treeWidget_macroTable->setItemWidget(newItem, m_cmd_command_c, comboBox);
 						
 					}
 					if (new_item_level < current_item_level) {
@@ -1303,9 +1051,6 @@ bool Labonatip_protocol_editor::loadProtocol(const QString _file_name)
 							parentItem = parentItem->parent();
 						}
 						parentItem->parent()->addChild(newItem);
-						comboBox->setCurrentIndex(newItem->text(m_cmd_command_c).toInt());
-						ui_p_editor->treeWidget_macroTable->setItemWidget(newItem, m_cmd_command_c, comboBox);
-						
 					}
 					
 					ui_p_editor->treeWidget_macroTable->update();
@@ -1320,12 +1065,8 @@ bool Labonatip_protocol_editor::loadProtocol(const QString _file_name)
 			//this will just give the focus to the last element
 			ui_p_editor->treeWidget_macroTable->setCurrentItem(newItem, m_cmd_value_c, QItemSelectionModel::SelectionFlag::Rows);
 		}
-		//TODO: here there is a possible memory leak, the pointers will never be removed anymore outside the cycle
-
-		//resize columns to content
-		//for (int i = 0; i < ui_p_editor->treeWidget_macroTable->columnCount(); i++) {
-		//	ui_p_editor->treeWidget_macroTable->resizeColumnToContents(i);
-		//}
+		//TODO: here there is a possible memory leak, 
+		//      the pointers will never be removed anymore outside the cycle
 
 		ui_p_editor->treeWidget_macroTable->setItemSelected(
 			ui_p_editor->treeWidget_macroTable->topLevelItem(
@@ -1340,9 +1081,8 @@ bool Labonatip_protocol_editor::loadProtocol(const QString _file_name)
 		return false;
 
 	}
-
-	
-
+	//TODO: too weak, there is no check for the instruction index, 
+	//      if it is negative or higher than 17 it will crash
 	addAllCommandsToProtocol();
 	updateChartProtocol(m_protocol);
 	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
@@ -1491,15 +1231,7 @@ void Labonatip_protocol_editor::visitTree(QList<QStringList> &_list, QTreeWidget
 		parent = parent->parent();
 	}
 
-	int idx = 0;
-	if (_item->text(m_cmd_command_c) == "Loop") {  //TODO: fix this
-		idx = 18;
-	}
-	else
-	{
-		idx = qobject_cast<QComboBox*>(
-			_tree->itemWidget(_item, m_cmd_command_c))->currentIndex();
-	}
+	int idx = _item->text(m_cmd_command_c).toInt();
 
 	//there is a problem with the size of the column --- fixed for now, change this!
 	_string_list.push_back(QString::number(idx));
@@ -1644,7 +1376,7 @@ void Labonatip_protocol_editor::setGUIcharts()
 	axisX_pon->setRange(0, 100);
 	axisX_pon->setTitleText("Simulation time (%)");
 	QtCharts::QValueAxis *axisY_pon = new QtCharts::QValueAxis;
-	axisY_pon->setRange(0, max_pon);
+	axisY_pon->setRange(0, m_pr_params->p_on_max);
 	axisY_pon->setTitleText( QStringLiteral(
 			"<html><head/><body><p>P<span style=\" vertical-align:sub;\">on</span> (mbar)</p></body></html>"));
 
@@ -1652,7 +1384,7 @@ void Labonatip_protocol_editor::setGUIcharts()
 	axisX_poff->setRange(0, 100);
 	axisX_poff->setTitleText("Simulation time (%)");
 	QtCharts::QValueAxis *axisY_poff = new QtCharts::QValueAxis;
-	axisY_poff->setRange(0, max_poff);
+	axisY_poff->setRange(0, m_pr_params->p_off_max);
 	axisY_poff->setTitleText( QStringLiteral(
 			"<html><head/><body><p>P<span style=\" vertical-align:sub;\">off</span> (mbar)</p></body></html>"));
 
@@ -1660,7 +1392,7 @@ void Labonatip_protocol_editor::setGUIcharts()
 	axisX_v_s->setRange(0, 100);
 	axisX_v_s->setTitleText("Simulation time (%)");
 	QtCharts::QValueAxis *axisY_v_s = new QtCharts::QValueAxis;
-	axisY_v_s->setRange(0, max_v_recirc);
+	axisY_v_s->setRange(0, -m_pr_params->v_switch_min);
 	axisY_v_s->setTitleText( QStringLiteral(
 			"<html><head/><body><p>V<span style=\" vertical-align:sub;\">switch</span> (mbar)</p></body></html>"));
 
@@ -1669,7 +1401,7 @@ void Labonatip_protocol_editor::setGUIcharts()
 	axisX_v_r->setRange(0, 100);
 	axisX_v_r->setTitleText("Simulation time (%)");
 	QtCharts::QValueAxis *axisY_v_r = new QtCharts::QValueAxis;
-	axisY_v_r->setRange(0, max_v_switch);
+	axisY_v_r->setRange(0, -m_pr_params->v_recirc_min);
 	axisY_v_r->setTitleText( QStringLiteral(
 			"<html><head/><body><p>V<span style=\" vertical-align:sub;\">recirc</span> (mbar)</p></body></html>"));
 
@@ -1736,49 +1468,10 @@ void Labonatip_protocol_editor::initCustomStrings()
 	m_str_file_not_found = tr("File not found");
 	m_str_file_not_saved = tr("File not saved");
 	m_str_protocol_duration = tr("Protocol duration : ");
-	m_str_check_validity_msg1 = tr("Pressure ON is not a valid number");
-	m_str_check_validity_msg2 = tr("Pressure ON is out of range");
-	m_str_check_validity_msg3 = tr("Pressure OFF is not a valid number");
-	m_str_check_validity_msg4 = tr("Pressure OFF is out of range");
-	m_str_check_validity_range_pressures = tr("Its value must be a positive number in [0, 450]");
-
-	m_str_check_validity_msg5 = tr("Vacuum switch is not a valid number");
-	m_str_check_validity_msg6 = tr("Vacuum switch is out of range");
-	m_str_check_validity_msg7 = tr("Vacuum recirculation is not a valid number");
-	m_str_check_validity_msg8 = tr("Vacuum recirculation is out of range");
-	m_str_check_validity_range_vacuum = tr("Its value must be a negative number in [-300, 0]");
-	
-	m_str_check_validity_msg9 = tr("Solution is not a valid number");
-	m_str_check_validity_msg10 = tr("Solution is out of range");
-
-	m_str_check_validity_binary1 = tr("Its value must be 0 or 1, where 0 = open");
-	m_str_check_validity_binary2 = tr("Only one valve can be open");
-
-	//TODO: thie are to be changed
-	m_str_check_validity_msg11 = tr("The droplet size command is not usable now, the content will be automatically changed to index 0");
-	m_str_check_validity_msg12 = tr("The flow speed command is not usable now, the content will be automatically changed to index 0");
-	m_str_check_validity_msg13 = tr("The vacuum command is not usable now, the content will be automatically changed to index 0");
-
-	m_str_check_validity_msg14 = tr("Loop is not a valid number");
-	m_str_check_validity_msg15 = tr("Loop is out of range");
-	m_str_check_validity_msg16 = tr("Wait is not a valid number");
-	m_str_check_validity_msg17 = tr("Waiting time is out of range");
-	m_str_check_validity_positive_number = tr("Its value must be a positive number");
-
 	m_str_check_validity_protocol = tr("Check validity failed during macro saving");
 	m_str_check_validity_protocol_try_again = tr("Please check your settings and try again");
 }
 
-void Labonatip_protocol_editor::setRangeColumn(QTreeWidgetItem *_out_item)
-{
-	int idx =
-		qobject_cast<QComboBox*>(
-			ui_p_editor->treeWidget_macroTable->itemWidget(
-				_out_item, m_cmd_command_c))->currentIndex();
-
-	setRangeColumn(_out_item, idx);
-
-}
 
 void Labonatip_protocol_editor::setRangeColumn(QTreeWidgetItem *_out_item, int _idx)
 {
@@ -1819,37 +1512,31 @@ void Labonatip_protocol_editor::setRangeColumn(QTreeWidgetItem *_out_item, int _
 		break;
 	}
 	case 12: {
-		// Valve state"
-		_out_item->setText(column, "2xHEX digit");
-		break;
-	}
-	case 13: {
 		// Wait sync"
 		_out_item->setText(column, "1/0 rise/fall");
 		break;
 	}
-	case 14: {
+	case 13: {
 		// Sync out"
 		_out_item->setText(column, ">20");
 		break;
 	}
-
-	case 15: {
+	case 14: {
 		// Droplet size (%) //TODO: remove this !!!
 		_out_item->setText(column, "(%) [50, 200]");
 		break;
 	}
-	case 16: {
+	case 15: {
 		// Flow speed (%)
 		_out_item->setText(column, "(%) [50, 250]");
 		break;
 	}
-	case 17: {
+	case 16: {
 		// Vacuum (%) //TODO : remove this 
 		_out_item->setText(column, "(%) [50, 250]");
 		break;
 	}
-	case 18: {
+	case 17: {
 		// check loops
 		_out_item->setText(column, "(#) > 0");
 		break;
@@ -2009,7 +1696,7 @@ QString Labonatip_protocol_editor::createHeader()
 	header.append(tr("%% |                          http://www.fluicell.com/                         |\n"));
 	header.append(tr("%% +---------------------------------------------------------------------------+\n"));
 	header.append(tr("%% \n"));
-	header.append(tr("%% Protocol Header V. 0.3 \n"));
+	header.append(tr("%% Protocol Header V. 0.4 \n"));
 	header.append(tr("%% file created on dd/mm/yyyy - "));
 	header.append(QDate::currentDate().toString());
 	header.append(" ");
@@ -2034,8 +1721,8 @@ QString Labonatip_protocol_editor::createHeader()
 	header.append(tr("%%  -       12: Valve state (HEX)            :  Set the valve state \n"));
 	header.append(tr("%%  -       13: Wait sync                    :  Wait a sync signal \n"));
 	header.append(tr("%%  -       14: Sync out                     :  Sync with external trigger \n"));
-	header.append(tr("%%  -       15:  Droplet size (%)             :  Set the droplet size in % respect to the default values \n"));
-	header.append(tr("%%  -       16:  Flow speed (%)               :  \n"));
+	header.append(tr("%%  -       15: Droplet size (%)             :  Set the droplet size in % respect to the default values \n"));
+	header.append(tr("%%  -       16: Flow speed (%)               :  \n"));
 	header.append(tr("%%  -       17: Vacuum (%)                   :  \n"));
 	header.append(tr("%%  -       18: Loop (num)                   :  All the commands inside the loop will run cyclically \n")); //TODO adapt header
 	header.append(tr("%%  - \n"));
@@ -2197,69 +1884,14 @@ void Labonatip_protocol_editor::updateChartProtocol(f_protocol *_protocol)
 			m_series_v_r->append(max_time_line, second_y);
 			break;
 		}
-		case 4: { //solution 1
-				  
+		case 4: case 5: case 6: case 7: { //solution 1
 
-			break;
-		}
-		case 5: { //solution 2
-				  
-
-			break;
-		}
-		case 6: { //solution 3
-			
-			break;
-		}
-		case 7: { //solution 4
-			
 			break;
 		}
 		case 8: { //sleep ---- update the current time
 			current_time += 100.0 * _protocol->at(i).getValue() / total_duration; //the duration is scaled in the interval [0; 100]
 			break;
 		}
-		case 9: { //ask_msg
-			
-			break;
-		}
-		case 10: { //allOff
-
-			break;
-		}
-		case 11: { //pumpsOff
-
-			break;
-		}
-		case 12: { //setValveState
-
-			break;
-		}
-		case 13: { //waitSync
-			
-			break;
-		}
-		case 14: { //syncOut
-			
-			break;
-		}
-		case 15: { //dropletSize 
-
-			break;
-		}
-		case 16: { //flowSpeed
-
-			break;
-		}
-		case 17: { //vacuum
-
-			break;
-		}
-		case 18: { //loop
-				   //TODO this is deprecated
-			break;
-		}
-
 		default:
 			break;
 		}
@@ -2362,6 +1994,11 @@ Labonatip_protocol_editor::~Labonatip_protocol_editor() {
 	delete m_solutionParams;
 	delete m_pr_params;
 	
+	delete m_combo_delegate;
+	delete m_no_edit_delegate;
+	delete m_no_edit_delegate2;
+	delete m_spinbox_delegate;
+
 	// delete pointers to charts
 	delete m_series_Pon;
 	delete m_chart_p_on;

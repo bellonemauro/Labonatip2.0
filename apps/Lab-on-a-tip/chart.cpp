@@ -506,39 +506,29 @@ void Labonatip_chart::updateChartProtocol(f_protocol *_protocol)
 			break;
 		}
 		case 10: { //allOff
-
 			break;
 		}
 		case 11: { //pumpsOff
-
 			break;
 		}
-		case 12: { //setValveState
-
-			break;
-		}
-		case 13: { //waitSync
+		case 12: { //waitSync
 			m_series_sync_in->append(current_time, min_series_sync_in + 5.0);
 			break;
 		}
-		case 14: { //syncOut
+		case 13: { //syncOut
 			m_series_sync_out->append(current_time, min_series_sync_out + 5.0);
 			break;
 		}
-		case 15: { //dropletSize 
-
+		case 14: { //dropletSize 
 			break;
 		}
-		case 16: { //flowSpeed
-
+		case 15: { //flowSpeed
 			break;
 		}
-		case 17: { //vacuum
-
+		case 16: { //vacuum
 			break;
 		}
-		case 18: { //loop
-
+		case 17: { //loop
 			break;
 		}
 		default:

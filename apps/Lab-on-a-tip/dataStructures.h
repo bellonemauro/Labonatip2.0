@@ -43,7 +43,7 @@
 *   scroll of the mouse to change the item
 *  
 */
-class protocolCommandCombobox :public QComboBox {
+/*class protocolCommandCombobox :public QComboBox {
 	Q_OBJECT
 
 public:
@@ -54,7 +54,7 @@ public:
 		if (hasFocus())
 			QComboBox::wheelEvent(e);
 	}
-};
+};*/
 
 
 /**  \brief Structure to handle COM parameters.
