@@ -24,7 +24,8 @@
 #include <QtCharts/QAreaSeries>
 #include <QTreeWidget>
 
-#include "protocolEditorDelegates.h"
+#include "protocolTreeWidgetItem.h"
+#include "protocolCommands.h"
 
 // PPC1api 
 #include <fluicell/ppc1api/ppc1api.h>
@@ -174,7 +175,7 @@ private slots:
 
 	void duplicateItem();
 
-	bool checkValidity(QTreeWidgetItem *_item, int _column);
+	bool itemChanged(QTreeWidgetItem *_item, int _column);
 
 	void openProtocolFolder();
 
@@ -209,8 +210,6 @@ private slots:
 
 private:
 
-
-	void createNewCommand(QTreeWidgetItem &_command);// , protocolCommandCombobox &_combo_box);
 	
 	/** overload to allow creating the combobox only without the item
 	*
@@ -223,7 +222,7 @@ private:
 	QString createHeader();
 	
 	bool loadProtocol(const QString _file_name);
-	
+
 	bool saveProtocol(QString _file_name);
 	
 	void getLastNode(QTreeWidget *_tree, QTreeWidgetItem *_item);
@@ -256,13 +255,11 @@ private:
 	*
 	*	
 	*/
-	bool decodeProtocolCommand(QByteArray &_command, QTreeWidgetItem &_out_item);
+	bool decodeProtocolCommand(QByteArray &_command, protocolTreeWidgetItem &_out_item);
 
 	void setGUIcharts();
 
 	void initCustomStrings();
-
-	void setRangeColumn(QTreeWidgetItem *_out_item, int _idx);
 
 	void readProtocolFolder(QString _path);
 

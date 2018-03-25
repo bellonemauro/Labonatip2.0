@@ -74,10 +74,10 @@ set(CPACK_PACKAGE_INSTALL_REGISTRY_KEY "${CMAKE_PROJECT_NAME}")#-${CMAKE_Fluicel
 # this is to create the user folders during the installation
 set( CPACK_NSIS_EXTRA_INSTALL_COMMANDS "
 	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\" 
-	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\presetMacros\\\"
+	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\presetProtocols\\\"
 	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\settings\\\" 
 	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\Ext_data\\\" 
-	CopyFiles \\\"$INSTDIR\\\\presetMacros\\\\*.macro\\\" \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\presetMacros\\\"
+	CopyFiles \\\"$INSTDIR\\\\presetProtocols\\\\*.prt\\\" \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\presetProtocols\\\"
 	CopyFiles \\\"$INSTDIR\\\\settings\\\\*.ini\\\" \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\settings\\\"
 	")
 
@@ -102,10 +102,10 @@ set(CPACK_NSIS_MUI_FINISHPAGE_RUN Lab-on-a-tip.exe)
 
 #add a command to remove user created files - ATTENTION: it will also remove user created files !!!
 set( CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS "
-	Delete \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\presetMacros\\\\*.macro\\\" 
+	Delete \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\presetProtocols\\\\*.prt\\\" 
 	Delete \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\settings\\\\*.ini\\\" 
 	Delete \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\Ext_data\\\\*.*\\\" 
-	RMDir \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\presetMacros\\\"
+	RMDir \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\presetProtocols\\\"
 	RMDir \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\settings\\\" 
 	RMDir \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\Ext_data\\\" 
 	RMDir \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\" 

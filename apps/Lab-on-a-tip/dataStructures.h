@@ -36,26 +36,6 @@
 #define MAX_WASTE_VOLUME 35 // value in mL
 #define MAX_WASTE_WARNING_VOLUME 27    // in mL
 
-/*  \brief Custom combo box for protocol editor, 
-*   
-*   The combo box maily inherit from the base QT class,
-*   but it redefine the behaviour on wheelEvent to prevent the 
-*   scroll of the mouse to change the item
-*  
-*/
-/*class protocolCommandCombobox :public QComboBox {
-	Q_OBJECT
-
-public:
-	explicit protocolCommandCombobox(QWidget* parent = 0) : QComboBox(parent) {}
-
-	void wheelEvent(QWheelEvent *e)
-	{
-		if (hasFocus())
-			QComboBox::wheelEvent(e);
-	}
-};*/
-
 
 /**  \brief Structure to handle COM parameters.
 *

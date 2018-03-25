@@ -83,4 +83,5 @@ public:
 		const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 };
 
+
 #endif /* PROTOCOL_EDITOR_DELEGATES_H_ */

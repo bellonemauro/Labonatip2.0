@@ -139,7 +139,7 @@ border:0;
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>966</width>
+         <width>871</width>
          <height>737</height>
         </rect>
        </property>
@@ -179,7 +179,7 @@ border:0;
           <widget class="QWidget" name="scrollAreaWidgetContents_2">
            <property name="geometry">
             <rect>
-             <x>0</x>
+             <x>-105</x>
              <y>0</y>
              <width>976</width>
              <height>669</height>
@@ -1507,9 +1507,9 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                  <widget class="QTextEdit" name="textEdit_emptyTime">
                   <property name="geometry">
                    <rect>
-                    <x>300</x>
-                    <y>50</y>
-                    <width>201</width>
+                    <x>250</x>
+                    <y>30</y>
+                    <width>291</width>
                     <height>101</height>
                    </rect>
                   </property>
@@ -1534,9 +1534,9 @@ p, li { white-space: pre-wrap; }
                  <widget class="QTextEdit" name="textEdit_emptyTime_waste">
                   <property name="geometry">
                    <rect>
-                    <x>710</x>
-                    <y>50</y>
-                    <width>221</width>
+                    <x>700</x>
+                    <y>30</y>
+                    <width>261</width>
                     <height>51</height>
                    </rect>
                   </property>
@@ -5857,8 +5857,8 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>373</width>
-              <height>912</height>
+              <width>468</width>
+              <height>1044</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_3">

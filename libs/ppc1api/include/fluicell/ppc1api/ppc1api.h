@@ -762,7 +762,7 @@ namespace fluicell
 		*  \param  _baud_rate 9600 19200 115200
 		*
 		**/
-		void setVebose(bool _verbose = false) { m_verbose = _verbose; }
+		void setVerbose(bool _verbose = false) { m_verbose = _verbose; }
 
 		/** \brief Reset the default values of pressures and vacuum to 100 droplet size
 		*

@@ -8,7 +8,7 @@
 *  +---------------------------------------------------------------------------+ */
 
 //uncomment to hide the console when the app starts
-//#define HIDE_TERMINAL 
+#define HIDE_TERMINAL 
 #ifdef HIDE_TERMINAL
 	#if defined (_WIN64) || defined (_WIN32)
 	  #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
@@ -30,17 +30,28 @@
 
 
 // if it is the first time that the software runs,
-// it will check if required paths already exist and set up useful files and folders in the user files
+// it will check if required paths already exist and 
+// set up useful files and folders in the user files
 // if this function return false, some path may be broken
-bool initPaths(Labonatip_GUI &_l, QString &_macro_user_path, QString &_settings_user_path, QString &_ext_data_user_path)
+bool initPaths(Labonatip_GUI &_l, QString &_protocols_user_path, 
+	QString &_settings_user_path, QString &_ext_data_user_path)
 {
-	QString home_path = QDir::homePath();   // detect the home path ... C:/users/user/
-	QDir app_dir = QDir::currentPath();     // is the installation folder  ... C:/Program Files/Labonatip
-	QString macro_path = app_dir.path();    // default macros path into the installation folder
-	macro_path.append("/presetMacros/");   
-	QString settings_path = app_dir.path(); // default setting path into the installation folder
+	// detect the home path ... C:/users/user/
+	QString home_path = QDir::homePath();   
+
+	// is the installation folder  ... C:/Program Files/Labonatip
+	QDir app_dir = QDir::currentPath();    
+	
+	// default protocol path into the installation folder
+	QString protocols_path = app_dir.path();    
+	protocols_path.append("/presetProtocols/");
+
+	// default setting path into the installation folder
+	QString settings_path = app_dir.path(); 
 	settings_path.append("/settings/");
-	QString ext_data_path = app_dir.path(); // default ext_data path into the installation folder
+
+	// default ext_data path into the installation folder
+	QString ext_data_path = app_dir.path();
 	ext_data_path.append("/Ext_data/");
 
 	// if the directory Labonatip does not exist in the home folder, create it
@@ -57,14 +68,14 @@ bool initPaths(Labonatip_GUI &_l, QString &_macro_user_path, QString &_settings_
 			home_path.toStdString() << " already exists" << endl;
 	}
 
-	// check if the macro directory exists in the program files path, 
+	// check if the protocol directory exists in the program files path, 
 	// if it doesn't the installation may be broken
-	QDir macro_dir;
-	macro_dir.setPath(macro_path);
-	if (!macro_dir.exists(macro_path) ) {
-		cerr << "ERROR: Labonatip macro directory does not exists in the installation folder"
+	QDir protocols_dir;
+	protocols_dir.setPath(protocols_path);
+	if (!protocols_dir.exists(protocols_path) ) {
+		cerr << "ERROR: Labonatip protocols directory does not exists in the installation folder"
 			 << "A reinstallation may solve the problem "<< endl;
-		QString ss = "Macro directory does not exists in the installation folder,";
+		QString ss = "Protocols directory does not exists in the installation folder,";
 		ss.append("Labonatip cannot run  <br>"); 
 		ss.append ("A reinstallation of Labonatip may solve the problem ");
 		QMessageBox::warning(&_l, "ERROR", ss);
@@ -72,7 +83,7 @@ bool initPaths(Labonatip_GUI &_l, QString &_macro_user_path, QString &_settings_
 	}
 	else {
 		cout << "directory " << 
-			macro_path.toStdString() << " exists" << endl;
+			protocols_path.toStdString() << " exists" << endl;
 	}
 
 	// check if the settings directory exists in the program files path, 
@@ -110,35 +121,36 @@ bool initPaths(Labonatip_GUI &_l, QString &_macro_user_path, QString &_settings_
 	}
 
 	// here we set the macro path in the user folder 
-	QDir macro_user_dir;
-	QString macro_home_path = home_path;
-	macro_home_path.append("/presetMacros/");
-	if (!macro_user_dir.exists(macro_home_path)) // if the macro user folder does not exist, create and copy
+	QDir protocols_user_dir;
+	QString protocols_home_path = home_path;
+	protocols_home_path.append("/presetProtocols/");
+	if (!protocols_user_dir.exists(protocols_home_path)) // if the macro user folder does not exist, create and copy
 	{
-		_macro_user_path = macro_home_path;
-		if (!macro_user_dir.mkpath(_macro_user_path))
+		_protocols_user_path = protocols_home_path;
+		if (!protocols_user_dir.mkpath(_protocols_user_path))
 		{
-			cerr << "Could not create presetMacros folder in the user directory" << endl;
-			QString ss = "Could not create presetMacros folder in the user directory";
+			cerr << "Could not create presetProtocols folder in the user directory" << endl;
+			QString ss = "Could not create presetProtocols folder in the user directory";
 			QMessageBox::warning(&_l, "ERROR", ss);
 			return false;
 		}
 
 	}
 	else {
-		_macro_user_path = macro_home_path;
+		_protocols_user_path = protocols_home_path;
 	}
 
 	// directory exists, copy files 
 	{
-		QStringList filesList = macro_dir.entryList(QDir::Files);
-		cout << "filesList info, macro folder contains " << filesList.size() << " files " << endl;
+		QStringList filesList = protocols_dir.entryList(QDir::Files);
+		cout << "filesList info, protocols folder contains " 
+			<< filesList.size() << " files " << endl;
 
 		QString file_name;
 		foreach(file_name, filesList)
 		{
-			QFile file1(_macro_user_path + file_name);
-			QFile file2(macro_path + file_name);
+			QFile file1(_protocols_user_path + file_name);
+			QFile file2(protocols_path + file_name);
 			if (!file1.exists())
 				QFile::copy(file2.fileName(), file1.fileName());
 		}
@@ -168,7 +180,8 @@ bool initPaths(Labonatip_GUI &_l, QString &_macro_user_path, QString &_settings_
 		_settings_user_path = settings_home_path;
 
 		QStringList filesList = settings_dir.entryList(QDir::Files);
-		cout << "filesList info, setting folder contains " << filesList.size() << " files " << endl;
+		cout << "filesList info, setting folder contains " 
+			 << filesList.size() << " files " << endl;
 
 		QString file_name;
 		foreach(file_name, filesList)
@@ -210,32 +223,38 @@ int main(int argc, char **argv)//(int argc, char *argv[])
 	string version;
 #ifdef LABONATIP_VERSION
 	version = VER;
-	cout << " Running Lab-on-a-tip version " << version << endl;
+	cout << " Running Lab-on-a-tip version "
+		 << version << endl;
 #endif
 	try {
 
 	  QApplication a (argc, argv);
 	  Labonatip_GUI window;
 
-	  QString macro_user_path;
+	  QString protocols_user_path;
 	  QString settings_user_path;
 	  QString ext_data_user_path;
 
 //TODO: this does not work under ubuntu
 #ifdef _DEBUG
-	  initPaths(window, macro_user_path, settings_user_path, ext_data_user_path);
+	  initPaths(window, protocols_user_path, 
+		  settings_user_path, ext_data_user_path);
 #else
-      if (!initPaths(window, macro_user_path, settings_user_path, ext_data_user_path)) return 0;
+      if (!initPaths(window, protocols_user_path, 
+		  settings_user_path, ext_data_user_path)) return 0;
 #endif
-	  // set default paths for settings and macros in the GUI app
-	  window.setProtocolUserPath(macro_user_path);
-	  cout << " Set macro_user_path " << macro_user_path.toStdString() << endl;
+	  // set default paths for settings and protocols in the GUI app
+	  window.setProtocolUserPath(protocols_user_path);
+	  cout << " Set protocols_user_path " 
+		  << protocols_user_path.toStdString() << endl;
 	  window.setSettingsUserPath(settings_user_path);
-	  cout << " Set settings_user_path " << settings_user_path.toStdString() << endl;
+	  cout << " Set settings_user_path "
+		  << settings_user_path.toStdString() << endl;
 	  window.setExtDataUserPath(ext_data_user_path);
 	  //window.setExtDataUserPath("./Ext_data/");  // this is just for now to be taken out for the release
-	  cout << " Set ext_data_user_path " << ext_data_user_path.toStdString() << endl;
-	   
+	  cout << " Set ext_data_user_path "
+		  << ext_data_user_path.toStdString() << endl;
+
 #ifdef LABONATIP_VERSION
 	  window.setVersion(version);
 #endif
@@ -262,11 +281,13 @@ int main(int argc, char **argv)//(int argc, char *argv[])
 	  return a.exec ();
   }
   catch (std::exception &e) {
-	  cerr   << " Labonatip_GUI::main ::: Unhandled Exception: " << e.what() << endl;
+	  cerr << " Labonatip_GUI::main ::: Unhandled Exception: " 
+		   << e.what() << endl;
 	  // TODO: clean up here, e.g. save the session
 	  // and close all config files.
-	  std::cout << " Something really bad just happend, press ok to exit " << std::endl;
-	  std::cin.get();
+	  cout << " Something really bad just happend, press ok to exit " 
+		   << endl;
+	  cin.get();
 	  return 0; // exit the application
   }
 

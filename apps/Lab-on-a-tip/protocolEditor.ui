@@ -90,7 +90,7 @@ border:0;
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>807</width>
+         <width>737</width>
          <height>679</height>
         </rect>
        </property>
@@ -583,7 +583,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
            <item>
             <widget class="QPushButton" name="pushButton_undo">
              <property name="enabled">
-              <bool>true</bool>
+              <bool>false</bool>
              </property>
              <property name="minimumSize">
               <size>
@@ -625,14 +625,14 @@ QPushButton:disabled{ background-color: #CCCCCC; }
               </size>
              </property>
              <property name="checkable">
-              <bool>true</bool>
+              <bool>false</bool>
              </property>
             </widget>
            </item>
            <item>
             <widget class="QPushButton" name="pushButton_redo">
              <property name="enabled">
-              <bool>true</bool>
+              <bool>false</bool>
              </property>
              <property name="minimumSize">
               <size>
@@ -674,52 +674,17 @@ QPushButton:disabled{ background-color: #CCCCCC; }
               </size>
              </property>
              <property name="checkable">
-              <bool>true</bool>
+              <bool>false</bool>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_showUndoStack">
+            <widget class="QPushButton" name="pushButton_undoStack">
              <property name="enabled">
-              <bool>true</bool>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>80</width>
-               <height>40</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>80</width>
-               <height>40</height>
-              </size>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>-1</pointsize>
-              </font>
-             </property>
-             <property name="toolTip">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Show undo stack&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-             </property>
-             <property name="statusTip">
-              <string>Clear all commands</string>
-             </property>
-             <property name="whatsThis">
-              <string>Clear all commands</string>
+              <bool>false</bool>
              </property>
              <property name="text">
-              <string>Stack</string>
-             </property>
-             <property name="iconSize">
-              <size>
-               <width>30</width>
-               <height>30</height>
-              </size>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
+              <string>stack</string>
              </property>
             </widget>
            </item>
@@ -871,7 +836,9 @@ QTreeView::item {
 }
 
 QTreeView::item:hover {
-    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+/*    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #f6f7fa, stop: 1 #F0FFF0);*/
+    border: 1px solid #C0C0C0;
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #C0C0C0, stop: 1 #C0C0C0);
 }
 
 QTreeView::item:selected {
@@ -958,7 +925,7 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
               <bool>true</bool>
              </property>
              <property name="selectionMode">
-              <enum>QAbstractItemView::ContiguousSelection</enum>
+              <enum>QAbstractItemView::SingleSelection</enum>
              </property>
              <property name="selectionBehavior">
               <enum>QAbstractItemView::SelectRows</enum>
@@ -1097,7 +1064,7 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
   <widget class="QDockWidget" name="dockWidget_params">
    <property name="minimumSize">
     <size>
-     <width>280</width>
+     <width>350</width>
      <height>600</height>
     </size>
    </property>
@@ -1305,7 +1272,7 @@ QTreeView::item:selected:!active {
           </item>
           <item>
            <property name="text">
-            <string>Macro duration (s)</string>
+            <string>Protocol duration (s)</string>
            </property>
            <property name="text">
             <string>0</string>
@@ -1842,6 +1809,17 @@ QPushButton:disabled{ background-color: #CCCCCC; }
    </property>
    <property name="toolTip">
     <string>Save as</string>
+   </property>
+  </action>
+  <action name="actionactionShowStack">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>actionShowStack</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+P</string>
    </property>
   </action>
  </widget>

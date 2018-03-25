@@ -202,7 +202,7 @@ void Labonatip_GUI::flowSpeedPlus() {
 		//	m_dialog_tools->m_pr_params->base_fs_increment)) 
 		if (!success) {
 			QMessageBox::information(this, m_str_warning,
-				m_str_operation_cannot_be_done, "<br>" + m_str_out_of_bound);
+				m_str_operation_cannot_be_done + "<br>" + m_str_out_of_bound);
 		}
 		else
 		{

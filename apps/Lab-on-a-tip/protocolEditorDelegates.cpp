@@ -72,47 +72,32 @@ void ComboBoxDelegate::paint(QPainter *painter, const QStyleOptionViewItem &opti
 	// set colors thanks https://stackoverflow.com/questions/43035378/qtreeview-item-hover-selected-background-color-based-on-current-color
 	//background
 	QColor bgColor;
-
-	//color logic
-	bgColor = QColor(Qt::transparent);//default is transparent to retain alternate row colors
-
-
-
-	if (option.state & QStyle::State_Selected)//check if it is hovered AND selected
-	{
-		bgColor = 0xFFFFFF;// qRgba(200, 200, 200, 255);
-
-		if (option.state & QStyle::State_Active)//check if item is selected
-		{
-			bgColor = 0xDDFFAA;// qRgba(200, 255, 255, 255);
-
-							   //background color won't show on selected items unless you do this
-			myOption.palette.setBrush(QPalette::Highlight, QBrush(bgColor));
-		}
-		//background color won't show on selected items unless you do this
-		myOption.palette.setBrush(QPalette::Highlight, QBrush(bgColor));
-	}
-
+	//default is transparent to retain alternate row colors
+	bgColor = QColor(Qt::transparent);
+	
 	if (option.state & QStyle::State_MouseOver)//check if item is hovered
 	{
-		//background: qlineargradient(x1 : 0, y1 : 0, x2 : 0, y2 : 1, stop : 0 #f6f7fa, stop: 1 #F0FFF0);
-		//more color logic
-		bgColor = 0xDDFFAA;//qRgba(bgColor.red() - 25, bgColor.green() - 25, bgColor.blue() - 25, 255);
-
-		if (option.state & QStyle::State_Selected)//check if it is hovered AND selected
+		bgColor = 0xC0C0C0;//qRgba(bgColor.red() - 25, bgColor.green() - 25, bgColor.blue() - 25, 255);
+		myOption.palette.setBrush(QPalette::Highlight, QBrush(bgColor));
+	}
+	if (option.state & QStyle::State_Selected)//check if it is hovered AND selected
+	{
+		//bgColor = 0xDDDDDD;
+		if (option.state & QStyle::State_Active)//check if item is selected
 		{
-			bgColor = 0xDDFFAA;// qRgba(148, 200, 234, 255);
+			int grey = 239;  //TODO: what the fuck is this shit !
+			bgColor = qRgba(grey, grey-34, grey-62, 255);
 
-							   //background color won't show on selected items unless you do this
-			myOption.palette.setBrush(QPalette::Highlight, QBrush(bgColor));
+			//background color won't show on selected items unless you do this
+			//myOption.palette.setBrush(QPalette::Highlight, QBrush(bgColor));
 		}
+		//background color won't show on selected items unless you do this
+		//myOption.palette.setBrush(QPalette::Highlight, QBrush(bgColor));
 	}
 
-	//set the backgroundBrush to our color. This affects unselected items.
 	myOption.backgroundBrush = QBrush(bgColor);
 	//draw the item background
 	option.widget->style()->drawPrimitive(QStyle::PE_PanelItemViewItem, &myOption, painter);
-
 
 	//text
 	QString text = Items[index.data().toInt()].c_str();
@@ -123,8 +108,7 @@ void ComboBoxDelegate::paint(QPainter *painter, const QStyleOptionViewItem &opti
 	option.widget->style()->drawItemText(painter,
 		textRect, Qt::AlignLeft | Qt::AlignVCenter, option.palette, true, text);// index.data(Qt::DisplayRole).toString());
 
-																				//QApplication::style()->drawControl(QStyle::CE_ItemViewItem, &myOption, painter);
-
+	//QApplication::style()->drawControl(QStyle::CE_ItemViewItem, &myOption, painter);
 }
 
 
