@@ -36,7 +36,8 @@ ComboBoxDelegate::ComboBoxDelegate(QObject *parent)
 }
 
 
-QWidget *ComboBoxDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &/* option */, const QModelIndex &/* index */) const
+QWidget *ComboBoxDelegate::createEditor(QWidget *parent, 
+	const QStyleOptionViewItem &/* option */, const QModelIndex &/* index */) const
 {
 	QComboBox* editor = new QComboBox(parent);
 	for (unsigned int i = 0; i < Items.size(); ++i)
@@ -46,6 +47,7 @@ QWidget *ComboBoxDelegate::createEditor(QWidget *parent, const QStyleOptionViewI
 	return editor;
 }
 
+
 void ComboBoxDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
 {
 	QComboBox *comboBox = static_cast<QComboBox*>(editor);
@@ -53,24 +55,31 @@ void ComboBoxDelegate::setEditorData(QWidget *editor, const QModelIndex &index) 
 	comboBox->setCurrentIndex(value);
 }
 
-void ComboBoxDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
+
+void ComboBoxDelegate::setModelData(QWidget *editor,
+	QAbstractItemModel *model, const QModelIndex &index) const
 {
 	QComboBox *comboBox = static_cast<QComboBox*>(editor);
 	model->setData(index, comboBox->currentIndex(), Qt::EditRole);
 
 }
 
-void ComboBoxDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &/* index */) const
+
+void ComboBoxDelegate::updateEditorGeometry(QWidget *editor, 
+	const QStyleOptionViewItem &option, const QModelIndex &/* index */) const
 {
 	editor->setGeometry(option.rect);
 }
 
-void ComboBoxDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
+
+void ComboBoxDelegate::paint(QPainter *painter, 
+	const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
 	QStyleOptionViewItem myOption = option;
 
-	// set colors thanks https://stackoverflow.com/questions/43035378/qtreeview-item-hover-selected-background-color-based-on-current-color
-	//background
+	// set colors thanks
+    // https://stackoverflow.com/questions/43035378/qtreeview-item-hover-selected-background-color-based-on-current-color
+	// background
 	QColor bgColor;
 	//default is transparent to retain alternate row colors
 	bgColor = QColor(Qt::transparent);
@@ -112,12 +121,11 @@ void ComboBoxDelegate::paint(QPainter *painter, const QStyleOptionViewItem &opti
 }
 
 
-
-
 SpinBoxDelegate::SpinBoxDelegate(QObject *parent)
 	: QStyledItemDelegate(parent)
 {
 }
+
 
 QWidget *SpinBoxDelegate::createEditor(QWidget *parent,
 	const QStyleOptionViewItem &/* option */,
@@ -131,6 +139,7 @@ QWidget *SpinBoxDelegate::createEditor(QWidget *parent,
 	return editor;
 }
 
+
 void SpinBoxDelegate::setEditorData(QWidget *editor,
 	const QModelIndex &index) const
 {
@@ -139,6 +148,7 @@ void SpinBoxDelegate::setEditorData(QWidget *editor,
 	QSpinBox *spinBox = static_cast<QSpinBox*>(editor);
 	spinBox->setValue(value);
 }
+
 
 void SpinBoxDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
 	const QModelIndex &index) const
@@ -149,6 +159,7 @@ void SpinBoxDelegate::setModelData(QWidget *editor, QAbstractItemModel *model,
 
 	model->setData(index, value, Qt::EditRole);
 }
+
 
 void SpinBoxDelegate::updateEditorGeometry(QWidget *editor,
 	const QStyleOptionViewItem &option, const QModelIndex &/* index */) const

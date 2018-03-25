@@ -34,37 +34,52 @@
 
 using namespace std;
 
-
 class QModelIndex;
 class QWidget;
 class QVariant;
 
+// this allows to add a combobox in a column of the QTreeWidget
+// ispired from here http://programmingexamples.net/wiki/Qt/Delegates/ComboBoxDelegate
 class ComboBoxDelegate : public QItemDelegate
 {
 	Q_OBJECT
 public:
 	ComboBoxDelegate(QObject *parent = 0);
 
-	QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const;
-	void setEditorData(QWidget *editor, const QModelIndex &index) const;
-	void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const;
-	void updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const;
-	void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
+	QWidget *createEditor(QWidget *parent, 
+		const QStyleOptionViewItem &option, const QModelIndex &index) const;
+
+	void setEditorData(QWidget *editor, 
+		const QModelIndex &index) const;
+
+	void setModelData(QWidget *editor, 
+		QAbstractItemModel *model, const QModelIndex &index) const;
+
+	void updateEditorGeometry(QWidget *editor,
+		const QStyleOptionViewItem &option, const QModelIndex &index) const;
+
+	void paint(QPainter *painter, 
+		const QStyleOptionViewItem &option, const QModelIndex &index) const;
 
 private:
-
 
 	std::vector<std::string> Items;
 };
 
+// this allows to add to a QTreeWidget a non-modifiable column
+// see this
+// https://stackoverflow.com/questions/2801959/making-only-one-column-of-a-qtreewidgetitem-editable
 class NoEditDelegate : public QStyledItemDelegate {
 public:
 	NoEditDelegate(QObject* parent = 0) : QStyledItemDelegate(parent) {}
-	virtual QWidget* createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const {
+	virtual QWidget* createEditor(QWidget *parent, 
+		const QStyleOptionViewItem &option, const QModelIndex &index) const {
 		return 0;
 	}
 };
 
+// this allows to add a spinbox in a column of the QTreeWidget
+// see this http://doc.qt.io/qt-5/qtwidgets-itemviews-spinboxdelegate-example.html
 class SpinBoxDelegate : public QStyledItemDelegate
 {
 	Q_OBJECT

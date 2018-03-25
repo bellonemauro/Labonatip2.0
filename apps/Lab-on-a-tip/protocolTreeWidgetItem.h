@@ -35,32 +35,52 @@
 
 using namespace std;
 
-
+/* Protocol widget item, this inherit the QTreeWidget methods
+   
+*/
 class protocolTreeWidgetItem : public QWidget, public QTreeWidgetItem
 {
 	Q_OBJECT
 
 public:
+	// ctor
 	protocolTreeWidgetItem(protocolTreeWidgetItem *parent = 0);
 
+	// check validity and do some reset 
 	bool protocolTreeWidgetItem::checkValidity( int _column);
 
+	// the range column is static,
+	// this allow to get the static value to put in
 	QString getRangeColumn(int _idx);
 
+	// allows to re-set the element with all the columns
 	void setElements(int _cmd_ind, int _value,
 		bool _show_msg, QString _msg);
 
+	// virtual in QTreeWidgetItem, to re-implement 
 	protocolTreeWidgetItem * clone();
 
 private:
-	const pr_params * m_pr_params;
+	// params for the settings of the PPC1
+	const pr_params * m_pr_params; 
 
-	const int m_cmd_idx_c;       // index of the column for command index
-	const int m_cmd_command_c;   // index of the column for the command
-	const int m_cmd_range_c;     // index of the column for the range
-	const int m_cmd_value_c;     // index of the column for the value
-	const int m_cmd_msg_c;       // index of the column for the command status message
-	const int m_cmd_level_c;     // index of the column for the level in the tree
+	// index of the column for command index							   
+	const int m_cmd_idx_c;         
+	
+	// index of the column for the command
+	const int m_cmd_command_c;
+
+	// index of the column for the range
+	const int m_cmd_range_c;       
+
+	// index of the column for the value
+	const int m_cmd_value_c;      
+	
+	// index of the column for the command status message
+	const int m_cmd_msg_c;         
+	
+	// index of the column for the level in the tree
+	const int m_cmd_level_c;       
 };
 
 

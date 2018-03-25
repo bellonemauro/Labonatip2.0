@@ -39,7 +39,6 @@ protocolTreeWidgetItem::protocolTreeWidgetItem(protocolTreeWidgetItem *_parent) 
 	{
 		this->setParent(_parent);
 	}
-
 }
 
 
@@ -49,7 +48,8 @@ bool protocolTreeWidgetItem::checkValidity( int _column) // TODO: _column is not
 
 	if (this->childCount() > 0)
 	{
-		// TODO: check here, if we have children than the item IS a loop
+		// If we have children than the item IS a loop
+		// so we force the item column to the loop function 
 		this->setText(m_cmd_command_c, QString::number(17));
 	}
 
