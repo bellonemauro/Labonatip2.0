@@ -583,7 +583,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
            <item>
             <widget class="QPushButton" name="pushButton_undo">
              <property name="enabled">
-              <bool>false</bool>
+              <bool>true</bool>
              </property>
              <property name="minimumSize">
               <size>
@@ -632,7 +632,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
            <item>
             <widget class="QPushButton" name="pushButton_redo">
              <property name="enabled">
-              <bool>false</bool>
+              <bool>true</bool>
              </property>
              <property name="minimumSize">
               <size>
@@ -681,7 +681,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
            <item>
             <widget class="QPushButton" name="pushButton_undoStack">
              <property name="enabled">
-              <bool>false</bool>
+              <bool>true</bool>
              </property>
              <property name="text">
               <string>stack</string>

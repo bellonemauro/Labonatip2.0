@@ -35,6 +35,8 @@
 
 using namespace std;
 
+
+
 /* Protocol widget item, this inherit the QTreeWidget methods
    
 */
@@ -57,10 +59,26 @@ public:
 	void setElements(int _cmd_ind, int _value,
 		bool _show_msg, QString _msg);
 
+	// virtual re-implementation of set data
+	void setData(int column, int role, const QVariant &value);
+
 	// virtual in QTreeWidgetItem, to re-implement 
 	protocolTreeWidgetItem * clone();
 
+	int getLastCommand() { return m_last_command; }
+	int getLastValue() { return m_last_value; }
+	Qt::CheckState getLastSM() { return m_last_show_msg; }
+	QString getLastMsg() { return m_last_show_msg; }
+
 private:
+	
+	// just to keep track of the last values changed
+	int m_last_command;
+	int m_last_value;
+	Qt::CheckState m_last_show_msg;
+	QString m_last_msg;
+	
+	
 	// params for the settings of the PPC1
 	const pr_params * m_pr_params; 
 

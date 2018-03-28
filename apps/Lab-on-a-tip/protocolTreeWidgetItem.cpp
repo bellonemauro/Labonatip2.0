@@ -20,7 +20,7 @@ protocolTreeWidgetItem::protocolTreeWidgetItem(protocolTreeWidgetItem *_parent) 
 
 	//cout << QDate::currentDate().toString().toStdString() << "  "
 	//	<< QTime::currentTime().toString().toStdString() << "  "
-	//	<< "myQTreeWidgetItem::myQTreeWidgetItem   " << endl;
+	//	<< "protocolTreeWidgetItem::protocolTreeWidgetItem   " << endl;
 
 	QFont font;
 	font.setBold(true);
@@ -53,9 +53,15 @@ bool protocolTreeWidgetItem::checkValidity( int _column) // TODO: _column is not
 		this->setText(m_cmd_command_c, QString::number(17));
 	}
 
+	// get the command index 
 	int idx = this->text(m_cmd_command_c).toInt();
+
+	// if the change comes from the command column
+	// the range field needs to be reset
 	if (_column == m_cmd_command_c) {
+		this->blockSignals(true);
 		this->setText(m_cmd_range_c, this->getRangeColumn(idx));
+		this->blockSignals(false);
 		// so it also automatically check the other column
 		_column = m_cmd_value_c;
 	}
@@ -66,9 +72,11 @@ bool protocolTreeWidgetItem::checkValidity( int _column) // TODO: _column is not
 	switch (idx) {
 	case 0: { // check pon
 
-			  // get the number to be checked
+	    // get the number to be checked
 		int number = this->text(_column).toInt();
 
+		// if the number if lower than 0,
+		// the value becomes automatically positive
 		if (number < 0)
 		{
 			number = -number;
@@ -326,7 +334,7 @@ QString protocolTreeWidgetItem::getRangeColumn( int _idx)
 
 void protocolTreeWidgetItem::setElements(int _cmd_ind, int _value, bool _show_msg, QString _msg)
 {
-
+	this->blockSignals(true);
 	this->setText(m_cmd_idx_c, "0");
 	this->setText(m_cmd_command_c, QString::number(_cmd_ind));
 	this->setText(m_cmd_range_c, this->getRangeColumn(_cmd_ind));
@@ -334,6 +342,29 @@ void protocolTreeWidgetItem::setElements(int _cmd_ind, int _value, bool _show_ms
 	this->setCheckState(m_cmd_msg_c, Qt::CheckState(_show_msg)); // status message
 	this->setText(m_cmd_msg_c, _msg); // status message
 	this->setFlags(this->flags() | (Qt::ItemIsEditable) | (Qt::ItemIsSelectable));
+	this->blockSignals(false);
+}
+
+void protocolTreeWidgetItem::setData(int column, int role, const QVariant & value)
+{
+
+
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "protocolTreeWidgetItem::setData   " 
+		<< " previous " << this->text(column).toStdString() 
+		<< " new value " << value.toString().toStdString() << endl;
+
+	// this is to keep tracks of changes in the data items, 
+	// it is then possible to overload a signal and 
+	// bring the last value to the undo stack
+	m_last_command = this->text(1).toInt();
+	m_last_value = this->text(3).toInt();
+	m_last_show_msg = this->checkState(4);
+	m_last_msg = this->text(4);
+
+	this->QTreeWidgetItem::setData(column, role, value);
+
 }
 
 protocolTreeWidgetItem * protocolTreeWidgetItem::clone()

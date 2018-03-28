@@ -32,7 +32,7 @@ Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 	// initialize the macro wizard
 	m_protocolWizard = new Labonatip_macroWizard();
 
-
+	// reset the macrotable widget
 	ui_p_editor->treeWidget_macroTable->setColumnWidth(m_cmd_idx_c, 70);
 	ui_p_editor->treeWidget_macroTable->setColumnWidth(m_cmd_command_c, 240);
 	ui_p_editor->treeWidget_macroTable->setColumnWidth(m_cmd_range_c, 160);
@@ -61,7 +61,9 @@ Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 
 	m_undo_view = new QUndoView(m_undo_stack);
 	m_undo_view->setWindowTitle(tr("Command List"));
+	m_undo_view->window()->setMinimumSize(300, 300);
 	m_undo_view->setAttribute(Qt::WA_QuitOnClose, false);
+	ui_p_editor->pushButton_undoStack->setEnabled(true);
 
 	// connects
 	connect(ui_p_editor->pushButton_undoStack,
@@ -272,8 +274,10 @@ void Labonatip_protocol_editor::addCommand()
 			dynamic_cast<protocolTreeWidgetItem * >(
 				ui_p_editor->treeWidget_macroTable->currentItem()->parent());
 
-		if (ui_p_editor->treeWidget_macroTable->currentItem()->parent())  // if the parent is valid (we are in a subtree)
+		// if the parent is valid (we are in a subtree)
+		if (ui_p_editor->treeWidget_macroTable->currentItem()->parent())  
 		{ 
+			
 			// add the new line as a child
 			new_command = new addProtocolCommand(
 				ui_p_editor->treeWidget_macroTable, row + 1, parent);
@@ -305,26 +309,30 @@ void Labonatip_protocol_editor::removeCommand()
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_protocol_editor::removeMacroCommand    " << endl;
 
-	
+	// avoid crash is no elements in the table or no selection
 	if (ui_p_editor->treeWidget_macroTable->currentItem() &&
-		ui_p_editor->treeWidget_macroTable->topLevelItemCount() > 0) {// avoid crash is no elements in the table or no selection
+		ui_p_editor->treeWidget_macroTable->topLevelItemCount() > 0) {
 		removeProtocolCommand *cmd;
 		
-		// destroy the selected item
+		// get the current row
 		int row = ui_p_editor->treeWidget_macroTable->currentIndex().row();
 
-		if (ui_p_editor->treeWidget_macroTable->currentItem()->parent())
-		{
+		// if the current element has a parent
+		//if (ui_p_editor->treeWidget_macroTable->currentItem()->parent())
+		//{
 			protocolTreeWidgetItem * parent = dynamic_cast<protocolTreeWidgetItem *> (
 				ui_p_editor->treeWidget_macroTable->currentItem()->parent());
+
+			// the parent is given as argument so the child can be removed
 			cmd = new removeProtocolCommand(
 				ui_p_editor->treeWidget_macroTable, row, parent);
-		}
-		else
-		{
-			cmd = new removeProtocolCommand(
-				ui_p_editor->treeWidget_macroTable, row);
-		}
+		//}
+		//else
+		//{
+			// else the top element item would be removed
+		//	cmd = new removeProtocolCommand(
+		//		ui_p_editor->treeWidget_macroTable, row);
+		//}
 		m_undo_stack->push(cmd);
 	}
 
@@ -335,7 +343,8 @@ void Labonatip_protocol_editor::removeCommand()
 	updateChartProtocol(m_protocol);
 }
 
-void Labonatip_protocol_editor::becomeChild()  //TODO: not used for now
+//TODO: not used for now
+void Labonatip_protocol_editor::becomeChild() 
 {
 
 	cout << QDate::currentDate().toString().toStdString() << "  "
@@ -370,7 +379,8 @@ void Labonatip_protocol_editor::becomeChild()  //TODO: not used for now
 	updateChartProtocol(m_protocol);
 }
 
-void Labonatip_protocol_editor::becomeParent()  //TODO: not used for now
+//TODO: not used for now
+void Labonatip_protocol_editor::becomeParent()  
 {
 
 	cout << QDate::currentDate().toString().toStdString() << "  "
@@ -484,32 +494,41 @@ void Labonatip_protocol_editor::plusIndent()
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_protocol_editor::plusIndent    " << endl;
 
-	// create a new item
-	protocolTreeWidgetItem *newItem = new protocolTreeWidgetItem;
+	// create the command
+	addProtocolCommand *cmd;
 
     // if no item selected, add to the top level
 	if (!ui_p_editor->treeWidget_macroTable->currentIndex().isValid()) 
 	{
-		ui_p_editor->treeWidget_macroTable->insertTopLevelItem(0, newItem);
+		//ui_p_editor->treeWidget_macroTable->insertTopLevelItem(0, newItem);
+		cmd = new addProtocolCommand(ui_p_editor->treeWidget_macroTable, 0);
 	}
 	else { // otherwise it add the item as a child
 		protocolTreeWidgetItem *parent =
 			dynamic_cast<protocolTreeWidgetItem *> (
 				ui_p_editor->treeWidget_macroTable->currentItem());
 
+		
 		if (parent->QTreeWidgetItem::parent()) {
 			QMessageBox::warning(this, m_str_warning,
 				QString("Currently only one loop level is supported"));
 			return;
 		}
+
 		if (parent) {  //TODO: fix this
-			parent->insertChild(0, newItem);
+
+		   // set the current parent to be a loop
+			parent->setText(m_cmd_command_c, QString::number(17));
+
+			// add the new line as a child
+			cmd = new addProtocolCommand(
+				ui_p_editor->treeWidget_macroTable, 0, parent);
 		}
-		else {
-			QMessageBox::warning(this, m_str_warning,
-				QString("Sub-elements can be added in loops only"));
-		}
+
 	}
+	
+	// add the new command in the undo stack
+	m_undo_stack->push(cmd);
 
 	// update the macro command
 	addAllCommandsToProtocol();  // this is not really nice, better to append (much faster)
@@ -523,14 +542,22 @@ bool Labonatip_protocol_editor::itemChanged(QTreeWidgetItem *_item, int _column)
 	//	<< QTime::currentTime().toString().toStdString() << "  "
 	//	<< "Labonatip_protocol_editor::itemChanged    " << endl;
 
-	dynamic_cast<protocolTreeWidgetItem *>(_item)->checkValidity( _column);
-	int r = ui_p_editor->treeWidget_macroTable->indexOfTopLevelItem(_item);
-	// new stack command for item changed!
-	changedProtocolCommand * cmd =
-		new changedProtocolCommand(ui_p_editor->treeWidget_macroTable,
-			dynamic_cast<protocolTreeWidgetItem *>(_item), 0, _column);
+	if (_column == m_cmd_idx_c || _column == m_cmd_range_c)
+	{
+		dynamic_cast<protocolTreeWidgetItem *>(_item)->checkValidity(_column);
+		return true;
+	}
+	else
+	{
+		int r = ui_p_editor->treeWidget_macroTable->indexOfTopLevelItem(_item);
+		// new stack command for item changed!
+		changedProtocolCommand * cmd =
+			new changedProtocolCommand(ui_p_editor->treeWidget_macroTable,
+				dynamic_cast<protocolTreeWidgetItem *>(_item), 0, _column);
+		m_undo_stack->push(cmd);
 
-	m_undo_stack->push(cmd);
+		dynamic_cast<protocolTreeWidgetItem *>(_item)->checkValidity(_column);
+	}
 
 	addAllCommandsToProtocol();
 	updateChartProtocol(m_protocol);
@@ -547,6 +574,35 @@ void Labonatip_protocol_editor::duplicateItem()  //TODO: this crash if the loop 
 	// avoid crash if no selection
 	if (!ui_p_editor->treeWidget_macroTable->currentItem()) return; 
 
+	// get the current item to clone
+	protocolTreeWidgetItem *to_clone =
+		dynamic_cast<protocolTreeWidgetItem *> (
+			ui_p_editor->treeWidget_macroTable->currentItem());
+
+	int command_idx = to_clone->text(m_cmd_command_c).toInt();
+	int value = to_clone->text(m_cmd_value_c).toInt();
+	Qt::CheckState show_msg = to_clone->checkState(m_cmd_msg_c);
+	QString msg = to_clone->text(m_cmd_msg_c);
+
+	this->addCommand();
+
+	
+	// get the clone, I am aware that the function give the new focus to the added item
+	protocolTreeWidgetItem *clone =
+		dynamic_cast<protocolTreeWidgetItem *> (
+			ui_p_editor->treeWidget_macroTable->currentItem());
+
+
+	clone->setText(m_cmd_command_c, QString::number(command_idx));
+	clone->setText(m_cmd_value_c, QString::number(value));
+	clone->setCheckState(m_cmd_command_c, show_msg);
+	clone->setText(m_cmd_msg_c, msg);
+
+	addAllCommandsToProtocol();
+	updateChartProtocol(m_protocol);
+	return;
+
+	/* TODO: deprecated
 	// get the current item to clone
 	protocolTreeWidgetItem *to_clone =
 		dynamic_cast<protocolTreeWidgetItem *> (
@@ -596,7 +652,7 @@ void Labonatip_protocol_editor::duplicateItem()  //TODO: this crash if the loop 
 
 		return;
 	}
-	return;
+	return;*/
 }
 
 
@@ -612,6 +668,16 @@ void Labonatip_protocol_editor::createNewLoop(int _loops)
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_protocol_editor::createNewLoop    " << endl;
 
+	this->addCommand();
+	ui_p_editor->treeWidget_macroTable->currentItem()->setText(
+		m_cmd_command_c, QString::number(17));// "Loop"); // 
+
+	this->plusIndent();
+	addAllCommandsToProtocol();
+	updateChartProtocol(m_protocol);
+	return;
+
+	/*  //TODO: deprecated
 	// create a new item
 	protocolTreeWidgetItem *newItem = new protocolTreeWidgetItem;
 	newItem->setText(m_cmd_command_c, QString::number(17));// "Loop"); // 
@@ -652,7 +718,7 @@ void Labonatip_protocol_editor::createNewLoop(int _loops)
 
 	addAllCommandsToProtocol();
 	updateChartProtocol(m_protocol);
-
+	*/
 }
 
 
@@ -679,8 +745,9 @@ void Labonatip_protocol_editor::addAllCommandsToProtocol()
 			dynamic_cast<protocolTreeWidgetItem * > (
 				ui_p_editor->treeWidget_macroTable->topLevelItem(i));
 		ui_p_editor->treeWidget_macroTable->blockSignals(true); 
-		ui_p_editor->treeWidget_macroTable->topLevelItem(i)->setText(m_cmd_idx_c, QString::number(i));
+		item->setText(m_cmd_idx_c, QString::number(i));
 		ui_p_editor->treeWidget_macroTable->blockSignals(false);
+
 
 		if (item->childCount() < 1) { // if no children, just add the line 
 			string a = ui_p_editor->treeWidget_macroTable->topLevelItem(i)->text(m_cmd_command_c).toStdString();
@@ -805,7 +872,7 @@ bool Labonatip_protocol_editor::loadProtocol(const QString _file_name)
 				{
 				
 						ui_p_editor->treeWidget_macroTable->addTopLevelItem(newItem);
-		
+						
 					//list->push_back(newItem);
 					//cout << QDate::currentDate().toString().toStdString() << "  "
 					//	<< QTime::currentTime().toString().toStdString() << "  "
@@ -1664,7 +1731,10 @@ void Labonatip_protocol_editor::undo()
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_protocol_editor::undo " << endl;
 
-	//m_undo_stack->undo();
+	ui_p_editor->treeWidget_macroTable->blockSignals(true);
+	m_undo_stack->undo();
+	ui_p_editor->treeWidget_macroTable->blockSignals(false); 
+	addAllCommandsToProtocol();
 	//m_undo_protocol_stack->undo();
 }
 
@@ -1674,8 +1744,9 @@ void Labonatip_protocol_editor::redo()
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_protocol_editor::redo " << endl;
 
-     
+	//ui_p_editor->treeWidget_macroTable->blockSignals(true);
 	//m_undo_stack->redo();
+	//ui_p_editor->treeWidget_macroTable->blockSignals(false);
 	//m_undo_protocol_stack->redo();
 }
 

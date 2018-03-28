@@ -27,35 +27,57 @@
 #include <fluicell/ppc1api/ppc1api.h>
 
 
+
+/**  Add protocol command to create a new command in the 
+  *  protocol tree widget and push it into the undo stack,
+  *  the constructor also calls the first time
+  *  the function redo
+  *   
+  **/
 class addProtocolCommand : public QTreeWidget, public QUndoCommand
 {
 	Q_OBJECT
 public:
 
+	// ctor
 	addProtocolCommand(
 		QTreeWidget * const _tree_widget,
 		int _at_row,
 		protocolTreeWidgetItem * _parent = 0);
 
+	// just return the widget upon request
 	protocolTreeWidgetItem * item() { return m_new_item; };
 
+	// reimplementation of the virtual method  
 	void redo();
+
+	// reimplementation of the virtual method  
 	void undo();
 
 private:
 
-	QTreeWidget * const m_tree_widget;
+	// pointer to the tree widget
+	QTreeWidget * const m_tree_widget;   
+
+	// the new item to be added
 	protocolTreeWidgetItem * m_new_item;
+
+	// parent to the new item (if any)
 	protocolTreeWidgetItem * m_parent;
 	
-
+	// row to add the command
 	int const m_at_row;
+
+	// track the undo/redo
 	int is_undo;
 
+	// data members of the line that is added / removed, 
+	// I am using this to undo/redo the command as 
+	// the pointer gets destroyed
 	int m_view_idx;
 	int m_cmd_idx;
 	int m_value;
-	bool m_show_status_msg;
+	Qt::CheckState m_show_status_msg;
 	QString m_status_msg;
 
 };
@@ -87,7 +109,7 @@ private:
 	int m_view_idx;
 	int m_cmd_idx;
 	int m_value;
-	bool m_show_status_msg;
+	Qt::CheckState m_show_status_msg;
 	QString m_status_msg;
 
 };
@@ -115,35 +137,21 @@ private:
 	int const m_changed_row;
 	int const m_changed_column;
 	
-	int m_view_idx;
-	int m_cmd_idx;
-	int m_value;
-	bool m_show_status_msg;
-	QString m_status_msg;
+	// just to keep track of the last values changed
+	int m_last_command;
+	int m_last_value;
+	bool m_last_show_msg;
+	QString m_last_msg;
+
+	int m_new_command;
+	int m_new_value;
+	Qt::CheckState m_new_show_msg;
+	QString m_new_msg;
+
+	bool is_undo;
 
 };
 
-class protocolStackCommand : public QTreeWidget, public QUndoCommand
-{
-	Q_OBJECT
-public:
-
-	protocolStackCommand(
-		QTreeWidget * const _tree_widget,
-		QList<QStringList> _protocol_last,
-		QList<QStringList> _protocol_new);
-
-	void redo();
-	void undo();
-
-private:
-
-	QTreeWidget const *  m_tree_widget;
-	QList<QStringList> m_protocol_last;
-	QList<QStringList> m_protocol_new;
-	
-
-};
 
 
 #endif /* PROTOCOL_COMMANDS_H_ */
