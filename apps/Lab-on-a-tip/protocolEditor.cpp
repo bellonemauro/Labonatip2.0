@@ -549,13 +549,30 @@ bool Labonatip_protocol_editor::itemChanged(QTreeWidgetItem *_item, int _column)
 	}
 	else
 	{
-		int r = ui_p_editor->treeWidget_macroTable->indexOfTopLevelItem(_item);
-		// new stack command for item changed!
-		changedProtocolCommand * cmd =
-			new changedProtocolCommand(ui_p_editor->treeWidget_macroTable,
-				dynamic_cast<protocolTreeWidgetItem *>(_item), 0, _column);
-		m_undo_stack->push(cmd);
 
+		// if the changed element has a parent 
+		if (_item->parent())
+		{
+			changedProtocolCommand * cmd =
+				new changedProtocolCommand(ui_p_editor->treeWidget_macroTable,
+					dynamic_cast<protocolTreeWidgetItem *>(_item),  _column,
+					dynamic_cast<protocolTreeWidgetItem *>(_item->parent()));
+			
+			// push the command into the stack
+			m_undo_stack->push(cmd);
+		}
+		else
+		{
+			// the command is called with null pointer on the parent
+			changedProtocolCommand * cmd =
+				new changedProtocolCommand(
+					ui_p_editor->treeWidget_macroTable,
+						dynamic_cast<protocolTreeWidgetItem *>(_item), 
+					_column);
+
+			// push the command into the stack
+			m_undo_stack->push(cmd);
+		}
 		dynamic_cast<protocolTreeWidgetItem *>(_item)->checkValidity(_column);
 	}
 
@@ -1744,10 +1761,9 @@ void Labonatip_protocol_editor::redo()
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_protocol_editor::redo " << endl;
 
-	//ui_p_editor->treeWidget_macroTable->blockSignals(true);
-	//m_undo_stack->redo();
-	//ui_p_editor->treeWidget_macroTable->blockSignals(false);
-	//m_undo_protocol_stack->redo();
+	ui_p_editor->treeWidget_macroTable->blockSignals(true);
+	m_undo_stack->redo();
+	ui_p_editor->treeWidget_macroTable->blockSignals(false);
 }
 
 void Labonatip_protocol_editor::switchLanguage(QString _translation_file)
