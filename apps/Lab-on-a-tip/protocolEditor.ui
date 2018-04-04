@@ -679,16 +679,6 @@ QPushButton:disabled{ background-color: #CCCCCC; }
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_undoStack">
-             <property name="enabled">
-              <bool>true</bool>
-             </property>
-             <property name="text">
-              <string>stack</string>
-             </property>
-            </widget>
-           </item>
-           <item>
             <widget class="QPushButton" name="pushButton_becomeParent">
              <property name="enabled">
               <bool>false</bool>
@@ -1396,7 +1386,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
           </property>
           <column>
            <property name="text">
-            <string>Folder</string>
+            <string>Protocols</string>
            </property>
           </column>
           <item>

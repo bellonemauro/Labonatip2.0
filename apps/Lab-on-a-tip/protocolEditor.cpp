@@ -63,12 +63,13 @@ Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 	m_undo_view->setWindowTitle(tr("Command List"));
 	m_undo_view->window()->setMinimumSize(300, 300);
 	m_undo_view->setAttribute(Qt::WA_QuitOnClose, false);
-	ui_p_editor->pushButton_undoStack->setEnabled(true);
+	ui_p_editor->pushButton_undo->setShortcut(
+		QApplication::translate("Labonatip_protocol_editor", "Ctrl + Z", Q_NULLPTR));
+	ui_p_editor->pushButton_redo->setShortcut(
+		QApplication::translate("Labonatip_protocol_editor", "Ctrl + Y", Q_NULLPTR));
+
 
 	// connects
-	connect(ui_p_editor->pushButton_undoStack,
-		SIGNAL(clicked()), this, SLOT(showUndoStack()));
-
 	connect(ui_p_editor->pushButton_undo,
 		SIGNAL(clicked()), this, SLOT(undo()));
 
@@ -995,6 +996,9 @@ bool Labonatip_protocol_editor::loadProtocol(const QString _file_name)
 	addAllCommandsToProtocol();
 	updateChartProtocol(m_protocol);
 	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
+
+	m_undo_stack->clear();
+
 	return true;
 }
 
@@ -1815,6 +1819,12 @@ void Labonatip_protocol_editor::about() {
 	cout << QDate::currentDate().toString().toStdString() << "  "
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_GUI::about   " << endl;
+	if (1)
+	{
+		this->showUndoStack();
+		return;
+
+	}
 
 	QMessageBox messageBox;
 	QString msg_title = "About Fluicell Lab-on-a-tip ";
@@ -1830,6 +1840,9 @@ void Labonatip_protocol_editor::about() {
 	messageBox.about(this, msg_title, msg_content);
 	messageBox.setIconPixmap(QPixmap(":/icons/fluicell_iconBIG.ico"));
 	messageBox.setFixedSize(600, 800);
+
+	
+
 }
 
 Labonatip_protocol_editor::~Labonatip_protocol_editor() {
