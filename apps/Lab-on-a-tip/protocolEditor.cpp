@@ -417,29 +417,39 @@ void Labonatip_protocol_editor::moveUp()
 
 
 	// get the current selected item
-	protocolTreeWidgetItem *moveItem =
+	protocolTreeWidgetItem *move_item =
 		dynamic_cast<protocolTreeWidgetItem *> (
 			ui_p_editor->treeWidget_macroTable->currentItem());
 	int row = ui_p_editor->treeWidget_macroTable->currentIndex().row();
 
-	if (moveItem && row > 0) // if the selection is valid and we are not at the first row
+	if (move_item && row > 0) // if the selection is valid and we are not at the first row
 	{
-			protocolTreeWidgetItem *parent =
-				dynamic_cast<protocolTreeWidgetItem *> (
-					ui_p_editor->treeWidget_macroTable->currentItem()->parent());
-			// if we are not at the fist level, so the item has a parent
-			if (parent) {
-				parent->takeChild(row); // take the child at the row
-				parent->insertChild(row - 1, moveItem); // add the selected item one row before
-			}
-			else {
+		moveUpCommand *cmd;
+
+		protocolTreeWidgetItem *parent =
+			dynamic_cast<protocolTreeWidgetItem *> (
+				ui_p_editor->treeWidget_macroTable->currentItem()->parent());
+		
+		// if we are not at the fist level, so the item has a parent
+		if (parent) {
+			//parent->takeChild(row); // take the child at the row
+			//parent->insertChild(row - 1, moveItem); // add the selected item one row before
+
+			cmd = new moveUpCommand(ui_p_editor->treeWidget_macroTable,
+				parent);
+		}
+		else {
+
 				// if we are on the top level, just take the item 
-				ui_p_editor->treeWidget_macroTable->takeTopLevelItem(row);
+				//ui_p_editor->treeWidget_macroTable->takeTopLevelItem(row);
 				// and add the selected item one row before
-				ui_p_editor->treeWidget_macroTable->insertTopLevelItem(row - 1, moveItem);
+				//ui_p_editor->treeWidget_macroTable->insertTopLevelItem(row - 1, moveItem);
+			cmd = new moveUpCommand(ui_p_editor->treeWidget_macroTable);
+
 			}
-			ui_p_editor->treeWidget_macroTable->setCurrentItem(
-				moveItem, m_cmd_value_c, QItemSelectionModel::SelectionFlag::Rows);
+		m_undo_stack->push(cmd);
+		ui_p_editor->treeWidget_macroTable->setCurrentItem(
+			move_item, m_cmd_value_c, QItemSelectionModel::SelectionFlag::Rows);
 	}
 
 	// update the macro command
@@ -463,24 +473,33 @@ void Labonatip_protocol_editor::moveDown()
 
 	if (moveItem && row >= 0 && row < number_of_items - 1)
 	{
+		moveDownCommand *cmd;
+		
 		protocolTreeWidgetItem *parent =
 			dynamic_cast<protocolTreeWidgetItem *> (
 				ui_p_editor->treeWidget_macroTable->currentItem()->parent());
+		
+		
 		// if we are not at the fist level, so the item has a parent
 		if (parent) {
-			parent->takeChild(row); // take the child at the row
-			parent->insertChild(row + 1, moveItem); // add the selected item one row before
+			//parent->takeChild(row); // take the child at the row
+			//parent->insertChild(row + 1, moveItem); // add the selected item one row before
+
+			cmd = new moveDownCommand(ui_p_editor->treeWidget_macroTable,
+				parent);
 		}
 		else {
-			ui_p_editor->treeWidget_macroTable->takeTopLevelItem(row);
-			ui_p_editor->treeWidget_macroTable->insertTopLevelItem(row + 1, moveItem);
+
+			//ui_p_editor->treeWidget_macroTable->takeTopLevelItem(row);
+			//ui_p_editor->treeWidget_macroTable->insertTopLevelItem(row + 1, moveItem);
+			cmd = new moveDownCommand(ui_p_editor->treeWidget_macroTable);
 
 		}
-		
-	}
+		m_undo_stack->push(cmd);
+		ui_p_editor->treeWidget_macroTable->setCurrentItem(
+			moveItem, m_cmd_value_c, QItemSelectionModel::SelectionFlag::Rows);
 
-	ui_p_editor->treeWidget_macroTable->setCurrentItem(
-		moveItem, m_cmd_value_c, QItemSelectionModel::SelectionFlag::Rows);
+	}
 
 	// update the macro command
 	addAllCommandsToProtocol();  // this is not really nice, better to append (much faster)

@@ -436,3 +436,152 @@ void changedProtocolCommand::undo()
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 
+moveUpCommand::moveUpCommand(
+	QTreeWidget * const _tree_widget,
+	protocolTreeWidgetItem * _parent):
+	m_tree_widget(_tree_widget)
+{
+
+	m_parent = NULL;
+	m_has_parent = false;
+	m_row = m_tree_widget->currentIndex().row();
+	// continue from here
+
+	if (_parent)
+	{
+		m_parent = _parent;
+		m_has_parent = true;
+		m_parent_row = _tree_widget->indexOfTopLevelItem(_parent);
+
+	}
+
+}
+
+void moveUpCommand::redo() 
+{
+
+	if (m_has_parent) {
+
+		m_move_item =
+			dynamic_cast<protocolTreeWidgetItem *> (
+				m_parent->child(m_row));
+
+		m_parent->takeChild(m_row); // take the child at the row
+		m_parent->insertChild(m_row - 1, m_move_item); // add the selected item one row before
+	}
+	else {
+		m_move_item =
+			dynamic_cast<protocolTreeWidgetItem *> (
+				m_tree_widget->topLevelItem(m_row));
+
+		// if we are on the top level, just take the item 
+		m_tree_widget->takeTopLevelItem(m_row);
+		// and add the selected item one row before
+		m_tree_widget->insertTopLevelItem(m_row - 1, m_move_item);
+
+		this->setText("Moved top level item at row " + QString::number(m_row) + 
+			" to row " + QString::number(m_row - 1) );
+
+	}
+
+}
+
+void moveUpCommand::undo()
+{
+	if (m_has_parent) {
+
+		m_move_item =
+			dynamic_cast<protocolTreeWidgetItem *> (
+				m_parent->child(m_row));
+
+		m_parent->takeChild(m_row - 1); // take the child at the row
+		m_parent->insertChild(m_row , m_move_item); // add the selected item one row before
+	}
+	else {
+		m_move_item =
+			dynamic_cast<protocolTreeWidgetItem *> (
+				m_tree_widget->topLevelItem(m_row - 1));
+
+		// if we are on the top level, just take the item 
+		m_tree_widget->takeTopLevelItem(m_row - 1 );
+		// and add the selected item one row before
+		m_tree_widget->insertTopLevelItem(m_row, m_move_item);
+
+	}
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+moveDownCommand::moveDownCommand(
+	QTreeWidget * const _tree_widget,
+	protocolTreeWidgetItem * _parent) :
+	m_tree_widget(_tree_widget)
+{
+
+	m_parent = NULL;
+	m_has_parent = false;
+	m_row = m_tree_widget->currentIndex().row();
+	// continue from here
+
+	if (_parent)
+	{
+		m_parent = _parent;
+		m_has_parent = true;
+		m_parent_row = _tree_widget->indexOfTopLevelItem(_parent);
+
+	}
+
+}
+
+void moveDownCommand::redo()
+{
+
+	if (m_parent) {
+
+		m_move_item =
+			dynamic_cast<protocolTreeWidgetItem *> (
+				m_parent->child(m_row));
+
+		m_parent->takeChild(m_row); // take the child at the row
+		m_parent->insertChild(m_row + 1, m_move_item); // add the selected item one row before
+	}
+	else {
+		m_move_item =
+			dynamic_cast<protocolTreeWidgetItem *> (
+				m_tree_widget->topLevelItem(m_row));
+
+		// if we are on the top level, just take the item 
+		m_tree_widget->takeTopLevelItem(m_row);
+		// and add the selected item one row before
+		m_tree_widget->insertTopLevelItem(m_row + 1, m_move_item);
+
+		this->setText("Moved top level item at row " + QString::number(m_row) +
+			" to row " + QString::number(m_row + 1));
+
+	}
+
+}
+
+void moveDownCommand::undo()
+{
+	if (m_parent) {
+
+		m_move_item =
+			dynamic_cast<protocolTreeWidgetItem *> (
+				m_parent->child(m_row));
+
+		m_parent->takeChild(m_row + 1); // take the child at the row
+		m_parent->insertChild(m_row, m_move_item); // add the selected item one row before
+	}
+	else {
+		m_move_item =
+			dynamic_cast<protocolTreeWidgetItem *> (
+				m_tree_widget->topLevelItem(m_row + 1));
+
+		// if we are on the top level, just take the item 
+		m_tree_widget->takeTopLevelItem(m_row + 1);
+		// and add the selected item one row before
+		m_tree_widget->insertTopLevelItem(m_row, m_move_item);
+
+	}
+}

@@ -84,8 +84,7 @@ private:
 
 };
 
-
-
+///////////////////////////////////////////////////////////////////////////
 
 class removeProtocolCommand : public QTreeWidget, public QUndoCommand
 {
@@ -119,6 +118,7 @@ private:
 
 };
 
+///////////////////////////////////////////////////////////////////////////
 
 class changedProtocolCommand : public QTreeWidget, public QUndoCommand
 {
@@ -160,6 +160,7 @@ private:
 
 };
 
+///////////////////////////////////////////////////////////////////////////
 
 class moveUpCommand : public QTreeWidget, public QUndoCommand
 {
@@ -168,7 +169,6 @@ public:
 
 	moveUpCommand(
 		QTreeWidget * const _tree_widget,
-		int _row, 
 		protocolTreeWidgetItem * _parent = 0);
 
 	void redo();
@@ -176,27 +176,16 @@ public:
 
 private:
 
-	QTreeWidget const *  m_tree_widget;
+	QTreeWidget *  m_tree_widget;
 	protocolTreeWidgetItem * m_move_item;
 	protocolTreeWidgetItem * m_parent;
-	int const m_row;
-
-
-	// just to keep track of the last values changed
-	int m_command;
-	int m_value;
-	Qt::CheckState m_show_msg;
-	QString m_msg;
-
-	int m_new_command;
-	int m_new_value;
-	Qt::CheckState m_new_show_msg;
-	QString m_new_msg;
-
-	bool is_undo;
+	bool m_has_parent;
+	int m_parent_row;
+	int m_row;
 
 };
 
+///////////////////////////////////////////////////////////////////////////
 
 class moveDownCommand : public QTreeWidget, public QUndoCommand
 {
@@ -205,7 +194,6 @@ public:
 
 	moveDownCommand(
 		QTreeWidget * const _tree_widget,
-		int _row,
 		protocolTreeWidgetItem * _parent = 0);
 
 	void redo();
@@ -213,25 +201,13 @@ public:
 
 private:
 
-	QTreeWidget const *  m_tree_widget;
+	QTreeWidget *  m_tree_widget;
 	protocolTreeWidgetItem * m_move_item;
 	protocolTreeWidgetItem * m_parent;
-	int const m_row;
-
-
-	// just to keep track of the last values changed
-	int m_command;
-	int m_value;
-	Qt::CheckState m_show_msg;
-	QString m_msg;
-
-	int m_new_command;
-	int m_new_value;
-	Qt::CheckState m_new_show_msg;
-	QString m_new_msg;
-
-	bool is_undo;
-
+	bool m_has_parent;
+	int m_parent_row; 
+	int m_row;
+	
 };
 
 #endif /* PROTOCOL_COMMANDS_H_ */
