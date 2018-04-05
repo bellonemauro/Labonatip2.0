@@ -29,7 +29,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="5.6568542"
-     inkscape:cx="66.218561"
+     inkscape:cx="35.105862"
      inkscape:cy="23.935351"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -57,7 +57,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -70,7 +70,7 @@
        id="g4150"
        transform="matrix(-1.3089191,0,0,1.3090426,-2839.121,-172.4636)"
        style="fill:none;fill-opacity:1"
-       inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\loop.png"
+       inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\redo.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90">
       <g
@@ -107,7 +107,7 @@
        id="flowRoot4142"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0.01%;font-family:'Times New Roman';-inkscape-font-specification:'Times New Roman,';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#505050;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        transform="matrix(0.97632254,0,0,0.97632254,24.056511,-19.534601)"
-       inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\loop.png"
+       inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\redo.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90"><flowRegion
          id="flowRegion4144"><rect

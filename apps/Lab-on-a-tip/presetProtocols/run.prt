@@ -1,0 +1,43 @@
+%% +---------------------------------------------------------------------------+
+%% |                           FLUICELL LAB-ON-A-TIP                           |
+%% |                                                                           |
+%% |                                                                           |
+%% |                          http://www.fluicell.com/                         |
+%% +---------------------------------------------------------------------------+
+%% 
+%% Macro Header V. 0.4 
+%% file created on dd/mm/yyyy - Fri Jul 7 2017 15:09:50%% 
+%% Fluicell Lab-on-a-tip macro file description 
+%% +---------------------------------------------------------------------------+ 
+%% List of parameters: 
+%%  - Command :  
+%%  -       1:  Pressure ON (mbar) 
+%%  -       2:  Pressure OFF (mbar) 
+%%  -       3:  Vacuum Switch (mbar) 
+%%  -       4:  Vacuum Recirculation (mbar) 
+%%  -       5:  Solution 1 (open/close) 
+%%  -       6:  Solution 2 (open/close) 
+%%  -       7:  Solution 3 (open/close) 
+%%  -       8:  Solution 4 (open/close) 
+%%  -       9:  Droplet size (%) 
+%%  -       10: Flow speed (%) 
+%%  -       11: Vacuum (%) 
+%%  -       12: loop 
+%%  -       13: Wait (s) 
+%%  -       14: All Off 
+%%  -       15: Pumps Off 
+%%  -       16: Valve state 
+%%  -       17: Wait sync 
+%%  -       18: Sync out 
+%%  - 
+%%  - value (mbar, %, s) - value to be applied to the command
+%%  - status_message (string) 
+%%  - depth : depth in the tree of the command, all the commands at different layers will run in loop
+%% +---------------------------------------------------------------------------+ 
+%% Command Value status_message depth
+%
+10##0#AllOff#0#§
+1#21#0#setPoff(21)#0#§
+0#190#0#setPon(190)#0#§
+2#-115#0#setVswitch(-115)#0#§
+3#-115#0#setVrecirc(-115)#0#§

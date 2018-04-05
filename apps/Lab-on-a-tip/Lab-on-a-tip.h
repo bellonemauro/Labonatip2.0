@@ -251,9 +251,9 @@ private slots:
 	*
 	* \note
 	*/
-	void setPpc1Verbose(int _state) {
-		m_ppc1->setVebose(_state);
-	};
+	//void setPpc1Verbose(int _state) {
+	//	m_ppc1->setVerbose(_state);
+	//};
 
 	/** \brief Increase/reduce the area for the solution depiction
 	*

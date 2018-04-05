@@ -380,14 +380,13 @@ namespace fluicell
 		*                  |                 |                 |  INTEPRETED but NO ACTION required at API level
 		*      10          |   allOff        |       -         |  stop all solutions flow
 		*      11          |   pumpsOff      |       -         |  stop pressures and vacuum by setting the channels to 0
-		*      12          |   setValveState |  hex  0x00      |  set solutions flow using a hex value
-		*      13          |   waitSync      |  int [0 MAX]    |  protocol stops until trigger signal is received
-		*      14          |   syncOut       |  int [0 MAX]    |  if negative then default state is 1 and pulse is 0,
+		*      12          |   waitSync      |  int [0 MAX]    |  protocol stops until trigger signal is received
+		*      13          |   syncOut       |  int [0 MAX]    |  if negative then default state is 1 and pulse is 0,
 		*                  |                 |                 |  if positive, then pulse is 1 and default is 0
-		*      15          |   dropletSize   |  int [0 MAX]    |  TODO: to be implemented
-		*      16          |   flowSpeed     |  int [0 MAX]    |  TODO: to be implemented
-		*      17          |   vacuum        |  int [0 MAX]    |  TODO: to be implemented
-		*      18          |   loop          |  int [0 MAX]    |  number of loops --- TODO: is this to be implemented at API level?
+		*      14          |   dropletSize   |  int [0 MAX]    |  TODO: to be implemented
+		*      15          |   flowSpeed     |  int [0 MAX]    |  TODO: to be implemented
+		*      16          |   vacuum        |  int [0 MAX]    |  TODO: to be implemented
+		*      17          |   loop          |  int [0 MAX]    |  number of loops --- TODO: is this to be implemented at API level?
 		*                  |                 |                 |
 		*   ---------------+-----------------+-----------------+-------------------------------------------------------------
 		*
@@ -418,13 +417,12 @@ namespace fluicell
 				ask_msg = 9,
 				allOff = 10,
 				pumpsOff = 11,
-				setValveState = 12,
-				waitSync = 13,
-				syncOut = 14,	
-				zoneSize = 15,
-				flowSpeed = 16,
-				vacuum = 17,
-				loop = 18   // TODO: should this really be considered in the API ? 
+				waitSync = 12,
+				syncOut = 13,	
+				zoneSize = 14,
+				flowSpeed = 15,
+				vacuum = 16,
+				loop = 17  // TODO: should this really be considered in the API ? 
 			};
 
 
@@ -457,7 +455,7 @@ namespace fluicell
 				{   "setPon", "setPoff", "setVswitch", "setVrecirc",
 					"solution1", "solution2","solution3","solution4",
 					"wait", "ask_msg", "allOff", "pumpsOff",
-					"setValveState", "waitSync", "syncOut", 
+					"waitSync", "syncOut", 
 					"zoneSize", "flowSpeed", "vacuum", "loop" };
 				return  text[int(this->instruction)]; // cast to integer
 			}

@@ -139,7 +139,7 @@ border:0;
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>966</width>
+         <width>858</width>
          <height>737</height>
         </rect>
        </property>
@@ -181,8 +181,8 @@ border:0;
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>976</width>
-             <height>669</height>
+             <width>978</width>
+             <height>668</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout">
@@ -1507,9 +1507,9 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                  <widget class="QTextEdit" name="textEdit_emptyTime">
                   <property name="geometry">
                    <rect>
-                    <x>300</x>
-                    <y>50</y>
-                    <width>201</width>
+                    <x>250</x>
+                    <y>30</y>
+                    <width>291</width>
                     <height>101</height>
                    </rect>
                   </property>
@@ -1534,9 +1534,9 @@ p, li { white-space: pre-wrap; }
                  <widget class="QTextEdit" name="textEdit_emptyTime_waste">
                   <property name="geometry">
                    <rect>
-                    <x>710</x>
-                    <y>50</y>
-                    <width>221</width>
+                    <x>700</x>
+                    <y>30</y>
+                    <width>261</width>
                     <height>51</height>
                    </rect>
                   </property>
@@ -5857,8 +5857,8 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>373</width>
-              <height>912</height>
+              <width>476</width>
+              <height>1107</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -7880,9 +7880,6 @@ p, li { white-space: pre-wrap; }
 click on any object to have quick help
 &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
-   <property name="shortcut">
-    <string>Ctrl+H</string>
-   </property>
   </action>
   <action name="actionAbout">
    <property name="enabled">
@@ -8032,7 +8029,7 @@ click on any object to have quick help
     <string>Advanced</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+E</string>
+    <string>&gt;</string>
    </property>
   </action>
   <action name="actionEditor">
@@ -8042,6 +8039,9 @@ click on any object to have quick help
    </property>
    <property name="text">
     <string>Editor</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+E</string>
    </property>
   </action>
  </widget>

@@ -53,7 +53,6 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   if (0)
   {
 	  ui->tabWidget->removeTab(2);
-	  setPpc1Verbose(false);
   }
   else {
 	  // init the redirect buffer
@@ -89,10 +88,14 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   toolEmptyWells();
 
   // set the flows in the table
-  ui->treeWidget_macroInfo->topLevelItem(12)->setText(1, QString::number(m_pipette_status->rem_vol_well1));
-  ui->treeWidget_macroInfo->topLevelItem(13)->setText(1, QString::number(m_pipette_status->rem_vol_well2));
-  ui->treeWidget_macroInfo->topLevelItem(14)->setText(1, QString::number(m_pipette_status->rem_vol_well3));
-  ui->treeWidget_macroInfo->topLevelItem(15)->setText(1, QString::number(m_pipette_status->rem_vol_well4));
+  ui->treeWidget_macroInfo->topLevelItem(12)->setText(1,
+	  QString::number(m_pipette_status->rem_vol_well1));
+  ui->treeWidget_macroInfo->topLevelItem(13)->setText(1,
+	  QString::number(m_pipette_status->rem_vol_well2));
+  ui->treeWidget_macroInfo->topLevelItem(14)->setText(1, 
+	  QString::number(m_pipette_status->rem_vol_well3));
+  ui->treeWidget_macroInfo->topLevelItem(15)->setText(1, 
+	  QString::number(m_pipette_status->rem_vol_well4));
 
   // set translation
   QString translation_file = "./languages/eng.qm";
@@ -140,7 +143,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   // initialize PPC1api
   m_ppc1->setCOMport(m_comSettings->getName());
   m_ppc1->setBaudRate((int)m_comSettings->getBaudRate());
-  m_ppc1->setVebose(m_pr_params->enableFilter);
+  m_ppc1->setVerbose(m_pr_params->enableFilter);
   m_ppc1->setFilterSize(m_pr_params->filterSize);
 
   // init thread macroRunner 
@@ -233,10 +236,14 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 
 
   // set a few shortcuts
-  ui->pushButton_solution1->setShortcut(QApplication::translate("Labonatip_GUI", "F1", Q_NULLPTR));
-  ui->pushButton_solution2->setShortcut(QApplication::translate("Labonatip_GUI", "F2", Q_NULLPTR));
-  ui->pushButton_solution3->setShortcut(QApplication::translate("Labonatip_GUI", "F3", Q_NULLPTR));
-  ui->pushButton_solution4->setShortcut(QApplication::translate("Labonatip_GUI", "F4", Q_NULLPTR));
+  ui->pushButton_solution1->setShortcut(
+	  QApplication::translate("Labonatip_GUI", "F1", Q_NULLPTR));
+  ui->pushButton_solution2->setShortcut(
+	  QApplication::translate("Labonatip_GUI", "F2", Q_NULLPTR));
+  ui->pushButton_solution3->setShortcut(
+	  QApplication::translate("Labonatip_GUI", "F3", Q_NULLPTR));
+  ui->pushButton_solution4->setShortcut(
+	  QApplication::translate("Labonatip_GUI", "F4", Q_NULLPTR));
 
   // instal the event filter on -everything- in the app
   qApp->installEventFilter(this);
@@ -922,6 +929,7 @@ void Labonatip_GUI::toolApply()
 	m_ppc1->setBaudRate((int)m_comSettings->getBaudRate());
 	m_ppc1->setFilterEnabled(m_pr_params->enableFilter);
 	m_ppc1->setFilterSize(m_pr_params->filterSize);
+	m_ppc1->setVerbose(m_pr_params->verboseOut);
 	m_ext_data_path = m_GUI_params->outFilePath;
 
 	this->switchLanguage(m_GUI_params->language);

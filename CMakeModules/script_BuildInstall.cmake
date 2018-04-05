@@ -142,9 +142,9 @@ if (WIN32 AND NOT UNIX)
 		INSTALL(FILES "${F}" DESTINATION ./Ext_data)
 	ENDFOREACH(F)				
 
-	FILE(GLOB myProject_MACROS "${PROJECT_BINARY_DIR}/bin/Release/presetMacros/*.*") 
+	FILE(GLOB myProject_MACROS "${PROJECT_BINARY_DIR}/bin/Release/presetProtocols/*.*") 
 	FOREACH(F ${myProject_MACROS})
-		INSTALL(FILES "${F}" DESTINATION ./presetMacros)
+		INSTALL(FILES "${F}" DESTINATION ./presetProtocols)
 	ENDFOREACH(F)		
 	
 	FILE(GLOB myProject_SETTINGS "${PROJECT_BINARY_DIR}/bin/Release/settings/*.ini") 
