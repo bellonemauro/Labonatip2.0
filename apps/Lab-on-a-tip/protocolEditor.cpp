@@ -94,14 +94,9 @@ Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 	connect(ui_p_editor->pushButton_addMacroCommand,
 		SIGNAL(clicked()), this, SLOT(addCommand()));
 
-	connect(ui_p_editor->actionPlus,
-		SIGNAL(triggered()), this, SLOT(addCommand()));
 
 	connect(ui_p_editor->pushButton_removeMacroCommand,
 		SIGNAL(clicked()), this, SLOT(removeCommand()));
-
-	connect(ui_p_editor->actionMinus,
-		SIGNAL(triggered()), this, SLOT(removeCommand()));
 
 	connect(ui_p_editor->pushButton_becomeChild,
 		SIGNAL(clicked()), this, SLOT(becomeChild()));
@@ -112,32 +107,17 @@ Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 	connect(ui_p_editor->pushButton_moveDown,
 		SIGNAL(clicked()), this, SLOT(moveDown()));
 
-	connect(ui_p_editor->actionDown,
-		SIGNAL(triggered()), this, SLOT(moveDown()));
-
 	connect(ui_p_editor->pushButton_moveUp,
 		SIGNAL(clicked()), this, SLOT(moveUp()));
-
-	connect(ui_p_editor->actionUp,
-		SIGNAL(triggered()), this, SLOT(moveUp()));
 
 	connect(ui_p_editor->pushButton_plusIndent,
 		SIGNAL(clicked()), this, SLOT(plusIndent()));
 
-	connect(ui_p_editor->actionIndent,
-		SIGNAL(triggered()), this, SLOT(plusIndent()));
-
 	connect(ui_p_editor->pushButton_duplicateLine,
 		SIGNAL(clicked()), this, SLOT(duplicateItem()));
 
-	connect(ui_p_editor->actionDuplicate,
-		SIGNAL(triggered()), this, SLOT(duplicateItem()));
-
 	connect(ui_p_editor->pushButton_clearCommands,
 		SIGNAL(clicked()), this, SLOT(clearAllCommands()));
-
-	connect(ui_p_editor->actionClear,
-		SIGNAL(triggered()), this, SLOT(clearAllCommands()));
 
 	connect(ui_p_editor->pushButton_loop,
 		SIGNAL(clicked()), this, SLOT(createNewLoop()));
