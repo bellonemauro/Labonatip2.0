@@ -47,7 +47,13 @@ Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 	ui_p_editor->treeWidget_macroTable->setItemDelegateForColumn(1, new ComboBoxDelegate(this));
 	ui_p_editor->treeWidget_macroTable->setItemDelegateForColumn(2, new NoEditDelegate(this));
 	ui_p_editor->treeWidget_macroTable->setItemDelegateForColumn(3, new SpinBoxDelegate(this));
-	
+
+	ui_p_editor->treeWidget_macroTable->setContextMenuPolicy(
+		Qt::CustomContextMenu);
+	ui_p_editor->treeWidget_protocol_folder->setContextMenuPolicy(
+		Qt::CustomContextMenu);
+
+
 	// charts
 	setGUIcharts();
 	ui_p_editor->dockWidget_charts->hide();
@@ -64,9 +70,9 @@ Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 	m_undo_view->window()->setMinimumSize(300, 300);
 	m_undo_view->setAttribute(Qt::WA_QuitOnClose, false);
 	ui_p_editor->pushButton_undo->setShortcut(
-		QApplication::translate("Labonatip_protocol_editor", "Ctrl + Z", Q_NULLPTR));
+		QApplication::translate("Labonatip_protocol_editor", "Ctrl+Z", Q_NULLPTR));
 	ui_p_editor->pushButton_redo->setShortcut(
-		QApplication::translate("Labonatip_protocol_editor", "Ctrl + Y", Q_NULLPTR));
+		QApplication::translate("Labonatip_protocol_editor", "Ctrl+Y", Q_NULLPTR));
 
 
 	// connects
@@ -79,7 +85,12 @@ Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 	connect(ui_p_editor->treeWidget_macroTable,
 		SIGNAL(itemChanged(QTreeWidgetItem *, int)), this, 
 		SLOT(itemChanged(QTreeWidgetItem *, int)));
-	
+
+	// TODO: this menu is not used now
+//	connect(ui_p_editor->treeWidget_macroTable,
+//		SIGNAL(customContextMenuRequested(const QPoint&)),
+//		this, SLOT(editorMenu(const QPoint&)));
+
 	connect(ui_p_editor->pushButton_addMacroCommand,
 		SIGNAL(clicked()), this, SLOT(addCommand()));
 
@@ -152,6 +163,11 @@ Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 	connect(ui_p_editor->treeWidget_protocol_folder, 
 		SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)),
 		this, SLOT(onProtocolClicked(QTreeWidgetItem*, int)));
+
+	connect(ui_p_editor->treeWidget_protocol_folder, 
+		SIGNAL(customContextMenuRequested(const QPoint&)),
+		this, SLOT(protocolsMenu(const QPoint&)) );
+
 
 	connect(m_protocolWizard,
 		SIGNAL(loadSettings()), this, SLOT(emitLoadSettings()));
@@ -866,7 +882,7 @@ void Labonatip_protocol_editor::addAllCommandsToProtocol()
 
 bool Labonatip_protocol_editor::loadProtocol()
 {
-	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
+
 	cout << QDate::currentDate().toString().toStdString() << "  "
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_tools::loadProtocol :::  "
@@ -876,7 +892,6 @@ bool Labonatip_protocol_editor::loadProtocol()
 		"Lab-on-a-tip protocol File (*.prt);; All Files(*.*)", 0);
 	
 	if (file_name.isEmpty()) {
-		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 		//QMessageBox::warning(this, m_str_warning,
 		//	m_str_file_not_found + "<br>" + file_name);
 		return false;
@@ -888,6 +903,7 @@ bool Labonatip_protocol_editor::loadProtocol()
 
 bool Labonatip_protocol_editor::loadProtocol(const QString _file_name)
 {
+	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
 	//TODO: there is no check for validity in protocol the loading procedure
 	QFile macroFile(_file_name);
 	m_current_protocol_file_name = _file_name;
@@ -1471,24 +1487,171 @@ void Labonatip_protocol_editor::onProtocolClicked(QTreeWidgetItem *item, int col
 	protocol_path.append("/");
 	protocol_path.append(file);
 
-	QMessageBox::StandardButton resBtn = //TODO: translation
-		QMessageBox::question(this, "Lab-on-a-tip",
-			tr("Do you want to add to the bottom of the protocol?\n Click NO to clean the workspace and load a new protocol"),
-			QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
-			QMessageBox::Yes);
+	// TODO: the wait cursor does not work if called after the message !
+	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
+
+	QMessageBox::StandardButton resBtn = QMessageBox::question(this, "Lab-on-a-tip", //TODO: translation
+		tr("Do you want to add to the bottom of the protocol?\n Click NO to clean the workspace and load a new protocol"),
+		QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
+		QMessageBox::Yes);
+
 	if (resBtn == QMessageBox::Yes) {
 		loadProtocol(protocol_path);
+
 	}
 	if (resBtn == QMessageBox::No)
 	{
 		this->clearAllCommands();
 		loadProtocol(protocol_path);
+
 	}
 	if (resBtn == QMessageBox::Cancel)
 	{
 		//do nothing
 	}
+	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
+}
+
+void Labonatip_protocol_editor::editorMenu(const QPoint & _pos)
+{
+
+	//QTreeWidget *tree = new QTreeWidget;
+
+	//QTreeWidgetItem *nd = tree->itemAt(pos);
+
+	//qDebug() << pos << nd->text(0);
+
+
+	QAction *plus = new QAction(
+		QIcon(":/icons/plus.png"), tr("&Add command"), this);
+	plus->setStatusTip(tr("Add command"));
+	connect(plus, SIGNAL(triggered()), this, SLOT(addCommand()));
+
+	QAction *minus = new QAction(
+		QIcon(":/icons/minus.png"), tr("&Remove command"), this);
+	minus->setStatusTip(tr("Remove command"));
+	connect(minus, SIGNAL(triggered()), this, SLOT(removeCommand()));
+
+	QAction *move_up = new QAction(
+		QIcon(":/icons/upArrow.png"), tr("&Move up"), this);
+	move_up->setStatusTip(tr("Move element up"));
+	connect(move_up, SIGNAL(triggered()), this, SLOT(moveUp()));
+
+	QAction *move_down = new QAction(
+		QIcon(":/icons/downArrow.png"), tr("&Move down"), this);
+	move_down->setStatusTip(tr("Move element down"));
+	connect(move_down, SIGNAL(triggered()), this, SLOT(moveDown()));
+
+	QAction *add_loop = new QAction(
+		QIcon(":/icons/loop.png"), tr("&Add loop"), this);
+	add_loop->setStatusTip(tr("Add new loop"));
+	connect(add_loop, SIGNAL(triggered()), this, SLOT(createNewLoop()));
 	
+	QAction *plus_in = new QAction(
+		QIcon(":/icons/indentPlus.png"), tr("&Add in loop"), this);
+	plus_in->setStatusTip(tr("Add a command in the loop"));
+	connect(plus_in, SIGNAL(triggered()), this, SLOT(plusIndent()));
+
+	QAction *duplicate = new QAction(
+		QIcon(":/icons/duplicate.png"), tr("&Duplicate command"), this);
+	duplicate->setStatusTip(tr("Duplicate this command"));
+	connect(duplicate, SIGNAL(triggered()), this, SLOT(duplicateItem()));
+
+	QAction *clear = new QAction(
+		QIcon(":/icons/clearAll.png"), tr("&Clear all commands"), this);
+	clear->setStatusTip(tr("Clear all commands"));
+	connect(clear, SIGNAL(triggered()), this, SLOT(clearAllCommands()));
+
+	QAction *help = new QAction(
+		QIcon(":/icons/about.png"), tr("&Help"), this);
+	help->setStatusTip(tr("new sth"));
+	connect(help, SIGNAL(triggered()), this, SLOT(about()));
+
+	QMenu menu(this);
+	menu.addAction(plus);
+	menu.addAction(minus);
+	menu.addAction(move_up);
+	menu.addAction(move_down);
+	menu.addAction(add_loop);
+	menu.addAction(plus_in);
+	menu.addAction(duplicate);
+	menu.addAction(clear);
+	menu.addAction(help);
+
+	QPoint pt(_pos);
+	menu.exec(ui_p_editor->treeWidget_macroTable->mapToGlobal(_pos));
+
+}
+
+void Labonatip_protocol_editor::protocolsMenu(const QPoint & _pos)
+{
+
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString()
+		<< "Labonatip_tools::protocolsMenu " << endl;
+
+	m_triggered_protocol_item =
+		ui_p_editor->treeWidget_protocol_folder->indexAt(_pos).row();
+
+	
+	QAction *delete_protocol = new QAction(
+		QIcon(":/icons/delete.png"), tr("&Delete"), this);
+	delete_protocol->setStatusTip(tr("new sth"));
+	connect(delete_protocol, SIGNAL(triggered()), 
+		this, SLOT(deleteProtocol()));
+
+	QAction *help = new QAction(
+		QIcon(":/icons/about.png"), tr("&Help"), this);
+	help->setStatusTip(tr("new sth"));
+	connect(help, SIGNAL(triggered()), this, SLOT(helpTriggered()));
+
+	QMenu menu(this);
+	menu.addAction(delete_protocol);
+	menu.addAction(help);
+
+	QPoint pt(_pos);
+	menu.exec(ui_p_editor->treeWidget_protocol_folder->mapToGlobal(_pos));
+
+}
+
+void Labonatip_protocol_editor::deleteProtocol()
+{
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString()
+		<< "Labonatip_tools::deleteProtocol " << endl;
+
+	// TODO: this is not safe as the member could be modified somewhere else
+	int row = m_triggered_protocol_item;
+
+	QString file_path = m_protocol_path;
+	file_path.append (
+	ui_p_editor->treeWidget_protocol_folder->topLevelItem(row)->text(0));
+
+	QMessageBox::StandardButton resBtn = //TODO: translation
+		QMessageBox::question(this, m_str_warning, "This action will remove the file, are you sure ?", //m_str_areyousure,
+			QMessageBox::No | QMessageBox::Yes,
+			QMessageBox::Yes);
+	if (resBtn == QMessageBox::Yes) {
+	// continue with file removal 
+
+		QFile f (file_path);
+		if (f.exists())
+		{
+			// delete file
+			f.remove();
+			// update the folder
+			readProtocolFolder(m_protocol_path);
+		}
+		else
+		{
+			// the file does not exists
+			return;
+		}
+	}
+	else {
+		// the choice whas no, nothing happens
+		return;
+	}
 }
 
 void Labonatip_protocol_editor::readProtocolFolder(QString _path)
@@ -1813,18 +1976,30 @@ void Labonatip_protocol_editor::switchLanguage(QString _translation_file)
 	}
 
 }
-
-void Labonatip_protocol_editor::about() {
+void Labonatip_protocol_editor::helpTriggered() {
 
 	cout << QDate::currentDate().toString().toStdString() << "  "
 		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::about   " << endl;
+		<< "Labonatip_GUI::helpTriggered   " << endl;
 	if (1)
 	{
 		this->showUndoStack();
 		return;
 
 	}
+	else
+	{
+		this->about();
+	}
+
+
+}
+
+void Labonatip_protocol_editor::about() {
+
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::about   " << endl;
 
 	QMessageBox messageBox;
 	QString msg_title = "About Fluicell Lab-on-a-tip ";

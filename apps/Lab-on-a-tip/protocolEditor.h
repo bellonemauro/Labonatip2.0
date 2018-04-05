@@ -200,11 +200,19 @@ private slots:
 
 	void onProtocolClicked(QTreeWidgetItem *item, int column);
 
+	void editorMenu(const QPoint & _pos);
+
+	void protocolsMenu(const QPoint & _pos);
+
+	void deleteProtocol();
+
 	/** Put all the commands in the protocol editor to the protocol structure for running
 	*
 	* \note
 	*/
 	void addAllCommandsToProtocol(); //TODO: I don't like that this function takes no arguments and modifies a class member
+
+	void helpTriggered();
 
 	void about();
 
@@ -308,6 +316,10 @@ private:
 	QUndoView *m_undo_view;
 
 	QTranslator m_translator_editor;
+
+	//TODO: this cannot be a class member, it is used only to pass
+	//      a parameter from the menu to the delete_protocol function
+	int m_triggered_protocol_item;
 
 	//custom translatable stringss
 	QString m_str_warning;
