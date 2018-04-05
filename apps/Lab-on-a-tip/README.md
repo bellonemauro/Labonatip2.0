@@ -20,26 +20,32 @@ Here you can find a map of all the shortcuts set for lab-on-a-tip
 
 ### Main GUI
 
-F1       on/off solution 1
-F2       on/off solution 2
-F3       on/off solution 3
-F4       on/off solution 4
-F5       about
-F6       connect/disconnect
->        show/hide advanced panel
-Ctrl+O   open new profile
-Ctrl+S   save current profile
-Ctrl+T   open tools dialog
-Ctrl+E   open the protocol editor
+| Shortcut |  Description              |
+----------------------------------------
+| F1       |  on/off solution 1        |
+| F2       |  on/off solution 2        |
+| F3       |  on/off solution 3        |
+| F4       |  on/off solution 4        |
+| F5       |  about                    |
+| F6       |  connect/disconnect       |
+| >        |  show/hide advanced panel |
+| Ctrl+O   |  open new profile         |
+| Ctrl+S   |  save current profile     |
+| Ctrl+T   |  open tools dialog        |
+| Ctrl+E   |  open the protocol editor |
+----------------------------------------
 
 ### Tools window
 
 ### Protocol editor
 
-Ctrl+O   open new profile
-Ctrl+S   save current profile
-Ctrl+W   open the wizard
-Ctrl+G   open/close charts panel
-Ctrl+P   open/close parameters panel
-Ctrl+Z   undo
-Ctrl+Y   redo
+| Shortcut |  Description                |
+------------------------------------------
+| Ctrl+O   | open new profile            |
+| Ctrl+S   | save current profile        |
+| Ctrl+W   | open the wizard             |
+| Ctrl+G   | open/close charts panel     |
+| Ctrl+P   | open/close parameters panel |
+| Ctrl+Z   | undo                        |
+| Ctrl+Y   | redo                        |
+-----------------------------------------
