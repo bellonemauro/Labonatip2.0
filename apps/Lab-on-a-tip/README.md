@@ -12,6 +12,7 @@ Lab-on-a-tip is released under the terms of the <a href="https://www.gnu.org/lic
 API documentation available <a href="https://bellonemauro.github.io/PPC1API-docs.io/">here</a>
 
 
+
 TODO: continue with specific software description
 
 ## Shortcut map
@@ -20,8 +21,11 @@ Here you can find a map of all the shortcuts set for lab-on-a-tip
 
 ### Main GUI
 
-| Shortcut |  Description              |
-----------------------------------------
+List of shortcuts used in the main GUI
+
+
+| Shortcut | Description |
+| --- | --- |
 | F1       |  on/off solution 1        |
 | F2       |  on/off solution 2        |
 | F3       |  on/off solution 3        |
@@ -33,14 +37,16 @@ Here you can find a map of all the shortcuts set for lab-on-a-tip
 | Ctrl+S   |  save current profile     |
 | Ctrl+T   |  open tools dialog        |
 | Ctrl+E   |  open the protocol editor |
-----------------------------------------
+
+
 
 ### Tools window
 
 ### Protocol editor
 
+
 | Shortcut |  Description                |
-------------------------------------------
+| --- | --- |
 | Ctrl+O   | open new profile            |
 | Ctrl+S   | save current profile        |
 | Ctrl+W   | open the wizard             |
@@ -48,4 +54,4 @@ Here you can find a map of all the shortcuts set for lab-on-a-tip
 | Ctrl+P   | open/close parameters panel |
 | Ctrl+Z   | undo                        |
 | Ctrl+Y   | redo                        |
------------------------------------------
+
