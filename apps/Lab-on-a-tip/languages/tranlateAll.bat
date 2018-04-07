@@ -1,4 +1,6 @@
-C:\Qt\5.9\msvc2015_64\bin\lrelease.exe .\eng.ts .\eng.qm
-C:\Qt\5.9\msvc2015_64\bin\lrelease.exe .\sve.ts .\sve.qm
-C:\Qt\5.9\msvc2015_64\bin\lrelease.exe .\ita.ts .\ita.qm
-C:\Qt\5.9\msvc2015_64\bin\lrelease.exe .\cn.ts .\cn.qm
+SET QT5_BINARY_DIR= D:/Qt/5.10.0/msvc2015_64/bin
+
+%QT5_BINARY_DIR%\lrelease.exe .\eng.ts .\eng.qm
+%QT5_BINARY_DIR%\lrelease.exe .\sve.ts .\sve.qm
+%QT5_BINARY_DIR%\lrelease.exe .\ita.ts .\ita.qm
+%QT5_BINARY_DIR%\lrelease.exe .\cn.ts .\cn.qm
