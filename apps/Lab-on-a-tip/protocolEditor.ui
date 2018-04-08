@@ -810,6 +810,10 @@ QPushButton:disabled{ background-color: #CCCCCC; }
 	color: rgb(80, 80, 80);
 }
 
+QScrollBar::vertical {
+	/*width: 40px;*/
+}
+
 QTreeView QHeaderView:section
 {
     font-size:11pt;
@@ -1070,6 +1074,11 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
     color: rgb(80, 80, 80);
     background-color: transparent;
  } 
+
+QScrollBar::vertical {
+	/*width: 40px;*/
+}
+
 
 QTreeWidget QHeaderView:section
 {
@@ -1398,56 +1407,6 @@ QPushButton:disabled{ background-color: #CCCCCC; }
             <string>Protocols</string>
            </property>
           </column>
-          <item>
-           <property name="text">
-            <string>Run</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>New Item</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>New Item</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>New Item</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>New Item</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>New Item</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Init</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Newtip</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Operational</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Sleep</string>
-           </property>
-          </item>
          </widget>
         </item>
        </layout>

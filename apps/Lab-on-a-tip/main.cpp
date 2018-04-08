@@ -229,6 +229,10 @@ int main(int argc, char **argv)//(int argc, char *argv[])
 	try {
 
 	  QApplication a (argc, argv);
+
+	  // TODO: there is a problem with high dpi displays
+	  a.setAttribute(Qt::AA_DisableHighDpiScaling);
+	  
 	  Labonatip_GUI window;
 
 	  QString protocols_user_path;
