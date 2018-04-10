@@ -60,16 +60,26 @@
   </property>
   <property name="styleSheet">
    <string notr="true">QToolButton:!hover {
-background-color:rgb(199, 223, 197);
+background-color:rgb(0, 94, 116);
+color:rgb(255,255,255);
 font-size: 16px;
+font-weigth: 900;
 }
-QToolButton:hover {
-     background-color: rgb(199, 223, 197);
- }
+
+QToolButton:disabled {
+background-color:rgb(0, 94, 116);
+color:rgb(0,134,156);
+font-size: 16px;
+font-weigth: 900;
+}
+
+
 
 QToolBar {
-background-color:rgb(199, 223, 197);
+background-color:rgb(0, 94, 116);
+color:rgb(255,255,255);
 font-size: 16px;
+font-weigth: 900;
 border:0;
 }</string>
   </property>
@@ -2446,7 +2456,7 @@ pumpsOff()&lt;br/&gt;
                     </property>
                     <property name="icon">
                      <iconset resource="resources.qrc">
-                      <normaloff>:/icons/shutdown.png</normaloff>:/icons/shutdown.png</iconset>
+                      <normaloff>:/icons/standby.png</normaloff>:/icons/standby.png</iconset>
                     </property>
                     <property name="iconSize">
                      <size>
@@ -7767,8 +7777,8 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="iconSize">
     <size>
-     <width>220</width>
-     <height>60</height>
+     <width>250</width>
+     <height>90</height>
     </size>
    </property>
    <property name="floatable">
@@ -7914,7 +7924,8 @@ click on any object to have quick help
   <action name="actionLoad_profile">
    <property name="icon">
     <iconset>
-     <normaloff>://icons/open.png</normaloff>://icons/open.png</iconset>
+     <normaloff>://icons/open.png</normaloff>
+     <disabledoff>:/icons/open_off.png</disabledoff>://icons/open.png</iconset>
    </property>
    <property name="text">
     <string>Load profile</string>
@@ -7929,7 +7940,8 @@ click on any object to have quick help
   <action name="actionSave_profile">
    <property name="icon">
     <iconset>
-     <normaloff>://icons/save.png</normaloff>://icons/save.png</iconset>
+     <normaloff>://icons/save.png</normaloff>
+     <disabledoff>:/icons/save_off.png</disabledoff>://icons/save.png</iconset>
    </property>
    <property name="text">
     <string>Save profile</string>
@@ -7944,7 +7956,8 @@ click on any object to have quick help
   <action name="actionTools">
    <property name="icon">
     <iconset>
-     <normaloff>://icons/tools.png</normaloff>://icons/tools.png</iconset>
+     <normaloff>://icons/tools.png</normaloff>
+     <disabledoff>:/icons/tools_off.png</disabledoff>://icons/tools.png</iconset>
    </property>
    <property name="text">
     <string>Tools</string>
@@ -7960,9 +7973,13 @@ click on any object to have quick help
    <property name="checkable">
     <bool>true</bool>
    </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
    <property name="icon">
     <iconset>
-     <normaloff>://icons/simulation.png</normaloff>://icons/simulation.png</iconset>
+     <normaloff>://icons/simulation.png</normaloff>
+     <disabledoff>:/icons/simulation_off.png</disabledoff>://icons/simulation.png</iconset>
    </property>
    <property name="text">
     <string>Simulation</string>
@@ -7978,9 +7995,13 @@ click on any object to have quick help
    <property name="checkable">
     <bool>true</bool>
    </property>
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
    <property name="icon">
     <iconset>
-     <normaloff>://icons/plug.png</normaloff>://icons/plug.png</iconset>
+     <normaloff>://icons/plug.png</normaloff>
+     <disabledoff>:/icons/plug_off.png</disabledoff>://icons/plug.png</iconset>
    </property>
    <property name="text">
     <string>Connect</string>
@@ -7995,7 +8016,8 @@ click on any object to have quick help
   <action name="actionReboot">
    <property name="icon">
     <iconset>
-     <normaloff>://icons/reboot.png</normaloff>://icons/reboot.png</iconset>
+     <normaloff>://icons/reboot.png</normaloff>
+     <disabledoff>:/icons/reboot_off.png</disabledoff>://icons/reboot.png</iconset>
    </property>
    <property name="text">
     <string>Reboot</string>
@@ -8006,8 +8028,9 @@ click on any object to have quick help
   </action>
   <action name="actionShudown">
    <property name="icon">
-    <iconset>
-     <normaloff>://icons/sshutdown2.png</normaloff>://icons/sshutdown2.png</iconset>
+    <iconset resource="resources.qrc">
+     <normaloff>:/icons/shutdown.png</normaloff>
+     <disabledoff>:/icons/shutdown_off.png</disabledoff>:/icons/shutdown.png</iconset>
    </property>
    <property name="text">
     <string>Shutdown</string>
@@ -8023,7 +8046,9 @@ click on any object to have quick help
    <property name="icon">
     <iconset>
      <normaloff>://icons/openAdvanced.png</normaloff>
-     <normalon>://icons/closeAdvanced.png</normalon>://icons/openAdvanced.png</iconset>
+     <normalon>://icons/closeAdvanced.png</normalon>
+     <disabledoff>:/icons/openAdvanced_off.png</disabledoff>
+     <disabledon>:/icons/closeAdvanced_off.png</disabledon>://icons/openAdvanced.png</iconset>
    </property>
    <property name="text">
     <string>Advanced</string>
@@ -8035,7 +8060,8 @@ click on any object to have quick help
   <action name="actionEditor">
    <property name="icon">
     <iconset>
-     <normaloff>://icons/protocolEditor.png</normaloff>://icons/protocolEditor.png</iconset>
+     <normaloff>://icons/protocolEditor.png</normaloff>
+     <disabledoff>:/icons/protocolEditor_off.png</disabledoff>://icons/protocolEditor.png</iconset>
    </property>
    <property name="text">
     <string>Editor</string>

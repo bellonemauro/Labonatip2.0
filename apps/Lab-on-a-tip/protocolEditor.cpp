@@ -445,6 +445,7 @@ void Labonatip_protocol_editor::moveUp()
 
 			}
 		m_undo_stack->push(cmd);
+		ui_p_editor->treeWidget_macroTable->setCurrentItem(move_item);
 		ui_p_editor->treeWidget_macroTable->setCurrentItem(
 			move_item, m_cmd_value_c, QItemSelectionModel::SelectionFlag::Rows);
 	}
@@ -462,13 +463,13 @@ void Labonatip_protocol_editor::moveDown()
 		<< "Labonatip_protocol_editor::moveDown    " << endl;
 
 	// get the current selected item
-	protocolTreeWidgetItem *moveItem = 
+	protocolTreeWidgetItem *move_item =
 		dynamic_cast<protocolTreeWidgetItem *> (
 			ui_p_editor->treeWidget_macroTable->currentItem());
 	int row = ui_p_editor->treeWidget_macroTable->currentIndex().row();
 	int number_of_items = ui_p_editor->treeWidget_macroTable->topLevelItemCount();
 
-	if (moveItem && row >= 0 && row < number_of_items - 1)
+	if (move_item && row >= 0 && row < number_of_items - 1)
 	{
 		moveDownCommand *cmd;
 		
@@ -493,8 +494,9 @@ void Labonatip_protocol_editor::moveDown()
 
 		}
 		m_undo_stack->push(cmd);
+		ui_p_editor->treeWidget_macroTable->setCurrentItem(move_item);
 		ui_p_editor->treeWidget_macroTable->setCurrentItem(
-			moveItem, m_cmd_value_c, QItemSelectionModel::SelectionFlag::Rows);
+			move_item, m_cmd_value_c, QItemSelectionModel::SelectionFlag::Rows);
 
 	}
 
@@ -778,8 +780,11 @@ void Labonatip_protocol_editor::addAllCommandsToProtocol()
 			dynamic_cast<protocolTreeWidgetItem * > (
 				ui_p_editor->treeWidget_macroTable->topLevelItem(i));
 		ui_p_editor->treeWidget_macroTable->blockSignals(true); 
-		item->setText(m_cmd_idx_c, QString::number(i));
+		item->setText(m_cmd_idx_c, QString::number(i));	
 		ui_p_editor->treeWidget_macroTable->blockSignals(false);
+		//item->blockSignals(true);
+		//item->checkValidity(m_cmd_value_c);
+		//item->blockSignals(false);
 
 
 		if (item->childCount() < 1) { // if no children, just add the line 
@@ -805,9 +810,15 @@ void Labonatip_protocol_editor::addAllCommandsToProtocol()
 						dynamic_cast<protocolTreeWidgetItem *> (
 							item->child(childrenCount)) );
 					ui_p_editor->treeWidget_macroTable->blockSignals(true);
-					ui_p_editor->treeWidget_macroTable->topLevelItem(i)->child(childrenCount)->setText(
+					protocolTreeWidgetItem *item_child =
+						dynamic_cast<protocolTreeWidgetItem *> (
+							ui_p_editor->treeWidget_macroTable->topLevelItem(i)->child(childrenCount));//
+					item_child->setText(
 						m_cmd_idx_c, QString::number(childrenCount));
 					ui_p_editor->treeWidget_macroTable->blockSignals(false);
+					//item_child->blockSignals(true);
+					//item_child->checkValidity(m_cmd_value_c);
+					//item_child->blockSignals(false);
 				}
 			}
 		}
@@ -1918,6 +1929,7 @@ void Labonatip_protocol_editor::undo()
 	m_undo_stack->undo();
 	ui_p_editor->treeWidget_macroTable->blockSignals(false); 
 	addAllCommandsToProtocol();
+
 	//m_undo_protocol_stack->undo();
 }
 

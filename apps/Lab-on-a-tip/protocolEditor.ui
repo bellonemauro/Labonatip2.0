@@ -21,20 +21,26 @@
   </property>
   <property name="styleSheet">
    <string notr="true">QToolButton:!hover {
-background-color:rgb(199, 223, 197);
+background-color:rgb(0, 94, 116);
+color:rgb(255,255,255);
 font-size: 16px;
+font-weigth: 900;
 }
-QToolButton:hover {
-     background-color: rgb(199, 223, 197);
- }
+
+QToolButton:disabled {
+background-color:rgb(0, 94, 116);
+color:rgb(0,134,156);
+font-size: 16px;
+font-weigth: 900;
+}
 
 QToolBar {
-background-color:rgb(199, 223, 197);
+background-color:rgb(0, 94, 116);
+color:rgb(255,255,255);
 font-size: 16px;
+font-weigth: 900;
 border:0;
-}
-
-</string>
+}</string>
   </property>
   <property name="iconSize">
    <size>
@@ -91,7 +97,7 @@ border:0;
          <x>0</x>
          <y>0</y>
          <width>735</width>
-         <height>674</height>
+         <height>679</height>
         </rect>
        </property>
        <property name="sizePolicy">
@@ -1006,8 +1012,8 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
    </property>
    <property name="iconSize">
     <size>
-     <width>220</width>
-     <height>70</height>
+     <width>250</width>
+     <height>90</height>
     </size>
    </property>
    <property name="toolButtonStyle">
@@ -1677,7 +1683,8 @@ QPushButton:disabled{ background-color: #CCCCCC; }
    </property>
    <property name="icon">
     <iconset resource="resources.qrc">
-     <normaloff>:/icons/wand.png</normaloff>:/icons/wand.png</iconset>
+     <normaloff>:/icons/wand.png</normaloff>
+     <disabledoff>:/icons/wand_off.png</disabledoff>:/icons/wand.png</iconset>
    </property>
    <property name="text">
     <string>Wizard</string>

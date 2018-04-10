@@ -12,7 +12,7 @@
    viewBox="0 0 59.999999 59.999999"
    version="1.1"
    sodipodi:docname="simulation2.svg"
-   inkscape:version="0.92.1 r15371"
+   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
    width="60"
    height="60"
    inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\simulation.png"
@@ -40,14 +40,14 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:window-width="1920"
-     inkscape:window-height="1017"
+     inkscape:window-height="1001"
      id="namedview19"
      showgrid="false"
-     inkscape:zoom="4.162808"
-     inkscape:cx="40.242599"
-     inkscape:cy="7.5721643"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
+     inkscape:zoom="11.774199"
+     inkscape:cx="10.224339"
+     inkscape:cy="27.589261"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
      inkscape:window-maximized="1"
      inkscape:current-layer="Layer_1"
      fit-margin-top="0"
@@ -68,7 +68,8 @@
      id="path8"
      inkscape:export-xdpi="180"
      inkscape:export-ydpi="180"
-     style="fill:none;stroke:#505050;stroke-width:4.98967266;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" />
+     style="fill:none;stroke:#ffffff;stroke-width:4.98967266;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+     inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\simulation.png" />
   <polygon
      transform="matrix(0.33785976,0,0,0.33785976,-8.3808695,-8.4659648)"
      class="cls-2"
@@ -76,7 +77,8 @@
      id="polygon10"
      inkscape:export-xdpi="180"
      inkscape:export-ydpi="180"
-     style="fill:#505050;fill-opacity:1;stroke:#505050;stroke-width:3px;stroke-miterlimit:10;stroke-opacity:1" />
+     style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:3px;stroke-miterlimit:10;stroke-opacity:1"
+     inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\simulation.png" />
   <path
      inkscape:connector-curvature="0"
      class="cls-1"
@@ -84,7 +86,8 @@
      id="path12"
      inkscape:export-xdpi="180"
      inkscape:export-ydpi="180"
-     style="fill:none;stroke:#505050;stroke-width:4.98967266;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1" />
+     style="fill:none;stroke:#ffffff;stroke-width:4.98967266;stroke-miterlimit:10;stroke-dasharray:none;stroke-opacity:1"
+     inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\simulation.png" />
   <polygon
      transform="matrix(0.33785976,0,0,0.33785976,-8.3808695,-8.4659648)"
      class="cls-2"
@@ -92,5 +95,6 @@
      id="polygon14"
      inkscape:export-xdpi="180"
      inkscape:export-ydpi="180"
-     style="fill:#505050;fill-opacity:1;stroke:#505050;stroke-width:3px;stroke-miterlimit:10;stroke-opacity:1" />
+     style="fill:#fffffe;fill-opacity:1;stroke:#fffff9;stroke-width:3px;stroke-miterlimit:10;stroke-opacity:1"
+     inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\simulation.png" />
 </svg>

@@ -14,8 +14,8 @@
    viewBox="0 0 75.792534 78.062943"
    version="1.1"
    id="svg8"
-   inkscape:version="0.92.1 r15371"
-   sodipodi:docname="wizard.svg">
+   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
+   sodipodi:docname="wand.svg">
   <defs
      id="defs2" />
   <sodipodi:namedview
@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.98994949"
-     inkscape:cx="30.545983"
-     inkscape:cy="195.42477"
+     inkscape:zoom="1.4"
+     inkscape:cx="-73.486073"
+     inkscape:cy="168.26712"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -40,8 +40,8 @@
      fit-margin-left="0"
      fit-margin-right="0"
      fit-margin-bottom="0"
-     inkscape:window-width="2400"
-     inkscape:window-height="1271"
+     inkscape:window-width="1920"
+     inkscape:window-height="1001"
      inkscape:window-x="-9"
      inkscape:window-y="-9"
      inkscape:window-maximized="1" />
@@ -53,7 +53,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -63,11 +63,11 @@
      id="layer1"
      transform="translate(-59.170228,-84.261813)">
     <path
-       style="fill:none;stroke:#505050;stroke-width:5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;stroke:#ffffff;stroke-width:5;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="M 104.78412,114.44173 61.69483,159.79887"
        id="path4485"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\wizard.png"
+       inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\wand.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
     <circle
@@ -76,67 +76,67 @@
        cx="112.30872"
        cy="106.91585"
        r="5"
-       inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\wizard.png"
+       inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\wand.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
     <path
-       style="fill:none;stroke:#505050;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;stroke:#ffffff;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 127.26967,91.483274 -8.95111,9.422216"
        id="path4485-8"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\wizard.png"
+       inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\wand.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
     <path
-       style="fill:none;stroke:#505050;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;stroke:#ffffff;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 118.31856,112.9262 8.95111,9.42222"
        id="path4485-8-9"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\wizard.png"
+       inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\wand.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
     <path
-       style="fill:none;stroke:#505050;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;stroke:#ffffff;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 97.347771,91.483274 8.951109,9.422216"
        id="path4485-8-9-7"
        inkscape:connector-curvature="0"
-       inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\wizard.png"
+       inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\wand.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
     <path
-       style="fill:none;stroke:#505050;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;stroke:#ffffff;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 133.94852,106.91536 -13.12555,9.7e-4"
        id="path4485-8-9-73"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc"
-       inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\wizard.png"
+       inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\wand.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
     <path
-       style="fill:none;stroke:#505050;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;stroke:#ffffff;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 103.79448,106.91536 -13.125552,9.7e-4"
        id="path4485-8-9-73-0"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc"
-       inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\wizard.png"
+       inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\wand.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
     <path
-       style="fill:none;stroke:#505050;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;stroke:#ffffff;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 112.30921,98.401605 -9.7e-4,-13.12555"
        id="path4485-8-9-73-9"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc"
-       inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\wizard.png"
+       inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\wand.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
     <path
-       style="fill:none;stroke:#505050;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;stroke:#ffffff;stroke-width:2;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 112.30921,128.55564 -9.7e-4,-13.12555"
        id="path4485-8-9-73-9-9"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc"
-       inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\wizard.png"
+       inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\wand.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
   </g>
