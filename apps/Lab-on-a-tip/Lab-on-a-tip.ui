@@ -1249,8 +1249,8 @@ p, li { white-space: pre-wrap; }
 QPushButton:checked{ 
      background-color: #85CD83; 
     color: #85CD83;
-     border-image: url(:/icons/droplet.png);
-
+     image: url(:/icons/droplet.png);
+ font-size: 5px;
 }
 
 

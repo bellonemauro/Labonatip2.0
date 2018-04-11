@@ -251,7 +251,7 @@ bool Labonatip_GUI::disCon(bool _connect)
 					ui->actionConnectDisconnect->setText(m_str_connect);
 					ui->actionSimulation->setEnabled(true);
 					ui->actionConnectDisconnect->setChecked(false);
-					QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
+					QApplication::restoreOverrideCursor();    
 					return false;
 				}
 

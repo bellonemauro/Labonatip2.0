@@ -19,7 +19,7 @@ void Labonatip_GUI::updateGUI() {
 	if (!m_simulationOnly) {
 
 		// check exceptions, TODO: this is not the best way to do it !!!
-		if (m_ppc1->isExceptionHappened()) {
+		if (m_ppc1->isConnected() && m_ppc1->isExceptionHappened()) {
 			QMessageBox::information(this, m_str_warning,
 				" Lost connection with PPC1, <br>swapping to simulation mode " ); // TODO: string
 			m_update_GUI->stop();

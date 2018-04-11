@@ -391,6 +391,7 @@ void fluicell::PPC1api::updateFlows(const PPC1_data &_PPC1_data, PPC1_status &_P
 bool fluicell::PPC1api::connectCOM()
 {
 	try {
+
 		m_PPC1_serial->setPort(m_COMport);
 		m_PPC1_serial->setBaudrate(m_baud_rate);
 		m_PPC1_serial->setFlowcontrol(serial::flowcontrol_none);
@@ -475,8 +476,11 @@ bool fluicell::PPC1api::connectCOM()
 
 void fluicell::PPC1api::disconnectCOM()
 {
-	if (m_PPC1_serial->isOpen())
+	if (m_PPC1_serial->isOpen()) {
 		m_PPC1_serial->close();
+		std::this_thread::sleep_for(std::chrono::microseconds(100));
+		m_excep_handler = false;
+	}
 }
 
 void fluicell::PPC1api::pumpingOff()
