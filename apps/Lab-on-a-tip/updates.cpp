@@ -74,9 +74,20 @@ void Labonatip_GUI::updateGUI() {
 		else {
 			ui->lcdNumber_dropletSize_percentage->display(m_ds_perc);
 		}
-		ui->lcdNumber_flowspeed_percentage->display(m_fs_perc);
-		ui->lcdNumber_vacuum_percentage->display(m_v_perc);
 
+		if (m_fs_perc < 0) {
+			ui->lcdNumber_flowspeed_percentage->display(NAN);
+		}
+		else {
+			ui->lcdNumber_flowspeed_percentage->display(m_fs_perc);
+		}
+
+		if (m_v_perc < 0) {
+			ui->lcdNumber_vacuum_percentage->display(NAN);
+		}
+		else {
+			ui->lcdNumber_vacuum_percentage->display(m_v_perc);
+		}
 		
 		// check if some of the wells is open
 		if (m_ppc1->m_PPC1_data->l == 1) {

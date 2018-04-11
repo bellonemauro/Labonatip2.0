@@ -14,7 +14,8 @@ Labonatip_macroRunner::Labonatip_macroRunner(QMainWindow *parent ) :
 	m_ppc1(NULL),
 	m_protocol(NULL),
 	m_simulation_only(true),
-	m_threadTerminationHandler(false)
+	m_threadTerminationHandler(false),
+	m_time_left_for_step(0)
 {
 	cout << QDate::currentDate().toString().toStdString() << "  " 
 		 << QTime::currentTime().toString().toStdString() << "  "
@@ -129,6 +130,10 @@ void Labonatip_macroRunner::run()  {
 							const qint64 kInterval = 1000;
 							qint64 mtime = QDateTime::currentMSecsSinceEpoch(); 
 							for (int j = 0; j < val; j++) {
+								// visualize step time left 
+								m_time_left_for_step = val - j;
+
+								// update the step
 								mtime += kInterval;
 								qint64 sleepFor = mtime - QDateTime::currentMSecsSinceEpoch();
 								if (sleepFor < 0) {
@@ -137,6 +142,8 @@ void Labonatip_macroRunner::run()  {
 								msleep(sleepFor);// (m_macro->at(i).Duration);				
 								time_elapsed = time_elapsed + 1.0;
 								int status = int(100 * time_elapsed / macro_duration);
+								
+
 
 								emit timeStatus(status);
 								if (!m_threadTerminationHandler) {

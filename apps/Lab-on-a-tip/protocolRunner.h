@@ -45,6 +45,8 @@ public:
 
 	void askOkEvent(bool _ask_ok) { m_ask_ok = _ask_ok; }
 
+	int getTimeLeftForStep() { return m_time_left_for_step; }
+
 // interactions between protocol runner and main GUI is done using signals
 signals:
 	void resultReady(const QString &_s);                //!< emit a string when the result is ready
@@ -59,6 +61,7 @@ private:
 	bool m_simulation_only;                               //!< true if simulation, false use the PPC1
 	bool m_threadTerminationHandler;                      //!< true to terminate the macro
 	bool m_ask_ok;                                        //!< false when a message dialg is out, true to continue
+	int m_time_left_for_step;                             //!< time left for the current step
 };
 
 #endif /* Labonatip_macroRunner_H_ */

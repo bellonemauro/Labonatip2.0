@@ -297,6 +297,12 @@ void Labonatip_GUI::updateMacroTimeStatus(const double &_status) {
 	s.append(" sec   ");
 	ui->progressBar_macroStatus->setValue(_status);
 	ui->label_macroStatus->setText(s);
+	
+	s.clear();
+	s.append(QString::number(m_macroRunner_thread->getTimeLeftForStep()));
+	s.append(" s");
+	ui->label_duration->setText(s);
+
 
 	double currentTime = _status * m_protocol_duration / 100.0 ;
 
