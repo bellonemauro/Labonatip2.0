@@ -838,8 +838,29 @@ bool fluicell::PPC1api::changeDropletSizeBy(double _percentage)
 
 double fluicell::PPC1api::getDropletSize()
 {
+	double in_out_ratio_on = 0;
 
-	double ds = 100.0 *(m_PPC1_status->in_out_ratio_on + 0.21) / 0.31;
+	bool use_sensor_reading = false;
+	if (use_sensor_reading) {
+		in_out_ratio_on = m_PPC1_status->in_out_ratio_on;
+	}
+	else
+	{
+		// calculate the outflow_on based on set value instead of the sensor reading
+		double outflow_on;
+		double delta_pressure = 100.0 * (m_PPC1_data->channel_D->set_point +
+			(m_PPC1_data->channel_C->set_point * 3.0) -
+			(-m_PPC1_data->channel_B->set_point * 2.0));
+	    outflow_on = this->getFlowSimple(delta_pressure, m_pipe_length2tip);
+
+		// calculate inflow_recirculation based on set value instead of the sensor reading
+		double inflow_recirculation;
+		delta_pressure = 100.0 * (-m_PPC1_data->channel_A->set_point);//   v_r;
+		inflow_recirculation = 2.0 * this->getFlowSimple(delta_pressure, m_pipe_length2tip);
+		
+		in_out_ratio_on = outflow_on / inflow_recirculation;
+	}
+	double ds = 100.0 *(in_out_ratio_on + 0.21) / 0.31;
 	return ds;// mean_percentage;
 }
 
@@ -1006,10 +1027,25 @@ bool fluicell::PPC1api::changeFlowspeedBy(const double _percentage)
 
 double fluicell::PPC1api::getFlowSpeed()
 {
-	double p1 = std::abs(100.0 * m_PPC1_data->channel_A->sensor_reading / m_default_v_recirc);
-	double p2 = std::abs(100.0 * m_PPC1_data->channel_B->sensor_reading / m_default_v_switch);
-	double p3 = std::abs(100.0 * m_PPC1_data->channel_C->sensor_reading / m_default_poff);
-	double p4 = std::abs(100.0 * m_PPC1_data->channel_D->sensor_reading / m_default_pon);
+	bool use_sensor_reading = false;
+	double p1 = 0;
+	double p2 = 0;
+	double p3 = 0;
+	double p4 = 0;
+	if (use_sensor_reading) {
+
+		p1 = std::abs(100.0 * m_PPC1_data->channel_A->sensor_reading / m_default_v_recirc);
+		p2 = std::abs(100.0 * m_PPC1_data->channel_B->sensor_reading / m_default_v_switch);
+		p3 = std::abs(100.0 * m_PPC1_data->channel_C->sensor_reading / m_default_poff);
+		p4 = std::abs(100.0 * m_PPC1_data->channel_D->sensor_reading / m_default_pon);
+	}
+	else
+	{
+		p1 = std::abs(100.0 * m_PPC1_data->channel_A->set_point / m_default_v_recirc);
+		p2 = std::abs(100.0 * m_PPC1_data->channel_B->set_point / m_default_v_switch);
+		p3 = std::abs(100.0 * m_PPC1_data->channel_C->set_point / m_default_poff);
+		p4 = std::abs(100.0 * m_PPC1_data->channel_D->set_point / m_default_pon);
+	}
 	double mean_percentage = (p1 + p2 + p3 + p4) / 4.0; // average 4 values
 	return mean_percentage;
 }
@@ -1046,9 +1082,16 @@ bool fluicell::PPC1api::changeVacuumPercentageBy(const double _percentage)
 
 double fluicell::PPC1api::getVacuum()
 {
-	double value_A = m_PPC1_data->channel_A->sensor_reading;
-	double p1 = std::abs(100.0 * value_A / m_default_v_recirc);
+	bool use_sensor_reading = false;
+	double value_A = 0;
+	if (use_sensor_reading) {
+		value_A = m_PPC1_data->channel_A->sensor_reading;
+	}
+	else {
+		value_A = m_PPC1_data->channel_A->set_point;
+	}
 
+	double p1 = std::abs(100.0 * value_A / m_default_v_recirc);
 	return p1;
 }
 
