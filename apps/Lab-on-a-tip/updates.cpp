@@ -67,7 +67,13 @@ void Labonatip_GUI::updateGUI() {
 		m_fs_perc =  m_ppc1->getFlowSpeed();
 		m_v_perc =  m_ppc1->getVacuum();
 
-		ui->lcdNumber_dropletSize_percentage->display(m_ds_perc);
+		//ui->lcdNumber_dropletSize_percentage->display(m_ds_perc);
+		if (m_ds_perc < 0) {
+			ui->lcdNumber_dropletSize_percentage->display(NAN);
+		}
+		else {
+			ui->lcdNumber_dropletSize_percentage->display(m_ds_perc);
+		}
 		ui->lcdNumber_flowspeed_percentage->display(m_fs_perc);
 		ui->lcdNumber_vacuum_percentage->display(m_v_perc);
 
