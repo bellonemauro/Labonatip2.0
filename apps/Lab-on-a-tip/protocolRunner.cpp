@@ -153,7 +153,7 @@ void Labonatip_macroRunner::run()  {
 								}
 							}
 						}
-						else m_ppc1->run(m_protocol->at(i)); // otherwise we run the actual command on the PPC1
+						else m_ppc1->runCommand(m_protocol->at(i)); // otherwise we run the actual command on the PPC1
 						
 						if (m_protocol->at(i).isStatusVisualized()) {
 							QString message = QString::fromStdString(m_protocol->at(i).getStatusMessage());
@@ -183,6 +183,7 @@ void Labonatip_macroRunner::run()  {
 		}
 		result = " Success";
 		emit resultReady(result);
+				
 		return;
 
 	}

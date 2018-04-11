@@ -303,6 +303,10 @@ void Labonatip_GUI::updateMacroTimeStatus(const double &_status) {
 	s.append(" s");
 	ui->label_duration->setText(s);
 
+	//updateVrecircSetPoint(-m_ppc1->m_PPC1_data->channel_A->set_point);
+	//updateVswitchSetPoint(-m_ppc1->m_PPC1_data->channel_B->set_point);
+	//updatePoffSetPoint(m_ppc1->m_PPC1_data->channel_C->set_point);
+	//updatePonSetPoint(m_ppc1->m_PPC1_data->channel_D->set_point);
 
 	double currentTime = _status * m_protocol_duration / 100.0 ;
 

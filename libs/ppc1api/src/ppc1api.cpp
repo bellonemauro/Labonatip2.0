@@ -1112,7 +1112,7 @@ double fluicell::PPC1api::getFlow(double _square_channel_mod,
 	return flow;
 }
 
-bool fluicell::PPC1api::run(command _cmd)
+bool fluicell::PPC1api::runCommand(command _cmd)
 {
 	//TODO: here there is no check of validity for the commands
 	if (m_verbose) cout << currentDateTime()

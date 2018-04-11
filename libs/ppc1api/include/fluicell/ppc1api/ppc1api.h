@@ -723,7 +723,7 @@ namespace fluicell
 		*  @param  _cmd is a command, see <command> structure
 		*
 		**/
-		bool run(command _cmd);
+		bool runCommand(command _cmd);
 
 		/**  \brief Set the data stream period on the serial port
 		  *
