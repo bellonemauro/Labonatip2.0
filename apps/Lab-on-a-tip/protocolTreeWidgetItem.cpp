@@ -384,7 +384,6 @@ protocolTreeWidgetItem * protocolTreeWidgetItem::clone()
 		clone->setText(m_cmd_msg_c, this->text(m_cmd_msg_c)); // status message
 		clone->setFlags(this->flags() | (Qt::ItemIsEditable) | (Qt::ItemIsSelectable));
 
-
 		return clone;
 }
 

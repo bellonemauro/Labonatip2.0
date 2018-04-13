@@ -58,14 +58,14 @@ bool initPaths(Labonatip_GUI &_l, QString &_protocols_user_path,
 	home_path.append("/Documents/Labonatip2/");
 	QDir home_dir;
 	if (!home_dir.exists(home_path)) {
-		cerr << "Labonatip directory does not exists in the home folder .... creating it" << endl;
+        cerr << " Labonatip directory does not exists in the home folder .... creating it" << endl;
 		home_dir.mkpath(home_path);
-		cout << "directory " << 
-			home_path.toStdString() << " now exists" << endl;
+        cout << " Created directory " <<
+            home_path.toStdString() << endl;
 	}
 	else {
-		cout << "directory " << 
-			home_path.toStdString() << " already exists" << endl;
+        cout << " Found directory " <<
+            home_path.toStdString() << endl;
 	}
 
 	// check if the protocol directory exists in the program files path, 
@@ -82,8 +82,8 @@ bool initPaths(Labonatip_GUI &_l, QString &_protocols_user_path,
 		return false;
 	}
 	else {
-		cout << "directory " << 
-			protocols_path.toStdString() << " exists" << endl;
+        cout << " Found directory " <<
+            protocols_path.toStdString() << endl;
 	}
 
 	// check if the settings directory exists in the program files path, 
@@ -99,8 +99,8 @@ bool initPaths(Labonatip_GUI &_l, QString &_protocols_user_path,
 		return false;
 	}
 	else {
-		cout << "directory " << 
-			settings_path.toStdString() << " exists" << endl;
+        cout << " Found directory " <<
+            settings_path.toStdString() << endl;
 	}
 
 	// check if the ext_data directory exists in the program files path, 
@@ -116,8 +116,8 @@ bool initPaths(Labonatip_GUI &_l, QString &_protocols_user_path,
 		return false;
 	}
 	else {
-		cout << "directory " <<
-			ext_data_path.toStdString() << " exists" << endl;
+        cout << " Found directory " <<
+            ext_data_path.toStdString() << endl;
 	}
 
 	// here we set the macro path in the user folder 
@@ -223,31 +223,32 @@ int main(int argc, char **argv)//(int argc, char *argv[])
 	string version;
 #ifdef LABONATIP_VERSION
 	version = VER;
-	cout << " Running Lab-on-a-tip version "
-		 << version << endl;
+    cout << "\n Running Lab-on-a-tip version "
+         << version << "\n"<< endl;
 #endif
 	try {
 
-	  QApplication a (argc, argv);
+        QApplication a (argc, argv);
+        // TODO: there is a problem with high dpi displays
+        a.setAttribute(Qt::AA_DisableHighDpiScaling);
 
-	  // TODO: there is a problem with high dpi displays
-	  a.setAttribute(Qt::AA_DisableHighDpiScaling);
-	  
-	  Labonatip_GUI window;
+        Labonatip_GUI window;
 
-	  QString protocols_user_path;
-	  QString settings_user_path;
-	  QString ext_data_user_path;
+        // set internal applicatio paths
+        QString protocols_user_path;
+        QString settings_user_path;
+        QString ext_data_user_path;
 
-//TODO: this does not work under ubuntu
 #ifdef _DEBUG
-	  initPaths(window, protocols_user_path, 
-		  settings_user_path, ext_data_user_path);
+        cout << " Running with debug settings " << endl;
+        initPaths(window, protocols_user_path,
+            settings_user_path, ext_data_user_path);
 #else
-      if (!initPaths(window, protocols_user_path, 
-		  settings_user_path, ext_data_user_path)) return 0;
+        if (!initPaths(window, protocols_user_path,
+            settings_user_path, ext_data_user_path)) return 0;
 #endif
-	  // set default paths for settings and protocols in the GUI app
+
+      // set default paths for settings and protocols in the GUI app
 	  window.setProtocolUserPath(protocols_user_path);
 	  cout << " Set protocols_user_path " 
 		  << protocols_user_path.toStdString() << endl;

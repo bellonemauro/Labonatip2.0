@@ -102,6 +102,25 @@ void Labonatip_GUI::updateGUI() {
 				ui->progressBar_solution1->width() / 2;
 			ui->widget_solutionArrow->move(
 				QPoint(pos_x, ui->widget_solutionArrow->pos().ry()));
+
+            // switch on the button for the solution 1
+            ui->pushButton_solution1->blockSignals(true);
+            ui->pushButton_solution1->setChecked(true);
+            ui->pushButton_solution1->blockSignals(false);
+
+            // all the other buttons have to be off
+            ui->pushButton_solution2->blockSignals(true);
+            ui->pushButton_solution2->setChecked(false);
+            ui->pushButton_solution2->blockSignals(false);
+
+            ui->pushButton_solution3->blockSignals(true);
+            ui->pushButton_solution3->setChecked(false);
+            ui->pushButton_solution3->blockSignals(false);
+
+            ui->pushButton_solution4->blockSignals(true);
+            ui->pushButton_solution4->setChecked(false);
+            ui->pushButton_solution4->blockSignals(false);
+
 		}
 		if (m_ppc1->m_PPC1_data->k == 1) {
 			m_pen_line.setColor(m_sol2_color);
@@ -115,6 +134,24 @@ void Labonatip_GUI::updateGUI() {
 				ui->progressBar_solution2->width() / 2;
 			ui->widget_solutionArrow->move(
 				QPoint(pos_x, ui->widget_solutionArrow->pos().ry()));
+
+            // switch on the button for the solution 2
+            ui->pushButton_solution2->blockSignals(true);
+            ui->pushButton_solution2->setChecked(true);
+            ui->pushButton_solution2->blockSignals(false);
+
+            // all the other buttons have to be off
+            ui->pushButton_solution1->blockSignals(true);
+            ui->pushButton_solution1->setChecked(false);
+            ui->pushButton_solution1->blockSignals(false);
+
+            ui->pushButton_solution3->blockSignals(true);
+            ui->pushButton_solution3->setChecked(false);
+            ui->pushButton_solution3->blockSignals(false);
+
+            ui->pushButton_solution4->blockSignals(true);
+            ui->pushButton_solution4->setChecked(false);
+            ui->pushButton_solution4->blockSignals(false);
 		}
 		if (m_ppc1->m_PPC1_data->j == 1) {
 			m_pen_line.setColor(m_sol3_color);
@@ -128,6 +165,24 @@ void Labonatip_GUI::updateGUI() {
 				ui->progressBar_solution3->width() / 2;
 			ui->widget_solutionArrow->move(
 				QPoint(pos_x, ui->widget_solutionArrow->pos().ry()));
+
+            // switch on the button for the solution 3
+            ui->pushButton_solution3->blockSignals(true);
+            ui->pushButton_solution3->setChecked(true);
+            ui->pushButton_solution3->blockSignals(false);
+
+            // all the other buttons have to be off
+            ui->pushButton_solution1->blockSignals(true);
+            ui->pushButton_solution1->setChecked(false);
+            ui->pushButton_solution1->blockSignals(false);
+
+            ui->pushButton_solution2->blockSignals(true);
+            ui->pushButton_solution2->setChecked(false);
+            ui->pushButton_solution2->blockSignals(false);
+
+            ui->pushButton_solution4->blockSignals(true);
+            ui->pushButton_solution4->setChecked(false);
+            ui->pushButton_solution4->blockSignals(false);
 		}
 		if (m_ppc1->m_PPC1_data->i == 1) {
 			m_pen_line.setColor(m_sol4_color);
@@ -141,20 +196,73 @@ void Labonatip_GUI::updateGUI() {
 				ui->progressBar_solution4->width() / 2;
 			ui->widget_solutionArrow->move(
 				QPoint(pos_x, ui->widget_solutionArrow->pos().ry()));
+
+            // switch on the button for the solution 4
+            ui->pushButton_solution4->blockSignals(true);
+            ui->pushButton_solution4->setChecked(true);
+            ui->pushButton_solution4->blockSignals(false);
+
+            // all the other buttons have to be off
+            ui->pushButton_solution1->blockSignals(true);
+            ui->pushButton_solution1->setChecked(false);
+            ui->pushButton_solution1->blockSignals(false);
+
+            ui->pushButton_solution2->blockSignals(true);
+            ui->pushButton_solution2->setChecked(false);
+            ui->pushButton_solution2->blockSignals(false);
+
+            ui->pushButton_solution3->blockSignals(true);
+            ui->pushButton_solution3->setChecked(false);
+            ui->pushButton_solution3->blockSignals(false);
 		}
 
 		if (m_ppc1->m_PPC1_data->i == 0 && m_ppc1->m_PPC1_data->j == 0 &&
 			m_ppc1->m_PPC1_data->k == 0 && m_ppc1->m_PPC1_data->l == 0) {
 			m_pen_line.setColor(Qt::transparent);
 			ui->widget_solutionArrow->setVisible(false);
+
+            // this connect the solution buttons to what happens in the PPC1 during the macro running
+            ui->pushButton_solution1->blockSignals(true);
+            ui->pushButton_solution1->setChecked(false);
+            ui->pushButton_solution1->blockSignals(false);
+
+            ui->pushButton_solution2->blockSignals(true);
+            ui->pushButton_solution2->setChecked(false);
+            ui->pushButton_solution2->blockSignals(false);
+
+            ui->pushButton_solution3->blockSignals(true);
+            ui->pushButton_solution3->setChecked(false);
+            ui->pushButton_solution3->blockSignals(false);
+
+            ui->pushButton_solution4->blockSignals(true);
+            ui->pushButton_solution4->setChecked(false);
+            ui->pushButton_solution4->blockSignals(false);
 		}
 
 		if (m_ppc1->m_PPC1_data->i == 1 && m_ppc1->m_PPC1_data->j == 1 &&
 			m_ppc1->m_PPC1_data->k == 1 && m_ppc1->m_PPC1_data->l == 1) {
 			m_pen_line.setColor(Qt::transparent);
 			ui->widget_solutionArrow->setVisible(false);
+
+            // this connect the solution buttons to what happens in the PPC1 during the macro running
+            ui->pushButton_solution1->blockSignals(true);
+            ui->pushButton_solution1->setChecked(false);
+            ui->pushButton_solution1->blockSignals(false);
+
+            ui->pushButton_solution2->blockSignals(true);
+            ui->pushButton_solution2->setChecked(false);
+            ui->pushButton_solution2->blockSignals(false);
+
+            ui->pushButton_solution3->blockSignals(true);
+            ui->pushButton_solution3->setChecked(false);
+            ui->pushButton_solution3->blockSignals(false);
+
+            ui->pushButton_solution4->blockSignals(true);
+            ui->pushButton_solution4->setChecked(false);
+            ui->pushButton_solution4->blockSignals(false);
+
 		}
-	}
+    }// end if m_simulation
 
 	if (m_ppc1->isRunning()) {
 		m_update_GUI->start();
@@ -640,5 +748,77 @@ void Labonatip_GUI::updateWells()
 		double perc = 100.0 * m_pipette_status->rem_vol_well4 / max;
 		ui->progressBar_solution4->setValue(int(perc));
 	}
+
+}
+
+
+
+void Labonatip_GUI::updateMacroStatusMessage(const QString &_message) {
+
+    QString s = " PROTOCOL RUNNING : <<<  ";
+    s.append(m_dialog_p_editor->getProtocolPath());
+    s.append(" >>> remaining time = ");
+
+    s.append(_message);
+    cout << QDate::currentDate().toString().toStdString() << "  "
+         << QTime::currentTime().toString().toStdString() << "  "
+         << "Labonatip_GUI::updateMacroStatusMessage :::: "
+         << _message.toStdString() << endl;
+}
+
+
+void Labonatip_GUI::updateMacroTimeStatus(const double &_status) {
+
+    m_labonatip_chart_view->updateChartTime(_status); // update the vertical line for the time status on the chart
+
+    QString s = m_str_update_time_macro_msg1;
+    s.append(m_dialog_p_editor->getProtocolName());
+    int remaining_time_sec = m_protocol_duration - _status * m_protocol_duration / 100;
+    s.append(m_str_update_time_macro_msg2);
+    int remaining_hours = floor(remaining_time_sec / 3600); // 3600 sec in a hour
+    int remaining_mins = floor((remaining_time_sec % 3600) / 60); // 60 minutes in a hour
+    int remaining_secs = remaining_time_sec - remaining_hours * 3600 - remaining_mins * 60; // 60 minutes in a hour
+    s.append(QString::number(remaining_hours));
+    s.append(" h,   ");
+    s.append(QString::number(remaining_mins));
+    s.append(" min,   ");
+    s.append(QString::number(remaining_secs));
+    s.append(" sec   ");
+    ui->progressBar_macroStatus->setValue(_status);
+    ui->label_macroStatus->setText(s);
+
+    s.clear();
+    s.append(QString::number(m_macroRunner_thread->getTimeLeftForStep()));
+    s.append(" s");
+    ui->label_duration->setText(s);
+
+
+    // update the slider for the GUI
+    ui->horizontalSlider_recirculation->blockSignals(true);
+    ui->horizontalSlider_recirculation->setValue(m_ppc1->m_PPC1_data->channel_A->set_point);
+    ui->horizontalSlider_recirculation->blockSignals(false);
+
+    ui->horizontalSlider_switch->blockSignals(true);
+    ui->horizontalSlider_switch->setValue(m_ppc1->m_PPC1_data->channel_B->set_point);
+    ui->horizontalSlider_switch->blockSignals(false);
+
+    ui->horizontalSlider_p_off->blockSignals(true);
+    ui->horizontalSlider_p_off->setValue(m_ppc1->m_PPC1_data->channel_C->set_point);
+    ui->horizontalSlider_p_off->blockSignals(false);
+
+    ui->horizontalSlider_p_on->blockSignals(true);
+    ui->horizontalSlider_p_on->setValue(m_ppc1->m_PPC1_data->channel_D->set_point);
+    ui->horizontalSlider_p_on->blockSignals(false);
+
+    double currentTime = _status * m_protocol_duration / 100.0 ;
+
+    updateFlowControlPercentages();
+
+    if (m_pipette_active) updateDrawing(m_ppc1->getDropletSize());
+    else updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
+
+    //cout << QDate::currentDate().toString().toStdString() << "  "
+    //     << QTime::currentTime().toString().toStdString() << "  "
+    //	   << "Labonatip_GUI::updateMacroTimeStatus :::: " << _status << endl;
 
 }

@@ -264,62 +264,6 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 }
 
 
-void Labonatip_GUI::updateMacroStatusMessage(const QString &_message) {
-  
-	QString s = " PROTOCOL RUNNING : <<<  ";
-	s.append(m_dialog_p_editor->getProtocolPath());
-	s.append(" >>> remaining time = ");
-	
-	s.append(_message);
-	cout << QDate::currentDate().toString().toStdString() << "  " 
-		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::updateMacroStatusMessage :::: " 
-		 << _message.toStdString() << endl;
-}
-
-
-void Labonatip_GUI::updateMacroTimeStatus(const double &_status) {
-
-	m_labonatip_chart_view->updateChartTime(_status); // update the vertical line for the time status on the chart
-
-	QString s = m_str_update_time_macro_msg1;
-	s.append(m_dialog_p_editor->getProtocolName());
-	int remaining_time_sec = m_protocol_duration - _status * m_protocol_duration / 100;
-	s.append(m_str_update_time_macro_msg2);
-	int remaining_hours = floor(remaining_time_sec / 3600); // 3600 sec in a hour
-	int remaining_mins = floor((remaining_time_sec % 3600) / 60); // 60 minutes in a hour
-	int remaining_secs = remaining_time_sec - remaining_hours * 3600 - remaining_mins * 60; // 60 minutes in a hour
-	s.append(QString::number(remaining_hours));
-	s.append(" h,   ");
-	s.append(QString::number(remaining_mins));
-	s.append(" min,   ");
-	s.append(QString::number(remaining_secs));
-	s.append(" sec   ");
-	ui->progressBar_macroStatus->setValue(_status);
-	ui->label_macroStatus->setText(s);
-	
-	s.clear();
-	s.append(QString::number(m_macroRunner_thread->getTimeLeftForStep()));
-	s.append(" s");
-	ui->label_duration->setText(s);
-
-	//updateVrecircSetPoint(-m_ppc1->m_PPC1_data->channel_A->set_point);
-	//updateVswitchSetPoint(-m_ppc1->m_PPC1_data->channel_B->set_point);
-	//updatePoffSetPoint(m_ppc1->m_PPC1_data->channel_C->set_point);
-	//updatePonSetPoint(m_ppc1->m_PPC1_data->channel_D->set_point);
-
-	double currentTime = _status * m_protocol_duration / 100.0 ;
-
-	updateFlowControlPercentages();
-
-	if (m_pipette_active) updateDrawing(m_ppc1->getDropletSize());
-	else updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
-
-	//cout << QDate::currentDate().toString().toStdString() << "  " 
-	//     << QTime::currentTime().toString().toStdString() << "  "
-	//	   << "Labonatip_GUI::updateMacroTimeStatus :::: " << _status << endl;
-
-}
 
 void Labonatip_GUI::askMessage(const QString &_message) {
 

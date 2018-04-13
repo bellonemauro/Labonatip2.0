@@ -169,7 +169,7 @@ private slots:
 	*
 	* \note
 	*/
-	void setContinuousFow_s1(int _state) {
+    void setContinuousFlow_s1(int _state) {
 		  ui_tools->doubleSpinBox_pulse_sol1->setEnabled(!_state); // TODO !!! this is still not in the setting file
 	}
 
@@ -177,7 +177,7 @@ private slots:
 	*
 	* \note
 	*/
-	void setContinuousFow_s2(int _state) {
+    void setContinuousFlow_s2(int _state) {
 		ui_tools->doubleSpinBox_pulse_sol2->setEnabled(!_state); // TODO !!! this is still not in the setting file
 	}
 
@@ -185,7 +185,7 @@ private slots:
 	*
 	* \note
 	*/
-	void setContinuousFow_s3(int _state) {
+    void setContinuousFlow_s3(int _state) {
 		ui_tools->doubleSpinBox_pulse_sol3->setEnabled(!_state); // TODO !!! this is still not in the setting file
 	}
 
@@ -193,7 +193,7 @@ private slots:
 	*
 	* \note
 	*/
-	void setContinuousFow_s4(int _state) {
+    void setContinuousFlow_s4(int _state) {
 		ui_tools->doubleSpinBox_pulse_sol4->setEnabled(!_state); // TODO !!! this is still not in the setting file
 	}
 	/** emit ok signal, save the setting, send the current macro to the main
@@ -267,7 +267,13 @@ private:
 
 	uint32_t giveRainbowColor(float _position);
 
-	int calculateFolderSize(const QString _wantedDirPath);
+    /** \brief Check the size of the history and ask to clean it if necessary
+    *
+    * \note
+    */
+    void checkHistory ();
+
+    int calculateFolderSize(const QString _wantedDirPath);
 
 	QString m_setting_file_name;
 
