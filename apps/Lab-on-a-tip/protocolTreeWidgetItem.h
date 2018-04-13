@@ -49,7 +49,7 @@ public:
 	protocolTreeWidgetItem(protocolTreeWidgetItem *parent = 0);
 
 	// check validity and do some reset 
-	bool protocolTreeWidgetItem::checkValidity( int _column);
+    bool checkValidity( int _column);
 
 	// the range column is static,
 	// this allow to get the static value to put in
@@ -68,7 +68,7 @@ public:
 	int getLastCommand() { return m_last_command; }
 	int getLastValue() { return m_last_value; }
 	Qt::CheckState getLastSM() { return m_last_show_msg; }
-	QString getLastMsg() { return m_last_show_msg; }
+    QString getLastMsg() { return QString(m_last_show_msg); }
 
 private:
 	

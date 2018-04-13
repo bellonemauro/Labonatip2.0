@@ -43,7 +43,7 @@
    <string>Lab-on-a-tip</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="resources.qrc">
+   <iconset resource="../Lab-on-a-tip_console/resources.qrc">
     <normaloff>:/icons/fluicell_iconBIG.png</normaloff>:/icons/fluicell_iconBIG.png</iconset>
   </property>
   <property name="windowOpacity">
@@ -63,14 +63,14 @@
 background-color:rgb(0, 94, 116);
 color:rgb(255,255,255);
 font-size: 16px;
-font-weigth: 900;
+font-weight: 900;
 }
 
 QToolButton:disabled {
 background-color:rgb(0, 94, 116);
 color:rgb(0,134,156);
 font-size: 16px;
-font-weigth: 900;
+font-weight: 900;
 }
 
 
@@ -79,8 +79,8 @@ QToolBar {
 background-color:rgb(0, 94, 116);
 color:rgb(255,255,255);
 font-size: 16px;
-font-weigth: 900;
 border:0;
+font-weight: 900;
 }</string>
   </property>
   <property name="tabShape">
@@ -149,8 +149,8 @@ border:0;
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>946</width>
-         <height>740</height>
+         <width>813</width>
+         <height>737</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout_2">
@@ -192,7 +192,7 @@ border:0;
              <x>0</x>
              <y>0</y>
              <width>976</width>
-             <height>676</height>
+             <height>674</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout">
@@ -1090,9 +1090,9 @@ border:0;</string>
                    <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Pulse time remaining: &lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;0 h 0 min 0 sec&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2';&quot;&gt;Pulse time remaining: &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2';&quot;&gt;0 h 0 min 0 sec&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                  </widget>
                  <widget class="QTextEdit" name="textEdit_emptyTime_waste">
@@ -1117,8 +1117,8 @@ border:0;</string>
                    <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Waste full in: 0 h 0 min&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'MS Shell Dlg 2';&quot;&gt;Waste full in: 0 h 0 min&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                  </widget>
                  <widget class="QLabel" name="label_4">
@@ -1247,7 +1247,7 @@ p, li { white-space: pre-wrap; }
 
 
 QPushButton:checked{ 
-     background-color: #85CD83; 
+     background-color: #00C5F2; 
     color: #85CD83;
      image: url(:/icons/droplet.png);
  font-size: 5px;
@@ -2726,7 +2726,7 @@ closeAllValves()&lt;br/&gt;
               </sizepolicy>
              </property>
              <property name="text">
-              <string>Duration :  </string>
+              <string>Current step time left :  </string>
              </property>
             </widget>
            </item>
@@ -5561,8 +5561,8 @@ color: rgb(0, 0, 0);</string>
             <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2';&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
          </item>
@@ -5603,8 +5603,8 @@ color: rgb(0, 0, 0);</string>
             <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:7.8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
            </property>
           </widget>
          </item>
@@ -5655,8 +5655,8 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>400</width>
-              <height>940</height>
+              <width>534</width>
+              <height>1124</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -7587,6 +7587,13 @@ p, li { white-space: pre-wrap; }
      <verstretch>0</verstretch>
     </sizepolicy>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>-1</pointsize>
+     <weight>99</weight>
+     <bold>true</bold>
+    </font>
+   </property>
    <property name="windowTitle">
     <string>toolBar_2</string>
    </property>
@@ -7596,7 +7603,7 @@ p, li { white-space: pre-wrap; }
    <property name="iconSize">
     <size>
      <width>100</width>
-     <height>70</height>
+     <height>55</height>
     </size>
    </property>
    <property name="toolButtonStyle">
@@ -7627,6 +7634,13 @@ p, li { white-space: pre-wrap; }
      <verstretch>0</verstretch>
     </sizepolicy>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>-1</pointsize>
+     <weight>99</weight>
+     <bold>true</bold>
+    </font>
+   </property>
    <property name="windowTitle">
     <string>toolBar_3</string>
    </property>
@@ -7639,7 +7653,7 @@ p, li { white-space: pre-wrap; }
    <property name="iconSize">
     <size>
      <width>100</width>
-     <height>70</height>
+     <height>55</height>
     </size>
    </property>
    <property name="toolButtonStyle">
@@ -7860,7 +7874,7 @@ click on any object to have quick help
   </action>
  </widget>
  <resources>
-  <include location="resources.qrc"/>
+  <include location="../Lab-on-a-tip_console/resources.qrc"/>
   <include location="resources.qrc"/>
  </resources>
  <connections/>
