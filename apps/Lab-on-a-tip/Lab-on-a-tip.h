@@ -713,6 +713,9 @@ private:
   QString m_str_operation_cannot_be_done; 
   QString m_str_out_of_bound; 
   QString m_str_user;
+  QString m_str_protocol_running_stop;
+  QString m_str_lost_connection;
+  QString m_str_swapping_to_simulation;
 
   // to visualize the led on the status bar, 
   // I create two different leds and switch between them to create the effect on/off

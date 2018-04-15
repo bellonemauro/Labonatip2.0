@@ -511,6 +511,22 @@
         <source>Operation cannot be done</source>
         <translation>Operation kan inte göras</translation>
 	</message>	
+	<message>
+        <source>A protocol is running, stop the protocol first</source>
+        <translation>Ett protokoll körs, stoppa protokollet först</translation>
+	</message>	
+	<message>
+        <source>Lost connection with PPC1</source>
+        <translation>Förlorad anslutning med PPC1</translation>
+	</message>
+	<message>
+        <source>swapping to simulation mode</source>
+        <translation>byta till simuleringsläge</translation>
+	</message>
+	<message>
+        <source>Current step time left : </source>
+        <translation>Aktuell stegtid kvar : </translation>
+	</message>	
 </context>
 <context>
     <name>Labonatip_tools</name>
@@ -892,6 +908,34 @@
     <message>
         <source>Please check your settings and try again</source>
         <translation>Undersök dina inställningar och prova igen</translation>
+    </message>
+    <message>
+        <source>This action will remove the file, are you sure?</source>
+        <translation>Den här åtgärden tar bort filen, är du säker?</translation>
+    </message>
+    <message>
+        <source>Negative level, file corrupted</source>
+        <translation>Negativ nivå, fil skadad</translation>
+    </message>
+	<message>
+        <source>The current protocol file name is</source>
+        <translation>Det aktuella protokollfilnamnet är</translation>
+    </message>
+	<message>
+        <source>Do you want to override?</source>
+        <translation>Vill du åsidosätta?</translation>
+    </message>	
+	<message>
+        <source>Yes = override, NO = saveAs, Cancel = do nothing</source>
+        <translation>Ja = åsidosätt, NEJ = spara, Avbryt = gör inget</translation>
+    </message>	
+	<message>
+        <source>Do you want to add to the bottom of the protocol?</source>
+        <translation>Vill du lägga till i botten av protokollet?</translation>
+    </message>	
+	<message>
+        <source>Click NO to clean the workspace and load a new protocol</source>
+        <translation>Klicka på NO för att rengöra arbetsytan och ladda ett nytt protokoll</translation>
     </message>
     <message>
         <source>Select folder</source>

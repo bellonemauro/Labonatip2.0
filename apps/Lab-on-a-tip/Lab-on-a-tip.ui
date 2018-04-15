@@ -2726,7 +2726,7 @@ closeAllValves()&lt;br/&gt;
               </sizepolicy>
              </property>
              <property name="text">
-              <string>Current step time left :  </string>
+              <string>Current step time left : </string>
              </property>
             </widget>
            </item>

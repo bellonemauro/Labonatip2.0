@@ -49,7 +49,7 @@ void Labonatip_macroRunner::run()  {
 			for (size_t i = 0; i < m_protocol->size(); i++)
 			{
 				if (!m_threadTerminationHandler) {
-					result = " PROTOCOL STOPPED ";
+					result = " PROTOCOL STOPPED "; //TODO : translate
 					emit resultReady(result);
 					return;
 				}
@@ -100,7 +100,7 @@ void Labonatip_macroRunner::run()  {
 														
 							emit timeStatus(status);
 							if (!m_threadTerminationHandler) {
-								result = " PROTOCOL STOPPED ";
+								result = " PROTOCOL STOPPED "; //TODO : translate
 								emit resultReady(result);
 								return;
 							}
@@ -147,7 +147,7 @@ void Labonatip_macroRunner::run()  {
 
 								emit timeStatus(status);
 								if (!m_threadTerminationHandler) {
-									result = " PROTOCOL STOPPED ";
+									result = " PROTOCOL STOPPED "; //TODO : translate
 									emit resultReady(result);
 									return;
 								}
@@ -158,7 +158,7 @@ void Labonatip_macroRunner::run()  {
 							{
 								cerr << QDate::currentDate().toString().toStdString() << "  "
 									<< QTime::currentTime().toString().toStdString() << "  "
-									<< "\n\n Labonatip_macroRunner::run  ---- error --- MESSAGE: error in ppc1api PPC1api::runCommand \n\n" << endl;
+									<< "Labonatip_macroRunner::run  ---- error --- MESSAGE: error in ppc1api PPC1api::runCommand" << endl;
 							}
 						}
 						if (m_protocol->at(i).isStatusVisualized()) {
@@ -171,7 +171,7 @@ void Labonatip_macroRunner::run()  {
 							 << QTime::currentTime().toString().toStdString() << "  "
 							 << " Labonatip_macroRunner::run  ---- error --- MESSAGE: ppc1 is NOT running " << endl;
 
-						result = " PPC1 is NOT running, connect and try again ";
+						result = " PPC1 is NOT running, connect and try again "; //TODO : translate
 						emit resultReady(result);
 						return;
 					}
@@ -182,12 +182,12 @@ void Labonatip_macroRunner::run()  {
 			cerr << QDate::currentDate().toString().toStdString() << "  " 
 				 << QTime::currentTime().toString().toStdString() << "  "
 				 << " Labonatip_macroRunner::run  ---- error --- MESSAGE: null pointer " << endl;
-			result = " null pointer ";
+			result = " null pointer "; //TODO : translate
 
 			emit resultReady(result);
 			return;
 		}
-		result = " Success";
+		result = " Success"; //TODO : translate
 		emit resultReady(result);
 				
 		return;
@@ -199,7 +199,7 @@ void Labonatip_macroRunner::run()  {
 			 << QTime::currentTime().toString().toStdString() << "  "
 			 << " Labonatip_GUI::disCon ::: IOException : " << e.what() << endl;
 		//m_ppc1->disconnectCOM();
-		result = " failed"; 
+		result = " failed";  //TODO : translate
 		emit resultReady(result);
 		return;
 	}
@@ -209,7 +209,7 @@ void Labonatip_macroRunner::run()  {
 			 << QTime::currentTime().toString().toStdString() << "  "
 			 << " Labonatip_GUI::disCon ::: PortNotOpenedException : " << e.what() << endl;
 		//m_PPC1_serial->close();
-		result = " failed";
+		result = " failed"; //TODO : translate
 		emit resultReady(result);
 		return;
 	}
@@ -219,7 +219,7 @@ void Labonatip_macroRunner::run()  {
 			 << QTime::currentTime().toString().toStdString() << "  "
 			 << " Labonatip_GUI::disCon ::: SerialException : " << e.what() << endl;
 		//m_PPC1_serial->close();
-		result = " failed";
+		result = " failed"; //TODO : translate
 		emit resultReady(result);
 		return;
 	}
@@ -228,7 +228,7 @@ void Labonatip_macroRunner::run()  {
 			 << QTime::currentTime().toString().toStdString() << "  "
 			 << " Labonatip_GUI::disCon ::: Unhandled Exception: " << e.what() << endl;
 		//m_PPC1_serial->close();
-		result = " failed";
+		result = " failed"; //TODO : translate
 		emit resultReady(result);
 		return;
 	}

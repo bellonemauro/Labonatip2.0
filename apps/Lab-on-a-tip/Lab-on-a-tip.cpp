@@ -766,7 +766,9 @@ void Labonatip_GUI::initCustomStrings()
 	m_str_operation_cannot_be_done = tr("Operation cannot be done");
 	m_str_out_of_bound = tr("Please, check for out of bound values");
 	m_str_user = tr("User :");
-
+	m_str_protocol_running_stop = tr("A protocol is running, stop the protocol first");
+	m_str_lost_connection = tr("Lost connection with PPC1");
+	m_str_swapping_to_simulation = tr("swapping to simulation mode");
 }
 
 void Labonatip_GUI::toolEmptyWells()
@@ -1072,7 +1074,7 @@ void Labonatip_GUI::closeEvent(QCloseEvent *event) {
 
 		if (m_macroRunner_thread->isRunning()) {
 			//this->runMacro(); // this will stop the macro if running
-			QMessageBox::question(this, m_str_information, "A protocol is running, stop the protocol first", m_str_ok);
+			QMessageBox::question(this, m_str_information, m_str_protocol_running_stop, m_str_ok);
 			event->ignore();
 			return;
 		}

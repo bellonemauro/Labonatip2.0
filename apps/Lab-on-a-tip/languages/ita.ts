@@ -511,6 +511,18 @@
         <source>Operation cannot be done</source>
         <translation>L'operazione non può essere eseguita</translation>
 	</message>		
+	<message>
+        <source>A protocol is running, stop the protocol first</source>
+        <translation>Un protocollo è già in esecuzione, terminalo prima di continuare</translation>
+	</message>	
+	<message>
+        <source>Lost connection with PPC1</source>
+        <translation>Persa la connessione con il PPC1</translation>
+	</message>
+	<message>
+        <source>swapping to simulation mode</source>
+        <translation>ritorno alla modalità di simulazione</translation>
+	</message>
 </context>
 <context>
     <name>Labonatip_tools</name>
@@ -893,6 +905,34 @@
         <source>please check your settings and try again</source>
         <translation>Controlla i settaggi e riprova</translation>
     </message>	
+    <message>
+        <source>This action will remove the file, are you sure?</source>
+        <translation>Il file sarà rimosso, sei sicuro?</translation>
+    </message>
+    <message>
+        <source>Negative level, file corrupted</source>
+        <translation>Livello negativo, file corrotto</translation>
+    </message>
+	<message>
+        <source>The current protocol file name is</source>
+        <translation>Il protocollo corrente è </translation>
+    </message>
+	<message>
+        <source>Do you want to override?</source>
+        <translation>lo vuoi sovrascrivere?</translation>
+    </message>	
+	<message>
+        <source>Yes = override, NO = saveAs, Cancel = do nothing</source>
+        <translation>Si = sovrascrivi, NO = salva come, Annulla = do nothing</translation>
+    </message>	
+	<message>
+        <source>Do you want to add to the bottom of the protocol?</source>
+        <translation>Do you want to add to the bottom of the protocol?</translation>
+    </message>	
+	<message>
+        <source>Click NO to clean the workspace and load a new protocol</source>
+        <translation>Click NO to clean the workspace and load a new protocol</translation>
+    </message>
 	<message>
         <source>Select folder</source>
         <translation>Seleziona la cartella</translation>

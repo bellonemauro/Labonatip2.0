@@ -21,7 +21,7 @@ void Labonatip_GUI::updateGUI() {
 		// check exceptions, TODO: this is not the best way to do it !!!
 		if (m_ppc1->isConnected() && m_ppc1->isExceptionHappened()) {
 			QMessageBox::information(this, m_str_warning,
-				" Lost connection with PPC1, <br>swapping to simulation mode " ); // TODO: string
+				m_str_lost_connection + "<br>" + m_str_swapping_to_simulation); // TODO: string
 			m_update_GUI->stop();
 			ui->actionConnectDisconnect->setEnabled(false);
 			ui->actionConnectDisconnect->setChecked(false);
@@ -757,7 +757,7 @@ void Labonatip_GUI::updateMacroStatusMessage(const QString &_message) {
 
     QString s = " PROTOCOL RUNNING : <<<  ";
     s.append(m_dialog_p_editor->getProtocolPath());
-    s.append(" >>> remaining time = ");
+    s.append(" >>> remaining time = "); //TODO: translation
 
     s.append(_message);
     cout << QDate::currentDate().toString().toStdString() << "  "

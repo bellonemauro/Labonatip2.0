@@ -331,6 +331,13 @@ private:
 	QString m_str_protocol_duration;
 	QString m_str_check_validity_protocol;
 	QString m_str_check_validity_protocol_try_again;
+	QString m_str_negative_level;
+	QString m_str_remove_file;
+	QString m_str_current_prot_name;
+	QString m_str_question_override;
+	QString m_str_override_guide;
+	QString m_str_add_protocol_bottom;
+	QString m_str_add_protocol_bottom_guide;
 
 protected:
 	Ui::Labonatip_protocol_editor *ui_p_editor;    //!<  the user interface

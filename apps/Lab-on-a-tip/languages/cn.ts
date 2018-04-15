@@ -511,6 +511,18 @@
         <source>Operation cannot be done</source>
         <translation>Operation cannot be done</translation>
 	</message>	
+	<message>
+        <source>A protocol is running, stop the protocol first</source>
+        <translation>A protocol is running, stop the protocol first</translation>
+	</message>	
+	<message>
+        <source>Lost connection with PPC1</source>
+        <translation>Lost connection with PPC1</translation>
+	</message>
+	<message>
+        <source>swapping to simulation mode</source>
+        <translation>swapping to simulation mode</translation>
+	</message>
 </context>
 <context>
     <name>Labonatip_tools</name>
@@ -892,6 +904,34 @@
     <message>
         <source>Please check your settings and try again</source>
         <translation>Please check your settings and try again</translation>
+    </message>
+   <message>
+        <source>This action will remove the file, are you sure?</source>
+        <translation>This action will remove the file, are you sure?</translation>
+    </message>
+    <message>
+        <source>Negative level, file corrupted</source>
+        <translation>Negative level, file corrupted</translation>
+    </message>
+	<message>
+        <source>The current protocol file name is</source>
+        <translation>The current protocol file name is</translation>
+    </message>
+	<message>
+        <source>Do you want to override?</source>
+        <translation>Do you want to override?</translation>
+    </message>	
+	<message>
+        <source>Yes = override, NO = saveAs, Cancel = do nothing</source>
+        <translation>Yes = override, NO = saveAs, Cancel = do nothing</translation>
+    </message>	
+	<message>
+        <source>Do you want to add to the bottom of the protocol?</source>
+        <translation>Do you want to add to the bottom of the protocol?</translation>
+    </message>	
+	<message>
+        <source>Click NO to clean the workspace and load a new protocol</source>
+        <translation>Click NO to clean the workspace and load a new protocol</translation>
     </message>
     <message>
         <source>Select folder</source>
