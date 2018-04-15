@@ -113,13 +113,13 @@ private slots:
 
 	void emitLoadSettings() { emit loadSettingsRequest(); }
 
-	/** new protocol widard
+	/** new protocol wizard
 	*
 	*/
 	void newProtocolWizard();
 
 
-	/** Load a protocol fron file, only one type of protocol is currently supported
+	/** Load a protocol from file, only one type of protocol is currently supported
 	*
 	*/
 	bool loadProtocol( );
@@ -255,7 +255,7 @@ private:
 	*    field 0 (int)     is the command index --- see fluicell::fluicell::PPC1api::command for details
 	*    field 1 (int)     is the value to be applied at the command in 0
 	*    field 2 (bool)    show or not the string in field 3
-	*    field 3 (string)  comprehensible explaination of the command in field 1
+	*    field 3 (string)  comprehensible explanation of the command in field 1
 	*    field 4 (int)     level in the execution tree (used for the loop implementation)
 	*
 	*  example:
@@ -321,7 +321,7 @@ private:
 	//      a parameter from the menu to the delete_protocol function
 	int m_triggered_protocol_item;
 
-	//custom translatable stringss
+	//custom translatable strings
 	QString m_str_warning;
 	QString m_str_save_protocol;
 	QString m_str_load_protocol;

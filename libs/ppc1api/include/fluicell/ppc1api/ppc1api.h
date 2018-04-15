@@ -373,7 +373,7 @@ namespace fluicell
 
 		/**  \brief Send a reboot character to the device
 		  *
-		  *  \note - Known issue: weird behaviour in disconnect/connect
+		  *  \note - Known issue: weird behavior in disconnect/connect
 		  **/
 		void reboot();
 
@@ -567,7 +567,7 @@ namespace fluicell
 		**/
 		bool setDropletSize(double _percentage = 100.0);
 
-		/** \brief Change the droplet size by a specific amound + or - 
+		/** \brief Change the droplet size by a specific amount + or - 
 		*
 		*  Change the droplet size by adding a specific _percentage with respect to the default values
 		*  of vacuum and pressures.
@@ -641,7 +641,7 @@ namespace fluicell
 
 		/** \brief Change the vacuum by _percentage
 		*
-		*  Positive / negative values will increase descrease the percentage
+		*  Positive / negative values will increase decrease the percentage
 		*
 		*  new recirculation value on Channel A = m_default_v_recirc * percentage
 		*
@@ -712,7 +712,7 @@ namespace fluicell
 
 		/** \brief Run a command for the PPC1
 		*
-		*  This funciton runs commands on the PPC1, it implements an simple interpreter
+		*  This function runs commands on the PPC1, it implements an simple interpreter
 		*  for the enumerator in <command>.
 		*  The field <value> will also be interpreted to run the command. 
 		*  The commands "loop", "ask message" and "status message" are not implemented in API
@@ -844,7 +844,7 @@ namespace fluicell
 		**/
 		bool isRunning() { return m_isRunning; }
 
-		/** \brief Check if an exception has been catched
+		/** \brief Check if an exception has been caught
 		*
 		*  \return true if exception
 		**/

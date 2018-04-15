@@ -490,7 +490,7 @@ void Labonatip_GUI::updateTimingSliders()
 		m_time_multipilcator = (int)solution_release_time;
 		double rest = solution_release_time - m_time_multipilcator;
 		QThread::msleep(rest * 1000);
-		// TODO: here we wait the remaing time for the last digit
+		// TODO: here we wait the remaining time for the last digit
 		//       however, this is a shitty solution and it must be
 		//       changed to a proper timer and interrupt architecture
 

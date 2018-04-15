@@ -7,7 +7,7 @@
  *  | Released under ___ License.                                               |
  *  +---------------------------------------------------------------------------+ */
 
-//uncomment to hide the consolle when the app starts
+//uncomment to hide the console when the app starts
 //#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
 
 #include "Lab-on-a-tip_console.h"

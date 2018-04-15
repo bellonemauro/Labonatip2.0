@@ -218,7 +218,7 @@ bool Labonatip_GUI::disCon(bool _connect)
 				QThread::msleep(250);  // just to be sure that the device is properly running
 
 				// run the ppc1 thread
-				m_ppc1->run();   // TODO: this is not the best way of running the device as it cannot handle exeptions
+				m_ppc1->run();   // TODO: this is not the best way of running the device as it cannot handle exceptions
 				QThread::msleep(250);
 
 				// test if we are running properly

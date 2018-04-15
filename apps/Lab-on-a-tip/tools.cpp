@@ -201,7 +201,7 @@ void Labonatip_tools::applyPressed() {
 void Labonatip_tools::checkHistory () {
     int folder_size = calculateFolderSize(m_GUI_params->outFilePath);
 
-    //TODO: traslate strings
+    //TODO: translate strings
     if (folder_size > 1000000) {
         QMessageBox::StandardButton resBtn = QMessageBox::question(this, m_str_warning,
             tr("It looks you have many files in the history folder <br>") + m_GUI_params->outFilePath +
@@ -565,15 +565,15 @@ bool Labonatip_tools::loadSettings(QString _path)
 
 	//Parity = NoParity
 	QString parity = m_settings->value("COM/Parity", "NoParity").toString();
-	m_comSettings->setParity (serial::parity_none);  //TODO: no intepretation yet
+	m_comSettings->setParity (serial::parity_none);  //TODO: no interpretation yet
 
 	//StopBits = 1
 	int stopBits = m_settings->value("COM/StopBits", "1").toInt();
-	m_comSettings->setStopBits(serial::stopbits_one);  //TODO: no intepretation yet
+	m_comSettings->setStopBits(serial::stopbits_one);  //TODO: no interpretation yet
 
 	//FlowControl = noFlow
 	QString flowControl = m_settings->value("COM/FlowControl", "noFlow").toString();
-	m_comSettings->setFlowControl (serial::flowcontrol_none); //TODO: no intepretation yet
+	m_comSettings->setFlowControl (serial::flowcontrol_none); //TODO: no interpretation yet
 
 	//read GUI params
 	bool enable_tool_tips = m_settings->value("GUI/EnableToolTips", "0").toBool();
@@ -1063,7 +1063,7 @@ void Labonatip_tools::initCustomStrings()
 
 int Labonatip_tools::parseLanguageString(QString _language)
 {
-	// TODO: is there a better way to interprete this string using the GUIparams::languages enumerator?
+	// TODO: is there a better way to interpret this string using the GUIparams::languages enumerator?
 	if (_language == "Chinese")
 	{
 		return 0;

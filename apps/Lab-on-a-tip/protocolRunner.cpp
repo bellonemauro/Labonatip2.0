@@ -56,7 +56,7 @@ void Labonatip_macroRunner::run()  {
 
 				//cout << QDate::currentDate().toString().toStdString() << "  "
 				//       << QTime::currentTime().toString().toStdString() << "  " 
-				//       << " i'm in the thread ... index " << i << endl;
+				//       << " I'm in the thread ... index " << i << endl;
 
 				if (m_simulation_only)
 				{
@@ -153,8 +153,14 @@ void Labonatip_macroRunner::run()  {
 								}
 							}
 						}
-						else m_ppc1->runCommand(m_protocol->at(i)); // otherwise we run the actual command on the PPC1
-						
+						else {
+							if (!m_ppc1->runCommand(m_protocol->at(i))) // otherwise we run the actual command on the PPC1 
+							{
+								cerr << QDate::currentDate().toString().toStdString() << "  "
+									<< QTime::currentTime().toString().toStdString() << "  "
+									<< "\n\n Labonatip_macroRunner::run  ---- error --- MESSAGE: error in ppc1api PPC1api::runCommand \n\n" << endl;
+							}
+						}
 						if (m_protocol->at(i).isStatusVisualized()) {
 							QString message = QString::fromStdString(m_protocol->at(i).getStatusMessage());
 							emit sendStatusMessage(message);

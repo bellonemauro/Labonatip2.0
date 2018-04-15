@@ -125,7 +125,7 @@ int	main (int argc, char** argv)
 			std::this_thread::sleep_for(std::chrono::microseconds(1000000));
 
 			if (my_ppc1->isExceptionHappened()) {
-				cout << " Exception has been catched, implement safe exit" << endl;
+				cout << " Exception has been caught, implement safe exit" << endl;
 				cin.get();
 				break;
 			}

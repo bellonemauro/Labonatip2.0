@@ -61,8 +61,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>859</width>
-        <height>561</height>
+        <width>863</width>
+        <height>565</height>
        </rect>
       </property>
       <property name="sizePolicy">
@@ -511,10 +511,10 @@
          <item row="5" column="3">
           <widget class="QPushButton" name="pushButton_disconnectCOM">
            <property name="toolTip">
-            <string>Disonnect from the active COM port</string>
+            <string>Disconnect from the active COM port</string>
            </property>
            <property name="whatsThis">
-            <string>Disonnect from the active COM port</string>
+            <string>Disconnect from the active COM port</string>
            </property>
            <property name="text">
             <string>Disconnect</string>
@@ -528,6 +528,9 @@
              <width>250</width>
              <height>70</height>
             </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(0, 94, 116);</string>
            </property>
            <property name="text">
             <string/>

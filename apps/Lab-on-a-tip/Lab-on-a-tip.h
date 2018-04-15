@@ -457,7 +457,7 @@ private slots:
 	*/
 	void shutdown();
 
-	/** \brief Open/close the dock for advaced tools
+	/** \brief Open/close the dock for advanced tools
 	*
 	* \note
 	*/
@@ -515,7 +515,7 @@ private slots:
 
 	/** \brief  Put the device into a standby mode
 	*
-	*       Put the device into a standy mode by running the following commands:
+	*       Put the device into a standby mode by running the following commands:
 	*
 	*       STANDBY MACRO
 	*       allOff()
@@ -554,7 +554,7 @@ private:
 
 	QString generateStyleSheet(const int _r, const int _g, const int _b);
 
-	// save log data, messages from the console ect. 
+	// save log data, messages from the console et.c 
 	void dumpLogs();
 
   /** Increase/reduce the area for the solution depiction

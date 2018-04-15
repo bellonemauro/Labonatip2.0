@@ -39,7 +39,7 @@ class QWidget;
 class QVariant;
 
 // this allows to add a combobox in a column of the QTreeWidget
-// ispired from here http://programmingexamples.net/wiki/Qt/Delegates/ComboBoxDelegate
+// inspired from here http://programmingexamples.net/wiki/Qt/Delegates/ComboBoxDelegate
 class ComboBoxDelegate : public QItemDelegate
 {
 	Q_OBJECT

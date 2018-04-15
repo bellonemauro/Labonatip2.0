@@ -8,7 +8,7 @@
 *  +---------------------------------------------------------------------------+ */
 
 //uncomment to hide the console when the app starts
-#define HIDE_TERMINAL
+//#define HIDE_TERMINAL
 #ifdef HIDE_TERMINAL
 	#if defined (_WIN64) || defined (_WIN32)
 	  #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
@@ -234,7 +234,7 @@ int main(int argc, char **argv)//(int argc, char *argv[])
 
         Labonatip_GUI window;
 
-        // set internal applicatio paths
+        // set internal application paths
         QString protocols_user_path;
         QString settings_user_path;
         QString ext_data_user_path;
@@ -264,7 +264,7 @@ int main(int argc, char **argv)//(int argc, char *argv[])
 	  window.setVersion(version);
 #endif
 
-	  // show the slashscreen
+	  // show the slash screen
 	  QSplashScreen s;
 	  s.setPixmap(QPixmap(":/icons/splash_screen.png"));
 	  s.show();
@@ -290,7 +290,7 @@ int main(int argc, char **argv)//(int argc, char *argv[])
 		   << e.what() << endl;
 	  // TODO: clean up here, e.g. save the session
 	  // and close all config files.
-	  cout << " Something really bad just happend, press ok to exit " 
+	  cout << " Something really bad just happened, press ok to exit " 
 		   << endl;
 	  cin.get();
 	  return 0; // exit the application

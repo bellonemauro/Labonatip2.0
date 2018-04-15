@@ -60,7 +60,7 @@ private:
 	std::vector<fluicell::PPC1api::command> *m_protocol;  //!< protocol to run
 	bool m_simulation_only;                               //!< true if simulation, false use the PPC1
 	bool m_threadTerminationHandler;                      //!< true to terminate the macro
-	bool m_ask_ok;                                        //!< false when a message dialg is out, true to continue
+	bool m_ask_ok;                                        //!< false when a message dialog is out, true to continue
 	int m_time_left_for_step;                             //!< time left for the current step
 };
 

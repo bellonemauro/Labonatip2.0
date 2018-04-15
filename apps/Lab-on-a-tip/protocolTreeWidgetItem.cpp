@@ -349,11 +349,11 @@ void protocolTreeWidgetItem::setData(int column, int role, const QVariant & valu
 {
 
 
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "protocolTreeWidgetItem::setData   " 
-		<< " previous " << this->text(column).toStdString() 
-		<< " new value " << value.toString().toStdString() << endl;
+	//cout << QDate::currentDate().toString().toStdString() << "  "
+	//	<< QTime::currentTime().toString().toStdString() << "  "
+	//	<< "protocolTreeWidgetItem::setData   " 
+	//	<< " previous " << this->text(column).toStdString() 
+	//	<< " new value " << value.toString().toStdString() << endl;
 
 	// this is to keep tracks of changes in the data items, 
 	// it is then possible to overload a signal and 

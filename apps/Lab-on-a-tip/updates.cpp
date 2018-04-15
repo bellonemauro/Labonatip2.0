@@ -283,7 +283,7 @@ void Labonatip_GUI::updateGUI() {
 
 void Labonatip_GUI::updateFlows()
 {
-	//shorter variables inside the function just for convinience
+	//shorter variables inside the function just for convenience
 	double v_s = m_pipette_status->v_switch_set_point;
 	double v_r = m_pipette_status->v_recirc_set_point;
 	double p_on = m_pipette_status->pon_set_point;
@@ -450,7 +450,7 @@ void Labonatip_GUI::updateDrawing(int _value) {
 	droplet.setFillRule(Qt::FillRule::WindingFill);
 	m_scene_solution->addPath(droplet, border_pen, brush);
 
-	//all this function is rather GUI fix stuff and the numbers can be set using an hiden visualization tool
+	//all this function is rather GUI fix stuff and the numbers can be set using an hidden visualization tool
 	QPainterPath circle;
 	circle.arcMoveTo((qreal)ui->doubleSpinBox_c_x->value(), (qreal)ui->doubleSpinBox_c_y->value(),
 		(qreal)ui->doubleSpinBox_c_w->value(), (qreal)ui->doubleSpinBox_c_h->value(),

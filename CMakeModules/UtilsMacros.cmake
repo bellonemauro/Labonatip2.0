@@ -165,7 +165,7 @@ endmacro(KEEP_MATCHING_FILES_FROM_LIST)
 # this macro extract release and debug dlls from a directory to chose which one have to be installed
 # EXTRACT_DEB_REL_DLLS  -- macro name
 # DLL_DIR        --- in - the folder where you want to search dlls
-# DEBUG_POSTFIX  --- in - debug postfix to be analysed
+# DEBUG_POSTFIX  --- in - debug postfix to be analyzed
 # 
 # /note this macro create and replace 2 vars  REL_DLLS and DEB_DLLS 
 #       such variables are intentionally NOT cached by cmake

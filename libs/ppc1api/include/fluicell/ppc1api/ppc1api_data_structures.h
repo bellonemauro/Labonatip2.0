@@ -131,7 +131,7 @@ namespace fluicell
 				*    this function also includes the data filtering function on the sensor reading, it uses two
 				*    class members: m_filter_enabled and m_filter_size
 				*
-				*    The implemented filted is a rolling average filter that averages the last n samples, 
+				*    The implemented filter is a rolling average filter that averages the last n samples, 
 				*    where n is defined in the class member m_filter_size
 				*
 				*   @param _set_point 
@@ -231,7 +231,7 @@ namespace fluicell
 
 			/**  \brief Set size for the rolling average filter
 			*
-			*   @param _size size of the filter, accepts positive values, resonable values are between [10 - 30]
+			*   @param _size size of the filter, accepts positive values, reasonable values are between [10 - 30]
 		    * 
 			*   \return false in case of negative _size
 			*
@@ -434,6 +434,17 @@ namespace fluicell
 				instruction(instructions::setPon), value (0),
 				visualize_status(false), status_message("No message")
 			{ }
+
+
+			bool checkValidity() {
+			
+				if (this->instruction < 0) return false;
+				if (this->instruction > 17) return false;
+
+				//TODO : here the check of the pair (instruction, value) should be done
+
+				return true;
+			}
 
 
 			/**  \brief Get the command from the enumerator.

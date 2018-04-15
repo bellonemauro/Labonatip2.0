@@ -45,7 +45,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 
   initCustomStrings();
 
-  ui->dockWidget->close();  //close the advaced dock page
+  ui->dockWidget->close();  //close the advanced dock page
   ui->tabWidget->setCurrentIndex(1);  // put the tab widget to the chart page
   //ui->treeWidget_macroInfo->resizeColumnToContents(0);
   ui->treeWidget_macroInfo->setColumnWidth(0, 200);
@@ -129,7 +129,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   // set the scene for the graphic depiction of the solution flow
   m_scene_solution = new QGraphicsScene;
   {
-	  // set the scene rectagle to avoid the graphic area to move
+	  // set the scene rectangle to avoid the graphic area to move
 	  float s_x = 0.0;   // x-coordinate
 	  float s_y = 0.0;   // y-coordinate
 	  float s_w = 40.0;  // width
@@ -245,7 +245,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   ui->pushButton_solution4->setShortcut(
 	  QApplication::translate("Labonatip_GUI", "F4", Q_NULLPTR));
 
-  // instal the event filter on -everything- in the app
+  // install the event filter on -everything- in the app
   qApp->installEventFilter(this);
 
   toolApply(); // this is to be sure that the settings are brought into the app at startup

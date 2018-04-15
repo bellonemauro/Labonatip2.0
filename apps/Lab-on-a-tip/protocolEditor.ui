@@ -97,7 +97,7 @@ border:0;
          <x>0</x>
          <y>0</y>
          <width>743</width>
-         <height>677</height>
+         <height>682</height>
         </rect>
        </property>
        <property name="sizePolicy">
@@ -950,7 +950,7 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
                <string>#</string>
               </property>
               <property name="textAlignment">
-               <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+               <set>AlignCenter</set>
               </property>
              </column>
              <column>
@@ -958,7 +958,7 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
                <string>Command</string>
               </property>
               <property name="textAlignment">
-               <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+               <set>AlignCenter</set>
               </property>
              </column>
              <column>
@@ -966,7 +966,7 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
                <string>Range</string>
               </property>
               <property name="textAlignment">
-               <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+               <set>AlignCenter</set>
               </property>
              </column>
              <column>
@@ -974,7 +974,7 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
                <string>Value</string>
               </property>
               <property name="textAlignment">
-               <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+               <set>AlignCenter</set>
               </property>
              </column>
              <column>
@@ -1381,7 +1381,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
           </property>
           <property name="icon">
            <iconset resource="resources.qrc">
-            <normaloff>:/icons/open.png</normaloff>:/icons/open.png</iconset>
+            <normaloff>:/icons/folder.png</normaloff>:/icons/folder.png</iconset>
           </property>
          </widget>
         </item>
