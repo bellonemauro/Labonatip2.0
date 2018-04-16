@@ -41,23 +41,23 @@ elseif(  BUILD_QT5)
 	# allows automatic linking of QT - see http://www.cmake.org/cmake/help/v3.0/policy/CMP0020.html
 	cmake_policy(SET CMP0020 NEW)
 
+    find_package(Qt5 COMPONENTS Core Widgets Gui SerialPort REQUIRED)
 
-	# Find the QtWidgets library ---- really weird way of find libraries ---TODO solve this ! 
-	find_package( Qt5Widgets REQUIRED )
-	find_package( Qt5Core REQUIRED )
-	find_package( Qt5Gui REQUIRED ) 
-	find_package( Qt5SerialPort REQUIRED )
-
-
-	if ( ENABLE_verbose )
-		message (STATUS "${PROJECT_NAME} MESSAGE: QT5_BINARY_DIR ---- ${QT5_BINARY_DIR}")
-		message (STATUS "${PROJECT_NAME} MESSAGE: QT5_LIBRARIES_DIR ---- ${QT5_LIBRARIES_DIR}")
-	endif ( ENABLE_verbose )
-	if (NOT QT5_LIBRARIES_DIR)
-        message(WARNING "${PROJECT_NAME} MESSAGE: QT5_LIBRARIES_DIR not found --- set namually")
+	# set the policy for the automoc generation, only for cmake >3.10
+	# see https://cmake.org/cmake/help/git-stage/policy/CMP0071.html
+	if(${CMAKE_VERSION} VERSION_GREATER "3.10.0") 
+		cmake_policy(SET CMP0071 NEW)
 	endif()
-	link_directories(${QT_LIBRARY_DIR})
-	link_directories(${QT5_LIBRARIES_DIR})
+	SET (QT5_BINARY_DIR ${_qt5_install_prefix}/../../bin/ CACHE PATH "Qt5 binary folder" )
+		
+	if ( ENABLE_verbose )
+		message (STATUS "${PROJECT_NAME} MESSAGE: QT5_BINARY_DIR ---- ${QT5_BINARY_DIR}") #D:\Qt\5.10.0\msvc2015_64\lib\cmake\Qt5
+	endif ( ENABLE_verbose )
+	
+	if (NOT QT5_BINARY_DIR)
+        message(WARNING "${PROJECT_NAME} MESSAGE: QT5_BINARY_DIR not found --- set namually") #D:/Qt/5.10.0/msvc2015_64/bin
+	endif()
+
 
 	# Instruct CMake to run moc automatically when needed.
 	set(CMAKE_AUTOMOC ON)
