@@ -156,16 +156,6 @@ private slots:
 	*
 	*/
 	void removeCommand();
-
-	/** The selected element will become a child for the preceding element
-	*
-	*/
-	void becomeChild();
-
-	/** The selected element will become parent 
-	*
-	*/
-	void becomeParent();
 	
 	void moveUp();
 
@@ -219,14 +209,6 @@ private slots:
 private:
 
 	
-	/** overload to allow creating the combobox only without the item
-	*
-	*/
-	//void createNewCommand(protocolCommandCombobox &_combo_box) {
-	//	QTreeWidgetItem item;
-	//	createNewCommand(item, _combo_box);
-	//}
-		
 	QString createHeader();
 	
 	bool loadProtocol(const QString _file_name);
@@ -236,8 +218,6 @@ private:
 	void getLastNode(QTreeWidget *_tree, QTreeWidgetItem *_item);
 
 	int getLevel(QTreeWidgetItem _item);
-
-	//void visitTree(QTreeWidgetItem *_item);
 
 	void visitTree(QList<QStringList> &_list, QTreeWidget *_tree, QTreeWidgetItem *_item);
 

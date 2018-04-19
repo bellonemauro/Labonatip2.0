@@ -96,8 +96,8 @@ border:0;
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>743</width>
-         <height>680</height>
+         <width>735</width>
+         <height>677</height>
         </rect>
        </property>
        <property name="sizePolicy">
@@ -146,12 +146,12 @@ border:0;
 
  QPushButton:focus:pressed {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #F0FFF0, stop: 1 #f6f7fa);
+                                       stop: 0 #F0F0FF, stop: 1 #f6f7fa);
  }
 
  QPushButton:hover {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+                                       stop: 0 #f6f7fa, stop: 1 #F0F0FF);
  }
 
 QPushButton:disabled{ background-color: #CCCCCC; }
@@ -212,7 +212,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
 
  QPushButton:focus:pressed {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #F0FFF0, stop: 1 #f6f7fa);
+                                       stop: 0 #F0F0FF, stop: 1 #f6f7fa);
  }
 
 
@@ -224,7 +224,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
 
  QPushButton:hover {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+                                       stop: 0 #f6f7fa, stop: 1 #F0F0FF);
  }
 
 QPushButton:disabled{ background-color: #CCCCCC; }
@@ -684,86 +684,6 @@ QPushButton:disabled{ background-color: #CCCCCC; }
              </property>
             </widget>
            </item>
-           <item>
-            <widget class="QPushButton" name="pushButton_becomeParent">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>40</width>
-               <height>40</height>
-              </size>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>-1</pointsize>
-              </font>
-             </property>
-             <property name="toolTip">
-              <string>Level up</string>
-             </property>
-             <property name="statusTip">
-              <string>Level up</string>
-             </property>
-             <property name="whatsThis">
-              <string>Level up</string>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-             <property name="icon">
-              <iconset resource="resources.qrc">
-               <normaloff>:/icons/indentUp.png</normaloff>:/icons/indentUp.png</iconset>
-             </property>
-             <property name="iconSize">
-              <size>
-               <width>20</width>
-               <height>20</height>
-              </size>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="pushButton_becomeChild">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>40</width>
-               <height>40</height>
-              </size>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>-1</pointsize>
-              </font>
-             </property>
-             <property name="toolTip">
-              <string>Level down</string>
-             </property>
-             <property name="statusTip">
-              <string>Level down</string>
-             </property>
-             <property name="whatsThis">
-              <string>Level down</string>
-             </property>
-             <property name="text">
-              <string/>
-             </property>
-             <property name="icon">
-              <iconset resource="resources.qrc">
-               <normaloff>:/icons/indent.png</normaloff>:/icons/indent.png</iconset>
-             </property>
-             <property name="iconSize">
-              <size>
-               <width>20</width>
-               <height>20</height>
-              </size>
-             </property>
-            </widget>
-           </item>
           </layout>
          </widget>
         </item>
@@ -836,13 +756,13 @@ QTreeView::item {
 }
 
 QTreeView::item:hover {
-/*    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #f6f7fa, stop: 1 #F0FFF0);*/
+/*    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #f6f7fa, stop: 1 #F0F0FF);*/
     border: 1px solid #C0C0C0;
     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #C0C0C0, stop: 1 #C0C0C0);
 }
 
 QTreeView::item:selected {
-    border: 1px solid #F0FFF0;
+    border: 1px solid #F0F0FF;
    color: rgb(20, 20, 20);
 }
 
@@ -867,7 +787,7 @@ QComboBox {
 
 QComboBox:hover{
   background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+                                       stop: 0 #f6f7fa, stop: 1 #F0F0FF);
  }
 
 QComboBox::drop-down {
@@ -1095,16 +1015,16 @@ QTreeWidget QHeaderView:section
 }
 
 QTreeView::item:hover {
-    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #f6f7fa, stop: 1 #F0F0FF);
 }
 
 QTreeView::item:selected {
-    border: 1px solid #F0FFF0;
+    border: 1px solid #F0F0FF;
 	color: rgb(20, 20, 20);
 }
 
 QTreeView::item:selected:active{
-    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #F0FFF0, stop: 1 #F0FFF0);
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #F0F0FF, stop: 1 #F0F0FF);
 }
 
 QTreeView::item:selected:!active {
@@ -1358,12 +1278,12 @@ QTreeView::item:selected:!active {
 
  QPushButton:focus:pressed {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #F0FFF0, stop: 1 #f6f7fa);
+                                       stop: 0 #F0F0FF, stop: 1 #f6f7fa);
  }
 
  QPushButton:hover {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+                                       stop: 0 #f6f7fa, stop: 1 #F0F0FF);
  }
 
 QPushButton:disabled{ background-color: #CCCCCC; }

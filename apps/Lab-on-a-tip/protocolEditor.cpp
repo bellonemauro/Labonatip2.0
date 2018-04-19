@@ -67,12 +67,14 @@ Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 
 	m_undo_view = new QUndoView(m_undo_stack);
 	m_undo_view->setWindowTitle(tr("Command List"));
-	m_undo_view->window()->setMinimumSize(300, 300);
+	m_undo_view->window()->setMinimumSize(300, 300); // TODO: magic number but just window size, to be removed
 	m_undo_view->setAttribute(Qt::WA_QuitOnClose, false);
 	ui_p_editor->pushButton_undo->setShortcut(
-		QApplication::translate("Labonatip_protocol_editor", "Ctrl+Z", Q_NULLPTR));
+		QApplication::translate("Labonatip_protocol_editor", 
+			"Ctrl+Z", Q_NULLPTR));
 	ui_p_editor->pushButton_redo->setShortcut(
-		QApplication::translate("Labonatip_protocol_editor", "Ctrl+Y", Q_NULLPTR));
+		QApplication::translate("Labonatip_protocol_editor",
+			"Ctrl+Y", Q_NULLPTR));
 
 
 	// connects
@@ -97,12 +99,6 @@ Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 
 	connect(ui_p_editor->pushButton_removeMacroCommand,
 		SIGNAL(clicked()), this, SLOT(removeCommand()));
-
-	connect(ui_p_editor->pushButton_becomeChild,
-		SIGNAL(clicked()), this, SLOT(becomeChild()));
-
-	connect(ui_p_editor->pushButton_becomeParent,
-		SIGNAL(clicked()), this, SLOT(becomeParent()));
 
 	connect(ui_p_editor->pushButton_moveDown,
 		SIGNAL(clicked()), this, SLOT(moveDown()));
@@ -222,8 +218,9 @@ void Labonatip_protocol_editor::applyPressed() {
 
 }
 
-void Labonatip_protocol_editor::newProtocolWizard() //TODO
+void Labonatip_protocol_editor::newProtocolWizard() 
 {
+	//TODO: finish this implementation
 	cout << QDate::currentDate().toString().toStdString() << "  "
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_protocol_editor::newProtocolWizard    " << endl;
@@ -232,7 +229,7 @@ void Labonatip_protocol_editor::newProtocolWizard() //TODO
 	m_protocolWizard->setPrParams(*m_pr_params);
 	m_protocolWizard->setSolParams(*m_solutionParams);
 
-	m_protocolWizard->setModal(true); //TODO: finish this implementation
+	m_protocolWizard->setModal(true); 
 	//protocolWizard->setSolNames();
 	//protocolWizard->setDefPreVac();
 	m_protocolWizard->show();
@@ -247,44 +244,24 @@ void Labonatip_protocol_editor::addCommand()
 	
 	// create the command
 	addProtocolCommand *new_command;
-
+	int row = 0;
 	//if we are at the top level with no element or no selection 
 	// the element is added at the last position
 	if (!ui_p_editor->treeWidget_macroTable->currentIndex().isValid())
 	{
-		if (ui_p_editor->treeWidget_macroTable->topLevelItemCount() < 1)
-		{
-			//ui_p_editor->treeWidget_macroTable->insertTopLevelItem(0, newItem);
-			new_command = new addProtocolCommand(ui_p_editor->treeWidget_macroTable, 0);
-		}
-		else
-		{
-			int row = ui_p_editor->treeWidget_macroTable->topLevelItemCount();
-			new_command = new addProtocolCommand(ui_p_editor->treeWidget_macroTable, row);
-		}
+			row = ui_p_editor->treeWidget_macroTable->topLevelItemCount();
+			new_command = new addProtocolCommand(
+				ui_p_editor->treeWidget_macroTable, row);
 	}
 	else { 	//else we add the item at the selected row
-		int row = ui_p_editor->treeWidget_macroTable->currentIndex().row();
+		row = ui_p_editor->treeWidget_macroTable->currentIndex().row() + 1;
 
 		// get the parent
 		protocolTreeWidgetItem *parent = 
 			dynamic_cast<protocolTreeWidgetItem * >(
 				ui_p_editor->treeWidget_macroTable->currentItem()->parent());
-
-		// if the parent is valid (we are in a subtree)
-		if (ui_p_editor->treeWidget_macroTable->currentItem()->parent())  
-		{ 
-			
-			// add the new line as a child
-			new_command = new addProtocolCommand(
-				ui_p_editor->treeWidget_macroTable, row + 1, parent);
-		}
-		else // add the new line at the selected row
-		{  
-			//ui_p_editor->treeWidget_macroTable->insertTopLevelItem(row + 1, newItem);
-			new_command = new addProtocolCommand(
-				ui_p_editor->treeWidget_macroTable, row + 1);
-		}
+		new_command = new addProtocolCommand(
+			ui_p_editor->treeWidget_macroTable, row, parent);
 	} 
 
 	// add the new command in the undo stack
@@ -295,9 +272,10 @@ void Labonatip_protocol_editor::addCommand()
 		new_command->item(), m_cmd_value_c,
 		QItemSelectionModel::SelectionFlag::Rows);
 
-	// every time we add a new command we update the macro command
-	addAllCommandsToProtocol();  // this is not really nice, better to append (much faster)
-	updateChartProtocol(m_protocol);  // TODO: update the charts only if the chart panels is open
+	// every time we add a new command we update all macro commands
+	// this is not really nice, better to append (much faster)
+	addAllCommandsToProtocol();  
+	updateChartProtocol(m_protocol);  
 }
 
 void Labonatip_protocol_editor::removeCommand()
@@ -314,104 +292,24 @@ void Labonatip_protocol_editor::removeCommand()
 		// get the current row
 		int row = ui_p_editor->treeWidget_macroTable->currentIndex().row();
 
-		// if the current element has a parent
-		//if (ui_p_editor->treeWidget_macroTable->currentItem()->parent())
-		//{
-			protocolTreeWidgetItem * parent = dynamic_cast<protocolTreeWidgetItem *> (
-				ui_p_editor->treeWidget_macroTable->currentItem()->parent());
-
-			// the parent is given as argument so the child can be removed
-			cmd = new removeProtocolCommand(
-				ui_p_editor->treeWidget_macroTable, row, parent);
-		//}
-		//else
-		//{
-			// else the top element item would be removed
-		//	cmd = new removeProtocolCommand(
-		//		ui_p_editor->treeWidget_macroTable, row);
-		//}
+		protocolTreeWidgetItem * parent = dynamic_cast<protocolTreeWidgetItem *> (
+			ui_p_editor->treeWidget_macroTable->currentItem()->parent());
+		cmd = new removeProtocolCommand(
+			ui_p_editor->treeWidget_macroTable, row, parent);
 		m_undo_stack->push(cmd);
 	}
-
-	
 
 	// every time we remove a command we update the macro command
 	addAllCommandsToProtocol();  // this is not really nice, better to append (much faster)
 	updateChartProtocol(m_protocol);
 }
 
-//TODO: not used for now
-void Labonatip_protocol_editor::becomeChild() 
-{
-
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_protocol_editor::becomeChild    " << endl;
-
-	if (!ui_p_editor->treeWidget_macroTable->currentItem()) return; // avoid crash if no selection
-	
-    // create a new item
-	protocolTreeWidgetItem *item = new protocolTreeWidgetItem; 
-		
-	// clone the current selected item
-	item = dynamic_cast<protocolTreeWidgetItem *>(
-		ui_p_editor->treeWidget_macroTable->currentItem()->clone());
-	//get the row index
-	int row = ui_p_editor->treeWidget_macroTable->currentIndex().row();
-
-	// the item above the current item becomes the parent
-	protocolTreeWidgetItem *parent = 
-		dynamic_cast<protocolTreeWidgetItem *>(ui_p_editor->treeWidget_macroTable->itemAbove(
-			ui_p_editor->treeWidget_macroTable->currentItem()));
-	if(parent){
-		parent->addChild(item); // add the clone of the selected item as a child
-		//ui_p_editor->treeWidget_macroTable->setItemWidget(item, m_cmd_command_c, comboBox); // set the combowidget
-		parent->setExpanded(true);
-		// destroy the selected item
-		ui_p_editor->treeWidget_macroTable->currentItem()->~QTreeWidgetItem();
-	}
-
-	// update the macro command
-	addAllCommandsToProtocol();  // this is not really nice, better to append (much faster)
-	updateChartProtocol(m_protocol);
-}
-
-//TODO: not used for now
-void Labonatip_protocol_editor::becomeParent()  
-{
-
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_protocol_editor::becomeParent    " << endl;
-
-	if (!ui_p_editor->treeWidget_macroTable->currentItem()) return; // avoid crash if no selection
-
-	protocolTreeWidgetItem *item = new protocolTreeWidgetItem;
-
-	item = dynamic_cast<protocolTreeWidgetItem *> (
-		ui_p_editor->treeWidget_macroTable->currentItem()->clone());
-	int row = ui_p_editor->treeWidget_macroTable->currentIndex().row();
-
-/*	QTreeWidgetItem *parent = ui_p_editor->treeWidget_macroTable->itemAbove(ui_p_editor->treeWidget_macroTable->currentItem());
-	if (parent) {
-		parent->addChild(item);
-		parent->setExpanded(true);
-		ui_p_editor->treeWidget_macroTable->currentItem()->~QTreeWidgetItem();
-	}
-*/
-
-// update the macro command
-	addAllCommandsToProtocol();  // this is not really nice, better to append (much faster)
-	updateChartProtocol(m_protocol);
-}
 
 void Labonatip_protocol_editor::moveUp()
 {
-
 	cout << QDate::currentDate().toString().toStdString() << "  "
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_protocol_editor::moveUp    " << endl;
-
 
 	// get the current selected item
 	protocolTreeWidgetItem *move_item =
@@ -419,7 +317,8 @@ void Labonatip_protocol_editor::moveUp()
 			ui_p_editor->treeWidget_macroTable->currentItem());
 	int row = ui_p_editor->treeWidget_macroTable->currentIndex().row();
 
-	if (move_item && row > 0) // if the selection is valid and we are not at the first row
+	// if the selection is valid and we are not at the first row
+	if (move_item && row > 0) 
 	{
 		moveUpCommand *cmd;
 
@@ -429,21 +328,14 @@ void Labonatip_protocol_editor::moveUp()
 		
 		// if we are not at the fist level, so the item has a parent
 		if (parent) {
-			//parent->takeChild(row); // take the child at the row
-			//parent->insertChild(row - 1, moveItem); // add the selected item one row before
-
 			cmd = new moveUpCommand(ui_p_editor->treeWidget_macroTable,
 				parent);
 		}
 		else {
-
-				// if we are on the top level, just take the item 
-				//ui_p_editor->treeWidget_macroTable->takeTopLevelItem(row);
-				// and add the selected item one row before
-				//ui_p_editor->treeWidget_macroTable->insertTopLevelItem(row - 1, moveItem);
+			// if we are on the top level, just take the item 
+			// and add the selected item one row before
 			cmd = new moveUpCommand(ui_p_editor->treeWidget_macroTable);
-
-			}
+		}
 		m_undo_stack->push(cmd);
 		ui_p_editor->treeWidget_macroTable->setCurrentItem(move_item);
 		ui_p_editor->treeWidget_macroTable->setCurrentItem(
@@ -471,33 +363,24 @@ void Labonatip_protocol_editor::moveDown()
 
 	if (move_item && row >= 0 && row < number_of_items - 1)
 	{
-		moveDownCommand *cmd;
-		
+		moveDownCommand *cmd;	
 		protocolTreeWidgetItem *parent =
 			dynamic_cast<protocolTreeWidgetItem *> (
-				ui_p_editor->treeWidget_macroTable->currentItem()->parent());
+				ui_p_editor->treeWidget_macroTable->currentItem()->parent());	
 		
-		
-		// if we are not at the fist level, so the item has a parent
+		// if the item has a parent
 		if (parent) {
-			//parent->takeChild(row); // take the child at the row
-			//parent->insertChild(row + 1, moveItem); // add the selected item one row before
-
 			cmd = new moveDownCommand(ui_p_editor->treeWidget_macroTable,
 				parent);
 		}
 		else {
-
-			//ui_p_editor->treeWidget_macroTable->takeTopLevelItem(row);
-			//ui_p_editor->treeWidget_macroTable->insertTopLevelItem(row + 1, moveItem);
 			cmd = new moveDownCommand(ui_p_editor->treeWidget_macroTable);
-
 		}
+
 		m_undo_stack->push(cmd);
 		ui_p_editor->treeWidget_macroTable->setCurrentItem(move_item);
 		ui_p_editor->treeWidget_macroTable->setCurrentItem(
 			move_item, m_cmd_value_c, QItemSelectionModel::SelectionFlag::Rows);
-
 	}
 
 	// update the macro command
@@ -518,22 +401,20 @@ void Labonatip_protocol_editor::plusIndent()
     // if no item selected, add to the top level
 	if (!ui_p_editor->treeWidget_macroTable->currentIndex().isValid()) 
 	{
-		//ui_p_editor->treeWidget_macroTable->insertTopLevelItem(0, newItem);
 		cmd = new addProtocolCommand(ui_p_editor->treeWidget_macroTable, 0);
 	}
-	else { // otherwise it add the item as a child
+	else { // otherwise add the item as a child
 		protocolTreeWidgetItem *parent =
 			dynamic_cast<protocolTreeWidgetItem *> (
 				ui_p_editor->treeWidget_macroTable->currentItem());
 
-		
 		if (parent->QTreeWidgetItem::parent()) {
 			QMessageBox::warning(this, m_str_warning,
 				QString("Currently only one loop level is supported"));
-			return;
+			return; //TODO: fix this --- translate string
 		}
 
-		if (parent) {  //TODO: fix this
+		if (parent) {  
 
 		   // set the current parent to be a loop
 			parent->setText(m_cmd_command_c, QString::number(17));
@@ -567,7 +448,6 @@ bool Labonatip_protocol_editor::itemChanged(QTreeWidgetItem *_item, int _column)
 	}
 	else
 	{
-
 		// if the changed element has a parent 
 		if (_item->parent())
 		{
@@ -600,7 +480,7 @@ bool Labonatip_protocol_editor::itemChanged(QTreeWidgetItem *_item, int _column)
 }
 
 
-void Labonatip_protocol_editor::duplicateItem()  //TODO: this crash if the loop is selected
+void Labonatip_protocol_editor::duplicateItem()  
 {
 	cout << QDate::currentDate().toString().toStdString() << "  "
 		<< QTime::currentTime().toString().toStdString() << "  "
@@ -671,7 +551,9 @@ void Labonatip_protocol_editor::addAllCommandsToProtocol()
 
 	// all the items 
 	std::vector<protocolTreeWidgetItem*> commands_vector;
-	//TODO: this is not the best way, every time it will re-build the all macro instead of update (waste of time)
+	//TODO: this is not the best way, 
+	//      every time it will re-build the whole macro 
+	//      instead of update (waste of time)
 	m_protocol->clear(); 
 
 	// push all the items in the macro table into the command vector
@@ -792,100 +674,101 @@ bool Labonatip_protocol_editor::loadProtocol()
 bool Labonatip_protocol_editor::loadProtocol(const QString _file_name)
 {
 	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
-	//TODO: there is no check for validity in protocol the loading procedure
-	QFile macroFile(_file_name);
-	m_current_protocol_file_name = _file_name;
-	if (macroFile.exists() && macroFile.open(QIODevice::ReadWrite))
-	{
-		QByteArray content = macroFile.readLine();
 
-		QList<protocolTreeWidgetItem *> *list = new QList<protocolTreeWidgetItem *>();
+	//TODO: there is no check for validity in protocol the loading procedure
+	QFile protocol_file(_file_name);
+	m_current_protocol_file_name = _file_name;
+
+	// open the file and check its existance
+	if (protocol_file.exists() &&
+		protocol_file.open(QIODevice::ReadWrite))
+	{
+	    // this is che protocol file content
+		QByteArray content = protocol_file.readLine();
+
+		// browse the entire file content
 		while (!content.isEmpty())
 		{
-			protocolTreeWidgetItem *newItem = new protocolTreeWidgetItem();
-			protocolTreeWidgetItem *parent = new protocolTreeWidgetItem();
+			// for each line in the file one item is created
+			protocolTreeWidgetItem *new_item =
+				new protocolTreeWidgetItem();
 
+			// the parent is only needed if we have it
+			protocolTreeWidgetItem *parent = 
+				new protocolTreeWidgetItem();
 
-			//TODO: when the protocol is loaded the loop is not properly interpreted
-			if (decodeProtocolCommand(content, *newItem)) {
-				
-				if (getLevel(*newItem) == 0) // we are at top level
-				{
-				
-						ui_p_editor->treeWidget_macroTable->addTopLevelItem(newItem);
-						
-					//list->push_back(newItem);
-					//cout << QDate::currentDate().toString().toStdString() << "  "
-					//	<< QTime::currentTime().toString().toStdString() << "  "
-					//	<< " top level item " << newItem->text(m_cmd_command_c).toStdString()
-					//	<< " level " << newItem->text(13).toStdString() << endl;
-					parent = dynamic_cast<protocolTreeWidgetItem *> (newItem->clone());
-					
+			// the decodeProtocol will fill the new_item with the actual content
+			// it will return false for any error and the line is discarded
+			if (decodeProtocolCommand(content, *new_item)) {
+
+				// if we are at top level
+				if (getLevel(*new_item) == 0) 
+				{   
+					// add the item at the top level
+					ui_p_editor->treeWidget_macroTable->addTopLevelItem(new_item);	
 				}
-				if (getLevel(*newItem) > 0)  // we are at the first level
-				{
-					
-					getLastNode(ui_p_editor->treeWidget_macroTable, parent);
-
-					protocolTreeWidgetItem *item = new protocolTreeWidgetItem();
-					QTreeWidgetItemIterator *item_iterator =
-						new QTreeWidgetItemIterator(ui_p_editor->treeWidget_macroTable, 
-							QTreeWidgetItemIterator::All);
+				if (getLevel(*new_item) > 0)  // we are at the first level
+				{				
+					// we need to know who is the parent 
 					QTreeWidgetItemIterator it(ui_p_editor->treeWidget_macroTable);
-					while (*it) { // this will just get the last node
-						item = dynamic_cast<protocolTreeWidgetItem * > (*it);
+					while (*it) {
+						parent = dynamic_cast<protocolTreeWidgetItem *> ((*it));
 						++it;
-					} //TODO: when the loop command is found, the level item get -1 !
+					}
 
-					int current_item_level = getLevel(*item);
-					int new_item_level = getLevel(*newItem);
+					// create the child item
+					protocolTreeWidgetItem *child_item = 
+						new protocolTreeWidgetItem();
+
+					//TODO: reset the previous iterator instead of creating a new one
+					QTreeWidgetItemIterator it2(ui_p_editor->treeWidget_macroTable);
+					while (*it2) { // this will just get the last node
+						child_item = dynamic_cast<protocolTreeWidgetItem * > (*it2);
+						++it2;
+					} 
+
+					int current_item_level = getLevel(*child_item);
+					int new_item_level = getLevel(*new_item); // this is the parent item
 
 					if (current_item_level == -1) current_item_level = 0;
 
-					//cout << QDate::currentDate().toString().toStdString() << "  "
-					//	<< QTime::currentTime().toString().toStdString() << "  "
-					//	<< " item level " << current_item_level
-					//	<< " new item level " << new_item_level
-					//	<< " text " << newItem->text(m_cmd_command_c).toStdString() << endl;
-
-
+					// same tree level
 					if (current_item_level == new_item_level) {
-						item->QTreeWidgetItem::parent()->addChild(newItem);
-						
+						child_item->QTreeWidgetItem::parent()->addChild(new_item);
 					}
+
+					// increase in level
 					if (new_item_level == current_item_level + 1) {
-						item->addChild(newItem);
-						
+						child_item->addChild(new_item);
 					}
+
+					// decrease in level
 					if (new_item_level < current_item_level) {
-						protocolTreeWidgetItem *parentItem = item;
+						protocolTreeWidgetItem *parent_item = child_item;
 						for (int i = 0; i < current_item_level - new_item_level; i++) {
-							parentItem = dynamic_cast<protocolTreeWidgetItem *> (
-								parentItem->QTreeWidgetItem::parent());
+							parent_item = dynamic_cast<protocolTreeWidgetItem *> (
+								parent_item->QTreeWidgetItem::parent());
 						}
-						parentItem->QTreeWidgetItem::parent()->addChild(newItem);
+						parent_item->QTreeWidgetItem::parent()->addChild(new_item);
 					}
 					
 					ui_p_editor->treeWidget_macroTable->update();
 				}
 				else { // there is something wrong !! 
-					   if (getLevel(*newItem) != 0) 
-						   QMessageBox::warning(this, m_str_warning, m_str_negative_level);
+					   if (getLevel(*new_item) != 0) 
+						   QMessageBox::warning(this, m_str_warning,
+							   m_str_negative_level);
 				}
 			}
-			content = macroFile.readLine();
+			// we are ready to read the new line
+			content = protocol_file.readLine();
 		
 			//this will just give the focus to the last element
-			ui_p_editor->treeWidget_macroTable->setCurrentItem(newItem, m_cmd_value_c, QItemSelectionModel::SelectionFlag::Rows);
+			ui_p_editor->treeWidget_macroTable->setCurrentItem(new_item, m_cmd_value_c, QItemSelectionModel::SelectionFlag::Rows);
 		}
-		//TODO: here there is a possible memory leak, 
-		//      the pointers will never be removed anymore outside the cycle
-
 		ui_p_editor->treeWidget_macroTable->setItemSelected(
 			ui_p_editor->treeWidget_macroTable->topLevelItem(
 				ui_p_editor->treeWidget_macroTable->topLevelItemCount() - 1), true);
-		//ui_p_editor->treeWidget_macroTable->addTopLevelItems(*list);
-
 	}
 	else {
 		QMessageBox::warning(this, m_str_warning,
@@ -894,8 +777,7 @@ bool Labonatip_protocol_editor::loadProtocol(const QString _file_name)
 		return false;
 
 	}
-	//TODO: too weak, there is no check for the instruction index, 
-	//      if it is negative or higher than 17 it will crash
+
 	addAllCommandsToProtocol();
 	updateChartProtocol(m_protocol);
 	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
@@ -905,7 +787,7 @@ bool Labonatip_protocol_editor::loadProtocol(const QString _file_name)
 	return true;
 }
 
-bool Labonatip_protocol_editor::saveProtocol() //TODO update the folder when save
+bool Labonatip_protocol_editor::saveProtocol() 
 {
 	cout << QDate::currentDate().toString().toStdString() << "  "
 		<< QTime::currentTime().toString().toStdString() << "  "
@@ -913,7 +795,7 @@ bool Labonatip_protocol_editor::saveProtocol() //TODO update the folder when sav
 
 	QMessageBox::StandardButton resBtn = QMessageBox::question(this, m_str_warning,
 		m_str_current_prot_name + "<br>" + m_current_protocol_file_name +
-		"<br>" + m_str_question_override + "<br>" + m_str_override_guide, //TODO: translation
+		"<br>" + m_str_question_override + "<br>" + m_str_override_guide,
 		QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
 		QMessageBox::Yes);
 	if (resBtn == QMessageBox::Yes) {
@@ -1021,7 +903,7 @@ int Labonatip_protocol_editor::getLevel(QTreeWidgetItem _item)
 
 }
 
-
+//TODO: deprecated
 void Labonatip_protocol_editor::getLastNode(QTreeWidget *_tree, QTreeWidgetItem *_item)
 {
 	QTreeWidgetItemIterator *item_iterator =
@@ -1030,8 +912,6 @@ void Labonatip_protocol_editor::getLastNode(QTreeWidget *_tree, QTreeWidgetItem 
 	while (*it) {
 		_item = (*it);
 		++it;
-		//		cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		//<< "getLastNode first column " << _item.text(m_cmd_command_c).toStdString() << endl;
 	}
 }
 
@@ -1653,6 +1533,8 @@ void Labonatip_protocol_editor::updateChartProtocol(f_protocol *_protocol)
 {
 
 	//TODO:: check if _protocol is a valid pointer
+
+	// update the charts only if the panel is open
 	if (!ui_p_editor->actionCharts->isChecked())
 	{
 		return; // no need to update if not shown

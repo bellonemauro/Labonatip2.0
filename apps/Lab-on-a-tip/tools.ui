@@ -50,11 +50,11 @@ QCheckBox::indicator {
 }
 
 QCheckBox::indicator::checked:hover  {
-     background-color: #F0FFF0;
+     background-color: #F0F0FF;
  }
 
 QCheckBox::indicator::unchecked:hover  {
-     background-color: #F0FFF0;
+     background-color: #F0F0FF;
  }
 
 QCheckBox::indicator:checked {
@@ -100,12 +100,12 @@ QCheckBox::indicator:unchecked {
 
  QPushButton:focus:pressed {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #F0FFF0, stop: 1 #f6f7fa);
+                                       stop: 0 #F0F0FF, stop: 1 #f6f7fa);
  }
 
  QPushButton:hover {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+                                       stop: 0 #f6f7fa, stop: 1 #F0F0FF);
  }
 
 QPushButton:disabled{ background-color: #CCCCCC; }
@@ -180,12 +180,12 @@ QPushButton:disabled{ background-color: #CCCCCC; }
 
  QPushButton:focus:pressed {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #F0FFF0, stop: 1 #f6f7fa);
+                                       stop: 0 #F0F0FF, stop: 1 #f6f7fa);
  }
 
  QPushButton:hover {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+                                       stop: 0 #f6f7fa, stop: 1 #F0F0FF);
  }
 
 QPushButton:disabled{ background-color: #CCCCCC; }
@@ -333,12 +333,12 @@ QPushButton:disabled{ background-color: #CCCCCC; }
 
  QPushButton:focus:pressed {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #F0FFF0, stop: 1 #f6f7fa);
+                                       stop: 0 #F0F0FF, stop: 1 #f6f7fa);
  }
 
  QPushButton:hover {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+                                       stop: 0 #f6f7fa, stop: 1 #F0F0FF);
  }
 
 QPushButton:disabled{ background-color: #CCCCCC; }
@@ -450,7 +450,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
 
 QComboBox:hover{
   background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+                                       stop: 0 #f6f7fa, stop: 1 #F0F0FF);
  }
 
 QComboBox::drop-down {
@@ -1537,12 +1537,12 @@ background-color: rgb(255, 255, 255);</string>
 
  QPushButton:focus:pressed {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #F0FFF0, stop: 1 #f6f7fa);
+                                       stop: 0 #F0F0FF, stop: 1 #f6f7fa);
  }
 
  QPushButton:hover {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+                                       stop: 0 #f6f7fa, stop: 1 #F0F0FF);
  }
 
 QPushButton:disabled{ background-color: #CCCCCC; }
@@ -1647,12 +1647,12 @@ border-radius: 4px;
 
  QPushButton:focus:pressed {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #F0FFF0, stop: 1 #f6f7fa);
+                                       stop: 0 #F0F0FF, stop: 1 #f6f7fa);
  }
 
  QPushButton:hover {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+                                       stop: 0 #f6f7fa, stop: 1 #F0F0FF);
  }
 
 QPushButton:disabled{ background-color: #CCCCCC; }
@@ -2831,7 +2831,7 @@ background-color: rgb(255, 255, 255);</string>
 
 QComboBox:hover{
   background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+                                       stop: 0 #f6f7fa, stop: 1 #F0F0FF);
  }
 
 QComboBox::drop-down {
@@ -2909,7 +2909,7 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
 
 QComboBox:hover{
   background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+                                       stop: 0 #f6f7fa, stop: 1 #F0F0FF);
  }
 
 QComboBox::drop-down {
@@ -2994,7 +2994,7 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
 
 QComboBox:hover{
   background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+                                       stop: 0 #f6f7fa, stop: 1 #F0F0FF);
  }
 
 QComboBox::drop-down {
@@ -3096,7 +3096,7 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
 
 QComboBox:hover{
   background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+                                       stop: 0 #f6f7fa, stop: 1 #F0F0FF);
  }
 
 QComboBox::drop-down {
@@ -3170,7 +3170,7 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
 
 QComboBox:hover{
   background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+                                       stop: 0 #f6f7fa, stop: 1 #F0F0FF);
  }
 
 QComboBox::drop-down {
@@ -3254,7 +3254,7 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
 
 QComboBox:hover{
   background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+                                       stop: 0 #f6f7fa, stop: 1 #F0F0FF);
  }
 
 QComboBox::drop-down {
@@ -3343,12 +3343,12 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
 
  QPushButton:focus:pressed {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #F0FFF0, stop: 1 #f6f7fa);
+                                       stop: 0 #F0F0FF, stop: 1 #f6f7fa);
  }
 
  QPushButton:hover {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+                                       stop: 0 #f6f7fa, stop: 1 #F0F0FF);
  }
 
 QPushButton:disabled{ background-color: #CCCCCC; }
