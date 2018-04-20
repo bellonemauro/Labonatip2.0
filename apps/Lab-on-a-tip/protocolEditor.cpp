@@ -903,17 +903,6 @@ int Labonatip_protocol_editor::getLevel(QTreeWidgetItem _item)
 
 }
 
-//TODO: deprecated
-void Labonatip_protocol_editor::getLastNode(QTreeWidget *_tree, QTreeWidgetItem *_item)
-{
-	QTreeWidgetItemIterator *item_iterator =
-		new QTreeWidgetItemIterator(_tree, QTreeWidgetItemIterator::All);
-	QTreeWidgetItemIterator it(_tree);
-	while (*it) {
-		_item = (*it);
-		++it;
-	}
-}
 
 void Labonatip_protocol_editor::visitTree(QList<QStringList> &_list, 
 	QTreeWidget *_tree, QTreeWidgetItem *_item) {
@@ -929,7 +918,6 @@ void Labonatip_protocol_editor::visitTree(QList<QStringList> &_list,
 
 	int idx = _item->text(m_cmd_command_c).toInt();
 
-	//there is a problem with the size of the column --- fixed for now, change this!
 	_string_list.push_back(QString::number(idx));
 	_string_list.push_back(_item->text(m_cmd_value_c));
 	_string_list.push_back(QString::number(_item->checkState(m_cmd_msg_c)));
@@ -947,7 +935,7 @@ QList<QStringList> Labonatip_protocol_editor::visitTree(QTreeWidget *_tree) {
 	for (int i = 0; i < _tree->topLevelItemCount(); ++i){
 		
 		protocolTreeWidgetItem * ii = dynamic_cast<protocolTreeWidgetItem *>(_tree->topLevelItem(i));
-		if (!ii->checkValidity(m_cmd_command_c)) {  // TODO: check this: 1->checks for the combo item
+		if (!ii->checkValidity(m_cmd_command_c)) { 
 			QMessageBox::information(this, m_str_warning,
 				QString(m_str_check_validity_protocol + "\n" + m_str_check_validity_protocol_try_again));
 			list.clear();
@@ -966,16 +954,13 @@ bool Labonatip_protocol_editor::decodeProtocolCommand(
 {
 	QStringList data_string;
 	if (_command.at(0) == *"%") {
-		// do nothing, just discard the line
-		//	cout<< QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() << "  "
-		// << "Labonatip_tools::decodeProtocolCommand ::: this line belongs to the header" << endl;
+		// it is the header, do nothing, just discard the line
+		return false;
 	}
 	else
 	{
-		//cout << QDate::currentDate().toString().toStdString() << "  " << QTime::currentTime().toString().toStdString() <<
-		//	"Labonatip_tools::decodeProtocolCommand ::: this line does not belong to the header " << _command.toStdString() << "  size " << _command.size() << endl;
-
-		for (int i = 0; i < _command.size() - 2; i++)  // the endline has 2 end characters, # for the string and § for the line
+		// the endline has 2 end characters, # for the string and § for the line
+		for (int i = 0; i < _command.size() - 2; i++)  
 		{
 			QString data = "";
 			while (_command.at(i) != *"#")
@@ -989,13 +974,13 @@ bool Labonatip_protocol_editor::decodeProtocolCommand(
 	}
 
 	if (data_string.size() < 4) {
-		//cerr << QDate::currentDate().toString().toStdString() << "  " 
-		//	 << QTime::currentTime().toString().toStdString() 
-		//	 << "Labonatip_protocol_editor::decodeProtocolCommand ::: data_string size error - size = " 
-		//	 << data_string.size() 
-		//	 << " command = " << _command.toStdString() << endl;
-
-		return false;  // something went wrong, discard the line (for exaple the header lines will be discarded here)
+		cerr << QDate::currentDate().toString().toStdString() << "  " 
+			 << QTime::currentTime().toString().toStdString() 
+			 << "Labonatip_protocol_editor::decodeProtocolCommand ::: data_string size error - size = " 
+			 << data_string.size() 
+			 << " command = " << _command.toStdString() << endl;
+		// something went wrong, discard the line, but a message is out 
+		return false;  
 	}
 
 

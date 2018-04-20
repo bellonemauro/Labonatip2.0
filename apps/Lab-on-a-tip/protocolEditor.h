@@ -215,8 +215,6 @@ private:
 
 	bool saveProtocol(QString _file_name);
 	
-	void getLastNode(QTreeWidget *_tree, QTreeWidgetItem *_item);
-
 	int getLevel(QTreeWidgetItem _item);
 
 	void visitTree(QList<QStringList> &_list, QTreeWidget *_tree, QTreeWidgetItem *_item);

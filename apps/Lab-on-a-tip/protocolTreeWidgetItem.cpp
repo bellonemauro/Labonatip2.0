@@ -46,6 +46,8 @@ bool protocolTreeWidgetItem::checkValidity( int _column) // TODO: _column is not
 {
 	// check validity for the element
 
+	
+
 	if (this->childCount() > 0)
 	{
 		// If we have children than the item IS a loop
@@ -64,6 +66,23 @@ bool protocolTreeWidgetItem::checkValidity( int _column) // TODO: _column is not
 		this->blockSignals(false);
 		// so it also automatically check the other column
 		_column = m_cmd_value_c;
+	}
+
+	//check for prohibited characters  # and §
+	if (_column == m_cmd_msg_c) {
+		// here we browse the string looking for prohibited characters  # and §
+		QString s = this->text(_column);
+		QChar prohibited_char_1 = QChar::fromLatin1(*"#");
+		QChar prohibited_char_2 = QChar::fromLatin1(*"§");
+		if (s.contains(prohibited_char_1, Qt::CaseSensitive) ||
+			s.contains(prohibited_char_2, Qt::CaseSensitive))
+		{
+			s.remove(prohibited_char_1, Qt::CaseSensitive); 
+			s.remove(prohibited_char_2, Qt::CaseSensitive);
+			// we need to remove the string
+			this->setText(_column, s);
+			return true;
+		}
 	}
 
 	// perform the check on column 3 only
