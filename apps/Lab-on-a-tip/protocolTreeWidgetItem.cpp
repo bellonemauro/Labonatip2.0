@@ -73,7 +73,7 @@ bool protocolTreeWidgetItem::checkValidity( int _column) // TODO: _column is not
 		// here we browse the string looking for prohibited characters  # and §
 		QString s = this->text(_column);
 		QChar prohibited_char_1 = QChar::fromLatin1(*"#");
-		QChar prohibited_char_2 = QChar::fromLatin1(*"§");
+		QChar prohibited_char_2 = QChar::fromLatin1(*"\n");
 		if (s.contains(prohibited_char_1, Qt::CaseSensitive) ||
 			s.contains(prohibited_char_2, Qt::CaseSensitive))
 		{

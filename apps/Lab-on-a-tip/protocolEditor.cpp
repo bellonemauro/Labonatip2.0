@@ -952,6 +952,9 @@ QList<QStringList> Labonatip_protocol_editor::visitTree(QTreeWidget *_tree) {
 bool Labonatip_protocol_editor::decodeProtocolCommand(
 	QByteArray &_command, protocolTreeWidgetItem &_out_item)
 {
+	QChar prohibited_char_1 = QChar::fromLatin1(*"#");
+	QChar prohibited_char_2 = QChar::fromLatin1(*"\n");
+
 	QStringList data_string;
 	if (_command.at(0) == *"%") {
 		// it is the header, do nothing, just discard the line
@@ -963,11 +966,11 @@ bool Labonatip_protocol_editor::decodeProtocolCommand(
 		for (int i = 0; i < _command.size() - 2; i++)  
 		{
 			QString data = "";
-			while (_command.at(i) != *"#")
+			while (_command.at(i) != prohibited_char_1)
 			{
 				data.append(_command.at(i));
 				i++;
-				if (_command.at(i) == *"§") break; // endline
+				if (_command.at(i) == prohibited_char_2) break; // endline
 			}
 			data_string.push_back(data);
 		}
