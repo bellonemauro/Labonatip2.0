@@ -876,7 +876,7 @@ bool Labonatip_protocol_editor::saveProtocol(QString _file_name)
 				//     << " element " << i << " is " << result.at(i).at(j).toStdString() << endl;
 				stream << result.at(i).at(j) << "#";
 			}
-			stream << "§" << endl;
+			stream << endl;
 		}
 	}
 	else {
