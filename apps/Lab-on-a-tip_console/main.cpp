@@ -8,9 +8,17 @@
  *  +---------------------------------------------------------------------------+ */
 
 //uncomment to hide the console when the app starts
-//#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
+#define HIDE_TERMINAL
+#ifdef HIDE_TERMINAL
+#if defined (_WIN64) || defined (_WIN32)
+#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
+#else
+// define it for a Unix machine
+#endif
+#endif
 
 #include "Lab-on-a-tip_console.h"
+
 
   
 int main (int argc, char *argv[])

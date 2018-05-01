@@ -19,7 +19,8 @@ void Labonatip_GUI::updateGUI() {
 	if (!m_simulationOnly) {
 
 		// check exceptions, TODO: this is not the best way to do it !!!
-		if (m_ppc1->isConnected() && m_ppc1->isExceptionHappened()) {
+		//if (m_ppc1->isConnected() && m_ppc1->isExceptionHappened()) { // this was there before, why ? the exception can happen connected or not
+		if (m_ppc1->isExceptionHappened()) {
 			QMessageBox::information(this, m_str_warning,
 				m_str_lost_connection + "<br>" + m_str_swapping_to_simulation); // TODO: string
 			m_update_GUI->stop();

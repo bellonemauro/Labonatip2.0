@@ -1231,10 +1231,16 @@ string fluicell::PPC1api::getDeviceID()
 	}
 
 	// stop the stream to be able to get the value
-	setDataStreamPeriod(0);
+	if (!setDataStreamPeriod(0))
+	{
+		cerr << currentDateTime()
+			<< " fluicell::PPC1api::setDataStreamPeriod ::: "
+			<< " cannot set the data stream period to 0"
+			<< endl;
+	}
 
 	// send the character to get the device serial number
-	sendData("#\n");
+	sendData("#\n"); // this character is not properly sent maybe a serial lib bug?
 	std::this_thread::sleep_for(std::chrono::microseconds(50000));
 
 	readData(serialNumber);
@@ -1279,7 +1285,7 @@ bool fluicell::PPC1api::sendData(const string &_data) {
 	if (m_PPC1_serial->isOpen()) {
 		if(m_verbose) 
 			cout << currentDateTime() 
-			     << "fluicell::PPC1api::sendData" 
+			     << " fluicell::PPC1api::sendData" 
 			     << " sending the string << " 
 			     << _data << " >> " << endl;
 
