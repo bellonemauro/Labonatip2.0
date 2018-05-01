@@ -430,14 +430,6 @@ private slots:
 
 	/** \brief Connect and disconnect the PPC1
 	*
-	*   //TODO: add an argument _connect = true to connect, false to disconnect
-	*   //DONE: deprecated ---- remove after testing
-	* \note
-	*/
-	//void disCon();
-
-	/** \brief Connect and disconnect the PPC1
-	*
 	*   \param _connect = true to connect, false to disconnect
 	*
 	* \note

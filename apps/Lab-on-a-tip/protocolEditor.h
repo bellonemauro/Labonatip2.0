@@ -93,6 +93,11 @@ public:
 
 	void switchLanguage(QString _translation_file);
 
+	/**  Set the version of the software from the main
+	*
+	*/
+	void setVersion(QString _version) { m_version = _version; }
+
 private slots:
 
 	/** emit ok signal, save the setting, send the current protocol to the main
@@ -200,7 +205,7 @@ private slots:
 	*
 	* \note
 	*/
-	void addAllCommandsToProtocol(); //TODO: I don't like that this function takes no arguments and modifies a class member
+	void addAllCommandsToProtocol(); 
 
 	void helpTriggered();
 
@@ -255,6 +260,7 @@ private:
 
 	QString m_current_protocol_file_name;
 	QString m_protocol_path;
+	QString m_version;
 
 	Labonatip_macroWizard * m_protocolWizard;
 

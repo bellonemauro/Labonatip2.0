@@ -70,6 +70,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   
   // init the object to handle the internal dialogs
   m_dialog_p_editor = new Labonatip_protocol_editor();
+  m_dialog_p_editor->setVersion(m_version);
   m_dialog_tools = new Labonatip_tools(); 
   m_dialog_tools->setExtDataPath(m_ext_data_path);
 

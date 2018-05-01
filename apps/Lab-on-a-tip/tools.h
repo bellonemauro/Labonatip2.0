@@ -170,7 +170,7 @@ private slots:
 	* \note
 	*/
     void setContinuousFlow_s1(int _state) {
-		  ui_tools->doubleSpinBox_pulse_sol1->setEnabled(!_state); // TODO !!! this is still not in the setting file
+		  ui_tools->doubleSpinBox_pulse_sol1->setEnabled(!_state); 
 	}
 
 	/** \brief Enable/Disable the timer for an infinite solution flow
@@ -178,7 +178,7 @@ private slots:
 	* \note
 	*/
     void setContinuousFlow_s2(int _state) {
-		ui_tools->doubleSpinBox_pulse_sol2->setEnabled(!_state); // TODO !!! this is still not in the setting file
+		ui_tools->doubleSpinBox_pulse_sol2->setEnabled(!_state); 
 	}
 
 	/** \brief Enable/Disable the timer for an infinite solution flow
@@ -186,7 +186,7 @@ private slots:
 	* \note
 	*/
     void setContinuousFlow_s3(int _state) {
-		ui_tools->doubleSpinBox_pulse_sol3->setEnabled(!_state); // TODO !!! this is still not in the setting file
+		ui_tools->doubleSpinBox_pulse_sol3->setEnabled(!_state); 
 	}
 
 	/** \brief Enable/Disable the timer for an infinite solution flow
@@ -194,7 +194,7 @@ private slots:
 	* \note
 	*/
     void setContinuousFlow_s4(int _state) {
-		ui_tools->doubleSpinBox_pulse_sol4->setEnabled(!_state); // TODO !!! this is still not in the setting file
+		ui_tools->doubleSpinBox_pulse_sol4->setEnabled(!_state); 
 	}
 	/** emit ok signal, save the setting, send the current macro to the main
 	*   and close the window

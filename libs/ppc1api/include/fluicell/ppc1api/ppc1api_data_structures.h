@@ -591,30 +591,50 @@ namespace fluicell
 				if (this->instruction < 0) return false;
 				if (this->instruction > 17) return false;
 
-				switch (this->instruction) {
+				int inst = this->instruction;
+
+				switch (inst) {
 				case 0: { //setPon
 					if (this->value < MIN_CHAN_D ||
-						this->value > MAX_CHAN_D) return false; // out of bound
+						this->value > MAX_CHAN_D)
+						return false; // out of bound
+					else
+						return true;
 				}
 				case 1: {//setPoff
 					if (this->value < MIN_CHAN_C ||
-						this->value > MAX_CHAN_C) return false; // out of bound
+						this->value > MAX_CHAN_C) 
+						return false; // out of bound
+					else
+						return true;
 				}
 				case 2: {//setVswitch
 					if (this->value < MIN_CHAN_B ||
-						this->value > MAX_CHAN_B) return false; // out of bound
+						this->value > MAX_CHAN_B) 
+						return false; // out of bound
+					else
+						return true;
 				}
 				case 3: {//setVrecirc
 					if (this->value < MIN_CHAN_A ||
-						this->value > MAX_CHAN_A) return false; // out of bound
+						this->value > MAX_CHAN_A) 
+						return false; // out of bound
+					else
+						return true;
 				}
 				case 4: case 5: case 6: case 7: {//solution1,2,3,4
 					if (this->value != 0 &&
-						this->value != 0 ) return false; // out of bound
+						this->value != 1 ) 
+						return false; // out of bound
+					else
+						return true;
 					return true;
 				}
 				case 8: {//sleep
-					if (this->value < 0) return false;
+					if (this->value < 0) 
+						return false;
+					else
+						return true;
 				}
 				case 9: case 10: case 11: {//ask_msg //allOff //pumpsOff
 					// nothing to check here, the value is ignored
@@ -622,24 +642,38 @@ namespace fluicell
 				}
 				case 12: {//waitSync //TODO
 				//not checked for now
+					return true;
 				}
 				case 13: {//syncOut 
 				 //not checked for now
+					return true;
 				}
 				case 14: {//zone size
 					if (this->value < MIN_ZONE_SIZE_PERC ||
-						this->value > MAX_ZONE_SIZE_PERC) return false; // out of bound
+						this->value > MAX_ZONE_SIZE_PERC) 
+						return false; // out of bound
+					else
+						return true;
 				}
 				case 15: {//flowSpeed
 					if (this->value < MIN_FLOW_SPEED_PERC ||
-						this->value > MAX_FLOW_SPEED_PERC) return false; // out of bound
+						this->value > MAX_FLOW_SPEED_PERC) 
+						return false; // out of bound
+					else
+						return true;
 				}
 				case 16: {//vacuum
 					if (this->value < MIN_VACUUM_PERC ||
-						this->value > MIN_VACUUM_PERC) return false; // out of bound
+						this->value > MAX_VACUUM_PERC) 
+						return false; // out of bound
+					else
+						return true;
 				}
 				case 17: {//loop
-					if (this->value < 0) return false;
+					if (this->value < 0) 
+						return false;
+					else
+						return true;
 				}
 				default: {
 					return false;

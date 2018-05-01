@@ -67,7 +67,7 @@ Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 
 	m_undo_view = new QUndoView(m_undo_stack);
 	m_undo_view->setWindowTitle(tr("Command List"));
-	m_undo_view->window()->setMinimumSize(300, 300); // TODO: magic number but just window size, to be removed
+	m_undo_view->window()->setMinimumSize(300, 300); 
 	m_undo_view->setAttribute(Qt::WA_QuitOnClose, false);
 	ui_p_editor->pushButton_undo->setShortcut(
 		QApplication::translate("Labonatip_protocol_editor", 
@@ -675,7 +675,6 @@ bool Labonatip_protocol_editor::loadProtocol(const QString _file_name)
 {
 	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
 
-	//TODO: there is no check for validity in protocol the loading procedure
 	QFile protocol_file(_file_name);
 	m_current_protocol_file_name = _file_name;
 
@@ -720,7 +719,6 @@ bool Labonatip_protocol_editor::loadProtocol(const QString _file_name)
 					protocolTreeWidgetItem *child_item = 
 						new protocolTreeWidgetItem();
 
-					//TODO: reset the previous iterator instead of creating a new one
 					QTreeWidgetItemIterator it2(ui_p_editor->treeWidget_macroTable);
 					while (*it2) { // this will just get the last node
 						child_item = dynamic_cast<protocolTreeWidgetItem * > (*it2);
@@ -817,7 +815,7 @@ bool Labonatip_protocol_editor::saveProtocol()
 	return true;
 }
 
-bool Labonatip_protocol_editor::saveProtocolAs() //TODO update the folder when save
+bool Labonatip_protocol_editor::saveProtocolAs() 
 {
 	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
 
@@ -1159,8 +1157,10 @@ void Labonatip_protocol_editor::initCustomStrings()
 void Labonatip_protocol_editor::openProtocolFolder()
 {
 	QDir path = QFileDialog::getExistingDirectory(this, m_str_select_folder, m_protocol_path);
-	setProtocolPath(path.path());
 
+	QString pp = path.path();
+	if (pp != ".") // this prevent cancel to delete the old path
+		setProtocolPath(pp);
 }
 
 void Labonatip_protocol_editor::showChartsPanel()
@@ -1335,7 +1335,7 @@ void Labonatip_protocol_editor::protocolsMenu(const QPoint & _pos)
 		<< QTime::currentTime().toString().toStdString()
 		<< "Labonatip_tools::protocolsMenu " << endl;
 
-	m_triggered_protocol_item =
+	m_triggered_protocol_item = //a class member is used to pass a data between functions
 		ui_p_editor->treeWidget_protocol_folder->indexAt(_pos).row();
 
 	
@@ -1449,7 +1449,7 @@ QString Labonatip_protocol_editor::createHeader()
 	header.append(tr("%% |                          http://www.fluicell.com/                         |\n"));
 	header.append(tr("%% +---------------------------------------------------------------------------+\n"));
 	header.append(tr("%% \n"));
-	header.append(tr("%% Protocol Header V. 0.4 \n"));
+	header.append(tr("%% Protocol Header V. 0.5 \n"));
 	header.append(tr("%% file created on dd/mm/yyyy - "));
 	header.append(QDate::currentDate().toString());
 	header.append(" ");
@@ -1474,10 +1474,10 @@ QString Labonatip_protocol_editor::createHeader()
 	header.append(tr("%%  -       12: Valve state (HEX)            :  Set the valve state \n"));
 	header.append(tr("%%  -       13: Wait sync                    :  Wait a sync signal \n"));
 	header.append(tr("%%  -       14: Sync out                     :  Sync with external trigger \n"));
-	header.append(tr("%%  -       15: Droplet size (%)             :  Set the droplet size in % respect to the default values \n"));
-	header.append(tr("%%  -       16: Flow speed (%)               :  \n"));
-	header.append(tr("%%  -       17: Vacuum (%)                   :  \n"));
-	header.append(tr("%%  -       18: Loop (num)                   :  All the commands inside the loop will run cyclically \n")); //TODO adapt header
+	header.append(tr("%%  -       15: Zone size (%)                :  Set the droplet size in % respect to the default values \n"));
+	header.append(tr("%%  -       16: Flow speed (%)               :  Set the flow speed in % respect to the default values\n"));
+	header.append(tr("%%  -       17: Vacuum (%)                   :  Set the vacuum in % respect to the default values\n"));
+	header.append(tr("%%  -       18: Loop (num)                   :  All the commands inside the loop will run cyclically \n"));
 	header.append(tr("%%  - \n"));
 	header.append(tr("%%  - value (mbar, %, s) - value to be applied to the command\n"));
 	header.append(tr("%%  - status_message (string) \n"));
@@ -1486,16 +1486,16 @@ QString Labonatip_protocol_editor::createHeader()
 	header.append(tr("%%  - \n"));
 	header.append(tr("%%  - Current default values : \n"));
 	header.append(tr("%%  -      P ON     = "));
-	header.append(QString::number(190));//TODO (m_pr_params->p_on_default));
+	header.append(QString::number(m_pr_params->p_on_default));
 	header.append(tr("\n"));
 	header.append(tr("%%  -      P OFF    = "));
-	header.append(QString::number(21));//TODO(m_pr_params->p_off_default));
+	header.append(QString::number(m_pr_params->p_off_default));
 	header.append(tr("\n"));
 	header.append(tr("%%  -      V Switch = "));
-	header.append(QString::number(115));//TODO(m_pr_params->v_switch_default));
+	header.append(QString::number(m_pr_params->v_switch_default));
 	header.append(tr("\n"));
 	header.append(tr("%%  -      V Recirc = "));
-	header.append(QString::number(115));//TODO(m_pr_params->v_recirc_default));
+	header.append(QString::number(m_pr_params->v_recirc_default));
 	header.append(tr("\n"));
 	header.append(tr("%% +---------------------------------------------------------------------------+ \n"));
 	header.append(tr("%% Command Value status_message depth\n"));
@@ -1520,7 +1520,8 @@ void Labonatip_protocol_editor::clearAllCommands() {
 void Labonatip_protocol_editor::updateChartProtocol(f_protocol *_protocol)
 {
 
-	//TODO:: check if _protocol is a valid pointer
+	if (_protocol == nullptr) 
+		return;
 
 	// update the charts only if the panel is open
 	if (!ui_p_editor->actionCharts->isChecked())
@@ -1683,7 +1684,6 @@ void Labonatip_protocol_editor::undo()
 	ui_p_editor->treeWidget_macroTable->blockSignals(false); 
 	addAllCommandsToProtocol();
 
-	//m_undo_protocol_stack->undo();
 }
 
 void Labonatip_protocol_editor::redo()
@@ -1756,7 +1756,7 @@ void Labonatip_protocol_editor::about() {
 		"e-mail: info@fluicell.com <br><br>"
 		"Developer:<a href='http://www.maurobellone.com'>Mauro Bellone</a> <br>"
 		"Version: ");
-	//msg_content.append(m_version); //TODO
+	msg_content.append(m_version); 
 	messageBox.about(this, msg_title, msg_content);
 	messageBox.setIconPixmap(QPixmap(":/icons/fluicell_iconBIG.ico"));
 	messageBox.setFixedSize(600, 800);
@@ -1764,6 +1764,7 @@ void Labonatip_protocol_editor::about() {
 	
 
 }
+
 
 Labonatip_protocol_editor::~Labonatip_protocol_editor() {
 

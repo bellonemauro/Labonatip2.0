@@ -63,7 +63,7 @@ void Labonatip_GUI::dropletSizePlus() {
 
 		if (ui->horizontalSlider_recirculation->value() == 0) {
 			QMessageBox::information(this, m_str_warning,
-				" Recirculation zero, " + m_str_operation_cannot_be_done); //TODO string
+				" Recirculation zero, " + m_str_operation_cannot_be_done);
 			return;
 		}
 		else {
@@ -155,7 +155,6 @@ void Labonatip_GUI::dropletSizeMinus() {
 			double value = m_pr_params->p_on_default - m_pr_params->p_on_default  * delta; //TODO: this must be explained
 			//double value = m_pr_params->p_on_default   * perc;
 			//TODO: the new value must consider the current set point!!!
-
 			//double value = m_pon_set_point + (m_pr_params->p_on_default *
 			//	(std::pow(1.0 - m_pr_params->base_ds_increment / 100.0, (1.0 / 3.0))) - m_pr_params->p_on_default);
 			updatePonSetPoint(value);

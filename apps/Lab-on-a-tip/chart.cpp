@@ -271,8 +271,6 @@ void Labonatip_chart::updateChartProtocol(f_protocol *_protocol)
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_chart::updateChartMacro   " << endl;
 	
-	
-	//TODO:: check if _macro is a valid pointer
 	if (_protocol == NULL) return;      // if is null we do nothing
 
 	m_series_Pon->clear();
@@ -323,7 +321,7 @@ void Labonatip_chart::updateChartProtocol(f_protocol *_protocol)
 
 	// if the macro is empty it does not update the chart
 	m_chart->update();
-	if (_protocol->size() < 1) return;  //TODO: this was commented, why ?
+	if (_protocol->size() < 1) return;  
 
 	// compute the duration of the macro
 	double total_duration = 0.0;
