@@ -96,7 +96,34 @@ namespace fluicell
 		*/
 		struct PPC1API_EXPORT PPC1_data
 		{
-
+			// define class constants for ranges in vacuum and pressures
+			#define MIN_CHAN_A -300.0       //!< V_recirc in mbar
+			#define MAX_CHAN_A -0.0         //!< V_recirc in mbar
+			#define MIN_CHAN_B -300.0       //!< V_switch in mbar
+			#define MAX_CHAN_B -0.0         //!< V_switch in mbar
+			#define MIN_CHAN_C 0.0          //!< P_off in mbar
+			#define MAX_CHAN_C 450.0        //!< P_off in mbar
+			#define MIN_CHAN_D 0.0          //!< P_on in mbar
+			#define MAX_CHAN_D 450.0        //!< P_on in mbar
+			#define MIN_STREAM_PERIOD 0     //!< in msec
+			#define MAX_STREAM_PERIOD 500   //!< in msec
+			#define MIN_PULSE_PERIOD 20     //!< in msec
+			#define MIN_ZONE_SIZE_PERC 30   //!< %
+			#define MAX_ZONE_SIZE_PERC 210  //!< %
+			#define MIN_FLOW_SPEED_PERC 60  //!< %
+			#define MAX_FLOW_SPEED_PERC 250 //!< %
+			#define MIN_VACUUM_PERC 10      //!< %
+			#define MAX_VACUUM_PERC 250     //!< %
+			#define LENGTH_TO_TIP 0.065     /*!< length of the pipe to the tip, this value is used  
+									             for the calculation of the flow using the Poiseuille equation
+												 see function getFlow() -- default value 0.065 m; */ 
+			#define LENGTH_TO_ZONE 0.062    /*!< length of the pipe to the zone, this value is used 
+												 for the calculation of the flow using the Poiseuille equation
+											 	 see function getFlow()-- default value 0.124 m; */
+			#define PPC1_VID "16D0"  //!< device vendor ID
+			#define PPC1_PID "083A"  //!< device product ID
+			  
+			   
 			/**  \brief Channel data structure 
 			*
 			*         it contains the information about a PPC1 channel
@@ -438,10 +465,64 @@ namespace fluicell
 
 			bool checkValidity() {
 			
+				// check that the instruction is valid
 				if (this->instruction < 0) return false;
 				if (this->instruction > 17) return false;
 
-				//TODO : here the check of the pair (instruction, value) should be done
+				switch (this->instruction) {
+				case 0: { //setPon
+					if (this->value < MIN_CHAN_D ||
+						this->value > MAX_CHAN_D) return false; // out of bound
+				}
+				case 1: {//setPoff
+					if (this->value < MIN_CHAN_C ||
+						this->value > MAX_CHAN_C) return false; // out of bound
+				}
+				case 2: {//setVswitch
+					if (this->value < MIN_CHAN_B ||
+						this->value > MAX_CHAN_B) return false; // out of bound
+				}
+				case 3: {//setVrecirc
+					if (this->value < MIN_CHAN_A ||
+						this->value > MAX_CHAN_A) return false; // out of bound
+				}
+				case 4: case 5: case 6: case 7: {//solution1,2,3,4
+					if (this->value != 0 &&
+						this->value != 0 ) return false; // out of bound
+					return true;
+				}
+				case 8: {//sleep
+					if (this->value < 0) return false;
+				}
+				case 9: case 10: case 11: {//ask_msg //allOff //pumpsOff
+					// nothing to check here, the value is ignored
+					return true;
+				}
+				case 12: {//waitSync //TODO
+				//not checked for now
+				}
+				case 13: {//syncOut 
+				 //not checked for now
+				}
+				case 14: {//zone size
+					if (this->value < MIN_ZONE_SIZE_PERC ||
+						this->value > MAX_ZONE_SIZE_PERC) return false; // out of bound
+				}
+				case 15: {//flowSpeed
+					if (this->value < MIN_FLOW_SPEED_PERC ||
+						this->value > MAX_FLOW_SPEED_PERC) return false; // out of bound
+				}
+				case 16: {//vacuum
+					if (this->value < MIN_VACUUM_PERC ||
+						this->value > MIN_VACUUM_PERC) return false; // out of bound
+				}
+				case 17: {//loop
+					if (this->value < 0) return false;
+				}
+				default: {
+					return false;
+				}
+				}
 
 				return true;
 			}

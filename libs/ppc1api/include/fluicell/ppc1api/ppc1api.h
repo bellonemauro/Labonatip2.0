@@ -135,23 +135,6 @@ namespace fluicell
 	class PPC1API_EXPORT PPC1api : public PPC1_data, public PPC1_status, public serialDeviceInfo, public command
 	{
 
-	// define class constants for ranges in vacuum and pressures
-	#define MIN_CHAN_A -300.0 //!< in mbar
-	#define MAX_CHAN_A -0.0 //!< in mbar
-	#define MIN_CHAN_B -300.0 //!< in mbar
-	#define MAX_CHAN_B -0.0 //!< in mbar
-	#define MIN_CHAN_C 0.0 //!< in mbar
-	#define MAX_CHAN_C 450.0 //!< in mbar
-	#define MIN_CHAN_D 0.0 //!< in mbar
-	#define MAX_CHAN_D 450.0 //!< in mbar
-	#define MIN_STREAM_PERIOD 0 //!< in msec
-	#define MAX_STREAM_PERIOD 500 //!< in msec
-	#define MIN_PULSE_PERIOD 20 //!< in msec
-
-	#define PPC1_VID "16D0"  //!< device vendor ID
-	#define PPC1_PID "083A"  //!< device product ID
-
-
 	public:
 	
 		/** \brief Constructor, initialize objects and parameters using default values
@@ -292,12 +275,6 @@ namespace fluicell
 		double m_default_poff;             //!< in mbar  -- default value   21.0 mbar
 		double m_default_v_recirc;         //!< in mbar (negative value!)  -- default value 115 mbar
 		double m_default_v_switch;         //!< in mbar (negative value!)  -- default value 115 mbar
-		double m_pipe_length2tip;          /*!< length of the pipe to the tip, this value is used  
-								                for the calculation of the flow using the Poiseuille equation
-												see function getFlow() -- default value 0.065 m; */
-		double m_pipe_length2zone;         /*!< length of the pipe to the zone, this value is used 
-								                for the calculation of the flow using the Poiseuille equation 
-												see function getFlow() -- default value 0.124 m;*/
 		
 		int m_dataStreamPeriod;             //!< data stream for the PPC1
 		bool m_verbose;                     //!< verbose output when active
