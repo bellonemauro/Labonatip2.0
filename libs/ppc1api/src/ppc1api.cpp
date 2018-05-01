@@ -1256,6 +1256,16 @@ string fluicell::PPC1api::getDeviceID()
 	return serialNumber;
 }
 
+void fluicell::PPC1api::setFilterEnabled(bool _enable)
+{
+	if (m_verbose) cout << currentDateTime()
+		<< " fluicell::PPC1api::setFilterEnabled << " 
+		<< _enable << " >> " << endl;
+	m_filter_enabled = _enable;
+
+	m_PPC1_data->enableFilter(_enable);
+}
+
 void fluicell::PPC1api::setFilterSize(int _size)
 {
 	if (m_verbose) cout << currentDateTime()
