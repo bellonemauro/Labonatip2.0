@@ -42,13 +42,11 @@ void print_usage()
 void enumerate_ports()
 {
 	vector<serial::PortInfo> devices_found = serial::list_ports();
-
 	vector<serial::PortInfo>::iterator iter = devices_found.begin();
 
 	while (iter != devices_found.end())
 	{
 		serial::PortInfo device = *iter++;
-
 		printf("(%s, %s, %s)\n", device.port.c_str(), device.description.c_str(),
 			device.hardware_id.c_str());
 	}
@@ -61,7 +59,6 @@ int	main (int argc, char** argv)
 		<< " Fluicell Framework - demo for the PPC1 serial communication \n"
 		<< " the test will read 1000 lines from the PPC1 and visualize them \n as strings in the command line "
 		<< " \n "
-		<< " Copyright 2017\n"
 		<< " Authors -  Mauro Bellone\n\n\n" << endl;
 
 	fluicell::PPC1api *my_ppc1 = new fluicell::PPC1api();
@@ -93,8 +90,6 @@ int	main (int argc, char** argv)
     sscanf(argv[2], "%lu", &baudRate);
 
     {
-        
-
 		my_ppc1->setCOMport(COMport);
 		my_ppc1->setBaudRate(baudRate);
 		if (!my_ppc1->connectCOM()) {

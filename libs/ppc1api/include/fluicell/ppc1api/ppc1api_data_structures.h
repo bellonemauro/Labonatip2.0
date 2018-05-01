@@ -48,12 +48,12 @@ namespace fluicell
 		*
 		*  PCC1 Output data stream specification
 		*
-		*    A|-0.000000|0.114514|0.000000|0
-		*    B|-0.000000|0.034291|0.000000|0
-		*    C|0.000000|-0.103121|0.000000|0
-		*    D|0.000000|0.028670|0.000000|0
-		*    i0|j0|k0|l0
-		*    IN1|OUT1
+		*    A|-0.000000|0.114514|0.000000|0 \n
+		*    B|-0.000000|0.034291|0.000000|0 \n
+		*    C|0.000000|-0.103121|0.000000|0 \n
+		*    D|0.000000|0.028670|0.000000|0 \n
+		*    i0|j0|k0|l0 \n
+		*    IN1|OUT1 \n
 		*
 		*    One stream packet contains minimum 6 lines, each ending with newline character \n. First 4 lines correspond to pressure
 		*    and vacuum info, the 5. line shows the valve states and the last line TTL input and output states. All data fields are
@@ -406,32 +406,7 @@ namespace fluicell
 			**/
 			serialDeviceInfo() {}
 		};
-
-		/*        enum index | Command | value | \n
-			*   -------------- - +---------------- - +---------------- - +------------------------------------------------------------ - \n
-			* 0 | setPon | int[0 MAX] | (int: pressure in mbar) - -- - Channel D                       \n
-			* 1 | setPoff | int[0 MAX] | (int: pressure in mbar)----Channel C                        \n
-			* 2 | setVswitch | int[MIN 0] | (int: pressure in mbar)----Channel B                        \n
-			* 3 | setVrecirc | int[MIN 0] | (int: pressure in mbar)----Channel A                        \n
-			* 4 | solution1 | true / false | closes other valves, then opens valve a for solution 1        \n
-			* 5 | solution2 | true / false | closes other valves, then opens valve b for solution 2        \n
-			* 6 | solution3 | true / false | closes other valves, then opens valve c for solution 3        \n
-			* 7 | solution4 | true / false | closes other valves, then opens valve d for solution 4        \n
-			* 8 | wait | int n | wait for n seconds                                            \n
-			* 9 | ask_msg | true / false | set true to stop execution and ask confirmation to continue, \n
-			* | | | INTEPRETED but NO ACTION required at API level                \n
-			* 10 | allOff | -| stop all solutions flow                                       \n
-			* 11 | pumpsOff | -| stop pressures and vacuum by setting the channels to 0        \n
-			* 12 | waitSync | int[0 MAX] | protocol stops until trigger signal is received               \n
-			* 13 | syncOut | int[0 MAX] | if negative then default state is 1 and pulse is 0, \n
-			* | | | if positive, then pulse is 1 and default is 0                 \n
-			* 14 | zoneSize | perc[30, 210] | Change the zone size percentage to _value                     \n
-			* 15 | flowSpeed | perc[60, 250] | Change the flow speed percentage to _value                    \n
-			* 16 | vacuum | perc[10, 250] | Change the vacuum percentage to _value                        \n
-			* 17 | loop | int[0 MAX] | number of loops-- - TODO: is this to be implemented at API level ? \n
-			* | | | \n
-			*   -------------- - +---------------- - +---------------- - +------------------------------------------------------------ - \n
-			*/
+		
 
 		/**  \brief PCC1 Command data structure definition
 		*
@@ -513,19 +488,19 @@ namespace fluicell
 		*     <tr>
 		*       <td> 14 </td>
 		*       <td> zoneSize  </td>
-		*       <td> percentage [30, 210]  </td>
+		*       <td> percentage [MIN, MAX]  </td>
 		*       <td> Change the zone size percentage to _value  </td>
 		*     </tr>
 		*     <tr>
 		*       <td> 15 </td>
 		*       <td> flowSpeed  </td>
-		*       <td> percentage [60, 250]  </td>
+		*       <td> percentage [MIN, MAX]  </td>
 		*       <td> Change the flow speed percentage to _value  </td>
 		*     </tr>
 		*     <tr>
 		*       <td> 16 </td>
 		*       <td> vacuum  </td>
-		*       <td> percentage [10, 250]  </td>
+		*       <td> percentage [MIN, MAX]  </td>
 		*       <td> Change the vacuum percentage to _value  </td>
 		*     </tr>
 		*     <tr>
@@ -535,8 +510,35 @@ namespace fluicell
 		*       <td> number of loops </td>
 		*     </tr>
         *    </table>
+		*     
+		*   <!--This is a doxygen documentation comment block
 		*    Supported commands: 
 		*
+		*    enum index    |   Command       |   value         |
+		*   ---------------+-----------------+-----------------+-------------------------------------------------------------
+		*      0           |   setPon        |  int [0 MAX]    |  (int: pressure in mbar) ---- Channel D
+		*      1           |   setPoff       |  int [0 MAX]    |  (int: pressure in mbar) ---- Channel C
+		*      2           |   setVswitch    |  int [MIN 0]    |  (int: pressure in mbar) ---- Channel B
+		*      3           |   setVrecirc    |  int [MIN 0]    |  (int: pressure in mbar) ---- Channel A
+		*      4           |   solution1     |  true / false   |  closes other valves, then opens valve a for solution 1  
+		*      5           |   solution2     |  true / false   |  closes other valves, then opens valve b for solution 2 
+		*      6           |   solution3     |  true / false   |  closes other valves, then opens valve c for solution 3 
+		*      7           |   solution4     |  true / false   |  closes other valves, then opens valve d for solution 4 
+		*      8           |   wait          |  int n          |  wait for n seconds
+		*      9           |   ask_msg       |  true / false   |  set true to stop execution and ask confirmation to continue,
+		*                  |                 |                 |  INTEPRETED but NO ACTION required at API level
+		*      10          |   allOff        |       -         |  stop all solutions flow
+		*      11          |   pumpsOff      |       -         |  stop pressures and vacuum by setting the channels to 0
+		*      12          |   waitSync      |  int [0 MAX]    |  protocol stops until trigger signal is received
+		*      13          |   syncOut       |  int [0 MAX]    |  if negative then default state is 1 and pulse is 0,
+		*                  |                 |                 |  if positive, then pulse is 1 and default is 0
+		*      14          |   dropletSize   |  int [MIN MAX]  |  TODO: to be implemented
+		*      15          |   flowSpeed     |  int [MIN MAX]  |  TODO: to be implemented
+		*      16          |   vacuum        |  int [MIN MAX]  |  TODO: to be implemented
+		*      17          |   loop          |  int [0 MAX]    |  number of loops, not running at API level
+		*                  |                 |                 |
+		*   ---------------+-----------------+-----------------+-------------------------------------------------------------
+		* end commented section -->
         *
 		*  <b>Usage:</b><br>
 		*		- 	define the object :                      fluicell::PPC1api::command *my_command;
@@ -546,7 +548,7 @@ namespace fluicell
 		*/
 		struct PPC1API_EXPORT command
 		{
-		public: //protected: //TODO: this should be protected but the derived class cannot access the protected member in the base class ?
+		public: 
 
 			/**  \brief Enumerator for the supported commands.
 			*
@@ -569,7 +571,7 @@ namespace fluicell
 				zoneSize = 14,
 				flowSpeed = 15,
 				vacuum = 16,
-				loop = 17  // TODO: should this really be considered in the API ? 
+				loop = 17  
 			};
 
 
