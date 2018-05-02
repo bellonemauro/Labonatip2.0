@@ -149,7 +149,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
        <number>0</number>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="page_0">
        <property name="styleSheet">
@@ -356,7 +356,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
              </property>
              <property name="icon">
               <iconset resource="resources.qrc">
-               <normaloff>:/icons/open.png</normaloff>:/icons/open.png</iconset>
+               <normaloff>:/icons/folder.png</normaloff>:/icons/folder.png</iconset>
              </property>
             </widget>
            </item>

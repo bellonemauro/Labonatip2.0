@@ -221,12 +221,6 @@ private slots:
 	*/
 	void pushSolution4();
 
-	/** \brief Set current pressure/vacuum values as 100% default values
-	*
-	* \note
-	*/
-	void setAsDefault();
-
 	/** \brief Increase/reduce the area for the solution depiction
 	*
 	* \note

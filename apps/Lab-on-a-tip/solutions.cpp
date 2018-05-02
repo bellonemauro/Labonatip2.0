@@ -82,7 +82,7 @@ void Labonatip_GUI::colSolution4Changed(const int _r, const int _g, const int _b
 	m_labonatip_chart_view->setSolutionColor4(m_sol4_color);
 }
 
-void Labonatip_GUI::pushSolution1() //TODO: if the solution is checked in simulation mode and we switch to connection mode, solution must go off
+void Labonatip_GUI::pushSolution1() 
 {
 	cout << QDate::currentDate().toString().toStdString() << "  "
 		<< QTime::currentTime().toString().toStdString() << "  "

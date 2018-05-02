@@ -115,7 +115,7 @@ void Labonatip_GUI::newTip()
 }
 
 
-void Labonatip_GUI::runMacro() { //TODO: give it as an argument instead of a class member
+void Labonatip_GUI::runMacro() { 
 
 	cout << QDate::currentDate().toString().toStdString() << "  " 
 		 << QTime::currentTime().toString().toStdString() << "  "

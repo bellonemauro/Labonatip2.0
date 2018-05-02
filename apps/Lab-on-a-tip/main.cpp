@@ -229,10 +229,30 @@ int main(int argc, char **argv)//(int argc, char *argv[])
 	try {
 
         QApplication a (argc, argv);
-        // TODO: there is a problem with high dpi displays
-        a.setAttribute(Qt::AA_DisableHighDpiScaling);
+        // there is a problem with high dpi displays
+        a.setAttribute(Qt::AA_EnableHighDpiScaling);
+		
+		Labonatip_GUI window;
 
-        Labonatip_GUI window;
+		// check for high DPI screens
+		int logical_dpi_x = QApplication::desktop()->logicalDpiX();
+		int logical_dpi_y = QApplication::desktop()->logicalDpiY();
+		int physical_dpi_x = QApplication::desktop()->physicalDpiX();
+		int physical_dpi_y = QApplication::desktop()->physicalDpiY();
+
+		cout << " Labonatip_GUI::main ::: " 
+			<< " logical_dpi_x " << logical_dpi_x
+			<< " logical_dpi_y " << logical_dpi_y
+			<< " physical_dpi_x " << physical_dpi_x
+			<< " physical_dpi_y " << physical_dpi_y << endl;
+
+		if (logical_dpi_x > 150) {
+			QString ss = "Your display DPI is out of bound for the correct visualization of Labonatip\n";
+			ss.append("You can continue, but you will probably get bad visualization \n\n");
+			ss.append("To properly visualize Labonatip, try to reduce the resolution and scaling of your screen");
+			QMessageBox::warning(&window, "ERROR", ss);
+		}
+        
 
         // set internal application paths
         QString protocols_user_path;
@@ -288,11 +308,13 @@ int main(int argc, char **argv)//(int argc, char *argv[])
   catch (std::exception &e) {
 	  cerr << " Labonatip_GUI::main ::: Unhandled Exception: " 
 		   << e.what() << endl;
-	  // TODO: clean up here, e.g. save the session
+	  // clean up here, e.g. save the session, save the current protocol
 	  // and close all config files.
 	  cout << " Something really bad just happened, press ok to exit " 
 		   << endl;
+#ifndef HIDE_TERMINAL
 	  cin.get();
+#endif
 	  return 0; // exit the application
   }
 

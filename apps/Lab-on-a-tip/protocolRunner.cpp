@@ -20,6 +20,21 @@ Labonatip_macroRunner::Labonatip_macroRunner(QMainWindow *parent ) :
 	cout << QDate::currentDate().toString().toStdString() << "  " 
 		 << QTime::currentTime().toString().toStdString() << "  "
 		 << " macroRunner initialization " << endl;
+	
+	initCustomStrings();
+
+}
+
+
+void Labonatip_macroRunner::initCustomStrings()
+{
+	//TODO : translate
+
+	//setting custom strings to translate 
+	m_str_success = tr("Success");
+	m_str_failed = tr("Failed");
+	m_str_stopped = tr(" PROTOCOL STOPPED ");
+	m_str_not_connected = tr("PPC1 is NOT running, connect and try again");
 }
 
 void Labonatip_macroRunner::run()  {
@@ -49,7 +64,7 @@ void Labonatip_macroRunner::run()  {
 			for (size_t i = 0; i < m_protocol->size(); i++)
 			{
 				if (!m_threadTerminationHandler) {
-					result = " PROTOCOL STOPPED "; //TODO : translate
+					result = m_str_stopped; 
 					emit resultReady(result);
 					return;
 				}
@@ -100,7 +115,7 @@ void Labonatip_macroRunner::run()  {
 														
 							emit timeStatus(status);
 							if (!m_threadTerminationHandler) {
-								result = " PROTOCOL STOPPED "; //TODO : translate
+								result = m_str_stopped; 
 								emit resultReady(result);
 								return;
 							}
@@ -125,7 +140,7 @@ void Labonatip_macroRunner::run()  {
 						}
 						if (m_protocol->at(i).getInstruction() == // If the command is to wait, we do it here
 							fluicell::PPC1api::command::instructions::wait) {
-							//TODO : check the time update with the real device 
+							
 							int val = static_cast<int>(m_protocol->at(i).getValue());
 							const qint64 kInterval = 1000;
 							qint64 mtime = QDateTime::currentMSecsSinceEpoch(); 
@@ -147,7 +162,7 @@ void Labonatip_macroRunner::run()  {
 
 								emit timeStatus(status);
 								if (!m_threadTerminationHandler) {
-									result = " PROTOCOL STOPPED "; //TODO : translate
+									result = m_str_stopped; 
 									emit resultReady(result);
 									return;
 								}
@@ -171,7 +186,7 @@ void Labonatip_macroRunner::run()  {
 							 << QTime::currentTime().toString().toStdString() << "  "
 							 << " Labonatip_macroRunner::run  ---- error --- MESSAGE: ppc1 is NOT running " << endl;
 
-						result = " PPC1 is NOT running, connect and try again "; //TODO : translate
+						result = m_str_not_connected; 
 						emit resultReady(result);
 						return;
 					}
@@ -182,12 +197,12 @@ void Labonatip_macroRunner::run()  {
 			cerr << QDate::currentDate().toString().toStdString() << "  " 
 				 << QTime::currentTime().toString().toStdString() << "  "
 				 << " Labonatip_macroRunner::run  ---- error --- MESSAGE: null pointer " << endl;
-			result = " null pointer "; //TODO : translate
+			result = m_str_failed; 
 
 			emit resultReady(result);
 			return;
 		}
-		result = " Success"; //TODO : translate
+		result = m_str_success; 
 		emit resultReady(result);
 				
 		return;
@@ -199,7 +214,7 @@ void Labonatip_macroRunner::run()  {
 			 << QTime::currentTime().toString().toStdString() << "  "
 			 << " Labonatip_GUI::disCon ::: IOException : " << e.what() << endl;
 		//m_ppc1->disconnectCOM();
-		result = " failed";  //TODO : translate
+		result = m_str_failed; 
 		emit resultReady(result);
 		return;
 	}
@@ -209,7 +224,7 @@ void Labonatip_macroRunner::run()  {
 			 << QTime::currentTime().toString().toStdString() << "  "
 			 << " Labonatip_GUI::disCon ::: PortNotOpenedException : " << e.what() << endl;
 		//m_PPC1_serial->close();
-		result = " failed"; //TODO : translate
+		result = m_str_failed; 
 		emit resultReady(result);
 		return;
 	}
@@ -219,7 +234,7 @@ void Labonatip_macroRunner::run()  {
 			 << QTime::currentTime().toString().toStdString() << "  "
 			 << " Labonatip_GUI::disCon ::: SerialException : " << e.what() << endl;
 		//m_PPC1_serial->close();
-		result = " failed"; //TODO : translate
+		result = m_str_failed; 
 		emit resultReady(result);
 		return;
 	}
@@ -228,7 +243,7 @@ void Labonatip_macroRunner::run()  {
 			 << QTime::currentTime().toString().toStdString() << "  "
 			 << " Labonatip_GUI::disCon ::: Unhandled Exception: " << e.what() << endl;
 		//m_PPC1_serial->close();
-		result = " failed"; //TODO : translate
+		result = m_str_failed; 
 		emit resultReady(result);
 		return;
 	}

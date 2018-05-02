@@ -45,37 +45,10 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 
   initCustomStrings();
 
-  ui->dockWidget->close();  //close the advanced dock page
-  ui->tabWidget->setCurrentIndex(1);  // put the tab widget to the chart page
-  //ui->treeWidget_macroInfo->resizeColumnToContents(0);
-  ui->treeWidget_macroInfo->setColumnWidth(0, 200);
-  // debug stuff -- set 1 to remove all messages and tab
-  if (0)
-  {
-	  ui->tabWidget->removeTab(2);
-  }
-  else {
-	  // init the redirect buffer
-	  qout = new QDebugStream(std::cout, ui->textEdit_qcout);
-	  qout->copyOutToTerminal(true);// (ui->checkBox_to_terminal->isChecked()); //TODO
-	  //  QTextStream standardOutput(stdout);
-	  qerr = new QDebugStream(std::cerr, ui->textEdit_qcerr);
-	  qerr->copyOutToTerminal(true);//(ui->checkBox_to_terminal->isChecked()); //TODO
-	  //  QTextStream standardOutput(stderr);// (stdout);
-  }
-
-  // this removes the visualization settings 
-  ui->tabWidget->removeTab(3);
-
-  
-  // init the object to handle the internal dialogs
-  m_dialog_p_editor = new Labonatip_protocol_editor();
-  m_dialog_p_editor->setVersion(m_version);
-  m_dialog_tools = new Labonatip_tools(); 
+  // initialize the tools as we need the settings
+  m_dialog_tools = new Labonatip_tools();
   m_dialog_tools->setExtDataPath(m_ext_data_path);
-
   m_pipette_status = new pipetteStatus();
-
   m_comSettings = new COMSettings();
   m_solutionParams = new solutionsParams();
   m_pr_params = new pr_params();
@@ -88,6 +61,34 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   toolRefillSolution();
   toolEmptyWells();
 
+  // init the object to handle the internal dialogs
+  m_dialog_p_editor = new Labonatip_protocol_editor();
+  m_dialog_p_editor->setVersion(m_version);
+
+  ui->dockWidget->close();  //close the advanced dock page
+  ui->tabWidget->setCurrentIndex(1);  // put the tab widget to the chart page
+  //ui->treeWidget_macroInfo->resizeColumnToContents(0);
+  ui->treeWidget_macroInfo->setColumnWidth(0, 200);
+
+  // debug stuff -- set 1 to remove all messages and tab
+  if (0)
+  {
+	  ui->tabWidget->removeTab(2);
+  }
+  else {
+	  // init the redirect buffer
+	  qout = new QDebugStream(std::cout, ui->textEdit_qcout);
+	  qout->copyOutToTerminal(m_GUI_params->enableHistory);
+	  qout->redirectOutInGUI(m_GUI_params->enableHistory);
+	  qerr = new QDebugStream(std::cerr, ui->textEdit_qcerr);
+	  qerr->copyOutToTerminal(m_GUI_params->enableHistory);
+	  qerr->redirectOutInGUI(m_GUI_params->enableHistory);
+  }
+
+  // this removes the visualization settings 
+  ui->tabWidget->removeTab(3);
+
+ 
   // set the flows in the table
   ui->treeWidget_macroInfo->topLevelItem(12)->setText(1,
 	  QString::number(m_pipette_status->rem_vol_well1));
@@ -325,29 +326,6 @@ void Labonatip_GUI::setEnableSolutionButtons(bool _enable ) {
 }
 
 
-
-
-void Labonatip_GUI::setAsDefault()  //TODO: remove this function as it is now in the tools
-{
-	m_pr_params->setDefValues(m_pipette_status->pon_set_point, 
-		m_pipette_status->poff_set_point, 
-		-m_pipette_status->v_switch_set_point, 
-		-m_pipette_status->v_recirc_set_point);
-
-	m_dialog_tools->setDefaultPressuresVacuums(m_pr_params->p_on_default, m_pr_params->p_off_default,
-		-m_pr_params->v_recirc_default, -m_pr_params->v_switch_default);
-
-	updateFlowControlPercentages();
-
-	if (m_ppc1)
-		m_ppc1->setDefaultPV(m_pr_params->p_on_default, m_pr_params->p_off_default,
-			m_pr_params->v_recirc_default, m_pr_params->v_switch_default);
-
-}
-
-
-
-
 void Labonatip_GUI::switchLanguage(int _value )
 {
 	cout << QDate::currentDate().toString().toStdString() << "  "
@@ -575,10 +553,6 @@ void Labonatip_GUI::initConnects()
 	connect(ui->pushButton_solution4, 
 		SIGNAL(clicked()), this, 
 		SLOT(pushSolution4()));
-
-//	connect(ui->pushButton_setValuesAsDefault, 
-//		SIGNAL(clicked()), this, 
-//		SLOT(setAsDefault())); //TODO: remove this and check
 
 	connect(ui->pushButton_dropSize_minus, 
 		SIGNAL(clicked()), this, 
@@ -888,6 +862,10 @@ void Labonatip_GUI::toolApply()
 	m_ppc1->setFilterSize(m_pr_params->filterSize);
 	m_ppc1->setVerbose(m_pr_params->verboseOut);
 	m_ext_data_path = m_GUI_params->outFilePath;
+	qout->copyOutToTerminal(m_GUI_params->enableHistory);
+	qerr->copyOutToTerminal(m_GUI_params->enableHistory);
+	qout->redirectOutInGUI(m_GUI_params->enableHistory);
+	qerr->redirectOutInGUI(m_GUI_params->enableHistory);
 
 	this->switchLanguage(m_GUI_params->language);
 
@@ -1171,8 +1149,6 @@ Labonatip_GUI::~Labonatip_GUI ()
   delete m_a_spacer; 
   delete m_labonatip_chart_view;
   
-  // TODO: exit during macro running does not kill some thread causing crash
-
   delete ui;
   qApp->quit();
 }

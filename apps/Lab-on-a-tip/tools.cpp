@@ -166,8 +166,7 @@ void Labonatip_tools::okPressed() {
 	getGUIsettingsFromGUI();
 	getPRsettingsFromGUI();
 
-	//TODO manual save for now
-	//saveSettings();
+	saveSettings(m_setting_file_name);
     checkHistory ();
 
     emit ok();
@@ -176,11 +175,7 @@ void Labonatip_tools::okPressed() {
 
 void Labonatip_tools::cancelPressed() {
 
-    // TODO: here it does nothing but the user would expect
-    //       all the changes to be discarded
-    //       while what will happens is that the user changes the
-    //       settings, without applying them on the application,
-    //       but still remaining into the tools dialog
+	loadSettings(m_setting_file_name);
 	emit cancel();
 	this->close();
 }
@@ -192,8 +187,8 @@ void Labonatip_tools::applyPressed() {
 	getSolutionSettingsFromGUI();
 	getGUIsettingsFromGUI();
 	getPRsettingsFromGUI();
-	//TODO manual save for now
-	//saveSettings();
+
+	saveSettings(m_setting_file_name);
 
 	emit apply();
 }
@@ -1022,7 +1017,6 @@ bool Labonatip_tools::saveSettings(QString _file_name)
 	settings->setValue("solutions/continuousFlowingWell4", int(ui_tools->checkBox_disableTimer_s4->isChecked()));
 	
 	settings->sync();
-	//m_settings->sync();
 	
 	return true;
 }

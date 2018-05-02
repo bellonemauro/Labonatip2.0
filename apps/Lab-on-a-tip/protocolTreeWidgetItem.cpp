@@ -42,7 +42,7 @@ protocolTreeWidgetItem::protocolTreeWidgetItem(protocolTreeWidgetItem *_parent) 
 }
 
 
-bool protocolTreeWidgetItem::checkValidity( int _column) // TODO: _column is not used
+bool protocolTreeWidgetItem::checkValidity( int _column)
 {
 	// check validity for the element
 
@@ -119,7 +119,7 @@ bool protocolTreeWidgetItem::checkValidity( int _column) // TODO: _column is not
 			number = -number;
 			this->setText(_column, QString::number(number));
 		}
-		if (number < m_pr_params->p_off_min ||//TODO fix this conditions
+		if (number < m_pr_params->p_off_min ||
 			number > m_pr_params->p_off_max) { // if is not the range
 
 			this->setText(_column, QString::number(m_pr_params->p_off_max)); // if the value is not valid, reset to zero
@@ -135,7 +135,7 @@ bool protocolTreeWidgetItem::checkValidity( int _column) // TODO: _column is not
 			number = -number;
 			this->setText(_column, QString::number(number));
 		}
-		if (number < m_pr_params->v_switch_min ||//TODO fix this conditions
+		if (number < m_pr_params->v_switch_min ||
 			number > m_pr_params->v_switch_max) { // if is not the range
 			this->setText(_column, QString::number(m_pr_params->v_switch_min)); // if the value is not valid, reset to zero
 			return false;
@@ -150,7 +150,7 @@ bool protocolTreeWidgetItem::checkValidity( int _column) // TODO: _column is not
 			number = -number;
 			this->setText(_column, QString::number(number));
 		}
-		if (number < m_pr_params->v_recirc_min ||  //TODO fix this conditions
+		if (number < m_pr_params->v_recirc_min ||  
 			number > m_pr_params->v_recirc_max) { // if is not the range
 			this->setText(_column, QString::number(m_pr_params->v_switch_min)); // if the value is not valid, reset to zero
 			return false;

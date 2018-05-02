@@ -108,11 +108,11 @@ namespace fluicell
 			#define MIN_STREAM_PERIOD 0     //!< in msec
 			#define MAX_STREAM_PERIOD 500   //!< in msec
 			#define MIN_PULSE_PERIOD 20     //!< in msec
-			#define MIN_ZONE_SIZE_PERC 30   //!< %
-			#define MAX_ZONE_SIZE_PERC 210  //!< %
-			#define MIN_FLOW_SPEED_PERC 60  //!< %
+			#define MIN_ZONE_SIZE_PERC 50   //!< %
+			#define MAX_ZONE_SIZE_PERC 200  //!< %
+			#define MIN_FLOW_SPEED_PERC 50  //!< %
 			#define MAX_FLOW_SPEED_PERC 250 //!< %
-			#define MIN_VACUUM_PERC 10      //!< %
+			#define MIN_VACUUM_PERC 50      //!< %
 			#define MAX_VACUUM_PERC 250     //!< %
 			#define LENGTH_TO_TIP 0.065     /*!< length of the pipe to the tip, this value is used  
 									             for the calculation of the flow using the Poiseuille equation
@@ -422,30 +422,51 @@ namespace fluicell
         *     </tr>
         *     <tr>
         *       <td> 0 </td>  
-		*       <td> setPon    </td> 
-		*       <td> int [0 MAX]  </td> 
+		*       <td> setPon </td> 
+		*       <td> int [0 MAX] </td> 
 		*       <td> (int: pressure in mbar) - - - - Channel D </td>
         *     </tr>
         *     <tr>
-        *       <td> 1 </td>  <td> setPoff      </td> <td> int [0 MAX]   </td> <td> (int: pressure in mbar) - - - - Channel C </td>
+        *       <td> 1 </td> 
+		*       <td> setPoff </td>
+		*       <td> int [0 MAX] </td> 
+		*       <td> (int: pressure in mbar) - - - - Channel C </td>
         *     </tr>
 		*     <tr>
-		*       <td> 2 </td>  <td> setVswitch   </td> <td> int [MIN 0]   </td> <td> (int: pressure in mbar) - - - - Channel B </td>
+		*       <td> 2 </td>  
+		*       <td> setVswitch </td> 
+		*       <td> int [MIN 0] </td> 
+		*       <td> (int: pressure in mbar) - - - - Channel B </td>
 		*     </tr>
 		*     <tr>
-		*       <td> 3 </td>  <td> setVrecirc   </td> <td> int [MIN 0]   </td> <td> (int: pressure in mbar) - - - - Channel A </td>
+		*       <td> 3 </td>  
+		*       <td> setVrecirc   </td>
+		*       <td> int [MIN 0]   </td> 
+		*       <td> (int: pressure in mbar) - - - - Channel A </td>
 		*     </tr>
 		*     <tr>
-		*       <td> 4 </td>  <td> solution1    </td> <td> true / false  </td> <td> closes other valves, then opens valve 'a' for solution 1 </td>
+		*       <td> 4 </td>  
+		*       <td> solution1    </td>
+		*       <td> true / false  </td> 
+		*       <td> closes other valves, then opens valve 'a' for solution 1 </td>
 		*     </tr>
 		*     <tr>
-		*       <td> 5 </td>  <td> solution2    </td> <td> true / false  </td> <td> closes other valves, then opens valve 'b' for solution 1 </td>
+		*       <td> 5 </td> 
+		*       <td> solution2 </td> 
+		*       <td> true / false </td>
+		*       <td> closes other valves, then opens valve 'b' for solution 1 </td>
 		*     </tr>
 		*     <tr>
-		*       <td> 6 </td>  <td> solution3    </td> <td> true / false  </td> <td> closes other valves, then opens valve 'c' for solution 1 </td>
+		*       <td> 6 </td>  
+		*       <td> solution3 </td> 
+		*       <td> true / false </td> 
+		*       <td> closes other valves, then opens valve 'c' for solution 1 </td>
 		*     </tr>
 		*     <tr>
-		*       <td> 7 </td>  <td> solution4    </td> <td> true / false  </td> <td> closes other valves, then opens valve 'd' for solution 1 </td>
+		*       <td> 7 </td>  
+		*       <td> solution4 </td> 
+		*       <td> true / false </td> 
+		*       <td> closes other valves, then opens valve 'd' for solution 1 </td>
 		*     </tr>
 		*     <tr>
 		*       <td> 8 </td>
@@ -532,9 +553,9 @@ namespace fluicell
 		*      12          |   waitSync      |  int [0 MAX]    |  protocol stops until trigger signal is received
 		*      13          |   syncOut       |  int [0 MAX]    |  if negative then default state is 1 and pulse is 0,
 		*                  |                 |                 |  if positive, then pulse is 1 and default is 0
-		*      14          |   dropletSize   |  int [MIN MAX]  |  TODO: to be implemented
-		*      15          |   flowSpeed     |  int [MIN MAX]  |  TODO: to be implemented
-		*      16          |   vacuum        |  int [MIN MAX]  |  TODO: to be implemented
+		*      14          |   dropletSize   |  int [MIN MAX]  |  Change the zone size percentage to _value
+		*      15          |   flowSpeed     |  int [MIN MAX]  |  Change the flow speed percentage to _value
+		*      16          |   vacuum        |  int [MIN MAX]  |  Change the vacuum percentage to _value
 		*      17          |   loop          |  int [0 MAX]    |  number of loops, not running at API level
 		*                  |                 |                 |
 		*   ---------------+-----------------+-----------------+-------------------------------------------------------------

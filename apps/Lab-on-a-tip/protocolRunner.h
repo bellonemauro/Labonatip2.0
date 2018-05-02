@@ -55,6 +55,8 @@ signals:
 	void timeStatus(const double &_time);               //!< send the time status
 
 private: 
+	
+	void initCustomStrings();
 
 	fluicell::PPC1api *m_ppc1;                            //!< pointer to the device to run the protocol 
 	std::vector<fluicell::PPC1api::command> *m_protocol;  //!< protocol to run
@@ -62,6 +64,13 @@ private:
 	bool m_threadTerminationHandler;                      //!< true to terminate the macro
 	bool m_ask_ok;                                        //!< false when a message dialog is out, true to continue
 	int m_time_left_for_step;                             //!< time left for the current step
+
+    // custom strings for translations
+	QString m_str_success;
+	QString m_str_failed;
+	QString m_str_stopped;
+	QString m_str_not_connected;
+
 };
 
 #endif /* Labonatip_macroRunner_H_ */
