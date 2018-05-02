@@ -267,6 +267,14 @@ private slots:
 	*/
 	void sliderSwitchChanged(int _value);
 
+	void setPreset1();
+	void setPreset2();
+	void setPreset3();
+
+	void resetPreset1();
+	void resetPreset2();
+	void resetPreset3();
+
 	/** \brief This is supposed to be used from the solution release time to
 	  * update the visualization of the circular sliders
 	  *

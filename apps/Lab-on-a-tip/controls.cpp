@@ -274,3 +274,49 @@ void Labonatip_GUI::sliderSwitchChanged(int _value) {
 	}
 	ui->progressBar_ledSwitch->setValue(m_ppc1->m_PPC1_data->channel_B->state);
 }
+
+void Labonatip_GUI::setPreset1() {
+
+	updatePonSetPoint(m_pr_params->p_on_preset1);
+	updatePoffSetPoint(m_pr_params->p_off_preset1);
+	updateVswitchSetPoint(-m_pr_params->v_switch_preset1);
+	updateVrecircSetPoint(-m_pr_params->v_recirc_preset1);
+}
+
+void Labonatip_GUI::setPreset2() {
+	updatePonSetPoint(m_pr_params->p_on_preset2);
+	updatePoffSetPoint(m_pr_params->p_off_preset2);
+	updateVswitchSetPoint(-m_pr_params->v_switch_preset2);
+	updateVrecircSetPoint(-m_pr_params->v_recirc_preset2);
+}
+
+void Labonatip_GUI::setPreset3() {
+	updatePonSetPoint(m_pr_params->p_on_preset3);
+	updatePoffSetPoint(m_pr_params->p_off_preset3);
+	updateVswitchSetPoint(-m_pr_params->v_switch_preset3);
+	updateVrecircSetPoint(-m_pr_params->v_recirc_preset3);
+}
+
+void Labonatip_GUI::resetPreset1() {
+	m_dialog_tools->setPreset1(ui->horizontalSlider_p_on->value(),
+		ui->horizontalSlider_p_off->value(),
+		-ui->horizontalSlider_switch->value(),
+		-ui->horizontalSlider_recirculation->value());
+	*m_pr_params = m_dialog_tools->getPr_params();
+}
+
+void Labonatip_GUI::resetPreset2() {
+	m_dialog_tools->setPreset2(ui->horizontalSlider_p_on->value(),
+		ui->horizontalSlider_p_off->value(), 
+		-ui->horizontalSlider_switch->value(),
+		-ui->horizontalSlider_recirculation->value());
+	*m_pr_params = m_dialog_tools->getPr_params();
+}
+
+void Labonatip_GUI::resetPreset3() {
+	m_dialog_tools->setPreset3(ui->horizontalSlider_p_on->value(),
+		ui->horizontalSlider_p_off->value(),
+		-ui->horizontalSlider_switch->value(),
+		-ui->horizontalSlider_recirculation->value());
+	*m_pr_params = m_dialog_tools->getPr_params();
+}

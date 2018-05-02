@@ -123,7 +123,25 @@ public:
 
 	void setDefaultPressuresVacuums(int _p_on_default, int _p_off_default, 
 		                            int _v_recirc_default, int _v_switch_default);
-	
+
+	/** \brief Set values of preset group 1
+	*
+	* \note
+	*/
+	void setPreset1(int _p_on, int _p_off, int _v_switch, int _v_recirc);
+
+	/** \brief Set values of preset group 2
+	*
+	* \note
+	*/
+	void setPreset2(int _p_on, int _p_off, int _v_switch, int _v_recirc);
+
+	/** \brief Set values of preset group 3
+	*
+	* \note
+	*/
+	void setPreset3(int _p_on, int _p_off, int _v_switch, int _v_recirc);
+
 	QString getUserName() { return ui_tools->lineEdit_userName->text(); }
 
 private slots:
@@ -196,6 +214,7 @@ private slots:
     void setContinuousFlow_s4(int _state) {
 		ui_tools->doubleSpinBox_pulse_sol4->setEnabled(!_state); 
 	}
+
 	/** emit ok signal, save the setting, send the current macro to the main
 	*   and close the window
 	* \note

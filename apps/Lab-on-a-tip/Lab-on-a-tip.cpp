@@ -538,6 +538,30 @@ void Labonatip_GUI::initConnects()
 		SIGNAL(clicked()), this, 
 		SLOT(recirculationUp()));
 
+	connect(ui->pushButton_set_preset1,
+		SIGNAL(clicked()), this,
+		SLOT(setPreset1()));
+
+	connect(ui->pushButton_set_preset2,
+		SIGNAL(clicked()), this,
+		SLOT(setPreset2()));
+
+	connect(ui->pushButton_set_preset3,
+		SIGNAL(clicked()), this,
+		SLOT(setPreset3()));
+
+	connect(ui->pushButton_reset_preset1,
+		SIGNAL(clicked()), this,
+		SLOT(resetPreset1()));
+
+	connect(ui->pushButton_reset_preset2,
+		SIGNAL(clicked()), this,
+		SLOT(resetPreset2()));
+
+	connect(ui->pushButton_reset_preset3,
+		SIGNAL(clicked()), this,
+		SLOT(resetPreset3()));
+
 	connect(ui->pushButton_solution1, 
 		SIGNAL(clicked()), this, 
 		SLOT(pushSolution1()));
