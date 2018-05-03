@@ -63,7 +63,7 @@ void Labonatip_GUI::showToolsDialog() {
 	m_dialog_tools->setParent(this);
 	m_dialog_tools->setWindowFlags(Qt::Window);
 	m_dialog_tools->show();
-	m_dialog_tools->setExtDataPath(m_ext_data_path); //TODO: this force the file path in the tools
+	m_dialog_tools->setExtDataPath(m_ext_data_path); 
 }
 
 
@@ -73,7 +73,7 @@ void Labonatip_GUI::showProtocolEditorDialog() {
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_GUI::showProtocolEditorDialog    " << endl;
 
-	m_dialog_p_editor->setProtocolPath(m_protocol_path); //TODO: reset the path in case it is changed in the settings
+	m_dialog_p_editor->setProtocolPath(m_protocol_path); 
 	m_dialog_p_editor->setPrParams(*m_pr_params);
 	m_dialog_p_editor->setSolParams(*m_solutionParams);
 
@@ -267,7 +267,6 @@ bool Labonatip_GUI::disCon(bool _connect)
 					QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
 					QMessageBox::Yes);
 			if (resBtn != QMessageBox::Yes) {  // if the answer is not YES
-				//TODO: check !!!
 				ui->actionConnectDisconnect->setChecked(true);
 				return false; // it should be false, but in this case is a user choice? 
 			}
@@ -440,7 +439,7 @@ void Labonatip_GUI::closeOpenDockTools() {
 		//TODO: this is a really shitty method
 		int spacer = ui->toolBar->width() +
 			ui->toolBar_2->width() +
-			ui->toolBar_2->iconSize().width() + 12; //12px is to avoid the widget to go to a new line
+			ui->toolBar_2->iconSize().width() + 16; //12px is to avoid the widget to go to a new line
 
 		m_g_spacer->setFixedWidth(app_width - spacer);
 		m_g_spacer->setStyleSheet("border:0;");

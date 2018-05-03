@@ -22,7 +22,7 @@ void Labonatip_GUI::updateGUI() {
 		//if (m_ppc1->isConnected() && m_ppc1->isExceptionHappened()) { // this was there before, why ? the exception can happen connected or not
 		if (m_ppc1->isExceptionHappened()) {
 			QMessageBox::information(this, m_str_warning,
-				m_str_lost_connection + "<br>" + m_str_swapping_to_simulation); // TODO: string
+				m_str_lost_connection + "<br>" + m_str_swapping_to_simulation); 
 			m_update_GUI->stop();
 			ui->actionConnectDisconnect->setEnabled(false);
 			ui->actionConnectDisconnect->setChecked(false);
@@ -333,20 +333,16 @@ void Labonatip_GUI::updateFlows()
 
 		m_pipette_status->in_out_ratio_on = m_pipette_status->outflow_on / m_pipette_status->inflow_recirculation;
         if (m_pipette_status->inflow_recirculation == 0) m_pipette_status->in_out_ratio_on = 0;
-//TODO: check this ---- before it was isnan(m_pipette_status->in_out_ratio_on)
+		
 		m_pipette_status->in_out_ratio_off = m_pipette_status->outflow_off / m_pipette_status->inflow_recirculation;
         if (m_pipette_status->inflow_recirculation == 0) m_pipette_status->in_out_ratio_off = 0;
-//TODO: check this ---- before it was isnan(m_pipette_status->in_out_ratio_on)
 
 		if (ui->pushButton_solution1->isChecked() ||
 			ui->pushButton_solution2->isChecked() ||
 			ui->pushButton_solution3->isChecked() ||
 			ui->pushButton_solution4->isChecked()) // flow when solution is off 
 		{
-
-			//m_pipette_status->delta_pressure = 100.0 * (p_on + p_off * 3.0 - v_s * 2.0);   // TODO magic numbers
-			//m_pipette_status->outflow = m_ppc1->getFlowSimple(m_pipette_status->delta_pressure, LENGTH_TO_TIP);
-			
+		
 			m_pipette_status->in_out_ratio_tot = m_pipette_status->in_out_ratio_on;
 			m_pipette_status->outflow_tot = m_pipette_status->outflow_on;
 
@@ -464,10 +460,10 @@ void Labonatip_GUI::updateDrawing(int _value) {
 	circle.setFillRule(Qt::FillRule::WindingFill);
 	m_scene_solution->addPath(circle, border_pen, brush);
 
-	int border_pen_pipe_width = 7; //TODO: ?
+	int border_pen_pipe_width = 7; 
 	QBrush brush_pipes(Qt::transparent, Qt::NoBrush);
 	QPen border_pen_pipe1;
-	border_pen_pipe1.setColor(m_sol3_color); //TODO: fit the numbers of pipe solution with the colors !
+	border_pen_pipe1.setColor(m_sol3_color); 
 	border_pen_pipe1.setWidth(border_pen_pipe_width);
 	QPainterPath path_pipe1;
 	// void arcTo(qreal x, qreal y, qreal w, qreal h, qreal startAngle, qreal arcLength);
@@ -485,7 +481,7 @@ void Labonatip_GUI::updateDrawing(int _value) {
 	m_scene_solution->addPath(path_pipe1, border_pen_pipe1, brush_pipes);
 
 	QPen border_pen_pipe2;
-	border_pen_pipe2.setColor(m_sol1_color); //TODO: fit the numbers of pipe solution with the colors !
+	border_pen_pipe2.setColor(m_sol1_color); 
 	border_pen_pipe2.setWidth(border_pen_pipe_width);
 	QPainterPath path_pipe2;
 	// void arcTo(qreal x, qreal y, qreal w, qreal h, qreal startAngle, qreal arcLength);
@@ -503,7 +499,7 @@ void Labonatip_GUI::updateDrawing(int _value) {
 
 	
 	QPen border_pen_pipe3;
-	border_pen_pipe3.setColor(m_sol2_color);  //TODO: fit the numbers of pipe solution with the colors !
+	border_pen_pipe3.setColor(m_sol2_color); 
 	border_pen_pipe3.setWidth(border_pen_pipe_width);
 	QPainterPath path_pipe3; 
 	// void arcTo(qreal x, qreal y, qreal w, qreal h, qreal startAngle, qreal arcLength);

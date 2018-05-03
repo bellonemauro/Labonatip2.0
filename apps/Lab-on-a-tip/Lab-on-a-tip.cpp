@@ -770,6 +770,49 @@ void Labonatip_GUI::initCustomStrings()
 	m_str_swapping_to_simulation = tr("swapping to simulation mode");
 }
 
+void Labonatip_GUI::appScaling(int _dpiX, int _dpiY)
+{
+
+	QSize toolbar_icon_size = ui->toolBar->iconSize();
+	toolbar_icon_size.scale(toolbar_icon_size*_dpiX/100, Qt::KeepAspectRatioByExpanding);
+	ui->toolBar->setIconSize(toolbar_icon_size);
+
+	toolbar_icon_size = ui->toolBar_2->iconSize();
+	toolbar_icon_size.scale(toolbar_icon_size*_dpiX / 100, Qt::KeepAspectRatioByExpanding);
+	ui->toolBar_2->setIconSize(toolbar_icon_size);
+
+	toolbar_icon_size = ui->toolBar_3->iconSize();
+	toolbar_icon_size.scale(toolbar_icon_size*_dpiX / 100, Qt::KeepAspectRatioByExpanding);
+	ui->toolBar_3->setIconSize(toolbar_icon_size);
+
+	QSize gr_b_action = ui->groupBox_action->minimumSize();
+	gr_b_action.scale(gr_b_action*_dpiX / 100, Qt::KeepAspectRatioByExpanding);
+	ui->groupBox_action->setMinimumSize(gr_b_action);
+
+	QSize gr_delivery_min = ui->groupBox_deliveryZone->minimumSize();
+	gr_delivery_min.scale(gr_delivery_min*_dpiX / 100, Qt::KeepAspectRatioByExpanding);
+	ui->groupBox_deliveryZone->setMinimumSize(gr_delivery_min);
+
+	QSize gr_delivery_max = ui->groupBox_deliveryZone->maximumSize();
+	gr_delivery_max.scale(gr_delivery_max*_dpiX / 100, Qt::KeepAspectRatioByExpanding);
+	ui->groupBox_deliveryZone->setMaximumSize(gr_delivery_max);
+
+	QSize gr_5 = ui->groupBox_5->minimumSize();
+	gr_5.scale(gr_5*_dpiX / 100, Qt::KeepAspectRatioByExpanding);
+	ui->groupBox_5->setMinimumSize(gr_5);
+
+	QSize action_button_size = ui->pushButton_newTip->minimumSize();
+	action_button_size.scale(action_button_size*_dpiX / 100, Qt::KeepAspectRatioByExpanding);
+	ui->pushButton_newTip->setMinimumSize(action_button_size);
+	ui->pushButton_runMacro->setMinimumSize(action_button_size);
+	ui->pushButton_operational->setMinimumSize(action_button_size);
+	ui->pushButton_stop->setMinimumSize(action_button_size);
+	ui->pushButton_standby->setMinimumSize(action_button_size);
+
+
+
+}
+
 void Labonatip_GUI::toolEmptyWells()
 {
 

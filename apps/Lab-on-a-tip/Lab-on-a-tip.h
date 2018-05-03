@@ -68,6 +68,8 @@ public:
 
 	void setExtDataUserPath(QString _path) { m_ext_data_path = _path;  }
 
+	void appScaling(int _dpiX, int _dpiY);
+
 	/** \brief This function is called when the down arrow on Pon is called
 	*        it decreases the pressure on Pon, it does not accept out-of-range
 	*

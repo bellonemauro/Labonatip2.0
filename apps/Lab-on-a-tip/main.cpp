@@ -251,6 +251,8 @@ int main(int argc, char **argv)//(int argc, char *argv[])
 			ss.append("You can continue, but you will probably get bad visualization \n\n");
 			ss.append("To properly visualize Labonatip, try to reduce the resolution and scaling of your screen");
 			QMessageBox::warning(&window, "ERROR", ss);
+
+			window.appScaling(logical_dpi_x, logical_dpi_y);
 		}
         
 
