@@ -15,19 +15,24 @@
   </property>
   <property name="styleSheet">
    <string notr="true">QToolButton:!hover {
-background-color:rgb(199, 223, 197);
+background-color:rgb(0, 94, 116);
+color:rgb(255,255,255);
 font-size: 16px;
+font-weight: 900;
 }
 QToolButton:hover {
-     background-color: rgb(199, 223, 197);
+color:rgb(255,255,255);
+     background-color: rgb(0, 94, 116);
+font-weight: 900;
  }
 
 QToolBar {
-background-color:rgb(199, 223, 197);
+background-color:rgb(0, 94, 116);
+color:rgb(255,255,255);
 font-size: 16px;
+font-weight: 900;
 border:0;
 }
-
 
 QCheckBox {
     background-color: transparent;
@@ -45,11 +50,11 @@ QCheckBox::indicator {
 }
 
 QCheckBox::indicator::checked:hover  {
-     background-color: #F0FFF0;
+     background-color: #F0F0FF;
  }
 
 QCheckBox::indicator::unchecked:hover  {
-     background-color: #F0FFF0;
+     background-color: #F0F0FF;
  }
 
 QCheckBox::indicator:checked {
@@ -95,12 +100,12 @@ QCheckBox::indicator:unchecked {
 
  QPushButton:focus:pressed {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #F0FFF0, stop: 1 #f6f7fa);
+                                       stop: 0 #F0F0FF, stop: 1 #f6f7fa);
  }
 
  QPushButton:hover {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+                                       stop: 0 #f6f7fa, stop: 1 #F0F0FF);
  }
 
 QPushButton:disabled{ background-color: #CCCCCC; }
@@ -144,7 +149,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
        <number>0</number>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>2</number>
       </property>
       <widget class="QWidget" name="page_0">
        <property name="styleSheet">
@@ -175,12 +180,12 @@ QPushButton:disabled{ background-color: #CCCCCC; }
 
  QPushButton:focus:pressed {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #F0FFF0, stop: 1 #f6f7fa);
+                                       stop: 0 #F0F0FF, stop: 1 #f6f7fa);
  }
 
  QPushButton:hover {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+                                       stop: 0 #f6f7fa, stop: 1 #F0F0FF);
  }
 
 QPushButton:disabled{ background-color: #CCCCCC; }
@@ -328,12 +333,12 @@ QPushButton:disabled{ background-color: #CCCCCC; }
 
  QPushButton:focus:pressed {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #F0FFF0, stop: 1 #f6f7fa);
+                                       stop: 0 #F0F0FF, stop: 1 #f6f7fa);
  }
 
  QPushButton:hover {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+                                       stop: 0 #f6f7fa, stop: 1 #F0F0FF);
  }
 
 QPushButton:disabled{ background-color: #CCCCCC; }
@@ -351,7 +356,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
              </property>
              <property name="icon">
               <iconset resource="resources.qrc">
-               <normaloff>:/icons/open.png</normaloff>:/icons/open.png</iconset>
+               <normaloff>:/icons/folder.png</normaloff>:/icons/folder.png</iconset>
              </property>
             </widget>
            </item>
@@ -445,7 +450,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
 
 QComboBox:hover{
   background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+                                       stop: 0 #f6f7fa, stop: 1 #F0F0FF);
  }
 
 QComboBox::drop-down {
@@ -1532,12 +1537,12 @@ background-color: rgb(255, 255, 255);</string>
 
  QPushButton:focus:pressed {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #F0FFF0, stop: 1 #f6f7fa);
+                                       stop: 0 #F0F0FF, stop: 1 #f6f7fa);
  }
 
  QPushButton:hover {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+                                       stop: 0 #f6f7fa, stop: 1 #F0F0FF);
  }
 
 QPushButton:disabled{ background-color: #CCCCCC; }
@@ -1642,12 +1647,12 @@ border-radius: 4px;
 
  QPushButton:focus:pressed {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #F0FFF0, stop: 1 #f6f7fa);
+                                       stop: 0 #F0F0FF, stop: 1 #f6f7fa);
  }
 
  QPushButton:hover {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+                                       stop: 0 #f6f7fa, stop: 1 #F0F0FF);
  }
 
 QPushButton:disabled{ background-color: #CCCCCC; }
@@ -1810,7 +1815,7 @@ background-color: rgb(255, 255, 255);</string>
           <property name="sizeHint" stdset="0">
            <size>
             <width>20</width>
-            <height>40</height>
+            <height>10</height>
            </size>
           </property>
          </spacer>
@@ -1835,32 +1840,73 @@ background-color: rgb(255, 255, 255);</string>
            <string>Pressure / Vacuum settings</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_14">
-           <item row="3" column="2">
-            <widget class="QSpinBox" name="spinBox_p_on_default">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>70</width>
-               <height>0</height>
-              </size>
-             </property>
+           <item row="0" column="2">
+            <widget class="QLabel" name="label_27">
              <property name="font">
               <font>
                <pointsize>10</pointsize>
               </font>
              </property>
-             <property name="maximum">
-              <number>450</number>
-             </property>
-             <property name="value">
-              <number>190</number>
+             <property name="text">
+              <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt; P&lt;span style=&quot; vertical-align:sub;&quot;&gt;on&lt;/span&gt;  (mbar) &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
             </widget>
+           </item>
+           <item row="0" column="4">
+            <widget class="QLabel" name="label_25">
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt; P&lt;span style=&quot; vertical-align:sub;&quot;&gt;off&lt;/span&gt; (mbar)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="6">
+            <widget class="QLabel" name="label_26">
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt; V&lt;span style=&quot; vertical-align:sub;&quot;&gt;switch&lt;/span&gt; (mbar)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <spacer name="horizontalSpacer_6">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Minimum</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>10</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="1" column="5">
+            <spacer name="horizontalSpacer_7">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Minimum</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>10</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
            </item>
            <item row="1" column="2">
             <widget class="QSpinBox" name="spinBox_p_on_max">
@@ -1886,30 +1932,15 @@ background-color: rgb(255, 255, 255);</string>
              </property>
             </widget>
            </item>
-           <item row="2" column="8">
-            <widget class="QSpinBox" name="spinBox_v_recirc_min">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
+           <item row="0" column="8">
+            <widget class="QLabel" name="label_31">
              <property name="font">
               <font>
                <pointsize>10</pointsize>
               </font>
              </property>
-             <property name="minimum">
-              <number>-1000</number>
-             </property>
-             <property name="maximum">
-              <number>0</number>
-             </property>
-             <property name="value">
-              <number>-300</number>
+             <property name="text">
+              <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt; V&lt;span style=&quot; vertical-align:sub;&quot;&gt;recirc&lt;/span&gt; (mbar)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
             </widget>
            </item>
@@ -1925,59 +1956,24 @@ background-color: rgb(255, 255, 255);</string>
              </property>
             </widget>
            </item>
-           <item row="2" column="6">
-            <widget class="QSpinBox" name="spinBox_v_switch_min">
-             <property name="enabled">
-              <bool>false</bool>
+           <item row="1" column="3">
+            <spacer name="horizontalSpacer_8">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
              </property>
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
+             <property name="sizeType">
+              <enum>QSizePolicy::Minimum</enum>
              </property>
-             <property name="font">
-              <font>
-               <pointsize>10</pointsize>
-              </font>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>10</width>
+               <height>20</height>
+              </size>
              </property>
-             <property name="minimum">
-              <number>-1000</number>
-             </property>
-             <property name="maximum">
-              <number>0</number>
-             </property>
-             <property name="value">
-              <number>-300</number>
-             </property>
-            </widget>
+            </spacer>
            </item>
-           <item row="0" column="6">
-            <widget class="QLabel" name="label_26">
-             <property name="font">
-              <font>
-               <pointsize>10</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt; V&lt;span style=&quot; vertical-align:sub;&quot;&gt;switch&lt;/span&gt; (mbar)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="8">
-            <widget class="QLabel" name="label_31">
-             <property name="font">
-              <font>
-               <pointsize>10</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt; V&lt;span style=&quot; vertical-align:sub;&quot;&gt;recirc&lt;/span&gt; (mbar)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="2">
-            <widget class="QSpinBox" name="spinBox_p_on_min">
+           <item row="1" column="4">
+            <widget class="QSpinBox" name="spinBox_p_off_max">
              <property name="enabled">
               <bool>false</bool>
              </property>
@@ -1995,41 +1991,35 @@ background-color: rgb(255, 255, 255);</string>
              <property name="maximum">
               <number>1000</number>
              </property>
+             <property name="value">
+              <number>450</number>
+             </property>
             </widget>
            </item>
-           <item row="1" column="6">
-            <widget class="QSpinBox" name="spinBox_v_switch_max">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
+           <item row="3" column="2">
+            <widget class="QSpinBox" name="spinBox_p_on_default">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
+             <property name="minimumSize">
+              <size>
+               <width>70</width>
+               <height>0</height>
+              </size>
+             </property>
              <property name="font">
               <font>
                <pointsize>10</pointsize>
               </font>
-             </property>
-             <property name="minimum">
-              <number>-1000</number>
              </property>
              <property name="maximum">
-              <number>0</number>
+              <number>450</number>
              </property>
-            </widget>
-           </item>
-           <item row="0" column="2">
-            <widget class="QLabel" name="label_27">
-             <property name="font">
-              <font>
-               <pointsize>10</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt; P&lt;span style=&quot; vertical-align:sub;&quot;&gt;on&lt;/span&gt;  (mbar) &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             <property name="value">
+              <number>190</number>
              </property>
             </widget>
            </item>
@@ -2060,60 +2050,38 @@ background-color: rgb(255, 255, 255);</string>
              </property>
             </widget>
            </item>
-           <item row="0" column="4">
-            <widget class="QLabel" name="label_25">
-             <property name="font">
-              <font>
-               <pointsize>10</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt; P&lt;span style=&quot; vertical-align:sub;&quot;&gt;off&lt;/span&gt; (mbar)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="4">
-            <widget class="QSpinBox" name="spinBox_p_off_max">
-             <property name="enabled">
-              <bool>false</bool>
-             </property>
+           <item row="3" column="6">
+            <widget class="QSpinBox" name="spinBox_v_switch_default">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
+             <property name="minimumSize">
+              <size>
+               <width>70</width>
+               <height>0</height>
+              </size>
+             </property>
              <property name="font">
               <font>
                <pointsize>10</pointsize>
               </font>
              </property>
+             <property name="minimum">
+              <number>-300</number>
+             </property>
              <property name="maximum">
-              <number>1000</number>
+              <number>0</number>
              </property>
              <property name="value">
-              <number>450</number>
+              <number>-115</number>
              </property>
             </widget>
            </item>
-           <item row="1" column="5">
-            <spacer name="horizontalSpacer_7">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
-             </property>
-             <property name="sizeType">
-              <enum>QSizePolicy::Minimum</enum>
-             </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>10</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
-           </item>
-           <item row="3" column="6">
-            <widget class="QSpinBox" name="spinBox_v_switch_default">
+           <item row="3" column="8">
+            <widget class="QSpinBox" name="spinBox_v_recirc_default">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                <horstretch>0</horstretch>
@@ -2166,37 +2134,56 @@ background-color: rgb(255, 255, 255);</string>
              </property>
             </widget>
            </item>
-           <item row="1" column="7">
-            <spacer name="horizontalSpacer_11">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_30">
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
              </property>
-             <property name="sizeType">
-              <enum>QSizePolicy::Minimum</enum>
+             <property name="text">
+              <string>Min </string>
              </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>10</width>
-               <height>20</height>
-              </size>
-             </property>
-            </spacer>
+            </widget>
            </item>
-           <item row="1" column="3">
-            <spacer name="horizontalSpacer_8">
-             <property name="orientation">
-              <enum>Qt::Horizontal</enum>
+           <item row="2" column="8">
+            <widget class="QSpinBox" name="spinBox_v_recirc_min">
+             <property name="enabled">
+              <bool>false</bool>
              </property>
-             <property name="sizeType">
-              <enum>QSizePolicy::Minimum</enum>
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
              </property>
-             <property name="sizeHint" stdset="0">
-              <size>
-               <width>10</width>
-               <height>20</height>
-              </size>
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
              </property>
-            </spacer>
+             <property name="minimum">
+              <number>-1000</number>
+             </property>
+             <property name="maximum">
+              <number>0</number>
+             </property>
+             <property name="value">
+              <number>-300</number>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="label_28">
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>Default </string>
+             </property>
+            </widget>
            </item>
            <item row="2" column="4">
             <widget class="QSpinBox" name="spinBox_p_off_min">
@@ -2219,8 +2206,8 @@ background-color: rgb(255, 255, 255);</string>
              </property>
             </widget>
            </item>
-           <item row="1" column="1">
-            <spacer name="horizontalSpacer_6">
+           <item row="1" column="7">
+            <spacer name="horizontalSpacer_11">
              <property name="orientation">
               <enum>Qt::Horizontal</enum>
              </property>
@@ -2235,42 +2222,84 @@ background-color: rgb(255, 255, 255);</string>
              </property>
             </spacer>
            </item>
-           <item row="3" column="0">
-            <widget class="QLabel" name="label_28">
-             <property name="font">
-              <font>
-               <pointsize>10</pointsize>
-              </font>
+           <item row="2" column="2">
+            <widget class="QSpinBox" name="spinBox_p_on_min">
+             <property name="enabled">
+              <bool>false</bool>
              </property>
-             <property name="text">
-              <string>Default </string>
-             </property>
-            </widget>
-           </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="label_30">
-             <property name="font">
-              <font>
-               <pointsize>10</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>Min </string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="8">
-            <widget class="QSpinBox" name="spinBox_v_recirc_default">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                <horstretch>0</horstretch>
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+             <property name="maximum">
+              <number>1000</number>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="6">
+            <widget class="QSpinBox" name="spinBox_v_switch_max">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+             <property name="minimum">
+              <number>-1000</number>
+             </property>
+             <property name="maximum">
+              <number>0</number>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="6">
+            <widget class="QSpinBox" name="spinBox_v_switch_min">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+             <property name="minimum">
+              <number>-1000</number>
+             </property>
+             <property name="maximum">
+              <number>0</number>
+             </property>
+             <property name="value">
+              <number>-300</number>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="6">
+            <widget class="QSpinBox" name="spinBox_v_switch_preset1">
              <property name="minimumSize">
               <size>
-               <width>70</width>
-               <height>0</height>
+               <width>0</width>
+               <height>20</height>
               </size>
              </property>
              <property name="font">
@@ -2289,15 +2318,333 @@ background-color: rgb(255, 255, 255);</string>
              </property>
             </widget>
            </item>
-           <item row="4" column="0">
-            <spacer name="verticalSpacer">
+           <item row="5" column="2">
+            <widget class="QSpinBox" name="spinBox_p_on_preset1">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>20</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+               <weight>50</weight>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="maximum">
+              <number>450</number>
+             </property>
+             <property name="value">
+              <number>190</number>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="0" colspan="2">
+            <widget class="QLabel" name="label_16">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>20</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>Preset 1</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="4">
+            <widget class="QSpinBox" name="spinBox_p_off_preset1">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>20</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+             <property name="maximum">
+              <number>450</number>
+             </property>
+             <property name="value">
+              <number>21</number>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="8">
+            <widget class="QSpinBox" name="spinBox_v_recirc_preset2">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>20</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+             <property name="minimum">
+              <number>-300</number>
+             </property>
+             <property name="maximum">
+              <number>0</number>
+             </property>
+             <property name="value">
+              <number>-115</number>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="4">
+            <widget class="QSpinBox" name="spinBox_p_off_preset2">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>20</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+             <property name="maximum">
+              <number>450</number>
+             </property>
+             <property name="value">
+              <number>21</number>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="6">
+            <widget class="QSpinBox" name="spinBox_v_switch_preset2">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>20</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+             <property name="minimum">
+              <number>-300</number>
+             </property>
+             <property name="maximum">
+              <number>0</number>
+             </property>
+             <property name="value">
+              <number>-115</number>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="2">
+            <widget class="QSpinBox" name="spinBox_p_on_preset2">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>20</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+             <property name="maximum">
+              <number>450</number>
+             </property>
+             <property name="value">
+              <number>190</number>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="8">
+            <widget class="QSpinBox" name="spinBox_v_recirc_preset1">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>20</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+             <property name="minimum">
+              <number>-300</number>
+             </property>
+             <property name="maximum">
+              <number>0</number>
+             </property>
+             <property name="value">
+              <number>-115</number>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="0" colspan="2">
+            <widget class="QLabel" name="label_21">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>20</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>Preset 3</string>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="2">
+            <widget class="QSpinBox" name="spinBox_p_on_preset3">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>20</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+             <property name="maximum">
+              <number>450</number>
+             </property>
+             <property name="value">
+              <number>190</number>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="0" colspan="2">
+            <widget class="QLabel" name="label_20">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>20</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>Preset 2</string>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="4">
+            <widget class="QSpinBox" name="spinBox_p_off_preset3">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>20</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+             <property name="maximum">
+              <number>450</number>
+             </property>
+             <property name="value">
+              <number>21</number>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="6">
+            <widget class="QSpinBox" name="spinBox_v_switch_preset3">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>20</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+             <property name="minimum">
+              <number>-300</number>
+             </property>
+             <property name="maximum">
+              <number>0</number>
+             </property>
+             <property name="value">
+              <number>-115</number>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="8">
+            <widget class="QSpinBox" name="spinBox_v_recirc_preset3">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>20</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+             <property name="minimum">
+              <number>-300</number>
+             </property>
+             <property name="maximum">
+              <number>0</number>
+             </property>
+             <property name="value">
+              <number>-115</number>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="0">
+            <spacer name="verticalSpacer_8">
              <property name="orientation">
               <enum>Qt::Vertical</enum>
              </property>
              <property name="sizeHint" stdset="0">
               <size>
                <width>20</width>
-               <height>40</height>
+               <height>10</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="4" column="0">
+            <spacer name="verticalSpacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Fixed</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>10</height>
               </size>
              </property>
             </spacer>
@@ -2348,26 +2695,6 @@ background-color: rgb(255, 255, 255);</string>
              </property>
             </widget>
            </item>
-           <item row="2" column="0">
-            <widget class="QLabel" name="label_14">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="font">
-              <font>
-               <pointsize>10</pointsize>
-               <weight>50</weight>
-               <bold>false</bold>
-              </font>
-             </property>
-             <property name="text">
-              <string>Vacuum</string>
-             </property>
-            </widget>
-           </item>
            <item row="0" column="0">
             <widget class="QLabel" name="label_12">
              <property name="sizePolicy">
@@ -2388,8 +2715,21 @@ background-color: rgb(255, 255, 255);</string>
              </property>
             </widget>
            </item>
-           <item row="2" column="1">
-            <widget class="QSpinBox" name="spinBox_v_increment">
+           <item row="0" column="2">
+            <widget class="QLabel" name="label_23">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_14">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="font">
               <font>
                <pointsize>10</pointsize>
@@ -2397,20 +2737,8 @@ background-color: rgb(255, 255, 255);</string>
                <bold>false</bold>
               </font>
              </property>
-             <property name="suffix">
-              <string notr="true"> %</string>
-             </property>
-             <property name="prefix">
-              <string notr="true"/>
-             </property>
-             <property name="minimum">
-              <number>1</number>
-             </property>
-             <property name="maximum">
-              <number>20</number>
-             </property>
-             <property name="value">
-              <number>5</number>
+             <property name="text">
+              <string>Vacuum</string>
              </property>
             </widget>
            </item>
@@ -2460,10 +2788,29 @@ background-color: rgb(255, 255, 255);</string>
              </property>
             </widget>
            </item>
-           <item row="0" column="2">
-            <widget class="QLabel" name="label_23">
-             <property name="text">
-              <string/>
+           <item row="2" column="1">
+            <widget class="QSpinBox" name="spinBox_v_increment">
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+               <weight>50</weight>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="suffix">
+              <string notr="true"> %</string>
+             </property>
+             <property name="prefix">
+              <string notr="true"/>
+             </property>
+             <property name="minimum">
+              <number>1</number>
+             </property>
+             <property name="maximum">
+              <number>20</number>
+             </property>
+             <property name="value">
+              <number>5</number>
              </property>
             </widget>
            </item>
@@ -2826,7 +3173,7 @@ background-color: rgb(255, 255, 255);</string>
 
 QComboBox:hover{
   background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+                                       stop: 0 #f6f7fa, stop: 1 #F0F0FF);
  }
 
 QComboBox::drop-down {
@@ -2904,7 +3251,7 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
 
 QComboBox:hover{
   background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+                                       stop: 0 #f6f7fa, stop: 1 #F0F0FF);
  }
 
 QComboBox::drop-down {
@@ -2989,7 +3336,7 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
 
 QComboBox:hover{
   background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+                                       stop: 0 #f6f7fa, stop: 1 #F0F0FF);
  }
 
 QComboBox::drop-down {
@@ -3091,7 +3438,7 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
 
 QComboBox:hover{
   background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+                                       stop: 0 #f6f7fa, stop: 1 #F0F0FF);
  }
 
 QComboBox::drop-down {
@@ -3165,7 +3512,7 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
 
 QComboBox:hover{
   background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+                                       stop: 0 #f6f7fa, stop: 1 #F0F0FF);
  }
 
 QComboBox::drop-down {
@@ -3249,7 +3596,7 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
 
 QComboBox:hover{
   background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+                                       stop: 0 #f6f7fa, stop: 1 #F0F0FF);
  }
 
 QComboBox::drop-down {
@@ -3338,12 +3685,12 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
 
  QPushButton:focus:pressed {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #F0FFF0, stop: 1 #f6f7fa);
+                                       stop: 0 #F0F0FF, stop: 1 #f6f7fa);
  }
 
  QPushButton:hover {
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0FFF0);
+                                       stop: 0 #f6f7fa, stop: 1 #F0F0FF);
  }
 
 QPushButton:disabled{ background-color: #CCCCCC; }
@@ -3511,6 +3858,18 @@ QPushButton:disabled{ background-color: #CCCCCC; }
   <tabstop>spinBox_p_off_default</tabstop>
   <tabstop>spinBox_v_switch_default</tabstop>
   <tabstop>spinBox_v_recirc_default</tabstop>
+  <tabstop>spinBox_p_on_preset1</tabstop>
+  <tabstop>spinBox_p_off_preset1</tabstop>
+  <tabstop>spinBox_v_switch_preset1</tabstop>
+  <tabstop>spinBox_v_recirc_preset1</tabstop>
+  <tabstop>spinBox_p_on_preset2</tabstop>
+  <tabstop>spinBox_p_off_preset2</tabstop>
+  <tabstop>spinBox_v_switch_preset2</tabstop>
+  <tabstop>spinBox_v_recirc_preset2</tabstop>
+  <tabstop>spinBox_p_on_preset3</tabstop>
+  <tabstop>spinBox_p_off_preset3</tabstop>
+  <tabstop>spinBox_v_switch_preset3</tabstop>
+  <tabstop>spinBox_v_recirc_preset3</tabstop>
   <tabstop>spinBox_ds_increment</tabstop>
   <tabstop>spinBox_fs_increment</tabstop>
   <tabstop>spinBox_v_increment</tabstop>

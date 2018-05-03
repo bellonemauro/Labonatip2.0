@@ -43,7 +43,7 @@ void addProtocolCommand::redo()
 	// create the new command to add
 	m_new_item = new protocolTreeWidgetItem();
 
-	// if this is the redo runned after and undo
+	// if this is the redo running after and undo
 	// the object needs to be re-created as the 
 	// undo delete the pointer, so now the object
 	// m_new_item is pointing to another location
@@ -55,7 +55,7 @@ void addProtocolCommand::redo()
 			m_new_item->setElements(
 				m_cmd_idx, m_value, m_show_status_msg, m_status_msg);
 			
-			// this is for safety, it is better to update the ponter 
+			// this is for safety, it is better to update the pointer 
 			// to the parent as it could have been deleted during the
 			// tree operations
 			m_parent = dynamic_cast<protocolTreeWidgetItem *> (
@@ -236,7 +236,7 @@ void removeProtocolCommand::undo()
 	// create the item
 	m_remove_item = new protocolTreeWidgetItem();
 
-	// if has paretn we remove the child
+	// if has parent we remove the child
 	if (m_has_parent)
 	{
 		// re-create the item as it was from the stored values 

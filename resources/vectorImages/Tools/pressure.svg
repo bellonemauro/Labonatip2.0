@@ -14,7 +14,7 @@
    viewBox="0 0 179.78412 180.00023"
    version="1.1"
    id="svg8"
-   inkscape:version="0.92.1 r15371"
+   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
    sodipodi:docname="pressure.svg"
    inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\pressure.png"
    inkscape:export-xdpi="180"
@@ -33,7 +33,7 @@
          inkscape:connector-curvature="0"
          id="path4502-2"
          d="M 0,0 5,-5 -12.5,0 5,5 Z"
-         style="fill:#505050;fill-opacity:1;fill-rule:evenodd;stroke:#505050;stroke-width:1.00000003pt;stroke-opacity:1"
+         style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:1.00000003pt;stroke-opacity:1"
          transform="matrix(-0.2,0,0,-0.2,-1.2,0)" />
     </marker>
   </defs>
@@ -44,11 +44,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.49497475"
-     inkscape:cx="-52.179246"
-     inkscape:cy="311.38947"
+     inkscape:zoom="0.7"
+     inkscape:cx="311.57395"
+     inkscape:cy="225.98595"
      inkscape:document-units="mm"
-     inkscape:current-layer="g4664"
+     inkscape:current-layer="g4703"
      showgrid="false"
      inkscape:snap-bbox="true"
      inkscape:bbox-paths="true"
@@ -56,9 +56,9 @@
      inkscape:bbox-nodes="true"
      inkscape:snap-bbox-midpoints="true"
      inkscape:window-width="1920"
-     inkscape:window-height="1017"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
+     inkscape:window-height="1001"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
      inkscape:window-maximized="1"
      fit-margin-top="0"
      fit-margin-left="0"
@@ -72,7 +72,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -87,92 +87,121 @@
          inkscape:connector-curvature="0"
          id="path4574"
          d="M 86.855062,155.98304 C 54.110731,149.1105 32.359415,117.9132 37.328766,84.948901 39.352485,71.524649 45.367628,59.605948 54.998197,49.937954 74.780008,30.079255 103.88901,25.498212 128.73934,38.332906 c 17.64309,9.1123 29.99544,26.15807 33.1789,45.785632 5.44,33.540182 -16.82839,65.523112 -50.1135,71.975432 -7.14501,1.38506 -18.053089,1.33656 -24.949678,-0.11093 z m 26.104668,-12.74968 c 18.25047,-5.25705 31.56268,-19.16011 36.23465,-37.8429 1.41847,-5.672314 1.25636,-17.791138 -0.31632,-23.646571 -6.55807,-24.417284 -29.41109,-40.455762 -54.043155,-37.928036 -12.45908,1.278543 -21.820224,5.74626 -30.749541,14.675588 -6.300973,6.300967 -9.715341,11.66192 -12.336912,19.37037 -3.307741,9.725964 -3.639079,19.026682 -1.042511,29.262649 4.622244,18.22146 19.627532,32.62216 38.23549,36.69498 6.256977,1.36949 18.244829,1.07698 24.018299,-0.58608 z"
-         style="fill:#505050;fill-opacity:1;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
-      <g
-         inkscape:export-ydpi="180"
+         style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\pressure.png"
          inkscape:export-xdpi="180"
-         inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\controls.png"
-         transform="matrix(0.87701108,0,0,0.87701108,169.38882,-98.296548)"
-         id="g7320-8">
+         inkscape:export-ydpi="180" />
+      <path
+         sodipodi:open="true"
+         d="m 76.320104,114.00705 a 32.807472,32.807472 0 0 1 0.283172,-46.3554 32.807472,32.807472 0 0 1 46.355824,0.202266 32.807472,32.807472 0 0 1 -0.12136,46.356104"
+         sodipodi:end="0.78714349"
+         sodipodi:start="2.3631758"
+         sodipodi:ry="32.807472"
+         sodipodi:rx="32.807472"
+         sodipodi:cy="90.971184"
+         sodipodi:cx="99.679878"
+         sodipodi:type="arc"
+         id="path6460-6"
+         style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:4.38505554;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\pressure.png"
+         inkscape:export-xdpi="180"
+         inkscape:export-ydpi="180" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path6464-7-2"
+         d="m 125.56353,88.778685 h 8.29563"
+         style="fill:none;stroke:#ffffff;stroke-width:2.6587193;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\pressure.png"
+         inkscape:export-xdpi="180"
+         inkscape:export-ydpi="180" />
+      <path
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path6481-0"
+         d="M 99.623763,95.280653 85.414946,71.605651"
+         style="fill:none;stroke:#ffffff;stroke-width:1.75402212;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Send-4)"
+         inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\pressure.png"
+         inkscape:export-xdpi="180"
+         inkscape:export-ydpi="180" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path6464-7-2-8"
+         d="m 65.212471,88.778685 h 8.295604"
+         style="fill:none;stroke:#ffffff;stroke-width:2.6587193;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\pressure.png"
+         inkscape:export-xdpi="180"
+         inkscape:export-ydpi="180" />
+      <circle
+         style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:3.26266098;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="path8193"
+         cx="100.28913"
+         cy="95.851997"
+         r="3.3537679"
+         inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\pressure.png"
+         inkscape:export-xdpi="180"
+         inkscape:export-ydpi="180" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path6464-7-2-8-7"
+         d="m 99.679881,56.322908 v 8.295604"
+         style="fill:none;stroke:#ffffff;stroke-width:2.6587193;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\pressure.png"
+         inkscape:export-xdpi="180"
+         inkscape:export-ydpi="180" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path6464-7-2-8-7-6"
+         d="m 122.59949,67.604007 -5.92357,5.80762"
+         style="fill:none;stroke:#ffffff;stroke-width:2.6587193;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\pressure.png"
+         inkscape:export-xdpi="180"
+         inkscape:export-ydpi="180" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path6464-7-2-8-7-6-2"
+         d="m 75.125328,67.604007 5.92356,5.80762"
+         style="fill:none;stroke:#ffffff;stroke-width:2.6587193;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\pressure.png"
+         inkscape:export-xdpi="180"
+         inkscape:export-ydpi="180" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path6464-7-2-8-7-6-2-4"
+         d="m 119.23072,108.78908 5.92356,5.80761"
+         style="fill:none;stroke:#ffffff;stroke-width:2.6587193;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\pressure.png"
+         inkscape:export-xdpi="180"
+         inkscape:export-ydpi="180" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path6464-7-2-8-7-6-3"
+         d="m 79.853513,108.66368 -5.92356,5.80762"
+         style="fill:none;stroke:#ffffff;stroke-width:2.6587193;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\pressure.png"
+         inkscape:export-xdpi="180"
+         inkscape:export-ydpi="180" />
+      <g
+         id="g4664"
+         transform="matrix(0.87701108,0,0,0.87701108,166.02254,-106.2319)"
+         inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\pressure.png"
+         inkscape:export-xdpi="180"
+         inkscape:export-ydpi="180">
         <path
-           style="fill:none;fill-opacity:1;stroke:#505050;stroke-width:5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-           id="path6460-6"
-           sodipodi:type="arc"
-           sodipodi:cx="-79.484673"
-           sodipodi:cy="215.80997"
-           sodipodi:rx="37.408276"
-           sodipodi:ry="37.408276"
-           sodipodi:start="2.3631758"
-           sodipodi:end="0.78714349"
-           d="m -106.12034,242.0763 a 37.408276,37.408276 0 0 1 0.32288,-52.85612 37.408276,37.408276 0 0 1 52.856605,0.23064 37.408276,37.408276 0 0 1 -0.138379,52.85692"
-           sodipodi:open="true" />
-        <path
-           style="fill:none;stroke:#505050;stroke-width:3.03156853;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-           d="m -49.971191,213.31 h 9.458982"
-           id="path6464-7-2"
-           inkscape:connector-curvature="0" />
-        <path
-           style="fill:none;stroke:#505050;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1Send-4)"
-           d="m -79.548661,220.72378 -16.201411,-26.9951"
-           id="path6481-0"
            inkscape:connector-curvature="0"
-           sodipodi:nodetypes="cc" />
+           id="path4638"
+           d="M -165.39838,324.16005 H 14.105734"
+           style="fill:none;stroke:#e6e6e6;stroke-width:2.27637768;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
         <path
-           style="fill:none;stroke:#505050;stroke-width:3.03156853;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-           d="m -118.78567,213.31 h 9.45895"
-           id="path6464-7-2-8"
-           inkscape:connector-curvature="0" />
-        <circle
-           r="3.8240883"
-           cy="221.37524"
-           cx="-78.789986"
-           id="path8193"
-           style="fill:#505050;fill-opacity:1;stroke:#505050;stroke-width:3.72020507;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+           inkscape:connector-curvature="0"
+           id="path4638-1"
+           d="M -165.39838,343.16652 H 14.105734"
+           style="fill:none;stroke:#e6e6e6;stroke-width:2.27637768;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
         <path
-           style="fill:none;stroke:#505050;stroke-width:3.03156853;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-           d="m -79.484673,176.30274 v 9.45895"
-           id="path6464-7-2-8-7"
-           inkscape:connector-curvature="0" />
-        <path
-           style="fill:none;stroke:#505050;stroke-width:3.03156853;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-           d="m -53.350904,189.16586 -6.754263,6.62206"
-           id="path6464-7-2-8-7-6"
-           inkscape:connector-curvature="0" />
-        <path
-           style="fill:none;stroke:#505050;stroke-width:3.03156853;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-           d="m -107.48267,189.16586 6.75426,6.62206"
-           id="path6464-7-2-8-7-6-2"
-           inkscape:connector-curvature="0" />
-        <path
-           style="fill:none;stroke:#505050;stroke-width:3.03156853;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-           d="m -57.192099,236.12658 6.754262,6.62205"
-           id="path6464-7-2-8-7-6-2-4"
-           inkscape:connector-curvature="0" />
-        <path
-           style="fill:none;stroke:#505050;stroke-width:3.03156853;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-           d="m -102.09142,235.9836 -6.75426,6.62206"
-           id="path6464-7-2-8-7-6-3"
-           inkscape:connector-curvature="0" />
-        <g
-           transform="translate(-3.8383509,-9.0481798)"
-           id="g4664">
-          <path
-             style="fill:none;stroke:#505050;stroke-width:2.27637768;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-             d="M -165.39838,324.16005 H 14.105734"
-             id="path4638"
-             inkscape:connector-curvature="0" />
-          <path
-             style="fill:none;stroke:#505050;stroke-width:2.27637768;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-             d="M -165.39838,343.16652 H 14.105734"
-             id="path4638-1"
-             inkscape:connector-curvature="0" />
-          <path
-             style="fill:#505050;fill-opacity:1;stroke:none;stroke-width:2.69966269;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-             d="M -1237.5536,744.71148 V 713.9972 h 297.50004 297.5 v 30.71428 30.71429 h -297.5 -297.50004 z"
-             id="path4659"
-             inkscape:connector-curvature="0"
-             transform="matrix(0.30168756,0,0,0.30168756,207.95615,109.00465)" />
-        </g>
+           transform="matrix(0.30168756,0,0,0.30168756,207.95615,109.00465)"
+           inkscape:connector-curvature="0"
+           id="path4659"
+           d="M -1237.5536,744.71148 V 713.9972 h 297.50004 297.5 v 30.71428 30.71429 h -297.5 -297.50004 z"
+           style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:2.69966269;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
       </g>
       <ellipse
          ry="62.015366"
@@ -180,27 +209,39 @@
          cy="94.114853"
          cx="99.679123"
          id="path4557"
-         style="fill:none;fill-opacity:1;stroke:#505050;stroke-width:1.94268143;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+         style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:1.94268143;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\pressure.png"
+         inkscape:export-xdpi="180"
+         inkscape:export-ydpi="180" />
       <circle
          r="51.460629"
          cy="94.114845"
          cx="99.679123"
          id="path4557-5"
-         style="fill:none;fill-opacity:1;stroke:#505050;stroke-width:2.0787456;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+         style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:2.0787456;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\pressure.png"
+         inkscape:export-xdpi="180"
+         inkscape:export-ydpi="180" />
       <rect
          y="155.54239"
          x="90.679123"
          height="21.519464"
          width="18"
          id="rect4666"
-         style="fill:#505050;fill-opacity:1;stroke:none;stroke-width:1.80731452;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+         style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.80731452;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\pressure.png"
+         inkscape:export-xdpi="180"
+         inkscape:export-ydpi="180" />
       <rect
          y="173.97446"
          x="77.784134"
          height="24.860334"
          width="43.791508"
          id="rect4666-7"
-         style="fill:#787878;fill-opacity:1;stroke:#505050;stroke-width:3.02991343;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+         style="fill:#e6e6e6;fill-opacity:1;stroke:#ffffff;stroke-width:3.02991343;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\pressure.png"
+         inkscape:export-xdpi="180"
+         inkscape:export-ydpi="180" />
     </g>
   </g>
 </svg>

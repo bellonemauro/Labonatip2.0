@@ -45,36 +45,10 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 
   initCustomStrings();
 
-  ui->dockWidget->close();  //close the advaced dock page
-  ui->tabWidget->setCurrentIndex(1);  // put the tab widget to the chart page
-  //ui->treeWidget_macroInfo->resizeColumnToContents(0);
-  ui->treeWidget_macroInfo->setColumnWidth(0, 200);
-  // debug stuff -- set 1 to remove all messages and tab
-  if (0)
-  {
-	  ui->tabWidget->removeTab(2);
-  }
-  else {
-	  // init the redirect buffer
-	  qout = new QDebugStream(std::cout, ui->textEdit_qcout);
-	  qout->copyOutToTerminal(true);// (ui->checkBox_to_terminal->isChecked()); //TODO
-	  //  QTextStream standardOutput(stdout);
-	  qerr = new QDebugStream(std::cerr, ui->textEdit_qcerr);
-	  qerr->copyOutToTerminal(true);//(ui->checkBox_to_terminal->isChecked()); //TODO
-	  //  QTextStream standardOutput(stderr);// (stdout);
-  }
-
-  // this removes the visualization settings 
-  ui->tabWidget->removeTab(3);
-
-  
-  // init the object to handle the internal dialogs
-  m_dialog_p_editor = new Labonatip_protocol_editor();
-  m_dialog_tools = new Labonatip_tools(); 
+  // initialize the tools as we need the settings
+  m_dialog_tools = new Labonatip_tools();
   m_dialog_tools->setExtDataPath(m_ext_data_path);
-
   m_pipette_status = new pipetteStatus();
-
   m_comSettings = new COMSettings();
   m_solutionParams = new solutionsParams();
   m_pr_params = new pr_params();
@@ -87,6 +61,34 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   toolRefillSolution();
   toolEmptyWells();
 
+  // init the object to handle the internal dialogs
+  m_dialog_p_editor = new Labonatip_protocol_editor();
+  m_dialog_p_editor->setVersion(m_version);
+
+  ui->dockWidget->close();  //close the advanced dock page
+  ui->tabWidget->setCurrentIndex(1);  // put the tab widget to the chart page
+  //ui->treeWidget_macroInfo->resizeColumnToContents(0);
+  ui->treeWidget_macroInfo->setColumnWidth(0, 200);
+
+  // debug stuff -- set 1 to remove all messages and tab
+  if (0)
+  {
+	  ui->tabWidget->removeTab(2);
+  }
+  else {
+	  // init the redirect buffer
+	  qout = new QDebugStream(std::cout, ui->textEdit_qcout);
+	  qout->copyOutToTerminal(m_GUI_params->enableHistory);
+	  qout->redirectOutInGUI(m_GUI_params->enableHistory);
+	  qerr = new QDebugStream(std::cerr, ui->textEdit_qcerr);
+	  qerr->copyOutToTerminal(m_GUI_params->enableHistory);
+	  qerr->redirectOutInGUI(m_GUI_params->enableHistory);
+  }
+
+  // this removes the visualization settings 
+  ui->tabWidget->removeTab(3);
+
+ 
   // set the flows in the table
   ui->treeWidget_macroInfo->topLevelItem(12)->setText(1,
 	  QString::number(m_pipette_status->rem_vol_well1));
@@ -129,7 +131,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   // set the scene for the graphic depiction of the solution flow
   m_scene_solution = new QGraphicsScene;
   {
-	  // set the scene rectagle to avoid the graphic area to move
+	  // set the scene rectangle to avoid the graphic area to move
 	  float s_x = 0.0;   // x-coordinate
 	  float s_y = 0.0;   // y-coordinate
 	  float s_w = 40.0;  // width
@@ -245,7 +247,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   ui->pushButton_solution4->setShortcut(
 	  QApplication::translate("Labonatip_GUI", "F4", Q_NULLPTR));
 
-  // instal the event filter on -everything- in the app
+  // install the event filter on -everything- in the app
   qApp->installEventFilter(this);
 
   toolApply(); // this is to be sure that the settings are brought into the app at startup
@@ -264,52 +266,6 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 }
 
 
-void Labonatip_GUI::updateMacroStatusMessage(const QString &_message) {
-  
-	QString s = " PROTOCOL RUNNING : <<<  ";
-	s.append(m_dialog_p_editor->getProtocolPath());
-	s.append(" >>> remaining time = ");
-	
-	s.append(_message);
-	cout << QDate::currentDate().toString().toStdString() << "  " 
-		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::updateMacroStatusMessage :::: " 
-		 << _message.toStdString() << endl;
-}
-
-
-void Labonatip_GUI::updateMacroTimeStatus(const double &_status) {
-
-	m_labonatip_chart_view->updateChartTime(_status); // update the vertical line for the time status on the chart
-
-	QString s = m_str_update_time_macro_msg1;
-	s.append(m_dialog_p_editor->getProtocolName());
-	int remaining_time_sec = m_protocol_duration - _status * m_protocol_duration / 100;
-	s.append(m_str_update_time_macro_msg2);
-	int remaining_hours = floor(remaining_time_sec / 3600); // 3600 sec in a hour
-	int remaining_mins = floor((remaining_time_sec % 3600) / 60); // 60 minutes in a hour
-	int remaining_secs = remaining_time_sec - remaining_hours * 3600 - remaining_mins * 60; // 60 minutes in a hour
-	s.append(QString::number(remaining_hours));
-	s.append(" h,   ");
-	s.append(QString::number(remaining_mins));
-	s.append(" min,   ");
-	s.append(QString::number(remaining_secs));
-	s.append(" sec   ");
-	ui->progressBar_macroStatus->setValue(_status);
-	ui->label_macroStatus->setText(s);
-
-	double currentTime = _status * m_protocol_duration / 100.0 ;
-
-	updateFlowControlPercentages();
-
-	if (m_pipette_active) updateDrawing(m_ppc1->getDropletSize());
-	else updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
-
-	//cout << QDate::currentDate().toString().toStdString() << "  " 
-	//     << QTime::currentTime().toString().toStdString() << "  "
-	//	   << "Labonatip_GUI::updateMacroTimeStatus :::: " << _status << endl;
-
-}
 
 void Labonatip_GUI::askMessage(const QString &_message) {
 
@@ -368,29 +324,6 @@ void Labonatip_GUI::setEnableSolutionButtons(bool _enable ) {
 	ui->pushButton_solution3->setEnabled(_enable);
 	ui->pushButton_solution4->setEnabled(_enable);
 }
-
-
-
-
-void Labonatip_GUI::setAsDefault()  //TODO: remove this function as it is now in the tools
-{
-	m_pr_params->setDefValues(m_pipette_status->pon_set_point, 
-		m_pipette_status->poff_set_point, 
-		-m_pipette_status->v_switch_set_point, 
-		-m_pipette_status->v_recirc_set_point);
-
-	m_dialog_tools->setDefaultPressuresVacuums(m_pr_params->p_on_default, m_pr_params->p_off_default,
-		-m_pr_params->v_recirc_default, -m_pr_params->v_switch_default);
-
-	updateFlowControlPercentages();
-
-	if (m_ppc1)
-		m_ppc1->setDefaultPV(m_pr_params->p_on_default, m_pr_params->p_off_default,
-			m_pr_params->v_recirc_default, m_pr_params->v_switch_default);
-
-}
-
-
 
 
 void Labonatip_GUI::switchLanguage(int _value )
@@ -605,6 +538,30 @@ void Labonatip_GUI::initConnects()
 		SIGNAL(clicked()), this, 
 		SLOT(recirculationUp()));
 
+	connect(ui->pushButton_set_preset1,
+		SIGNAL(clicked()), this,
+		SLOT(setPreset1()));
+
+	connect(ui->pushButton_set_preset2,
+		SIGNAL(clicked()), this,
+		SLOT(setPreset2()));
+
+	connect(ui->pushButton_set_preset3,
+		SIGNAL(clicked()), this,
+		SLOT(setPreset3()));
+
+	connect(ui->pushButton_reset_preset1,
+		SIGNAL(clicked()), this,
+		SLOT(resetPreset1()));
+
+	connect(ui->pushButton_reset_preset2,
+		SIGNAL(clicked()), this,
+		SLOT(resetPreset2()));
+
+	connect(ui->pushButton_reset_preset3,
+		SIGNAL(clicked()), this,
+		SLOT(resetPreset3()));
+
 	connect(ui->pushButton_solution1, 
 		SIGNAL(clicked()), this, 
 		SLOT(pushSolution1()));
@@ -620,10 +577,6 @@ void Labonatip_GUI::initConnects()
 	connect(ui->pushButton_solution4, 
 		SIGNAL(clicked()), this, 
 		SLOT(pushSolution4()));
-
-//	connect(ui->pushButton_setValuesAsDefault, 
-//		SIGNAL(clicked()), this, 
-//		SLOT(setAsDefault())); //TODO: remove this and check
 
 	connect(ui->pushButton_dropSize_minus, 
 		SIGNAL(clicked()), this, 
@@ -812,6 +765,51 @@ void Labonatip_GUI::initCustomStrings()
 	m_str_operation_cannot_be_done = tr("Operation cannot be done");
 	m_str_out_of_bound = tr("Please, check for out of bound values");
 	m_str_user = tr("User :");
+	m_str_protocol_running_stop = tr("A protocol is running, stop the protocol first");
+	m_str_lost_connection = tr("Lost connection with PPC1");
+	m_str_swapping_to_simulation = tr("swapping to simulation mode");
+}
+
+void Labonatip_GUI::appScaling(int _dpiX, int _dpiY)
+{
+
+	QSize toolbar_icon_size = ui->toolBar->iconSize();
+	toolbar_icon_size.scale(toolbar_icon_size*_dpiX/100, Qt::KeepAspectRatioByExpanding);
+	ui->toolBar->setIconSize(toolbar_icon_size);
+
+	toolbar_icon_size = ui->toolBar_2->iconSize();
+	toolbar_icon_size.scale(toolbar_icon_size*_dpiX / 100, Qt::KeepAspectRatioByExpanding);
+	ui->toolBar_2->setIconSize(toolbar_icon_size);
+
+	toolbar_icon_size = ui->toolBar_3->iconSize();
+	toolbar_icon_size.scale(toolbar_icon_size*_dpiX / 100, Qt::KeepAspectRatioByExpanding);
+	ui->toolBar_3->setIconSize(toolbar_icon_size);
+
+	QSize gr_b_action = ui->groupBox_action->minimumSize();
+	gr_b_action.scale(gr_b_action*_dpiX / 100, Qt::KeepAspectRatioByExpanding);
+	ui->groupBox_action->setMinimumSize(gr_b_action);
+
+	QSize gr_delivery_min = ui->groupBox_deliveryZone->minimumSize();
+	gr_delivery_min.scale(gr_delivery_min*_dpiX / 100, Qt::KeepAspectRatioByExpanding);
+	ui->groupBox_deliveryZone->setMinimumSize(gr_delivery_min);
+
+	QSize gr_delivery_max = ui->groupBox_deliveryZone->maximumSize();
+	gr_delivery_max.scale(gr_delivery_max*_dpiX / 100, Qt::KeepAspectRatioByExpanding);
+	ui->groupBox_deliveryZone->setMaximumSize(gr_delivery_max);
+
+	QSize gr_5 = ui->groupBox_5->minimumSize();
+	gr_5.scale(gr_5*_dpiX / 100, Qt::KeepAspectRatioByExpanding);
+	ui->groupBox_5->setMinimumSize(gr_5);
+
+	QSize action_button_size = ui->pushButton_newTip->minimumSize();
+	action_button_size.scale(action_button_size*_dpiX / 100, Qt::KeepAspectRatioByExpanding);
+	ui->pushButton_newTip->setMinimumSize(action_button_size);
+	ui->pushButton_runMacro->setMinimumSize(action_button_size);
+	ui->pushButton_operational->setMinimumSize(action_button_size);
+	ui->pushButton_stop->setMinimumSize(action_button_size);
+	ui->pushButton_standby->setMinimumSize(action_button_size);
+
+
 
 }
 
@@ -931,6 +929,10 @@ void Labonatip_GUI::toolApply()
 	m_ppc1->setFilterSize(m_pr_params->filterSize);
 	m_ppc1->setVerbose(m_pr_params->verboseOut);
 	m_ext_data_path = m_GUI_params->outFilePath;
+	qout->copyOutToTerminal(m_GUI_params->enableHistory);
+	qerr->copyOutToTerminal(m_GUI_params->enableHistory);
+	qout->redirectOutInGUI(m_GUI_params->enableHistory);
+	qerr->redirectOutInGUI(m_GUI_params->enableHistory);
 
 	this->switchLanguage(m_GUI_params->language);
 
@@ -1118,7 +1120,7 @@ void Labonatip_GUI::closeEvent(QCloseEvent *event) {
 
 		if (m_macroRunner_thread->isRunning()) {
 			//this->runMacro(); // this will stop the macro if running
-			QMessageBox::question(this, m_str_information, "A protocol is running, stop the protocol first", m_str_ok);
+			QMessageBox::question(this, m_str_information, m_str_protocol_running_stop, m_str_ok);
 			event->ignore();
 			return;
 		}
@@ -1214,8 +1216,6 @@ Labonatip_GUI::~Labonatip_GUI ()
   delete m_a_spacer; 
   delete m_labonatip_chart_view;
   
-  // TODO: exit during macro running does not kill some thread causing crash
-
   delete ui;
   qApp->quit();
 }

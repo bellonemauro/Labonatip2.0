@@ -32,7 +32,7 @@ set(CPACK_PACKAGE_INSTALL_DIRECTORY "@PROJECT_NAME@")# @_VERSION@")
 # this allows to check older installations and properly remove them
 set(CPACK_NSIS_ENABLE_UNINSTALL_BEFORE_INSTALL "ON") 
 
-# add the licence file
+# add the license file
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")  
 
 # and readme file

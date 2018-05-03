@@ -26,11 +26,10 @@ void Labonatip_GUI::dropletSizePlus() {
 		}
 		else {
 			success = m_ppc1->setDropletSize(
-				m_ds_perc + // ui->lcdNumber_dropletSize_percentage->value() +
+				m_ds_perc + 
 				m_pr_params->base_ds_increment);
 		}
-		//if (!m_ppc1->setDropletSize(ui->lcdNumber_dropletSize_percentage->value() +
-		//	m_dialog_tools->m_pr_params->base_ds_increment)) {
+
 		if(!success) {
 			QMessageBox::information(this, m_str_warning,
 				m_str_operation_cannot_be_done + "<br>" + m_str_out_of_bound);
@@ -63,15 +62,12 @@ void Labonatip_GUI::dropletSizePlus() {
 
 		if (ui->horizontalSlider_recirculation->value() == 0) {
 			QMessageBox::information(this, m_str_warning,
-				" Recirculation zero, " + m_str_operation_cannot_be_done); //TODO string
+				" Recirculation zero, " + m_str_operation_cannot_be_done);
 			return;
 		}
 		else {
 			double delta = (1.0 - std::pow(perc, (1.0 / 3.0)));
 			double value = -m_pr_params->v_recirc_default - m_pr_params->v_recirc_default * delta;
-			//TODO: the new value must consider the current set point!!!
-			//double value = m_v_recirc_set_point + (default_v_recirc * 
-			//	(2.0 - std::pow(1.0 + m_dialog_tools->m_pr_params->base_ds_increment/100.0, (1.0 / 3.0))) - default_v_recirc);
 
 			updateVrecircSetPoint(value);
 		}
@@ -82,10 +78,6 @@ void Labonatip_GUI::dropletSizePlus() {
 		else {
 			double delta = (1.0 - std::pow(perc, (1.0 / 3.0)));
 			double value = m_pr_params->p_on_default - m_pr_params->p_on_default  * delta;
-			//double value = m_pr_params->p_on_default  * perc;
-			//TODO: the new value must consider the current set point!!!
-			//double value = m_pon_set_point + (m_pr_params->p_on_default *
-			//	( std::pow(1.0 + m_pr_params->base_ds_increment / 100.0, (1.0 / 3.0))) - m_pr_params->p_on_default);
 
 			updatePonSetPoint(value);
 		}
@@ -109,12 +101,10 @@ void Labonatip_GUI::dropletSizeMinus() {
 			success = m_ppc1->changeDropletSizeBy(-m_pr_params->base_ds_increment);
 		}
 		else {
-			success = m_ppc1->setDropletSize( m_ds_perc - // ui->lcdNumber_dropletSize_percentage->value() - 
+			success = m_ppc1->setDropletSize( m_ds_perc -
 				m_pr_params->base_ds_increment);
 		}
-		//if (!m_ppc1->setDropletSize(
-		//		ui->lcdNumber_dropletSize_percentage->value() -
-		//		m_dialog_tools->m_pr_params->base_ds_increment)) {
+
 		if (!success){
 			QMessageBox::information(this, m_str_warning,
 				m_str_operation_cannot_be_done + "<br>" + m_str_out_of_bound); 
@@ -152,12 +142,8 @@ void Labonatip_GUI::dropletSizeMinus() {
 		}
 		else {
 			double delta = (1.0 - std::pow(perc, (1.0 / 3.0)));
-			double value = m_pr_params->p_on_default - m_pr_params->p_on_default  * delta; //TODO: this must be explained
-			//double value = m_pr_params->p_on_default   * perc;
-			//TODO: the new value must consider the current set point!!!
+			double value = m_pr_params->p_on_default - m_pr_params->p_on_default  * delta; 
 
-			//double value = m_pon_set_point + (m_pr_params->p_on_default *
-			//	(std::pow(1.0 - m_pr_params->base_ds_increment / 100.0, (1.0 / 3.0))) - m_pr_params->p_on_default);
 			updatePonSetPoint(value);
 		}
 
@@ -167,9 +153,6 @@ void Labonatip_GUI::dropletSizeMinus() {
 		else {
 			double delta = (1.0 - std::pow(perc, (1.0 / 3.0)));
 			double value = -m_pr_params->v_recirc_default - m_pr_params->v_recirc_default * delta;
-			//TODO: the new value must consider the current set point!!!
-			//double value = m_v_recirc_set_point + (default_v_recirc *
-			//	(2.0 - std::pow(1.0 - m_dialog_tools->m_pr_params->base_ds_increment / 100.0, (1.0 / 3.0))) - default_v_recirc);
 
 			updateVrecircSetPoint(value);
 		}
@@ -197,9 +180,7 @@ void Labonatip_GUI::flowSpeedPlus() {
 			success = m_ppc1->setFlowspeed(m_fs_perc +
 				m_pr_params->base_fs_increment);
 		}
-		//if (!m_ppc1->changeFlowspeedBy(m_dialog_tools->m_pr_params->base_fs_increment)) {
-		//if (!m_ppc1->setFlowspeed(ui->lcdNumber_flowspeed_percentage->value() +
-		//	m_dialog_tools->m_pr_params->base_fs_increment)) 
+
 		if (!success) {
 			QMessageBox::information(this, m_str_warning,
 				m_str_operation_cannot_be_done + "<br>" + m_str_out_of_bound);
@@ -293,9 +274,7 @@ void Labonatip_GUI::flowSpeedMinus() {
 			success = m_ppc1->setFlowspeed(m_fs_perc -
 				m_pr_params->base_fs_increment);
 		}
-		//if (!m_ppc1->changeFlowspeedBy(-m_dialog_tools->m_pr_params->base_fs_increment)){
-		//if (!m_ppc1->setFlowspeed(ui->lcdNumber_flowspeed_percentage->value() -
-		//		m_dialog_tools->m_pr_params->base_fs_increment)) 
+
 		if (!success) {
 				QMessageBox::information(this, m_str_warning, 
 					m_str_operation_cannot_be_done + "<br>" + m_str_out_of_bound);
@@ -331,9 +310,6 @@ void Labonatip_GUI::flowSpeedMinus() {
 			return;
 		}
 
-		//double perc = (m_fs_perc - //ui->lcdNumber_flowspeed_percentage->value() -
-		//	m_dialog_tools->m_pr_params->base_fs_increment) / 100.0;
-
 		double value = m_pipette_status->pon_set_point - 
 			m_pr_params->p_on_default * m_pr_params->base_fs_increment / 100.0;
 		updatePonSetPoint(value);
@@ -368,9 +344,7 @@ void Labonatip_GUI::vacuumPlus() {
 			success = m_ppc1->setVacuumPercentage(m_v_perc + //ui->lcdNumber_vacuum_percentage->value() +
 				m_pr_params->base_v_increment);
 		}
-		//if (!m_ppc1->changeVacuumPercentageBy(m_dialog_tools->m_pr_params->base_v_increment)){
-		//if (!m_ppc1->setVacuumPercentage(ui->lcdNumber_vacuum_percentage->value() + 
-		//	m_dialog_tools->m_pr_params->base_v_increment)) {
+
 		if (!success) {
 			QMessageBox::information(this, m_str_warning,
 				m_str_operation_cannot_be_done + "<br>" + m_str_out_of_bound);
@@ -426,9 +400,6 @@ void Labonatip_GUI::vacuumMinus() {
 				m_pr_params->base_v_increment);
 		}
 
-		//if (!m_ppc1->changeVacuumPercentageBy(-m_dialog_tools->m_pr_params->base_v_increment)){
-		//if (!m_ppc1->setVacuumPercentage(ui->lcdNumber_vacuum_percentage->value() -
-		//	m_dialog_tools->m_pr_params->base_v_increment)) {
 		if (!success) {
 			QMessageBox::information(this, m_str_warning,
 				m_str_operation_cannot_be_done + "<br>" + m_str_out_of_bound);
@@ -473,8 +444,13 @@ void Labonatip_GUI::updateFlowControlPercentages()
 
 		// calculate droplet size percentage
 		m_ds_perc = 100.0*(m_pipette_status->in_out_ratio_on + 0.21) / 0.31;
-		ui->lcdNumber_dropletSize_percentage->display(m_ds_perc);
-
+		if (m_ds_perc < 0) {
+			ui->lcdNumber_dropletSize_percentage->display(NAN);
+		}
+		else {
+			ui->lcdNumber_dropletSize_percentage->display(m_ds_perc);
+		}
+		
 		// calculate flow speed percentage
 		double ponp = 100.0 * m_pipette_status->pon_set_point / m_pr_params->p_on_default;
 

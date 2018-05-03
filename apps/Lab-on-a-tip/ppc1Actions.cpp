@@ -115,7 +115,7 @@ void Labonatip_GUI::newTip()
 }
 
 
-void Labonatip_GUI::runMacro() { //TODO: give it as an argument instead of a class member
+void Labonatip_GUI::runMacro() { 
 
 	cout << QDate::currentDate().toString().toStdString() << "  " 
 		 << QTime::currentTime().toString().toStdString() << "  "
@@ -290,6 +290,11 @@ void Labonatip_GUI::macroFinished(const QString &_result) {
 
 	ui->actionReboot->setEnabled(!m_simulationOnly);
 	ui->actionShudown->setEnabled(!m_simulationOnly);
+
+	updateVrecircSetPoint(-m_ppc1->m_PPC1_data->channel_A->set_point);
+	updateVswitchSetPoint(-m_ppc1->m_PPC1_data->channel_B->set_point);
+	updatePoffSetPoint(m_ppc1->m_PPC1_data->channel_C->set_point);
+	updatePonSetPoint(m_ppc1->m_PPC1_data->channel_D->set_point);
 
 	disconnect(m_macroRunner_thread,
 		&Labonatip_macroRunner::resultReady, this,

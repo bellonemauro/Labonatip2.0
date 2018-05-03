@@ -25,11 +25,11 @@
 // Global definitions
 #define LENGTH_TO_TIP 0.065     // mm
 #define LENGTH_TO_ZONE 0.062    // mm
-#define MIN_ZONE_SIZE_PERC 30   // %
-#define MAX_ZONE_SIZE_PERC 210  // %
-#define MIN_FLOW_SPEED_PERC 60  // %
+#define MIN_ZONE_SIZE_PERC 50   // %
+#define MAX_ZONE_SIZE_PERC 200  // %
+#define MIN_FLOW_SPEED_PERC 50  // %
 #define MAX_FLOW_SPEED_PERC 250 // %
-#define MIN_VACUUM_PERC 10      // %
+#define MIN_VACUUM_PERC 50      // %
 #define MAX_VACUUM_PERC 250     // %
 #define MIN_WARNING_VOLUME 6    // in mL
 #define MAX_VOLUME_IN_WELL 30   // in mL
@@ -229,6 +229,9 @@ struct pr_params {
 				p_off_max(450), p_off_min(0), p_off_default(21),
 				v_switch_max(0), v_switch_min(-300), v_switch_default(-115),
 				v_recirc_max(0), v_recirc_min(-300), v_recirc_default(-115),
+				p_on_preset1(190), p_off_preset1(21), v_switch_preset1(-115), v_recirc_preset1(-115),
+				p_on_preset2(190), p_off_preset2(21), v_switch_preset2(-115), v_recirc_preset2(-115),
+				p_on_preset3(190), p_off_preset3(21), v_switch_preset3(-115), v_recirc_preset3(-115),
 				base_ds_increment(10), base_fs_increment(5), base_v_increment(5),
 		        verboseOut(true), useDefValSetPoint(true), enableFilter(true), filterSize (20)
 	{   // default values
@@ -256,6 +259,18 @@ struct pr_params {
 	int base_ds_increment;       //!< base increment for droplet size in zone control
 	int base_fs_increment;       //!< base increment for flow speed in zone control
 	int base_v_increment;        //!< base increment for vacuum size in zone control
+	int p_on_preset1;            //!< P_on value for the preset 1
+	int p_off_preset1;           //!< P_off value  for the preset 1
+	int v_switch_preset1;        //!< V_switch value for the preset 1
+	int v_recirc_preset1;        //!< V_recirc value for the preset 1
+	int p_on_preset2;            //!< P_on value for the preset 2
+	int p_off_preset2;           //!< P_off value  for the preset 2
+	int v_switch_preset2;        //!< V_switch value for the preset 2
+	int v_recirc_preset2;        //!< V_recirc value for the preset 2
+	int p_on_preset3;            //!< P_on value for the preset 3
+	int p_off_preset3;           //!< P_off value  for the preset 3
+	int v_switch_preset3;        //!< V_switch value for the preset 3
+	int v_recirc_preset3;        //!< V_recirc value for the preset 3
 
 	//this are now here, but maybe I will set a new structure
 	bool verboseOut;             //!< Verbose out on PPC1 api 

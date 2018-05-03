@@ -12,7 +12,7 @@
    viewBox="0 0 84.227133 185.35867"
    version="1.1"
    sodipodi:docname="Solutions.svg"
-   inkscape:version="0.92.1 r15371"
+   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
    width="84.227135"
    height="185.35867"
    inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\solutions.png"
@@ -43,9 +43,9 @@
      inkscape:window-height="1001"
      id="namedview33"
      showgrid="false"
-     inkscape:zoom="4.162808"
-     inkscape:cx="38.362063"
-     inkscape:cy="54.430678"
+     inkscape:zoom="2.9435498"
+     inkscape:cx="-56.982862"
+     inkscape:cy="120.40101"
      inkscape:window-x="-9"
      inkscape:window-y="-9"
      inkscape:window-maximized="1"
@@ -69,7 +69,8 @@
      id="line8"
      inkscape:export-xdpi="180"
      inkscape:export-ydpi="180"
-     style="stroke:#505050;stroke-opacity:1" />
+     style="stroke:#ffffe5;stroke-opacity:1"
+     inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\solutions.png" />
   <line
      x1="47.043564"
      y1="82.740005"
@@ -78,7 +79,8 @@
      id="line10"
      inkscape:export-xdpi="180"
      inkscape:export-ydpi="180"
-     style="stroke:#505050;stroke-opacity:1" />
+     style="stroke:#505050;stroke-opacity:1"
+     inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\solutions.png" />
   <line
      x1="47.043564"
      y1="95.869995"
@@ -87,7 +89,8 @@
      id="line12"
      inkscape:export-xdpi="180"
      inkscape:export-ydpi="180"
-     style="stroke:#505050;stroke-opacity:1" />
+     style="stroke:#505050;stroke-opacity:1"
+     inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\solutions.png" />
   <circle
      class="cls-1"
      cx="51.813568"
@@ -96,7 +99,8 @@
      id="circle14"
      inkscape:export-xdpi="180"
      inkscape:export-ydpi="180"
-     style="fill:none;stroke:#505050;stroke-width:4px;stroke-miterlimit:10;stroke-opacity:1" />
+     style="fill:none;stroke:#ffffff;stroke-width:4px;stroke-miterlimit:10;stroke-opacity:1"
+     inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\solutions.png" />
   <circle
      class="cls-1"
      cx="17.153564"
@@ -105,7 +109,8 @@
      id="circle16"
      inkscape:export-xdpi="180"
      inkscape:export-ydpi="180"
-     style="fill:none;stroke:#505050;stroke-width:4px;stroke-miterlimit:10;stroke-opacity:1" />
+     style="fill:none;stroke:#ffffff;stroke-width:4px;stroke-miterlimit:10;stroke-opacity:1"
+     inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\solutions.png" />
   <circle
      class="cls-1"
      cx="55.71357"
@@ -114,7 +119,8 @@
      id="circle18"
      inkscape:export-xdpi="180"
      inkscape:export-ydpi="180"
-     style="fill:none;stroke:#505050;stroke-width:4px;stroke-miterlimit:10;stroke-opacity:1" />
+     style="fill:none;stroke:#ffffff;stroke-width:4px;stroke-miterlimit:10;stroke-opacity:1"
+     inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\solutions.png" />
   <path
      inkscape:connector-curvature="0"
      class="cls-2"
@@ -122,14 +128,16 @@
      id="path20"
      inkscape:export-xdpi="180"
      inkscape:export-ydpi="180"
-     style="stroke:#505050;stroke-miterlimit:10;stroke-opacity:1;fill:#505050;fill-opacity:1" />
+     style="stroke:#ffffff;stroke-miterlimit:10;stroke-opacity:1;fill:#ffffff;fill-opacity:1"
+     inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\solutions.png" />
   <polyline
      transform="translate(-75.656431,-21.3)"
      points="127.57 129.87 127.57 99.12 130.09 99.12 130.09 94.47 103.38 94.47 103.38 99.12 105.89 99.12 105.89 129.87"
      id="polyline22"
      inkscape:export-xdpi="180"
      inkscape:export-ydpi="180"
-     style="stroke:#505050;stroke-opacity:1;fill:#505050;fill-opacity:1" />
+     style="stroke:#ffffff;stroke-opacity:1;fill:#fffffd;fill-opacity:1"
+     inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\solutions.png" />
   <circle
      class="cls-3"
      cx="47.973564"
@@ -138,7 +146,8 @@
      id="circle24"
      inkscape:export-xdpi="180"
      inkscape:export-ydpi="180"
-     style="fill:#ffffff;stroke:#505050;stroke-opacity:1" />
+     style="fill:#005e74;stroke:#ffffff;stroke-opacity:1;fill-opacity:1"
+     inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\solutions.png" />
   <circle
      class="cls-3"
      cx="56.663574"
@@ -147,7 +156,8 @@
      id="circle26"
      inkscape:export-xdpi="180"
      inkscape:export-ydpi="180"
-     style="fill:#ffffff;stroke:#505050;stroke-opacity:1" />
+     style="fill:#005e74;stroke:#ffffff;stroke-opacity:1;fill-opacity:1"
+     inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\solutions.png" />
   <circle
      class="cls-3"
      cx="24.533569"
@@ -156,5 +166,6 @@
      id="circle28"
      inkscape:export-xdpi="180"
      inkscape:export-ydpi="180"
-     style="fill:#ffffff;stroke:#505050;stroke-opacity:1" />
+     style="fill:#005e74;stroke:#ffffff;stroke-opacity:1;fill-opacity:1"
+     inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\solutions.png" />
 </svg>

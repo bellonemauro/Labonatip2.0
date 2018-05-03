@@ -68,6 +68,8 @@ public:
 
 	void setExtDataUserPath(QString _path) { m_ext_data_path = _path;  }
 
+	void appScaling(int _dpiX, int _dpiY);
+
 	/** \brief This function is called when the down arrow on Pon is called
 	*        it decreases the pressure on Pon, it does not accept out-of-range
 	*
@@ -221,12 +223,6 @@ private slots:
 	*/
 	void pushSolution4();
 
-	/** \brief Set current pressure/vacuum values as 100% default values
-	*
-	* \note
-	*/
-	void setAsDefault();
-
 	/** \brief Increase/reduce the area for the solution depiction
 	*
 	* \note
@@ -272,6 +268,14 @@ private slots:
 	* \note
 	*/
 	void sliderSwitchChanged(int _value);
+
+	void setPreset1();
+	void setPreset2();
+	void setPreset3();
+
+	void resetPreset1();
+	void resetPreset2();
+	void resetPreset3();
 
 	/** \brief This is supposed to be used from the solution release time to
 	  * update the visualization of the circular sliders
@@ -430,14 +434,6 @@ private slots:
 
 	/** \brief Connect and disconnect the PPC1
 	*
-	*   //TODO: add an argument _connect = true to connect, false to disconnect
-	*   //DONE: deprecated ---- remove after testing
-	* \note
-	*/
-	//void disCon();
-
-	/** \brief Connect and disconnect the PPC1
-	*
 	*   \param _connect = true to connect, false to disconnect
 	*
 	* \note
@@ -457,7 +453,7 @@ private slots:
 	*/
 	void shutdown();
 
-	/** \brief Open/close the dock for advaced tools
+	/** \brief Open/close the dock for advanced tools
 	*
 	* \note
 	*/
@@ -515,7 +511,7 @@ private slots:
 
 	/** \brief  Put the device into a standby mode
 	*
-	*       Put the device into a standy mode by running the following commands:
+	*       Put the device into a standby mode by running the following commands:
 	*
 	*       STANDBY MACRO
 	*       allOff()
@@ -554,7 +550,7 @@ private:
 
 	QString generateStyleSheet(const int _r, const int _g, const int _b);
 
-	// save log data, messages from the console ect. 
+	// save log data, messages from the console et.c 
 	void dumpLogs();
 
   /** Increase/reduce the area for the solution depiction
@@ -713,6 +709,9 @@ private:
   QString m_str_operation_cannot_be_done; 
   QString m_str_out_of_bound; 
   QString m_str_user;
+  QString m_str_protocol_running_stop;
+  QString m_str_lost_connection;
+  QString m_str_swapping_to_simulation;
 
   // to visualize the led on the status bar, 
   // I create two different leds and switch between them to create the effect on/off

@@ -123,7 +123,25 @@ public:
 
 	void setDefaultPressuresVacuums(int _p_on_default, int _p_off_default, 
 		                            int _v_recirc_default, int _v_switch_default);
-	
+
+	/** \brief Set values of preset group 1
+	*
+	* \note
+	*/
+	void setPreset1(int _p_on, int _p_off, int _v_switch, int _v_recirc);
+
+	/** \brief Set values of preset group 2
+	*
+	* \note
+	*/
+	void setPreset2(int _p_on, int _p_off, int _v_switch, int _v_recirc);
+
+	/** \brief Set values of preset group 3
+	*
+	* \note
+	*/
+	void setPreset3(int _p_on, int _p_off, int _v_switch, int _v_recirc);
+
 	QString getUserName() { return ui_tools->lineEdit_userName->text(); }
 
 private slots:
@@ -169,33 +187,34 @@ private slots:
 	*
 	* \note
 	*/
-	void setContinuousFow_s1(int _state) {
-		  ui_tools->doubleSpinBox_pulse_sol1->setEnabled(!_state); // TODO !!! this is still not in the setting file
+    void setContinuousFlow_s1(int _state) {
+		  ui_tools->doubleSpinBox_pulse_sol1->setEnabled(!_state); 
 	}
 
 	/** \brief Enable/Disable the timer for an infinite solution flow
 	*
 	* \note
 	*/
-	void setContinuousFow_s2(int _state) {
-		ui_tools->doubleSpinBox_pulse_sol2->setEnabled(!_state); // TODO !!! this is still not in the setting file
+    void setContinuousFlow_s2(int _state) {
+		ui_tools->doubleSpinBox_pulse_sol2->setEnabled(!_state); 
 	}
 
 	/** \brief Enable/Disable the timer for an infinite solution flow
 	*
 	* \note
 	*/
-	void setContinuousFow_s3(int _state) {
-		ui_tools->doubleSpinBox_pulse_sol3->setEnabled(!_state); // TODO !!! this is still not in the setting file
+    void setContinuousFlow_s3(int _state) {
+		ui_tools->doubleSpinBox_pulse_sol3->setEnabled(!_state); 
 	}
 
 	/** \brief Enable/Disable the timer for an infinite solution flow
 	*
 	* \note
 	*/
-	void setContinuousFow_s4(int _state) {
-		ui_tools->doubleSpinBox_pulse_sol4->setEnabled(!_state); // TODO !!! this is still not in the setting file
+    void setContinuousFlow_s4(int _state) {
+		ui_tools->doubleSpinBox_pulse_sol4->setEnabled(!_state); 
 	}
+
 	/** emit ok signal, save the setting, send the current macro to the main
 	*   and close the window
 	* \note
@@ -267,7 +286,13 @@ private:
 
 	uint32_t giveRainbowColor(float _position);
 
-	int calculateFolderSize(const QString _wantedDirPath);
+    /** \brief Check the size of the history and ask to clean it if necessary
+    *
+    * \note
+    */
+    void checkHistory ();
+
+    int calculateFolderSize(const QString _wantedDirPath);
 
 	QString m_setting_file_name;
 

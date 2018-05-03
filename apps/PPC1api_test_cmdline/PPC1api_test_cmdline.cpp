@@ -42,13 +42,11 @@ void print_usage()
 void enumerate_ports()
 {
 	vector<serial::PortInfo> devices_found = serial::list_ports();
-
 	vector<serial::PortInfo>::iterator iter = devices_found.begin();
 
 	while (iter != devices_found.end())
 	{
 		serial::PortInfo device = *iter++;
-
 		printf("(%s, %s, %s)\n", device.port.c_str(), device.description.c_str(),
 			device.hardware_id.c_str());
 	}
@@ -61,7 +59,6 @@ int	main (int argc, char** argv)
 		<< " Fluicell Framework - demo for the PPC1 serial communication \n"
 		<< " the test will read 1000 lines from the PPC1 and visualize them \n as strings in the command line "
 		<< " \n "
-		<< " Copyright 2017\n"
 		<< " Authors -  Mauro Bellone\n\n\n" << endl;
 
 	fluicell::PPC1api *my_ppc1 = new fluicell::PPC1api();
@@ -93,10 +90,9 @@ int	main (int argc, char** argv)
     sscanf(argv[2], "%lu", &baudRate);
 
     {
-        
-
 		my_ppc1->setCOMport(COMport);
 		my_ppc1->setBaudRate(baudRate);
+		my_ppc1->setVerbose(true);
 		if (!my_ppc1->connectCOM()) {
 
 			cout << " cannot connect to Fluicell PPC1 -- press enter to exit " << endl;
@@ -105,27 +101,38 @@ int	main (int argc, char** argv)
 		}
 
 		my_ppc1->run();
+		std::this_thread::sleep_for(std::chrono::milliseconds(500));
 		
-		
-		//string id = my_ppc1->getDeviceID();
-		//cout << " device id is " << id << "\n\n press enter to exit " << endl;
-
+		if (my_ppc1->isRunning()) {
+			cout << " PPC1 running ready for test \n press enter to continue " << endl;
+		}
+		else
+		{
+			cout << " PPC1 not running reboot the device and try again \n press enter to exit " << endl;
+			return 0;
+		}
 		cin.get();
+
+		// for some reason everything works but getDeviceID()
+		cout << " Getting device id ... " <<  endl;
+		string id = my_ppc1->getDeviceID();
+		cout << " device id is " << id << "\n\n press enter to continue " << endl;
 		
+
 		// try to just read from the data in the threaded class
 		int count = 0;
-		while (count < 10000) {
-			//my_ppc1->readData();
+		while (count < 20) {
+			
 			cout << " data on channel A " << my_ppc1->m_PPC1_data->channel_A->sensor_reading << endl;
 			cout << " data on channel B " << my_ppc1->m_PPC1_data->channel_B->sensor_reading << endl;
 			cout << " data on channel C " << my_ppc1->m_PPC1_data->channel_C->sensor_reading << endl;
 			cout << " data on channel D " << my_ppc1->m_PPC1_data->channel_D->sensor_reading << endl;
 			count++;
 			
-			std::this_thread::sleep_for(std::chrono::microseconds(1000000));
+			std::this_thread::sleep_for(std::chrono::milliseconds(100));
 
 			if (my_ppc1->isExceptionHappened()) {
-				cout << " Exception has been catched, implement safe exit" << endl;
+				cout << " Exception has been caught, implement safe exit" << endl;
 				cin.get();
 				break;
 			}
@@ -134,13 +141,13 @@ int	main (int argc, char** argv)
 		// try to send a command and read the result : channel A
         std::this_thread::sleep_for(std::chrono::microseconds(2000000));
 
-		for (int i = 0; i < 100; i++)
+		for (int i = 0; i < 200; i++)
 		{
 			cout << " data on channel A : set point = " << my_ppc1->m_PPC1_data->channel_A->set_point 
 				 << " sensor reading = " <<  my_ppc1->m_PPC1_data->channel_A->sensor_reading << endl;
-			my_ppc1->setVacuumChannelA(-(float)i/10);
+			my_ppc1->setVacuumChannelA(-(float)i);
 		}
-		my_ppc1->setVacuumChannelA(-0.0);
+		my_ppc1->setVacuumChannelA(-100.0);
         std::this_thread::sleep_for(std::chrono::microseconds(1000000));
 
 		// try to send a command and read the result : channel B
@@ -211,6 +218,7 @@ int	main (int argc, char** argv)
         std::this_thread::sleep_for(std::chrono::microseconds(100000));
 		my_ppc1->disconnectCOM();
 
+		std::cout << "\n >>> TEST finished, press ok to exit  <<< \n\n" << std::endl;
 		cin.get();
 	}
 	

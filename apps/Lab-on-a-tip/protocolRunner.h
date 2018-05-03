@@ -45,6 +45,8 @@ public:
 
 	void askOkEvent(bool _ask_ok) { m_ask_ok = _ask_ok; }
 
+	int getTimeLeftForStep() { return m_time_left_for_step; }
+
 // interactions between protocol runner and main GUI is done using signals
 signals:
 	void resultReady(const QString &_s);                //!< emit a string when the result is ready
@@ -53,12 +55,22 @@ signals:
 	void timeStatus(const double &_time);               //!< send the time status
 
 private: 
+	
+	void initCustomStrings();
 
 	fluicell::PPC1api *m_ppc1;                            //!< pointer to the device to run the protocol 
 	std::vector<fluicell::PPC1api::command> *m_protocol;  //!< protocol to run
 	bool m_simulation_only;                               //!< true if simulation, false use the PPC1
 	bool m_threadTerminationHandler;                      //!< true to terminate the macro
-	bool m_ask_ok;                                        //!< false when a message dialg is out, true to continue
+	bool m_ask_ok;                                        //!< false when a message dialog is out, true to continue
+	int m_time_left_for_step;                             //!< time left for the current step
+
+    // custom strings for translations
+	QString m_str_success;
+	QString m_str_failed;
+	QString m_str_stopped;
+	QString m_str_not_connected;
+
 };
 
 #endif /* Labonatip_macroRunner_H_ */

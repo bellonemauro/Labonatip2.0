@@ -38,10 +38,6 @@ fluicell::PPC1api::PPC1api() :
 	// set default values for pressures and vacuums
 	setDefaultPV();
 	
-	// set default pipe lengths
-	m_pipe_length2tip = 0.065; 
-	m_pipe_length2zone = 0.062;
-
 	// set default filter values
 	m_filter_enabled = false;
 	m_filter_size = 20;
@@ -135,7 +131,7 @@ bool fluicell::PPC1api::decodeDataLine(const string &_data, PPC1_data *_PPC1_dat
 	{
 		cerr << currentDateTime()
 			<< " fluicell::PPC1api::decodeDataLine ::: "
-			<< " Error in decoding line - _PPC1_data not initalized " 
+			<< " Error in decoding line - _PPC1_data not initialized " 
 			<< endl;
 		return false;
 	}
@@ -202,7 +198,7 @@ bool fluicell::PPC1api::decodeDataLine(const string &_data, PPC1_data *_PPC1_dat
 	}
 
 	if (_data.at(0) == 'i') {
-		//cout << " line tipe i " << _data << endl;
+		//cout << " line type i " << _data << endl;
 		// string format:  i0|j0|k0|l0
 		// char index   :  0123456789
 		int value = toDigit(_data.at(1));  
@@ -252,7 +248,7 @@ bool fluicell::PPC1api::decodeDataLine(const string &_data, PPC1_data *_PPC1_dat
 	}
 
 	if (_data.at(0) == 'I') {
-		//cout << " line tipe I " << _data << endl;
+		//cout << " line type I " << _data << endl;
 		// string format: IN1|OUT1 or IN0|OUT0
 		// char index:    01234567
 		int value = toDigit(_data.at(2));
@@ -326,26 +322,26 @@ void fluicell::PPC1api::updateFlows(const PPC1_data &_PPC1_data, PPC1_status &_P
 	// calculate inflow
 	double delta_pressure = 100.0 * (-_PPC1_data.channel_A->sensor_reading);//   v_r;
 
-	_PPC1_status.inflow_recirculation = 2.0 * this->getFlowSimple(delta_pressure, m_pipe_length2tip);
+	_PPC1_status.inflow_recirculation = 2.0 * this->getFlowSimple(delta_pressure, LENGTH_TO_TIP);
 
 	delta_pressure = 100.0 * (-_PPC1_data.channel_A->sensor_reading +
-		2.0 * _PPC1_data.channel_C->sensor_reading * ( 1 - m_pipe_length2tip / m_pipe_length2zone) ); 
-	_PPC1_status.inflow_switch = 2.0 * this->getFlowSimple(delta_pressure, m_pipe_length2tip);
+		2.0 * _PPC1_data.channel_C->sensor_reading * ( 1 - LENGTH_TO_TIP / LENGTH_TO_ZONE) );
+	_PPC1_status.inflow_switch = 2.0 * this->getFlowSimple(delta_pressure, LENGTH_TO_TIP);
 
 	delta_pressure = 100.0 * 2.0 * _PPC1_data.channel_C->sensor_reading;
-	_PPC1_status.solution_usage_off = this->getFlowSimple(delta_pressure, 2.0 * m_pipe_length2zone);
+	_PPC1_status.solution_usage_off = this->getFlowSimple(delta_pressure, 2.0 * LENGTH_TO_ZONE);
 
 	delta_pressure = 100.0 * _PPC1_data.channel_D->sensor_reading;
-	_PPC1_status.solution_usage_on = this->getFlowSimple(delta_pressure, m_pipe_length2tip);
+	_PPC1_status.solution_usage_on = this->getFlowSimple(delta_pressure, LENGTH_TO_TIP);
 
 	delta_pressure = 100.0 * (_PPC1_data.channel_D->sensor_reading +
 		(_PPC1_data.channel_C->sensor_reading * 3.0) -
 		(-_PPC1_data.channel_B->sensor_reading * 2.0));
-	_PPC1_status.outflow_on = this->getFlowSimple(delta_pressure, m_pipe_length2tip);
+	_PPC1_status.outflow_on = this->getFlowSimple(delta_pressure, LENGTH_TO_TIP);
 
 	delta_pressure = 100.0 * ((_PPC1_data.channel_C->sensor_reading * 4.0) -
 		(-_PPC1_data.channel_B->sensor_reading * 2.0));
-	_PPC1_status.outflow_off = 2.0 * this->getFlowSimple(delta_pressure, 2.0 * m_pipe_length2zone);
+	_PPC1_status.outflow_off = 2.0 * this->getFlowSimple(delta_pressure, 2.0 * LENGTH_TO_ZONE);
 
 	_PPC1_status.in_out_ratio_on = _PPC1_status.outflow_on / _PPC1_status.inflow_recirculation;
 	_PPC1_status.in_out_ratio_off = _PPC1_status.outflow_off / _PPC1_status.inflow_recirculation;
@@ -391,6 +387,7 @@ void fluicell::PPC1api::updateFlows(const PPC1_data &_PPC1_data, PPC1_status &_P
 bool fluicell::PPC1api::connectCOM()
 {
 	try {
+
 		m_PPC1_serial->setPort(m_COMport);
 		m_PPC1_serial->setBaudrate(m_baud_rate);
 		m_PPC1_serial->setFlowcontrol(serial::flowcontrol_none);
@@ -475,8 +472,11 @@ bool fluicell::PPC1api::connectCOM()
 
 void fluicell::PPC1api::disconnectCOM()
 {
-	if (m_PPC1_serial->isOpen())
+	if (m_PPC1_serial->isOpen()) {
 		m_PPC1_serial->close();
+		std::this_thread::sleep_for(std::chrono::microseconds(100));
+		m_excep_handler = false;
+	}
 }
 
 void fluicell::PPC1api::pumpingOff()
@@ -732,13 +732,11 @@ bool fluicell::PPC1api::setRuntimeTimeout(const int _value)
 bool fluicell::PPC1api::setDropletSize(double _percentage)
 {
 	double percentage = _percentage / 100.0;
-	
+
+	// the droplet size is actually the cubic root of the display value	
 	double value = m_default_v_recirc + (m_default_v_recirc * (2.0 -
 		std::pow(percentage, (1.0 / 3.0))) - m_default_v_recirc);
 	
-
-	// the droplet size is actually the cubic root of the display value
-
 	if (m_verbose) cout << currentDateTime()
 		<< " fluicell::PPC1api::setDropletSize " << percentage
 		<< " new recirculation value << " << value << " >> "
@@ -784,62 +782,33 @@ bool fluicell::PPC1api::changeDropletSizeBy(double _percentage)
 {	
 	double percentage = this->getDropletSize() + _percentage;
 	return setDropletSize(percentage);
-
-
-	/*   // This is deprecated - TODO remove
-	
-	double value = m_PPC1_data->channel_A->set_point + (m_default_v_recirc * (2.0 -
-	std::pow(percentage, (1.0 / 3.0))) - m_default_v_recirc);
-
-
-	// the droplet size is actually the cubic root of the display value
-
-	if (m_verbose) cout << currentDateTime()
-	<< " fluicell::PPC1api::setDropletSize " << percentage
-	<< " new recirculation value << " << value << " >> "
-	<< " m_default_v_recirc " << m_default_v_recirc << endl;
-
-	if (value <= MIN_CHAN_A || value >= MAX_CHAN_A) {
-	cerr << currentDateTime()
-	<< " fluicell::setDropletSize -- recirculation value out of bound " << endl;
-	return false; // out of bound
-	}
-
-	if (!setVacuumChannelA(value)) {
-	return false;
-	}
-	std::this_thread::sleep_for(std::chrono::microseconds(10000)); // wait 10msec
-
-	value = m_PPC1_data->channel_D->set_point + (m_default_pon * (
-	std::pow(percentage, (1.0 / 3.0))) - m_default_pon);
-
-	// the droplet size is actually the cubic root of the display value
-
-	if (m_verbose) cout << currentDateTime()
-	<< "fluicell::PPC1api::setDropletSize " << percentage
-	<< " new pon value << " << value << " >> "
-	<< " m_default_pon " << m_default_pon << endl;
-
-	if (value <= MIN_CHAN_D || value >= MAX_CHAN_D) {
-	cerr << currentDateTime()
-	<< " fluicell::setDropletSize -- pressure value out of bound " << endl;
-	return false; // out of bound
-	}
-
-	if (!setPressureChannelD(value)) {
-	return false;
-	}
-	std::this_thread::sleep_for(std::chrono::microseconds(10000)); // wait 10msec
-	return true;
-	
-	*/
-
 }
 
 double fluicell::PPC1api::getDropletSize()
 {
+	double in_out_ratio_on = 0;
 
-	double ds = 100.0 *(m_PPC1_status->in_out_ratio_on + 0.21) / 0.31;
+	bool use_sensor_reading = false;
+	if (use_sensor_reading) {
+		in_out_ratio_on = m_PPC1_status->in_out_ratio_on;
+	}
+	else
+	{
+		// calculate the outflow_on based on set value instead of the sensor reading
+		double outflow_on;
+		double delta_pressure = 100.0 * (m_PPC1_data->channel_D->set_point +
+			(m_PPC1_data->channel_C->set_point * 3.0) -
+			(-m_PPC1_data->channel_B->set_point * 2.0));
+	    outflow_on = this->getFlowSimple(delta_pressure, LENGTH_TO_TIP);
+
+		// calculate inflow_recirculation based on set value instead of the sensor reading
+		double inflow_recirculation;
+		delta_pressure = 100.0 * (-m_PPC1_data->channel_A->set_point);//   v_r;
+		inflow_recirculation = 2.0 * this->getFlowSimple(delta_pressure, LENGTH_TO_TIP);
+		
+		in_out_ratio_on = outflow_on / inflow_recirculation;
+	}
+	double ds = 100.0 *(in_out_ratio_on + 0.21) / 0.31;
 	return ds;// mean_percentage;
 }
 
@@ -929,87 +898,29 @@ bool fluicell::PPC1api::changeFlowspeedBy(const double _percentage)
 
 	double percentage = this->getFlowSpeed() + _percentage;
 	return setFlowspeed(percentage);
-
-
-		/*
-	double percentage = _percentage / 100.0;
-	double value = m_PPC1_data->channel_A->set_point + m_default_v_recirc * percentage;  // new recirc value
-
-	if (m_verbose) cout << currentDateTime()
-		<< "fluicell::PPC1api::changeFlowspeedBy"
-		<< " new recirculation value << " << value << " >> " << endl;
-
-	if (value <= MIN_CHAN_A || value >= MAX_CHAN_A) {
-		cerr << currentDateTime()
-			<< " fluicell::setFlowspeed -- recirculation value out of bound " << endl;
-		return false; // out of bound
-	}
-
-	if (value == 0 || !setVacuumChannelA(value)) { // reduce A by _percentage%
-		return false;
-	}
-	std::this_thread::sleep_for(std::chrono::microseconds(10000)); // wait 10msec
-
-	value = m_PPC1_data->channel_B->set_point + m_default_v_switch * percentage;  // new switch value
-
-	if (m_verbose) cout << currentDateTime()
-		<< "fluicell::PPC1api::changeFlowspeedBy"
-		<< " new switch value << " << value << " >> " << endl;
-
-	if (value <= MIN_CHAN_B || value >= MAX_CHAN_B) {
-		cerr << currentDateTime()
-			<< " fluicell::setFlowspeed -- switch value out of bound " << endl;
-		return false; // out of bound
-	}
-
-	if (value == 0 || !setVacuumChannelB(value)) { // increase B by _percentage%
-		return false;
-	}
-	std::this_thread::sleep_for(std::chrono::microseconds(10000)); // wait 10msec
-
-	value = m_PPC1_data->channel_C->set_point + m_default_poff * percentage;  // new pressure poff value
-
-	if (m_verbose) cout << currentDateTime()
-		<< "fluicell::PPC1api::changeFlowspeedBy"
-		<< " new poff value << " << value << " >> " << endl;
-
-	if (value <= MIN_CHAN_C || value >= MAX_CHAN_C) {
-		cerr << currentDateTime()
-			<< " fluicell::setFlowspeed -- pressure off value out of bound " << endl;
-		return false; // out of bound
-	}
-
-	if (value == 0 || !setPressureChannelC(value)) { // increase C by _percentage%
-		return false;
-	}
-	std::this_thread::sleep_for(std::chrono::microseconds(10000)); // wait 10msec
-
-	value = m_PPC1_data->channel_D->set_point + m_default_pon * percentage;  // new pressure pon value
-
-	if (m_verbose) cout << currentDateTime()
-		<< "fluicell::PPC1api::changeFlowspeedBy"
-		<< " new pon value << " << value << " >> " << endl;
-
-	if (value <= MIN_CHAN_D || value >= MAX_CHAN_D) {
-		cerr << currentDateTime()
-			<< " fluicell::setFlowspeed -- pressure on value out of bound " << endl;
-		return false; // out of bound
-	}
-
-	if (value == 0 || !setPressureChannelD(value)) { // increase D by _percentage%
-		return false;
-	}
-	std::this_thread::sleep_for(std::chrono::microseconds(10000)); // wait 10msec
-
-	return true;*/
 }
 
 double fluicell::PPC1api::getFlowSpeed()
 {
-	double p1 = std::abs(100.0 * m_PPC1_data->channel_A->sensor_reading / m_default_v_recirc);
-	double p2 = std::abs(100.0 * m_PPC1_data->channel_B->sensor_reading / m_default_v_switch);
-	double p3 = std::abs(100.0 * m_PPC1_data->channel_C->sensor_reading / m_default_poff);
-	double p4 = std::abs(100.0 * m_PPC1_data->channel_D->sensor_reading / m_default_pon);
+	bool use_sensor_reading = false;
+	double p1 = 0;
+	double p2 = 0;
+	double p3 = 0;
+	double p4 = 0;
+	if (use_sensor_reading) {
+
+		p1 = std::abs(100.0 * m_PPC1_data->channel_A->sensor_reading / m_default_v_recirc);
+		p2 = std::abs(100.0 * m_PPC1_data->channel_B->sensor_reading / m_default_v_switch);
+		p3 = std::abs(100.0 * m_PPC1_data->channel_C->sensor_reading / m_default_poff);
+		p4 = std::abs(100.0 * m_PPC1_data->channel_D->sensor_reading / m_default_pon);
+	}
+	else
+	{
+		p1 = std::abs(100.0 * m_PPC1_data->channel_A->set_point / m_default_v_recirc);
+		p2 = std::abs(100.0 * m_PPC1_data->channel_B->set_point / m_default_v_switch);
+		p3 = std::abs(100.0 * m_PPC1_data->channel_C->set_point / m_default_poff);
+		p4 = std::abs(100.0 * m_PPC1_data->channel_D->set_point / m_default_pon);
+	}
 	double mean_percentage = (p1 + p2 + p3 + p4) / 4.0; // average 4 values
 	return mean_percentage;
 }
@@ -1046,9 +957,16 @@ bool fluicell::PPC1api::changeVacuumPercentageBy(const double _percentage)
 
 double fluicell::PPC1api::getVacuum()
 {
-	double value_A = m_PPC1_data->channel_A->sensor_reading;
-	double p1 = std::abs(100.0 * value_A / m_default_v_recirc);
+	bool use_sensor_reading = false;
+	double value_A = 0;
+	if (use_sensor_reading) {
+		value_A = m_PPC1_data->channel_A->sensor_reading;
+	}
+	else {
+		value_A = m_PPC1_data->channel_A->set_point;
+	}
 
+	double p1 = std::abs(100.0 * value_A / m_default_v_recirc);
 	return p1;
 }
 
@@ -1065,9 +983,15 @@ double fluicell::PPC1api::getFlow(double _square_channel_mod,
 	return flow;
 }
 
-bool fluicell::PPC1api::run(command _cmd)
+bool fluicell::PPC1api::runCommand(command _cmd)
 {
-	//TODO: here there is no check of validity for the commands
+	if (!_cmd.checkValidity())  {
+		cerr << currentDateTime()
+			<< " fluicell::PPC1api::run(command _cmd) ::: check validity failed "
+			<< endl; 
+		return false;
+	}
+
 	if (m_verbose) cout << currentDateTime()
 		<< "fluicell::PPC1api::run(command _cmd)" 
 		<< " ::: running the command " << _cmd.getCommandAsString()
@@ -1080,29 +1004,25 @@ bool fluicell::PPC1api::run(command _cmd)
 		cout << currentDateTime()
 			<< " fluicell::PPC1api::run(command _cmd) ::: setPon  " 
 			<< _cmd.getValue() << endl;
-		setPressureChannelD(_cmd.getValue());
-		break;
+		return setPressureChannelD(_cmd.getValue());
 	}
 	case 1: {//setPoff
 		cout << currentDateTime()
 			<< " fluicell::PPC1api::run(command _cmd) ::: setPoff  " 
 			<< _cmd.getValue() << endl;
-		setPressureChannelC(_cmd.getValue());
-		break;
+		return setPressureChannelC(_cmd.getValue());
 	}
 	case 2: {//setVswitch
 		cout << currentDateTime()
 			<< " fluicell::PPC1api::run(command _cmd) ::: setVswitch  " 
 			<< _cmd.getValue() << endl;
-		setVacuumChannelA(_cmd.getValue());
-		break;
+		return setVacuumChannelA(_cmd.getValue());
 	}
 	case 3: {//setVrecirc
 		cout << currentDateTime()
 			<< " fluicell::PPC1api::run(command _cmd) ::: setVrecirc  " 
 			<< _cmd.getValue() << endl;
-		setVacuumChannelB(_cmd.getValue());
-		break;
+		return setVacuumChannelB(_cmd.getValue());
 	}
 	case 4: {//solution1
 		cout << currentDateTime()
@@ -1112,8 +1032,7 @@ bool fluicell::PPC1api::run(command _cmd)
 		bool valve_status;
 		if (v == 0)valve_status = false;
 		else valve_status = true;
-		setValve_l(valve_status);
-		break;
+		return setValve_l(valve_status);
 	}
 	case 5: {//solution2
 		cout << currentDateTime()
@@ -1123,8 +1042,7 @@ bool fluicell::PPC1api::run(command _cmd)
 		bool valve_status;
 		if (v == 0)valve_status = false;
 		else valve_status = true;
-		setValve_k(valve_status);
-		break;
+		return setValve_k(valve_status);
 	}
 	case 6: {//solution3
 		cout << currentDateTime()
@@ -1134,8 +1052,7 @@ bool fluicell::PPC1api::run(command _cmd)
 		bool valve_status;
 		if (v == 0 )valve_status = false;
 		else valve_status = true;
-		setValve_j(valve_status);
-		break;
+		return setValve_j(valve_status);
 	}
 	case 7: {//solution4
 		cout << currentDateTime()
@@ -1145,101 +1062,87 @@ bool fluicell::PPC1api::run(command _cmd)
 		bool valve_status;
 		if (v == 0)valve_status = false;
 		else valve_status = true; 
-		setValve_i(valve_status);
-		break;
+		return setValve_i(valve_status);
 	}
 	case 8: {//sleep
 		cout << currentDateTime()
 			<< " fluicell::PPC1api::run(command _cmd) ::: sleep  "
 			<< _cmd.getValue() << endl;
 		std::this_thread::sleep_for(std::chrono::seconds(static_cast<int>(_cmd.getValue())));
-		break;
+		return true;
 	}
 	case 9: {//ask_msg
 		cout << currentDateTime()
 			<< " fluicell::PPC1api::run(command _cmd) ::: ask_msg NOT implemented in the API " << endl;
-
-		break;
+		return true;
 	}
 	case 10: {//allOff	
 		cout << currentDateTime()
 			<< " fluicell::PPC1api::run(command _cmd) ::: allOff  " << endl;
-		closeAllValves(); 
-		break;
+		return closeAllValves(); 
 	}
 	case 11: {//pumpsOff
 		cout << currentDateTime()
 			<< " fluicell::PPC1api::run(command _cmd) ::: pumpsOff  " << endl;
 		pumpingOff();
-		break;
+		return true;
 	}
-	//case 12: {//setValveState   // TODO: this is deprecated
-	//	cout << currentDateTime()
-	//		<< " fluicell::PPC1api::run(command _cmd) ::: setValveState  "
-	//		<< _cmd.getValue() << endl;
-	//	setValvesState(static_cast<int>(_cmd.getValue()));
-	//	break;
-	//}
-	case 12: {//waitSync
-			  //waitsync(front type : can be : RISE or FALL), macro stops until triger signal is received
+	case 12: {//waitSync //TODO
+			  //waitsync(front type : can be : RISE or FALL), macro stops until trigger signal is received
 		bool state = static_cast<bool>(_cmd.getValue());
 		cout << currentDateTime()
-			<< " fluicell::PPC1api::run(command _cmd) ::: waitSync NOT implemented in the API ::: test value = " << state << endl;
-		setTTLstate(state);
-		break;
+            << " fluicell::PPC1api::run(command _cmd) ::: waitSync NOT implemented in the API ::: test value = "
+            << state << endl;
+		return setTTLstate(state);
 	}
-	case 13: {//syncOut
-			  //syncout(int: pulse length in ms) if negative then default state is 1 and pulse is 0, if positive, then pulse is 1 and default is 0
+	case 13: {//syncOut //TODO
+              //syncout(int: pulse length in ms) if negative then default state is 1
+              //and pulse is 0, if positive, then pulse is 1 and default is 0
 		int v = static_cast<int>(_cmd.getValue());
 		cout << currentDateTime()
 			 << " fluicell::PPC1api::run(command _cmd) ::: "
 			 << "syncOut NOT implemented in the API ::: test value = " 
 			 << v << endl;
-		setPulsePeriod(v);
+		bool success = setPulsePeriod(v);
 		std::this_thread::sleep_for(std::chrono::milliseconds(20));
 		while (!m_PPC1_data->ppc1_OUT)
 		{
 			std::this_thread::sleep_for(std::chrono::milliseconds(1));
 		}
-		break;
+		return success;
 	}
 	case 14: {//dropletSize
 		cout << currentDateTime()
 			<< " fluicell::PPC1api::run(command _cmd) ::: dropletSize  NOT entirely implemented in the API" 
 			<< _cmd.getValue() << endl;
-		setDropletSize(_cmd.getValue()); // TODO this command will now not work as it is
-		break;
+		return setDropletSize(_cmd.getValue()); 
 	}
 	case 15: {//flowSpeed
 		cout << currentDateTime()
 			<< " fluicell::PPC1api::run(command _cmd) ::: flowSpeed  NOT entirely implemented in the API" 
 			<< _cmd.getValue() << endl;
-		setFlowspeed(_cmd.getValue()); // TODO this command will now not work as it is
-		break;
+		return setFlowspeed(_cmd.getValue()); 
 	}
 	case 16: {//vacuum
 		cout << currentDateTime()
 			<< " fluicell::PPC1api::run(command _cmd) ::: vacuum  " 
 			<< _cmd.getValue() << endl;
-		setVacuumPercentage(_cmd.getValue());
-		break;
+		return setVacuumPercentage(_cmd.getValue());
 	}
 	case 17: {//loop
 		cout << currentDateTime()
 			 << " fluicell::PPC1api::run(command _cmd) ::: loop NOT implemented in the API "
 			 << endl;
 		
-		break;
+		return true;
 	}
 	default:{
 		cerr << currentDateTime()
 			 << " fluicell::PPC1api::run(command _cmd) ::: Command NOT recognized " 
 			 << endl;
-		break;
+		return false;
 	}
 	}
-
-
 	return false;
 }
 
@@ -1328,30 +1231,51 @@ string fluicell::PPC1api::getDeviceID()
 	}
 
 	// stop the stream to be able to get the value
-	setDataStreamPeriod(0);
+	if (!setDataStreamPeriod(0))
+	{
+		cerr << currentDateTime()
+			<< " fluicell::PPC1api::setDataStreamPeriod ::: "
+			<< " cannot set the data stream period to 0"
+			<< endl;
+	}
 
 	// send the character to get the device serial number
-	sendData("#\n");
+	sendData("#\n"); // this character is not properly sent maybe a serial lib bug?
 	std::this_thread::sleep_for(std::chrono::microseconds(50000));
 
 	readData(serialNumber);
-	//if(m_verbose) cout << " fluicell::PPC1api::getDeviceID :::  the serial number is : " 
-	//<< serialNumber << endl;
+	
+	if(m_verbose)
+		cout << " fluicell::PPC1api::getDeviceID :::  the serial number is : " 
+			 << serialNumber << endl;
+	
 	std::this_thread::sleep_for(std::chrono::microseconds(50000));
 
 	// restore the data stream to the default value
 	setDataStreamPeriod(200);// (m_dataStreamPeriod);
 	std::this_thread::sleep_for(std::chrono::microseconds(50000));
-	//if(m_verbose) cout << " fluicell::PPC1api::getDeviceID :::  set data stream to : " 
-	//<< m_dataStreamPeriod << endl;
+
+	if(m_verbose) 
+		cout << " fluicell::PPC1api::getDeviceID :::  set data stream to : " 
+			 << m_dataStreamPeriod << endl;
 
 	return serialNumber;
+}
+
+void fluicell::PPC1api::setFilterEnabled(bool _enable)
+{
+	if (m_verbose) cout << currentDateTime()
+		<< " fluicell::PPC1api::setFilterEnabled << " 
+		<< _enable << " >> " << endl;
+	m_filter_enabled = _enable;
+
+	m_PPC1_data->enableFilter(_enable);
 }
 
 void fluicell::PPC1api::setFilterSize(int _size)
 {
 	if (m_verbose) cout << currentDateTime()
-		<< "fluicell::PPC1api::setFilterSize"
+        << " fluicell::PPC1api::setFilterSize"
 		<< " new filter size value << " << _size << " >> " << endl;
 	 m_PPC1_data->setFilterSize(_size); 
 }
@@ -1361,7 +1285,7 @@ bool fluicell::PPC1api::sendData(const string &_data) {
 	if (m_PPC1_serial->isOpen()) {
 		if(m_verbose) 
 			cout << currentDateTime() 
-			     << "fluicell::PPC1api::sendData" 
+			     << " fluicell::PPC1api::sendData" 
 			     << " sending the string << " 
 			     << _data << " >> " << endl;
 

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.0"
+   width="60"
+   height="60"
+   viewBox="0 0 45 45"
+   preserveAspectRatio="xMidYMid meet"
+   id="svg2"
+   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
+   sodipodi:docname="tools_off.svg"
+   inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\tools.png"
+   inkscape:export-xdpi="300"
+   inkscape:export-ydpi="300">
+  <defs
+     id="defs14" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="2400"
+     inkscape:window-height="1271"
+     id="namedview12"
+     showgrid="false"
+     inkscape:zoom="8.5784264"
+     inkscape:cx="-34.965757"
+     inkscape:cy="25.293369"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g4147"
+     inkscape:snap-bbox="true"
+     inkscape:bbox-paths="true"
+     inkscape:snap-bbox-edge-midpoints="true"
+     inkscape:bbox-nodes="true"
+     inkscape:snap-bbox-midpoints="true"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     units="px" />
+  <metadata
+     id="metadata4">
+Created by potrace 1.14, written by Peter Selinger 2001-2017
+<rdf:RDF>
+  <cc:Work
+     rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type
+       rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+    <dc:title></dc:title>
+  </cc:Work>
+</rdf:RDF>
+</metadata>
+  <g
+     transform="matrix(0.1,0,0,-0.1,-49.326702,91.19898)"
+     id="g6"
+     style="fill:#000000;stroke:none">
+    <g
+       style="fill:#000000;stroke:none"
+       id="g4147"
+       transform="matrix(0.08806119,0,0,0.08806119,493.00946,461.99006)"
+       inkscape:export-filename="C:\code\Fluicell\apps\Lab-on-a-tip\icons\tools.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300">
+      <path
+         inkscape:connector-curvature="0"
+         style="fill:#28869c;fill-opacity:1"
+         id="path8"
+         d="m 1480,4813.1315 c -267,-129 -488,-235 -492,-237 -3,-2 9,-136 28,-298 18,-162 34,-308 34,-325 0,-22 -21,-56 -79,-130 l -80,-101 -316,-34 c -173,-19 -319,-37 -324,-40 -7,-4 -253,-1062 -248,-1066 11,-6 543,-337 545,-339 2,-2 17,-60 33,-130 l 29,-127 -22,-37 c -12,-20 -89,-141 -170,-270 -81,-128 -148,-237 -148,-242 0,-9 664,-845.00001 677,-852.00001 5,-2 139,42 298,99 160,57 299,103 311,103 12,1 71,-23 131,-53 l 110,-54 27,-74 c 46,-129 186,-531.000001 186,-535.000001 0,-1 248,-3 550,-3 303,0 550,1 550,3 0,4 175,507.000001 196,565.000001 15,40 22,46 125,97 60,30 117,55 127,55 15,0 472,-156 585,-199 27,-10 29,-8 367,414.00001 187,234 340,429 340,433 0,5 -72,123 -161,263 -88,140 -165,262 -170,271 -12,21 43,268 62,279 8,4 131,81 274,171 164,103 259,169 258,178 -7,53 -238,1046 -244,1050 -5,3 -151,21 -325,40 l -316,34 -82,104 -81,104 36,322 c 21,176 34,322 31,324 -4,2 -225,108 -492,237 l -485,233 -230,-229 -230,-229 h -135 -135 l -230,229 -230,230 z m 600,-430 185,-185 h 295 295 l 185,185 c 146,147 189,185 206,181 11,-3 121,-54 245,-114 l 225,-109 -22,-194 c -13,-107 -26,-226 -30,-266 l -7,-72 183,-228 182,-228 266,-30 266,-30 58,-255 c 32,-140 56,-260 54,-266 -2,-6 -104,-73 -225,-148 -122,-76 -221,-140 -221,-141 0,-2 -29,-130 -65,-285 -35,-156 -62,-288 -58,-294 3,-6 66,-106 140,-222 73,-116 133,-215 133,-219 0,-11 -320,-409 -332,-414 -5,-2 -121,36 -257,83 l -247,87 -265,-129 -266,-129.00001 -36,-104 c -19,-57 -59,-170 -87,-252 l -52,-147 h -268 -268 l -52,147 c -28,82 -68,195 -87,252 l -36,104 -266,129.00001 -265,129 -247,-87 c -136,-47 -252,-84 -258,-83 -5,2 -83,96 -172,208 -162,202 -163,204 -148,230 9,14 73,116 143,227 l 126,200 -44,190 c -24,104 -54,233 -66,286 l -21,97 -221,137 c -121,76 -222,142 -224,148 -2,6 22,126 54,266 l 58,255 266,30 266,30 183,229 183,228 -30,265 -30,266 230,112 c 127,62 238,114 246,114 8,1 98,-82 200,-184 z"
+         inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\tools_off.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300" />
+      <path
+         inkscape:connector-curvature="0"
+         style="fill:#28869c;fill-opacity:1;stroke:none;stroke-opacity:1"
+         id="path10"
+         d="m 2415,3497.1315 c -204,-29 -418,-140 -562,-293 -115,-121 -201,-273 -245,-433 -29,-105 -31,-362 -5,-467 74,-293 269,-533 539,-661 144,-68 243,-89 418,-89 117,0 162,4 234,22 215,54 419,189 553,366 60,79 137,240 165,341 32,119 32,365 0,485 -29,108 -106,266 -170,350 -215,284 -572,430 -927,379 z m 310,-305 c 33,-8 98,-33 145,-56 163,-79 307,-256 356,-438 23,-87 23,-253 0,-339 -52,-194 -176,-347 -357,-441 -99,-51 -190,-73 -309,-73 -114,0 -206,21 -297,67 -188,94 -316,249 -369,446 -23,87 -23,253 0,340 61,225 239,412 464,485 102,33 252,37 367,9 z"
+         inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\tools_off.png"
+         inkscape:export-xdpi="300"
+         inkscape:export-ydpi="300" />
+    </g>
+  </g>
+</svg>

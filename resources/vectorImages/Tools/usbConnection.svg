@@ -14,7 +14,7 @@
    viewBox="0 0 179.77899 180.00033"
    version="1.1"
    id="svg8"
-   inkscape:version="0.92.1 r15371"
+   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
    sodipodi:docname="usbConnection.svg"
    inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\Communication.png"
    inkscape:export-xdpi="180"
@@ -28,11 +28,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.49497475"
-     inkscape:cx="-154.54183"
-     inkscape:cy="134.08216"
+     inkscape:zoom="0.7"
+     inkscape:cx="142.94206"
+     inkscape:cy="330.30282"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="g4627"
      showgrid="false"
      inkscape:snap-bbox="true"
      inkscape:bbox-paths="true"
@@ -40,9 +40,9 @@
      inkscape:bbox-nodes="true"
      inkscape:snap-bbox-midpoints="true"
      inkscape:window-width="1920"
-     inkscape:window-height="1017"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
+     inkscape:window-height="1001"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
      inkscape:window-maximized="1"
      fit-margin-top="0"
      fit-margin-left="0"
@@ -56,7 +56,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -77,19 +77,28 @@
          height="29.720114"
          width="49.720116"
          id="rect4485"
-         style="fill:#505050;fill-opacity:1;stroke:none;stroke-width:0.27988708;stroke-opacity:1" />
+         style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.27988708;stroke-opacity:1"
+         inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\Communication.png"
+         inkscape:export-xdpi="180"
+         inkscape:export-ydpi="180" />
       <path
          sodipodi:nodetypes="ccccc"
          inkscape:connector-curvature="0"
          id="path4532"
          d="M 97.352768,59.763302 120,68 v 13.215 l -22.647232,8.268414 z"
-         style="fill:#505050;fill-opacity:1;stroke:none;stroke-width:0.63552994px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+         style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.63552994px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\Communication.png"
+         inkscape:export-xdpi="180"
+         inkscape:export-ydpi="180" />
       <g
          transform="translate(0.71836143,0.34582806)"
          id="g4570"
-         style="fill:#505050;fill-opacity:1">
+         style="fill:#ffffff;fill-opacity:1"
+         inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\Communication.png"
+         inkscape:export-xdpi="180"
+         inkscape:export-ydpi="180">
         <rect
-           style="fill:#505050;fill-opacity:1;stroke:none;stroke-width:0.26457512;stroke-opacity:1"
+           style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.26457512;stroke-opacity:1"
            id="rect4551"
            width="7"
            height="10"
@@ -97,7 +106,7 @@
            y="62.954613"
            ry="0" />
         <rect
-           style="fill:#505050;fill-opacity:1;stroke:none;stroke-width:0.26457512;stroke-opacity:1"
+           style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.26457512;stroke-opacity:1"
            id="rect4551-8"
            width="7"
            height="10"
@@ -110,18 +119,24 @@
          inkscape:connector-curvature="0"
          id="path4572"
          d="M 44.989937,60.757855 H 21.17145 v 27.731008 h 23.818835"
-         style="fill:none;stroke:#505050;stroke-width:1.99167895;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+         style="fill:none;stroke:#ffffff;stroke-width:1.99167895;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\Communication.png"
+         inkscape:export-xdpi="180"
+         inkscape:export-ydpi="180" />
     </g>
     <g
        id="g4612"
-       transform="matrix(-0.93505176,0,0,1.170159,298.34385,40.317349)">
+       transform="matrix(-0.93505176,0,0,1.170159,298.34385,40.317349)"
+       inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\Communication.png"
+       inkscape:export-xdpi="180"
+       inkscape:export-ydpi="180">
       <g
          transform="translate(96.562103,53.767112)"
          id="g4570-2" />
       <g
          id="g4619">
         <rect
-           style="fill:#505050;fill-opacity:1;stroke:none;stroke-width:0.27988708;stroke-opacity:1"
+           style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.27988708;stroke-opacity:1"
            id="rect4485-4"
            width="49.720116"
            height="29.720114"
@@ -131,7 +146,7 @@
            inkscape:export-xdpi="180"
            inkscape:export-ydpi="180" />
         <path
-           style="fill:#505050;fill-opacity:1;stroke:none;stroke-width:0.63552999px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+           style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.63552999px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
            d="m 193.19651,113.18459 22.64723,8.23669 v 13.215 l -22.64723,8.26842 z"
            id="path4532-8"
            inkscape:connector-curvature="0"
@@ -146,13 +161,13 @@
            height="15"
            width="10"
            id="rect4551-4"
-           style="fill:#505050;fill-opacity:1;stroke:none;stroke-width:0.38729835;stroke-opacity:1"
+           style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.38729835;stroke-opacity:1"
            transform="translate(96.562102,53.767112)"
            inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\Communication.png"
            inkscape:export-xdpi="180"
            inkscape:export-ydpi="180" />
         <path
-           style="fill:none;stroke:#505050;stroke-width:1.99167895;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           style="fill:none;stroke:#ffffff;stroke-width:1.99167895;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
            d="m 140.83368,114.17914 h -23.81849 v 27.73101 h 23.81884"
            id="path4572-5"
            inkscape:connector-curvature="0"
@@ -163,7 +178,7 @@
       </g>
     </g>
     <path
-       style="fill:none;stroke:#505050;stroke-width:8.36816502;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;stroke:#ffffff;stroke-width:8.36816502;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 92.112056,45.140769 c 0,0 68.716954,-9.651253 67.688284,35.320693 -1.40658,61.493758 -122.250038,4.764785 -125.426858,72.548938 -0.117656,28.19666 31.240132,35.85871 41.664591,36.25494 20.572777,0.782 36.579717,0.88459 36.579717,0.88459"
        id="path4629"
        inkscape:connector-curvature="0"

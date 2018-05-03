@@ -58,14 +58,14 @@ bool initPaths(Labonatip_GUI &_l, QString &_protocols_user_path,
 	home_path.append("/Documents/Labonatip2/");
 	QDir home_dir;
 	if (!home_dir.exists(home_path)) {
-		cerr << "Labonatip directory does not exists in the home folder .... creating it" << endl;
+        cerr << " Labonatip directory does not exists in the home folder .... creating it" << endl;
 		home_dir.mkpath(home_path);
-		cout << "directory " << 
-			home_path.toStdString() << " now exists" << endl;
+        cout << " Created directory " <<
+            home_path.toStdString() << endl;
 	}
 	else {
-		cout << "directory " << 
-			home_path.toStdString() << " already exists" << endl;
+        cout << " Found directory " <<
+            home_path.toStdString() << endl;
 	}
 
 	// check if the protocol directory exists in the program files path, 
@@ -82,8 +82,8 @@ bool initPaths(Labonatip_GUI &_l, QString &_protocols_user_path,
 		return false;
 	}
 	else {
-		cout << "directory " << 
-			protocols_path.toStdString() << " exists" << endl;
+        cout << " Found directory " <<
+            protocols_path.toStdString() << endl;
 	}
 
 	// check if the settings directory exists in the program files path, 
@@ -99,8 +99,8 @@ bool initPaths(Labonatip_GUI &_l, QString &_protocols_user_path,
 		return false;
 	}
 	else {
-		cout << "directory " << 
-			settings_path.toStdString() << " exists" << endl;
+        cout << " Found directory " <<
+            settings_path.toStdString() << endl;
 	}
 
 	// check if the ext_data directory exists in the program files path, 
@@ -116,8 +116,8 @@ bool initPaths(Labonatip_GUI &_l, QString &_protocols_user_path,
 		return false;
 	}
 	else {
-		cout << "directory " <<
-			ext_data_path.toStdString() << " exists" << endl;
+        cout << " Found directory " <<
+            ext_data_path.toStdString() << endl;
 	}
 
 	// here we set the macro path in the user folder 
@@ -223,31 +223,54 @@ int main(int argc, char **argv)//(int argc, char *argv[])
 	string version;
 #ifdef LABONATIP_VERSION
 	version = VER;
-	cout << " Running Lab-on-a-tip version "
-		 << version << endl;
+    cout << "\n Running Lab-on-a-tip version "
+         << version << "\n"<< endl;
 #endif
 	try {
 
-	  QApplication a (argc, argv);
+        QApplication a (argc, argv);
+        // there is a problem with high dpi displays
+        a.setAttribute(Qt::AA_EnableHighDpiScaling);
+		
+		Labonatip_GUI window;
 
-	  // TODO: there is a problem with high dpi displays
-	  a.setAttribute(Qt::AA_DisableHighDpiScaling);
-	  
-	  Labonatip_GUI window;
+		// check for high DPI screens
+		int logical_dpi_x = QApplication::desktop()->logicalDpiX();
+		int logical_dpi_y = QApplication::desktop()->logicalDpiY();
+		int physical_dpi_x = QApplication::desktop()->physicalDpiX();
+		int physical_dpi_y = QApplication::desktop()->physicalDpiY();
 
-	  QString protocols_user_path;
-	  QString settings_user_path;
-	  QString ext_data_user_path;
+		cout << " Labonatip_GUI::main ::: " 
+			<< " logical_dpi_x " << logical_dpi_x
+			<< " logical_dpi_y " << logical_dpi_y
+			<< " physical_dpi_x " << physical_dpi_x
+			<< " physical_dpi_y " << physical_dpi_y << endl;
 
-//TODO: this does not work under ubuntu
+		if (logical_dpi_x > 150) {
+			QString ss = "Your display DPI is out of bound for the correct visualization of Labonatip\n";
+			ss.append("You can continue, but you will probably get bad visualization \n\n");
+			ss.append("To properly visualize Labonatip, try to reduce the resolution and scaling of your screen");
+			QMessageBox::warning(&window, "ERROR", ss);
+
+			window.appScaling(logical_dpi_x, logical_dpi_y);
+		}
+        
+
+        // set internal application paths
+        QString protocols_user_path;
+        QString settings_user_path;
+        QString ext_data_user_path;
+
 #ifdef _DEBUG
-	  initPaths(window, protocols_user_path, 
-		  settings_user_path, ext_data_user_path);
+        cout << " Running with debug settings " << endl;
+        initPaths(window, protocols_user_path,
+            settings_user_path, ext_data_user_path);
 #else
-      if (!initPaths(window, protocols_user_path, 
-		  settings_user_path, ext_data_user_path)) return 0;
+        if (!initPaths(window, protocols_user_path,
+            settings_user_path, ext_data_user_path)) return 0;
 #endif
-	  // set default paths for settings and protocols in the GUI app
+
+      // set default paths for settings and protocols in the GUI app
 	  window.setProtocolUserPath(protocols_user_path);
 	  cout << " Set protocols_user_path " 
 		  << protocols_user_path.toStdString() << endl;
@@ -263,7 +286,7 @@ int main(int argc, char **argv)//(int argc, char *argv[])
 	  window.setVersion(version);
 #endif
 
-	  // show the slashscreen
+	  // show the slash screen
 	  QSplashScreen s;
 	  s.setPixmap(QPixmap(":/icons/splash_screen.png"));
 	  s.show();
@@ -287,11 +310,13 @@ int main(int argc, char **argv)//(int argc, char *argv[])
   catch (std::exception &e) {
 	  cerr << " Labonatip_GUI::main ::: Unhandled Exception: " 
 		   << e.what() << endl;
-	  // TODO: clean up here, e.g. save the session
+	  // clean up here, e.g. save the session, save the current protocol
 	  // and close all config files.
-	  cout << " Something really bad just happend, press ok to exit " 
+	  cout << " Something really bad just happened, press ok to exit " 
 		   << endl;
+#ifndef HIDE_TERMINAL
 	  cin.get();
+#endif
 	  return 0; // exit the application
   }
 

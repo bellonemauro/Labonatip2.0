@@ -135,23 +135,6 @@ namespace fluicell
 	class PPC1API_EXPORT PPC1api : public PPC1_data, public PPC1_status, public serialDeviceInfo, public command
 	{
 
-	// define class constants for ranges in vacuum and pressures
-	#define MIN_CHAN_A -300.0 //!< in mbar
-	#define MAX_CHAN_A -0.0 //!< in mbar
-	#define MIN_CHAN_B -300.0 //!< in mbar
-	#define MAX_CHAN_B -0.0 //!< in mbar
-	#define MIN_CHAN_C 0.0 //!< in mbar
-	#define MAX_CHAN_C 450.0 //!< in mbar
-	#define MIN_CHAN_D 0.0 //!< in mbar
-	#define MAX_CHAN_D 450.0 //!< in mbar
-	#define MIN_STREAM_PERIOD 0 //!< in msec
-	#define MAX_STREAM_PERIOD 500 //!< in msec
-	#define MIN_PULSE_PERIOD 20 //!< in msec
-
-	#define PPC1_VID "16D0"  //!< device vendor ID
-	#define PPC1_PID "083A"  //!< device product ID
-
-
 	public:
 	
 		/** \brief Constructor, initialize objects and parameters using default values
@@ -292,12 +275,6 @@ namespace fluicell
 		double m_default_poff;             //!< in mbar  -- default value   21.0 mbar
 		double m_default_v_recirc;         //!< in mbar (negative value!)  -- default value 115 mbar
 		double m_default_v_switch;         //!< in mbar (negative value!)  -- default value 115 mbar
-		double m_pipe_length2tip;          /*!< length of the pipe to the tip, this value is used  
-								                for the calculation of the flow using the Poiseuille equation
-												see function getFlow() -- default value 0.065 m; */
-		double m_pipe_length2zone;         /*!< length of the pipe to the zone, this value is used 
-								                for the calculation of the flow using the Poiseuille equation 
-												see function getFlow() -- default value 0.124 m;*/
 		
 		int m_dataStreamPeriod;             //!< data stream for the PPC1
 		bool m_verbose;                     //!< verbose output when active
@@ -373,7 +350,7 @@ namespace fluicell
 
 		/**  \brief Send a reboot character to the device
 		  *
-		  *  \note - Known issue: weird behaviour in disconnect/connect
+		  *  \note - Known issue: weird behavior in disconnect/connect
 		  **/
 		void reboot();
 
@@ -567,7 +544,7 @@ namespace fluicell
 		**/
 		bool setDropletSize(double _percentage = 100.0);
 
-		/** \brief Change the droplet size by a specific amound + or - 
+		/** \brief Change the droplet size by a specific amount + or - 
 		*
 		*  Change the droplet size by adding a specific _percentage with respect to the default values
 		*  of vacuum and pressures.
@@ -641,7 +618,7 @@ namespace fluicell
 
 		/** \brief Change the vacuum by _percentage
 		*
-		*  Positive / negative values will increase descrease the percentage
+		*  Positive / negative values will increase decrease the percentage
 		*
 		*  new recirculation value on Channel A = m_default_v_recirc * percentage
 		*
@@ -712,7 +689,7 @@ namespace fluicell
 
 		/** \brief Run a command for the PPC1
 		*
-		*  This funciton runs commands on the PPC1, it implements an simple interpreter
+		*  This function runs commands on the PPC1, it implements an simple interpreter
 		*  for the enumerator in <command>.
 		*  The field <value> will also be interpreted to run the command. 
 		*  The commands "loop", "ask message" and "status message" are not implemented in API
@@ -723,7 +700,7 @@ namespace fluicell
 		*  @param  _cmd is a command, see <command> structure
 		*
 		**/
-		bool run(command _cmd);
+		bool runCommand(command _cmd);
 
 		/**  \brief Set the data stream period on the serial port
 		  *
@@ -734,42 +711,50 @@ namespace fluicell
 		  *  period is 100ms, and the minimum is 25ms.
 		  *  Example "u200\n" sets the data stream period to 200ms
 		  *
+		  *  @param  _value in msec, default value = 200
+		  * 
 		  *  \return  true if success, false for any error
-		  *
 		  **/
-		bool setDataStreamPeriod(const int _value = 200); //in msec
+		bool setDataStreamPeriod(const int _value = 200); 
 
 		/** \brief Allow to set the COM port name
 		*
-		*  \param  _COMport COM1, COM2, COM_n
+		*  @param  _COMport COM1, COM2, COMn
 		*
-		*  \note -  there is no actual check on the string, TODO too weak implement!
+		*  \note -  there is no actual check on the string, but it will out an error if the serial cannot connect
 		**/
 		void setCOMport(string _COMport = "COM1") { m_COMport = _COMport; }
 
 		/** \brief Allow to set the baudRate for the specified com port
 		*
-		*  \param  _baud_rate 9600 19200 115200
+		*   Possible baudrates depends on the system but some safe baudrates include:
+        *   110, 300, 600, 1200, 2400, 4800, 9600, 14400, 19200, 28800, 38400, 56000,
+        *   57600, 115200
 		*
-		*  \note -  there is no actual check on the number, TODO too weak implement!
+        *   Some other baudrates that are supported by some comports:
+        *   128000, 153600, 230400, 256000, 460800, 921600
+        *
+		*  @param  _baud_rate default value 115200 baud/s
+		*
+		*  \note -  there is no actual check on the number
 		**/
 		void setBaudRate(int _baud_rate = 115200) { m_baud_rate = _baud_rate; }
 
 		/** \brief Set verbose output
 		*
-		*   cout will be printed only if verbose is true, whereas cerr will always
+		*   api messages will be printed only if verbose is true, 
+		*   whereas api error messages will always be printed
 		*
-		*  \param  _baud_rate 9600 19200 115200
-		*
+		*  @param  _verbose true or false
 		**/
 		void setVerbose(bool _verbose = false) { m_verbose = _verbose; }
 
 		/** \brief Reset the default values of pressures and vacuum to 100 droplet size
 		*
-		*  \param  m_default_pon  default value of pressures 
-		*  \param  m_default_poff  default value of pressures 
-		*  \param  m_default_v_recirc  default value of vacuum 
-		*  \param  m_default_v_switch  default value of vacuum 
+		*  @param  m_default_pon  default value of pressures 
+		*  @param  m_default_poff  default value of pressures 
+		*  @param  m_default_v_recirc  default value of vacuum 
+		*  @param  m_default_v_switch  default value of vacuum 
 		*
 		*  \return true if success, false for out of range values
 		*
@@ -789,26 +774,25 @@ namespace fluicell
 		  * in range 1-6, where: 1-on pressure, 2-off pressure, 3-switch vacuum,
 		  * 4-recirculation vacuum, 5-valves, 6-synchronization
 		  *
+		  * \return the device ID as a string
 		  **/
 		string getDeviceID();
-
-
 
 		/**  \brief is filter enabled
 		*
 		* Check for the filter to be enabled
 		*
 		* \return return true if the data filtering is enabled
-		*
 		**/
 		bool isFilterEnabled() { return m_filter_enabled; }
 
-		/**  \brief is filter enabled
+		/**  \brief Enable or disable the filter
 		*
-		* Allows the user to activate and deactivate the filter
+		* Allows the user to activate and deactivate the data filtering
 		*
-		**/
-		void setFilterEnabled(bool _enable) { m_filter_enabled = _enable; }
+		* @param  _enable  true or false
+		*/
+		void setFilterEnabled(bool _enable);
 
 		/**  \brief Get filter size
 		*
@@ -816,7 +800,6 @@ namespace fluicell
 		* which is defined in the window size of the filter
 		*
 		* \return return true if the data filtering is enabled
-		*
 		**/
 		int getFilterSize() { return m_filter_size; }
 
@@ -827,7 +810,7 @@ namespace fluicell
 		* which is defined in the window size of the filter. This allows the user 
 		* to reset the window size of the filter.
 		*
-		*
+		* @param  _size  new size value 
 		**/
 		void setFilterSize(int _size);
 
@@ -844,7 +827,7 @@ namespace fluicell
 		**/
 		bool isRunning() { return m_isRunning; }
 
-		/** \brief Check if an exception has been catched
+		/** \brief Check if an exception has been caught
 		*
 		*  \return true if exception
 		**/
@@ -855,8 +838,6 @@ namespace fluicell
 		PPC1api::PPC1_status *m_PPC1_status;/*!< data structure member exposed to be used by the user,
 									 maybe this will be changed in the future */
 		
-
-
 		//     "pX" is sent to make pulse output, where X is integer number equal or larger than 20 indicating the pulse length in milliseconds
 		//     "P" or "R" are use wait pulse input, either falling or rising front
    };

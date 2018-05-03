@@ -17,7 +17,8 @@ void Labonatip_GUI::updatePonSetPoint(double _pon_set_point)
 	m_pipette_status->pon_set_point = _pon_set_point;
 	cout << QDate::currentDate().toString().toStdString() << "  " 
 		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::updatePonSetPoint   ::::  value  =  " << _pon_set_point << endl;
+		 << "Labonatip_GUI::updatePonSetPoint   :::: set value  =  " << _pon_set_point 
+		 << " sensor value = " << m_ppc1->channel_D->sensor_reading << endl;
 
 	ui->label_PonPressure->setText(QString(QString::number(int(_pon_set_point)) + " mbar"));
 
@@ -45,7 +46,8 @@ void Labonatip_GUI::updatePoffSetPoint(double _poff_set_point)
 	m_pipette_status->poff_set_point = _poff_set_point;
 	cout << QDate::currentDate().toString().toStdString() << "  " 
 		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::updatePoffSetPoint   ::::  value  =  " << _poff_set_point << endl;
+		 << "Labonatip_GUI::updatePoffSetPoint   :::: set value  =  " << _poff_set_point
+		  << " sensor value = " << m_ppc1->channel_C->sensor_reading << endl;
 
 	ui->label_PoffPressure->setText(QString(QString::number(int(_poff_set_point)) + " mbar"));
 
@@ -73,7 +75,9 @@ void Labonatip_GUI::updateVrecircSetPoint(double _v_recirc_set_point)
 	m_pipette_status->v_recirc_set_point = _v_recirc_set_point;
 	cout << QDate::currentDate().toString().toStdString() << "  " 
 		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::updateVrecircSetPoint   ::::  value  =  " << _v_recirc_set_point << endl;
+		 << "Labonatip_GUI::updateVrecircSetPoint   :::: set value  =  " << _v_recirc_set_point
+		 << " sensor value = " << m_ppc1->channel_A->sensor_reading << endl;
+
 	ui->label_recircPressure->setText(QString(QString::number(-int(_v_recirc_set_point)) + " mbar"));
 
 	// if the pipette is active we send the set point to the device
@@ -100,7 +104,9 @@ void Labonatip_GUI::updateVswitchSetPoint(double _v_switch_set_point)
 	m_pipette_status->v_switch_set_point = _v_switch_set_point;
 	cout << QDate::currentDate().toString().toStdString() << "  " 
 		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::updateVswitchSetPoint   ::::  value  =  " << _v_switch_set_point << endl;
+		 << "Labonatip_GUI::updateVswitchSetPoint   :::: set value  =  " << _v_switch_set_point
+		 << " sensor value = " << m_ppc1->channel_B->sensor_reading << endl;
+
 	ui->label_switchPressure->setText(QString(QString::number(-int(_v_switch_set_point)) + " mbar"));
 
 	// if the pipette is active we send the set point to the device
@@ -267,4 +273,50 @@ void Labonatip_GUI::sliderSwitchChanged(int _value) {
 		return;
 	}
 	ui->progressBar_ledSwitch->setValue(m_ppc1->m_PPC1_data->channel_B->state);
+}
+
+void Labonatip_GUI::setPreset1() {
+
+	updatePonSetPoint(m_pr_params->p_on_preset1);
+	updatePoffSetPoint(m_pr_params->p_off_preset1);
+	updateVswitchSetPoint(-m_pr_params->v_switch_preset1);
+	updateVrecircSetPoint(-m_pr_params->v_recirc_preset1);
+}
+
+void Labonatip_GUI::setPreset2() {
+	updatePonSetPoint(m_pr_params->p_on_preset2);
+	updatePoffSetPoint(m_pr_params->p_off_preset2);
+	updateVswitchSetPoint(-m_pr_params->v_switch_preset2);
+	updateVrecircSetPoint(-m_pr_params->v_recirc_preset2);
+}
+
+void Labonatip_GUI::setPreset3() {
+	updatePonSetPoint(m_pr_params->p_on_preset3);
+	updatePoffSetPoint(m_pr_params->p_off_preset3);
+	updateVswitchSetPoint(-m_pr_params->v_switch_preset3);
+	updateVrecircSetPoint(-m_pr_params->v_recirc_preset3);
+}
+
+void Labonatip_GUI::resetPreset1() {
+	m_dialog_tools->setPreset1(ui->horizontalSlider_p_on->value(),
+		ui->horizontalSlider_p_off->value(),
+		-ui->horizontalSlider_switch->value(),
+		-ui->horizontalSlider_recirculation->value());
+	*m_pr_params = m_dialog_tools->getPr_params();
+}
+
+void Labonatip_GUI::resetPreset2() {
+	m_dialog_tools->setPreset2(ui->horizontalSlider_p_on->value(),
+		ui->horizontalSlider_p_off->value(), 
+		-ui->horizontalSlider_switch->value(),
+		-ui->horizontalSlider_recirculation->value());
+	*m_pr_params = m_dialog_tools->getPr_params();
+}
+
+void Labonatip_GUI::resetPreset3() {
+	m_dialog_tools->setPreset3(ui->horizontalSlider_p_on->value(),
+		ui->horizontalSlider_p_off->value(),
+		-ui->horizontalSlider_switch->value(),
+		-ui->horizontalSlider_recirculation->value());
+	*m_pr_params = m_dialog_tools->getPr_params();
 }

@@ -82,7 +82,7 @@ void Labonatip_GUI::colSolution4Changed(const int _r, const int _g, const int _b
 	m_labonatip_chart_view->setSolutionColor4(m_sol4_color);
 }
 
-void Labonatip_GUI::pushSolution1() //TODO: if the solution is checked in simulation mode and we switch to connection mode, solution must go off
+void Labonatip_GUI::pushSolution1() 
 {
 	cout << QDate::currentDate().toString().toStdString() << "  "
 		<< QTime::currentTime().toString().toStdString() << "  "
@@ -490,7 +490,7 @@ void Labonatip_GUI::updateTimingSliders()
 		m_time_multipilcator = (int)solution_release_time;
 		double rest = solution_release_time - m_time_multipilcator;
 		QThread::msleep(rest * 1000);
-		// TODO: here we wait the remaing time for the last digit
+		// TODO: here we wait the remaining time for the last digit
 		//       however, this is a shitty solution and it must be
 		//       changed to a proper timer and interrupt architecture
 

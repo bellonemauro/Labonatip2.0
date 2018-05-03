@@ -122,25 +122,28 @@ elseif(  BUILD_QT5)
 	cmake_policy(SET CMP0020 NEW)
 	
 	# Find the QtWidgets library ---- really weird way of find libraries ---TODO solve this ! 
-	find_package( Qt5Widgets REQUIRED )
-	find_package( Qt5Core REQUIRED )
-	find_package( Qt5Gui REQUIRED ) 
-#	find_package( Qt5OpenGL REQUIRED )
-	find_package( Qt5Charts REQUIRED )
-	find_package (Qt5Concurrent REQUIRED)
-	find_package (Qt5LinguistTools REQUIRED)
-
-	if ( ENABLE_verbose )
-		message (STATUS "${PROJECT_NAME} MESSAGE: QT5_BINARY_DIR ---- ${QT5_BINARY_DIR}")
-		message (STATUS "${PROJECT_NAME} MESSAGE: QT5_LIBRARIES_DIR ---- ${QT5_LIBRARIES_DIR}")
-		message (STATUS "${PROJECT_NAME} MESSAGE: Qt5Widgets ---- ${Qt5Widgets_LIBRARIES}")
-		message (STATUS "${PROJECT_NAME} MESSAGE: Qt5Charts ---- ${Qt5Charts_LIBRARIES}")
-	endif ( ENABLE_verbose )
-	if (NOT QT5_LIBRARIES_DIR)
-                message(WARNING "${PROJECT_NAME} MESSAGE: QT5_LIBRARIES_DIR not found --- set namually")
+	find_package(Qt5 COMPONENTS Core Widgets Gui Charts Concurrent LinguistTools REQUIRED)
+	
+	# set the policy for the automoc generation, only for cmake >3.10
+	# see https://cmake.org/cmake/help/git-stage/policy/CMP0071.html
+	if(${CMAKE_VERSION} VERSION_GREATER "3.10.0") 
+		cmake_policy(SET CMP0071 NEW)
 	endif()
-	link_directories(${QT_LIBRARY_DIR})
-	link_directories(${QT5_LIBRARIES_DIR})
+
+	#TODO: this is fine for now but it is not the best solution, this _qt_bin_dir should be the right variable for binaries
+	SET (QT5_BINARY_DIR ${_qt5_install_prefix}/../../bin/ CACHE PATH "Qt5 binary folder" )
+		
+	if ( ENABLE_verbose )
+		
+		message (STATUS "${PROJECT_NAME} MESSAGE: _qt5_install_prefix ---- ${_qt5_install_prefix}")
+		message (STATUS "${PROJECT_NAME} MESSAGE: _qt5_bin_dir ---- ${_qt5_bin_dir}")
+		
+		message (STATUS "${PROJECT_NAME} MESSAGE: QT5_BINARY_DIR ---- ${QT5_BINARY_DIR}")
+	endif ( ENABLE_verbose )
+	if (NOT QT5_BINARY_DIR)
+        message(WARNING "${PROJECT_NAME} MESSAGE: QT5_BINARY_DIR not found --- set namually")
+	endif()
+
 
 	# Instruct CMake to run moc automatically when needed.
 	set(CMAKE_AUTOMOC ON)

@@ -30,25 +30,13 @@ Labonatip_tools::Labonatip_tools(QWidget *parent ):
 	ui_tools->actionGeneral->setChecked(true);
 	ui_tools->stackedWidget->setCurrentIndex(0);
 
+    // check serial settings
 	ui_tools->comboBox_serialInfo->clear();
+
 	connect(ui_tools->comboBox_serialInfo,
 		static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this,
 		&Labonatip_tools::showPortInfo);
 
-//	connect(ui_tools->comboBox_language,
-//		static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this,
-//		&Labonatip_tools::languageChanged);
-
-
-//	connect(ui_tools->comboBox_toolButtonStyle,
-//		static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this,
-//		&Labonatip_tools::toolButtonStyleChanged);
-
-	connect(ui_tools->checkBox_enableToolTips,
-		SIGNAL(stateChanged(int)), this, SLOT(enableToolTip(int))); 
-
-	connect(ui_tools->checkBox_enablePPC1filter,
-		SIGNAL(stateChanged(int)), this, SLOT(enablePPC1filtering()));
 
 	// enumerate connected com ports
 	enumerate();
@@ -99,24 +87,30 @@ Labonatip_tools::Labonatip_tools(QWidget *parent ):
 
 	connect(ui_tools->checkBox_disableTimer_s1,
 		SIGNAL(stateChanged(int)), this,
-		SLOT(setContinuousFow_s1(int))); 
+        SLOT(setContinuousFlow_s1(int)));
 
 	connect(ui_tools->checkBox_disableTimer_s2,
 		SIGNAL(stateChanged(int)), this,
-		SLOT(setContinuousFow_s2(int)));
+        SLOT(setContinuousFlow_s2(int)));
 
 	connect(ui_tools->checkBox_disableTimer_s3,
 		SIGNAL(stateChanged(int)), this,
-		SLOT(setContinuousFow_s3(int)));
+        SLOT(setContinuousFlow_s3(int)));
 
 	connect(ui_tools->checkBox_disableTimer_s4,
 		SIGNAL(stateChanged(int)), this,
-		SLOT(setContinuousFow_s4(int)));
+        SLOT(setContinuousFlow_s4(int)));
 
 	connect(ui_tools->pushButton_toDefault,
 		SIGNAL(clicked()), this, SLOT(resetToDefaultValues()));
 
-	// connect tool window events Ok, Cancel, Apply
+    connect(ui_tools->checkBox_enableToolTips,
+        SIGNAL(stateChanged(int)), this, SLOT(enableToolTip(int)));
+
+    connect(ui_tools->checkBox_enablePPC1filter,
+        SIGNAL(stateChanged(int)), this, SLOT(enablePPC1filtering()));
+
+    // connect tool window events Ok, Cancel, Apply
 	connect(ui_tools->buttonBox->button(QDialogButtonBox::Ok), 
 		SIGNAL(clicked()), this, SLOT(okPressed()));
 
@@ -137,6 +131,7 @@ void Labonatip_tools::goToPage1()
 	ui_tools->stackedWidget->setCurrentIndex(0);
 
 }
+
 void Labonatip_tools::goToPage2()
 {
 	ui_tools->actionGeneral->setChecked(false);
@@ -145,6 +140,7 @@ void Labonatip_tools::goToPage2()
 	ui_tools->actionCommunication->setChecked(false);
 	ui_tools->stackedWidget->setCurrentIndex(1);
 }
+
 void Labonatip_tools::goToPage3()
 {
 	ui_tools->actionGeneral->setChecked(false);
@@ -153,6 +149,7 @@ void Labonatip_tools::goToPage3()
 	ui_tools->actionCommunication->setChecked(false);
 	ui_tools->stackedWidget->setCurrentIndex(2);
 }
+
 void Labonatip_tools::goToPage4()
 {
 	ui_tools->actionGeneral->setChecked(false);
@@ -162,6 +159,53 @@ void Labonatip_tools::goToPage4()
 	ui_tools->stackedWidget->setCurrentIndex(3);
 }
 
+void Labonatip_tools::setPreset1(int _p_on, int _p_off, int _v_switch, int _v_recirc)
+{
+		m_pr_params->p_on_preset1 = _p_on;
+		m_pr_params->p_off_preset1 = _p_off;
+		m_pr_params->v_switch_preset1 = _v_switch;
+		m_pr_params->v_recirc_preset1 = _v_recirc;
+
+		ui_tools->spinBox_p_on_preset1->setValue(_p_on);
+		ui_tools->spinBox_p_off_preset1->setValue(_p_off);
+		ui_tools->spinBox_v_switch_preset1->setValue(_v_switch);
+		ui_tools->spinBox_v_recirc_preset1->setValue(_v_recirc);
+
+		saveSettings(m_setting_file_name);
+
+}
+
+void Labonatip_tools::setPreset2(int _p_on, int _p_off, int _v_switch, int _v_recirc)
+{
+	m_pr_params->p_on_preset2 = _p_on;
+	m_pr_params->p_off_preset2 = _p_off;
+	m_pr_params->v_switch_preset2 = _v_switch;
+	m_pr_params->v_recirc_preset2 = _v_recirc;
+
+	ui_tools->spinBox_p_on_preset2->setValue(_p_on);
+	ui_tools->spinBox_p_off_preset2->setValue(_p_off);
+	ui_tools->spinBox_v_switch_preset2->setValue(_v_switch);
+	ui_tools->spinBox_v_recirc_preset2->setValue(_v_recirc);
+
+	saveSettings(m_setting_file_name);
+}
+
+void Labonatip_tools::setPreset3(int _p_on, int _p_off, int _v_switch, int _v_recirc)
+{
+	m_pr_params->p_on_preset3 = _p_on;
+	m_pr_params->p_off_preset3 = _p_off;
+	m_pr_params->v_switch_preset3 = _v_switch;
+	m_pr_params->v_recirc_preset3 = _v_recirc;
+
+	ui_tools->spinBox_p_on_preset3->setValue(_p_on);
+	ui_tools->spinBox_p_off_preset3->setValue(_p_off);
+	ui_tools->spinBox_v_switch_preset3->setValue(_v_switch);
+	ui_tools->spinBox_v_recirc_preset3->setValue(_v_recirc);
+
+	saveSettings(m_setting_file_name);
+
+}
+
 void Labonatip_tools::okPressed() {
 
 	getCOMsettingsFromGUI();
@@ -169,15 +213,16 @@ void Labonatip_tools::okPressed() {
 	getGUIsettingsFromGUI();
 	getPRsettingsFromGUI();
 
-	//TODO manual save for now
-	//saveSettings();
+	saveSettings(m_setting_file_name);
+    checkHistory ();
 
-	emit ok();
+    emit ok();
 	this->close();
 }
 
 void Labonatip_tools::cancelPressed() {
 
+	loadSettings(m_setting_file_name);
 	emit cancel();
 	this->close();
 }
@@ -189,35 +234,37 @@ void Labonatip_tools::applyPressed() {
 	getSolutionSettingsFromGUI();
 	getGUIsettingsFromGUI();
 	getPRsettingsFromGUI();
-	//TODO manual save for now
-	//saveSettings();
 
-	int folder_size = calculateFolderSize(m_GUI_params->outFilePath);
-
-	//TODO: traslate strings
-	if (folder_size > 1000000) {
-		QMessageBox::StandardButton resBtn = QMessageBox::question(this, m_str_warning,
-			tr("It looks you have many files in the history folder <br>") + m_GUI_params->outFilePath +
-			tr("<br> Do you want to clean the history? <br> Yes = clean, NO = abort operation, "),
-			QMessageBox::No | QMessageBox::Yes,
-			QMessageBox::Yes);
-		if (resBtn != QMessageBox::Yes) {
-			QMessageBox::question(this, m_str_information, m_str_operation_cancelled, m_str_ok);
-		}
-		else {
-			QDir dir(m_GUI_params->outFilePath);
-			dir.setNameFilters(QStringList() << "*.txt");
-			dir.setFilter(QDir::Files);
-			foreach(QString dirFile, dir.entryList())
-			{
-				dir.remove(dirFile);
-			}
-			QMessageBox::question(this, m_str_information, m_str_history_cleaned, m_str_ok);
-		}
-
-	}
+	saveSettings(m_setting_file_name);
 
 	emit apply();
+}
+
+void Labonatip_tools::checkHistory () {
+    int folder_size = calculateFolderSize(m_GUI_params->outFilePath);
+
+    //TODO: translate strings
+    if (folder_size > 1000000) {
+        QMessageBox::StandardButton resBtn = QMessageBox::question(this, m_str_warning,
+            tr("It looks you have many files in the history folder <br>") + m_GUI_params->outFilePath +
+            tr("<br> Do you want to clean the history? <br> Yes = clean, NO = abort operation, "),
+            QMessageBox::No | QMessageBox::Yes,
+            QMessageBox::Yes);
+        if (resBtn != QMessageBox::Yes) {
+            QMessageBox::question(this, m_str_information, m_str_operation_cancelled, m_str_ok);
+        }
+        else {
+            QDir dir(m_GUI_params->outFilePath);
+            dir.setNameFilters(QStringList() << "*.txt");
+            dir.setFilter(QDir::Files);
+            foreach(QString dirFile, dir.entryList())
+            {
+                dir.remove(dirFile);
+            }
+            QMessageBox::question(this, m_str_information, m_str_history_cleaned, m_str_ok);
+        }
+
+    }
 }
 
 int Labonatip_tools::calculateFolderSize(const QString _dirPath)
@@ -560,27 +607,17 @@ bool Labonatip_tools::loadSettings(QString _path)
 
 	//Parity = NoParity
 	QString parity = m_settings->value("COM/Parity", "NoParity").toString();
-	m_comSettings->setParity (serial::parity_none);  //TODO: no intepretation yet
+	m_comSettings->setParity (serial::parity_none);  //TODO: no interpretation yet
 
 	//StopBits = 1
 	int stopBits = m_settings->value("COM/StopBits", "1").toInt();
-	m_comSettings->setStopBits(serial::stopbits_one);  //TODO: no intepretation yet
+	m_comSettings->setStopBits(serial::stopbits_one);  //TODO: no interpretation yet
 
 	//FlowControl = noFlow
 	QString flowControl = m_settings->value("COM/FlowControl", "noFlow").toString();
-	m_comSettings->setFlowControl (serial::flowcontrol_none); //TODO: no intepretation yet
+	m_comSettings->setFlowControl (serial::flowcontrol_none); //TODO: no interpretation yet
 
 	//read GUI params
-	bool ok = false;
-	//int tbs = m_settings->value("GUI/ToolButtonStyle", "3").toInt(&ok);
-	//if (!ok) {
-	//	cerr << QDate::currentDate().toString().toStdString() << "  "
-	//		<< QTime::currentTime().toString().toStdString() << "  "
-	//		<< "Labonatip_tools::loadSettings ::: Warning  ::  in GUI params, ToolButtonStyle is corrupted in setting file, using default value " << endl;
-	//}
-	//ui_tools->comboBox_toolButtonStyle->setCurrentIndex(tbs);
-	//m_GUI_params->showTextToolBar = Qt::ToolButtonStyle(tbs);
-
 	bool enable_tool_tips = m_settings->value("GUI/EnableToolTips", "0").toBool();
 	ui_tools->checkBox_enableToolTips->setChecked(enable_tool_tips);
 	m_GUI_params->enableToolTips = enable_tool_tips;
@@ -601,8 +638,9 @@ bool Labonatip_tools::loadSettings(QString _path)
 	m_GUI_params->outFilePath = out_file_path; 
 
 	// read pr_limits group
-	int p_on_max = m_settings->value("pr_limits/p_on_max", "450").toInt(&ok);
-	if (!ok) {
+    bool ok = false;
+    int p_on_max = m_settings->value("pr_limits/p_on_max", "450").toInt(&ok);
+    if (!ok) {
 		cerr << QDate::currentDate().toString().toStdString() << "  "
 			<< QTime::currentTime().toString().toStdString() << "  "
 			<< "Labonatip_tools::loadSettings ::: Warning  :: " 
@@ -766,6 +804,138 @@ bool Labonatip_tools::loadSettings(QString _path)
 	ui_tools->spinBox_v_increment->setValue(base_v_increment);
 	m_pr_params->base_v_increment = base_v_increment;
 
+	int p_on_p1 = m_settings->value("pv_preset1/p_on", "190").toInt(&ok);
+	if (!ok) {
+		cerr << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_tools::loadSettings ::: Warning  :: "
+			<< "pv_preset1/p_on corrupted in setting file, using default value " << endl;
+		p_on_p1 = 190;
+	}
+	ui_tools->spinBox_p_on_preset1->setValue(p_on_p1);
+	m_pr_params->p_on_preset1 = p_on_p1; 
+
+	int p_off_p1 = m_settings->value("pv_preset1/p_off", "21").toInt(&ok);
+	if (!ok) {
+		cerr << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_tools::loadSettings ::: Warning  :: "
+			<< "pv_preset1/p_off corrupted in setting file, using default value " << endl;
+		p_off_p1 = 21;
+	}
+	ui_tools->spinBox_p_off_preset1->setValue(p_off_p1);
+	m_pr_params->p_off_preset1 = p_off_p1;
+
+	int v_switch_p1 = m_settings->value("pv_preset1/v_switch", "-115").toInt(&ok);
+	if (!ok) {
+		cerr << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_tools::loadSettings ::: Warning  :: "
+			<< "pv_preset1/v_switch corrupted in setting file, using default value " << endl;
+		v_switch_p1 = -115;
+	}
+	ui_tools->spinBox_v_switch_preset1->setValue(v_switch_p1);
+	m_pr_params->v_switch_preset1 = v_switch_p1;
+
+	int v_recirc_p1 = m_settings->value("pv_preset1/v_recirc", "-115").toInt(&ok);
+	if (!ok) {
+		cerr << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_tools::loadSettings ::: Warning  :: "
+			<< "pv_preset1/v_recirc corrupted in setting file, using default value " << endl;
+		v_recirc_p1 = -115;
+	}
+	ui_tools->spinBox_v_recirc_preset1->setValue(v_recirc_p1);
+	m_pr_params->v_recirc_preset1 = v_recirc_p1;
+
+	int p_on_p2 = m_settings->value("pv_preset2/p_on", "190").toInt(&ok);
+	if (!ok) {
+		cerr << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_tools::loadSettings ::: Warning  :: "
+			<< "pv_preset2/p_on corrupted in setting file, using default value " << endl;
+		p_on_p2 = 190;
+	}
+	ui_tools->spinBox_p_on_preset2->setValue(p_on_p2);
+	m_pr_params->p_on_preset2 = p_on_p2;
+
+	int p_off_p2 = m_settings->value("pv_preset2/p_off", "21").toInt(&ok);
+	if (!ok) {
+		cerr << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_tools::loadSettings ::: Warning  :: "
+			<< "pv_preset2/p_off corrupted in setting file, using default value " << endl;
+		p_off_p2 = 21;
+	}
+	ui_tools->spinBox_p_off_preset2->setValue(p_off_p2);
+	m_pr_params->p_off_preset2 = p_off_p2;
+
+	int v_switch_p2 = m_settings->value("pv_preset2/v_switch", "-115").toInt(&ok);
+	if (!ok) {
+		cerr << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_tools::loadSettings ::: Warning  :: "
+			<< "pv_preset2/v_switch corrupted in setting file, using default value " << endl;
+		v_switch_p2 = -115;
+	}
+	ui_tools->spinBox_v_switch_preset2->setValue(v_switch_p2);
+	m_pr_params->v_switch_preset2 = v_switch_p2;
+
+	int v_recirc_p2 = m_settings->value("pv_preset2/v_recirc", "-115").toInt(&ok);
+	if (!ok) {
+		cerr << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_tools::loadSettings ::: Warning  :: "
+			<< "pv_preset2/v_recirc corrupted in setting file, using default value " << endl;
+		v_recirc_p2 = -115;
+	}
+	ui_tools->spinBox_v_recirc_preset2->setValue(v_recirc_p2);
+	m_pr_params->v_recirc_preset2 = v_recirc_p2;
+
+	int p_on_p3 = m_settings->value("pv_preset3/p_on", "190").toInt(&ok);
+	if (!ok) {
+		cerr << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_tools::loadSettings ::: Warning  :: "
+			<< "pv_preset3/p_on corrupted in setting file, using default value " << endl;
+		p_on_p3 = 190;
+	}
+	ui_tools->spinBox_p_on_preset3->setValue(p_on_p3);
+	m_pr_params->p_on_preset3 = p_on_p3;
+
+	int p_off_p3 = m_settings->value("pv_preset3/p_off", "21").toInt(&ok);
+	if (!ok) {
+		cerr << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_tools::loadSettings ::: Warning  :: "
+			<< "pv_preset3/p_off corrupted in setting file, using default value " << endl;
+		p_off_p3 = 21;
+	}
+	ui_tools->spinBox_p_off_preset3->setValue(p_off_p3);
+	m_pr_params->p_off_preset3 = p_off_p3;
+
+	int v_switch_p3 = m_settings->value("pv_preset3/v_switch", "-115").toInt(&ok);
+	if (!ok) {
+		cerr << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_tools::loadSettings ::: Warning  :: "
+			<< "pv_preset3/v_switch corrupted in setting file, using default value " << endl;
+		v_switch_p3 = -115;
+	}
+	ui_tools->spinBox_v_switch_preset3->setValue(v_switch_p3);
+	m_pr_params->v_switch_preset3 = v_switch_p3;
+
+	int v_recirc_p3 = m_settings->value("pv_preset3/v_recirc", "-115").toInt(&ok);
+	if (!ok) {
+		cerr << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_tools::loadSettings ::: Warning  :: "
+			<< "pv_preset3/v_recirc corrupted in setting file, using default value " << endl;
+		v_recirc_p3 = -115;
+	}
+	ui_tools->spinBox_v_recirc_preset3->setValue(v_recirc_p1);
+	m_pr_params->v_recirc_preset3 = v_recirc_p3;
+
 	bool verbose_out = m_settings->value("PPC1/VerboseOut", "1").toBool();
 	ui_tools->checkBox_enablePPC1verboseOut->setChecked(verbose_out);
 	m_pr_params->verboseOut = verbose_out;
@@ -788,9 +958,6 @@ bool Labonatip_tools::loadSettings(QString _path)
 	}
 	ui_tools->spinBox_PPC1filterSize->setValue(filter_size);
 	m_pr_params->filterSize = filter_size;
-
-	// read server group
-
 
 	//Read solution volumes block
 	int vol_sol1 = m_settings->value("solutions/volWell1", "30").toInt(&ok);
@@ -972,11 +1139,26 @@ bool Labonatip_tools::saveSettings(QString _file_name)
 	settings->setValue("pr_limits/v_recirc_default", ui_tools->spinBox_v_recirc_default->value());
 	// base_ds_increment = 
 	settings->setValue("pr_limits/base_ds_increment", ui_tools->spinBox_ds_increment->value());
-	// base_ds_increment = 
+    // base_fs_increment =
 	settings->setValue("pr_limits/base_fs_increment", ui_tools->spinBox_fs_increment->value());
-	// base_ds_increment = 
+    // base_v_increment =
 	settings->setValue("pr_limits/base_v_increment", ui_tools->spinBox_v_increment->value());
-	
+
+	settings->setValue("pv_preset1/p_on", ui_tools->spinBox_p_on_preset1->value());
+	settings->setValue("pv_preset1/p_off", ui_tools->spinBox_p_off_preset1->value());
+	settings->setValue("pv_preset1/v_switch", ui_tools->spinBox_v_switch_preset1->value());
+	settings->setValue("pv_preset1/v_recirc", ui_tools->spinBox_v_recirc_preset1->value());
+
+	settings->setValue("pv_preset2/p_on", ui_tools->spinBox_p_on_preset2->value());
+	settings->setValue("pv_preset2/p_off", ui_tools->spinBox_p_off_preset2->value());
+	settings->setValue("pv_preset2/v_switch", ui_tools->spinBox_v_switch_preset2->value());
+	settings->setValue("pv_preset2/v_recirc", ui_tools->spinBox_v_recirc_preset2->value());
+
+	settings->setValue("pv_preset3/p_on", ui_tools->spinBox_p_on_preset3->value());
+	settings->setValue("pv_preset3/p_off", ui_tools->spinBox_p_off_preset3->value());
+	settings->setValue("pv_preset3/v_switch", ui_tools->spinBox_v_switch_preset3->value());
+	settings->setValue("pv_preset3/v_recirc", ui_tools->spinBox_v_recirc_preset3->value());
+
 	settings->setValue("PPC1/VerboseOut", int(ui_tools->checkBox_enablePPC1verboseOut->isChecked()));
 	settings->setValue("PPC1/UseDefValSetPoint", int(ui_tools->checkBox_useSetPoint->isChecked()));
 	settings->setValue("PPC1/EnableFilter", int(ui_tools->checkBox_enablePPC1filter->isChecked()));
@@ -1029,7 +1211,6 @@ bool Labonatip_tools::saveSettings(QString _file_name)
 	settings->setValue("solutions/continuousFlowingWell4", int(ui_tools->checkBox_disableTimer_s4->isChecked()));
 	
 	settings->sync();
-	//m_settings->sync();
 	
 	return true;
 }
@@ -1052,8 +1233,6 @@ void Labonatip_tools::resetToDefaultValues()
 	else {
 		loadSettings("");
 	}
-
-	
 }
 
 
@@ -1072,7 +1251,7 @@ void Labonatip_tools::initCustomStrings()
 
 int Labonatip_tools::parseLanguageString(QString _language)
 {
-	// TODO: is there a better way to interprete this string using the GUIparams::languages enumerator?
+	// TODO: is there a better way to interpret this string using the GUIparams::languages enumerator?
 	if (_language == "Chinese")
 	{
 		return 0;

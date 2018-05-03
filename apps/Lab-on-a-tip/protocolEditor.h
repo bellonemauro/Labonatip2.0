@@ -93,6 +93,11 @@ public:
 
 	void switchLanguage(QString _translation_file);
 
+	/**  Set the version of the software from the main
+	*
+	*/
+	void setVersion(QString _version) { m_version = _version; }
+
 private slots:
 
 	/** emit ok signal, save the setting, send the current protocol to the main
@@ -113,13 +118,13 @@ private slots:
 
 	void emitLoadSettings() { emit loadSettingsRequest(); }
 
-	/** new protocol widard
+	/** new protocol wizard
 	*
 	*/
 	void newProtocolWizard();
 
 
-	/** Load a protocol fron file, only one type of protocol is currently supported
+	/** Load a protocol from file, only one type of protocol is currently supported
 	*
 	*/
 	bool loadProtocol( );
@@ -156,16 +161,6 @@ private slots:
 	*
 	*/
 	void removeCommand();
-
-	/** The selected element will become a child for the preceding element
-	*
-	*/
-	void becomeChild();
-
-	/** The selected element will become parent 
-	*
-	*/
-	void becomeParent();
 	
 	void moveUp();
 
@@ -210,7 +205,7 @@ private slots:
 	*
 	* \note
 	*/
-	void addAllCommandsToProtocol(); //TODO: I don't like that this function takes no arguments and modifies a class member
+	void addAllCommandsToProtocol(); 
 
 	void helpTriggered();
 
@@ -219,25 +214,13 @@ private slots:
 private:
 
 	
-	/** overload to allow creating the combobox only without the item
-	*
-	*/
-	//void createNewCommand(protocolCommandCombobox &_combo_box) {
-	//	QTreeWidgetItem item;
-	//	createNewCommand(item, _combo_box);
-	//}
-		
 	QString createHeader();
 	
 	bool loadProtocol(const QString _file_name);
 
 	bool saveProtocol(QString _file_name);
 	
-	void getLastNode(QTreeWidget *_tree, QTreeWidgetItem *_item);
-
 	int getLevel(QTreeWidgetItem _item);
-
-	//void visitTree(QTreeWidgetItem *_item);
 
 	void visitTree(QList<QStringList> &_list, QTreeWidget *_tree, QTreeWidgetItem *_item);
 
@@ -255,7 +238,7 @@ private:
 	*    field 0 (int)     is the command index --- see fluicell::fluicell::PPC1api::command for details
 	*    field 1 (int)     is the value to be applied at the command in 0
 	*    field 2 (bool)    show or not the string in field 3
-	*    field 3 (string)  comprehensible explaination of the command in field 1
+	*    field 3 (string)  comprehensible explanation of the command in field 1
 	*    field 4 (int)     level in the execution tree (used for the loop implementation)
 	*
 	*  example:
@@ -277,6 +260,7 @@ private:
 
 	QString m_current_protocol_file_name;
 	QString m_protocol_path;
+	QString m_version;
 
 	Labonatip_macroWizard * m_protocolWizard;
 
@@ -321,7 +305,7 @@ private:
 	//      a parameter from the menu to the delete_protocol function
 	int m_triggered_protocol_item;
 
-	//custom translatable stringss
+	//custom translatable strings
 	QString m_str_warning;
 	QString m_str_save_protocol;
 	QString m_str_load_protocol;
@@ -331,6 +315,13 @@ private:
 	QString m_str_protocol_duration;
 	QString m_str_check_validity_protocol;
 	QString m_str_check_validity_protocol_try_again;
+	QString m_str_negative_level;
+	QString m_str_remove_file;
+	QString m_str_current_prot_name;
+	QString m_str_question_override;
+	QString m_str_override_guide;
+	QString m_str_add_protocol_bottom;
+	QString m_str_add_protocol_bottom_guide;
 
 protected:
 	Ui::Labonatip_protocol_editor *ui_p_editor;    //!<  the user interface

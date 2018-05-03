@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.0"
+   width="60"
+   height="60"
+   viewBox="0 0 44.999999 44.999998"
+   preserveAspectRatio="xMidYMid meet"
+   id="svg2"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="folder.svg"
+   inkscape:export-filename="C:\code\Fluicell\Git\Labonatip\apps\Lab-on-a-tip\icons\open.png"
+   inkscape:export-xdpi="300"
+   inkscape:export-ydpi="300">
+  <defs
+     id="defs14" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1001"
+     id="namedview12"
+     showgrid="false"
+     inkscape:zoom="0.52149125"
+     inkscape:cx="-1043.5601"
+     inkscape:cy="542.39625"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g6"
+     inkscape:snap-bbox="true"
+     inkscape:bbox-paths="true"
+     inkscape:bbox-nodes="true"
+     inkscape:snap-bbox-edge-midpoints="true"
+     inkscape:snap-bbox-midpoints="true"
+     units="px"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
+  <metadata
+     id="metadata4">
+Created by potrace 1.14, written by Peter Selinger 2001-2017
+<rdf:RDF>
+  <cc:Work
+     rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type
+       rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+    <dc:title />
+  </cc:Work>
+</rdf:RDF>
+</metadata>
+  <g
+     transform="matrix(0.00964167,0,0,-0.00964167,-2.4370145,47.19104)"
+     id="g6"
+     style="fill:#000000;stroke:none"
+     inkscape:export-filename="C:\code\Fluicell\apps\Lab-on-a-tip\icons\open.png"
+     inkscape:export-xdpi="300"
+     inkscape:export-ydpi="300">
+    <path
+       d="m 360,4458 c -26,-14 -57,-41 -75,-66 l -30,-44 -2,-1536 c -1,-1052 1,-1529 8,-1512 9,22 155,420 589,1610 61,168 122,321 135,341 13,21 43,46 67,58 l 44,21 h 1628 1628 l -4,189 -3,189 -30,44 c -18,25 -49,52 -75,66 l -44,22 H 3183 2170 v 248 c 0,237 -1,249 -23,286 -12,22 -39,53 -60,70 l -39,31 -821,3 -822,2 z"
+       id="path8"
+       style="fill:#505050;fill-opacity:1"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="D:\code\Fluicell\Git\Labonatip2.0\apps\Lab-on-a-tip\icons\folder.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+    <path
+       d="m 1333,3073 c -5,-1 -25,-4 -46,-8 -23,-4 -53,-20 -77,-41 -45,-41 -5,59 -430,-1079 C 603,1472 433,1015 401,930 l -58,-155 1810,-3 c 1218,-1 1822,1 1848,8 46,13 116,64 145,108 36,53 774,2038 774,2081 0,58 -43,101 -102,102 -99,1 -3479,4 -3485,2 z"
+       id="path10"
+       style="fill:#505050;fill-opacity:1"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="D:\code\Fluicell\Git\Labonatip2.0\apps\Lab-on-a-tip\icons\folder.png"
+       inkscape:export-xdpi="300"
+       inkscape:export-ydpi="300" />
+  </g>
+</svg>

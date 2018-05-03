@@ -107,7 +107,7 @@ public:
 
 	/** \brief Update the chart when a macro is loaded
 	*
-	*   Interprete all the values in a macro, including the 
+	*   Interpret all the values in a macro, including the 
 	*   time line, to build an interactive chart based on the loaded protocol
 	*
 	*/
@@ -165,8 +165,8 @@ private:
 	double max_poff;// = 450;
 	double max_v_recirc;// = 300;
 	double max_v_switch;// = 300;
-	double m_base_sol_value;    //!> Base value for the solution area drwawing
-	double m_top_sol_value;     //!> Top value for the solution area drwawing
+	double m_base_sol_value;    //!> Base value for the solution area drawing
+	double m_top_sol_value;     //!> Top value for the solution area drawing
 };
 
 

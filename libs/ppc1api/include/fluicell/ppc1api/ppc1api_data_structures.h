@@ -48,12 +48,12 @@ namespace fluicell
 		*
 		*  PCC1 Output data stream specification
 		*
-		*    A|-0.000000|0.114514|0.000000|0
-		*    B|-0.000000|0.034291|0.000000|0
-		*    C|0.000000|-0.103121|0.000000|0
-		*    D|0.000000|0.028670|0.000000|0
-		*    i0|j0|k0|l0
-		*    IN1|OUT1
+		*    A|-0.000000|0.114514|0.000000|0 \n
+		*    B|-0.000000|0.034291|0.000000|0 \n
+		*    C|0.000000|-0.103121|0.000000|0 \n
+		*    D|0.000000|0.028670|0.000000|0 \n
+		*    i0|j0|k0|l0 \n
+		*    IN1|OUT1 \n
 		*
 		*    One stream packet contains minimum 6 lines, each ending with newline character \n. First 4 lines correspond to pressure
 		*    and vacuum info, the 5. line shows the valve states and the last line TTL input and output states. All data fields are
@@ -96,7 +96,34 @@ namespace fluicell
 		*/
 		struct PPC1API_EXPORT PPC1_data
 		{
-
+			// define class constants for ranges in vacuum and pressures
+			#define MIN_CHAN_A -300.0       //!< V_recirc in mbar
+			#define MAX_CHAN_A -0.0         //!< V_recirc in mbar
+			#define MIN_CHAN_B -300.0       //!< V_switch in mbar
+			#define MAX_CHAN_B -0.0         //!< V_switch in mbar
+			#define MIN_CHAN_C 0.0          //!< P_off in mbar
+			#define MAX_CHAN_C 450.0        //!< P_off in mbar
+			#define MIN_CHAN_D 0.0          //!< P_on in mbar
+			#define MAX_CHAN_D 450.0        //!< P_on in mbar
+			#define MIN_STREAM_PERIOD 0     //!< in msec
+			#define MAX_STREAM_PERIOD 500   //!< in msec
+			#define MIN_PULSE_PERIOD 20     //!< in msec
+			#define MIN_ZONE_SIZE_PERC 50   //!< %
+			#define MAX_ZONE_SIZE_PERC 200  //!< %
+			#define MIN_FLOW_SPEED_PERC 50  //!< %
+			#define MAX_FLOW_SPEED_PERC 250 //!< %
+			#define MIN_VACUUM_PERC 50      //!< %
+			#define MAX_VACUUM_PERC 250     //!< %
+			#define LENGTH_TO_TIP 0.065     /*!< length of the pipe to the tip, this value is used  
+									             for the calculation of the flow using the Poiseuille equation
+												 see function getFlow() -- default value 0.065 m; */ 
+			#define LENGTH_TO_ZONE 0.062    /*!< length of the pipe to the zone, this value is used 
+												 for the calculation of the flow using the Poiseuille equation
+											 	 see function getFlow()-- default value 0.124 m; */
+			#define PPC1_VID "16D0"  //!< device vendor ID
+			#define PPC1_PID "083A"  //!< device product ID
+			  
+			   
 			/**  \brief Channel data structure 
 			*
 			*         it contains the information about a PPC1 channel
@@ -119,9 +146,8 @@ namespace fluicell
 			struct PPC1API_EXPORT channel
 			{
 			public:
-				double set_point;                 //!< is the closed loop PID controller input value (in mbar)
-				double sensor_reading;            //!< shows the actual current pressure value (in mbar)
-				double filtered_sensor_reading;   //!< filtered sensor reading (in mbar)
+				double set_point;                 //!< the closed loop PID controller input value (in mbar)
+				double sensor_reading;            //!< the actual current pressure value (in mbar), filtered if active
 				double PID_out_DC;                //!< PID_out_DC PID output duty cycle is the output value of closed loop PID controller.
 				int state;                        //!< state shows error flags
 
@@ -131,7 +157,7 @@ namespace fluicell
 				*    this function also includes the data filtering function on the sensor reading, it uses two
 				*    class members: m_filter_enabled and m_filter_size
 				*
-				*    The implemented filted is a rolling average filter that averages the last n samples, 
+				*    The implemented filter is a rolling average filter that averages the last n samples, 
 				*    where n is defined in the class member m_filter_size
 				*
 				*   @param _set_point 
@@ -145,33 +171,12 @@ namespace fluicell
 				{
 					this->set_point = _set_point;
 					this->sensor_reading = _sensor_reading;
-
-					if (m_filter_enabled)
-					{
-						if (this->m_reading_vec.size() < m_filter_size) {
-							this->m_reading_vec.push_back(_sensor_reading);
-						}
-						else {
-							this->m_reading_vec.erase(this->m_reading_vec.begin());
-							while (this->m_reading_vec.size() > m_filter_size) {
-								this->m_reading_vec.erase(this->m_reading_vec.begin());
-							}
-							this->m_reading_vec.push_back(_sensor_reading);
-						}
-
-						double sum = std::accumulate(this->m_reading_vec.begin(), this->m_reading_vec.end(), 0.0);
-						double mean = sum / this->m_reading_vec.size();
-						this->filtered_sensor_reading = mean;
-						this->sensor_reading = mean; //TODO: this is now the same, is filtered_sensor_reading really necessary ?
-
-					}
-					else {
-						this->filtered_sensor_reading = _sensor_reading;
-					}
-
 					this->PID_out_DC = PID_out_DC;
 					this->state = _state;
-				
+
+					if (m_filter_enabled) {
+						this->sensor_reading = movingAveragefilter(m_reading_vec, _sensor_reading);
+					}				
 				}
 
 				/**  \brief Constructor for PPC1 channel data container
@@ -192,6 +197,36 @@ namespace fluicell
 				void setFiltersize(int _size) { m_filter_size = _size; }
 
 			private:
+
+				/**  \brief Implement a moving average filter of PPC1 data
+				*
+				*   @param _reading_vec the stack cointaining the history of readings
+				*   @param _sensor_reading the actual sensor reading
+				*
+				*
+				*  \note: it make use of m_filter_size data member for the size of the filter
+				*
+				*   \return the filtered value
+				*
+				**/
+				double movingAveragefilter(vector<double> &_reading_vec, double _sensor_reading)
+				{
+					if (_reading_vec.size() < m_filter_size) {
+						_reading_vec.push_back(_sensor_reading);
+					}
+					else {
+						_reading_vec.erase(_reading_vec.begin());
+						while (_reading_vec.size() > m_filter_size) {
+							_reading_vec.erase(_reading_vec.begin());
+						}
+						this->m_reading_vec.push_back(_sensor_reading);
+					}
+
+					double sum = std::accumulate(_reading_vec.begin(), _reading_vec.end(), 0.0);
+					double filtered_reading = sum / _reading_vec.size();
+					return filtered_reading; //TODO: this is now the same, is filtered_sensor_reading really necessary ?
+				}
+
 				bool m_filter_enabled;          //!< class member to enable to filtering in the data reading
 				unsigned int m_filter_size;     //!< class member to set the filter size
 				vector<double> m_reading_vec;   //!< internal vector used for the filter to save the history
@@ -217,6 +252,7 @@ namespace fluicell
 			int ppc1_OUT; //!< OUTy where x and y are either 0 or 1 and show the output state
 
 		public:
+
 			/**  \brief Constructor for PPC1 data to group all information
 			*
 			**/
@@ -231,14 +267,30 @@ namespace fluicell
 
 			/**  \brief Set size for the rolling average filter
 			*
-			*   @param _size size of the filter, accepts positive values, resonable values are between [10 - 30]
+			*   @param _size size of the filter, accepts positive values, reasonable values are between [10 - 30]
+			*
+			*   \return false in case of negative _size
+			*
+			**/
+			void enableFilter(bool _enable) {
+								
+				this->channel_A->enableFilter(_enable);
+				this->channel_B->enableFilter(_enable);
+				this->channel_C->enableFilter(_enable);
+				this->channel_D->enableFilter(_enable);
+				
+			}
+
+			/**  \brief Set size for the rolling average filter
+			*
+			*   @param _size size of the filter, accepts positive values, reasonable values are between [10 - 30]
 		    * 
 			*   \return false in case of negative _size
 			*
 			**/
 			bool setFilterSize(int _size) {
 				if (_size < 0) { 
-					cerr << " fluicell::PPC1_data::channel :: ---- error --- MESSAGE:" 
+					cerr << " fluicell::PPC1_data::setFilterSize :: ---- error --- MESSAGE:" 
 						 << "Size of the filter in PPC1api cannot be negative " << endl;
 					return false; 
 				}
@@ -290,7 +342,7 @@ namespace fluicell
 		**/
 		struct PPC1API_EXPORT PPC1_status
 		{
-		public: //protected: //TODO: this should be protected
+		public: 
 
 			double delta_pressure;
 			double pipe_length;
@@ -340,7 +392,7 @@ namespace fluicell
 		**/
 		struct PPC1API_EXPORT serialDeviceInfo
 		{
-		public: //protected: //TODO: this should be protected
+		public:
 
 			string port;
 			string description;
@@ -354,7 +406,7 @@ namespace fluicell
 			**/
 			serialDeviceInfo() {}
 		};
-
+		
 
 		/**  \brief PCC1 Command data structure definition
 		*
@@ -363,6 +415,124 @@ namespace fluicell
 		*    The final objective is to define a class of commands able to control the PPC1 controller and run a protocol
 		*    as a set of commands.
 		*
+		*    <table>
+        *     <caption id="multi_row">Supported commands</caption>
+        *     <tr>
+        *       <th>enum index</th> <th>Command</th> <th>value</th> <th> Comment </th>
+        *     </tr>
+        *     <tr>
+        *       <td> 0 </td>  
+		*       <td> setPon </td> 
+		*       <td> int [0 MAX] </td> 
+		*       <td> (int: pressure in mbar) - - - - Channel D </td>
+        *     </tr>
+        *     <tr>
+        *       <td> 1 </td> 
+		*       <td> setPoff </td>
+		*       <td> int [0 MAX] </td> 
+		*       <td> (int: pressure in mbar) - - - - Channel C </td>
+        *     </tr>
+		*     <tr>
+		*       <td> 2 </td>  
+		*       <td> setVswitch </td> 
+		*       <td> int [MIN 0] </td> 
+		*       <td> (int: pressure in mbar) - - - - Channel B </td>
+		*     </tr>
+		*     <tr>
+		*       <td> 3 </td>  
+		*       <td> setVrecirc   </td>
+		*       <td> int [MIN 0]   </td> 
+		*       <td> (int: pressure in mbar) - - - - Channel A </td>
+		*     </tr>
+		*     <tr>
+		*       <td> 4 </td>  
+		*       <td> solution1    </td>
+		*       <td> true / false  </td> 
+		*       <td> closes other valves, then opens valve 'a' for solution 1 </td>
+		*     </tr>
+		*     <tr>
+		*       <td> 5 </td> 
+		*       <td> solution2 </td> 
+		*       <td> true / false </td>
+		*       <td> closes other valves, then opens valve 'b' for solution 1 </td>
+		*     </tr>
+		*     <tr>
+		*       <td> 6 </td>  
+		*       <td> solution3 </td> 
+		*       <td> true / false </td> 
+		*       <td> closes other valves, then opens valve 'c' for solution 1 </td>
+		*     </tr>
+		*     <tr>
+		*       <td> 7 </td>  
+		*       <td> solution4 </td> 
+		*       <td> true / false </td> 
+		*       <td> closes other valves, then opens valve 'd' for solution 1 </td>
+		*     </tr>
+		*     <tr>
+		*       <td> 8 </td>
+		*       <td> wait  </td> 
+		*       <td> int n  </td> 
+		*       <td> wait for n seconds </td>
+		*     </tr>
+		*     <tr>
+		*       <td> 9 </td>  
+		*       <td> ask_msg   </td>
+		*       <td> true / false  </td> 
+		*       <td> set true to stop execution and ask confirmation to continue,\n
+		*            INTEPRETED but NO ACTION required at API level </td>
+		*     </tr>
+		*     <tr>
+		*       <td> 10 </td>
+		*       <td> allOff  </td>
+		*       <td> -  </td>
+		*       <td> stop all solutions flow </td>
+		*     </tr>
+		*     <tr>
+		*       <td> 11 </td>
+		*       <td> pumpsOff  </td>
+		*       <td> -  </td>
+		*       <td> stop pressures and vacuum by setting the channels to 0 </td>
+		*     </tr>
+		*     <tr>
+		*       <td> 12 </td>
+		*       <td> waitSync  </td>
+		*       <td> int [0 MAX]  </td>
+		*       <td> protocol stops until trigger signal is received </td>
+		*     </tr>
+		*     <tr>
+		*       <td> 13 </td>
+		*       <td> syncOut  </td>
+		*       <td> int [0 MAX]  </td>
+		*       <td> if negative then default state is 1 and pulse is 0,\n
+		*            if positive, then pulse is 1 and default is 0</td>
+		*     </tr>
+		*     <tr>
+		*       <td> 14 </td>
+		*       <td> zoneSize  </td>
+		*       <td> percentage [MIN, MAX]  </td>
+		*       <td> Change the zone size percentage to _value  </td>
+		*     </tr>
+		*     <tr>
+		*       <td> 15 </td>
+		*       <td> flowSpeed  </td>
+		*       <td> percentage [MIN, MAX]  </td>
+		*       <td> Change the flow speed percentage to _value  </td>
+		*     </tr>
+		*     <tr>
+		*       <td> 16 </td>
+		*       <td> vacuum  </td>
+		*       <td> percentage [MIN, MAX]  </td>
+		*       <td> Change the vacuum percentage to _value  </td>
+		*     </tr>
+		*     <tr>
+		*       <td> 17 </td>
+		*       <td> loop  </td>
+		*       <td> int [0 MAX] </td>
+		*       <td> number of loops </td>
+		*     </tr>
+        *    </table>
+		*     
+		*   <!--This is a doxygen documentation comment block
 		*    Supported commands: 
 		*
 		*    enum index    |   Command       |   value         |
@@ -383,13 +553,13 @@ namespace fluicell
 		*      12          |   waitSync      |  int [0 MAX]    |  protocol stops until trigger signal is received
 		*      13          |   syncOut       |  int [0 MAX]    |  if negative then default state is 1 and pulse is 0,
 		*                  |                 |                 |  if positive, then pulse is 1 and default is 0
-		*      14          |   dropletSize   |  int [0 MAX]    |  TODO: to be implemented
-		*      15          |   flowSpeed     |  int [0 MAX]    |  TODO: to be implemented
-		*      16          |   vacuum        |  int [0 MAX]    |  TODO: to be implemented
-		*      17          |   loop          |  int [0 MAX]    |  number of loops --- TODO: is this to be implemented at API level?
+		*      14          |   dropletSize   |  int [MIN MAX]  |  Change the zone size percentage to _value
+		*      15          |   flowSpeed     |  int [MIN MAX]  |  Change the flow speed percentage to _value
+		*      16          |   vacuum        |  int [MIN MAX]  |  Change the vacuum percentage to _value
+		*      17          |   loop          |  int [0 MAX]    |  number of loops, not running at API level
 		*                  |                 |                 |
 		*   ---------------+-----------------+-----------------+-------------------------------------------------------------
-		*
+		* end commented section -->
         *
 		*  <b>Usage:</b><br>
 		*		- 	define the object :                      fluicell::PPC1api::command *my_command;
@@ -399,7 +569,7 @@ namespace fluicell
 		*/
 		struct PPC1API_EXPORT command
 		{
-		public: //protected: //TODO: this should be protected but the derived class cannot access the protected member in the base class ?
+		public: 
 
 			/**  \brief Enumerator for the supported commands.
 			*
@@ -422,7 +592,7 @@ namespace fluicell
 				zoneSize = 14,
 				flowSpeed = 15,
 				vacuum = 16,
-				loop = 17  // TODO: should this really be considered in the API ? 
+				loop = 17  
 			};
 
 
@@ -434,6 +604,105 @@ namespace fluicell
 				instruction(instructions::setPon), value (0),
 				visualize_status(false), status_message("No message")
 			{ }
+
+
+			bool checkValidity() {
+			
+				// check that the instruction is valid
+				if (this->instruction < 0) return false;
+				if (this->instruction > 17) return false;
+
+				int inst = this->instruction;
+
+				switch (inst) {
+				case 0: { //setPon
+					if (this->value < MIN_CHAN_D ||
+						this->value > MAX_CHAN_D)
+						return false; // out of bound
+					else
+						return true;
+				}
+				case 1: {//setPoff
+					if (this->value < MIN_CHAN_C ||
+						this->value > MAX_CHAN_C) 
+						return false; // out of bound
+					else
+						return true;
+				}
+				case 2: {//setVswitch
+					if (this->value < MIN_CHAN_B ||
+						this->value > MAX_CHAN_B) 
+						return false; // out of bound
+					else
+						return true;
+				}
+				case 3: {//setVrecirc
+					if (this->value < MIN_CHAN_A ||
+						this->value > MAX_CHAN_A) 
+						return false; // out of bound
+					else
+						return true;
+				}
+				case 4: case 5: case 6: case 7: {//solution1,2,3,4
+					if (this->value != 0 &&
+						this->value != 1 ) 
+						return false; // out of bound
+					else
+						return true;
+					return true;
+				}
+				case 8: {//sleep
+					if (this->value < 0) 
+						return false;
+					else
+						return true;
+				}
+				case 9: case 10: case 11: {//ask_msg //allOff //pumpsOff
+					// nothing to check here, the value is ignored
+					return true;
+				}
+				case 12: {//waitSync //TODO
+				//not checked for now
+					return true;
+				}
+				case 13: {//syncOut 
+				 //not checked for now
+					return true;
+				}
+				case 14: {//zone size
+					if (this->value < MIN_ZONE_SIZE_PERC ||
+						this->value > MAX_ZONE_SIZE_PERC) 
+						return false; // out of bound
+					else
+						return true;
+				}
+				case 15: {//flowSpeed
+					if (this->value < MIN_FLOW_SPEED_PERC ||
+						this->value > MAX_FLOW_SPEED_PERC) 
+						return false; // out of bound
+					else
+						return true;
+				}
+				case 16: {//vacuum
+					if (this->value < MIN_VACUUM_PERC ||
+						this->value > MAX_VACUUM_PERC) 
+						return false; // out of bound
+					else
+						return true;
+				}
+				case 17: {//loop
+					if (this->value < 0) 
+						return false;
+					else
+						return true;
+				}
+				default: {
+					return false;
+				}
+				}
+
+				return true;
+			}
 
 
 			/**  \brief Get the command from the enumerator.
