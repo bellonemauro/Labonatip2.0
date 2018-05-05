@@ -496,7 +496,7 @@ void Labonatip_protocol_editor::duplicateItem()
 
 	int command_idx = to_clone->text(m_cmd_command_c).toInt();
 	int value = to_clone->text(m_cmd_value_c).toInt();
-	Qt::CheckState show_msg = to_clone->checkState(m_cmd_msg_c);
+	//Qt::CheckState show_msg = to_clone->checkState(m_cmd_msg_c);
 	QString msg = to_clone->text(m_cmd_msg_c);
 
 	this->addCommand();
@@ -509,7 +509,7 @@ void Labonatip_protocol_editor::duplicateItem()
 
 	clone->setText(m_cmd_command_c, QString::number(command_idx));
 	clone->setText(m_cmd_value_c, QString::number(value));
-	clone->setCheckState(m_cmd_command_c, show_msg);
+	//clone->setCheckState(m_cmd_command_c, show_msg);
 	clone->setText(m_cmd_msg_c, msg);
 
 	addAllCommandsToProtocol();
@@ -621,7 +621,7 @@ void Labonatip_protocol_editor::addAllCommandsToProtocol()
 			commands_vector.at(i)->text(m_cmd_command_c).toInt()));
 
 		new_command.setValue( commands_vector.at(i)->text(m_cmd_value_c).toInt());
-		new_command.setVisualizeStatus( commands_vector.at(i)->checkState(m_cmd_msg_c));
+		//new_command.setVisualizeStatus( commands_vector.at(i)->checkState(m_cmd_msg_c)); //TODO clean checkState
 		new_command.setStatusMessage( commands_vector.at(i)->text(m_cmd_msg_c).toStdString());
 
 		m_protocol->push_back(new_command);
@@ -918,7 +918,7 @@ void Labonatip_protocol_editor::visitTree(QList<QStringList> &_list,
 
 	_string_list.push_back(QString::number(idx));
 	_string_list.push_back(_item->text(m_cmd_value_c));
-	_string_list.push_back(QString::number(_item->checkState(m_cmd_msg_c)));
+	//_string_list.push_back(QString::number(_item->checkState(m_cmd_msg_c)));
 	_string_list.push_back(_item->text(m_cmd_msg_c));
 	_string_list.push_back(QString::number(depth)); // push the depth of the command as last
 
@@ -990,10 +990,10 @@ bool Labonatip_protocol_editor::decodeProtocolCommand(
 	_out_item.setText(m_cmd_value_c, data_string.at(1));
 
 	if (data_string.at(m_cmd_value_c) == "2") { // 2 is the string for true
-		_out_item.setCheckState(m_cmd_msg_c, Qt::CheckState::Checked); 
+		//_out_item.setCheckState(m_cmd_msg_c, Qt::CheckState::Checked); 
 	}
 	else {
-		_out_item.setCheckState(m_cmd_msg_c, Qt::CheckState::Unchecked); 
+		//_out_item.setCheckState(m_cmd_msg_c, Qt::CheckState::Unchecked); 
 	}
 	_out_item.setText(m_cmd_msg_c, data_string.at(3)); 
 	_out_item.setText(m_cmd_level_c, data_string.at(4));

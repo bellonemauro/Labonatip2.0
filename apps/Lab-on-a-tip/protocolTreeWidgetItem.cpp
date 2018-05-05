@@ -31,7 +31,7 @@ protocolTreeWidgetItem::protocolTreeWidgetItem(protocolTreeWidgetItem *_parent) 
 	this->setText(m_cmd_value_c, "1"); // 
 	this->QTreeWidgetItem::setFont(m_cmd_value_c, font);
 
-	this->setCheckState(m_cmd_msg_c, Qt::CheckState::Checked); // status message
+	//this->setCheckState(m_cmd_msg_c, Qt::CheckState::Checked); // status message
 	this->setText(m_cmd_msg_c, " "); // status message
 	this->setFlags(this->flags() | (Qt::ItemIsEditable) | (Qt::ItemIsSelectable));
 
@@ -358,7 +358,7 @@ void protocolTreeWidgetItem::setElements(int _cmd_ind, int _value, bool _show_ms
 	this->setText(m_cmd_command_c, QString::number(_cmd_ind));
 	this->setText(m_cmd_range_c, this->getRangeColumn(_cmd_ind));
 	this->setText(m_cmd_value_c, QString::number(_value)); 
-	this->setCheckState(m_cmd_msg_c, Qt::CheckState(_show_msg)); // status message
+	//this->setCheckState(m_cmd_msg_c, Qt::CheckState(_show_msg)); // status message
 	this->setText(m_cmd_msg_c, _msg); // status message
 	this->setFlags(this->flags() | (Qt::ItemIsEditable) | (Qt::ItemIsSelectable));
 	this->blockSignals(false);
@@ -379,7 +379,7 @@ void protocolTreeWidgetItem::setData(int column, int role, const QVariant & valu
 	// bring the last value to the undo stack
 	m_last_command = this->text(1).toInt();
 	m_last_value = this->text(3).toInt();
-	m_last_show_msg = this->checkState(4);
+	//m_last_show_msg = this->checkState(4);
 	m_last_msg = this->text(4);
 
 	this->QTreeWidgetItem::setData(column, role, value);
@@ -399,7 +399,7 @@ protocolTreeWidgetItem * protocolTreeWidgetItem::clone()
 		clone->setText(m_cmd_value_c, this->text(m_cmd_value_c)); // 
 		clone->QTreeWidgetItem::setFont(m_cmd_value_c, font);
 
-		clone->setCheckState(m_cmd_msg_c, this->checkState(m_cmd_msg_c)); // status message
+		//clone->setCheckState(m_cmd_msg_c, this->checkState(m_cmd_msg_c)); // status message
 		clone->setText(m_cmd_msg_c, this->text(m_cmd_msg_c)); // status message
 		clone->setFlags(this->flags() | (Qt::ItemIsEditable) | (Qt::ItemIsSelectable));
 

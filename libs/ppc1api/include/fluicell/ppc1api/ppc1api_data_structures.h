@@ -602,7 +602,7 @@ namespace fluicell
 			**/
 			command() :
 				instruction(instructions::setPon), value (0),
-				visualize_status(false), status_message("No message")
+				status_message("No message")
 			{ }
 
 
@@ -744,13 +744,8 @@ namespace fluicell
 			*
 			**/
 			bool isStatusVisualized() { 
-				return this->visualize_status; }
-
-			/**  \brief True if the status is set to be visualized.
-			*
-			**/
-			void setVisualizeStatus(bool _visualize_status) { 
-				this->visualize_status = _visualize_status; }
+				return true;// this->visualize_status; //TODO: cleanup
+			}
 
 			/**  \brief Get the status message.
 			*
@@ -767,7 +762,6 @@ namespace fluicell
 	private:
 			instructions instruction;	 //!< command
 			double value;                //!< corresponding value to be applied to the command
-			bool visualize_status;       //!< if active the status message will be visualized
 			string status_message;       //!< message to show as status during the command running
 
 		};
