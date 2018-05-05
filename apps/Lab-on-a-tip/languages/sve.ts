@@ -432,6 +432,14 @@
         <translation>Tippen är redo att användas. TRYCK OK FÖR ATT STARTA</translation>
     </message>    
 	<message>
+        <source>Pumps are off, depressuring ...</source>
+        <translation>Pumparna är avstängda, trycksättning ...</translation>
+    </message> 
+	<message>
+        <source>Depressuring ...</source>
+        <translation>Trycksättning ...</translation>
+    </message> 
+	<message>
         <source>Standby operation progress</source>
         <translation>Viloläge pågår</translation>
     </message>    
@@ -909,6 +917,10 @@
         <source>Please check your settings and try again</source>
         <translation>Undersök dina inställningar och prova igen</translation>
     </message>
+	<message>
+        <source>Are you sure?</source>
+        <translation>Är du säker?</translation>
+	</message>
     <message>
         <source>This action will remove the file, are you sure?</source>
         <translation>Den här åtgärden tar bort filen, är du säker?</translation>

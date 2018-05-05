@@ -431,6 +431,14 @@
         <source>Pipette is ready for operation. PRESS OK TO START</source>
         <translation>Pipette is ready for operation. PRESS OK TO START</translation>
     </message>
+	<message>
+        <source>Pumps are off, depressuring ...</source>
+        <translation>Pumps are off, depressuring ...</translation>
+    </message> 
+	<message>
+        <source>Depressuring ...</source>
+        <translation>Depressuring ...</translation>
+    </message> 
     <message>
         <source>Standby operation progress</source>
         <translation>Standby operation progress</translation>
@@ -908,6 +916,10 @@
     <message>
         <source>This action will remove the file, are you sure?</source>
         <translation>This action will remove the file, are you sure?</translation>
+    </message>
+    <message>
+        <source>Are you sure?</source>
+        <translation>Are you sure?</translation>
     </message>
     <message>
         <source>Negative level, file corrupted</source>

@@ -340,8 +340,28 @@ void Labonatip_GUI::operationalMode() {
 }
 
 
-void Labonatip_GUI::stopSolutionFlow()
+void Labonatip_GUI::stopFlow()
 {
+	//  AllOff()
+	//	setPoff(0)
+	//	setPon(0)
+	//	sleep(3)
+	//	setVswitch(0)
+	//	setVrecirc(0)
+	//	sleep(3)
+	closeAllValves();
+	updatePoffSetPoint(0.0);
+	updatePonSetPoint(0.0);
+	if (!visualizeProgressMessage(3, m_str_stop_1)) return;
+	updateVswitchSetPoint(0.0);
+	updateVrecircSetPoint(0.0);
+	if (!visualizeProgressMessage(3, m_str_stop_2)) return;
+
+	return;
+}
+
+void Labonatip_GUI::stopSolutionFlow()
+	{
 	// look for the active flow
 	if (ui->pushButton_solution1->isChecked()) {
 		ui->pushButton_solution1->setChecked(false);

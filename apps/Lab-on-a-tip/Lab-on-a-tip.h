@@ -499,6 +499,20 @@ private slots:
 	*/
 	void operationalMode();
 
+	/** \brief Stop flow macro running
+	*
+	*  	  AllOff()
+	*  	  setPoff(0)
+	* 	  setPon(0)
+	*	  sleep(3)
+	*	  setVswitch(0)
+	*	  setVrecirc(0)
+	*	  sleep(3)
+	*
+	* \note
+	*/
+	void stopFlow();
+
 	/** \brief Stop solution flow
 	*
 	*   Stop the flow of the solution if one of the solutions is flowing
@@ -507,6 +521,7 @@ private slots:
 	* \note
 	*/
 	void stopSolutionFlow();
+
 
 
 	/** \brief  Put the device into a standby mode
@@ -687,6 +702,8 @@ private:
   QString m_str_newtip_msg8;
   QString m_str_newtip_msg9;
   QString m_str_newtip_msg10;
+  QString m_str_stop_1;
+  QString m_str_stop_2;
   QString m_str_standby_operation;
   QString m_str_label_run_protocol;
   QString m_str_label_stop_protocol;

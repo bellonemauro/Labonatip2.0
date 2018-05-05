@@ -31,7 +31,7 @@ protocolTreeWidgetItem::protocolTreeWidgetItem(protocolTreeWidgetItem *_parent) 
 	this->setText(m_cmd_value_c, "1"); // 
 	this->QTreeWidgetItem::setFont(m_cmd_value_c, font);
 
-	this->setCheckState(m_cmd_msg_c, Qt::CheckState::Unchecked); // status message
+	this->setCheckState(m_cmd_msg_c, Qt::CheckState::Checked); // status message
 	this->setText(m_cmd_msg_c, " "); // status message
 	this->setFlags(this->flags() | (Qt::ItemIsEditable) | (Qt::ItemIsSelectable));
 
