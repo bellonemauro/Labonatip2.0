@@ -136,6 +136,10 @@ private slots:
 
 	bool saveProtocolAs();
 
+
+	bool saveXml();
+	bool openXml();
+
 	/** Clear all the protocol commands
 	*
 	*/

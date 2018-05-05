@@ -46,7 +46,7 @@ class protocolTreeWidgetItem : public QWidget, public QTreeWidgetItem
 
 public:
 	// ctor
-	protocolTreeWidgetItem(protocolTreeWidgetItem *parent = 0);
+	protocolTreeWidgetItem(QWidget *parent = 0);
 
 	// check validity and do some reset 
     bool checkValidity( int _column);

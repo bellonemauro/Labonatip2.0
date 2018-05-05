@@ -12,6 +12,9 @@
 #include <QtCharts/QValueAxis>
 #include <QtCharts/QAbstractAxis>
 
+#include "XmlProtocolReader.h"
+#include "XmlProtocolWriter.h"
+
 
 Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 	QMainWindow (parent), m_protocol (new f_protocol), m_pr_params (new pr_params),
@@ -117,6 +120,12 @@ Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 
 	connect(ui_p_editor->pushButton_loop,
 		SIGNAL(clicked()), this, SLOT(createNewLoop()));
+
+	connect(ui_p_editor->pushButton_saveXML,
+		SIGNAL(clicked()), this, SLOT(saveXml()));
+
+	connect(ui_p_editor->pushButton_openXML,
+		SIGNAL(clicked()), this, SLOT(openXml()));
 
 	connect(ui_p_editor->actionSave,
 		SIGNAL(triggered()), this, SLOT(saveProtocol()));
@@ -835,6 +844,68 @@ bool Labonatip_protocol_editor::saveProtocolAs()
 	readProtocolFolder(m_protocol_path);
 	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 	return true;
+}
+
+bool Labonatip_protocol_editor::saveXml()
+{
+	QString fileName =
+		QFileDialog::getSaveFileName(this, tr("Save Protocol File"),
+			QDir::currentPath(),
+			tr("XBEL Files (*.prt *.xml)"));
+	if (fileName.isEmpty())
+		return false;
+	QFile file(fileName);
+	if (!file.open(QFile::WriteOnly | QFile::Text)) {
+		QMessageBox::warning(this, tr("QXmlStream Bookmarks"),
+			tr("Cannot write file %1:\n%2.")
+			.arg(QDir::toNativeSeparators(fileName),
+				file.errorString()));
+		return false;
+	}
+	XmlProtocolWriter writer(ui_p_editor->treeWidget_macroTable);
+	if (writer.writeFile(&file))
+	{
+		return true;
+	}
+
+	return false;
+}
+
+bool Labonatip_protocol_editor::openXml()
+{
+	QString fileName =
+		QFileDialog::getOpenFileName(this, tr("Open  File"),
+			QDir::currentPath(),
+			tr("prt Files (*.prt *.xml)"));
+	if (fileName.isEmpty())
+		return false;
+
+	ui_p_editor->treeWidget_macroTable->clear();
+
+
+	QFile file(fileName);
+	if (!file.open(QFile::ReadOnly | QFile::Text)) {
+		QMessageBox::warning(this, tr("QXmlStream Bookmarks"),
+			tr("Cannot read file %1:\n%2.")
+			.arg(QDir::toNativeSeparators(fileName),
+				file.errorString()));
+		return false;
+	}
+
+	XmlProtocolReader reader(ui_p_editor->treeWidget_macroTable);
+	if (!reader.read(&file)) {
+		QMessageBox::warning(this, tr("QXmlStream Bookmarks"),
+			tr("Parse error in file %1:\n\n%2")
+			.arg(QDir::toNativeSeparators(fileName),
+				reader.errorString()));
+	}
+	else {
+		return true;
+	}
+
+
+
+	return false;
 }
 
 bool Labonatip_protocol_editor::saveProtocol(QString _file_name)

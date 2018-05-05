@@ -12,7 +12,7 @@
 
 
 
-protocolTreeWidgetItem::protocolTreeWidgetItem(protocolTreeWidgetItem *_parent) :
+protocolTreeWidgetItem::protocolTreeWidgetItem(QWidget *_parent) :
 	m_pr_params(new pr_params),
 	m_cmd_idx_c(0), m_cmd_command_c (1), m_cmd_range_c (2),
 	m_cmd_value_c (3), m_cmd_msg_c (4), m_cmd_level_c (5)
@@ -40,6 +40,7 @@ protocolTreeWidgetItem::protocolTreeWidgetItem(protocolTreeWidgetItem *_parent) 
 		this->setParent(_parent);
 	}
 }
+
 
 
 bool protocolTreeWidgetItem::checkValidity( int _column)
