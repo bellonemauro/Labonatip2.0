@@ -113,7 +113,7 @@ Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 		SIGNAL(clicked()), this, SLOT(duplicateItem()));
 
 	connect(ui_p_editor->pushButton_clearCommands,
-		SIGNAL(clicked()), this, SLOT(clearAllCommands()));
+		SIGNAL(clicked()), this, SLOT(clearAllCommandsRequest()));
 
 	connect(ui_p_editor->pushButton_loop,
 		SIGNAL(clicked()), this, SLOT(createNewLoop()));
@@ -1134,6 +1134,8 @@ void Labonatip_protocol_editor::initCustomStrings()
 {
 	// custom strings
 	m_str_warning = tr("Warning");
+	m_str_information = tr("Information");
+	m_str_areyousure = tr("Are you sure?");
 	m_str_save_protocol = tr("Save profile");
 	m_str_load_protocol = tr("Load profile");
 	m_str_select_folder = tr("Select folder");
@@ -1505,7 +1507,19 @@ QString Labonatip_protocol_editor::createHeader()
 	return header;
 }
 
-
+void Labonatip_protocol_editor::clearAllCommandsRequest()
+{
+	QMessageBox::StandardButton resBtn =
+		QMessageBox::question(this, m_str_information, m_str_areyousure,
+			QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
+			QMessageBox::Yes);
+	if (resBtn != QMessageBox::Yes) {
+		// do nothing
+	}
+	else {
+		clearAllCommands();
+	}
+}
 void Labonatip_protocol_editor::clearAllCommands() {
 	cout << QDate::currentDate().toString().toStdString() << "  "
 		<< QTime::currentTime().toString().toStdString() << "  "

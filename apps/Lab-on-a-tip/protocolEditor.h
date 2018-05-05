@@ -139,7 +139,7 @@ private slots:
 	/** Clear all the protocol commands
 	*
 	*/
-	void clearAllCommands();
+	void clearAllCommandsRequest();
 
 	void updateChartProtocol(f_protocol * _protocol);
 
@@ -255,7 +255,9 @@ private:
 	void readProtocolFolder(QString _path);
 
 	double protocolDuration(std::vector<fluicell::PPC1api::command> _protocol);
-	
+
+	void clearAllCommands();
+
 	f_protocol *m_protocol;
 
 	QString m_current_protocol_file_name;
@@ -322,6 +324,8 @@ private:
 	QString m_str_override_guide;
 	QString m_str_add_protocol_bottom;
 	QString m_str_add_protocol_bottom_guide;
+	QString m_str_information;
+	QString m_str_areyousure;
 
 protected:
 	Ui::Labonatip_protocol_editor *ui_p_editor;    //!<  the user interface

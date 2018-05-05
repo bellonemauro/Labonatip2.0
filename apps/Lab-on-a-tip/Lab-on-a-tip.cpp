@@ -608,7 +608,7 @@ void Labonatip_GUI::initConnects()
 
 	connect(ui->pushButton_stop, 
 		SIGNAL(clicked()), this, 
-		SLOT(stopSolutionFlow()));
+		SLOT(stopFlow()));
 
 	connect(ui->pushButton_operational, 
 		SIGNAL(clicked()), this, 
@@ -743,6 +743,8 @@ void Labonatip_GUI::initCustomStrings()
 	m_str_newtip_msg8 = tr("Purging the vacuum channels");
 	m_str_newtip_msg9 = tr("Establishing operational pressures");
 	m_str_newtip_msg10 = tr("Pipette is ready for operation. PRESS OK TO START");
+	m_str_stop_1 = tr("Pumps are off, depressuring ...");
+	m_str_stop_2 = tr("Depressuring ...");
 	m_str_standby_operation = tr("Standby operation progress");
 	m_str_label_run_protocol = tr("Run protocol");
 	m_str_label_stop_protocol = tr("Stop protocol");

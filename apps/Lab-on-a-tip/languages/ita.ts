@@ -432,6 +432,14 @@
         <translation>La pippetta è pronta a operare. PREMI OK PER INIZIARE</translation>
     </message>    
 	<message>
+        <source>Pumps are off, depressuring ...</source>
+        <translation>Pompe deattivate, depressurizzazione ...</translation>
+    </message> 
+	<message>
+        <source>Depressuring ...</source>
+        <translation>Depressurizzazione ...</translation>
+    </message> 
+	<message>
         <source>Standby operation progress</source>
         <translation>Operazione di spegnimento</translation>
     </message>    
@@ -909,6 +917,10 @@
         <source>This action will remove the file, are you sure?</source>
         <translation>Il file sarà rimosso, sei sicuro?</translation>
     </message>
+	<message>
+        <source>Are you sure?</source>
+        <translation>Sei sicuro?</translation>
+	</message>
     <message>
         <source>Negative level, file corrupted</source>
         <translation>Livello negativo, file corrotto</translation>
