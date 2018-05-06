@@ -72,10 +72,14 @@ Labonatip_protocol_editor::Labonatip_protocol_editor(QWidget *parent ):
 	ui_p_editor->pushButton_undo->setShortcut(
 		QApplication::translate("Labonatip_protocol_editor", 
 			"Ctrl+Z", Q_NULLPTR));
+
 	ui_p_editor->pushButton_redo->setShortcut(
 		QApplication::translate("Labonatip_protocol_editor",
 			"Ctrl+Y", Q_NULLPTR));
 
+	ui_p_editor->pushButton_removeMacroCommand->setShortcut(
+		QApplication::translate("Labonatip_protocol_editor",
+			"Del", Q_NULLPTR));
 
 	// connects
 	connect(ui_p_editor->pushButton_undo,
@@ -918,7 +922,7 @@ void Labonatip_protocol_editor::visitTree(QList<QStringList> &_list,
 
 	_string_list.push_back(QString::number(idx));
 	_string_list.push_back(_item->text(m_cmd_value_c));
-	//_string_list.push_back(QString::number(_item->checkState(m_cmd_msg_c)));
+	_string_list.push_back(QString::number(0));// _item->checkState(m_cmd_msg_c)));
 	_string_list.push_back(_item->text(m_cmd_msg_c));
 	_string_list.push_back(QString::number(depth)); // push the depth of the command as last
 

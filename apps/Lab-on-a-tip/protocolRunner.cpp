@@ -61,6 +61,7 @@ void Labonatip_macroRunner::run()  {
 			}
 			double time_elapsed = 0.0;
 
+			
 			for (size_t i = 0; i < m_protocol->size(); i++)
 			{
 				if (!m_threadTerminationHandler) {
@@ -175,11 +176,15 @@ void Labonatip_macroRunner::run()  {
 									<< QTime::currentTime().toString().toStdString() << "  "
 									<< "Labonatip_macroRunner::run  ---- error --- MESSAGE: error in ppc1api PPC1api::runCommand" << endl;
 							}
+							else
+							{
+								//msleep(1); //TODO: this must be removed !
+							}
 						}
-						if (m_protocol->at(i).isStatusVisualized()) {
-							QString message = QString::fromStdString(m_protocol->at(i).getStatusMessage());
-							emit sendStatusMessage(message);
-						}
+						//if (m_protocol->at(i).isStatusVisualized()) {
+						//	QString message = QString::fromStdString(m_protocol->at(i).getStatusMessage());
+						//	emit sendStatusMessage(message);
+						//}
 					}
 					else {
 						cerr << QDate::currentDate().toString().toStdString() << "  " 
@@ -191,7 +196,7 @@ void Labonatip_macroRunner::run()  {
 						return;
 					}
 				}
-			}
+			}//end for protocol
 		}
 		else {
 			cerr << QDate::currentDate().toString().toStdString() << "  " 

@@ -757,10 +757,10 @@ void Labonatip_GUI::updateMacroStatusMessage(const QString &_message) {
     s.append(" >>> remaining time = "); //TODO: translation
 
     s.append(_message);
-    cout << QDate::currentDate().toString().toStdString() << "  "
-         << QTime::currentTime().toString().toStdString() << "  "
-         << "Labonatip_GUI::updateMacroStatusMessage :::: "
-         << _message.toStdString() << endl;
+//    cout << QDate::currentDate().toString().toStdString() << "  "
+//         << QTime::currentTime().toString().toStdString() << "  "
+//         << "Labonatip_GUI::updateMacroStatusMessage :::: "
+//         << _message.toStdString() << endl;
 }
 
 
@@ -811,8 +811,11 @@ void Labonatip_GUI::updateMacroTimeStatus(const double &_status) {
 
     updateFlowControlPercentages();
 
-    if (m_pipette_active) updateDrawing(m_ppc1->getDropletSize());
-    else updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
+    if (m_pipette_active)
+		updateDrawing(m_ppc1->getDropletSize());
+    else 
+		updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
+
 
     //cout << QDate::currentDate().toString().toStdString() << "  "
     //     << QTime::currentTime().toString().toStdString() << "  "

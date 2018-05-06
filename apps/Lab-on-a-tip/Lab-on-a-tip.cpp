@@ -78,7 +78,11 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   else {
 	  // init the redirect buffer
 	  qout = new QDebugStream(std::cout, ui->textEdit_qcout);
+#ifndef _DEBUG
 	  qout->copyOutToTerminal(m_GUI_params->enableHistory);
+#else
+	  qout->copyOutToTerminal(false);
+#endif
 	  qout->redirectOutInGUI(m_GUI_params->enableHistory);
 	  qerr = new QDebugStream(std::cerr, ui->textEdit_qcerr);
 	  qerr->copyOutToTerminal(m_GUI_params->enableHistory);

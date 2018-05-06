@@ -145,7 +145,7 @@ void Labonatip_GUI::runMacro() {
 			m_macroRunner_thread->setSimulationFlag(m_simulationOnly);
 			m_macroRunner_thread->killMacro(true);
 
-
+			m_ppc1->setVerbose(m_pr_params->verboseOut);
 			ui->groupBox_deliveryZone->setEnabled(true);
 			ui->pushButton_operational->setEnabled(true);
 			ui->pushButton_newTip->setEnabled(true);
@@ -182,10 +182,11 @@ void Labonatip_GUI::runMacro() {
 		}
 
 		// if ok was pressed
+		m_ppc1->setVerbose(false);
 		m_macroRunner_thread->setProtocol(m_protocol);
 		cout << QDate::currentDate().toString().toStdString() << "  " 
 			 << QTime::currentTime().toString().toStdString() << "  "
-			 << "Labonatip_GUI::runMacro    RUNNING" << endl;
+			 << "Labonatip_GUI::runMacro " <<   msg.toStdString() << endl;
 
 		m_macroRunner_thread->setSimulationFlag(m_simulationOnly);
 		connect(m_macroRunner_thread,
@@ -234,13 +235,13 @@ void Labonatip_GUI::runMacro() {
 		m_macroRunner_thread->setSimulationFlag(m_simulationOnly);
 		m_macroRunner_thread->killMacro(true);
 
-
+		m_ppc1->setVerbose(m_pr_params->verboseOut);
 		ui->groupBox_deliveryZone->setEnabled(true);
 		ui->pushButton_operational->setEnabled(true);
 		ui->pushButton_newTip->setEnabled(true);
 		ui->pushButton_standby->setEnabled(true);
 		ui->toolBar_2->setEnabled(true);
-		//ui->pushButton_stop->setEnabled(true);
+		ui->pushButton_stop->setEnabled(true);
 		//ui->tabWidget->setEnabled(false);
 		ui->tab_2->setEnabled(true);
 		ui->tab_4->setEnabled(true);
@@ -368,8 +369,8 @@ void Labonatip_GUI::stopSolutionFlow()
 		pushSolution1(); // if the flow is active, this should stop it!
 
 		updateDrawing(-1);
-		ui->pushButton_stop->released();
-		ui->pushButton_stop->setEnabled(false);
+		//ui->pushButton_stop->released();
+		//ui->pushButton_stop->setEnabled(false);
 		return;
 	}
 
@@ -377,8 +378,8 @@ void Labonatip_GUI::stopSolutionFlow()
 		ui->pushButton_solution2->setChecked(false);
 		pushSolution2();
 		updateDrawing(-1);
-		ui->pushButton_stop->released();
-		ui->pushButton_stop->setEnabled(false);
+		//ui->pushButton_stop->released();
+		//ui->pushButton_stop->setEnabled(false);
 		return;
 	}
 
@@ -386,8 +387,8 @@ void Labonatip_GUI::stopSolutionFlow()
 		ui->pushButton_solution3->setChecked(false);
 		pushSolution3();
 		updateDrawing(-1);
-		ui->pushButton_stop->released();
-		ui->pushButton_stop->setEnabled(false);
+		//ui->pushButton_stop->released();
+		//ui->pushButton_stop->setEnabled(false);
 		return;
 	}
 
@@ -395,8 +396,8 @@ void Labonatip_GUI::stopSolutionFlow()
 		ui->pushButton_solution4->setChecked(false);
 		pushSolution4();
 		updateDrawing(-1);
-		ui->pushButton_stop->released();
-		ui->pushButton_stop->setEnabled(false);
+		//ui->pushButton_stop->released();
+		//ui->pushButton_stop->setEnabled(false);
 		return;
 	}
 
