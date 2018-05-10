@@ -265,6 +265,9 @@ namespace fluicell
 		int m_baud_rate;                //!< baud rate	
 		int m_COM_timeout;              //!< timeout for the serial communication --- default value 250 ms
 		
+		PPC1api::PPC1_data *m_PPC1_data; /*!< ppc1 output structure */
+		PPC1api::PPC1_status *m_PPC1_status;/*!< pipette status */
+
 		// threads
 		thread m_thread;                   //!< Member for the thread handling		
 		bool m_threadTerminationHandler;   //!< set to TRUE to stop the thread, automatically set to false during the thread starting
@@ -827,19 +830,138 @@ namespace fluicell
 		**/
 		bool isRunning() { return m_isRunning; }
 
+		/** \brief Detect the sync signal arrived
+		*
+		*  \return true when the signal is detected
+		**/
+		bool syncSignalArrived() { 
+			if (m_PPC1_data->trigger_high || m_PPC1_data->trigger_low) return true;
+			else return false;
+		}		//     "pX" is sent to make pulse output, where X is integer number equal or larger than 20 indicating the pulse length in milliseconds
+				//     "P" or "R" are use wait pulse input, either falling or rising front
+
+
+
 		/** \brief Check if an exception has been caught
 		*
 		*  \return true if exception
 		**/
 		bool isExceptionHappened() { return m_excep_handler; }
 
-		PPC1api::PPC1_data *m_PPC1_data; /*!< data structure member exposed to be used by the user,
-									 maybe this will be changed in the future */
-		PPC1api::PPC1_status *m_PPC1_status;/*!< data structure member exposed to be used by the user,
-									 maybe this will be changed in the future */
+
+		/** \brief get vacuum recirculation set point
+		*
+		*  \return double recirculation set point
+		**/
+		double getVrecircSetPoint() { return m_PPC1_data->channel_A->set_point; }
+
+		/** \brief get vacuum recirculation sensor reading
+		*
+		*  \return double recirculation sensor reading
+		**/
+		double getVrecircReading() { return m_PPC1_data->channel_A->sensor_reading; }
 		
-		//     "pX" is sent to make pulse output, where X is integer number equal or larger than 20 indicating the pulse length in milliseconds
-		//     "P" or "R" are use wait pulse input, either falling or rising front
+		/** \brief get vacuum recirculation state of the error flag
+		*
+		*  \return int error flag
+		**/
+		int getVrecircState() { return m_PPC1_data->channel_A->state; }
+
+		/** \brief get vacuum switch set point
+		*
+		*  \return double switch set point
+		**/
+		double getVswitchSetPoint() { return m_PPC1_data->channel_B->set_point; }
+
+		/** \brief get vacuum switch sensor reading
+		*
+		*  \return double switch sensor reading
+		**/
+		double getVswitchReading() { return m_PPC1_data->channel_B->sensor_reading; }
+
+		/** \brief get vacuum switch state of the error flag
+		*
+		*  \return int error flag
+		**/
+		int getVswitchState() { return m_PPC1_data->channel_B->state; }
+
+		/** \brief get pressure off set point
+		*
+		*  \return double pressure off set point
+		**/
+		double getPoffSetPoint() { return m_PPC1_data->channel_C->set_point; }
+
+		/** \brief get pressure off sensor reading
+		*
+		*  \return double pressure off sensor reading
+		**/
+		double getPoffReading() { return m_PPC1_data->channel_C->sensor_reading; }
+
+		/** \brief get pressure off state of the error flag
+		*
+		*  \return int error flag
+		**/
+		int getPoffState() { return m_PPC1_data->channel_C->state; }
+		
+		/** \brief get pressure on set point
+		*
+		*  \return double pressure on set point
+		**/
+		double getPonSetPoint() { return m_PPC1_data->channel_D->set_point; }
+
+		/** \brief get pressure on sensor reading
+		*
+		*  \return double pressure on sensor reading
+		**/
+		double getPonReading() { return m_PPC1_data->channel_D->sensor_reading; }
+
+		/** \brief get pressure on state of the error flag
+		*
+		*  \return int error flag
+		**/
+		int getPonState() { return m_PPC1_data->channel_D->state; }
+
+		/** \brief Check if the well 1 is open
+		*
+		*  \return true if the well 1 is open, false otherwise
+		**/
+		bool isWeel1Open() {
+			if (m_PPC1_data->l == 1) return true;
+			else return false;
+		}
+
+		/** \brief Check if the well 2 is open
+		*
+		*  \return true if the well 2 is open, false otherwise
+		**/
+		bool isWeel2Open() {
+			if (m_PPC1_data->k == 1) return true;
+			else return false;
+		}
+
+		/** \brief Check if the well 3 is open
+		*
+		*  \return true if the well 3 is open, false otherwise
+		**/
+		bool isWeel3Open() {
+			if (m_PPC1_data->j == 1) return true;
+			else return false;
+		}
+
+		/** \brief Check if the well 4 is open
+		*
+		*  \return true if the well 4 is open, false otherwise
+		**/
+		bool isWeel4Open() {
+			if (m_PPC1_data->i == 1) return true;
+			else return false;
+		}
+
+		/** \brief Get the pipette status 
+		*
+		*  \return a copy of the data member
+		**/
+		PPC1api::PPC1_status getPipetteStatus() { return *m_PPC1_status; }
    };
 
 }

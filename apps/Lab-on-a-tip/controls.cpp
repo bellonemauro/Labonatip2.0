@@ -216,7 +216,7 @@ void Labonatip_GUI::sliderPonChanged(int _value) {
 		ui->progressBar_ledPon->setValue(0); // turn the led off
 		return;
 	}
-	ui->progressBar_ledPon->setValue(m_ppc1->m_PPC1_data->channel_D->state); // turn the led on
+	ui->progressBar_ledPon->setValue(m_ppc1->getPonState()); // turn the led on
 }
 
 
@@ -235,7 +235,7 @@ void Labonatip_GUI::sliderPoffChanged(int _value) {
 		ui->progressBar_ledPoff->setValue(0); // turn the led off
 		return;
 	}
-	ui->progressBar_ledPoff->setValue(m_ppc1->m_PPC1_data->channel_C->state); // turn the led on
+	ui->progressBar_ledPoff->setValue(m_ppc1->getPoffState()); // turn the led on
 }
 
 
@@ -254,7 +254,7 @@ void Labonatip_GUI::sliderRecircChanged(int _value) {
 		ui->progressBar_ledRecirc->setValue(0);  // turn the led off
 		return;
 	}
-	ui->progressBar_ledRecirc->setValue(m_ppc1->m_PPC1_data->channel_A->state); // turn the led on
+	ui->progressBar_ledRecirc->setValue(m_ppc1->getVrecircState()); // turn the led on
 }
 
 
@@ -272,7 +272,7 @@ void Labonatip_GUI::sliderSwitchChanged(int _value) {
 		ui->progressBar_ledSwitch->setValue(0);
 		return;
 	}
-	ui->progressBar_ledSwitch->setValue(m_ppc1->m_PPC1_data->channel_B->state);
+	ui->progressBar_ledSwitch->setValue(m_ppc1->getVswitchState());
 }
 
 void Labonatip_GUI::setPreset1() {

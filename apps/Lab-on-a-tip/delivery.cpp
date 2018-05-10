@@ -37,8 +37,8 @@ void Labonatip_GUI::dropletSizePlus() {
 		else
 		{
 			// update the set point
-			m_pipette_status->v_recirc_set_point = -m_ppc1->m_PPC1_data->channel_A->set_point;
-			m_pipette_status->pon_set_point = m_ppc1->m_PPC1_data->channel_D->set_point;
+			m_pipette_status->v_recirc_set_point = -m_ppc1->getVrecircSetPoint();
+			m_pipette_status->pon_set_point = m_ppc1->getPonSetPoint();
 
 			// update the slider for the GUI
 			ui->horizontalSlider_recirculation->blockSignals(true);
@@ -112,8 +112,8 @@ void Labonatip_GUI::dropletSizeMinus() {
 		else
 		{
 			// update the set point
-			m_pipette_status->v_recirc_set_point = -m_ppc1->m_PPC1_data->channel_A->set_point;
-			m_pipette_status->pon_set_point = m_ppc1->m_PPC1_data->channel_D->set_point;
+			m_pipette_status->v_recirc_set_point = -m_ppc1->getVrecircSetPoint();
+			m_pipette_status->pon_set_point = m_ppc1->getPonSetPoint();
 
 			// update the slider for the GUI
 			ui->horizontalSlider_recirculation->blockSignals(true);
@@ -188,10 +188,10 @@ void Labonatip_GUI::flowSpeedPlus() {
 		else
 		{
 			// update the set point
-			m_pipette_status->v_recirc_set_point = -m_ppc1->m_PPC1_data->channel_A->set_point;
-			m_pipette_status->v_switch_set_point = -m_ppc1->m_PPC1_data->channel_B->set_point;
-			m_pipette_status->poff_set_point = m_ppc1->m_PPC1_data->channel_C->set_point;
-			m_pipette_status->pon_set_point = m_ppc1->m_PPC1_data->channel_D->set_point;
+			m_pipette_status->v_recirc_set_point = -m_ppc1->getVrecircSetPoint();
+			m_pipette_status->v_switch_set_point = -m_ppc1->getVswitchSetPoint();
+			m_pipette_status->poff_set_point = m_ppc1->getPoffSetPoint();
+			m_pipette_status->pon_set_point = m_ppc1->getPonSetPoint();
 
 			// update the slider for the GUI
 			ui->horizontalSlider_recirculation->blockSignals(true);
@@ -282,10 +282,10 @@ void Labonatip_GUI::flowSpeedMinus() {
 		else
 		{
 			// update the set point
-			m_pipette_status->v_recirc_set_point = -m_ppc1->m_PPC1_data->channel_A->set_point;
-			m_pipette_status->v_switch_set_point = -m_ppc1->m_PPC1_data->channel_B->set_point;
-			m_pipette_status->poff_set_point = m_ppc1->m_PPC1_data->channel_C->set_point;
-			m_pipette_status->pon_set_point = m_ppc1->m_PPC1_data->channel_D->set_point;
+			m_pipette_status->v_recirc_set_point = -m_ppc1->getVrecircSetPoint();
+			m_pipette_status->v_switch_set_point = -m_ppc1->getVswitchSetPoint();
+			m_pipette_status->poff_set_point = m_ppc1->getPoffSetPoint();
+			m_pipette_status->pon_set_point = m_ppc1->getPonSetPoint();
 
 			// update the slider for the GUI
 			ui->horizontalSlider_recirculation->blockSignals(true);
@@ -351,7 +351,7 @@ void Labonatip_GUI::vacuumPlus() {
 		}
 		else {
 			// update the set point
-			m_pipette_status->v_recirc_set_point = -m_ppc1->m_PPC1_data->channel_A->set_point;
+			m_pipette_status->v_recirc_set_point = -m_ppc1->getVrecircSetPoint();
 
 			// update the slider for the GUI
 			ui->horizontalSlider_recirculation->blockSignals(true);
@@ -406,7 +406,7 @@ void Labonatip_GUI::vacuumMinus() {
 		}
 		else {
 			// update the set point
-			m_pipette_status->v_recirc_set_point = -m_ppc1->m_PPC1_data->channel_A->set_point;
+			m_pipette_status->v_recirc_set_point = -m_ppc1->getVrecircSetPoint();
 			//ui->label_recircPressure->setText(QString(QString::number(m_v_recirc_set_point) + " mbar"));
 
 			// update the slider for the GUI

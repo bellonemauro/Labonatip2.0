@@ -23,21 +23,21 @@
    <string notr="true">QToolButton:!hover {
 background-color:rgb(0, 94, 116);
 color:rgb(255,255,255);
-font-size: 16px;
+font-size: 10pt;
 font-weight: 900;
 }
 
 QToolButton:disabled {
 background-color:rgb(0, 94, 116);
 color:rgb(0,134,156);
-font-size: 16px;
+font-size: 10pt;
 font-weight: 900;
 }
 
 QToolBar {
 background-color:rgb(0, 94, 116);
 color:rgb(255,255,255);
-font-size: 16px;
+font-size: 10pt;
 font-weight: 900;
 border:0;
 }</string>
@@ -96,8 +96,8 @@ border:0;
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>743</width>
-         <height>685</height>
+         <width>737</width>
+         <height>682</height>
         </rect>
        </property>
        <property name="sizePolicy">

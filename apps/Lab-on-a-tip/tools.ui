@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>611</width>
-    <height>610</height>
+    <height>671</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -149,7 +149,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
        <number>0</number>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="page_0">
        <property name="styleSheet">

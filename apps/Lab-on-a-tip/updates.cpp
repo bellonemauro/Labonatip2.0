@@ -40,26 +40,26 @@ void Labonatip_GUI::updateGUI() {
 			return;
 		}
 
-		int sensor_reading = (int)(m_ppc1->m_PPC1_data->channel_B->sensor_reading);  // rounded to second decimal
-		m_pipette_status->v_switch_set_point = - m_ppc1->m_PPC1_data->channel_B->set_point;
+		int sensor_reading = (int)(m_ppc1->getVswitchReading());  // rounded to second decimal
+		m_pipette_status->v_switch_set_point = - m_ppc1->getVswitchSetPoint();
 		ui->label_switchPressure->setText(QString(QString::number(sensor_reading) +
 			", " + QString::number(int(-m_pipette_status->v_switch_set_point)) + " mbar"));
 		ui->progressBar_switch->setValue(-sensor_reading);
 
-		sensor_reading = (int)(m_ppc1->m_PPC1_data->channel_A->sensor_reading);
-		m_pipette_status->v_recirc_set_point = - m_ppc1->m_PPC1_data->channel_A->set_point;
+		sensor_reading = (int)(m_ppc1->getVrecircReading());
+		m_pipette_status->v_recirc_set_point = - m_ppc1->getVrecircSetPoint();
 		ui->label_recircPressure->setText(QString(QString::number(sensor_reading) +
 			", " + QString::number(int(-m_pipette_status->v_recirc_set_point)) + " mbar"));
 		ui->progressBar_recirc->setValue(-sensor_reading);
 
-		sensor_reading = (int)(m_ppc1->m_PPC1_data->channel_C->sensor_reading);
-		m_pipette_status->poff_set_point = m_ppc1->m_PPC1_data->channel_C->set_point;
+		sensor_reading = (int)(m_ppc1->getPoffReading());
+		m_pipette_status->poff_set_point = m_ppc1->getPoffSetPoint();
 		ui->label_PoffPressure->setText(QString(QString::number(sensor_reading) +
 			", " + QString::number(int(m_pipette_status->poff_set_point)) + " mbar"));
 		ui->progressBar_pressure_p_off->setValue(sensor_reading);
 
-		sensor_reading = (int)(m_ppc1->m_PPC1_data->channel_D->sensor_reading);
-		m_pipette_status->pon_set_point = m_ppc1->m_PPC1_data->channel_D->set_point;
+		sensor_reading = (int)(m_ppc1->getPonReading());
+		m_pipette_status->pon_set_point = m_ppc1->getPonSetPoint();
 		ui->label_PonPressure->setText(QString(QString::number(sensor_reading) +
 			", " + QString::number(int(m_pipette_status->pon_set_point)) + " mbar"));
 		ui->progressBar_pressure_p_on->setValue(sensor_reading);
@@ -91,7 +91,7 @@ void Labonatip_GUI::updateGUI() {
 		}
 		
 		// check if some of the wells is open
-		if (m_ppc1->m_PPC1_data->l == 1) {
+		if (m_ppc1->isWeel1Open()) {
 			m_pen_line.setColor(m_sol1_color);
 			// move the arrow in the drawing to point on the solution 4
 			ui->widget_solutionArrow->setVisible(true);
@@ -123,7 +123,7 @@ void Labonatip_GUI::updateGUI() {
             ui->pushButton_solution4->blockSignals(false);
 
 		}
-		if (m_ppc1->m_PPC1_data->k == 1) {
+		if (m_ppc1->isWeel2Open()) {
 			m_pen_line.setColor(m_sol2_color);
 			// move the arrow in the drawing to point on the solution 4
 			ui->widget_solutionArrow->setVisible(true);
@@ -154,7 +154,7 @@ void Labonatip_GUI::updateGUI() {
             ui->pushButton_solution4->setChecked(false);
             ui->pushButton_solution4->blockSignals(false);
 		}
-		if (m_ppc1->m_PPC1_data->j == 1) {
+		if (m_ppc1->isWeel3Open()) {
 			m_pen_line.setColor(m_sol3_color);
 			// move the arrow in the drawing to point on the solution 4
 			ui->widget_solutionArrow->setVisible(true);
@@ -185,7 +185,7 @@ void Labonatip_GUI::updateGUI() {
             ui->pushButton_solution4->setChecked(false);
             ui->pushButton_solution4->blockSignals(false);
 		}
-		if (m_ppc1->m_PPC1_data->i == 1) {
+		if (m_ppc1->isWeel4Open()) {
 			m_pen_line.setColor(m_sol4_color);
 			// move the arrow in the drawing to point on the solution 4
 			ui->widget_solutionArrow->setVisible(true);
@@ -217,8 +217,8 @@ void Labonatip_GUI::updateGUI() {
             ui->pushButton_solution3->blockSignals(false);
 		}
 
-		if (m_ppc1->m_PPC1_data->i == 0 && m_ppc1->m_PPC1_data->j == 0 &&
-			m_ppc1->m_PPC1_data->k == 0 && m_ppc1->m_PPC1_data->l == 0) {
+		if (!m_ppc1->isWeel1Open() && !m_ppc1->isWeel2Open() &&
+			!m_ppc1->isWeel3Open() && !m_ppc1->isWeel4Open()) {
 			m_pen_line.setColor(Qt::transparent);
 			ui->widget_solutionArrow->setVisible(false);
 
@@ -240,8 +240,8 @@ void Labonatip_GUI::updateGUI() {
             ui->pushButton_solution4->blockSignals(false);
 		}
 
-		if (m_ppc1->m_PPC1_data->i == 1 && m_ppc1->m_PPC1_data->j == 1 &&
-			m_ppc1->m_PPC1_data->k == 1 && m_ppc1->m_PPC1_data->l == 1) {
+		if (m_ppc1->isWeel1Open() && m_ppc1->isWeel2Open() &&
+			m_ppc1->isWeel3Open() && m_ppc1->isWeel4Open()) {
 			m_pen_line.setColor(Qt::transparent);
 			ui->widget_solutionArrow->setVisible(false);
 
@@ -292,22 +292,25 @@ void Labonatip_GUI::updateFlows()
 
 
 	if (!m_simulationOnly) {  // if we are not in simulation, we just get the numbers from the PPC1api
-		m_pipette_status->outflow_on = m_ppc1->m_PPC1_status->outflow_on;
-		m_pipette_status->outflow_off = m_ppc1->m_PPC1_status->outflow_off; 
-		m_pipette_status->outflow_tot = m_ppc1->m_PPC1_status->outflow_tot; 
-		m_pipette_status->inflow_recirculation = m_ppc1->m_PPC1_status->inflow_recirculation;
-		m_pipette_status->inflow_switch = m_ppc1->m_PPC1_status->inflow_switch;
-		m_pipette_status->in_out_ratio_on = m_ppc1->m_PPC1_status->in_out_ratio_on;
-		m_pipette_status->in_out_ratio_off = m_ppc1->m_PPC1_status->in_out_ratio_off;
-		m_pipette_status->in_out_ratio_tot = m_ppc1->m_PPC1_status->in_out_ratio_tot;
-		m_pipette_status->flow_well1 = m_ppc1->m_PPC1_status->flow_rate_1;
-		m_pipette_status->flow_well2 = m_ppc1->m_PPC1_status->flow_rate_2;
-		m_pipette_status->flow_well3 = m_ppc1->m_PPC1_status->flow_rate_3;
-		m_pipette_status->flow_well4 = m_ppc1->m_PPC1_status->flow_rate_4;
-		m_pipette_status->flow_well5 = m_ppc1->m_PPC1_status->flow_rate_5;
-		m_pipette_status->flow_well6 = m_ppc1->m_PPC1_status->flow_rate_6;
-		m_pipette_status->flow_well7 = m_ppc1->m_PPC1_status->flow_rate_7;
-		m_pipette_status->flow_well8 = m_ppc1->m_PPC1_status->flow_rate_8;
+		
+		fluicell::PPC1api::PPC1_status status = m_ppc1->getPipetteStatus();
+		//TODO : check ppc1_Status var. This is to avoid the direct access to the data member
+		m_pipette_status->outflow_on = status.outflow_on;
+		m_pipette_status->outflow_off = status.outflow_off;
+		m_pipette_status->outflow_tot = status.outflow_tot;
+		m_pipette_status->inflow_recirculation = status.inflow_recirculation;
+		m_pipette_status->inflow_switch = status.inflow_switch;
+		m_pipette_status->in_out_ratio_on = status.in_out_ratio_on;
+		m_pipette_status->in_out_ratio_off = status.in_out_ratio_off;
+		m_pipette_status->in_out_ratio_tot = status.in_out_ratio_tot;
+		m_pipette_status->flow_well1 = status.flow_rate_1;
+		m_pipette_status->flow_well2 = status.flow_rate_2;
+		m_pipette_status->flow_well3 = status.flow_rate_3;
+		m_pipette_status->flow_well4 = status.flow_rate_4;
+		m_pipette_status->flow_well5 = status.flow_rate_5;
+		m_pipette_status->flow_well6 = status.flow_rate_6;
+		m_pipette_status->flow_well7 = status.flow_rate_7;
+		m_pipette_status->flow_well8 = status.flow_rate_8;
 
 	}
 	else {
@@ -792,19 +795,19 @@ void Labonatip_GUI::updateMacroTimeStatus(const double &_status) {
 
     // update the slider for the GUI
     ui->horizontalSlider_recirculation->blockSignals(true);
-    ui->horizontalSlider_recirculation->setValue(m_ppc1->m_PPC1_data->channel_A->set_point);
+    ui->horizontalSlider_recirculation->setValue(m_ppc1->getVrecircSetPoint());
     ui->horizontalSlider_recirculation->blockSignals(false);
 
     ui->horizontalSlider_switch->blockSignals(true);
-    ui->horizontalSlider_switch->setValue(m_ppc1->m_PPC1_data->channel_B->set_point);
+    ui->horizontalSlider_switch->setValue(m_ppc1->getVswitchSetPoint());
     ui->horizontalSlider_switch->blockSignals(false);
 
     ui->horizontalSlider_p_off->blockSignals(true);
-    ui->horizontalSlider_p_off->setValue(m_ppc1->m_PPC1_data->channel_C->set_point);
+    ui->horizontalSlider_p_off->setValue(m_ppc1->getPoffSetPoint());
     ui->horizontalSlider_p_off->blockSignals(false);
 
     ui->horizontalSlider_p_on->blockSignals(true);
-    ui->horizontalSlider_p_on->setValue(m_ppc1->m_PPC1_data->channel_D->set_point);
+    ui->horizontalSlider_p_on->setValue(m_ppc1->getPonSetPoint());
     ui->horizontalSlider_p_on->blockSignals(false);
 
     double currentTime = _status * m_protocol_duration / 100.0 ;

@@ -251,6 +251,10 @@ namespace fluicell
 			int ppc1_IN;  //!< INx where x and y are either 0 or 1 and show the input state.
 			int ppc1_OUT; //!< OUTy where x and y are either 0 or 1 and show the output state
 
+			bool trigger_low;   //!< this is false always, it becomes true when the trigger (low) is detected
+			bool trigger_high;  //!< this is false always, it becomes true when the trigger (hihg) is detected
+
+
 		public:
 
 			/**  \brief Constructor for PPC1 data to group all information
@@ -262,7 +266,9 @@ namespace fluicell
 				channel_C(new channel),
 				channel_D(new channel),
 				i(0), j(0), k(0), l(0),
-				ppc1_IN(0), ppc1_OUT(0)
+				ppc1_IN(0), ppc1_OUT(0),
+				trigger_low(false),
+				trigger_high(false)
 			{ }
 
 			/**  \brief Set size for the rolling average filter

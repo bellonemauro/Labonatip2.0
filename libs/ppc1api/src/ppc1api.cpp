@@ -248,6 +248,8 @@ bool fluicell::PPC1api::decodeDataLine(const string &_data, PPC1_data *_PPC1_dat
 	}
 
 	if (_data.at(0) == 'I') {
+		_PPC1_data->trigger_low = false;
+		_PPC1_data->trigger_high = false;
 		//cout << " line type I " << _data << endl;
 		// string format: IN1|OUT1 or IN0|OUT0
 		// char index:    01234567
@@ -271,6 +273,24 @@ bool fluicell::PPC1api::decodeDataLine(const string &_data, PPC1_data *_PPC1_dat
 				<< endl;
 			return false;
 		}
+		return true;
+	}
+
+	if (_data.at(0) == 'P') {
+		//cout << " line type I " << _data << endl;
+		// string format: P\n
+		// char index:    01
+		_PPC1_data->trigger_low = true;
+
+		return true;
+	}
+
+	if (_data.at(0) == 'R') {
+		//cout << " line type I " << _data << endl;
+		// string format: P\n
+		// char index:    01
+		_PPC1_data->trigger_high = true;
+
 		return true;
 	}
 
@@ -1028,6 +1048,7 @@ bool fluicell::PPC1api::runCommand(command _cmd)
 		if (m_verbose) cout << currentDateTime()
 			<< " fluicell::PPC1api::run(command _cmd) ::: solution1  " 
 			<< _cmd.getValue() << endl;
+		if (!closeAllValves())return false;
 		int v = static_cast<int>(_cmd.getValue());
 		bool valve_status;
 		if (v == 0)valve_status = false;
@@ -1038,6 +1059,7 @@ bool fluicell::PPC1api::runCommand(command _cmd)
 		if (m_verbose) cout << currentDateTime()
 			<< " fluicell::PPC1api::run(command _cmd) ::: solution2  " 
 			<< _cmd.getValue() << endl;
+		if (!closeAllValves())return false;
 		int v = static_cast<int>(_cmd.getValue());
 		bool valve_status;
 		if (v == 0)valve_status = false;
@@ -1048,6 +1070,7 @@ bool fluicell::PPC1api::runCommand(command _cmd)
 		if (m_verbose) cout << currentDateTime()
 			<< " fluicell::PPC1api::run(command _cmd) ::: solution3  " 
 			<< _cmd.getValue() << endl;
+		if (!closeAllValves())return false;
 		int v = static_cast<int>(_cmd.getValue());
 		bool valve_status;
 		if (v == 0 )valve_status = false;
@@ -1058,6 +1081,7 @@ bool fluicell::PPC1api::runCommand(command _cmd)
 		if (m_verbose) cout << currentDateTime()
 			<< " fluicell::PPC1api::run(command _cmd) ::: solution4  " 
 			<< _cmd.getValue() << endl;
+		if (!closeAllValves())return false;
 		int v = static_cast<int>(_cmd.getValue());
 		bool valve_status;
 		if (v == 0)valve_status = false;
@@ -1088,12 +1112,27 @@ bool fluicell::PPC1api::runCommand(command _cmd)
 		return true;
 	}
 	case 12: {//waitSync //TODO
-			  //waitsync(front type : can be : RISE or FALL), macro stops until trigger signal is received
-		bool state = static_cast<bool>(_cmd.getValue());
+			  //waitsync(front type : can be : RISE or FALL), protocol stops until trigger signal is received
+		bool state;
+		if (_cmd.getValue() == 0) state = false;
+		else state = true;
 		if (m_verbose) cout << currentDateTime()
             << " fluicell::PPC1api::run(command _cmd) ::: waitSync NOT implemented in the API ::: test value = "
             << state << endl;
-		return setTTLstate(state);
+		//return setTTLstate(state);
+		bool success = false;
+		std::this_thread::sleep_for(std::chrono::milliseconds(20));
+		clock_t begin = clock();
+		while (!syncSignalArrived())
+		{
+			std::this_thread::sleep_for(std::chrono::milliseconds(1));
+			clock_t end = clock();
+			double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC; 
+			if (elapsed_secs > 2) // break after two seconds
+				break;
+		}
+		return success;
+
 	}
 	case 13: {//syncOut //TODO
               //syncout(int: pulse length in ms) if negative then default state is 1
@@ -1103,12 +1142,21 @@ bool fluicell::PPC1api::runCommand(command _cmd)
 			 << " fluicell::PPC1api::run(command _cmd) ::: "
 			 << "syncOut NOT implemented in the API ::: test value = " 
 			 << v << endl;
+		int current_ppc1out_status = m_PPC1_data->ppc1_OUT;
 		bool success = setPulsePeriod(v);
-		std::this_thread::sleep_for(std::chrono::milliseconds(20));
-		while (!m_PPC1_data->ppc1_OUT)
+		std::this_thread::sleep_for(std::chrono::milliseconds(v));
+		/*
+		clock_t begin = clock();
+		while (current_ppc1out_status == m_PPC1_data->ppc1_OUT)
 		{
 			std::this_thread::sleep_for(std::chrono::milliseconds(1));
 		}
+		while (current_ppc1out_status != m_PPC1_data->ppc1_OUT)
+		{
+			std::this_thread::sleep_for(std::chrono::milliseconds(1));
+		}
+		clock_t end = clock();
+		double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;*/
 		return success;
 	}
 	case 14: {//dropletSize

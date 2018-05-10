@@ -149,7 +149,7 @@ font-weight: 900;
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>858</width>
+         <width>966</width>
          <height>740</height>
         </rect>
        </property>
@@ -191,8 +191,8 @@ font-weight: 900;
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>978</width>
-             <height>671</height>
+             <width>976</width>
+             <height>672</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout">
@@ -3968,7 +3968,7 @@ border-radius: 4px;
            <property name="sizeHint" stdset="0">
             <size>
              <width>20</width>
-             <height>84</height>
+             <height>40</height>
             </size>
            </property>
           </spacer>
@@ -4050,10 +4050,13 @@ QPushButton:disabled{ background-color: #CCCCCC; }
            <property name="orientation">
             <enum>Qt::Vertical</enum>
            </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Minimum</enum>
+           </property>
            <property name="sizeHint" stdset="0">
             <size>
              <width>20</width>
-             <height>40</height>
+             <height>10</height>
             </size>
            </property>
           </spacer>
@@ -5802,8 +5805,8 @@ p, li { white-space: pre-wrap; }
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>470</width>
-              <height>1107</height>
+              <width>373</width>
+              <height>912</height>
              </rect>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_3">
