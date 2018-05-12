@@ -298,6 +298,7 @@ struct GUIparams {
 		this->verboseOutput = true;
 		this->enableHistory = true;
 		this->dumpHistoryToFile = true;
+		this->speechActive = true;
 		this->outFilePath = "./Ext_data/";
 		this->language = English;
 	}
@@ -321,6 +322,7 @@ struct GUIparams {
 	bool verboseOutput;
 	bool enableHistory;
 	bool dumpHistoryToFile;
+	bool speechActive;
 	QString	outFilePath;
 	languages language;
 }; // END COMSettings struct
