@@ -100,6 +100,9 @@ public:
 
 private slots:
 
+
+void testTTL();
+
 	/** \brief This function is called when the down arrow on Pon is called
 	  *        it decreases the pressure on Pon, it does not accept out-of-range
 	  *
@@ -729,6 +732,8 @@ private:
   QString m_str_protocol_running_stop;
   QString m_str_lost_connection;
   QString m_str_swapping_to_simulation;
+  QString m_str_warning_solution_end;
+  QString m_str_warning_waste_full;
 
   // to visualize the led on the status bar, 
   // I create two different leds and switch between them to create the effect on/off

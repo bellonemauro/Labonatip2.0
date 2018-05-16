@@ -834,9 +834,20 @@ namespace fluicell
 		*
 		*  \return true when the signal is detected
 		**/
-		bool syncSignalArrived() { 
-			if (m_PPC1_data->trigger_high || m_PPC1_data->trigger_low) return true;
-			else return false;
+		bool syncSignalArrived(bool _state) { 
+			if (_state == true) // check rise state 
+			{
+				if (m_PPC1_data->trigger_rise == true )
+				return true;
+			}
+			if (_state == false)  // check fall state
+			{
+				if (m_PPC1_data->trigger_fall == true )
+				return true;
+			}
+
+			return false;		
+			
 		}		//     "pX" is sent to make pulse output, where X is integer number equal or larger than 20 indicating the pulse length in milliseconds
 				//     "P" or "R" are use wait pulse input, either falling or rising front
 

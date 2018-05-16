@@ -445,7 +445,7 @@ void Labonatip_GUI::updateFlowControlPercentages()
 		// calculate droplet size percentage
 		m_ds_perc = 100.0*(m_pipette_status->in_out_ratio_on + 0.21) / 0.31;
 		if (m_ds_perc < 0) {
-			ui->lcdNumber_dropletSize_percentage->display(NAN);
+			ui->lcdNumber_dropletSize_percentage->display("A");
 		}
 		else {
 			ui->lcdNumber_dropletSize_percentage->display(m_ds_perc);

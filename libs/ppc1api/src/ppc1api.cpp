@@ -248,8 +248,7 @@ bool fluicell::PPC1api::decodeDataLine(const string &_data, PPC1_data *_PPC1_dat
 	}
 
 	if (_data.at(0) == 'I') {
-		_PPC1_data->trigger_low = false;
-		_PPC1_data->trigger_high = false;
+		
 		//cout << " line type I " << _data << endl;
 		// string format: IN1|OUT1 or IN0|OUT0
 		// char index:    01234567
@@ -276,20 +275,21 @@ bool fluicell::PPC1api::decodeDataLine(const string &_data, PPC1_data *_PPC1_dat
 		return true;
 	}
 
-	if (_data.at(0) == 'P') {
+	if (_data.at(0) == 'P') {  // FALLING TTL signal detected
 		//cout << " line type I " << _data << endl;
 		// string format: P\n
 		// char index:    01
-		_PPC1_data->trigger_low = true;
-
+		_PPC1_data->trigger_fall = true;
+		_PPC1_data->trigger_rise = false;
 		return true;
-	}
+	} //TODO: this can be the opposite
 
-	if (_data.at(0) == 'R') {
+	if (_data.at(0) == 'R') {  //RISING TTL signal detected
 		//cout << " line type I " << _data << endl;
 		// string format: P\n
 		// char index:    01
-		_PPC1_data->trigger_high = true;
+		_PPC1_data->trigger_fall = false;
+		_PPC1_data->trigger_rise = true;
 
 		return true;
 	}
@@ -693,11 +693,17 @@ bool fluicell::PPC1api::setTTLstate(const bool _value)
 
 	if (_value) {
 		if (sendData("o1\n"))   // high
+		{
+			m_PPC1_data->TTL_out_trigger = true;
 			return true;
+		}
 	}
 	else {
 		if (sendData("o0\n"))  // low
+		{
+			m_PPC1_data->TTL_out_trigger = false;
 			return true;
+		}
 	}
 
 	return false;
@@ -1121,14 +1127,18 @@ bool fluicell::PPC1api::runCommand(command _cmd)
             << state << endl;
 		//return setTTLstate(state);
 		bool success = false;
+		//TODO: modify the data member !!! 
+		m_PPC1_data->trigger_rise = false;
+		m_PPC1_data->trigger_fall = false;
+		//TODO: modify the data member !!! 
 		std::this_thread::sleep_for(std::chrono::milliseconds(20));
 		clock_t begin = clock();
-		while (!syncSignalArrived())
+		while (!syncSignalArrived(state))
 		{
 			std::this_thread::sleep_for(std::chrono::milliseconds(1));
 			clock_t end = clock();
 			double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC; 
-			if (elapsed_secs > 2) // break after two seconds
+			if (elapsed_secs > 200) // break after two seconds
 				break;
 		}
 		return success;

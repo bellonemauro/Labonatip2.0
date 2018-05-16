@@ -516,6 +516,10 @@
         <translation>Warning: the solution is running out</translation>
 	</message>	
 	<message>
+        <source>Warning: the waste is full</source>
+        <translation>Warning: the waste is full</translation>
+	</message>	
+	<message>
         <source>Operation cannot be done</source>
         <translation>Operation cannot be done</translation>
 	</message>	

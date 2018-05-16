@@ -70,21 +70,21 @@ void Labonatip_GUI::updateGUI() {
 
 		//ui->lcdNumber_dropletSize_percentage->display(m_ds_perc);
 		if (m_ds_perc < 0) {
-			ui->lcdNumber_dropletSize_percentage->display(NAN);
+			ui->lcdNumber_dropletSize_percentage->display("A");
 		}
 		else {
 			ui->lcdNumber_dropletSize_percentage->display(m_ds_perc);
 		}
 
 		if (m_fs_perc < 0) {
-			ui->lcdNumber_flowspeed_percentage->display(NAN);
+			ui->lcdNumber_flowspeed_percentage->display("A");
 		}
 		else {
 			ui->lcdNumber_flowspeed_percentage->display(m_fs_perc);
 		}
 
 		if (m_v_perc < 0) {
-			ui->lcdNumber_vacuum_percentage->display(NAN);
+			ui->lcdNumber_vacuum_percentage->display("A");
 		}
 		else {
 			ui->lcdNumber_vacuum_percentage->display(m_v_perc);
@@ -585,6 +585,7 @@ void Labonatip_GUI::updateWaste()  // this is updated every second
 		m_pipette_status->rem_vol_well7 > MAX_WASTE_WARNING_VOLUME ||
 		m_pipette_status->rem_vol_well8 > MAX_WASTE_WARNING_VOLUME) {
 		ui->label_warningIcon->show();
+		ui->label_warning->setText(m_str_warning_waste_full);
 		ui->label_warning->show();
 	}
 
@@ -710,6 +711,7 @@ void Labonatip_GUI::updateWells()
 
 		if (m_pipette_status->rem_vol_well1 < 0) {
 			stopSolutionFlow();
+			//TODO: should we show any message here? like to refill the solution ?
 		}
 
 		double perc =  100.0 * m_pipette_status->rem_vol_well1 / max;

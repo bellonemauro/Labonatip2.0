@@ -516,6 +516,10 @@
         <translation>Varning: lösningen avslutar</translation>
 	</message>	
 	<message>
+        <source>Warning: the waste is full</source>
+        <translation>Varning: avfallet är fullt</translation>
+	</message>	
+	<message>
         <source>Operation cannot be done</source>
         <translation>Operation kan inte göras</translation>
 	</message>	
