@@ -523,6 +523,7 @@ void Labonatip_tools::getGUIsettingsFromGUI()
 	m_GUI_params->verboseOutput = ui_tools->checkBox_verboseOut->isChecked();
 	m_GUI_params->enableHistory = ui_tools->checkBox_EnableHistory->isChecked();
 	m_GUI_params->dumpHistoryToFile = ui_tools->checkBox_dumpToFile->isChecked();
+	m_GUI_params->speechActive = ui_tools->checkBox_enableSynthesis->isChecked();
 	m_GUI_params->outFilePath = ui_tools->lineEdit_msg_out_file_path->text();
 	m_GUI_params->setLanguage(ui_tools->comboBox_language->currentIndex());
 
@@ -634,6 +635,11 @@ bool Labonatip_tools::loadSettings(QString _path)
 	ui_tools->checkBox_dumpToFile->setChecked(dump_to_file);
 	m_GUI_params->dumpHistoryToFile = dump_to_file;
 
+	bool speech_active = m_settings->value("GUI/speechActive", "1").toBool();
+	ui_tools->checkBox_enableSynthesis->setChecked(speech_active);
+	m_GUI_params->speechActive = speech_active;
+
+	
 	QString out_file_path = m_settings->value("GUI/OutFilePath", "./Ext_data/").toString();
 	m_GUI_params->outFilePath = out_file_path; 
 
@@ -1109,7 +1115,8 @@ bool Labonatip_tools::saveSettings(QString _file_name)
 	settings->setValue("GUI/EnableToolTips", int(ui_tools->checkBox_enableToolTips->isChecked()));
 	settings->setValue("GUI/VerboseOutput", int(ui_tools->checkBox_verboseOut->isChecked()));
 	settings->setValue("GUI/EnableHistory", int(ui_tools->checkBox_EnableHistory->isChecked()));
-	settings->setValue("GUI/DumpHistoryToFile", int(ui_tools->checkBox_dumpToFile->isChecked()));
+	settings->setValue("GUI/DumpHistoryToFile", int(ui_tools->checkBox_dumpToFile->isChecked())); 
+	settings->setValue("GUI/speechActive", int(ui_tools->checkBox_enableSynthesis->isChecked()));
 	settings->setValue("GUI/OutFilePath", QString(ui_tools->lineEdit_msg_out_file_path->text()));
 
 	// [pr_limits]

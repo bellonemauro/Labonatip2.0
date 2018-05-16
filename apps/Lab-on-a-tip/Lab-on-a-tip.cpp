@@ -156,6 +156,10 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   m_macroRunner_thread = new Labonatip_macroRunner(this);
   m_macroRunner_thread->setDevice(m_ppc1);
 
+  //speech synthesis
+  m_speech = new QTextToSpeech(this);
+  
+
   // status bar to not connected
   led_green->fill(Qt::transparent);
   painter_led_green = new QPainter(led_green);
@@ -273,9 +277,10 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 
 void Labonatip_GUI::askMessage(const QString &_message) {
 
+	if (m_GUI_params->speechActive)  m_speech->say(_message);
 	QMessageBox::question(this, m_str_ask_msg, _message, m_str_ok);
 	m_macroRunner_thread->askOkEvent(true);
-
+	
 	cout << QDate::currentDate().toString().toStdString() << "  "
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_GUI::askMessage :::: "
@@ -1028,6 +1033,8 @@ bool Labonatip_GUI::visualizeProgressMessage(int _seconds, QString _message)
 	msg.append(m_str_progress_msg1);
 	msg.append(QString::number(_seconds));
 	msg.append(m_str_progress_msg2);
+
+	if (m_GUI_params->speechActive)  m_speech->say(_message);
 
 	QProgressDialog *PD = new QProgressDialog(msg, m_str_cancel, 0, _seconds, this);
 	PD->setMinimumWidth(350);   // here there is a warning that the geometry cannot be set, forget about it!

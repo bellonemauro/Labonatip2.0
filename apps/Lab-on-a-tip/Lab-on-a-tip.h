@@ -26,6 +26,7 @@
 //#include <QWhatsthis>
 #include <qwhatsthis.h>
 #include <QException>
+#include <QtTextToSpeech\QTextToSpeech>
 
 // QT for graphics
 #include <QGraphicsEllipseItem>
@@ -734,6 +735,11 @@ private:
   QString m_str_swapping_to_simulation;
   QString m_str_warning_solution_end;
   QString m_str_warning_waste_full;
+
+  // speech synthesis
+  QTextToSpeech *m_speech;
+  QVector<QVoice> m_voices;
+
 
   // to visualize the led on the status bar, 
   // I create two different leds and switch between them to create the effect on/off

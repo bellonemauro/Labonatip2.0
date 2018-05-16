@@ -19,8 +19,7 @@ void Labonatip_GUI::newTip()
 	setEnableMainWindow(false);
 
 	//Ask: Place the pipette into the holder and tighten.THEN PRESS OK.
-	QMessageBox::information(this, m_str_information,
-		m_str_newtip_msg1);
+	this->askMessage(m_str_newtip_msg1);
 	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
 
 	
@@ -55,8 +54,7 @@ void Labonatip_GUI::newTip()
 
 	//Ask : wait until a droplet appears at the tip of the pipette and THEN PRESS OK.
 	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-	QMessageBox::information(this, m_str_information,
-		m_str_newtip_msg3);
+	this->askMessage(m_str_newtip_msg3);
 	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
 
 	//Wait 40 seconds
@@ -75,10 +73,8 @@ void Labonatip_GUI::newTip()
 
 	//Ask : Remove the droplet using a lens tissue and put the pipette into solution.THEN PRESS OK.
 	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-	QMessageBox::information(this, m_str_information,
-		m_str_newtip_msg6);
-	QMessageBox::information(this, m_str_information,
-		m_str_newtip_msg7);
+	this->askMessage(m_str_newtip_msg6);
+	this->askMessage(m_str_newtip_msg7);
 	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
 
 	//B - 200
@@ -107,8 +103,7 @@ void Labonatip_GUI::newTip()
 
 	//Ask: Pipette is ready for operation.PRESS OK TO START.
 	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-	QMessageBox::information(this, m_str_information,
-		m_str_newtip_msg10);
+	this->askMessage(m_str_newtip_msg10);
 
 	setEnableMainWindow(true);
 
