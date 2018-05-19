@@ -246,8 +246,10 @@ void Labonatip_tools::checkHistory () {
     //TODO: translate strings
     if (folder_size > 1000000) {
         QMessageBox::StandardButton resBtn = QMessageBox::question(this, m_str_warning,
-            tr("It looks you have many files in the history folder <br>") + m_GUI_params->outFilePath +
-            tr("<br> Do you want to clean the history? <br> Yes = clean, NO = abort operation, "),
+            tr("It looks you have many files in the history folder <br>") + 
+			m_GUI_params->outFilePath +
+            tr("<br> Do you want to clean the history? <br>") + 
+			tr("Yes = clean, NO = abort operation, "),
             QMessageBox::No | QMessageBox::Yes,
             QMessageBox::Yes);
         if (resBtn != QMessageBox::Yes) {
@@ -292,7 +294,8 @@ int Labonatip_tools::calculateFolderSize(const QString _dirPath)
 	}
 	cout << QDate::currentDate().toString().toStdString() << "  "
 		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_tools::calculateFolderSize ::: folder  " << _dirPath.toStdString()
+		<< "Labonatip_tools::calculateFolderSize ::: folder  " 
+		<< _dirPath.toStdString()
 		<< " size = " << sizex << endl;
 	return sizex;
 }
@@ -539,6 +542,7 @@ void Labonatip_tools::getPRsettingsFromGUI()
 	m_pr_params->verboseOut = ui_tools->checkBox_enablePPC1verboseOut->isChecked();
 	m_pr_params->enableFilter = ui_tools->checkBox_enablePPC1filter->isChecked();
 	m_pr_params->filterSize = ui_tools->spinBox_PPC1filterSize->value();
+	m_pr_params->waitSyncTimeout = ui_tools->spinBox_PPC1_sync_timeout->value();
 }
 
 bool Labonatip_tools::loadSettings(QString _path)
@@ -563,11 +567,8 @@ bool Labonatip_tools::loadSettings(QString _path)
 	QString user = m_settings->value("default/user", "No owner found").toString();
 	ui_tools->lineEdit_userName->setText(user);
 
-	int year = m_settings->value("default/year", "2017").toInt();
-	ui_tools->lineEdit_year->setText(QString::number(year));
-
-	QString month = m_settings->value("default/month", "January").toString();
-	ui_tools->lineEdit_month->setText(month);
+	QString comment = m_settings->value("default/comment", " ").toString();
+	ui_tools->lineEdit_comment->setText(comment);
 
 	QString language = m_settings->value("default/language", "English").toString();
 	ui_tools->comboBox_language->setCurrentIndex(parseLanguageString(language));
@@ -965,6 +966,18 @@ bool Labonatip_tools::loadSettings(QString _path)
 	ui_tools->spinBox_PPC1filterSize->setValue(filter_size);
 	m_pr_params->filterSize = filter_size;
 
+
+	int wait_sync_timeout = m_settings->value("PPC1/WaitSyncTimeout", "60").toInt(&ok);
+	if (!ok) {
+		cerr << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_tools::loadSettings ::: Warning  ::  wait sync timeout is not valid " << endl;
+		wait_sync_timeout = 10;
+	}
+	ui_tools->spinBox_PPC1_sync_timeout->setValue(wait_sync_timeout);
+	m_pr_params->waitSyncTimeout = wait_sync_timeout;
+
+
 	//Read solution volumes block
 	int vol_sol1 = m_settings->value("solutions/volWell1", "30").toInt(&ok);
 	if (!ok) {
@@ -1089,10 +1102,8 @@ bool Labonatip_tools::saveSettings(QString _file_name)
 	// [default]
 	// user = 
 	settings->setValue("default/user", ui_tools->lineEdit_userName->text());
-	// year = 
-	settings->setValue("default/year", ui_tools->lineEdit_year->text());
-	// month = 
-	settings->setValue("default/month", ui_tools->lineEdit_month->text());
+	// comment = 
+	settings->setValue("default/comment", ui_tools->lineEdit_comment->text());
 	// language = 
 	settings->setValue("default/language", ui_tools->comboBox_language->currentText());
 
@@ -1170,6 +1181,7 @@ bool Labonatip_tools::saveSettings(QString _file_name)
 	settings->setValue("PPC1/UseDefValSetPoint", int(ui_tools->checkBox_useSetPoint->isChecked()));
 	settings->setValue("PPC1/EnableFilter", int(ui_tools->checkBox_enablePPC1filter->isChecked()));
 	settings->setValue("PPC1/FilterSize", int(ui_tools->spinBox_PPC1filterSize->value()));
+	settings->setValue("PPC1/WaitSyncTimeout", int(ui_tools->spinBox_PPC1_sync_timeout->value()));
 
 	// [Well volumes]
 	// well 1

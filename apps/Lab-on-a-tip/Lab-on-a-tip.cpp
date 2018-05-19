@@ -91,6 +91,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 
   // this removes the visualization settings 
   ui->tabWidget->removeTab(3);
+  //ui->dockWidget->setMinimumWidth(180);
 
  
   // set the flows in the table
@@ -790,7 +791,7 @@ void Labonatip_GUI::initCustomStrings()
 	m_str_lost_connection = tr("Lost connection with PPC1");
 	m_str_swapping_to_simulation = tr("swapping to simulation mode");
 	m_str_warning_solution_end = tr("Warning: the solution is running out");
-	m_str_warning_solution_end = tr("Warning: the waste is full"); 
+	m_str_warning_waste_full = tr("Warning: the waste is full");
 	
 }
 

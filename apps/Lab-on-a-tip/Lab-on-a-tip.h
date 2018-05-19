@@ -630,7 +630,8 @@ private:
   int m_timer_solution;               //!< duration of injection for solution 
   double m_protocol_duration;         //!< this is the timeline for the protocol execution
   
-  //GUI stuff for drawing solution flow
+  //GUI stuff for drawing solution flow, remember to NEVER change this values from here, 
+  // there is a hiden tools for the regulation of the flow drawing in the tabWidget panel
   QGraphicsScene *m_scene_solution;   //!< scene to draw the solution flow
   QPen m_pen_line;                    //!< pen to draw the solution inside the pipe
   const int m_pen_line_width;         //!< pen line width, value = 5

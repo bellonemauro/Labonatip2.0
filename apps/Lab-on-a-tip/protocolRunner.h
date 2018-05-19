@@ -39,7 +39,9 @@ public:
 	
 	void setProtocol(std::vector<fluicell::PPC1api::command> *_protocol) { m_protocol = _protocol; };
 
-	void killMacro(bool _kill) { m_threadTerminationHandler = !_kill; }
+	void killMacro(bool _kill) {
+		m_ppc1->resetSycnSignals(true);  // makes sure that the waitSync command stops
+		m_threadTerminationHandler = !_kill; }
 
 	void setSimulationFlag(bool _sim_flag){ m_simulation_only = _sim_flag; }
 

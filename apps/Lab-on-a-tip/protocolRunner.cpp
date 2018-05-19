@@ -169,6 +169,25 @@ void Labonatip_macroRunner::run()  {
 								}
 							}
 						}
+						/*if (m_protocol->at(i).getInstruction() == // If the command is to wait, we do it here
+							fluicell::PPC1api::command::instructions::waitSync) {
+
+							bool state;
+							if (int val = static_cast<int>(m_protocol->at(i).getValue()) == 0) state = false;
+							else state = true;
+							m_ppc1->resetSycnSignals(false);
+							std::this_thread::sleep_for(std::chrono::milliseconds(20));
+							clock_t begin = clock();
+							while (!m_ppc1->syncSignalArrived(state))
+							{
+								std::this_thread::sleep_for(std::chrono::milliseconds(1));
+								clock_t end = clock();
+								double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+								if (elapsed_secs > 200) // break if timeout
+									break;
+							}
+
+						}*/
 						else {
 							if (!m_ppc1->runCommand(m_protocol->at(i))) // otherwise we run the actual command on the PPC1 
 							{
