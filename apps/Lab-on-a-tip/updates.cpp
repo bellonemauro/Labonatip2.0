@@ -43,25 +43,25 @@ void Labonatip_GUI::updateGUI() {
 		int sensor_reading = (int)(m_ppc1->getVswitchReading());  // rounded to second decimal
 		m_pipette_status->v_switch_set_point = - m_ppc1->getVswitchSetPoint();
 		ui->label_switchPressure->setText(QString(QString::number(sensor_reading) +
-			", " + QString::number(int(-m_pipette_status->v_switch_set_point)) + " mbar"));
+			", " + QString::number(int(-m_pipette_status->v_switch_set_point)) + " mbar    "));
 		ui->progressBar_switch->setValue(-sensor_reading);
 
 		sensor_reading = (int)(m_ppc1->getVrecircReading());
 		m_pipette_status->v_recirc_set_point = - m_ppc1->getVrecircSetPoint();
 		ui->label_recircPressure->setText(QString(QString::number(sensor_reading) +
-			", " + QString::number(int(-m_pipette_status->v_recirc_set_point)) + " mbar"));
+			", " + QString::number(int(-m_pipette_status->v_recirc_set_point)) + " mbar    "));
 		ui->progressBar_recirc->setValue(-sensor_reading);
 
 		sensor_reading = (int)(m_ppc1->getPoffReading());
 		m_pipette_status->poff_set_point = m_ppc1->getPoffSetPoint();
 		ui->label_PoffPressure->setText(QString(QString::number(sensor_reading) +
-			", " + QString::number(int(m_pipette_status->poff_set_point)) + " mbar"));
+			", " + QString::number(int(m_pipette_status->poff_set_point)) + " mbar    "));
 		ui->progressBar_pressure_p_off->setValue(sensor_reading);
 
 		sensor_reading = (int)(m_ppc1->getPonReading());
 		m_pipette_status->pon_set_point = m_ppc1->getPonSetPoint();
 		ui->label_PonPressure->setText(QString(QString::number(sensor_reading) +
-			", " + QString::number(int(m_pipette_status->pon_set_point)) + " mbar"));
+			", " + QString::number(int(m_pipette_status->pon_set_point)) + " mbar    "));
 		ui->progressBar_pressure_p_on->setValue(sensor_reading);
 		
 		m_ds_perc = m_ppc1->getDropletSize();
@@ -69,25 +69,25 @@ void Labonatip_GUI::updateGUI() {
 		m_v_perc =  m_ppc1->getVacuum();
 
 		//ui->lcdNumber_dropletSize_percentage->display(m_ds_perc);
-		if (m_ds_perc < 0) {
-			ui->lcdNumber_dropletSize_percentage->display(NAN);
-		}
-		else {
+		if (m_ds_perc >= 0 && m_ds_perc < 1000) {
 			ui->lcdNumber_dropletSize_percentage->display(m_ds_perc);
 		}
-
-		if (m_fs_perc < 0) {
-			ui->lcdNumber_flowspeed_percentage->display(NAN);
-		}
 		else {
+			ui->lcdNumber_dropletSize_percentage->display("A");
+		}
+
+		if (m_fs_perc >= 0 && m_fs_perc < 1000) {
 			ui->lcdNumber_flowspeed_percentage->display(m_fs_perc);
 		}
+		else {
+			ui->lcdNumber_flowspeed_percentage->display("A");
+		}
 
-		if (m_v_perc < 0) {
-			ui->lcdNumber_vacuum_percentage->display(NAN);
+		if (m_v_perc >= 0 && m_v_perc < 1000) {
+			ui->lcdNumber_vacuum_percentage->display(m_v_perc);
 		}
 		else {
-			ui->lcdNumber_vacuum_percentage->display(m_v_perc);
+			ui->lcdNumber_vacuum_percentage->display("A");
 		}
 		
 		// check if some of the wells is open
@@ -585,6 +585,7 @@ void Labonatip_GUI::updateWaste()  // this is updated every second
 		m_pipette_status->rem_vol_well7 > MAX_WASTE_WARNING_VOLUME ||
 		m_pipette_status->rem_vol_well8 > MAX_WASTE_WARNING_VOLUME) {
 		ui->label_warningIcon->show();
+		ui->label_warning->setText(m_str_warning_waste_full);
 		ui->label_warning->show();
 	}
 
@@ -710,6 +711,7 @@ void Labonatip_GUI::updateWells()
 
 		if (m_pipette_status->rem_vol_well1 < 0) {
 			stopSolutionFlow();
+			//TODO: should we show any message here? like to refill the solution ?
 		}
 
 		double perc =  100.0 * m_pipette_status->rem_vol_well1 / max;

@@ -172,6 +172,8 @@ namespace fluicell
 		  *    D|0.000000|0.028670|0.000000|0\n
 		  *    i0|j0|k0|l0\n
 		  *    IN1|OUT1\n
+		  *    P\n
+		  *    R\n
 		  *
 		  *  Current interpreted state:
 		  *
@@ -181,6 +183,9 @@ namespace fluicell
 		  *    Vrecirc: set 123mbar, read: 123.456789 mbar\n
 		  *    Valves: 0101\n
 		  *
+		  *  @param _data       input data to be decoded
+		  *  @param _PPC1_data  output data to be filled with decoded values
+          *
 		  * \return true if success, false for any error
 		  *
 		  * \note
@@ -267,6 +272,7 @@ namespace fluicell
 		
 		PPC1api::PPC1_data *m_PPC1_data; /*!< ppc1 output structure */
 		PPC1api::PPC1_status *m_PPC1_status;/*!< pipette status */
+		int m_wait_sync_timeout;        //!< timeout for wait sync function in seconds, default value 60 sec
 
 		// threads
 		thread m_thread;                   //!< Member for the thread handling		
@@ -663,8 +669,7 @@ namespace fluicell
 			double _pipe_diameter = 0.00003,
 			double _delta_pressure = -14600.0,
 			double _dynamic_viscosity = 0.00089,
-			double _pipe_length = 0.124
-		);
+			double _pipe_length = 0.124	);
 
 		/** \brief Calculate the outflow value using default values
 		*
@@ -680,8 +685,8 @@ namespace fluicell
 		**/
 		double getFlowSimple(
 			double _delta_pressure = -14600.0,
-			double _pipe_length = 0.124
-		) {
+			double _pipe_length = 0.124	) 
+		{
 			double square_channel_mod = 1.128;
 			double pipe_diameter = 0.00003;
 			double dynamic_viscosity = 0.00089;
@@ -813,7 +818,7 @@ namespace fluicell
 		* which is defined in the window size of the filter. This allows the user 
 		* to reset the window size of the filter.
 		*
-		* @param  _size  new size value 
+		* @param  _size  new size positive value 
 		**/
 		void setFilterSize(int _size);
 
@@ -830,13 +835,60 @@ namespace fluicell
 		**/
 		bool isRunning() { return m_isRunning; }
 
+		/** \brief Set the wait sync timeout
+		*
+		*  The wait sync function will wait for the sync TTL signal,
+		*  if the sync TTL signal does not arrives in a specific amount of time
+		*  the function waitSync will fall into a break and return false
+		*
+		*  if _wait_sync_timeout is lower than 0 it will not be set 
+		*
+		*
+		* @param  _wait_sync_timeout  integer > 0
+		**/
+		void setWaitSyncTimeout(int _wait_sync_timeout) {
+			if (_wait_sync_timeout > 0) m_wait_sync_timeout = _wait_sync_timeout;
+		}
+
+		/** \brief Reset the sync signals
+		*
+		*  Used to reset the sync signals trigger_rise and trigger_fall to a specific value,
+		*  false is used when the waitSync command starts, 
+		*  whereas true can be used to manually simulate the sync signal arrived
+		*
+		*  
+		* @param  _state  new sync signals state
+		**/
+		void resetSycnSignals(bool _state) {
+			m_PPC1_data->trigger_rise = _state;
+			m_PPC1_data->trigger_fall = _state;
+		}
+
 		/** \brief Detect the sync signal arrived
+		*
+		*  Check the trigger of PPC1 and return true when the trigger,
+		*  rise or fall, is detected. 
+		*  If _state = true, it detects the rising trigger
+		*  if _state = false, it detects the falling trigger
+		*
+		* @param  _state  new size value
 		*
 		*  \return true when the signal is detected
 		**/
-		bool syncSignalArrived() { 
-			if (m_PPC1_data->trigger_high || m_PPC1_data->trigger_low) return true;
-			else return false;
+		bool syncSignalArrived(bool _state) { 
+			if (_state == true) // check rise state 
+			{
+				if (m_PPC1_data->trigger_rise == true )
+				return true;
+			}
+			if (_state == false)  // check fall state
+			{
+				if (m_PPC1_data->trigger_fall == true )
+				return true;
+			}
+
+			return false;		
+			
 		}		//     "pX" is sent to make pulse output, where X is integer number equal or larger than 20 indicating the pulse length in milliseconds
 				//     "P" or "R" are use wait pulse input, either falling or rising front
 

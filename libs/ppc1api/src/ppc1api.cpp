@@ -35,6 +35,9 @@ fluicell::PPC1api::PPC1api() :
 	m_dataStreamPeriod = 200;
 	m_COM_timeout = 250;
 
+	// default waitsync time out 
+	m_wait_sync_timeout = 60; // 1 minute
+
 	// set default values for pressures and vacuums
 	setDefaultPV();
 	
@@ -248,8 +251,7 @@ bool fluicell::PPC1api::decodeDataLine(const string &_data, PPC1_data *_PPC1_dat
 	}
 
 	if (_data.at(0) == 'I') {
-		_PPC1_data->trigger_low = false;
-		_PPC1_data->trigger_high = false;
+		
 		//cout << " line type I " << _data << endl;
 		// string format: IN1|OUT1 or IN0|OUT0
 		// char index:    01234567
@@ -276,20 +278,21 @@ bool fluicell::PPC1api::decodeDataLine(const string &_data, PPC1_data *_PPC1_dat
 		return true;
 	}
 
-	if (_data.at(0) == 'P') {
+	if (_data.at(0) == 'P') {  // FALLING TTL signal detected
 		//cout << " line type I " << _data << endl;
 		// string format: P\n
 		// char index:    01
-		_PPC1_data->trigger_low = true;
-
+		_PPC1_data->trigger_fall = true;
+		_PPC1_data->trigger_rise = false;
 		return true;
-	}
+	} //TODO: this can be the opposite
 
-	if (_data.at(0) == 'R') {
+	if (_data.at(0) == 'R') {  //RISING TTL signal detected
 		//cout << " line type I " << _data << endl;
 		// string format: P\n
 		// char index:    01
-		_PPC1_data->trigger_high = true;
+		_PPC1_data->trigger_fall = false;
+		_PPC1_data->trigger_rise = true;
 
 		return true;
 	}
@@ -693,11 +696,17 @@ bool fluicell::PPC1api::setTTLstate(const bool _value)
 
 	if (_value) {
 		if (sendData("o1\n"))   // high
+		{
+			m_PPC1_data->TTL_out_trigger = true;
 			return true;
+		}
 	}
 	else {
 		if (sendData("o0\n"))  // low
+		{
+			m_PPC1_data->TTL_out_trigger = false;
 			return true;
+		}
 	}
 
 	return false;
@@ -1091,7 +1100,7 @@ bool fluicell::PPC1api::runCommand(command _cmd)
 	case 8: {//sleep
 		if (m_verbose) cout << currentDateTime()
 			<< " fluicell::PPC1api::run(command _cmd) ::: sleep  "
-			<< _cmd.getValue() << endl;
+			<< _cmd.getValue() << endl; //TODO: this is not safe as one can stop the macro without break the wait function
 		std::this_thread::sleep_for(std::chrono::seconds(static_cast<int>(_cmd.getValue())));
 		return true;
 	}
@@ -1117,26 +1126,31 @@ bool fluicell::PPC1api::runCommand(command _cmd)
 		if (_cmd.getValue() == 0) state = false;
 		else state = true;
 		if (m_verbose) cout << currentDateTime()
-            << " fluicell::PPC1api::run(command _cmd) ::: waitSync NOT implemented in the API ::: test value = "
+            << " fluicell::PPC1api::run(command _cmd) ::: waitSync = "
             << state << endl;
-		//return setTTLstate(state);
-		bool success = false;
+		// reset the sync signals and then wait for the correct state to come
+		resetSycnSignals(false);
 		std::this_thread::sleep_for(std::chrono::milliseconds(20));
 		clock_t begin = clock();
-		while (!syncSignalArrived())
+		while (!syncSignalArrived(state))
 		{
 			std::this_thread::sleep_for(std::chrono::milliseconds(1));
 			clock_t end = clock();
 			double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC; 
-			if (elapsed_secs > 2) // break after two seconds
-				break;
+			if (elapsed_secs > m_wait_sync_timeout) // break if timeout
+			{
+				cerr << currentDateTime()
+					<< " fluicell::PPC1api::run(command _cmd) ::: waitSync timeout "
+					<< endl;
+				return false;
+			}
 		}
-		return success;
+		return true;
 
 	}
 	case 13: {//syncOut //TODO
-              //syncout(int: pulse length in ms) if negative then default state is 1
-              //and pulse is 0, if positive, then pulse is 1 and default is 0
+        // syncout(int: pulse length in ms) if negative then default state is 1
+        // and pulse is 0, if positive, then pulse is 1 and default is 0
 		int v = static_cast<int>(_cmd.getValue());
 		if (m_verbose) cout << currentDateTime()
 			 << " fluicell::PPC1api::run(command _cmd) ::: "
@@ -1145,6 +1159,8 @@ bool fluicell::PPC1api::runCommand(command _cmd)
 		int current_ppc1out_status = m_PPC1_data->ppc1_OUT;
 		bool success = setPulsePeriod(v);
 		std::this_thread::sleep_for(std::chrono::milliseconds(v));
+		//TODO : this function is unsafe, in case the protocol is stop during this function, 
+		//       the stop will not work
 		/*
 		clock_t begin = clock();
 		while (current_ppc1out_status == m_PPC1_data->ppc1_OUT)
@@ -1179,14 +1195,16 @@ bool fluicell::PPC1api::runCommand(command _cmd)
 	}
 	case 17: {//loop
 		if (m_verbose) cout << currentDateTime()
-			 << " fluicell::PPC1api::run(command _cmd) ::: loop NOT implemented in the API "
+			 << " fluicell::PPC1api::run(command _cmd) :::"
+			 << " loop NOT implemented in the API "
 			 << endl;
 		
 		return true;
 	}
 	default:{
 		cerr << currentDateTime()
-			 << " fluicell::PPC1api::run(command _cmd) ::: Command NOT recognized " 
+			 << " fluicell::PPC1api::run(command _cmd) :::" 
+			 << " Command NOT recognized " 
 			 << endl;
 		return false;
 	}
@@ -1325,7 +1343,16 @@ void fluicell::PPC1api::setFilterSize(int _size)
 	if (m_verbose) cout << currentDateTime()
         << " fluicell::PPC1api::setFilterSize"
 		<< " new filter size value << " << _size << " >> " << endl;
-	 m_PPC1_data->setFilterSize(_size); 
+
+	if (_size < 1)
+	{
+		cerr << currentDateTime()
+			<< " fluicell::PPC1api::setFilterSize  ::::  " 
+			<< " negative value on set size << " << _size << " >> " << endl;
+		return;
+	}
+	
+	m_PPC1_data->setFilterSize(_size); 
 }
 
 bool fluicell::PPC1api::sendData(const string &_data) {

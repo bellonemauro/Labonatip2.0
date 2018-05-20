@@ -91,6 +91,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 
   // this removes the visualization settings 
   ui->tabWidget->removeTab(3);
+  //ui->dockWidget->setMinimumWidth(180);
 
  
   // set the flows in the table
@@ -701,6 +702,16 @@ if (ui->tabWidget->count() > 3)
 	connect(m_dialog_tools,
 		&Labonatip_tools::colSol4Changed, this,
 		&Labonatip_GUI::colSolution4Changed);
+
+	connect(ui->pushButton_TTLtest,
+		SIGNAL(clicked()), this,
+		SLOT(testTTL()));
+}
+
+void Labonatip_GUI::testTTL() {
+
+	m_ppc1->setTTLstate(ui->checkBox_TTLtest->checkState());
+
 }
 
 void Labonatip_GUI::initCustomStrings()
@@ -779,6 +790,9 @@ void Labonatip_GUI::initCustomStrings()
 	m_str_protocol_running_stop = tr("A protocol is running, stop the protocol first");
 	m_str_lost_connection = tr("Lost connection with PPC1");
 	m_str_swapping_to_simulation = tr("swapping to simulation mode");
+	m_str_warning_solution_end = tr("Warning: the solution is running out");
+	m_str_warning_waste_full = tr("Warning: the waste is full");
+	
 }
 
 void Labonatip_GUI::appScaling(int _dpiX, int _dpiY)

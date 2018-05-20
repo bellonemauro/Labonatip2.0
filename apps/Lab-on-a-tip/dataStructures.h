@@ -233,7 +233,7 @@ struct pr_params {
 				p_on_preset2(190), p_off_preset2(21), v_switch_preset2(-115), v_recirc_preset2(-115),
 				p_on_preset3(190), p_off_preset3(21), v_switch_preset3(-115), v_recirc_preset3(-115),
 				base_ds_increment(10), base_fs_increment(5), base_v_increment(5),
-		        verboseOut(true), useDefValSetPoint(true), enableFilter(true), filterSize (20)
+		        verboseOut(true), useDefValSetPoint(true), enableFilter(true), filterSize (20), waitSyncTimeout(60)
 	{   // default values
 	}
 
@@ -277,6 +277,7 @@ struct pr_params {
 	bool useDefValSetPoint;      //!< Use default value instead of set points for the calculation of percentages
 	bool enableFilter;           //!< Enable data filtering
 	int	filterSize;              //!< Filter window size
+	int waitSyncTimeout;         //!< Timeout in seconds for the waitSync function, default value 60 sec
 
 
 }; // END pr_params struct

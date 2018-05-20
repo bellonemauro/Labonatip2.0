@@ -464,6 +464,7 @@ void Labonatip_GUI::updateTimingSliders()
 			// show the warning label
 			if (status < MIN_WARNING_VOLUME) {  
 				ui->label_warningIcon->show();
+				ui->label_warning->setText(m_str_warning_solution_end);
 				ui->label_warning->show();
 			}
 			return;
@@ -476,6 +477,7 @@ void Labonatip_GUI::updateTimingSliders()
 			// show the warning label
 			if (status < MIN_WARNING_VOLUME) {  
 				ui->label_warningIcon->show();
+				ui->label_warning->setText(m_str_warning_solution_end);
 				ui->label_warning->show();
 			}
 			return;

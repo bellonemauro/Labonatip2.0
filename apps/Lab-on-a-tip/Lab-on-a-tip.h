@@ -101,6 +101,9 @@ public:
 
 private slots:
 
+
+void testTTL();
+
 	/** \brief This function is called when the down arrow on Pon is called
 	  *        it decreases the pressure on Pon, it does not accept out-of-range
 	  *
@@ -627,7 +630,8 @@ private:
   int m_timer_solution;               //!< duration of injection for solution 
   double m_protocol_duration;         //!< this is the timeline for the protocol execution
   
-  //GUI stuff for drawing solution flow
+  //GUI stuff for drawing solution flow, remember to NEVER change this values from here, 
+  // there is a hiden tools for the regulation of the flow drawing in the tabWidget panel
   QGraphicsScene *m_scene_solution;   //!< scene to draw the solution flow
   QPen m_pen_line;                    //!< pen to draw the solution inside the pipe
   const int m_pen_line_width;         //!< pen line width, value = 5
@@ -730,6 +734,8 @@ private:
   QString m_str_protocol_running_stop;
   QString m_str_lost_connection;
   QString m_str_swapping_to_simulation;
+  QString m_str_warning_solution_end;
+  QString m_str_warning_waste_full;
 
   // speech synthesis
   QTextToSpeech *m_speech;

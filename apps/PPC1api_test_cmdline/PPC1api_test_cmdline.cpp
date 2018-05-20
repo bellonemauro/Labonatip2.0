@@ -123,10 +123,10 @@ int	main (int argc, char** argv)
 		int count = 0;
 		while (count < 20) {
 			
-			cout << " data on channel A " << my_ppc1->m_PPC1_data->channel_A->sensor_reading << endl;
-			cout << " data on channel B " << my_ppc1->m_PPC1_data->channel_B->sensor_reading << endl;
-			cout << " data on channel C " << my_ppc1->m_PPC1_data->channel_C->sensor_reading << endl;
-			cout << " data on channel D " << my_ppc1->m_PPC1_data->channel_D->sensor_reading << endl;
+//			cout << " data on channel A " << my_ppc1->m_PPC1_data->channel_A->sensor_reading << endl;
+//			cout << " data on channel B " << my_ppc1->m_PPC1_data->channel_B->sensor_reading << endl;
+//			cout << " data on channel C " << my_ppc1->m_PPC1_data->channel_C->sensor_reading << endl;
+//			cout << " data on channel D " << my_ppc1->m_PPC1_data->channel_D->sensor_reading << endl;
 			count++;
 			
 			std::this_thread::sleep_for(std::chrono::milliseconds(100));
@@ -143,8 +143,8 @@ int	main (int argc, char** argv)
 
 		for (int i = 0; i < 200; i++)
 		{
-			cout << " data on channel A : set point = " << my_ppc1->m_PPC1_data->channel_A->set_point 
-				 << " sensor reading = " <<  my_ppc1->m_PPC1_data->channel_A->sensor_reading << endl;
+//			cout << " data on channel A : set point = " << my_ppc1->m_PPC1_data->channel_A->set_point 
+//				 << " sensor reading = " <<  my_ppc1->m_PPC1_data->channel_A->sensor_reading << endl;
 			my_ppc1->setVacuumChannelA(-(float)i);
 		}
 		my_ppc1->setVacuumChannelA(-100.0);
@@ -153,8 +153,8 @@ int	main (int argc, char** argv)
 		// try to send a command and read the result : channel B
 		for (int i = 0; i < 100; i++)
 		{
-			cout << " data on channel B : set point = " << my_ppc1->m_PPC1_data->channel_B->set_point
-				<< " sensor reading = " << my_ppc1->m_PPC1_data->channel_B->sensor_reading << endl;
+//			cout << " data on channel B : set point = " << my_ppc1->m_PPC1_data->channel_B->set_point
+//				<< " sensor reading = " << my_ppc1->m_PPC1_data->channel_B->sensor_reading << endl;
 			my_ppc1->setVacuumChannelB(-(float)i / 10);
 		}
 		my_ppc1->setVacuumChannelB(-0.0);
@@ -163,8 +163,8 @@ int	main (int argc, char** argv)
 		// try to send a command and read the result : channel C
 		for (int i = 0; i < 100; i++)
 		{
-			cout << " data on channel C : set point = " << my_ppc1->m_PPC1_data->channel_C->set_point
-				<< " sensor reading = " << my_ppc1->m_PPC1_data->channel_C->sensor_reading << endl;
+//			cout << " data on channel C : set point = " << my_ppc1->m_PPC1_data->channel_C->set_point
+//				<< " sensor reading = " << my_ppc1->m_PPC1_data->channel_C->sensor_reading << endl;
 			my_ppc1->setPressureChannelC((float)i / 10);
 		}
 		my_ppc1->setPressureChannelC(0.0);
@@ -173,8 +173,8 @@ int	main (int argc, char** argv)
 		// try to send a command and read the result : channel C
 		for (int i = 0; i < 100; i++)
 		{
-			cout << " data on channel D : set point = " << my_ppc1->m_PPC1_data->channel_D->set_point
-				<< " sensor reading = " << my_ppc1->m_PPC1_data->channel_D->sensor_reading << endl;
+//			cout << " data on channel D : set point = " << my_ppc1->m_PPC1_data->channel_D->set_point
+//				<< " sensor reading = " << my_ppc1->m_PPC1_data->channel_D->sensor_reading << endl;
 			my_ppc1->setPressureChannelD((float)i / 10);
 		}
 		my_ppc1->setPressureChannelD(0.0);

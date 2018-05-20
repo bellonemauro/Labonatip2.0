@@ -516,6 +516,10 @@
         <translation>Attenzione: la soluzione sta finendo</translation>
 	</message>		
 	<message>
+        <source>Warning: the waste is full</source>
+        <translation>Attenzione: lo scarto é pieno</translation>
+	</message>	
+	<message>
         <source>Operation cannot be done</source>
         <translation>L'operazione non può essere eseguita</translation>
 	</message>		
