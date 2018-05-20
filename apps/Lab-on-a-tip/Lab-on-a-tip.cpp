@@ -1021,7 +1021,7 @@ bool Labonatip_GUI::visualizeProgressMessage(int _seconds, QString _message)
 	msg.append(QString::number(_seconds));
 	msg.append(m_str_progress_msg2);
 
-	if (m_GUI_params->speechActive)  m_speech->say(_message);
+	//if (m_GUI_params->speechActive)  m_speech->say(_message);
 
 	QProgressDialog *PD = new QProgressDialog(msg, m_str_cancel, 0, _seconds, this);
 	PD->setMinimumWidth(350);   // here there is a warning that the geometry cannot be set, forget about it!
