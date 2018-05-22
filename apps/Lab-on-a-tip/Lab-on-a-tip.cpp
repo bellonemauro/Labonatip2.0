@@ -798,6 +798,8 @@ void Labonatip_GUI::initCustomStrings()
 void Labonatip_GUI::appScaling(int _dpiX, int _dpiY)
 {
 
+	
+
 	QSize toolbar_icon_size = ui->toolBar->iconSize();
 	toolbar_icon_size.scale(toolbar_icon_size*_dpiX/100, Qt::KeepAspectRatioByExpanding);
 	ui->toolBar->setIconSize(toolbar_icon_size);
@@ -826,6 +828,10 @@ void Labonatip_GUI::appScaling(int _dpiX, int _dpiY)
 	gr_5.scale(gr_5*_dpiX / 100, Qt::KeepAspectRatioByExpanding);
 	ui->groupBox_5->setMinimumSize(gr_5);
 
+	//QSize gr_chart = ui->groupBox_chart->minimumSize();
+	//gr_chart.scale(gr_chart*_dpiX / 100, Qt::KeepAspectRatioByExpanding);
+	//ui->groupBox_chart->setMinimumSize(gr_chart);
+
 	QSize action_button_size = ui->pushButton_newTip->minimumSize();
 	action_button_size.scale(action_button_size*_dpiX / 100, Qt::KeepAspectRatioByExpanding);
 	ui->pushButton_newTip->setMinimumSize(action_button_size);
@@ -834,6 +840,28 @@ void Labonatip_GUI::appScaling(int _dpiX, int _dpiY)
 	ui->pushButton_stop->setMinimumSize(action_button_size);
 	ui->pushButton_standby->setMinimumSize(action_button_size);
 
+	QSize action_button_icon_size = ui->pushButton_newTip->iconSize();
+	action_button_icon_size.scale(action_button_icon_size*_dpiX / 100, Qt::KeepAspectRatioByExpanding);
+	ui->pushButton_newTip->setIconSize(action_button_icon_size);
+	ui->pushButton_runMacro->setIconSize(action_button_icon_size);
+	ui->pushButton_operational->setIconSize(action_button_icon_size);
+	ui->pushButton_stop->setIconSize(action_button_icon_size);
+	ui->pushButton_standby->setIconSize(action_button_icon_size);
+
+	QSize delivery_zone_buttons = ui->pushButton_dropSize_minus->size();
+	delivery_zone_buttons.scale(delivery_zone_buttons*_dpiX / 100, Qt::KeepAspectRatioByExpanding);
+	ui->pushButton_dropSize_minus->setFixedWidth(delivery_zone_buttons.height());
+	ui->pushButton_dropSize_plus->setFixedWidth(delivery_zone_buttons.height());
+	ui->pushButton_flowspeed_minus->setFixedWidth(delivery_zone_buttons.height());
+	ui->pushButton_flowspeed_plus->setFixedWidth(delivery_zone_buttons.height());
+	ui->pushButton_vacuum_minus->setFixedWidth(delivery_zone_buttons.height());
+	ui->pushButton_vacuum_plus->setFixedWidth(delivery_zone_buttons.height());
+	ui->pushButton_dropSize_minus->setFixedHeight(delivery_zone_buttons.height());
+	ui->pushButton_dropSize_plus->setFixedHeight(delivery_zone_buttons.height());
+	ui->pushButton_flowspeed_minus->setFixedHeight(delivery_zone_buttons.height());
+	ui->pushButton_flowspeed_plus->setFixedHeight(delivery_zone_buttons.height());
+	ui->pushButton_vacuum_minus->setFixedHeight(delivery_zone_buttons.height());
+	ui->pushButton_vacuum_plus->setFixedHeight(delivery_zone_buttons.height());
 
 
 }

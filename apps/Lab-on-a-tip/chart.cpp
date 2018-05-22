@@ -177,7 +177,7 @@ Labonatip_chart::Labonatip_chart(  )
 
 	// Customize axis label font
 	QFont labelsFont;
-	labelsFont.setPixelSize(12);
+	labelsFont.setPointSize(10);
 	axisX->setLabelsFont(labelsFont);
 	axisX->setLabelsPosition(QtCharts::QCategoryAxis::AxisLabelsPositionOnValue);
 	axisY->setLabelsFont(labelsFont);

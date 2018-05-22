@@ -242,19 +242,30 @@ int main(int argc, char **argv)//(int argc, char *argv[])
 		int physical_dpi_x = QApplication::desktop()->physicalDpiX();
 		int physical_dpi_y = QApplication::desktop()->physicalDpiY();
 
+		// get the screen resolution of the current screen
+		// so we can resize the application in case of small screens
+		QRect rec = QApplication::desktop()->screenGeometry();
+		int screen_height = rec.height();
+		int screen_width = rec.width();
+
 		cout << " Labonatip_GUI::main ::: " 
 			<< " logical_dpi_x " << logical_dpi_x
 			<< " logical_dpi_y " << logical_dpi_y
 			<< " physical_dpi_x " << physical_dpi_x
-			<< " physical_dpi_y " << physical_dpi_y << endl;
+			<< " physical_dpi_y " << physical_dpi_y 
+			<< " screen_height " << screen_height 
+			<< " screen_width " << screen_width << endl;
 
 		if (logical_dpi_x > 150) {
 			QString ss = "Your display DPI is out of bound for the correct visualization of Labonatip\n";
 			ss.append("You can continue, but you will probably get bad visualization \n\n");
 			ss.append("To properly visualize Labonatip, try to reduce the resolution and scaling of your screen");
+			
 			QMessageBox::warning(&window, "ERROR", ss);
 
 			window.appScaling(logical_dpi_x, logical_dpi_y);
+			window.setGeometry(50, 50, screen_width*0.8, screen_height*0.8);
+			
 		}
         
 
@@ -294,11 +305,7 @@ int main(int argc, char **argv)//(int argc, char *argv[])
 	  s.show();
 	  QTimer::singleShot(5000, &s, SLOT(close()));
 
-	  // get the screen resolution of the current screen
-	  // so we can resize the application in case of small screens
-	  QRect rec = QApplication::desktop()->screenGeometry();
-	  int screen_height = rec.height();
-	  int screen_width = rec.width();
+	  
 
 	  //window.showFullScreen();
 	  window.move(QPoint(50, 50));
