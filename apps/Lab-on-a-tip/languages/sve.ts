@@ -539,6 +539,140 @@
         <source>Current step time left : </source>
         <translation>Aktuell stegtid kvar : </translation>
 	</message>	
+    <message>
+        <source>Load</source>
+        <translation>Ladda</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Spara</translation>
+    </message>
+	<message>
+        <source>Commander</source>
+        <translation>Commander</translation>
+    </message>
+    <message>
+        <source>Charts</source>
+        <translation>Diagram</translation>
+    </message>
+    <message>
+        <source>Params</source>
+        <translation>Parameter</translation>
+    </message>
+    <message>
+        <source>Wizard</source>
+        <translation>Instruktioner</translation>
+    </message>
+    <message>
+        <source>Command</source>
+        <translation>Kommando</translation>
+    </message>
+    <message>
+        <source>Status message</source>
+        <translation>Statusmeddelande</translation>
+    </message>
+    <message>
+        <source>Folder</source>
+        <translation>Mapp</translation>
+    </message>
+    <message>
+        <source>Load protocol</source>
+        <translation>Ladda protokoll</translation>
+    </message>
+    <message>
+        <source>Save protocol</source>
+        <translation>Spara protokoll</translation>
+    </message>
+    <message>
+        <source>File not found</source>
+        <translation>Hittar inte fil</translation>
+    </message>
+    <message>
+        <source>File not saved</source>
+        <translation>Fil ej sparad</translation>
+    </message>
+    <message>
+        <source>Protocol duration : </source>
+        <translation>Protokoll-duration : </translation>
+    </message>
+    <message>
+        <source>Check validity failed during macro saving</source>
+        <translation>Misslyckades, undersök giltigheten när makrot sparades</translation>
+    </message>
+    <message>
+        <source>Please check your settings and try again</source>
+        <translation>Undersök dina inställningar och prova igen</translation>
+    </message>
+    <message>
+        <source>This action will remove the file, are you sure?</source>
+        <translation>Den här åtgärden tar bort filen, är du säker?</translation>
+    </message>
+    <message>
+        <source>Negative level, file corrupted</source>
+        <translation>Negativ nivå, fil skadad</translation>
+    </message>
+	<message>
+        <source>The current protocol file name is</source>
+        <translation>Det aktuella protokollfilnamnet är</translation>
+    </message>
+	<message>
+        <source>Do you want to override?</source>
+        <translation>Vill du åsidosätta?</translation>
+    </message>	
+	<message>
+        <source>Yes = override, NO = saveAs, Cancel = do nothing</source>
+        <translation>Ja = åsidosätt, NEJ = spara, Avbryt = gör inget</translation>
+    </message>	
+	<message>
+        <source>Do you want to add to the bottom of the protocol?</source>
+        <translation>Vill du lägga till i botten av protokollet?</translation>
+    </message>	
+	<message>
+        <source>Click NO to clean the workspace and load a new protocol</source>
+        <translation>Klicka på NO för att rengöra arbetsytan och ladda ett nytt protokoll</translation>
+    </message>
+    <message>
+        <source>Select folder</source>
+        <translation>Välj mapp</translation>
+    </message>
+	<message>
+        <source>This will remove all the commands in your protocol</source>
+        <translation>Detta kommer att ta bort alla kommandon i ditt protokoll</translation>
+    </message>
+</context>
+<context>
+    <name>Labonatip_protocolReader</name>
+	<message>
+        <source>Warning</source>
+        <translation>Varning</translation>
+    </message>
+	<message>
+        <source>File not found</source>
+        <translation>Hittar inte fil</translation>
+    </message>
+	<message>
+        <source>Negative level, file corrupted</source>
+        <translation>Negativ nivå, fil skadad</translation>
+    </message>
+</context>
+<context>
+    <name>Labonatip_protocolWriter</name>
+	<message>
+        <source>Warning</source>
+        <translation>Varning</translation>
+    </message>
+	<message>
+        <source>Check validity failed during protocol saving</source>
+        <translation>Misslyckades, undersök giltigheten när makrot sparades</translation>
+    </message>
+	<message>
+        <source>Please check your settings and try again</source>
+        <translation>Undersök dina inställningar och prova igen</translation>
+    </message>
+	<message>
+        <source>File not saved</source>
+        <translation>Fil ej sparad</translation>
+    </message>
 </context>
 <context>
     <name>Labonatip_tools</name>
@@ -838,137 +972,6 @@
         <source>Apply</source>
         <translation>Tillämpa</translation>
     </message>	
-</context>
-<context>
-    <name>Labonatip_protocol_editor</name>
-    <message>
-        <source>E&amp;xit</source>
-        <translation>E&amp;xit</translation>
-    </message>
-    <message>
-        <source>Load</source>
-        <translation>Ladda</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation>Spara</translation>
-    </message>
-    <message>
-        <source>Charts</source>
-        <translation>Diagram</translation>
-    </message>
-    <message>
-        <source>Params</source>
-        <translation>Parameter</translation>
-    </message>
-    <message>
-        <source>Wizard</source>
-        <translation>Instruktioner</translation>
-    </message>
-    <message>
-        <source>Command</source>
-        <translation>Kommando</translation>
-    </message>
-    <message>
-        <source>Value</source>
-        <translation>Värde</translation>
-    </message>
-    <message>
-        <source>Status message</source>
-        <translation>Statusmeddelande</translation>
-    </message>
-    <message>
-        <source>Solutions</source>
-        <translation>Lösningar</translation>
-    </message>
-    <message>
-        <source>Folder</source>
-        <translation>Mapp</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation>Varning</translation>
-    </message>
-    <message>
-        <source>Information</source>
-        <translation>Information</translation>
-    </message>
-    <message>
-        <source>Load protocol</source>
-        <translation>Ladda protokoll</translation>
-    </message>
-    <message>
-        <source>Save protocol</source>
-        <translation>Spara protokoll</translation>
-    </message>
-    <message>
-        <source>File not found</source>
-        <translation>Hittar inte fil</translation>
-    </message>
-    <message>
-        <source>File not saved</source>
-        <translation>Fil ej sparad</translation>
-    </message>
-    <message>
-        <source>Protocol duration : </source>
-        <translation>Protokoll-duration : </translation>
-    </message>
-    <message>
-        <source>Check validity failed during macro saving</source>
-        <translation>Misslyckades, undersök giltigheten när makrot sparades</translation>
-    </message>
-    <message>
-        <source>Please check your settings and try again</source>
-        <translation>Undersök dina inställningar och prova igen</translation>
-    </message>
-	<message>
-        <source>Are you sure?</source>
-        <translation>Är du säker?</translation>
-	</message>
-    <message>
-        <source>This action will remove the file, are you sure?</source>
-        <translation>Den här åtgärden tar bort filen, är du säker?</translation>
-    </message>
-    <message>
-        <source>Negative level, file corrupted</source>
-        <translation>Negativ nivå, fil skadad</translation>
-    </message>
-	<message>
-        <source>The current protocol file name is</source>
-        <translation>Det aktuella protokollfilnamnet är</translation>
-    </message>
-	<message>
-        <source>Do you want to override?</source>
-        <translation>Vill du åsidosätta?</translation>
-    </message>	
-	<message>
-        <source>Yes = override, NO = saveAs, Cancel = do nothing</source>
-        <translation>Ja = åsidosätt, NEJ = spara, Avbryt = gör inget</translation>
-    </message>	
-	<message>
-        <source>Do you want to add to the bottom of the protocol?</source>
-        <translation>Vill du lägga till i botten av protokollet?</translation>
-    </message>	
-	<message>
-        <source>Click NO to clean the workspace and load a new protocol</source>
-        <translation>Klicka på NO för att rengöra arbetsytan och ladda ett nytt protokoll</translation>
-    </message>
-    <message>
-        <source>Select folder</source>
-        <translation>Välj mapp</translation>
-    </message>
-    <message>
-        <source>Ok</source>
-        <translation>Ok</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation>Avbryt</translation>
-    </message>
-    <message>
-        <source>Apply</source>
-        <translation>Tillämpa</translation>
-    </message>
 </context>
 <context>
     <name>Labonatip_macroWizard</name>

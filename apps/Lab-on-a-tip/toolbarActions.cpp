@@ -10,6 +10,48 @@
 
 #include "Lab-on-a-tip.h"
 
+void Labonatip_GUI::loadPressed()
+{
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::loadPressed   " << endl;
+
+	if (ui->stackedWidget_main->currentIndex() == 0)
+	{
+		openSettingsFile();
+	}
+	else
+	{
+		loadProtocol();
+	}
+}
+
+bool Labonatip_GUI::loadProtocol()
+{
+
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::loadProtocol :::  "
+		<< m_protocol_path.toStdString() << "  " << endl;
+
+	QString file_name = QFileDialog::getOpenFileName(this, m_str_save_protocol, m_protocol_path,  // dialog to open files
+		"Lab-on-a-tip protocol File (*.prt);; All Files(*.*)", 0);
+
+	if (file_name.isEmpty()) {
+		//QMessageBox::warning(this, m_str_warning,
+		//	m_str_file_not_found + "<br>" + file_name);
+		return false;
+	}
+	Labonatip_protocolReader *reader = new Labonatip_protocolReader(ui->treeWidget_macroTable);
+
+	if (reader->readProtocol(file_name))
+	{
+		addAllCommandsToProtocol();
+		m_current_protocol_file_path = file_name;
+		return true;
+	}
+	return false;
+}
 
 void Labonatip_GUI::openSettingsFile() {  // open setting file
 
@@ -31,6 +73,79 @@ void Labonatip_GUI::openSettingsFile() {  // open setting file
 	}
 
 	toolApply();
+}
+
+void Labonatip_GUI::savePressed()
+{
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::savePressed   " << endl;
+
+	if (ui->stackedWidget_main->currentIndex() == 0)
+	{
+		saveSettingsFile();
+	}
+	else
+	{
+		saveProtocol();
+	}
+
+}
+
+bool Labonatip_GUI::saveProtocol()
+{
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_protocol_editor::saveProtocol    " << endl;
+
+	Labonatip_protocolWriter *writer = new Labonatip_protocolWriter(ui->treeWidget_macroTable);
+
+	QMessageBox::StandardButton resBtn = QMessageBox::question(this, m_str_warning,
+		m_str_current_prot_name + "<br>" + m_current_protocol_file_path +
+		"<br>" + m_str_question_override + "<br>" + m_str_override_guide,
+		QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
+		QMessageBox::Yes);
+	if (resBtn == QMessageBox::Yes) {
+		if (!writer->saveProtocol(m_current_protocol_file_path)) {
+			QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
+			QMessageBox::warning(this, m_str_warning, m_str_file_not_saved + "<br>" + m_current_protocol_file_path);
+			return false;
+		}
+	}
+	if (resBtn == QMessageBox::No)
+	{
+		if (!saveProtocolAs()) return false;
+	}
+	if (resBtn == QMessageBox::Cancel)
+	{
+		//do nothing
+	}
+
+	return true;
+}
+
+bool Labonatip_GUI::saveProtocolAs()
+{
+	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
+
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_protocol_editor::saveProtocolAs    " << endl;
+
+	QString fileName = QFileDialog::getSaveFileName(this,
+		m_str_save_protocol, m_protocol_path,  // dialog to open files
+		"Lab-on-a-tip protocol File (*.prt);; All Files(*.*)", 0);
+	
+	Labonatip_protocolWriter *writer = new Labonatip_protocolWriter(ui->treeWidget_macroTable);
+
+	if (!writer->saveProtocol(fileName)) {
+		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
+		QMessageBox::warning(this, m_str_warning, m_str_file_not_saved + "<br>" + fileName);
+		return false;
+	}
+	readProtocolFolder(m_protocol_path);
+	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
+	return true;
 }
 
 void Labonatip_GUI::saveSettingsFile() {
@@ -67,21 +182,39 @@ void Labonatip_GUI::showToolsDialog() {
 }
 
 
-void Labonatip_GUI::showProtocolEditorDialog() {
+void Labonatip_GUI::showProtocolEditorDialog() { 
 
 	cout << QDate::currentDate().toString().toStdString() << "  "
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_GUI::showProtocolEditorDialog    " << endl;
 
-	m_dialog_p_editor->setProtocolPath(m_protocol_path); 
-	m_dialog_p_editor->setPrParams(*m_pr_params);
-	m_dialog_p_editor->setSolParams(*m_solutionParams);
+	if (ui->stackedWidget_main->currentIndex() == 0) {
+		ui->stackedWidget_main->setCurrentIndex(1);
+		ui->stackedWidget_indock->setCurrentIndex(1);
+		ui->actionSave_profile->setText(m_str_save);
+		ui->actionLoad_profile->setText(m_str_load);
+		ui->actionEditor->setText(m_str_commander);
+	}
+	else
+	{
+		ui->stackedWidget_main->setCurrentIndex(0);
+		ui->stackedWidget_indock->setCurrentIndex(0);
+		ui->actionSave_profile->setText(m_str_save_profile);
+		ui->actionLoad_profile->setText(m_str_load_profile);
+		ui->actionEditor->setText(m_str_editor);
+		editorApply();
+	}
+	return;
 
-	m_dialog_p_editor->setParent(this);
-	m_dialog_p_editor->setWindowFlags(Qt::Window);
+//	m_dialog_p_editor->setProtocolPath(m_protocol_path); 
+//	m_dialog_p_editor->setPrParams(*m_pr_params);
+//	m_dialog_p_editor->setSolParams(*m_solutionParams);
+
+//	m_dialog_p_editor->setParent(this);
+//	m_dialog_p_editor->setWindowFlags(Qt::Window);
 	//m_dialog_p_editor->setModal(true);
 	//m_dialog_p_editor->setProtocolPrt(m_protocol);   //TODO: this is wrong, two classes act on the same memory location
-	m_dialog_p_editor->show();
+//	m_dialog_p_editor->show();
 }
 
 

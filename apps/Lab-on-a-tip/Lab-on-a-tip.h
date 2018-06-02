@@ -27,6 +27,12 @@
 #include <qwhatsthis.h>
 #include <QException>
 #include <QtTextToSpeech\QTextToSpeech>
+#include <QUndoView>
+#include <QProgressDialog>
+#include <QDir>
+#include <QFileDialog>
+#include <QMenu>
+#include <QTextStream>
 
 // QT for graphics
 #include <QGraphicsEllipseItem>
@@ -36,7 +42,9 @@
 
 #include "Q_DebugStream.h"
 #include "tools.h"
-#include "protocolEditor.h"
+//#include "protocolEditor.h"
+#include "protocolReader.h"
+#include "protocolWriter.h"
 #include "protocolRunner.h"
 #include "chart.h"
 
@@ -63,7 +71,10 @@ public:
 	*/
 	void setVersion(string _version);
 
-	void setProtocolUserPath(QString _path) { m_protocol_path = _path; }
+	void setProtocolUserPath(QString _path) { m_protocol_path = _path; 
+	this->readProtocolFolder(m_protocol_path);
+	ui->lineEdit_protocolPath->setText(_path);
+	}
 
 	void setSettingsUserPath(QString _path) { m_settings_path = _path; }
 
@@ -101,8 +112,34 @@ public:
 
 private slots:
 
+void onProtocolClicked(QTreeWidgetItem *item, int column);
+void openProtocolFolder();
+void protocolsMenu(const QPoint & _pos);
+void deleteProtocol();
+void helpTriggered();
+void addCommand();
+void removeCommand();
+void moveUp();
+void moveDown();
+void plusIndent();
+bool itemChanged(QTreeWidgetItem *_item, int _column);
+void duplicateItem();
+void createNewLoop();
+void createNewLoop(int _loops);
+void clearAllCommandsRequest();
+void clearAllCommands();
+void showUndoStack();
+void undo();
+void redo();
 
-void testTTL();
+
+
+
+
+
+
+
+void testTTL(bool _state);
 
 	/** \brief This function is called when the down arrow on Pon is called
 	  *        it decreases the pressure on Pon, it does not accept out-of-range
@@ -207,17 +244,32 @@ void testTTL();
 	*/
 	void pushSolution1();
 
+	void solution1(bool _enable) {
+		ui->pushButton_solution1->setChecked(_enable);
+		pushSolution1();
+	}
+
 	/** \brief  pushSolution2
 	*
 	* \note
 	*/
 	void pushSolution2();
+	void solution2(bool _enable) {
+		ui->pushButton_solution2->setChecked(_enable);
+		pushSolution2();
+		//updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
+	}
 
 	/** \brief pushSolution3
 	*
 	* \note
 	*/
 	void pushSolution3();
+	void solution3(bool _enable) {
+		ui->pushButton_solution3->setChecked(_enable);
+		pushSolution3();
+
+	}
 
 	/** \brief pushSolution4
 	*   //TODO: add an argument for all 1-4 _activate 
@@ -226,6 +278,10 @@ void testTTL();
 	* \note
 	*/
 	void pushSolution4();
+	void solution4(bool _enable) {
+		ui->pushButton_solution4->setChecked(_enable);
+		pushSolution4();
+	}
 
 	/** \brief Increase/reduce the area for the solution depiction
 	*
@@ -407,6 +463,8 @@ void testTTL();
 	* \note
 	*/
 	void openSettingsFile();
+	void loadPressed();
+	bool loadProtocol();
 
 	/** \brief save the settings to a file
 	*
@@ -415,6 +473,10 @@ void testTTL();
 	* \note
 	*/
 	void saveSettingsFile();
+
+	void savePressed();
+	bool saveProtocol();
+	bool saveProtocolAs();
 
 	/** \brief This function shows a tool dialog,
 	*        all the settings must be implemented here
@@ -593,9 +655,16 @@ private:
   */
   void initCustomStrings();
 
+  void readProtocolFolder(QString _path);
+
+  void addAllCommandsToProtocol();
+
+  double protocolDuration(std::vector<fluicell::PPC1api::command> _protocol);
+
+
   Ui::Labonatip_GUI *ui;               //!< the main user interface
   Labonatip_tools * m_dialog_tools;    //!< pointer to the tools dialog
-  Labonatip_protocol_editor * m_dialog_p_editor; //!< pointer to the protocol editor dialog
+  //Labonatip_protocol_editor * m_dialog_p_editor; //!< pointer to the protocol editor dialog
 
   QDebugStream *qout;                 //!< redirect cout for messages into the GUI
   QDebugStream *qerr;                 //!< redirect cerr for messages into the GUI
@@ -629,7 +698,9 @@ private:
   int m_time_multipilcator;           //!< used to set the update time for the timers
   int m_timer_solution;               //!< duration of injection for solution 
   double m_protocol_duration;         //!< this is the timeline for the protocol execution
-  
+  QString m_current_protocol_file_path;
+  QString m_current_protocol_file_name;
+
   //GUI stuff for drawing solution flow, remember to NEVER change this values from here, 
   // there is a hiden tools for the regulation of the flow drawing in the tabWidget panel
   QGraphicsScene *m_scene_solution;   //!< scene to draw the solution flow
@@ -661,6 +732,26 @@ private:
   QTranslator m_translator;
   int m_language_idx;
 
+  int m_cmd_idx_c;       // index of the column for command index
+  int m_cmd_command_c;   // index of the column for the command
+  int m_cmd_range_c;     // index of the column for the range
+  int m_cmd_value_c;     // index of the column for the value
+  int m_cmd_msg_c;       // index of the column for the command status message
+  int m_cmd_level_c;     // index of the column for the level in the tree
+
+  ComboBoxDelegate * m_combo_delegate;
+  NoEditDelegate * m_no_edit_delegate;
+  NoEditDelegate * m_no_edit_delegate2;
+  SpinBoxDelegate * m_spinbox_delegate;
+
+  //TODO: this cannot be a class member, it is used only to pass
+  //      a parameter from the menu to the delete_protocol function
+  int m_triggered_protocol_item;
+  
+  // for undo
+  QUndoStack *m_undo_stack;
+  QUndoView *m_undo_view;
+
   // custom strings for translations
   QString m_str_areyousure;
   QString m_str_waiting;
@@ -673,6 +764,10 @@ private:
   QString m_str_error;
   QString m_str_cancel;
   QString m_str_ok;
+  QString m_str_save;
+  QString m_str_load;
+  QString m_str_commander;
+  QString m_str_editor;
   QString m_str_PPC1_status_con;
   QString m_str_PPC1_status_discon;
   QString m_str_protocol_running;
@@ -736,6 +831,17 @@ private:
   QString m_str_swapping_to_simulation;
   QString m_str_warning_solution_end;
   QString m_str_warning_waste_full;
+  QString m_str_add_protocol_bottom; //TODO
+  QString m_str_add_protocol_bottom_guide;
+  QString m_str_protocol_duration;
+  QString m_str_select_folder;
+  QString m_str_remove_file;
+  QString m_str_current_prot_name;
+  QString m_str_question_override;
+  QString m_str_override_guide;
+  QString m_str_file_not_saved;
+  QString m_str_save_protocol;
+  QString m_str_clear_commands;
 
   // speech synthesis
   QTextToSpeech *m_speech;

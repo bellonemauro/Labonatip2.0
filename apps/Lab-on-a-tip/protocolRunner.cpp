@@ -37,6 +37,162 @@ void Labonatip_macroRunner::initCustomStrings()
 	m_str_not_connected = tr("PPC1 is NOT running, connect and try again");
 }
 
+void Labonatip_macroRunner::runCommand(fluicell::PPC1api::command _cmd)
+{
+
+	int ist = _cmd.getInstruction();
+
+	switch (ist)
+	{
+	case 0: { //setPon
+		emit setPon(_cmd.getValue());
+		msleep(50);
+		return;
+	}
+	case 1: {//setPoff
+		emit setPoff(_cmd.getValue());
+		msleep(50);
+		return;
+
+	}
+	case 2: {//setVswitch
+		emit setVs(-_cmd.getValue());
+		msleep(50);
+		return;
+
+	}
+	case 3: {//setVrecirc
+		emit setVr(-_cmd.getValue());
+		msleep(50);
+		return;
+
+	}
+	case 4: {//solution1
+		emit solution1(bool(_cmd.getValue()));
+		msleep(50);
+		return;
+	}
+	case 5: {//solution2
+		emit solution2(bool(_cmd.getValue()));
+		msleep(50);
+		return;
+	}
+	case 6: {//solution3
+		emit solution3(bool(_cmd.getValue()));
+		msleep(50);
+		return;
+	}
+	case 7: {//solution4
+		emit solution4(bool(_cmd.getValue()));
+		msleep(50);
+		return;
+	}
+	case 8: {//sleep
+//		std::this_thread::sleep_for(std::chrono::seconds(static_cast<int>(_cmd.getValue())));
+		return;
+	}
+	case 9: {//ask_msg
+		return;
+	}
+	case 10: {//allOff	
+		emit closeAll();
+		return;
+	}
+	case 11: {//pumpsOff
+		emit pumpOff();
+		return;
+	}
+	case 12: {//waitSync //TODO
+			  //waitsync(front type : can be : RISE or FALL), protocol stops until trigger signal is received
+//		bool state;
+//		if (_cmd.getValue() == 0) state = false;
+//		else state = true;
+		// reset the sync signals and then wait for the correct state to come
+//		resetSycnSignals(false);
+//		std::this_thread::sleep_for(std::chrono::milliseconds(20));
+//		clock_t begin = clock();
+//		while (!syncSignalArrived(state))
+//		{
+//			std::this_thread::sleep_for(std::chrono::milliseconds(1));
+//			clock_t end = clock();
+//			double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+//			if (elapsed_secs > m_wait_sync_timeout) // break if timeout
+//			{
+//				cerr << currentDateTime()
+//					<< " fluicell::PPC1api::run(command _cmd) ::: waitSync timeout "
+//					<< endl;
+//				return false;
+//			}
+//		}
+//		return true;
+
+	}
+	case 13: {//syncOut //TODO
+			  // syncout(int: pulse length in ms) if negative then default state is 1
+			  // and pulse is 0, if positive, then pulse is 1 and default is 0
+//		int v = static_cast<int>(_cmd.getValue());
+//		if (m_verbose) cout << currentDateTime()
+//			<< " fluicell::PPC1api::run(command _cmd) ::: "
+//			<< "syncOut NOT implemented in the API ::: test value = "
+//			<< v << endl;
+//		int current_ppc1out_status = m_PPC1_data->ppc1_OUT;
+//		bool success = setPulsePeriod(v);
+//		std::this_thread::sleep_for(std::chrono::milliseconds(v));
+		//TODO : this function is unsafe, in case the protocol is stop during this function, 
+		//       the stop will not work
+		/*
+		clock_t begin = clock();
+		while (current_ppc1out_status == m_PPC1_data->ppc1_OUT)
+		{
+		std::this_thread::sleep_for(std::chrono::milliseconds(1));
+		}
+		while (current_ppc1out_status != m_PPC1_data->ppc1_OUT)
+		{
+		std::this_thread::sleep_for(std::chrono::milliseconds(1));
+		}
+		clock_t end = clock();
+		double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;*/
+//		return success;
+	}
+	case 14: {//dropletSize
+//		if (m_verbose) cout << currentDateTime()
+//			<< " fluicell::PPC1api::run(command _cmd) ::: dropletSize  NOT entirely implemented in the API"
+//			<< _cmd.getValue() << endl;
+//		return setDropletSize(_cmd.getValue());
+	}
+	case 15: {//flowSpeed
+//		if (m_verbose) cout << currentDateTime()
+//			<< " fluicell::PPC1api::run(command _cmd) ::: flowSpeed  NOT entirely implemented in the API"
+//			<< _cmd.getValue() << endl;
+//		return setFlowspeed(_cmd.getValue());
+	}
+	case 16: {//vacuum
+
+//		if (m_verbose) cout << currentDateTime()
+//			<< " fluicell::PPC1api::run(command _cmd) ::: vacuum  "
+//			<< _cmd.getValue() << endl;
+//		return setVacuumPercentage(_cmd.getValue());
+	}
+	case 17: {//loop
+//		if (m_verbose) cout << currentDateTime()
+//			<< " fluicell::PPC1api::run(command _cmd) :::"
+//			<< " loop NOT implemented in the API "
+//			<< endl;
+
+//		return true;
+	}
+	default: {
+//		cerr << currentDateTime()
+//			<< " fluicell::PPC1api::run(command _cmd) :::"
+//			<< " Command NOT recognized "
+//			<< endl;
+//		return false;
+	}
+	}
+		
+
+}
+
 void Labonatip_macroRunner::run()  {
 	QString result;
 	m_threadTerminationHandler = true;
@@ -85,8 +241,11 @@ void Labonatip_macroRunner::run()  {
 					message.append(" status message ");
 					message.append(QString::fromStdString(m_protocol->at(i).getStatusMessage()));
 
-					//TODO : the simulation does not give the actual commands, only messages are out ! 
+					//TODO : the simulation does not give the actual commands,
+					//       only messages are out ! 
 					emit sendStatusMessage(message);
+
+					runCommand(m_protocol->at(i));
 
 					if (m_protocol->at(i).getInstruction() ==
 						fluicell::PPC1api::command::instructions::ask_msg) // if is askMsg we send the signals
@@ -104,7 +263,9 @@ void Labonatip_macroRunner::run()  {
 						int val = static_cast<int>(m_protocol->at(i).getValue());
 						const qint64 kInterval = 1000;
 						qint64 mtime = QDateTime::currentMSecsSinceEpoch();
-						for (int j = 0; j < val; j++) {					
+						for (int j = 0; j < val; j++) {			
+							// visualize step time left 
+							m_time_left_for_step = val - j;
 							mtime += kInterval;
 							qint64 sleepFor = mtime - QDateTime::currentMSecsSinceEpoch();
 							if (sleepFor < 0) {

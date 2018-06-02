@@ -9,7 +9,7 @@
 
 #include "protocolEditorDelegates.h"
 #include <QSpinBox>
-
+#include <QComboBox>
 
 ComboBoxDelegate::ComboBoxDelegate(QObject *parent)
 	:QItemDelegate(parent)

@@ -58,6 +58,7 @@ class Labonatip_tools : public  QMainWindow
 		void cancel(); //!< signal generated when cancel is pressed
 		void emptyWaste(); //!< signal generated when empty wells is pressed
 		void refillSolution(); //!< signal generated when empty wells is pressed
+		void TTLsignal(bool _state); //!< signal generated test TTL is pressed
 		void colSol1Changed(const int _r, const int _g, const int _b); //!< signal generated when the solution color is changed
 		void colSol2Changed(const int _r, const int _g, const int _b); //!< signal generated when the solution color is changed
 		void colSol3Changed(const int _r, const int _g, const int _b); //!< signal generated when the solution color is changed
@@ -159,6 +160,7 @@ private slots:
 
 	void enableToolTip(int _inx);
 
+	void testTTL();
 	/** Color solution 1 changed
 	*
 	* \note

@@ -263,6 +263,12 @@ void Labonatip_GUI::updateGUI() {
             ui->pushButton_solution4->blockSignals(false);
 
 		}
+
+		ui->progressBar_ledPon->setValue(m_ppc1->getPonState()); // turn the led on
+		ui->progressBar_ledPoff->setValue(m_ppc1->getPoffState()); // turn the led on
+		ui->progressBar_ledRecirc->setValue(m_ppc1->getVrecircState()); // turn the led on
+		ui->progressBar_ledSwitch->setValue(m_ppc1->getVswitchState());
+
     }// end if m_simulation
 
 	if (m_ppc1->isRunning()) {
@@ -758,7 +764,7 @@ void Labonatip_GUI::updateWells()
 void Labonatip_GUI::updateMacroStatusMessage(const QString &_message) {
 
     QString s = " PROTOCOL RUNNING : <<<  ";
-    s.append(m_dialog_p_editor->getProtocolPath());
+	s.append(m_current_protocol_file_name);//   m_dialog_p_editor->getProtocolPath());
     s.append(" >>> remaining time = "); //TODO: translation
 
     s.append(_message);
@@ -774,8 +780,9 @@ void Labonatip_GUI::updateMacroTimeStatus(const double &_status) {
     m_labonatip_chart_view->updateChartTime(_status); // update the vertical line for the time status on the chart
 
     QString s = m_str_update_time_macro_msg1;
-    s.append(m_dialog_p_editor->getProtocolName());
-    int remaining_time_sec = m_protocol_duration - _status * m_protocol_duration / 100;
+	s.append(m_current_protocol_file_name);//   m_dialog_p_editor->getProtocolName());
+	//int remaining_time_sec = m_protocol_duration - _status * m_protocol_duration / 100;
+	int remaining_time_sec = protocolDuration(*m_protocol) - _status * protocolDuration(*m_protocol) / 100;
     s.append(m_str_update_time_macro_msg2);
     int remaining_hours = floor(remaining_time_sec / 3600); // 3600 sec in a hour
     int remaining_mins = floor((remaining_time_sec % 3600) / 60); // 60 minutes in a hour
@@ -812,7 +819,7 @@ void Labonatip_GUI::updateMacroTimeStatus(const double &_status) {
     ui->horizontalSlider_p_on->setValue(m_ppc1->getPonSetPoint());
     ui->horizontalSlider_p_on->blockSignals(false);
 
-    double currentTime = _status * m_protocol_duration / 100.0 ;
+    double currentTime = _status * protocolDuration(*m_protocol) / 100.0 ;
 
     updateFlowControlPercentages();
 

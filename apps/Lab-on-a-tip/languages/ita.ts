@@ -535,6 +535,140 @@
         <source>swapping to simulation mode</source>
         <translation>ritorno alla modalità di simulazione</translation>
 	</message>
+	<message>
+        <source>Current step time left : </source>
+        <translation>Tempo rimanente al comando corrente : </translation>
+	</message>	
+	<message>
+        <source>Load</source>
+        <translation>Carica</translation>
+	</message>
+	<message>
+        <source>Save</source>
+        <translation>Salva</translation>
+	</message>
+	<message>
+        <source>Commander</source>
+        <translation>Commander</translation>
+    </message>
+	<message>
+        <source>Charts</source>
+        <translation>Grafici</translation>
+	</message>
+	<message>
+        <source>Params</source>
+        <translation>Parametri</translation>
+	</message>
+	<message>
+        <source>Wizard</source>
+        <translation>Wizard</translation>
+	</message>
+	<message>
+        <source>Command</source>
+        <translation>Comando</translation>
+	</message>	
+	<message>
+        <source>Status message</source>
+        <translation>Messaggio di stato</translation>
+	</message>
+	<message>
+        <source>Folder</source>
+        <translation>Cartella</translation>
+	</message>
+	<message>
+        <source>Load protocol</source>
+        <translation>Carica protocollo</translation>
+    </message>
+	<message>
+        <source>Save protocol</source>
+        <translation>Salva protocollo</translation>
+    </message>
+	<message>
+        <source>File not found</source>
+        <translation>File non trovato</translation>
+    </message>
+	<message>
+        <source>File not saved</source>
+        <translation>File non salvato</translation>
+    </message>	
+	<message>
+        <source>Protocol duration : </source>
+        <translation>Durata del protocollo : </translation>
+    </message>		
+    <message>
+        <source>Check validity failed during macro saving</source>
+        <translation>Controllo di validità fallito durante il salvataggio del protocollo</translation>
+    </message>	
+    <message>
+        <source>please check your settings and try again</source>
+        <translation>Controlla i settaggi e riprova</translation>
+    </message>	
+	<message>
+        <source>This action will remove the file, are you sure?</source>
+        <translation>This action will remove the file, are you sure?</translation>
+    </message>
+    <message>
+        <source>Negative level, file corrupted</source>
+        <translation>Livello negativo, file corrotto</translation>
+    </message>
+	<message>
+        <source>The current protocol file name is</source>
+        <translation>Il protocollo corrente è </translation>
+    </message>
+	<message>
+        <source>Do you want to override?</source>
+        <translation>lo vuoi sovrascrivere?</translation>
+    </message>	
+	<message>
+        <source>Yes = override, NO = saveAs, Cancel = do nothing</source>
+        <translation>Si = sovrascrivi, NO = salva come, Annulla = do nothing</translation>
+    </message>	
+	<message>
+        <source>Do you want to add to the bottom of the protocol?</source>
+        <translation>Do you want to add to the bottom of the protocol?</translation>
+    </message>	
+	<message>
+        <source>Click NO to clean the workspace and load a new protocol</source>
+        <translation>Click NO to clean the workspace and load a new protocol</translation>
+    </message>
+	<message>
+        <source>Select folder</source>
+        <translation>Seleziona la cartella</translation>
+    </message>
+</context>
+<context>
+    <name>Labonatip_protocolReader</name>
+	<message>
+        <source>Warning</source>
+        <translation>Attenzione</translation>
+    </message>
+	<message>
+        <source>File not found</source>
+        <translation>File non trovato</translation>
+    </message>
+	<message>
+        <source>Negative level, file corrupted</source>
+        <translation>Livello negativo, file corrotto</translation>
+    </message>
+</context>
+<context>
+    <name>Labonatip_protocolWriter</name>
+	<message>
+        <source>Warning</source>
+        <translation>Attenzione</translation>
+    </message>
+	<message>
+        <source>Check validity failed during protocol saving</source>
+        <translation>Controllo di validità fallito durante il salvataggio del protocollo</translation>
+    </message>
+	<message>
+        <source>Please check your settings and try again</source>
+        <translation>Controlla i tuoi settaggi e riprova</translation>
+    </message>
+	<message>
+        <source>File not saved</source>
+        <translation>File non salvato</translation>
+    </message>
 </context>
 <context>
     <name>Labonatip_tools</name>
@@ -821,137 +955,6 @@
     <message>
         <source>Information</source>
         <translation>Informazione</translation>
-    </message>
-	<message>
-        <source>Ok</source>
-        <translation>Ok</translation>
-	</message>
-	<message>
-        <source>Cancel</source>
-        <translation>Annulla</translation>
-    </message>	
-	<message>
-        <source>Apply</source>
-        <translation>Applica</translation>
-    </message>	
-</context>
-<context>
-    <name>Labonatip_protocol_editor</name>
-    <message>
-        <source>E&amp;xit</source>
-        <translation>E&amp;sci</translation>
-    </message>	
-	<message>
-        <source>Load</source>
-        <translation>Carica</translation>
-	</message>
-	<message>
-        <source>Save</source>
-        <translation>Salva</translation>
-	</message>
-	<message>
-        <source>Charts</source>
-        <translation>Grafici</translation>
-	</message>
-	<message>
-        <source>Params</source>
-        <translation>Parametri</translation>
-	</message>
-	<message>
-        <source>Wizard</source>
-        <translation>Wizard</translation>
-	</message>
-	<message>
-        <source>Command</source>
-        <translation>Comando</translation>
-	</message>	
-	<message>
-        <source>Value</source>
-        <translation>Valore</translation>
-	</message>
-	<message>
-        <source>Status message</source>
-        <translation>Messaggio di stato</translation>
-	</message>
-	<message>
-        <source>Solutions</source>
-        <translation>Soluzioni</translation>
-	</message>
-	<message>
-        <source>Folder</source>
-        <translation>Cartella</translation>
-	</message>
-    <message>
-        <source>Warning</source>
-        <translation>Attenzione</translation>
-    </message>	
-    <message>
-        <source>Information</source>
-        <translation>Informazione</translation>
-    </message>	
-	<message>
-        <source>Load protocol</source>
-        <translation>Carica protocollo</translation>
-    </message>
-	<message>
-        <source>Save protocol</source>
-        <translation>Salva protocollo</translation>
-    </message>
-	<message>
-        <source>File not found</source>
-        <translation>File non trovato</translation>
-    </message>
-	<message>
-        <source>File not saved</source>
-        <translation>File non salvato</translation>
-    </message>	
-	<message>
-        <source>Protocol duration : </source>
-        <translation>Durata del protocollo : </translation>
-    </message>		
-    <message>
-        <source>Check validity failed during macro saving</source>
-        <translation>Controllo di validità fallito durante il salvataggio del protocollo</translation>
-    </message>	
-    <message>
-        <source>please check your settings and try again</source>
-        <translation>Controlla i settaggi e riprova</translation>
-    </message>	
-    <message>
-        <source>This action will remove the file, are you sure?</source>
-        <translation>Il file sarà rimosso, sei sicuro?</translation>
-    </message>
-	<message>
-        <source>Are you sure?</source>
-        <translation>Sei sicuro?</translation>
-	</message>
-    <message>
-        <source>Negative level, file corrupted</source>
-        <translation>Livello negativo, file corrotto</translation>
-    </message>
-	<message>
-        <source>The current protocol file name is</source>
-        <translation>Il protocollo corrente è </translation>
-    </message>
-	<message>
-        <source>Do you want to override?</source>
-        <translation>lo vuoi sovrascrivere?</translation>
-    </message>	
-	<message>
-        <source>Yes = override, NO = saveAs, Cancel = do nothing</source>
-        <translation>Si = sovrascrivi, NO = salva come, Annulla = do nothing</translation>
-    </message>	
-	<message>
-        <source>Do you want to add to the bottom of the protocol?</source>
-        <translation>Do you want to add to the bottom of the protocol?</translation>
-    </message>	
-	<message>
-        <source>Click NO to clean the workspace and load a new protocol</source>
-        <translation>Click NO to clean the workspace and load a new protocol</translation>
-    </message>
-	<message>
-        <source>Select folder</source>
-        <translation>Seleziona la cartella</translation>
     </message>
 	<message>
         <source>Ok</source>

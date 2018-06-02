@@ -56,9 +56,22 @@ signals:
 	void sendAskMessage(const QString &_message);       //!< send a message to ask to the user 
 	void timeStatus(const double &_time);               //!< send the time status
 
+	void setPon(const double &_v);               //!< setPon
+	void setPoff(const double &_v);               //!< setPon
+	void setVs(const double &_v);               //!< setPon
+	void setVr(const double &_v);               //!< setPon
+	void solution1(const bool &_v);               //!< setPon
+	void solution2(const bool &_v);               //!< setPon
+	void solution3(const bool &_v);               //!< setPon
+	void solution4(const bool &_v);               //!< setPon
+
+	void closeAll();
+	void pumpOff();
+
 private: 
 	
 	void initCustomStrings();
+	void runCommand(fluicell::PPC1api::command _cmd);
 
 	fluicell::PPC1api *m_ppc1;                            //!< pointer to the device to run the protocol 
 	std::vector<fluicell::PPC1api::command> *m_protocol;  //!< protocol to run

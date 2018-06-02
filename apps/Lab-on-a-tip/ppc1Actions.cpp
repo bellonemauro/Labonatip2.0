@@ -101,6 +101,10 @@ void Labonatip_GUI::newTip()
 	//A - 115
 	updateVrecircSetPoint(-m_pr_params->v_recirc_default );// (115);
 
+	// reset weels and solutions
+	toolEmptyWells();
+	toolRefillSolution();
+
 	//Ask: Pipette is ready for operation.PRESS OK TO START.
 	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 	this->askMessage(m_str_newtip_msg10);
@@ -125,9 +129,12 @@ void Labonatip_GUI::runMacro() {
 		}
 
 		
-		QString macro_path = m_dialog_p_editor->getProtocolPath();
+		QString macro_path = m_current_protocol_file_name;// m_dialog_p_editor->getProtocolPath();
 		QString msg = m_str_loaded_protocol_is;
-		msg.append(macro_path);
+		QStringList l = macro_path.split("/");
+		QString name = l.last();
+		msg.append(name);// (macro_path); //TODO: do not show the entire path only the name
+		msg.append("<br>");
 		msg.append(m_str_protocol_confirm);
 		QMessageBox::StandardButton resBtn = 
 			QMessageBox::question(this, m_str_information, msg,
@@ -158,7 +165,7 @@ void Labonatip_GUI::runMacro() {
 			ui->label_runMacro->setText(m_str_label_run_protocol);
 
 			QString s = " Protocol execution stopped : ";
-			s.append(m_dialog_p_editor->getProtocolName());
+			s.append(m_current_protocol_file_name);// m_dialog_p_editor->getProtocolName());
 			int remaining_time_sec = m_protocol_duration - 0 * m_protocol_duration / 100;
 			s.append(" ----- remaining time,  ");
 			int remaining_hours = floor(remaining_time_sec / 3600); // 3600 sec in a hour
@@ -199,6 +206,46 @@ void Labonatip_GUI::runMacro() {
 		connect(m_macroRunner_thread,
 			&Labonatip_macroRunner::sendAskMessage, this,
 			&Labonatip_GUI::askMessage);
+
+		connect(m_macroRunner_thread,
+			&Labonatip_macroRunner::setPon, this,
+			&Labonatip_GUI::updatePonSetPoint);
+
+		connect(m_macroRunner_thread,
+			&Labonatip_macroRunner::setPoff, this,
+			&Labonatip_GUI::updatePoffSetPoint);
+
+		connect(m_macroRunner_thread,
+			&Labonatip_macroRunner::setVs, this,
+			&Labonatip_GUI::updateVswitchSetPoint);
+
+		connect(m_macroRunner_thread,
+			&Labonatip_macroRunner::setVr, this,
+			&Labonatip_GUI::updateVrecircSetPoint);
+
+		connect(m_macroRunner_thread,
+			&Labonatip_macroRunner::solution1, this,
+			&Labonatip_GUI::solution1);
+
+		connect(m_macroRunner_thread,
+			&Labonatip_macroRunner::solution2, this,
+			&Labonatip_GUI::solution2);
+
+		connect(m_macroRunner_thread,
+			&Labonatip_macroRunner::solution3, this,
+			&Labonatip_GUI::solution3);
+
+		connect(m_macroRunner_thread,
+			&Labonatip_macroRunner::solution4, this,
+			&Labonatip_GUI::solution4);
+
+		connect(m_macroRunner_thread,
+			&Labonatip_macroRunner::closeAll, this,
+			&Labonatip_GUI::closeAllValves);
+
+		connect(m_macroRunner_thread,
+			&Labonatip_macroRunner::pumpOff, this,
+			&Labonatip_GUI::pumpingOff);
 
 		m_macroRunner_thread->start();
 
@@ -307,6 +354,47 @@ void Labonatip_GUI::macroFinished(const QString &_result) {
 	disconnect(m_macroRunner_thread,
 		&Labonatip_macroRunner::sendAskMessage, this,
 		&Labonatip_GUI::askMessage);
+
+	disconnect(m_macroRunner_thread,
+		&Labonatip_macroRunner::setPon, this,
+		&Labonatip_GUI::updatePonSetPoint);
+
+	disconnect(m_macroRunner_thread,
+		&Labonatip_macroRunner::setPoff, this,
+		&Labonatip_GUI::updatePoffSetPoint);
+
+	disconnect(m_macroRunner_thread,
+		&Labonatip_macroRunner::setVs, this,
+		&Labonatip_GUI::updateVswitchSetPoint);
+
+	disconnect(m_macroRunner_thread,
+		&Labonatip_macroRunner::setVr, this,
+		&Labonatip_GUI::updateVrecircSetPoint);
+
+	disconnect(m_macroRunner_thread,
+		&Labonatip_macroRunner::solution1, this,
+		&Labonatip_GUI::solution1);
+
+	disconnect(m_macroRunner_thread,
+		&Labonatip_macroRunner::solution2, this,
+		&Labonatip_GUI::solution2);
+
+	disconnect(m_macroRunner_thread,
+		&Labonatip_macroRunner::solution3, this,
+		&Labonatip_GUI::solution3);
+
+	disconnect(m_macroRunner_thread,
+		&Labonatip_macroRunner::solution4, this,
+		&Labonatip_GUI::solution4);
+
+	disconnect(m_macroRunner_thread,
+		&Labonatip_macroRunner::closeAll, this,
+		&Labonatip_GUI::closeAllValves);
+
+	disconnect(m_macroRunner_thread,
+		&Labonatip_macroRunner::pumpOff, this,
+		&Labonatip_GUI::pumpingOff);
+	
 
 }
 

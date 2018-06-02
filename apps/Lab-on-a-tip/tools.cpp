@@ -61,6 +61,10 @@ Labonatip_tools::Labonatip_tools(QWidget *parent ):
 		SIGNAL(triggered()), this,
 		SLOT(goToPage4()));
 
+	connect(ui_tools->pushButton_TTLtest,
+		SIGNAL(clicked()), this,
+		SLOT(testTTL()));
+
 	// connect color solution settings
 	connect(ui_tools->horizontalSlider_colorSol1,
 		SIGNAL(valueChanged(int)), this,
@@ -400,6 +404,18 @@ void Labonatip_tools::showPortInfo(int idx)
 void Labonatip_tools::enableToolTip(int _inx)
 {
 	m_GUI_params->enableToolTips = ui_tools->checkBox_enableToolTips->isChecked();
+}
+
+void Labonatip_tools::testTTL()
+{
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_tools::testTTL "
+		<< "  TTLsignal = " << ui_tools->checkBox_TTLtest->isChecked()
+		<< endl;
+
+	emit TTLsignal(ui_tools->checkBox_TTLtest->isChecked());
+
 }
 
 

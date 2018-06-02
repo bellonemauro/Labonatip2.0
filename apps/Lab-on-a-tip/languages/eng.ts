@@ -535,6 +535,144 @@
         <source>swapping to simulation mode</source>
         <translation>swapping to simulation mode</translation>
 	</message>
+	<message>
+        <source>Current step time left : </source>
+        <translation>Current step time left : </translation>
+	</message>	
+    <message>
+        <source>Load</source>
+        <translation>Load</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Save</translation>
+    </message>
+	<message>
+        <source>Commander</source>
+        <translation>Commander</translation>
+    </message>
+    <message>
+        <source>Charts</source>
+        <translation>Charts</translation>
+    </message>
+    <message>
+        <source>Params</source>
+        <translation>Params</translation>
+    </message>
+    <message>
+        <source>Wizard</source>
+        <translation>Wizard</translation>
+    </message>
+    <message>
+        <source>Command</source>
+        <translation>Command</translation>
+    </message>
+    <message>
+        <source>Status message</source>
+        <translation>Status message</translation>
+    </message>
+    <message>
+        <source>Folder</source>
+        <translation>Folder</translation>
+    </message>
+    <message>
+        <source>Load protocol</source>
+        <translation>Load protocol</translation>
+    </message>
+    <message>
+        <source>Save protocol</source>
+        <translation>Save protocol</translation>
+    </message>
+    <message>
+        <source>File not found</source>
+        <translation>File not found</translation>
+    </message>
+    <message>
+        <source>File not saved</source>
+        <translation>File not saved</translation>
+    </message>
+    <message>
+        <source>Protocol duration : </source>
+        <translation>Protocol duration : </translation>
+    </message>
+    <message>
+        <source>Check validity failed during macro saving, \n please check your settings and try again</source>
+        <translation>Check validity failed during macro saving, \n please check your settings and try again</translation>
+    </message>
+    <message>
+        <source>Please check your settings and try again</source>
+        <translation>Please check your settings and try again</translation>
+    </message>
+	<message>
+        <source>This action will remove the file, are you sure?</source>
+        <translation>This action will remove the file, are you sure?</translation>
+    </message>
+    <message>
+        <source>Negative level, file corrupted</source>
+        <translation>Negative level, file corrupted</translation>
+    </message>
+	<message>
+        <source>The current protocol file name is</source>
+        <translation>The current protocol file name is</translation>
+    </message>
+	<message>
+        <source>Do you want to override?</source>
+        <translation>Do you want to override?</translation>
+    </message>	
+	<message>
+        <source>Yes = override, NO = saveAs, Cancel = do nothing</source>
+        <translation>Yes = override, NO = saveAs, Cancel = do nothing</translation>
+    </message>	
+	<message>
+        <source>Do you want to add to the bottom of the protocol?</source>
+        <translation>Do you want to add to the bottom of the protocol?</translation>
+    </message>	
+	<message>
+        <source>Click NO to clean the workspace and load a new protocol</source>
+        <translation>Click NO to clean the workspace and load a new protocol</translation>
+    </message>
+    <message>
+        <source>Select folder</source>
+        <translation>Select folder</translation>
+    </message>
+	<message>
+        <source>This will remove all the commands in your protocol</source>
+        <translation>This will remove all the commands in your protocol</translation>
+    </message>
+</context>
+<context>
+    <name>Labonatip_protocolReader</name>
+	<message>
+        <source>Warning</source>
+        <translation>Warning</translation>
+    </message>
+	<message>
+        <source>File not found</source>
+        <translation>File not found</translation>
+    </message>
+	<message>
+        <source>Negative level, file corrupted</source>
+        <translation>Negative level, file corrupted</translation>
+    </message>
+</context>
+<context>
+    <name>Labonatip_protocolWriter</name>
+	<message>
+        <source>Warning</source>
+        <translation>Warning</translation>
+    </message>
+	<message>
+        <source>Check validity failed during protocol saving</source>
+        <translation>Check validity failed during protocol saving</translation>
+    </message>
+	<message>
+        <source>Please check your settings and try again</source>
+        <translation>Please check your settings and try again</translation>
+    </message>
+	<message>
+        <source>File not saved</source>
+        <translation>File not saved</translation>
+    </message>
 </context>
 <context>
     <name>Labonatip_tools</name>
@@ -821,137 +959,6 @@
     <message>
         <source>Information</source>
         <translation>Information</translation>
-    </message>
-    <message>
-        <source>Ok</source>
-        <translation>Ok</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation>Cancel</translation>
-    </message>
-    <message>
-        <source>Apply</source>
-        <translation>Apply</translation>
-    </message>
-</context>
-<context>
-    <name>Labonatip_protocol_editor</name>
-    <message>
-        <source>E&amp;xit</source>
-        <translation>E&amp;xit</translation>
-    </message>
-    <message>
-        <source>Load</source>
-        <translation>Load</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation>Save</translation>
-    </message>
-    <message>
-        <source>Charts</source>
-        <translation>Charts</translation>
-    </message>
-    <message>
-        <source>Params</source>
-        <translation>Params</translation>
-    </message>
-    <message>
-        <source>Wizard</source>
-        <translation>Wizard</translation>
-    </message>
-    <message>
-        <source>Command</source>
-        <translation>Command</translation>
-    </message>
-    <message>
-        <source>Value</source>
-        <translation>Value</translation>
-    </message>
-    <message>
-        <source>Status message</source>
-        <translation>Status message</translation>
-    </message>
-    <message>
-        <source>Solutions</source>
-        <translation>Solutions</translation>
-    </message>
-    <message>
-        <source>Folder</source>
-        <translation>Folder</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation>Warning</translation>
-    </message>
-    <message>
-        <source>Information</source>
-        <translation>Information</translation>
-    </message>
-    <message>
-        <source>Load protocol</source>
-        <translation>Load protocol</translation>
-    </message>
-    <message>
-        <source>Save protocol</source>
-        <translation>Save protocol</translation>
-    </message>
-    <message>
-        <source>File not found</source>
-        <translation>File not found</translation>
-    </message>
-    <message>
-        <source>File not saved</source>
-        <translation>File not saved</translation>
-    </message>
-    <message>
-        <source>Protocol duration : </source>
-        <translation>Protocol duration : </translation>
-    </message>
-    <message>
-        <source>Check validity failed during macro saving, \n please check your settings and try again</source>
-        <translation>Check validity failed during macro saving, \n please check your settings and try again</translation>
-    </message>
-    <message>
-        <source>Please check your settings and try again</source>
-        <translation>Please check your settings and try again</translation>
-    </message>
-    <message>
-        <source>This action will remove the file, are you sure?</source>
-        <translation>This action will remove the file, are you sure?</translation>
-    </message>
-    <message>
-        <source>Are you sure?</source>
-        <translation>Are you sure?</translation>
-    </message>
-    <message>
-        <source>Negative level, file corrupted</source>
-        <translation>Negative level, file corrupted</translation>
-    </message>
-	<message>
-        <source>The current protocol file name is</source>
-        <translation>The current protocol file name is</translation>
-    </message>
-	<message>
-        <source>Do you want to override?</source>
-        <translation>Do you want to override?</translation>
-    </message>	
-	<message>
-        <source>Yes = override, NO = saveAs, Cancel = do nothing</source>
-        <translation>Yes = override, NO = saveAs, Cancel = do nothing</translation>
-    </message>	
-	<message>
-        <source>Do you want to add to the bottom of the protocol?</source>
-        <translation>Do you want to add to the bottom of the protocol?</translation>
-    </message>	
-	<message>
-        <source>Click NO to clean the workspace and load a new protocol</source>
-        <translation>Click NO to clean the workspace and load a new protocol</translation>
-    </message>
-    <message>
-        <source>Select folder</source>
-        <translation>Select folder</translation>
     </message>
     <message>
         <source>Ok</source>

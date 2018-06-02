@@ -15,8 +15,8 @@
 #include <iostream>
 #include <string>
 
-#include "ui_protocolEditor.h"
-#include "protocolWizard.h"
+//#include "ui_protocolEditor.h"
+//#include "protocolWizard.h"
 
 #include <QMainWindow>
 #include <QtCharts/QChartView>
@@ -25,6 +25,7 @@
 #include <QTreeWidget>
 #include <QObject>
 #include <QItemDelegate>
+#include <QStyledItemDelegate>
 
 // PPC1api 
 #include <fluicell/ppc1api/ppc1api.h>

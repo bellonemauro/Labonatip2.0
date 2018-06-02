@@ -25,6 +25,8 @@
 #define VER STR(LABONATIP_VERSION)
 
 #include "Lab-on-a-tip.h"
+#include <QApplication>
+#include <QDesktopWidget>
 #include <QSplashScreen>
 #include <QTimer>
 #include <QDir>
