@@ -635,6 +635,10 @@
         <source>Select folder</source>
         <translation>Seleziona la cartella</translation>
     </message>
+	<message>
+        <source>This will clear all items in the current protocol</source>
+        <translation>Questo cancellerà tutti i comandi nel tuo protocollo</translation>
+    </message>
 </context>
 <context>
     <name>Labonatip_protocolReader</name>
@@ -760,6 +764,10 @@
         <source>Enable tool tips</source>
         <translation>Abilita tool tips</translation>
 	</message>
+	<message>
+        <source>Solution settings</source>
+        <translation>Impostazioni delle soluzioni</translation>
+    </message>
 	<message>
         <source>Volume</source>
         <translation>Volume</translation>
@@ -968,6 +976,25 @@
         <source>Apply</source>
         <translation>Applica</translation>
     </message>	
+</context>
+<context>
+    <name>Labonatip_macroRunner</name>
+    <message>
+        <source>Success</source>
+        <translation>Eseguito</translation>
+    </message>
+    <message>
+        <source>Failed</source>
+        <translation>Fallito</translation>
+    </message>
+    <message>
+        <source>PROTOCOL STOPPED</source>
+        <translation>PROTOCOLLO FERMATO</translation>
+    </message>
+    <message>
+        <source>PPC1 is NOT running, connect and try again</source>
+        <translation>Il PPC1 non è in esecuzione, connettilo e riprova</translation>
+    </message>
 </context>
 <context>
     <name>Labonatip_macroWizard</name>

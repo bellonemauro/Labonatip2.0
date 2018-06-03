@@ -42,9 +42,9 @@ bool Labonatip_GUI::loadProtocol()
 		//	m_str_file_not_found + "<br>" + file_name);
 		return false;
 	}
-	Labonatip_protocolReader *reader = new Labonatip_protocolReader(ui->treeWidget_macroTable);
-
-	if (reader->readProtocol(file_name))
+	
+	
+	if (m_reader->readProtocol(file_name))
 	{
 		addAllCommandsToProtocol();
 		m_current_protocol_file_path = file_name;
@@ -98,15 +98,14 @@ bool Labonatip_GUI::saveProtocol()
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_protocol_editor::saveProtocol    " << endl;
 
-	Labonatip_protocolWriter *writer = new Labonatip_protocolWriter(ui->treeWidget_macroTable);
-
+	
 	QMessageBox::StandardButton resBtn = QMessageBox::question(this, m_str_warning,
 		m_str_current_prot_name + "<br>" + m_current_protocol_file_path +
 		"<br>" + m_str_question_override + "<br>" + m_str_override_guide,
 		QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
 		QMessageBox::Yes);
 	if (resBtn == QMessageBox::Yes) {
-		if (!writer->saveProtocol(m_current_protocol_file_path)) {
+		if (!m_writer->saveProtocol(m_current_protocol_file_path)) {
 			QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 			QMessageBox::warning(this, m_str_warning, m_str_file_not_saved + "<br>" + m_current_protocol_file_path);
 			return false;
@@ -136,9 +135,8 @@ bool Labonatip_GUI::saveProtocolAs()
 		m_str_save_protocol, m_protocol_path,  // dialog to open files
 		"Lab-on-a-tip protocol File (*.prt);; All Files(*.*)", 0);
 	
-	Labonatip_protocolWriter *writer = new Labonatip_protocolWriter(ui->treeWidget_macroTable);
 
-	if (!writer->saveProtocol(fileName)) {
+	if (!m_writer->saveProtocol(fileName)) {
 		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 		QMessageBox::warning(this, m_str_warning, m_str_file_not_saved + "<br>" + fileName);
 		return false;
@@ -205,16 +203,6 @@ void Labonatip_GUI::showProtocolEditorDialog() {
 		editorApply();
 	}
 	return;
-
-//	m_dialog_p_editor->setProtocolPath(m_protocol_path); 
-//	m_dialog_p_editor->setPrParams(*m_pr_params);
-//	m_dialog_p_editor->setSolParams(*m_solutionParams);
-
-//	m_dialog_p_editor->setParent(this);
-//	m_dialog_p_editor->setWindowFlags(Qt::Window);
-	//m_dialog_p_editor->setModal(true);
-	//m_dialog_p_editor->setProtocolPrt(m_protocol);   //TODO: this is wrong, two classes act on the same memory location
-//	m_dialog_p_editor->show();
 }
 
 

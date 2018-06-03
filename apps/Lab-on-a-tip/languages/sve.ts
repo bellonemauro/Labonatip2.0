@@ -636,7 +636,7 @@
         <translation>Välj mapp</translation>
     </message>
 	<message>
-        <source>This will remove all the commands in your protocol</source>
+        <source>This will clear all items in the current protocol</source>
         <translation>Detta kommer att ta bort alla kommandon i ditt protokoll</translation>
     </message>
 </context>
@@ -764,6 +764,10 @@
         <source>Enable tool tips</source>
         <translation>Råd och tips-På</translation>
 	</message>
+	<message>
+        <source>Solution settings</source>
+        <translation>Lösningsinställningar</translation>
+    </message>
 	<message>
         <source>Volume</source>
         <translation>Volym</translation>
@@ -972,6 +976,25 @@
         <source>Apply</source>
         <translation>Tillämpa</translation>
     </message>	
+</context>
+<context>
+    <name>Labonatip_macroRunner</name>
+    <message>
+        <source>Success</source>
+        <translation>Framgång</translation>
+    </message>
+    <message>
+        <source>Failed</source>
+        <translation>Misslyckades</translation>
+    </message>
+    <message>
+        <source>PROTOCOL STOPPED</source>
+        <translation>PROTOKOLLET STOPPAT</translation>
+    </message>
+    <message>
+        <source>PPC1 is NOT running, connect and try again</source>
+        <translation>PPC1 körs INTE, anslut och försök igen</translation>
+    </message>
 </context>
 <context>
     <name>Labonatip_macroWizard</name>

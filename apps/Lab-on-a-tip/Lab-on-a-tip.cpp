@@ -97,7 +97,9 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   ui->stackedWidget_indock->setCurrentIndex(0);
   //ui->dockWidget->setMinimumWidth(180);
 
- 
+  m_reader = new Labonatip_protocolReader(ui->treeWidget_macroTable);
+  m_writer = new Labonatip_protocolWriter(ui->treeWidget_macroTable);
+
   // set the flows in the table
   ui->treeWidget_macroInfo->topLevelItem(12)->setText(1,
 	  QString::number(m_pipette_status->rem_vol_well1));
@@ -107,20 +109,6 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	  QString::number(m_pipette_status->rem_vol_well3));
   ui->treeWidget_macroInfo->topLevelItem(15)->setText(1, 
 	  QString::number(m_pipette_status->rem_vol_well4));
-
-  // set translation
-  QString translation_file = "./languages/eng.qm";
-  if (!m_translator.load(translation_file))
-	  cout << QDate::currentDate().toString().toStdString() << "  "
-	  << QTime::currentTime().toString().toStdString() << "  "
-	  << "Labonatip_GUI::Labonatip_GUI ::: translation not loaded" << endl;
-  else
-	  cout << QDate::currentDate().toString().toStdString() << "  "
-	  << QTime::currentTime().toString().toStdString() << "  "
-	  << " Translation loaded " << endl;
-
-  qApp->installTranslator(&m_translator);
-  this->switchLanguage(m_GUI_params->language);
 
   // all the connects are in this function
   initConnects();
@@ -160,6 +148,20 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   // init thread macroRunner 
   m_macroRunner_thread = new Labonatip_macroRunner(this);
   m_macroRunner_thread->setDevice(m_ppc1);
+
+  // set translation
+  QString translation_file = "./languages/eng.qm";
+  if (!m_translator.load(translation_file))
+	  cout << QDate::currentDate().toString().toStdString() << "  "
+	  << QTime::currentTime().toString().toStdString() << "  "
+	  << "Labonatip_GUI::Labonatip_GUI ::: translation not loaded" << endl;
+  else
+	  cout << QDate::currentDate().toString().toStdString() << "  "
+	  << QTime::currentTime().toString().toStdString() << "  "
+	  << " Translation loaded " << endl;
+
+  qApp->installTranslator(&m_translator);
+  this->switchLanguage(m_GUI_params->language);
 
   //speech synthesis
   m_speech = new QTextToSpeech(this);
@@ -432,15 +434,14 @@ void Labonatip_GUI::switchLanguage(int _value )
 
 		initCustomStrings();
 	
-		// translate other dialogs
+		// translate other dialogs and objects
 		m_dialog_tools->switchLanguage(translation_file);
-		//m_dialog_p_editor->switchLanguage(translation_file);
-
-
+		m_macroRunner_thread->switchLanguage(translation_file);
+		m_reader->switchLanguage(translation_file);
+		m_writer->switchLanguage(translation_file);
 
 	}
 	else cout << " translation not loaded " << endl;
-
 }
 
 
@@ -919,7 +920,7 @@ void Labonatip_GUI::initCustomStrings()
 	m_str_override_guide = tr(" Yes = override, NO = saveAs, Cancel = do nothing");
 	m_str_add_protocol_bottom = tr("Do you want to add to the bottom of the protocol?");
 	m_str_add_protocol_bottom_guide = tr("Click NO to clean the workspace and load a new protocol");
-	m_str_clear_commands = tr("This will remove all the commands in your protocol");
+	m_str_clear_commands = tr("This will clear all items in the current protocol");
 }
 
 void Labonatip_GUI::appScaling(int _dpiX, int _dpiY)
@@ -1345,7 +1346,7 @@ void Labonatip_GUI::onProtocolClicked(QTreeWidgetItem *item, int column)
 	// TODO: the wait cursor does not work if called after the message !
 	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
 
-	Labonatip_protocolReader *reader = new Labonatip_protocolReader(ui->treeWidget_macroTable);
+
 	QMessageBox::StandardButton resBtn = QMessageBox::question(this, m_str_warning,
 		m_str_add_protocol_bottom + "<br>" + m_str_add_protocol_bottom_guide,
 		QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
@@ -1353,14 +1354,14 @@ void Labonatip_GUI::onProtocolClicked(QTreeWidgetItem *item, int column)
 
 
 	if (resBtn == QMessageBox::Yes) {
-		reader->readProtocol(protocol_path);
+		m_reader->readProtocol(protocol_path);
 		addAllCommandsToProtocol();
 		m_current_protocol_file_path = protocol_path;
 	}
 	if (resBtn == QMessageBox::No)
 	{
 		clearAllCommands(); //TODO
-		reader->readProtocol(protocol_path);
+		m_reader->readProtocol(protocol_path);
 		addAllCommandsToProtocol();
 		m_current_protocol_file_path = protocol_path;
 
@@ -2073,7 +2074,8 @@ Labonatip_GUI::~Labonatip_GUI ()
   delete m_no_edit_delegate;
   delete m_no_edit_delegate2;
   delete m_spinbox_delegate;
-
+  delete m_reader;
+  delete m_writer;
 
   delete ui;
   qApp->quit();

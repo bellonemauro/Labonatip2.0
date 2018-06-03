@@ -18,6 +18,8 @@
 // Qt
 #include <QMainWindow>
 #include <QDateTime>
+#include <QTranslator>
+#include <QApplication>
 
 // QT threads
 #include <qthread.h>
@@ -34,6 +36,8 @@ public:
 	explicit Labonatip_macroRunner(QMainWindow *parent = nullptr);
 	
 	void run() Q_DECL_OVERRIDE;
+
+	void switchLanguage(QString _translation_file);
 
 	void setDevice(fluicell::PPC1api *_ppc1) { m_ppc1 = _ppc1; }
 	
@@ -57,13 +61,13 @@ signals:
 	void timeStatus(const double &_time);               //!< send the time status
 
 	void setPon(const double &_v);               //!< setPon
-	void setPoff(const double &_v);               //!< setPon
-	void setVs(const double &_v);               //!< setPon
-	void setVr(const double &_v);               //!< setPon
-	void solution1(const bool &_v);               //!< setPon
-	void solution2(const bool &_v);               //!< setPon
-	void solution3(const bool &_v);               //!< setPon
-	void solution4(const bool &_v);               //!< setPon
+	void setPoff(const double &_v);               //!< setPoff
+	void setVs(const double &_v);               //!< setVs
+	void setVr(const double &_v);               //!< setVr
+	void solution1(const bool &_v);               //!< solution1
+	void solution2(const bool &_v);               //!< solution2
+	void solution3(const bool &_v);               //!< solution3
+	void solution4(const bool &_v);               //!< solution4
 
 	void closeAll();
 	void pumpOff();
@@ -86,6 +90,7 @@ private:
 	QString m_str_stopped;
 	QString m_str_not_connected;
 
+	QTranslator m_translator_runner;
 };
 
 #endif /* Labonatip_macroRunner_H_ */

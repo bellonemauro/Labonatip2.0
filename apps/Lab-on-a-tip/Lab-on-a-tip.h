@@ -244,6 +244,11 @@ void testTTL(bool _state);
 	*/
 	void pushSolution1();
 
+	/** \brief solution1
+	*   This receive the command from the protocol and
+	*   simulate the solution 1 button press
+	* \note
+	*/
 	void solution1(bool _enable) {
 		ui->pushButton_solution1->setChecked(_enable);
 		pushSolution1();
@@ -254,6 +259,12 @@ void testTTL(bool _state);
 	* \note
 	*/
 	void pushSolution2();
+
+	/** \brief solution2
+	*   This receive the command from the protocol and
+	*   simulate the solution 2 button press
+	* \note
+	*/
 	void solution2(bool _enable) {
 		ui->pushButton_solution2->setChecked(_enable);
 		pushSolution2();
@@ -265,6 +276,12 @@ void testTTL(bool _state);
 	* \note
 	*/
 	void pushSolution3();
+
+	/** \brief solution3
+	*   This receive the command from the protocol and 
+	*   simulate the solution 3 button press
+	* \note
+	*/
 	void solution3(bool _enable) {
 		ui->pushButton_solution3->setChecked(_enable);
 		pushSolution3();
@@ -278,6 +295,12 @@ void testTTL(bool _state);
 	* \note
 	*/
 	void pushSolution4();
+
+	/** \brief solution4
+	*   This receive the command from the protocol and
+	*   simulate the solution 4 button press
+	* \note
+	*/
 	void solution4(bool _enable) {
 		ui->pushButton_solution4->setChecked(_enable);
 		pushSolution4();
@@ -748,6 +771,10 @@ private:
   //      a parameter from the menu to the delete_protocol function
   int m_triggered_protocol_item;
   
+  //object for reading and writing protocols
+  Labonatip_protocolReader *m_reader;
+  Labonatip_protocolWriter *m_writer;
+
   // for undo
   QUndoStack *m_undo_stack;
   QUndoView *m_undo_view;
@@ -831,7 +858,7 @@ private:
   QString m_str_swapping_to_simulation;
   QString m_str_warning_solution_end;
   QString m_str_warning_waste_full;
-  QString m_str_add_protocol_bottom; //TODO
+  QString m_str_add_protocol_bottom;
   QString m_str_add_protocol_bottom_guide;
   QString m_str_protocol_duration;
   QString m_str_select_folder;
