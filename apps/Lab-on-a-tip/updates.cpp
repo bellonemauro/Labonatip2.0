@@ -264,12 +264,73 @@ void Labonatip_GUI::updateGUI() {
 
 		}
 
-		ui->progressBar_ledPon->setValue(m_ppc1->getPonState()); // turn the led on
-		ui->progressBar_ledPoff->setValue(m_ppc1->getPoffState()); // turn the led on
-		ui->progressBar_ledRecirc->setValue(m_ppc1->getVrecircState()); // turn the led on
-		ui->progressBar_ledSwitch->setValue(m_ppc1->getVswitchState());
+		//function of leds, 
+		// for each channel the state of the PPC1 is connected to the led
+		// ok = 1 = green, fault = 0 = red
+		// ok = 1 with reading far from the set point = orange
+		if (m_ppc1->getPonState() == 1) {
+			ui->label_led_pon->setPixmap(*led_green);
+			if (std::abs(m_ppc1->getPonReading() - m_ppc1->getPonSetPoint()) > 
+				0.1*m_ppc1->getPonSetPoint() + 3)
+			{
+				ui->label_led_pon->setPixmap(*led_orange);
+			}
+		}
+		else {
+			ui->label_led_pon->setPixmap(*led_red);
+		}
+
+		if (m_ppc1->getPoffState() == 1) {
+			ui->label_led_poff->setPixmap(*led_green);
+			if (std::abs(m_ppc1->getPoffReading() - m_ppc1->getPoffSetPoint()) >
+				0.1*m_ppc1->getPoffSetPoint() + 3)
+			{
+				ui->label_led_poff->setPixmap(*led_orange);
+			}
+		}
+		else {
+			ui->label_led_poff->setPixmap(*led_red);
+		}
+
+		if (m_ppc1->getVswitchState() == 1) {
+			ui->label_led_vs->setPixmap(*led_green);
+			if (std::abs(m_ppc1->getVswitchReading() - m_ppc1->getVswitchSetPoint()) >
+				0.1*m_ppc1->getVswitchSetPoint() + 3)
+			{
+				ui->label_led_vs->setPixmap(*led_orange);
+			}
+		}
+		else {
+			ui->label_led_vs->setPixmap(*led_red);
+		}
+
+		if (m_ppc1->getVrecircState() == 1) {
+			ui->label_led_vr->setPixmap(*led_green);
+			if (std::abs(m_ppc1->getVrecircReading() - m_ppc1->getVrecircSetPoint()) >
+				0.1*m_ppc1->getVrecircSetPoint() + 3)
+			{
+				ui->label_led_vr->setPixmap(*led_orange);
+			}
+		}
+		else {
+			ui->label_led_vr->setPixmap(*led_red);
+		}
+
+
+		//ui->progressBar_ledPon->setValue(m_ppc1->getPonState()); // turn the led on
+		//ui->progressBar_ledPoff->setValue(m_ppc1->getPoffState()); // turn the led on
+		//ui->progressBar_ledRecirc->setValue(m_ppc1->getVrecircState()); // turn the led on
+		//ui->progressBar_ledSwitch->setValue(m_ppc1->getVswitchState());
 
     }// end if m_simulation
+	else
+	{
+		ui->label_led_pon->setPixmap(*led_green);
+		ui->label_led_poff->setPixmap(*led_green);
+		ui->label_led_vs->setPixmap(*led_green);
+		ui->label_led_vr->setPixmap(*led_green);
+
+	}
 
 	if (m_ppc1->isRunning()) {
 		m_update_GUI->start();
@@ -547,9 +608,9 @@ void Labonatip_GUI::updateDrawing(int _value) {
 	return;
 }
 
-
-void Labonatip_GUI::updateWaste()  // this is updated every second
-								   //TODO: this does not work with PPC1api (only works in simulation)
+// this is updated every second
+//TODO: this does not work with PPC1api (only works in simulation)
+void Labonatip_GUI::updateWaste() 
 {
 	//TODO: here there is a calculation of the volume as follows:
 	//      remaining volume = current_volume (mL) - delta_t * flow_rate (nL/s)
@@ -681,9 +742,14 @@ void Labonatip_GUI::updateWaste()  // this is updated every second
 			<< QTime::currentTime().toString().toStdString() << "  "
 			<< "Labonatip_GUI::updateWaste   : Waste full ---- MB : WHAT TO DO? " << endl;
 		//QMessageBox::information(this, "Warning !", " Waste full ---- MB : WHAT TO DO? ");
-
-
-
+		QMessageBox::StandardButton resBtn =
+			QMessageBox::question(this, m_str_warning,
+				QString(m_str_waste_full),
+				QMessageBox::No | QMessageBox::Yes,
+				QMessageBox::Yes);
+		if (resBtn == QMessageBox::Yes) {
+			emptyWells();
+		}
 
 		return;
 	}
@@ -717,7 +783,14 @@ void Labonatip_GUI::updateWells()
 
 		if (m_pipette_status->rem_vol_well1 < 0) {
 			stopSolutionFlow();
-			//TODO: should we show any message here? like to refill the solution ?
+			QMessageBox::StandardButton resBtn =
+				QMessageBox::question(this, m_str_warning,
+					QString(m_str_solution_ended),
+					QMessageBox::No | QMessageBox::Yes,
+					QMessageBox::Yes);
+			if (resBtn == QMessageBox::Yes) {
+				refillSolution();
+			}
 		}
 
 		double perc =  100.0 * m_pipette_status->rem_vol_well1 / max;
@@ -729,6 +802,14 @@ void Labonatip_GUI::updateWells()
 		
 		if (m_pipette_status->rem_vol_well2 < 0) {
 			stopSolutionFlow();
+			QMessageBox::StandardButton resBtn =
+				QMessageBox::question(this, m_str_warning,
+					QString(m_str_solution_ended),
+					QMessageBox::No | QMessageBox::Yes,
+					QMessageBox::Yes);
+			if (resBtn == QMessageBox::Yes) {
+				refillSolution();
+			}
 		}
 
 		double perc = 100.0 * m_pipette_status->rem_vol_well2 / max;
@@ -740,6 +821,14 @@ void Labonatip_GUI::updateWells()
 
 		if (m_pipette_status->rem_vol_well3 < 0) {
 			stopSolutionFlow();
+			QMessageBox::StandardButton resBtn =
+				QMessageBox::question(this, m_str_warning,
+					QString(m_str_solution_ended),
+					QMessageBox::No | QMessageBox::Yes,
+					QMessageBox::Yes);
+			if (resBtn == QMessageBox::Yes) {
+				refillSolution();
+			}
 		}
 
 		double perc = 100.0 * m_pipette_status->rem_vol_well3 / max;
@@ -751,6 +840,14 @@ void Labonatip_GUI::updateWells()
 
 		if (m_pipette_status->rem_vol_well4 < 0) {
 			stopSolutionFlow();
+			QMessageBox::StandardButton resBtn =
+				QMessageBox::question(this, m_str_warning,
+					QString(m_str_solution_ended),
+					QMessageBox::No | QMessageBox::Yes,
+					QMessageBox::Yes);
+			if (resBtn == QMessageBox::Yes) {
+				refillSolution();
+			}
 		}
 
 		double perc = 100.0 * m_pipette_status->rem_vol_well4 / max;
@@ -764,23 +861,21 @@ void Labonatip_GUI::updateWells()
 void Labonatip_GUI::updateMacroStatusMessage(const QString &_message) {
 
     QString s = " PROTOCOL RUNNING : <<<  ";
-	s.append(m_current_protocol_file_name);//   m_dialog_p_editor->getProtocolPath());
+	s.append(m_current_protocol_file_name);
     s.append(" >>> remaining time = "); //TODO: translation
 
     s.append(_message);
-//    cout << QDate::currentDate().toString().toStdString() << "  "
-//         << QTime::currentTime().toString().toStdString() << "  "
-//         << "Labonatip_GUI::updateMacroStatusMessage :::: "
-//         << _message.toStdString() << endl;
+
 }
 
 
-void Labonatip_GUI::updateMacroTimeStatus(const double &_status) {
-
-    m_labonatip_chart_view->updateChartTime(_status); // update the vertical line for the time status on the chart
+void Labonatip_GUI::updateMacroTimeStatus(const double &_status) 
+{
+	// update the vertical line for the time status on the chart
+    m_labonatip_chart_view->updateChartTime(_status); 
 
     QString s = m_str_update_time_macro_msg1;
-	s.append(m_current_protocol_file_name);//   m_dialog_p_editor->getProtocolName());
+	s.append(m_current_protocol_file_name);
 	//int remaining_time_sec = m_protocol_duration - _status * m_protocol_duration / 100;
 	int remaining_time_sec = protocolDuration(*m_protocol) - _status * protocolDuration(*m_protocol) / 100;
     s.append(m_str_update_time_macro_msg2);
@@ -827,10 +922,5 @@ void Labonatip_GUI::updateMacroTimeStatus(const double &_status) {
 		updateDrawing(m_ppc1->getDropletSize());
     else 
 		updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
-
-
-    //cout << QDate::currentDate().toString().toStdString() << "  "
-    //     << QTime::currentTime().toString().toStdString() << "  "
-    //	   << "Labonatip_GUI::updateMacroTimeStatus :::: " << _status << endl;
 
 }

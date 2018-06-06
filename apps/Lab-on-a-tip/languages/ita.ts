@@ -596,10 +596,6 @@
         <translation>Durata del protocollo : </translation>
     </message>		
     <message>
-        <source>Check validity failed during macro saving</source>
-        <translation>Controllo di validità fallito durante il salvataggio del protocollo</translation>
-    </message>	
-    <message>
         <source>please check your settings and try again</source>
         <translation>Controlla i settaggi e riprova</translation>
     </message>	
@@ -638,6 +634,14 @@
 	<message>
         <source>This will clear all items in the current protocol</source>
         <translation>Questo cancellerà tutti i comandi nel tuo protocollo</translation>
+    </message>
+	<message>
+        <source>Solution ended, click yes to refill</source>
+        <translation>Soluzione finita, clicca si per riempire</translation>
+    </message>
+	<message>
+        <source>The waste is full, click yes to empty</source>
+        <translation>Scarto pieno, premi si per svuotare</translation>
     </message>
 </context>
 <context>

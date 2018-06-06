@@ -154,7 +154,7 @@ QString Labonatip_protocolWriter::createHeader()
 	header.append(tr("%% |                          http://www.fluicell.com/                         |\n"));
 	header.append(tr("%% +---------------------------------------------------------------------------+\n"));
 	header.append(tr("%% \n"));
-	header.append(tr("%% Protocol Header V. 0.5 \n"));
+	header.append(tr("%% Protocol Header V. 0.6 \n"));
 	header.append(tr("%% file created on dd/mm/yyyy - "));
 	header.append(QDate::currentDate().toString());
 	header.append(" ");
@@ -189,19 +189,6 @@ QString Labonatip_protocolWriter::createHeader()
 	header.append(tr("%%  - depth : depth in the tree of the command, all the commands at different layers will run in loop\n"));
 	header.append(tr("%% +---------------------------------------------------------------------------+ \n"));
 	header.append(tr("%%  - \n"));
-	header.append(tr("%%  - Current default values : \n"));
-	header.append(tr("%%  -      P ON     = "));
-	header.append(QString::number(190));//TODO m_pr_params->p_on_default));
-	header.append(tr("\n"));
-	header.append(tr("%%  -      P OFF    = "));
-	header.append(QString::number(21));//TODO m_pr_params->p_off_default));
-	header.append(tr("\n"));
-	header.append(tr("%%  -      V Switch = "));
-	header.append(QString::number(-115));//TODO m_pr_params->v_switch_default));
-	header.append(tr("\n"));
-	header.append(tr("%%  -      V Recirc = "));
-	header.append(QString::number(-115));//TODO m_pr_params->v_recirc_default));
-	header.append(tr("\n"));
 	header.append(tr("%% +---------------------------------------------------------------------------+ \n"));
 	header.append(tr("%% Command Value status_message depth\n"));
 	header.append(tr("%% Follows a line example\n"));

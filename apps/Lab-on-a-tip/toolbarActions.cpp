@@ -98,13 +98,20 @@ bool Labonatip_GUI::saveProtocol()
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_protocol_editor::saveProtocol    " << endl;
 
-	
+    // if we are working with a new protocol, saveAs	
+	if (m_current_protocol_file_path.isEmpty())
+	{
+		if (!saveProtocolAs()) return false;
+	}
+
+	// if the name is not empty, we ask if the user want to save as
 	QMessageBox::StandardButton resBtn = QMessageBox::question(this, m_str_warning,
 		m_str_current_prot_name + "<br>" + m_current_protocol_file_path +
 		"<br>" + m_str_question_override + "<br>" + m_str_override_guide,
 		QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
 		QMessageBox::Yes);
 	if (resBtn == QMessageBox::Yes) {
+		// yes = override
 		if (!m_writer->saveProtocol(m_current_protocol_file_path)) {
 			QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 			QMessageBox::warning(this, m_str_warning, m_str_file_not_saved + "<br>" + m_current_protocol_file_path);
@@ -112,7 +119,7 @@ bool Labonatip_GUI::saveProtocol()
 		}
 	}
 	if (resBtn == QMessageBox::No)
-	{
+	{ //no = save as
 		if (!saveProtocolAs()) return false;
 	}
 	if (resBtn == QMessageBox::Cancel)
@@ -131,17 +138,19 @@ bool Labonatip_GUI::saveProtocolAs()
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_protocol_editor::saveProtocolAs    " << endl;
 
-	QString fileName = QFileDialog::getSaveFileName(this,
+	QString file_name = QFileDialog::getSaveFileName(this,
 		m_str_save_protocol, m_protocol_path,  // dialog to open files
 		"Lab-on-a-tip protocol File (*.prt);; All Files(*.*)", 0);
 	
 
-	if (!m_writer->saveProtocol(fileName)) {
+	if (!m_writer->saveProtocol(file_name)) {
 		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-		QMessageBox::warning(this, m_str_warning, m_str_file_not_saved + "<br>" + fileName);
+		QMessageBox::warning(this, m_str_warning, 
+			m_str_file_not_saved + "<br>" + file_name);
 		return false;
 	}
 	readProtocolFolder(m_protocol_path);
+	m_current_protocol_file_name = file_name;
 	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 	return true;
 }
@@ -152,16 +161,19 @@ void Labonatip_GUI::saveSettingsFile() {
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_GUI::saveFile    " << endl;
 
-	QString _path = QFileDialog::getSaveFileName(this, m_str_save_profile, m_settings_path,  // dialog to open files
+	QString _path = QFileDialog::getSaveFileName(this, 
+		m_str_save_profile, m_settings_path,  // dialog to open files
 		"Profile file (*.ini);; All Files(*.*)", 0);
 
 	if (_path.isEmpty()) { 
-	    QMessageBox::information(this, m_str_information, m_str_cannot_save_profile + "<br>" + _path);
+	    QMessageBox::information(this, m_str_information,
+			m_str_cannot_save_profile + "<br>" + _path);
 		return;
 	}
 
 	if (!m_dialog_tools->setFileNameAndSaveSettings(_path)) {
-		QMessageBox::warning(this, m_str_warning, m_str_cannot_save_profile + "<br>" + _path);
+		QMessageBox::warning(this, m_str_warning, 
+			m_str_cannot_save_profile + "<br>" + _path);
 		return;
 	}
 }
@@ -186,6 +198,7 @@ void Labonatip_GUI::showProtocolEditorDialog() {
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_GUI::showProtocolEditorDialog    " << endl;
 
+	// if we are in the commander, we visualize the editor
 	if (ui->stackedWidget_main->currentIndex() == 0) {
 		ui->stackedWidget_main->setCurrentIndex(1);
 		ui->stackedWidget_indock->setCurrentIndex(1);
@@ -193,6 +206,7 @@ void Labonatip_GUI::showProtocolEditorDialog() {
 		ui->actionLoad_profile->setText(m_str_load);
 		ui->actionEditor->setText(m_str_commander);
 	}
+	//otherwise we are in the editor and we need to get back to the commander
 	else
 	{
 		ui->stackedWidget_main->setCurrentIndex(0);
@@ -200,7 +214,16 @@ void Labonatip_GUI::showProtocolEditorDialog() {
 		ui->actionSave_profile->setText(m_str_save_profile);
 		ui->actionLoad_profile->setText(m_str_load_profile);
 		ui->actionEditor->setText(m_str_editor);
-		editorApply();
+		
+		//update the chart
+		m_labonatip_chart_view->updateChartProtocol(m_protocol);
+
+		// visualize duration in the chart information panel 
+		m_protocol_duration = protocolDuration(*m_protocol);
+		QString s = QString::number(m_protocol_duration);
+		s.append(" s");
+		ui->label_duration->setText(s);
+
 	}
 	return;
 }
@@ -210,7 +233,8 @@ void Labonatip_GUI::simulationOnly()
 {
 	cout << QDate::currentDate().toString().toStdString() << "  "
 		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::simulationOnly    " << ui->actionSimulation->isChecked() << endl;
+		<< "Labonatip_GUI::simulationOnly    " 
+		<< ui->actionSimulation->isChecked() << endl;
 
 	this->stopSolutionFlow();
 	
@@ -223,7 +247,9 @@ void Labonatip_GUI::simulationOnly()
 	ui->groupBox_action->setEnabled(m_simulationOnly || ui->actionConnectDisconnect->isChecked());
 	ui->groupBox_deliveryZone->setEnabled(m_simulationOnly || ui->actionConnectDisconnect->isChecked());
 	ui->groupBox_3->setEnabled(m_simulationOnly || ui->actionConnectDisconnect->isChecked());
-	ui->tab_2->setEnabled(m_simulationOnly || ui->actionConnectDisconnect->isChecked());
+	//ui->tab_2->setEnabled(m_simulationOnly || ui->actionConnectDisconnect->isChecked());
+	enableTab2(m_simulationOnly || ui->actionConnectDisconnect->isChecked());
+
 }
 
 void Labonatip_GUI::shutdown() {
@@ -287,7 +313,8 @@ bool Labonatip_GUI::disCon(bool _connect)
 	
 
 	if (m_simulationOnly) {
-		QMessageBox::information(this, m_str_warning, m_str_warning_simulation_only);
+		QMessageBox::information(this, 
+			m_str_warning, m_str_warning_simulation_only);
 		return false;
 	}
 
@@ -354,7 +381,8 @@ bool Labonatip_GUI::disCon(bool _connect)
 					ui->groupBox_action->setEnabled(true);
 					ui->groupBox_deliveryZone->setEnabled(true);
 					ui->groupBox_3->setEnabled(true);
-					ui->tab_2->setEnabled(true);
+					//ui->tab_2->setEnabled(true);
+					enableTab2(true);
 					ui->actionReboot->setEnabled(true);
 					ui->actionShudown->setEnabled(true);
 					QApplication::restoreOverrideCursor();
@@ -413,7 +441,8 @@ bool Labonatip_GUI::disCon(bool _connect)
 				ui->groupBox_action->setEnabled(false);
 				ui->groupBox_deliveryZone->setEnabled(false);
 				ui->groupBox_3->setEnabled(false);
-				ui->tab_2->setEnabled(false);
+				//ui->tab_2->setEnabled(false);
+				enableTab2(false);
 				ui->actionReboot->setEnabled(false);
 				ui->actionShudown->setEnabled(false);
 				QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
@@ -429,7 +458,8 @@ bool Labonatip_GUI::disCon(bool _connect)
 				ui->actionSimulation->setEnabled(true);
 				ui->groupBox_action->setEnabled(true);
 				ui->groupBox_3->setEnabled(true);
-				ui->tab_2->setEnabled(true);
+				//ui->tab_2->setEnabled(true);
+				enableTab2(true);
 				ui->actionReboot->setEnabled(true);
 				ui->actionShudown->setEnabled(true);
 				QMessageBox::information(this, m_str_warning,
@@ -476,30 +506,36 @@ void Labonatip_GUI::reboot() {
 		 << QTime::currentTime().toString().toStdString() << "  "
 		 << "Labonatip_GUI::reboot    " << endl;
 
-	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
-	setEnableMainWindow(false);//TODO:check here what happens
+	QApplication::setOverrideCursor(Qt::WaitCursor);
+	setEnableMainWindow(false);
 
 	if (m_pipette_active) {
-		disCon(false); // with the pipette active this will stop the threads
+		// with the pipette active this will stop the threads
+		disCon(false); 
 
-		if (m_pipette_active) { // if it is still active, the disconnection failed and and we cannot continue
+		// if it is still active, the disconnection failed and and we cannot continue
+		if (m_pipette_active) { 
 			setEnableMainWindow(true);
-			QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
+			QApplication::restoreOverrideCursor();  
 			return;
 		}
 
+		// activate connection mode
 		ui->actionSimulation->setChecked(false);
 	
+		//give the command to reboot
 		m_ppc1->reboot();
 
+		// reset to 0
 		updatePonSetPoint(0.0);
 		updatePoffSetPoint(0.0);
 		updateVrecircSetPoint(0.0);
 		updateVswitchSetPoint(0.0);
 
-		if (!visualizeProgressMessage(20, m_str_rebooting)) return; //TODO try reboot
+		// wait 20 seconds
+		if (!visualizeProgressMessage(20, m_str_rebooting)) return; 
 
-		//m_ppc1->connectCOM();
+		// try to reconnect
 		disCon(true); //TODO: check this, it is not clear if we connect or disconnect
 		if (!visualizeProgressMessage(5, m_str_reconnecting)) return;
 

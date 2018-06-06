@@ -214,7 +214,7 @@ font-weight: 900;
             <item row="0" column="0">
              <widget class="QStackedWidget" name="stackedWidget_main">
               <property name="currentIndex">
-               <number>1</number>
+               <number>0</number>
               </property>
               <widget class="QWidget" name="page">
                <layout class="QGridLayout" name="gridLayout_18">
@@ -3647,6 +3647,9 @@ QPushButton:disabled{ background-color: #CCCCCC; }
            </item>
            <item row="0" column="0">
             <widget class="QLabel" name="status_PPC1_led">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
              <property name="maximumSize">
               <size>
                <width>30</width>
@@ -3876,7 +3879,7 @@ QCheckBox::indicator:unchecked {
             <enum>QTabWidget::Triangular</enum>
            </property>
            <property name="currentIndex">
-            <number>1</number>
+            <number>0</number>
            </property>
            <property name="elideMode">
             <enum>Qt::ElideNone</enum>
@@ -4010,6 +4013,19 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                 <property name="bottomMargin">
                  <number>11</number>
                 </property>
+                <item row="1" column="2">
+                 <widget class="QLabel" name="label_led_poff">
+                  <property name="maximumSize">
+                   <size>
+                    <width>20</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
                 <item row="1" column="4">
                  <widget class="QLabel" name="label_Poff">
                   <property name="font">
@@ -4025,291 +4041,6 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="7" rowspan="2">
-                 <widget class="QPushButton" name="pushButton_p_off_up">
-                  <property name="minimumSize">
-                   <size>
-                    <width>52</width>
-                    <height>52</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>52</width>
-                    <height>52</height>
-                   </size>
-                  </property>
-                  <property name="toolTip">
-                   <string>Fine tuning: single step increment</string>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true"/>
-                  </property>
-                  <property name="text">
-                   <string/>
-                  </property>
-                  <property name="icon">
-                   <iconset resource="resources.qrc">
-                    <normaloff>:/icons/plus.png</normaloff>:/icons/plus.png</iconset>
-                  </property>
-                  <property name="iconSize">
-                   <size>
-                    <width>35</width>
-                    <height>35</height>
-                   </size>
-                  </property>
-                  <property name="flat">
-                   <bool>false</bool>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="3">
-                 <widget class="QWidget" name="widget" native="true">
-                  <property name="maximumSize">
-                   <size>
-                    <width>10</width>
-                    <height>16777215</height>
-                   </size>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="1">
-                 <widget class="QWidget" name="widget_2" native="true">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimumSize">
-                   <size>
-                    <width>10</width>
-                    <height>0</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>10</width>
-                    <height>16777215</height>
-                   </size>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="2">
-                 <widget class="QProgressBar" name="progressBar_ledPoff">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimumSize">
-                   <size>
-                    <width>0</width>
-                    <height>0</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>20</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <pointsize>10</pointsize>
-                    <weight>75</weight>
-                    <bold>true</bold>
-                   </font>
-                  </property>
-                  <property name="toolTip">
-                   <string>Pressure ON/OFF indicator</string>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">QProgressBar {
-border: 1px solid grey;
-padding: 0px;
-color: rgb(255, 255, 255);
-border-bottom-right-radius: 10px;
-border-bottom-left-radius: 10px;
-border-top-right-radius: 10px;
-border-top-left-radius: 10px;
-text-align:right;
-/*margin-right: 25ex;*/
-background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
-stop: 0 #00ff00,
-stop: 0.3 #55ff55,
-stop: 0.5 #aaffaa,
-stop: 1 #ffffff );
-width: 15px;
-}
-
-QProgressBar::chunk {
-background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
-stop: 0 #ffffff,
-stop: 0.5 #ffaaaa,
-stop: 0.7 #ff5555,
-stop: 1 #ff0000 );
-border-bottom-right-radius: 10px;
-border-bottom-left-radius: 10px;
-border-top-right-radius: 10px;
-border-top-left-radius: 10px;
-border:0px solid white;
-}</string>
-                  </property>
-                  <property name="minimum">
-                   <number>0</number>
-                  </property>
-                  <property name="maximum">
-                   <number>1</number>
-                  </property>
-                  <property name="value">
-                   <number>0</number>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignRight</set>
-                  </property>
-                  <property name="textVisible">
-                   <bool>false</bool>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="invertedAppearance">
-                   <bool>false</bool>
-                  </property>
-                  <property name="format">
-                   <string notr="true">%v mbar</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="1" rowspan="2" colspan="3">
-                 <widget class="QPushButton" name="pushButton_p_off_down">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimumSize">
-                   <size>
-                    <width>52</width>
-                    <height>52</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>52</width>
-                    <height>52</height>
-                   </size>
-                  </property>
-                  <property name="toolTip">
-                   <string>Fine tuning: single step decrement</string>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true"/>
-                  </property>
-                  <property name="text">
-                   <string/>
-                  </property>
-                  <property name="icon">
-                   <iconset resource="resources.qrc">
-                    <normaloff>:/icons/minus.png</normaloff>:/icons/minus.png</iconset>
-                  </property>
-                  <property name="iconSize">
-                   <size>
-                    <width>35</width>
-                    <height>35</height>
-                   </size>
-                  </property>
-                  <property name="default">
-                   <bool>false</bool>
-                  </property>
-                  <property name="flat">
-                   <bool>false</bool>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="4" colspan="3">
-                 <widget class="QProgressBar" name="progressBar_pressure_p_off">
-                  <property name="minimumSize">
-                   <size>
-                    <width>0</width>
-                    <height>0</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>16777215</width>
-                    <height>15</height>
-                   </size>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <pointsize>10</pointsize>
-                    <weight>75</weight>
-                    <bold>true</bold>
-                   </font>
-                  </property>
-                  <property name="toolTip">
-                   <string>Current pressure value</string>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">QProgressBar {
-border: 1px solid white;
-padding: 1px;
-color: rgb(255, 255, 255);
-border-bottom-right-radius: 5px;
-border-bottom-left-radius: 5px;
-border-top-right-radius: 5px;
-border-top-left-radius: 5px;
-text-align:right;
-/*margin-right: 25ex;*/
-background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
-stop: 0 #fff,
-stop: 0.4 #eee,
-stop: 0.7 #ddd,
-stop: 1 #eee );
-width: 15px;
-}
-
-QProgressBar::chunk {
-background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
-stop: 0 #A9D08E,
-stop: 0.4 #549635,
-stop: 0.7 #148C14,
-stop: 1 #006400 );
-border-bottom-right-radius: 5px;
-border-bottom-left-radius: 5px;
-border-top-right-radius: 5px;
-border-top-left-radius: 5px;
-/*border: 2px solid white;*/
-/*width: 1px;*/
-}</string>
-                  </property>
-                  <property name="minimum">
-                   <number>0</number>
-                  </property>
-                  <property name="maximum">
-                   <number>450</number>
-                  </property>
-                  <property name="value">
-                   <number>0</number>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignRight</set>
-                  </property>
-                  <property name="textVisible">
-                   <bool>false</bool>
-                  </property>
-                  <property name="invertedAppearance">
-                   <bool>false</bool>
-                  </property>
-                  <property name="format">
-                   <string notr="true">%v mbar</string>
                   </property>
                  </widget>
                 </item>
@@ -4412,6 +4143,171 @@ border-radius: 4px;
                   </property>
                  </widget>
                 </item>
+                <item row="2" column="4" colspan="3">
+                 <widget class="QProgressBar" name="progressBar_pressure_p_off">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>15</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>10</pointsize>
+                    <weight>75</weight>
+                    <bold>true</bold>
+                   </font>
+                  </property>
+                  <property name="toolTip">
+                   <string>Current pressure value</string>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">QProgressBar {
+border: 1px solid white;
+padding: 1px;
+color: rgb(255, 255, 255);
+border-bottom-right-radius: 5px;
+border-bottom-left-radius: 5px;
+border-top-right-radius: 5px;
+border-top-left-radius: 5px;
+text-align:right;
+/*margin-right: 25ex;*/
+background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
+stop: 0 #fff,
+stop: 0.4 #eee,
+stop: 0.7 #ddd,
+stop: 1 #eee );
+width: 15px;
+}
+
+QProgressBar::chunk {
+background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
+stop: 0 #A9D08E,
+stop: 0.4 #549635,
+stop: 0.7 #148C14,
+stop: 1 #006400 );
+border-bottom-right-radius: 5px;
+border-bottom-left-radius: 5px;
+border-top-right-radius: 5px;
+border-top-left-radius: 5px;
+/*border: 2px solid white;*/
+/*width: 1px;*/
+}</string>
+                  </property>
+                  <property name="minimum">
+                   <number>0</number>
+                  </property>
+                  <property name="maximum">
+                   <number>450</number>
+                  </property>
+                  <property name="value">
+                   <number>0</number>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignRight</set>
+                  </property>
+                  <property name="textVisible">
+                   <bool>false</bool>
+                  </property>
+                  <property name="invertedAppearance">
+                   <bool>false</bool>
+                  </property>
+                  <property name="format">
+                   <string notr="true">%v mbar</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="1" rowspan="2" colspan="3">
+                 <widget class="QPushButton" name="pushButton_p_off_down">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>52</width>
+                    <height>52</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>52</width>
+                    <height>52</height>
+                   </size>
+                  </property>
+                  <property name="toolTip">
+                   <string>Fine tuning: single step decrement</string>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true"/>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="resources.qrc">
+                    <normaloff>:/icons/minus.png</normaloff>:/icons/minus.png</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>35</width>
+                    <height>35</height>
+                   </size>
+                  </property>
+                  <property name="default">
+                   <bool>false</bool>
+                  </property>
+                  <property name="flat">
+                   <bool>false</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="7" rowspan="2">
+                 <widget class="QPushButton" name="pushButton_p_off_up">
+                  <property name="minimumSize">
+                   <size>
+                    <width>52</width>
+                    <height>52</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>52</width>
+                    <height>52</height>
+                   </size>
+                  </property>
+                  <property name="toolTip">
+                   <string>Fine tuning: single step increment</string>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true"/>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="resources.qrc">
+                    <normaloff>:/icons/plus.png</normaloff>:/icons/plus.png</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>35</width>
+                    <height>35</height>
+                   </size>
+                  </property>
+                  <property name="flat">
+                   <bool>false</bool>
+                  </property>
+                 </widget>
+                </item>
                 <item row="1" column="5" colspan="3">
                  <widget class="QLabel" name="label_PoffPressure">
                   <property name="font">
@@ -4430,6 +4326,38 @@ border-radius: 4px;
                   </property>
                   <property name="alignment">
                    <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="3">
+                 <widget class="QWidget" name="widget" native="true">
+                  <property name="maximumSize">
+                   <size>
+                    <width>10</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QWidget" name="widget_2" native="true">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>10</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>10</width>
+                    <height>16777215</height>
+                   </size>
                   </property>
                  </widget>
                 </item>
@@ -4511,6 +4439,59 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                 <property name="topMargin">
                  <number>11</number>
                 </property>
+                <item row="3" column="0" rowspan="2" colspan="3">
+                 <widget class="QPushButton" name="pushButton_recirculationDown">
+                  <property name="maximumSize">
+                   <size>
+                    <width>52</width>
+                    <height>52</height>
+                   </size>
+                  </property>
+                  <property name="toolTip">
+                   <string>Fine tuning: single step decrement</string>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true"/>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="resources.qrc">
+                    <normaloff>:/icons/minus.png</normaloff>:/icons/minus.png</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>35</width>
+                    <height>35</height>
+                   </size>
+                  </property>
+                  <property name="flat">
+                   <bool>false</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="4" colspan="2">
+                 <widget class="QLabel" name="label_recircPressure">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
+                  <property name="toolTip">
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt; current value / set point &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true"/>
+                  </property>
+                  <property name="text">
+                   <string>0 mbar</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
+                  </property>
+                 </widget>
+                </item>
                 <item row="4" column="3" colspan="2">
                  <widget class="QSlider" name="horizontalSlider_recirculation">
                   <property name="minimumSize">
@@ -4601,6 +4582,24 @@ border-radius: 4px;
                   </property>
                  </widget>
                 </item>
+                <item row="1" column="3">
+                 <widget class="QLabel" name="label_recirc">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true"/>
+                  </property>
+                  <property name="text">
+                   <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;V&lt;span style=&quot; vertical-align:sub;&quot;&gt;recirc&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+                  </property>
+                 </widget>
+                </item>
                 <item row="3" column="3" colspan="2">
                  <widget class="QProgressBar" name="progressBar_recirc">
                   <property name="minimumSize">
@@ -4681,24 +4680,6 @@ border-top-left-radius: 5px;
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="3">
-                 <widget class="QLabel" name="label_recirc">
-                  <property name="font">
-                   <font>
-                    <pointsize>11</pointsize>
-                   </font>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true"/>
-                  </property>
-                  <property name="text">
-                   <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;V&lt;span style=&quot; vertical-align:sub;&quot;&gt;recirc&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
-                  </property>
-                 </widget>
-                </item>
                 <item row="3" column="5" rowspan="2">
                  <widget class="QPushButton" name="pushButton_recirculationUp">
                   <property name="maximumSize">
@@ -4731,85 +4712,13 @@ border-top-left-radius: 5px;
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="1">
-                 <widget class="QProgressBar" name="progressBar_ledRecirc">
-                  <property name="minimumSize">
-                   <size>
-                    <width>0</width>
-                    <height>0</height>
-                   </size>
-                  </property>
+                <item row="1" column="0">
+                 <widget class="QWidget" name="widget_8" native="true">
                   <property name="maximumSize">
                    <size>
-                    <width>20</width>
-                    <height>20</height>
+                    <width>10</width>
+                    <height>16777215</height>
                    </size>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <pointsize>10</pointsize>
-                    <weight>75</weight>
-                    <bold>true</bold>
-                   </font>
-                  </property>
-                  <property name="toolTip">
-                   <string>Recirculation ON/OFF indicator</string>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">QProgressBar {
-border: 1px solid grey;
-padding: 0px;
-color: rgb(255, 255, 255);
-border-bottom-right-radius: 10px;
-border-bottom-left-radius: 10px;
-border-top-right-radius: 10px;
-border-top-left-radius: 10px;
-text-align:right;
-/*margin-right: 25ex;*/
-background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
-stop: 0 #00ff00,
-stop: 0.3 #55ff55,
-stop: 0.5 #aaffaa,
-stop: 1 #ffffff );
-width: 15px;
-}
-
-QProgressBar::chunk {
-background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
-stop: 0 #ffffff,
-stop: 0.5 #ffaaaa,
-stop: 0.7 #ff5555,
-stop: 1 #ff0000 );
-border-bottom-right-radius: 10px;
-border-bottom-left-radius: 10px;
-border-top-right-radius: 10px;
-border-top-left-radius: 10px;
-border:0px solid white;
-}</string>
-                  </property>
-                  <property name="minimum">
-                   <number>0</number>
-                  </property>
-                  <property name="maximum">
-                   <number>1</number>
-                  </property>
-                  <property name="value">
-                   <number>0</number>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignRight</set>
-                  </property>
-                  <property name="textVisible">
-                   <bool>false</bool>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="invertedAppearance">
-                   <bool>false</bool>
-                  </property>
-                  <property name="format">
-                   <string notr="true">%v mbar</string>
                   </property>
                  </widget>
                 </item>
@@ -4823,66 +4732,16 @@ border:0px solid white;
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="0">
-                 <widget class="QWidget" name="widget_8" native="true">
+                <item row="1" column="1">
+                 <widget class="QLabel" name="label_led_vr">
                   <property name="maximumSize">
                    <size>
-                    <width>10</width>
-                    <height>16777215</height>
+                    <width>20</width>
+                    <height>20</height>
                    </size>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="0" rowspan="2" colspan="3">
-                 <widget class="QPushButton" name="pushButton_recirculationDown">
-                  <property name="maximumSize">
-                   <size>
-                    <width>52</width>
-                    <height>52</height>
-                   </size>
-                  </property>
-                  <property name="toolTip">
-                   <string>Fine tuning: single step decrement</string>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true"/>
                   </property>
                   <property name="text">
                    <string/>
-                  </property>
-                  <property name="icon">
-                   <iconset resource="resources.qrc">
-                    <normaloff>:/icons/minus.png</normaloff>:/icons/minus.png</iconset>
-                  </property>
-                  <property name="iconSize">
-                   <size>
-                    <width>35</width>
-                    <height>35</height>
-                   </size>
-                  </property>
-                  <property name="flat">
-                   <bool>false</bool>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="4" colspan="2">
-                 <widget class="QLabel" name="label_recircPressure">
-                  <property name="font">
-                   <font>
-                    <pointsize>11</pointsize>
-                   </font>
-                  </property>
-                  <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt; current value / set point &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true"/>
-                  </property>
-                  <property name="text">
-                   <string>0 mbar</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
                   </property>
                  </widget>
                 </item>
@@ -4957,197 +4816,37 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                 <property name="topMargin">
                  <number>11</number>
                 </property>
-                <item row="1" column="3" colspan="2">
-                 <widget class="QProgressBar" name="progressBar_switch">
-                  <property name="minimumSize">
-                   <size>
-                    <width>0</width>
-                    <height>0</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>16777215</width>
-                    <height>15</height>
-                   </size>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <pointsize>10</pointsize>
-                    <weight>75</weight>
-                    <bold>true</bold>
-                   </font>
-                  </property>
-                  <property name="toolTip">
-                   <string>Current vacuum value</string>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">QProgressBar {
-border: 1px solid white;
-padding: 1px;
-color: rgb(255, 255, 255);
-border-bottom-right-radius: 5px;
-border-bottom-left-radius: 5px;
-border-top-right-radius: 5px;
-border-top-left-radius: 5px;
-text-align:right;
-/*margin-right: 25ex;*/
-background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
-stop: 0 #fff,
-stop: 0.4 #eee,
-stop: 0.7 #ddd,
-stop: 1 #eee );
-width: 15px;
-}
-
-QProgressBar::chunk {
-background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
-stop: 0 #A9D08E,
-stop: 0.4 #549635,
-stop: 0.7 #148C14,
-stop: 1 #006400 );
-border-bottom-right-radius: 5px;
-border-bottom-left-radius: 5px;
-border-top-right-radius: 5px;
-border-top-left-radius: 5px;
-/*border: 2px solid white;*/
-/*width: 1px;*/
-}</string>
-                  </property>
-                  <property name="minimum">
-                   <number>0</number>
-                  </property>
-                  <property name="maximum">
-                   <number>300</number>
-                  </property>
-                  <property name="value">
-                   <number>0</number>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignRight</set>
-                  </property>
-                  <property name="textVisible">
-                   <bool>false</bool>
-                  </property>
-                  <property name="invertedAppearance">
-                   <bool>false</bool>
-                  </property>
-                  <property name="format">
-                   <string notr="true">%v mbar</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="5" rowspan="2">
-                 <widget class="QPushButton" name="pushButton_switchUp">
-                  <property name="maximumSize">
-                   <size>
-                    <width>52</width>
-                    <height>52</height>
-                   </size>
-                  </property>
-                  <property name="toolTip">
-                   <string>Fine tuning: single step increment</string>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true"/>
-                  </property>
-                  <property name="text">
-                   <string/>
-                  </property>
-                  <property name="icon">
-                   <iconset resource="resources.qrc">
-                    <normaloff>:/icons/plus.png</normaloff>:/icons/plus.png</iconset>
-                  </property>
-                  <property name="iconSize">
-                   <size>
-                    <width>35</width>
-                    <height>35</height>
-                   </size>
-                  </property>
-                  <property name="flat">
-                   <bool>false</bool>
-                  </property>
-                 </widget>
-                </item>
                 <item row="0" column="1">
-                 <widget class="QProgressBar" name="progressBar_ledSwitch">
-                  <property name="minimumSize">
-                   <size>
-                    <width>0</width>
-                    <height>0</height>
-                   </size>
-                  </property>
+                 <widget class="QLabel" name="label_led_vs">
                   <property name="maximumSize">
                    <size>
                     <width>20</width>
                     <height>20</height>
                    </size>
                   </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="4" colspan="2">
+                 <widget class="QLabel" name="label_switchPressure">
                   <property name="font">
                    <font>
-                    <pointsize>10</pointsize>
-                    <weight>75</weight>
-                    <bold>true</bold>
+                    <pointsize>11</pointsize>
                    </font>
                   </property>
                   <property name="toolTip">
-                   <string>Switch ON/OFF indicator</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt; current value / set point &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="styleSheet">
-                   <string notr="true">QProgressBar {
-border: 1px solid grey;
-padding: 0px;
-color: rgb(255, 255, 255);
-border-bottom-right-radius: 10px;
-border-bottom-left-radius: 10px;
-border-top-right-radius: 10px;
-border-top-left-radius: 10px;
-text-align:right;
-/*margin-right: 25ex;*/
-background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
-stop: 0 #00ff00,
-stop: 0.3 #55ff55,
-stop: 0.5 #aaffaa,
-stop: 1 #ffffff );
-width: 15px;
-}
-
-QProgressBar::chunk {
-background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
-stop: 0 #ffffff,
-stop: 0.5 #ffaaaa,
-stop: 0.7 #ff5555,
-stop: 1 #ff0000 );
-border-bottom-right-radius: 10px;
-border-bottom-left-radius: 10px;
-border-top-right-radius: 10px;
-border-top-left-radius: 10px;
-border:0px solid white;
-}</string>
+                   <string notr="true"/>
                   </property>
-                  <property name="minimum">
-                   <number>0</number>
-                  </property>
-                  <property name="maximum">
-                   <number>1</number>
-                  </property>
-                  <property name="value">
-                   <number>0</number>
+                  <property name="text">
+                   <string>0 mbar</string>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignRight</set>
-                  </property>
-                  <property name="textVisible">
-                   <bool>false</bool>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="invertedAppearance">
-                   <bool>false</bool>
-                  </property>
-                  <property name="format">
-                   <string notr="true">%v mbar</string>
+                   <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
                   </property>
                  </widget>
                 </item>
@@ -5241,41 +4940,83 @@ border-radius: 4px;
                   </property>
                  </widget>
                 </item>
-                <item row="0" column="3">
-                 <widget class="QLabel" name="label_switch">
+                <item row="1" column="3" colspan="2">
+                 <widget class="QProgressBar" name="progressBar_switch">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>15</height>
+                   </size>
+                  </property>
                   <property name="font">
                    <font>
-                    <pointsize>11</pointsize>
+                    <pointsize>10</pointsize>
+                    <weight>75</weight>
+                    <bold>true</bold>
                    </font>
                   </property>
-                  <property name="styleSheet">
-                   <string notr="true"/>
+                  <property name="toolTip">
+                   <string>Current vacuum value</string>
                   </property>
-                  <property name="text">
-                   <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;V&lt;span style=&quot; vertical-align:sub;&quot;&gt;switch&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  <property name="styleSheet">
+                   <string notr="true">QProgressBar {
+border: 1px solid white;
+padding: 1px;
+color: rgb(255, 255, 255);
+border-bottom-right-radius: 5px;
+border-bottom-left-radius: 5px;
+border-top-right-radius: 5px;
+border-top-left-radius: 5px;
+text-align:right;
+/*margin-right: 25ex;*/
+background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
+stop: 0 #fff,
+stop: 0.4 #eee,
+stop: 0.7 #ddd,
+stop: 1 #eee );
+width: 15px;
+}
+
+QProgressBar::chunk {
+background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
+stop: 0 #A9D08E,
+stop: 0.4 #549635,
+stop: 0.7 #148C14,
+stop: 1 #006400 );
+border-bottom-right-radius: 5px;
+border-bottom-left-radius: 5px;
+border-top-right-radius: 5px;
+border-top-left-radius: 5px;
+/*border: 2px solid white;*/
+/*width: 1px;*/
+}</string>
+                  </property>
+                  <property name="minimum">
+                   <number>0</number>
+                  </property>
+                  <property name="maximum">
+                   <number>300</number>
+                  </property>
+                  <property name="value">
+                   <number>0</number>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+                   <set>Qt::AlignRight</set>
                   </property>
-                 </widget>
-                </item>
-                <item row="0" column="2">
-                 <widget class="QWidget" name="widget_5" native="true">
-                  <property name="maximumSize">
-                   <size>
-                    <width>10</width>
-                    <height>16777215</height>
-                   </size>
+                  <property name="textVisible">
+                   <bool>false</bool>
                   </property>
-                 </widget>
-                </item>
-                <item row="0" column="0">
-                 <widget class="QWidget" name="widget_6" native="true">
-                  <property name="maximumSize">
-                   <size>
-                    <width>10</width>
-                    <height>16777215</height>
-                   </size>
+                  <property name="invertedAppearance">
+                   <bool>false</bool>
+                  </property>
+                  <property name="format">
+                   <string notr="true">%v mbar</string>
                   </property>
                  </widget>
                 </item>
@@ -5311,24 +5052,73 @@ border-radius: 4px;
                   </property>
                  </widget>
                 </item>
-                <item row="0" column="4" colspan="2">
-                 <widget class="QLabel" name="label_switchPressure">
-                  <property name="font">
-                   <font>
-                    <pointsize>11</pointsize>
-                   </font>
+                <item row="1" column="5" rowspan="2">
+                 <widget class="QPushButton" name="pushButton_switchUp">
+                  <property name="maximumSize">
+                   <size>
+                    <width>52</width>
+                    <height>52</height>
+                   </size>
                   </property>
                   <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt; current value / set point &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                   <string>Fine tuning: single step increment</string>
                   </property>
                   <property name="styleSheet">
                    <string notr="true"/>
                   </property>
                   <property name="text">
-                   <string>0 mbar</string>
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="resources.qrc">
+                    <normaloff>:/icons/plus.png</normaloff>:/icons/plus.png</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>35</width>
+                    <height>35</height>
+                   </size>
+                  </property>
+                  <property name="flat">
+                   <bool>false</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="3">
+                 <widget class="QLabel" name="label_switch">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true"/>
+                  </property>
+                  <property name="text">
+                   <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;V&lt;span style=&quot; vertical-align:sub;&quot;&gt;switch&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
+                   <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="2">
+                 <widget class="QWidget" name="widget_5" native="true">
+                  <property name="maximumSize">
+                   <size>
+                    <width>10</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="0">
+                 <widget class="QWidget" name="widget_6" native="true">
+                  <property name="maximumSize">
+                   <size>
+                    <width>10</width>
+                    <height>16777215</height>
+                   </size>
                   </property>
                  </widget>
                 </item>
@@ -5412,24 +5202,6 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                 <property name="topMargin">
                  <number>11</number>
                 </property>
-                <item row="11" column="3">
-                 <widget class="QLabel" name="label_pon">
-                  <property name="font">
-                   <font>
-                    <pointsize>11</pointsize>
-                   </font>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true"/>
-                  </property>
-                  <property name="text">
-                   <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;P&lt;span style=&quot; vertical-align:sub;&quot;&gt;on&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
-                  </property>
-                 </widget>
-                </item>
                 <item row="12" column="3" colspan="2">
                  <widget class="QProgressBar" name="progressBar_pressure_p_on">
                   <property name="minimumSize">
@@ -5614,91 +5386,86 @@ border-radius: 4px;
                   </property>
                  </widget>
                 </item>
-                <item row="11" column="1">
-                 <widget class="QProgressBar" name="progressBar_ledPon">
+                <item row="12" column="0" rowspan="2" colspan="3">
+                 <widget class="QPushButton" name="pushButton_p_on_down">
                   <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
                   <property name="minimumSize">
                    <size>
-                    <width>15</width>
-                    <height>0</height>
+                    <width>52</width>
+                    <height>52</height>
                    </size>
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>20</width>
-                    <height>20</height>
+                    <width>52</width>
+                    <height>52</height>
                    </size>
                   </property>
+                  <property name="toolTip">
+                   <string>Fine tuning: single step decrement</string>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true"/>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="resources.qrc">
+                    <normaloff>:/icons/minus.png</normaloff>:/icons/minus.png</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>35</width>
+                    <height>35</height>
+                   </size>
+                  </property>
+                  <property name="flat">
+                   <bool>false</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item row="11" column="3">
+                 <widget class="QLabel" name="label_pon">
                   <property name="font">
                    <font>
-                    <pointsize>10</pointsize>
-                    <weight>75</weight>
-                    <bold>true</bold>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true"/>
+                  </property>
+                  <property name="text">
+                   <string notr="true">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;P&lt;span style=&quot; vertical-align:sub;&quot;&gt;on&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+                  </property>
+                 </widget>
+                </item>
+                <item row="11" column="4" colspan="2">
+                 <widget class="QLabel" name="label_PonPressure">
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
                    </font>
                   </property>
                   <property name="toolTip">
-                   <string>Pressure ON/OFF indicator</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt; current value / set point &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="styleSheet">
-                   <string notr="true">QProgressBar {
-border: 1px solid grey;
-padding: 0px;
-color: rgb(255, 255, 255);
-border-bottom-right-radius: 10px;
-border-bottom-left-radius: 10px;
-border-top-right-radius: 10px;
-border-top-left-radius: 10px;
-text-align:right;
-/*margin-right: 25ex;*/
-background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
-stop: 0 #00ff00,
-stop: 0.3 #55ff55,
-stop: 0.5 #aaffaa,
-stop: 1 #ffffff );
-width: 15px;
-}
-
-QProgressBar::chunk {
-background: QLinearGradient( x1: 0, y1: 0, x2: 1, y2: 0,
-stop: 0 #ffffff,
-stop: 0.5 #ffaaaa,
-stop: 0.7 #ff5555,
-stop: 1 #ff0000 );
-border-bottom-right-radius: 10px;
-border-bottom-left-radius: 10px;
-border-top-right-radius: 10px;
-border-top-left-radius: 10px;
-border:0px solid white;
-}</string>
+                   <string notr="true"/>
                   </property>
-                  <property name="minimum">
-                   <number>0</number>
-                  </property>
-                  <property name="maximum">
-                   <number>1</number>
-                  </property>
-                  <property name="value">
-                   <number>0</number>
+                  <property name="text">
+                   <string>0 mbar</string>
                   </property>
                   <property name="alignment">
-                   <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-                  </property>
-                  <property name="textVisible">
-                   <bool>false</bool>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="invertedAppearance">
-                   <bool>false</bool>
-                  </property>
-                  <property name="format">
-                   <string notr="true">%v mbar</string>
+                   <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
                   </property>
                  </widget>
                 </item>
@@ -5746,13 +5513,25 @@ border:0px solid white;
                   </property>
                  </widget>
                 </item>
-                <item row="11" column="2">
-                 <widget class="QWidget" name="widget_3" native="true">
+                <item row="11" column="1">
+                 <widget class="QLabel" name="label_led_pon">
+                  <property name="enabled">
+                   <bool>true</bool>
+                  </property>
                   <property name="maximumSize">
                    <size>
-                    <width>10</width>
-                    <height>16777215</height>
+                    <width>20</width>
+                    <height>20</height>
                    </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true"/>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="scaledContents">
+                   <bool>false</bool>
                   </property>
                  </widget>
                 </item>
@@ -5766,68 +5545,13 @@ border:0px solid white;
                   </property>
                  </widget>
                 </item>
-                <item row="12" column="0" rowspan="2" colspan="3">
-                 <widget class="QPushButton" name="pushButton_p_on_down">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimumSize">
-                   <size>
-                    <width>52</width>
-                    <height>52</height>
-                   </size>
-                  </property>
+                <item row="11" column="2">
+                 <widget class="QWidget" name="widget_3" native="true">
                   <property name="maximumSize">
                    <size>
-                    <width>52</width>
-                    <height>52</height>
+                    <width>10</width>
+                    <height>16777215</height>
                    </size>
-                  </property>
-                  <property name="toolTip">
-                   <string>Fine tuning: single step decrement</string>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true"/>
-                  </property>
-                  <property name="text">
-                   <string/>
-                  </property>
-                  <property name="icon">
-                   <iconset resource="resources.qrc">
-                    <normaloff>:/icons/minus.png</normaloff>:/icons/minus.png</iconset>
-                  </property>
-                  <property name="iconSize">
-                   <size>
-                    <width>35</width>
-                    <height>35</height>
-                   </size>
-                  </property>
-                  <property name="flat">
-                   <bool>false</bool>
-                  </property>
-                 </widget>
-                </item>
-                <item row="11" column="4" colspan="2">
-                 <widget class="QLabel" name="label_PonPressure">
-                  <property name="font">
-                   <font>
-                    <pointsize>11</pointsize>
-                   </font>
-                  </property>
-                  <property name="toolTip">
-                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt; current value / set point &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true"/>
-                  </property>
-                  <property name="text">
-                   <string>0 mbar</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
                   </property>
                  </widget>
                 </item>
@@ -6778,7 +6502,7 @@ p, li { white-space: pre-wrap; }
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>222</width>
+                  <width>239</width>
                   <height>3146</height>
                  </rect>
                 </property>

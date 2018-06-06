@@ -392,9 +392,9 @@ void testTTL(bool _state);
 	  */
 	void  about();
 
-	void toolEmptyWells();
+	void emptyWells();
 
-	void toolRefillSolution();
+	void refillSolution();
 
 	/** \brief Catch ok signal from tool dialog
 	* \note
@@ -406,9 +406,6 @@ void testTTL(bool _state);
 	*/
 	void toolApply();
 
-	void editorOk();
-
-	void editorApply();
 
 //DELIVERY
 
@@ -684,6 +681,8 @@ private:
 
   double protocolDuration(std::vector<fluicell::PPC1api::command> _protocol);
 
+  void enableTab2(bool _enable);
+
 
   Ui::Labonatip_GUI *ui;               //!< the main user interface
   Labonatip_tools * m_dialog_tools;    //!< pointer to the tools dialog
@@ -869,6 +868,8 @@ private:
   QString m_str_file_not_saved;
   QString m_str_save_protocol;
   QString m_str_clear_commands;
+  QString m_str_solution_ended;
+  QString m_str_waste_full;
 
   // speech synthesis
   QTextToSpeech *m_speech;
@@ -878,8 +879,10 @@ private:
   // to visualize the led on the status bar, 
   // I create two different leds and switch between them to create the effect on/off
   QPixmap * led_green;
+  QPixmap * led_orange;
   QPixmap * led_red;
   QPainter * painter_led_green;
+  QPainter * painter_led_orange;
   QPainter * painter_led_red;
 
   // spacers for the toolbar to create the basic->advanced effect

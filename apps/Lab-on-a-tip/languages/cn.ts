@@ -596,10 +596,6 @@
         <translation>Protocol duration : </translation>
     </message>
     <message>
-        <source>Check validity failed during macro saving, \n please check your settings and try again</source>
-        <translation>Check validity failed during macro saving, \n please check your settings and try again</translation>
-    </message>
-    <message>
         <source>Please check your settings and try again</source>
         <translation>Please check your settings and try again</translation>
     </message>
@@ -639,7 +635,15 @@
         <source>This will clear all items in the current protocol</source>
         <translation>This will clear all items in the current protocol</translation>
     </message>
-	</context>
+		<message>
+        <source>Solution ended, click yes to refill</source>
+        <translation>Solution ended, click yes to refill</translation>
+    </message>
+	<message>
+        <source>The waste is full, click yes to empty</source>
+        <translation>The waste is full, click yes to empty</translation>
+    </message>
+</context>
 <context>
     <name>Labonatip_protocolReader</name>
 	<message>

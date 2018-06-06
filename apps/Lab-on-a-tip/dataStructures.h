@@ -101,10 +101,10 @@ struct solutionsParams {
 		this->vol_well2 = 0.0;
 		this->vol_well3 = 0.0;
 		this->vol_well4 = 0.0;
-		this->vol_well5 = 35.0;
-		this->vol_well6 = 35.0;
-		this->vol_well7 = 35.0;
-		this->vol_well8 = 35.0;
+		this->vol_well5 = 30.0;
+		this->vol_well6 = 30.0;
+		this->vol_well7 = 30.0;
+		this->vol_well8 = 30.0;
 	    this->sol1 = "No name given to sol 1";
 		this->sol2 = "No name given to sol 2";
 		this->sol3 = "No name given to sol 3";

@@ -17,7 +17,8 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	ui(new Ui::Labonatip_GUI),
 	m_pipette_active(false),
 	m_ppc1 ( new fluicell::PPC1api() ),
-	led_green (new QPixmap( QSize(20, 20))),
+	led_green (new QPixmap(QSize(20, 20))),
+	led_orange (new QPixmap( QSize(20, 20))),
 	led_red (new QPixmap( QSize(20, 20))),
 	m_g_spacer ( new QGroupBox()),
 	m_a_spacer (new QAction()),
@@ -60,12 +61,8 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   *m_pr_params = m_dialog_tools->getPr_params();
   *m_GUI_params = m_dialog_tools->getGUIparams();
 
-  toolRefillSolution();
-  toolEmptyWells();
-
-  // init the object to handle the internal dialogs
-  //m_dialog_p_editor = new Labonatip_protocol_editor();
-  //m_dialog_p_editor->setVersion(m_version);
+  refillSolution();
+  emptyWells();
 
   ui->dockWidget->close();  //close the advanced dock page
   ui->tabWidget->setCurrentIndex(1);  // put the tab widget to the chart page
@@ -179,6 +176,17 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   painter_led_green->setPen(Qt::gray);
   painter_led_green->drawEllipse(2, 2, 16, 16);
 
+  led_orange->fill(Qt::transparent);
+  painter_led_orange = new QPainter(led_orange);
+  QRadialGradient radialGradient_orange(8, 8, 12);
+  radialGradient_orange.setColorAt(0.0, 0xF0F0F0);
+  radialGradient_orange.setColorAt(0.5, 0xFF7213);
+  radialGradient_orange.setColorAt(1.0, Qt::transparent);
+  painter_led_orange->setBackground(Qt::blue);
+  painter_led_orange->setBrush(radialGradient_orange);
+  painter_led_orange->setPen(Qt::gray);
+  painter_led_orange->drawEllipse(2, 2, 16, 16);
+
   led_red->fill(Qt::transparent);
   painter_led_red = new QPainter(led_red);
   QRadialGradient radialGradient_red(8, 8, 12);
@@ -274,7 +282,14 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   ui->groupBox_action->setEnabled(false);
   ui->groupBox_deliveryZone->setEnabled(false);
   ui->groupBox_3->setEnabled(false);
-  ui->tab_2->setEnabled(false);
+  //ui->tab_2->setEnabled(false);
+  enableTab2(false);
+
+  ui->label_led_pon->setPixmap(*led_green);
+  ui->label_led_poff->setPixmap(*led_green);
+  ui->label_led_vs->setPixmap(*led_green);
+  ui->label_led_vr->setPixmap(*led_green);
+
 
   //init the chart view
   m_labonatip_chart_view = new Labonatip_chart();
@@ -709,11 +724,11 @@ if (ui->tabWidget->count() > 3)
 	
 	connect(m_dialog_tools,
 		SIGNAL(emptyWaste()), this,
-		SLOT(toolEmptyWells()));
+		SLOT(emptyWells()));
 
 	connect(m_dialog_tools,
 		SIGNAL(refillSolution()), this,
-		SLOT(toolRefillSolution()));
+		SLOT(refillSolution()));
 
 	connect(m_dialog_tools,
 		SIGNAL(ok()), this, 
@@ -722,18 +737,6 @@ if (ui->tabWidget->count() > 3)
 	connect(m_dialog_tools, 
 		SIGNAL(apply()), this, 
 		SLOT(toolApply()));
-
-	//connect(m_dialog_p_editor,
-	//	SIGNAL(loadSettingsRequest()), this,
-	//	SLOT(openSettingsFile()));
-
-	//connect(m_dialog_p_editor,
-	//	SIGNAL(ok()), this,
-	//	SLOT(editorOk()));
-
-	//connect(m_dialog_p_editor,
-	//	SIGNAL(apply()), this,
-	//	SLOT(editorApply()));
 
 	connect(m_dialog_tools,
 		&Labonatip_tools::TTLsignal, this,
@@ -906,14 +909,9 @@ void Labonatip_GUI::initCustomStrings()
 	m_str_warning_solution_end = tr("Warning: the solution is running out");
 	m_str_warning_waste_full = tr("Warning: the waste is full");
 	m_str_save_protocol = tr("Save profile");
-	//m_str_load_protocol = tr("Load profile");
 	m_str_select_folder = tr("Select folder");
-	//m_str_file_not_found = tr("File not found");
 	m_str_file_not_saved = tr("File not saved");
 	m_str_protocol_duration = tr("Protocol duration : ");
-	//m_str_check_validity_protocol = tr("Check validity failed during macro saving");
-	//m_str_check_validity_protocol_try_again = tr("Please check your settings and try again");
-	//m_str_negative_level = tr("Negative level, file corrupted");
 	m_str_remove_file = tr("This action will remove the file, are you sure?");
 	m_str_current_prot_name = tr("The current protocol file name is");
 	m_str_question_override = tr("Do you want to override?");
@@ -921,13 +919,13 @@ void Labonatip_GUI::initCustomStrings()
 	m_str_add_protocol_bottom = tr("Do you want to add to the bottom of the protocol?");
 	m_str_add_protocol_bottom_guide = tr("Click NO to clean the workspace and load a new protocol");
 	m_str_clear_commands = tr("This will clear all items in the current protocol");
+	m_str_solution_ended = tr("Solution ended, click yes to refill");
+	m_str_waste_full = tr("The waste is full, click yes to empty");
+	
 }
 
 void Labonatip_GUI::appScaling(int _dpiX, int _dpiY)
 {
-
-	
-
 	QSize toolbar_icon_size = ui->toolBar->iconSize();
 	toolbar_icon_size.scale(toolbar_icon_size*_dpiX/100, Qt::KeepAspectRatioByExpanding);
 	ui->toolBar->setIconSize(toolbar_icon_size);
@@ -994,67 +992,65 @@ void Labonatip_GUI::appScaling(int _dpiX, int _dpiY)
 
 }
 
-void Labonatip_GUI::toolEmptyWells()
+void Labonatip_GUI::emptyWells()
 {
 
 	cout << QDate::currentDate().toString().toStdString() << "  "
 		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::toolEmptyWells   " << endl;
+		<< "Labonatip_GUI::emptyWells   " << endl;
 
-	//TODO: this now is empty and it does not work
-	*m_solutionParams = m_dialog_tools->getSolutionsParams();
-
+	// empty the wells 
 	m_pipette_status->rem_vol_well5 = 0.0;
 	m_pipette_status->rem_vol_well6 = 0.0; 
 	m_pipette_status->rem_vol_well7 = 0.0;
 	m_pipette_status->rem_vol_well8 = 0.0;
 
+	// remove the warnings
 	ui->label_warningIcon->hide();
 	ui->label_warning->hide();
 	
 }
 
-void Labonatip_GUI::toolRefillSolution()
+void Labonatip_GUI::refillSolution()
 {
 	cout << QDate::currentDate().toString().toStdString() << "  "
 		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::toolRefillSolution   " << endl;
+		<< "Labonatip_GUI::refillSolution   " << endl;
 
+	// get the last settings from the tools
 	*m_solutionParams = m_dialog_tools->getSolutionsParams();
 
+	// reset the wells
 	m_pipette_status->rem_vol_well1 = m_solutionParams->vol_well1;
 	m_pipette_status->rem_vol_well2 = m_solutionParams->vol_well2;
 	m_pipette_status->rem_vol_well3 = m_solutionParams->vol_well3;
 	m_pipette_status->rem_vol_well4 = m_solutionParams->vol_well4;
 
+	// remove the warnings
 	ui->label_warningIcon->hide();
 	ui->label_warning->hide();
 
-	int max_vol_in_well = 30;
-
-	// update wells when the solution is flowing
+	// update wells volume. 
+	// The max volume is constant, 
+	// hence the visualization of the percentage is realized accoring to the max volume
 	{
-		m_pipette_status->rem_vol_well1 = m_pipette_status->rem_vol_well1 - //TODO: add check and block for negative values
+		m_pipette_status->rem_vol_well1 = m_pipette_status->rem_vol_well1 - 
 			0.001 * m_pipette_status->flow_well1;
 
 		double perc = 100.0 - 100.0 *
-			(max_vol_in_well - m_pipette_status->rem_vol_well1)
-			/ max_vol_in_well;
+			(MAX_VOLUME_IN_WELL - m_pipette_status->rem_vol_well1)
+			/ MAX_VOLUME_IN_WELL;
 		ui->progressBar_solution1->setValue(int(perc));
 
 		// TODO: there is no check if the remaining solution is zero !
-
-		//waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well1 - // this is in micro liters 10^-6
-		//	m_solutionParams->rem_vol_well1) /  //this is in micro liters 10^-6
-		//	ui->treeWidget_macroInfo->topLevelItem(4)->text(1).toDouble(); // this is in nano liters 10^-9
 	}
 	{
 		m_pipette_status->rem_vol_well2 = m_pipette_status->rem_vol_well2 -
 			0.001 * m_pipette_status->flow_well2;
 
 		double perc = 100.0 - 100.0 *
-			(max_vol_in_well - m_pipette_status->rem_vol_well2)
-			/ max_vol_in_well;
+			(MAX_VOLUME_IN_WELL - m_pipette_status->rem_vol_well2)
+			/ MAX_VOLUME_IN_WELL;
 		ui->progressBar_solution2->setValue(int(perc));
 	}
 	{
@@ -1062,8 +1058,8 @@ void Labonatip_GUI::toolRefillSolution()
 			0.001 * m_pipette_status->flow_well3;
 
 		double perc = 100.0 - 100.0 *
-			(max_vol_in_well - m_pipette_status->rem_vol_well3)
-			/ max_vol_in_well;
+			(MAX_VOLUME_IN_WELL - m_pipette_status->rem_vol_well3)
+			/ MAX_VOLUME_IN_WELL;
 		ui->progressBar_solution3->setValue(int(perc));
 	}
 	if (ui->pushButton_solution4->isChecked()) {
@@ -1071,8 +1067,8 @@ void Labonatip_GUI::toolRefillSolution()
 			0.001 * m_pipette_status->flow_well4;
 
 		double perc = 100.0 - 100.0 *
-			(max_vol_in_well - m_pipette_status->rem_vol_well4)
-			/ max_vol_in_well;
+			(MAX_VOLUME_IN_WELL - m_pipette_status->rem_vol_well4)
+			/ MAX_VOLUME_IN_WELL;
 		ui->progressBar_solution4->setValue(int(perc));
 	}
 
@@ -1137,49 +1133,6 @@ void Labonatip_GUI::toolApply()
 
 }
 
-void Labonatip_GUI::editorOk()
-{
-
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::editorOk   " << endl;
-
-	editorApply();
-}
-
-void Labonatip_GUI::editorApply()
-{
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::editorAppy  " << endl;
-
-	//if (m_dialog_p_editor->getProtocolPath().isEmpty()) {
-	//	QString s = m_str_editor_apply_msg1;
-	//	ui->label_macroStatus->setText(s); //TODO
-	//}
-	//else {
-	//	QString s = m_str_editor_apply_msg2;
-	//	s.append(m_dialog_p_editor->getProtocolName());
-	//	ui->label_macroStatus->setText(s);
-	//}
-
-	//*m_protocol = m_dialog_p_editor->getProtocol();
-	m_labonatip_chart_view->updateChartProtocol(m_protocol);
-
-	// compute the duration of the macro
-	double macro_duration = 0.0;
-	for (size_t i = 0; i < m_protocol->size(); i++) {
-		if (m_protocol->at(i).getInstruction() ==
-			fluicell::PPC1api::command::instructions::wait)
-			macro_duration += m_protocol->at(i).getValue();
-	}
-	// visualize it in the chart information panel 
-	m_protocol_duration = macro_duration;
-	QString s = QString::number(m_protocol_duration);
-	s.append(" s");
-	ui->label_duration->setText(s);
-
-}
 
 void Labonatip_GUI::setEnableMainWindow(bool _enable) {
 
@@ -1192,7 +1145,6 @@ void Labonatip_GUI::setEnableMainWindow(bool _enable) {
 
 bool Labonatip_GUI::visualizeProgressMessage(int _seconds, QString _message)
 {
-
 	cout << QDate::currentDate().toString().toStdString() << "  "
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_GUI::visualizeProgressMessage   " << _message.toStdString() << endl;
@@ -1297,189 +1249,6 @@ void Labonatip_GUI::about() {
 	messageBox.setFixedSize(600, 800);
 }
 
-void Labonatip_GUI::readProtocolFolder(QString _path)
-{
-	ui->treeWidget_protocol_folder->clear();
-
-	ui->lineEdit_protocolPath->setText(_path);
-
-	QStringList filters;
-	filters << "*.prt";
-
-	QDir protocol_path;
-	protocol_path.setPath(_path);
-	QStringList list = protocol_path.entryList(filters);
-
-	for (int i = 0; i < list.size(); i++) // starting from 2 it will not add ./ and ../
-	{
-		QTreeWidgetItem *item = new QTreeWidgetItem();
-		item->setText(0, list.at(i));
-		ui->treeWidget_protocol_folder->addTopLevelItem(item);
-		//TODO: here there is a possible memory leak, the pointer *item will never be removed anymore outside the cycle
-		//      however, ->addTopLevelItem only accepts pointers 
-		//      this means that if one dereferentiate *item that will be removed automatically from the list
-	}
-
-}
-
-void Labonatip_GUI::openProtocolFolder()
-{
-	QDir path = QFileDialog::getExistingDirectory(this, m_str_select_folder, m_protocol_path);
-
-	QString pp = path.path();
-	if (pp != ".") // this prevent cancel to delete the old path
-		setProtocolUserPath(pp);
-}
-
-void Labonatip_GUI::onProtocolClicked(QTreeWidgetItem *item, int column)
-{
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString()
-		<< "Labonatip_GUI::onProtocolClicked " << endl;
-
-	QString file = item->text(0);
-	m_current_protocol_file_name = file;
-	QString protocol_path = m_protocol_path;
-	protocol_path.append("/");
-	protocol_path.append(file);
-
-	// TODO: the wait cursor does not work if called after the message !
-	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
-
-
-	QMessageBox::StandardButton resBtn = QMessageBox::question(this, m_str_warning,
-		m_str_add_protocol_bottom + "<br>" + m_str_add_protocol_bottom_guide,
-		QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
-		QMessageBox::Yes);
-
-
-	if (resBtn == QMessageBox::Yes) {
-		m_reader->readProtocol(protocol_path);
-		addAllCommandsToProtocol();
-		m_current_protocol_file_path = protocol_path;
-	}
-	if (resBtn == QMessageBox::No)
-	{
-		clearAllCommands(); //TODO
-		m_reader->readProtocol(protocol_path);
-		addAllCommandsToProtocol();
-		m_current_protocol_file_path = protocol_path;
-
-	}
-	if (resBtn == QMessageBox::Cancel)
-	{
-		//do nothing
-	}
-	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-}
-
-void Labonatip_GUI::addAllCommandsToProtocol()
-{
-	/////////////////////////////////////////////////////////////////////////////////
-	//TODO THIS IS WEIRD
-	//QList<QStringList> protocol_last = visitTree(ui_p_editor->treeWidget_macroTable);
-	/////////////////////////////////////////////////////////////////////////////////
-
-
-	// all the items 
-	std::vector<protocolTreeWidgetItem*> commands_vector;
-	//TODO: this is not the best way, 
-	//      every time it will re-build the whole macro 
-	//      instead of update (waste of time)
-	m_protocol->clear();
-
-	// push all the items in the macro table into the command vector
-	for (int i = 0;
-		i < ui->treeWidget_macroTable->topLevelItemCount();
-		++i) {
-
-		// get the current item
-		protocolTreeWidgetItem *item =
-			dynamic_cast<protocolTreeWidgetItem * > (
-				ui->treeWidget_macroTable->topLevelItem(i));
-		ui->treeWidget_macroTable->blockSignals(true);
-		item->setText(m_cmd_idx_c, QString::number(i+1));//TODO
-		ui->treeWidget_macroTable->blockSignals(false);
-		//item->blockSignals(true);
-		//item->checkValidity(m_cmd_value_c);
-		//item->blockSignals(false);
-
-
-		if (item->childCount() < 1) { // if no children, just add the line 
-			string a = ui->treeWidget_macroTable->topLevelItem(i)->text(
-				m_cmd_command_c).toStdString();
-
-			commands_vector.push_back(
-				dynamic_cast<protocolTreeWidgetItem *> (
-					ui->treeWidget_macroTable->topLevelItem(i)));
-
-		}
-		else
-		{// otherwise we need to traverse the subtree
-
-		 //commands_vector.push_back(ui_p_editor->treeWidget_macroTable->topLevelItem(i)); 
-		 //TODO: the actual item is the loop and it should not be added, 
-		 //      loops are not supported in the API, they are a high-level feature
-		 //TODO: here there is a bug, there is no check that the upper level is actually a loop! 
-			for (int loop = 0; loop < item->text(m_cmd_value_c).toInt(); loop++) {
-				// we need to check how many times we need to run the operations
-				// and add the widget to the list
-				for (int childrenCount = 0; childrenCount < item->childCount(); childrenCount++) {
-					commands_vector.push_back(
-						dynamic_cast<protocolTreeWidgetItem *> (
-							item->child(childrenCount)));
-					ui->treeWidget_macroTable->blockSignals(true);
-					protocolTreeWidgetItem *item_child =
-						dynamic_cast<protocolTreeWidgetItem *> (
-							ui->treeWidget_macroTable->topLevelItem(i)->child(childrenCount));//
-					item_child->setText(
-						m_cmd_idx_c, QString::number(childrenCount+1));
-					ui->treeWidget_macroTable->blockSignals(false);
-					//item_child->blockSignals(true);
-					//item_child->checkValidity(m_cmd_value_c);
-					//item_child->blockSignals(false);
-				}
-			}
-		}
-	}
-
-	for (size_t i = 0; i < commands_vector.size(); ++i)
-	{
-
-		fluicell::PPC1api::command new_command;
-
-		string a = commands_vector.at(i)->text(m_cmd_command_c).toStdString();
-
-		new_command.setInstruction(static_cast<fluicell::PPC1api::command::instructions>(
-			commands_vector.at(i)->text(m_cmd_command_c).toInt()));
-
-		new_command.setValue(commands_vector.at(i)->text(m_cmd_value_c).toInt());
-		//new_command.setVisualizeStatus( commands_vector.at(i)->checkState(m_cmd_msg_c)); //TODO clean checkState
-		new_command.setStatusMessage(commands_vector.at(i)->text(m_cmd_msg_c).toStdString());
-
-		m_protocol->push_back(new_command);
-	}
-
-	// add the protocol to the stack
-
-
-	// update duration
-	double duration = protocolDuration(*m_protocol);
-	ui->treeWidget_params->topLevelItem(8)->setText(1, QString::number(duration));
-	int remaining_time_sec = duration;
-	QString s;
-	s.append(m_str_protocol_duration);
-	int remaining_hours = floor(remaining_time_sec / 3600); // 3600 sec in a hour
-	int remaining_mins = floor((remaining_time_sec % 3600) / 60); // 60 minutes in a hour
-	int remaining_secs = remaining_time_sec - remaining_hours * 3600 - remaining_mins * 60; // 60 minutes in a hour
-	s.append(QString::number(remaining_hours));
-	s.append(" h,   ");
-	s.append(QString::number(remaining_mins));
-	s.append(" min,   ");
-	s.append(QString::number(remaining_secs));
-	s.append(" sec   ");
-	ui->label_protocolDuration->setText(s);
-}
 
 double Labonatip_GUI::protocolDuration(std::vector<fluicell::PPC1api::command> _protocol)
 {
@@ -1494,466 +1263,37 @@ double Labonatip_GUI::protocolDuration(std::vector<fluicell::PPC1api::command> _
 	return duration;
 }
 
-void Labonatip_GUI::protocolsMenu(const QPoint & _pos)
+void Labonatip_GUI::enableTab2(bool _enable)
 {
+	ui->pushButton_p_on_down->setEnabled(_enable);
+	ui->horizontalSlider_p_on->setEnabled(_enable);
+	ui->pushButton_p_on_up->setEnabled(_enable);
+		
+	ui->pushButton_p_off_down->setEnabled(_enable);
+	ui->horizontalSlider_p_on->setEnabled(_enable);
+	ui->pushButton_p_off_up->setEnabled(_enable);
 
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString()
-		<< "Labonatip_tools::protocolsMenu " << endl;
+	ui->pushButton_switchDown->setEnabled(_enable);
+	ui->horizontalSlider_switch->setEnabled(_enable);
+	ui->pushButton_switchUp->setEnabled(_enable);
 
-	m_triggered_protocol_item = //a class member is used to pass a data between functions
-		ui->treeWidget_protocol_folder->indexAt(_pos).row();
+	ui->pushButton_recirculationDown->setEnabled(_enable);
+	ui->horizontalSlider_recirculation->setEnabled(_enable);
+	ui->pushButton_recirculationUp->setEnabled(_enable);
 
+	
+	ui->pushButton_set_preset1->setEnabled(_enable);
+	ui->pushButton_reset_preset1->setEnabled(_enable);
 
-	QAction *delete_protocol = new QAction(
-		QIcon(":/icons/delete.png"), tr("&Delete"), this);
-	delete_protocol->setStatusTip(tr("new sth"));
-	connect(delete_protocol, SIGNAL(triggered()),
-		this, SLOT(deleteProtocol()));
+	ui->pushButton_set_preset2->setEnabled(_enable);
+	ui->pushButton_reset_preset2->setEnabled(_enable);
 
-	QAction *help = new QAction(
-		QIcon(":/icons/about.png"), tr("&Help"), this);
-	help->setStatusTip(tr("new sth"));
-	connect(help, SIGNAL(triggered()), this, SLOT(helpTriggered()));
-
-	QMenu menu(this);
-	menu.addAction(delete_protocol);
-	menu.addAction(help);
-
-	QPoint pt(_pos);
-	menu.exec(ui->treeWidget_protocol_folder->mapToGlobal(_pos));
-
-}
-
-void Labonatip_GUI::helpTriggered() {
-
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::helpTriggered   " << endl;
-	if (1)
-	{
-		//this->showUndoStack(); //TODO
-		return;
-
-	}
-	else
-	{
-		this->about();
-	}
+	ui->pushButton_set_preset3->setEnabled(_enable);
+	ui->pushButton_reset_preset3->setEnabled(_enable);
 
 
 }
 
-void Labonatip_GUI::deleteProtocol()
-{
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString()
-		<< "Labonatip_tools::deleteProtocol " << endl;
-
-	// TODO: this is not safe as the member could be modified somewhere else
-	int row = m_triggered_protocol_item;
-
-	QString file_path = m_protocol_path;
-	file_path.append(
-		ui->treeWidget_protocol_folder->topLevelItem(row)->text(0));
-
-	QMessageBox::StandardButton resBtn = //TODO: translation
-		QMessageBox::question(this, m_str_warning, m_str_remove_file,
-			QMessageBox::No | QMessageBox::Yes,
-			QMessageBox::Yes);
-	if (resBtn == QMessageBox::Yes) {
-		// continue with file removal 
-
-		QFile f(file_path);
-		if (f.exists())
-		{
-			// delete file
-			f.remove();
-			// update the folder
-			readProtocolFolder(m_protocol_path);
-		}
-		else
-		{
-			// the file does not exists
-			return;
-		}
-	}
-	else {
-		// the choice was no, nothing happens
-		return;
-	}
-}
-
-void Labonatip_GUI::addCommand()
-{
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::addMacroCommand " << endl;
-
-	// create the command
-	addProtocolCommand *new_command;
-	int row = 0;
-	//if we are at the top level with no element or no selection 
-	// the element is added at the last position
-	if (!ui->treeWidget_macroTable->currentIndex().isValid())
-	{
-		row = ui->treeWidget_macroTable->topLevelItemCount();
-		new_command = new addProtocolCommand(
-			ui->treeWidget_macroTable, row);
-	}
-	else { 	//else we add the item at the selected row
-		row = ui->treeWidget_macroTable->currentIndex().row() + 1;
-
-		// get the parent
-		protocolTreeWidgetItem *parent =
-			dynamic_cast<protocolTreeWidgetItem * >(
-				ui->treeWidget_macroTable->currentItem()->parent());
-		new_command = new addProtocolCommand(
-			ui->treeWidget_macroTable, row, parent);
-	}
-
-	// add the new command in the undo stack
-	m_undo_stack->push(new_command);
-
-	// focus is give to the new added element
-	ui->treeWidget_macroTable->setCurrentItem(
-		new_command->item(), m_cmd_value_c,
-		QItemSelectionModel::SelectionFlag::Rows);
-
-	// every time we add a new command we update all macro commands
-	// this is not really nice, better to append (much faster)
-	addAllCommandsToProtocol();
-	//updateChartProtocol(m_protocol); //TODO
-}
-
-void Labonatip_GUI::removeCommand()
-{
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::removeMacroCommand    " << endl;
-
-	// avoid crash is no elements in the table or no selection
-	if (ui->treeWidget_macroTable->currentItem() &&
-		ui->treeWidget_macroTable->topLevelItemCount() > 0) {
-		removeProtocolCommand *cmd;
-
-		// get the current row
-		int row = ui->treeWidget_macroTable->currentIndex().row();
-
-		protocolTreeWidgetItem * parent = dynamic_cast<protocolTreeWidgetItem *> (
-			ui->treeWidget_macroTable->currentItem()->parent());
-		cmd = new removeProtocolCommand(
-			ui->treeWidget_macroTable, row, parent);
-		m_undo_stack->push(cmd);
-	}
-
-	// every time we remove a command we update the macro command
-	addAllCommandsToProtocol();  // this is not really nice, better to append (much faster)
-	//updateChartProtocol(m_protocol); //TODO
-}
-
-
-void Labonatip_GUI::moveUp()
-{
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::moveUp    " << endl;
-
-	// get the current selected item
-	protocolTreeWidgetItem *move_item =
-		dynamic_cast<protocolTreeWidgetItem *> (
-			ui->treeWidget_macroTable->currentItem());
-	int row = ui->treeWidget_macroTable->currentIndex().row();
-
-	// if the selection is valid and we are not at the first row
-	if (move_item && row > 0)
-	{
-		moveUpCommand *cmd;
-
-		protocolTreeWidgetItem *parent =
-			dynamic_cast<protocolTreeWidgetItem *> (
-				ui->treeWidget_macroTable->currentItem()->parent());
-
-		// if we are not at the fist level, so the item has a parent
-		if (parent) {
-			cmd = new moveUpCommand(ui->treeWidget_macroTable,
-				parent);
-		}
-		else {
-			// if we are on the top level, just take the item 
-			// and add the selected item one row before
-			cmd = new moveUpCommand(ui->treeWidget_macroTable);
-		}
-		m_undo_stack->push(cmd);
-		ui->treeWidget_macroTable->setCurrentItem(move_item);
-		ui->treeWidget_macroTable->setCurrentItem(
-			move_item, m_cmd_value_c, QItemSelectionModel::SelectionFlag::Rows);
-	}
-
-	// update the macro command
-	addAllCommandsToProtocol();  // this is not really nice, better to append (much faster)
-	//updateChartProtocol(m_protocol); //TODO
-}
-
-void Labonatip_GUI::moveDown()
-{
-
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::moveDown    " << endl;
-
-	// get the current selected item
-	protocolTreeWidgetItem *move_item =
-		dynamic_cast<protocolTreeWidgetItem *> (
-			ui->treeWidget_macroTable->currentItem());
-	int row = ui->treeWidget_macroTable->currentIndex().row();
-	int number_of_items = ui->treeWidget_macroTable->topLevelItemCount();
-
-	if (move_item && row >= 0 && row < number_of_items - 1)
-	{
-		moveDownCommand *cmd;
-		protocolTreeWidgetItem *parent =
-			dynamic_cast<protocolTreeWidgetItem *> (
-				ui->treeWidget_macroTable->currentItem()->parent());
-
-		// if the item has a parent
-		if (parent) {
-			cmd = new moveDownCommand(ui->treeWidget_macroTable,
-				parent);
-		}
-		else {
-			cmd = new moveDownCommand(ui->treeWidget_macroTable);
-		}
-
-		m_undo_stack->push(cmd);
-		ui->treeWidget_macroTable->setCurrentItem(move_item);
-		ui->treeWidget_macroTable->setCurrentItem(
-			move_item, m_cmd_value_c, QItemSelectionModel::SelectionFlag::Rows);
-	}
-
-	// update the macro command
-	addAllCommandsToProtocol();  // this is not really nice, better to append (much faster)
-	//updateChartProtocol(m_protocol); //TODO
-}
-
-void Labonatip_GUI::plusIndent()
-{
-
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::plusIndent    " << endl;
-
-	// create the command
-	addProtocolCommand *cmd;
-
-	// if no item selected, add to the top level
-	if (!ui->treeWidget_macroTable->currentIndex().isValid())
-	{
-		cmd = new addProtocolCommand(ui->treeWidget_macroTable, 0);
-	}
-	else { // otherwise add the item as a child
-		protocolTreeWidgetItem *parent =
-			dynamic_cast<protocolTreeWidgetItem *> (
-				ui->treeWidget_macroTable->currentItem());
-
-		if (parent->QTreeWidgetItem::parent()) {
-			QMessageBox::warning(this, m_str_warning,
-				QString("Currently only one loop level is supported"));
-			return; //TODO: fix this --- translate string
-		}
-
-		if (parent) {
-
-			// set the current parent to be a loop
-			parent->setText(m_cmd_command_c, QString::number(17));
-
-			// add the new line as a child
-			cmd = new addProtocolCommand(
-				ui->treeWidget_macroTable, 0, parent);
-		}
-
-	}
-
-	// add the new command in the undo stack
-	m_undo_stack->push(cmd);
-
-	// update the macro command
-	addAllCommandsToProtocol();  // this is not really nice, better to append (much faster)
-	//updateChartProtocol(m_protocol); //TODO
-}
-
-bool Labonatip_GUI::itemChanged(QTreeWidgetItem *_item, int _column)
-{
-	// check validity for the element
-	//cout << QDate::currentDate().toString().toStdString() << "  "
-	//	<< QTime::currentTime().toString().toStdString() << "  "
-	//	<< "Labonatip_GUI::itemChanged    " << endl;
-
-	if (_column == m_cmd_idx_c || _column == m_cmd_range_c)
-	{
-		dynamic_cast<protocolTreeWidgetItem *>(_item)->checkValidity(_column);
-		return true;
-	}
-	else
-	{
-		// if the changed element has a parent 
-		if (_item->parent())
-		{
-			changedProtocolCommand * cmd =
-				new changedProtocolCommand(ui->treeWidget_macroTable,
-					dynamic_cast<protocolTreeWidgetItem *>(_item), _column,
-					dynamic_cast<protocolTreeWidgetItem *>(_item->parent()));
-
-			// push the command into the stack
-			m_undo_stack->push(cmd);
-		}
-		else
-		{
-			// the command is called with null pointer on the parent
-			changedProtocolCommand * cmd =
-				new changedProtocolCommand(
-					ui->treeWidget_macroTable,
-					dynamic_cast<protocolTreeWidgetItem *>(_item),
-					_column);
-
-			// push the command into the stack
-			m_undo_stack->push(cmd);
-		}
-		dynamic_cast<protocolTreeWidgetItem *>(_item)->checkValidity(_column);
-	}
-
-	addAllCommandsToProtocol();
-	//updateChartProtocol(m_protocol); //TODO
-	return true;
-}
-
-
-void Labonatip_GUI::duplicateItem()
-{
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::duplicateItem    " << endl;
-
-	// avoid crash if no selection
-	if (!ui->treeWidget_macroTable->currentItem()) return;
-
-	// get the current item to clone
-	protocolTreeWidgetItem *to_clone =
-		dynamic_cast<protocolTreeWidgetItem *> (
-			ui->treeWidget_macroTable->currentItem());
-
-	int command_idx = to_clone->text(m_cmd_command_c).toInt();
-	int value = to_clone->text(m_cmd_value_c).toInt();
-	//Qt::CheckState show_msg = to_clone->checkState(m_cmd_msg_c);
-	QString msg = to_clone->text(m_cmd_msg_c);
-
-	this->addCommand();
-
-	// get the clone, I am aware that the function give the new focus to the added item
-	protocolTreeWidgetItem *clone =
-		dynamic_cast<protocolTreeWidgetItem *> (
-			ui->treeWidget_macroTable->currentItem());
-
-
-	clone->setText(m_cmd_command_c, QString::number(command_idx));
-	clone->setText(m_cmd_value_c, QString::number(value));
-	//clone->setCheckState(m_cmd_command_c, show_msg);
-	clone->setText(m_cmd_msg_c, msg);
-
-	addAllCommandsToProtocol();
-	//updateChartProtocol(m_protocol); //TODO
-	return;
-}
-
-
-void Labonatip_GUI::createNewLoop()
-{
-	this->createNewLoop(2);  // set 2 loops as minimum value ?
-}
-
-void Labonatip_GUI::createNewLoop(int _loops)
-{
-
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::createNewLoop    " << endl;
-
-	this->addCommand();
-	ui->treeWidget_macroTable->currentItem()->setText(
-		m_cmd_command_c, QString::number(17));// "Loop"); // 
-
-	this->plusIndent();
-	addAllCommandsToProtocol();
-	//updateChartProtocol(m_protocol); //TODO
-	return;
-}
-
-void Labonatip_GUI::clearAllCommandsRequest()
-{
-	QMessageBox::StandardButton resBtn =
-		QMessageBox::question(this, m_str_information, 
-			m_str_clear_commands + "<br>" + m_str_areyousure,
-			QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
-			QMessageBox::Yes);
-	if (resBtn != QMessageBox::Yes) {
-		// do nothing
-	}
-	else {
-		clearAllCommands();
-	}
-}
-
-void Labonatip_GUI::clearAllCommands() {
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::clearAllCommands    " << endl;
-
-	ui->treeWidget_macroTable->clear();
-	m_protocol->clear();
-	m_undo_stack->clear();
-}
-
-
-
-void Labonatip_GUI::showUndoStack()
-{
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::showUndoStack " << endl;
-	//if (ui->actionShowStack->isChecked())
-	//{
-	m_undo_view->show();
-	//}
-	//else
-	//{
-	//	m_undo_view->hide();
-	//}
-}
-
-void Labonatip_GUI::undo()
-{
-
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::undo " << endl;
-
-	ui->treeWidget_macroTable->blockSignals(true);
-	m_undo_stack->undo();
-	ui->treeWidget_macroTable->blockSignals(false);
-	addAllCommandsToProtocol();
-
-}
-
-void Labonatip_GUI::redo()
-{
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::redo " << endl;
-
-	ui->treeWidget_macroTable->blockSignals(true);
-	m_undo_stack->redo();
-	ui->treeWidget_macroTable->blockSignals(false);
-}
 
 
 void Labonatip_GUI::closeEvent(QCloseEvent *event) {
@@ -2046,16 +1386,13 @@ void Labonatip_GUI::setVersion(string _version) {
 
 Labonatip_GUI::~Labonatip_GUI ()
 {
-	
-
-
   delete qout;
   delete qerr;
   delete m_comSettings;
   delete m_pr_params;
   delete m_GUI_params;
   delete m_pipette_status;
-  //delete m_protocol; //TODO: protocol editor and main GUI share the same memory
+  delete m_protocol; 
   delete m_ppc1;
   delete m_macroRunner_thread;
   delete m_update_flowing_sliders;
@@ -2064,6 +1401,8 @@ Labonatip_GUI::~Labonatip_GUI ()
   delete m_scene_solution;
   delete painter_led_green;
   delete led_green;
+  delete painter_led_orange;
+  delete led_orange;
   delete painter_led_red;
   delete led_red;
   delete m_g_spacer;

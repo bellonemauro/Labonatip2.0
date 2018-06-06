@@ -17,10 +17,12 @@ void Labonatip_GUI::updatePonSetPoint(double _pon_set_point)
 	m_pipette_status->pon_set_point = _pon_set_point;
 	cout << QDate::currentDate().toString().toStdString() << "  " 
 		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::updatePonSetPoint   :::: set value  =  " << _pon_set_point 
+		 << "Labonatip_GUI::updatePonSetPoint   :::: set value  =  " 
+		 << _pon_set_point 
 		 << " sensor value = " << m_ppc1->channel_D->sensor_reading << endl;
 
-	ui->label_PonPressure->setText(QString(QString::number(int(_pon_set_point)) + " mbar    "));
+	ui->label_PonPressure->setText(QString(
+		QString::number(int(_pon_set_point)) + " mbar    "));
 
 	// if the pipette is active we send the set point to the device
 	if (m_pipette_active) {
@@ -46,10 +48,12 @@ void Labonatip_GUI::updatePoffSetPoint(double _poff_set_point)
 	m_pipette_status->poff_set_point = _poff_set_point;
 	cout << QDate::currentDate().toString().toStdString() << "  " 
 		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::updatePoffSetPoint   :::: set value  =  " << _poff_set_point
+		 << "Labonatip_GUI::updatePoffSetPoint   :::: set value  =  " 
+		 << _poff_set_point
 		  << " sensor value = " << m_ppc1->channel_C->sensor_reading << endl;
 
-	ui->label_PoffPressure->setText(QString(QString::number(int(_poff_set_point)) + " mbar    "));
+	ui->label_PoffPressure->setText(QString(
+		QString::number(int(_poff_set_point)) + " mbar    "));
 
 	// if the pipette is active we send the set point to the device
 	if (m_pipette_active) {
@@ -75,10 +79,12 @@ void Labonatip_GUI::updateVrecircSetPoint(double _v_recirc_set_point)
 	m_pipette_status->v_recirc_set_point = _v_recirc_set_point;
 	cout << QDate::currentDate().toString().toStdString() << "  " 
 		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::updateVrecircSetPoint   :::: set value  =  " << _v_recirc_set_point
+		 << "Labonatip_GUI::updateVrecircSetPoint   :::: set value  =  " 
+		 << _v_recirc_set_point
 		 << " sensor value = " << m_ppc1->channel_A->sensor_reading << endl;
 
-	ui->label_recircPressure->setText(QString(QString::number(-int(_v_recirc_set_point)) + " mbar    "));
+	ui->label_recircPressure->setText(QString(
+		QString::number(-int(_v_recirc_set_point)) + " mbar    "));
 
 	// if the pipette is active we send the set point to the device
 	if (m_pipette_active) {
@@ -104,10 +110,12 @@ void Labonatip_GUI::updateVswitchSetPoint(double _v_switch_set_point)
 	m_pipette_status->v_switch_set_point = _v_switch_set_point;
 	cout << QDate::currentDate().toString().toStdString() << "  " 
 		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::updateVswitchSetPoint   :::: set value  =  " << _v_switch_set_point
+		 << "Labonatip_GUI::updateVswitchSetPoint   :::: set value  =  " 
+		 << _v_switch_set_point
 		 << " sensor value = " << m_ppc1->channel_B->sensor_reading << endl;
 
-	ui->label_switchPressure->setText(QString(QString::number(-int(_v_switch_set_point)) + " mbar    "));
+	ui->label_switchPressure->setText(QString(
+		QString::number(-int(_v_switch_set_point)) + " mbar    "));
 
 	// if the pipette is active we send the set point to the device
 	if (m_pipette_active) {
@@ -211,12 +219,6 @@ void Labonatip_GUI::sliderPonChanged(int _value) {
 
 	updatePonSetPoint(_value);
 
-	// if we decrease the pressure to zero, clean the scene and return, so the flow disappear
-	if (_value == 0) {
-		ui->progressBar_ledPon->setValue(0); // turn the led off
-		return;
-	}
-	ui->progressBar_ledPon->setValue(m_ppc1->getPonState()); // turn the led on
 }
 
 
@@ -229,13 +231,6 @@ void Labonatip_GUI::sliderPoffChanged(int _value) {
 	}
 
 	updatePoffSetPoint(_value);
-
-	// if we decrease the pressure to zero, clean the scene and return, so the flow disappear
-	if (_value == 0) {
-		ui->progressBar_ledPoff->setValue(0); // turn the led off
-		return;
-	}
-	ui->progressBar_ledPoff->setValue(m_ppc1->getPoffState()); // turn the led on
 }
 
 
@@ -248,13 +243,6 @@ void Labonatip_GUI::sliderRecircChanged(int _value) {
 	}
 
 	updateVrecircSetPoint(_value);
-
-	// if we decrease the pressure to zero, clean the scene and return, so the flow disappear
-	if (_value == 0) {
-		ui->progressBar_ledRecirc->setValue(0);  // turn the led off
-		return;
-	}
-	ui->progressBar_ledRecirc->setValue(m_ppc1->getVrecircState()); // turn the led on
 }
 
 
@@ -266,13 +254,6 @@ void Labonatip_GUI::sliderSwitchChanged(int _value) {
 	}
 
 	updateVswitchSetPoint(_value);
-
-	// if we decrease the pressure to zero, clean the scene and return, so the flow disappear
-	if (_value == 0) {
-		ui->progressBar_ledSwitch->setValue(0);
-		return;
-	}
-	ui->progressBar_ledSwitch->setValue(m_ppc1->getVswitchState());
 }
 
 void Labonatip_GUI::setPreset1() {

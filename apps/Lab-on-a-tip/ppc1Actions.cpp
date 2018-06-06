@@ -20,9 +20,12 @@ void Labonatip_GUI::newTip()
 
 	//Ask: Place the pipette into the holder and tighten.THEN PRESS OK.
 	this->askMessage(m_str_newtip_msg1);
-	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
+	QApplication::setOverrideCursor(Qt::WaitCursor);   
 
-	
+	// reset weels and solutions
+	emptyWells();
+	refillSolution();
+
 	//vf0
 	closeAllValves();
 
@@ -101,10 +104,6 @@ void Labonatip_GUI::newTip()
 	//A - 115
 	updateVrecircSetPoint(-m_pr_params->v_recirc_default );// (115);
 
-	// reset weels and solutions
-	toolEmptyWells();
-	toolRefillSolution();
-
 	//Ask: Pipette is ready for operation.PRESS OK TO START.
 	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 	this->askMessage(m_str_newtip_msg10);
@@ -129,11 +128,11 @@ void Labonatip_GUI::runMacro() {
 		}
 
 		
-		QString macro_path = m_current_protocol_file_name;// m_dialog_p_editor->getProtocolPath();
+		QString macro_path = m_current_protocol_file_name;
 		QString msg = m_str_loaded_protocol_is;
-		QStringList l = macro_path.split("/");
+		QStringList l = macro_path.split("/"); // the split is to show the name only (remove the path)
 		QString name = l.last();
-		msg.append(name);// (macro_path); //TODO: do not show the entire path only the name
+		msg.append(name);
 		msg.append("<br>");
 		msg.append(m_str_protocol_confirm);
 		QMessageBox::StandardButton resBtn = 
@@ -155,7 +154,8 @@ void Labonatip_GUI::runMacro() {
 			ui->pushButton_stop->setEnabled(true);
 			ui->toolBar_2->setEnabled(true);
 			//ui->tabWidget->setEnabled(false);
-			ui->tab_2->setEnabled(true);
+			//ui->tab_2->setEnabled(true);
+			enableTab2(true);
 			ui->tab_4->setEnabled(true);
 			setEnableSolutionButtons(true);
 			ui->actionConnectDisconnect->setEnabled(!m_simulationOnly);
@@ -256,7 +256,8 @@ void Labonatip_GUI::runMacro() {
 		ui->pushButton_stop->setEnabled(false);
 		ui->toolBar_2->setEnabled(false);
 		//ui->tabWidget->setEnabled(false);
-		ui->tab_2->setEnabled(false);
+		//ui->tab_2->setEnabled(false);
+		enableTab2(false);
 		ui->tab_4->setEnabled(false);
 		setEnableSolutionButtons(false);
 
@@ -285,7 +286,8 @@ void Labonatip_GUI::runMacro() {
 		ui->toolBar_2->setEnabled(true);
 		ui->pushButton_stop->setEnabled(true);
 		//ui->tabWidget->setEnabled(false);
-		ui->tab_2->setEnabled(true);
+		//ui->tab_2->setEnabled(true);
+		enableTab2(true);
 		ui->tab_4->setEnabled(true);
 		setEnableSolutionButtons(true);
 		ui->actionConnectDisconnect->setEnabled(!m_simulationOnly);
@@ -320,7 +322,8 @@ void Labonatip_GUI::macroFinished(const QString &_result) {
 	ui->pushButton_standby->setEnabled(true);
 	ui->toolBar_2->setEnabled(true);
 	//ui->tabWidget->setEnabled(false);
-	ui->tab_2->setEnabled(true);
+	//ui->tab_2->setEnabled(true);
+	enableTab2(true);
 	ui->tab_4->setEnabled(true);
 	setEnableSolutionButtons(true);
 	ui->actionConnectDisconnect->setEnabled(!m_simulationOnly);
