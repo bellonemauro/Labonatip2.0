@@ -205,6 +205,7 @@ void Labonatip_GUI::showProtocolEditorDialog() {
 		ui->actionSave_profile->setText(m_str_save);
 		ui->actionLoad_profile->setText(m_str_load);
 		ui->actionEditor->setText(m_str_commander);
+		ui->actionEditor->setIcon(QIcon(":/icons/controls.png"));
 	}
 	//otherwise we are in the editor and we need to get back to the commander
 	else
@@ -214,7 +215,8 @@ void Labonatip_GUI::showProtocolEditorDialog() {
 		ui->actionSave_profile->setText(m_str_save_profile);
 		ui->actionLoad_profile->setText(m_str_load_profile);
 		ui->actionEditor->setText(m_str_editor);
-		
+		ui->actionEditor->setIcon(QIcon(":/icons/protocolEditor.png"));
+
 		//update the chart
 		m_labonatip_chart_view->updateChartProtocol(m_protocol);
 

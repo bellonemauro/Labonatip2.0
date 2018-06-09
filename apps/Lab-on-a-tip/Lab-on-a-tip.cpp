@@ -1062,7 +1062,7 @@ void Labonatip_GUI::refillSolution()
 			/ MAX_VOLUME_IN_WELL;
 		ui->progressBar_solution3->setValue(int(perc));
 	}
-	if (ui->pushButton_solution4->isChecked()) {
+	{
 		m_pipette_status->rem_vol_well4 = m_pipette_status->rem_vol_well4 -
 			0.001 * m_pipette_status->flow_well4;
 

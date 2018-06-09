@@ -21,26 +21,43 @@ void Labonatip_GUI::updateGUI() {
 		// check exceptions, TODO: this is not the best way to do it !!!
 		//if (m_ppc1->isConnected() && m_ppc1->isExceptionHappened()) { // this was there before, why ? the exception can happen connected or not
 		if (m_ppc1->isExceptionHappened()) {
+			// if there is an exception, a message is out
 			QMessageBox::information(this, m_str_warning,
 				m_str_lost_connection + "<br>" + m_str_swapping_to_simulation); 
+
+			// stop updating the GUI
 			m_update_GUI->stop();
+
+			// go back to the simulation mode
 			ui->actionConnectDisconnect->setEnabled(false);
 			ui->actionConnectDisconnect->setChecked(false);
 			ui->actionConnectDisconnect->setText(m_str_connect);
 			ui->actionReboot->setEnabled(false);
 			ui->actionShudown->setEnabled(false);
+
+			// disconnect from the PPC1
 			m_ppc1->disconnectCOM();
 			m_ppc1->stop();
 			QThread::msleep(500);
+			
+			// verify that we are actually disconnected
 			if (m_ppc1->isConnected())
 				m_ppc1->disconnectCOM();
 			QThread::msleep(500);
+
+			// enable the simulation buttons
 			ui->actionSimulation->setEnabled(true);
 			ui->actionSimulation->setChecked(true);
+			
+			// end
 			return;
 		}
+		// if we are here it means that we have no exception 
 
-		int sensor_reading = (int)(m_ppc1->getVswitchReading());  // rounded to second decimal
+		// for all pressures/vacuum, 
+		// get the sensor reading (TODO check: rounded to second decimal?)
+		int sensor_reading = (int)(m_ppc1->getVswitchReading());  
+		// update status, label and bar
 		m_pipette_status->v_switch_set_point = - m_ppc1->getVswitchSetPoint();
 		ui->label_switchPressure->setText(QString(QString::number(sensor_reading) +
 			", " + QString::number(int(-m_pipette_status->v_switch_set_point)) + " mbar    "));
@@ -64,15 +81,16 @@ void Labonatip_GUI::updateGUI() {
 			", " + QString::number(int(m_pipette_status->pon_set_point)) + " mbar    "));
 		ui->progressBar_pressure_p_on->setValue(sensor_reading);
 		
+		// update droplet zone control zone size, flow speed and vacuum
 		m_ds_perc = m_ppc1->getDropletSize();
 		m_fs_perc =  m_ppc1->getFlowSpeed();
 		m_v_perc =  m_ppc1->getVacuum();
 
-		//ui->lcdNumber_dropletSize_percentage->display(m_ds_perc);
+		// show the percentage in the display only if in the range [0,1000]
 		if (m_ds_perc >= 0 && m_ds_perc < 1000) {
 			ui->lcdNumber_dropletSize_percentage->display(m_ds_perc);
 		}
-		else {
+		else { //otherwise it shows "A"
 			ui->lcdNumber_dropletSize_percentage->display("A");
 		}
 
@@ -90,14 +108,17 @@ void Labonatip_GUI::updateGUI() {
 			ui->lcdNumber_vacuum_percentage->display("A");
 		}
 		
-		// check if some of the wells is open
-		if (m_ppc1->isWeel1Open()) {
+		// check for open wells 
+		if (m_ppc1->isWeel1Open()) 
+		{
 			m_pen_line.setColor(m_sol1_color);
+
 			// move the arrow in the drawing to point on the solution 4
 			ui->widget_solutionArrow->setVisible(true);
 			ui->label_arrowSolution->setText(m_solutionParams->sol1);
 
-			// calculate the middle point between the two widget to align the arrow to the progressbar
+			// calculate the middle point between the two widgets
+			// to align the arrow to the progressbar
 			int pos_x = ui->progressBar_solution1->pos().x() -
 				ui->widget_solutionArrow->width() / 2 +
 				ui->progressBar_solution1->width() / 2;
@@ -129,7 +150,8 @@ void Labonatip_GUI::updateGUI() {
 			ui->widget_solutionArrow->setVisible(true);
 			ui->label_arrowSolution->setText(m_solutionParams->sol2);
 
-			// calculate the middle point between the two widget to align the arrow to the progressbar
+			// calculate the middle point between the two widgets
+			// to align the arrow to the progressbar
 			int pos_x = ui->progressBar_solution2->pos().x() -
 				ui->widget_solutionArrow->width() / 2 +
 				ui->progressBar_solution2->width() / 2;
@@ -160,7 +182,8 @@ void Labonatip_GUI::updateGUI() {
 			ui->widget_solutionArrow->setVisible(true);
 			ui->label_arrowSolution->setText(m_solutionParams->sol3);
 
-			// calculate the middle point between the two widget to align the arrow to the progressbar
+			// calculate the middle point between the two widgets
+			// to align the arrow to the progressbar
 			int pos_x = ui->progressBar_solution3->pos().x() -
 				ui->widget_solutionArrow->width() / 2 +
 				ui->progressBar_solution3->width() / 2;
@@ -191,7 +214,8 @@ void Labonatip_GUI::updateGUI() {
 			ui->widget_solutionArrow->setVisible(true);
 			ui->label_arrowSolution->setText(m_solutionParams->sol4);
 
-			// calculate the middle point between the two widget to align the arrow to the progressbar
+			// calculate the middle point between the two widgets
+			// to align the arrow to the progressbar
 			int pos_x = ui->progressBar_solution4->pos().x() -
 				ui->widget_solutionArrow->width() / 2 +
 				ui->progressBar_solution4->width() / 2;
@@ -217,12 +241,14 @@ void Labonatip_GUI::updateGUI() {
             ui->pushButton_solution3->blockSignals(false);
 		}
 
+		// if we have no open wells the droplet is removed from the drawing
 		if (!m_ppc1->isWeel1Open() && !m_ppc1->isWeel2Open() &&
 			!m_ppc1->isWeel3Open() && !m_ppc1->isWeel4Open()) {
 			m_pen_line.setColor(Qt::transparent);
 			ui->widget_solutionArrow->setVisible(false);
 
-            // this connect the solution buttons to what happens in the PPC1 during the macro running
+            // this connect the solution buttons to what happens in the PPC1
+			// during the protocol running
             ui->pushButton_solution1->blockSignals(true);
             ui->pushButton_solution1->setChecked(false);
             ui->pushButton_solution1->blockSignals(false);
@@ -240,12 +266,14 @@ void Labonatip_GUI::updateGUI() {
             ui->pushButton_solution4->blockSignals(false);
 		}
 
+		// this should never happen, but the droplet would be removed anyway
 		if (m_ppc1->isWeel1Open() && m_ppc1->isWeel2Open() &&
 			m_ppc1->isWeel3Open() && m_ppc1->isWeel4Open()) {
 			m_pen_line.setColor(Qt::transparent);
 			ui->widget_solutionArrow->setVisible(false);
 
-            // this connect the solution buttons to what happens in the PPC1 during the macro running
+            // this connect the solution buttons to what happens in the PPC1
+			// during the protocol running
             ui->pushButton_solution1->blockSignals(true);
             ui->pushButton_solution1->setChecked(false);
             ui->pushButton_solution1->blockSignals(false);
@@ -264,14 +292,15 @@ void Labonatip_GUI::updateGUI() {
 
 		}
 
-		//function of leds, 
+		// update leds according to the PPC1 pressure/vacuum status, 
 		// for each channel the state of the PPC1 is connected to the led
-		// ok = 1 = green, fault = 0 = red
-		// ok = 1 with reading far from the set point = orange
+		// ok = 1 = green, 
+		// fault = 0 = red
+		// ok = 1 with reading far from the set point 10%+-3mbar = orange
 		if (m_ppc1->getPonState() == 1) {
 			ui->label_led_pon->setPixmap(*led_green);
 			if (std::abs(m_ppc1->getPonReading() - m_ppc1->getPonSetPoint()) > 
-				0.1*m_ppc1->getPonSetPoint() + 3)
+				0.1 * m_ppc1->getPonSetPoint() + 3)
 			{
 				ui->label_led_pon->setPixmap(*led_orange);
 			}
@@ -316,12 +345,6 @@ void Labonatip_GUI::updateGUI() {
 			ui->label_led_vr->setPixmap(*led_red);
 		}
 
-
-		//ui->progressBar_ledPon->setValue(m_ppc1->getPonState()); // turn the led on
-		//ui->progressBar_ledPoff->setValue(m_ppc1->getPoffState()); // turn the led on
-		//ui->progressBar_ledRecirc->setValue(m_ppc1->getVrecircState()); // turn the led on
-		//ui->progressBar_ledSwitch->setValue(m_ppc1->getVswitchState());
-
     }// end if m_simulation
 	else
 	{
@@ -357,11 +380,11 @@ void Labonatip_GUI::updateFlows()
 	double p_on = m_pipette_status->pon_set_point;
 	double p_off = m_pipette_status->poff_set_point;
 
-
-	if (!m_simulationOnly) {  // if we are not in simulation, we just get the numbers from the PPC1api
-		
+	// if we are not in simulation, we just get the numbers from the PPC1api
+	// otherwise the flows will be calculated according to the current values
+	if (!m_simulationOnly)
+	{ 
 		fluicell::PPC1api::PPC1_status status = m_ppc1->getPipetteStatus();
-		//TODO : check ppc1_Status var. This is to avoid the direct access to the data member
 		m_pipette_status->outflow_on = status.outflow_on;
 		m_pipette_status->outflow_off = status.outflow_off;
 		m_pipette_status->outflow_tot = status.outflow_tot;
@@ -378,7 +401,6 @@ void Labonatip_GUI::updateFlows()
 		m_pipette_status->flow_well6 = status.flow_rate_6;
 		m_pipette_status->flow_well7 = status.flow_rate_7;
 		m_pipette_status->flow_well8 = status.flow_rate_8;
-
 	}
 	else {
 		// calculate inflow
@@ -386,44 +408,70 @@ void Labonatip_GUI::updateFlows()
 		m_pipette_status->inflow_recirculation = 
 			2.0 * m_ppc1->getFlowSimple(m_pipette_status->delta_pressure, LENGTH_TO_TIP);
 
-		m_pipette_status->delta_pressure = 100.0 * (v_r + 2.0 * p_off * (1 - LENGTH_TO_ZONE / LENGTH_TO_TIP));
-		m_pipette_status->inflow_switch = 2 * m_ppc1->getFlowSimple(m_pipette_status->delta_pressure, LENGTH_TO_TIP);
+		m_pipette_status->delta_pressure = 100.0 * (v_r + 
+			2.0 * p_off * (1 - LENGTH_TO_ZONE / LENGTH_TO_TIP));
+		m_pipette_status->inflow_switch = 
+			2.0 * m_ppc1->getFlowSimple(m_pipette_status->delta_pressure, LENGTH_TO_TIP);
 
 		m_pipette_status->delta_pressure = 100.0 * 2.0 * p_off;
-		m_pipette_status->solution_usage_off = m_ppc1->getFlowSimple(m_pipette_status->delta_pressure, 2 * LENGTH_TO_ZONE);
+		m_pipette_status->solution_usage_off = 
+			m_ppc1->getFlowSimple(m_pipette_status->delta_pressure, 2 * LENGTH_TO_ZONE);
 
 		m_pipette_status->delta_pressure = 100.0 * p_on;
-		m_pipette_status->solution_usage_on = m_ppc1->getFlowSimple(m_pipette_status->delta_pressure, LENGTH_TO_TIP);
+		m_pipette_status->solution_usage_on = 
+			m_ppc1->getFlowSimple(m_pipette_status->delta_pressure, LENGTH_TO_TIP);
 
 		m_pipette_status->delta_pressure = 100.0 * (p_on + p_off * 3.0 - v_s * 2.0);   // TODO magic numbers
-		m_pipette_status->outflow_on = m_ppc1->getFlowSimple(m_pipette_status->delta_pressure, LENGTH_TO_TIP);
+		m_pipette_status->outflow_on = 
+			m_ppc1->getFlowSimple(m_pipette_status->delta_pressure, LENGTH_TO_TIP);
 
 		m_pipette_status->delta_pressure = 100.0 * (p_off * 4.0 - v_s * 2.0);
-		m_pipette_status->outflow_off = 2.0 * m_ppc1->getFlowSimple(m_pipette_status->delta_pressure, 2 * LENGTH_TO_ZONE);
+		m_pipette_status->outflow_off = 2.0 * m_ppc1->getFlowSimple(
+			m_pipette_status->delta_pressure, 2 * LENGTH_TO_ZONE);
 
-		m_pipette_status->in_out_ratio_on = m_pipette_status->outflow_on / m_pipette_status->inflow_recirculation;
-        if (m_pipette_status->inflow_recirculation == 0) m_pipette_status->in_out_ratio_on = 0;
-		
-		m_pipette_status->in_out_ratio_off = m_pipette_status->outflow_off / m_pipette_status->inflow_recirculation;
-        if (m_pipette_status->inflow_recirculation == 0) m_pipette_status->in_out_ratio_off = 0;
+		// this is to avoid NAN on the ratio
+        if (m_pipette_status->inflow_recirculation == 0) 
+			m_pipette_status->in_out_ratio_on = 0;
+		else
+			m_pipette_status->in_out_ratio_on =
+			m_pipette_status->outflow_on / m_pipette_status->inflow_recirculation;
 
+		// this is to avoid NAN on the ratio
+        if (m_pipette_status->inflow_recirculation == 0)
+			m_pipette_status->in_out_ratio_off = 0;
+		else
+			m_pipette_status->in_out_ratio_off =
+			m_pipette_status->outflow_off / m_pipette_status->inflow_recirculation;
+
+		// flow when solution is off 
 		if (ui->pushButton_solution1->isChecked() ||
 			ui->pushButton_solution2->isChecked() ||
 			ui->pushButton_solution3->isChecked() ||
-			ui->pushButton_solution4->isChecked()) // flow when solution is off 
+			ui->pushButton_solution4->isChecked()) 
 		{
 		
 			m_pipette_status->in_out_ratio_tot = m_pipette_status->in_out_ratio_on;
 			m_pipette_status->outflow_tot = m_pipette_status->outflow_on;
 
-			if (ui->pushButton_solution1->isChecked()) m_pipette_status->flow_well1 = m_pipette_status->solution_usage_on;
-			else m_pipette_status->flow_well1 = m_pipette_status->solution_usage_off;
-			if (ui->pushButton_solution2->isChecked()) m_pipette_status->flow_well2 = m_pipette_status->solution_usage_on;
-			else m_pipette_status->flow_well2 = m_pipette_status->solution_usage_off;
-			if (ui->pushButton_solution3->isChecked()) m_pipette_status->flow_well3 = m_pipette_status->solution_usage_on;
-			else m_pipette_status->flow_well3 = m_pipette_status->solution_usage_off;
-			if (ui->pushButton_solution4->isChecked()) m_pipette_status->flow_well4 = m_pipette_status->solution_usage_on;
-			else m_pipette_status->flow_well4 = m_pipette_status->solution_usage_off;
+			if (ui->pushButton_solution1->isChecked()) 
+				m_pipette_status->flow_well1 = m_pipette_status->solution_usage_on;
+			else
+				m_pipette_status->flow_well1 = m_pipette_status->solution_usage_off;
+
+			if (ui->pushButton_solution2->isChecked()) 
+				m_pipette_status->flow_well2 = m_pipette_status->solution_usage_on;
+			else
+				m_pipette_status->flow_well2 = m_pipette_status->solution_usage_off;
+
+			if (ui->pushButton_solution3->isChecked())
+				m_pipette_status->flow_well3 = m_pipette_status->solution_usage_on;
+			else
+				m_pipette_status->flow_well3 = m_pipette_status->solution_usage_off;
+
+			if (ui->pushButton_solution4->isChecked()) 
+				m_pipette_status->flow_well4 = m_pipette_status->solution_usage_on;
+			else 
+				m_pipette_status->flow_well4 = m_pipette_status->solution_usage_off;
 
 		}
 		else // flow when solution is on 
