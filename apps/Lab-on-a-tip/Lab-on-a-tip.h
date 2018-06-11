@@ -62,6 +62,7 @@ class Labonatip_GUI : public QMainWindow
 	Q_OBJECT
 
 public:
+
 	explicit Labonatip_GUI(QMainWindow *parent = nullptr);
 
 	~Labonatip_GUI();
@@ -71,9 +72,10 @@ public:
 	*/
 	void setVersion(string _version);
 
-	void setProtocolUserPath(QString _path) { m_protocol_path = _path; 
-	this->readProtocolFolder(m_protocol_path);
-	ui->lineEdit_protocolPath->setText(_path);
+	void setProtocolUserPath(QString _path) { 
+		m_protocol_path = _path; 
+		this->readProtocolFolder(m_protocol_path);
+		ui->lineEdit_protocolPath->setText(_path);
 	}
 
 	void setSettingsUserPath(QString _path) { m_settings_path = _path; }
@@ -131,12 +133,6 @@ void clearAllCommands();
 void showUndoStack();
 void undo();
 void redo();
-
-
-
-
-
-
 
 
 void testTTL(bool _state);
@@ -371,9 +367,15 @@ void testTTL(bool _state);
 
 	void updateGUI();
 
-	void updateWaste();
+	void updatePressureVacuum();
 
-	void updateWells();
+	void updateSolutions();
+
+	bool isExceptionTriggered();
+
+	void updatePPC1Leds();
+
+	void updateWaste();
 
 	/** \brief Visualize a message and a progress bar 
 	* \note
@@ -870,6 +872,7 @@ private:
   QString m_str_clear_commands;
   QString m_str_solution_ended;
   QString m_str_waste_full;
+  QString m_str_TTL_failed;
 
   // speech synthesis
   QTextToSpeech *m_speech;

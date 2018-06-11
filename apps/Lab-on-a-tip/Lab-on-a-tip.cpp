@@ -61,6 +61,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   *m_pr_params = m_dialog_tools->getPr_params();
   *m_GUI_params = m_dialog_tools->getGUIparams();
 
+  // refill solutions and waste according to the loaded settings
   refillSolution();
   emptyWells();
 
@@ -921,6 +922,7 @@ void Labonatip_GUI::initCustomStrings()
 	m_str_clear_commands = tr("This will clear all items in the current protocol");
 	m_str_solution_ended = tr("Solution ended, click yes to refill");
 	m_str_waste_full = tr("The waste is full, click yes to empty");
+	m_str_TTL_failed = tr("PPC1 not connected, TTL cannot run");
 	
 }
 

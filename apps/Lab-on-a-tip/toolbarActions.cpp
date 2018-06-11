@@ -113,8 +113,9 @@ bool Labonatip_GUI::saveProtocol()
 	if (resBtn == QMessageBox::Yes) {
 		// yes = override
 		if (!m_writer->saveProtocol(m_current_protocol_file_path)) {
-			QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-			QMessageBox::warning(this, m_str_warning, m_str_file_not_saved + "<br>" + m_current_protocol_file_path);
+			QApplication::restoreOverrideCursor();    
+			QMessageBox::warning(this, m_str_warning, 
+				m_str_file_not_saved + "<br>" + m_current_protocol_file_path);
 			return false;
 		}
 	}
@@ -132,7 +133,7 @@ bool Labonatip_GUI::saveProtocol()
 
 bool Labonatip_GUI::saveProtocolAs()
 {
-	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
+	QApplication::setOverrideCursor(Qt::WaitCursor);    
 
 	cout << QDate::currentDate().toString().toStdString() << "  "
 		<< QTime::currentTime().toString().toStdString() << "  "
@@ -144,14 +145,14 @@ bool Labonatip_GUI::saveProtocolAs()
 	
 
 	if (!m_writer->saveProtocol(file_name)) {
-		QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
+		QApplication::restoreOverrideCursor();    
 		QMessageBox::warning(this, m_str_warning, 
 			m_str_file_not_saved + "<br>" + file_name);
 		return false;
 	}
 	readProtocolFolder(m_protocol_path);
 	m_current_protocol_file_name = file_name;
-	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
+	QApplication::restoreOverrideCursor();    
 	return true;
 }
 
@@ -276,7 +277,7 @@ void Labonatip_GUI::shutdown() {
 		//	setVrecirc(0)
 		//	sleep(15)
 		//	pumpsOff()
-		QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
+		QApplication::setOverrideCursor(Qt::WaitCursor);   
 
 		if (m_pipette_active) {
 			m_ppc1->closeAllValves();
@@ -300,7 +301,7 @@ void Labonatip_GUI::shutdown() {
 		// do nothing for now
 	}
 	setEnableMainWindow(true);
-	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
+	QApplication::restoreOverrideCursor();   
 
 }
 
@@ -322,7 +323,7 @@ bool Labonatip_GUI::disCon(bool _connect)
 
 	try
 	{
-		QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
+		QApplication::setOverrideCursor(Qt::WaitCursor);   
 
 		if (_connect) {
 		    // connect 
@@ -336,7 +337,8 @@ bool Labonatip_GUI::disCon(bool _connect)
 					ui->actionSimulation->setEnabled(true);
 					QApplication::restoreOverrideCursor();   
 					QMessageBox::information(this, m_str_warning,
-						QString(m_str_cannot_connect_ppc1 + "\n" + m_str_cannot_connect_ppc1_check_cables));
+						QString(m_str_cannot_connect_ppc1 + "\n" 
+							+ m_str_cannot_connect_ppc1_check_cables));
 
 					// ask for a new attempt to connect
 					QMessageBox::StandardButton resBtn =
@@ -356,7 +358,8 @@ bool Labonatip_GUI::disCon(bool _connect)
 						if (!m_ppc1->connectCOM())
 						{
 							QMessageBox::information(this, m_str_warning,
-								QString(m_str_cannot_connect_ppc1_twice + "\n" + m_str_cannot_connect_ppc1_check_cables));
+								QString(m_str_cannot_connect_ppc1_twice + "\n" + 
+									m_str_cannot_connect_ppc1_check_cables));
 							m_pipette_active = false;
 							ui->actionConnectDisconnect->setChecked(false);
 							return false;  // we could not connect twice
@@ -425,7 +428,7 @@ bool Labonatip_GUI::disCon(bool _connect)
 			if (!m_ppc1->isRunning()) return true; // already stop
 
 			// stop the PPC1
-			QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
+			QApplication::setOverrideCursor(Qt::WaitCursor);    
 			this->stopSolutionFlow(); 
 			m_ppc1->stop();
 			
@@ -447,7 +450,7 @@ bool Labonatip_GUI::disCon(bool _connect)
 				enableTab2(false);
 				ui->actionReboot->setEnabled(false);
 				ui->actionShudown->setEnabled(false);
-				QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
+				QApplication::restoreOverrideCursor();    
 				return true;
 			}
 			else {  // the device was not stopped
@@ -466,7 +469,7 @@ bool Labonatip_GUI::disCon(bool _connect)
 				ui->actionShudown->setEnabled(true);
 				QMessageBox::information(this, m_str_warning,
 					m_str_unable_stop_ppc1);
-				QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
+				QApplication::restoreOverrideCursor();   
 				return false;   
 			}
 		} // end disconnect
@@ -549,7 +552,7 @@ void Labonatip_GUI::reboot() {
 	}
 
 	setEnableMainWindow(true);
-	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
+	QApplication::restoreOverrideCursor();  
 }
 
 
@@ -613,8 +616,8 @@ void Labonatip_GUI::closeOpenDockTools() {
 
 void Labonatip_GUI::resizeToolbar()
 {
-
-	if (!ui->actionAdvanced->isChecked())return;  // it does nothing if the advanced tab is closed
+	// it does nothing if the advanced tab is closed
+	if (!ui->actionAdvanced->isChecked()) return;  
 
 		QRect rec_app = this->geometry();
 		int app_height = rec_app.height();

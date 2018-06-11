@@ -643,6 +643,10 @@
         <source>The waste is full, click yes to empty</source>
         <translation>The waste is full, click yes to empty</translation>
     </message>
+	<message>
+        <source>PPC1 not connected, TTL test cannot run</source>
+        <translation>PPC1 ej ansluten, TTL testet kan inte köras</translation>
+    </message>
 </context>
 <context>
     <name>Labonatip_protocolReader</name>
