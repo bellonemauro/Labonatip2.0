@@ -49,9 +49,9 @@ set (CPACK_NSIS_MUI_ICON "${CMAKE_CURRENT_SOURCE_DIR}/resources/fluicell_logo.ic
 
 set(CPACK_NSIS_MENU_LINKS 
             "${WEBSITE}" "Homepage for Fluicell Lab-on-a-tip ${WEBSITE}"          
-            "Lab-on-a-tip.exe" "Lab-on-a-tip"
+            "Biopen_wizard.exe" "Biopen_wizard"
             "Lab-on-a-tip_console.exe" "Lab-on-a-tip console"
-			"uninstall.exe" "Uninstall Lab-on-a-tip"
+			"uninstall.exe" "Uninstall Biopen"
 			"${WEB_TUTORIAL}" "Tutorials"
             "${WEB_DOCS}" "Documentation"
             "${WEB_DEV}" "Developer Website" )
@@ -59,20 +59,24 @@ set(CPACK_NSIS_MENU_LINKS
 set(CPACK_NSIS_DISPLAY_NAME "Fluicell Lab-on-a-tip2 ") #V.${CMAKE_Fluicell_FULL_VERSION}")
 			
 #allows NSIS to modify paths
-set (CPACK_NSIS_MODIFY_PATH "ON")     
+#set (CPACK_NSIS_MODIFY_PATH "ON")     
 
 #SET(CPACK_PACKAGE_EXECUTABLES "Target_Name" "Target Name")
 SET(CPACK_PACKAGE_EXECUTABLES "Lab-on-a-tip" "Lab-on-a-tip")
 
 
 #create a desktop icon with link to the .exe file
-set(CPACK_CREATE_DESKTOP_LINKS "Lab-on-a-tip" "Lab-on-a-tip")
+#set(CPACK_CREATE_DESKTOP_LINKS "Biopen_wizard.exe" "Biopen_wizard")
+
+
 
 # required by cmake to install new registry key for the executable
 set(CPACK_PACKAGE_INSTALL_REGISTRY_KEY "${CMAKE_PROJECT_NAME}")#-${CMAKE_Fluicell_FULL_VERSION}")
 
+
 # this is to create the user folders during the installation
 set( CPACK_NSIS_EXTRA_INSTALL_COMMANDS "
+	CreateShortCut \\\"$DESKTOP\\\\Biopen.lnk\\\" \\\"$INSTDIR\\\\Biopen_wizard.exe\\\"
 	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\" 
 	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\presetProtocols\\\"
 	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\settings\\\" 
@@ -85,9 +89,9 @@ set(CPACK_NSIS_EXECUTABLES_DIRECTORY ".")
 
 
 # Icon in the add/remove control panel. Must be an .exe file 
-set(CPACK_NSIS_INSTALLED_ICON_NAME Lab-on-a-tip.exe)
+set(CPACK_NSIS_INSTALLED_ICON_NAME Biopen_wizard.exe)
 
-set(CPACK_NSIS_MUI_FINISHPAGE_RUN Lab-on-a-tip.exe)
+set(CPACK_NSIS_MUI_FINISHPAGE_RUN Biopen_wizard.exe)
 
 
 #set(CPACK_NSIS_MUI_UNPAGE_WELCOME )
@@ -102,6 +106,7 @@ set(CPACK_NSIS_MUI_FINISHPAGE_RUN Lab-on-a-tip.exe)
 
 #add a command to remove user created files - ATTENTION: it will also remove user created files !!!
 set( CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS "
+	Delete \\\"$DESKTOP\\\\biopen.lnk\\\"
 	Delete \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\presetProtocols\\\\*.prt\\\" 
 	Delete \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\settings\\\\*.ini\\\" 
 	Delete \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\Ext_data\\\\*.*\\\" 

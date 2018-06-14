@@ -7,7 +7,8 @@
 #  | Released under GNU GPL License.                                           |
 #  +---------------------------------------------------------------------------+ 
 
-project(Lab-on-a-tip)
+#project(Lab-on-a-tip)
+project(Biopen_wizard)
 
 # --------------------------------------
 #  set variables for compilation 

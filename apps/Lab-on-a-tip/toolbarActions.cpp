@@ -102,6 +102,7 @@ bool Labonatip_GUI::saveProtocol()
 	if (m_current_protocol_file_path.isEmpty())
 	{
 		if (!saveProtocolAs()) return false;
+		else return true;
 	}
 
 	// if the name is not empty, we ask if the user want to save as

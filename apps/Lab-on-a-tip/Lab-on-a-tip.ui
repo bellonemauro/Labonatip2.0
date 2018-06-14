@@ -40,7 +40,7 @@
    <bool>true</bool>
   </property>
   <property name="windowTitle">
-   <string>Lab-on-a-tip</string>
+   <string>Biopen wizard</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../Lab-on-a-tip_console/resources.qrc">
@@ -6502,7 +6502,7 @@ p, li { white-space: pre-wrap; }
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>239</width>
+                  <width>222</width>
                   <height>3146</height>
                  </rect>
                 </property>
