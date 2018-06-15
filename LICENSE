@@ -172,3 +172,27 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
 DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE 
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+IT IS UNDERSTOOD THAT THE BETA SOFTWARE, DOCUMENTATION, AND ANY UPDATES 
+MAY CONTAIN ERRORS AND ARE PROVIDED FOR LIMITED EVALUATION ONLY. THE BETA SOFTWARE, 
+THE DOCUMENTATION, AND ANY UPDATES ARE PROVIDED “AS IS” WITHOUT WARRANTY OF ANY KIND,
+WHETHER EXPRESS, IMPLIED, STATUTORY, OR OTHERWISE. FLUICELL AB (PUBL.) 
+AND ITS SUPPLIERS SPECIFICALLY DISCLAIM ALL IMPLIED WARRANTIES OF 
+MERCHANTABILITY, NONINFRINGEMENT, AND FITNESS FOR A PARTICULAR PURPOSE.
+
+Licensee acknowledges that Fluicell AB (publ.) (herein the Company or Fluicell)
+has not promised or guaranteed to Licensee that such Beta Software will be 
+announced or made available to anyone in the future, that Fluicell has neither
+express nor implied obligation to Licensee to announce or introduce the Beta Software, 
+and that the Company may not introduce a product similar or compatible with the 
+Beta Software. Accordingly, Licensee acknowledges that any research or development
+performed in connection with  the Beta Software or any product associated with the 
+Beta Software, is done entirely at Licensee’s own risk. Specifically, 
+the Beta Software may contain features, functionality or modules that will not be 
+included in the production version of the Beta Software, if released, 
+or that will be marketed separately for additional fees.
+
+The beta software is open Source and is provided free of charge under the terms 
+of the open source license agreement GNU GPL 3.0. The code and version documentation 
+is available in the public repository Github (link), in addition to a compiled 
+executable for ease of program visualization.
