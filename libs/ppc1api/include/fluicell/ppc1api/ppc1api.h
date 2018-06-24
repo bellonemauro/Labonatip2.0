@@ -359,7 +359,7 @@ namespace fluicell
 
 		/**  \brief Send a reboot character to the device
 		  *
-		  *  \note - Known issue: weird behavior in disconnect/connect
+		  *  \note - Known issue: weird behaviour in disconnect/connect
 		  **/
 		void reboot();
 

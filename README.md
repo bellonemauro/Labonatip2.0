@@ -1,13 +1,13 @@
-<a href="http://fluicell.com/"><img src="https://github.com/bellonemauro/Labonatip2.0/blob/master/apps/Lab-on-a-tip/icons/fluicell_logo_BIG.png"  width="200" height="70" /></a>
+<a href="http://fluicell.com/"><img src="https://github.com/bellonemauro/Labonatip2.0/blob/master/apps/Lab-on-a-tip/icons/fluicell_iconBIG.png"  width="100" height="100" /></a>
 
-# LAB-ON-A-TIP 2.0
+# Biopen wizard - Version 2.1
 
-**IMPORTANT**: This software is still under development !!! There is no release yet, bugs may be everywhere !!!
+**IMPORTANT**: This software is still under development !!! 
 
-The Lab-on-a-tip is a software that enables facile configuration and use of the <a href="http://fluicell.com/">Fluicell</a> <a href="http://fluicell.com/thebiopensystem/">BioPen</a> system. 
+The Biopen wizard is a software that enables facile configuration and use of the <a href="http://fluicell.com/">Fluicell</a> <a href="http://fluicell.com/thebiopensystem/">BioPen</a> system. 
 The cross-platform BioPen software allows independent control of each pressure line and solution delivery.
 
-Lab-on-a-tip is released under the terms of the <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">GNU GPL</a> license. 
+Biopen wizard V.2.1 is released under the terms of the <a href="https://www.gnu.org/licenses/gpl-3.0.en.html">GNU GPL</a> license. 
 
 API documentation available <a href="https://bellonemauro.github.io/PPC1API-docs.io/">here</a>
 
@@ -42,11 +42,32 @@ To build the package in windows the variable WINDDEPLOYQT_EXECUTABLE need to poi
 
 CMake --> configure --> generate 
 
+### List of cmake options 
+
+ - ENABLE_verbose    -- default off
+ - VLD_MemoryCheck   -- default off
+ - ENABLE_SOLUTION_FOLDERS  -- default on
+ - ENABLE_setLocalDebugEnvironment  -- default off
+ - ENABLE_BUILD_3rdParty  -- default on 
+ - ENABLE_BUILD_libs  -- default on
+ - ENABLE_BUILD_plugins -- default off (no plugins yet)
+ - ENABLE_BUILD_apps  - default off
+ - ENABLE_BUILD_install -- default on
+ - ENABLE_BUILD_package -- default on
+ - ENABLE_WINDEPLOYQT -- default off
+ 
+For each application in the folder, an option is also automatically added to allows the user to select which application to build. 
+ 
+### Doxygen documentation 
+
+To generate the doxygen documentation of the ppc1api go you need to have <a href="http://www.stack.nl/~dimitri/doxygen/">Doxygen</a> installed, 
+then go the the /docs/Doxyfile_labonatip.in and run. 
+ 
 
 
 # Contribute to the code:
 
-New developers can contribute to the code by compiling in Windows or linux.
+New developers can contribute to the code by compiling in Windows or Linux.
 QT GUI must be modified using QT creator/designer
 
 

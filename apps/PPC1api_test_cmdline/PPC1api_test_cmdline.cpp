@@ -225,7 +225,7 @@ int	main (int argc, char** argv)
 	}
 	catch ( std::exception &e)
 	{
-		cerr << "ciaoooooooooooosdasd : " << e.what() << endl;
+		cerr << "ciaoooooooooooo : " << e.what() << endl;
 		cin.get();
 	}
 	catch ( ... ) {

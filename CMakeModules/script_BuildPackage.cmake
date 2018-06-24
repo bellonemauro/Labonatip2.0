@@ -67,7 +67,8 @@ SET(CPACK_PACKAGE_EXECUTABLES "Lab-on-a-tip" "Lab-on-a-tip")
 
 #create a desktop icon with link to the .exe file
 #set(CPACK_CREATE_DESKTOP_LINKS "Biopen_wizard.exe" "Biopen_wizard")
-
+#for some reason the command to add the desktop link does not properly work, 
+#so the the desktop link are added as a custom command
 
 
 # required by cmake to install new registry key for the executable

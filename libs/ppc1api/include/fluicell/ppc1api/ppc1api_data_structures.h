@@ -200,7 +200,7 @@ namespace fluicell
 
 				/**  \brief Implement a moving average filter of PPC1 data
 				*
-				*   @param _reading_vec the stack cointaining the history of readings
+				*   @param _reading_vec the stack containing the history of readings
 				*   @param _sensor_reading the actual sensor reading
 				*
 				*

@@ -11,7 +11,7 @@ project(Fluicell)   # Fluicell lab-on-a-tip
 
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
-option(ENABLE_verbose "Verbose cmake cofiguration " "ON")
+option(ENABLE_verbose "Verbose cmake cofiguration " "OFF")
 if ( ENABLE_verbose )
 	message(WARNING " Verbose configuration active ! You may get a lot of messages now ... " )
 endif ( ENABLE_verbose )
@@ -93,15 +93,12 @@ if (ENABLE_BUILD_libs)
 	add_subdirectory(libs)
 endif(ENABLE_BUILD_libs)
 
-# add all libraries in the /plugins folder
-OPTION(ENABLE_BUILD_plugins "Option for building internal plugins - ON by default" OFF)
+# add all plugins in the /plugins folder
+# this is just a support for future development
+OPTION(ENABLE_BUILD_plugins "Option for building internal plugins - OFF by default" OFF)
 if (ENABLE_BUILD_plugins)
 	add_subdirectory(plugins)
 endif(ENABLE_BUILD_plugins)
-
-# -----------  Fluicell_libs  --------------------
-#include_directories("${Fluicell_lib_INCLUDE_DIR}")   #TODO 
-
 
 # -------------------- apps --------------------------------
 OPTION(ENABLE_BUILD_apps "Option for building apps - ON by default" ON)
@@ -124,23 +121,15 @@ endif(MSVC)
 
 endif(DOXYGEN_FOUND)
 
-
-
-# --------------------------------------
-#  Copy useful resources to the build folder
-# --------------------------------------					
-# file(COPY ${CMAKE_SOURCE_DIR}/resources/ DESTINATION ${CMAKE_BINARY_DIR}/resources/)
-
-
 # --------------------------------------
 #  settings for install and package --- not fully supported yet
 # --------------------------------------					
 OPTION(ENABLE_BUILD_install "Option to add the install target - ON by default" ON)
 if (ENABLE_BUILD_install)
 	include(${PROJECT_SOURCE_DIR}/CMakeModules/script_BuildInstall.cmake REQUIRED)		# CMake configuration for the install target
-endif(ENABLE_BUILD_install)
 
-OPTION(ENABLE_BUILD_package "Option for building the package - ON by default" ON)
-if (ENABLE_BUILD_package)
-	include(${PROJECT_SOURCE_DIR}/CMakeModules/script_BuildPackage.cmake REQUIRED)		# CMake configuration for package						
-endif(ENABLE_BUILD_package)
+	OPTION(ENABLE_BUILD_package "Option for building the package - ON by default" ON)
+	if (ENABLE_BUILD_package)
+		include(${PROJECT_SOURCE_DIR}/CMakeModules/script_BuildPackage.cmake REQUIRED)		# CMake configuration for package						
+	endif(ENABLE_BUILD_package)
+endif(ENABLE_BUILD_install)
