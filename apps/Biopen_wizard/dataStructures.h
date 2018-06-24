@@ -1,15 +1,15 @@
 /*  +---------------------------------------------------------------------------+
 *  |                                                                           |
 *  | Fluicell AB, http://fluicell.com/                                         |
-*  | Lab-on-a-tip 2.0                                                          |
+*  | Biopen wizard 2.1                                                         |
 *  |                                                                           |
 *  | Authors: Mauro Bellone - http://www.maurobellone.com                      |
 *  | Released under GNU GPL License.                                           |
 *  +---------------------------------------------------------------------------+ */
 
 
-#ifndef Labonatip_TOOLSDATASTRUCTURES_H_
-#define Labonatip_TOOLSDATASTRUCTURES_H_
+#ifndef DATASTRUCTURES_H_
+#define DATASTRUCTURES_H_
 
 // standard libraries
 #include <iostream>
@@ -33,7 +33,7 @@
 #define MAX_VACUUM_PERC 250     // %
 #define MIN_WARNING_VOLUME 6    // in mL
 #define MAX_VOLUME_IN_WELL 30   // in mL
-#define MAX_WASTE_VOLUME 35 // value in mL
+#define MAX_WASTE_VOLUME 35     // value in mL
 #define MAX_WASTE_WARNING_VOLUME 27    // in mL
 
 
@@ -237,7 +237,8 @@ struct pr_params {
 	{   // default values
 	}
 
-	void setDefValues(int _p_on_def, int _p_off_def, int _v_sw_def, int _v_rec_def) {
+	void setDefValues(int _p_on_def, int _p_off_def, 
+		              int _v_sw_def, int _v_rec_def) {
 		p_on_default = _p_on_def;
 		p_off_default = _p_off_def;
 		v_switch_default = _v_sw_def;
@@ -328,4 +329,4 @@ struct GUIparams {
 	languages language;
 }; // END COMSettings struct
 
-#endif /* Labonatip_TOOLSDATASTRUCTURES_H_ */
+#endif /* DATASTRUCTURES_H_ */

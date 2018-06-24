@@ -1,7 +1,7 @@
 /*  +---------------------------------------------------------------------------+
 *  |                                                                           |
 *  | Fluicell AB, http://fluicell.com/                                         |
-*  | Lab-on-a-tip 2.0                                                          |
+*  | Biopen wizard 2.1                                                         |
 *  |                                                                           |
 *  | Authors: Mauro Bellone - http://www.maurobellone.com                      |
 *  | Released under GNU GPL License.                                           |

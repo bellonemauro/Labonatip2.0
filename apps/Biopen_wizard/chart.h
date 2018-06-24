@@ -1,7 +1,7 @@
 /*  +---------------------------------------------------------------------------+
 *  |                                                                           |
 *  | Fluicell AB, http://fluicell.com/                                         |
-*  | Lab-on-a-tip 2.0                                                          |
+*  | Biopen wizard 2.1                                                         |
 *  |                                                                           |
 *  | Authors: Mauro Bellone - http://www.maurobellone.com                      |
 *  | Released under GNU GPL License.                                           |
@@ -23,7 +23,7 @@
 class Labonatip_chart 
 {
 //	Q_OBJECT
-	typedef std::vector<fluicell::PPC1api::command> f_protocol; // define a type for fluicel macro
+	typedef std::vector<fluicell::PPC1api::command> f_protocol; // define a type for fluicel protocol
 
 public:
 
@@ -105,9 +105,9 @@ public:
 	*/
 	void updateChartTime(int _time_value);
 
-	/** \brief Update the chart when a macro is loaded
+	/** \brief Update the chart when a protocol is loaded
 	*
-	*   Interpret all the values in a macro, including the 
+	*   Interpret all the values in a protocol, including the 
 	*   time line, to build an interactive chart based on the loaded protocol
 	*
 	*/
@@ -170,4 +170,4 @@ private:
 };
 
 
-#endif /* Labonatip_macroRunner_H_ */
+#endif /* Labonatip_chart_H_ */
