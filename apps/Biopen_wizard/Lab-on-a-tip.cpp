@@ -926,6 +926,13 @@ void Labonatip_GUI::initCustomStrings()
 	
 }
 
+void Labonatip_GUI::setProtocolUserPath(QString _path)
+{
+		m_protocol_path = _path;  // set the data member
+		this->readProtocolFolder(m_protocol_path);  // look for files in the folder
+		ui->lineEdit_protocolPath->setText(_path);  // set the current path in the GUI field
+}
+
 void Labonatip_GUI::appScaling(int _dpiX, int _dpiY)
 {
 	QSize toolbar_icon_size = ui->toolBar->iconSize();
@@ -1283,7 +1290,6 @@ void Labonatip_GUI::enableTab2(bool _enable)
 	ui->horizontalSlider_recirculation->setEnabled(_enable);
 	ui->pushButton_recirculationUp->setEnabled(_enable);
 
-	
 	ui->pushButton_set_preset1->setEnabled(_enable);
 	ui->pushButton_reset_preset1->setEnabled(_enable);
 
@@ -1292,8 +1298,6 @@ void Labonatip_GUI::enableTab2(bool _enable)
 
 	ui->pushButton_set_preset3->setEnabled(_enable);
 	ui->pushButton_reset_preset3->setEnabled(_enable);
-
-
 }
 
 

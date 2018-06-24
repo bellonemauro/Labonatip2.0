@@ -63,54 +63,52 @@ class Labonatip_GUI : public QMainWindow
 
 public:
 
+	/** \brief Constructor, initialize objects and parameters using default values
+	*
+	*/
 	explicit Labonatip_GUI(QMainWindow *parent = nullptr);
 
+	/** \brief Destructor implementation to make sure everything is properly closed
+	*
+	*   Make sure the thread and the serial communication
+	*   are properly closed, then free memory
+	*/
 	~Labonatip_GUI();
 	
-	/**  Set the version of the software from the main 
+	/**  \brief Set the version of the software from the main 
 	*
+	*  @param _version  version to be assigned to the class member m_version
 	*/
 	void setVersion(string _version);
 
-	void setProtocolUserPath(QString _path) { 
-		m_protocol_path = _path; 
-		this->readProtocolFolder(m_protocol_path);
-		ui->lineEdit_protocolPath->setText(_path);
-	}
+	/**  \brief Set the protocol path in the user folder
+	*
+	*  @param _path  path to be assigned to the data member m_protocol_path
+	*/
+	void setProtocolUserPath(QString _path);
 
+	/**  \brief Set the settings path in the user folder
+	*
+	*  @param _path  path to be assigned to the data member m_settings_path
+	*/
 	void setSettingsUserPath(QString _path) { m_settings_path = _path; }
 
+	/**  \brief Set the external data path in the user folder
+	*
+	*  @param _path  path to be assigned to the data member m_ext_data_path
+	*
+	*  \note This folder is used to save history and log or errors
+	*/
 	void setExtDataUserPath(QString _path) { m_ext_data_path = _path;  }
 
+	/**  \brief Initial support for high-dpi screens
+	*
+	*  @param _dpiX 
+	*  @param _dpiY
+	*
+	*  \note This function is still not fully working //TODO
+	*/
 	void appScaling(int _dpiX, int _dpiY);
-
-	/** \brief This function is called when the down arrow on Pon is called
-	*        it decreases the pressure on Pon, it does not accept out-of-range
-	*
-	* \note
-	*/
-	void updatePonSetPoint(double _pon_set_point);
-
-	/** \brief This function is called when the down arrow on Pon is called
-	*        it decreases the pressure on Pon, it does not accept out-of-range
-	*
-	* \note
-	*/
-	void updatePoffSetPoint(double _poff_set_point);
-
-	/** \brief This function is called when the down arrow on Pon is called
-	*        it decreases the pressure on Pon, it does not accept out-of-range
-	*
-	* \note
-	*/
-	void updateVrecircSetPoint(double _v_recirc_set_point);
-
-	/** \brief This function is called when the down arrow on Pon is called
-	*        it decreases the pressure on Pon, it does not accept out-of-range
-	*
-	* \note
-	*/
-	void updateVswitchSetPoint(double _v_switch_set_point);
 
 private slots:
 
@@ -643,9 +641,54 @@ protected:
 
 private:
 
-	void setEnableMainWindow(bool _enable = false);
+	/** \brief Update pon set point
+	*
+	*     This function is called when the up/down arrow on Pon is pressed, but also
+	*     when the Pon slider is changed and every time the update of the value
+	*     for the pressurized channel Pon is needed.
+	*
+	*  @param _pon_set_point new set point value
+	*
+	* \note the value is updated in simulation or directly to the PPC1 if connected and running
+	*/
+	void updatePonSetPoint(double _pon_set_point);
 
-	void setEnableSolutionButtons(bool _enable = false);
+	/** \brief Update poff set point
+	*
+	*     This function is called when the up/down arrow on Poff is pressed, but also
+	*     when the Poff slider is changed and every time the update of the value
+	*     for the pressurized channel Poff is needed.
+	*
+	*  @param _poff_set_point new set point value
+	*
+	* \note the value is updated in simulation or directly to the PPC1 if connected and running
+	*/
+	void updatePoffSetPoint(double _poff_set_point);
+
+	/** \brief Update vacuum recirculation set point
+	*
+	*     This function is called when the up/down arrow on recirculation channel is pressed,
+	*     but also when the recirculation slider is changed and every time the update
+	*     of the value for the vacuum channel is needed.
+	*
+	*  @param _v_recirc_set_point new set point value
+	*
+	* \note the value is updated in simulation or directly to the PPC1 if connected and running
+	*/
+	void updateVrecircSetPoint(double _v_recirc_set_point);
+
+	/** \brief Update vacuum switch set point
+	*
+	*     This function is called when the up/down arrow on switch channel is pressed,
+	*     but also when the recirculation slider is changed and every time the update
+	*     of the value for the vacuum channel is needed.
+	*
+	*  @param _v_switch_set_point new set point value
+	*
+	* \note the value is updated in simulation or directly to the PPC1 if connected and running
+	*/
+	void updateVswitchSetPoint(double _v_switch_set_point);
+
 
 	QString generateStyleSheet(const QColor _color) {
 		return generateStyleSheet(_color.red(), _color.green(), _color.blue());
@@ -672,23 +715,61 @@ private:
   */
   void initConnects();
 
-  /** group all the connects are in this function
+  /** \brief Initialize the custom strings to allow translations
   *
   */
   void initCustomStrings();
 
+  /** \brief Adds to the tree widget all the protocols that are found in the folder
+  *
+  *  @param  _path folder path
+  */
   void readProtocolFolder(QString _path);
 
+  /** \brief All the commands in the tree widget are added to the protocol
+  *
+  */
   void addAllCommandsToProtocol();
 
+  /** \brief Calculate the protocol duration in seconds
+  *
+  *   Calculate the protocol duration in seconds by summing 
+  *   the waiting commands in a protocol
+  *
+  *  @param _protocol a protocol as a list of PPC1api commands
+  *
+  * \return a double with the protocol duration in seconds
+  */
   double protocolDuration(std::vector<fluicell::PPC1api::command> _protocol);
 
+  /** \brief enable/disable the entire main window
+  *
+  *  @param _enable true or false
+  */
+  void setEnableMainWindow(bool _enable = false);
+
+  /** \brief enable/disable the solution buttons 
+  *
+  *   Enable or disable the solution button, it is used for instance during a 
+  *   protocol running to prevent the user to apply commands
+  *
+  *  @param _enable true or false
+  */
+  void setEnableSolutionButtons(bool _enable = false);
+
+  /** \brief enable/disable the tab page 2 in the advanced panel
+  *
+  *   Make sure that enabling/disabling the tab page 2 in the advanced panel
+  *   all the objects are disabled/enabled except for the leds as they have to
+  *   be always enabled to avoid them to get greyed out
+  *
+  *  @param _enable true or false
+  */
   void enableTab2(bool _enable);
 
-
+// Class members
   Ui::Labonatip_GUI *ui;               //!< the main user interface
   Labonatip_tools * m_dialog_tools;    //!< pointer to the tools dialog
-  //Labonatip_protocol_editor * m_dialog_p_editor; //!< pointer to the protocol editor dialog
 
   QDebugStream *qout;                 //!< redirect cout for messages into the GUI
   QDebugStream *qerr;                 //!< redirect cerr for messages into the GUI
@@ -725,8 +806,9 @@ private:
   QString m_current_protocol_file_path;
   QString m_current_protocol_file_name;
 
-  //GUI stuff for drawing solution flow, remember to NEVER change this values from here, 
+  //GUI stuff for drawing solution flow, remember to NEVER change this values manually, 
   // there is a hiden tools for the regulation of the flow drawing in the tabWidget panel
+  // the hiden tool is visualized only in debug, see class constructor
   QGraphicsScene *m_scene_solution;   //!< scene to draw the solution flow
   QPen m_pen_line;                    //!< pen to draw the solution inside the pipe
   const int m_pen_line_width;         //!< pen line width, value = 5
@@ -753,8 +835,8 @@ private:
   QString m_protocol_path;   //!< protocol path 
   QString m_settings_path;   //!< settings path
   QString m_ext_data_path;   //!< ext data path (save history)
-  QTranslator m_translator;
-  int m_language_idx;
+  QTranslator m_translator;  //!< translator object
+  int m_language_idx;        //!< language index 1 = english
 
   int m_cmd_idx_c;       // index of the column for command index
   int m_cmd_command_c;   // index of the column for the command
@@ -763,14 +845,16 @@ private:
   int m_cmd_msg_c;       // index of the column for the command status message
   int m_cmd_level_c;     // index of the column for the level in the tree
 
+  // the delegates allows the protocol tree widget to have customized fields
   ComboBoxDelegate * m_combo_delegate;
   NoEditDelegate * m_no_edit_delegate;
   NoEditDelegate * m_no_edit_delegate2;
   SpinBoxDelegate * m_spinbox_delegate;
 
-  //TODO: this cannot be a class member, it is used only to pass
-  //      a parameter from the menu to the delete_protocol function
-  int m_triggered_protocol_item;
+  //TODO: this should not be a class member, it is used only to pass
+  //      the row index from the popup menu into the tree widget
+  //      to the delete_protocol function
+  int m_triggered_protocol_item;  // triggered row with the right click in the protocol list
   
   //object for reading and writing protocols
   Labonatip_protocolReader *m_reader;
