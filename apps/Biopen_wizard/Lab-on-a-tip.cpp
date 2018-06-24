@@ -486,15 +486,6 @@ void Labonatip_GUI::changeEvent(QEvent* _event)
 	QMainWindow::changeEvent(_event);
 }
 
-void Labonatip_GUI::resizeEvent(QResizeEvent *_event)
-{
-	//cout << QDate::currentDate().toString().toStdString() << "  "
-	//	<< QTime::currentTime().toString().toStdString() << "  "
-	//	<< "Labonatip_GUI::resizeEvent   " << _event->type() << endl;
-	this->resizeToolbar();
-	
-}
-
 bool Labonatip_GUI::eventFilter(QObject *_obj, QEvent *_event)
 {
 	// activate/deactivate tool tips http://www.qtcentre.org/threads/11056-enable-all-Tooltips
@@ -542,7 +533,7 @@ void Labonatip_GUI::initConnects()
 	
 	connect(ui->actionEditor,
 		SIGNAL(triggered()), this,
-		SLOT(showProtocolEditorDialog()));
+		SLOT(showProtocolEditor()));
 
 	connect(ui->actionLoad_profile, 
 		SIGNAL(triggered()), this, 
@@ -690,7 +681,7 @@ void Labonatip_GUI::initConnects()
 
 	connect(ui->pushButton_runMacro, 
 		SIGNAL(clicked()), this, 
-		SLOT(runMacro()));
+		SLOT(runProtocol()));
 
 	connect(ui->pushButton_newTip, 
 		SIGNAL(clicked()), this, 

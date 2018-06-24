@@ -113,11 +113,11 @@ void Labonatip_GUI::newTip()
 }
 
 
-void Labonatip_GUI::runMacro() { 
+void Labonatip_GUI::runProtocol() { 
 
 	cout << QDate::currentDate().toString().toStdString() << "  " 
 		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::runMacro    " << endl;
+		 << "Labonatip_GUI::runProtocol    " << endl;
 
 	if (!m_macroRunner_thread->isRunning()) {
 
@@ -188,7 +188,7 @@ void Labonatip_GUI::runMacro() {
 		m_macroRunner_thread->setProtocol(m_protocol);
 		cout << QDate::currentDate().toString().toStdString() << "  " 
 			 << QTime::currentTime().toString().toStdString() << "  "
-			 << "Labonatip_GUI::runMacro " <<   msg.toStdString() << endl;
+			 << "Labonatip_GUI::runProtocol " <<   msg.toStdString() << endl;
 
 		m_macroRunner_thread->setSimulationFlag(m_simulationOnly);
 		connect(m_macroRunner_thread,
@@ -499,14 +499,14 @@ void Labonatip_GUI::standby()
 
 	setEnableMainWindow(false);
 
-	//OLD SLEEP MACRO
+	//OLD SLEEP PROTOCOL
 	// allOff()
 	// setPoff(11)
 	// setPon(0)
 	// sleep(5)
 	// setVswitch(-45)
 	// setVrecirc(-45)
-	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
+	QApplication::setOverrideCursor(Qt::WaitCursor);  
 
 	//vf0
 	closeAllValves();
@@ -516,6 +516,7 @@ void Labonatip_GUI::standby()
 	updatePoffSetPoint(11.0);
 
 	if (!visualizeProgressMessage(5, m_str_standby_operation)) return;
+
 	updateVswitchSetPoint(45.0);
 	updateVrecircSetPoint(45.0);
 

@@ -194,11 +194,11 @@ void Labonatip_GUI::showToolsDialog() {
 }
 
 
-void Labonatip_GUI::showProtocolEditorDialog() { 
+void Labonatip_GUI::showProtocolEditor() { 
 
 	cout << QDate::currentDate().toString().toStdString() << "  "
 		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::showProtocolEditorDialog    " << endl;
+		<< "Labonatip_GUI::showProtocolEditor    " << endl;
 
 	// if we are in the commander, we visualize the editor
 	if (ui->stackedWidget_main->currentIndex() == 0) {

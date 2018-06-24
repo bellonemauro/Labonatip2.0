@@ -110,6 +110,7 @@ public:
 	*/
 	void appScaling(int _dpiX, int _dpiY);
 
+
 private slots:
 
 void onProtocolClicked(QTreeWidgetItem *item, int column);
@@ -137,71 +138,51 @@ void testTTL(bool _state);
 
 	/** \brief This function is called when the down arrow on Pon is called
 	  *        it decreases the pressure on Pon, it does not accept out-of-range
-	  *
-	  * \note
 	  */
 	void pressurePonDown();
 
 	/** \brief This function is called when the up arrow on Pon is called
 	  *        it increases the pressure on Pon, it does not accept out-of-range
-	  *
-	  * \note
 	  */
 	void pressurePonUp();
 
 	/** \brief This function is called when the down arrow on Poff is called
 	  *        it decreases the pressure on Poff, it does not accept out-of-range
-	  *
-	  * \note
 	  */
 	void pressurePoffDown();
 
 	/** \brief This function is called when the up arrow on Poff is called
 	*          it increases the pressure on Poff, it does not accept out-of-range
-	*
-	* \note
 	*/
 	void pressurePoffUp();
 
 	/** \brief This function is called when the down arrow on v_switch is called
 	*          it decreases the vacuum, it does not accept out-of-range
-	*
-	* \note
 	*/
 	void pressButtonPressed_switchDown();
 
 	/** \brief This function is called when the up arrow on v_switch is called
 	*          it increases the vacuum, it does not accept out-of-range
-	*
-	* \note
 	*/
 	void pressButtonPressed_switchUp();
 
 
 	/** \brief This function is called when the down arrow on v_recirc is called
 	*          it decreases the vacuum, it does not accept out-of-range
-	*
-	* \note
 	*/
 	void recirculationDown();
 
 	/** \brief This function is called when the up arrow on v_recirc is called
 	*          it increases the vacuum, it does not accept out-of-range
-	*
-	* \note
 	*/
 	void recirculationUp();
 
 
 	/** \brief Update macro status message
-	*
-	* \note
 	*/
 	void updateMacroStatusMessage(const QString &_message);
 
 	/** \brief Update macro time status for the chart
-	*
-	* \note
 	*/	
 	void updateMacroTimeStatus(const double &_status);
 
@@ -220,28 +201,21 @@ void testTTL(bool _state);
 	void colSolution4Changed(const int _r, const int _g, const int _b);
 
 	/** \brief Stop all pumps and close the valves
-	   *
-	   * \note
-	   */
+    */
 	void pumpingOff();
 
 	/** \brief Close the valves
-	*
-	* \note
 	*/
 	void closeAllValves();
 
-
 	/** \brief pushSolution1
-	*
-	* \note
 	*/
 	void pushSolution1();
 
 	/** \brief solution1
+	*
 	*   This receive the command from the protocol and
 	*   simulate the solution 1 button press
-	* \note
 	*/
 	void solution1(bool _enable) {
 		ui->pushButton_solution1->setChecked(_enable);
@@ -249,15 +223,13 @@ void testTTL(bool _state);
 	}
 
 	/** \brief  pushSolution2
-	*
-	* \note
 	*/
 	void pushSolution2();
 
 	/** \brief solution2
+	*
 	*   This receive the command from the protocol and
 	*   simulate the solution 2 button press
-	* \note
 	*/
 	void solution2(bool _enable) {
 		ui->pushButton_solution2->setChecked(_enable);
@@ -266,23 +238,22 @@ void testTTL(bool _state);
 	}
 
 	/** \brief pushSolution3
-	*
-	* \note
 	*/
 	void pushSolution3();
 
 	/** \brief solution3
-	*   This receive the command from the protocol and 
+	*
+	*   This receives the command from the protocol and 
 	*   simulate the solution 3 button press
 	* \note
 	*/
 	void solution3(bool _enable) {
 		ui->pushButton_solution3->setChecked(_enable);
 		pushSolution3();
-
 	}
 
 	/** \brief pushSolution4
+	*
 	*   //TODO: add an argument for all 1-4 _activate 
 	*           if _activate = true, solution flow start
 	*           if _activate = false, solution flow stop
@@ -291,6 +262,7 @@ void testTTL(bool _state);
 	void pushSolution4();
 
 	/** \brief solution4
+	*
 	*   This receive the command from the protocol and
 	*   simulate the solution 4 button press
 	* \note
@@ -301,127 +273,138 @@ void testTTL(bool _state);
 	}
 
 	/** \brief Increase/reduce the area for the solution depiction
-	*
-	* \note
 	*/
 	void sliderPonChanged(int _value);
 
-
-	void switchLanguage(int _value);
-
-
 	/** \brief Set debug to terminal
-	*
-	* \note
 	*/
 	void dumpToTerminal(int _state) {
 		qout->copyOutToTerminal(_state);  
 		qerr->copyOutToTerminal(_state);
 	};
 
-
-	/** \brief Set debug to terminal
-	*
-	* \note
-	*/
-	//void setPpc1Verbose(int _state) {
-	//	m_ppc1->setVerbose(_state);
-	//};
-
 	/** \brief Increase/reduce the area for the solution depiction
-	*
-	* \note
 	*/
 	void sliderPoffChanged(int _value);
 
 	/** \brief Increase/reduce the area for the solution depiction
-	*
-	* \note
 	*/
 	void sliderRecircChanged(int _value);
 
-	/** Increase/reduce the area for the solution depiction
-	*
-	* \note
+	/** \brief Increase/reduce the area for the solution depiction
 	*/
 	void sliderSwitchChanged(int _value);
 
+	/** \brief Update the GUI according to a timer
+	*/
+	void updateGUI();
+
+	/** \brief Update the waste according to a timer
+	*/
+	void updateWaste();
+
+	/** \brief Recall the preset mode 1
+	*
+	*   The software allows 3 preset modes, that can be set according to 
+	*   the current pressure/vacuum values that are memorized via resetPreset_n
+	*   and recalled via setPreset_n
+	*/
 	void setPreset1();
+
+	/** \brief Recall the preset mode 2
+	*
+	*   The software allows 3 preset modes, that can be set according to
+	*   the current pressure/vacuum values that are memorized via resetPreset_n
+	*   and recalled via setPreset_n
+	*/
 	void setPreset2();
+
+	/** \brief Recall the preset mode 3
+	*
+	*   The software allows 3 preset modes, that can be set according to
+	*   the current pressure/vacuum values that are memorized via resetPreset_n
+	*   and recalled via setPreset_n
+	*/
 	void setPreset3();
 
+	/** \brief Memorized the current value for the preset mode 1
+	*
+	*   The software allows 3 preset modes, that can be set according to
+	*   the current pressure/vacuum values that are memorized via resetPreset_n
+	*   and recalled via setPreset_n
+	*/
 	void resetPreset1();
+
+	/** \brief Memorized the current value for the preset mode 2
+	*
+	*   The software allows 3 preset modes, that can be set according to
+	*   the current pressure/vacuum values that are memorized via resetPreset_n
+	*   and recalled via setPreset_n
+	*/
 	void resetPreset2();
+
+	/** \brief Memorized the current value for the preset mode 3
+	*
+	*   The software allows 3 preset modes, that can be set according to
+	*   the current pressure/vacuum values that are memorized via resetPreset_n
+	*   and recalled via setPreset_n
+	*/
 	void resetPreset3();
 
 	/** \brief This is supposed to be used from the solution release time to
 	  * update the visualization of the circular sliders
-	  *
-	  * \note
 	  */
 	void updateTimingSliders( );
 
-	void updateFlows();
-
-	void updateGUI();
-
-	void updatePressureVacuum();
-
-	void updateSolutions();
-
-	bool isExceptionTriggered();
-
-	void updatePPC1Leds();
-
-	void updateWaste();
-
 	/** \brief Visualize a message and a progress bar 
-	* \note
+	*
+	*  Very useful in the software, it handles all the progress messages
+	*  visualizing the message _message for the time _seconds
+	*
+	*  @param _seconds time duration of the message in seconds
+	*  @param _message string to be visualized
 	*/
 	bool visualizeProgressMessage(int _seconds, QString _message = " no message ");
 
 	/** \brief  Enter what's this mode
-	  * \note
 	  */
 	void  ewst();
 
+	/** \brief Clear the history folder
+	*
+	* \note this is called every time the history user folder is over 10MB
+	*/
 	void cleanHistory();
 
 	/** \brief Visualize the about dialog
-	  * \note
 	  */
 	void  about();
 
+	/** \brief Empty waste wells in the pipette
+	*/
 	void emptyWells();
 
+	/** \brief Refill solution wells in the pipette
+	*/
 	void refillSolution();
 
-	/** \brief Catch ok signal from tool dialog
-	* \note
+	/** \brief Catch the ok signal from tool dialog
 	*/
 	void toolOk();
 
-	/** \brief Catch apply signal from tool dialog
-	* \note
+	/** \brief Catch the apply signal from tool dialog
 	*/
 	void toolApply();
-
-
-//DELIVERY
 
 	/** \brief This function is called when the button + on droplet size is clicked
 	*
 	*   only Pon and V_recirc + - 2.5%
-	*
-	* \note
 	*/
 	void dropletSizePlus();
 
 	/** \brief This function is called when the button - on droplet size is clicked
 	*
 	*   only Pon and V_recirc + - 2.5%
-	*
-	* \note
 	*/
 	void dropletSizeMinus();
 
@@ -431,8 +414,6 @@ void testTTL(bool _state);
 	*   	 +5% to all values
 	*	 Poff does not read too low values,
 	*	 if 5% different is less than 5 mbar .... start -> start + 5 --> start - 5%
-	*
-	* \note
 	*/
 	void flowSpeedPlus();
 
@@ -441,88 +422,58 @@ void testTTL(bool _state);
 	*   	 -5% to all values
 	*	 Poff does not read too low values,
 	*	 if 5% different is less than 5 mbar .... start -> start + 5 --> start - 5%
-	*
-	* \note
 	*/
 	void flowSpeedMinus();
 
 	/** \brief This function is called when the button + on flow speed is clicked
 	*
 	*   	 +5% v_recirculation
-	*
-	* \note
 	*/
 	void vacuumPlus();
 
 	/** \brief This function is called when the button - on flow speed is clicked
 	*
 	*   	 -5% v_recirculation
-	*
-	* \note
 	*/
 	void vacuumMinus();
 
 	/** \brief Update flow control percentages
 	*
-	*   Only in simulation recalculate the percentages according to the same method in the PPC1 api
-	*
-	* \note
+	*   Only in simulation recalculate the percentages 
+	*   according to the same method in the PPC1 api
 	*/
 	void updateFlowControlPercentages();
 
 
-//END DELIVERY
-
-
-//TOOLSACTIONS
-
-	/** \brief Open a setting file
-	* 
-	*   Open a setting file from a user folder
-	*  
-	* \note
+	/** \brief Load icon pressed
+	*
+	*   When the load icon is pressed an automatic detection of GUI status
+	*   commander or editor allows to call loadProtocol or loadSettings function
 	*/
-	void openSettingsFile();
 	void loadPressed();
-	bool loadProtocol();
 
-	/** \brief save the settings to a file
+	/** \brief Save icon pressed
 	*
-	*   Save the current settings to a .ini file in the user folder
-	*
-	* \note
+    *   When the save icon is pressed an automatic detection of GUI status
+	*   commander or editor allows to call saveProtocol or saveSettings function
 	*/
-	void saveSettingsFile();
-
 	void savePressed();
-	bool saveProtocol();
-	bool saveProtocolAs();
 
-	/** \brief This function shows a tool dialog,
-	*        all the settings must be implemented here
-	*
-	* \note
+	/** \brief Show the tool dialog
 	*/
 	void showToolsDialog();
 
-
-	/** \brief This function shows a protocol editor dialog,
-	*       
-	*
-	* \note
-	*/	void showProtocolEditorDialog();
-
+	/** \brief Show the protocol editor
+	*/	
+	void showProtocolEditor();
 
 	/** \brief Enter simulation mode - the PPC1 will not be used
-	* \note
 	*/
 	void simulationOnly();
 
 	/** \brief Connect and disconnect the PPC1
 	*
 	*   \param _connect = true to connect, false to disconnect
-	*
-	* \note
 	*/
 	bool disCon(bool _connect);
 	
@@ -545,29 +496,25 @@ void testTTL(bool _state);
 	*/
 	void closeOpenDockTools();
 
+	/** \brief Resize the top toolbar
+	*
+	*  On resize event it changes the size 
+	*  of the toolbar to properly visualize the advanced/basic icon
+	*/
 	void resizeToolbar();
-
-//END TOOLSACTIONS
-
-//PPC1ACTIONS:
 
 	/** \brief The operation run in background, a signal is emitted at the end
 	*
-	* \note
 	*/
 	void newTip();
 
-
 	/** \brief The operation run in background, a signal is emitted at the end
 	*
-	* \note
 	*/
-	void runMacro();
+	void runProtocol();
 
-
-	/** \brief The operation run in background, a signal is emitted at the end
+	/** \brief Catch the end signal from runProtocol
 	*
-	* \note
 	*/
 	void macroFinished(const QString &_result);
 
@@ -608,8 +555,6 @@ void testTTL(bool _state);
 	*/
 	void stopSolutionFlow();
 
-
-
 	/** \brief  Put the device into a standby mode
 	*
 	*       Put the device into a standby mode by running the following commands:
@@ -621,22 +566,24 @@ void testTTL(bool _state);
 	*       sleep(5)
 	*       setVswitch(-45)
 	*       setVrecirc(-45)
-	*
-	* \note
-	*
 	*/
 	void standby();
 
-//END PPC1ACTIONS
-
 protected:
-	// event control
-	void closeEvent(QCloseEvent *event); 
+// event control
+
+	/** \brief The close event is triggered to pass through the destructor
+	*/
+	void closeEvent(QCloseEvent *event);
 	
+	/** \brief Allows to resize the toolbar triggering the change gui size event
+	*/
 	void changeEvent(QEvent*);
 
-	void resizeEvent(QResizeEvent*);
-
+	/** \brief All the events are triggered and filtered 
+	*
+	*     This will allow to activate and deactivate the tool tips
+	*/
 	bool eventFilter(QObject *_obj, QEvent *_event);
 
 private:
@@ -689,28 +636,45 @@ private:
 	*/
 	void updateVswitchSetPoint(double _v_switch_set_point);
 
+	/** \brief Generate a style sheet to change the weels drawing in the pipette
+	*
+	*  @param _r  red
+	*  @param _g  green
+	*  @param _b  blue
+	*
+	*  \return a string containing a style sheet
+	*/
+	QString generateStyleSheet(const int _r, const int _g, const int _b);
 
+	/** \brief Overload of generate a style sheet to change the weels drawing in the pipette
+	*
+	*  @param _color 
+	*
+	*  \return a string containing a style sheet
+	*/
 	QString generateStyleSheet(const QColor _color) {
 		return generateStyleSheet(_color.red(), _color.green(), _color.blue());
 	}
 
-	QString generateStyleSheet(const int _r, const int _g, const int _b);
-
-	// save log data, messages from the console et.c 
+	/** \brief Dump logs to file, including messages from the console etc
+	*/
 	void dumpLogs();
 
-  /** Increase/reduce the area for the solution depiction
+  /** \brief Increase/reduce the area for the solution drawing
   *  
-  * \note
+  *  @param _value  from 0 to MAX_ZONE_SIZE_PERC
+  *
+  * \note _value = 0 makes the flow to disappear
   */
   void updateDrawing(int _value);
 
-  /** set status led to connect or disconnect
+  /** \brief set status led to connect or disconnect
   *
+  *  @param _connect false = red, true = green
   */
   void setStatusLed( bool _connect = false );
 
-  /** group all the connects are in this function
+  /** \brief group all the connects from gui objects to functions
   *
   */
   void initConnects();
@@ -766,6 +730,58 @@ private:
   *  @param _enable true or false
   */
   void enableTab2(bool _enable);
+
+  /** \brief Switch the language in the GUI
+  *
+  *  @param _value is the index of the language to load
+  */
+  void switchLanguage(int _value);
+
+  /** \brief Open a setting file from a user folder
+  */
+  void openSettingsFile();
+
+  /** \brief Load a protocol file
+  */
+  bool loadProtocol();
+
+  /** \brief save the settings to a file
+  *
+  *   Save the current settings to a .ini file in the user folder
+  */
+  void saveSettingsFile();
+
+  /** \brief Save the current protocol to file
+  *
+  *   \note the current protocol file is overriden
+  */
+  bool saveProtocol();
+
+  /** \brief Save the current protocol to file 
+  *
+  *   \note a dialog will ask the user to define the protocol name
+  */
+  bool saveProtocolAs();
+
+  /** \brief Update solution flow values (including calculation)
+  */
+  void updateFlows();
+
+  /** \brief Update pressure and vacuum values
+  */
+  void updatePressureVacuum();
+
+  /** \brief Update solution flow values
+  */
+  void updateSolutions();
+
+  /** \brief Update the leds of pressures and vacuum
+  */
+  void updatePPC1Leds();
+
+  /** \brief Safe triggering of PPC1api exceptions when the PPC1 is active
+  */
+  bool isExceptionTriggered();
 
 // Class members
   Ui::Labonatip_GUI *ui;               //!< the main user interface
@@ -838,12 +854,12 @@ private:
   QTranslator m_translator;  //!< translator object
   int m_language_idx;        //!< language index 1 = english
 
-  int m_cmd_idx_c;       // index of the column for command index
-  int m_cmd_command_c;   // index of the column for the command
-  int m_cmd_range_c;     // index of the column for the range
-  int m_cmd_value_c;     // index of the column for the value
-  int m_cmd_msg_c;       // index of the column for the command status message
-  int m_cmd_level_c;     // index of the column for the level in the tree
+  int m_cmd_idx_c;       //!< index of the column for command index
+  int m_cmd_command_c;   //!< index of the column for the command
+  int m_cmd_range_c;     //!< index of the column for the range
+  int m_cmd_value_c;     //!< index of the column for the value
+  int m_cmd_msg_c;       //!< index of the column for the command status message
+  int m_cmd_level_c;     //!< index of the column for the level in the tree
 
   // the delegates allows the protocol tree widget to have customized fields
   ComboBoxDelegate * m_combo_delegate;
@@ -851,10 +867,10 @@ private:
   NoEditDelegate * m_no_edit_delegate2;
   SpinBoxDelegate * m_spinbox_delegate;
 
-  //TODO: this should not be a class member, it is used only to pass
-  //      the row index from the popup menu into the tree widget
-  //      to the delete_protocol function
-  int m_triggered_protocol_item;  // triggered row with the right click in the protocol list
+  // this is used only to pass the row index
+  // from the popup menu into the tree widget
+  // to the delete_protocol function
+  int m_triggered_protocol_item;  //!< triggered row with the right click in the protocol list
   
   //object for reading and writing protocols
   Labonatip_protocolReader *m_reader;
@@ -965,6 +981,7 @@ private:
 
   // to visualize the led on the status bar, 
   // I create two different leds and switch between them to create the effect on/off
+  // the same led objects are used in different places
   QPixmap * led_green;
   QPixmap * led_orange;
   QPixmap * led_red;
