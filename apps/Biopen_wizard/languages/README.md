@@ -7,15 +7,18 @@ to create the .qm file comprehensible for the application
 
 Follow this procedure: 
 Open QTlinguist 
--> open .\Labonatip\apps\Lab-on-a-tip\languages\file.ts  
+-> open ./Labonatip/apps/Lab-on-a-tip/languages/file.ts  
 -> releaseAs   sameFolder/sameName.qm
 
-command example: 
-%QT5_BINARY_DIR%\lrelease.exe .\eng.ts .\eng.qm
+command examples: 
+For windows
+    %QT5_BINARY_DIR%/lrelease.exe ./eng.ts ./eng.qm
+For linux
+    %QT5_BINARY_DIR%/lrelease ./eng.ts ./eng.qm
 
-One can also use the tranlateAll.bat file to generate everything in the same folder
+One can also use the translateAll.bat file (for windows) or translateAll.sh (for linux) to generate everything in the same folder
 ATTENTION: tranlateAll.bat contains a static link to linguist !!!!
-            If it does not work the variable QT5_BINARY_DIR need to be set to the proper location
+            If it does not work the variable QT5_BINARY_DIR need to be manually set to the proper location
 
 
 this will be changed in the future to automatically add the translations:

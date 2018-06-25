@@ -26,7 +26,7 @@
 //#include <QWhatsthis>
 #include <qwhatsthis.h>
 #include <QException>
-#include <QtTextToSpeech\QTextToSpeech>
+#include <QtTextToSpeech/QTextToSpeech>
 #include <QUndoView>
 #include <QProgressDialog>
 #include <QDir>

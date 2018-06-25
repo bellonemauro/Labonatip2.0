@@ -38,6 +38,8 @@ void Labonatip_GUI::updatePonSetPoint(double _pon_set_point)
 
 	if (m_simulationOnly) {
 		ui->progressBar_pressure_p_on->setValue(_pon_set_point);
+		updateFlowControlPercentages();
+		updateGUI();
 	}
 }
 
@@ -66,6 +68,8 @@ void Labonatip_GUI::updatePoffSetPoint(double _poff_set_point)
 
 	if (m_simulationOnly) {
 		ui->progressBar_pressure_p_off->setValue(_poff_set_point);
+		updateFlowControlPercentages();
+		updateGUI();
 	}
 }
 
@@ -94,6 +98,8 @@ void Labonatip_GUI::updateVrecircSetPoint(double _v_recirc_set_point)
 
 	if (m_simulationOnly) {
 		ui->progressBar_recirc->setValue(_v_recirc_set_point);
+		updateFlowControlPercentages();
+		updateGUI();
 	}
 }
 
@@ -202,36 +208,40 @@ void Labonatip_GUI::recirculationUp() {
 
 void Labonatip_GUI::sliderPonChanged(int _value) {
 
-	if (m_simulationOnly) 
+	if (m_simulationOnly) {
 		ui->progressBar_pressure_p_on->setValue(_value);
-
+		updateFlowControlPercentages();
+	}
 	updatePonSetPoint(_value);
 }
 
 
 void Labonatip_GUI::sliderPoffChanged(int _value) {
 
-	if (m_simulationOnly) 
+	if (m_simulationOnly) {
 		ui->progressBar_pressure_p_off->setValue(_value);
-
+		updateFlowControlPercentages();
+	}
 	updatePoffSetPoint(_value);
 }
 
 
 void Labonatip_GUI::sliderRecircChanged(int _value) {
 
-	if (m_simulationOnly) 
+	if (m_simulationOnly) {
 		ui->progressBar_recirc->setValue(_value);
-
+		updateFlowControlPercentages();
+	}
 	updateVrecircSetPoint(_value);
 }
 
 
 void Labonatip_GUI::sliderSwitchChanged(int _value) {
 
-	if (m_simulationOnly) 
+	if (m_simulationOnly) {
 		ui->progressBar_switch->setValue(_value);
-
+		updateFlowControlPercentages();
+	}
 	updateVswitchSetPoint(_value);
 }
 
