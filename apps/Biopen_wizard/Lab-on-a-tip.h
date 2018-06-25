@@ -113,28 +113,53 @@ public:
 
 private slots:
 
-void onProtocolClicked(QTreeWidgetItem *item, int column);
-void openProtocolFolder();
-void protocolsMenu(const QPoint & _pos);
-void deleteProtocol();
-void helpTriggered();
-void addCommand();
-void removeCommand();
-void moveUp();
-void moveDown();
-void plusIndent();
-bool itemChanged(QTreeWidgetItem *_item, int _column);
-void duplicateItem();
-void createNewLoop();
-void createNewLoop(int _loops);
-void clearAllCommandsRequest();
-void clearAllCommands();
-void showUndoStack();
-void undo();
-void redo();
+	void onProtocolClicked(QTreeWidgetItem *item, int column);
+	void openProtocolFolder();
+	void protocolsMenu(const QPoint & _pos);
+	void deleteProtocol();
+	void helpTriggered();
+	void addCommand();
+	void removeCommand();
+	void moveUp();
+	void moveDown();
+	void plusIndent();
+	bool itemChanged(QTreeWidgetItem *_item, int _column);
+	void duplicateItem();
+	void createNewLoop();
+	void createNewLoop(int _loops);
 
+	/** \brief Gets the clear commands request 
+	*
+	*  The command request is driven here to ask an "are you sure" message 
+	*  to the user and then call the clearAllCommands function. 
+	*  Other functions may use the clearAllCommands avoiding the message to pop out.
+	*/
+	void clearAllCommandsRequest();
 
-void testTTL(bool _state);
+	/** \brief Clear all the commands from the command tree in the editor 
+	*/
+	void clearAllCommands();
+	
+	/** \brief Visualize the stack for redo/undo currently hiden
+	*/
+	void showUndoStack();
+
+	/** \brief Undo function for the command editor
+	*/
+	void undo();
+	
+	/** \brief Redo function for the command editor
+	*/
+	void redo();
+
+	/** \brief Run a test for the TTL signals in the PPC1
+	*
+	*    In the tool dialog there is a button for TTL test, 
+	*    the signal generated is catched here to run a test 
+	*    on the TTL output of the PPC1. 
+	*    If the PPC1 is not connected a message will pop out
+	*/
+	void testTTL(bool _state);
 
 	/** \brief This function is called when the down arrow on Pon is called
 	  *        it decreases the pressure on Pon, it does not accept out-of-range
@@ -166,7 +191,6 @@ void testTTL(bool _state);
 	*/
 	void pressButtonPressed_switchUp();
 
-
 	/** \brief This function is called when the down arrow on v_recirc is called
 	*          it decreases the vacuum, it does not accept out-of-range
 	*/
@@ -177,7 +201,6 @@ void testTTL(bool _state);
 	*/
 	void recirculationUp();
 
-
 	/** \brief Update macro status message
 	*/
 	void updateMacroStatusMessage(const QString &_message);
@@ -187,17 +210,27 @@ void testTTL(bool _state);
 	void updateMacroTimeStatus(const double &_status);
 
 	/** \brief Ask message
-	*
-	* \note
 	*/
 	void askMessage(const QString &_message);
 
+	/** \brief Catch the signal from tool for the solution1 color changed
+	*          to adapt the wells in the pipette to the new color  
+	*/	
 	void colSolution1Changed(const int _r, const int _g, const int _b);
 
+	/** \brief Catch the signal from tool for the solution2 color changed
+	*          to adapt the wells in the pipette to the new color
+	*/
 	void colSolution2Changed(const int _r, const int _g, const int _b);
 
+	/** \brief Catch the signal from tool for the solution3 color changed
+	*          to adapt the wells in the pipette to the new color
+	*/
 	void colSolution3Changed(const int _r, const int _g, const int _b);
 
+	/** \brief Catch the signal from tool for the solution4 color changed
+	*          to adapt the wells in the pipette to the new color
+	*/
 	void colSolution4Changed(const int _r, const int _g, const int _b);
 
 	/** \brief Stop all pumps and close the valves
@@ -234,7 +267,6 @@ void testTTL(bool _state);
 	void solution2(bool _enable) {
 		ui->pushButton_solution2->setChecked(_enable);
 		pushSolution2();
-		//updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
 	}
 
 	/** \brief pushSolution3
@@ -245,7 +277,6 @@ void testTTL(bool _state);
 	*
 	*   This receives the command from the protocol and 
 	*   simulate the solution 3 button press
-	* \note
 	*/
 	void solution3(bool _enable) {
 		ui->pushButton_solution3->setChecked(_enable);
