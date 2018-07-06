@@ -911,7 +911,7 @@ void Labonatip_GUI::initCustomStrings()
 	m_str_add_protocol_bottom = tr("Do you want to add to the bottom of the protocol?");
 	m_str_add_protocol_bottom_guide = tr("Click NO to clean the workspace and load a new protocol");
 	m_str_clear_commands = tr("This will clear all items in the current protocol");
-	m_str_solution_ended = tr("Solution ended, click yes to refill");
+	m_str_solution_ended = tr("Solution ended, the flow was stopped");
 	m_str_waste_full = tr("The waste is full, click yes to empty");
 	m_str_TTL_failed = tr("PPC1 not connected, TTL cannot run");
 	

@@ -636,8 +636,8 @@
         <translation>Detta kommer att ta bort alla kommandon i ditt protokoll</translation>
     </message>
 	<message>
-        <source>Solution ended, click yes to refill</source>
-        <translation>Solution ended, click yes to refill</translation>
+        <source>Solution ended, the flow was stopped</source>
+        <translation>Lösningen slutade, flödet avbröts</translation>
     </message>
 	<message>
         <source>The waste is full, click yes to empty</source>

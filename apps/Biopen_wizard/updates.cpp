@@ -713,14 +713,18 @@ void Labonatip_GUI::updateWaste()
 
 		if (m_pipette_status->rem_vol_well1 < 0) {
 			stopSolutionFlow();
-			QMessageBox::StandardButton resBtn =
-				QMessageBox::question(this, m_str_warning,
-					QString(m_str_solution_ended),
-					QMessageBox::No | QMessageBox::Yes,
-					QMessageBox::Yes);
-			if (resBtn == QMessageBox::Yes) {
-				refillSolution();
-			}
+			QMessageBox::information(this, m_str_warning,
+				m_str_solution_ended);
+
+			// deprecated 06072018
+			//QMessageBox::StandardButton resBtn =
+			//	QMessageBox::question(this, m_str_warning,
+			//		QString(m_str_solution_ended),
+			//		QMessageBox::No | QMessageBox::Yes,
+			//		QMessageBox::Yes);
+			//if (resBtn == QMessageBox::Yes) {
+			//	refillSolution();
+			//}
 		}
 
 		double perc = 100.0 * m_pipette_status->rem_vol_well1 / max;
@@ -732,14 +736,8 @@ void Labonatip_GUI::updateWaste()
 
 		if (m_pipette_status->rem_vol_well2 < 0) {
 			stopSolutionFlow();
-			QMessageBox::StandardButton resBtn =
-				QMessageBox::question(this, m_str_warning,
-					QString(m_str_solution_ended),
-					QMessageBox::No | QMessageBox::Yes,
-					QMessageBox::Yes);
-			if (resBtn == QMessageBox::Yes) {
-				refillSolution();
-			}
+			QMessageBox::information(this, m_str_warning,
+				m_str_solution_ended);
 		}
 
 		double perc = 100.0 * m_pipette_status->rem_vol_well2 / max;
@@ -751,14 +749,8 @@ void Labonatip_GUI::updateWaste()
 
 		if (m_pipette_status->rem_vol_well3 < 0) {
 			stopSolutionFlow();
-			QMessageBox::StandardButton resBtn =
-				QMessageBox::question(this, m_str_warning,
-					QString(m_str_solution_ended),
-					QMessageBox::No | QMessageBox::Yes,
-					QMessageBox::Yes);
-			if (resBtn == QMessageBox::Yes) {
-				refillSolution();
-			}
+			QMessageBox::information(this, m_str_warning,
+				m_str_solution_ended);
 		}
 
 		double perc = 100.0 * m_pipette_status->rem_vol_well3 / max;
@@ -770,14 +762,8 @@ void Labonatip_GUI::updateWaste()
 
 		if (m_pipette_status->rem_vol_well4 < 0) {
 			stopSolutionFlow();
-			QMessageBox::StandardButton resBtn =
-				QMessageBox::question(this, m_str_warning,
-					QString(m_str_solution_ended),
-					QMessageBox::No | QMessageBox::Yes,
-					QMessageBox::Yes);
-			if (resBtn == QMessageBox::Yes) {
-				refillSolution();
-			}
+			QMessageBox::information(this, m_str_warning,
+				m_str_solution_ended);
 		}
 
 		double perc = 100.0 * m_pipette_status->rem_vol_well4 / max;

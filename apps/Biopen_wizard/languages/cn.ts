@@ -636,8 +636,8 @@
         <translation>This will clear all items in the current protocol</translation>
     </message>
 		<message>
-        <source>Solution ended, click yes to refill</source>
-        <translation>Solution ended, click yes to refill</translation>
+        <source>Solution ended, the flow was stopped</source>
+        <translation>Solution ended, the flow was stopped</translation>
     </message>
 	<message>
         <source>The waste is full, click yes to empty</source>

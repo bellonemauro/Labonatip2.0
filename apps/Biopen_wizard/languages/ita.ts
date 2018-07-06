@@ -636,8 +636,8 @@
         <translation>Questo cancellerà tutti i comandi nel tuo protocollo</translation>
     </message>
 	<message>
-        <source>Solution ended, click yes to refill</source>
-        <translation>Soluzione finita, clicca si per riempire</translation>
+        <source>Solution ended, the flow was stopped</source>
+        <translation>Soluzione finita, il flusso è stato interrotto</translation>
     </message>
 	<message>
         <source>The waste is full, click yes to empty</source>
