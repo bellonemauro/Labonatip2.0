@@ -1,0 +1,11 @@
+
+
+V.2.0.55
+Changed the solution empty warning procedure
+
+
+V.2.0.54
+Improvements to guides, comments and efficiency of functions
+
+
+V.2.0.53 is the first beta release
