@@ -1,7 +1,10 @@
 
 
 V.2.0.55
+Changed "E" instead of "A" for nan or out of range values in delivery zone control
+Changed the waste full warning procedure
 Changed the solution empty warning procedure
+
 
 
 V.2.0.54

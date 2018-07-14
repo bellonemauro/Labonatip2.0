@@ -1023,6 +1023,8 @@ private:
   // spacers for the toolbar to create the basic->advanced effect
   QGroupBox * m_g_spacer;
   QAction *m_a_spacer;
+
+  const QString display_e = "E";
 };
 
 #endif /* Labonatip_GUI_H_ */

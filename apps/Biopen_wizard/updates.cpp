@@ -80,22 +80,22 @@ void Labonatip_GUI::updatePressureVacuum()
 		if (m_ds_perc >= 0 && m_ds_perc < 1000) {
 			ui->lcdNumber_dropletSize_percentage->display(m_ds_perc);
 		}
-		else { //otherwise it shows "A"
-			ui->lcdNumber_dropletSize_percentage->display("A");
+		else { //otherwise it shows display_nan = "E"
+			ui->lcdNumber_dropletSize_percentage->display(display_e);
 		}
 
 		if (m_fs_perc >= 0 && m_fs_perc < 1000) {
 			ui->lcdNumber_flowspeed_percentage->display(m_fs_perc);
 		}
 		else {
-			ui->lcdNumber_flowspeed_percentage->display("A");
+			ui->lcdNumber_flowspeed_percentage->display(display_e);
 		}
 
 		if (m_v_perc >= 0 && m_v_perc < 1000) {
 			ui->lcdNumber_vacuum_percentage->display(m_v_perc);
 		}
 		else {
-			ui->lcdNumber_vacuum_percentage->display("A");
+			ui->lcdNumber_vacuum_percentage->display(display_e);
 		}
 
 
@@ -882,19 +882,26 @@ void Labonatip_GUI::updateWaste()
 
 	if (waste_remaining_time_in_sec < 0) {
 		//toolEmptyWells();
+		pumpingOff();
+		waste_remaining_time_in_sec = 0; //this is to avoid to get messages TODO remove and check
+
 		//TODO: what to do in this case?
 		cerr << QDate::currentDate().toString().toStdString() << "  "
 			<< QTime::currentTime().toString().toStdString() << "  "
 			<< "Labonatip_GUI::updateWaste   : Waste full ---- MB : WHAT TO DO? " << endl;
 		//QMessageBox::information(this, "Warning !", " Waste full ---- MB : WHAT TO DO? ");
-		QMessageBox::StandardButton resBtn =
-			QMessageBox::question(this, m_str_warning,
-				QString(m_str_waste_full),
-				QMessageBox::No | QMessageBox::Yes,
-				QMessageBox::Yes);
-		if (resBtn == QMessageBox::Yes) {
-			emptyWells();
-		}
+		QMessageBox::information(this, m_str_warning,
+			m_str_waste_full);
+
+		// deprecated 07072018
+		//QMessageBox::StandardButton resBtn =
+		//	QMessageBox::question(this, m_str_warning,
+		//		QString(m_str_waste_full),
+		//		QMessageBox::No | QMessageBox::Yes,
+		//		QMessageBox::Yes);
+		//if (resBtn == QMessageBox::Yes) {
+		//	emptyWells();
+		//}
 
 		return;
 	}
