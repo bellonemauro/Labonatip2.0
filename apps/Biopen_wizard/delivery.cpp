@@ -16,6 +16,14 @@ void Labonatip_GUI::dropletSizePlus() {
 		 << QTime::currentTime().toString().toStdString() << "  "
 		 << "Labonatip_GUI::dropletSizePlus    " << endl;
 
+	//TODO: check for negative percentage values before doing any action
+	if (m_ds_perc < 0)
+	{
+		QMessageBox::information(this, m_str_warning,
+			m_str_operation_cannot_be_done + "<br>" + m_str_out_of_bound);
+		return;
+	}
+
 	// only Pon + percentage
 	// V_recirc - percentage
 	if (m_pipette_active) {
@@ -67,7 +75,8 @@ void Labonatip_GUI::dropletSizePlus() {
 		}
 		else {
 			double delta = (1.0 - std::pow(perc, (1.0 / 3.0)));
-			double value = -m_pr_params->v_recirc_default - m_pr_params->v_recirc_default * delta;
+			double value = -m_pr_params->v_recirc_default - 
+				m_pr_params->v_recirc_default * delta;
 
 			updateVrecircSetPoint(value);
 		}
@@ -91,6 +100,14 @@ void Labonatip_GUI::dropletSizeMinus() {
 	cout << QDate::currentDate().toString().toStdString() << "  " 
 		 << QTime::currentTime().toString().toStdString() << "  "
 		 << "Labonatip_GUI::dropletSizeMinus    " << endl;
+
+	//TODO: check for negative percentage values before doing any action
+	if (m_ds_perc < 0)
+	{
+		QMessageBox::information(this, m_str_warning,
+			m_str_operation_cannot_be_done + "<br>" + m_str_out_of_bound);
+		return;
+	}
 
 	// only Pon - percentage
 	// V_recirc + percentage
@@ -444,8 +461,8 @@ void Labonatip_GUI::updateFlowControlPercentages()
 
 		// calculate droplet size percentage
 		m_ds_perc = 100.0*(m_pipette_status->in_out_ratio_on + 0.21) / 0.31;
-		if (m_ds_perc < 0) {
-			ui->lcdNumber_dropletSize_percentage->display("A");
+		if (m_ds_perc < 0 && m_ds_perc < 1000) {
+			ui->lcdNumber_dropletSize_percentage->display(display_e);
 		}
 		else {
 			ui->lcdNumber_dropletSize_percentage->display(m_ds_perc);

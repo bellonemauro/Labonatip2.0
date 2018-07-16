@@ -1,6 +1,10 @@
 
+V.2.0.56
+
 
 V.2.0.55
+Fix error with negative flow in case
+Fix error at start-up in delivery zone 
 Changed "E" instead of "A" for nan or out of range values in delivery zone control
 Changed the waste full warning procedure
 Changed the solution empty warning procedure

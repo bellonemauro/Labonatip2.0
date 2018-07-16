@@ -21,6 +21,15 @@ void Labonatip_GUI::updatePonSetPoint(double _pon_set_point)
 		 << _pon_set_point 
 		 << " sensor value = " << m_ppc1->channel_D->sensor_reading << endl;
 
+	// avoid out of range values
+	if (isnan(_pon_set_point)) 
+		return;
+	if (_pon_set_point < MIN_CHAN_D)
+		return;
+	if (_pon_set_point > MAX_CHAN_D)
+		return;
+
+
 	ui->label_PonPressure->setText(QString(
 		QString::number(int(_pon_set_point)) + " mbar    "));
 
@@ -53,6 +62,15 @@ void Labonatip_GUI::updatePoffSetPoint(double _poff_set_point)
 		 << _poff_set_point
 		  << " sensor value = " << m_ppc1->channel_C->sensor_reading << endl;
 
+	// avoid out of range values
+	if (isnan(_poff_set_point))
+		return;
+	if (_poff_set_point < MIN_CHAN_C)
+		return;
+	if (_poff_set_point > MAX_CHAN_C) 
+		return;
+
+
 	ui->label_PoffPressure->setText(QString(
 		QString::number(int(_poff_set_point)) + " mbar    "));
 
@@ -83,6 +101,14 @@ void Labonatip_GUI::updateVrecircSetPoint(double _v_recirc_set_point)
 		 << _v_recirc_set_point
 		 << " sensor value = " << m_ppc1->channel_A->sensor_reading << endl;
 
+	// avoid out of range values
+	if (isnan(_v_recirc_set_point))
+		return;
+	if (-_v_recirc_set_point < MIN_CHAN_A)
+		return;
+	if (-_v_recirc_set_point > MAX_CHAN_A) 
+		return;
+
 	ui->label_recircPressure->setText(QString(
 		QString::number(-int(_v_recirc_set_point)) + " mbar    "));
 
@@ -112,6 +138,15 @@ void Labonatip_GUI::updateVswitchSetPoint(double _v_switch_set_point)
 		 << "Labonatip_GUI::updateVswitchSetPoint   :::: set value  =  " 
 		 << _v_switch_set_point
 		 << " sensor value = " << m_ppc1->channel_B->sensor_reading << endl;
+
+	// avoid out of range values
+	if (isnan(_v_switch_set_point))
+		return;
+	if (-_v_switch_set_point < MIN_CHAN_B)
+		return;
+	if (-_v_switch_set_point > MAX_CHAN_B) 
+		return;
+
 
 	ui->label_switchPressure->setText(QString(
 		QString::number(-int(_v_switch_set_point)) + " mbar    "));

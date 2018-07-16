@@ -80,7 +80,7 @@ void Labonatip_GUI::updatePressureVacuum()
 		if (m_ds_perc >= 0 && m_ds_perc < 1000) {
 			ui->lcdNumber_dropletSize_percentage->display(m_ds_perc);
 		}
-		else { //otherwise it shows display_nan = "E"
+		else { //otherwise it shows display error = "E"
 			ui->lcdNumber_dropletSize_percentage->display(display_e);
 		}
 
@@ -96,6 +96,16 @@ void Labonatip_GUI::updatePressureVacuum()
 		}
 		else {
 			ui->lcdNumber_vacuum_percentage->display(display_e);
+		}
+
+		if (m_pipette_status->v_switch_set_point == 0 &&
+			m_pipette_status->v_recirc_set_point == 0 &&
+			m_pipette_status->pon_set_point == 0 &&
+			m_pipette_status->poff_set_point == 0)
+		{
+			ui->lcdNumber_dropletSize_percentage->display(0);
+			ui->lcdNumber_flowspeed_percentage->display(0);
+			ui->lcdNumber_vacuum_percentage->display(0);
 		}
 
 
@@ -780,6 +790,15 @@ void Labonatip_GUI::updateWaste()
 	m_pipette_status->rem_vol_well8 = m_pipette_status->rem_vol_well8 +
 		0.001 * m_pipette_status->flow_well8;
 
+	// show the warning label
+	if (m_pipette_status->rem_vol_well5 > MAX_WASTE_WARNING_VOLUME ||
+		m_pipette_status->rem_vol_well6 > MAX_WASTE_WARNING_VOLUME ||
+		m_pipette_status->rem_vol_well7 > MAX_WASTE_WARNING_VOLUME ||
+		m_pipette_status->rem_vol_well8 > MAX_WASTE_WARNING_VOLUME) {
+		ui->label_warningIcon->show();
+		ui->label_warning->setText(m_str_warning_waste_full);
+		ui->label_warning->show();
+	}
 
 	// only the minimum of the remaining solution is shown and important
 	vector<double> v1;
@@ -791,15 +810,6 @@ void Labonatip_GUI::updateWaste()
 	auto min = std::min_element(v1.begin(), v1.end());
 	int min_index = std::distance(v1.begin(), min);
 
-	// show the warning label
-	if (m_pipette_status->rem_vol_well5 > MAX_WASTE_WARNING_VOLUME ||
-		m_pipette_status->rem_vol_well6 > MAX_WASTE_WARNING_VOLUME ||
-		m_pipette_status->rem_vol_well7 > MAX_WASTE_WARNING_VOLUME ||
-		m_pipette_status->rem_vol_well8 > MAX_WASTE_WARNING_VOLUME) {
-		ui->label_warningIcon->show();
-		ui->label_warning->setText(m_str_warning_waste_full);
-		ui->label_warning->show();
-	}
 
 	switch (min_index)
 	{
