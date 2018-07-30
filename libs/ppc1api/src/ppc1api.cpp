@@ -108,7 +108,7 @@ void fluicell::PPC1api::threadSerial()
 		m_threadTerminationHandler = true;
 		m_PPC1_serial->close();
 		cerr << currentDateTime() 
-			 << " fluicell::PPC1api::threadSerial  ---- error --- MESSAGE: --exception" 
+			 << " fluicell::PPC1api::threadSerial  ---- error --- MESSAGE: --exception : " 
 			 << e.what() << endl;
 		m_excep_handler = true;
 		return;
@@ -311,22 +311,54 @@ bool fluicell::PPC1api::decodeChannelLine(const string &_data, vector<double> &_
 		return false;
 	}
 
+	//cerr << _data.c_str() << endl;
 	_line.clear();
-	unsigned int byte_counter = 2;        // in the line 0 is letter and 1 is the separator e.g. A|
-	const char separator[] = "|";       // separator between data
-	while (byte_counter < _data.length())   // scan the whole string
+	unsigned int byte_counter = 2;              // in the line 0 is letter and 1 is the separator e.g. A|
+	const char separator[] = "|";               // separator between data
+	const char decimal_separator[] = ".";       // separator between data
+	const char minus[] = "-";					// minus sign
+	const char end_line[] = "\n";					// minus sign
+	while (byte_counter < _data.length())       // scan the whole string
 	{
-			string value;
-			// extract line 
-			// extract the value before the character "new line"
-			while (_data.at(byte_counter) != *separator)    		
+		string value;
+		// extract line 
+		// extract the value before the character "new line"
+		while (_data.at(byte_counter) != *separator)
+		{
+			if (_data.at(byte_counter) == *end_line) // if the char is the endline the function break
 			{
-				value.push_back(_data.at(byte_counter));
-				byte_counter++;
-				if (byte_counter >= _data.length()) break;
+				_line.push_back(stod(value));
+				break;
 			}
+
+			// check the char for validity
+			if (!isdigit(_data.at(byte_counter))) // if the char is not a digit
+				if (_data.at(byte_counter) != *minus) // if the char is not the minus sign
+					if (_data.at(byte_counter) != *decimal_separator) // if the char is not the decimal separator
+					{
+						return false;  // something is wrong with the string (not a number)
+					}
+
+			// validity check passed
+			value.push_back(_data.at(byte_counter));
 			byte_counter++;
-			_line.push_back(stod(value));
+			if (byte_counter >= _data.length()) 
+				break;
+
+		}
+		byte_counter++;
+
+		// check if the value is empty
+		if (!value.empty()) {
+			//cerr << value.c_str() << endl; //TODO: take this out
+
+			_line.push_back(stod(value)); //TODO: error invalid stod argument
+			if (_line.size() > 3)
+				return true; // we expect 4 values so we exit at the 4th
+		}
+		else {
+			_line.push_back(0.0);
+		}
 	}
 
 	// check for proper data size

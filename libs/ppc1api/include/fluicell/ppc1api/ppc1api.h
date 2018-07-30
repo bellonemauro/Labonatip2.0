@@ -201,7 +201,7 @@ namespace fluicell
 		*  @param _data  input data to be decoded
 		*  @param _line  output line to be filled with decoded values
 		*
-		* \return true if success, false for any error
+		* \return true if success, false for any error (for instance broken messages)
 		*
 		* \note
 		*/

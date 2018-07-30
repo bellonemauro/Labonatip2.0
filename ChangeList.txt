@@ -1,6 +1,6 @@
 
-V.2.0.56
-
+V.2.0.57
+Fix connection issues in case of broken messages
 
 V.2.0.55
 Fix error with negative flow in case

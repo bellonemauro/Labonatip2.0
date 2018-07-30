@@ -1336,7 +1336,7 @@ void Labonatip_GUI::dumpLogs()
 {
 	cout << QDate::currentDate().toString().toStdString() << "  "
 		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::dumpLogs   " << endl;
+		<< "Labonatip_GUI::dumpLogs - version " << m_version.toStdString() << endl;
 
 	// save log data, messages from the console ect. 
 	QString cout_file_name = m_ext_data_path;

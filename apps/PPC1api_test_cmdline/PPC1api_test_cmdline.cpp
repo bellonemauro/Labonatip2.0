@@ -63,15 +63,64 @@ int	main (int argc, char** argv)
 
 	fluicell::PPC1api *my_ppc1 = new fluicell::PPC1api();
 
-    try {
+
+	std::cout<<"\n >>>  PCC1api_test_cmdline 2017  <<< \n\n"<<std::endl;
+
+
+	// test for the string
+	string data;
+	vector<double> line;
+	vector<double> line_2;
+
+
+	/* this is a test for data lines and broken messages
+	data = "A|-0.000000|0.114514|0.000000|0\n";
+
+	my_ppc1->decodeChannelLine(data, line);
+
+	cout << " data " << data.c_str() << " decoded as " 
+		<< line.at(0) << " "
+		<< line.at(1) << " "
+		<< line.at(2) << " "
+		<< line.at(3) << " " << endl;
+
+	data.clear();
+
+	data = "A|-0.200000|12.114514|0.003000|0\n";
+	line.clear();
+
+	my_ppc1->decodeChannelLine(data, line);
+
+	cout << " data " << data.c_str() << " decoded as "
+		<< line.at(0) << " "
+		<< line.at(1) << " "
+		<< line.at(2) << " "
+		<< line.at(3) << " " << endl;
+
+	data.clear();
+
+	data = "B|-0.000000|0.034291|0.000000|A|-0.000000|0.114514|0.000000|0";
+
+	my_ppc1->decodeChannelLine(data, line_2);
+
+	cout << " data " << data.c_str() << " decoded as "
+		<< line_2.at(0) << " "
+		<< line_2.at(1) << " "
+		<< line_2.at(2) << " "
+		<< line_2.at(3) << " " << endl;
+
+		return 0;
+
+	*/
+
+
+	try {
 		// analyse parsed arguments 
 		if (argc < 2) {
 			print_usage();
 			return 0;
 		}
-
-	std::cout<<"\n >>>  PCC1api_test_cmdline 2017  <<< \n\n"<<std::endl;
-
+	
 	// Argument 1 is the serial port or enumerate flag
 	COMport = argv[1];
 
