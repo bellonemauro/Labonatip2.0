@@ -640,8 +640,8 @@
         <translation>Soluzione finita, il flusso è stato interrotto</translation>
     </message>
 	<message>
-        <source>The waste is full, click yes to empty</source>
-        <translation>Scarto pieno, premi si per svuotare</translation>
+        <source>A waste well is full and needs to be emptied. Click Ok to continue</source>
+        <translation>Uno degli ugelli di scarto è pieno e dovrebbe essere svuotato. Clicca Ok per continuare</translation>
     </message>
 	<message>
         <source>PPC1 not connected, TTL test cannot run</source>

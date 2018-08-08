@@ -193,7 +193,7 @@ void Labonatip_GUI::runProtocol() {
 		m_macroRunner_thread->setSimulationFlag(m_simulationOnly);
 		connect(m_macroRunner_thread,
 			&Labonatip_macroRunner::resultReady, this,
-			&Labonatip_GUI::macroFinished);
+			&Labonatip_GUI::protocolFinished);
 
 		connect(m_macroRunner_thread,
 			&Labonatip_macroRunner::sendStatusMessage, this,
@@ -307,11 +307,11 @@ void Labonatip_GUI::runProtocol() {
 }
 
 
-void Labonatip_GUI::macroFinished(const QString &_result) {
+void Labonatip_GUI::protocolFinished(const QString &_result) {
 
 	cout << QDate::currentDate().toString().toStdString() << "  "
 		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::macroFinished    " << endl;
+		 << "Labonatip_GUI::protocolFinished    " << endl;
 
 	QMessageBox::information(this, m_str_information, _result);
 	ui->label_runMacro->setText(m_str_label_run_protocol);
@@ -337,14 +337,16 @@ void Labonatip_GUI::macroFinished(const QString &_result) {
 	ui->actionReboot->setEnabled(!m_simulationOnly);
 	ui->actionShudown->setEnabled(!m_simulationOnly);
 
-	updateVrecircSetPoint(-m_ppc1->getVrecircSetPoint());
-	updateVswitchSetPoint(-m_ppc1->getVswitchSetPoint());
-	updatePoffSetPoint(m_ppc1->getPoffSetPoint());
-	updatePonSetPoint(m_ppc1->getPonSetPoint());
+	if (!m_simulationOnly) {
+		updateVrecircSetPoint(-m_ppc1->getVrecircSetPoint());
+		updateVswitchSetPoint(-m_ppc1->getVswitchSetPoint());
+		updatePoffSetPoint(m_ppc1->getPoffSetPoint());
+		updatePonSetPoint(m_ppc1->getPonSetPoint());
+	}
 
 	disconnect(m_macroRunner_thread,
 		&Labonatip_macroRunner::resultReady, this,
-		&Labonatip_GUI::macroFinished);
+		&Labonatip_GUI::protocolFinished);
 
 	disconnect(m_macroRunner_thread,
 		&Labonatip_macroRunner::sendStatusMessage, this,

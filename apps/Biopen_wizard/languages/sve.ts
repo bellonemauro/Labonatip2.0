@@ -640,8 +640,8 @@
         <translation>Lösningen slutade, flödet avbröts</translation>
     </message>
 	<message>
-        <source>The waste is full, click yes to empty</source>
-        <translation>The waste is full, click yes to empty</translation>
+        <source>A waste well is full and needs to be emptied. Click Ok to continue</source>
+        <translation>A waste well is full and needs to be emptied. Click Ok to continue</translation>
     </message>
 	<message>
         <source>PPC1 not connected, TTL test cannot run</source>

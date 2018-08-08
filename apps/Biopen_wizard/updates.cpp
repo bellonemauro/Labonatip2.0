@@ -891,17 +891,18 @@ void Labonatip_GUI::updateWaste()
 
 
 	if (waste_remaining_time_in_sec < 0) {
-		//toolEmptyWells();
-		pumpingOff();
-		waste_remaining_time_in_sec = 0; //this is to avoid to get messages TODO remove and check
 
-		//TODO: what to do in this case?
-		cerr << QDate::currentDate().toString().toStdString() << "  "
-			<< QTime::currentTime().toString().toStdString() << "  "
-			<< "Labonatip_GUI::updateWaste   : Waste full ---- MB : WHAT TO DO? " << endl;
-		//QMessageBox::information(this, "Warning !", " Waste full ---- MB : WHAT TO DO? ");
+		waste_remaining_time_in_sec = 0; //this is to avoid to show negative values 
+
+		// if we have 0 remaining time but the remainder is active, we keep going
+		if (m_waste_remainder->isActive()) return;
+
+
+		// otherwise, show a message and start a remainder timer
 		QMessageBox::information(this, m_str_warning,
 			m_str_waste_full);
+
+		m_waste_remainder->start();
 
 		// deprecated 07072018
 		//QMessageBox::StandardButton resBtn =
@@ -932,6 +933,16 @@ void Labonatip_GUI::updateWaste()
 	//s.append(" sec ");
 
 	ui->textEdit_emptyTime_waste->setText(s);
+}
+
+void Labonatip_GUI::emptyWasteRemainder()
+{
+
+	QMessageBox::information(this, m_str_warning,
+		m_str_waste_full);
+
+	m_waste_remainder->start();
+	
 }
 
 

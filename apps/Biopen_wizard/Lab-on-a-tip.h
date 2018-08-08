@@ -334,6 +334,10 @@ private slots:
 	*/
 	void updateWaste();
 
+	/** \brief This will give a remainder every 5 minutes to empty the waste
+	*/
+	void emptyWasteRemainder();
+
 	/** \brief Recall the preset mode 1
 	*
 	*   The software allows 3 preset modes, that can be set according to 
@@ -547,7 +551,7 @@ private slots:
 	/** \brief Catch the end signal from runProtocol
 	*
 	*/
-	void macroFinished(const QString &_result);
+	void protocolFinished(const QString &_result);
 
 	/** \brief Run --- still work in progress
 	*
@@ -841,6 +845,7 @@ private:
   QTimer *m_update_flowing_sliders;        //!< connected to an update visualization function relative to solutions flow
   QTimer *m_update_GUI;                    //!< update GUI to show PPC1 values
   QTimer *m_update_waste;                  //!< update GUI to show PPC1 values
+  QTimer *m_waste_remainder;               //!< empty waste remainder every 5 minutes
   const int m_base_time_step;              //!< used to set the update timers, every step is by default 1000 ms
   int m_flowing_solution;                  //!< needed for the visualization function relative to solution 1 - 2 - 3- 4
 

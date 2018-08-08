@@ -314,7 +314,8 @@ void Labonatip_macroRunner::run()
 							{
 								cerr << QDate::currentDate().toString().toStdString() << "  "
 									<< QTime::currentTime().toString().toStdString() << "  "
-									<< "Labonatip_macroRunner::run  ---- error --- MESSAGE: error in ppc1api PPC1api::runCommand" << endl;
+									<< "Labonatip_macroRunner::run  ---- error --- MESSAGE:"
+									<< " error in ppc1api PPC1api::runCommand" << endl;
 							}
 							else
 							{
@@ -329,7 +330,8 @@ void Labonatip_macroRunner::run()
 					else {
 						cerr << QDate::currentDate().toString().toStdString() << "  " 
 							 << QTime::currentTime().toString().toStdString() << "  "
-							 << " Labonatip_macroRunner::run  ---- error --- MESSAGE: ppc1 is NOT running " << endl;
+							 << " Labonatip_macroRunner::run  ---- error --- MESSAGE:"
+							 << " ppc1 is NOT running " << endl;
 
 						result = m_str_not_connected; 
 						emit resultReady(result);

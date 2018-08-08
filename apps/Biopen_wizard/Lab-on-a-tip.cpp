@@ -61,9 +61,6 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   *m_pr_params = m_dialog_tools->getPr_params();
   *m_GUI_params = m_dialog_tools->getGUIparams();
 
-  // refill solutions and waste according to the loaded settings
-  refillSolution();
-  emptyWells();
 
   ui->dockWidget->close();  //close the advanced dock page
   ui->tabWidget->setCurrentIndex(1);  // put the tab widget to the chart page
@@ -209,12 +206,13 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   m_update_flowing_sliders = new QTimer();
   m_update_GUI = new QTimer();  
   m_update_waste = new QTimer();
+  m_waste_remainder = new QTimer();
   m_timer_solution = 0;
 
   m_update_flowing_sliders->setInterval(m_base_time_step);
   m_update_GUI->setInterval(10);// (m_base_time_step);
   m_update_waste->setInterval(m_base_time_step);
-
+  m_waste_remainder->setInterval(300*m_base_time_step);
   ui->treeWidget_params->resizeColumnToContents(0);
   ui->treeWidget_params->setHeaderHidden(false);
 
@@ -272,6 +270,10 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	  SLOT(updateWaste()));
   m_update_waste->start();
 
+  connect(m_waste_remainder,
+	  SIGNAL(timeout()), this,
+	  SLOT(emptyWasteRemainder()));
+
   //simulation button not-activated by default
   ui->actionSimulation->setChecked(false);
   m_simulationOnly = ui->actionSimulation->isChecked();
@@ -310,6 +312,9 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 
   ui->textEdit_emptyTime->setText(" ");
 
+  // refill solutions and waste according to the loaded settings
+  refillSolution();
+  emptyWells();
 
   // set a few shortcuts
   ui->pushButton_solution1->setShortcut(
@@ -912,7 +917,7 @@ void Labonatip_GUI::initCustomStrings()
 	m_str_add_protocol_bottom_guide = tr("Click NO to clean the workspace and load a new protocol");
 	m_str_clear_commands = tr("This will clear all items in the current protocol");
 	m_str_solution_ended = tr("Solution ended, the flow was stopped");
-	m_str_waste_full = tr("The waste is full, click yes to empty");
+	m_str_waste_full = tr("A waste well is full and needs to be emptied. Click Ok to continue");// ("The waste is full, click yes to empty");
 	m_str_TTL_failed = tr("PPC1 not connected, TTL cannot run");
 	
 }
@@ -1008,7 +1013,10 @@ void Labonatip_GUI::emptyWells()
 	// remove the warnings
 	ui->label_warningIcon->hide();
 	ui->label_warning->hide();
-	
+
+	// if the waste remainder is active, stop it
+	if (m_waste_remainder->isActive()) 
+		m_waste_remainder->stop();	
 }
 
 void Labonatip_GUI::refillSolution()
