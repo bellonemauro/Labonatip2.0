@@ -49,14 +49,7 @@ if(MSVC)
 	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/settings/)
 	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Debug/settings/)
   ENDFOREACH(F)				
-
-#Icons now encoded into the exe file
-#  FILE(GLOB myProject_ICONS "${PROJECT_SOURCE_DIR}/icons/*.*") 
-#  FOREACH(F ${myProject_ICONS})
-#	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/icons/)
-#	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Debug/icons/)
-#  ENDFOREACH(F)
-  
+ 
   FILE(GLOB myProject_EXTDATA "${PROJECT_SOURCE_DIR}/Ext_data/*.*") 
   FOREACH(F ${myProject_EXTDATA})
 	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/Ext_data/)
@@ -80,11 +73,6 @@ elseif( NOT MSVC)
   FOREACH(F ${myProject_SETTINGS})
 	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/settings/)
   ENDFOREACH(F)				
-
-#  FILE(GLOB myProject_ICONS "${PROJECT_SOURCE_DIR}/icons/*.*") 
-#  FOREACH(F ${myProject_ICONS})
-#	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/icons/)
-#  ENDFOREACH(F)
 
   FILE(GLOB myProject_EXTDATA "${PROJECT_SOURCE_DIR}/../../Ext_data/*.*") 
   FOREACH(F ${myProject_EXTDATA})
@@ -116,7 +104,7 @@ if(NOT BUILD_QT5)
 
   message (FATAL_ERROR  "QT 4 does not support serial port communication - cannot build ${PROJECT_NAME}")
 
-elseif(  BUILD_QT5)
+elseif(BUILD_QT5)
 
 	# allows automatic linking of QT - see http://www.cmake.org/cmake/help/v3.0/policy/CMP0020.html
 	cmake_policy(SET CMP0020 NEW)
@@ -130,18 +118,18 @@ elseif(  BUILD_QT5)
 		cmake_policy(SET CMP0071 NEW)
 	endif()
 
-	#TODO: this is fine for now but it is not the best solution, this _qt_bin_dir should be the right variable for binaries
+	#TODO: this is fine for now but it is not the best solution, 
+	#      this _qt_bin_dir should be the right variable for binaries
 	SET (QT5_BINARY_DIR ${_qt5_install_prefix}/../../bin/ CACHE PATH "Qt5 binary folder" )
 		
 	if ( ENABLE_verbose )
-		
 		message (STATUS "${PROJECT_NAME} MESSAGE: _qt5_install_prefix ---- ${_qt5_install_prefix}")
-		message (STATUS "${PROJECT_NAME} MESSAGE: _qt5_bin_dir ---- ${_qt5_bin_dir}")
-		
+		message (STATUS "${PROJECT_NAME} MESSAGE: _qt5_bin_dir ---- ${_qt5_bin_dir}")	
 		message (STATUS "${PROJECT_NAME} MESSAGE: QT5_BINARY_DIR ---- ${QT5_BINARY_DIR}")
 	endif ( ENABLE_verbose )
+	
 	if (NOT QT5_BINARY_DIR)
-        message(WARNING "${PROJECT_NAME} MESSAGE: QT5_BINARY_DIR not found --- set namually")
+        message(WARNING "${PROJECT_NAME} MESSAGE: QT5_BINARY_DIR not found --- set manually")
 	endif()
 
 
@@ -177,19 +165,20 @@ elseif(  BUILD_QT5)
 
 	# step 3 
 	# run the command  " lrelease.exe _file.ts _file.qm " for each ts file 
-	# TODO: this is to be checked in linux as in windows visual studio is able to generate the translations at step 2
-#	if(WIN32)
-#	set (idx 0)
-#	  FOREACH(F1 ${myProject_LANGUAGES_TS})
-#		list (GET QT_TRANSLATIONS_FILES ${idx} F2)
-		#execute_process(COMMAND ${TRANSLATION_GENERATOR} ${F1} ${F2})
+	# TODO: this is to be checked in linux, as in windows visual studio is able to generate 
+	# the translations at step 2
+	if(WIN32)
+	set (idx 0)
+	  FOREACH(F1 ${myProject_LANGUAGES_TS})
+		list (GET QT_TRANSLATIONS_FILES ${idx} F2)
+		execute_process(COMMAND ${TRANSLATION_GENERATOR} ${F1} ${F2})
 		
-#		if ( ENABLE_verbose )
-#			message (STATUS " Added custom command ::: ${TRANSLATION_GENERATOR} ${F1} ${F2} ")
-#		endif ( ENABLE_verbose )	  
-#		MATH(EXPR idx "${idx}+1")
-#	  ENDFOREACH(F1)	
-#	endif()		
+		if ( ENABLE_verbose )
+			message (STATUS " Added custom command ::: ${TRANSLATION_GENERATOR} ${F1} ${F2} ")
+		endif ( ENABLE_verbose )	  
+		MATH(EXPR idx "${idx}+1")
+	  ENDFOREACH(F1)	
+	endif()		
 	
 	if ( ENABLE_verbose )
 		message (STATUS "${PROJECT_NAME} MESSAGE: myProject_FORMS_HEADERS  :: ${myProject_FORMS_HEADERS} ")
