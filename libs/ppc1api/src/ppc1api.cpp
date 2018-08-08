@@ -364,7 +364,8 @@ bool fluicell::PPC1api::decodeChannelLine(const string &_data, vector<double> &_
 	// check for proper data size
 	if (_line.size() < 3) {
 		cerr << currentDateTime() 
-			 << " fluicell::PPC1api::decodeChannelLine ::: Error in decoding line - corrupted data line " 
+			 << " fluicell::PPC1api::decodeChannelLine ::: " 
+			 << " Error in decoding line - corrupted data line " 
 			 << endl;
 		return false;
 	}
