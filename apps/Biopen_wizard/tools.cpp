@@ -10,14 +10,14 @@
 #include "tools.h"
 #include  <QCheckBox>
 
-Labonatip_tools::Labonatip_tools(QWidget *parent ):
+Labonatip_tools::Labonatip_tools(QWidget *parent):
 	QMainWindow(parent),
 	ui_tools(new Ui::Labonatip_tools), 
 	m_comSettings(new COMSettings()),
 	m_solutionParams(new solutionsParams()),
 	m_pr_params(new pr_params()),
 	m_GUI_params(new GUIparams()),
-	m_setting_file_name("./settings/settings.ini")   //TODO: this has to point to the user folder
+	m_setting_file_name("/settings/settings.ini")
 {
 	ui_tools->setupUi(this );
 
@@ -575,7 +575,7 @@ bool Labonatip_tools::loadSettings(QString _path)
 
 	cout << QDate::currentDate().toString().toStdString() << "  " 
 		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "the path is : " << _path.toStdString() << endl;
+		 << "Labonatip_tools::loadSettings  :::  the path is : " << _path.toStdString() << endl;
 
 	m_settings = new QSettings(_path, QSettings::IniFormat);
 

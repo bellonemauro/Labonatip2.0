@@ -91,7 +91,7 @@ public:
 	*
 	*  @param _path  path to be assigned to the data member m_settings_path
 	*/
-	void setSettingsUserPath(QString _path) { m_settings_path = _path; }
+	void setSettingsUserPath(QString _path);
 
 	/**  \brief Set the external data path in the user folder
 	*

@@ -43,7 +43,7 @@
    <string>Biopen wizard</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../Lab-on-a-tip_console/resources.qrc">
+   <iconset resource="resources.qrc">
     <normaloff>:/icons/fluicell_iconBIG.png</normaloff>:/icons/fluicell_iconBIG.png</iconset>
   </property>
   <property name="windowOpacity">
@@ -149,8 +149,8 @@ font-weight: 900;
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>1095</width>
-         <height>740</height>
+         <width>1099</width>
+         <height>743</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout_2">
@@ -191,8 +191,8 @@ font-weight: 900;
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>1095</width>
-             <height>704</height>
+             <width>1099</width>
+             <height>707</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout">
@@ -3829,7 +3829,7 @@ QCheckBox::indicator:unchecked {
 }</string>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="page_runner">
         <layout class="QGridLayout" name="gridLayout_19">
@@ -8724,6 +8724,9 @@ QTreeView::item:selected:!active {
                        <pointsize>11</pointsize>
                       </font>
                      </property>
+                     <property name="accessibleDescription">
+                      <string/>
+                     </property>
                      <property name="styleSheet">
                       <string notr="true"/>
                      </property>
@@ -8748,10 +8751,10 @@ QTreeView::item:selected:!active {
                      </column>
                      <item>
                       <property name="text">
-                       <string>Solution 1</string>
+                       <string notr="true">Solution 1</string>
                       </property>
                       <property name="text">
-                       <string>name</string>
+                       <string notr="true">name</string>
                       </property>
                      </item>
                      <item>
@@ -8759,7 +8762,7 @@ QTreeView::item:selected:!active {
                        <string>Solution 2</string>
                       </property>
                       <property name="text">
-                       <string>name</string>
+                       <string notr="true">name</string>
                       </property>
                      </item>
                      <item>
@@ -8767,7 +8770,7 @@ QTreeView::item:selected:!active {
                        <string>Solution 3</string>
                       </property>
                       <property name="text">
-                       <string>name</string>
+                       <string notr="true">name</string>
                       </property>
                      </item>
                      <item>
@@ -8775,7 +8778,7 @@ QTreeView::item:selected:!active {
                        <string>Solution 4</string>
                       </property>
                       <property name="text">
-                       <string>name</string>
+                       <string notr="true">name</string>
                       </property>
                      </item>
                      <item>
@@ -8783,7 +8786,7 @@ QTreeView::item:selected:!active {
                        <string>Pon def (mbar)</string>
                       </property>
                       <property name="text">
-                       <string>190</string>
+                       <string notr="true">190</string>
                       </property>
                      </item>
                      <item>
@@ -8791,7 +8794,7 @@ QTreeView::item:selected:!active {
                        <string>Poff def (mbar)</string>
                       </property>
                       <property name="text">
-                       <string>21</string>
+                       <string notr="true">21</string>
                       </property>
                      </item>
                      <item>
@@ -8799,7 +8802,7 @@ QTreeView::item:selected:!active {
                        <string>Vrecirc def (mbar)</string>
                       </property>
                       <property name="text">
-                       <string>-115</string>
+                       <string notr="true">-115</string>
                       </property>
                      </item>
                      <item>
@@ -8807,7 +8810,7 @@ QTreeView::item:selected:!active {
                        <string>Vswitch def (mbar)</string>
                       </property>
                       <property name="text">
-                       <string>-115</string>
+                       <string notr="true">-115</string>
                       </property>
                      </item>
                      <item>
@@ -8815,7 +8818,7 @@ QTreeView::item:selected:!active {
                        <string>Protocol duration (s)</string>
                       </property>
                       <property name="text">
-                       <string>0</string>
+                       <string notr="true">0</string>
                       </property>
                      </item>
                     </widget>
@@ -9304,7 +9307,7 @@ click on any object to have quick help
   </action>
  </widget>
  <resources>
-  <include location="../Lab-on-a-tip_console/resources.qrc"/>
+  <include location="../Serial_console/resources.qrc"/>
   <include location="resources.qrc"/>
  </resources>
  <connections/>

@@ -463,6 +463,7 @@ void Labonatip_GUI::switchLanguage(int _value )
 
 	}
 	else cout << " translation not loaded " << endl;
+
 }
 
 
@@ -1105,21 +1106,6 @@ void Labonatip_GUI::toolApply()
 	*m_pr_params = m_dialog_tools->getPr_params();
 	*m_GUI_params = m_dialog_tools->getGUIparams();
 
-	//m_dialog_p_editor->setPrParams(*m_pr_params);
-	//m_dialog_p_editor->setSolParams(*m_solutionParams);
-	ui->treeWidget_params->topLevelItem(0)->setText(1, m_solutionParams->sol1);
-	ui->treeWidget_params->topLevelItem(1)->setText(1, m_solutionParams->sol2);
-	ui->treeWidget_params->topLevelItem(2)->setText(1, m_solutionParams->sol3);
-	ui->treeWidget_params->topLevelItem(3)->setText(1, m_solutionParams->sol4);
-
-	ui->treeWidget_params->topLevelItem(4)->setText(1, QString::number(m_pr_params->p_on_default));
-	ui->treeWidget_params->topLevelItem(5)->setText(1, QString::number(m_pr_params->p_off_default));
-	ui->treeWidget_params->topLevelItem(6)->setText(1, QString::number(m_pr_params->v_recirc_default));
-	ui->treeWidget_params->topLevelItem(7)->setText(1, QString::number(m_pr_params->v_switch_default));
-	//m_protocolWizard->setSolParams(*m_solutionParams);
-	//m_protocolWizard->setPrParams(*m_pr_params);
-
-
 	m_ppc1->setCOMport(m_comSettings->getName());
 	m_ppc1->setBaudRate((int)m_comSettings->getBaudRate());
 	m_ppc1->setFilterEnabled(m_pr_params->enableFilter);
@@ -1132,6 +1118,25 @@ void Labonatip_GUI::toolApply()
 	qerr->redirectOutInGUI(m_GUI_params->enableHistory);
 
 	this->switchLanguage(m_GUI_params->language);
+
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::toolApply  m_solutionParams->sol1 "
+		<< m_solutionParams->sol1 .toStdString()<< endl;
+
+	// GUI stuff need to be changed after the translation
+	ui->treeWidget_params->topLevelItem(0)->setText(1, m_solutionParams->sol1);
+	ui->treeWidget_params->topLevelItem(1)->setText(1, m_solutionParams->sol2);
+	ui->treeWidget_params->topLevelItem(2)->setText(1, m_solutionParams->sol3);
+	ui->treeWidget_params->topLevelItem(3)->setText(1, m_solutionParams->sol4);
+
+	ui->treeWidget_params->topLevelItem(4)->setText(1, QString::number(m_pr_params->p_on_default));
+	ui->treeWidget_params->topLevelItem(5)->setText(1, QString::number(m_pr_params->p_off_default));
+	ui->treeWidget_params->topLevelItem(6)->setText(1, QString::number(m_pr_params->v_recirc_default));
+	ui->treeWidget_params->topLevelItem(7)->setText(1, QString::number(m_pr_params->v_switch_default));
+	//m_protocolWizard->setSolParams(*m_solutionParams);
+	//m_protocolWizard->setPrParams(*m_pr_params);
+
 
 	QString s;
 	s.append(m_str_user);
@@ -1382,6 +1387,31 @@ void Labonatip_GUI::dumpLogs()
 	QTextStream c_err(&cerrfile);
 	c_err << ui->textEdit_qcerr->toPlainText() << endl;
 
+}
+
+void Labonatip_GUI::setSettingsUserPath(QString _path) { 
+	m_settings_path = _path;
+	QString settings_filename = _path + "settings.ini";
+	if (!m_dialog_tools->setLoadSettingsFileName(settings_filename))
+		cerr << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::setSettingsUserPath  error in loading settings file " << endl;
+
+	toolApply();
+
+	// TODO: this is needed as sometimes the translations overlap the fields in the tree widget
+	// GUI stuff need to be changed after the translation
+	ui->treeWidget_params->topLevelItem(0)->setText(1, m_solutionParams->sol1);
+	ui->treeWidget_params->topLevelItem(1)->setText(1, m_solutionParams->sol2);
+	ui->treeWidget_params->topLevelItem(2)->setText(1, m_solutionParams->sol3);
+	ui->treeWidget_params->topLevelItem(3)->setText(1, m_solutionParams->sol4);
+
+	ui->treeWidget_params->topLevelItem(4)->setText(1, QString::number(m_pr_params->p_on_default));
+	ui->treeWidget_params->topLevelItem(5)->setText(1, QString::number(m_pr_params->p_off_default));
+	ui->treeWidget_params->topLevelItem(6)->setText(1, QString::number(m_pr_params->v_recirc_default));
+	ui->treeWidget_params->topLevelItem(7)->setText(1, QString::number(m_pr_params->v_switch_default));
+	//m_protocolWizard->setSolParams(*m_solutionParams);
+	//m_protocolWizard->setPrParams(*m_pr_params);
 }
 
 void Labonatip_GUI::setVersion(string _version) {
