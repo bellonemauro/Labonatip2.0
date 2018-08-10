@@ -2,7 +2,7 @@
 V.2.0.58
 Fix waste full behavior 
 Added a 5 minutes timer with a remainder to empty the waste
-
+Fix translation of solution field into GUI
 
 V.2.0.57
 Fix connection issues in case of broken messages
