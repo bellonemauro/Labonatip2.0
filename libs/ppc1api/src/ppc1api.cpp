@@ -61,13 +61,20 @@ void fluicell::PPC1api::threadSerial()
 //			if(m_verbose) cout << " thread running " << endl;
 			if(my_mutex.try_lock())
 			{
+
 				string data;
 				if (readData(data))
-					if (!decodeDataLine(data, m_PPC1_data)) 
-						cerr << currentDateTime() 
-						     << " fluicell::PPC1api::threadSerial  ---- error --- MESSAGE: " 
-					  	     << "corrupted data " << endl;
-				
+					//if (!decodeDataLine(data, m_PPC1_data))
+					//{
+						// corrupted data
+						m_PPC1_data->data_corrupted = !decodeDataLine(data, m_PPC1_data);
+
+						//cerr << currentDateTime()
+						//	<< " fluicell::PPC1api::threadSerial  ---- error --- MESSAGE: "
+						//	<< "corrupted data " << endl;
+					//}
+					
+
 				this->updateFlows(*m_PPC1_data, *m_PPC1_status); 
 				my_mutex.unlock();
 			}
@@ -306,8 +313,9 @@ bool fluicell::PPC1api::decodeChannelLine(const string &_data, vector<double> &_
 	if (_data.empty())
 	{
 		cerr << currentDateTime() 
-			 << " fluicell::PPC1api::decodeChannelLine ::: Error in decoding line - Empty line " 
-			<< endl;
+			 << " fluicell::PPC1api::decodeChannelLine ::: " 
+			 << " Error in decoding line - Empty line " 
+			 << endl;
 		return false;
 	}
 
@@ -317,7 +325,7 @@ bool fluicell::PPC1api::decodeChannelLine(const string &_data, vector<double> &_
 	const char separator[] = "|";               // separator between data
 	const char decimal_separator[] = ".";       // separator between data
 	const char minus[] = "-";					// minus sign
-	const char end_line[] = "\n";					// minus sign
+	const char end_line[] = "\n";				// minus sign
 	while (byte_counter < _data.length())       // scan the whole string
 	{
 		string value;

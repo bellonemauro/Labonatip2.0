@@ -353,6 +353,16 @@ void Labonatip_GUI::updatePPC1Leds()
 	// ok = 0 with reading far from the set point 10%+-3mbar = orange
 	if (!m_simulationOnly) {
 
+		if (m_ppc1->getCommunicationState() == true) {
+			ui->status_PPC1_led->setPixmap(*led_green);
+			ui->status_PPC1_label->setText(m_str_PPC1_status_con);
+		}
+		else
+		{
+			ui->status_PPC1_led->setPixmap(*led_red);
+			ui->status_PPC1_label->setText("UNSTABLE connection"); //TODO string
+		}
+
 		if (m_ppc1->getPonState() == 0) {
 			ui->label_led_pon->setPixmap(*led_green);
 			if (std::abs(m_ppc1->getPonReading() - m_ppc1->getPonSetPoint()) >
