@@ -472,14 +472,6 @@ private slots:
 	*/
 	void vacuumMinus();
 
-	/** \brief Update flow control percentages
-	*
-	*   Only in simulation recalculate the percentages 
-	*   according to the same method in the PPC1 api
-	*/
-	void updateFlowControlPercentages();
-
-
 	/** \brief Load icon pressed
 	*
 	*   When the load icon is pressed an automatic detection of GUI status
@@ -670,6 +662,20 @@ private:
 	* \note the value is updated in simulation or directly to the PPC1 if connected and running
 	*/
 	void updateVswitchSetPoint(double _v_switch_set_point);
+
+	/** \brief Update flow control percentages
+	*
+	*   Only in simulation recalculate the percentages
+	*   according to the same method in the PPC1 api
+	*/
+	void updateFlowControlPercentages();
+
+
+	void setDropletSizePercentage(double _perc = 100.0);
+	void setFlowspeedPercentage(double _perc = 100.0);
+	void setVacuumPercentage(double _perc = 100.0);
+
+
 
 	/** \brief Generate a style sheet to change the weels drawing in the pipette
 	*

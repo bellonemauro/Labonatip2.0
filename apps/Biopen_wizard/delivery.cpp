@@ -454,6 +454,54 @@ void Labonatip_GUI::vacuumMinus() {
 	}
 }
 
+void Labonatip_GUI::setDropletSizePercentage(double _perc)
+{
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::setDropletSize    " << _perc << endl;
+
+	if (m_simulationOnly) {
+		
+		
+	}
+}
+
+void Labonatip_GUI::setFlowspeedPercentage(double _perc)
+{
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::setFlowSpeed    " << _perc << endl;
+
+	if (m_simulationOnly) {
+
+	}
+}
+
+void Labonatip_GUI::setVacuumPercentage(double _perc)
+{
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::setVacuumPercentage    " << _perc << endl;
+
+	if (m_simulationOnly) {
+
+		if (_perc < MIN_VACUUM_PERC || _perc > MAX_VACUUM_PERC) {
+			QMessageBox::information(this, m_str_warning,
+				m_str_operation_cannot_be_done);
+			return;
+		}	
+
+		double value = -m_pr_params->v_recirc_default * _perc/100.0;
+		//m_pipette_status->v_recirc_set_point + 
+		//m_pr_params->v_recirc_default * m_pr_params->base_v_increment / 100.0;
+		cout << "Labonatip_GUI::setVacuumPercentage    ::: new recirculation value "
+			<< value << endl;
+		updateVrecircSetPoint(value);
+
+		updateFlowControlPercentages();
+	}
+}
+
 void Labonatip_GUI::updateFlowControlPercentages()
 {
 	updateFlows();

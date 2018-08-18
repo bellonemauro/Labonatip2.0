@@ -95,7 +95,8 @@ void fluicell::PPC1api::threadSerial()
 		m_threadTerminationHandler = true;
 		m_PPC1_serial->close(); 
 		cerr << currentDateTime() 
-			 << " fluicell::PPC1api::threadSerial  ---- error --- MESSAGE: IOException : " 
+			 << " fluicell::PPC1api::threadSerial  ---- error --- MESSAGE:"
+			 << " IOException : " 
 			 << e.what() << endl;
 		m_excep_handler = true;
 		return;
@@ -105,7 +106,8 @@ void fluicell::PPC1api::threadSerial()
 		m_threadTerminationHandler = true;
 		m_PPC1_serial->close(); 
 		cerr << currentDateTime() 
-			 << " fluicell::PPC1api::threadSerial  ---- error --- MESSAGE: SerialException : " 
+			 << " fluicell::PPC1api::threadSerial  ---- error --- MESSAGE:"
+			 << " SerialException : " 
 			 << e.what() << endl;
 		m_excep_handler = true;
 		return;
@@ -115,7 +117,8 @@ void fluicell::PPC1api::threadSerial()
 		m_threadTerminationHandler = true;
 		m_PPC1_serial->close();
 		cerr << currentDateTime() 
-			 << " fluicell::PPC1api::threadSerial  ---- error --- MESSAGE: --exception : " 
+			 << " fluicell::PPC1api::threadSerial  ---- error --- MESSAGE:"
+			 << " --exception : " 
 			 << e.what() << endl;
 		m_excep_handler = true;
 		return;
@@ -157,7 +160,8 @@ bool fluicell::PPC1api::decodeDataLine(const string &_data, PPC1_data *_PPC1_dat
 		}
 		else {
 			cerr << currentDateTime() 
-				 << " fluicell::PPC1api::decodeDataLine ::: Error in decoding line " 
+				 << " fluicell::PPC1api::decodeDataLine :::"
+				 << " Error in decoding line " 
 				 << endl;
 			return false;
 		}
@@ -172,7 +176,8 @@ bool fluicell::PPC1api::decodeDataLine(const string &_data, PPC1_data *_PPC1_dat
 		}
 		else {
 			cerr << currentDateTime() 
-				 << " fluicell::PPC1api::decodeDataLine ::: Error in decoding line " 
+				 << " fluicell::PPC1api::decodeDataLine :::" 
+				 << " Error in decoding line " 
 				 << endl;
 			return false;
 		}
@@ -187,7 +192,8 @@ bool fluicell::PPC1api::decodeDataLine(const string &_data, PPC1_data *_PPC1_dat
 		}
 		else {
 			cerr << currentDateTime() 
-				 << " fluicell::PPC1api::decodeDataLine ::: Error in decoding line " 
+				 << " fluicell::PPC1api::decodeDataLine :::"
+				 << " Error in decoding line " 
 				 << endl;
 			return false;
 		}
@@ -202,7 +208,8 @@ bool fluicell::PPC1api::decodeDataLine(const string &_data, PPC1_data *_PPC1_dat
 		}
 		else {
 			cerr << currentDateTime() 
-				 << " fluicell::PPC1api::decodeDataLine ::: Error in decoding line " << endl;
+				 << " fluicell::PPC1api::decodeDataLine :::"
+				 << " Error in decoding line " << endl;
 			return false;
 		}
 	}
@@ -217,7 +224,8 @@ bool fluicell::PPC1api::decodeDataLine(const string &_data, PPC1_data *_PPC1_dat
 		}
 		else {
 			cerr << currentDateTime() 
-				 << " fluicell::PPC1api::decodeDataLine ::: Error in decoding line _PPC1_data->i string:" 
+				 << " fluicell::PPC1api::decodeDataLine :::"
+				 << " Error in decoding line _PPC1_data->i string:" 
 				 << _data << " value " << value << endl;
 			return false;
 		}
@@ -228,8 +236,9 @@ bool fluicell::PPC1api::decodeDataLine(const string &_data, PPC1_data *_PPC1_dat
 		}
 		else {
 			cerr << currentDateTime() 
-				 << " fluicell::PPC1api::decodeDataLine ::: Error in decoding line _PPC1_data->j" 
-				<< endl;
+				 << " fluicell::PPC1api::decodeDataLine :::"
+				 << " Error in decoding line _PPC1_data->j" 
+				 << endl;
 			return false;
 		}
 
@@ -239,7 +248,8 @@ bool fluicell::PPC1api::decodeDataLine(const string &_data, PPC1_data *_PPC1_dat
 		}
 		else { 
 			cerr << currentDateTime() 
-				 << " fluicell::PPC1api::decodeDataLine ::: Error in decoding line _PPC1_data->k" 
+				 << " fluicell::PPC1api::decodeDataLine :::"
+				 << " Error in decoding line _PPC1_data->k" 
 				<< endl;
 			return false;
 		}
@@ -250,7 +260,8 @@ bool fluicell::PPC1api::decodeDataLine(const string &_data, PPC1_data *_PPC1_dat
 		}
 		else {
 			cerr << currentDateTime() 
-				 << " fluicell::PPC1api::decodeDataLine ::: Error in decoding line _PPC1_data->l" 
+				 << " fluicell::PPC1api::decodeDataLine :::"
+				 << " Error in decoding line _PPC1_data->l" 
 				<< endl;
 			return false;
 		}
@@ -268,8 +279,9 @@ bool fluicell::PPC1api::decodeDataLine(const string &_data, PPC1_data *_PPC1_dat
 		}
 		else {
 			cerr << currentDateTime() 
-				 << " fluicell::PPC1api::decodeDataLine ::: Error in decoding line _PPC1_data->ppc1_IN" 
-				<< endl;
+				 << " fluicell::PPC1api::decodeDataLine :::"
+				 << " Error in decoding line _PPC1_data->ppc1_IN" 
+				 << endl;
 			return false;
 		}
 		value = toDigit(_data.at(7));
@@ -278,8 +290,9 @@ bool fluicell::PPC1api::decodeDataLine(const string &_data, PPC1_data *_PPC1_dat
 		}
 		else {
 			cerr << currentDateTime() 
-				 << " fluicell::PPC1api::decodeDataLine ::: Error in decoding line _PPC1_data->ppc1_OUT" 
-				<< endl;
+				 << " fluicell::PPC1api::decodeDataLine :::" 
+				 << " Error in decoding line _PPC1_data->ppc1_OUT" 
+				 << endl;
 			return false;
 		}
 		return true;
@@ -292,7 +305,7 @@ bool fluicell::PPC1api::decodeDataLine(const string &_data, PPC1_data *_PPC1_dat
 		_PPC1_data->trigger_fall = true;
 		_PPC1_data->trigger_rise = false;
 		return true;
-	} //TODO: this can be the opposite
+	} 
 
 	if (_data.at(0) == 'R') {  //RISING TTL signal detected
 		//cout << " line type I " << _data << endl;
@@ -340,6 +353,7 @@ bool fluicell::PPC1api::decodeChannelLine(const string &_data, vector<double> &_
 			}
 
 			// check the char for validity
+			// this is to make sure that stod function get an actual number instead of a character 
 			if (!isdigit(_data.at(byte_counter))) // if the char is not a digit
 				if (_data.at(byte_counter) != *minus) // if the char is not the minus sign
 					if (_data.at(byte_counter) != *decimal_separator) // if the char is not the decimal separator
@@ -352,15 +366,12 @@ bool fluicell::PPC1api::decodeChannelLine(const string &_data, vector<double> &_
 			byte_counter++;
 			if (byte_counter >= _data.length()) 
 				break;
-
 		}
 		byte_counter++;
 
 		// check if the value is empty
 		if (!value.empty()) {
-			//cerr << value.c_str() << endl; //TODO: take this out
-
-			_line.push_back(stod(value)); //TODO: error invalid stod argument
+			_line.push_back(stod(value)); 
 			if (_line.size() > 3)
 				return true; // we expect 4 values so we exit at the 4th
 		}
@@ -386,7 +397,8 @@ void fluicell::PPC1api::updateFlows(const PPC1_data &_PPC1_data, PPC1_status &_P
 	// calculate inflow
 	double delta_pressure = 100.0 * (-_PPC1_data.channel_A->sensor_reading);//   v_r;
 
-	_PPC1_status.inflow_recirculation = 2.0 * this->getFlowSimple(delta_pressure, LENGTH_TO_TIP);
+	_PPC1_status.inflow_recirculation = 2.0 * 
+		this->getFlowSimple(delta_pressure, LENGTH_TO_TIP);
 
 	delta_pressure = 100.0 * (-_PPC1_data.channel_A->sensor_reading +
 		2.0 * _PPC1_data.channel_C->sensor_reading * ( 1 - LENGTH_TO_TIP / LENGTH_TO_ZONE) );
@@ -1141,13 +1153,27 @@ bool fluicell::PPC1api::runCommand(command _cmd)
 	case 8: {//sleep
 		if (m_verbose) cout << currentDateTime()
 			<< " fluicell::PPC1api::run(command _cmd) ::: sleep  "
-			<< _cmd.getValue() << endl; //TODO: this is not safe as one can stop the macro without break the wait function
+			<< _cmd.getValue() << endl; 
+		//TODO: this is not safe as one can stop the macro without breaking the wait function
 		std::this_thread::sleep_for(std::chrono::seconds(static_cast<int>(_cmd.getValue())));
+		// This could solve the issue of waiting and stopping 
+		// (it has to wait for 1 second to finish though)
+		// moreover, this introduces uncertainty in the time line
+		// TO BE TESTED
+		/*
+		int number_of_seconds = static_cast<int>(_cmd.getValue());
+		int count = 0;
+		if (!m_threadTerminationHandler && count<number_of_seconds)
+		{
+			std::this_thread::sleep_for(std::chrono::seconds(1));
+			count++;
+		}*/
 		return true;
 	}
 	case 9: {//ask_msg
 		if (m_verbose) cout << currentDateTime()
-			<< " fluicell::PPC1api::run(command _cmd) ::: ask_msg NOT implemented in the API " << endl;
+			<< " fluicell::PPC1api::run(command _cmd) :::"
+			<< " ask_msg NOT implemented in the API " << endl;
 		return true;
 	}
 	case 10: {//allOff	
@@ -1161,8 +1187,9 @@ bool fluicell::PPC1api::runCommand(command _cmd)
 		pumpingOff();
 		return true;
 	}
-	case 12: {//waitSync //TODO
-			  //waitsync(front type : can be : RISE or FALL), protocol stops until trigger signal is received
+	case 12: {//waitSync 
+		// waitsync(front type : can be : RISE or FALL), 
+		// protocol stops until trigger signal is received
 		bool state;
 		if (_cmd.getValue() == 0) state = false;
 		else state = true;
@@ -1195,13 +1222,13 @@ bool fluicell::PPC1api::runCommand(command _cmd)
 		int v = static_cast<int>(_cmd.getValue());
 		if (m_verbose) cout << currentDateTime()
 			 << " fluicell::PPC1api::run(command _cmd) ::: "
-			 << "syncOut NOT implemented in the API ::: test value = " 
+			 << " syncOut NOT implemented in the API ::: test value = " 
 			 << v << endl;
 		int current_ppc1out_status = m_PPC1_data->ppc1_OUT;
 		bool success = setPulsePeriod(v);
 		std::this_thread::sleep_for(std::chrono::milliseconds(v));
 		//TODO : this function is unsafe, in case the protocol is stop during this function, 
-		//       the stop will not work
+		//       the stop will not work, it has to wait for the wait to end
 		/*
 		clock_t begin = clock();
 		while (current_ppc1out_status == m_PPC1_data->ppc1_OUT)
@@ -1218,13 +1245,15 @@ bool fluicell::PPC1api::runCommand(command _cmd)
 	}
 	case 14: {//dropletSize
 		if (m_verbose) cout << currentDateTime()
-			<< " fluicell::PPC1api::run(command _cmd) ::: dropletSize  NOT entirely implemented in the API" 
+			<< " fluicell::PPC1api::run(command _cmd) ::: "
+			<< " dropletSize  NOT entirely implemented in the API" 
 			<< _cmd.getValue() << endl;
 		return setDropletSize(_cmd.getValue()); 
 	}
 	case 15: {//flowSpeed
 		if (m_verbose) cout << currentDateTime()
-			<< " fluicell::PPC1api::run(command _cmd) ::: flowSpeed  NOT entirely implemented in the API" 
+			<< " fluicell::PPC1api::run(command _cmd) ::: "
+			<< " flowSpeed  NOT entirely implemented in the API" 
 			<< _cmd.getValue() << endl;
 		return setFlowspeed(_cmd.getValue()); 
 	}
@@ -1371,9 +1400,10 @@ string fluicell::PPC1api::getDeviceID()
 
 void fluicell::PPC1api::setFilterEnabled(bool _enable)
 {
-	if (m_verbose) cout << currentDateTime()
-		<< " fluicell::PPC1api::setFilterEnabled << " 
-		<< _enable << " >> " << endl;
+	if (m_verbose) 
+		cout << currentDateTime()
+			<< " fluicell::PPC1api::setFilterEnabled << " 
+			<< _enable << " >> " << endl;
 	m_filter_enabled = _enable;
 
 	m_PPC1_data->enableFilter(_enable);
@@ -1381,9 +1411,10 @@ void fluicell::PPC1api::setFilterEnabled(bool _enable)
 
 void fluicell::PPC1api::setFilterSize(int _size)
 {
-	if (m_verbose) cout << currentDateTime()
-        << " fluicell::PPC1api::setFilterSize"
-		<< " new filter size value << " << _size << " >> " << endl;
+	if (m_verbose)
+		cout << currentDateTime()
+			<< " fluicell::PPC1api::setFilterSize"
+			<< " new filter size value << " << _size << " >> " << endl;
 
 	if (_size < 1)
 	{
@@ -1483,7 +1514,6 @@ bool fluicell::PPC1api::checkVIDPID(std::string _port)
 		}
 		devs.push_back(dev);
 	}
-
 	
 	for (unsigned int i = 0; i < devs.size(); i++) // for all the connected devices 
 		if (devs.at(i).port.compare(_port) == 0) // look for the device connected on _port

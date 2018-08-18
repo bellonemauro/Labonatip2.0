@@ -72,6 +72,10 @@ signals:
 	void closeAll();
 	void pumpOff();
 
+	void setDropletSizeSIG(const double &_perc);
+	void setFlowSpeedSIG(const double &_perc);
+	void setVacuumSIG(const double &_perc);
+
 private: 
 	
 	void initCustomStrings();

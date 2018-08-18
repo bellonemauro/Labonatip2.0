@@ -139,14 +139,16 @@ void Labonatip_macroRunner::runCommand(fluicell::PPC1api::command _cmd)
 		return;
 	}
 	case 14: {//dropletSize
-//		return setDropletSize(_cmd.getValue());
+		emit setDropletSizeSIG(_cmd.getValue());
+		return;
 	}
 	case 15: {//flowSpeed
-//		return setFlowspeed(_cmd.getValue());
+		emit setFlowSpeedSIG(_cmd.getValue());
+		return;
 	}
 	case 16: {//vacuum
-
-//		return setVacuumPercentage(_cmd.getValue());
+		emit setVacuumSIG(_cmd.getValue());
+		return;
 	}
 	case 17: {//loop
 		// this is not to be done here
