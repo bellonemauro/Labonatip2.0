@@ -226,7 +226,7 @@ void Labonatip_GUI::flowSpeedPlus() {
 		}
 	}
 	if (m_simulationOnly) {
-
+		
 		if (m_fs_perc > MAX_FLOW_SPEED_PERC - m_pr_params->base_fs_increment) {
 			QMessageBox::information(this, m_str_warning,
 				m_str_operation_cannot_be_done); 
@@ -269,7 +269,7 @@ void Labonatip_GUI::flowSpeedPlus() {
 			updateVrecircSetPoint(value);
 		}
 		updateFlowControlPercentages();
-
+		
 	}
 }
 
@@ -358,7 +358,7 @@ void Labonatip_GUI::vacuumPlus() {
 			success = m_ppc1->changeVacuumPercentageBy(m_pr_params->base_v_increment);
 		}
 		else {
-			success = m_ppc1->setVacuumPercentage(m_v_perc + //ui->lcdNumber_vacuum_percentage->value() +
+			success = m_ppc1->setVacuumPercentage(m_v_perc + 
 				m_pr_params->base_v_increment);
 		}
 
@@ -378,7 +378,7 @@ void Labonatip_GUI::vacuumPlus() {
 	}
 	if (m_simulationOnly) {
 
-		if (m_v_perc > MAX_VACUUM_PERC - m_pr_params->base_v_increment) {
+		/*if (m_v_perc > MAX_VACUUM_PERC - m_pr_params->base_v_increment) {
 			QMessageBox::information(this, m_str_warning,
 				m_str_operation_cannot_be_done); 
 			return;
@@ -389,12 +389,16 @@ void Labonatip_GUI::vacuumPlus() {
 		}
 		else {
 
-			double value = m_pipette_status->v_recirc_set_point - m_pr_params->v_recirc_default * m_pr_params->base_v_increment / 100.0;
-			cout << "Labonatip_GUI::vacuumPlus    ::: new recirculation value " << value << endl;
-			updateVrecircSetPoint(value);
+			//double value = m_pipette_status->v_recirc_set_point - m_pr_params->v_recirc_default * m_pr_params->base_v_increment / 100.0;
+			//cout << "Labonatip_GUI::vacuumPlus    ::: new recirculation value " << value << endl;
+			//updateVrecircSetPoint(value);
+			double perc = m_v_perc + m_pr_params->base_v_increment;
+			this->setVacuumPercentage(perc);
 			
-		}
+		}*/
 
+		double perc = m_v_perc + m_pr_params->base_v_increment;
+		this->setVacuumPercentage(perc);
 		updateFlowControlPercentages();
 	}
 }
@@ -405,7 +409,7 @@ void Labonatip_GUI::vacuumMinus() {
 		 << QTime::currentTime().toString().toStdString() << "  "
 		 << "Labonatip_GUI::vacuumMinus    " << endl;
 
-	// -5% v_recirculation
+	// -x% v_recirculation
 	if (m_pipette_active) {
 		bool success = false; 
 		if (m_pr_params->useDefValSetPoint)
@@ -435,7 +439,7 @@ void Labonatip_GUI::vacuumMinus() {
 	}
 	if (m_simulationOnly) {
 
-		if (m_v_perc < MIN_VACUUM_PERC + m_pr_params->base_v_increment) {
+		/*if (m_v_perc < MIN_VACUUM_PERC + m_pr_params->base_v_increment) {
 			QMessageBox::information(this, m_str_warning, 
 				m_str_operation_cannot_be_done); 
 			return;
@@ -444,13 +448,16 @@ void Labonatip_GUI::vacuumMinus() {
 		if (ui->horizontalSlider_recirculation->value() == 0) {
 			QMessageBox::information(this, m_str_warning,
 				m_str_operation_cannot_be_done + "<br>" + m_str_out_of_bound);
-		}
+		}*/
 
-		double value = m_pipette_status->v_recirc_set_point + m_pr_params->v_recirc_default * m_pr_params->base_v_increment / 100.0;
-		cout << "Labonatip_GUI::vacuumMinus    ::: new recirculation value " << value << endl;
-		updateVrecircSetPoint(value);
+		//double value = m_pipette_status->v_recirc_set_point +
+		//	m_pr_params->v_recirc_default * m_pr_params->base_v_increment / 100.0;
+		//cout << "Labonatip_GUI::vacuumMinus    ::: new recirculation value " << value << endl;
+		//updateVrecircSetPoint(value);
+		double perc = m_v_perc - m_pr_params->base_v_increment;
+		this->setVacuumPercentage(perc);
 
-		updateFlowControlPercentages();
+		//updateFlowControlPercentages();
 	}
 }
 
@@ -462,6 +469,24 @@ void Labonatip_GUI::setDropletSizePercentage(double _perc)
 
 	if (m_simulationOnly) {
 		
+		if (_perc < MIN_ZONE_SIZE_PERC || _perc > MAX_ZONE_SIZE_PERC ) {
+			QMessageBox::information(this, m_str_warning,
+				m_str_operation_cannot_be_done);
+			return;
+		}
+
+		double perc = _perc/ 100.0;
+
+		double delta = (1.0 - std::pow(perc, (1.0 / 3.0)));
+		double value = -m_pr_params->v_recirc_default -
+				m_pr_params->v_recirc_default * delta;
+
+		updateVrecircSetPoint(value);
+		
+		delta = (1.0 - std::pow(perc, (1.0 / 3.0)));
+		value = m_pr_params->p_on_default - m_pr_params->p_on_default  * delta;
+
+		updatePonSetPoint(value);
 		
 	}
 }
@@ -473,7 +498,26 @@ void Labonatip_GUI::setFlowspeedPercentage(double _perc)
 		<< "Labonatip_GUI::setFlowSpeed    " << _perc << endl;
 
 	if (m_simulationOnly) {
+		if (_perc < MIN_FLOW_SPEED_PERC || _perc > MAX_FLOW_SPEED_PERC) {
+		//if (m_fs_perc > MAX_FLOW_SPEED_PERC - m_pr_params->base_fs_increment) {
+			QMessageBox::information(this, m_str_warning,
+				m_str_operation_cannot_be_done);
+			return;
+		}
 
+		double value = m_pr_params->p_on_default *  _perc / 100.0;
+		updatePonSetPoint(value);
+
+		value = m_pr_params->p_off_default * _perc / 100.0;
+		updatePoffSetPoint(value);
+
+		value = -m_pr_params->v_switch_default * _perc / 100.0;
+		updateVswitchSetPoint(value);
+
+		value = -m_pr_params->v_recirc_default * _perc / 100.0;
+		updateVrecircSetPoint(value);
+
+		updateFlowControlPercentages();
 	}
 }
 
