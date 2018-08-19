@@ -69,14 +69,14 @@ void Labonatip_GUI::onProtocolClicked(QTreeWidgetItem *item, int column)
 	if (resBtn == QMessageBox::Yes) {
 		m_reader->readProtocol(protocol_path);
 		addAllCommandsToProtocol();
-		m_current_protocol_file_path = protocol_path;
+		m_current_protocol_file_name = protocol_path;
 	}
 	if (resBtn == QMessageBox::No)
 	{
 		clearAllCommands(); 
 		m_reader->readProtocol(protocol_path);
 		addAllCommandsToProtocol();
-		m_current_protocol_file_path = protocol_path;
+		m_current_protocol_file_name = protocol_path;
 
 	}
 	if (resBtn == QMessageBox::Cancel)
