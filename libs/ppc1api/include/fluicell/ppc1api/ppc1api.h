@@ -265,6 +265,12 @@ namespace fluicell
 		*/
 		const std::string currentDateTime();
 
+		//some useful constants to decode the data messages
+		const char m_separator = *"|";              // separator between data
+		const char m_decimal_separator = *".";      // decimal separator
+		const char m_minus = *"-";					// minus sign
+		const char m_end_line = *"\n";				// minus sign
+
 		// Serial port configuration parameters, only serial port number 
 		// and baud rate are configurable for the user, this is intentional!
 		serial::Serial *m_PPC1_serial;  //!< Pointer to serial port communication class

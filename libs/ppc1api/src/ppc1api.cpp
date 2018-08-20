@@ -335,18 +335,14 @@ bool fluicell::PPC1api::decodeChannelLine(const string &_data, vector<double> &_
 	//cerr << _data.c_str() << endl;
 	_line.clear();
 	unsigned int byte_counter = 2;              // in the line 0 is letter and 1 is the separator e.g. A|
-	const char separator[] = "|";               // separator between data
-	const char decimal_separator[] = ".";       // separator between data
-	const char minus[] = "-";					// minus sign
-	const char end_line[] = "\n";				// minus sign
 	while (byte_counter < _data.length())       // scan the whole string
 	{
 		string value;
 		// extract line 
 		// extract the value before the character "new line"
-		while (_data.at(byte_counter) != *separator)
+		while (_data.at(byte_counter) != m_separator)//*separator)
 		{
-			if (_data.at(byte_counter) == *end_line) // if the char is the endline the function break
+			if (_data.at(byte_counter) == m_end_line) // if the char is the endline the function break
 			{
 				_line.push_back(stod(value));
 				break;
@@ -355,8 +351,8 @@ bool fluicell::PPC1api::decodeChannelLine(const string &_data, vector<double> &_
 			// check the char for validity
 			// this is to make sure that stod function get an actual number instead of a character 
 			if (!isdigit(_data.at(byte_counter))) // if the char is not a digit
-				if (_data.at(byte_counter) != *minus) // if the char is not the minus sign
-					if (_data.at(byte_counter) != *decimal_separator) // if the char is not the decimal separator
+				if (_data.at(byte_counter) != m_minus) // if the char is not the minus sign
+					if (_data.at(byte_counter) != m_decimal_separator) // if the char is not the decimal separator
 					{
 						return false;  // something is wrong with the string (not a number)
 					}

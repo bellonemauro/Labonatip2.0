@@ -122,7 +122,6 @@ namespace fluicell
 											 	 see function getFlow()-- default value 0.124 m; */
 			#define PPC1_VID "16D0"  //!< device vendor ID
 			#define PPC1_PID "083A"  //!< device product ID
-			  
 			   
 			/**  \brief Channel data structure 
 			*
