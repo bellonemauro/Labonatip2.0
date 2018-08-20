@@ -21,6 +21,9 @@ if(COMMAND cmake_policy) #return true if the COMMAND cmake_policy exist - this a
 	# We don't want to mix relative and absolute paths in linker lib lists.
 	cmake_policy(SET CMP0003 NEW) # Required by CMake 2.7+
 	
+	#Show error on non-existent dependency in add_dependencies - see https://cmake.org/cmake/help/v3.0/policy/CMP0046.html
+	cmake_policy(SET CMP0046 NEW) 
+	
 	# avoid link warnings - see http://www.cmake.org/cmake/help/v3.0/policy/CMP0015.html
 	cmake_policy(SET CMP0015 NEW)
 	
