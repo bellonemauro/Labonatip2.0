@@ -122,7 +122,6 @@ namespace fluicell
 											 	 see function getFlow()-- default value 0.124 m; */
 			#define PPC1_VID "16D0"  //!< device vendor ID
 			#define PPC1_PID "083A"  //!< device product ID
-			  
 			   
 			/**  \brief Channel data structure 
 			*
@@ -254,6 +253,7 @@ namespace fluicell
 			bool trigger_fall;   //!< this is false always, it becomes true when the trigger (fall) is detected
 			bool trigger_rise;  //!< this is false always, it becomes true when the trigger (rise) is detected
 			bool TTL_out_trigger;    //!< true = high, false = low
+			bool data_corrupted;     //!< true in case of corrupted data, false otherwise
 
 		public:
 
@@ -269,7 +269,8 @@ namespace fluicell
 				ppc1_IN(0), ppc1_OUT(0),
 				TTL_out_trigger(false),
 				trigger_fall(false),
-				trigger_rise(false)
+				trigger_rise(false),
+				data_corrupted(false)
 			{ }
 
 			/**  \brief Set size for the rolling average filter

@@ -247,6 +247,20 @@ void Labonatip_GUI::runProtocol() {
 			&Labonatip_macroRunner::pumpOff, this,
 			&Labonatip_GUI::pumpingOff);
 
+
+		connect(m_macroRunner_thread,
+			&Labonatip_macroRunner::setDropletSizeSIG, this,
+			&Labonatip_GUI::setDropletSizePercentage);
+
+		connect(m_macroRunner_thread,
+			&Labonatip_macroRunner::setFlowSpeedSIG, this,
+			&Labonatip_GUI::setFlowspeedPercentage);
+
+		connect(m_macroRunner_thread,
+			&Labonatip_macroRunner::setVacuumSIG, this,
+			&Labonatip_GUI::setVacuumPercentage);
+
+
 		m_macroRunner_thread->start();
 
 		ui->groupBox_deliveryZone->setEnabled(false);
@@ -399,6 +413,18 @@ void Labonatip_GUI::protocolFinished(const QString &_result) {
 	disconnect(m_macroRunner_thread,
 		&Labonatip_macroRunner::pumpOff, this,
 		&Labonatip_GUI::pumpingOff);
+
+	disconnect(m_macroRunner_thread,
+		&Labonatip_macroRunner::setDropletSizeSIG, this,
+		&Labonatip_GUI::setDropletSizePercentage);
+
+	disconnect(m_macroRunner_thread,
+		&Labonatip_macroRunner::setFlowSpeedSIG, this,
+		&Labonatip_GUI::setFlowspeedPercentage);
+
+	disconnect(m_macroRunner_thread,
+		&Labonatip_macroRunner::setVacuumSIG, this,
+		&Labonatip_GUI::setVacuumPercentage);
 	
 
 }

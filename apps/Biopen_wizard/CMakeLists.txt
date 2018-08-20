@@ -154,7 +154,7 @@ elseif(BUILD_QT5)
 	
 	# step2: 
 	# create translation files
-	#qt5_create_translation(QT_TRANSLATIONS_FILES ${myProject_LANGUAGES_DIR} ${myProject_LANGUAGES_TS})
+	qt5_create_translation(QT_TRANSLATIONS_FILES ${myProject_LANGUAGES_DIR} ${myProject_LANGUAGES_TS})
 	SET (TRANSLATION_GENERATOR "${QT5_BINARY_DIR}/lrelease.exe")
 	if ( ENABLE_verbose )
 		message (STATUS "${PROJECT_NAME} MESSAGE: myProject_LANGUAGES_TS  :: ${myProject_LANGUAGES_TS} ")
@@ -165,8 +165,7 @@ elseif(BUILD_QT5)
 
 	# step 3 
 	# run the command  " lrelease.exe _file.ts _file.qm " for each ts file 
-	# TODO: this is to be checked in linux, as in windows visual studio is able to generate 
-	# the translations at step 2
+	# TODO: this is to be checked in linux
 	if(WIN32)
 	set (idx 0)
 	  FOREACH(F1 ${myProject_LANGUAGES_TS})

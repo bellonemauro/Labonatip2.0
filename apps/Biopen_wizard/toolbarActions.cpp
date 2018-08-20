@@ -47,7 +47,7 @@ bool Labonatip_GUI::loadProtocol()
 	if (m_reader->readProtocol(file_name))
 	{
 		addAllCommandsToProtocol();
-		m_current_protocol_file_path = file_name;
+		m_current_protocol_file_name = file_name;
 		return true;
 	}
 	return false;
@@ -99,7 +99,7 @@ bool Labonatip_GUI::saveProtocol()
 		<< "Labonatip_protocol_editor::saveProtocol    " << endl;
 
     // if we are working with a new protocol, saveAs	
-	if (m_current_protocol_file_path.isEmpty())
+	if (m_current_protocol_file_name.isEmpty())
 	{
 		if (!saveProtocolAs()) return false;
 		else return true;
@@ -107,16 +107,16 @@ bool Labonatip_GUI::saveProtocol()
 
 	// if the name is not empty, we ask if the user want to save as
 	QMessageBox::StandardButton resBtn = QMessageBox::question(this, m_str_warning,
-		m_str_current_prot_name + "<br>" + m_current_protocol_file_path +
+		m_str_current_prot_name + "<br>" + m_current_protocol_file_name +
 		"<br>" + m_str_question_override + "<br>" + m_str_override_guide,
 		QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
 		QMessageBox::Yes);
 	if (resBtn == QMessageBox::Yes) {
 		// yes = override
-		if (!m_writer->saveProtocol(m_current_protocol_file_path)) {
+		if (!m_writer->saveProtocol(m_current_protocol_file_name)) {
 			QApplication::restoreOverrideCursor();    
 			QMessageBox::warning(this, m_str_warning, 
-				m_str_file_not_saved + "<br>" + m_current_protocol_file_path);
+				m_str_file_not_saved + "<br>" + m_current_protocol_file_name);
 			return false;
 		}
 	}
@@ -152,7 +152,7 @@ bool Labonatip_GUI::saveProtocolAs()
 		return false;
 	}
 	readProtocolFolder(m_protocol_path);
-	m_current_protocol_file_name = file_name;
+	m_current_protocol_file_name = file_name; //TODO: this does not work properly
 	QApplication::restoreOverrideCursor();    
 	return true;
 }

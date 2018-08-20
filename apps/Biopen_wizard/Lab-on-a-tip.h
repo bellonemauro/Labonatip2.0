@@ -472,14 +472,6 @@ private slots:
 	*/
 	void vacuumMinus();
 
-	/** \brief Update flow control percentages
-	*
-	*   Only in simulation recalculate the percentages 
-	*   according to the same method in the PPC1 api
-	*/
-	void updateFlowControlPercentages();
-
-
 	/** \brief Load icon pressed
 	*
 	*   When the load icon is pressed an automatic detection of GUI status
@@ -671,6 +663,20 @@ private:
 	*/
 	void updateVswitchSetPoint(double _v_switch_set_point);
 
+	/** \brief Update flow control percentages
+	*
+	*   Only in simulation recalculate the percentages
+	*   according to the same method in the PPC1 api
+	*/
+	void updateFlowControlPercentages();
+
+
+	void setDropletSizePercentage(double _perc = 100.0);
+	void setFlowspeedPercentage(double _perc = 100.0);
+	void setVacuumPercentage(double _perc = 100.0);
+
+
+
 	/** \brief Generate a style sheet to change the weels drawing in the pipette
 	*
 	*  @param _r  red
@@ -855,7 +861,6 @@ private:
   int m_time_multipilcator;           //!< used to set the update time for the timers
   int m_timer_solution;               //!< duration of injection for solution 
   double m_protocol_duration;         //!< this is the timeline for the protocol execution
-  QString m_current_protocol_file_path;
   QString m_current_protocol_file_name;
 
   //GUI stuff for drawing solution flow, remember to NEVER change this values manually, 

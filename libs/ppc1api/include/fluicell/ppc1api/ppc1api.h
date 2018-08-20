@@ -188,14 +188,16 @@ namespace fluicell
           *
 		  * \return true if success, false for any error
 		  *
-		  * \note
+		  * \note _PPC1_data will hold the last value in case of any error
 		  */
 		bool decodeDataLine(const string &_data, PPC1_data * _PPC1_data);
 
 		/**  \brief Decode one channel line
 		*
-		*    the channel line contains the following fields:
+		*    The channel line contains the following fields:
+		*
 		*          Channel character | set point | sensor reading | PID output duty cycle | state \n
+		*
 		*    example of input data : B|-0.000000|0.034291|0.000000|0\n
 		*
 		*  @param _data  input data to be decoded
@@ -203,7 +205,7 @@ namespace fluicell
 		*
 		* \return true if success, false for any error (for instance broken messages)
 		*
-		* \note
+		* \note False occur for: empty data, NaN in the string, wrong data size
 		*/
 		bool decodeChannelLine(const string &_data, vector<double> &_line);
 
@@ -262,6 +264,12 @@ namespace fluicell
 		* \return a string
 		*/
 		const std::string currentDateTime();
+
+		//some useful constants to decode the data messages
+		const char m_separator = *"|";              // separator between data
+		const char m_decimal_separator = *".";      // decimal separator
+		const char m_minus = *"-";					// minus sign
+		const char m_end_line = *"\n";				// minus sign
 
 		// Serial port configuration parameters, only serial port number 
 		// and baud rate are configurable for the user, this is intentional!
@@ -972,6 +980,13 @@ namespace fluicell
 		*  \return int error flag
 		**/
 		int getPonState() { return m_PPC1_data->channel_D->state; }
+
+		/** \brief Get the communication state from the currupted data flag
+		*
+		*  \return true if communication is ok, false in case of corrupted data
+		**/
+		bool getCommunicationState() { return !m_PPC1_data->data_corrupted; }
+
 
 		/** \brief Check if the well 1 is open
 		*
