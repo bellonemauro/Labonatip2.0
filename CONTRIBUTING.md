@@ -34,13 +34,8 @@ implementing features, refactoring code), otherwise you risk spending a lot of
 time working on something that the project's developers might not want to merge
 into the project. 
 
-
-
-<a name="checklist"></a>
-### Checklist
-
-Please use the following checklist to make sure that your contribution is well
-prepared for merging into this project:
+If you are new to Git, GitHub, or contributing to an open-source project, you
+may want to consult some of the many step by step guides on preparing and submit a pull request.
 
 
 
