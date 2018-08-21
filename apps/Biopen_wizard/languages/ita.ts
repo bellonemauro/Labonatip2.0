@@ -5,1089 +5,1089 @@
     <name>Labonatip_GUI</name>
     <message>
         <source>E&amp;xit</source>
-        <translation type="vanished">E&amp;sci</translation>
+        <translation>E&amp;sci</translation>
     </message>
     <message>
         <source>&amp;File</source>
-        <translation type="vanished">&amp;File</translation>
+        <translation>&amp;File</translation>
     </message>
     <message>
         <source>Load profile</source>
-        <translation type="vanished">Carica profilo</translation>
+        <translation>Carica profilo</translation>
     </message>
     <message>
         <source>Save profile</source>
-        <translation type="vanished">Salva profilo</translation>
+        <translation>Salva profilo</translation>
     </message>
     <message>
         <source>Editor</source>
-        <translation type="vanished">Editor</translation>
+        <translation>Editor</translation>
     </message>
     <message>
         <source>Tools</source>
-        <translation type="vanished">Strumenti</translation>
+        <translation>Strumenti</translation>
     </message>
     <message>
         <source>Simulation</source>
-        <translation type="vanished">Simula</translation>
+        <translation>Simula</translation>
     </message>
     <message>
         <source>Connect</source>
-        <translation type="vanished">Connetti</translation>
+        <translation>Connetti</translation>
     </message>
     <message>
         <source>Reset</source>
-        <translation type="vanished">Resetta</translation>
+        <translation>Resetta</translation>
     </message>
     <message>
         <source>Reboot</source>
-        <translation type="vanished">Riavvia</translation>
+        <translation>Riavvia</translation>
     </message>
     <message>
         <source>Shutdown</source>
-        <translation type="vanished">Spegni</translation>
+        <translation>Spegni</translation>
     </message>
     <message>
         <source>Advanced</source>
-        <translation type="vanished">Avanzato</translation>
+        <translation>Avanzato</translation>
     </message>
     <message>
         <source>Basic</source>
-        <translation type="vanished">Base</translation>
+        <translation>Base</translation>
     </message>
     <message>
         <source>Actions</source>
-        <translation type="vanished">Azioni</translation>
+        <translation>Azioni</translation>
     </message>
     <message>
         <source>User :</source>
-        <translation type="vanished">Utente :</translation>
+        <translation>Utente :</translation>
     </message>
     <message>
         <source>ACTIONS</source>
-        <translation type="vanished">AZIONI</translation>
+        <translation>AZIONI</translation>
     </message>
     <message>
         <source>New tip</source>
-        <translation type="vanished">New tip</translation>
+        <translation>New tip</translation>
     </message>
     <message>
         <source>Operational</source>
-        <translation type="vanished">Esercizio</translation>
+        <translation>Esercizio</translation>
     </message>
     <message>
         <source>Stop</source>
-        <translation type="vanished">Stop</translation>
+        <translation>Stop</translation>
     </message>
     <message>
         <source>Standby</source>
-        <translation type="vanished">Standby</translation>
+        <translation>Standby</translation>
     </message>
     <message>
         <source>Delivery Zone Control</source>
-        <translation type="vanished">Controllo di zona</translation>
+        <translation>Controllo di zona</translation>
     </message>
     <message>
         <source>DELIVERY ZONE CONTROL</source>
-        <translation type="vanished">CONTROLLO DI ZONA</translation>
+        <translation>CONTROLLO DI ZONA</translation>
     </message>
     <message>
         <source>Zone size</source>
-        <translation type="vanished">Dimensione zona</translation>
+        <translation>Dimensione zona</translation>
     </message>
     <message>
         <source>Flow speed</source>
-        <translation type="vanished">Velocità del flusso</translation>
+        <translation>Velocità del flusso</translation>
     </message>
     <message>
         <source>Vacuum</source>
-        <translation type="vanished">Aspirazione</translation>
+        <translation>Aspirazione</translation>
     </message>
     <message>
         <source>Waste</source>
-        <translation type="vanished">Scarto</translation>
+        <translation>Scarto</translation>
     </message>
     <message>
         <source>full in</source>
-        <translation type="vanished">pieno in</translation>
+        <translation>pieno in</translation>
     </message>
     <message>
         <source>WASTE</source>
-        <translation type="vanished">SCARTO</translation>
+        <translation>SCARTO</translation>
     </message>
     <message>
         <source>Solutions</source>
-        <translation type="vanished">Soluzioni</translation>
+        <translation>Soluzioni</translation>
     </message>
     <message>
         <source>SOLUTIONS</source>
-        <translation type="vanished">SOLUZIONI</translation>
+        <translation>SOLUZIONI</translation>
     </message>
     <message>
         <source>External</source>
-        <translation type="vanished">Esterno</translation>
+        <translation>Esterno</translation>
     </message>
     <message>
         <source>Internal</source>
-        <translation type="vanished">Interno</translation>
+        <translation>Interno</translation>
     </message>
     <message>
         <source>Controls</source>
-        <translation type="vanished">Comandi</translation>
+        <translation>Comandi</translation>
     </message>
     <message>
         <source>Info</source>
-        <translation type="vanished">Info</translation>
+        <translation>Info</translation>
     </message>
     <message>
         <source>History</source>
-        <translation type="vanished">Cronologia</translation>
+        <translation>Cronologia</translation>
     </message>
     <message>
         <source>Waiting ...</source>
-        <translation type="vanished">Attendi ...</translation>
+        <translation>Attendi ...</translation>
     </message>
     <message>
         <source>Are you sure?</source>
-        <translation type="vanished">Sei sicuro?</translation>
+        <translation>Sei sicuro?</translation>
     </message>
     <message>
         <source>Set as default</source>
-        <translation type="vanished">Imposta come predefinito</translation>
+        <translation>Imposta come predefinito</translation>
     </message>
     <message>
         <source>Operation cancelled</source>
-        <translation type="vanished">Operazione annullata</translation>
+        <translation>Operazione annullata</translation>
     </message>
     <message>
         <source>No file loaded</source>
-        <translation type="vanished">Nessun file caricato</translation>
+        <translation>Nessun file caricato</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="vanished">Sì</translation>
+        <translation>Sì</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="vanished">No</translation>
+        <translation>No</translation>
     </message>
     <message>
         <source>Ok</source>
-        <translation type="vanished">Ok</translation>
+        <translation>Ok</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="vanished">Annulla</translation>
+        <translation>Annulla</translation>
     </message>
     <message>
         <source>Apply</source>
-        <translation type="vanished">Applica</translation>
+        <translation>Applica</translation>
     </message>
     <message>
         <source>Simulation time</source>
-        <translation type="vanished">Tempo di simulazione</translation>
+        <translation>Tempo di simulazione</translation>
     </message>
     <message>
         <source>Command history</source>
-        <translation type="vanished">Cronologia comandi</translation>
+        <translation>Cronologia comandi</translation>
     </message>
     <message>
         <source>Error messages</source>
-        <translation type="vanished">Errori</translation>
+        <translation>Errori</translation>
     </message>
     <message>
         <source>Enable history</source>
-        <translation type="vanished">Abilita cronologia</translation>
+        <translation>Abilita cronologia</translation>
     </message>
     <message>
         <source>Dump history to file</source>
-        <translation type="vanished">Salva cronologia su file</translation>
+        <translation>Salva cronologia su file</translation>
     </message>
     <message>
         <source>Verbose output</source>
-        <translation type="vanished">Verbose output</translation>
+        <translation>Verbose output</translation>
     </message>
     <message>
         <source>Clear history</source>
-        <translation type="vanished">Pulisci cronologia</translation>
+        <translation>Pulisci cronologia</translation>
     </message>
     <message>
         <source>Output file path</source>
-        <translation type="vanished">Percorso file</translation>
+        <translation>Percorso file</translation>
     </message>
     <message>
         <source>Value</source>
-        <translation type="vanished">Valore</translation>
+        <translation>Valore</translation>
     </message>
     <message>
         <source>Outflow ( nL/s )</source>
-        <translation type="vanished">Flusso di mandata ( nL/s )</translation>
+        <translation>Flusso di mandata ( nL/s )</translation>
     </message>
     <message>
         <source>Inflow recirc ( nL/s )</source>
-        <translation type="vanished">Flusso di ricircolazione ( nL/s )</translation>
+        <translation>Flusso di ricircolazione ( nL/s )</translation>
     </message>
     <message>
         <source>Inflow switch ( nL/s )</source>
-        <translation type="vanished">Flusso di aspirazione switch ( nL/s )</translation>
+        <translation>Flusso di aspirazione switch ( nL/s )</translation>
     </message>
     <message>
         <source>Ratio</source>
-        <translation type="vanished">Rapporto</translation>
+        <translation>Rapporto</translation>
     </message>
     <message>
         <source>Flow rate 1 ( nL/s )</source>
-        <translation type="vanished">Flusso 1 ( nL/s )</translation>
+        <translation>Flusso 1 ( nL/s )</translation>
     </message>
     <message>
         <source>Flow rate 2 ( nL/s )</source>
-        <translation type="vanished">Flusso 2 ( nL/s )</translation>
+        <translation>Flusso 2 ( nL/s )</translation>
     </message>
     <message>
         <source>Flow rate 3 ( nL/s )</source>
-        <translation type="vanished">Flusso 3 ( nL/s )</translation>
+        <translation>Flusso 3 ( nL/s )</translation>
     </message>
     <message>
         <source>Flow rate 4 ( nL/s )</source>
-        <translation type="vanished">Flusso 4 ( nL/s )</translation>
+        <translation>Flusso 4 ( nL/s )</translation>
     </message>
     <message>
         <source>Flow rate 5 ( nL/s )</source>
-        <translation type="vanished">Flusso 5 ( nL/s )</translation>
+        <translation>Flusso 5 ( nL/s )</translation>
     </message>
     <message>
         <source>Flow rate 6 ( nL/s )</source>
-        <translation type="vanished">Flusso 6 ( nL/s )</translation>
+        <translation>Flusso 6 ( nL/s )</translation>
     </message>
     <message>
         <source>Flow rate 7 ( nL/s )</source>
-        <translation type="vanished">Flusso 7 ( nL/s )</translation>
+        <translation>Flusso 7 ( nL/s )</translation>
     </message>
     <message>
         <source>Flow rate 8 ( nL/s )</source>
-        <translation type="vanished">Flusso 8 ( nL/s )</translation>
+        <translation>Flusso 8 ( nL/s )</translation>
     </message>
     <message>
         <source>Volume in well 1 (uL)</source>
-        <translation type="vanished">Volume nell&apos;ugello 1 ( nL/s )</translation>
+        <translation>Volume nell&apos;ugello 1 ( nL/s )</translation>
     </message>
     <message>
         <source>Volume in well 2 (uL)</source>
-        <translation type="vanished">Volume nell&apos;ugello 2 ( nL/s )</translation>
+        <translation>Volume nell&apos;ugello 2 ( nL/s )</translation>
     </message>
     <message>
         <source>Volume in well 3 (uL)</source>
-        <translation type="vanished">Volume nell&apos;ugello 3 ( nL/s )</translation>
+        <translation>Volume nell&apos;ugello 3 ( nL/s )</translation>
     </message>
     <message>
         <source>Volume in well 4 (uL)</source>
-        <translation type="vanished">Volume nell&apos;ugello 4 ( nL/s )</translation>
+        <translation>Volume nell&apos;ugello 4 ( nL/s )</translation>
     </message>
     <message>
         <source>Volume in well 5 (uL)</source>
-        <translation type="vanished">Volume nell&apos;ugello 5 ( nL/s )</translation>
+        <translation>Volume nell&apos;ugello 5 ( nL/s )</translation>
     </message>
     <message>
         <source>Volume in well 6 (uL)</source>
-        <translation type="vanished">Volume nell&apos;ugello 6 ( nL/s )</translation>
+        <translation>Volume nell&apos;ugello 6 ( nL/s )</translation>
     </message>
     <message>
         <source>Volume in well 7 (uL)</source>
-        <translation type="vanished">Volume nell&apos;ugello 7 ( nL/s )</translation>
+        <translation>Volume nell&apos;ugello 7 ( nL/s )</translation>
     </message>
     <message>
         <source>Volume in well 8 (uL)</source>
-        <translation type="vanished">Volume nell&apos;ugello 8 ( nL/s )</translation>
+        <translation>Volume nell&apos;ugello 8 ( nL/s )</translation>
     </message>
     <message>
         <source>Information</source>
-        <translation type="vanished">Informazione</translation>
+        <translation>Informazione</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation type="vanished">Attenzione</translation>
+        <translation>Attenzione</translation>
     </message>
     <message>
         <source>Error</source>
-        <translation type="vanished">Errore</translation>
+        <translation>Errore</translation>
     </message>
     <message>
         <source>PPC1 STATUS: Connected  </source>
-        <translation type="vanished">Stato PPC1: Connesso  </translation>
+        <translation>Stato PPC1: Connesso  </translation>
     </message>
     <message>
         <source>PPC1 STATUS: NOT Connected  </source>
-        <translation type="vanished">Stato PPC1: NON Connesso  </translation>
+        <translation>Stato PPC1: NON Connesso  </translation>
     </message>
     <message>
         <source>No protocol running  </source>
-        <translation type="vanished">Nessun protocollo in esecuzione  </translation>
+        <translation>Nessun protocollo in esecuzione  </translation>
     </message>
     <message>
         <source>Disconnect</source>
-        <translation type="vanished">Disconnetti</translation>
+        <translation>Disconnetti</translation>
     </message>
     <message>
         <source>Cannot save the file</source>
-        <translation type="vanished">Impossibile salvare il file</translation>
+        <translation>Impossibile salvare il file</translation>
     </message>
     <message>
         <source>Cannot load the file</source>
-        <translation type="vanished">Impossibile caricare il file</translation>
+        <translation>Impossibile caricare il file</translation>
     </message>
     <message>
         <source>The program is in simulation mode</source>
-        <translation type="vanished">L&apos;applicazione è in modalità di simulazione</translation>
+        <translation>L&apos;applicazione è in modalità di simulazione</translation>
     </message>
     <message>
         <source>Unable to connect to PPC1</source>
-        <translation type="vanished">Impossibile connettersi al PPC1</translation>
+        <translation>Impossibile connettersi al PPC1</translation>
     </message>
     <message>
         <source>Unable to connect to PPC1 twice</source>
-        <translation type="vanished">Impossibile collegarsi per la seconda volta</translation>
+        <translation>Impossibile collegarsi per la seconda volta</translation>
     </message>
     <message>
         <source>Please, check cables and settings and press Ok</source>
-        <translation type="vanished">Controlla cavi e settaggi e premi Ok</translation>
+        <translation>Controlla cavi e settaggi e premi Ok</translation>
     </message>
     <message>
         <source>Automatically identify the connected device?</source>
-        <translation type="vanished">Identificare automaticamente il dispositivo ?</translation>
+        <translation>Identificare automaticamente il dispositivo ?</translation>
     </message>
     <message>
         <source>PPC1 is connected but not running</source>
-        <translation type="vanished">PPC1 connesso ma non è in esecuzione</translation>
+        <translation>PPC1 connesso ma non è in esecuzione</translation>
     </message>
     <message>
         <source>This will stop the PPC1</source>
-        <translation type="vanished">Questo fermerà il PPC1</translation>
+        <translation>Questo fermerà il PPC1</translation>
     </message>
     <message>
         <source>Unable to stop and disconnect PPC1</source>
-        <translation type="vanished">Impossibile fermare e disconnettere il PPC1</translation>
+        <translation>Impossibile fermare e disconnettere il PPC1</translation>
     </message>
     <message>
         <source>Shutdown pressed, this will take 30 seconds, press Ok to continue, cancel to abort</source>
-        <translation type="vanished">Shutdown avviato, la procedura richiederà 30 secondi, premi Ok per continuare, annulla per uscire.</translation>
+        <translation>Shutdown avviato, la procedura richiederà 30 secondi, premi Ok per continuare, annulla per uscire.</translation>
     </message>
     <message>
         <source>The pressure is off, waiting for the vacuum</source>
-        <translation type="vanished">La pressione è disattivata, aspetta l&apos;attivazione dell&apos;aspirazione</translation>
+        <translation>La pressione è disattivata, aspetta l&apos;attivazione dell&apos;aspirazione</translation>
     </message>
     <message>
         <source>Vacuum off, stopping the flow in the device</source>
-        <translation type="vanished">Aspirazione disattivata, sto fermando il flusso nel dispositivo</translation>
+        <translation>Aspirazione disattivata, sto fermando il flusso nel dispositivo</translation>
     </message>
     <message>
         <source>Rebooting ...</source>
-        <translation type="vanished">Riavvio ...</translation>
+        <translation>Riavvio ...</translation>
     </message>
     <message>
         <source>Reconnecting ...</source>
-        <translation type="vanished">Riconnessione ...</translation>
+        <translation>Riconnessione ...</translation>
     </message>
     <message>
         <source>Initialization</source>
-        <translation type="vanished">Inizializzazione</translation>
+        <translation>Inizializzazione</translation>
     </message>
     <message>
         <source>Place the pipette into the holder and tighten. THEN PRESS OK</source>
-        <translation type="vanished">Inserisci la pippetta nel supporto è schiaccia. DOPO PREMI OK</translation>
+        <translation>Inserisci la pippetta nel supporto è schiaccia. DOPO PREMI OK</translation>
     </message>
     <message>
         <source>Pressurize the system</source>
-        <translation type="vanished">Pressurizzazione del sistema</translation>
+        <translation>Pressurizzazione del sistema</translation>
     </message>
     <message>
         <source>Wait until a droplet appears at the tip of the pipette and THEN PRESS OK</source>
-        <translation type="vanished">Aspetta che la goccia appaia alla punta della pippetta e POI PREMI OK</translation>
+        <translation>Aspetta che la goccia appaia alla punta della pippetta e POI PREMI OK</translation>
     </message>
     <message>
         <source>Purging the liquid channels</source>
-        <translation type="vanished">Pulizia del liquido nei canali</translation>
+        <translation>Pulizia del liquido nei canali</translation>
     </message>
     <message>
         <source>Still purging the liquid channels</source>
-        <translation type="vanished">Sto ancora pulendo il liquido</translation>
+        <translation>Sto ancora pulendo il liquido</translation>
     </message>
     <message>
         <source>Remove the droplet using a lens tissue. THEN PRESS OK</source>
-        <translation type="vanished">Rimuovi la goccia usando la lente. POI PREMI OK</translation>
+        <translation>Rimuovi la goccia usando la lente. POI PREMI OK</translation>
     </message>
     <message>
         <source>Put the pipette into solution. THEN PRESS OK</source>
-        <translation type="vanished">Metti la pippetta nella soluzione. POI PREMI OK</translation>
+        <translation>Metti la pippetta nella soluzione. POI PREMI OK</translation>
     </message>
     <message>
         <source>Purging the vacuum channels</source>
-        <translation type="vanished">Pulisco i canali di aspirazione</translation>
+        <translation>Pulisco i canali di aspirazione</translation>
     </message>
     <message>
         <source>Establishing operational pressures</source>
-        <translation type="vanished">Riattivazione delle pressioni operative</translation>
+        <translation>Riattivazione delle pressioni operative</translation>
     </message>
     <message>
         <source>Pipette is ready for operation. PRESS OK TO START</source>
-        <translation type="vanished">La pippetta è pronta a operare. PREMI OK PER INIZIARE</translation>
+        <translation>La pippetta è pronta a operare. PREMI OK PER INIZIARE</translation>
     </message>
     <message>
         <source>Pumps are off, depressuring ...</source>
-        <translation type="vanished">Pompe deattivate, depressurizzazione ...</translation>
+        <translation>Pompe deattivate, depressurizzazione ...</translation>
     </message>
     <message>
         <source>Depressuring ...</source>
-        <translation type="vanished">Depressurizzazione ...</translation>
+        <translation>Depressurizzazione ...</translation>
     </message>
     <message>
         <source>Standby operation progress</source>
-        <translation type="vanished">Operazione di spegnimento</translation>
+        <translation>Operazione di spegnimento</translation>
     </message>
     <message>
         <source>Run protocol</source>
-        <translation type="vanished">Esegui protocollo</translation>
+        <translation>Esegui protocollo</translation>
     </message>
     <message>
         <source>Stop protocol</source>
-        <translation type="vanished">Ferma protocollo</translation>
+        <translation>Ferma protocollo</translation>
     </message>
     <message>
         <source>No protocol loaded, load one first</source>
-        <translation type="vanished">Nessun protocollo caricato</translation>
+        <translation>Nessun protocollo caricato</translation>
     </message>
     <message>
         <source>The protocol loaded is : </source>
-        <translation type="vanished">Il protocollo caricato è : </translation>
+        <translation>Il protocollo caricato è : </translation>
     </message>
     <message>
         <source>Press Ok to run the protocol, or press Cancel to load a new one</source>
-        <translation type="vanished">Premi Ok per eseguire il protocollo, oppure premi Annulla per caricarne uno</translation>
+        <translation>Premi Ok per eseguire il protocollo, oppure premi Annulla per caricarne uno</translation>
     </message>
     <message>
         <source>Please, check for out of bound values</source>
-        <translation type="vanished">Controlla che i valori siano nei limiti consentiti</translation>
+        <translation>Controlla che i valori siano nei limiti consentiti</translation>
     </message>
     <message>
         <source>This operation will take </source>
-        <translation type="vanished">Questa operazione richiederà </translation>
+        <translation>Questa operazione richiederà </translation>
     </message>
     <message>
         <source> seconds</source>
-        <translation type="vanished"> secondi</translation>
+        <translation> secondi</translation>
     </message>
     <message>
         <source>Ask message command</source>
-        <translation type="vanished">Comando di richiesta messaggio</translation>
+        <translation>Comando di richiesta messaggio</translation>
     </message>
     <message>
         <source> No protocol loaded : </source>
-        <translation type="vanished"> Nessun protocollo caricato : </translation>
+        <translation> Nessun protocollo caricato : </translation>
     </message>
     <message>
         <source> Protocol loaded : </source>
-        <translation type="vanished"> Protocollo caricato : </translation>
+        <translation> Protocollo caricato : </translation>
     </message>
     <message>
         <source>This will remove all the files in the history folder</source>
-        <translation type="vanished">Questa operazione rimuoverà tutti i file della cronologia</translation>
+        <translation>Questa operazione rimuoverà tutti i file della cronologia</translation>
     </message>
     <message>
         <source>History cleaned</source>
-        <translation type="vanished">Cronologia pulita</translation>
+        <translation>Cronologia pulita</translation>
     </message>
     <message>
         <source> PROTOCOL RUNNING : </source>
-        <translation type="vanished"> PROTOCOLLO IN ESECUZIONE : </translation>
+        <translation> PROTOCOLLO IN ESECUZIONE : </translation>
     </message>
     <message>
         <source> ----- remaining time,  </source>
-        <translation type="vanished"> ----- tempo rimanente,  </translation>
+        <translation> ----- tempo rimanente,  </translation>
     </message>
     <message>
         <source>Pulse time remaining: </source>
-        <translation type="vanished">Tempo di pulsazione rimanente:</translation>
+        <translation>Tempo di pulsazione rimanente:</translation>
     </message>
     <message>
         <source>Continuous flowing</source>
-        <translation type="vanished">Flusso continuo</translation>
+        <translation>Flusso continuo</translation>
     </message>
     <message>
         <source>Warning: the solution is running out</source>
-        <translation type="vanished">Attenzione: la soluzione sta finendo</translation>
+        <translation>Attenzione: la soluzione sta finendo</translation>
     </message>
     <message>
         <source>Warning: the waste is full</source>
-        <translation type="vanished">Attenzione: lo scarto é pieno</translation>
+        <translation>Attenzione: lo scarto é pieno</translation>
     </message>
     <message>
         <source>Operation cannot be done</source>
-        <translation type="vanished">L&apos;operazione non può essere eseguita</translation>
+        <translation>L&apos;operazione non può essere eseguita</translation>
     </message>
     <message>
         <source>A protocol is running, stop the protocol first</source>
-        <translation type="vanished">Un protocollo è già in esecuzione, terminalo prima di continuare</translation>
+        <translation>Un protocollo è già in esecuzione, terminalo prima di continuare</translation>
     </message>
     <message>
         <source>Lost connection with PPC1</source>
-        <translation type="vanished">Persa la connessione con il PPC1</translation>
+        <translation>Persa la connessione con il PPC1</translation>
     </message>
     <message>
         <source>swapping to simulation mode</source>
-        <translation type="vanished">ritorno alla modalità di simulazione</translation>
+        <translation>ritorno alla modalità di simulazione</translation>
     </message>
     <message>
         <source>Current step time left : </source>
-        <translation type="vanished">Tempo rimanente al comando corrente : </translation>
+        <translation>Tempo rimanente al comando corrente : </translation>
     </message>
     <message>
         <source>Load</source>
-        <translation type="vanished">Carica</translation>
+        <translation>Carica</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation type="vanished">Salva</translation>
+        <translation>Salva</translation>
     </message>
     <message>
         <source>Commander</source>
-        <translation type="vanished">Commander</translation>
+        <translation>Commander</translation>
     </message>
     <message>
         <source>Charts</source>
-        <translation type="vanished">Grafici</translation>
+        <translation>Grafici</translation>
     </message>
     <message>
         <source>Params</source>
-        <translation type="vanished">Parametri</translation>
+        <translation>Parametri</translation>
     </message>
     <message>
         <source>Wizard</source>
-        <translation type="vanished">Wizard</translation>
+        <translation>Wizard</translation>
     </message>
     <message>
         <source>Command</source>
-        <translation type="vanished">Comando</translation>
+        <translation>Comando</translation>
     </message>
     <message>
         <source>Status message</source>
-        <translation type="vanished">Messaggio di stato</translation>
+        <translation>Messaggio di stato</translation>
     </message>
     <message>
         <source>Folder</source>
-        <translation type="vanished">Cartella</translation>
+        <translation>Cartella</translation>
     </message>
     <message>
         <source>Load protocol</source>
-        <translation type="vanished">Carica protocollo</translation>
+        <translation>Carica protocollo</translation>
     </message>
     <message>
         <source>Save protocol</source>
-        <translation type="vanished">Salva protocollo</translation>
+        <translation>Salva protocollo</translation>
     </message>
     <message>
         <source>File not found</source>
-        <translation type="vanished">File non trovato</translation>
+        <translation>File non trovato</translation>
     </message>
     <message>
         <source>File not saved</source>
-        <translation type="vanished">File non salvato</translation>
+        <translation>File non salvato</translation>
     </message>
     <message>
         <source>Protocol duration : </source>
-        <translation type="vanished">Durata del protocollo : </translation>
+        <translation>Durata del protocollo : </translation>
     </message>
     <message>
         <source>please check your settings and try again</source>
-        <translation type="vanished">Controlla i settaggi e riprova</translation>
+        <translation>Controlla i settaggi e riprova</translation>
     </message>
     <message>
         <source>This action will remove the file, are you sure?</source>
-        <translation type="vanished">This action will remove the file, are you sure?</translation>
+        <translation>This action will remove the file, are you sure?</translation>
     </message>
     <message>
         <source>Negative level, file corrupted</source>
-        <translation type="vanished">Livello negativo, file corrotto</translation>
+        <translation>Livello negativo, file corrotto</translation>
     </message>
     <message>
         <source>The current protocol file name is</source>
-        <translation type="vanished">Il protocollo corrente è </translation>
+        <translation>Il protocollo corrente è </translation>
     </message>
     <message>
         <source>Do you want to override?</source>
-        <translation type="vanished">lo vuoi sovrascrivere?</translation>
+        <translation>lo vuoi sovrascrivere?</translation>
     </message>
     <message>
         <source>Yes = override, NO = saveAs, Cancel = do nothing</source>
-        <translation type="vanished">Si = sovrascrivi, NO = salva come, Annulla = do nothing</translation>
+        <translation>Si = sovrascrivi, NO = salva come, Annulla = do nothing</translation>
     </message>
     <message>
         <source>Do you want to add to the bottom of the protocol?</source>
-        <translation type="vanished">Do you want to add to the bottom of the protocol?</translation>
+        <translation>Do you want to add to the bottom of the protocol?</translation>
     </message>
     <message>
         <source>Click NO to clean the workspace and load a new protocol</source>
-        <translation type="vanished">Click NO to clean the workspace and load a new protocol</translation>
+        <translation>Click NO to clean the workspace and load a new protocol</translation>
     </message>
     <message>
         <source>Select folder</source>
-        <translation type="vanished">Seleziona la cartella</translation>
+        <translation>Seleziona la cartella</translation>
     </message>
     <message>
         <source>This will clear all items in the current protocol</source>
-        <translation type="vanished">Questo cancellerà tutti i comandi nel tuo protocollo</translation>
+        <translation>Questo cancellerà tutti i comandi nel tuo protocollo</translation>
     </message>
     <message>
         <source>Solution ended, the flow was stopped</source>
-        <translation type="vanished">Soluzione finita, il flusso è stato interrotto</translation>
+        <translation>Soluzione finita, il flusso è stato interrotto</translation>
     </message>
     <message>
         <source>A waste well is full and needs to be emptied. Click Ok to continue</source>
-        <translation type="vanished">Uno degli ugelli di scarto è pieno e dovrebbe essere svuotato. Clicca Ok per continuare</translation>
+        <translation>Uno degli ugelli di scarto è pieno e dovrebbe essere svuotato. Clicca Ok per continuare</translation>
     </message>
     <message>
         <source>PPC1 not connected, TTL test cannot run</source>
-        <translation type="vanished">PPC1 non connecco, il test TTL non può essere eseguito</translation>
+        <translation>PPC1 non connecco, il test TTL non può essere eseguito</translation>
     </message>
 </context>
 <context>
     <name>Labonatip_macroRunner</name>
     <message>
         <source>Success</source>
-        <translation type="vanished">Eseguito</translation>
+        <translation>Eseguito</translation>
     </message>
     <message>
         <source>Failed</source>
-        <translation type="vanished">Fallito</translation>
+        <translation>Fallito</translation>
     </message>
     <message>
         <source>PROTOCOL STOPPED</source>
-        <translation type="vanished">PROTOCOLLO FERMATO</translation>
+        <translation>PROTOCOLLO FERMATO</translation>
     </message>
     <message>
         <source>PPC1 is NOT running, connect and try again</source>
-        <translation type="vanished">Il PPC1 non è in esecuzione, connettilo e riprova</translation>
+        <translation>Il PPC1 non è in esecuzione, connettilo e riprova</translation>
     </message>
 </context>
 <context>
     <name>Labonatip_macroWizard</name>
     <message>
         <source>E&amp;xit</source>
-        <translation type="vanished">E&amp;sci</translation>
+        <translation>E&amp;sci</translation>
     </message>
     <message>
         <source>Initialization</source>
-        <translation type="vanished">Inizializzazione</translation>
+        <translation>Inizializzazione</translation>
     </message>
 </context>
 <context>
     <name>Labonatip_protocolReader</name>
     <message>
         <source>Warning</source>
-        <translation type="vanished">Attenzione</translation>
+        <translation>Attenzione</translation>
     </message>
     <message>
         <source>File not found</source>
-        <translation type="vanished">File non trovato</translation>
+        <translation>File non trovato</translation>
     </message>
     <message>
         <source>Negative level, file corrupted</source>
-        <translation type="vanished">Livello negativo, file corrotto</translation>
+        <translation>Livello negativo, file corrotto</translation>
     </message>
 </context>
 <context>
     <name>Labonatip_protocolWriter</name>
     <message>
         <source>Warning</source>
-        <translation type="vanished">Attenzione</translation>
+        <translation>Attenzione</translation>
     </message>
     <message>
         <source>Check validity failed during protocol saving</source>
-        <translation type="vanished">Controllo di validità fallito durante il salvataggio del protocollo</translation>
+        <translation>Controllo di validità fallito durante il salvataggio del protocollo</translation>
     </message>
     <message>
         <source>Please check your settings and try again</source>
-        <translation type="vanished">Controlla i tuoi settaggi e riprova</translation>
+        <translation>Controlla i tuoi settaggi e riprova</translation>
     </message>
     <message>
         <source>File not saved</source>
-        <translation type="vanished">File non salvato</translation>
+        <translation>File non salvato</translation>
     </message>
 </context>
 <context>
     <name>Labonatip_tools</name>
     <message>
         <source>E&amp;xit</source>
-        <translation type="vanished">E&amp;sci</translation>
+        <translation>E&amp;sci</translation>
     </message>
     <message>
         <source>General</source>
-        <translation type="vanished">Generali</translation>
+        <translation>Generali</translation>
     </message>
     <message>
         <source>Solution</source>
-        <translation type="vanished">Soluzione</translation>
+        <translation>Soluzione</translation>
     </message>
     <message>
         <source>Solutions</source>
-        <translation type="vanished">Soluzioni</translation>
+        <translation>Soluzioni</translation>
     </message>
     <message>
         <source>Empty wells</source>
-        <translation type="vanished">Svuota ugelli</translation>
+        <translation>Svuota ugelli</translation>
     </message>
     <message>
         <source>Empty waste</source>
-        <translation type="vanished">Svuota scarto</translation>
+        <translation>Svuota scarto</translation>
     </message>
     <message>
         <source>Refill solutions</source>
-        <translation type="vanished">Riempi soluzioni</translation>
+        <translation>Riempi soluzioni</translation>
     </message>
     <message>
         <source>Pressures</source>
-        <translation type="vanished">Pressioni</translation>
+        <translation>Pressioni</translation>
     </message>
     <message>
         <source>Communication</source>
-        <translation type="vanished">Comunicazione</translation>
+        <translation>Comunicazione</translation>
     </message>
     <message>
         <source>General settings</source>
-        <translation type="vanished">Impostazioni generali</translation>
+        <translation>Impostazioni generali</translation>
     </message>
     <message>
         <source>Profile name</source>
-        <translation type="vanished">Nome profilo</translation>
+        <translation>Nome profilo</translation>
     </message>
     <message>
         <source>Year</source>
-        <translation type="vanished">Anno</translation>
+        <translation>Anno</translation>
     </message>
     <message>
         <source>Month</source>
-        <translation type="vanished">Mese</translation>
+        <translation>Mese</translation>
     </message>
     <message>
         <source>Language</source>
-        <translation type="vanished">Lingua</translation>
+        <translation>Lingua</translation>
     </message>
     <message>
         <source>Enable history</source>
-        <translation type="vanished">Abilita cronologia</translation>
+        <translation>Abilita cronologia</translation>
     </message>
     <message>
         <source>Dump history to file</source>
-        <translation type="vanished">Salva cronologia su file</translation>
+        <translation>Salva cronologia su file</translation>
     </message>
     <message>
         <source>History cleaned</source>
-        <translation type="vanished">Cronologia cangellata</translation>
+        <translation>Cronologia cangellata</translation>
     </message>
     <message>
         <source>Operation cancelled</source>
-        <translation type="vanished">Operazione annullata</translation>
+        <translation>Operazione annullata</translation>
     </message>
     <message>
         <source>Verbose output</source>
-        <translation type="vanished">Verbose output</translation>
+        <translation>Verbose output</translation>
     </message>
     <message>
         <source>Output file path</source>
-        <translation type="vanished">Percorso file</translation>
+        <translation>Percorso file</translation>
     </message>
     <message>
         <source>Reset to factory defaults</source>
-        <translation type="vanished">Resetta impostazioni di fabbrica</translation>
+        <translation>Resetta impostazioni di fabbrica</translation>
     </message>
     <message>
         <source>Enable tool tips</source>
-        <translation type="vanished">Abilita tool tips</translation>
+        <translation>Abilita tool tips</translation>
     </message>
     <message>
         <source>Solution settings</source>
-        <translation type="vanished">Impostazioni delle soluzioni</translation>
+        <translation>Impostazioni delle soluzioni</translation>
     </message>
     <message>
         <source>Volume</source>
-        <translation type="vanished">Volume</translation>
+        <translation>Volume</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="vanished">Nome</translation>
+        <translation>Nome</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation type="vanished">Colore</translation>
+        <translation>Colore</translation>
     </message>
     <message>
         <source>Pulse duration</source>
-        <translation type="vanished">Durata dell&apos;impulso</translation>
+        <translation>Durata dell&apos;impulso</translation>
     </message>
     <message>
         <source>Pulse duration well 1 :</source>
-        <translation type="vanished">Durata dell&apos;impulso ugello 1 :</translation>
+        <translation>Durata dell&apos;impulso ugello 1 :</translation>
     </message>
     <message>
         <source>Pulse duration well 2 :</source>
-        <translation type="vanished">Durata dell&apos;impulso ugello 2 :</translation>
+        <translation>Durata dell&apos;impulso ugello 2 :</translation>
     </message>
     <message>
         <source>Pulse duration well 3 :</source>
-        <translation type="vanished">Durata dell&apos;impulso ugello 3 :</translation>
+        <translation>Durata dell&apos;impulso ugello 3 :</translation>
     </message>
     <message>
         <source>Pulse duration well 4 :</source>
-        <translation type="vanished">Durata dell&apos;impulso ugello 4 :</translation>
+        <translation>Durata dell&apos;impulso ugello 4 :</translation>
     </message>
     <message>
         <source>Continuous flowing</source>
-        <translation type="vanished">Flusso continuo</translation>
+        <translation>Flusso continuo</translation>
     </message>
     <message>
         <source>Pressure / Vacuum settings</source>
-        <translation type="vanished">Settaggi di pressione / aspirazione</translation>
+        <translation>Settaggi di pressione / aspirazione</translation>
     </message>
     <message>
         <source>Vacuum settings</source>
-        <translation type="vanished">Settaggi di aspirazione</translation>
+        <translation>Settaggi di aspirazione</translation>
     </message>
     <message>
         <source>Zone size</source>
-        <translation type="vanished">Dimensione zona</translation>
+        <translation>Dimensione zona</translation>
     </message>
     <message>
         <source>Flow speed</source>
-        <translation type="vanished">Velocità del flusso</translation>
+        <translation>Velocità del flusso</translation>
     </message>
     <message>
         <source>Vacuum</source>
-        <translation type="vanished">Aspirazione</translation>
+        <translation>Aspirazione</translation>
     </message>
     <message>
         <source>Base increments</source>
-        <translation type="vanished">Incrementi di base</translation>
+        <translation>Incrementi di base</translation>
     </message>
     <message>
         <source>Verbose</source>
-        <translation type="vanished">Verboso</translation>
+        <translation>Verboso</translation>
     </message>
     <message>
         <source>use set point / default values</source>
-        <translation type="vanished">use settaggi / o valori standard</translation>
+        <translation>use settaggi / o valori standard</translation>
     </message>
     <message>
         <source>Enable filter</source>
-        <translation type="vanished">Abilita filtraggio</translation>
+        <translation>Abilita filtraggio</translation>
     </message>
     <message>
         <source>Filter window size</source>
-        <translation type="vanished">Dimensione finestra di filtraggio</translation>
+        <translation>Dimensione finestra di filtraggio</translation>
     </message>
     <message>
         <source>Well 1 :</source>
-        <translation type="vanished">Ugello 1 :</translation>
+        <translation>Ugello 1 :</translation>
     </message>
     <message>
         <source>Well 2 :</source>
-        <translation type="vanished">Ugello 2 :</translation>
+        <translation>Ugello 2 :</translation>
     </message>
     <message>
         <source>Well 3 :</source>
-        <translation type="vanished">Ugello 3 :</translation>
+        <translation>Ugello 3 :</translation>
     </message>
     <message>
         <source>Well 4 :</source>
-        <translation type="vanished">Ugello 4 :</translation>
+        <translation>Ugello 4 :</translation>
     </message>
     <message>
         <source>Well 5 :</source>
-        <translation type="vanished">Ugello 5 :</translation>
+        <translation>Ugello 5 :</translation>
     </message>
     <message>
         <source>Well 6 :</source>
-        <translation type="vanished">Ugello 6 :</translation>
+        <translation>Ugello 6 :</translation>
     </message>
     <message>
         <source>Well 7 :</source>
-        <translation type="vanished">Ugello 7 :</translation>
+        <translation>Ugello 7 :</translation>
     </message>
     <message>
         <source>Well 8 :</source>
-        <translation type="vanished">Ugello 8 :</translation>
+        <translation>Ugello 8 :</translation>
     </message>
     <message>
         <source>Well :</source>
-        <translation type="vanished">Ugello :</translation>
+        <translation>Ugello :</translation>
     </message>
     <message>
         <source>Max</source>
-        <translation type="vanished">Max</translation>
+        <translation>Max</translation>
     </message>
     <message>
         <source>Min</source>
-        <translation type="vanished">Min</translation>
+        <translation>Min</translation>
     </message>
     <message>
         <source>Default</source>
-        <translation type="vanished">Default</translation>
+        <translation>Default</translation>
     </message>
     <message>
         <source>COM settings</source>
-        <translation type="vanished">Settaggi porta seriale</translation>
+        <translation>Settaggi porta seriale</translation>
     </message>
     <message>
         <source>Port name</source>
-        <translation type="vanished">Porta</translation>
+        <translation>Porta</translation>
     </message>
     <message>
         <source>Baud rate</source>
-        <translation type="vanished">Baud rate</translation>
+        <translation>Baud rate</translation>
     </message>
     <message>
         <source>Data bit</source>
-        <translation type="vanished">Data bit</translation>
+        <translation>Data bit</translation>
     </message>
     <message>
         <source>Parity</source>
-        <translation type="vanished">Parità</translation>
+        <translation>Parità</translation>
     </message>
     <message>
         <source>Stop bit</source>
-        <translation type="vanished">Stop bit</translation>
+        <translation>Stop bit</translation>
     </message>
     <message>
         <source>Flow control</source>
-        <translation type="vanished">Flow control</translation>
+        <translation>Flow control</translation>
     </message>
     <message>
         <source>Description:</source>
-        <translation type="vanished">Descrizione:</translation>
+        <translation>Descrizione:</translation>
     </message>
     <message>
         <source>Manufacturer:</source>
-        <translation type="vanished">Costruttore:</translation>
+        <translation>Costruttore:</translation>
     </message>
     <message>
         <source>Serial number:</source>
-        <translation type="vanished">Numero seriale:</translation>
+        <translation>Numero seriale:</translation>
     </message>
     <message>
         <source>Location:</source>
-        <translation type="vanished">Locazione:</translation>
+        <translation>Locazione:</translation>
     </message>
     <message>
         <source>Vendor ID:</source>
-        <translation type="vanished">Vendor ID:</translation>
+        <translation>Vendor ID:</translation>
     </message>
     <message>
         <source>Product ID:</source>
-        <translation type="vanished">Product ID:</translation>
+        <translation>Product ID:</translation>
     </message>
     <message>
         <source>Update available devices</source>
-        <translation type="vanished">Aggiorna dispositivi connessi</translation>
+        <translation>Aggiorna dispositivi connessi</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation type="vanished">Attenzione</translation>
+        <translation>Attenzione</translation>
     </message>
     <message>
         <source>This will reset used defined settings and parameters to the factory default values</source>
-        <translation type="vanished">Questa operazione resetterà il sistema alle impostazioni di fabbrica</translation>
+        <translation>Questa operazione resetterà il sistema alle impostazioni di fabbrica</translation>
     </message>
     <message>
         <source>Are you sure?</source>
-        <translation type="vanished">Sei sicuro?</translation>
+        <translation>Sei sicuro?</translation>
     </message>
     <message>
         <source>Information</source>
-        <translation type="vanished">Informazione</translation>
+        <translation>Informazione</translation>
     </message>
     <message>
         <source>Ok</source>
-        <translation type="vanished">Ok</translation>
+        <translation>Ok</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="vanished">Annulla</translation>
+        <translation>Annulla</translation>
     </message>
     <message>
         <source>Apply</source>
-        <translation type="vanished">Applica</translation>
+        <translation>Applica</translation>
     </message>
 </context>
 <context>
     <name>QPlatformTheme</name>
     <message>
         <source>OK</source>
-        <translation type="vanished">OK</translation>
+        <translation>OK</translation>
     </message>
     <message>
         <source>&amp;No</source>
-        <translation type="vanished">&amp;No</translation>
+        <translation>&amp;No</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
-        <translation type="vanished">&amp;Sì</translation>
+        <translation>&amp;Sì</translation>
     </message>
     <message>
         <source>Help</source>
-        <translation type="vanished">Aiuto</translation>
+        <translation>Aiuto</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation type="vanished">Apri</translation>
+        <translation>Apri</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation type="vanished">Salva</translation>
+        <translation>Salva</translation>
     </message>
     <message>
         <source>Abort</source>
-        <translation type="vanished">Annulla</translation>
+        <translation>Annulla</translation>
     </message>
     <message>
         <source>Apply</source>
-        <translation type="vanished">Applica</translation>
+        <translation>Applica</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="vanished">Chiudi</translation>
+        <translation>Chiudi</translation>
     </message>
     <message>
         <source>Reset</source>
-        <translation type="vanished">Resetta</translation>
+        <translation>Resetta</translation>
     </message>
     <message>
         <source>Retry</source>
-        <translation type="vanished">Riprova</translation>
+        <translation>Riprova</translation>
     </message>
     <message>
         <source>Restore Defaults</source>
-        <translation type="vanished">Ripristina predefinite</translation>
+        <translation>Ripristina predefinite</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="vanished">Annulla</translation>
+        <translation>Annulla</translation>
     </message>
     <message>
         <source>Ignore</source>
-        <translation type="vanished">Ignora</translation>
+        <translation>Ignora</translation>
     </message>
     <message>
         <source>N&amp;o to All</source>
-        <translation type="vanished">N&amp;o a Tutto</translation>
+        <translation>N&amp;o a Tutto</translation>
     </message>
     <message>
         <source>Save All</source>
-        <translation type="vanished">Salva tutto</translation>
+        <translation>Salva tutto</translation>
     </message>
     <message>
         <source>Discard</source>
-        <translation type="vanished">Discard</translation>
+        <translation>Discard</translation>
     </message>
     <message>
         <source>Yes to &amp;All</source>
-        <translation type="vanished">Sì a &amp;Tutto</translation>
+        <translation>Sì a &amp;Tutto</translation>
     </message>
 </context>
 </TS>

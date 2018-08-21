@@ -7,7 +7,7 @@
         <source>E&amp;xit</source>
         <translation type="vanished">E&amp;xit</translation>
     </message>
-    <message>
+    <message> 
         <source>&amp;File</source>
         <translation type="vanished">&amp;File</translation>
     </message>
