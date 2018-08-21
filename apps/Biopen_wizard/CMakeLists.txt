@@ -150,11 +150,11 @@ elseif(BUILD_QT5)
     # see https://stackoverflow.com/questions/44782914/cmake-qt5-add-translation-how-to-specify-the-output-path
 	set_source_files_properties(${myProject_LANGUAGES_TS} PROPERTIES OUTPUT_LOCATION ${myProject_LANGUAGES_DIR})
 	
-	#TODO: language files got deleted after clean-build !!!! why?
+	#TODO: language files got deleted after clean-build in MSVC !!!! why?
 	
 	# step2: 
 	# create translation files
-	qt5_create_translation(QT_TRANSLATIONS_FILES ${myProject_LANGUAGES_DIR} ${myProject_LANGUAGES_TS})
+	#qt5_create_translation(QT_TRANSLATIONS_FILES ${myProject_LANGUAGES_DIR} ${myProject_LANGUAGES_TS})
 	SET (TRANSLATION_GENERATOR "${QT5_BINARY_DIR}/lrelease.exe")
 	if ( ENABLE_verbose )
 		message (STATUS "${PROJECT_NAME} MESSAGE: myProject_LANGUAGES_TS  :: ${myProject_LANGUAGES_TS} ")
@@ -185,10 +185,7 @@ elseif(BUILD_QT5)
 
 	add_executable (${PROJECT_NAME}  	${myProject_SOURCES} ${myProject_HEADERS}
 									${myProject_FORMS_HEADERS} ${UI_RESOURCES_RCC})
-									#${myProject_HEADERS_MOC})#${myProject_FORMS} )
 	qt5_use_modules(${PROJECT_NAME} Widgets TextToSpeech)
-
-
 	
 	target_link_libraries ( ${PROJECT_NAME}  
 							${QT_LIBRARIES}  ${Qt5Charts_LIBRARIES} 

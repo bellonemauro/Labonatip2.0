@@ -1041,43 +1041,29 @@ void Labonatip_GUI::refillSolution()
 
 	// update wells volume. 
 	// The max volume is constant, 
-	// hence the visualization of the percentage is realized accoring to the max volume
+	// hence the visualization of the percentage is calculated according to the max volume
 	{
 		m_pipette_status->rem_vol_well1 = m_pipette_status->rem_vol_well1 - 
 			0.001 * m_pipette_status->flow_well1;
-
-		double perc = 100.0 - 100.0 *
-			(MAX_VOLUME_IN_WELL - m_pipette_status->rem_vol_well1)
-			/ MAX_VOLUME_IN_WELL;
+		double perc = 100.0 * m_pipette_status->rem_vol_well1 / MAX_VOLUME_IN_WELL;
 		ui->progressBar_solution1->setValue(int(perc));
-
-		// TODO: there is no check if the remaining solution is zero !
 	}
 	{
 		m_pipette_status->rem_vol_well2 = m_pipette_status->rem_vol_well2 -
 			0.001 * m_pipette_status->flow_well2;
-
-		double perc = 100.0 - 100.0 *
-			(MAX_VOLUME_IN_WELL - m_pipette_status->rem_vol_well2)
-			/ MAX_VOLUME_IN_WELL;
+		double perc = 100.0 * m_pipette_status->rem_vol_well2 / MAX_VOLUME_IN_WELL;
 		ui->progressBar_solution2->setValue(int(perc));
 	}
 	{
 		m_pipette_status->rem_vol_well3 = m_pipette_status->rem_vol_well3 -
 			0.001 * m_pipette_status->flow_well3;
-
-		double perc = 100.0 - 100.0 *
-			(MAX_VOLUME_IN_WELL - m_pipette_status->rem_vol_well3)
-			/ MAX_VOLUME_IN_WELL;
+		double perc = 100.0 * m_pipette_status->rem_vol_well3 / MAX_VOLUME_IN_WELL;
 		ui->progressBar_solution3->setValue(int(perc));
 	}
 	{
 		m_pipette_status->rem_vol_well4 = m_pipette_status->rem_vol_well4 -
 			0.001 * m_pipette_status->flow_well4;
-
-		double perc = 100.0 - 100.0 *
-			(MAX_VOLUME_IN_WELL - m_pipette_status->rem_vol_well4)
-			/ MAX_VOLUME_IN_WELL;
+		double perc = 100.0 * m_pipette_status->rem_vol_well4 / MAX_VOLUME_IN_WELL;
 		ui->progressBar_solution4->setValue(int(perc));
 	}
 
@@ -1117,14 +1103,6 @@ void Labonatip_GUI::toolApply()
 	qout->redirectOutInGUI(m_GUI_params->enableHistory);
 	qerr->redirectOutInGUI(m_GUI_params->enableHistory);
 
-	this->switchLanguage(m_GUI_params->language);
-
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::toolApply  m_solutionParams->sol1 "
-		<< m_solutionParams->sol1 .toStdString()<< endl;
-
-	// GUI stuff need to be changed after the translation
 	ui->treeWidget_params->topLevelItem(0)->setText(1, m_solutionParams->sol1);
 	ui->treeWidget_params->topLevelItem(1)->setText(1, m_solutionParams->sol2);
 	ui->treeWidget_params->topLevelItem(2)->setText(1, m_solutionParams->sol3);
@@ -1134,9 +1112,13 @@ void Labonatip_GUI::toolApply()
 	ui->treeWidget_params->topLevelItem(5)->setText(1, QString::number(m_pr_params->p_off_default));
 	ui->treeWidget_params->topLevelItem(6)->setText(1, QString::number(m_pr_params->v_recirc_default));
 	ui->treeWidget_params->topLevelItem(7)->setText(1, QString::number(m_pr_params->v_switch_default));
-	//m_protocolWizard->setSolParams(*m_solutionParams);
-	//m_protocolWizard->setPrParams(*m_pr_params);
 
+	this->switchLanguage(m_GUI_params->language);
+
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::toolApply  m_solutionParams->sol1 "
+		<< m_solutionParams->sol1 .toStdString()<< endl;
 
 	QString s;
 	s.append(m_str_user);
@@ -1398,20 +1380,6 @@ void Labonatip_GUI::setSettingsUserPath(QString _path) {
 		<< "Labonatip_GUI::setSettingsUserPath  error in loading settings file " << endl;
 
 	toolApply();
-
-	// TODO: this is needed as sometimes the translations overlap the fields in the tree widget
-	// GUI stuff need to be changed after the translation
-	ui->treeWidget_params->topLevelItem(0)->setText(1, m_solutionParams->sol1);
-	ui->treeWidget_params->topLevelItem(1)->setText(1, m_solutionParams->sol2);
-	ui->treeWidget_params->topLevelItem(2)->setText(1, m_solutionParams->sol3);
-	ui->treeWidget_params->topLevelItem(3)->setText(1, m_solutionParams->sol4);
-
-	ui->treeWidget_params->topLevelItem(4)->setText(1, QString::number(m_pr_params->p_on_default));
-	ui->treeWidget_params->topLevelItem(5)->setText(1, QString::number(m_pr_params->p_off_default));
-	ui->treeWidget_params->topLevelItem(6)->setText(1, QString::number(m_pr_params->v_recirc_default));
-	ui->treeWidget_params->topLevelItem(7)->setText(1, QString::number(m_pr_params->v_switch_default));
-	//m_protocolWizard->setSolParams(*m_solutionParams);
-	//m_protocolWizard->setPrParams(*m_pr_params);
 }
 
 void Labonatip_GUI::setVersion(string _version) {

@@ -824,7 +824,7 @@ void Labonatip_GUI::updateWaste()
 	switch (min_index)
 	{
 	case 0: {
-		if (m_pipette_status->flow_well5 > 0) {  // TODO check here, I have changed the if condition from != to >
+		if (m_pipette_status->flow_well5 > 0) {  
 			waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well5 -
 				m_pipette_status->rem_vol_well5) / m_pipette_status->flow_well5;
 		}
@@ -1020,11 +1020,5 @@ void Labonatip_GUI::updateMacroTimeStatus(const double &_status)
     double currentTime = _status * protocolDuration(*m_protocol) / 100.0 ;
 
     updateFlowControlPercentages();
-
-	//TODO: check this
-    //if (m_pipette_active)
-	//	updateDrawing(m_ppc1->getDropletSize());
-    //else 
-	//	updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
 
 }
