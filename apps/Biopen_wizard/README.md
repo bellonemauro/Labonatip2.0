@@ -1,4 +1,4 @@
-<a href="http://fluicell.com/"><img src="https://github.com/bellonemauro/Labonatip2.0/blob/master/apps/Biopen_wizard/icons/fluicell_iconBIG.png"  width="200" height="70" /></a>
+<a href="http://fluicell.com/"><img src="https://github.com/bellonemauro/Labonatip2.0/blob/master/apps/Biopen_wizard/icons/fluicell_iconBIG.png"  width="100" height="85" /></a>
 
 # Biopen wizard 2.0
 
