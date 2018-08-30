@@ -19,7 +19,8 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	m_ppc1 ( new fluicell::PPC1api() ),
 	led_green (new QPixmap(QSize(20, 20))),
 	led_orange (new QPixmap( QSize(20, 20))),
-	led_red (new QPixmap( QSize(20, 20))),
+	led_red(new QPixmap(QSize(20, 20))),
+	led_grey (new QPixmap( QSize(20, 20))),
 	m_g_spacer ( new QGroupBox()),
 	m_a_spacer (new QAction()),
 	m_protocol ( new std::vector<fluicell::PPC1api::command> ),
@@ -196,6 +197,18 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   painter_led_red->setBrush(radialGradient_red);
   painter_led_red->setPen(Qt::gray);
   painter_led_red->drawEllipse(2, 2, 16, 16);
+
+  led_grey->fill(Qt::transparent);
+  painter_led_grey = new QPainter(led_grey);
+  QRadialGradient radialGradient_grey(8, 8, 12);
+  radialGradient_grey.setColorAt(0.0, 0xF0F0F0);
+  radialGradient_grey.setColorAt(0.5, 0x909090);
+  radialGradient_grey.setColorAt(1.0, Qt::transparent);
+  painter_led_grey->setBackground(Qt::blue);
+  //painter_led_grey->setBrush(Qt::red);
+  painter_led_grey->setBrush(radialGradient_grey);
+  painter_led_grey->setPen(Qt::gray);
+  painter_led_grey->drawEllipse(2, 2, 16, 16);
 
   this->setStatusLed(false);
 

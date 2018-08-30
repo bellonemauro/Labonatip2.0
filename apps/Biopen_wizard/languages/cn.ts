@@ -759,6 +759,10 @@
         <translation>Profile name</translation>
     </message>
     <message>
+        <source>Comment</source>
+        <translation>Comment</translation>
+    </message>
+    <message>
         <source>Year</source>
         <translation>Year</translation>
     </message>

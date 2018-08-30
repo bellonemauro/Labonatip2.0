@@ -155,6 +155,8 @@ elseif(BUILD_QT5)
 	# step2: 
 	# create translation files
 	#qt5_create_translation(QT_TRANSLATIONS_FILES ${myProject_LANGUAGES_DIR} ${myProject_LANGUAGES_TS})
+	#TODO: when qt5_create_translation if active, visual studio clean-build delete automatically TS files
+	#      this is not possible to happen
 	SET (TRANSLATION_GENERATOR "${QT5_BINARY_DIR}/lrelease.exe")
 	if ( ENABLE_verbose )
 		message (STATUS "${PROJECT_NAME} MESSAGE: myProject_LANGUAGES_TS  :: ${myProject_LANGUAGES_TS} ")

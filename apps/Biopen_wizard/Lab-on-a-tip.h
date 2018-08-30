@@ -1026,9 +1026,11 @@ private:
   QPixmap * led_green;
   QPixmap * led_orange;
   QPixmap * led_red;
+  QPixmap * led_grey;
   QPainter * painter_led_green;
   QPainter * painter_led_orange;
   QPainter * painter_led_red;
+  QPainter * painter_led_grey;
 
   // spacers for the toolbar to create the basic->advanced effect
   QGroupBox * m_g_spacer;
