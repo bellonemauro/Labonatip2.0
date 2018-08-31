@@ -22,7 +22,7 @@ void Labonatip_GUI::updatePonSetPoint(double _pon_set_point)
 		 << " sensor value = " << m_ppc1->channel_D->sensor_reading << endl;
 
 	// avoid out of range values
-	if (isnan(_pon_set_point)) 
+    if (std::isnan(_pon_set_point))
 		return;
 	if (_pon_set_point < MIN_CHAN_D)
 		return;
@@ -63,7 +63,7 @@ void Labonatip_GUI::updatePoffSetPoint(double _poff_set_point)
 		  << " sensor value = " << m_ppc1->channel_C->sensor_reading << endl;
 
 	// avoid out of range values
-	if (isnan(_poff_set_point))
+    if (std::isnan(_poff_set_point))
 		return;
 	if (_poff_set_point < MIN_CHAN_C)
 		return;
@@ -102,7 +102,7 @@ void Labonatip_GUI::updateVrecircSetPoint(double _v_recirc_set_point)
 		 << " sensor value = " << m_ppc1->channel_A->sensor_reading << endl;
 
 	// avoid out of range values
-	if (isnan(_v_recirc_set_point))
+    if (std::isnan(_v_recirc_set_point))
 		return;
 	if (-_v_recirc_set_point < MIN_CHAN_A)
 		return;
@@ -140,7 +140,7 @@ void Labonatip_GUI::updateVswitchSetPoint(double _v_switch_set_point)
 		 << " sensor value = " << m_ppc1->channel_B->sensor_reading << endl;
 
 	// avoid out of range values
-	if (isnan(_v_switch_set_point))
+    if (std::isnan(_v_switch_set_point))
 		return;
 	if (-_v_switch_set_point < MIN_CHAN_B)
 		return;
