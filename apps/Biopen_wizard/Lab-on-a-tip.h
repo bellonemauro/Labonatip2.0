@@ -127,6 +127,7 @@ private slots:
 	void duplicateItem();
 	void createNewLoop();
 	void createNewLoop(int _loops);
+	void buildDPmap();
 
 	/** \brief Gets the clear commands request 
 	*

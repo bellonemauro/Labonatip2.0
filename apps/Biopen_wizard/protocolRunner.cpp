@@ -64,6 +64,7 @@ void Labonatip_macroRunner::runCommand(fluicell::PPC1api::command _cmd)
 {
 
 	int ist = _cmd.getInstruction();
+	//TODO: remap as Zone size, Flow speed, Vacuum, Wait, Alloff, Solution 1-4, Pon, Poff, Vrecirc, V switch, all the rest.
 
 	switch (ist)
 	{

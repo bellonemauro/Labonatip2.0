@@ -551,7 +551,7 @@ void Labonatip_GUI::initConnects()
 
 	connect(ui->actionAbout,
 		SIGNAL(triggered()), this, 
-		SLOT(about()));
+		SLOT(about()));// buildDPmap()));
 
 	connect(ui->actionAdvanced, 
 		SIGNAL(triggered()), this, 

@@ -195,4 +195,6 @@ QString Labonatip_protocolWriter::createHeader()
 	header.append(tr("%% 13#1#2#message#0#§ \n"));
 	header.append(tr("%% Command Value status_message depth\n%"));
 	return header;
+	// TODO  remap as Zone size, Flow speed, Vacuum, Wait, Alloff, Solution 1-4, Pon, Poff, Vrecirc, V switch, all the rest.
+
 }

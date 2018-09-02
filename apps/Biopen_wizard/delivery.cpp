@@ -546,6 +546,88 @@ void Labonatip_GUI::setVacuumPercentage(double _perc)
 	}
 }
 
+void Labonatip_GUI::buildDPmap()
+{
+
+	// the row is: pon poff vs vr zs fs
+	// zs = zone size
+	// fs = flow speed
+	typedef std::vector<double> DP_row;
+	typedef std::vector<DP_row> DP_table;
+
+	DP_table table;
+
+	QFile tableFile("./table.txt");
+	QTextStream stream(&tableFile);
+	QString header;
+	header = "pon poff vs vr zs fs\n";
+	if (tableFile.open(QIODevice::WriteOnly))
+	{
+	stream << header;
+
+	//for (int pon_idx = 0; pon_idx < MAX_CHAN_D; pon_idx++)
+	for (int pon_idx = 170; pon_idx < 220; pon_idx++)
+	{
+		updatePonSetPoint(pon_idx);
+
+		//for (int poff_idx = 0; poff_idx < MAX_CHAN_C; poff_idx++)
+		for (int poff_idx = 15; poff_idx < 30; poff_idx++)
+		{
+			updatePoffSetPoint(poff_idx);
+
+			//for (int vs_idx = 0; vs_idx > MIN_CHAN_B; vs_idx--)
+			for (int vs_idx = -100; vs_idx > -130; vs_idx--)
+			{
+				updateVswitchSetPoint(-vs_idx);
+
+				//for (int vr_idx = 0; vr_idx > MIN_CHAN_A; vr_idx--)
+				for (int vr_idx = -100; vr_idx > -130; vr_idx--)
+				{
+					updateVrecircSetPoint(-vr_idx);
+
+					//updateFlowControlPercentages();
+
+					DP_row new_row;
+					new_row.push_back(pon_idx);
+					new_row.push_back(poff_idx);
+					new_row.push_back(vs_idx);
+					new_row.push_back(vr_idx);
+					new_row.push_back(m_ds_perc);
+					new_row.push_back(m_fs_perc);
+
+					table.push_back(new_row);
+
+					if (m_ds_perc > 0 && m_ds_perc < 500 &&
+						m_fs_perc > 0 && m_fs_perc < 500)
+					{
+						stream << pon_idx << " "
+							<< poff_idx << " "
+							<< vs_idx << " "
+							<< vr_idx << " "
+							<< m_ds_perc << " "
+							<< m_fs_perc << " " << endl;
+					}
+					//QThread::msleep(100);
+				}
+			}
+		}
+
+
+
+
+	}
+
+	}
+
+
+
+
+}
+
+
+
+
+
 void Labonatip_GUI::updateFlowControlPercentages()
 {
 	updateFlows();

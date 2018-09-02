@@ -601,6 +601,27 @@ namespace fluicell
 				flowSpeed = 15,
 				vacuum = 16,
 				loop = 17  
+				//TODO remap as Zone size, Flow speed, Vacuum, Wait, Alloff, Solution 1-4, Pon, Poff, Vrecirc, V switch, all the rest.
+				//zoneSize = 0,
+				//flowSpeed = 1,
+				//vacuum = 2,
+				//wait = 3,
+				//allOff = 4,
+				//solution1 = 5,
+				//solution2 = 6,
+				//solution3 = 7,
+				//solution4 = 8,
+				//setPon = 9,
+				//setPoff = 10,
+				//setVrecirc = 11,
+				//setVswitch = 12,
+				//ask_msg = 13,
+				//pumpsOff = 14,
+				//waitSync = 15,
+				//syncOut = 16,
+				//loop = 17 
+				
+
 			};
 
 
