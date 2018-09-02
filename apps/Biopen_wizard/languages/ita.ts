@@ -759,6 +759,10 @@
         <translation>Nome profilo</translation>
     </message>
     <message>
+        <source>Comment</source>
+        <translation>Commento</translation>
+    </message>
+    <message>
         <source>Year</source>
         <translation>Anno</translation>
     </message>

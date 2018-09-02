@@ -353,66 +353,85 @@ void Labonatip_GUI::updatePPC1Leds()
 	// ok = 0 with reading far from the set point 10%+-3mbar = orange
 	if (!m_simulationOnly) {
 
-		if (m_ppc1->getCommunicationState() == true) {
-			ui->status_PPC1_led->setPixmap(*led_green);
-			ui->status_PPC1_label->setText(m_str_PPC1_status_con);
-		}
+		if (m_ppc1->isRunning())
+		{
+			// the first is the communication state in the main GUI
+			if (m_ppc1->getCommunicationState() == true) {
+				ui->status_PPC1_led->setPixmap(*led_green); //TODO: there is a bug here
+				// It is better to avoid to change the LED directly, 
+				// better to use the function setStatusLed(true/false)
+				ui->status_PPC1_label->setText(m_str_PPC1_status_con);
+			}
+			else
+			{
+				ui->status_PPC1_led->setPixmap(*led_red);
+				ui->status_PPC1_label->setText("UNSTABLE connection"); //TODO string
+			}
+
+			// update LED for Pon
+			if (m_ppc1->getPonState() == 0) {
+				ui->label_led_pon->setPixmap(*led_green);
+				if (std::abs(m_ppc1->getPonReading() - m_ppc1->getPonSetPoint()) >
+					0.1 * m_ppc1->getPonSetPoint() + 3)
+				{
+					ui->label_led_pon->setPixmap(*led_orange);
+				}
+			}
+			else {
+				ui->label_led_pon->setPixmap(*led_red);
+			}
+
+			// update LED for Poff
+			if (m_ppc1->getPoffState() == 0) {
+				ui->label_led_poff->setPixmap(*led_green);
+				if (std::abs(m_ppc1->getPoffReading() - m_ppc1->getPoffSetPoint()) >
+					0.1*m_ppc1->getPoffSetPoint() + 3)
+				{
+					ui->label_led_poff->setPixmap(*led_orange);
+				}
+			}
+			else {
+				ui->label_led_poff->setPixmap(*led_red);
+			}
+
+			// update LED for Vswitch
+			if (m_ppc1->getVswitchState() == 0) {
+				ui->label_led_vs->setPixmap(*led_green);
+				if (std::abs(m_ppc1->getVswitchReading() - m_ppc1->getVswitchSetPoint()) >
+					-0.1*m_ppc1->getVswitchSetPoint() + 3)
+				{
+					ui->label_led_vs->setPixmap(*led_orange);
+				}
+			}
+			else {
+				ui->label_led_vs->setPixmap(*led_red);
+			}
+
+			// update LED for Vrecirc
+			if (m_ppc1->getVrecircState() == 0) {
+				ui->label_led_vr->setPixmap(*led_green);
+				double as = m_ppc1->getVrecircReading();
+				double ad = m_ppc1->getVrecircSetPoint();
+				if (std::abs(m_ppc1->getVrecircReading() - m_ppc1->getVrecircSetPoint()) >
+					-0.1*m_ppc1->getVrecircSetPoint() + 3)
+				{
+					ui->label_led_vr->setPixmap(*led_orange);
+				}
+			}
+			else {
+				ui->label_led_vr->setPixmap(*led_red);
+			}
+		}// end if m_ppc1->isRunning()
 		else
 		{
-			ui->status_PPC1_led->setPixmap(*led_red);
-			ui->status_PPC1_label->setText("UNSTABLE connection"); //TODO string
-		}
+			ui->status_PPC1_led->setPixmap(*led_red); //TODO: there is a bug here
+			ui->label_led_pon->setPixmap(*led_grey);
+			ui->label_led_poff->setPixmap(*led_grey);
+			ui->label_led_vs->setPixmap(*led_grey);
+			ui->label_led_vr->setPixmap(*led_grey);
 
-		if (m_ppc1->getPonState() == 0) {
-			ui->label_led_pon->setPixmap(*led_green);
-			if (std::abs(m_ppc1->getPonReading() - m_ppc1->getPonSetPoint()) >
-				0.1 * m_ppc1->getPonSetPoint() + 3)
-			{
-				ui->label_led_pon->setPixmap(*led_orange);
-			}
 		}
-		else {
-			ui->label_led_pon->setPixmap(*led_red);
-		}
-
-		if (m_ppc1->getPoffState() == 0) {
-			ui->label_led_poff->setPixmap(*led_green);
-			if (std::abs(m_ppc1->getPoffReading() - m_ppc1->getPoffSetPoint()) >
-				0.1*m_ppc1->getPoffSetPoint() + 3)
-			{
-				ui->label_led_poff->setPixmap(*led_orange);
-			}
-		}
-		else {
-			ui->label_led_poff->setPixmap(*led_red);
-		}
-
-		if (m_ppc1->getVswitchState() == 0) {
-			ui->label_led_vs->setPixmap(*led_green);
-			if (std::abs(m_ppc1->getVswitchReading() - m_ppc1->getVswitchSetPoint()) >
-				-0.1*m_ppc1->getVswitchSetPoint() + 3)
-			{
-				ui->label_led_vs->setPixmap(*led_orange);
-			}
-		}
-		else {
-			ui->label_led_vs->setPixmap(*led_red);
-		}
-
-		if (m_ppc1->getVrecircState() == 0) {
-			ui->label_led_vr->setPixmap(*led_green);
-			double as = m_ppc1->getVrecircReading();
-			double ad = m_ppc1->getVrecircSetPoint();
-			if (std::abs(m_ppc1->getVrecircReading() - m_ppc1->getVrecircSetPoint()) >
-				-0.1*m_ppc1->getVrecircSetPoint() + 3)
-			{
-				ui->label_led_vr->setPixmap(*led_orange);
-			}
-		}
-		else {
-			ui->label_led_vr->setPixmap(*led_red);
-		}
-	}
+	}//end if m_simulation_only
 	else
 	{
 		ui->label_led_pon->setPixmap(*led_green);

@@ -2,6 +2,7 @@ V.2.0.59
 Improved behavior in case of corrupted data coming from the PPC1
 Activated change in zone size/ flow speed and vacuum in simulation mode while running protocols
 Fix bug related to wrong protocol filename after saveAs -> save
+Fix led behavior and added grey led to be used when the GUI is not enabled
 
 V.2.0.58
 Fix waste full behavior 
