@@ -556,6 +556,7 @@ void Labonatip_tools::getPRsettingsFromGUI()
 	m_pr_params->v_recirc_default = ui_tools->spinBox_v_recirc_default->value();
 	m_pr_params->v_switch_default = ui_tools->spinBox_v_switch_default->value();
 	m_pr_params->verboseOut = ui_tools->checkBox_enablePPC1verboseOut->isChecked();
+	m_pr_params->useDefValSetPoint = ui_tools->checkBox_useSetPoint->isChecked();
 	m_pr_params->enableFilter = ui_tools->checkBox_enablePPC1filter->isChecked();
 	m_pr_params->filterSize = ui_tools->spinBox_PPC1filterSize->value();
 	m_pr_params->waitSyncTimeout = ui_tools->spinBox_PPC1_sync_timeout->value();

@@ -75,8 +75,17 @@ void Labonatip_GUI::dropletSizePlus() {
 		}
 		else {
 			double delta = (1.0 - std::pow(perc, (1.0 / 3.0)));
-			double value = -m_pr_params->v_recirc_default - 
-				m_pr_params->v_recirc_default * delta;
+			double value;
+			if (m_pr_params->useDefValSetPoint)
+			{
+				value = m_pipette_status->v_recirc_set_point -
+					m_pr_params->v_recirc_default * delta;
+			}
+			else
+			{
+				value = -m_pr_params->v_recirc_default -
+					m_pr_params->v_recirc_default * delta;
+			}
 
 			updateVrecircSetPoint(value);
 		}
@@ -86,7 +95,15 @@ void Labonatip_GUI::dropletSizePlus() {
 		}
 		else {
 			double delta = (1.0 - std::pow(perc, (1.0 / 3.0)));
-			double value = m_pr_params->p_on_default - m_pr_params->p_on_default  * delta;
+			double value;
+			if (m_pr_params->useDefValSetPoint)
+			{
+				value = m_pipette_status->pon_set_point - m_pr_params->p_on_default  * delta;
+			}
+			else
+			{
+				value = m_pr_params->p_on_default - m_pr_params->p_on_default  * delta;
+			}
 
 			updatePonSetPoint(value);
 		}
@@ -159,7 +176,16 @@ void Labonatip_GUI::dropletSizeMinus() {
 		}
 		else {
 			double delta = (1.0 - std::pow(perc, (1.0 / 3.0)));
-			double value = m_pr_params->p_on_default - m_pr_params->p_on_default  * delta; 
+			double value;
+			if (m_pr_params->useDefValSetPoint)
+			{
+				value = m_pipette_status->pon_set_point - m_pr_params->p_on_default  * delta;
+			}
+			else
+			{
+				value = m_pr_params->p_on_default - m_pr_params->p_on_default  * delta;
+			}
+			   // value = m_pr_params->p_on_default - m_pr_params->p_on_default  * delta; 
 
 			updatePonSetPoint(value);
 		}
@@ -169,7 +195,18 @@ void Labonatip_GUI::dropletSizeMinus() {
 		}
 		else {
 			double delta = (1.0 - std::pow(perc, (1.0 / 3.0)));
-			double value = -m_pr_params->v_recirc_default - m_pr_params->v_recirc_default * delta;
+			double value;
+			if (m_pr_params->useDefValSetPoint)
+			{
+				value = m_pipette_status->v_recirc_set_point -
+					m_pr_params->v_recirc_default * delta;
+			}
+			else
+			{
+				value = -m_pr_params->v_recirc_default -
+					m_pr_params->v_recirc_default * delta;
+			}
+			//  value = -m_pr_params->v_recirc_default - m_pr_params->v_recirc_default * delta;
 
 			updateVrecircSetPoint(value);
 		}
@@ -237,17 +274,36 @@ void Labonatip_GUI::flowSpeedPlus() {
 			updatePonSetPoint(5.0);
 		}
 		else {
-			double value = m_pipette_status->pon_set_point +
-				m_pr_params->p_on_default *  m_pr_params->base_fs_increment / 100.0;
+			double value;
+			if (m_pr_params->useDefValSetPoint)
+			{
+				value = m_pipette_status->pon_set_point +
+					m_pr_params->p_on_default *  m_pr_params->base_fs_increment / 100.0;
+			}
+			else
+			{
+				double perc = (m_fs_perc + m_pr_params->base_fs_increment) / 100.0;
+				value = m_pr_params->p_on_default * perc;
+			}
 			updatePonSetPoint(value);
+
 		}
 
 		if (ui->horizontalSlider_p_off->value() == 0) {
 			updatePoffSetPoint(5.0);
 		}
 		else {
-			double value = m_pipette_status->poff_set_point +
-				m_pr_params->p_off_default * m_pr_params->base_fs_increment / 100.0;
+			double value;
+			if (m_pr_params->useDefValSetPoint)
+			{
+				value = m_pipette_status->poff_set_point +
+					m_pr_params->p_off_default * m_pr_params->base_fs_increment / 100.0;
+			}
+			else
+			{
+				double perc = (m_fs_perc + m_pr_params->base_fs_increment) / 100.0;
+				value = m_pr_params->p_off_default * perc;
+			}
 			updatePoffSetPoint(value);
 		}
 
@@ -255,8 +311,19 @@ void Labonatip_GUI::flowSpeedPlus() {
 			updateVswitchSetPoint ( 5.0 );
 		}
 		else {
-			double value = m_pipette_status->v_switch_set_point -
-				m_pr_params->v_switch_default * m_pr_params->base_fs_increment / 100.0;
+			double value;
+			if (m_pr_params->useDefValSetPoint)
+			{
+				value = m_pipette_status->v_switch_set_point -
+					m_pr_params->v_switch_default * m_pr_params->base_fs_increment / 100.0;
+			}
+			else
+			{
+				double perc = (m_fs_perc + m_pr_params->base_fs_increment) / 100.0;
+				value = -m_pr_params->v_switch_default *perc;
+			}
+			//double value = m_pipette_status->v_switch_set_point -
+			//	m_pr_params->v_switch_default * m_pr_params->base_fs_increment / 100.0;
 			updateVswitchSetPoint(value);
 		}
 
@@ -264,8 +331,19 @@ void Labonatip_GUI::flowSpeedPlus() {
 			updateVrecircSetPoint(5.0);
 		}
 		else {
-			double value = m_pipette_status->v_recirc_set_point -
-				m_pr_params->v_recirc_default * m_pr_params->base_fs_increment / 100.0;
+			double value;
+			if (m_pr_params->useDefValSetPoint)
+			{
+				value = m_pipette_status->v_recirc_set_point -
+					m_pr_params->v_recirc_default * m_pr_params->base_fs_increment / 100.0;
+			}
+			else
+			{
+				double perc = (m_fs_perc + m_pr_params->base_fs_increment) / 100.0;
+				value = -m_pr_params->v_recirc_default * perc;
+			}
+			//double value = m_pipette_status->v_recirc_set_point -
+			//	m_pr_params->v_recirc_default * m_pr_params->base_fs_increment / 100.0;
 			updateVrecircSetPoint(value);
 		}
 		updateFlowControlPercentages();
@@ -327,18 +405,34 @@ void Labonatip_GUI::flowSpeedMinus() {
 			return;
 		}
 
-		double value = m_pipette_status->pon_set_point - 
-			m_pr_params->p_on_default * m_pr_params->base_fs_increment / 100.0;
-		updatePonSetPoint(value);
-		value = m_pipette_status->poff_set_point - 
-			m_pr_params->p_off_default * m_pr_params->base_fs_increment / 100.0;
-		updatePoffSetPoint(value);
-		value = m_pipette_status->v_switch_set_point + 
-			m_pr_params->v_switch_default * m_pr_params->base_fs_increment / 100.0;
-		updateVswitchSetPoint(value);
-		value = m_pipette_status->v_recirc_set_point + 
-			m_pr_params->v_recirc_default * m_pr_params->base_fs_increment / 100.0;
-		updateVrecircSetPoint(value);
+		double value;
+		if (m_pr_params->useDefValSetPoint)
+		{
+			value = m_pipette_status->pon_set_point -
+				m_pr_params->p_on_default * m_pr_params->base_fs_increment / 100.0;
+			updatePonSetPoint(value);
+			value = m_pipette_status->poff_set_point -
+				m_pr_params->p_off_default * m_pr_params->base_fs_increment / 100.0;
+			updatePoffSetPoint(value);
+			value = m_pipette_status->v_switch_set_point +
+				m_pr_params->v_switch_default * m_pr_params->base_fs_increment / 100.0;
+			updateVswitchSetPoint(value);
+			value = m_pipette_status->v_recirc_set_point +
+				m_pr_params->v_recirc_default * m_pr_params->base_fs_increment / 100.0;
+			updateVrecircSetPoint(value);
+		}
+		else
+		{
+			double perc = (m_fs_perc - m_pr_params->base_fs_increment) / 100.0;
+			value = m_pr_params->p_on_default * perc;
+			updatePonSetPoint(value);
+			value = m_pr_params->p_off_default * perc;
+			updatePoffSetPoint(value);
+			value = -m_pr_params->v_switch_default * perc;
+			updateVswitchSetPoint(value);
+			value = -m_pr_params->v_recirc_default * perc;
+			updateVrecircSetPoint(value);
+		}
 
 		updateFlowControlPercentages();
 	}
