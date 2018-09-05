@@ -68,54 +68,54 @@ void Labonatip_macroRunner::runCommand(fluicell::PPC1api::command _cmd)
 
 	switch (ist)
 	{
-	case 0: { //setPon
+	case fluicell::PPC1api::command::instructions::setPon: { //setPon
 		emit setPon(_cmd.getValue());
 		msleep(50);
 		return;
 	}
-	case 1: {//setPoff
+	case fluicell::PPC1api::command::instructions::setPoff: {//setPoff
 		emit setPoff(_cmd.getValue());
 		msleep(50);
 		return;
 
 	}
-	case 2: {//setVswitch
+	case fluicell::PPC1api::command::instructions::setVswitch: {//setVswitch
 		emit setVs(-_cmd.getValue());
 		msleep(50);
 		return;
 
 	}
-	case 3: {//setVrecirc
+	case fluicell::PPC1api::command::instructions::setVrecirc: {//setVrecirc
 		emit setVr(-_cmd.getValue());
 		msleep(50);
 		return;
 
 	}
-	case 4: {//solution1
+	case fluicell::PPC1api::command::instructions::solution1: {//solution1
 		emit solution1(bool(_cmd.getValue()));
 		msleep(50);
 		return;
 	}
-	case 5: {//solution2
+	case fluicell::PPC1api::command::instructions::solution2: {//solution2
 		emit solution2(bool(_cmd.getValue()));
 		msleep(50);
 		return;
 	}
-	case 6: {//solution3
+	case fluicell::PPC1api::command::instructions::solution3: {//solution3
 		emit solution3(bool(_cmd.getValue()));
 		msleep(50);
 		return;
 	}
-	case 7: {//solution4
+	case fluicell::PPC1api::command::instructions::solution4: {//solution4
 		emit solution4(bool(_cmd.getValue()));
 		msleep(50);
 		return;
 	}
-	case 8: {//sleep
+	case fluicell::PPC1api::command::instructions::wait: {//sleep
 		// this is done in the run()
 		return;
 	}
-	case 9: {//ask_msg
+	case fluicell::PPC1api::command::instructions::ask_msg: {//ask_msg
 		QString msg = QString::fromStdString(_cmd.getStatusMessage());
 		emit sendAskMessage(msg); // send ask message event
 		m_ask_ok = false;
@@ -124,34 +124,34 @@ void Labonatip_macroRunner::runCommand(fluicell::PPC1api::command _cmd)
 		}
 		return;
 	}
-	case 10: {//allOff	
+	case fluicell::PPC1api::command::instructions::allOff: {//allOff	
 		emit closeAll();
 		return;
 	}
-	case 11: {//pumpsOff
+	case fluicell::PPC1api::command::instructions::pumpsOff: {//pumpsOff
 		emit pumpOff();
 		return;
 	}
-	case 12: {//waitSync //TODO
+	case fluicell::PPC1api::command::instructions::waitSync: {//waitSync //TODO
 		return;
 
 	}
-	case 13: {//syncOut //TODO
+	case fluicell::PPC1api::command::instructions::syncOut: {//syncOut //TODO
 		return;
 	}
-	case 14: {//dropletSize
+	case fluicell::PPC1api::command::instructions::zoneSize: {//zoneSize
 		emit setDropletSizeSIG(_cmd.getValue());
 		return;
 	}
-	case 15: {//flowSpeed
+	case fluicell::PPC1api::command::instructions::flowSpeed: {//flowSpeed
 		emit setFlowSpeedSIG(_cmd.getValue());
 		return;
 	}
-	case 16: {//vacuum
+	case fluicell::PPC1api::command::instructions::vacuum: {//vacuum
 		emit setVacuumSIG(_cmd.getValue());
 		return;
 	}
-	case 17: {//loop
+	case fluicell::PPC1api::command::instructions::loop: {//loop
 		// this is not to be done here
 		return;
 	}

@@ -541,7 +541,7 @@ namespace fluicell
         *    </table>
 		*     
 		*   <!--This is a doxygen documentation comment block
-		*    Supported commands: 
+		*    Supported commands: TODO THE GUIDE HAS TO BE CHANGED ACCORDING TO THE NEW MAPPING
 		*
 		*    enum index    |   Command       |   value         |
 		*   ---------------+-----------------+-----------------+-------------------------------------------------------------
@@ -583,45 +583,43 @@ namespace fluicell
 			*
 			**/
 			enum PPC1API_EXPORT instructions {
-				setPon = 0,
-				setPoff = 1,
-				setVswitch = 2,
-				setVrecirc = 3,
-				solution1 = 4,
-				solution2 = 5,
-				solution3 = 6,
-				solution4 = 7,
-				wait = 8,
-				ask_msg = 9,
-				allOff = 10,
-				pumpsOff = 11,
-				waitSync = 12,
-				syncOut = 13,	
-				zoneSize = 14,
-				flowSpeed = 15,
-				vacuum = 16,
-				loop = 17  
+				//setPon = 0,
+				//setPoff = 1,
+				//setVswitch = 2,
+				//setVrecirc = 3,
+				//solution1 = 4,
+				//solution2 = 5,
+				//solution3 = 6,
+				//solution4 = 7,
+				//wait = 8,
+				//ask_msg = 9,
+				//allOff = 10,
+				//pumpsOff = 11,
+				//waitSync = 12,
+				//syncOut = 13,	
+				//zoneSize = 14,
+				//flowSpeed = 15,
+				//vacuum = 16,
+				//loop = 17  
 				//TODO remap as Zone size, Flow speed, Vacuum, Wait, Alloff, Solution 1-4, Pon, Poff, Vrecirc, V switch, all the rest.
-				//zoneSize = 0,
-				//flowSpeed = 1,
-				//vacuum = 2,
-				//wait = 3,
-				//allOff = 4,
-				//solution1 = 5,
-				//solution2 = 6,
-				//solution3 = 7,
-				//solution4 = 8,
-				//setPon = 9,
-				//setPoff = 10,
-				//setVrecirc = 11,
-				//setVswitch = 12,
-				//ask_msg = 13,
-				//pumpsOff = 14,
-				//waitSync = 15,
-				//syncOut = 16,
-				//loop = 17 
-				
-
+				zoneSize = 0,
+				flowSpeed = 1,
+				vacuum = 2,
+				wait = 3,
+				allOff = 4,
+				solution1 = 5,
+				solution2 = 6,
+				solution3 = 7,
+				solution4 = 8,
+				setPon = 9,
+				setPoff = 10,
+				setVrecirc = 11,
+				setVswitch = 12,
+				ask_msg = 13,
+				pumpsOff = 14,
+				waitSync = 15,
+				syncOut = 16,
+				loop = 17 
 			};
 
 
