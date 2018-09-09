@@ -428,109 +428,109 @@ namespace fluicell
         *     <tr>
         *       <th>enum index</th> <th>Command</th> <th>value</th> <th> Comment </th>
         *     </tr>
-        *     <tr>
-        *       <td> 0 </td>  
+		*     <tr>
+		*       <td> 0  </td>
+		*       <td> zoneSize  </td>
+		*       <td> percentage [MIN, MAX]  </td>
+		*       <td> Change the zone size percentage to _value  </td>
+		*     </tr>
+		*     <tr>
+		*       <td> 1  </td>
+		*       <td> flowSpeed  </td>
+		*       <td> percentage [MIN, MAX]  </td>
+		*       <td> Change the flow speed percentage to _value  </td>
+		*     </tr>
+		*     <tr>
+		*       <td> 2  </td>
+		*       <td> vacuum  </td>
+		*       <td> percentage [MIN, MAX]  </td>
+		*       <td> Change the vacuum percentage to _value  </td>
+		*     </tr>
+		*     <tr>
+		*       <td> 3 </td>
+		*       <td> wait  </td>
+		*       <td> int n  </td>
+		*       <td> wait for n seconds </td>
+		*     </tr>
+		*     <tr>
+		*       <td> 4  </td>
+		*       <td> allOff  </td>
+		*       <td> -  </td>
+		*       <td> stop all solutions flow </td>
+		*     </tr>
+		*     <tr>
+		*       <td> 5 </td>
+		*       <td> solution1    </td>
+		*       <td> true / false  </td>
+		*       <td> closes other valves, then opens valve 'a' for solution 1 </td>
+		*     </tr>
+		*     <tr>
+		*       <td> 6 </td>
+		*       <td> solution2 </td>
+		*       <td> true / false </td>
+		*       <td> closes other valves, then opens valve 'b' for solution 1 </td>
+		*     </tr>
+		*     <tr>
+		*       <td> 7 </td>
+		*       <td> solution3 </td>
+		*       <td> true / false </td>
+		*       <td> closes other valves, then opens valve 'c' for solution 1 </td>
+		*     </tr>
+		*     <tr>
+		*       <td> 8 </td>
+		*       <td> solution4 </td>
+		*       <td> true / false </td>
+		*       <td> closes other valves, then opens valve 'd' for solution 1 </td>
+		*     </tr>
+		*     <tr>
+        *       <td> 9 </td>  
 		*       <td> setPon </td> 
 		*       <td> int [0 MAX] </td> 
 		*       <td> (int: pressure in mbar) - - - - Channel D </td>
         *     </tr>
         *     <tr>
-        *       <td> 1 </td> 
+        *       <td> 10 </td> 
 		*       <td> setPoff </td>
 		*       <td> int [0 MAX] </td> 
 		*       <td> (int: pressure in mbar) - - - - Channel C </td>
         *     </tr>
 		*     <tr>
-		*       <td> 2 </td>  
+		*       <td> 11 </td>
+		*       <td> setVrecirc   </td>
+		*       <td> int [MIN 0]   </td>
+		*       <td> (int: pressure in mbar) - - - - Channel A </td>
+		*     </tr>
+		*     <tr>
+		*       <td> 12 </td>  
 		*       <td> setVswitch </td> 
 		*       <td> int [MIN 0] </td> 
 		*       <td> (int: pressure in mbar) - - - - Channel B </td>
 		*     </tr>
 		*     <tr>
-		*       <td> 3 </td>  
-		*       <td> setVrecirc   </td>
-		*       <td> int [MIN 0]   </td> 
-		*       <td> (int: pressure in mbar) - - - - Channel A </td>
-		*     </tr>
-		*     <tr>
-		*       <td> 4 </td>  
-		*       <td> solution1    </td>
-		*       <td> true / false  </td> 
-		*       <td> closes other valves, then opens valve 'a' for solution 1 </td>
-		*     </tr>
-		*     <tr>
-		*       <td> 5 </td> 
-		*       <td> solution2 </td> 
-		*       <td> true / false </td>
-		*       <td> closes other valves, then opens valve 'b' for solution 1 </td>
-		*     </tr>
-		*     <tr>
-		*       <td> 6 </td>  
-		*       <td> solution3 </td> 
-		*       <td> true / false </td> 
-		*       <td> closes other valves, then opens valve 'c' for solution 1 </td>
-		*     </tr>
-		*     <tr>
-		*       <td> 7 </td>  
-		*       <td> solution4 </td> 
-		*       <td> true / false </td> 
-		*       <td> closes other valves, then opens valve 'd' for solution 1 </td>
-		*     </tr>
-		*     <tr>
-		*       <td> 8 </td>
-		*       <td> wait  </td> 
-		*       <td> int n  </td> 
-		*       <td> wait for n seconds </td>
-		*     </tr>
-		*     <tr>
-		*       <td> 9 </td>  
+		*       <td> 13 </td>  
 		*       <td> ask_msg   </td>
 		*       <td> true / false  </td> 
 		*       <td> set true to stop execution and ask confirmation to continue,\n
 		*            INTEPRETED but NO ACTION required at API level </td>
 		*     </tr>
 		*     <tr>
-		*       <td> 10 </td>
-		*       <td> allOff  </td>
-		*       <td> -  </td>
-		*       <td> stop all solutions flow </td>
-		*     </tr>
-		*     <tr>
-		*       <td> 11 </td>
+		*       <td> 14 </td>
 		*       <td> pumpsOff  </td>
 		*       <td> -  </td>
 		*       <td> stop pressures and vacuum by setting the channels to 0 </td>
 		*     </tr>
 		*     <tr>
-		*       <td> 12 </td>
+		*       <td> 15 </td>
 		*       <td> waitSync  </td>
 		*       <td> int [0 MAX]  </td>
 		*       <td> protocol stops until trigger signal is received </td>
 		*     </tr>
 		*     <tr>
-		*       <td> 13 </td>
+		*       <td> 16 </td>
 		*       <td> syncOut  </td>
 		*       <td> int [0 MAX]  </td>
 		*       <td> if negative then default state is 1 and pulse is 0,\n
 		*            if positive, then pulse is 1 and default is 0</td>
-		*     </tr>
-		*     <tr>
-		*       <td> 14 </td>
-		*       <td> zoneSize  </td>
-		*       <td> percentage [MIN, MAX]  </td>
-		*       <td> Change the zone size percentage to _value  </td>
-		*     </tr>
-		*     <tr>
-		*       <td> 15 </td>
-		*       <td> flowSpeed  </td>
-		*       <td> percentage [MIN, MAX]  </td>
-		*       <td> Change the flow speed percentage to _value  </td>
-		*     </tr>
-		*     <tr>
-		*       <td> 16 </td>
-		*       <td> vacuum  </td>
-		*       <td> percentage [MIN, MAX]  </td>
-		*       <td> Change the vacuum percentage to _value  </td>
 		*     </tr>
 		*     <tr>
 		*       <td> 17 </td>
@@ -545,25 +545,25 @@ namespace fluicell
 		*
 		*    enum index    |   Command       |   value         |
 		*   ---------------+-----------------+-----------------+-------------------------------------------------------------
-		*      0           |   setPon        |  int [0 MAX]    |  (int: pressure in mbar) ---- Channel D
-		*      1           |   setPoff       |  int [0 MAX]    |  (int: pressure in mbar) ---- Channel C
-		*      2           |   setVswitch    |  int [MIN 0]    |  (int: pressure in mbar) ---- Channel B
-		*      3           |   setVrecirc    |  int [MIN 0]    |  (int: pressure in mbar) ---- Channel A
-		*      4           |   solution1     |  true / false   |  closes other valves, then opens valve a for solution 1  
-		*      5           |   solution2     |  true / false   |  closes other valves, then opens valve b for solution 2 
-		*      6           |   solution3     |  true / false   |  closes other valves, then opens valve c for solution 3 
-		*      7           |   solution4     |  true / false   |  closes other valves, then opens valve d for solution 4 
-		*      8           |   wait          |  int n          |  wait for n seconds
-		*      9           |   ask_msg       |  true / false   |  set true to stop execution and ask confirmation to continue,
+		*      0           |   zoneSize      |  int [MIN MAX]  |  Change the zone size percentage to _value
+		*      1           |   flowSpeed     |  int [MIN MAX]  |  Change the flow speed percentage to _value
+		*      2           |   vacuum        |  int [MIN MAX]  |  Change the vacuum percentage to _value
+		*      3           |   wait          |  int n          |  wait for n seconds
+		*      4           |   allOff        |       -         |  stop all solutions flow
+		*      5           |   solution1     |  true / false   |  closes other valves, then opens valve a for solution 1
+		*      6           |   solution2     |  true / false   |  closes other valves, then opens valve b for solution 2
+		*      7           |   solution3     |  true / false   |  closes other valves, then opens valve c for solution 3
+		*      8           |   solution4     |  true / false   |  closes other valves, then opens valve d for solution 4
+		*      9           |   setPon        |  int [0 MAX]    |  (int: pressure in mbar) ---- Channel D
+		*      10          |   setPoff       |  int [0 MAX]    |  (int: pressure in mbar) ---- Channel C
+		*      11          |   setVrecirc    |  int [MIN 0]    |  (int: pressure in mbar) ---- Channel A
+		*      12          |   setVswitch    |  int [MIN 0]    |  (int: pressure in mbar) ---- Channel B
+		*      13          |   ask_msg       |  true / false   |  set true to stop execution and ask confirmation to continue,
 		*                  |                 |                 |  INTEPRETED but NO ACTION required at API level
-		*      10          |   allOff        |       -         |  stop all solutions flow
-		*      11          |   pumpsOff      |       -         |  stop pressures and vacuum by setting the channels to 0
-		*      12          |   waitSync      |  int [0 MAX]    |  protocol stops until trigger signal is received
-		*      13          |   syncOut       |  int [0 MAX]    |  if negative then default state is 1 and pulse is 0,
+		*      14          |   pumpsOff      |       -         |  stop pressures and vacuum by setting the channels to 0
+		*      15          |   waitSync      |  int [0 MAX]    |  protocol stops until trigger signal is received
+		*      16          |   syncOut       |  int [0 MAX]    |  if negative then default state is 1 and pulse is 0,
 		*                  |                 |                 |  if positive, then pulse is 1 and default is 0
-		*      14          |   dropletSize   |  int [MIN MAX]  |  Change the zone size percentage to _value
-		*      15          |   flowSpeed     |  int [MIN MAX]  |  Change the flow speed percentage to _value
-		*      16          |   vacuum        |  int [MIN MAX]  |  Change the vacuum percentage to _value
 		*      17          |   loop          |  int [0 MAX]    |  number of loops, not running at API level
 		*                  |                 |                 |
 		*   ---------------+-----------------+-----------------+-------------------------------------------------------------
@@ -753,11 +753,13 @@ namespace fluicell
 			std::string getCommandAsString()
 			{
 				static const char* const text[] =
-				{   "setPon", "setPoff", "setVswitch", "setVrecirc",
+				{ 
+					"zoneSize", "flowSpeed", "vacuum","wait",
 					"solution1", "solution2","solution3","solution4",
-					"wait", "ask_msg", "allOff", "pumpsOff",
+					"setPon", "setPoff",  "setVrecirc", "setVswitch",
+					"ask_msg", "allOff", "pumpsOff",
 					"waitSync", "syncOut", 
-					"zoneSize", "flowSpeed", "vacuum", "loop" };
+					 "loop" };
 				return  text[int(this->instruction)]; // cast to integer
 			}
 

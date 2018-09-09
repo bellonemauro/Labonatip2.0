@@ -244,7 +244,6 @@ void Labonatip_GUI::simulationOnly()
 		<< ui->actionSimulation->isChecked() << endl;
 
 	this->stopSolutionFlow();
-	
 
 	m_simulationOnly = ui->actionSimulation->isChecked();
 
@@ -545,14 +544,8 @@ void Labonatip_GUI::reboot() {
 		if (!visualizeProgressMessage(20, m_str_rebooting)) return; 
 
 		// try to reconnect
-		disCon(true); //TODO: check this, it is not clear if we connect or disconnect
+		disCon(true); 
 		if (!visualizeProgressMessage(5, m_str_reconnecting)) return;
-
-		// TODO : check if connected and fine 
-		// m_ppc1->isConnected();
-		// m_ppc1->isRunning();
-
-		//disCon(true); //TODO: check this, it is not clear if we connect or disconnect
 	}
 
 	setEnableMainWindow(true);

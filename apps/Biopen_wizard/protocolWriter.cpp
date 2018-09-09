@@ -141,11 +141,8 @@ QList<QStringList> Labonatip_protocolWriter::visitTree(QTreeWidget *_tree) {
 	return list;
 }
 
-
-
 QString Labonatip_protocolWriter::createHeader()
 {
-
 	QString header;
 	header.append(tr("%% +---------------------------------------------------------------------------+\n"));
 	header.append(tr("%% |                           FLUICELL LAB-ON-A-TIP                           |\n"));
@@ -163,7 +160,7 @@ QString Labonatip_protocolWriter::createHeader()
 	header.append(tr("%% Fluicell Lab-on-a-tip protocol file description \n"));
 	header.append(tr("%% +---------------------------------------------------------------------------+ \n"));
 	header.append(tr("%% List of parameters: \n"));
-	header.append(tr("%%  - Command :  \n")); //TODO remap the header
+	header.append(tr("%%  - Command :  \n")); 
 	header.append(tr("%%  -       0:  Zone size (%)                 :  Set the droplet size in % respect to the default values \n"));
 	header.append(tr("%%  -       1:  Flow speed (%)                :  Set the flow speed in % respect to the default values\n"));
 	header.append(tr("%%  -       2:  Vacuum (%)                    :  Set the vacuum in % respect to the default values\n"));
@@ -194,6 +191,4 @@ QString Labonatip_protocolWriter::createHeader()
 	header.append(tr("%% 13#1#2#message#0#§ \n"));
 	header.append(tr("%% Command Value status_message depth\n%"));
 	return header;
-	// TODO  remap as Zone size, Flow speed, Vacuum, Wait, Alloff, Solution 1-4, Pon, Poff, Vrecirc, V switch, all the rest.
-
 }

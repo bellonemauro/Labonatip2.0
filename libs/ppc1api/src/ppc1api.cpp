@@ -464,8 +464,6 @@ bool fluicell::PPC1api::connectCOM()
 		m_PPC1_serial->setBaudrate(m_baud_rate);
 		m_PPC1_serial->setFlowcontrol(serial::flowcontrol_none);
 		m_PPC1_serial->setParity(serial::parity_none);
-		//TODO: for some reason this does not work on Ubuntu
-		//m_PPC1_serial->setTimeout(serial::Timeout::simpleTimeout(m_COM_timeout));// (my_timeout);
 
 		if (!checkVIDPID(m_COMport)) {
 			cerr << currentDateTime() 
@@ -1178,196 +1176,6 @@ bool fluicell::PPC1api::runCommand(command _cmd)
 		<< " status message = " << _cmd.getStatusMessage() << endl;
 
 	switch (_cmd.getInstruction()) {
-	//TODO remap as Zone size, Flow speed, Vacuum, Wait, Alloff, Solution 1-4, Pon, Poff, Vrecirc, V switch, all the rest.
-	/*case 0: { //setPon
-		if (m_verbose) cout << currentDateTime()
-			<< " fluicell::PPC1api::run(command _cmd) ::: setPon  " 
-			<< _cmd.getValue() << endl;
-		return setPressureChannelD(_cmd.getValue());
-	}
-	case 1: {//setPoff
-		if (m_verbose) cout << currentDateTime()
-			<< " fluicell::PPC1api::run(command _cmd) ::: setPoff  " 
-			<< _cmd.getValue() << endl;
-		return setPressureChannelC(_cmd.getValue());
-	}
-	case 2: {//setVswitch
-		if (m_verbose) cout << currentDateTime()
-			<< " fluicell::PPC1api::run(command _cmd) ::: setVswitch  " 
-			<< _cmd.getValue() << endl;
-		return setVacuumChannelA(_cmd.getValue());
-	}
-	case 3: {//setVrecirc
-		if (m_verbose) cout << currentDateTime()
-			<< " fluicell::PPC1api::run(command _cmd) ::: setVrecirc  " 
-			<< _cmd.getValue() << endl;
-		return setVacuumChannelB(_cmd.getValue());
-	}
-	case 4: {//solution1
-		if (m_verbose) cout << currentDateTime()
-			<< " fluicell::PPC1api::run(command _cmd) ::: solution1  " 
-			<< _cmd.getValue() << endl;
-		if (!closeAllValves())return false;
-		int v = static_cast<int>(_cmd.getValue());
-		bool valve_status;
-		if (v == 0)valve_status = false;
-		else valve_status = true;
-		return setValve_l(valve_status);
-	}
-	case 5: {//solution2
-		if (m_verbose) cout << currentDateTime()
-			<< " fluicell::PPC1api::run(command _cmd) ::: solution2  " 
-			<< _cmd.getValue() << endl;
-		if (!closeAllValves())return false;
-		int v = static_cast<int>(_cmd.getValue());
-		bool valve_status;
-		if (v == 0)valve_status = false;
-		else valve_status = true;
-		return setValve_k(valve_status);
-	}
-	case 6: {//solution3
-		if (m_verbose) cout << currentDateTime()
-			<< " fluicell::PPC1api::run(command _cmd) ::: solution3  " 
-			<< _cmd.getValue() << endl;
-		if (!closeAllValves())return false;
-		int v = static_cast<int>(_cmd.getValue());
-		bool valve_status;
-		if (v == 0 )valve_status = false;
-		else valve_status = true;
-		return setValve_j(valve_status);
-	}
-	case 7: {//solution4
-		if (m_verbose) cout << currentDateTime()
-			<< " fluicell::PPC1api::run(command _cmd) ::: solution4  " 
-			<< _cmd.getValue() << endl;
-		if (!closeAllValves())return false;
-		int v = static_cast<int>(_cmd.getValue());
-		bool valve_status;
-		if (v == 0)valve_status = false;
-		else valve_status = true; 
-		return setValve_i(valve_status);
-	}
-	case 8: {//sleep
-		if (m_verbose) cout << currentDateTime()
-			<< " fluicell::PPC1api::run(command _cmd) ::: sleep  "
-			<< _cmd.getValue() << endl; 
-		//TODO: this is not safe as one can stop the macro without breaking the wait function
-		std::this_thread::sleep_for(std::chrono::seconds(static_cast<int>(_cmd.getValue())));
-		// This could solve the issue of waiting and stopping 
-		// (it has to wait for 1 second to finish though)
-		// moreover, this introduces uncertainty in the time line
-		// TO BE TESTED
-		/*
-		int number_of_seconds = static_cast<int>(_cmd.getValue());
-		int count = 0;
-		if (!m_threadTerminationHandler && count<number_of_seconds)
-		{
-			std::this_thread::sleep_for(std::chrono::seconds(1));
-			count++;
-		}*/
-	/*	return true;
-	}
-	case 9: {//ask_msg
-		if (m_verbose) cout << currentDateTime()
-			<< " fluicell::PPC1api::run(command _cmd) :::"
-			<< " ask_msg NOT implemented in the API " << endl;
-		return true;
-	}
-	case 10: {//allOff	
-		if (m_verbose) cout << currentDateTime()
-			<< " fluicell::PPC1api::run(command _cmd) ::: allOff  " << endl;
-		return closeAllValves(); 
-	}
-	case 11: {//pumpsOff
-		if (m_verbose) cout << currentDateTime()
-			<< " fluicell::PPC1api::run(command _cmd) ::: pumpsOff  " << endl;
-		pumpingOff();
-		return true;
-	}
-	case 12: {//waitSync 
-		// waitsync(front type : can be : RISE or FALL), 
-		// protocol stops until trigger signal is received
-		bool state;
-		if (_cmd.getValue() == 0) state = false;
-		else state = true;
-		if (m_verbose) cout << currentDateTime()
-            << " fluicell::PPC1api::run(command _cmd) ::: waitSync = "
-            << state << endl;
-		// reset the sync signals and then wait for the correct state to come
-		resetSycnSignals(false);
-		std::this_thread::sleep_for(std::chrono::milliseconds(20));
-		clock_t begin = clock();
-		while (!syncSignalArrived(state))
-		{
-			std::this_thread::sleep_for(std::chrono::milliseconds(1));
-			clock_t end = clock();
-			double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC; 
-			if (elapsed_secs > m_wait_sync_timeout) // break if timeout
-			{
-				cerr << currentDateTime()
-					<< " fluicell::PPC1api::run(command _cmd) ::: waitSync timeout "
-					<< endl;
-				return false;
-			}
-		}
-		return true;
-
-	}
-	case 13: {//syncOut //TODO
-        // syncout(int: pulse length in ms) if negative then default state is 1
-        // and pulse is 0, if positive, then pulse is 1 and default is 0
-		int v = static_cast<int>(_cmd.getValue());
-		if (m_verbose) cout << currentDateTime()
-			 << " fluicell::PPC1api::run(command _cmd) ::: "
-			 << " syncOut NOT implemented in the API ::: test value = " 
-			 << v << endl;
-		int current_ppc1out_status = m_PPC1_data->ppc1_OUT;
-		bool success = setPulsePeriod(v);
-		std::this_thread::sleep_for(std::chrono::milliseconds(v));
-		//TODO : this function is unsafe, in case the protocol is stop during this function, 
-		//       the stop will not work, it has to wait for the wait to end
-		/*
-		clock_t begin = clock();
-		while (current_ppc1out_status == m_PPC1_data->ppc1_OUT)
-		{
-			std::this_thread::sleep_for(std::chrono::milliseconds(1));
-		}
-		while (current_ppc1out_status != m_PPC1_data->ppc1_OUT)
-		{
-			std::this_thread::sleep_for(std::chrono::milliseconds(1));
-		}
-		clock_t end = clock();
-		double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;*/
-	/*	return success;
-	}
-	case 14: {//dropletSize
-		if (m_verbose) cout << currentDateTime()
-			<< " fluicell::PPC1api::run(command _cmd) ::: "
-			<< " dropletSize  NOT entirely implemented in the API" 
-			<< _cmd.getValue() << endl;
-		return setDropletSize(_cmd.getValue()); 
-	}
-	case 15: {//flowSpeed
-		if (m_verbose) cout << currentDateTime()
-			<< " fluicell::PPC1api::run(command _cmd) ::: "
-			<< " flowSpeed  NOT entirely implemented in the API" 
-			<< _cmd.getValue() << endl;
-		return setFlowspeed(_cmd.getValue()); 
-	}
-	case 16: {//vacuum
-		if (m_verbose) cout << currentDateTime()
-			<< " fluicell::PPC1api::run(command _cmd) ::: vacuum  " 
-			<< _cmd.getValue() << endl;
-		return setVacuumPercentage(_cmd.getValue());
-	}
-	case 17: {//loop
-		if (m_verbose) cout << currentDateTime()
-			 << " fluicell::PPC1api::run(command _cmd) :::"
-			 << " loop NOT implemented in the API "
-			 << endl;
-		
-		return true;
-	}*/
 	case fluicell::PPC1api::command::instructions::zoneSize: {//zoneSize
 		if (m_verbose) cout << currentDateTime()
 			<< " fluicell::PPC1api::run(command _cmd) ::: "
@@ -1393,6 +1201,7 @@ bool fluicell::PPC1api::runCommand(command _cmd)
 			<< " fluicell::PPC1api::run(command _cmd) ::: sleep  "
 			<< _cmd.getValue() << endl;
 		//TODO: this is not safe as one can stop the macro without breaking the wait function
+		//however, wait function is handled at GUI level not at API level
 		std::this_thread::sleep_for(std::chrono::seconds(static_cast<int>(_cmd.getValue())));
 		// This could solve the issue of waiting and stopping 
 		// (it has to wait for 1 second to finish though)
