@@ -642,35 +642,38 @@ namespace fluicell
 				int inst = this->instruction;
 
 				switch (inst) {
-				case 0: { //setPon
+				case instructions::setPon: { //setPon
 					if (this->value < MIN_CHAN_D ||
 						this->value > MAX_CHAN_D)
 						return false; // out of bound
 					else
 						return true;
 				}
-				case 1: {//setPoff
+				case instructions::setPoff: {//setPoff
 					if (this->value < MIN_CHAN_C ||
 						this->value > MAX_CHAN_C) 
 						return false; // out of bound
 					else
 						return true;
 				}
-				case 2: {//setVswitch
+				case instructions::setVswitch: {//setVswitch
 					if (this->value < MIN_CHAN_B ||
 						this->value > MAX_CHAN_B) 
 						return false; // out of bound
 					else
 						return true;
 				}
-				case 3: {//setVrecirc
+				case instructions::setVrecirc: {//setVrecirc
 					if (this->value < MIN_CHAN_A ||
 						this->value > MAX_CHAN_A) 
 						return false; // out of bound
 					else
 						return true;
 				}
-				case 4: case 5: case 6: case 7: {//solution1,2,3,4
+				case instructions::solution1: 
+				case instructions::solution2: 
+				case instructions::solution3: 
+				case instructions::solution4: {//solution1,2,3,4
 					if (this->value != 0 &&
 						this->value != 1 ) 
 						return false; // out of bound
@@ -678,46 +681,48 @@ namespace fluicell
 						return true;
 					return true;
 				}
-				case 8: {//sleep
+				case instructions::wait: {//sleep
 					if (this->value < 0) 
 						return false;
 					else
 						return true;
 				}
-				case 9: case 10: case 11: {//ask_msg //allOff //pumpsOff
+				case instructions::ask_msg: 
+				case instructions::allOff: 
+				case instructions::pumpsOff: {//ask_msg //allOff //pumpsOff
 					// nothing to check here, the value is ignored
 					return true;
 				}
-				case 12: {//waitSync //TODO
+				case instructions::waitSync: {//waitSync //TODO
 				//not checked for now
 					return true;
 				}
-				case 13: {//syncOut 
+				case instructions::syncOut: {//syncOut 
 				 //not checked for now
 					return true;
 				}
-				case 14: {//zone size
+				case instructions::zoneSize: {//zone size
 					if (this->value < MIN_ZONE_SIZE_PERC ||
 						this->value > MAX_ZONE_SIZE_PERC) 
 						return false; // out of bound
 					else
 						return true;
 				}
-				case 15: {//flowSpeed
+				case instructions::flowSpeed: {//flowSpeed
 					if (this->value < MIN_FLOW_SPEED_PERC ||
 						this->value > MAX_FLOW_SPEED_PERC) 
 						return false; // out of bound
 					else
 						return true;
 				}
-				case 16: {//vacuum
+				case instructions::vacuum: {//vacuum
 					if (this->value < MIN_VACUUM_PERC ||
 						this->value > MAX_VACUUM_PERC) 
 						return false; // out of bound
 					else
 						return true;
 				}
-				case 17: {//loop
+				case instructions::loop: {//loop
 					if (this->value < 0) 
 						return false;
 					else
