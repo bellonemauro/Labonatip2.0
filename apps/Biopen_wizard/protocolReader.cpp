@@ -19,6 +19,7 @@ Labonatip_protocolReader::Labonatip_protocolReader(QTreeWidget * _tree,
 {
 	m_tree = _tree;
 	m_current_protocol_file_name = "";
+	m_v_7_minor_backward_compatibility = false;
 }
 
 
@@ -166,6 +167,16 @@ bool Labonatip_protocolReader::decodeProtocolCommand(
 	QStringList data_string;
 	if (_command.at(0) == *"%") {
 		// it is the header, do nothing, just discard the line
+		QByteArray headerVersionLine = "%% Protocol Header V. 0.7 \n";
+		if (_command.contains("0.6") || _command.contains("0.5") || _command.contains("0.4") ||
+			_command.contains("0.3") || _command.contains("0.2") || _command.contains("0.1"))
+		{
+			QMessageBox::warning(this, m_str_warning,
+				"ATTENTION: this file has been saved using an older version");
+			m_v_7_minor_backward_compatibility = true;
+			return false;
+		}
+
 		return false;
 	}
 	else
@@ -196,7 +207,20 @@ bool Labonatip_protocolReader::decodeProtocolCommand(
 
 
 	// fill the qtreewidget item
-	_out_item.setText(m_cmd_command_c, data_string.at(0));
+	if (m_v_7_minor_backward_compatibility == true)
+	{
+		
+		QString command_data;
+
+		command_data = remapForBackwardCompatibility(data_string.at(0));
+
+		_out_item.setText(m_cmd_command_c, command_data);
+	}
+	else {
+		_out_item.setText(m_cmd_command_c, data_string.at(0));
+	}
+
+
 	_out_item.setText(m_cmd_value_c, data_string.at(1));
 
 	if (data_string.at(m_cmd_value_c) == "2") { // 2 is the string for true
@@ -230,4 +254,47 @@ int Labonatip_protocolReader::getLevel(QTreeWidgetItem _item)
 	if (success) return level;
 	else return -1;
 
+}
+
+QString Labonatip_protocolReader::remapForBackwardCompatibility(QString _old_data)
+{
+	//setPon = 0,      zoneSize = 0,
+	if (_old_data == "0") return "9";
+	//setPoff = 1,     flowSpeed = 1,
+	if (_old_data == "1") return "10";
+	//setVswitch = 2,  vacuum = 2,
+	if (_old_data == "2") return "12";
+	//setVrecirc = 3,  wait = 3,
+	if (_old_data == "3") return "11";
+	//solution1 = 4,   allOff = 4,
+	if (_old_data == "4") return "5";
+	//solution2 = 5,   solution1 = 5,
+	if (_old_data == "5") return "6";
+	//solution3 = 6,   solution2 = 6,
+	if (_old_data == "6") return "7";
+	//solution4 = 7,   solution3 = 7,
+	if (_old_data == "7") return "8";
+	//wait = 8,        solution4 = 8,
+	if (_old_data == "8") return "3";
+	//ask_msg = 9,     setPon = 9,
+	if (_old_data == "9") return "13";
+	//allOff = 10,     setPoff = 10,
+	if (_old_data == "10") return "4";
+	//pumpsOff = 11,   setVrecirc = 11,
+	if (_old_data == "11") return "14";
+	//waitSync = 12,   setVswitch = 12,
+	if (_old_data == "12") return "15";
+	//syncOut = 13,	   ask_msg = 13,
+	if (_old_data == "13") return "16";
+	//zoneSize = 14,   pumpsOff = 14,
+	if (_old_data == "14") return "0";
+	//flowSpeed = 15,  waitSync = 15,
+	if (_old_data == "15") return "1";
+	//vacuum = 16,     syncOut = 16,
+	if (_old_data == "16") return "2";
+	//loop = 17        loop = 17 
+	if (_old_data == "17") return "17";
+	//TODO remap as Zone size, Flow speed, Vacuum, Wait, Alloff, Solution 1-4, Pon, Poff, Vrecirc, V switch, all the rest.
+
+	return QString();
 }

@@ -28,7 +28,7 @@ void Labonatip_GUI::dropletSizePlus() {
 	// V_recirc - percentage
 	if (m_pipette_active) {
 		bool success = false;
-		if (m_pr_params->useDefValSetPoint)
+		if (0)//(m_pr_params->useDefValSetPoint )  //TODO: weird
 		{
 			success = m_ppc1->changeDropletSizeBy(m_pr_params->base_ds_increment);
 		}
@@ -74,15 +74,17 @@ void Labonatip_GUI::dropletSizePlus() {
 			return;
 		}
 		else {
-			double delta = (1.0 - std::pow(perc, (1.0 / 3.0)));
+			double delta; //= (1.0 - std::pow(perc, (1.0 / 3.0)));
 			double value;
-			if (m_pr_params->useDefValSetPoint)
+			if (0)//(m_pr_params->useDefValSetPoint ) //TODO: weird
 			{
+				delta = (1.0 - std::pow(perc, (1.0 / 3.0)));
 				value = m_pipette_status->v_recirc_set_point -
 					m_pr_params->v_recirc_default * delta;
 			}
 			else
 			{
+				delta = (1.0 - std::pow(perc, (1.0 / 3.0)));
 				value = -m_pr_params->v_recirc_default -
 					m_pr_params->v_recirc_default * delta;
 			}
@@ -96,7 +98,7 @@ void Labonatip_GUI::dropletSizePlus() {
 		else {
 			double delta = (1.0 - std::pow(perc, (1.0 / 3.0)));
 			double value;
-			if (m_pr_params->useDefValSetPoint)
+			if (0)//(m_pr_params->useDefValSetPoint)
 			{
 				value = m_pipette_status->pon_set_point - m_pr_params->p_on_default  * delta;
 			}
@@ -130,7 +132,7 @@ void Labonatip_GUI::dropletSizeMinus() {
 	// V_recirc + percentage
 	if (m_pipette_active) {
 		bool success = false;
-		if (m_pr_params->useDefValSetPoint)
+		if (0)//(m_pr_params->useDefValSetPoint)  //TODO: weird
 		{
 			success = m_ppc1->changeDropletSizeBy(-m_pr_params->base_ds_increment);
 		}
@@ -177,7 +179,7 @@ void Labonatip_GUI::dropletSizeMinus() {
 		else {
 			double delta = (1.0 - std::pow(perc, (1.0 / 3.0)));
 			double value;
-			if (m_pr_params->useDefValSetPoint)
+			if (0)//(m_pr_params->useDefValSetPoint) //TODO: weird
 			{
 				value = m_pipette_status->pon_set_point - m_pr_params->p_on_default  * delta;
 			}
@@ -196,7 +198,7 @@ void Labonatip_GUI::dropletSizeMinus() {
 		else {
 			double delta = (1.0 - std::pow(perc, (1.0 / 3.0)));
 			double value;
-			if (m_pr_params->useDefValSetPoint)
+			if (0)//(m_pr_params->useDefValSetPoint )  //TODO: weird
 			{
 				value = m_pipette_status->v_recirc_set_point -
 					m_pr_params->v_recirc_default * delta;
@@ -226,7 +228,7 @@ void Labonatip_GUI::flowSpeedPlus() {
 	// if 5% different is less than 5 mbar .... start -> start + 5 --> start - 5%
 	if (m_pipette_active) {
 		bool success = false;
-		if (m_pr_params->useDefValSetPoint)
+		if (1)//(m_pr_params->useDefValSetPoint && 0)  //TODO: weird
 		{
 			success = m_ppc1->changeFlowspeedBy(m_pr_params->base_fs_increment);
 		}
@@ -275,7 +277,7 @@ void Labonatip_GUI::flowSpeedPlus() {
 		}
 		else {
 			double value;
-			if (m_pr_params->useDefValSetPoint)
+			if (1)//(m_pr_params->useDefValSetPoint && 0)  //TODO: weird
 			{
 				value = m_pipette_status->pon_set_point +
 					m_pr_params->p_on_default *  m_pr_params->base_fs_increment / 100.0;
@@ -294,7 +296,7 @@ void Labonatip_GUI::flowSpeedPlus() {
 		}
 		else {
 			double value;
-			if (m_pr_params->useDefValSetPoint)
+			if (1)//(m_pr_params->useDefValSetPoint && 0)  //TODO: weird
 			{
 				value = m_pipette_status->poff_set_point +
 					m_pr_params->p_off_default * m_pr_params->base_fs_increment / 100.0;
@@ -312,7 +314,7 @@ void Labonatip_GUI::flowSpeedPlus() {
 		}
 		else {
 			double value;
-			if (m_pr_params->useDefValSetPoint)
+			if (1)//(m_pr_params->useDefValSetPoint && 0)  //TODO: weird
 			{
 				value = m_pipette_status->v_switch_set_point -
 					m_pr_params->v_switch_default * m_pr_params->base_fs_increment / 100.0;
@@ -332,7 +334,7 @@ void Labonatip_GUI::flowSpeedPlus() {
 		}
 		else {
 			double value;
-			if (m_pr_params->useDefValSetPoint)
+			if (1) //(m_pr_params->useDefValSetPoint && 0)  //TODO: weird
 			{
 				value = m_pipette_status->v_recirc_set_point -
 					m_pr_params->v_recirc_default * m_pr_params->base_fs_increment / 100.0;
@@ -361,7 +363,7 @@ void Labonatip_GUI::flowSpeedMinus() {
 	// -percentage to all values
 	if (m_pipette_active) {
 		bool success = false;
-		if (m_pr_params->useDefValSetPoint)
+		if (1) //(m_pr_params->useDefValSetPoint)  //TODO: weird
 		{
 			success = m_ppc1->changeFlowspeedBy(-m_pr_params->base_fs_increment);
 		}
@@ -406,7 +408,7 @@ void Labonatip_GUI::flowSpeedMinus() {
 		}
 
 		double value;
-		if (m_pr_params->useDefValSetPoint)
+		if (1)//(m_pr_params->useDefValSetPoint)  //TODO: weird
 		{
 			value = m_pipette_status->pon_set_point -
 				m_pr_params->p_on_default * m_pr_params->base_fs_increment / 100.0;
@@ -447,7 +449,7 @@ void Labonatip_GUI::vacuumPlus() {
 	// +percentage to v_recirculation
 	if (m_pipette_active) {
 		bool success = false;
-		if (m_pr_params->useDefValSetPoint)
+		if (m_pr_params->useDefValSetPoint && 0)  //TODO: weird
 		{
 			success = m_ppc1->changeVacuumPercentageBy(m_pr_params->base_v_increment);
 		}
@@ -506,7 +508,7 @@ void Labonatip_GUI::vacuumMinus() {
 	// -x% v_recirculation
 	if (m_pipette_active) {
 		bool success = false; 
-		if (m_pr_params->useDefValSetPoint)
+		if (m_pr_params->useDefValSetPoint && 0)  //TODO: weird
 		{
 			success = m_ppc1->changeVacuumPercentageBy(-m_pr_params->base_v_increment);
 		}
