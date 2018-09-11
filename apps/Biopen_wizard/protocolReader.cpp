@@ -172,7 +172,7 @@ bool Labonatip_protocolReader::decodeProtocolCommand(
 			_command.contains("0.3") || _command.contains("0.2") || _command.contains("0.1"))
 		{
 			QMessageBox::warning(this, m_str_warning,
-				"ATTENTION: this file has been saved using an older version");
+				"ATTENTION: this file has been saved using an older version. <br> Please, check the loaded protocol and save in the current version.");
 			m_v_7_minor_backward_compatibility = true;
 			return false;
 		}

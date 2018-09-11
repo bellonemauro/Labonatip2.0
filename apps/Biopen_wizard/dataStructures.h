@@ -33,7 +33,7 @@
 #define MAX_VACUUM_PERC 250     // %
 #define MIN_WARNING_VOLUME 6    // in mL
 #define MAX_VOLUME_IN_WELL 30   // in mL
-#define MAX_WASTE_VOLUME 5     // value in mL
+#define MAX_WASTE_VOLUME 35     // value in mL
 #define MAX_WASTE_WARNING_VOLUME 27    // in mL
 
 
