@@ -163,6 +163,8 @@ void Labonatip_GUI::updateVswitchSetPoint(double _v_switch_set_point)
 
 	if (m_simulationOnly) {
 		ui->progressBar_switch->setValue(_v_switch_set_point);
+		updateFlowControlPercentages();
+		updateGUI();
 	}
 }
 

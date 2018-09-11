@@ -111,7 +111,7 @@ namespace fluicell
 			#define MIN_ZONE_SIZE_PERC 50   //!< %
 			#define MAX_ZONE_SIZE_PERC 200  //!< %
 			#define MIN_FLOW_SPEED_PERC 50  //!< %
-			#define MAX_FLOW_SPEED_PERC 250 //!< %
+			#define MAX_FLOW_SPEED_PERC 220 //!< %
 			#define MIN_VACUUM_PERC 50      //!< %
 			#define MAX_VACUUM_PERC 250     //!< %
 			#define LENGTH_TO_TIP 0.065     /*!< length of the pipe to the tip, this value is used  

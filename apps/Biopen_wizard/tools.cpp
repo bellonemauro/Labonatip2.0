@@ -556,7 +556,7 @@ void Labonatip_tools::getPRsettingsFromGUI()
 	m_pr_params->v_recirc_default = ui_tools->spinBox_v_recirc_default->value();
 	m_pr_params->v_switch_default = ui_tools->spinBox_v_switch_default->value();
 	m_pr_params->verboseOut = ui_tools->checkBox_enablePPC1verboseOut->isChecked();
-	//m_pr_params->useDefValSetPoint = ui_tools->checkBox_useSetPoint->isChecked(); //TODO: remove this field
+	m_pr_params->useDefValSetPoint = ui_tools->checkBox_useSetPoint->isChecked(); 
 	m_pr_params->enableFilter = ui_tools->checkBox_enablePPC1filter->isChecked();
 	m_pr_params->filterSize = ui_tools->spinBox_PPC1filterSize->value();
 	m_pr_params->waitSyncTimeout = ui_tools->spinBox_PPC1_sync_timeout->value();
@@ -965,7 +965,7 @@ bool Labonatip_tools::loadSettings(QString _path)
 	m_pr_params->verboseOut = verbose_out;
 
 	bool use_def_v_set_p = m_settings->value("PPC1/UseDefValSetPoint", "1").toBool();
-	//ui_tools->checkBox_useSetPoint->setChecked(use_def_v_set_p); //TODO: remove this field
+	ui_tools->checkBox_useSetPoint->setChecked(use_def_v_set_p); 
 	m_pr_params->useDefValSetPoint = use_def_v_set_p;
 
 	bool enable_filter = m_settings->value("PPC1/EnableFilter", "1").toBool();
@@ -1195,7 +1195,7 @@ bool Labonatip_tools::saveSettings(QString _file_name)
 	settings->setValue("pv_preset3/v_recirc", ui_tools->spinBox_v_recirc_preset3->value());
 
 	settings->setValue("PPC1/VerboseOut", int(ui_tools->checkBox_enablePPC1verboseOut->isChecked()));
-	//settings->setValue("PPC1/UseDefValSetPoint", int(ui_tools->checkBox_useSetPoint->isChecked())); //TODO remove this field
+	settings->setValue("PPC1/UseDefValSetPoint", int(ui_tools->checkBox_useSetPoint->isChecked())); 
 	settings->setValue("PPC1/EnableFilter", int(ui_tools->checkBox_enablePPC1filter->isChecked()));
 	settings->setValue("PPC1/FilterSize", int(ui_tools->spinBox_PPC1filterSize->value()));
 	settings->setValue("PPC1/WaitSyncTimeout", int(ui_tools->spinBox_PPC1_sync_timeout->value()));
