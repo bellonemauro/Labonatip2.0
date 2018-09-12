@@ -712,6 +712,11 @@ QPushButton:disabled{ background-color: #CCCCCC; }
            </item>
            <item row="0" column="0" colspan="2">
             <widget class="QCheckBox" name="checkBox_useSetPoint">
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
              <property name="text">
               <string>use set point / default values</string>
              </property>
