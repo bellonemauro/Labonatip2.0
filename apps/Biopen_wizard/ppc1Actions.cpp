@@ -328,6 +328,11 @@ void Labonatip_GUI::protocolFinished(const QString &_result) {
 		 << "Labonatip_GUI::protocolFinished    " << endl;
 
 	QMessageBox::information(this, m_str_information, _result);
+
+	// restore settings that have been overlapped during the protocol running
+	this->toolApply();
+
+	// restore GUI 
 	ui->label_runMacro->setText(m_str_label_run_protocol);
 	ui->groupBox_deliveryZone->setEnabled(true);
 	ui->pushButton_operational->setEnabled(true);
@@ -358,6 +363,7 @@ void Labonatip_GUI::protocolFinished(const QString &_result) {
 		updatePonSetPoint(m_ppc1->getPonSetPoint());
 	}
 
+	//disconnect protocol runner events
 	disconnect(m_macroRunner_thread,
 		&Labonatip_macroRunner::resultReady, this,
 		&Labonatip_GUI::protocolFinished);

@@ -252,6 +252,10 @@ private slots:
 	*   simulate the solution 1 button press
 	*/
 	void solution1(bool _enable) {
+		// we need to overlap this setting to avoid 
+		//the solution to be stopped during the protocol runner
+		m_solutionParams->continuous_flowing_sol1 = true;
+		// this settings need to be restored at the end of the protocol
 		ui->pushButton_solution1->setChecked(_enable);
 		pushSolution1();
 	}
@@ -266,6 +270,10 @@ private slots:
 	*   simulate the solution 2 button press
 	*/
 	void solution2(bool _enable) {
+		// we need to overlap this setting to avoid 
+		//the solution to be stopped during the protocol runner
+		m_solutionParams->continuous_flowing_sol2 = true;
+		// this settings need to be restored at the end of the protocol
 		ui->pushButton_solution2->setChecked(_enable);
 		pushSolution2();
 	}
@@ -280,6 +288,10 @@ private slots:
 	*   simulate the solution 3 button press
 	*/
 	void solution3(bool _enable) {
+		// we need to overlap this setting to avoid 
+		//the solution to be stopped during the protocol runner
+		m_solutionParams->continuous_flowing_sol3 = true;
+		// this settings need to be restored at the end of the protocol
 		ui->pushButton_solution3->setChecked(_enable);
 		pushSolution3();
 	}
@@ -300,6 +312,10 @@ private slots:
 	* \note
 	*/
 	void solution4(bool _enable) {
+		// we need to overlap this setting to avoid 
+		//the solution to be stopped during the protocol runner
+		m_solutionParams->continuous_flowing_sol4 = true;
+		// this settings need to be restored at the end of the protocol
 		ui->pushButton_solution4->setChecked(_enable);
 		pushSolution4();
 	}
