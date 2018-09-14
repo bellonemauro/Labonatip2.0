@@ -828,6 +828,12 @@ bool fluicell::PPC1api::setDropletSize(double _percentage)
 	if (!setVacuumChannelA(value)) {
 		return false;
 	}
+
+	// reset the switch to default
+	if (!setVacuumChannelB(m_default_v_switch)) {
+		return false;
+	}
+
 	std::this_thread::sleep_for(std::chrono::microseconds(10000)); // wait 10msec
 
 	value = m_default_pon * (
@@ -850,6 +856,12 @@ bool fluicell::PPC1api::setDropletSize(double _percentage)
 	if (!setPressureChannelD(value)) {
 		return false;
 	}
+
+	// reset the poff to default
+	if (!setPressureChannelC(m_default_poff)) {
+		return false;
+	}
+
 	std::this_thread::sleep_for(std::chrono::microseconds(10000)); // wait 10msec
 	return true;
 }

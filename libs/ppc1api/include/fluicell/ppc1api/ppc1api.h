@@ -551,10 +551,19 @@ namespace fluicell
 		*
 		*  Change the droplet size to a specific _percentage with respect to the default values
 		*  of vacuum and pressures.
+		*  The droplet size linear increment corresponds to a cubic power of the desired values 
+		*  for pressures and vacuums
 		*
-		*  \note: the droplet size linear increment corresponds to a cubic power 
-		*         of the desired values for pressures and vacuums
-		* 		
+		*  new_Pon_value = default_Pon * (_percentage^1.3);
+		*  new_Vrecirc_value = default_Vrecirc * (_percentage^1.3);
+		*
+		*         
+		*  \note: The values of pressures and vacuum for Poff and Vswitch will be 
+		*         reset to the default values
+		*
+		*   new_Poff_value = default_Poff
+		*   new_Vrecirc_value = default_Vrecirc
+		*
 		*  @param  _percentage is the desired percentage value
 		*
 		*  \return -  false in case of errors
@@ -565,9 +574,14 @@ namespace fluicell
 		*
 		*  Change the droplet size by adding a specific _percentage with respect to the default values
 		*  of vacuum and pressures.
+		*  The droplet size linear increment corresponds to a cubic power of the desired values 
+		*  for pressures and vacuums.
 		*
-		*  \note: the droplet size linear increment corresponds to a cubic power
-		*         of the desired values for pressures and vacuums
+		*  new_Pon_value = Pon_set_point + default_Pon * (_percentage^1.3);
+		*  new_Vrecirc_value = Vrecirc_set_point + default_Vrecirc * (_percentage^1.3);
+		*
+		*  \note: the other pressures/values will be untouched
+		*
 		*  \note: example: if _percentage = 5% ==> the size goes to 105%
 		*
 		*  @param  _percentage is the desired percentage value

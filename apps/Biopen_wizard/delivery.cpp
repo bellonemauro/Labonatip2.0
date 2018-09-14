@@ -91,6 +91,7 @@ void Labonatip_GUI::dropletSizePlus() {
 			}
 
 			updateVrecircSetPoint(value);
+			updateVswitchSetPoint(-m_pr_params->v_switch_default);
 		}
 
 		if (ui->horizontalSlider_p_on->value() == 0) {
@@ -113,6 +114,7 @@ void Labonatip_GUI::dropletSizePlus() {
 			}
 
 			updatePonSetPoint(value);
+			updatePoffSetPoint(m_pr_params->p_off_default);
 		}
 
 		updateFlowControlPercentages();
@@ -200,6 +202,8 @@ void Labonatip_GUI::dropletSizeMinus() {
 			   // value = m_pr_params->p_on_default - m_pr_params->p_on_default  * delta; 
 
 			updatePonSetPoint(value);
+			updatePoffSetPoint(m_pr_params->p_off_default);
+
 		}
 
 		if (ui->horizontalSlider_recirculation->value() == 0) {
@@ -224,6 +228,8 @@ void Labonatip_GUI::dropletSizeMinus() {
 			//  value = -m_pr_params->v_recirc_default - m_pr_params->v_recirc_default * delta;
 
 			updateVrecircSetPoint(value);
+			updateVswitchSetPoint(-m_pr_params->v_switch_default);
+
 		}
 		updateFlowControlPercentages();
 
@@ -602,11 +608,13 @@ void Labonatip_GUI::setDropletSizePercentage(double _perc)
 				m_pr_params->v_recirc_default * delta;
 
 		updateVrecircSetPoint(value);
+		updateVswitchSetPoint(m_pr_params->v_recirc_default);
 		
 		delta = (1.0 - std::pow(perc, (1.0 / 3.0)));
 		value = m_pr_params->p_on_default - m_pr_params->p_on_default  * delta;
 
 		updatePonSetPoint(value);
+		updatePoffSetPoint(m_pr_params->p_off_default);
 		
 	}
 }
