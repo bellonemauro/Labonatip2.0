@@ -105,7 +105,9 @@ public:
 
 	void switchLanguage(QString _translation_file);
 
-	void updateDevices() { this->enumerate(); }
+	void updateDevices() { this->enumerate(); 
+	this->applyPressed();
+	}
 
 	bool setLoadSettingsFileName(QString _filename) { 
 		m_setting_file_name = _filename; 

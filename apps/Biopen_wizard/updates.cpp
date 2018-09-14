@@ -335,6 +335,9 @@ bool Labonatip_GUI::isExceptionTriggered() // return true if the exception is tr
 			// enable the simulation buttons
 			ui->actionSimulation->setEnabled(true);
 			ui->actionSimulation->setChecked(true);
+			
+			this->setStatusLed(false);
+			ui->status_PPC1_label->setText(m_str_PPC1_status_discon);
 
 			// end
 			return true;
