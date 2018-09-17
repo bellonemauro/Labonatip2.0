@@ -16,9 +16,12 @@ ComboBoxDelegate::ComboBoxDelegate(QObject *parent)
 {
 	//TODO: remap as Zone size, Flow speed, Vacuum, Wait, Alloff, Solution 1-4, Pon, Poff, Vrecirc, V switch, all the rest.
 
-	Items.push_back("Zone size");
-	Items.push_back("Flow speed");
-	Items.push_back("Vacuum"); 
+	Items.push_back("Set zone size");
+	Items.push_back("Change zone size by");
+	Items.push_back("Set flow speed");
+	Items.push_back("Change flow speed by");
+	Items.push_back("Set vacuum");
+	Items.push_back("Change vacuum by");
 	Items.push_back("Wait");
 	Items.push_back("All Off");
 	Items.push_back("Solution 1");

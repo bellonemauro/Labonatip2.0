@@ -19,7 +19,7 @@ Labonatip_protocolReader::Labonatip_protocolReader(QTreeWidget * _tree,
 {
 	m_tree = _tree;
 	m_current_protocol_file_name = "";
-	m_v_7_minor_backward_compatibility = false;
+	m_protocol_version = 0;
 }
 
 
@@ -167,16 +167,10 @@ bool Labonatip_protocolReader::decodeProtocolCommand(
 	QStringList data_string;
 	if (_command.at(0) == *"%") {
 		// it is the header, do nothing, just discard the line
-		QByteArray headerVersionLine = "%% Protocol Header V. 0.7 \n";
-		if (_command.contains("0.6") || _command.contains("0.5") || _command.contains("0.4") ||
-			_command.contains("0.3") || _command.contains("0.2") || _command.contains("0.1"))
-		{
-			QMessageBox::warning(this, m_str_warning,
-				"ATTENTION: this file has been saved using an older version. <br> Please, check the loaded protocol and save in the current version.");
-			m_v_7_minor_backward_compatibility = true;
-			return false;
+		//QByteArray headerVersionLine = "%% Protocol Header V. 0.7 \n";
+		if (_command.contains("%% Protocol Header ")) {
+			m_protocol_version = this->checkProtocolVersion(_command);
 		}
-
 		return false;
 	}
 	else
@@ -207,18 +201,15 @@ bool Labonatip_protocolReader::decodeProtocolCommand(
 
 
 	// fill the qtreewidget item
-	if (m_v_7_minor_backward_compatibility == true)
+	//if (1)//(m_v_7_minor_backward_compatibility == true)
 	{
-		
 		QString command_data;
-
-		command_data = remapForBackwardCompatibility(data_string.at(0));
-
+		command_data = remapForBackwardCompatibility(m_protocol_version, data_string.at(0));
 		_out_item.setText(m_cmd_command_c, command_data);
 	}
-	else {
-		_out_item.setText(m_cmd_command_c, data_string.at(0));
-	}
+	//else {
+	//	_out_item.setText(m_cmd_command_c, data_string.at(0));
+	//}
 
 
 	_out_item.setText(m_cmd_value_c, data_string.at(1));
@@ -256,45 +247,118 @@ int Labonatip_protocolReader::getLevel(QTreeWidgetItem _item)
 
 }
 
-QString Labonatip_protocolReader::remapForBackwardCompatibility(QString _old_data)
+int Labonatip_protocolReader::checkProtocolVersion(QByteArray _command)
 {
-	//setPon = 0,      zoneSize = 0,
-	if (_old_data == "0") return "9";
-	//setPoff = 1,     flowSpeed = 1,
-	if (_old_data == "1") return "10";
-	//setVswitch = 2,  vacuum = 2,
-	if (_old_data == "2") return "12";
-	//setVrecirc = 3,  wait = 3,
-	if (_old_data == "3") return "11";
-	//solution1 = 4,   allOff = 4,
-	if (_old_data == "4") return "5";
-	//solution2 = 5,   solution1 = 5,
-	if (_old_data == "5") return "6";
-	//solution3 = 6,   solution2 = 6,
-	if (_old_data == "6") return "7";
-	//solution4 = 7,   solution3 = 7,
-	if (_old_data == "7") return "8";
-	//wait = 8,        solution4 = 8,
-	if (_old_data == "8") return "3";
-	//ask_msg = 9,     setPon = 9,
-	if (_old_data == "9") return "13";
-	//allOff = 10,     setPoff = 10,
-	if (_old_data == "10") return "4";
-	//pumpsOff = 11,   setVrecirc = 11,
-	if (_old_data == "11") return "14";
-	//waitSync = 12,   setVswitch = 12,
-	if (_old_data == "12") return "15";
-	//syncOut = 13,	   ask_msg = 13,
-	if (_old_data == "13") return "16";
-	//zoneSize = 14,   pumpsOff = 14,
-	if (_old_data == "14") return "0";
-	//flowSpeed = 15,  waitSync = 15,
-	if (_old_data == "15") return "1";
-	//vacuum = 16,     syncOut = 16,
-	if (_old_data == "16") return "2";
-	//loop = 17        loop = 17 
-	if (_old_data == "17") return "17";
-	//TODO remap as Zone size, Flow speed, Vacuum, Wait, Alloff, Solution 1-4, Pon, Poff, Vrecirc, V switch, all the rest.
+	if (_command.contains("%% Protocol Header ")) {
+	
+	// headerVersionLine = "%% Protocol Header V. 0.___ \n";
+	if (_command.contains("0.8")) { return 8; }
+	if (_command.contains("0.7")) { return 7; }
+	if (_command.contains("0.6")) { return 6; }
+	if (_command.contains("0.5")) { return 5; }
+	if (_command.contains("0.4")) { return 4; }
+	if (_command.contains("0.3")) { return 3; }
+	if (_command.contains("0.2")) { return 2; }
+	if (_command.contains("0.1")) { return 1; }
 
-	return QString();
+	}
+
+	// if 0 is returned, something is wrong with the line
+	return 0; 
+}
+
+QString Labonatip_protocolReader::remapForBackwardCompatibility(int _version, QString _old_data)
+{
+	if (_version < 7)
+	{
+		//setPon = 0,      zoneSize = 0,
+		if (_old_data == "0") return "12";
+		//setPoff = 1,     flowSpeed = 1,
+		if (_old_data == "1") return "13";
+		//setVswitch = 2,  vacuum = 2,
+		if (_old_data == "2") return "15";
+		//setVrecirc = 3,  wait = 3,
+		if (_old_data == "3") return "14";
+		//solution1 = 4,   allOff = 4,
+		if (_old_data == "4") return "8";
+		//solution2 = 5,   solution1 = 5,
+		if (_old_data == "5") return "9";
+		//solution3 = 6,   solution2 = 6,
+		if (_old_data == "6") return "10";
+		//solution4 = 7,   solution3 = 7,
+		if (_old_data == "7") return "11";
+		//wait = 8,        solution4 = 8,
+		if (_old_data == "8") return "6";
+		//ask_msg = 9,     setPon = 9,
+		if (_old_data == "9") return "16";
+		//allOff = 10,     setPoff = 10,
+		if (_old_data == "10") return "7";
+		//pumpsOff = 11,   setVrecirc = 11,
+		if (_old_data == "11") return "17";
+		//waitSync = 12,   setVswitch = 12,
+		if (_old_data == "12") return "18";
+		//syncOut = 13,	   ask_msg = 13,
+		if (_old_data == "13") return "19";
+		//zoneSize = 14,   pumpsOff = 14,
+		if (_old_data == "14") return "0";
+		//flowSpeed = 15,  waitSync = 15,
+		if (_old_data == "15") return "2";
+		//vacuum = 16,     syncOut = 16,
+		if (_old_data == "16") return "4";
+		//loop = 17        loop = 17 
+		if (_old_data == "17") return "20";
+		//TODO remap as Zone size, Flow speed, Vacuum, Wait, Alloff, Solution 1-4, Pon, Poff, Vrecirc, V switch, all the rest.
+	}
+	if (m_protocol_version = 7)
+	{
+		// zoneSize = 0,     setZoneSize = 0,
+		if (_old_data == "0") return "0";
+		// flowSpeed = 1,    changeZoneSizeBy = 1,
+		if (_old_data == "1") return "2";
+		// vacuum = 2,       setFlowSpeed = 2,
+		if (_old_data == "2") return "4";
+		// wait = 3,         changeFlowSpeedBy = 3,
+		if (_old_data == "3") return "6";
+		// allOff = 4,       setVacuum = 4,
+		if (_old_data == "4") return "7";
+		// solution1 = 5,    changeVacuumBy = 5,
+		if (_old_data == "5") return "8";
+		// solution2 = 6,    wait = 6,
+		if (_old_data == "6") return "9";
+		// solution3 = 7,    allOff = 7,
+		if (_old_data == "7") return "10";
+		// solution4 = 8,    solution1 = 8,
+		if (_old_data == "8") return "11";
+		// setPon = 9,       solution2 = 9,
+		if (_old_data == "9") return "12";
+		// setPoff = 10,     solution3 = 10,
+		if (_old_data == "10") return "13";
+		// setVrecirc = 11,  solution4 = 11,
+		if (_old_data == "11") return "14";
+		// setVswitch = 12,  setPon = 12,
+		if (_old_data == "12") return "15";
+		// ask_msg = 13,     setPoff = 13,
+		if (_old_data == "13") return "16";
+		// pumpsOff = 14,    setVrecirc = 14,
+		if (_old_data == "14") return "17";
+		// waitSync = 15,    setVswitch = 15,
+		if (_old_data == "15") return "18";
+		// syncOut = 16,     ask_msg = 16,
+		if (_old_data == "16") return "19";
+		// loop = 17         pumpsOff = 17,
+		if (_old_data == "17") return "20";
+
+        // if we are here the command was not found so we return the same data
+		return _old_data;
+		//					 waitSync = 18,
+		//if (_old_data == "18") return "6";
+		//				 	 syncOut = 19,
+		//if (_old_data == "19") return "6";
+		//					 loop = 20,
+		//if (_old_data == "20") return "6";
+
+		//TODO remap as Zone size, Flow speed, Vacuum, Wait, Alloff, Solution 1-4, Pon, Poff, Vrecirc, V switch, all the rest.
+	}
+	
+	return _old_data;
 }

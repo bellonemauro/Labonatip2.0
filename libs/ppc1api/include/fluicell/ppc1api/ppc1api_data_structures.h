@@ -110,10 +110,13 @@ namespace fluicell
 			#define MIN_PULSE_PERIOD 20     //!< in msec
 			#define MIN_ZONE_SIZE_PERC 50   //!< %
 			#define MAX_ZONE_SIZE_PERC 200  //!< %
+			#define MAX_ZONE_SIZE_INCREMENT 40  //!< %
 			#define MIN_FLOW_SPEED_PERC 50  //!< %
 			#define MAX_FLOW_SPEED_PERC 220 //!< %
+			#define MAX_FLOW_SPEED_INCREMENT 40 //!< %
 			#define MIN_VACUUM_PERC 50      //!< %
 			#define MAX_VACUUM_PERC 250     //!< %
+			#define MAX_VACUUM_INCREMENT 40     //!< %
 			#define LENGTH_TO_TIP 0.065     /*!< length of the pipe to the tip, this value is used  
 									             for the calculation of the flow using the Poiseuille equation
 												 see function getFlow() -- default value 0.065 m; */ 
@@ -546,7 +549,10 @@ namespace fluicell
 		*    enum index    |   Command       |   value         |
 		*   ---------------+-----------------+-----------------+-------------------------------------------------------------
 		*      0           |   zoneSize      |  int [MIN MAX]  |  Change the zone size percentage to _value
+		*      0           |   zoneSize      |  int [MIN MAX]  |  Change the zone size percentage to _value
 		*      1           |   flowSpeed     |  int [MIN MAX]  |  Change the flow speed percentage to _value
+		*      1           |   flowSpeed     |  int [MIN MAX]  |  Change the flow speed percentage to _value
+		*      2           |   vacuum        |  int [MIN MAX]  |  Change the vacuum percentage to _value
 		*      2           |   vacuum        |  int [MIN MAX]  |  Change the vacuum percentage to _value
 		*      3           |   wait          |  int n          |  wait for n seconds
 		*      4           |   allOff        |       -         |  stop all solutions flow
@@ -602,24 +608,46 @@ namespace fluicell
 				//vacuum = 16,
 				//loop = 17  
 				//TODO remap as Zone size, Flow speed, Vacuum, Wait, Alloff, Solution 1-4, Pon, Poff, Vrecirc, V switch, all the rest.
-				zoneSize = 0,
-				flowSpeed = 1,
-				vacuum = 2,
-				wait = 3,
-				allOff = 4,
-				solution1 = 5,
-				solution2 = 6,
-				solution3 = 7,
-				solution4 = 8,
-				setPon = 9,
-				setPoff = 10,
-				setVrecirc = 11,
-				setVswitch = 12,
-				ask_msg = 13,
-				pumpsOff = 14,
-				waitSync = 15,
-				syncOut = 16,
-				loop = 17 
+				//setZoneSize = 0,
+				//setFlowSpeed = 1,
+				//setVacuum = 2,
+				//wait = 3,
+				//allOff = 4,
+				//solution1 = 5,
+				//solution2 = 6,
+				//solution3 = 7,
+				//solution4 = 8,
+				//setPon = 9,
+				//setPoff = 10,
+				//setVrecirc = 11,
+				//setVswitch = 12,
+				//ask_msg = 13,
+				//pumpsOff = 14,
+				//waitSync = 15,
+				//syncOut = 16,
+				//loop = 17, 
+				//
+				setZoneSize = 0,
+				changeZoneSizeBy = 1,
+				setFlowSpeed = 2,
+				changeFlowSpeedBy = 3,
+				setVacuum = 4,
+				changeVacuumBy = 5,
+				wait = 6,
+				allOff = 7,
+				solution1 = 8,
+				solution2 = 9,
+				solution3 = 10,
+				solution4 = 11,
+				setPon = 12,
+				setPoff = 13,
+				setVrecirc = 14,
+				setVswitch = 15,
+				ask_msg = 16,
+				pumpsOff = 17,
+				waitSync = 18,
+				syncOut = 19,
+				loop = 20,
 			};
 
 
@@ -636,8 +664,8 @@ namespace fluicell
 			bool checkValidity() {
 			
 				// check that the instruction is valid
-				if (this->instruction < 0) return false;
-				if (this->instruction > 17) return false;
+				if (this->instruction < instructions::setZoneSize) return false;
+				if (this->instruction > instructions::loop) return false;
 
 				int inst = this->instruction;
 
@@ -701,23 +729,44 @@ namespace fluicell
 				 //not checked for now
 					return true;
 				}
-				case instructions::zoneSize: {//zone size
+				case instructions::setZoneSize: {//zone size
 					if (this->value < MIN_ZONE_SIZE_PERC ||
 						this->value > MAX_ZONE_SIZE_PERC) 
 						return false; // out of bound
 					else
 						return true;
 				}
-				case instructions::flowSpeed: {//flowSpeed
+				case instructions::changeZoneSizeBy: {//zone size
+					if (this->value < -MAX_ZONE_SIZE_INCREMENT ||
+						this->value > MAX_ZONE_SIZE_INCREMENT)
+						return false; // out of bound
+					else
+						return true;
+				}
+				case instructions::setFlowSpeed: {//flowSpeed
 					if (this->value < MIN_FLOW_SPEED_PERC ||
 						this->value > MAX_FLOW_SPEED_PERC) 
 						return false; // out of bound
 					else
 						return true;
 				}
-				case instructions::vacuum: {//vacuum
+				case instructions::changeFlowSpeedBy: {//flow speed
+					if (this->value < -MAX_FLOW_SPEED_INCREMENT ||
+						this->value > MAX_FLOW_SPEED_INCREMENT)
+						return false; // out of bound
+					else
+						return true;
+				}
+				case instructions::setVacuum: {//vacuum
 					if (this->value < MIN_VACUUM_PERC ||
 						this->value > MAX_VACUUM_PERC) 
+						return false; // out of bound
+					else
+						return true;
+				}
+				case instructions::changeVacuumBy: {//vacuum
+					if (this->value < -MAX_VACUUM_INCREMENT ||
+						this->value > MAX_VACUUM_INCREMENT)
 						return false; // out of bound
 					else
 						return true;
@@ -754,7 +803,10 @@ namespace fluicell
 			{
 				static const char* const text[] =
 				{ 
-					"zoneSize", "flowSpeed", "vacuum","wait",
+					"setZoneSize", "changeZoneSizeBy",
+					"setFlowSpeed", "changeFlowSpeedBy",
+					"setVacuum", "changeVacuumBy",
+					"wait",
 					"solution1", "solution2","solution3","solution4",
 					"setPon", "setPoff",  "setVrecirc", "setVswitch",
 					"ask_msg", "allOff", "pumpsOff",

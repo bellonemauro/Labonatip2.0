@@ -560,6 +560,8 @@ namespace fluicell
 		*         
 		*  \note: The values of pressures and vacuum for Poff and Vswitch will be 
 		*         reset to the default values
+		*  \note: This function accepts values in [MIN_ZONE_SIZE_PERC, MAX_ZONE_SIZE_PERC]
+		*         
 		*
 		*   new_Poff_value = default_Poff
 		*   new_Vrecirc_value = default_Vrecirc
@@ -568,7 +570,7 @@ namespace fluicell
 		*
 		*  \return -  false in case of errors
 		**/
-		bool setDropletSize(double _percentage = 100.0);
+		bool setZoneSizePerc(double _percentage = 100.0);
 
 		/** \brief Change the droplet size by a specific amount + or - 
 		*
@@ -581,6 +583,7 @@ namespace fluicell
 		*  new_Vrecirc_value = Vrecirc_set_point + default_Vrecirc * (_percentage^1.3);
 		*
 		*  \note: the other pressures/values will be untouched
+		*  \note: This function accepts values in [-MAX_ZONE_SIZE_INCREMENT, MAX_ZONE_SIZE_INCREMENT]
 		*
 		*  \note: example: if _percentage = 5% ==> the size goes to 105%
 		*
@@ -588,11 +591,12 @@ namespace fluicell
 		*
 		*  \return -  false in case of errors
 		**/
-		bool changeDropletSizeBy(double _percentage = 0.0);
+		bool changeZoneSizePercBy(double _percentage = 0.0);
 
 		/** \brief Get the current droplet size as percentage
 		*
-		*  the real percentage of the droplet is the cubic root of the real value
+		*  The real percentage of the droplet is the cubic root of the real value
+		*
 		*  \note: As the droplet size linear increment corresponds to a cubic power
 		*         of the desired values for pressures and vacuums, the percentage 
 		*         corresponds to the cubic root
@@ -602,7 +606,7 @@ namespace fluicell
 		*
 		*  \return -  value as the average of the percentage with respect to the default values
 		**/
-		double getDropletSize();
+		double getZoneSizePerc();
 
 	
 		/** \brief Set the flow speed to _percentage, default value = 100.0 %
@@ -610,12 +614,15 @@ namespace fluicell
 		*  To increase the flow speed, all the values of pressures and vacuum are 
 		*  increased/decreased to the same percentage with respect to the default values
 		*
+		*  \note: This function accepts values in [MIN_ZONE_SIZE_PERC, MAX_ZONE_SIZE_PERC]
+		*
+		*
 		*  @param  _percentage is the desired percentage value
 		*
 		*
 		*  \return -  false in case of errors
 		**/
-		bool setFlowspeed(const double _percentage = 100.0);
+		bool setFlowSpeedPerc(const double _percentage = 100.0);
 
 
 		/** \brief Change the flow speed by _percentage, default value = 0.0 %
@@ -628,7 +635,7 @@ namespace fluicell
 		*
 		*  \return -  false in case of errors
 		**/
-		bool changeFlowspeedBy(const double _percentage = 0.0);
+		bool changeFlowSpeedPercBy(const double _percentage = 0.0);
 
 		/** \brief Get the current flow speed in percentage
 		*
@@ -636,7 +643,7 @@ namespace fluicell
 		*
 		*  \return -  value = average percentage among all the channels
 		**/
-		double getFlowSpeed();
+		double getFlowSpeedPerc();
 		
 		/** \brief Set the vacuum by _percentage 
 		*
@@ -645,7 +652,7 @@ namespace fluicell
 		*
 		*  \return -  false in case of errors
 		**/
-		bool setVacuumPercentage(const double _percentage = 100.0);
+		bool setVacuumPerc(const double _percentage = 100.0);
 
 		/** \brief Change the vacuum by _percentage
 		*
@@ -656,7 +663,7 @@ namespace fluicell
 		*
 		*  \return -  false in case of errors
 		**/
-		bool changeVacuumPercentageBy(const double _percentage = 0.0);
+		bool changeVacuumPercBy(const double _percentage = 0.0);
 
 		/** \brief Get the current vacuum value in percentage
 		*
@@ -664,7 +671,7 @@ namespace fluicell
 		*
 		*  \return -  value = 100 * channel_A->sensor_reading / DEFAULT_VACUUM
 		**/
-		double getVacuum();
+		double getVacuumPerc();
 
 
 		/** \brief Calculate the flow value

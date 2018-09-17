@@ -7,236 +7,180 @@
 *  | Released under GNU GPL License.                                           |
 *  +---------------------------------------------------------------------------+ */
 
-
 #include "Lab-on-a-tip.h"
 
-void Labonatip_GUI::dropletSizePlus() {
-
+void Labonatip_GUI::zoneSizePlus() 
+{
+	// only Pon + percentage
+	// V_recirc - percentage
 	cout << QDate::currentDate().toString().toStdString() << "  " 
 		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::dropletSizePlus    " << endl;
+		 << "Labonatip_GUI::zoneSizePlus    " << endl;
 
-	//TODO: check for negative percentage values before doing any action
-	//if (m_ds_perc < 0)
-	//{
-	//	QMessageBox::information(this, m_str_warning,
-	//		m_str_operation_cannot_be_done + "<br>" + m_str_out_of_bound);
-	//	return;
-	//}
-	if (m_ds_perc > MAX_ZONE_SIZE_PERC) {//- 2 * m_pr_params->base_ds_increment) {
+	// check for out of bound percentage values before doing any action
+	if (m_ds_perc < 0 || m_ds_perc > MAX_ZONE_SIZE_PERC) {
 		QMessageBox::information(this, m_str_warning,
-			m_str_operation_cannot_be_done);
+			m_str_operation_cannot_be_done + "<br>" + m_str_out_of_bound);
 		return;
 	}
 
-	// only Pon + percentage
-	// V_recirc - percentage
+	// if the pippette is active the command will be sent to the PPC1
 	if (m_pipette_active) {
+
+		// use a flag to store success operations
 		bool success = false;
-		if (m_pr_params->useDefValSetPoint )  //TODO: weird
+		if (m_pr_params->useDefValSetPoint )  
 		{
-			success = m_ppc1->changeDropletSizeBy(m_pr_params->base_ds_increment);
+			// if we are using the set point values, the zone size
+			// will be increased by a percentage defined in the tools
+			success = m_ppc1->changeZoneSizePercBy(m_pr_params->base_ds_increment);
 		}
 		else {
-			success = m_ppc1->setDropletSize( m_ds_perc + 
+			// if we are using the default values, the zone size
+			// will be modified by setting the values at a specific percentage 
+			success = m_ppc1->setZoneSizePerc( m_ds_perc + 
 				m_pr_params->base_ds_increment);
 		}
 
+		// if not success, the user need to be warned and the function ends
 		if(!success) {
 			QMessageBox::information(this, m_str_warning,
 				m_str_operation_cannot_be_done + "<br>" + m_str_out_of_bound);
+			return;
 		}
-		else
-		{
-			// update the set point
-			m_pipette_status->v_recirc_set_point = -m_ppc1->getVrecircSetPoint();
-			m_pipette_status->pon_set_point = m_ppc1->getPonSetPoint();
 
-			// update the slider for the GUI
-			ui->horizontalSlider_recirculation->blockSignals(true);
-			ui->horizontalSlider_recirculation->setValue(m_pipette_status->v_recirc_set_point);
-			ui->horizontalSlider_recirculation->blockSignals(false);
-			ui->horizontalSlider_p_on->blockSignals(true);
-			ui->horizontalSlider_p_on->setValue(m_pipette_status->pon_set_point);
-			ui->horizontalSlider_p_on->blockSignals(false);
-		}
+		// finally we update set points and GUI
+		// update the set point
+		m_pipette_status->v_recirc_set_point = -m_ppc1->getVrecircSetPoint();
+		m_pipette_status->pon_set_point = m_ppc1->getPonSetPoint();
+
+		// update the slider for the GUI
+		ui->horizontalSlider_recirculation->blockSignals(true);
+		ui->horizontalSlider_recirculation->setValue(m_pipette_status->v_recirc_set_point);
+		ui->horizontalSlider_recirculation->blockSignals(false);
+		ui->horizontalSlider_p_on->blockSignals(true);
+		ui->horizontalSlider_p_on->setValue(m_pipette_status->pon_set_point);
+		ui->horizontalSlider_p_on->blockSignals(false);
+		
 	}
+
+	// if we are running a simulation the commands will not be sent to the PPC1
 	if (m_simulationOnly) {
 
-		
-
-		double perc = (m_ds_perc + 
-			m_pr_params->base_ds_increment) / 100.0;
-
+		// check for out of bound values, the recirculation will be increased 
+		// (from a negative value), so if it is already 0, nothing can be done
 		if (ui->horizontalSlider_recirculation->value() == 0) {
 			QMessageBox::information(this, m_str_warning,
 				" Recirculation zero, " + m_str_operation_cannot_be_done);
 			return;
 		}
-		else {
-			double delta; //= (1.0 - std::pow(perc, (1.0 / 3.0)));
-			double value;
-			if (m_pr_params->useDefValSetPoint ) //TODO: weird
-			{
-				double increment = (100.0 +
-					m_pr_params->base_ds_increment) / 100.0;
-				delta = (1.0 - std::pow(increment, (1.0 / 3.0)));
-				value = m_pipette_status->v_recirc_set_point -
-					m_pr_params->v_recirc_default * delta;
-			}
-			else
-			{
-				delta = (1.0 - std::pow(perc, (1.0 / 3.0)));
-				value = -m_pr_params->v_recirc_default * (1.0 + delta);
-			}
+		
 
-			updateVrecircSetPoint(value);
-			updateVswitchSetPoint(-m_pr_params->v_switch_default);
-		}
-
-		if (ui->horizontalSlider_p_on->value() == 0) {
-			updatePonSetPoint(3.0);
+		if (m_pr_params->useDefValSetPoint)
+		{
+			// if we are using the set point values, the zone size
+			// will be increased by a percentage defined in the tools
+			changeZoneSizePercentageBy(m_pr_params->base_ds_increment);
 		}
 		else {
-			double delta;
-			double value;
-			if (m_pr_params->useDefValSetPoint)
-			{
-				double increment = (100.0 +
-					m_pr_params->base_ds_increment) / 100.0;
-				delta = (1.0 - std::pow(increment, (1.0 / 3.0)));
-				value = m_pipette_status->pon_set_point - m_pr_params->p_on_default  * delta;
-			}
-			else
-			{
-				delta = (1.0 - std::pow(perc, (1.0 / 3.0)));
-				value = m_pr_params->p_on_default *(1.0 - delta);
-			}
-
-			updatePonSetPoint(value);
-			updatePoffSetPoint(m_pr_params->p_off_default);
+			// if we are using the default values, the zone size
+			// will be modified by setting the values at a specific percentage 
+			setZoneSizePercentage(m_ds_perc +
+				m_pr_params->base_ds_increment);
 		}
 
 		updateFlowControlPercentages();
 	}
 }
 
-void Labonatip_GUI::dropletSizeMinus() {
+void Labonatip_GUI::zoneSizeMinus() 
+{
+	// only Pon - percentage
+	// V_recirc + percentage
 
 	cout << QDate::currentDate().toString().toStdString() << "  " 
 		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::dropletSizeMinus    " << endl;
+		 << "Labonatip_GUI::zoneSizeMinus    " << endl;
 
-	//TODO: check for negative percentage values before doing any action
-	//if (m_ds_perc < 0)
-	//{
-	//	QMessageBox::information(this, m_str_warning,
-	//		m_str_operation_cannot_be_done + "<br>" + m_str_out_of_bound);
-	//	return;
-	//}
-	if (m_ds_perc < MIN_ZONE_SIZE_PERC) {//+2 * m_pr_params->base_ds_increment) {
+	// check for out of bound percentage values before doing any action
+	if ( m_ds_perc < MIN_ZONE_SIZE_PERC) {
 		QMessageBox::information(this, m_str_warning,
-			m_str_operation_cannot_be_done);
+			m_str_operation_cannot_be_done + "<br>" + m_str_out_of_bound);
 		return;
 	}
 
-	// only Pon - percentage
-	// V_recirc + percentage
+	// if the pippette is active the command will be sent to the PPC1
 	if (m_pipette_active) {
+
+		// use a flag to store success operations
 		bool success = false;
-		if (m_pr_params->useDefValSetPoint)  //TODO: weird
+		if (m_pr_params->useDefValSetPoint)  
 		{
-			success = m_ppc1->changeDropletSizeBy(-m_pr_params->base_ds_increment);
+			// if we are using the set point values, the zone size
+			// will be increased by a percentage defined in the tools
+			success = m_ppc1->changeZoneSizePercBy(-m_pr_params->base_ds_increment);
 		}
 		else {
-			success = m_ppc1->setDropletSize( m_ds_perc -
+			// if we are using the default values, the zone size
+			// will be modified by setting the values at a specific percentage 
+			success = m_ppc1->setZoneSizePerc( m_ds_perc -
 				m_pr_params->base_ds_increment);
 		}
 
+		// if not success, the user need to be warned and the function ends
 		if (!success){
 			QMessageBox::information(this, m_str_warning,
 				m_str_operation_cannot_be_done + "<br>" + m_str_out_of_bound); 
+			return;
 		}
-		else
-		{
-			// update the set point
-			m_pipette_status->v_recirc_set_point = -m_ppc1->getVrecircSetPoint();
-			m_pipette_status->pon_set_point = m_ppc1->getPonSetPoint();
 
-			// update the slider for the GUI
-			ui->horizontalSlider_recirculation->blockSignals(true);
-			ui->horizontalSlider_recirculation->setValue(m_pipette_status->v_recirc_set_point);
-			ui->horizontalSlider_recirculation->blockSignals(false);
-			ui->horizontalSlider_p_on->blockSignals(true);
-			ui->horizontalSlider_p_on->setValue(m_pipette_status->pon_set_point);
-			ui->horizontalSlider_p_on->blockSignals(false);
-		}
+		// update the set point
+		m_pipette_status->v_recirc_set_point = -m_ppc1->getVrecircSetPoint();
+		m_pipette_status->pon_set_point = m_ppc1->getPonSetPoint();
+
+		// update the slider for the GUI
+		ui->horizontalSlider_recirculation->blockSignals(true);
+		ui->horizontalSlider_recirculation->setValue(m_pipette_status->v_recirc_set_point);
+		ui->horizontalSlider_recirculation->blockSignals(false);
+		ui->horizontalSlider_p_on->blockSignals(true);
+		ui->horizontalSlider_p_on->setValue(m_pipette_status->pon_set_point);
+		ui->horizontalSlider_p_on->blockSignals(false);
 	}
+
+	// if we are running a simulation the commands will not be sent to the PPC1
 	if (m_simulationOnly) {
 
-		
-		
-		double perc = (m_ds_perc -
-			m_pr_params->base_ds_increment) / 100.0;
-
+		// check for out of bound values, the pressure_on will be decreased 
+		// (from a negative value), so if it is already 0, nothing can be done
 		if (ui->horizontalSlider_p_on->value() == 0) {
 			QMessageBox::information(this, m_str_warning, 
 				" P_on zero, " + m_str_operation_cannot_be_done);
 			return;
 		}
-		else {
-			double delta;
-			double value;
-			if (m_pr_params->useDefValSetPoint) //TODO: weird
-			{
-				double increment = (100.0 -
-					m_pr_params->base_ds_increment) / 100.0;
-				delta = (1.0 - std::pow(increment, (1.0 / 3.0)));
-				value = m_pipette_status->pon_set_point - m_pr_params->p_on_default  * delta;
-			}
-			else
-			{
-				delta = (1.0 - std::pow(perc, (1.0 / 3.0)));
-				value = m_pr_params->p_on_default * (1.0 - delta);
-			}
-			   // value = m_pr_params->p_on_default - m_pr_params->p_on_default  * delta; 
 
-			updatePonSetPoint(value);
-			updatePoffSetPoint(m_pr_params->p_off_default);
-
-		}
-
-		if (ui->horizontalSlider_recirculation->value() == 0) {
-			updateVrecircSetPoint(-3.0);
+		if (m_pr_params->useDefValSetPoint)
+		{
+			// if we are using the set point values, the zone size
+			// will be increased by a percentage defined in the tools
+			changeZoneSizePercentageBy(-m_pr_params->base_ds_increment);
 		}
 		else {
-			double delta;
-			double value;
-			if (m_pr_params->useDefValSetPoint )  //TODO: weird
-			{
-				double increment = (100.0 -
-					m_pr_params->base_ds_increment) / 100.0;
-				delta = (1.0 - std::pow(increment, (1.0 / 3.0)));
-				value = m_pipette_status->v_recirc_set_point -
-					m_pr_params->v_recirc_default * delta;
-			}
-			else
-			{
-				delta = (1.0 - std::pow(perc, (1.0 / 3.0)));
-				value = -m_pr_params->v_recirc_default * ( 1.0 + delta);
-			}
-			//  value = -m_pr_params->v_recirc_default - m_pr_params->v_recirc_default * delta;
-
-			updateVrecircSetPoint(value);
-			updateVswitchSetPoint(-m_pr_params->v_switch_default);
-
+			// if we are using the default values, the zone size
+			// will be modified by setting the values at a specific percentage 
+			setZoneSizePercentage(m_ds_perc -
+				m_pr_params->base_ds_increment);
 		}
+
 		updateFlowControlPercentages();
-
 	}
 }
 
-void Labonatip_GUI::flowSpeedPlus() {
+void Labonatip_GUI::flowSpeedPlus() 
+{
+
+	// +percentage to all values
+	// Poff does not read too low values, 
+	// if 5% different is less than 5 mbar .... start -> start + 5 --> start - 5%
 
 	cout << QDate::currentDate().toString().toStdString() << "  " 
 		 << QTime::currentTime().toString().toStdString() << "  "
@@ -249,127 +193,62 @@ void Labonatip_GUI::flowSpeedPlus() {
 		return;
 	}
 
-	// +percentage to all values
-	// Poff does not read too low values, 
-	// if 5% different is less than 5 mbar .... start -> start + 5 --> start - 5%
+	// if the pippette is active the command will be sent to the PPC1
 	if (m_pipette_active) {
 		bool success = false;
-		if (m_pr_params->useDefValSetPoint)  //TODO: weird
+		if (m_pr_params->useDefValSetPoint)  
 		{
-			success = m_ppc1->changeFlowspeedBy(m_pr_params->base_fs_increment);
+			success = m_ppc1->changeFlowSpeedPercBy(m_pr_params->base_fs_increment);
 		}
 		else{
-			success = m_ppc1->setFlowspeed(m_fs_perc +
+			success = m_ppc1->setFlowSpeedPerc(m_fs_perc +
 				m_pr_params->base_fs_increment);
 		}
 
 		if (!success) {
 			QMessageBox::information(this, m_str_warning,
 				m_str_operation_cannot_be_done + "<br>" + m_str_out_of_bound);
+			return;
 		}
-		else
-		{
-			// update the set point
-			m_pipette_status->v_recirc_set_point = -m_ppc1->getVrecircSetPoint();
-			m_pipette_status->v_switch_set_point = -m_ppc1->getVswitchSetPoint();
-			m_pipette_status->poff_set_point = m_ppc1->getPoffSetPoint();
-			m_pipette_status->pon_set_point = m_ppc1->getPonSetPoint();
 
-			// update the slider for the GUI
-			ui->horizontalSlider_recirculation->blockSignals(true);
-			ui->horizontalSlider_recirculation->setValue(m_pipette_status->v_recirc_set_point);
-			ui->horizontalSlider_recirculation->blockSignals(false);
-			ui->horizontalSlider_switch->blockSignals(true);
-			ui->horizontalSlider_switch->setValue(m_pipette_status->v_switch_set_point);
-			ui->horizontalSlider_switch->blockSignals(false);
-			ui->horizontalSlider_p_off->blockSignals(true);
-			ui->horizontalSlider_p_off->setValue(m_pipette_status->poff_set_point);
-			ui->horizontalSlider_p_off->blockSignals(false);
-			ui->horizontalSlider_p_on->blockSignals(true);
-			ui->horizontalSlider_p_on->setValue(m_pipette_status->pon_set_point);
-			ui->horizontalSlider_p_on->blockSignals(false);
-		}
+		// update the set point
+		m_pipette_status->v_recirc_set_point = -m_ppc1->getVrecircSetPoint();
+		m_pipette_status->v_switch_set_point = -m_ppc1->getVswitchSetPoint();
+		m_pipette_status->poff_set_point = m_ppc1->getPoffSetPoint();
+		m_pipette_status->pon_set_point = m_ppc1->getPonSetPoint();
+
+		// update the slider for the GUI
+		ui->horizontalSlider_recirculation->blockSignals(true);
+		ui->horizontalSlider_recirculation->setValue(m_pipette_status->v_recirc_set_point);
+		ui->horizontalSlider_recirculation->blockSignals(false);
+		ui->horizontalSlider_switch->blockSignals(true);
+		ui->horizontalSlider_switch->setValue(m_pipette_status->v_switch_set_point);
+		ui->horizontalSlider_switch->blockSignals(false);
+		ui->horizontalSlider_p_off->blockSignals(true);
+		ui->horizontalSlider_p_off->setValue(m_pipette_status->poff_set_point);
+		ui->horizontalSlider_p_off->blockSignals(false);
+		ui->horizontalSlider_p_on->blockSignals(true);
+		ui->horizontalSlider_p_on->setValue(m_pipette_status->pon_set_point);
+		ui->horizontalSlider_p_on->blockSignals(false);
+		
 	}
+
+	// if we are running a simulation the commands will not be sent to the PPC1
 	if (m_simulationOnly) {
 		
-		double current_fs_perc = m_fs_perc;
-		if (ui->horizontalSlider_p_on->value() == 0) {
-			updatePonSetPoint(5.0);
+		if (m_pr_params->useDefValSetPoint)
+		{
+			// if we are using the set point values, the zone size
+			// will be increased by a percentage defined in the tools
+			changeFlowspeedPercentageBy(m_pr_params->base_fs_increment);
 		}
 		else {
-			double value;
-			
-			if (m_pr_params->useDefValSetPoint )  //TODO: weird
-			{
-				value = m_pipette_status->pon_set_point +
-					m_pr_params->p_on_default *  m_pr_params->base_fs_increment / 100.0;
-			}
-			else
-			{
-				double perc = (current_fs_perc + m_pr_params->base_fs_increment) / 100.0;
-				value = m_pr_params->p_on_default * perc;
-			}
-			updatePonSetPoint(value);
-
+			// if we are using the default values, the zone size
+			// will be modified by setting the values at a specific percentage 
+			setFlowspeedPercentage(m_fs_perc +
+				m_pr_params->base_fs_increment);
 		}
 
-		if (ui->horizontalSlider_p_off->value() == 0) {
-			updatePoffSetPoint(5.0);
-		}
-		else {
-			double value;
-			if (m_pr_params->useDefValSetPoint )  //TODO: weird
-			{
-				value = m_pipette_status->poff_set_point +
-					m_pr_params->p_off_default * m_pr_params->base_fs_increment / 100.0;
-			}
-			else
-			{
-				double perc = (current_fs_perc + m_pr_params->base_fs_increment) / 100.0;
-				value = m_pr_params->p_off_default * perc;
-			}
-			updatePoffSetPoint(value);
-		}
-
-		if (ui->horizontalSlider_switch->value() == 0) {
-			updateVswitchSetPoint ( 5.0 );
-		}
-		else {
-			double value;
-			if (m_pr_params->useDefValSetPoint)  //TODO: weird
-			{
-				value = m_pipette_status->v_switch_set_point -
-					m_pr_params->v_switch_default * m_pr_params->base_fs_increment / 100.0;
-			}
-			else
-			{
-				double perc = (current_fs_perc + m_pr_params->base_fs_increment) / 100.0;
-				value = -m_pr_params->v_switch_default *perc;
-			}
-			//double value = m_pipette_status->v_switch_set_point -
-			//	m_pr_params->v_switch_default * m_pr_params->base_fs_increment / 100.0;
-			updateVswitchSetPoint(value);
-		}
-
-		if (ui->horizontalSlider_recirculation->value() == 0) {
-			updateVrecircSetPoint(5.0);
-		}
-		else {
-			double value;
-			if (m_pr_params->useDefValSetPoint)  //TODO: weird
-			{
-				value = m_pipette_status->v_recirc_set_point -
-					m_pr_params->v_recirc_default * m_pr_params->base_fs_increment / 100.0;
-			}
-			else
-			{
-				double perc = (current_fs_perc + m_pr_params->base_fs_increment) / 100.0;
-				value = -m_pr_params->v_recirc_default * perc;
-			}
-			//double value = m_pipette_status->v_recirc_set_point -
-			//	m_pr_params->v_recirc_default * m_pr_params->base_fs_increment / 100.0;
-			updateVrecircSetPoint(value);
-		}
 		updateFlowControlPercentages();
 		
 	}
@@ -394,10 +273,10 @@ void Labonatip_GUI::flowSpeedMinus() {
 		bool success = false;
 		if (m_pr_params->useDefValSetPoint)  //TODO: weird
 		{
-			success = m_ppc1->changeFlowspeedBy(-m_pr_params->base_fs_increment);
+			success = m_ppc1->changeFlowSpeedPercBy(-m_pr_params->base_fs_increment);
 		}
 		else {
-			success = m_ppc1->setFlowspeed(m_fs_perc -
+			success = m_ppc1->setFlowSpeedPerc(m_fs_perc -
 				m_pr_params->base_fs_increment);
 		}
 
@@ -430,42 +309,19 @@ void Labonatip_GUI::flowSpeedMinus() {
 	}
 	if (m_simulationOnly) {
 		
-		double value;
-		if (m_pr_params->useDefValSetPoint)  //TODO: weird
+		if (m_pr_params->useDefValSetPoint)
 		{
-			value = m_pipette_status->pon_set_point -
-				m_pr_params->p_on_default * m_pr_params->base_fs_increment / 100.0;
-			updatePonSetPoint(value);
-
-			value = m_pipette_status->poff_set_point -
-				m_pr_params->p_off_default * m_pr_params->base_fs_increment / 100.0;
-			updatePoffSetPoint(value);
-
-			value = m_pipette_status->v_switch_set_point +
-				m_pr_params->v_switch_default * m_pr_params->base_fs_increment / 100.0;
-			updateVswitchSetPoint(value);
-
-			value = m_pipette_status->v_recirc_set_point +
-				m_pr_params->v_recirc_default * m_pr_params->base_fs_increment / 100.0;
-			updateVrecircSetPoint(value);
+			// if we are using the set point values, the zone size
+			// will be increased by a percentage defined in the tools
+			changeFlowspeedPercentageBy(-m_pr_params->base_fs_increment);
 		}
-		else
-		{
-			double perc = (m_fs_perc - m_pr_params->base_fs_increment) / 100.0;
-
-			value = m_pr_params->p_on_default * perc;
-			updatePonSetPoint(value);
-			
-			value = m_pr_params->p_off_default * perc;
-			updatePoffSetPoint(value);
-			
-			value = -m_pr_params->v_switch_default * perc;
-			updateVswitchSetPoint(value);
-			
-			value = -m_pr_params->v_recirc_default * perc;
-			updateVrecircSetPoint(value);
+		else {
+			// if we are using the default values, the zone size
+			// will be modified by setting the values at a specific percentage 
+			setFlowspeedPercentage(m_fs_perc -
+				m_pr_params->base_fs_increment);
 		}
-
+		
 		updateFlowControlPercentages();
 	}
 }
@@ -481,10 +337,10 @@ void Labonatip_GUI::vacuumPlus() {
 		bool success = false;
 		if (m_pr_params->useDefValSetPoint )  //TODO: weird
 		{
-			success = m_ppc1->changeVacuumPercentageBy(m_pr_params->base_v_increment);
+			success = m_ppc1->changeVacuumPercBy(m_pr_params->base_v_increment);
 		}
 		else {
-			success = m_ppc1->setVacuumPercentage(m_v_perc + 
+			success = m_ppc1->setVacuumPerc(m_v_perc + 
 				m_pr_params->base_v_increment);
 		}
 
@@ -504,27 +360,18 @@ void Labonatip_GUI::vacuumPlus() {
 	}
 	if (m_simulationOnly) {
 
-		/*if (m_v_perc > MAX_VACUUM_PERC - m_pr_params->base_v_increment) {
-			QMessageBox::information(this, m_str_warning,
-				m_str_operation_cannot_be_done); 
-			return;
-		}
-
-		if (ui->horizontalSlider_recirculation->value() == 0) {
-			ui->horizontalSlider_recirculation->setValue(5);
+		if (m_pr_params->useDefValSetPoint)
+		{
+			// if we are using the set point values, the zone size
+			// will be increased by a percentage defined in the tools
+			changeVacuumPercentageBy(m_pr_params->base_v_increment);
 		}
 		else {
-
-			//double value = m_pipette_status->v_recirc_set_point - m_pr_params->v_recirc_default * m_pr_params->base_v_increment / 100.0;
-			//cout << "Labonatip_GUI::vacuumPlus    ::: new recirculation value " << value << endl;
-			//updateVrecircSetPoint(value);
+			// if we are using the default values, the zone size
+			// will be modified by setting the values at a specific percentage 
 			double perc = m_v_perc + m_pr_params->base_v_increment;
 			this->setVacuumPercentage(perc);
-			
-		}*/
-
-		double perc = m_v_perc + m_pr_params->base_v_increment;
-		this->setVacuumPercentage(perc);
+		}
 		updateFlowControlPercentages();
 	}
 }
@@ -538,12 +385,12 @@ void Labonatip_GUI::vacuumMinus() {
 	// -x% v_recirculation
 	if (m_pipette_active) {
 		bool success = false; 
-		if (m_pr_params->useDefValSetPoint)  //TODO: weird
+		if (m_pr_params->useDefValSetPoint) 
 		{
-			success = m_ppc1->changeVacuumPercentageBy(-m_pr_params->base_v_increment);
+			success = m_ppc1->changeVacuumPercBy(-m_pr_params->base_v_increment);
 		}
 		else {
-			success = m_ppc1->setVacuumPercentage(m_v_perc - //ui->lcdNumber_vacuum_percentage->value() -
+			success = m_ppc1->setVacuumPerc(m_v_perc - //ui->lcdNumber_vacuum_percentage->value() -
 				m_pr_params->base_v_increment);
 		}
 
@@ -565,33 +412,28 @@ void Labonatip_GUI::vacuumMinus() {
 	}
 	if (m_simulationOnly) {
 
-		/*if (m_v_perc < MIN_VACUUM_PERC + m_pr_params->base_v_increment) {
-			QMessageBox::information(this, m_str_warning, 
-				m_str_operation_cannot_be_done); 
-			return;
+		if (m_pr_params->useDefValSetPoint)
+		{
+			// if we are using the set point values, the zone size
+			// will be increased by a percentage defined in the tools
+			changeVacuumPercentageBy(-m_pr_params->base_v_increment);
+		}
+		else {
+			// if we are using the default values, the zone size
+			// will be modified by setting the values at a specific percentage 
+			double perc = m_v_perc - m_pr_params->base_v_increment;
+			this->setVacuumPercentage(perc);
 		}
 
-		if (ui->horizontalSlider_recirculation->value() == 0) {
-			QMessageBox::information(this, m_str_warning,
-				m_str_operation_cannot_be_done + "<br>" + m_str_out_of_bound);
-		}*/
-
-		//double value = m_pipette_status->v_recirc_set_point +
-		//	m_pr_params->v_recirc_default * m_pr_params->base_v_increment / 100.0;
-		//cout << "Labonatip_GUI::vacuumMinus    ::: new recirculation value " << value << endl;
-		//updateVrecircSetPoint(value);
-		double perc = m_v_perc - m_pr_params->base_v_increment;
-		this->setVacuumPercentage(perc);
-
-		//updateFlowControlPercentages();
+		updateFlowControlPercentages();
 	}
 }
 
-void Labonatip_GUI::setDropletSizePercentage(double _perc)
+void Labonatip_GUI::setZoneSizePercentage(double _perc)
 {
 	cout << QDate::currentDate().toString().toStdString() << "  "
 		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::setDropletSize    " << _perc << endl;
+		<< "Labonatip_GUI::setZoneSizePercentage    " << _perc << endl;
 
 	if (m_simulationOnly) {
 		
@@ -608,7 +450,7 @@ void Labonatip_GUI::setDropletSizePercentage(double _perc)
 				m_pr_params->v_recirc_default * delta;
 
 		updateVrecircSetPoint(value);
-		updateVswitchSetPoint(m_pr_params->v_recirc_default);
+		updateVswitchSetPoint(-m_pr_params->v_recirc_default);
 		
 		delta = (1.0 - std::pow(perc, (1.0 / 3.0)));
 		value = m_pr_params->p_on_default - m_pr_params->p_on_default  * delta;
@@ -619,6 +461,41 @@ void Labonatip_GUI::setDropletSizePercentage(double _perc)
 	}
 }
 
+void Labonatip_GUI::changeZoneSizePercentageBy(double _perc)
+{
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::changeZoneSizePercentageBy    " << _perc << endl;
+
+	if (m_simulationOnly) {
+
+		if ( std::abs(_perc) > MAX_ZONE_SIZE_INCREMENT) {
+			QMessageBox::information(this, m_str_warning,
+				m_str_operation_cannot_be_done);
+			return;
+		}
+		//calculate the new percentage
+		double increment = (100.0 +	_perc) / 100.0;
+		double delta = (1.0 - std::pow(increment, (1.0 / 3.0)));
+		double value = m_pipette_status->v_recirc_set_point -
+			m_pr_params->v_recirc_default * delta;
+
+		updateVrecircSetPoint(value);
+
+		if (m_pipette_status->pon_set_point == 0) {
+			updatePonSetPoint(3.0);
+			return;
+		}
+
+		value = m_pipette_status->pon_set_point - 
+			m_pr_params->p_on_default  * delta;
+
+		updatePonSetPoint(value);
+	}
+
+	updateFlowControlPercentages();
+}
+
 void Labonatip_GUI::setFlowspeedPercentage(double _perc)
 {
 	cout << QDate::currentDate().toString().toStdString() << "  "
@@ -627,7 +504,6 @@ void Labonatip_GUI::setFlowspeedPercentage(double _perc)
 
 	if (m_simulationOnly) {
 		if (_perc < MIN_FLOW_SPEED_PERC || _perc > MAX_FLOW_SPEED_PERC) {
-		//if (m_fs_perc > MAX_FLOW_SPEED_PERC - m_pr_params->base_fs_increment) {
 			QMessageBox::information(this, m_str_warning,
 				m_str_operation_cannot_be_done);
 			return;
@@ -649,6 +525,39 @@ void Labonatip_GUI::setFlowspeedPercentage(double _perc)
 	}
 }
 
+void Labonatip_GUI::changeFlowspeedPercentageBy(double _perc)
+{
+	if (m_simulationOnly) {
+		if (std::abs(_perc) > MAX_FLOW_SPEED_INCREMENT) {
+			//if (m_fs_perc > MAX_FLOW_SPEED_PERC - m_pr_params->base_fs_increment) {
+			QMessageBox::information(this, m_str_warning,
+				m_str_operation_cannot_be_done);
+			return;
+		}
+
+		double value;
+		value = m_pipette_status->pon_set_point +
+			m_pr_params->p_on_default * _perc / 100.0;
+		updatePonSetPoint(value);
+
+		value = m_pipette_status->poff_set_point +
+			m_pr_params->p_off_default * _perc / 100.0;
+		updatePoffSetPoint(value);
+
+		value = m_pipette_status->v_switch_set_point -
+			m_pr_params->v_switch_default * _perc / 100.0;
+		updateVswitchSetPoint(value);
+
+		value = m_pipette_status->v_recirc_set_point -
+			m_pr_params->v_recirc_default * _perc / 100.0;
+		updateVrecircSetPoint(value);
+
+		updateFlowControlPercentages();
+	}
+
+
+}
+
 void Labonatip_GUI::setVacuumPercentage(double _perc)
 {
 	cout << QDate::currentDate().toString().toStdString() << "  "
@@ -664,14 +573,34 @@ void Labonatip_GUI::setVacuumPercentage(double _perc)
 		}	
 
 		double value = -m_pr_params->v_recirc_default * _perc/100.0;
-		//m_pipette_status->v_recirc_set_point + 
-		//m_pr_params->v_recirc_default * m_pr_params->base_v_increment / 100.0;
-		cout << "Labonatip_GUI::setVacuumPercentage    ::: new recirculation value "
-			<< value << endl;
+		
 		updateVrecircSetPoint(value);
 
 		updateFlowControlPercentages();
 	}
+}
+
+void Labonatip_GUI::changeVacuumPercentageBy(double _perc)
+{
+	cout << QDate::currentDate().toString().toStdString() << "  "
+		<< QTime::currentTime().toString().toStdString() << "  "
+		<< "Labonatip_GUI::changeVacuumPercentageBy    " << _perc << endl;
+
+	if (m_simulationOnly) {
+
+		if (std::abs(_perc) > MAX_VACUUM_INCREMENT) {
+			QMessageBox::information(this, m_str_warning,
+				m_str_operation_cannot_be_done);
+			return;
+		}
+
+		double value = m_pipette_status->v_recirc_set_point - 
+			m_pr_params->v_recirc_default * _perc / 100.0;
+		updateVrecircSetPoint(value);
+
+		updateFlowControlPercentages();
+	}
+
 }
 
 void Labonatip_GUI::buildDPmap()
@@ -740,16 +669,9 @@ void Labonatip_GUI::buildDPmap()
 			}
 		}
 
-
-
-
 	}
 
 	}
-
-
-
-
 }
 
 
@@ -763,7 +685,7 @@ void Labonatip_GUI::updateFlowControlPercentages()
 
 		// calculate droplet size percentage
 		m_ds_perc = 100.0*(m_pipette_status->in_out_ratio_on + 0.21) / 0.31;
-		if (m_ds_perc < 0 && m_ds_perc < 1000) {
+		if (m_ds_perc < 0 || m_ds_perc > 1000) {
 			ui->lcdNumber_dropletSize_percentage->display(display_e);
 		}
 		else {

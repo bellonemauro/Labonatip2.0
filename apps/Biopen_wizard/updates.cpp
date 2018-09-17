@@ -31,7 +31,7 @@ void Labonatip_GUI::updateGUI() {
 	}
 
 	if (m_pipette_active) { 
-		updateDrawing(m_ppc1->getDropletSize()); 
+		updateDrawing(m_ppc1->getZoneSizePerc()); 
 	}
 	else {
 		updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
@@ -72,9 +72,9 @@ void Labonatip_GUI::updatePressureVacuum()
 		ui->progressBar_pressure_p_on->setValue(sensor_reading);
 
 		// update droplet zone control zone size, flow speed and vacuum
-		m_ds_perc = m_ppc1->getDropletSize();
-		m_fs_perc = m_ppc1->getFlowSpeed();
-		m_v_perc = m_ppc1->getVacuum();
+		m_ds_perc = m_ppc1->getZoneSizePerc();
+		m_fs_perc = m_ppc1->getFlowSpeedPerc();
+		m_v_perc = m_ppc1->getVacuumPerc();
 
 		// show the percentage in the display only if in the range [0,1000]
 		if (m_ds_perc >= 0 && m_ds_perc < 1000) {

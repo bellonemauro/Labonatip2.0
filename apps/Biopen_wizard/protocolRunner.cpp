@@ -60,7 +60,7 @@ void Labonatip_macroRunner::switchLanguage(QString _translation_file)
 
 }
 
-void Labonatip_macroRunner::runCommand(fluicell::PPC1api::command _cmd)
+void Labonatip_macroRunner::simulateCommand(fluicell::PPC1api::command _cmd)
 {
 
 	int ist = _cmd.getInstruction();
@@ -68,54 +68,54 @@ void Labonatip_macroRunner::runCommand(fluicell::PPC1api::command _cmd)
 
 	switch (ist)
 	{
-	case fluicell::PPC1api::command::instructions::setPon: { //setPon
+	case pCmd::setPon: { //setPon
 		emit setPon(_cmd.getValue());
 		msleep(50);
 		return;
 	}
-	case fluicell::PPC1api::command::instructions::setPoff: {//setPoff
+	case pCmd::setPoff: {//setPoff
 		emit setPoff(_cmd.getValue());
 		msleep(50);
 		return;
 
 	}
-	case fluicell::PPC1api::command::instructions::setVswitch: {//setVswitch
+	case pCmd::setVswitch: {//setVswitch
 		emit setVs(-_cmd.getValue());
 		msleep(50);
 		return;
 
 	}
-	case fluicell::PPC1api::command::instructions::setVrecirc: {//setVrecirc
+	case pCmd::setVrecirc: {//setVrecirc
 		emit setVr(-_cmd.getValue());
 		msleep(50);
 		return;
 
 	}
-	case fluicell::PPC1api::command::instructions::solution1: {//solution1
+	case pCmd::solution1: {//solution1
 		emit solution1(bool(_cmd.getValue()));
 		msleep(50);
 		return;
 	}
-	case fluicell::PPC1api::command::instructions::solution2: {//solution2
+	case pCmd::solution2: {//solution2
 		emit solution2(bool(_cmd.getValue()));
 		msleep(50);
 		return;
 	}
-	case fluicell::PPC1api::command::instructions::solution3: {//solution3
+	case pCmd::solution3: {//solution3
 		emit solution3(bool(_cmd.getValue()));
 		msleep(50);
 		return;
 	}
-	case fluicell::PPC1api::command::instructions::solution4: {//solution4
+	case pCmd::solution4: {//solution4
 		emit solution4(bool(_cmd.getValue()));
 		msleep(50);
 		return;
 	}
-	case fluicell::PPC1api::command::instructions::wait: {//sleep
+	case pCmd::wait: {//sleep
 		// this is done in the run()
 		return;
 	}
-	case fluicell::PPC1api::command::instructions::ask_msg: {//ask_msg
+	case pCmd::ask_msg: {//ask_msg
 		QString msg = QString::fromStdString(_cmd.getStatusMessage());
 		emit sendAskMessage(msg); // send ask message event
 		m_ask_ok = false;
@@ -124,34 +124,46 @@ void Labonatip_macroRunner::runCommand(fluicell::PPC1api::command _cmd)
 		}
 		return;
 	}
-	case fluicell::PPC1api::command::instructions::allOff: {//allOff	
+	case pCmd::allOff: {//allOff	
 		emit closeAll();
 		return;
 	}
-	case fluicell::PPC1api::command::instructions::pumpsOff: {//pumpsOff
+	case pCmd::pumpsOff: {//pumpsOff
 		emit pumpOff();
 		return;
 	}
-	case fluicell::PPC1api::command::instructions::waitSync: {//waitSync //TODO
+	case pCmd::waitSync: {//waitSync //TODO
 		return;
 
 	}
-	case fluicell::PPC1api::command::instructions::syncOut: {//syncOut //TODO
+	case pCmd::syncOut: {//syncOut //TODO
 		return;
 	}
-	case fluicell::PPC1api::command::instructions::zoneSize: {//zoneSize
+	case pCmd::setZoneSize: {//zoneSize
 		emit setDropletSizeSIG(_cmd.getValue());
 		return;
 	}
-	case fluicell::PPC1api::command::instructions::flowSpeed: {//flowSpeed
+	case pCmd::changeZoneSizeBy: {//changeZoneSize
+		emit changeDropletSizeSIG(_cmd.getValue());
+		return;
+	}
+	case pCmd::setFlowSpeed: {//flowSpeed
 		emit setFlowSpeedSIG(_cmd.getValue());
 		return;
 	}
-	case fluicell::PPC1api::command::instructions::vacuum: {//vacuum
+	case pCmd::changeFlowSpeedBy: {//changeFlowSpeed
+		emit changeFlowSpeedSIG(_cmd.getValue());
+		return;
+	}
+	case pCmd::setVacuum: {//vacuum
 		emit setVacuumSIG(_cmd.getValue());
 		return;
 	}
-	case fluicell::PPC1api::command::instructions::loop: {//loop
+	case pCmd::changeVacuumBy: {//vacuum
+		emit changeVacuumSIG(_cmd.getValue());
+		return;
+	}
+	case pCmd::loop: {//loop
 		// this is not to be done here
 		return;
 	}
@@ -187,7 +199,7 @@ void Labonatip_macroRunner::run()
 			double macro_duration = 0.0;
 			for (size_t i = 0; i < m_protocol->size(); i++) {
 				if (m_protocol->at(i).getInstruction() ==
-					fluicell::PPC1api::command::instructions::wait)
+					pCmd::wait)
 					macro_duration += m_protocol->at(i).getValue();
 			}
 			double time_elapsed = 0.0;
@@ -219,10 +231,10 @@ void Labonatip_macroRunner::run()
 					emit sendStatusMessage(message);
 
 					//TODO : the simulation does not run delivery fields zone_size, vacuum, 
-					runCommand(m_protocol->at(i));
+					simulateCommand(m_protocol->at(i));
 
 					if (m_protocol->at(i).getInstruction() ==
-						fluicell::PPC1api::command::instructions::wait) {
+						pCmd::wait) {
 						int val = static_cast<int>(m_protocol->at(i).getValue());
 						const qint64 kInterval = 1000;
 						qint64 mtime = QDateTime::currentMSecsSinceEpoch();
@@ -254,7 +266,7 @@ void Labonatip_macroRunner::run()
 						//      << QTime::currentTime().toString().toStdString() << "  " 
 						//      << " ppc1 is running the command " << m_macro->at(i).status_message << endl;
 						if (m_protocol->at(i).getInstruction() ==
-							fluicell::PPC1api::command::instructions::ask_msg) {
+							pCmd::ask_msg) {
 							QString msg = QString::fromStdString(m_protocol->at(i).getStatusMessage());
 
 							emit sendAskMessage(msg); // send ask message event
@@ -264,7 +276,7 @@ void Labonatip_macroRunner::run()
 							}
 						}
 						if (m_protocol->at(i).getInstruction() == // If the command is to wait, we do it here
-							fluicell::PPC1api::command::instructions::wait) {
+							pCmd::wait) {
 							
 							int val = static_cast<int>(m_protocol->at(i).getValue());
 							const qint64 kInterval = 1000;
@@ -294,7 +306,7 @@ void Labonatip_macroRunner::run()
 							}
 						}
 						/*if (m_protocol->at(i).getInstruction() == // If the command is to wait, we do it here
-							fluicell::PPC1api::command::instructions::waitSync) {
+							pCmd::waitSync) {
 
 							bool state;
 							if (int val = static_cast<int>(m_protocol->at(i).getValue()) == 0) state = false;

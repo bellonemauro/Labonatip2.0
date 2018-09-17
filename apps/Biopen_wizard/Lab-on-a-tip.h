@@ -452,13 +452,13 @@ private slots:
 	*
 	*   only Pon and V_recirc + - 2.5%
 	*/
-	void dropletSizePlus();
+	void zoneSizePlus();
 
 	/** \brief This function is called when the button - on droplet size is clicked
 	*
 	*   only Pon and V_recirc + - 2.5%
 	*/
-	void dropletSizeMinus();
+	void zoneSizeMinus();
 
 
 	/** \brief This function is called when the button + on flow speed is clicked
@@ -688,9 +688,12 @@ private:
 	void updateFlowControlPercentages();
 
 
-	void setDropletSizePercentage(double _perc = 100.0);
+	void setZoneSizePercentage(double _perc = 100.0);
+	void changeZoneSizePercentageBy(double _perc = 0.0);
 	void setFlowspeedPercentage(double _perc = 100.0);
+	void changeFlowspeedPercentageBy(double _perc = 0.0);
 	void setVacuumPercentage(double _perc = 100.0);
+	void changeVacuumPercentageBy(double _perc = 0.0);
 
 
 

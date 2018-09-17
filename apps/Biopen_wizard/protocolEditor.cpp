@@ -163,7 +163,7 @@ void Labonatip_GUI::addAllCommandsToProtocol()
 
 		string a = commands_vector.at(i)->text(m_cmd_command_c).toStdString();
 
-		new_command.setInstruction(static_cast<fluicell::PPC1api::command::instructions>(
+		new_command.setInstruction(static_cast<pCmd>(
 			commands_vector.at(i)->text(m_cmd_command_c).toInt()));
 
 		new_command.setValue(commands_vector.at(i)->text(m_cmd_value_c).toInt());

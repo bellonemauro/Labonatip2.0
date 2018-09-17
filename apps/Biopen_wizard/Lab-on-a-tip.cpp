@@ -664,11 +664,11 @@ void Labonatip_GUI::initConnects()
 
 	connect(ui->pushButton_dropSize_minus, 
 		SIGNAL(clicked()), this, 
-		SLOT(dropletSizeMinus()));
+		SLOT(zoneSizeMinus()));
 
 	connect(ui->pushButton_dropSize_plus, 
 		SIGNAL(clicked()), this, 
-		SLOT(dropletSizePlus()));
+		SLOT(zoneSizePlus()));
 
 	connect(ui->pushButton_flowspeed_minus, 
 		SIGNAL(clicked()), this, 
@@ -1241,6 +1241,10 @@ void Labonatip_GUI::about() {
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_GUI::about   " << endl;
 
+
+
+
+
 	QMessageBox messageBox;
 	QString msg_title = "About Fluicell Lab-on-a-tip ";
 	QString msg_content = tr("<b>Lab-on-a-tip</b> is a <a href='http://fluicell.com/'>Fluicell</a> AB software <br>"
@@ -1252,9 +1256,25 @@ void Labonatip_GUI::about() {
 		"Developer:<a href='http://www.maurobellone.com'>Mauro Bellone</a> <br>"
 		"Version: ");
 	msg_content.append(m_version);
-	messageBox.about(this, msg_title, msg_content); 
+	messageBox.setText(msg_content);
+	messageBox.setWindowTitle(msg_title);
 	messageBox.setIconPixmap(QPixmap(":/icons/fluicell_iconBIG.ico"));
+	messageBox.setWindowIcon(QPixmap(":/icons/fluicell_iconBIG.ico"));
 	messageBox.setFixedSize(600, 800);
+
+	QAbstractButton* pButtonYes = messageBox.addButton(tr("Quick guide"), QMessageBox::YesRole);
+	messageBox.addButton(m_str_ok, QMessageBox::NoRole);
+
+	messageBox.exec();
+
+	if (messageBox.clickedButton() == pButtonYes) {
+		//Execute command
+	}
+
+	//messageBox.about(this, msg_title, msg_content); 
+
+
+
 }
 
 
@@ -1264,7 +1284,7 @@ double Labonatip_GUI::protocolDuration(std::vector<fluicell::PPC1api::command> _
 	double duration = 0.0;
 	for (size_t i = 0; i < _protocol.size(); i++) {
 		if (_protocol.at(i).getInstruction() ==
-			fluicell::PPC1api::command::instructions::wait)
+			pCmd::wait)
 			duration += _protocol.at(i).getValue();
 	}
 

@@ -48,7 +48,9 @@ private:
 
 	int getLevel(QTreeWidgetItem _item);
 
-	QString remapForBackwardCompatibility( QString _old_data);
+	int checkProtocolVersion(QByteArray _command);
+
+	QString remapForBackwardCompatibility( int _version, QString _old_data);
 
 	std::vector<fluicell::PPC1api::command> *m_protocol;  //!< protocol to run
 
@@ -62,7 +64,7 @@ private:
 	int m_cmd_msg_c;       // index of the column for the command status message
 	int m_cmd_level_c;     // index of the column for the level in the tree
 
-	bool m_v_7_minor_backward_compatibility;
+	int m_protocol_version;
 
 	//custom translatable strings
 	QString m_str_warning;

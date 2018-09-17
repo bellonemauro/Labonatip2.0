@@ -1,7 +1,12 @@
+V.2.0.65
+Changed commands order to add 3 more protocol commands
+Update to a new protocol version
+Fix chart in GUI for wrong solution activation/deactivation
+
 V.2.0.64
 Fix automatic connection in case the ppc1 is not found
 Fix default functions in zone size to reset all the values
-
+Fix status bar led and text
 
 V.2.0.63
 PPC1 mode: Default vs set values check box back in the tools to choose which way it should work

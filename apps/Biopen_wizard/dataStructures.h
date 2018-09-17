@@ -23,19 +23,21 @@
 #include <serial/serial.h>
 
 // Global definitions
-#define LENGTH_TO_TIP 0.065     // mm
-#define LENGTH_TO_ZONE 0.062    // mm
-#define MIN_ZONE_SIZE_PERC 50   // %
-#define MAX_ZONE_SIZE_PERC 200  // %
-#define MIN_FLOW_SPEED_PERC 50  // %
-#define MAX_FLOW_SPEED_PERC 220 // %
-#define MIN_VACUUM_PERC 50      // %
-#define MAX_VACUUM_PERC 250     // %
+//#define LENGTH_TO_TIP 0.065     // mm
+//#define LENGTH_TO_ZONE 0.062    // mm
+//#define MIN_ZONE_SIZE_PERC 50   // %
+//#define MAX_ZONE_SIZE_PERC 200  // %
+//#define MIN_FLOW_SPEED_PERC 50  // %
+//#define MAX_FLOW_SPEED_PERC 220 // %
+//#define MIN_VACUUM_PERC 50      // %
+//#define MAX_VACUUM_PERC 250     // %
 #define MIN_WARNING_VOLUME 6    // in mL
 #define MAX_VOLUME_IN_WELL 30   // in mL
 #define MAX_WASTE_VOLUME 35     // value in mL
 #define MAX_WASTE_WARNING_VOLUME 27    // in mL
 
+// just re-definition of a protocol command to get a shorter name
+typedef fluicell::PPC1api::command::instructions pCmd;
 
 /**  \brief Structure to handle COM parameters.
 *

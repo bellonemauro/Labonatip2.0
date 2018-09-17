@@ -11,6 +11,7 @@
 #include "chart.h"
 #include <QtCharts/QCategoryAxis>
 #include <QtCharts/QAbstractAxis>
+#include "dataStructures.h"
 
 
 Labonatip_chart::Labonatip_chart(  ) 
@@ -326,7 +327,7 @@ void Labonatip_chart::updateChartProtocol(f_protocol *_protocol)
 	// compute the duration of the macro
 	double total_duration = 0.0;
 	for (size_t i = 0; i < _protocol->size(); i++) {
-		if (_protocol->at(i).getInstruction() == fluicell::PPC1api::command::instructions::wait)
+		if (_protocol->at(i).getInstruction() == pCmd::wait)
 			total_duration += _protocol->at(i).getValue();
 	}
 
@@ -341,7 +342,7 @@ void Labonatip_chart::updateChartProtocol(f_protocol *_protocol)
 
 		switch (_protocol->at(i).getInstruction())
 		{
-		case fluicell::PPC1api::command::instructions::setPon: { // Pon
+		case pCmd::setPon: { // Pon
 			// remove the tail of the chart
 			if (m_series_Pon->count()>1) m_series_Pon->remove(m_series_Pon->at(m_series_Pon->count()-1));
 
@@ -360,7 +361,7 @@ void Labonatip_chart::updateChartProtocol(f_protocol *_protocol)
 
 			break;
 		}
-		case fluicell::PPC1api::command::instructions::setPoff: { // Poff
+		case pCmd::setPoff: { // Poff
 			// remove the tail of the chart
 			if (m_series_Poff->count()>1) m_series_Poff->remove(m_series_Poff->at(m_series_Poff->count() - 1));
 
@@ -379,7 +380,7 @@ void Labonatip_chart::updateChartProtocol(f_protocol *_protocol)
 
 			break;
 		}
-		case fluicell::PPC1api::command::instructions::setVswitch: { // v_switch
+		case pCmd::setVswitch: { // v_switch
 			// remove the tail of the chart
 			if (m_series_V_switch->count()>1)  m_series_V_switch->remove(m_series_V_switch->at(m_series_V_switch->count() - 1));
 
@@ -397,7 +398,7 @@ void Labonatip_chart::updateChartProtocol(f_protocol *_protocol)
 			m_series_V_switch->append(max_time_line, second_y);
 			break;
 		}
-		case fluicell::PPC1api::command::instructions::setVrecirc: { // V_recirc
+		case pCmd::setVrecirc: { // V_recirc
 			// remove the tail of the chart
 			if (m_series_V_recirc->count()>1) m_series_V_recirc->remove(m_series_V_recirc->at(m_series_V_recirc->count() - 1));
 
@@ -415,7 +416,7 @@ void Labonatip_chart::updateChartProtocol(f_protocol *_protocol)
 			m_series_V_recirc->append(max_time_line, second_y);
 			break;
 		}
-		case fluicell::PPC1api::command::instructions::solution1: { //solution 1
+		case pCmd::solution1: { //solution 1
 				  // the first point is calculated starting from the last value to the new value an the current time
 			double first_x = current_time;
 			double second_x = current_time;
@@ -436,7 +437,7 @@ void Labonatip_chart::updateChartProtocol(f_protocol *_protocol)
 
 			break;
 		}
-		case fluicell::PPC1api::command::instructions::solution2: { //solution 2
+		case pCmd::solution2: { //solution 2
 			 // the first point is calculated starting from the last value to the new value an the current time
 			double first_x = current_time;
 			double second_x = current_time;
@@ -457,7 +458,7 @@ void Labonatip_chart::updateChartProtocol(f_protocol *_protocol)
 
 			break;
 		}
-		case fluicell::PPC1api::command::instructions::solution3: { //solution 3
+		case pCmd::solution3: { //solution 3
 			double first_x = current_time;
 			double second_x = current_time;
 			double first_y = 0;
@@ -476,7 +477,7 @@ void Labonatip_chart::updateChartProtocol(f_protocol *_protocol)
 			m_series_solution3->append(second_x, second_y); // add the second point 
 			break;
 		}
-		case fluicell::PPC1api::command::instructions::solution4: { //solution 4
+		case pCmd::solution4: { //solution 4
 			double first_x = current_time;
 			double second_x = current_time;
 			double first_y = 0;
@@ -495,38 +496,47 @@ void Labonatip_chart::updateChartProtocol(f_protocol *_protocol)
 			m_series_solution4->append(second_x, second_y); // add the second point 
 			break;
 		}	
-		case fluicell::PPC1api::command::instructions::wait: { //sleep ---- update the current time
+		case pCmd::wait: { //sleep ---- update the current time
 			current_time +=  100.0 * _protocol->at(i).getValue() / total_duration; //the duration is scaled in the interval [0; 100]
 			break;
 		}
-		case fluicell::PPC1api::command::instructions::ask_msg: { //ask_msg
+		case pCmd::ask_msg: { //ask_msg
 			m_series_ask->append(current_time, min_series_ask + 5.0);
 			break;
 		}
-		case fluicell::PPC1api::command::instructions::allOff: { //allOff
+		case pCmd::allOff: { //allOff
 			break;
 		}
-		case fluicell::PPC1api::command::instructions::pumpsOff: { //pumpsOff
+		case pCmd::pumpsOff: { //pumpsOff
 			break;
 		}
-		case fluicell::PPC1api::command::instructions::waitSync: { //waitSync
+		case pCmd::waitSync: { //waitSync
 			m_series_sync_in->append(current_time, min_series_sync_in + 5.0);
 			break;
 		}
-		case fluicell::PPC1api::command::instructions::syncOut: { //syncOut
+		case pCmd::syncOut: { //syncOut
 			m_series_sync_out->append(current_time, min_series_sync_out + 5.0);
 			break;
 		}
-		case fluicell::PPC1api::command::instructions::zoneSize: { //zoneSize 
+		case pCmd::setZoneSize: { //zoneSize 
 			break;
 		}
-		case fluicell::PPC1api::command::instructions::flowSpeed: { //flowSpeed
+		case pCmd::setFlowSpeed: { //flowSpeed
 			break;
 		}
-		case fluicell::PPC1api::command::instructions::vacuum: { //vacuum
+		case pCmd::setVacuum: { //vacuum
 			break;
 		}
-		case fluicell::PPC1api::command::instructions::loop: { //loop
+		case pCmd::changeZoneSizeBy: { //zoneSize 
+			break;
+		}
+		case pCmd::changeFlowSpeedBy: { //flowSpeed
+			break;
+		}
+		case pCmd::changeVacuumBy: { //vacuum
+			break;
+		}
+		case pCmd::loop: { //loop
 			break;
 		}
 		default:

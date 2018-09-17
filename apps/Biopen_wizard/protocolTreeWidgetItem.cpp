@@ -28,7 +28,7 @@ protocolTreeWidgetItem::protocolTreeWidgetItem(protocolTreeWidgetItem *_parent) 
 	this->setText(m_cmd_idx_c, "0");
 	this->setText(m_cmd_command_c, QString::number(0));
 	this->setText(m_cmd_range_c, this->getRangeColumn(0));
-	this->setText(m_cmd_value_c, "1"); // 
+	this->setText(m_cmd_value_c, "100"); // 
 	this->QTreeWidgetItem::setFont(m_cmd_value_c, font);
 
 	//this->setCheckState(m_cmd_msg_c, Qt::CheckState::Checked); // status message
@@ -52,7 +52,7 @@ bool protocolTreeWidgetItem::checkValidity( int _column)
 	{
 		// If we have children than the item IS a loop
 		// so we force the item column to the loop function 
-		this->setText(m_cmd_command_c, QString::number(17));
+		this->setText(m_cmd_command_c, QString::number(pCmd::loop));
 	}
 
 	// get the command index 
@@ -89,7 +89,7 @@ bool protocolTreeWidgetItem::checkValidity( int _column)
 	if (_column != m_cmd_value_c) return true;
 
 	switch (idx) {
-	case fluicell::PPC1api::command::instructions::setPon: { // check pon
+	case pCmd::setPon: { // check pon
 
 	    // get the number to be checked
 		int number = this->text(_column).toInt();
@@ -110,7 +110,7 @@ bool protocolTreeWidgetItem::checkValidity( int _column)
 		}
 		break;
 	}
-	case fluicell::PPC1api::command::instructions::setPoff: { // check poff
+	case pCmd::setPoff: { // check poff
 
 			  // get the number to be checked
 		int number = this->text(_column).toInt();
@@ -127,7 +127,7 @@ bool protocolTreeWidgetItem::checkValidity( int _column)
 		}
 		break;
 	}
-	case fluicell::PPC1api::command::instructions::setVswitch: {// check v_s
+	case pCmd::setVswitch: {// check v_s
 
 		int number = this->text(_column).toInt();
 		if (number > 0)
@@ -142,7 +142,7 @@ bool protocolTreeWidgetItem::checkValidity( int _column)
 		}
 		break;
 	}
-	case fluicell::PPC1api::command::instructions::setVrecirc: { // check v_r
+	case pCmd::setVrecirc: { // check v_r
 
 		int number = this->text(_column).toInt();
 		if (number > 0)
@@ -157,10 +157,10 @@ bool protocolTreeWidgetItem::checkValidity( int _column)
 		}
 		break;
 	}
-	case fluicell::PPC1api::command::instructions::solution1: 
-	case fluicell::PPC1api::command::instructions::solution2: 
-	case fluicell::PPC1api::command::instructions::solution3: 
-	case fluicell::PPC1api::command::instructions::solution4: 
+	case pCmd::solution1: 
+	case pCmd::solution2: 
+	case pCmd::solution3: 
+	case pCmd::solution4: 
 	{ //from 4 to 7
 	// check open valve : 0 = no valve, 1,2,3,4 valves 1,2,3,4
 
@@ -172,7 +172,7 @@ bool protocolTreeWidgetItem::checkValidity( int _column)
 		}
 		break;
 	}
-	case fluicell::PPC1api::command::instructions::wait: {
+	case pCmd::wait: {
 		// check Wait (s)
 
 		int number = this->text(_column).toInt();
@@ -183,26 +183,26 @@ bool protocolTreeWidgetItem::checkValidity( int _column)
 		}
 		break;
 	}
-	case fluicell::PPC1api::command::instructions::ask_msg: {
+	case pCmd::ask_msg: {
 		// ask 
 		// no need to check here
 
 		this->setText(_column, QString("")); // it removes whatever is there
 		break;
 	}
-	case fluicell::PPC1api::command::instructions::allOff: {
+	case pCmd::allOff: {
 		// all off
 		// no need to check here
 		this->setText(_column, QString("")); // it removes whatever is there
 		break;
 	}
-	case fluicell::PPC1api::command::instructions::pumpsOff: {
+	case pCmd::pumpsOff: {
 		// pumps off
 		// no need to check here
 		this->setText(_column, QString("")); // it removes whatever is there
 		break;
 	}
-	case fluicell::PPC1api::command::instructions::waitSync: {
+	case pCmd::waitSync: {
 		// Wait sync"
 		int number = this->text(_column).toInt();
 
@@ -213,7 +213,7 @@ bool protocolTreeWidgetItem::checkValidity( int _column)
 		}
 		break;
 	}
-	case fluicell::PPC1api::command::instructions::syncOut: {
+	case pCmd::syncOut: {
 		// Sync out"
 		int number = this->text(_column).toInt();
 		if (number < MIN_PULSE_PERIOD) { // if is not the range
@@ -222,27 +222,31 @@ bool protocolTreeWidgetItem::checkValidity( int _column)
 		}
 		break;
 	}
-	case fluicell::PPC1api::command::instructions::zoneSize: {
-		// Droplet size (%) //TODO: remove this !!!
-
-		//qobject_cast<QComboBox*>(ui_p_editor->treeWidget_macroTable->itemWidget(this, m_cmd_command_c))->setCurrentIndex(0);
-		//QMessageBox::warning(this, m_str_warning,
-		//	m_str_check_validity_msg11);
-		//this->setText(_column, "0"); 
+	case pCmd::setZoneSize: {
+		// Droplet size (%) 
 		int number = this->text(_column).toInt();
 		if (number < 0)
 		{
 			number = -number;
 			this->setText(_column, QString::number(number));
 		}
-		if (number < 50 || //TODO
-			number > 200) { // if is not the range
+		if (number < MIN_ZONE_SIZE_PERC ||
+			number > MAX_ZONE_SIZE_PERC) { // if is not the range
 			this->setText(_column, QString("100")); // if the value is not valid, reset to 100 %
 			return false;
 		}
 		break;
 	}
-	case fluicell::PPC1api::command::instructions::flowSpeed: {
+	case pCmd::changeZoneSizeBy: {
+		// Vacuum (%) 
+		int number = this->text(_column).toInt();
+		if (std::abs(number) > MAX_ZONE_SIZE_INCREMENT) {  // if is not the range
+			this->setText(_column, QString("0")); // if the value is not valid, reset to 0 %
+			return false;
+		}
+		break;
+	}
+	case pCmd::setFlowSpeed: {
 		// Flow speed (%)
 		int number = this->text(_column).toInt();
 		if (number < 0)
@@ -250,14 +254,23 @@ bool protocolTreeWidgetItem::checkValidity( int _column)
 			number = -number;
 			this->setText(_column, QString::number(number));
 		}
-		if (number < 50 || //TODO
-			number > 250) { // if is not the range
+		if (number < MIN_FLOW_SPEED_PERC || 
+			number > MAX_FLOW_SPEED_PERC) { // if is not the range
 			this->setText(_column, QString("100")); // if the value is not valid, reset to 100 %
 			return false;
 		}
 		break;
 	}
-	case fluicell::PPC1api::command::instructions::vacuum: {
+	case pCmd::changeFlowSpeedBy: {
+		// Vacuum (%) 
+		int number = this->text(_column).toInt();
+		if (std::abs(number) > MAX_FLOW_SPEED_INCREMENT) { // if is not the range
+			this->setText(_column, QString("0")); // if the value is not valid, reset to 0 %
+			return false;
+		}
+		break;
+	}
+	case pCmd::setVacuum: {
 		// Vacuum (%) //TODO : remove this 
 		int number = this->text(_column).toInt();
 		if (number < 0)
@@ -265,19 +278,28 @@ bool protocolTreeWidgetItem::checkValidity( int _column)
 			number = -number;
 			this->setText(_column, QString::number(number));
 		}
-		if (number < 50 || //TODO
-			number > 250) { // if is not the range
+		if (number < MIN_VACUUM_PERC || 
+			number > MAX_VACUUM_PERC) { // if is not the range
 			this->setText(_column, QString("100")); // if the value is not valid, reset to 100 %
 			return false;
 		}
 		break;
 	}
-	case fluicell::PPC1api::command::instructions::loop: {   //TODO: TO BE REMOVED
+	case pCmd::changeVacuumBy: {
+		// Vacuum (%) 
+		int number = this->text(_column).toInt();
+		if (std::abs(number) > MAX_VACUUM_INCREMENT ) { // if is not the range
+			this->setText(_column, QString("0")); // if the value is not valid, reset to 0 %
+			return false;
+		}
+		break;
+	}
+	case pCmd::loop: {   //TODO: TO BE REMOVED
 				 // check loops
 
 		int number = this->text(_column).toInt();
 		if (number < 1) { // if is not the range
-			this->setText(_column, QString("0")); // if the value is not valid, reset to zero
+			this->setText(_column, QString("1")); // if the value is not valid, reset to zero
 			return false;
 		}
 		break;
@@ -297,59 +319,71 @@ QString protocolTreeWidgetItem::getRangeColumn( int _idx)
 {
 
 	switch (_idx) {
-	case fluicell::PPC1api::command::instructions::setPoff: 
-	case fluicell::PPC1api::command::instructions::setPon: { // check pressures
+	case pCmd::setPoff: 
+	case pCmd::setPon: { // check pressures
 		return QString("(mbar) [0, 450]");
 	}
-	case fluicell::PPC1api::command::instructions::setVswitch:	
-	case fluicell::PPC1api::command::instructions::setVrecirc: { // check vacuums
+	case pCmd::setVswitch:	
+	case pCmd::setVrecirc: { // check vacuums
 		return QString("(mbar) [-300, 0]");
 	}
-	case fluicell::PPC1api::command::instructions::solution1:
-	case fluicell::PPC1api::command::instructions::solution2:
-	case fluicell::PPC1api::command::instructions::solution3:
-	case fluicell::PPC1api::command::instructions::solution4: 
+	case pCmd::solution1:
+	case pCmd::solution2:
+	case pCmd::solution3:
+	case pCmd::solution4: 
 	{ //from 4 to 7
 									  // check open valve : 0 = no valve, 1,2,3,4 valves 1,2,3,4
 		return QString("1/0 open/close");
 	}
-	case fluicell::PPC1api::command::instructions::wait: {
+	case pCmd::wait: {
 		// check Wait (s)
 		return QString("(s) > 0");
 	}
-	case fluicell::PPC1api::command::instructions::ask_msg: {
+	case pCmd::ask_msg: {
 		// ask 	
 		return QString("-");
 	}
-	case fluicell::PPC1api::command::instructions::allOff: {
+	case pCmd::allOff: {
 		// all off	
 		return QString("-");
 	}
-	case fluicell::PPC1api::command::instructions::pumpsOff: {
+	case pCmd::pumpsOff: {
 		// pumps off
 		return QString("-");
 	}
-	case fluicell::PPC1api::command::instructions::waitSync: {
+	case pCmd::waitSync: {
 		// Wait sync"
 		return QString("1/0 rise/fall");
 	}
-	case fluicell::PPC1api::command::instructions::syncOut: {
+	case pCmd::syncOut: {
 		// Sync out"
 		return QString(">20");
 	}
-	case fluicell::PPC1api::command::instructions::zoneSize: {
+	case pCmd::setZoneSize: {
 		// Droplet size (%) //TODO: remove this !!!
 		return QString("(%) [50, 200]");
 	}
-	case fluicell::PPC1api::command::instructions::flowSpeed: {
+	case pCmd::setFlowSpeed: {
 		// Flow speed (%)
 		return QString("(%) [50, 250]");
 	}
-	case fluicell::PPC1api::command::instructions::vacuum: {
+	case pCmd::setVacuum: {
 		// Vacuum (%) //TODO : remove this 
 		return QString("(%) [50, 250]");
 	}
-	case fluicell::PPC1api::command::instructions::loop: {
+	case pCmd::changeZoneSizeBy: {
+		// Droplet size (%) //TODO: remove this !!!
+		return QString("(%) [-40, 40]");
+	}
+	case pCmd::changeFlowSpeedBy: {
+		// Flow speed (%)
+		return QString("(%) [-40, 40]");
+	}
+	case pCmd::changeVacuumBy: {
+		// Vacuum (%) //TODO : remove this 
+		return QString("(%) [-40, 40]");
+	}
+	case pCmd::loop: {
 		// check loops
 		return QString("(#) > 0");
 	}

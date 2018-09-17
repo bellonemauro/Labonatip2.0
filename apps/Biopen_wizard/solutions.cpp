@@ -458,7 +458,7 @@ void Labonatip_GUI::updateTimingSliders()
 			ui->textEdit_emptyTime->setText(s);
 			m_timer_solution++;
 
-			if (m_pipette_active) updateDrawing(m_ppc1->getDropletSize());
+			if (m_pipette_active) updateDrawing(m_ppc1->getZoneSizePerc());
 			else updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
 
 			// show the warning label

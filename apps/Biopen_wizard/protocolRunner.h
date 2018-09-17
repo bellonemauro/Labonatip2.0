@@ -23,6 +23,7 @@
 
 // QT threads
 #include <qthread.h>
+#include "dataStructures.h"
 
 // PPC1api 
 #include <fluicell/ppc1api/ppc1api.h>
@@ -73,13 +74,16 @@ signals:
 	void pumpOff();
 
 	void setDropletSizeSIG(const double &_perc);
+	void changeDropletSizeSIG(const double &_perc);
 	void setFlowSpeedSIG(const double &_perc);
+	void changeFlowSpeedSIG(const double &_perc);
 	void setVacuumSIG(const double &_perc);
+	void changeVacuumSIG(const double &_perc);
 
 private: 
 	
 	void initCustomStrings();
-	void runCommand(fluicell::PPC1api::command _cmd);
+	void simulateCommand(fluicell::PPC1api::command _cmd);
 
 	fluicell::PPC1api *m_ppc1;                            //!< pointer to the device to run the protocol 
 	std::vector<fluicell::PPC1api::command> *m_protocol;  //!< protocol to run

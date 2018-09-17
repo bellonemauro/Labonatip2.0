@@ -250,16 +250,27 @@ void Labonatip_GUI::runProtocol() {
 
 		connect(m_macroRunner_thread,
 			&Labonatip_macroRunner::setDropletSizeSIG, this,
-			&Labonatip_GUI::setDropletSizePercentage);
+			&Labonatip_GUI::setZoneSizePercentage);
+		
+		connect(m_macroRunner_thread,
+			&Labonatip_macroRunner::changeDropletSizeSIG, this,
+			&Labonatip_GUI::changeZoneSizePercentageBy);//TODO
 
 		connect(m_macroRunner_thread,
 			&Labonatip_macroRunner::setFlowSpeedSIG, this,
 			&Labonatip_GUI::setFlowspeedPercentage);
 
 		connect(m_macroRunner_thread,
+			&Labonatip_macroRunner::changeFlowSpeedSIG, this,
+			&Labonatip_GUI::changeFlowspeedPercentageBy);//TODO
+
+		connect(m_macroRunner_thread,
 			&Labonatip_macroRunner::setVacuumSIG, this,
 			&Labonatip_GUI::setVacuumPercentage);
 
+		connect(m_macroRunner_thread,
+			&Labonatip_macroRunner::changeVacuumSIG, this,
+			&Labonatip_GUI::changeVacuumPercentageBy);//TODO
 
 		m_macroRunner_thread->start();
 
@@ -363,6 +374,20 @@ void Labonatip_GUI::protocolFinished(const QString &_result) {
 		updatePonSetPoint(m_ppc1->getPonSetPoint());
 	}
 
+	// update the slider for the GUI
+	ui->horizontalSlider_recirculation->blockSignals(true);
+	ui->horizontalSlider_recirculation->setValue(m_pipette_status->v_recirc_set_point);
+	ui->horizontalSlider_recirculation->blockSignals(false);
+	ui->horizontalSlider_switch->blockSignals(true);
+	ui->horizontalSlider_switch->setValue(m_pipette_status->v_switch_set_point);
+	ui->horizontalSlider_switch->blockSignals(false);
+	ui->horizontalSlider_p_off->blockSignals(true);
+	ui->horizontalSlider_p_off->setValue(m_pipette_status->poff_set_point);
+	ui->horizontalSlider_p_off->blockSignals(false);
+	ui->horizontalSlider_p_on->blockSignals(true);
+	ui->horizontalSlider_p_on->setValue(m_pipette_status->pon_set_point);
+	ui->horizontalSlider_p_on->blockSignals(false);
+
 	//disconnect protocol runner events
 	disconnect(m_macroRunner_thread,
 		&Labonatip_macroRunner::resultReady, this,
@@ -422,16 +447,27 @@ void Labonatip_GUI::protocolFinished(const QString &_result) {
 
 	disconnect(m_macroRunner_thread,
 		&Labonatip_macroRunner::setDropletSizeSIG, this,
-		&Labonatip_GUI::setDropletSizePercentage);
+		&Labonatip_GUI::setZoneSizePercentage);
+	
+	disconnect(m_macroRunner_thread,
+		&Labonatip_macroRunner::changeDropletSizeSIG, this,
+		&Labonatip_GUI::changeZoneSizePercentageBy);//TODO
 
 	disconnect(m_macroRunner_thread,
 		&Labonatip_macroRunner::setFlowSpeedSIG, this,
 		&Labonatip_GUI::setFlowspeedPercentage);
+	
+	disconnect(m_macroRunner_thread,
+		&Labonatip_macroRunner::changeFlowSpeedSIG, this,
+		&Labonatip_GUI::changeFlowspeedPercentageBy);//TODO
 
 	disconnect(m_macroRunner_thread,
 		&Labonatip_macroRunner::setVacuumSIG, this,
 		&Labonatip_GUI::setVacuumPercentage);
 	
+	disconnect(m_macroRunner_thread,
+		&Labonatip_macroRunner::changeVacuumSIG, this,
+		&Labonatip_GUI::changeVacuumPercentageBy);//TODO
 
 }
 

@@ -77,8 +77,7 @@ private:
 	int m_last_value;
 	Qt::CheckState m_last_show_msg;
 	QString m_last_msg;
-	
-	
+
 	// params for the settings of the PPC1
 	const pr_params * m_pr_params; 
 
