@@ -35,18 +35,23 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	m_language_idx(0),
 	m_base_time_step(1000), //TODO : solve this! there is an issue with the timing of the solution pumped https://stackoverflow.com/questions/21232520/precise-interval-in-qthread
 	m_flowing_solution(0),
-	m_sol1_color(QColor::fromRgb(255, 189, 0)),//(189, 62, 71)),
-	m_sol2_color(QColor::fromRgb(255, 40, 0)),//96, 115, 158)),
-	m_sol3_color(QColor::fromRgb(0, 158, 255)),//193, 130, 50)),
-	m_sol4_color(QColor::fromRgb(130, 255, 0))//83, 155, 81))
+	m_sol1_color(QColor::fromRgb(255, 189, 0)), // this can be any random color
+	m_sol2_color(QColor::fromRgb(255, 40, 0)),
+	m_sol3_color(QColor::fromRgb(0, 158, 255)),
+	m_sol4_color(QColor::fromRgb(130, 255, 0)),
+	qerr(NULL),
+	qout(NULL)
 {
 
   // allows to use path alias
   //QDir::setSearchPaths("icons", QStringList(QDir::currentPath() + "/icons/"));
   
   // setup the user interface
+  // this is required to initialize all the objects in the GUI from creator
   ui->setupUi (this);
 
+  // as the automatic translation is not precise, we have set the set of strings
+  // used in this application to allow translation
   initCustomStrings();
 
   // initialize the tools as we need the settings
@@ -62,30 +67,18 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   *m_pr_params = m_dialog_tools->getPr_params();
   *m_GUI_params = m_dialog_tools->getGUIparams();
 
-
-  ui->dockWidget->close();  //close the advanced dock page
-  ui->tabWidget->setCurrentIndex(1);  // put the tab widget to the chart page
+  //close the advanced dock page
+  ui->dockWidget->close();  
+  // put the tab widget to the chart page
+  ui->tabWidget->setCurrentIndex(1);  
   //ui->treeWidget_macroInfo->resizeColumnToContents(0);
   ui->treeWidget_macroInfo->setColumnWidth(0, 200);
 
-  // debug stuff -- set 1 to remove all messages and tab
-  if (0)
-  {
-	  ui->tabWidget->removeTab(2);
-  }
-  else {
-	  // init the redirect buffer
-	  qout = new QDebugStream(std::cout, ui->textEdit_qcout);
-#ifndef _DEBUG
-	  qout->copyOutToTerminal(m_GUI_params->enableHistory);
-#else
-	  qout->copyOutToTerminal(false);
-#endif
-	  qout->redirectOutInGUI(m_GUI_params->enableHistory);
-	  qerr = new QDebugStream(std::cerr, ui->textEdit_qcerr);
-	  qerr->copyOutToTerminal(m_GUI_params->enableHistory);
-	  qerr->redirectOutInGUI(m_GUI_params->enableHistory);
-  }
+  // init the redirect buffer for messages
+  qerr = new QDebugStream(std::cerr, ui->textEdit_qcerr);
+  qout = new QDebugStream(std::cout, ui->textEdit_qcout);
+
+  this->setRedirect(m_GUI_params->enableHistory);
 
   // this removes the visualization settings 
   ui->tabWidget->removeTab(3);
@@ -418,6 +411,37 @@ void Labonatip_GUI::setEnableSolutionButtons(bool _enable ) {
 	ui->pushButton_solution4->setEnabled(_enable);
 }
 
+
+void Labonatip_GUI::setRedirect(bool _enable)
+{
+	// qerr and cout must be already initialized
+	// the pointer are set to NULL by default in ctor
+	if (qerr == NULL) 
+		return;
+	if (qout == NULL)
+		return;
+
+	// errors will go always to GUI 
+	qerr->redirectOutInGUI(true);
+
+#ifndef _DEBUG
+// if we are not in debug 
+//we redirect normal messages to the GUI accoring to the settings
+qout->redirectOutInGUI(_enable);
+// and normal messages will not go to the terminal
+qout->copyOutToTerminal(false);
+// errors will not go the the terminal (we have no terminal window)
+qerr->copyOutToTerminal(true);
+#else
+// otherwise, we are in debug hence 
+// all messages will go to the terminal
+qerr->copyOutToTerminal(true);
+qout->copyOutToTerminal(true);
+
+// out messages will go to GUI according to the settings
+qout->redirectOutInGUI(_enable);
+#endif
+}
 
 void Labonatip_GUI::switchLanguage(int _value )
 {
@@ -1111,10 +1135,7 @@ void Labonatip_GUI::toolApply()
 	m_ppc1->setFilterSize(m_pr_params->filterSize);
 	m_ppc1->setVerbose(m_pr_params->verboseOut);
 	m_ext_data_path = m_GUI_params->outFilePath;
-	qout->copyOutToTerminal(m_GUI_params->enableHistory);
-	qerr->copyOutToTerminal(m_GUI_params->enableHistory);
-	qout->redirectOutInGUI(m_GUI_params->enableHistory);
-	qerr->redirectOutInGUI(m_GUI_params->enableHistory);
+	this->setRedirect(m_GUI_params->enableHistory);
 
 	ui->treeWidget_params->topLevelItem(0)->setText(1, m_solutionParams->sol1);
 	ui->treeWidget_params->topLevelItem(1)->setText(1, m_solutionParams->sol2);
