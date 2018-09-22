@@ -230,18 +230,8 @@ void Labonatip_GUI::helpTriggered() {
 	cout << QDate::currentDate().toString().toStdString() << "  "
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_GUI::helpTriggered   " << endl;
-	if (1)
-	{
-		//this->showUndoStack(); //TODO
-		return;
-
-	}
-	else
-	{
-		this->about();
-	}
-
-
+	
+	this->about();
 }
 
 void Labonatip_GUI::deleteProtocol()
@@ -617,14 +607,9 @@ void Labonatip_GUI::showUndoStack()
 	cout << QDate::currentDate().toString().toStdString() << "  "
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_GUI::showUndoStack " << endl;
-	//if (ui->actionShowStack->isChecked())
-	//{
+
 	m_undo_view->show();
-	//}
-	//else
-	//{
-	//	m_undo_view->hide();
-	//}
+
 }
 
 void Labonatip_GUI::undo()

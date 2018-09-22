@@ -211,6 +211,11 @@ private slots:
 	void updateMacroTimeStatus(const double &_status);
 
 	/** \brief Ask message
+	*   
+	*    This is called from the macro runner to visualize a
+	*    dialog with a message to be asked
+	*
+	*   \note the protocol runner is paused until the ok is pressed
 	*/
 	void askMessage(const QString &_message);
 
@@ -433,16 +438,18 @@ private slots:
 	void  about();
 
 	/** \brief Empty waste wells in the pipette
+	*
+	*    This function is activated through a button in the tools dialog
+	*    that emits an event triggered and forwarded here
 	*/
 	void emptyWells();
 
 	/** \brief Refill solution wells in the pipette
+	*
+	*    This function is activated through a button in the tools dialog
+	*    that emits an event triggered and forwarded here
 	*/
 	void refillSolution();
-
-	/** \brief Catch the ok signal from tool dialog
-	*/
-	void toolOk();
 
 	/** \brief Catch the apply signal from tool dialog
 	*/
@@ -620,7 +627,16 @@ protected:
 	*/
 	void closeEvent(QCloseEvent *event);
 	
-	/** \brief Allows to resize the toolbar triggering the change gui size event
+	/** \brief Trigger all the events and forward to actions if needed
+	*
+	*    Trigger all the events and forward to actions if needed, 
+	*    more events can be added if needed.
+	*
+	*    Triggered event:
+	*        LanguageChange
+	*        Resize
+	*        WindowStateChange
+	*    
 	*/
 	void changeEvent(QEvent*);
 
@@ -729,8 +745,10 @@ private:
   */
   void updateDrawing(int _value);
 
-  /** \brief set status led to connect or disconnect
+  /** \brief Set status led to connect or disconnect
   *
+  *  The led is set to ON = GREEN, or OFF = RED
+  *  
   *  @param _connect false = red, true = green
   */
   void setStatusLed( bool _connect = false );
@@ -775,7 +793,7 @@ private:
 
   /** \brief enable/disable the solution buttons 
   *
-  *   Enable or disable the solution button, it is used for instance during a 
+  *   Enable or disable the solution buttons, it is used for instance during a 
   *   protocol running to prevent the user to apply commands
   *
   *  @param _enable true or false

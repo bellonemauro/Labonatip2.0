@@ -99,15 +99,8 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	  QString::number(m_pipette_status->rem_vol_well3));
   ui->treeWidget_macroInfo->topLevelItem(15)->setText(1, 
 	  QString::number(m_pipette_status->rem_vol_well4));
-
-  // all the connects are in this function
-  initConnects();
-  
-  // set the toolbar text icons
-  //ui->toolBar_2->setToolButtonStyle(m_GUI_params->showTextToolBar);
-  //ui->toolBar_3->setToolButtonStyle(m_GUI_params->showTextToolBar);
-
-  // hide the warning label
+ 
+  // hide the warning label (it will be shown if there is a warning)
   ui->label_warning->hide();
   ui->label_warningIcon->hide();
 
@@ -119,43 +112,24 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   m_scene_solution = new QGraphicsScene;
   {
 	  // set the scene rectangle to avoid the graphic area to move
-	  float s_x = 0.0;   // x-coordinate
+	  float s_x = 0.0;   // scene x-coordinate
 	  float s_y = 0.0;   // y-coordinate
-	  float s_w = 40.0;  // width
+	  float s_w = 40.0;  // scene width
 	  float s_h = 100.0; // height
 	  m_scene_solution->setSceneRect(s_x, s_y, s_w, s_h);
   }
-
   m_pen_line.setColor(Qt::transparent);
   m_pen_line.setWidth(m_pen_line_width);
  
   // initialize PPC1api
   m_ppc1->setCOMport(m_comSettings->getName());
   m_ppc1->setBaudRate((int)m_comSettings->getBaudRate());
-  m_ppc1->setVerbose(m_pr_params->enableFilter);
+  m_ppc1->setVerbose(m_GUI_params->verboseOutput);
   m_ppc1->setFilterSize(m_pr_params->filterSize);
 
   // init thread macroRunner 
   m_macroRunner_thread = new Labonatip_macroRunner(this);
   m_macroRunner_thread->setDevice(m_ppc1);
-
-  // set translation
-  QString translation_file = "./languages/eng.qm";
-  if (!m_translator.load(translation_file))
-	  cout << QDate::currentDate().toString().toStdString() << "  "
-	  << QTime::currentTime().toString().toStdString() << "  "
-	  << "Labonatip_GUI::Labonatip_GUI ::: translation not loaded" << endl;
-  else
-	  cout << QDate::currentDate().toString().toStdString() << "  "
-	  << QTime::currentTime().toString().toStdString() << "  "
-	  << " Translation loaded " << endl;
-
-  qApp->installTranslator(&m_translator);
-  this->switchLanguage(m_GUI_params->language);
-
-  //speech synthesis
-  m_speech = new QTextToSpeech(this);
-  
 
   // status bar to not connected
   led_green->fill(Qt::transparent);
@@ -211,7 +185,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 
   // init the timers 
   m_update_flowing_sliders = new QTimer();
-  m_update_GUI = new QTimer();  
+  m_update_GUI = new QTimer();
   m_update_waste = new QTimer();
   m_waste_remainder = new QTimer();
   m_timer_solution = 0;
@@ -219,56 +193,14 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   m_update_flowing_sliders->setInterval(m_base_time_step);
   m_update_GUI->setInterval(10);// (m_base_time_step);
   m_update_waste->setInterval(m_base_time_step);
-  m_waste_remainder->setInterval(300*m_base_time_step);
-  ui->treeWidget_params->resizeColumnToContents(0);
-  ui->treeWidget_params->setHeaderHidden(false);
-
-  // reset the macrotable widget
-  ui->treeWidget_macroTable->setColumnWidth(m_editor_params->m_cmd_idx_c, 70);
-  ui->treeWidget_macroTable->setColumnWidth(m_editor_params->m_cmd_command_c, 240);
-  ui->treeWidget_macroTable->setColumnWidth(m_editor_params->m_cmd_range_c, 160);
-  ui->treeWidget_macroTable->setColumnWidth(m_editor_params->m_cmd_value_c, 100);
-
-  // set delegates
-  m_combo_delegate = new ComboBoxDelegate();
-  m_no_edit_delegate = new NoEditDelegate();
-  m_no_edit_delegate2 = new NoEditDelegate();
-  m_spinbox_delegate = new SpinBoxDelegate();
-  ui->treeWidget_macroTable->setItemDelegateForColumn(0, new NoEditDelegate(this));
-  ui->treeWidget_macroTable->setItemDelegateForColumn(1, new ComboBoxDelegate(this));
-  ui->treeWidget_macroTable->setItemDelegateForColumn(2, new NoEditDelegate(this));
-  ui->treeWidget_macroTable->setItemDelegateForColumn(3, new SpinBoxDelegate(this));
-
-  ui->treeWidget_macroTable->setContextMenuPolicy(
-	  Qt::CustomContextMenu);
-  ui->treeWidget_protocol_folder->setContextMenuPolicy(
-	  Qt::CustomContextMenu);
-
-  // the undo
-  m_undo_stack = new QUndoStack(this);
-
-  m_undo_view = new QUndoView(m_undo_stack);
-  m_undo_view->setWindowTitle(tr("Command List"));
-  m_undo_view->window()->setMinimumSize(300, 300);
-  m_undo_view->setAttribute(Qt::WA_QuitOnClose, false);
-  ui->pushButton_undo->setShortcut(
-	  QApplication::translate("Labonatip_protocol_editor",
-		  "Ctrl+Z", Q_NULLPTR));
-
-  ui->pushButton_redo->setShortcut(
-	  QApplication::translate("Labonatip_protocol_editor",
-		  "Ctrl+Y", Q_NULLPTR));
-
-  ui->pushButton_removeMacroCommand->setShortcut(
-	  QApplication::translate("Labonatip_protocol_editor",
-		  "Del", Q_NULLPTR));
-
-  connect(m_update_flowing_sliders, 
-	  SIGNAL(timeout()), this, 
+  m_waste_remainder->setInterval(300 * m_base_time_step);
+  
+  connect(m_update_flowing_sliders,
+	  SIGNAL(timeout()), this,
 	  SLOT(updateTimingSliders()));
 
-  connect(m_update_GUI, 
-	  SIGNAL(timeout()), this, 
+  connect(m_update_GUI,
+	  SIGNAL(timeout()), this,
 	  SLOT(updateGUI()));
   m_update_GUI->start();
 
@@ -281,6 +213,46 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	  SIGNAL(timeout()), this,
 	  SLOT(emptyWasteRemainder()));
 
+
+  // reset the macrotable widget
+  ui->treeWidget_macroTable->setColumnWidth(m_editor_params->m_cmd_idx_c, 70);
+  ui->treeWidget_macroTable->setColumnWidth(m_editor_params->m_cmd_command_c, 240);
+  ui->treeWidget_macroTable->setColumnWidth(m_editor_params->m_cmd_range_c, 160);
+  ui->treeWidget_macroTable->setColumnWidth(m_editor_params->m_cmd_value_c, 100);
+
+  // set delegates
+  m_combo_delegate = new ComboBoxDelegate();
+  m_no_edit_delegate = new NoEditDelegate();
+  m_no_edit_delegate2 = new NoEditDelegate();
+  m_spinbox_delegate = new SpinBoxDelegate();
+  ui->treeWidget_macroTable->setItemDelegateForColumn(
+	  m_editor_params->m_cmd_idx_c, new NoEditDelegate(this));
+  ui->treeWidget_macroTable->setItemDelegateForColumn(
+	  m_editor_params->m_cmd_command_c, new ComboBoxDelegate(this));
+  ui->treeWidget_macroTable->setItemDelegateForColumn(
+	  m_editor_params->m_cmd_range_c, new NoEditDelegate(this));
+  ui->treeWidget_macroTable->setItemDelegateForColumn(
+	  m_editor_params->m_cmd_value_c, new SpinBoxDelegate(this));
+
+  ui->treeWidget_macroTable->setContextMenuPolicy(
+	  Qt::CustomContextMenu);
+  ui->treeWidget_protocol_folder->setContextMenuPolicy(
+	  Qt::CustomContextMenu);
+
+  ui->treeWidget_params->resizeColumnToContents(0);
+  ui->treeWidget_params->setHeaderHidden(false);
+
+  // the undo/redo stack
+  m_undo_stack = new QUndoStack(this);
+  // the undo/redo stack can be visualized in a viewer (only for debug purposes)
+  m_undo_view = new QUndoView(m_undo_stack);
+  m_undo_view->setWindowTitle(tr("Command List"));
+  m_undo_view->window()->setMinimumSize(300, 300);
+  m_undo_view->setAttribute(Qt::WA_QuitOnClose, false);
+#ifdef  _DEBUG
+  this->showUndoStack();
+#endif // ! _DEBUG
+  
   //simulation button not-activated by default
   ui->actionSimulation->setChecked(false);
   m_simulationOnly = ui->actionSimulation->isChecked();
@@ -292,7 +264,6 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   ui->groupBox_action->setEnabled(false);
   ui->groupBox_deliveryZone->setEnabled(false);
   ui->groupBox_3->setEnabled(false);
-  //ui->tab_2->setEnabled(false);
   enableTab2(false);
 
   ui->label_led_pon->setPixmap(*led_green);
@@ -300,11 +271,17 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   ui->label_led_vs->setPixmap(*led_green);
   ui->label_led_vr->setPixmap(*led_green);
 
-
   //init the chart view
   m_labonatip_chart_view = new Labonatip_chart();
   m_chartView = m_labonatip_chart_view->getChartView();
   ui->gridLayout_12->addWidget(m_chartView);
+
+  // set the user name into the GUI
+  QString s;
+  s.append(m_str_user);
+  s.append(" ");
+  s.append(m_dialog_tools->getUserName());
+  ui->label_user->setText(s);
 
   //get the solution colors from the setting file
   QColor c1 = m_solutionParams->sol1_color;
@@ -317,11 +294,28 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   this->colSolution4Changed(c4.red(), c4.green(), c4.blue());
 //  m_labonatip_chart_view->setGUIchart();
 
-  ui->textEdit_emptyTime->setText(" ");
+  ui->textEdit_emptyTime->setText("");
 
   // refill solutions and waste according to the loaded settings
   refillSolution();
   emptyWells();
+
+  // set translation
+  QString translation_file = "./languages/eng.qm";
+  if (!m_translator.load(translation_file))
+	  cout << QDate::currentDate().toString().toStdString() << "  "
+	  << QTime::currentTime().toString().toStdString() << "  "
+	  << "Labonatip_GUI::Labonatip_GUI ::: translation not loaded" << endl;
+  else
+	  cout << QDate::currentDate().toString().toStdString() << "  "
+	  << QTime::currentTime().toString().toStdString() << "  "
+	  << " Translation loaded " << endl;
+
+  qApp->installTranslator(&m_translator);
+  this->switchLanguage(m_GUI_params->language);
+
+  //speech synthesis
+  m_speech = new QTextToSpeech(this);
 
   // set a few shortcuts
   ui->pushButton_solution1->setShortcut(
@@ -332,17 +326,20 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	  QApplication::translate("Labonatip_GUI", "F3", Q_NULLPTR));
   ui->pushButton_solution4->setShortcut(
 	  QApplication::translate("Labonatip_GUI", "F4", Q_NULLPTR));
+  ui->pushButton_undo->setShortcut(
+	  QApplication::translate("Labonatip_GUI", "Ctrl+Z", Q_NULLPTR));
+  ui->pushButton_redo->setShortcut(
+	  QApplication::translate("Labonatip_GUI", "Ctrl+Y", Q_NULLPTR));
+  ui->pushButton_removeMacroCommand->setShortcut(
+	  QApplication::translate("Labonatip_GUI", "Del", Q_NULLPTR));
 
   // install the event filter on -everything- in the app
   qApp->installEventFilter(this);
 
   toolApply(); // this is to be sure that the settings are brought into the app at startup
 
-  QString s;
-  s.append(m_str_user);
-  s.append(" ");
-  s.append(m_dialog_tools->getUserName());
-  ui->label_user->setText(s);
+  // all the connects to signal/slots are in this function
+  initConnects();
 
   cout << QDate::currentDate().toString().toStdString() << "  "
 	  << QTime::currentTime().toString().toStdString() << "  "
@@ -353,17 +350,19 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 
 
 
-void Labonatip_GUI::askMessage(const QString &_message) {
-
+void Labonatip_GUI::askMessage(const QString &_message) 
+{
+	// if the speech is active, the message will be read
 	if (m_GUI_params->speechActive)  m_speech->say(_message);
+	
 	QMessageBox::question(this, m_str_ask_msg, _message, m_str_ok);
+	// an event is sent upon dialog close
 	m_macroRunner_thread->askOkEvent(true);
 	
 	cout << QDate::currentDate().toString().toStdString() << "  "
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_GUI::askMessage :::: "
 		<< _message.toStdString() << endl;
-
 }
 
 
@@ -384,7 +383,7 @@ void Labonatip_GUI::pumpingOff() {
 
 	//this will stop the solution flow 
 	m_timer_solution = std::numeric_limits<int>::max();
-
+	updateDrawing(-1);
 }
 
 
@@ -401,7 +400,6 @@ void Labonatip_GUI::closeAllValves() {
 	//this will stop the solution flow 
 	m_timer_solution = std::numeric_limits<int>::max();
 	updateDrawing(-1);
-
 }
 
 
@@ -426,21 +424,21 @@ void Labonatip_GUI::setRedirect(bool _enable)
 	qerr->redirectOutInGUI(true);
 
 #ifndef _DEBUG
-// if we are not in debug 
-//we redirect normal messages to the GUI accoring to the settings
-qout->redirectOutInGUI(_enable);
-// and normal messages will not go to the terminal
-qout->copyOutToTerminal(false);
-// errors will not go the the terminal (we have no terminal window)
-qerr->copyOutToTerminal(true);
+	// if we are not in debug 
+	//we redirect normal messages to the GUI accoring to the settings
+	qout->redirectOutInGUI(_enable);
+	// and normal messages will not go to the terminal
+	qout->copyOutToTerminal(false);
+	// errors will not go the the terminal (we have no terminal window)
+	qerr->copyOutToTerminal(true);
 #else
-// otherwise, we are in debug hence 
-// all messages will go to the terminal
-qerr->copyOutToTerminal(true);
-qout->copyOutToTerminal(true);
+	// otherwise, we are in debug hence 
+	// all messages will go to the terminal
+	qerr->copyOutToTerminal(true);
+	qout->copyOutToTerminal(true);
 
-// out messages will go to GUI according to the settings
-qout->redirectOutInGUI(_enable);
+	// out messages will go to GUI according to the settings
+	qout->redirectOutInGUI(_enable);
 #endif
 }
 
@@ -450,7 +448,6 @@ void Labonatip_GUI::switchLanguage(int _value )
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_GUI::switchLanguage   " << endl;
 	
-
 	if (_value == m_language_idx) 
 		return; // no translation needed
 
@@ -460,22 +457,22 @@ void Labonatip_GUI::switchLanguage(int _value )
 	m_language_idx = _value;
 	switch (_value)
 	{ 
-	case 0:
+	case GUIparams::Chinese: 
 	{
 		translation_file = ":/languages/cn.qm";	
 		break;
 	}
-	case 1:
+	case GUIparams::English:
 	{
 		translation_file = ":/languages/eng.qm";
 		break;
 	}
-	case 2:
+	case GUIparams::Italiano:
 	{
 		translation_file = ":/languages/ita.qm";
 		break;
 	}
-	case 3:
+	case GUIparams::Svenska:
 	{
 		translation_file = ":/languages/sve.qm";
 		break;
@@ -507,10 +504,6 @@ void Labonatip_GUI::switchLanguage(int _value )
 
 void Labonatip_GUI::changeEvent(QEvent* _event)
 {
-	//cout << QDate::currentDate().toString().toStdString() << "  "
-	//	<< QTime::currentTime().toString().toStdString() << "  "
-	//	<< "Labonatip_GUI::changeEvent   " << _event->type() << endl;
-
 	if (0 != _event) {
 		switch (_event->type()) {
 			// this event is send if a translator is loaded
@@ -766,10 +759,6 @@ if (ui->tabWidget->count() > 3)
 		SIGNAL(refillSolution()), this,
 		SLOT(refillSolution()));
 
-	connect(m_dialog_tools,
-		SIGNAL(ok()), this, 
-		SLOT(toolOk()));
-
 	connect(m_dialog_tools, 
 		SIGNAL(apply()), this, 
 		SLOT(toolApply()));
@@ -855,8 +844,7 @@ void Labonatip_GUI::testTTL(bool _state) {
 	}
 	else
 	{
-		QMessageBox::warning(this, m_str_warning,
-			QString("PPC1 not connected, TTL cannot run"));
+		QMessageBox::warning(this, m_str_warning, m_str_TTL_failed);
 	}
 }
 
@@ -957,7 +945,7 @@ void Labonatip_GUI::initCustomStrings()
 	m_str_clear_commands = tr("This will clear all items in the current protocol");
 	m_str_solution_ended = tr("Solution ended, the flow was stopped");
 	m_str_waste_full = tr("A waste well is full and needs to be emptied. Click Ok to continue");// ("The waste is full, click yes to empty");
-	m_str_TTL_failed = tr("PPC1 not connected, TTL cannot run");
+	m_str_TTL_failed = tr("PPC1 not connected, TTL test cannot run");
 	
 }
 
@@ -968,6 +956,7 @@ void Labonatip_GUI::setProtocolUserPath(QString _path)
 		ui->lineEdit_protocolPath->setText(_path);  // set the current path in the GUI field
 }
 
+// the appScaling is still to be done
 void Labonatip_GUI::appScaling(int _dpiX, int _dpiY)
 {
 	QSize toolbar_icon_size = ui->toolBar->iconSize();
@@ -1032,8 +1021,6 @@ void Labonatip_GUI::appScaling(int _dpiX, int _dpiY)
 	ui->pushButton_flowspeed_plus->setFixedHeight(delivery_zone_buttons.height());
 	ui->pushButton_vacuum_minus->setFixedHeight(delivery_zone_buttons.height());
 	ui->pushButton_vacuum_plus->setFixedHeight(delivery_zone_buttons.height());
-
-
 }
 
 void Labonatip_GUI::emptyWells()
@@ -1064,7 +1051,7 @@ void Labonatip_GUI::refillSolution()
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_GUI::refillSolution   " << endl;
 
-	// get the last settings from the tools
+	// get the latest settings from the tools
 	*m_solutionParams = m_dialog_tools->getSolutionsParams();
 
 	// reset the wells
@@ -1080,42 +1067,26 @@ void Labonatip_GUI::refillSolution()
 	// update wells volume. 
 	// The max volume is constant, 
 	// hence the visualization of the percentage is calculated according to the max volume
-	{
 		m_pipette_status->rem_vol_well1 = m_pipette_status->rem_vol_well1 - 
 			0.001 * m_pipette_status->flow_well1;
 		double perc = 100.0 * m_pipette_status->rem_vol_well1 / MAX_VOLUME_IN_WELL;
 		ui->progressBar_solution1->setValue(int(perc));
-	}
-	{
+
 		m_pipette_status->rem_vol_well2 = m_pipette_status->rem_vol_well2 -
 			0.001 * m_pipette_status->flow_well2;
-		double perc = 100.0 * m_pipette_status->rem_vol_well2 / MAX_VOLUME_IN_WELL;
+		perc = 100.0 * m_pipette_status->rem_vol_well2 / MAX_VOLUME_IN_WELL;
 		ui->progressBar_solution2->setValue(int(perc));
-	}
-	{
+
 		m_pipette_status->rem_vol_well3 = m_pipette_status->rem_vol_well3 -
 			0.001 * m_pipette_status->flow_well3;
-		double perc = 100.0 * m_pipette_status->rem_vol_well3 / MAX_VOLUME_IN_WELL;
+		perc = 100.0 * m_pipette_status->rem_vol_well3 / MAX_VOLUME_IN_WELL;
 		ui->progressBar_solution3->setValue(int(perc));
-	}
-	{
+
 		m_pipette_status->rem_vol_well4 = m_pipette_status->rem_vol_well4 -
 			0.001 * m_pipette_status->flow_well4;
-		double perc = 100.0 * m_pipette_status->rem_vol_well4 / MAX_VOLUME_IN_WELL;
+		perc = 100.0 * m_pipette_status->rem_vol_well4 / MAX_VOLUME_IN_WELL;
 		ui->progressBar_solution4->setValue(int(perc));
-	}
 
-
-}
-
-
-void Labonatip_GUI::toolOk() {
-
-	cout << QDate::currentDate().toString().toStdString() << "  " 
-		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::toolOk   " << endl;
-
-	toolApply();
 }
 
 void Labonatip_GUI::toolApply()
@@ -1150,11 +1121,6 @@ void Labonatip_GUI::toolApply()
 
 	this->switchLanguage(m_GUI_params->language);
 
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::toolApply  m_solutionParams->sol1 "
-		<< m_solutionParams->sol1 .toStdString()<< endl;
-
 	QString s;
 	s.append(m_str_user);
 	s.append(" ");
@@ -1187,7 +1153,12 @@ bool Labonatip_GUI::visualizeProgressMessage(int _seconds, QString _message)
 
 	//if (m_GUI_params->speechActive)  m_speech->say(_message);
 
-	QProgressDialog *PD = new QProgressDialog(msg, m_str_cancel, 0, _seconds, this);
+	//this will make the windows more reactive
+	// so the loop will take x(sec) / acceleration_time
+	int updates_per_second = 5; 
+	
+	QProgressDialog *PD = new QProgressDialog(msg, m_str_cancel, 0, 
+		updates_per_second*_seconds, this);
 	PD->setMinimumWidth(350);   // here there is a warning that the geometry cannot be set, forget about it!
 	PD->setMinimumHeight(150);
 	PD->setMaximumWidth(700);
@@ -1199,21 +1170,25 @@ bool Labonatip_GUI::visualizeProgressMessage(int _seconds, QString _message)
 	PD->setWindowModality(Qt::WindowModal);
 	//PD->setCancelButtonText(m_str_cancel);// (QApplication::translate("Labonatip_GUI", "Cancel", Q_NULLPTR));
 
-	for (int i = 0; i < _seconds; i++) {
+	QTime tt;
+	int wait_time = 1000 / updates_per_second; // 1000 ms = 1 sec
+	for (int i = 0; i < updates_per_second*_seconds; i++) {
 		PD->setValue(i);
-		QThread::sleep(1);
+		int elapsed_time = tt.elapsed();
+		QThread::msleep(wait_time - elapsed_time);
+		tt.restart();
 		if (PD->wasCanceled()) // the operation cannot be cancelled
 		{
 			QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 			QMessageBox::information(this, m_str_warning, m_str_operation_cancelled );
 			setEnableMainWindow(true);
+			delete PD;
 			return false;
 		}
 	}
 	PD->cancel();
 	delete PD;
 	return true;
-
 }
 
 void Labonatip_GUI::ewst() {

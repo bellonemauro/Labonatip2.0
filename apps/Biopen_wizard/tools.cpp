@@ -220,7 +220,7 @@ void Labonatip_tools::okPressed() {
 	saveSettings(m_setting_file_name);
     checkHistory ();
 
-    emit ok();
+    emit apply();
 	this->close();
 }
 
