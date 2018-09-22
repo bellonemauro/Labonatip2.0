@@ -10,7 +10,7 @@
 #include "Lab-on-a-tip.h"
 #include <QtCharts/QCategoryAxis>
 #include <QtCharts/QAbstractAxis>
-
+#include <QDesktopServices.h>
 
 Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	QMainWindow(parent),
@@ -1258,23 +1258,23 @@ void Labonatip_GUI::about() {
 	msg_content.append(m_version);
 	messageBox.setText(msg_content);
 	messageBox.setWindowTitle(msg_title);
-	messageBox.setIconPixmap(QPixmap(":/icons/fluicell_iconBIG.ico"));
+	QPixmap pic(":/icons/fluicell_iconBIG.png");
+	pic = pic.scaled(50, 50, Qt::KeepAspectRatio);
+	messageBox.setIconPixmap(pic);// QPixmap(":/icons/fluicell_iconBIG.png"));
 	messageBox.setWindowIcon(QPixmap(":/icons/fluicell_iconBIG.ico"));
-	messageBox.setFixedSize(600, 800);
+	messageBox.setFixedSize(200, 300);
 
-	QAbstractButton* pButtonYes = messageBox.addButton(tr("Quick guide"), QMessageBox::YesRole);
+	QAbstractButton* pButtonYes = messageBox.addButton(tr("Open quick guide"), QMessageBox::YesRole);
 	messageBox.addButton(m_str_ok, QMessageBox::NoRole);
 
 	messageBox.exec();
 
 	if (messageBox.clickedButton() == pButtonYes) {
 		//Execute command
+		QString fileName = "./BioPen2018.pdf";
+		QDesktopServices::openUrl(QUrl("file:///" + fileName));
 	}
-
-	//messageBox.about(this, msg_title, msg_content); 
-
-
-
+	
 }
 
 
