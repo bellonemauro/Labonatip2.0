@@ -25,8 +25,6 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	m_a_spacer (new QAction()),
 	m_protocol ( new std::vector<fluicell::PPC1api::command> ),
 	m_protocol_duration(0.0),
-	m_cmd_idx_c(0), m_cmd_command_c(1), m_cmd_range_c(2),
-	m_cmd_value_c(3), m_cmd_msg_c(4), m_cmd_level_c(5),
 	m_pen_line_width(7),
 	l_x1(-16.0),
 	l_y1(49.0),
@@ -62,6 +60,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   m_solutionParams = new solutionsParams();
   m_pr_params = new pr_params();
   m_GUI_params = new GUIparams();
+  m_editor_params = new editorParams();
   *m_comSettings = m_dialog_tools->getComSettings();
   *m_solutionParams = m_dialog_tools->getSolutionsParams();
   *m_pr_params = m_dialog_tools->getPr_params();
@@ -77,15 +76,17 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   // init the redirect buffer for messages
   qerr = new QDebugStream(std::cerr, ui->textEdit_qcerr);
   qout = new QDebugStream(std::cout, ui->textEdit_qcout);
-
   this->setRedirect(m_GUI_params->enableHistory);
 
-  // this removes the visualization settings 
+  // this removes the visualization settings (but it will be shown in debug)
+#ifndef _DEBUG
   ui->tabWidget->removeTab(3);
   ui->stackedWidget_main->setCurrentIndex(0);
   ui->stackedWidget_indock->setCurrentIndex(0);
   //ui->dockWidget->setMinimumWidth(180);
+#endif
 
+  //initialize protocol reader and writer
   m_reader = new Labonatip_protocolReader(ui->treeWidget_macroTable);
   m_writer = new Labonatip_protocolWriter(ui->treeWidget_macroTable);
 
@@ -223,10 +224,10 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   ui->treeWidget_params->setHeaderHidden(false);
 
   // reset the macrotable widget
-  ui->treeWidget_macroTable->setColumnWidth(m_cmd_idx_c, 70);
-  ui->treeWidget_macroTable->setColumnWidth(m_cmd_command_c, 240);
-  ui->treeWidget_macroTable->setColumnWidth(m_cmd_range_c, 160);
-  ui->treeWidget_macroTable->setColumnWidth(m_cmd_value_c, 100);
+  ui->treeWidget_macroTable->setColumnWidth(m_editor_params->m_cmd_idx_c, 70);
+  ui->treeWidget_macroTable->setColumnWidth(m_editor_params->m_cmd_command_c, 240);
+  ui->treeWidget_macroTable->setColumnWidth(m_editor_params->m_cmd_range_c, 160);
+  ui->treeWidget_macroTable->setColumnWidth(m_editor_params->m_cmd_value_c, 100);
 
   // set delegates
   m_combo_delegate = new ComboBoxDelegate();

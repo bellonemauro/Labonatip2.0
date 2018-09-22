@@ -111,7 +111,7 @@ void Labonatip_GUI::addAllCommandsToProtocol()
 			dynamic_cast<protocolTreeWidgetItem * > (
 				ui->treeWidget_macroTable->topLevelItem(i));
 		ui->treeWidget_macroTable->blockSignals(true);
-		item->setText(m_cmd_idx_c, QString::number(i + 1));//TODO
+		item->setText(m_editor_params->m_cmd_idx_c, QString::number(i + 1));//TODO
 		ui->treeWidget_macroTable->blockSignals(false);
 		//item->blockSignals(true);
 		//item->checkValidity(m_cmd_value_c);
@@ -120,7 +120,7 @@ void Labonatip_GUI::addAllCommandsToProtocol()
 
 		if (item->childCount() < 1) { // if no children, just add the line 
 			string a = ui->treeWidget_macroTable->topLevelItem(i)->text(
-				m_cmd_command_c).toStdString();
+				m_editor_params->m_cmd_command_c).toStdString();
 
 			commands_vector.push_back(
 				dynamic_cast<protocolTreeWidgetItem *> (
@@ -134,7 +134,7 @@ void Labonatip_GUI::addAllCommandsToProtocol()
 		 //TODO: the actual item is the loop and it should not be added, 
 		 //      loops are not supported in the API, they are a high-level feature
 		 //TODO: here there is a bug, there is no check that the upper level is actually a loop! 
-			for (int loop = 0; loop < item->text(m_cmd_value_c).toInt(); loop++) {
+			for (int loop = 0; loop < item->text(m_editor_params->m_cmd_value_c).toInt(); loop++) {
 				// we need to check how many times we need to run the operations
 				// and add the widget to the list
 				for (int childrenCount = 0; childrenCount < item->childCount(); childrenCount++) {
@@ -146,7 +146,7 @@ void Labonatip_GUI::addAllCommandsToProtocol()
 						dynamic_cast<protocolTreeWidgetItem *> (
 							ui->treeWidget_macroTable->topLevelItem(i)->child(childrenCount));//
 					item_child->setText(
-						m_cmd_idx_c, QString::number(childrenCount + 1));
+						m_editor_params->m_cmd_idx_c, QString::number(childrenCount + 1));
 					ui->treeWidget_macroTable->blockSignals(false);
 					//item_child->blockSignals(true);
 					//item_child->checkValidity(m_cmd_value_c);
@@ -161,14 +161,14 @@ void Labonatip_GUI::addAllCommandsToProtocol()
 
 		fluicell::PPC1api::command new_command;
 
-		string a = commands_vector.at(i)->text(m_cmd_command_c).toStdString();
+		string a = commands_vector.at(i)->text(m_editor_params->m_cmd_command_c).toStdString();
 
 		new_command.setInstruction(static_cast<pCmd>(
-			commands_vector.at(i)->text(m_cmd_command_c).toInt()));
+			commands_vector.at(i)->text(m_editor_params->m_cmd_command_c).toInt()));
 
-		new_command.setValue(commands_vector.at(i)->text(m_cmd_value_c).toInt());
+		new_command.setValue(commands_vector.at(i)->text(m_editor_params->m_cmd_value_c).toInt());
 		//new_command.setVisualizeStatus( commands_vector.at(i)->checkState(m_cmd_msg_c)); //TODO clean checkState
-		new_command.setStatusMessage(commands_vector.at(i)->text(m_cmd_msg_c).toStdString());
+		new_command.setStatusMessage(commands_vector.at(i)->text(m_editor_params->m_cmd_msg_c).toStdString());
 
 		m_protocol->push_back(new_command);
 	}
@@ -317,7 +317,7 @@ void Labonatip_GUI::addCommand()
 
 	// focus is give to the new added element
 	ui->treeWidget_macroTable->setCurrentItem(
-		new_command->item(), m_cmd_value_c,
+		new_command->item(), m_editor_params->m_cmd_value_c,
 		QItemSelectionModel::SelectionFlag::Rows);
 
 	// every time we add a new command we update all macro commands
@@ -387,7 +387,7 @@ void Labonatip_GUI::moveUp()
 		m_undo_stack->push(cmd);
 		ui->treeWidget_macroTable->setCurrentItem(move_item);
 		ui->treeWidget_macroTable->setCurrentItem(
-			move_item, m_cmd_value_c, QItemSelectionModel::SelectionFlag::Rows);
+			move_item, m_editor_params->m_cmd_value_c, QItemSelectionModel::SelectionFlag::Rows);
 	}
 
 	// update the macro command
@@ -428,7 +428,7 @@ void Labonatip_GUI::moveDown()
 		m_undo_stack->push(cmd);
 		ui->treeWidget_macroTable->setCurrentItem(move_item);
 		ui->treeWidget_macroTable->setCurrentItem(
-			move_item, m_cmd_value_c, QItemSelectionModel::SelectionFlag::Rows);
+			move_item, m_editor_params->m_cmd_value_c, QItemSelectionModel::SelectionFlag::Rows);
 	}
 
 	// update the macro command
@@ -465,7 +465,7 @@ void Labonatip_GUI::plusIndent()
 		if (parent) {
 
 			// set the current parent to be a loop
-			parent->setText(m_cmd_command_c, QString::number(17));
+			parent->setText(m_editor_params->m_cmd_command_c, QString::number(17));
 
 			// add the new line as a child
 			cmd = new addProtocolCommand(
@@ -484,7 +484,8 @@ void Labonatip_GUI::plusIndent()
 
 bool Labonatip_GUI::itemChanged(QTreeWidgetItem *_item, int _column)
 {
-	if (_column == m_cmd_idx_c || _column == m_cmd_range_c)
+	if (_column == m_editor_params->m_cmd_idx_c || 
+		_column == m_editor_params->m_cmd_range_c)
 	{
 		dynamic_cast<protocolTreeWidgetItem *>(_item)->checkValidity(_column);
 		return true;
@@ -537,10 +538,10 @@ void Labonatip_GUI::duplicateItem()
 		dynamic_cast<protocolTreeWidgetItem *> (
 			ui->treeWidget_macroTable->currentItem());
 
-	int command_idx = to_clone->text(m_cmd_command_c).toInt();
-	int value = to_clone->text(m_cmd_value_c).toInt();
+	int command_idx = to_clone->text(m_editor_params->m_cmd_command_c).toInt();
+	int value = to_clone->text(m_editor_params->m_cmd_value_c).toInt();
 	//Qt::CheckState show_msg = to_clone->checkState(m_cmd_msg_c);
-	QString msg = to_clone->text(m_cmd_msg_c);
+	QString msg = to_clone->text(m_editor_params->m_cmd_msg_c);
 
 	this->addCommand();
 
@@ -550,10 +551,10 @@ void Labonatip_GUI::duplicateItem()
 			ui->treeWidget_macroTable->currentItem());
 
 
-	clone->setText(m_cmd_command_c, QString::number(command_idx));
-	clone->setText(m_cmd_value_c, QString::number(value));
+	clone->setText(m_editor_params->m_cmd_command_c, QString::number(command_idx));
+	clone->setText(m_editor_params->m_cmd_value_c, QString::number(value));
 	//clone->setCheckState(m_cmd_command_c, show_msg);
-	clone->setText(m_cmd_msg_c, msg);
+	clone->setText(m_editor_params->m_cmd_msg_c, msg);
 
 	addAllCommandsToProtocol();
 	//updateChartProtocol(m_protocol); //TODO
@@ -575,7 +576,7 @@ void Labonatip_GUI::createNewLoop(int _loops)
 
 	this->addCommand();
 	ui->treeWidget_macroTable->currentItem()->setText(
-		m_cmd_command_c, QString::number(17));// "Loop"); // 
+		m_editor_params->m_cmd_command_c, QString::number(17));// "Loop"); // 
 
 	this->plusIndent();
 	addAllCommandsToProtocol();

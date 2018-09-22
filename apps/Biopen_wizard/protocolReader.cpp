@@ -13,13 +13,13 @@
 
 
 Labonatip_protocolReader::Labonatip_protocolReader(QTreeWidget * _tree, 
-	QMainWindow *parent ) :
-	m_cmd_idx_c(0), m_cmd_command_c(1), m_cmd_range_c(2),
-	m_cmd_value_c(3), m_cmd_msg_c(4), m_cmd_level_c(5)
+	QMainWindow *parent ) 
 {
 	m_tree = _tree;
 	m_current_protocol_file_name = "";
 	m_protocol_version = 0;
+
+	m_editor_params = new editorParams();
 }
 
 
@@ -143,7 +143,8 @@ bool Labonatip_protocolReader::readProtocol(QString _filename)
 			content = protocol_file.readLine();
 
 			//this will just give the focus to the last element
-			m_tree->setCurrentItem(new_item, m_cmd_value_c, QItemSelectionModel::SelectionFlag::Rows);
+			m_tree->setCurrentItem(new_item, m_editor_params->m_cmd_value_c, 
+				QItemSelectionModel::SelectionFlag::Rows);
 		}
 		m_tree->setItemSelected(
 			m_tree->topLevelItem(
@@ -205,32 +206,32 @@ bool Labonatip_protocolReader::decodeProtocolCommand(
 	{
 		QString command_data;
 		command_data = remapForBackwardCompatibility(m_protocol_version, data_string.at(0));
-		_out_item.setText(m_cmd_command_c, command_data);
+		_out_item.setText(m_editor_params->m_cmd_command_c, command_data);
 	}
 	//else {
 	//	_out_item.setText(m_cmd_command_c, data_string.at(0));
 	//}
 
 
-	_out_item.setText(m_cmd_value_c, data_string.at(1));
+	_out_item.setText(m_editor_params->m_cmd_value_c, data_string.at(1));
 
-	if (data_string.at(m_cmd_value_c) == "2") { // 2 is the string for true
+	if (data_string.at(m_editor_params->m_cmd_value_c) == "2") { // 2 is the string for true
 												//_out_item.setCheckState(m_cmd_msg_c, Qt::CheckState::Checked); 
 	}
 	else {
 		//_out_item.setCheckState(m_cmd_msg_c, Qt::CheckState::Unchecked); 
 	}
-	_out_item.setText(m_cmd_msg_c, data_string.at(3));
-	_out_item.setText(m_cmd_level_c, data_string.at(4));
+	_out_item.setText(m_editor_params->m_cmd_msg_c, data_string.at(3));
+	_out_item.setText(m_editor_params->m_cmd_level_c, data_string.at(4));
 
 	_out_item.setFlags(_out_item.flags() | (Qt::ItemIsEditable));
 
 	//setRangeColumn(&_out_item, data_string.at(0).toInt());
-	bool success = _out_item.checkValidity(m_cmd_value_c);
+	bool success = _out_item.checkValidity(m_editor_params->m_cmd_value_c);
 
-	_out_item.setText(m_cmd_range_c,
+	_out_item.setText(m_editor_params->m_cmd_range_c,
 		_out_item.getRangeColumn(
-			_out_item.text(m_cmd_command_c).toInt()));
+			_out_item.text(m_editor_params->m_cmd_command_c).toInt()));
 
 	return true;
 }
@@ -241,7 +242,7 @@ int Labonatip_protocolReader::getLevel(QTreeWidgetItem _item)
 
 	// for our item structure the level is on the column number 4
 	bool success = false;
-	level = _item.text(m_cmd_level_c).toInt(&success);
+	level = _item.text(m_editor_params->m_cmd_level_c).toInt(&success);
 	if (success) return level;
 	else return -1;
 

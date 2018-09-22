@@ -13,10 +13,9 @@
 #include <QDateTime>
 
 Labonatip_protocolWriter::Labonatip_protocolWriter(QTreeWidget * _tree, 
-	QMainWindow *parent ) :
-	m_cmd_idx_c(0), m_cmd_command_c(1), m_cmd_range_c(2),
-	m_cmd_value_c(3), m_cmd_msg_c(4), m_cmd_level_c(5)
+	QMainWindow *parent ) 
 {
+	m_editor_params = new editorParams();
 	m_tree = _tree;
 }
 
@@ -110,12 +109,12 @@ void Labonatip_protocolWriter::visitTree(QList<QStringList> &_list,
 		parent = parent->parent();
 	}
 
-	int idx = _item->text(m_cmd_command_c).toInt();
+	int idx = _item->text(m_editor_params->m_cmd_command_c).toInt();
 
 	_string_list.push_back(QString::number(idx));
-	_string_list.push_back(_item->text(m_cmd_value_c));
-	_string_list.push_back(QString::number(0));// _item->checkState(m_cmd_msg_c)));
-	_string_list.push_back(_item->text(m_cmd_msg_c));
+	_string_list.push_back(_item->text(m_editor_params->m_cmd_value_c));
+	_string_list.push_back(QString::number(0));// _item->checkState(m_editor_params->m_cmd_msg_c)));
+	_string_list.push_back(_item->text(m_editor_params->m_cmd_msg_c));
 	_string_list.push_back(QString::number(depth)); // push the depth of the command as last
 
 	_list.push_back(_string_list);
@@ -129,7 +128,7 @@ QList<QStringList> Labonatip_protocolWriter::visitTree(QTreeWidget *_tree) {
 	for (int i = 0; i < _tree->topLevelItemCount(); ++i) {
 
 		protocolTreeWidgetItem * ii = dynamic_cast<protocolTreeWidgetItem *>(_tree->topLevelItem(i));
-		if (!ii->checkValidity(m_cmd_command_c)) {
+		if (!ii->checkValidity(m_editor_params->m_cmd_command_c)) {
 			QMessageBox::information(this, m_str_warning,
 				QString(m_str_check_validity_protocol + "\n" + m_str_check_validity_protocol_try_again));
 			list.clear();

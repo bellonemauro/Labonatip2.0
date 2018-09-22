@@ -296,7 +296,8 @@ struct GUIparams {
 		Svenska = 3,		
 	};
 
-	GUIparams() {   // default values
+	GUIparams() 
+	{   // default values
 		this->showTextToolBar = Qt::ToolButtonIconOnly;
 		this->enableToolTips = false;
 		this->verboseOutput = true;
@@ -305,6 +306,7 @@ struct GUIparams {
 		this->speechActive = true;
 		this->outFilePath = "./Ext_data/";
 		this->language = English;
+
 	}
 
 	void setLanguage(int _language) {	
@@ -329,6 +331,27 @@ struct GUIparams {
 	bool speechActive;
 	QString	outFilePath;
 	languages language;
+
+
 }; // END COMSettings struct
+
+   // structure to handle editor parameters
+struct editorParams {
+
+	editorParams() :
+		m_cmd_idx_c(0), m_cmd_command_c(1), m_cmd_range_c(2),
+		m_cmd_value_c(3), m_cmd_msg_c(4), m_cmd_level_c(5)
+	{   // default values
+		
+	}
+
+	const int m_cmd_idx_c;       //!< index of the column for command index
+	const int m_cmd_command_c;   //!< index of the column for the command
+	const int m_cmd_range_c;     //!< index of the column for the range
+	const int m_cmd_value_c;     //!< index of the column for the value
+	const int m_cmd_msg_c;       //!< index of the column for the command status message
+	const int m_cmd_level_c;     //!< index of the column for the level in the tree
+}; // END solutionsNames struct
+
 
 #endif /* DATASTRUCTURES_H_ */

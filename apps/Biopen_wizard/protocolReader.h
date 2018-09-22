@@ -57,12 +57,7 @@ private:
 	QTreeWidget *m_tree;
 	QString m_current_protocol_file_name;
 
-	int m_cmd_idx_c;       // index of the column for command index
-	int m_cmd_command_c;   // index of the column for the command
-	int m_cmd_range_c;     // index of the column for the range
-	int m_cmd_value_c;     // index of the column for the value
-	int m_cmd_msg_c;       // index of the column for the command status message
-	int m_cmd_level_c;     // index of the column for the level in the tree
+	editorParams *m_editor_params;
 
 	int m_protocol_version;
 
