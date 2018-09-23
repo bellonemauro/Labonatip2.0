@@ -1045,6 +1045,17 @@ namespace fluicell
 			else return false;
 		}
 
+		/** \brief Calculate the protocol duration in seconds
+		*
+		*   Calculate the protocol duration in seconds by summing
+		*   the waiting commands in a protocol
+		*
+		*  @param _protocol a protocol as a list of PPC1api commands
+		*
+		* \return a double with the protocol duration in seconds
+		*/
+		double protocolDuration(std::vector<fluicell::PPC1api::command> _protocol);
+
 		/** \brief Get the pipette status 
 		*
 		*  \return a copy of the data member

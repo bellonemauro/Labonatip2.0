@@ -35,6 +35,7 @@ Labonatip_chart::Labonatip_chart(  )
 	max_poff = 450;
 	max_v_recirc = 300;
 	max_v_switch = 300;
+	max_time_line = 100.0;  //!> the duration is scaled in the interval [0; 100]
 
 	m_base_sol_value = 42.0;
 	m_top_sol_value = 48.0;
@@ -288,7 +289,6 @@ void Labonatip_chart::updateChartProtocol(f_protocol *_protocol)
 	m_series_sync_out->clear();
 
 	double current_time = 0.0; //!> starts from zero and will be updated according to the duration of the macro
-	double max_time_line = 100.0;  //!> the duration is scaled in the interval [0; 100]
 	
 
 	// append zero
@@ -343,157 +343,59 @@ void Labonatip_chart::updateChartProtocol(f_protocol *_protocol)
 		switch (_protocol->at(i).getInstruction())
 		{
 		case pCmd::setPon: { // Pon
-			// remove the tail of the chart
-			if (m_series_Pon->count()>1) m_series_Pon->remove(m_series_Pon->at(m_series_Pon->count()-1));
-
-			// the first point is calculated starting from the last value to the new value an the current time
-			double first_x = current_time;
-			double first_y = m_series_Pon->at(m_series_Pon->count() - 1).y(); // last added point 
-			double second_x = current_time;
-			double normalization_pon = max_pon / chart_width; // the values are normalized in the height reserved for the chart
-			double second_y = min_series_pon + _protocol->at(i).getValue() / normalization_pon;  // new point
-
-			m_series_Pon->append(first_x, first_y); // add the fist point
-			m_series_Pon->append(second_x, second_y); // add the second point 
-
-			//the last point is added at each step, and it must be removed every time a new point is added
-			m_series_Pon->append(max_time_line, second_y);  
-
+			appendPonPoint(current_time, _protocol->at(i).getValue());
 			break;
 		}
 		case pCmd::setPoff: { // Poff
-			// remove the tail of the chart
-			if (m_series_Poff->count()>1) m_series_Poff->remove(m_series_Poff->at(m_series_Poff->count() - 1));
-
-			// the first point is calculated starting from the last value to the new value an the current time
-			double first_x = current_time;
-			double first_y = m_series_Poff->at(m_series_Poff->count() - 1).y(); // last added point 
-			double second_x = current_time;
-			double normalization_poff = max_poff / chart_width; // the values are normalized in the height reserved for the chart
-			double second_y = min_series_poff + _protocol->at(i).getValue() / normalization_poff;  // new point
-
-			m_series_Poff->append(first_x, first_y); // add the fist point
-			m_series_Poff->append(second_x, second_y); // add the second point 
-
-			//the last point is added at each step, and it must be removed every time a new point is added
-			m_series_Poff->append(max_time_line, second_y);
-
+			appendPoffPoint(current_time, _protocol->at(i).getValue());
 			break;
 		}
 		case pCmd::setVswitch: { // v_switch
-			// remove the tail of the chart
-			if (m_series_V_switch->count()>1)  m_series_V_switch->remove(m_series_V_switch->at(m_series_V_switch->count() - 1));
-
-			// the first point is calculated starting from the last value to the new value an the current time
-			double first_x = current_time;
-			double first_y = m_series_V_switch->at(m_series_V_switch->count() - 1).y(); // last added point 
-			double second_x = current_time;
-			double normalization_vs = max_v_switch / chart_width; // the values are normalized in the height reserved for the chart
-			double second_y = min_series_V_switch - _protocol->at(i).getValue() / normalization_vs;  // new point
-
-			m_series_V_switch->append(first_x, first_y); // add the fist point
-			m_series_V_switch->append(second_x, second_y); // add the second point 
-
-													   //the last point is added at each step, and it must be removed every time a new point is added
-			m_series_V_switch->append(max_time_line, second_y);
+			appendVsPoint(current_time, _protocol->at(i).getValue());
 			break;
 		}
 		case pCmd::setVrecirc: { // V_recirc
-			// remove the tail of the chart
-			if (m_series_V_recirc->count()>1) m_series_V_recirc->remove(m_series_V_recirc->at(m_series_V_recirc->count() - 1));
-
-			// the first point is calculated starting from the last value to the new value an the current time
-			double first_x = current_time;
-			double first_y = m_series_V_recirc->at(m_series_V_recirc->count() - 1).y(); // last added point 
-			double second_x = current_time;
-			double normalization_vr = max_v_recirc / chart_width; // the values are normalized in the height reserved for the chart
-			double second_y = min_series_V_recirc - _protocol->at(i).getValue() / normalization_vr;  // new point
-
-			m_series_V_recirc->append(first_x, first_y); // add the fist point
-			m_series_V_recirc->append(second_x, second_y); // add the second point 
-
-			//the last point is added at each step, and it must be removed every time a new point is added
-			m_series_V_recirc->append(max_time_line, second_y);
+			appendVrPoint(current_time, _protocol->at(i).getValue());
 			break;
 		}
 		case pCmd::solution1: { //solution 1
-				  // the first point is calculated starting from the last value to the new value an the current time
-			double first_x = current_time;
-			double second_x = current_time;
-			double first_y = 0;
-			double second_y = 0;
-			if (_protocol->at(i).getValue() == 1) {
-				first_y = m_base_sol_value;
- 				second_y = m_top_sol_value;  // new point
-
+			if (_protocol->at(i).getValue() == 1)
+			{ // if we are opening the solution all the others will be closed
+				appendSolutionPoint(m_series_solution2, max_time_line, 0);
+				appendSolutionPoint(m_series_solution3, max_time_line, 0);
+				appendSolutionPoint(m_series_solution4, max_time_line, 0);
 			}
-			else {
-				first_y = m_top_sol_value;
-				second_y = m_base_sol_value;
-			}
-
-			m_series_solution1->append(first_x, first_y); // add the fist point
-			m_series_solution1->append(second_x, second_y); // add the second point 
-
+			appendSolutionPoint(m_series_solution1, current_time, _protocol->at(i).getValue());
 			break;
 		}
 		case pCmd::solution2: { //solution 2
-			 // the first point is calculated starting from the last value to the new value an the current time
-			double first_x = current_time;
-			double second_x = current_time;
-			double first_y = 0;
-			double second_y = 0;
-			if (_protocol->at(i).getValue() == 1) {
-				first_y = m_base_sol_value;
-				second_y = m_top_sol_value;  // new point
-
+			if (_protocol->at(i).getValue() == 1)
+			{ // if we are opening the solution all the others will be closed
+				appendSolutionPoint(m_series_solution1, max_time_line, 0);
+				appendSolutionPoint(m_series_solution3, max_time_line, 0);
+				appendSolutionPoint(m_series_solution4, max_time_line, 0);
 			}
-			else {
-				first_y = m_top_sol_value;
-				second_y = m_base_sol_value;
-			}
-
-			m_series_solution2->append(first_x, first_y); // add the fist point
-			m_series_solution2->append(second_x, second_y); // add the second point 
-
+			appendSolutionPoint(m_series_solution2, current_time, _protocol->at(i).getValue()); 
 			break;
 		}
 		case pCmd::solution3: { //solution 3
-			double first_x = current_time;
-			double second_x = current_time;
-			double first_y = 0;
-			double second_y = 0;
-			if (_protocol->at(i).getValue() == 1) {
-				first_y = m_base_sol_value;
-				second_y = m_top_sol_value;  // new point
-
+			if (_protocol->at(i).getValue() == 1)
+			{ // if we are opening the solution all the others will be closed
+				appendSolutionPoint(m_series_solution1, max_time_line, 0);
+				appendSolutionPoint(m_series_solution2, max_time_line, 0);
+				appendSolutionPoint(m_series_solution4, max_time_line, 0);
 			}
-			else {
-				first_y = m_top_sol_value;
-				second_y = m_base_sol_value;
-			}
-
-			m_series_solution3->append(first_x, first_y); // add the fist point
-			m_series_solution3->append(second_x, second_y); // add the second point 
+			appendSolutionPoint(m_series_solution3, current_time, _protocol->at(i).getValue());
 			break;
 		}
 		case pCmd::solution4: { //solution 4
-			double first_x = current_time;
-			double second_x = current_time;
-			double first_y = 0;
-			double second_y = 0;
-			if (_protocol->at(i).getValue() == 1) {
-				first_y = m_base_sol_value;
-				second_y = m_top_sol_value;  // new point
-
+			if (_protocol->at(i).getValue() == 1)
+			{ // if we are opening the solution all the others will be closed
+				appendSolutionPoint(m_series_solution1, max_time_line, 0);
+				appendSolutionPoint(m_series_solution2, max_time_line, 0);
+				appendSolutionPoint(m_series_solution3, max_time_line, 0);
 			}
-			else {
-				first_y = m_top_sol_value;
-				second_y = m_base_sol_value;
-			}
-
-			m_series_solution4->append(first_x, first_y); // add the fist point
-			m_series_solution4->append(second_x, second_y); // add the second point 
+			appendSolutionPoint(m_series_solution4, current_time, _protocol->at(i).getValue());
 			break;
 		}	
 		case pCmd::wait: { //sleep ---- update the current time
@@ -505,9 +407,27 @@ void Labonatip_chart::updateChartProtocol(f_protocol *_protocol)
 			break;
 		}
 		case pCmd::allOff: { //allOff
+			// if the command is allOff the solutions will be closed
+			appendSolutionPoint(m_series_solution1, current_time, 0);
+			appendSolutionPoint(m_series_solution2, current_time, 0);
+			appendSolutionPoint(m_series_solution3, current_time, 0);
+			appendSolutionPoint(m_series_solution4, current_time, 0);
+
 			break;
 		}
 		case pCmd::pumpsOff: { //pumpsOff
+			// if the command is allOff the solutions will be closed
+			appendSolutionPoint(m_series_solution1, current_time, 0);
+			appendSolutionPoint(m_series_solution2, current_time, 0);
+			appendSolutionPoint(m_series_solution3, current_time, 0);
+			appendSolutionPoint(m_series_solution4, current_time, 0);
+
+			//also the pon-poff-vr-vs need to be updated to add a zero
+			appendPonPoint(current_time, 0.0);
+			appendPoffPoint(current_time, 0.0);
+			appendVrPoint(current_time, 0.0);
+			appendVsPoint(current_time, 0.0);
+
 			break;
 		}
 		case pCmd::waitSync: { //waitSync
@@ -544,7 +464,148 @@ void Labonatip_chart::updateChartProtocol(f_protocol *_protocol)
 		}
 
 	}
+	// this avoid the bad chart visualization if the user forget to close the solution
+	appendSolutionPoint(m_series_solution1, max_time_line, 0);
+	appendSolutionPoint(m_series_solution2, max_time_line, 0);
+	appendSolutionPoint(m_series_solution3, max_time_line, 0);
+	appendSolutionPoint(m_series_solution4, max_time_line, 0);
+	// update
 	m_chart->update();
+}
+
+void Labonatip_chart::appendPonPoint( double _current_time, double _value)
+{
+	// remove the tail of the chart
+	if (m_series_Pon->count()>1) m_series_Pon->remove(m_series_Pon->at(m_series_Pon->count() - 1));
+
+	// the first point is calculated starting from the last value to the new value an the current time
+	double first_x = _current_time;
+	double first_y = m_series_Pon->at(m_series_Pon->count() - 1).y(); // last added point 
+	double second_x = _current_time;
+	double normalization_pon = max_pon / chart_width; // the values are normalized in the height reserved for the chart
+	double second_y = min_series_pon + _value / normalization_pon;  // new point
+
+	m_series_Pon->append(first_x, first_y); // add the fist point
+	m_series_Pon->append(second_x, second_y); // add the second point 
+
+	//the last point is added at each step, and it must be removed every time a new point is added
+	m_series_Pon->append(max_time_line, second_y);
+}
+
+void Labonatip_chart::appendPoffPoint( double _current_time, double _value)
+{
+	// remove the tail of the chart
+	if (m_series_Poff->count()>1) m_series_Poff->remove(m_series_Poff->at(m_series_Poff->count() - 1));
+
+	// the first point is calculated starting from the last value to the new value an the current time
+	double first_x = _current_time;
+	double first_y = m_series_Poff->at(m_series_Poff->count() - 1).y(); // last added point 
+	double second_x = _current_time;
+	double normalization_poff = max_poff / chart_width; // the values are normalized in the height reserved for the chart
+	double second_y = min_series_poff + _value / normalization_poff;  // new point
+
+	m_series_Poff->append(first_x, first_y); // add the fist point
+	m_series_Poff->append(second_x, second_y); // add the second point 
+											   //the last point is added at each step, and it must be removed every time a new point is added
+	m_series_Poff->append(max_time_line, second_y);
+}
+
+void Labonatip_chart::appendVrPoint(double _current_time, double _value)
+{
+
+	// remove the tail of the chart
+	if (m_series_V_recirc->count()>1) m_series_V_recirc->remove(m_series_V_recirc->at(m_series_V_recirc->count() - 1));
+
+	// the first point is calculated starting from the last value to the new value an the current time
+	double first_x = _current_time;
+	double first_y = m_series_V_recirc->at(m_series_V_recirc->count() - 1).y(); // last added point 
+	double second_x = _current_time;
+	double normalization_vr = max_v_recirc / chart_width; // the values are normalized in the height reserved for the chart
+	double second_y = min_series_V_recirc - _value / normalization_vr;  // new point
+
+	m_series_V_recirc->append(first_x, first_y); // add the fist point
+	m_series_V_recirc->append(second_x, second_y); // add the second point 
+
+												   //the last point is added at each step, and it must be removed every time a new point is added
+	m_series_V_recirc->append(max_time_line, second_y);
+}
+
+void Labonatip_chart::appendVsPoint(double _current_time, double _value)
+{
+	// remove the tail of the chart
+	if (m_series_V_switch->count()>1)  m_series_V_switch->remove(m_series_V_switch->at(m_series_V_switch->count() - 1));
+
+	// the first point is calculated starting from the last value to the new value an the current time
+	double first_x = _current_time;
+	double first_y = m_series_V_switch->at(m_series_V_switch->count() - 1).y(); // last added point 
+	double second_x = _current_time;
+	double normalization_vs = max_v_switch / chart_width; // the values are normalized in the height reserved for the chart
+	double second_y = min_series_V_switch - _value / normalization_vs;  // new point
+
+	m_series_V_switch->append(first_x, first_y); // add the fist point
+	m_series_V_switch->append(second_x, second_y); // add the second point 
+
+												   //the last point is added at each step, and it must be removed every time a new point is added
+	m_series_V_switch->append(max_time_line, second_y);
+}
+
+void Labonatip_chart::appendSolutionPoint(QtCharts::QLineSeries *_serie, double _current_time, double _value)
+{
+	double first_x = _current_time;
+	double second_x = _current_time;
+	double first_y = 0;
+	double second_y = 0;
+	int sz = _serie->count();
+
+	// if this is the first point, 
+	// we need to check if it is 0 to avoid misleading points
+	if (_serie->count() > 0)
+	{
+		// if we have more than one point we need to check the previous one
+		// they must be different among each other to be drawn
+		QPointF point = _serie->at(_serie->count()-1);
+		if (point.y() == m_base_sol_value) // the last solution value was 0
+		{
+			if (_value == 1) {
+				first_y = m_base_sol_value;
+				second_y = m_top_sol_value;  // new point
+			}
+			else {
+				first_y = m_base_sol_value;
+				second_y = m_base_sol_value;
+			}
+		}
+		else // the last solution value was 1
+		{
+			if (_value == 1) {
+				first_y = m_top_sol_value;
+				second_y = m_top_sol_value;  // new point
+			}
+			else {
+				first_y = m_top_sol_value;
+				second_y = m_base_sol_value;
+			}
+		}
+	}
+	else
+	{ // here we assume that if we have no points the solution was OFF
+	  // avoid misleading drawing
+		if (_value == 1) { //turning solution ON
+			// if the value is 1 we draw a point
+			first_y = m_base_sol_value;
+			second_y = m_top_sol_value;  // new point
+		}
+		else { //turning solution OFF
+			// otherwise the first point does not need to be drawn
+			first_y = m_base_sol_value;
+			second_y = m_base_sol_value;
+
+			return;
+		}
+	}
+
+	_serie->append(first_x, first_y); // add the fist point
+	_serie->append(second_x, second_y); // add the second point 
 }
 
 

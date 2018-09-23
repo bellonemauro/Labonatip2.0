@@ -116,6 +116,51 @@ public:
 
 private:
 	
+	/** \brief Append a new point to Pon serie
+	*
+	*   Append a new point to Pon serie
+	*
+	*
+	*  \note: changes private data member m_series_pon
+	*/
+	void appendPonPoint(double _current_time, double _value);
+
+	/** \brief Append a new point to Pof serie
+	*
+	*   Append a new point to Poff serie
+	*
+	*
+	*  \note: changes private data member m_series_poff
+	*/
+	void appendPoffPoint(double _current_time, double _value);
+
+	/** \brief Append a new point to Vrecirc serie
+	*
+	*   Append a new point to Vrecirc serie
+	*
+	*
+	*  \note: changes private data member 
+	*/
+	void appendVrPoint(double _current_time, double _value);
+
+	/** \brief Append a new point to Vswitch serie
+	*
+	*   Append a new point to Vswitch serie
+	*
+	*
+	*  \note: changes private data member
+	*/
+	void appendVsPoint(double _current_time, double _value);
+
+	/** \brief Append a new point to solutions serie
+	*
+	*   Append a new point to solution series
+	*
+	*/
+	void appendSolutionPoint(QtCharts::QLineSeries *_serie, double _current_time, double _value);
+	
+
+
 	// data members to build the chart, 
 	// in this case private pointers to the data are preferred to have simple updates
 	// the chart is made using series of points for each line and areas for solutions
@@ -165,6 +210,7 @@ private:
 	double max_poff;// = 450;
 	double max_v_recirc;// = 300;
 	double max_v_switch;// = 300;
+	double max_time_line;// = 100;
 	double m_base_sol_value;    //!> Base value for the solution area drawing
 	double m_top_sol_value;     //!> Top value for the solution area drawing
 };

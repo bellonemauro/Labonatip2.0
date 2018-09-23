@@ -327,22 +327,18 @@ struct GUIparams {
 
 }; // END COMSettings struct
 
-   // structure to handle editor parameters
+   // structure to handle editor parameters for now only the columns in the editor tree widget are used
 struct editorParams {
 
-	editorParams() :
-		m_cmd_idx_c(0), m_cmd_command_c(1), m_cmd_range_c(2),
-		m_cmd_value_c(3), m_cmd_msg_c(4), m_cmd_level_c(5)
-	{   // default values
-		
-	}
+	enum columnIndex {
+		c_idx = 0,
+		c_command = 1,
+		c_range = 2,
+		c_value = 3,
+		c_msg = 4,
+		c_level = 5,
+	};
 
-	const int m_cmd_idx_c;       //!< index of the column for command index
-	const int m_cmd_command_c;   //!< index of the column for the command
-	const int m_cmd_range_c;     //!< index of the column for the range
-	const int m_cmd_value_c;     //!< index of the column for the value
-	const int m_cmd_msg_c;       //!< index of the column for the command status message
-	const int m_cmd_level_c;     //!< index of the column for the level in the tree
 }; // END solutionsNames struct
 
 

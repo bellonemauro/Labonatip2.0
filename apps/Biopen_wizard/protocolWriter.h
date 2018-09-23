@@ -54,8 +54,6 @@ private:
 
 	QTreeWidget *m_tree;
 
-	editorParams *m_editor_params;      //!< Editor parameters
-
 	//custom translatable strings
 	QString m_str_warning;
 	QString m_str_check_validity_protocol;

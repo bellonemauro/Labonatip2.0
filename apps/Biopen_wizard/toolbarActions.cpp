@@ -226,7 +226,7 @@ void Labonatip_GUI::showProtocolEditor() {
 		m_labonatip_chart_view->updateChartProtocol(m_protocol);
 
 		// visualize duration in the chart information panel 
-		m_protocol_duration = protocolDuration(*m_protocol);
+		m_protocol_duration = m_ppc1->protocolDuration(*m_protocol);
 		QString s = QString::number(m_protocol_duration);
 		s.append(" s");
 		ui->label_duration->setText(s);

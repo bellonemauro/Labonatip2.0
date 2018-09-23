@@ -20,6 +20,8 @@
 #include <QDialog>
 #include <QTranslator>
 #include <QApplication>
+#include <QMessageBox>
+#include <QDateTime>
 
 #include "protocolTreeWidgetItem.h"
 #include "protocolCommands.h"
@@ -56,8 +58,6 @@ private:
 
 	QTreeWidget *m_tree;
 	QString m_current_protocol_file_name;
-
-	editorParams *m_editor_params;
 
 	int m_protocol_version;
 

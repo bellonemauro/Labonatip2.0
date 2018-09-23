@@ -8,9 +8,6 @@
 *  +---------------------------------------------------------------------------+ */
 
 #include "protocolReader.h"
-#include <QMessageBox>
-#include <QDateTime>
-
 
 Labonatip_protocolReader::Labonatip_protocolReader(QTreeWidget * _tree, 
 	QMainWindow *parent ) 
@@ -18,11 +15,7 @@ Labonatip_protocolReader::Labonatip_protocolReader(QTreeWidget * _tree,
 	m_tree = _tree;
 	m_current_protocol_file_name = "";
 	m_protocol_version = 0;
-
-	m_editor_params = new editorParams();
 }
-
-
 
 void Labonatip_protocolReader::initCustomStrings()
 {
@@ -51,7 +44,6 @@ void Labonatip_protocolReader::switchLanguage(QString _translation_file)
 			<< QTime::currentTime().toString().toStdString() << "  "
 			<< "Labonatip_protocolWriter::switchLanguage   installTranslator" << endl;
 	}
-
 }
 
 bool Labonatip_protocolReader::readProtocol(QString _filename)
@@ -143,7 +135,7 @@ bool Labonatip_protocolReader::readProtocol(QString _filename)
 			content = protocol_file.readLine();
 
 			//this will just give the focus to the last element
-			m_tree->setCurrentItem(new_item, m_editor_params->m_cmd_value_c, 
+			m_tree->setCurrentItem(new_item, editorParams::c_value, 
 				QItemSelectionModel::SelectionFlag::Rows);
 		}
 		m_tree->setItemSelected(
@@ -200,38 +192,28 @@ bool Labonatip_protocolReader::decodeProtocolCommand(
 		return false;
 	}
 
+	QString command_data;
+	command_data = remapForBackwardCompatibility(m_protocol_version, data_string.at(0));
+	_out_item.setText(editorParams::c_command, command_data);
+	_out_item.setText(editorParams::c_value, data_string.at(1));
 
-	// fill the qtreewidget item
-	//if (1)//(m_v_7_minor_backward_compatibility == true)
-	{
-		QString command_data;
-		command_data = remapForBackwardCompatibility(m_protocol_version, data_string.at(0));
-		_out_item.setText(m_editor_params->m_cmd_command_c, command_data);
-	}
-	//else {
-	//	_out_item.setText(m_cmd_command_c, data_string.at(0));
-	//}
-
-
-	_out_item.setText(m_editor_params->m_cmd_value_c, data_string.at(1));
-
-	if (data_string.at(m_editor_params->m_cmd_value_c) == "2") { // 2 is the string for true
+	if (data_string.at(editorParams::c_value) == "2") { // 2 is the string for true
 												//_out_item.setCheckState(m_cmd_msg_c, Qt::CheckState::Checked); 
 	}
 	else {
 		//_out_item.setCheckState(m_cmd_msg_c, Qt::CheckState::Unchecked); 
 	}
-	_out_item.setText(m_editor_params->m_cmd_msg_c, data_string.at(3));
-	_out_item.setText(m_editor_params->m_cmd_level_c, data_string.at(4));
+	_out_item.setText(editorParams::c_msg, data_string.at(3));
+	_out_item.setText(editorParams::c_level, data_string.at(4));
 
 	_out_item.setFlags(_out_item.flags() | (Qt::ItemIsEditable));
 
 	//setRangeColumn(&_out_item, data_string.at(0).toInt());
-	bool success = _out_item.checkValidity(m_editor_params->m_cmd_value_c);
+	bool success = _out_item.checkValidity(editorParams::c_value);
 
-	_out_item.setText(m_editor_params->m_cmd_range_c,
+	_out_item.setText(editorParams::c_range,
 		_out_item.getRangeColumn(
-			_out_item.text(m_editor_params->m_cmd_command_c).toInt()));
+			_out_item.text(editorParams::c_command).toInt()));
 
 	return true;
 }
@@ -242,10 +224,9 @@ int Labonatip_protocolReader::getLevel(QTreeWidgetItem _item)
 
 	// for our item structure the level is on the column number 4
 	bool success = false;
-	level = _item.text(m_editor_params->m_cmd_level_c).toInt(&success);
+	level = _item.text(editorParams::c_level).toInt(&success);
 	if (success) return level;
 	else return -1;
-
 }
 
 int Labonatip_protocolReader::checkProtocolVersion(QByteArray _command)
@@ -261,7 +242,6 @@ int Labonatip_protocolReader::checkProtocolVersion(QByteArray _command)
 	if (_command.contains("0.3")) { return 3; }
 	if (_command.contains("0.2")) { return 2; }
 	if (_command.contains("0.1")) { return 1; }
-
 	}
 
 	// if 0 is returned, something is wrong with the line
@@ -308,7 +288,9 @@ QString Labonatip_protocolReader::remapForBackwardCompatibility(int _version, QS
 		if (_old_data == "16") return "4";
 		//loop = 17        loop = 17 
 		if (_old_data == "17") return "20";
-		//TODO remap as Zone size, Flow speed, Vacuum, Wait, Alloff, Solution 1-4, Pon, Poff, Vrecirc, V switch, all the rest.
+		// remap as 
+		// Zone size, Flow speed, Vacuum, Wait, Alloff, 
+		// Solution 1-4, Pon, Poff, Vrecirc, V switch, all the rest.
 	}
 	if (m_protocol_version == 7)
 	{
@@ -357,8 +339,6 @@ QString Labonatip_protocolReader::remapForBackwardCompatibility(int _version, QS
 		//if (_old_data == "19") return "6";
 		//					 loop = 20,
 		//if (_old_data == "20") return "6";
-
-		//TODO remap as Zone size, Flow speed, Vacuum, Wait, Alloff, Solution 1-4, Pon, Poff, Vrecirc, V switch, all the rest.
 	}
 	
 	return _old_data;

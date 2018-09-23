@@ -867,17 +867,6 @@ private:
   */
   void addAllCommandsToProtocol();
 
-  /** \brief Calculate the protocol duration in seconds
-  *
-  *   Calculate the protocol duration in seconds by summing 
-  *   the waiting commands in a protocol
-  *
-  *  @param _protocol a protocol as a list of PPC1api commands
-  *
-  * \return a double with the protocol duration in seconds
-  */
-  double protocolDuration(std::vector<fluicell::PPC1api::command> _protocol);
-
   /** \brief enable/disable the entire main window
   *
   *  @param _enable true or false
@@ -967,7 +956,6 @@ private:
   solutionsParams *m_solutionParams;  //!< solution parameters, names a default values
   pr_params *m_pr_params;             //!< pressure and vacuum parameters
   GUIparams *m_GUI_params;            //!< GUI parameters
-  editorParams *m_editor_params;      //!< Editor parameters
 
   pipetteStatus *m_pipette_status;    //!< pipette status in terms of pressures, vacuum and flows
 
@@ -989,7 +977,6 @@ private:
 
   //!< set the multiplicators for the time step, 
   //    e.g. desired_duration (sec) = multiplicator * m_base_time_step (100ms)
-  //    TODO: KNOWN ISSUE: timing is not well fulfilled --- it is longer than expected
   int m_time_multipilcator;           //!< used to set the update time for the timers
   int m_timer_solution;               //!< duration of injection for solution 
   double m_protocol_duration;         //!< this is the timeline for the protocol execution

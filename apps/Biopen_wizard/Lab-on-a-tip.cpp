@@ -31,7 +31,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	l_x2(65.0),
 	l_y2(l_y1),
 	m_language_idx(0),
-	m_base_time_step(1000), //TODO : solve this! there is an issue with the timing of the solution pumped https://stackoverflow.com/questions/21232520/precise-interval-in-qthread
+	m_base_time_step(1000), 
 	m_flowing_solution(0),
 	m_sol1_color(QColor::fromRgb(255, 189, 0)), // this can be any random color
 	m_sol2_color(QColor::fromRgb(255, 40, 0)),
@@ -60,7 +60,6 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   m_solutionParams = new solutionsParams();
   m_pr_params = new pr_params();
   m_GUI_params = new GUIparams();
-  m_editor_params = new editorParams();
   *m_comSettings = m_dialog_tools->getComSettings();
   *m_solutionParams = m_dialog_tools->getSolutionsParams();
   *m_pr_params = m_dialog_tools->getPr_params();
@@ -215,10 +214,10 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 
 
   // reset the macrotable widget
-  ui->treeWidget_macroTable->setColumnWidth(m_editor_params->m_cmd_idx_c, 70);
-  ui->treeWidget_macroTable->setColumnWidth(m_editor_params->m_cmd_command_c, 240);
-  ui->treeWidget_macroTable->setColumnWidth(m_editor_params->m_cmd_range_c, 160);
-  ui->treeWidget_macroTable->setColumnWidth(m_editor_params->m_cmd_value_c, 100);
+  ui->treeWidget_macroTable->setColumnWidth(editorParams::c_idx, 70);
+  ui->treeWidget_macroTable->setColumnWidth(editorParams::c_command, 240);
+  ui->treeWidget_macroTable->setColumnWidth(editorParams::c_range, 160);
+  ui->treeWidget_macroTable->setColumnWidth(editorParams::c_value, 100);
 
   // set delegates
   m_combo_delegate = new ComboBoxDelegate();
@@ -226,13 +225,13 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   m_no_edit_delegate2 = new NoEditDelegate();
   m_spinbox_delegate = new SpinBoxDelegate();
   ui->treeWidget_macroTable->setItemDelegateForColumn(
-	  m_editor_params->m_cmd_idx_c, new NoEditDelegate(this));
+	  editorParams::c_idx, new NoEditDelegate(this));
   ui->treeWidget_macroTable->setItemDelegateForColumn(
-	  m_editor_params->m_cmd_command_c, new ComboBoxDelegate(this));
+	  editorParams::c_command, new ComboBoxDelegate(this));
   ui->treeWidget_macroTable->setItemDelegateForColumn(
-	  m_editor_params->m_cmd_range_c, new NoEditDelegate(this));
+	  editorParams::c_range, new NoEditDelegate(this));
   ui->treeWidget_macroTable->setItemDelegateForColumn(
-	  m_editor_params->m_cmd_value_c, new SpinBoxDelegate(this));
+	  editorParams::c_value, new SpinBoxDelegate(this));
 
   ui->treeWidget_macroTable->setContextMenuPolicy(
 	  Qt::CustomContextMenu);
@@ -1170,13 +1169,16 @@ bool Labonatip_GUI::visualizeProgressMessage(int _seconds, QString _message)
 	PD->setWindowModality(Qt::WindowModal);
 	//PD->setCancelButtonText(m_str_cancel);// (QApplication::translate("Labonatip_GUI", "Cancel", Q_NULLPTR));
 
-	QTime tt;
-	int wait_time = 1000 / updates_per_second; // 1000 ms = 1 sec
+	// To have more precise timing I have implemented the code 
+    // available here https://stackoverflow.com/questions/21232520/precise-interval-in-qthread
+	// the currentMSecsSinceEpoch function allows to keep track of the time absolutely not relatively
+	int time_step = 1000 / updates_per_second; // 1000 ms = 1 sec
+	qint64 current_time = QDateTime::currentMSecsSinceEpoch();
 	for (int i = 0; i < updates_per_second*_seconds; i++) {
 		PD->setValue(i);
-		int elapsed_time = tt.elapsed();
-		QThread::msleep(wait_time - elapsed_time);
-		tt.restart();
+		//int elapsed_time = tt.elapsed();
+		//QThread::msleep(wait_time - elapsed_time);
+		//tt.restart();
 		if (PD->wasCanceled()) // the operation cannot be cancelled
 		{
 			QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
@@ -1185,6 +1187,17 @@ bool Labonatip_GUI::visualizeProgressMessage(int _seconds, QString _message)
 			delete PD;
 			return false;
 		}
+		current_time += time_step;
+		qint64 sleep_for = current_time - QDateTime::currentMSecsSinceEpoch();
+		if (sleep_for < 0) {
+			// We got preempted for too long - for all we know, the system could
+			// have even gotten suspended (lid close on a laptop).
+			// Note: We should avoid the implementation-defined behavior of 
+			// modulus (%) for negative values.
+			sleep_for = time_step - ((-sleep_for) % time_step);
+		}
+		// use the appropriate API on given platform for sleep
+		QThread::msleep(sleep_for);
 	}
 	PD->cancel();
 	delete PD;
@@ -1276,7 +1289,7 @@ void Labonatip_GUI::about() {
 	
 }
 
-
+/*
 double Labonatip_GUI::protocolDuration(std::vector<fluicell::PPC1api::command> _protocol)
 {
 	// compute the duration of the protocol
@@ -1288,7 +1301,7 @@ double Labonatip_GUI::protocolDuration(std::vector<fluicell::PPC1api::command> _
 	}
 
 	return duration;
-}
+}*/
 
 void Labonatip_GUI::enableTab2(bool _enable)
 {

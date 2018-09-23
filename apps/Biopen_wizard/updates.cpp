@@ -1001,7 +1001,7 @@ void Labonatip_GUI::updateMacroTimeStatus(const double &_status)
 	s.append(m_str_update_time_macro_msg2);
 
 	//int remaining_time_sec = m_protocol_duration - _status * m_protocol_duration / 100;
-	double duration = protocolDuration(*m_protocol);
+	double duration = m_ppc1->protocolDuration(*m_protocol);
 	int remaining_time_sec = duration - _status * duration / 100;
     int remaining_hours = floor(remaining_time_sec / 3600); // 3600 sec in a hour
     int remaining_mins = floor((remaining_time_sec % 3600) / 60); // 60 minutes in a hour
@@ -1039,8 +1039,7 @@ void Labonatip_GUI::updateMacroTimeStatus(const double &_status)
     ui->horizontalSlider_p_on->setValue(m_ppc1->getPonSetPoint());
     ui->horizontalSlider_p_on->blockSignals(false);
 
-    double currentTime = _status * protocolDuration(*m_protocol) / 100.0 ;
-
+	double currentTime = _status * duration / 100.0 ;
     updateFlowControlPercentages();
 
 }

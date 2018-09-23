@@ -1861,6 +1861,19 @@ const std::string fluicell::PPC1api::currentDateTime() {
 	return buf;
 }
 
+double fluicell::PPC1api::protocolDuration(std::vector<fluicell::PPC1api::command> _protocol)
+{
+	// compute the duration of the protocol
+	double duration = 0.0;
+	for (size_t i = 0; i < _protocol.size(); i++) {
+		if (_protocol.at(i).getInstruction() ==
+			fluicell::PPC1api::command::wait)
+			duration += _protocol.at(i).getValue();
+	}
+
+	return duration;
+}
+
 fluicell::PPC1api::~PPC1api()
 {
 	// make sure the thread and the communications are properly closed

@@ -84,6 +84,8 @@ private:
 	
 	void initCustomStrings();
 	void simulateCommand(fluicell::PPC1api::command _cmd);
+	void simulateWait(int _sleep_for);
+	
 
 	fluicell::PPC1api *m_ppc1;                            //!< pointer to the device to run the protocol 
 	std::vector<fluicell::PPC1api::command> *m_protocol;  //!< protocol to run
@@ -91,6 +93,8 @@ private:
 	bool m_threadTerminationHandler;                      //!< true to terminate the macro
 	bool m_ask_ok;                                        //!< false when a message dialog is out, true to continue
 	int m_time_left_for_step;                             //!< time left for the current step
+	double m_protocol_duration;
+	double m_time_elapsed;
 
     // custom strings for translations
 	QString m_str_success;

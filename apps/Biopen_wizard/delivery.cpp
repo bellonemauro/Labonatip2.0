@@ -271,7 +271,7 @@ void Labonatip_GUI::flowSpeedMinus() {
 	// -percentage to all values
 	if (m_pipette_active) {
 		bool success = false;
-		if (m_pr_params->useDefValSetPoint)  //TODO: weird
+		if (m_pr_params->useDefValSetPoint)  
 		{
 			success = m_ppc1->changeFlowSpeedPercBy(-m_pr_params->base_fs_increment);
 		}
@@ -335,7 +335,7 @@ void Labonatip_GUI::vacuumPlus() {
 	// +percentage to v_recirculation
 	if (m_pipette_active) {
 		bool success = false;
-		if (m_pr_params->useDefValSetPoint )  //TODO: weird
+		if (m_pr_params->useDefValSetPoint )  
 		{
 			success = m_ppc1->changeVacuumPercBy(m_pr_params->base_v_increment);
 		}
@@ -390,7 +390,7 @@ void Labonatip_GUI::vacuumMinus() {
 			success = m_ppc1->changeVacuumPercBy(-m_pr_params->base_v_increment);
 		}
 		else {
-			success = m_ppc1->setVacuumPerc(m_v_perc - //ui->lcdNumber_vacuum_percentage->value() -
+			success = m_ppc1->setVacuumPerc(m_v_perc - 
 				m_pr_params->base_v_increment);
 		}
 
@@ -401,7 +401,6 @@ void Labonatip_GUI::vacuumMinus() {
 		else {
 			// update the set point
 			m_pipette_status->v_recirc_set_point = -m_ppc1->getVrecircSetPoint();
-			//ui->label_recircPressure->setText(QString(QString::number(m_v_recirc_set_point) + " mbar"));
 
 			// update the slider for the GUI
 			ui->horizontalSlider_recirculation->blockSignals(true);

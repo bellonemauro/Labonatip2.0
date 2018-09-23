@@ -3,6 +3,7 @@ Improved command history and redirect
 Improved efficiency and comments
 Progress windows messages accelerated to make the GUI more reactive
 Improved timing during command running (when the progress bar is visualized) 
+Improved chart visualizatio on solution flow
 
 
 V.2.0.65

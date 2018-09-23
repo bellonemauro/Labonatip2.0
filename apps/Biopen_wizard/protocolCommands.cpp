@@ -9,9 +9,6 @@
 
 #include "protocolCommands.h"
 
-//#include <QTime>
-
-
 addProtocolCommand::addProtocolCommand(
 	QTreeWidget * const _tree_widget, int _at_row, 
 	protocolTreeWidgetItem * _parent)
@@ -99,20 +96,10 @@ void addProtocolCommand::undo()
 	//	<< QTime::currentTime().toString().toStdString() << "  "
 	//	<< "addProtocolCommand::undo " << std::endl;
 
-	//TODO: it crashes when undo an already undid-deleted command
-	//     add -> remove -> undo(remove) -> undo (add)=>crash!
-	//     the reason is that the remove_command destroy the pointer 
-	//     and the undo_remove creates a new pointer somewhere else
-	//     so to undo (add) we need to know the new pointers of the 
-	//     undo-removed object
 	if (m_tree_widget->topLevelItem(m_at_row) == NULL)
 	{
 		int i = 0;
 	}
-
-	//TODO: this is just a trick and it will not work in the long run
-	//m_new_item = dynamic_cast<protocolTreeWidgetItem *> (
-	//	m_tree_widget->topLevelItem(m_at_row));
 
 	if ( m_has_parent )
 	{
@@ -124,11 +111,11 @@ void addProtocolCommand::undo()
 			m_parent->child(m_at_row));
 
 		//save the params 
-		m_view_idx = m_new_item->text(0).toInt();
-		m_cmd_idx = m_new_item->text(1).toInt();
-		m_value = m_new_item->text(3).toInt();
-		m_show_status_msg = m_new_item->checkState(4);
-		m_status_msg = m_new_item->text(4);
+		m_view_idx = m_new_item->text(editorParams::c_idx).toInt();
+		m_cmd_idx = m_new_item->text(editorParams::c_command).toInt();
+		m_value = m_new_item->text(editorParams::c_value).toInt();
+		m_show_status_msg = m_new_item->checkState(editorParams::c_msg);
+		m_status_msg = m_new_item->text(editorParams::c_msg);
 
 		// remove the item
 		m_parent->takeChild(m_at_row);
@@ -140,19 +127,16 @@ void addProtocolCommand::undo()
 			m_tree_widget->topLevelItem(m_at_row));
 
 		//save the params 
-		m_view_idx = m_new_item->text(0).toInt();
-		m_cmd_idx = m_new_item->text(1).toInt();
-		m_value = m_new_item->text(3).toInt();
-		m_show_status_msg = m_new_item->checkState(4);
-		m_status_msg = m_new_item->text(4);
+		m_view_idx = m_new_item->text(editorParams::c_idx).toInt();
+		m_cmd_idx = m_new_item->text(editorParams::c_command).toInt();
+		m_value = m_new_item->text(editorParams::c_value).toInt();
+		m_show_status_msg = m_new_item->checkState(editorParams::c_msg);
+		m_status_msg = m_new_item->text(editorParams::c_msg);
 
 		// remove the item
 		m_tree_widget->model()->removeRow(m_at_row);
 	}
-
-
 	is_undo = 1;
-
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -175,7 +159,6 @@ removeProtocolCommand::removeProtocolCommand(
 }
 
 
-
 void removeProtocolCommand::redo()
 {
 	//std::cout << QDate::currentDate().toString().toStdString() << "  "
@@ -193,11 +176,11 @@ void removeProtocolCommand::redo()
 			m_parent->child(m_at_row));
 
 		// save params
-		m_view_idx = m_remove_item->text(0).toInt();
-		m_cmd_idx = m_remove_item->text(1).toInt();
-		m_value = m_remove_item->text(3).toInt();
-		m_show_status_msg = m_remove_item->checkState(4);
-		m_status_msg = m_remove_item->text(4);
+		m_view_idx = m_remove_item->text(editorParams::c_idx).toInt();
+		m_cmd_idx = m_remove_item->text(editorParams::c_command).toInt();
+		m_value = m_remove_item->text(editorParams::c_value).toInt();
+		m_show_status_msg = m_remove_item->checkState(editorParams::c_msg);
+		m_status_msg = m_remove_item->text(editorParams::c_msg);
 
 		// remove the child 
 		m_parent->takeChild(m_at_row);
@@ -215,11 +198,11 @@ void removeProtocolCommand::redo()
 			m_tree_widget->topLevelItem(m_at_row) );
 
 		// save params
-		m_view_idx = m_remove_item->text(0).toInt();
-		m_cmd_idx = m_remove_item->text(1).toInt();
-		m_value = m_remove_item->text(3).toInt();
-		m_show_status_msg = m_remove_item->checkState(4);
-		m_status_msg = m_remove_item->text(4);
+		m_view_idx = m_remove_item->text(editorParams::c_idx).toInt();
+		m_cmd_idx = m_remove_item->text(editorParams::c_command).toInt();
+		m_value = m_remove_item->text(editorParams::c_value).toInt();
+		m_show_status_msg = m_remove_item->checkState(editorParams::c_msg);
+		m_status_msg = m_remove_item->text(editorParams::c_msg);
 
 		// remove the item
 		m_tree_widget->model()->removeRow(m_at_row);
@@ -260,10 +243,7 @@ void removeProtocolCommand::undo()
 		// insert the previously removed row as a top level item
 		m_tree_widget->insertTopLevelItem(m_at_row, m_remove_item);
 	}
-
 }
-
-
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 changedProtocolCommand::changedProtocolCommand(
@@ -277,8 +257,6 @@ changedProtocolCommand::changedProtocolCommand(
 	is_undo = 0;
 	m_parent = NULL;
 	m_has_parent = false;
-
-	
 
 	if (_parent)
 	{
@@ -297,7 +275,6 @@ changedProtocolCommand::changedProtocolCommand(
 }
 
 
-
 void changedProtocolCommand::redo()
 {
 	//std::cout << QDate::currentDate().toString().toStdString() << "  "
@@ -307,10 +284,6 @@ void changedProtocolCommand::redo()
 	// if it was previously un-done
 	if (is_undo == 1)
 	{
-		//m_changed_item->setText(1, QString::number(m_new_command));
-		//m_changed_item->setText(3, QString::number(m_new_value));
-		//m_changed_item->setCheckState(4, Qt::CheckState(m_new_show_msg));
-		//m_changed_item->setText(4, m_new_msg);
 
 		if (m_has_parent)
 		{
@@ -347,13 +320,10 @@ void changedProtocolCommand::redo()
 		m_last_show_msg = m_changed_item->getLastSM();
 		m_last_msg = m_changed_item->getLastMsg();
 
-		m_new_command = m_changed_item->text(1).toInt();
-		m_new_value = m_changed_item->text(3).toInt();
-		m_new_show_msg = m_changed_item->checkState(4);
-		m_new_msg = m_changed_item->text(4);
-
-		//TODO take the current item and update the pointer.
-		//     also update the parent pointer
+		m_new_command = m_changed_item->text(editorParams::c_command).toInt();
+		m_new_value = m_changed_item->text(editorParams::c_value).toInt();
+		m_new_show_msg = m_changed_item->checkState(editorParams::c_msg);
+		m_new_msg = m_changed_item->text(editorParams::c_msg);
 
 		// update pointers
 		if (m_has_parent)
@@ -372,10 +342,9 @@ void changedProtocolCommand::redo()
 				m_tree_widget->topLevelItem(m_changed_row));
 		}
 
-
 		if (m_has_parent)
 		{
-			this->setText("Changed child row " + QString::number(m_changed_row) //QString::number(m_changed_row)
+			this->setText("Changed child row " + QString::number(m_changed_row)
 				+ " parent row " + QString::number(
 									m_tree_widget->indexOfTopLevelItem(
 										m_parent))
@@ -391,9 +360,7 @@ void changedProtocolCommand::redo()
 				+ " from " + QString::number(m_last_value)
 				+ " to " + QString::number(m_changed_item->text(3).toInt()));
 		}
-
 	}
-
 }
 
 void changedProtocolCommand::undo()
@@ -401,11 +368,6 @@ void changedProtocolCommand::undo()
 	//std::cout << QDate::currentDate().toString().toStdString() << "  "
 	//	<< QTime::currentTime().toString().toStdString() << "  "
 	//	<< "changedProtocolCommand::undo " << std::endl;
-	//m_changed_item->setText(1, QString::number(m_last_command));
-	//m_changed_item->setText(3, QString::number(m_last_value));
-	//m_changed_item->setCheckState(4, Qt::CheckState(m_last_show_msg));
-	//m_changed_item->setText(4, m_last_msg);
-
 
 	// if has parent
 	if (m_has_parent)
@@ -429,8 +391,6 @@ void changedProtocolCommand::undo()
 		m_changed_item->setElements(m_last_command, m_last_value,
 			m_last_show_msg, m_last_msg);
 	}
-
-
 	is_undo = 1;
 }
 
@@ -445,16 +405,13 @@ moveUpCommand::moveUpCommand(
 	m_parent = NULL;
 	m_has_parent = false;
 	m_row = m_tree_widget->currentIndex().row();
-	// continue from here
 
 	if (_parent)
 	{
 		m_parent = _parent;
 		m_has_parent = true;
 		m_parent_row = _tree_widget->indexOfTopLevelItem(_parent);
-
 	}
-
 }
 
 void moveUpCommand::redo() 
@@ -466,8 +423,10 @@ void moveUpCommand::redo()
 			dynamic_cast<protocolTreeWidgetItem *> (
 				m_parent->child(m_row));
 
-		m_parent->takeChild(m_row); // take the child at the row
-		m_parent->insertChild(m_row - 1, m_move_item); // add the selected item one row before
+		// take the child at the row
+		m_parent->takeChild(m_row); 
+		// add the selected item one row before
+		m_parent->insertChild(m_row - 1, m_move_item);
 	}
 	else {
 		m_move_item =
@@ -481,9 +440,7 @@ void moveUpCommand::redo()
 
 		this->setText("Moved top level item at row " + QString::number(m_row) + 
 			" to row " + QString::number(m_row - 1) );
-
 	}
-
 }
 
 void moveUpCommand::undo()
@@ -506,7 +463,6 @@ void moveUpCommand::undo()
 		m_tree_widget->takeTopLevelItem(m_row - 1 );
 		// and add the selected item one row before
 		m_tree_widget->insertTopLevelItem(m_row, m_move_item);
-
 	}
 }
 
@@ -528,9 +484,7 @@ moveDownCommand::moveDownCommand(
 		m_parent = _parent;
 		m_has_parent = true;
 		m_parent_row = _tree_widget->indexOfTopLevelItem(_parent);
-
 	}
-
 }
 
 void moveDownCommand::redo()
@@ -542,8 +496,10 @@ void moveDownCommand::redo()
 			dynamic_cast<protocolTreeWidgetItem *> (
 				m_parent->child(m_row));
 
-		m_parent->takeChild(m_row); // take the child at the row
-		m_parent->insertChild(m_row + 1, m_move_item); // add the selected item one row before
+		// take the child at the row
+		m_parent->takeChild(m_row); 
+		// add the selected item one row before
+		m_parent->insertChild(m_row + 1, m_move_item); 
 	}
 	else {
 		m_move_item =
@@ -557,9 +513,7 @@ void moveDownCommand::redo()
 
 		this->setText("Moved top level item at row " + QString::number(m_row) +
 			" to row " + QString::number(m_row + 1));
-
 	}
-
 }
 
 void moveDownCommand::undo()
@@ -570,8 +524,10 @@ void moveDownCommand::undo()
 			dynamic_cast<protocolTreeWidgetItem *> (
 				m_parent->child(m_row));
 
-		m_parent->takeChild(m_row + 1); // take the child at the row
-		m_parent->insertChild(m_row, m_move_item); // add the selected item one row before
+		// take the child at the row
+		m_parent->takeChild(m_row + 1); 
+		// add the selected item one row before
+		m_parent->insertChild(m_row, m_move_item); 
 	}
 	else {
 		m_move_item =
