@@ -310,7 +310,7 @@ QString Labonatip_protocolReader::remapForBackwardCompatibility(int _version, QS
 		if (_old_data == "17") return "20";
 		//TODO remap as Zone size, Flow speed, Vacuum, Wait, Alloff, Solution 1-4, Pon, Poff, Vrecirc, V switch, all the rest.
 	}
-	if (m_protocol_version = 7)
+	if (m_protocol_version == 7)
 	{
 		// zoneSize = 0,     setZoneSize = 0,
 		if (_old_data == "0") return "0";

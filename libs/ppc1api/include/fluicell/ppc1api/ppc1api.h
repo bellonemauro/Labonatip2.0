@@ -547,9 +547,9 @@ namespace fluicell
 		bool setRuntimeTimeout(const int _value);
 
 
-		/** \brief Change the droplet size to a specific _percentage, default value = 100.0 %
+		/** \brief Set the zone size to a specific _percentage, default value = 100.0 %
 		*
-		*  Change the droplet size to a specific _percentage with respect to the default values
+		*  Set the droplet size to a specific _percentage with respect to the default values
 		*  of vacuum and pressures.
 		*  The droplet size linear increment corresponds to a cubic power of the desired values 
 		*  for pressures and vacuums
@@ -572,7 +572,7 @@ namespace fluicell
 		**/
 		bool setZoneSizePerc(double _percentage = 100.0);
 
-		/** \brief Change the droplet size by a specific amount + or - 
+		/** \brief Change the zone size by a specific amount + or - 
 		*
 		*  Change the droplet size by adding a specific _percentage with respect to the default values
 		*  of vacuum and pressures.

@@ -15,9 +15,9 @@ if( WIN32 AND NOT UNIX )
 
 #define the website -- TODO: change with the real website
 set (WEBSITE "http://fluicell.com/")   
-set (WEB_TUTORIAL "share/doc/___/tutorials/html/index.html")  
-set (WEB_DOCS "share/doc/___/html/____.chm")  
-set (WEB_DEV "http://www.maurobellone.com")
+set (WEB_TUTORIAL "http://fluicell.com/products/biopen-system-prime-flex/")  
+set (WEB_DOCS "https://bellonemauro.github.io/PPC1API-docs.io/")  
+set (GUIDE_PDF "/guide/BioPen2018.pdf")  
 
 # set the info/about for the executable - can be changed to some other comment
 set(CPACK_NSIS_URL_INFO_ABOUT "${WEBSITE}")
@@ -48,21 +48,21 @@ set (CPACK_NSIS_MUI_ICON "${CMAKE_CURRENT_SOURCE_DIR}/resources/fluicell_logo.ic
 #set (CPACK_PACKAGE_ICON "${CMAKE_CURRENT_SOURCE_DIR}/Resources/fluicell_iconBIG.png")# -- NOT FOUND -- ??
 
 set(CPACK_NSIS_MENU_LINKS 
-            "${WEBSITE}" "Homepage for Fluicell Lab-on-a-tip ${WEBSITE}"          
+            "${WEBSITE}" "Homepage for Fluicell"          
             "Biopen_wizard.exe" "Biopen_wizard"
-            "Lab-on-a-tip_console.exe" "Lab-on-a-tip console"
+            "Serial_console.exe" "Serial console"
 			"uninstall.exe" "Uninstall Biopen"
 			"${WEB_TUTORIAL}" "Tutorials"
             "${WEB_DOCS}" "Documentation"
-            "${WEB_DEV}" "Developer Website" )
+            "${GUIDE_PDF}" "Quick start guide" )
 
-set(CPACK_NSIS_DISPLAY_NAME "Fluicell Lab-on-a-tip2 ") #V.${CMAKE_Fluicell_FULL_VERSION}")
+set(CPACK_NSIS_DISPLAY_NAME "Fluicell biopen wizard ") #V.${CMAKE_Fluicell_FULL_VERSION}")
 			
 #allows NSIS to modify paths
 #set (CPACK_NSIS_MODIFY_PATH "ON")     
 
 #SET(CPACK_PACKAGE_EXECUTABLES "Target_Name" "Target Name")
-SET(CPACK_PACKAGE_EXECUTABLES "Lab-on-a-tip" "Lab-on-a-tip")
+SET(CPACK_PACKAGE_EXECUTABLES "Biopen_wizard" "Biopen_wizard")
 
 
 #create a desktop icon with link to the .exe file
@@ -81,8 +81,10 @@ set( CPACK_NSIS_EXTRA_INSTALL_COMMANDS "
 	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\" 
 	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\presetProtocols\\\"
 	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\settings\\\" 
+	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\guide\\\" 
 	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\Ext_data\\\" 
 	CopyFiles \\\"$INSTDIR\\\\presetProtocols\\\\*.prt\\\" \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\presetProtocols\\\"
+	CopyFiles \\\"$INSTDIR\\\\guide\\\\*.pdf\\\" \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\guide\\\"
 	CopyFiles \\\"$INSTDIR\\\\settings\\\\*.ini\\\" \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\settings\\\"
 	")
 
@@ -108,10 +110,12 @@ set(CPACK_NSIS_MUI_FINISHPAGE_RUN Biopen_wizard.exe)
 #add a command to remove user created files - ATTENTION: it will also remove user created files !!!
 set( CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS "
 	Delete \\\"$DESKTOP\\\\biopen.lnk\\\"
-	Delete \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\presetProtocols\\\\*.prt\\\" 
-	Delete \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\settings\\\\*.ini\\\" 
+	Delete \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\presetProtocols\\\\*.*\\\" 
+	Delete \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\guide\\\\*.*\\\" 
+	Delete \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\settings\\\\*.*\\\" 
 	Delete \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\Ext_data\\\\*.*\\\" 
 	RMDir \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\presetProtocols\\\"
+	RMDir \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\guide\\\" 
 	RMDir \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\settings\\\" 
 	RMDir \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\Ext_data\\\" 
 	RMDir \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\" 
@@ -146,5 +150,5 @@ if (NOT ENABLE_WINDEPLOYQT )
 endif()
   
 else (WIN32 AND NOT UNIX)
-  message(STATUS " BUIL PACKAGE NOT YET SUPPORTED " )
+  message(STATUS " BUILD PACKAGE NOT YET SUPPORTED " )
 endif()

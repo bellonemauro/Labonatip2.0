@@ -1207,25 +1207,30 @@ void Labonatip_GUI::cleanHistory()
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_GUI::cleanHistory   " << endl;
 
-
+	// question, will you delete history?
 	QMessageBox::StandardButton resBtn =
 		QMessageBox::question(this, m_str_warning,
 			QString(m_str_cleaning_history_msg1 + "\n" + m_str_areyousure),
 			QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
 			QMessageBox::Yes);
 	if (resBtn != QMessageBox::Yes) {
-	
+	//if is not yes, the operation is cancelled
 		QMessageBox::question(this, m_str_information, m_str_operation_cancelled, m_str_ok);
 		return;
 	}
 	else {
+		// otherwise, delete files
+		//read history folder
 		QDir dir(m_ext_data_path);
+		// list all the file names
 		dir.setNameFilters(QStringList() << "*.txt");
 		dir.setFilter(QDir::Files);
+		// remove the files one by one
 		foreach(QString dirFile, dir.entryList())
 		{
 			dir.remove(dirFile);
 		}
+		// confirm message
 		QMessageBox::question(this, m_str_information, m_str_cleaning_history_msg2, m_str_ok);
 		return;
 	}
@@ -1238,13 +1243,10 @@ void Labonatip_GUI::about() {
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "Labonatip_GUI::about   " << endl;
 
-
-
-
-
 	QMessageBox messageBox;
 	QString msg_title = "About Fluicell Lab-on-a-tip ";
-	QString msg_content = tr("<b>Lab-on-a-tip</b> is a <a href='http://fluicell.com/'>Fluicell</a> AB software <br>"
+	QString msg_content = tr("<b>Lab-on-a-tip</b> is a "
+		"<a href='http://fluicell.com/'>Fluicell</a> AB software <br>"
 		"Copyright Fluicell AB, Sweden 2017 <br> <br>"
 		"Arvid Wallgrens Backe 20<br>"
 		"SE-41346 Gothenburg, Sweden<br>"
@@ -1257,7 +1259,7 @@ void Labonatip_GUI::about() {
 	messageBox.setWindowTitle(msg_title);
 	QPixmap pic(":/icons/fluicell_iconBIG.png");
 	pic = pic.scaled(50, 50, Qt::KeepAspectRatio);
-	messageBox.setIconPixmap(pic);// QPixmap(":/icons/fluicell_iconBIG.png"));
+	messageBox.setIconPixmap(pic);
 	messageBox.setWindowIcon(QPixmap(":/icons/fluicell_iconBIG.ico"));
 	messageBox.setFixedSize(200, 300);
 
@@ -1268,7 +1270,7 @@ void Labonatip_GUI::about() {
 
 	if (messageBox.clickedButton() == pButtonYes) {
 		//Execute command
-		QString fileName = "./BioPen2018.pdf";
+		QString fileName = "./guide/BioPen2018.pdf";
 		QDesktopServices::openUrl(QUrl("file:///" + fileName));
 	}
 	

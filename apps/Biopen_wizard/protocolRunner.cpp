@@ -189,7 +189,6 @@ void Labonatip_macroRunner::run()
 	
 	try
 	{
-
 		if (m_ppc1 && m_protocol)
 		{
 			cout << QDate::currentDate().toString().toStdString() << "  " 
@@ -204,7 +203,6 @@ void Labonatip_macroRunner::run()
 			}
 			double time_elapsed = 0.0;
 
-			
 			for (size_t i = 0; i < m_protocol->size(); i++)
 			{
 				if (!m_threadTerminationHandler) {
@@ -366,7 +364,7 @@ void Labonatip_macroRunner::run()
 		}
 		result = m_str_success; 
 		emit resultReady(result);
-				
+
 		return;
 
 	}

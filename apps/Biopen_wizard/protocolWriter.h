@@ -37,20 +37,18 @@ public:
 
 	void switchLanguage(QString _translation_file);
 
-
 	bool saveProtocol(QString _file_name);
-
 
 private:
 
 	void visitTree(QList<QStringList> &_list,
 		QTreeWidget *_tree, QTreeWidgetItem *_item);
+
 	QList<QStringList> visitTree(QTreeWidget *_tree);
 
 	QString createHeader();
+	
 	void initCustomStrings();
-
-
 
 	std::vector<fluicell::PPC1api::command> *m_protocol;  //!< protocol to run
 

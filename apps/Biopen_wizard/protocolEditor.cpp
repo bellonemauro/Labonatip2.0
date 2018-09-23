@@ -50,15 +50,16 @@ void Labonatip_GUI::onProtocolClicked(QTreeWidgetItem *item, int column)
 		<< QTime::currentTime().toString().toStdString()
 		<< "Labonatip_GUI::onProtocolClicked " << endl;
 
+	// retrive the clicked file name
 	QString file = item->text(0);
 	m_current_protocol_file_name = file;
+	// append the path
 	QString protocol_path = m_protocol_path;
 	protocol_path.append("/");
 	protocol_path.append(file);
 
 	// TODO: the wait cursor does not work if called after the message !
 	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
-
 
 	QMessageBox::StandardButton resBtn = QMessageBox::question(this, m_str_warning,
 		m_str_add_protocol_bottom + "<br>" + m_str_add_protocol_bottom_guide,
@@ -67,12 +68,14 @@ void Labonatip_GUI::onProtocolClicked(QTreeWidgetItem *item, int column)
 
 
 	if (resBtn == QMessageBox::Yes) {
+		// read the clicked protocol and add it to the current 
 		m_reader->readProtocol(protocol_path);
 		addAllCommandsToProtocol();
 		m_current_protocol_file_name = protocol_path;
 	}
 	if (resBtn == QMessageBox::No)
 	{
+		// clear the current protocol and load the clicked protocol instead
 		clearAllCommands(); 
 		m_reader->readProtocol(protocol_path);
 		addAllCommandsToProtocol();

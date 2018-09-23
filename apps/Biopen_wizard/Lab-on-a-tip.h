@@ -113,20 +113,82 @@ public:
 
 private slots:
 
+	/**  \brief Load a protocol when it is clicked in the tree widget
+	*
+	*/
 	void onProtocolClicked(QTreeWidgetItem *item, int column);
+
+	/**  \brief Change the protocol default folder 
+	*
+	*/
 	void openProtocolFolder();
+
+	/**  \brief Open a menu on the protocols tree widget
+	*
+	*    This is used to delete a protocol from the folder
+	*/
 	void protocolsMenu(const QPoint & _pos);
+
+	/**  \brief Delete a protocol from the folder
+	*
+	*/
 	void deleteProtocol();
+
+	/**  \brief This shows the help on the protocol tree widget
+	*
+	*   It is currently a placeholder for something else
+	*/
 	void helpTriggered();
+
+	/**  \brief Add a command to the protocol
+	*
+	*/
 	void addCommand();
+
+	/**  \brief Remove the selected command from the protocol
+	*
+	*/
 	void removeCommand();
+
+	/**  \brief Move the selected command one position up
+	*
+	*/
 	void moveUp();
+
+	/**  \brief Move the selected command one position Down
+	*
+	*/
 	void moveDown();
+
+	/**  \brief Add a command into a loop
+	*
+	*/
 	void plusIndent();
+
+	/**  \brief Trigger item changed event and run checkValidity
+	*
+	*/
 	bool itemChanged(QTreeWidgetItem *_item, int _column);
+
+	/**  \brief Duplicate a line
+	*
+	*/
 	void duplicateItem();
+
+	/**  \brief Create a new loop
+	*
+	*/
 	void createNewLoop();
+
+	/**  \brief Create a new loop
+	*
+	*/
 	void createNewLoop(int _loops);
+
+	/**  \brief Build a droplet size vs flow speed map
+	*
+	*   this is just a try for a future support of a look up table
+	*/
 	void buildDPmap();
 
 	/** \brief Gets the clear commands request 
@@ -703,14 +765,45 @@ private:
 	*/
 	void updateFlowControlPercentages();
 
-
+	/** \brief Emulate setZoneSizePerc from ppc1api for simulation
+	*
+	*   For details see fluicell::ppc1api::setZoneSizePerc
+	*/
 	void setZoneSizePercentage(double _perc = 100.0);
+
+	/** \brief Emulate changeZoneSizePercBy from ppc1api for simulation
+	*
+	*   For details see fluicell::ppc1api::changeZoneSizePercBy
+	*/
 	void changeZoneSizePercentageBy(double _perc = 0.0);
+
+	/** \brief Emulate setFlowSpeedPerc from ppc1api for simulation
+	*
+	*   For details see fluicell::ppc1api::setFlowSpeedPerc
+	*/
 	void setFlowspeedPercentage(double _perc = 100.0);
+
+	/** \brief Emulate changeFlowSpeedPercBy from ppc1api for simulation
+	*
+	*   For details see fluicell::ppc1api::changeFlowSpeedPercBy
+	*/
 	void changeFlowspeedPercentageBy(double _perc = 0.0);
+
+	/** \brief Emulate setVacuumPerc from ppc1api for simulation
+	*
+	*   For details see fluicell::ppc1api::setVacuumPerc
+	*/
 	void setVacuumPercentage(double _perc = 100.0);
+
+	/** \brief Emulate changeVacuumPercBy from ppc1api for simulation
+	*
+	*   For details see fluicell::ppc1api::changeVacuumPercBy
+	*/
 	void changeVacuumPercentageBy(double _perc = 0.0);
 
+	/** \brief Allow to reset the redirect buffer to history field or terminal
+	*
+	*/
 	void setRedirect(bool _enable = true);
 
 	/** \brief Generate a style sheet to change the weels drawing in the pipette
