@@ -45,7 +45,7 @@ void Labonatip_GUI::updatePressureVacuum()
 		// if we are here it means that we have no exception 
 
 		// for all pressures/vacuum, 
-		// get the sensor reading (TODO check: rounded to second decimal?)
+		// get the sensor reading ( rounded to second decimal?)
 		int sensor_reading = (int)(m_ppc1->getVswitchReading());
 		// update status, label and bar
 		m_pipette_status->v_switch_set_point = -m_ppc1->getVswitchSetPoint();

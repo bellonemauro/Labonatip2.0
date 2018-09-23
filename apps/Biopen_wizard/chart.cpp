@@ -439,21 +439,27 @@ void Labonatip_chart::updateChartProtocol(f_protocol *_protocol)
 			break;
 		}
 		case pCmd::setZoneSize: { //zoneSize 
+			//TODO: in case fo zone size the chart is not updated but the values of pon poff vs vr are different
 			break;
 		}
 		case pCmd::setFlowSpeed: { //flowSpeed
+			//TODO: in case fo zone size the chart is not updated but the values of pon poff vs vr are different
 			break;
 		}
 		case pCmd::setVacuum: { //vacuum
+			//TODO: in case fo zone size the chart is not updated but the values of pon poff vs vr are different
 			break;
 		}
 		case pCmd::changeZoneSizeBy: { //zoneSize 
+			//TODO: in case fo zone size the chart is not updated but the values of pon poff vs vr are different
 			break;
 		}
 		case pCmd::changeFlowSpeedBy: { //flowSpeed
+			//TODO: in case fo zone size the chart is not updated but the values of pon poff vs vr are different
 			break;
 		}
 		case pCmd::changeVacuumBy: { //vacuum
+			 //TODO: in case fo zone size the chart is not updated but the values of pon poff vs vr are different
 			break;
 		}
 		case pCmd::loop: { //loop

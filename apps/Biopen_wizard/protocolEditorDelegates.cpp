@@ -134,8 +134,8 @@ QWidget *SpinBoxDelegate::createEditor(QWidget *parent,
 {
 	QSpinBox *editor = new QSpinBox(parent);
 	editor->setFrame(false);
-	editor->setMinimum(-300);
-	editor->setMaximum(400);
+	editor->setMinimum(MIN_CHAN_A);
+	editor->setMaximum(MAX_CHAN_C);
 
 	return editor;
 }

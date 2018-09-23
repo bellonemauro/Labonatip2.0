@@ -100,7 +100,6 @@ void Labonatip_GUI::pushSolution1()
 		ui->widget_solutionArrow->setVisible(false);
 		//updateDrawing(-1);
 		m_pen_line.setColor(Qt::transparent);
-		//ui->pushButton_stop->setEnabled(false); //TODO
 		ui->textEdit_emptyTime->setText(" ");
 		updateFlowControlPercentages();
 		return;
@@ -152,7 +151,6 @@ void Labonatip_GUI::pushSolution1()
 	m_timer_solution = 0;
 	//m_update_flowing_sliders->start();
 	updateTimingSliders();
-	//ui->pushButton_stop->setEnabled(true);//TODO
 
 	updateFlows();
 	updateFlowControlPercentages();
@@ -176,7 +174,6 @@ void Labonatip_GUI::pushSolution2() {
 		ui->widget_solutionArrow->setVisible(false);
 		//updateDrawing(-1);
 		m_pen_line.setColor(Qt::transparent);
-		//ui->pushButton_stop->setEnabled(false); //TODO
 		ui->textEdit_emptyTime->setText(" ");
 		updateFlowControlPercentages();
 		return;
@@ -225,7 +222,6 @@ void Labonatip_GUI::pushSolution2() {
 	m_timer_solution = 0;
 	//m_update_flowing_sliders->start();
 	updateTimingSliders();
-	//ui->pushButton_stop->setEnabled(true);  //TODO
 
 	updateFlows();
 	updateFlowControlPercentages();
@@ -250,7 +246,6 @@ void Labonatip_GUI::pushSolution3() {
 		ui->widget_solutionArrow->setVisible(false);
 		//updateDrawing(-1);
 		m_pen_line.setColor(Qt::transparent);
-		//ui->pushButton_stop->setEnabled(false); //TODO
 		ui->textEdit_emptyTime->setText(" ");
 		updateFlowControlPercentages();
 		return;
@@ -301,7 +296,6 @@ void Labonatip_GUI::pushSolution3() {
 	m_timer_solution = 0;
 	//m_update_flowing_sliders->start();
 	updateTimingSliders();
-	//ui->pushButton_stop->setEnabled(true); //TODO
 
 	updateFlows();
 	updateFlowControlPercentages();
@@ -326,7 +320,6 @@ void Labonatip_GUI::pushSolution4() {
 		ui->widget_solutionArrow->setVisible(false);
 		//updateDrawing(-1);
 		m_pen_line.setColor(Qt::transparent);
-		//ui->pushButton_stop->setEnabled(false); //TODO
 		ui->textEdit_emptyTime->setText(" ");
 		updateFlowControlPercentages();
 		return;
@@ -377,7 +370,6 @@ void Labonatip_GUI::pushSolution4() {
 	m_timer_solution = 0;
 	//m_update_flowing_sliders->start();
 	updateTimingSliders();
-	//ui->pushButton_stop->setEnabled(true); //TODO
 
 	updateFlows();
 	updateFlowControlPercentages();
@@ -514,7 +506,6 @@ void Labonatip_GUI::updateTimingSliders()
 
 		ui->label_warningIcon->hide();
 		ui->label_warning->hide();
-		//ui->pushButton_stop->setEnabled(false); //TODO
 		ui->textEdit_emptyTime->setText(" ");
 		return;
 	}

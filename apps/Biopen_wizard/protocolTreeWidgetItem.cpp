@@ -271,7 +271,7 @@ bool protocolTreeWidgetItem::checkValidity( int _column)
 		break;
 	}
 	case pCmd::setVacuum: {
-		// Vacuum (%) //TODO : remove this 
+		// Vacuum (%) 
 		int number = this->text(_column).toInt();
 		if (number < 0)
 		{
@@ -294,9 +294,8 @@ bool protocolTreeWidgetItem::checkValidity( int _column)
 		}
 		break;
 	}
-	case pCmd::loop: {   //TODO: TO BE REMOVED
-				 // check loops
-
+	case pCmd::loop: {  
+		 // check loops
 		int number = this->text(_column).toInt();
 		if (number < 1) { // if is not the range
 			this->setText(_column, QString("1")); // if the value is not valid, reset to zero
@@ -321,11 +320,13 @@ QString protocolTreeWidgetItem::getRangeColumn( int _idx)
 	switch (_idx) {
 	case pCmd::setPoff: 
 	case pCmd::setPon: { // check pressures
-		return QString("(mbar) [0, 450]");
+		return QString("(mbar) ["+ QString::number(MIN_CHAN_C) +
+			", " + QString::number(MAX_CHAN_C) + "] ");
 	}
 	case pCmd::setVswitch:	
 	case pCmd::setVrecirc: { // check vacuums
-		return QString("(mbar) [-300, 0]");
+		return QString("(mbar) [" + QString::number(MIN_CHAN_A) +
+			", " + QString::number(MAX_CHAN_A) + "]");
 	}
 	case pCmd::solution1:
 	case pCmd::solution2:
@@ -360,28 +361,34 @@ QString protocolTreeWidgetItem::getRangeColumn( int _idx)
 		return QString(">20");
 	}
 	case pCmd::setZoneSize: {
-		// Droplet size (%) //TODO: remove this !!!
-		return QString("(%) [50, 200]");
+		// Droplet size (%) -- "(%) [50, 200]"
+		return QString("(%) [" + QString::number(MIN_ZONE_SIZE_PERC) + 
+			", " + QString::number(MAX_ZONE_SIZE_PERC) + "]");
 	}
 	case pCmd::setFlowSpeed: {
-		// Flow speed (%)
-		return QString("(%) [50, 250]");
+		// Flow speed (%) -- "(%) [50, 220]"
+		return QString("(%) [" + QString::number(MIN_FLOW_SPEED_PERC) +
+			", " + QString::number(MAX_FLOW_SPEED_PERC) + "]");
 	}
 	case pCmd::setVacuum: {
-		// Vacuum (%) //TODO : remove this 
-		return QString("(%) [50, 250]");
+		// Vacuum (%)   -- "(%) [50, 250]"
+		return QString("(%) [" + QString::number(MIN_VACUUM_PERC) +
+			", " + QString::number(MAX_VACUUM_PERC) + "]");
 	}
 	case pCmd::changeZoneSizeBy: {
-		// Droplet size (%) //TODO: remove this !!!
-		return QString("(%) [-40, 40]");
+		// Droplet size (%)  -- "(%) [-40, 40]"
+		return QString("(%) [-" + QString::number(MAX_ZONE_SIZE_INCREMENT) +
+			", " + QString::number(MAX_ZONE_SIZE_INCREMENT) + "]");
 	}
 	case pCmd::changeFlowSpeedBy: {
-		// Flow speed (%)
-		return QString("(%) [-40, 40]");
+		// Flow speed (%) -- "(%) [-40, 40]"
+		return QString("(%) [-" + QString::number(MAX_FLOW_SPEED_INCREMENT) +
+			", " + QString::number(MAX_FLOW_SPEED_INCREMENT) + "]");
 	}
 	case pCmd::changeVacuumBy: {
-		// Vacuum (%) //TODO : remove this 
-		return QString("(%) [-40, 40]");
+		// Vacuum (%) -- "(%) [-40, 40]"
+		return QString("(%) [-" + QString::number(MAX_VACUUM_INCREMENT) +
+			", " + QString::number(MAX_VACUUM_INCREMENT) + "]");
 	}
 	case pCmd::loop: {
 		// check loops
