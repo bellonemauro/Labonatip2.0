@@ -594,6 +594,7 @@ bool Labonatip_tools::loadSettings(QString _path)
 	//ComName
 	QString comPort = m_settings->value("COM/ComName", "COM1").toString();
 	m_comSettings->setName ( comPort.toStdString());
+	ui_tools->comboBox_serialInfo->setCurrentIndex(0); //TODO: this is not correct interpretation is missing
 
 	//BaudRate
 	int baudRate = m_settings->value("COM/BaudRate", "115200").toInt();

@@ -49,7 +49,7 @@ void Labonatip_GUI::colSolution1Changed(const int _r, const int _g, const int _b
 	QString styleSheet = generateStyleSheet(_r, _g, _b);
 	m_sol1_color.setRgb(_r, _g, _b);
 	ui->progressBar_solution1->setStyleSheet(styleSheet);
-	m_labonatip_chart_view->setSolutionColor1(m_sol1_color);
+	m_chart_view->setSolutionColor1(m_sol1_color);
 }
 
 
@@ -59,7 +59,7 @@ void Labonatip_GUI::colSolution2Changed(const int _r, const int _g, const int _b
 	QString styleSheet = generateStyleSheet(_r, _g, _b);
 	m_sol2_color.setRgb(_r, _g, _b);
 	ui->progressBar_solution2->setStyleSheet(styleSheet);
-	m_labonatip_chart_view->setSolutionColor2(m_sol2_color);
+	m_chart_view->setSolutionColor2(m_sol2_color);
 }
 
 
@@ -69,7 +69,7 @@ void Labonatip_GUI::colSolution3Changed(const int _r, const int _g, const int _b
 	QString styleSheet = generateStyleSheet(_r, _g, _b);
 	m_sol3_color.setRgb(_r, _g, _b);
 	ui->progressBar_solution3->setStyleSheet(styleSheet);
-	m_labonatip_chart_view->setSolutionColor3(m_sol3_color);
+	m_chart_view->setSolutionColor3(m_sol3_color);
 }
 
 
@@ -79,7 +79,7 @@ void Labonatip_GUI::colSolution4Changed(const int _r, const int _g, const int _b
 	QString styleSheet = generateStyleSheet(_r, _g, _b);
 	m_sol4_color.setRgb(_r, _g, _b);
 	ui->progressBar_solution4->setStyleSheet(styleSheet);
-	m_labonatip_chart_view->setSolutionColor4(m_sol4_color);
+	m_chart_view->setSolutionColor4(m_sol4_color);
 }
 
 void Labonatip_GUI::pushSolution1() 

@@ -1000,7 +1000,7 @@ private:
 
   // chart
   QtCharts::QChartView *m_chartView;
-  Labonatip_chart *m_labonatip_chart_view;   //!< the main chart is built in a different class
+  protocolChart *m_chart_view;   //!< the main chart is built in a different class
 
   // zone controls
   double m_ds_perc;          //!< droplet size percentage
@@ -1050,6 +1050,7 @@ private:
   QString m_str_commander;
   QString m_str_editor;
   QString m_str_PPC1_status_con;
+  QString m_str_PPC1_status_unstable_con; 
   QString m_str_PPC1_status_discon;
   QString m_str_protocol_running;
   QString m_str_protocol_not_running;

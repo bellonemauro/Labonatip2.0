@@ -360,15 +360,15 @@ void Labonatip_GUI::updatePPC1Leds()
 		{
 			// the first is the communication state in the main GUI
 			if (m_ppc1->getCommunicationState() == true) {
-				ui->status_PPC1_led->setPixmap(*led_green); //TODO: there is a bug here
+				this->setStatusLed(true);
 				// It is better to avoid to change the LED directly, 
 				// better to use the function setStatusLed(true/false)
 				ui->status_PPC1_label->setText(m_str_PPC1_status_con);
 			}
 			else
 			{
-				ui->status_PPC1_led->setPixmap(*led_red);
-				ui->status_PPC1_label->setText("UNSTABLE connection"); //TODO string
+				setStatusLed(false);
+				ui->status_PPC1_label->setText(m_str_PPC1_status_unstable_con); 
 			}
 
 			// update LED for Pon
@@ -427,7 +427,7 @@ void Labonatip_GUI::updatePPC1Leds()
 		}// end if m_ppc1->isRunning()
 		else
 		{
-			ui->status_PPC1_led->setPixmap(*led_red); //TODO: there is a bug here
+			this->setStatusLed(false);
 			ui->label_led_pon->setPixmap(*led_grey);
 			ui->label_led_poff->setPixmap(*led_grey);
 			ui->label_led_vs->setPixmap(*led_grey);
@@ -730,15 +730,14 @@ void Labonatip_GUI::updateDrawing(int _value) {
 }
 
 // this is updated every second
-//TODO: this does not work with PPC1api (only works in simulation)
+// this does not work with PPC1api (only works in simulation)
 void Labonatip_GUI::updateWaste() 
 {
-	//TODO: here there is a calculation of the volume as follows:
+	// NB:  here there is a calculation of the volume as follows:
 	//      remaining volume = current_volume (mL) - delta_t * flow_rate (nL/s)
 	//      there is an assumption of this to run every second hence delta_t = 1  
 	//      this should be changed to fit the real values of timers
-
-	//TODO: when we switch from simulation to real device, wells should be reset ?
+	// when we switch from simulation to real device, wells should be reset ?
 	//m_update_waste->start();
 
 	if (m_ds_perc < 10) return;
@@ -978,13 +977,13 @@ void Labonatip_GUI::emptyWasteRemainder()
 }
 
 
-
-
 void Labonatip_GUI::updateMacroStatusMessage(const QString &_message) {
 
+	// this is not used for now, the protocol runner sends a message here, 
+	// but this is not currently passed to the GUI
     QString s = " PROTOCOL RUNNING : <<<  ";
 	s.append(m_current_protocol_file_name);
-    s.append(" >>> remaining time = "); //TODO: translation
+    s.append(" >>> remaining time = "); 
 
     s.append(_message);
 
@@ -994,10 +993,12 @@ void Labonatip_GUI::updateMacroStatusMessage(const QString &_message) {
 void Labonatip_GUI::updateMacroTimeStatus(const double &_status) 
 {
 	// update the vertical line for the time status on the chart
-    m_labonatip_chart_view->updateChartTime(_status); 
+	m_chart_view->updateChartTime(_status);
 
     QString s = m_str_update_time_macro_msg1;
-	s.append(m_current_protocol_file_name);
+	QFileInfo fi(m_current_protocol_file_name);
+	s.append(fi.fileName());
+	
 	s.append(m_str_update_time_macro_msg2);
 
 	//int remaining_time_sec = m_protocol_duration - _status * m_protocol_duration / 100;

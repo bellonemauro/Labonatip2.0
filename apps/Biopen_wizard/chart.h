@@ -20,16 +20,16 @@
 // PPC1api test
 #include <fluicell/ppc1api/ppc1api.h>
 
-class Labonatip_chart 
+class protocolChart 
 {
-//	Q_OBJECT
+
 	typedef std::vector<fluicell::PPC1api::command> f_protocol; // define a type for fluicel protocol
 
 public:
 
-	explicit Labonatip_chart( );  //!>  Ctor
+	explicit protocolChart( );  //!>  Ctor
 	
-	~Labonatip_chart();           //!> Dtor
+	~protocolChart();           //!> Dtor
 
 	/** \brief Get the chart view 
 	*
@@ -159,8 +159,6 @@ private:
 	*/
 	void appendSolutionPoint(QtCharts::QLineSeries *_serie, double _current_time, double _value);
 	
-
-
 	// data members to build the chart, 
 	// in this case private pointers to the data are preferred to have simple updates
 	// the chart is made using series of points for each line and areas for solutions

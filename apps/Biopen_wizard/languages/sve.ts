@@ -320,6 +320,10 @@
         <translation>PPC1 STATUS: Ej ansluten  </translation>
     </message>
     <message>
+        <source>PPC1 STATUS: UNSTABLE Connection  </source>
+        <translation>PPC1 STATUS: OSTADIG ansluten  </translation>
+    </message>
+    <message>
         <source>No protocol running  </source>
         <translation>Inget protokoll körs  </translation>
     </message>

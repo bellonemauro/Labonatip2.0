@@ -320,6 +320,10 @@
         <translation>PPC1 STATUS: NOT Connected  </translation>
     </message>
     <message>
+        <source>PPC1 STATUS: UNSTABLE Connection  </source>
+        <translation>PPC1 STATUS: UNSTABLE Connection  </translation>
+    </message>
+    <message>
         <source>No protocol running  </source>
         <translation>No protocol running  </translation>
     </message>

@@ -43,7 +43,7 @@ bool protocolReader::readProtocol(QTreeWidget *_out_tree, QString _filename)
 {
 	QFile protocol_file(_filename);
 
-	// TODO: there is no check if _out_tree is inizialized, 
+	// there is no real check if _out_tree is inizialized, 
 	if (_out_tree == NULL) return false;
 
 	// open the file and check its existance
@@ -152,14 +152,13 @@ bool protocolReader::decodeProtocolCommand(
 {
 	QChar prohibited_char_1 = QChar::fromLatin1(*"#");
 	QChar prohibited_char_2 = QChar::fromLatin1(*"\n");
-	int protocol_version = 0;
 
 	QStringList data_string;
 	if (_command.at(0) == *"%") {
 		// it is the header, do nothing, just discard the line
 		//QByteArray headerVersionLine = "%% Protocol Header V. 0.7 \n";
 		if (_command.contains("%% Protocol Header ")) {
-			protocol_version = this->checkProtocolVersion(_command);
+			m_protocol_version = this->checkProtocolVersion(_command);
 		}
 		return false;
 	}
@@ -190,7 +189,7 @@ bool protocolReader::decodeProtocolCommand(
 	}
 
 	QString command_data;
-	command_data = remapForBackwardCompatibility(protocol_version, data_string.at(0));
+	command_data = remapForBackwardCompatibility(m_protocol_version, data_string.at(0));
 	_out_item.setText(editorParams::c_command, command_data);
 	_out_item.setText(editorParams::c_value, data_string.at(1));
 

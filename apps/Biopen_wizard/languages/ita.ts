@@ -319,6 +319,10 @@
         <source>PPC1 STATUS: NOT Connected  </source>
         <translation>Stato PPC1: NON Connesso  </translation>
     </message>
+	<message>
+        <source>PPC1 STATUS: UNSTABLE Connection  </source>
+        <translation>PPC1 STATUS: Connessione instable  </translation>
+    </message>
     <message>
         <source>No protocol running  </source>
         <translation>Nessun protocollo in esecuzione  </translation>

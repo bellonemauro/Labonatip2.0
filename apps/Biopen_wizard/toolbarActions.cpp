@@ -153,7 +153,7 @@ bool Labonatip_GUI::saveProtocolAs()
 		return false;
 	}
 	readProtocolFolder(m_protocol_path);
-	m_current_protocol_file_name = file_name; //TODO: this does not work properly
+	m_current_protocol_file_name = file_name;
 	QApplication::restoreOverrideCursor();    
 	return true;
 }
@@ -224,7 +224,7 @@ void Labonatip_GUI::showProtocolEditor() {
 		ui->actionEditor->setIcon(iconEditor);
 
 		//update the chart
-		m_labonatip_chart_view->updateChartProtocol(m_protocol);
+		m_chart_view->updateChartProtocol(m_protocol);
 
 		// visualize duration in the chart information panel 
 		m_protocol_duration = m_ppc1->protocolDuration(*m_protocol);

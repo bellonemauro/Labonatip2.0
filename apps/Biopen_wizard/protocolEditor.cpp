@@ -59,9 +59,6 @@ void Labonatip_GUI::onProtocolClicked(QTreeWidgetItem *item, int column)
 	protocol_path.append("/");
 	protocol_path.append(file);
 
-	// TODO: the wait cursor does not work if called after the message !
-	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
-
 	QMessageBox::StandardButton resBtn = QMessageBox::question(this, m_str_warning,
 		m_str_add_protocol_bottom + "<br>" + m_str_add_protocol_bottom_guide,
 		QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
@@ -70,24 +67,29 @@ void Labonatip_GUI::onProtocolClicked(QTreeWidgetItem *item, int column)
 
 	if (resBtn == QMessageBox::Yes) {
 		// read the clicked protocol and add it to the current 
+		QApplication::setOverrideCursor(Qt::WaitCursor);   
 		m_reader->readProtocol(ui->treeWidget_macroTable, protocol_path);
 		addAllCommandsToProtocol();
 		m_current_protocol_file_name = protocol_path;
+		QApplication::restoreOverrideCursor();   
 	}
 	if (resBtn == QMessageBox::No)
 	{
 		// clear the current protocol and load the clicked protocol instead
+		QApplication::setOverrideCursor(Qt::WaitCursor);
 		clearAllCommands(); 
 		m_reader->readProtocol(ui->treeWidget_macroTable, protocol_path);
 		addAllCommandsToProtocol();
 		m_current_protocol_file_name = protocol_path;
+		QApplication::restoreOverrideCursor();
+
 
 	}
 	if (resBtn == QMessageBox::Cancel)
 	{
 		//do nothing
 	}
-	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
+	//
 }
 
 void Labonatip_GUI::addAllCommandsToProtocol()
@@ -171,7 +173,6 @@ void Labonatip_GUI::addAllCommandsToProtocol()
 			commands_vector.at(i)->text(editorParams::c_command).toInt()));
 
 		new_command.setValue(commands_vector.at(i)->text(editorParams::c_value).toInt());
-		//new_command.setVisualizeStatus( commands_vector.at(i)->checkState(m_cmd_msg_c)); //TODO clean checkState
 		new_command.setStatusMessage(commands_vector.at(i)->text(editorParams::c_msg).toStdString());
 
 		m_protocol->push_back(new_command);
@@ -458,7 +459,7 @@ void Labonatip_GUI::plusIndent()
 		if (parent) {
 
 			// set the current parent to be a loop
-			parent->setText(editorParams::c_command, QString::number(17));
+			parent->setText(editorParams::c_command, QString::number(pCmd::loop));
 
 			// add the new line as a child
 			cmd = new addProtocolCommand(
@@ -566,7 +567,7 @@ void Labonatip_GUI::createNewLoop(int _loops)
 
 	this->addCommand();
 	ui->treeWidget_macroTable->currentItem()->setText(
-		editorParams::c_command, QString::number(17));// "Loop"); // 
+		editorParams::c_command, QString::number(pCmd::loop));// "Loop"); // 
 
 	this->plusIndent();
 	addAllCommandsToProtocol();

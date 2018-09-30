@@ -45,7 +45,9 @@ public:
 	/** \brief Constructor, initialize objects and parameters using default values
 	*
 	*/
-	explicit protocolReader(QMainWindow *parent = nullptr) {};
+	explicit protocolReader(QMainWindow *parent = nullptr) {
+		m_protocol_version = 0;
+	};
 	
 	/** \brief Switch the language in the GUI
 	*
@@ -143,9 +145,7 @@ private:
 
 	// data members:
 
-	std::vector<fluicell::PPC1api::command> *m_protocol;  //!< protocol to run
-
-
+	int m_protocol_version; //!< protocol to run
 
 	//custom translatable strings
 	QString m_str_warning;

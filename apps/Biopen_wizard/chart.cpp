@@ -14,7 +14,7 @@
 #include "dataStructures.h"
 
 
-Labonatip_chart::Labonatip_chart(  ) 
+protocolChart::protocolChart(  )
 {
 	cout << QDate::currentDate().toString().toStdString() << "  " 
 		 << QTime::currentTime().toString().toStdString() << "  "
@@ -256,7 +256,7 @@ Labonatip_chart::Labonatip_chart(  )
 	m_chartView->setBackgroundBrush(QBrush(QColor(0xFA, 0xFA, 0xFA)));
 }
 
-void Labonatip_chart::updateChartTime(int _time_value)
+void protocolChart::updateChartTime(int _time_value)
 {
 	m_time_line_b->clear();
 	m_time_line_t->clear();
@@ -267,7 +267,7 @@ void Labonatip_chart::updateChartTime(int _time_value)
 }
 
 
-void Labonatip_chart::updateChartProtocol(f_protocol *_protocol)
+void protocolChart::updateChartProtocol(f_protocol *_protocol)
 {
 	cout << QDate::currentDate().toString().toStdString() << "  "
 		<< QTime::currentTime().toString().toStdString() << "  "
@@ -439,27 +439,33 @@ void Labonatip_chart::updateChartProtocol(f_protocol *_protocol)
 			break;
 		}
 		case pCmd::setZoneSize: { //zoneSize 
-			//TODO: in case fo zone size the chart is not updated but the values of pon poff vs vr are different
+			//TODO: in case fo zone size the chart is not updated 
+			//      but the values of pon poff vs vr are different
 			break;
 		}
 		case pCmd::setFlowSpeed: { //flowSpeed
-			//TODO: in case fo zone size the chart is not updated but the values of pon poff vs vr are different
+			//TODO: in case fo zone size the chart is not updated 
+			//      but the values of pon poff vs vr are different
 			break;
 		}
 		case pCmd::setVacuum: { //vacuum
-			//TODO: in case fo zone size the chart is not updated but the values of pon poff vs vr are different
+			//TODO: in case fo zone size the chart is not updated 
+			//      but the values of pon poff vs vr are different
 			break;
 		}
 		case pCmd::changeZoneSizeBy: { //zoneSize 
-			//TODO: in case fo zone size the chart is not updated but the values of pon poff vs vr are different
+			//TODO: in case fo zone size the chart is not updated 
+			//      but the values of pon poff vs vr are different
 			break;
 		}
 		case pCmd::changeFlowSpeedBy: { //flowSpeed
-			//TODO: in case fo zone size the chart is not updated but the values of pon poff vs vr are different
+			//TODO: in case fo zone size the chart is not updated 
+			//      but the values of pon poff vs vr are different
 			break;
 		}
 		case pCmd::changeVacuumBy: { //vacuum
-			 //TODO: in case fo zone size the chart is not updated but the values of pon poff vs vr are different
+			 //TODO: in case fo zone size the chart is not updated 
+			 //      but the values of pon poff vs vr are different
 			break;
 		}
 		case pCmd::loop: { //loop
@@ -479,7 +485,7 @@ void Labonatip_chart::updateChartProtocol(f_protocol *_protocol)
 	m_chart->update();
 }
 
-void Labonatip_chart::appendPonPoint( double _current_time, double _value)
+void protocolChart::appendPonPoint( double _current_time, double _value)
 {
 	// remove the tail of the chart
 	if (m_series_Pon->count()>1) m_series_Pon->remove(m_series_Pon->at(m_series_Pon->count() - 1));
@@ -498,7 +504,7 @@ void Labonatip_chart::appendPonPoint( double _current_time, double _value)
 	m_series_Pon->append(max_time_line, second_y);
 }
 
-void Labonatip_chart::appendPoffPoint( double _current_time, double _value)
+void protocolChart::appendPoffPoint( double _current_time, double _value)
 {
 	// remove the tail of the chart
 	if (m_series_Poff->count()>1) m_series_Poff->remove(m_series_Poff->at(m_series_Poff->count() - 1));
@@ -516,7 +522,7 @@ void Labonatip_chart::appendPoffPoint( double _current_time, double _value)
 	m_series_Poff->append(max_time_line, second_y);
 }
 
-void Labonatip_chart::appendVrPoint(double _current_time, double _value)
+void protocolChart::appendVrPoint(double _current_time, double _value)
 {
 
 	// remove the tail of the chart
@@ -536,7 +542,7 @@ void Labonatip_chart::appendVrPoint(double _current_time, double _value)
 	m_series_V_recirc->append(max_time_line, second_y);
 }
 
-void Labonatip_chart::appendVsPoint(double _current_time, double _value)
+void protocolChart::appendVsPoint(double _current_time, double _value)
 {
 	// remove the tail of the chart
 	if (m_series_V_switch->count()>1)  m_series_V_switch->remove(m_series_V_switch->at(m_series_V_switch->count() - 1));
@@ -555,7 +561,7 @@ void Labonatip_chart::appendVsPoint(double _current_time, double _value)
 	m_series_V_switch->append(max_time_line, second_y);
 }
 
-void Labonatip_chart::appendSolutionPoint(QtCharts::QLineSeries *_serie, double _current_time, double _value)
+void protocolChart::appendSolutionPoint(QtCharts::QLineSeries *_serie, double _current_time, double _value)
 {
 	double first_x = _current_time;
 	double second_x = _current_time;
@@ -615,7 +621,7 @@ void Labonatip_chart::appendSolutionPoint(QtCharts::QLineSeries *_serie, double 
 }
 
 
-Labonatip_chart::~Labonatip_chart()
+protocolChart::~protocolChart()
 {
 	delete m_series_Pon;
 	delete m_series_Poff;

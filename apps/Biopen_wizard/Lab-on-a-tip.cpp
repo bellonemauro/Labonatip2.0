@@ -271,8 +271,8 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   ui->label_led_vr->setPixmap(*led_green);
 
   //init the chart view
-  m_labonatip_chart_view = new Labonatip_chart();
-  m_chartView = m_labonatip_chart_view->getChartView();
+  m_chart_view = new protocolChart();
+  m_chartView = m_chart_view->getChartView();
   ui->gridLayout_12->addWidget(m_chartView);
 
   // set the user name into the GUI
@@ -869,6 +869,7 @@ void Labonatip_GUI::initCustomStrings()
 	m_str_commander = tr("Commander");
 	m_str_editor = tr("Editor");
 	m_str_PPC1_status_con = tr("PPC1 STATUS: Connected  ");
+	m_str_PPC1_status_unstable_con = tr("PPC1 STATUS: UNSTABLE Connection  ");
 	m_str_PPC1_status_discon = tr("PPC1 STATUS: NOT Connected  ");
 	m_str_protocol_running = tr("Cancel");
 	m_str_protocol_not_running = tr("No protocol running  ");
@@ -1349,7 +1350,7 @@ void Labonatip_GUI::closeEvent(QCloseEvent *event) {
 	else {
 
 		if (m_macroRunner_thread->isRunning()) {
-			//this->runMacro(); // this will stop the macro if running
+			//this->runProtocol(); // this will stop the macro if running
 			QMessageBox::question(this, m_str_information, m_str_protocol_running_stop, m_str_ok);
 			event->ignore();
 			return;
@@ -1454,7 +1455,7 @@ Labonatip_GUI::~Labonatip_GUI ()
   delete led_red;
   delete m_g_spacer;
   delete m_a_spacer; 
-  delete m_labonatip_chart_view;
+  delete m_chart_view;
 
   delete m_combo_delegate;
   delete m_no_edit_delegate;
