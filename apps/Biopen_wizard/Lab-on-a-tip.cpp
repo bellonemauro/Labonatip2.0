@@ -86,8 +86,8 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 #endif
 
   //initialize protocol reader and writer
-  m_reader = new Labonatip_protocolReader(ui->treeWidget_macroTable);
-  m_writer = new Labonatip_protocolWriter(ui->treeWidget_macroTable);
+  m_reader = new protocolReader();
+  m_writer = new protocolWriter();
 
   // set the flows in the table
   ui->treeWidget_macroInfo->topLevelItem(12)->setText(1,

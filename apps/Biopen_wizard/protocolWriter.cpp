@@ -12,13 +12,7 @@
 #include <QMessageBox>
 #include <QDateTime>
 
-Labonatip_protocolWriter::Labonatip_protocolWriter(QTreeWidget * _tree, 
-	QMainWindow *parent ) 
-{
-	m_tree = _tree;
-}
-
-void Labonatip_protocolWriter::initCustomStrings()
+void protocolWriter::initCustomStrings()
 {
 	m_str_warning = tr("Warning");
 	m_str_check_validity_protocol = tr("Check validity failed during protocol saving");
@@ -26,7 +20,7 @@ void Labonatip_protocolWriter::initCustomStrings()
 	m_str_file_not_saved = tr("File not saved");
 }
 
-void Labonatip_protocolWriter::switchLanguage(QString _translation_file)
+void protocolWriter::switchLanguage(QString _translation_file)
 {
 	cout << QDate::currentDate().toString().toStdString() << "  "
 		<< QTime::currentTime().toString().toStdString() << "  "
@@ -49,7 +43,7 @@ void Labonatip_protocolWriter::switchLanguage(QString _translation_file)
 
 }
 
-bool Labonatip_protocolWriter::saveProtocol(QString _file_name)
+bool protocolWriter::saveProtocol(const QTreeWidget *_tree, QString _file_name)
 {
 
 	if (_file_name.isEmpty()) {
@@ -69,7 +63,7 @@ bool Labonatip_protocolWriter::saveProtocol(QString _file_name)
 		QString header = createHeader();
 		stream << header << endl;
 
-		QList<QStringList> result = visitTree(m_tree);
+		QList<QStringList> result = visitTree(_tree);
 
 		//cout << QDate::currentDate().toString().toStdString() << "  " 
 		//	 << QTime::currentTime().toString().toStdString() << "  "
@@ -96,8 +90,8 @@ bool Labonatip_protocolWriter::saveProtocol(QString _file_name)
 	return true;
 }
 
-void Labonatip_protocolWriter::visitTree(QList<QStringList> &_list,
-	QTreeWidget *_tree, QTreeWidgetItem *_item) {
+void protocolWriter::visitTree(QList<QStringList> &_list,
+	const QTreeWidget *_tree, QTreeWidgetItem *_item) {
 
 	QStringList _string_list;
 
@@ -122,7 +116,7 @@ void Labonatip_protocolWriter::visitTree(QList<QStringList> &_list,
 		visitTree(_list, _tree, _item->child(i));
 }
 
-QList<QStringList> Labonatip_protocolWriter::visitTree(QTreeWidget *_tree) {
+QList<QStringList> protocolWriter::visitTree(const QTreeWidget *_tree) {
 	QList<QStringList> list;
 	for (int i = 0; i < _tree->topLevelItemCount(); ++i) {
 
@@ -139,7 +133,7 @@ QList<QStringList> Labonatip_protocolWriter::visitTree(QTreeWidget *_tree) {
 	return list;
 }
 
-QString Labonatip_protocolWriter::createHeader()
+QString protocolWriter::createHeader()
 {
 	QString header;
 	header.append(tr("%% +---------------------------------------------------------------------------+\n"));
@@ -189,7 +183,7 @@ QString Labonatip_protocolWriter::createHeader()
 	header.append(tr("%% +---------------------------------------------------------------------------+ \n"));
 	header.append(tr("%% Command Value status_message depth\n"));
 	header.append(tr("%% Follows a line example\n"));
-	header.append(tr("%% 13#1#2#message#0#§ \n"));
+	header.append(tr("%% 13#1#message#0#§ \n"));
 	header.append(tr("%% Command Value status_message depth\n%"));
 	return header;
 }

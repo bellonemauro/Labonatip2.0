@@ -1026,8 +1026,8 @@ private:
   int m_triggered_protocol_item;  //!< triggered row with the right click in the protocol list
   
   //object for reading and writing protocols
-  Labonatip_protocolReader *m_reader;
-  Labonatip_protocolWriter *m_writer;
+  protocolReader *m_reader;
+  protocolWriter *m_writer;
 
   // for undo
   QUndoStack *m_undo_stack;

@@ -34,7 +34,8 @@ bool Labonatip_GUI::loadProtocol()
 		<< "Labonatip_GUI::loadProtocol :::  "
 		<< m_protocol_path.toStdString() << "  " << endl;
 
-	QString file_name = QFileDialog::getOpenFileName(this, m_str_save_protocol, m_protocol_path,  // dialog to open files
+	QString file_name = QFileDialog::getOpenFileName(
+		this, m_str_save_protocol, m_protocol_path,  // dialog to open files
 		"Lab-on-a-tip protocol File (*.prt);; All Files(*.*)", 0);
 
 	if (file_name.isEmpty()) {
@@ -44,7 +45,7 @@ bool Labonatip_GUI::loadProtocol()
 	}
 	
 	
-	if (m_reader->readProtocol(file_name))
+	if (m_reader->readProtocol(ui->treeWidget_macroTable, file_name))
 	{
 		addAllCommandsToProtocol();
 		m_current_protocol_file_name = file_name;
@@ -113,7 +114,7 @@ bool Labonatip_GUI::saveProtocol()
 		QMessageBox::Yes);
 	if (resBtn == QMessageBox::Yes) {
 		// yes = override
-		if (!m_writer->saveProtocol(m_current_protocol_file_name)) {
+		if (!m_writer->saveProtocol(ui->treeWidget_macroTable, m_current_protocol_file_name)) {
 			QApplication::restoreOverrideCursor();    
 			QMessageBox::warning(this, m_str_warning, 
 				m_str_file_not_saved + "<br>" + m_current_protocol_file_name);
@@ -145,7 +146,7 @@ bool Labonatip_GUI::saveProtocolAs()
 		"Lab-on-a-tip protocol File (*.prt);; All Files(*.*)", 0);
 	
 
-	if (!m_writer->saveProtocol(file_name)) {
+	if (!m_writer->saveProtocol(ui->treeWidget_macroTable, file_name)) {
 		QApplication::restoreOverrideCursor();    
 		QMessageBox::warning(this, m_str_warning, 
 			m_str_file_not_saved + "<br>" + file_name);

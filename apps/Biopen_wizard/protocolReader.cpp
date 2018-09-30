@@ -9,22 +9,15 @@
 
 #include "protocolReader.h"
 
-Labonatip_protocolReader::Labonatip_protocolReader(QTreeWidget * _tree, 
-	QMainWindow *parent ) 
-{
-	m_tree = _tree;
-	m_current_protocol_file_name = "";
-	m_protocol_version = 0;
-}
 
-void Labonatip_protocolReader::initCustomStrings()
+void protocolReader::initCustomStrings()
 {
 	m_str_warning = tr("Warning");
 	m_str_file_not_found = tr("File not found");
 	m_str_negative_level = tr("Negative level, file corrupted");
 }
 
-void Labonatip_protocolReader::switchLanguage(QString _translation_file)
+void protocolReader::switchLanguage(QString _translation_file)
 {
 	cout << QDate::currentDate().toString().toStdString() << "  "
 		<< QTime::currentTime().toString().toStdString() << "  "
@@ -46,16 +39,18 @@ void Labonatip_protocolReader::switchLanguage(QString _translation_file)
 	}
 }
 
-bool Labonatip_protocolReader::readProtocol(QString _filename)
+bool protocolReader::readProtocol(QTreeWidget *_out_tree, QString _filename)
 {
 	QFile protocol_file(_filename);
-	m_current_protocol_file_name = _filename;
+
+	// TODO: there is no check if _out_tree is inizialized, 
+	if (_out_tree == NULL) return false;
 
 	// open the file and check its existance
 	if (protocol_file.exists() &&
 		protocol_file.open(QIODevice::ReadWrite))
 	{
-		// this is che protocol file content
+		// this is the protocol file content
 		QByteArray content = protocol_file.readLine();
 
 		// browse the entire file content
@@ -77,12 +72,12 @@ bool Labonatip_protocolReader::readProtocol(QString _filename)
 				if (getLevel(*new_item) == 0)
 				{
 					// add the item at the top level
-					m_tree->addTopLevelItem(new_item);
+					_out_tree->addTopLevelItem(new_item);
 				}
 				if (getLevel(*new_item) > 0)  // we are at the first level
 				{
 					// we need to know who is the parent 
-					QTreeWidgetItemIterator it(m_tree);
+					QTreeWidgetItemIterator it(_out_tree);
 					while (*it) {
 						parent = dynamic_cast<protocolTreeWidgetItem *> ((*it));
 						++it;
@@ -92,7 +87,7 @@ bool Labonatip_protocolReader::readProtocol(QString _filename)
 					protocolTreeWidgetItem *child_item =
 						new protocolTreeWidgetItem();
 
-					QTreeWidgetItemIterator it2(m_tree);
+					QTreeWidgetItemIterator it2(_out_tree);
 					while (*it2) { // this will just get the last node
 						child_item = dynamic_cast<protocolTreeWidgetItem * > (*it2);
 						++it2;
@@ -123,7 +118,7 @@ bool Labonatip_protocolReader::readProtocol(QString _filename)
 						parent_item->QTreeWidgetItem::parent()->addChild(new_item);
 					}
 
-					m_tree->update();
+					_out_tree->update();
 				}
 				else { // there is something wrong !! 
 					if (getLevel(*new_item) != 0)
@@ -135,12 +130,12 @@ bool Labonatip_protocolReader::readProtocol(QString _filename)
 			content = protocol_file.readLine();
 
 			//this will just give the focus to the last element
-			m_tree->setCurrentItem(new_item, editorParams::c_value, 
+			_out_tree->setCurrentItem(new_item, editorParams::c_value,
 				QItemSelectionModel::SelectionFlag::Rows);
 		}
-		m_tree->setItemSelected(
-			m_tree->topLevelItem(
-				m_tree->topLevelItemCount() - 1), true);
+		_out_tree->setItemSelected(
+			_out_tree->topLevelItem(
+				_out_tree->topLevelItemCount() - 1), true);
 	}
 	else {
 		QMessageBox::warning(this, m_str_warning,
@@ -148,21 +143,23 @@ bool Labonatip_protocolReader::readProtocol(QString _filename)
 		return false;
 
 	}
+
 	return true;
 }
 
-bool Labonatip_protocolReader::decodeProtocolCommand(
+bool protocolReader::decodeProtocolCommand(
 	QByteArray &_command, protocolTreeWidgetItem &_out_item)
 {
 	QChar prohibited_char_1 = QChar::fromLatin1(*"#");
 	QChar prohibited_char_2 = QChar::fromLatin1(*"\n");
+	int protocol_version = 0;
 
 	QStringList data_string;
 	if (_command.at(0) == *"%") {
 		// it is the header, do nothing, just discard the line
 		//QByteArray headerVersionLine = "%% Protocol Header V. 0.7 \n";
 		if (_command.contains("%% Protocol Header ")) {
-			m_protocol_version = this->checkProtocolVersion(_command);
+			protocol_version = this->checkProtocolVersion(_command);
 		}
 		return false;
 	}
@@ -193,7 +190,7 @@ bool Labonatip_protocolReader::decodeProtocolCommand(
 	}
 
 	QString command_data;
-	command_data = remapForBackwardCompatibility(m_protocol_version, data_string.at(0));
+	command_data = remapForBackwardCompatibility(protocol_version, data_string.at(0));
 	_out_item.setText(editorParams::c_command, command_data);
 	_out_item.setText(editorParams::c_value, data_string.at(1));
 
@@ -218,18 +215,20 @@ bool Labonatip_protocolReader::decodeProtocolCommand(
 	return true;
 }
 
-int Labonatip_protocolReader::getLevel(QTreeWidgetItem _item)
+int protocolReader::getLevel(QTreeWidgetItem _item)
 {
 	int level;
 
 	// for our item structure the level is on the column number 4
 	bool success = false;
 	level = _item.text(editorParams::c_level).toInt(&success);
-	if (success) return level;
-	else return -1;
+	if (success) 
+		return level;
+	else 
+		return -1;
 }
 
-int Labonatip_protocolReader::checkProtocolVersion(QByteArray _command)
+int protocolReader::checkProtocolVersion(QByteArray _command)
 {
 	if (_command.contains("%% Protocol Header ")) {
 	
@@ -248,7 +247,7 @@ int Labonatip_protocolReader::checkProtocolVersion(QByteArray _command)
 	return 0; 
 }
 
-QString Labonatip_protocolReader::remapForBackwardCompatibility(int _version, QString _old_data)
+QString protocolReader::remapForBackwardCompatibility(int _version, QString _old_data)
 {
 	if (_version < 7)
 	{
@@ -292,7 +291,7 @@ QString Labonatip_protocolReader::remapForBackwardCompatibility(int _version, QS
 		// Zone size, Flow speed, Vacuum, Wait, Alloff, 
 		// Solution 1-4, Pon, Poff, Vrecirc, V switch, all the rest.
 	}
-	if (m_protocol_version == 7)
+	if (_version == 7)
 	{
 		// zoneSize = 0,     setZoneSize = 0,
 		if (_old_data == "0") return "0";

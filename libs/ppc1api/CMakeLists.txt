@@ -7,7 +7,7 @@
 #  | Released under GNU GPL License.                                           |
 #  +---------------------------------------------------------------------------+ */
 
-# Note: This CMake file is not standalone, it defines the library Nib tracking lib
+# Note: This CMake file is not standalone, it defines the PPC1api 
 
 project(PPC1api)   #define the project 
 
@@ -28,8 +28,6 @@ FILE(GLOB LIB_SOURCES "${LIB_SOURCES}/src/*.cpp")
 
 include_directories(${serial_INCLUDE_DIR})
 message (STATUS "${PROJECT_NAME} MESSAGE:  serial_INCLUDE_DIR    :: ${serial_INCLUDE_DIR}")
-
-
 
 # Find includes in corresponding build directories
 set(CMAKE_INCLUDE_CURRENT_DIR ON)

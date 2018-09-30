@@ -1002,7 +1002,7 @@ namespace fluicell
 		**/
 		int getPonState() { return m_PPC1_data->channel_D->state; }
 
-		/** \brief Get the communication state from the currupted data flag
+		/** \brief Get the communication state from the corrupted data flag
 		*
 		*  \return true if communication is ok, false in case of corrupted data
 		**/

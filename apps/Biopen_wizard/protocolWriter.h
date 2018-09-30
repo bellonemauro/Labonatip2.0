@@ -27,32 +27,66 @@
 // PPC1api 
 #include <fluicell/ppc1api/ppc1api.h>
 
-class Labonatip_protocolWriter : public  QMainWindow
+/** \brief New class for the protocol writer
+*
+*   In this class we have the protocol writer with the interpreter for
+*   the data files, but also the dialog windows
+*   This will be probably deprecated ones the new xml format will be used instead
+*
+*/
+class protocolWriter : public  QMainWindow
 {
 	Q_OBJECT
 
 public:
 
-	explicit Labonatip_protocolWriter(QTreeWidget *_tree, QMainWindow *parent = nullptr);
+	/** \brief Constructor, 
+	*
+	*/
+	protocolWriter(QMainWindow *parent = nullptr) {};
 
+	/** \brief Switch the language in the GUI
+	*
+	*  @param _translation_file contains the language file to be loaded
+	*/
 	void switchLanguage(QString _translation_file);
 
-	bool saveProtocol(QString _file_name);
+	/** \brief Write a protocol to file
+	*
+	*   The protocol widget in the GUI will be read and saved to a file
+	*
+	*   \return false for any error, e.g. file not found, protocol corrupted
+	*
+	*  @param _filename complete path to the file to be saved
+	*/
+	bool saveProtocol(const QTreeWidget *_tree, QString _file_name);
 
 private:
 
-	void visitTree(QList<QStringList> &_list,
-		QTreeWidget *_tree, QTreeWidgetItem *_item);
-
-	QList<QStringList> visitTree(QTreeWidget *_tree);
-
-	QString createHeader();
+	/** \brief Initialize the custom strings to allow translations
+	*
+	*/
+	void initCustomStrings();	
 	
-	void initCustomStrings();
+	/** \brief Visit the tree and pull all the commands into the _list
+	*
+	*    Here the top level items are visited and calle the overload function
+	*    for each element (that can also be a sublevel of the tree)
+	*
+	*/
+	QList<QStringList> visitTree(const QTreeWidget *_tree);
 
-	std::vector<fluicell::PPC1api::command> *m_protocol;  //!< protocol to run
+	/** \brief Visit the tree and pull all the commands into the _list
+	*
+	*/
+	void visitTree(QList<QStringList> &_list,
+		const QTreeWidget *_tree, QTreeWidgetItem *_item);
 
-	QTreeWidget *m_tree;
+
+	/** \brief Create the header
+	*
+	*/
+	QString createHeader();
 
 	//custom translatable strings
 	QString m_str_warning;

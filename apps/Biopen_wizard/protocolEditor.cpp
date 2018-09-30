@@ -70,7 +70,7 @@ void Labonatip_GUI::onProtocolClicked(QTreeWidgetItem *item, int column)
 
 	if (resBtn == QMessageBox::Yes) {
 		// read the clicked protocol and add it to the current 
-		m_reader->readProtocol(protocol_path);
+		m_reader->readProtocol(ui->treeWidget_macroTable, protocol_path);
 		addAllCommandsToProtocol();
 		m_current_protocol_file_name = protocol_path;
 	}
@@ -78,7 +78,7 @@ void Labonatip_GUI::onProtocolClicked(QTreeWidgetItem *item, int column)
 	{
 		// clear the current protocol and load the clicked protocol instead
 		clearAllCommands(); 
-		m_reader->readProtocol(protocol_path);
+		m_reader->readProtocol(ui->treeWidget_macroTable, protocol_path);
 		addAllCommandsToProtocol();
 		m_current_protocol_file_name = protocol_path;
 
