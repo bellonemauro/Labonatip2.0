@@ -544,18 +544,16 @@ bool Labonatip_GUI::eventFilter(QObject *_obj, QEvent *_event)
 
 }
 
-void Labonatip_GUI::setStatusLed( bool _connect ) {
-
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::setStatusLed   " << _connect << endl;
-
-	ui->status_PPC1_led->clear();
-	if (_connect) {
-		ui->status_PPC1_led->setPixmap(*led_green);
-	}
-	else {
-		ui->status_PPC1_led->setPixmap(*led_red);
+void Labonatip_GUI::setStatusLed( bool _connect ) 
+{
+	if (ui->actionConnectDisconnect->isChecked()) {
+		ui->status_PPC1_led->clear();
+		if (_connect) {
+			ui->status_PPC1_led->setPixmap(*led_green);
+		}
+		else {
+			ui->status_PPC1_led->setPixmap(*led_red);
+		}
 	}
 }
 

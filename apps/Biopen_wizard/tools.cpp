@@ -494,12 +494,14 @@ void Labonatip_tools::getCOMsettingsFromGUI()
 {
 	m_comSettings->setName (ui_tools->comboBox_serialInfo->currentText().toStdString());
 	m_comSettings->setBaudRate ( ui_tools->comboBox_baudRate->currentText().toInt());
-	//m_comSettings->dataBits = 
-	//m_comSettings->flowControl =
-	//m_comSettings->parity =
-	//m_comSettings->stopBits =
-
-	//TODO other settings 
+	m_comSettings->setDataBits(static_cast<serial::bytesize_t>(
+		ui_tools->comboBox_dataBit->currentIndex()));
+	m_comSettings->setFlowControl(static_cast<serial::flowcontrol_t>(
+		ui_tools->comboBox_flowControl->currentIndex())); 
+	m_comSettings->setParity(static_cast<serial::parity_t>(
+		ui_tools->comboBox_parity->currentIndex()));
+	m_comSettings->setStopBits(static_cast<serial::stopbits_t>(
+		ui_tools->comboBox_stopBit->currentIndex()));
 }
 
 void Labonatip_tools::getSolutionSettingsFromGUI()
@@ -594,7 +596,6 @@ bool Labonatip_tools::loadSettings(QString _path)
 	//ComName
 	QString comPort = m_settings->value("COM/ComName", "COM1").toString();
 	m_comSettings->setName ( comPort.toStdString());
-	ui_tools->comboBox_serialInfo->setCurrentIndex(0); //TODO: this is not correct interpretation is missing
 
 	//BaudRate
 	int baudRate = m_settings->value("COM/BaudRate", "115200").toInt();
@@ -606,35 +607,52 @@ bool Labonatip_tools::loadSettings(QString _path)
 	switch (dataBits) {
 	case 5:
 		m_comSettings->setDataBits (serial::fivebits);
+		ui_tools->comboBox_dataBit->setCurrentIndex(0);
 		break;
 	case 6:
 		m_comSettings->setDataBits(serial::sixbits);
+		ui_tools->comboBox_dataBit->setCurrentIndex(1);
 		break;
 	case 7:
 		m_comSettings->setDataBits(serial::sevenbits);
+		ui_tools->comboBox_dataBit->setCurrentIndex(2);
 		break;
 	case 8:
 		m_comSettings->setDataBits(serial::eightbits);
+		ui_tools->comboBox_dataBit->setCurrentIndex(3);
+
 		break;
 	default:
 		cerr << QDate::currentDate().toString().toStdString() << "  " 
 			 << QTime::currentTime().toString().toStdString() << "  "
 			 << " Error data bit cannot be read, using default value 8" << endl;
 		m_comSettings->setDataBits(serial::eightbits);
+		ui_tools->comboBox_dataBit->setCurrentIndex(3);
 		break;
 	}
 
 	//Parity = NoParity
 	QString parity = m_settings->value("COM/Parity", "NoParity").toString();
-	m_comSettings->setParity (serial::parity_none);  //TODO: no interpretation yet
+	ui_tools->comboBox_parity->setCurrentIndex(
+		ui_tools->comboBox_parity->findText(parity));
+	m_comSettings->setParity(static_cast<serial::parity_t>(
+		ui_tools->comboBox_parity->currentIndex()));
+
 
 	//StopBits = 1
-	int stopBits = m_settings->value("COM/StopBits", "1").toInt();
-	m_comSettings->setStopBits(serial::stopbits_one);  //TODO: no interpretation yet
+	QString stopBits = m_settings->value("COM/StopBits", "OneStop").toString();
+	ui_tools->comboBox_stopBit->setCurrentIndex(
+		ui_tools->comboBox_stopBit->findText(stopBits));
+	m_comSettings->setStopBits(static_cast<serial::stopbits_t>(
+		ui_tools->comboBox_stopBit->currentIndex()));
+
 
 	//FlowControl = noFlow
 	QString flowControl = m_settings->value("COM/FlowControl", "noFlow").toString();
-	m_comSettings->setFlowControl (serial::flowcontrol_none); //TODO: no interpretation yet
+	ui_tools->comboBox_flowControl->setCurrentIndex(
+		ui_tools->comboBox_flowControl->findText(flowControl));
+	m_comSettings->setFlowControl(static_cast<serial::flowcontrol_t>(
+		ui_tools->comboBox_flowControl->currentIndex()));
 
 	//read GUI params
 	bool enable_tool_tips = m_settings->value("GUI/EnableToolTips", "0").toBool();
@@ -1126,9 +1144,9 @@ bool Labonatip_tools::saveSettings(QString _file_name)
 
 	// [COM]
 	// ComName = COM_
-	settings->setValue("COM/ComName", QString::fromStdString(m_comSettings->getName())); //TODO weird that here I get the actual setting
+	settings->setValue("COM/ComName", QString::fromStdString(m_comSettings->getName())); 
 	// BaudRate = 115200
-	settings->setValue("COM/BaudRate", ui_tools->comboBox_baudRate->currentText()); //TODO whereas here I get the GUI value
+	settings->setValue("COM/BaudRate", ui_tools->comboBox_baudRate->currentText()); 
 	// DataBits = 8
 	settings->setValue("COM/DataBits", ui_tools->comboBox_dataBit->currentText());
 	// Parity = NoParity
@@ -1287,22 +1305,21 @@ void Labonatip_tools::initCustomStrings()
 
 int Labonatip_tools::parseLanguageString(QString _language)
 {
-	// TODO: is there a better way to interpret this string using the GUIparams::languages enumerator?
-	if (_language == "Chinese")
+	if (_language == "Chinese") 
 	{
-		return 0;
+		return GUIparams::Chinese;
 	}
 	if (_language == "English")
 	{
-		return 1;
+		return GUIparams::English;
 	}
 	if (_language == "Italiano")
 	{
-		return 2;
+		return GUIparams::Italiano;
 	}
 	if (_language == "Svenska")
 	{
-		return 3;
+		return GUIparams::Svenska;
 	}
 	return 0;
 }

@@ -3356,10 +3356,10 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
 </string>
              </property>
              <property name="currentText">
-              <string notr="true">8</string>
+              <string notr="true">5</string>
              </property>
              <property name="currentIndex">
-              <number>3</number>
+              <number>0</number>
              </property>
              <item>
               <property name="text">
@@ -3379,11 +3379,6 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
              <item>
               <property name="text">
                <string extracomment="Data8">8</string>
-              </property>
-             </item>
-             <item>
-              <property name="text">
-               <string extracomment="UnknownDataBits">-1</string>
               </property>
              </item>
             </widget>
