@@ -23,9 +23,9 @@ set (GUIDE_PDF "/guide/BioPen2018.pdf")
 set(CPACK_NSIS_URL_INFO_ABOUT "${WEBSITE}")
 set(CPACK_NSIS_HELP_LINK "${WEBSITE}")
 
-set(CPACK_PACKAGE_NAME "Lab-on-a-tip")
+set(CPACK_PACKAGE_NAME "Biopen_wizard")
 set(CPACK_PACKAGE_VENDOR "Fluicell AB")
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Fluicell Lab-on-a-tip")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Fluicell Biopen wizard")
 set(CPACK_NSIS_CONTACT "Mauro Bellone bellonemauro@gmail.com" )
 set(CPACK_PACKAGE_INSTALL_DIRECTORY "@PROJECT_NAME@")# @_VERSION@")
 
@@ -108,6 +108,7 @@ set(CPACK_NSIS_MUI_FINISHPAGE_RUN Biopen_wizard.exe)
 
 
 #add a command to remove user created files - ATTENTION: it will also remove user created files !!!
+#Delete \\\"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\\\" #TODO this folder must to be removed
 set( CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS "
 	Delete \\\"$DESKTOP\\\\biopen.lnk\\\"
 	Delete \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\presetProtocols\\\\*.*\\\" 
