@@ -616,12 +616,12 @@
         <translation>The current protocol file name is</translation>
     </message>
     <message>
-        <source>Do you want to override?</source>
-        <translation>Do you want to override?</translation>
+        <source>Do you want to overwrite?</source>
+        <translation>Do you want to overwrite?</translation>
     </message>
     <message>
-        <source>Yes = override, NO = saveAs, Cancel = do nothing</source>
-        <translation>Yes = override, NO = saveAs, Cancel = do nothing</translation>
+        <source>Yes = overwrite, NO = saveAs, Cancel = do nothing</source>
+        <translation>Yes = overwrite, NO = saveAs, Cancel = do nothing</translation>
     </message>
     <message>
         <source>Do you want to add to the bottom of the protocol?</source>

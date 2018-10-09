@@ -616,11 +616,11 @@
         <translation>Det aktuella protokollfilnamnet är</translation>
     </message>
     <message>
-        <source>Do you want to override?</source>
+        <source>Do you want to overwrite?</source>
         <translation>Vill du åsidosätta?</translation>
     </message>
     <message>
-        <source>Yes = override, NO = saveAs, Cancel = do nothing</source>
+        <source>Yes = overwrite, NO = saveAs, Cancel = do nothing</source>
         <translation>Ja = åsidosätt, NEJ = spara, Avbryt = gör inget</translation>
     </message>
     <message>

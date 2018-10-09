@@ -453,6 +453,11 @@ private slots:
 	*   and recalled via setPreset_n
 	*/
 	void resetPreset1();
+	void resetPreset1(const QPoint&) { 
+		cerr << "reset" << endl;
+		resetPreset1();
+	}
+
 
 	/** \brief Memorized the current value for the preset mode 2
 	*

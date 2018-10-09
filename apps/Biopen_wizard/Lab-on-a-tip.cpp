@@ -641,6 +641,12 @@ void Labonatip_GUI::initConnects()
 		SIGNAL(clicked()), this,
 		SLOT(setPreset1()));
 
+	// TODO: for some reason this does not work
+	connect(ui->pushButton_reset_preset1,
+		SIGNAL(customContextMenuRequested(const QPoint&)),
+		this, SLOT(resetPreset1(const QPoint&)));
+
+
 	connect(ui->pushButton_set_preset2,
 		SIGNAL(clicked()), this,
 		SLOT(setPreset2()));
@@ -936,8 +942,8 @@ void Labonatip_GUI::initCustomStrings()
 	m_str_protocol_duration = tr("Protocol duration : ");
 	m_str_remove_file = tr("This action will remove the file, are you sure?");
 	m_str_current_prot_name = tr("The current protocol file name is");
-	m_str_question_override = tr("Do you want to override?");
-	m_str_override_guide = tr(" Yes = override, NO = saveAs, Cancel = do nothing");
+	m_str_question_override = tr("Do you want to overwrite?");
+	m_str_override_guide = tr(" Yes = overwrite, NO = saveAs, Cancel = do nothing");
 	m_str_add_protocol_bottom = tr("Do you want to add to the bottom of the protocol?");
 	m_str_add_protocol_bottom_guide = tr("Click NO to clean the workspace and load a new protocol");
 	m_str_clear_commands = tr("This will clear all items in the current protocol");

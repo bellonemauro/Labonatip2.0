@@ -616,11 +616,11 @@
         <translation>Il protocollo corrente è </translation>
     </message>
     <message>
-        <source>Do you want to override?</source>
+        <source>Do you want to overwrite?</source>
         <translation>lo vuoi sovrascrivere?</translation>
     </message>
     <message>
-        <source>Yes = override, NO = saveAs, Cancel = do nothing</source>
+        <source>Yes = overwrite, NO = saveAs, Cancel = do nothing</source>
         <translation>Si = sovrascrivi, NO = salva come, Annulla = do nothing</translation>
     </message>
     <message>
