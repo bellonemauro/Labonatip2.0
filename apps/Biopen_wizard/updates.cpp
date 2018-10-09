@@ -336,7 +336,8 @@ bool Labonatip_GUI::isExceptionTriggered() // return true if the exception is tr
 			ui->actionSimulation->setEnabled(true);
 			ui->actionSimulation->setChecked(true);
 			
-			this->setStatusLed(false);
+			//this->setStatusLed(false);
+			ui->status_PPC1_led->setPixmap(*led_red);
 			ui->status_PPC1_label->setText(m_str_PPC1_status_discon);
 
 			// end
@@ -360,14 +361,16 @@ void Labonatip_GUI::updatePPC1Leds()
 		{
 			// the first is the communication state in the main GUI
 			if (m_ppc1->getCommunicationState() == true) {
-				this->setStatusLed(true);
+				//this->setStatusLed(true);
+				ui->status_PPC1_led->setPixmap(*led_green);
 				// It is better to avoid to change the LED directly, 
 				// better to use the function setStatusLed(true/false)
 				ui->status_PPC1_label->setText(m_str_PPC1_status_con);
 			}
 			else
 			{
-				setStatusLed(false);
+				//setStatusLed(false);
+				ui->status_PPC1_led->setPixmap(*led_red);
 				ui->status_PPC1_label->setText(m_str_PPC1_status_unstable_con); 
 			}
 
@@ -427,7 +430,8 @@ void Labonatip_GUI::updatePPC1Leds()
 		}// end if m_ppc1->isRunning()
 		else
 		{
-			this->setStatusLed(false);
+			//this->setStatusLed(false);
+			ui->status_PPC1_led->setPixmap(*led_red);
 			ui->label_led_pon->setPixmap(*led_grey);
 			ui->label_led_poff->setPixmap(*led_grey);
 			ui->label_led_vs->setPixmap(*led_grey);
