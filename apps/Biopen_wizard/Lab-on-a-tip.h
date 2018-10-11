@@ -453,8 +453,8 @@ private slots:
 	*   and recalled via setPreset_n
 	*/
 	void resetPreset1();
-	void resetPreset1(const QPoint&) { 
-		cerr << "reset" << endl;
+	void resetPreset1(const QPoint &_pos) {
+		QMessageBox::warning(this, m_str_information, "Current settings saved in the preset 1");
 		resetPreset1();
 	}
 
@@ -466,6 +466,10 @@ private slots:
 	*   and recalled via setPreset_n
 	*/
 	void resetPreset2();
+	void resetPreset2(const QPoint &_pos) {
+		QMessageBox::warning(this, m_str_information, "Current settings saved in the preset 2");
+		resetPreset2();
+	}
 
 	/** \brief Memorized the current value for the preset mode 3
 	*
@@ -474,6 +478,10 @@ private slots:
 	*   and recalled via setPreset_n
 	*/
 	void resetPreset3();
+	void resetPreset3(const QPoint &_pos) {
+		QMessageBox::warning(this, m_str_information, "Current settings saved in the preset 3");
+		resetPreset3();
+	}
 
 	/** \brief This is supposed to be used from the solution release time to
 	  * update the visualization of the circular sliders

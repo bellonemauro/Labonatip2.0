@@ -641,11 +641,19 @@ void Labonatip_GUI::initConnects()
 		SIGNAL(clicked()), this,
 		SLOT(setPreset1()));
 
-	// TODO: for some reason this does not work
-	connect(ui->pushButton_reset_preset1,
-		SIGNAL(customContextMenuRequested(const QPoint&)),
-		this, SLOT(resetPreset1(const QPoint&)));
-
+	// TODO: This works but it is a not accepted support for long-touch to memorize settings
+	//ui->pushButton_set_preset1->setContextMenuPolicy(Qt::ContextMenuPolicy::CustomContextMenu);
+	//connect(ui->pushButton_set_preset1,
+	//	SIGNAL(customContextMenuRequested(const QPoint&)),
+	//	this, SLOT(resetPreset1(const QPoint&)));
+	//ui->pushButton_set_preset2->setContextMenuPolicy(Qt::ContextMenuPolicy::CustomContextMenu);
+	//connect(ui->pushButton_set_preset2,
+	//	SIGNAL(customContextMenuRequested(const QPoint&)),
+	//	this, SLOT(resetPreset2(const QPoint&)));
+	//ui->pushButton_set_preset3->setContextMenuPolicy(Qt::ContextMenuPolicy::CustomContextMenu);
+	//connect(ui->pushButton_set_preset3,
+	//	SIGNAL(customContextMenuRequested(const QPoint&)),
+	//	this, SLOT(resetPreset3(const QPoint&)));
 
 	connect(ui->pushButton_set_preset2,
 		SIGNAL(clicked()), this,
@@ -732,10 +740,10 @@ void Labonatip_GUI::initConnects()
 		SLOT(cleanHistory()));
 
 // this button is connected only if the developer settings tab is visualized
-if (ui->tabWidget->count() > 3) 
-	connect(ui->pushButton_updateDrawing,
-		SIGNAL(clicked()), this,
-		SLOT(updateDrawing(100)));
+//if (ui->tabWidget->count() > 3) 
+//	connect(ui->pushButton_updateDrawing,
+//		SIGNAL(clicked()), this,
+//		SLOT(updateDrawing(100)));
 
 	// connect sliders
 	connect(ui->horizontalSlider_p_on, 

@@ -43,7 +43,7 @@ bool initPaths(Labonatip_GUI &_l, QString &_protocols_user_path,
 	// detect the home path ... C:/users/user/
 	QString home_path = QDir::homePath();   
 
-	// is the installation folder  ... C:/Program Files/Labonatip
+	// is the installation folder  ... C:/Program Files/Biopen2
 	QDir app_dir = QDir::currentPath();    
 	
 	// default protocol path into the installation folder
@@ -58,11 +58,11 @@ bool initPaths(Labonatip_GUI &_l, QString &_protocols_user_path,
 	QString ext_data_path = app_dir.path();
 	ext_data_path.append("/Ext_data/");
 
-	// if the directory Labonatip does not exist in the home folder, create it
-	home_path.append("/Documents/Labonatip2/");
+	// if the directory Biopen does not exist in the home folder, create it
+	home_path.append("/Documents/Biopen/");
 	QDir home_dir;
 	if (!home_dir.exists(home_path)) {
-        cerr << " Labonatip directory does not exists in the home folder .... creating it" << endl;
+        cerr << " BiopenWizard directory does not exists in the home folder .... creating it" << endl;
 		home_dir.mkpath(home_path);
         cout << " Created directory " <<
             home_path.toStdString() << endl;
@@ -77,11 +77,11 @@ bool initPaths(Labonatip_GUI &_l, QString &_protocols_user_path,
 	QDir protocols_dir;
 	protocols_dir.setPath(protocols_path);
 	if (!protocols_dir.exists(protocols_path) ) {
-		cerr << "ERROR: Labonatip protocols directory does not exists in the installation folder"
+		cerr << "ERROR: Biopen protocols directory does not exists in the installation folder"
 			 << "A reinstallation may solve the problem "<< endl;
 		QString ss = "Protocols directory does not exists in the installation folder,";
-		ss.append("Labonatip cannot run  <br>"); 
-		ss.append ("A reinstallation of Labonatip may solve the problem ");
+		ss.append("Biopen wizard cannot run  <br>"); 
+		ss.append ("A reinstallation of Biopen wizard may solve the problem ");
 		QMessageBox::warning(&_l, "ERROR", ss);
 		return false;
 	}
@@ -95,10 +95,10 @@ bool initPaths(Labonatip_GUI &_l, QString &_protocols_user_path,
 	QDir settings_dir;
 	settings_dir.setPath(settings_path);
 	if (!settings_dir.exists(settings_path)) {
-		cerr << "Labonatip settings directory does not exists" << endl;
+		cerr << "Biopen wizard settings directory does not exists" << endl;
 		QString ss = "Settings directory does not exists in the installation folder,";
-		ss.append("Labonatip cannot run  <br>");
-		ss.append("A reinstallation of Labonatip may solve the problem ");
+		ss.append("Biopen wizard cannot run  <br>");
+		ss.append("A reinstallation of Biopen wizard may solve the problem ");
 		QMessageBox::warning(&_l, "ERROR", ss);
 		return false;
 	}
@@ -112,10 +112,10 @@ bool initPaths(Labonatip_GUI &_l, QString &_protocols_user_path,
 	QDir ext_data_dir;
 	ext_data_dir.setPath(ext_data_path);
 	if (!ext_data_dir.exists(ext_data_path)) {
-		cerr << "Labonatip ext_data directory does not exists" << endl;
+		cerr << "Biopen wizard ext_data directory does not exists" << endl;
 		QString ss = "Ext_data directory does not exists in the installation folder,";
-		ss.append("Labonatip cannot run  <br>");
-		ss.append("A reinstallation of Labonatip may solve the problem ");
+		ss.append("Biopen wizard cannot run  <br>");
+		ss.append("A reinstallation of Biopen wizard may solve the problem ");
 		QMessageBox::warning(&_l, "ERROR", ss);
 		return false;
 	}
@@ -259,9 +259,9 @@ int main(int argc, char **argv)//(int argc, char *argv[])
 			<< " screen_width " << screen_width << endl;
 
 		if (logical_dpi_x > 150) {
-			QString ss = "Your display DPI is out of bound for the correct visualization of Labonatip\n";
+			QString ss = "Your display DPI is out of bound for the correct visualization of Biopen wizard\n";
 			ss.append("You can continue, but you will probably get bad visualization \n\n");
-			ss.append("To properly visualize Labonatip, try to reduce the resolution and scaling of your screen");
+			ss.append("To properly visualize Biopen wizard, try to reduce the resolution and scaling of your screen");
 			
 			QMessageBox::warning(&window, "ERROR", ss);
 

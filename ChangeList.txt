@@ -1,3 +1,9 @@
+V.2.0.67
+Added more descriptions as tool tips
+Changed behaviour of the preset/set buttons 
+Changed name in the installation folder from Labonatip2 to Biopen
+
+
 V.2.0.66
 Improved command history and redirect
 Improved efficiency and comments

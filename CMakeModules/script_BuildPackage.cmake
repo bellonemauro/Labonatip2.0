@@ -78,14 +78,14 @@ set(CPACK_PACKAGE_INSTALL_REGISTRY_KEY "${CMAKE_PROJECT_NAME}")#-${CMAKE_Fluicel
 # this is to create the user folders during the installation
 set( CPACK_NSIS_EXTRA_INSTALL_COMMANDS "
 	CreateShortCut \\\"$DESKTOP\\\\Biopen.lnk\\\" \\\"$INSTDIR\\\\Biopen_wizard.exe\\\"
-	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\" 
-	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\presetProtocols\\\"
-	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\settings\\\" 
-	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\guide\\\" 
-	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\Ext_data\\\" 
-	CopyFiles \\\"$INSTDIR\\\\presetProtocols\\\\*.prt\\\" \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\presetProtocols\\\"
-	CopyFiles \\\"$INSTDIR\\\\guide\\\\*.pdf\\\" \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\guide\\\"
-	CopyFiles \\\"$INSTDIR\\\\settings\\\\*.ini\\\" \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\settings\\\"
+	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Biopen\\\" 
+	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Biopen\\\\presetProtocols\\\"
+	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Biopen\\\\settings\\\" 
+	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Biopen\\\\guide\\\" 
+	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Biopen\\\\Ext_data\\\" 
+	CopyFiles \\\"$INSTDIR\\\\presetProtocols\\\\*.prt\\\" \\\"$PROFILE\\\\Documents\\\\Biopen\\\\presetProtocols\\\"
+	CopyFiles \\\"$INSTDIR\\\\guide\\\\*.pdf\\\" \\\"$PROFILE\\\\Documents\\\\Biopen\\\\guide\\\"
+	CopyFiles \\\"$INSTDIR\\\\settings\\\\*.ini\\\" \\\"$PROFILE\\\\Documents\\\\Biopen\\\\settings\\\"
 	")
 
 set(CPACK_NSIS_EXECUTABLES_DIRECTORY ".")
@@ -111,15 +111,17 @@ set(CPACK_NSIS_MUI_FINISHPAGE_RUN Biopen_wizard.exe)
 #Delete \\\"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\\\" #TODO this folder must to be removed
 set( CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS "
 	Delete \\\"$DESKTOP\\\\biopen.lnk\\\"
-	Delete \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\presetProtocols\\\\*.*\\\" 
-	Delete \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\guide\\\\*.*\\\" 
-	Delete \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\settings\\\\*.*\\\" 
-	Delete \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\Ext_data\\\\*.*\\\" 
-	RMDir \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\presetProtocols\\\"
-	RMDir \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\guide\\\" 
-	RMDir \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\settings\\\" 
-	RMDir \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\\Ext_data\\\" 
-	RMDir \\\"$PROFILE\\\\Documents\\\\Labonatip2\\\" 
+	Delete \\\"$PROFILE\\\\..\\\\..\\\\ProgramData\\\\Microsoft\\\\Windows\\\\Start Menu\\\\Programs\\\\Fluicell biopen wizard\\\\*.*\\\"
+	Delete \\\"$PROFILE\\\\Documents\\\\Biopen\\\\presetProtocols\\\\*.*\\\" 
+	Delete \\\"$PROFILE\\\\Documents\\\\Biopen\\\\guide\\\\*.*\\\" 
+	Delete \\\"$PROFILE\\\\Documents\\\\Biopen\\\\settings\\\\*.*\\\" 
+	Delete \\\"$PROFILE\\\\Documents\\\\Biopen\\\\Ext_data\\\\*.*\\\" 
+	RMDir \\\"$PROFILE\\\\Documents\\\\Biopen\\\\presetProtocols\\\"
+	RMDir \\\"$PROFILE\\\\Documents\\\\Biopen\\\\guide\\\" 
+	RMDir \\\"$PROFILE\\\\Documents\\\\Biopen\\\\settings\\\" 
+	RMDir \\\"$PROFILE\\\\Documents\\\\Biopen\\\\Ext_data\\\" 
+	RMDir \\\"$PROFILE\\\\..\\\\..\\\\ProgramData\\\\Microsoft\\\\Windows\\\\Start Menu\\\\Programs\\\\Fluicell biopen wizard\\\"
+	RMDir \\\"$PROFILE\\\\Documents\\\\Biopen\\\" 
 ")
 
 												   
