@@ -6520,7 +6520,7 @@ p, li { white-space: pre-wrap; }
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>239</width>
+                  <width>222</width>
                   <height>3146</height>
                  </rect>
                 </property>
@@ -9304,7 +9304,7 @@ click on any object to have quick help
     <string>Editor</string>
    </property>
    <property name="toolTip">
-    <string>Sisplays the editor panel to write, load or edit protocols</string>
+    <string>Displays the editor panel to write, load or edit protocols</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+E</string>
