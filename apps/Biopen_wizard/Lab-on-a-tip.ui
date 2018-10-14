@@ -9304,7 +9304,7 @@ click on any object to have quick help
     <string>Editor</string>
    </property>
    <property name="toolTip">
-    <string>Displays the editor panel to write, load or edit protocols</string>
+    <string>Switch between commander and editor mode to run and write protocols</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+E</string>
