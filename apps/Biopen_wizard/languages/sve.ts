@@ -651,6 +651,190 @@
         <source>PPC1 not connected, TTL test cannot run</source>
         <translation>PPC1 ej ansluten, TTL testet kan inte köras</translation>
     </message>
+    <message>
+        <source>Fluicell AB information</source>
+        <translation>Fluicell AB information</translation>
+    </message>
+    <message>
+        <source>Load a previously saved profile</source>
+        <translation>Load a previously saved profile</translation>
+    </message>	
+    <message>
+        <source>Save the current profile to a configuration file</source>
+        <translation>Save the current profile to a configuration file</translation>
+    </message>		
+    <message>
+        <source>Open a new window to set your preferences</source>
+        <translation>Open a new window to set your preferences</translation>
+    </message>		
+    <message>
+        <source>Simulation mode: when ACTIVE the PPC1 is NOT used</source>
+        <translation>Simulation mode: when ACTIVE the PPC1 is NOT used</translation>
+    </message>	
+    <message>
+        <source>Connect and disconnect to PPC1</source>
+        <translation>Connect and disconnect to PPC1</translation>
+    </message>
+    <message>
+        <source>Reset the device. The procedure will take around 30 seconds. It will be impossible to use the application during the reset process.</source>
+        <translation>Reset the device. The procedure will take around 30 seconds. It will be impossible to use the application during the reset process.</translation>
+    </message>
+    <message>
+        <source>Show the advanced tab</source>
+        <translation>Show the advanced tab</translation>
+    </message>
+    <message>
+        <source>Switch between commander and editor mode to run and write protocols</source>
+        <translation>Switch between commander and editor mode to run and write protocols</translation>
+    </message>
+    <message>
+        <source>Wizard (NOT USED NOW)</source>
+        <translation>Wizard (NOT USED NOW)</translation>
+    </message>
+    <message>
+        <source>Fine tuning: single step decrement</source>
+        <translation>Fine tuning: single step decrement</translation>
+    </message>	
+    <message>
+        <source>Fine tuning: single step increment</source>
+        <translation>Fine tuning: single step increment</translation>
+    </message>		
+    <message>
+        <source>Increase/decrease the pressure channel Pon</source>
+        <translation>Increase/decrease the pressure channel Pon</translation>
+    </message>	
+    <message>
+        <source>Increase/decrease the pressure channel Poff</source>
+        <translation>Increase/decrease the pressure channel Poff</translation>
+    </message>	
+    <message>
+        <source>Increase/decrease the vacuum channel Vswitch</source>
+        <translation>Increase/decrease the vacuum channel Vswitch</translation>
+    </message>	
+    <message>
+        <source>Increase/decrease the vacuum channel Vrecirc</source>
+        <translation>Increase/decrease the vacuum channel Vrecirc</translation>
+    </message>	
+    <message>
+        <source>Reset pressures and vacuum values to the pre-saved setting number 1</source>
+        <translation>Reset pressures and vacuum values to the pre-saved setting number 1</translation>
+    </message>	
+    <message>
+        <source>Reset pressures and vacuum values to the pre-saved setting number 2</source>
+        <translation>Reset pressures and vacuum values to the pre-saved setting number 2</translation>
+    </message>	
+    <message>
+        <source>Reset pressures and vacuum values to the pre-saved setting number 3</source>
+        <translation>Reset pressures and vacuum values to the pre-saved setting number 3</translation>
+    </message>	
+    <message>
+        <source>Save the current pressures and vacuum value to preset 1</source>
+        <translation>Save the current pressures and vacuum value to preset 1</translation>
+    </message>	
+    <message>
+        <source>Save the current pressures and vacuum value to preset 2</source>
+        <translation>Save the current pressures and vacuum value to preset 2</translation>
+    </message>	
+    <message>
+        <source>Save the current pressures and vacuum value to preset 3</source>
+        <translation>Save the current pressures and vacuum value to preset 3</translation>
+    </message>	
+    <message>
+        <source>Saving history uses resources in your drive, you can clean history by removing all the files in the history folder</source>
+        <translation>Saving history uses resources in your drive, you can clean history by removing all the files in the history folder</translation>
+    </message>	
+    <message>
+        <source>Set current protocol folder</source>
+        <translation>Set current protocol folder</translation>
+    </message>	
+    <message>
+        <source>Current protocol folder</source>
+        <translation>Current protocol folder</translation>
+    </message>	
+    <message>
+        <source>List of protocols in the folder</source>
+        <translation>List of protocols in the folder</translation>
+    </message>	
+    <message>
+        <source>Add new command</source>
+        <translation>Add new command</translation>
+    </message>	
+    <message>
+        <source>Remove command</source>
+        <translation>Remove command</translation>
+    </message>	
+    <message>
+        <source>Move up</source>
+        <translation>Move up</translation>
+    </message>	
+    <message>
+        <source>Move down</source>
+        <translation>Move down</translation>
+    </message>	
+    <message>
+        <source>Add a new loop</source>
+        <translation>Add a new loop</translation>
+    </message>	
+    <message>
+        <source>Add new command in the loop</source>
+        <translation>Add new command in the loop</translation>
+    </message>
+    <message>
+        <source>Duplicate command</source>
+        <translation>Duplicate command</translation>
+    </message>
+    <message>
+        <source>Clear all commands</source>
+        <translation>Clear all commands</translation>
+    </message>
+    <message>
+        <source>Undo command</source>
+        <translation>Undo command</translation>
+    </message>	
+    <message>
+        <source>Redo command</source>
+        <translation>Redo command</translation>
+    </message>
+    <message>
+        <source>Connection indicator. Red: PPC-1 not connected; Green: PPC-1 connected</source>
+        <translation>Connection indicator. Red: PPC-1 not connected; Green: PPC-1 connected</translation>
+    </message>
+    <message>
+        <source>Protocol progress indicator 0 - 100%</source>
+        <translation>Protocol progress indicator 0 - 100%</translation>
+    </message>
+    <message>
+        <source>Initiate the preparation of the Biopen system for operation</source>
+        <translation>Initiate the preparation of the Biopen system for operation</translation>
+    </message>
+    <message>
+        <source>Start the last protocol loaded in the Editor window</source>
+        <translation>Start the last protocol loaded in the Editor window</translation>
+    </message>
+    <message>
+        <source>Set all the values of the delivery zone back to 100%</source>
+        <translation>Set all the values of the delivery zone back to 100%</translation>
+    </message>
+    <message>
+        <source>Set all the delivery zone value to 0 % and depressurizes the system</source>
+        <translation>Set all the delivery zone value to 0 % and depressurizes the system</translation>
+    </message>
+    <message>
+        <source>Set all the delivery zone values to a holding level</source>
+        <translation>Set all the delivery zone values to a holding level</translation>
+    </message>
+    <message>
+        <source>Decrease the size of the delivery zone</source>
+        <translation>Decrease the size of the delivery zone</translation>
+    </message>
+    <message>
+        <source>Increase the size of the delivery zone</source>
+        <translation>Increase the size of the delivery zone</translation>
+    </message>
+    <message>
+        <source>Droplet size current percentage</source>
+        <translation>Droplet size current percentage</translation>
+    </message>
 </context>
 <context>
     <name>Labonatip_macroRunner</name>
@@ -1021,6 +1205,290 @@
     <message>
         <source>Apply</source>
         <translation>Tillämpa</translation>
+    </message>
+    <message>
+        <source>General settings</source>
+        <translation>General settings</translation>
+    </message>	
+	<message>
+        <source>Solution settings</source>
+        <translation>Solution settings</translation>
+    </message>	
+	<message>
+        <source>Pressure settings</source>
+        <translation>Pressure settings</translation>
+    </message>	
+	<message>
+        <source>Serial port communication setting</source>
+        <translation>Serial port communication setting</translation>
+    </message>
+	<message>
+        <source>Write here your profile name</source>
+        <translation>Write here your profile name</translation>
+    </message>	
+	<message>
+        <source>Add your comment here, this can be a date or any information useful for this profile</source>
+        <translation>Add your comment here, this can be a date or any information useful for this profile</translation>
+    </message>	
+	<message>
+        <source>Select your language</source>
+        <translation>Select your language</translation>
+    </message>
+	<message>
+        <source>Activate/deactivate the tool tips</source>
+        <translation>Activate/deactivate the tool tips</translation>
+    </message>
+	<message>
+        <source>Enable/disable speech to read messages</source>
+        <translation>Enable/disable speech to read messages</translation>
+    </message>
+	<message>
+        <source>Enable/disable verbose output in the history</source>
+        <translation>Enable/disable verbose output in the history</translation>
+    </message>
+	<message>
+        <source>Enable/disable history</source>
+        <translation>Enable/disable history</translation>
+    </message>
+	<message>
+        <source>If checked the history will be saved into files, this will use resources in your drive</source>
+        <translation>If checked the history will be saved into files, this will use resources in your drive</translation>
+    </message>
+	<message>
+        <source>Use set point or default value to calculate increments in the delivery zone control</source>
+        <translation>Use set point or default value to calculate increments in the delivery zone control</translation>
+    </message>
+	<message>
+        <source>Enable verbose output for the PPC1 api</source>
+        <translation>Enable verbose output for the PPC1 api</translation>
+    </message>
+	<message>
+        <source>Enable data filtering in PPC1</source>
+        <translation>Enable data filtering in PPC1</translation>
+    </message>
+	<message>
+        <source>High/low flag for synchronization in the PPC1 api</source>
+        <translation>High/low flag for synchronization in the PPC1 api</translation>
+    </message>
+	<message>
+        <source>Change the filter size, low values will result is high-reactive pressures/vacuum values though less accurate, high value will result in slow variation of measurement but more accurate in the long range</source>
+        <translation>Change the filter size, low values will result is high-reactive pressures/vacuum values though less accurate, high value will result in slow variation of measurement but more accurate in the long range</translation>
+    </message>
+	<message>
+        <source>Set synchronization time out in the PPC1 api</source>
+        <translation>Set synchronization time out in the PPC1 api</translation>
+    </message>
+	<message>
+        <source>Run a test for the TTL signal</source>
+        <translation>Run a test for the TTL signal</translation>
+    </message>
+	<message>
+        <source>Reset settings to default values</source>
+        <translation>Reset settings to default values</translation>
+    </message>
+	<message>
+        <source>Solution volume in well 1</source>
+        <translation>Solution volume in well 1</translation>
+    </message>
+	<message>
+        <source>Solution volume in well 2</source>
+        <translation>Solution volume in well 2</translation>
+    </message>
+	<message>
+        <source>Solution volume in well 3</source>
+        <translation>Solution volume in well 3</translation>
+    </message>
+	<message>
+        <source>Solution volume in well 4</source>
+        <translation>Solution volume in well 4</translation>
+    </message>
+	<message>
+        <source>Name of the solution in the well 1</source>
+        <translation>Name of the solution in the well 1</translation>
+    </message>
+	<message>
+        <source>Name of the solution in the well 2</source>
+        <translation>Name of the solution in the well 2</translation>
+    </message>
+	<message>
+        <source>Name of the solution in the well 3</source>
+        <translation>Name of the solution in the well 3</translation>
+    </message>
+	<message>
+        <source>Name of the solution in the well 4</source>
+        <translation>Name of the solution in the well 4</translation>
+    </message>
+	<message>
+        <source>Change colour to the corresponding solution in the interface</source>
+        <translation>Change colour to the corresponding solution in the interface</translation>
+    </message>
+	<message>
+        <source>Refill the solution wells</source>
+        <translation>Refill the solution wells</translation>
+    </message>
+	<message>
+        <source>Empty waste</source>
+        <translation>Empty waste</translation>
+    </message>
+	<message>
+        <source>Injection time in seconds</source>
+        <translation>Injection time in seconds</translation>
+    </message>
+	<message>
+        <source>Continuous flow of solution (pulse time is ignored)</source>
+        <translation>Continuous flow of solution (pulse time is ignored)</translation>
+    </message>
+	<message>
+        <source>Max possible value for Pon pressure in PPC1</source>
+        <translation>Max possible value for Pon pressure in PPC1</translation>
+    </message>	
+	<message>
+        <source>Min possible value for Pon pressure in PPC1</source>
+        <translation>Min possible value for Pon pressure in PPC1</translation>
+    </message>		
+	<message>
+        <source>Default operational value for Pon pressure in PPC1</source>
+        <translation>Default operational value for Pon pressure in PPC1</translation>
+    </message>	
+	<message>
+        <source>Max possible value for Poff pressure in PPC1</source>
+        <translation>Max possible value for Poff pressure in PPC1</translation>
+    </message>	
+	<message>
+        <source>Min possible value for Poff pressure in PPC1</source>
+        <translation>Min possible value for Poff pressure in PPC1</translation>
+    </message>	
+	<message>
+        <source>Default operational value for Poff pressure in PPC1</source>
+        <translation>Default operational value for Poff pressure in PPC1</translation>
+    </message>	
+	<message>
+        <source>Max possible value for Vswitch vacuum in PPC1</source>
+        <translation>Max possible value for Vswitch vacuum in PPC1</translation>
+    </message>
+	<message>
+        <source>Min possible value for Vswitch vacuum in PPC1</source>
+        <translation>Min possible value for Vswitch vacuum in PPC1</translation>
+    </message>
+	<message>
+        <source></source>
+        <translation></translation>
+    </message>
+	<message>
+        <source>Default operational value for Vswitch vacuum in PPC1</source>
+        <translation>Default operational value for Vswitch vacuum in PPC1</translation>
+    </message>
+	<message>
+        <source>Max possible value for Vrecirc vacuum in PPC1</source>
+        <translation>Max possible value for Vrecirc vacuum in PPC1</translation>
+    </message>
+	<message>
+        <source>Min possible value for Vrecirc vacuum in PPC1</source>
+        <translation>Min possible value for Vrecirc vacuum in PPC1</translation>
+    </message>
+	<message>
+        <source>Default operational value for Vrecirc vacuum in PPC1</source>
+        <translation>Default operational value for Vrecirc vacuum in PPC1</translation>
+    </message>
+	<message>
+        <source>Pon pressure value for preset 1</source>
+        <translation>Pon pressure value for preset 1</translation>
+    </message>
+	<message>
+        <source>Poff pressure value for preset 1</source>
+        <translation>Poff pressure value for preset 1</translation>
+    </message>
+	<message>
+        <source>Poff pressure value for preset 1</source>
+        <translation>Poff pressure value for preset 1</translation>
+    </message>
+	<message>
+        <source>Vswitch vacuum value for preset 1</source>
+        <translation>Vswitch vacuum value for preset 1</translation>
+    </message>
+	<message>
+        <source>Vrecirc vacuum value for preset 1</source>
+        <translation>Vrecirc vacuum value for preset 1</translation>
+    </message>
+	<message>
+        <source>Pon pressure value for preset 2</source>
+        <translation>Pon pressure value for preset 2</translation>
+    </message>
+	<message>
+        <source>Poff pressure value for preset 2</source>
+        <translation>Poff pressure value for preset 2</translation>
+    </message>
+	<message>
+        <source>Vswitch vacuum value for preset 2</source>
+        <translation>Vswitch vacuum value for preset 2</translation>
+    </message>
+	<message>
+        <source>Vrecirc vacuum value for preset 2</source>
+        <translation>Vrecirc vacuum value for preset 2</translation>
+    </message>
+	<message>
+        <source>Pon pressure value for preset 3</source>
+        <translation>Pon pressure value for preset 3</translation>
+    </message>
+	<message>
+        <source>Poff pressure value for preset 3</source>
+        <translation>Poff pressure value for preset 3</translation>
+    </message>
+	<message>
+        <source>Vswitch vacuum value for preset 3</source>
+        <translation>Vswitch vacuum value for preset 3</translation>
+    </message>
+	<message>
+        <source>Vrecirc vacuum value for preset 3</source>
+        <translation>Vrecirc vacuum value for preset 3</translation>
+    </message>
+	<message>
+        <source>Base zone size increment/decrement</source>
+        <translation>Base zone size increment/decrement</translation>
+    </message>
+	<message>
+        <source>Flow speed base increment/decrement</source>
+        <translation>Flow speed base increment/decrement</translation>
+    </message>
+	<message>
+        <source>Base vacuum increment/decrement</source>
+        <translation>Base vacuum increment/decrement</translation>
+    </message>
+	<message>
+        <source>Port name COM1 ... N,</source>
+        <translation>Port name COM1 ... N,</translation>
+    </message>
+	<message>
+        <source>Display the available port only;</source>
+        <translation>Display the available port only;</translation>
+    </message>
+	<message>
+        <source>Select the port to see device details below.</source>
+        <translation>Select the port to see device details below.</translation>
+    </message>
+	<message>
+        <source>The baud rate is the speed of communication in bit/s. Supported values : 1200; 2400; 4800; 9600; 19200; 38400; 57600; 115200 bit/s. Default value: 9600</source>
+        <translation>The baud rate is the speed of communication in bit/s. Supported values : 1200; 2400; 4800; 9600; 19200; 38400; 57600; 115200 bit/s. Default value: 9600</translation>
+    </message>
+	<message>
+        <source>The number of data bits in each character can be 5 (for Baudot code), 6 (rarely used), 7 (for true ASCII), 8 (for most kinds of data, as this size matches the size of a byte), or 9 (rarely used). 8 data bits are almost universally used in newer applications. Default value: 8</source>
+        <translation>The number of data bits in each character can be 5 (for Baudot code), 6 (rarely used), 7 (for true ASCII), 8 (for most kinds of data, as this size matches the size of a byte), or 9 (rarely used). 8 data bits are almost universally used in newer applications. Default value: 8</translation>
+    </message>
+	<message>
+        <source>Parity is a method of detecting errors in transmission. When parity is used with a serial port, an extra data bit is sent with each data character, arranged so that the number of 1 bits in each character, including the parity bit, is always odd or always even. If a byte is received with the wrong number of 1s, then it must have been corrupted. Default value: NoParity</source>
+        <translation>Parity is a method of detecting errors in transmission. When parity is used with a serial port, an extra data bit is sent with each data character, arranged so that the number of 1 bits in each character, including the parity bit, is always odd or always even. If a byte is received with the wrong number of 1s, then it must have been corrupted. Default value: NoParity</translation>
+    </message>
+	<message>
+        <source>Stop bits sent at the end of every character allow the receiving signal hardware to detect the end of a character and to resynchronise with the character stream.</source>
+        <translation>Stop bits sent at the end of every character allow the receiving signal hardware to detect the end of a character and to resynchronise with the character stream.</translation>
+    </message>
+	<message>
+        <source>A serial port may use signals in the interface to pause and resume the transmission of data. Default value: NoFlowControl</source>
+        <translation>A serial port may use signals in the interface to pause and resume the transmission of data. Default value: NoFlowControl</translation>
+    </message>
+	<message>
+        <source>Rescan serial port to detect and update the list of connected devices</source>
+        <translation>Rescan serial port to detect and update the list of connected devices</translation>
     </message>
 </context>
 <context>
