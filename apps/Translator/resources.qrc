@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="/">
+    <file>icons/fluicell_iconBIG.png</file>
+    <file>icons/fluicell_logo_BIG.png</file>
+  </qresource>
+</RCC>
