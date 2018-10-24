@@ -197,6 +197,9 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                <pointsize>10</pointsize>
               </font>
              </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Write here your profile name&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="accessibleName">
               <string/>
              </property>
@@ -257,6 +260,9 @@ QPushButton:disabled{ background-color: #CCCCCC; }
               <font>
                <pointsize>10</pointsize>
               </font>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select your language&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="styleSheet">
               <string notr="true">QComboBox {
@@ -345,12 +351,15 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
              </item>
             </widget>
            </item>
-           <item row="1" column="1">
+           <item row="1" column="1" colspan="3">
             <widget class="QLineEdit" name="lineEdit_comment">
              <property name="font">
               <font>
                <pointsize>10</pointsize>
               </font>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Add your comment here, this can be a date or any information useful for this profile&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="accessibleDescription">
               <string/>
@@ -399,6 +408,9 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
                <pointsize>10</pointsize>
               </font>
              </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enable/disable history&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="styleSheet">
               <string notr="true"/>
              </property>
@@ -423,6 +435,9 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
                <pointsize>10</pointsize>
               </font>
              </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enable/disable verbose output in the history&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="text">
               <string>Verbose output</string>
              </property>
@@ -438,6 +453,9 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
                <pointsize>10</pointsize>
               </font>
              </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Activate/deactivate the tool tips&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="text">
               <string>Enable tool tips</string>
              </property>
@@ -449,6 +467,9 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
               <font>
                <pointsize>10</pointsize>
               </font>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;If checked the history will be saved into files, this will use resources in your drive&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="text">
               <string>Dump history to file</string>
@@ -529,6 +550,9 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                <pointsize>10</pointsize>
               </font>
              </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enable/disable speech to read messages&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="text">
               <string>Enable speech</string>
              </property>
@@ -557,31 +581,103 @@ QPushButton:disabled{ background-color: #CCCCCC; }
            <string>PPC1</string>
           </property>
           <layout class="QGridLayout" name="gridLayout_7">
-           <item row="1" column="1">
-            <widget class="QSpinBox" name="spinBox_PPC1filterSize">
+           <item row="3" column="0">
+            <widget class="QCheckBox" name="checkBox_TTLtest">
+             <property name="minimumSize">
+              <size>
+               <width>170</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;High/low flag for synchronization in the PPC1 api&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>High/low</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QCheckBox" name="checkBox_enablePPC1filter">
+             <property name="minimumSize">
+              <size>
+               <width>170</width>
+               <height>0</height>
+              </size>
+             </property>
              <property name="maximumSize">
               <size>
-               <width>100</width>
+               <width>130</width>
                <height>16777215</height>
               </size>
              </property>
              <property name="font">
               <font>
-               <pointsize>11</pointsize>
+               <pointsize>10</pointsize>
               </font>
              </property>
-             <property name="minimum">
-              <number>1</number>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enable data filtering in PPC1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
-             <property name="maximum">
-              <number>200</number>
-             </property>
-             <property name="value">
-              <number>10</number>
+             <property name="text">
+              <string>Enable filter</string>
              </property>
             </widget>
            </item>
-           <item row="2" column="1">
+           <item row="1" column="0">
+            <widget class="QCheckBox" name="checkBox_enablePPC1verboseOut">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>170</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enable verbose output for the PPC1 api&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>Verbose</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0" colspan="4">
+            <widget class="QCheckBox" name="checkBox_useSetPoint">
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Use set point or default value to calculate increments in the delivery zone control&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>Use set point / default values</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
             <widget class="QSpinBox" name="spinBox_PPC1_sync_timeout">
              <property name="maximumSize">
               <size>
@@ -594,6 +690,9 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                <pointsize>11</pointsize>
               </font>
              </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set synchronization time out in the PPC1 api&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="minimum">
               <number>1</number>
              </property>
@@ -605,44 +704,11 @@ QPushButton:disabled{ background-color: #CCCCCC; }
              </property>
             </widget>
            </item>
-           <item row="2" column="2">
-            <widget class="QLabel" name="label_38">
-             <property name="font">
-              <font>
-               <pointsize>10</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>Sync timeout (sec)</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="2">
-            <widget class="QLabel" name="label_3">
-             <property name="font">
-              <font>
-               <pointsize>10</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>Filter window size</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="0">
-            <widget class="QCheckBox" name="checkBox_TTLtest">
-             <property name="font">
-              <font>
-               <pointsize>10</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>high/low</string>
-             </property>
-            </widget>
-           </item>
-           <item row="3" column="1">
+           <item row="3" column="3">
             <widget class="QPushButton" name="pushButton_TTLtest">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Run a test for the TTL signal&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="styleSheet">
               <string notr="true"> QPushButton {
      border: 1px solid #8f8f91;
@@ -680,45 +746,66 @@ QPushButton:disabled{ background-color: #CCCCCC; }
              </property>
             </widget>
            </item>
-           <item row="2" column="0">
-            <widget class="QCheckBox" name="checkBox_enablePPC1filter">
+           <item row="3" column="2">
+            <widget class="QLabel" name="label_38">
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>Sync timeout (sec)</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="2" colspan="2">
+            <widget class="QLabel" name="label_3">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>Filter window size</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QSpinBox" name="spinBox_PPC1filterSize">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
              <property name="maximumSize">
               <size>
-               <width>130</width>
+               <width>100</width>
                <height>16777215</height>
               </size>
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>11</pointsize>
               </font>
              </property>
-             <property name="text">
-              <string>Enable filter</string>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Change the filter size, low values will result is high-reactive pressures/vacuum values though less accurate, high value will result in slow variation of measurement but more accurate in the long range &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
-            </widget>
-           </item>
-           <item row="1" column="0">
-            <widget class="QCheckBox" name="checkBox_enablePPC1verboseOut">
-             <property name="font">
-              <font>
-               <pointsize>10</pointsize>
-              </font>
+             <property name="minimum">
+              <number>1</number>
              </property>
-             <property name="text">
-              <string>Verbose</string>
+             <property name="maximum">
+              <number>200</number>
              </property>
-            </widget>
-           </item>
-           <item row="0" column="0" colspan="2">
-            <widget class="QCheckBox" name="checkBox_useSetPoint">
-             <property name="font">
-              <font>
-               <pointsize>10</pointsize>
-              </font>
-             </property>
-             <property name="text">
-              <string>use set point / default values</string>
+             <property name="value">
+              <number>10</number>
              </property>
             </widget>
            </item>
@@ -898,6 +985,9 @@ background-color: rgb(255, 255, 255);</string>
                <bold>false</bold>
               </font>
              </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Continuous flow of solution (pulse time is ignored)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="layoutDirection">
               <enum>Qt::LeftToRight</enum>
              </property>
@@ -990,6 +1080,9 @@ background-color: rgb(255, 255, 255);</string>
                <bold>false</bold>
               </font>
              </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Continuous flow of solution (pulse time is ignored)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="layoutDirection">
               <enum>Qt::LeftToRight</enum>
              </property>
@@ -1079,6 +1172,12 @@ background-color: rgb(255, 255, 255);</string>
                <bold>false</bold>
               </font>
              </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Solution volume in well 1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="whatsThis">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Solution volume in well 1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="styleSheet">
               <string notr="true"/>
              </property>
@@ -1114,6 +1213,9 @@ background-color: rgb(255, 255, 255);</string>
                <bold>false</bold>
               </font>
              </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Name of the solution in the well 1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="accessibleDescription">
               <string/>
              </property>
@@ -1132,6 +1234,9 @@ background-color: rgb(255, 255, 255);</string>
                <width>0</width>
                <height>0</height>
               </size>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Change colour to the corresponding solution in the interface&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="styleSheet">
               <string notr="true">QSlider::groove:horizontal {
@@ -1245,6 +1350,12 @@ border-radius: 4px;
                <bold>false</bold>
               </font>
              </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Solution volume in well 2&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="whatsThis">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Solution volume in well 2&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="suffix">
               <string>  uL</string>
              </property>
@@ -1265,6 +1376,9 @@ border-radius: 4px;
                <bold>false</bold>
               </font>
              </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Solution volume in well 3&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="suffix">
               <string>  uL</string>
              </property>
@@ -1283,6 +1397,9 @@ border-radius: 4px;
                <width>0</width>
                <height>0</height>
               </size>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Change colour to the corresponding solution in the interface&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="styleSheet">
               <string notr="true">QSlider::groove:horizontal {
@@ -1362,6 +1479,9 @@ border-radius: 4px;
                <bold>false</bold>
               </font>
              </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Name of the solution in the well 2&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="accessibleDescription">
               <string/>
              </property>
@@ -1405,6 +1525,9 @@ border-radius: 4px;
                <bold>false</bold>
               </font>
              </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Solution volume in well 4&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="suffix">
               <string>  uL</string>
              </property>
@@ -1431,6 +1554,9 @@ border-radius: 4px;
                <bold>false</bold>
               </font>
              </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Name of the solution in the well 3&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="accessibleDescription">
               <string/>
              </property>
@@ -1451,6 +1577,9 @@ border-radius: 4px;
                <bold>false</bold>
               </font>
              </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Continuous flow of solution (pulse time is ignored)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="layoutDirection">
               <enum>Qt::LeftToRight</enum>
              </property>
@@ -1469,6 +1598,9 @@ border-radius: 4px;
                <width>0</width>
                <height>0</height>
               </size>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Change colour to the corresponding solution in the interface&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="styleSheet">
               <string notr="true">QSlider::groove:horizontal {
@@ -1571,6 +1703,9 @@ border-radius: 4px;
                <bold>false</bold>
               </font>
              </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Name of the solution in the well 4&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="accessibleDescription">
               <string/>
              </property>
@@ -1604,6 +1739,9 @@ border-radius: 4px;
                <weight>50</weight>
                <bold>false</bold>
               </font>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Continuous flow of solution (pulse time is ignored)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="layoutDirection">
               <enum>Qt::LeftToRight</enum>
@@ -1708,6 +1846,9 @@ background-color: rgb(255, 255, 255);</string>
                <pointsize>-1</pointsize>
               </font>
              </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Empty waste&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="styleSheet">
               <string notr="true"> QPushButton {
      border: 1px solid #8f8f91;
@@ -1752,6 +1893,9 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                <width>0</width>
                <height>0</height>
               </size>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Change colour to the corresponding solution in the interface&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="styleSheet">
               <string notr="true">QSlider::groove:horizontal {
@@ -1818,6 +1962,9 @@ border-radius: 4px;
            </item>
            <item row="5" column="1" colspan="3">
             <widget class="QPushButton" name="pushButton_refillSolution">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Refill the solution wells&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="styleSheet">
               <string notr="true"> QPushButton {
      border: 1px solid #8f8f91;
@@ -2109,6 +2256,9 @@ background-color: rgb(255, 255, 255);</string>
                <pointsize>10</pointsize>
               </font>
              </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Max possible value for Pon pressure in PPC1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="maximum">
               <number>1000</number>
              </property>
@@ -2173,6 +2323,9 @@ background-color: rgb(255, 255, 255);</string>
                <pointsize>10</pointsize>
               </font>
              </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Max possible value for Poff pressure in PPC1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="maximum">
               <number>1000</number>
              </property>
@@ -2199,6 +2352,9 @@ background-color: rgb(255, 255, 255);</string>
               <font>
                <pointsize>10</pointsize>
               </font>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Default operational value for Pon pressure in PPC1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="maximum">
               <number>450</number>
@@ -2227,6 +2383,9 @@ background-color: rgb(255, 255, 255);</string>
                <pointsize>10</pointsize>
               </font>
              </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Default operational value for Poff pressure in PPC1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="maximum">
               <number>450</number>
              </property>
@@ -2253,6 +2412,9 @@ background-color: rgb(255, 255, 255);</string>
               <font>
                <pointsize>10</pointsize>
               </font>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Default operational value for Vswitch vacuum in PPC1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="minimum">
               <number>-300</number>
@@ -2284,6 +2446,9 @@ background-color: rgb(255, 255, 255);</string>
                <pointsize>10</pointsize>
               </font>
              </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Default operational value for Vrecirc vacuum in PPC1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="minimum">
               <number>-300</number>
              </property>
@@ -2310,6 +2475,9 @@ background-color: rgb(255, 255, 255);</string>
               <font>
                <pointsize>10</pointsize>
               </font>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Max possible value for Vrecirc vacuum in PPC1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="minimum">
               <number>-1000</number>
@@ -2346,6 +2514,9 @@ background-color: rgb(255, 255, 255);</string>
               <font>
                <pointsize>10</pointsize>
               </font>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Min possible value for Vrecirc vacuum in PPC1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="minimum">
               <number>-1000</number>
@@ -2386,6 +2557,9 @@ background-color: rgb(255, 255, 255);</string>
                <pointsize>10</pointsize>
               </font>
              </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Min possible value for Poff pressure in PPC1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="maximum">
               <number>1000</number>
              </property>
@@ -2423,6 +2597,9 @@ background-color: rgb(255, 255, 255);</string>
                <pointsize>10</pointsize>
               </font>
              </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Min possible value for Pon pressure in PPC1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="maximum">
               <number>1000</number>
              </property>
@@ -2443,6 +2620,9 @@ background-color: rgb(255, 255, 255);</string>
               <font>
                <pointsize>10</pointsize>
               </font>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Max possibile value for Vswitch vacuum in PPC1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="minimum">
               <number>-1000</number>
@@ -2468,6 +2648,9 @@ background-color: rgb(255, 255, 255);</string>
                <pointsize>10</pointsize>
               </font>
              </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Min possible value for Vswitch vacuum in PPC1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="minimum">
               <number>-1000</number>
              </property>
@@ -2491,6 +2674,9 @@ background-color: rgb(255, 255, 255);</string>
               <font>
                <pointsize>10</pointsize>
               </font>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Vswitch vacuum value for preset 1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="minimum">
               <number>-300</number>
@@ -2517,6 +2703,9 @@ background-color: rgb(255, 255, 255);</string>
                <weight>50</weight>
                <bold>false</bold>
               </font>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pon pressure value for preset 1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="maximum">
               <number>450</number>
@@ -2557,6 +2746,9 @@ background-color: rgb(255, 255, 255);</string>
                <pointsize>10</pointsize>
               </font>
              </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Poff pressure value for preset 1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="maximum">
               <number>450</number>
              </property>
@@ -2577,6 +2769,9 @@ background-color: rgb(255, 255, 255);</string>
               <font>
                <pointsize>10</pointsize>
               </font>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Vrecirc vacuum value for preset 2&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="minimum">
               <number>-300</number>
@@ -2602,6 +2797,9 @@ background-color: rgb(255, 255, 255);</string>
                <pointsize>10</pointsize>
               </font>
              </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Poff pressure value for preset 2&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="maximum">
               <number>450</number>
              </property>
@@ -2622,6 +2820,9 @@ background-color: rgb(255, 255, 255);</string>
               <font>
                <pointsize>10</pointsize>
               </font>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Vswitch vacuum value for preset 2&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="minimum">
               <number>-300</number>
@@ -2647,6 +2848,9 @@ background-color: rgb(255, 255, 255);</string>
                <pointsize>10</pointsize>
               </font>
              </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pon pressure value for preset 2&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="maximum">
               <number>450</number>
              </property>
@@ -2667,6 +2871,9 @@ background-color: rgb(255, 255, 255);</string>
               <font>
                <pointsize>10</pointsize>
               </font>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Vrecirc vacuum value for preset 1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="minimum">
               <number>-300</number>
@@ -2710,6 +2917,9 @@ background-color: rgb(255, 255, 255);</string>
                <pointsize>10</pointsize>
               </font>
              </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pon pressure value for preset 3&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="maximum">
               <number>450</number>
              </property>
@@ -2749,6 +2959,9 @@ background-color: rgb(255, 255, 255);</string>
                <pointsize>10</pointsize>
               </font>
              </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Poff pressure value for preset 3&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="maximum">
               <number>450</number>
              </property>
@@ -2769,6 +2982,9 @@ background-color: rgb(255, 255, 255);</string>
               <font>
                <pointsize>10</pointsize>
               </font>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Vswitch vacuum value for preset 3&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="minimum">
               <number>-300</number>
@@ -2793,6 +3009,9 @@ background-color: rgb(255, 255, 255);</string>
               <font>
                <pointsize>10</pointsize>
               </font>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Vrecirc vacuum value for preset 3&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="minimum">
               <number>-300</number>
@@ -2862,6 +3081,9 @@ background-color: rgb(255, 255, 255);</string>
                <weight>50</weight>
                <bold>false</bold>
               </font>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Base zone size increment/decrement&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="suffix">
               <string notr="true"> %</string>
@@ -2936,6 +3158,9 @@ background-color: rgb(255, 255, 255);</string>
                <bold>false</bold>
               </font>
              </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Flow speed base increment/decrement&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="suffix">
               <string notr="true"> %</string>
              </property>
@@ -2981,6 +3206,9 @@ background-color: rgb(255, 255, 255);</string>
                <weight>50</weight>
                <bold>false</bold>
               </font>
+             </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Base vacuum increment/decrement&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="suffix">
               <string notr="true"> %</string>
@@ -3743,6 +3971,9 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
                <pointsize>-1</pointsize>
               </font>
              </property>
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Rescan serial port to detect and update the list of connected devices&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
              <property name="styleSheet">
               <string notr="true"> QPushButton {
      border: 1px solid #8f8f91;
@@ -3843,6 +4074,9 @@ QPushButton:disabled{ background-color: #CCCCCC; }
    <property name="text">
     <string>General</string>
    </property>
+   <property name="toolTip">
+    <string>General settings</string>
+   </property>
   </action>
   <action name="actionSolution">
    <property name="checkable">
@@ -3856,7 +4090,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
     <string>Solutions</string>
    </property>
    <property name="toolTip">
-    <string>Solution</string>
+    <string>Solution settings</string>
    </property>
   </action>
   <action name="actionPressure">
@@ -3881,6 +4115,9 @@ QPushButton:disabled{ background-color: #CCCCCC; }
    </property>
    <property name="text">
     <string>Communication</string>
+   </property>
+   <property name="toolTip">
+    <string>Serial port communication setting</string>
    </property>
   </action>
  </widget>

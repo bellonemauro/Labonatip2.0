@@ -521,7 +521,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                          </size>
                         </property>
                         <property name="toolTip">
-                         <string>Vacuum percentage</string>
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Vacuum current percentage&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                         </property>
                         <property name="frameShape">
                          <enum>QFrame::NoFrame</enum>
@@ -839,7 +839,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                          </size>
                         </property>
                         <property name="toolTip">
-                         <string>Droplet size percentage</string>
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Droplet size current percentage&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                         </property>
                         <property name="frameShape">
                          <enum>QFrame::NoFrame</enum>
@@ -914,7 +914,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                          </size>
                         </property>
                         <property name="toolTip">
-                         <string>Flow speed percentage</string>
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Flow speed current percentage&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                         </property>
                         <property name="frameShape">
                          <enum>QFrame::NoFrame</enum>
@@ -1083,7 +1083,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                          </size>
                         </property>
                         <property name="toolTip">
-                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Starts the last protocol loaded in the &lt;span style=&quot; font-style:italic;&quot;&gt;Editor&lt;/span&gt; window&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Start the last protocol loaded in the &lt;span style=&quot; font-style:italic;&quot;&gt;Editor&lt;/span&gt; window&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                         </property>
                         <property name="whatsThis">
                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Run macro runs the macro that can be loaded in the tools window&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -1115,7 +1115,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                          </size>
                         </property>
                         <property name="toolTip">
-                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sets all the values of the delivery zone back to 100 %&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set all the values of the delivery zone back to 100 %&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                         </property>
                         <property name="whatsThis">
                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Operational mode button, it runs the following commands: &lt;br/&gt;&lt;br/&gt;allOff()&lt;br/&gt;setVswitch(-115)&lt;br/&gt;setVrecirc(-115)&lt;br/&gt;sleep(5)&lt;br/&gt;setPoff(21)&lt;br/&gt;setPon(190)&lt;br/&gt;
@@ -1151,7 +1151,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                          </size>
                         </property>
                         <property name="toolTip">
-                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sets all the delivery zone value to 0 % and depressurizes the system&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set all the delivery zone value to 0 % and depressurizes the system&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                         </property>
                         <property name="whatsThis">
                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Stop button, it runs the following commands: &lt;br/&gt;&lt;br/&gt;
@@ -1185,7 +1185,7 @@ closeAllValves()&lt;br/&gt;
                          </size>
                         </property>
                         <property name="toolTip">
-                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Initiates the preparation of the Biopen system for operation&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Initiate the preparation of the Biopen system for operation&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                         </property>
                         <property name="styleSheet">
                          <string notr="true"/>
@@ -1271,7 +1271,7 @@ closeAllValves()&lt;br/&gt;
                          </size>
                         </property>
                         <property name="toolTip">
-                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Sets all the delivery zone values to a holding level&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set all the delivery zone values to a holding level&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                         </property>
                         <property name="whatsThis">
                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Shutdown button, it runs the following commands: &lt;br/&gt;&lt;br/&gt;
@@ -2583,7 +2583,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                           </size>
                          </property>
                          <property name="toolTip">
-                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Start the flow of solution, press again to stop.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Start the flow of solution, press again to stop.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                          </property>
                          <property name="whatsThis">
                           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pump solution 1&lt;br/&gt;&lt;br/&gt;The solutions in the well 1 will be released &lt;br/&gt;for the &lt;span style=&quot; font-style:italic;&quot;&gt;t&lt;/span&gt; seconds, expressed in the field delivery time. &lt;/p&gt;&lt;p&gt;Push again to stop the flow.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -2623,7 +2623,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                           </size>
                          </property>
                          <property name="toolTip">
-                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Start the flow of solution, press again to stop.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Start the flow of solution, press again to stop.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                          </property>
                          <property name="whatsThis">
                           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pump solution 2&lt;br/&gt;&lt;br/&gt;The solutions in the well 1 will be released &lt;br/&gt;for the &lt;span style=&quot; font-style:italic;&quot;&gt;t&lt;/span&gt; seconds, expressed in the field delivery time. &lt;/p&gt;&lt;p&gt;Push again to stop the flow.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -2663,7 +2663,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                           </size>
                          </property>
                          <property name="toolTip">
-                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Start the flow of solution, press again to stop.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Start the flow of solution, press again to stop.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                          </property>
                          <property name="whatsThis">
                           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pump solution 3&lt;br/&gt;&lt;br/&gt;The solutions in the well 1 will be released &lt;br/&gt;for the &lt;span style=&quot; font-style:italic;&quot;&gt;t&lt;/span&gt; seconds, expressed in the field delivery time. &lt;/p&gt;&lt;p&gt;Push again to stop the flow.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -2709,7 +2709,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                           </font>
                          </property>
                          <property name="toolTip">
-                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Start the flow of solution, press again to stop.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Start the flow of solution, press again to stop.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                          </property>
                          <property name="whatsThis">
                           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pump solution 4&lt;br/&gt;&lt;br/&gt;The solutions in the well 1 will be released &lt;br/&gt;for the &lt;span style=&quot; font-style:italic;&quot;&gt;t&lt;/span&gt; seconds, expressed in the field delivery time. &lt;/p&gt;&lt;p&gt;Push again to stop the flow.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -3271,6 +3271,9 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                        <height>40</height>
                       </size>
                      </property>
+                     <property name="toolTip">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Add a new loop&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
                      <property name="text">
                       <string/>
                      </property>
@@ -3333,7 +3336,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                       <bool>true</bool>
                      </property>
                      <property name="toolTip">
-                      <string>duplicate command</string>
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Duplicate command&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
                      <property name="statusTip">
                       <string>duplicate command</string>
@@ -3438,7 +3441,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                       </font>
                      </property>
                      <property name="toolTip">
-                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Show undo stack&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Undo command&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
                      <property name="statusTip">
                       <string>Clear all commands</string>
@@ -3487,7 +3490,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                       </font>
                      </property>
                      <property name="toolTip">
-                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Show undo stack&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Redo command&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
                      <property name="statusTip">
                       <string>Clear all commands</string>
@@ -3606,7 +3609,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
               </size>
              </property>
              <property name="toolTip">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Protocol progress indicator 0 - 100 %&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Protocol progress indicator 0 - 100%&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="value">
               <number>0</number>
@@ -3657,7 +3660,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
               </size>
              </property>
              <property name="toolTip">
-              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Connection indicator &lt;/p&gt;&lt;p&gt; red : PPC-1 not connected &lt;/p&gt;&lt;p&gt; green : PPC-1 connected&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Connection indicator. Red: PPC-1 not connected; Green: PPC-1 connected&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
              <property name="text">
               <string/>
@@ -4053,7 +4056,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                    </size>
                   </property>
                   <property name="toolTip">
-                   <string>Increase/decrease the pressure Poff</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Increase/decrease the pressure channel Poff&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="styleSheet">
                    <string notr="true">QSlider::groove:horizontal {
@@ -4160,8 +4163,8 @@ border-radius: 4px;
                   <property name="font">
                    <font>
                     <pointsize>10</pointsize>
-                    <weight>75</weight>
-                    <bold>true</bold>
+                    <weight>50</weight>
+                    <bold>false</bold>
                    </font>
                   </property>
                   <property name="toolTip">
@@ -4501,7 +4504,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                    </size>
                   </property>
                   <property name="toolTip">
-                   <string>Increase/decrease the vacuum recirculation</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Increase/decrease the vacuum channel Vrecirc&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="styleSheet">
                    <string notr="true">QSlider::groove:horizontal {
@@ -4617,8 +4620,8 @@ border-radius: 4px;
                   <property name="font">
                    <font>
                     <pointsize>10</pointsize>
-                    <weight>75</weight>
-                    <bold>true</bold>
+                    <weight>50</weight>
+                    <bold>false</bold>
                    </font>
                   </property>
                   <property name="toolTip">
@@ -4859,7 +4862,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                    </size>
                   </property>
                   <property name="toolTip">
-                   <string>Increase/decrease the vacuum switch</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Increase/decrease the vacuum channel Vswitch&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="styleSheet">
                    <string notr="true">QSlider::groove:horizontal {
@@ -4957,8 +4960,8 @@ border-radius: 4px;
                   <property name="font">
                    <font>
                     <pointsize>10</pointsize>
-                    <weight>75</weight>
-                    <bold>true</bold>
+                    <weight>50</weight>
+                    <bold>false</bold>
                    </font>
                   </property>
                   <property name="toolTip">
@@ -5219,8 +5222,8 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                   <property name="font">
                    <font>
                     <pointsize>10</pointsize>
-                    <weight>75</weight>
-                    <bold>true</bold>
+                    <weight>50</weight>
+                    <bold>false</bold>
                    </font>
                   </property>
                   <property name="toolTip">
@@ -5296,7 +5299,7 @@ border-top-left-radius: 5px;
                    </font>
                   </property>
                   <property name="toolTip">
-                   <string>Increase/decrease the pressure Pon</string>
+                   <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Increase/decrease the pressure channel Pon&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                   <property name="styleSheet">
                    <string notr="true">QSlider::groove:horizontal {
@@ -5597,7 +5600,7 @@ border-radius: 4px;
                 </font>
                </property>
                <property name="toolTip">
-                <string>Fine tuning: single step decrement</string>
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Reset pressures and vacuum values to the pre-saved setting number 2&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
                <property name="styleSheet">
                 <string notr="true">QGroupBox { 
@@ -5687,6 +5690,9 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                  <pointsize>11</pointsize>
                 </font>
                </property>
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Save the current pressures and vacuum value to preset 2&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
                <property name="styleSheet">
                 <string notr="true">QGroupBox { 
      border: 2px solid  rgb(200, 200, 200); ; 
@@ -5754,7 +5760,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                 </font>
                </property>
                <property name="toolTip">
-                <string>Fine tuning: single step decrement</string>
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Reset pressures and vacuum values to the pre-saved setting number 3&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
                <property name="styleSheet">
                 <string notr="true">QGroupBox { 
@@ -5832,7 +5838,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                 </font>
                </property>
                <property name="toolTip">
-                <string>Fine tuning: single step decrement</string>
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Reset pressures and vacuum values to the pre-saved setting number 1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
                <property name="styleSheet">
                 <string notr="true">QGroupBox { 
@@ -5909,6 +5915,9 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                  <pointsize>11</pointsize>
                 </font>
                </property>
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Save the current pressures and vacuum value to preset 1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               </property>
                <property name="styleSheet">
                 <string notr="true">QGroupBox { 
      border: 2px solid  rgb(200, 200, 200); ; 
@@ -5974,6 +5983,9 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                 <font>
                  <pointsize>11</pointsize>
                 </font>
+               </property>
+               <property name="toolTip">
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Save the current pressures and vacuum value to preset 1&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
                <property name="styleSheet">
                 <string notr="true">QGroupBox { 
@@ -6363,7 +6375,7 @@ QTreeView::item:selected:!active {
              <item row="10" column="2">
               <widget class="QPushButton" name="pushButton_cleanHistory">
                <property name="toolTip">
-                <string>Saving history uses resources in your drive, /nyou can clean history by removing all the files in the history folder</string>
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Saving history uses resources in your drive, you can save space by cleaning the history. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
                <property name="styleSheet">
                 <string notr="true"> QPushButton {
@@ -6520,7 +6532,7 @@ p, li { white-space: pre-wrap; }
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>222</width>
+                  <width>239</width>
                   <height>3146</height>
                  </rect>
                 </property>
@@ -8884,6 +8896,9 @@ QTreeView::item:selected:!active {
                        <height>26</height>
                       </size>
                      </property>
+                     <property name="toolTip">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Current protocol folder&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     </property>
                      <property name="text">
                       <string>protocol path</string>
                      </property>
@@ -8896,6 +8911,9 @@ QTreeView::item:selected:!active {
                        <width>26</width>
                        <height>26</height>
                       </size>
+                     </property>
+                     <property name="toolTip">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Set current protocol folder&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
                      <property name="styleSheet">
                       <string notr="true"> QPushButton {
@@ -8945,6 +8963,9 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                        <width>16777215</width>
                        <height>16777215</height>
                       </size>
+                     </property>
+                     <property name="toolTip">
+                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;List of protocols in the folder&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                      </property>
                      <property name="styleSheet">
                       <string notr="true"/>
@@ -9168,7 +9189,7 @@ click on any object to have quick help
     <string>Load profile</string>
    </property>
    <property name="toolTip">
-    <string>Loads a previously saved profile</string>
+    <string>Load a previously saved profile</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>
@@ -9184,7 +9205,7 @@ click on any object to have quick help
     <string>Save profile</string>
    </property>
    <property name="toolTip">
-    <string>Allows to save the current profile to a configuration file</string>
+    <string>Save the current profile to a configuration file</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+S</string>
@@ -9200,7 +9221,7 @@ click on any object to have quick help
     <string>Tools</string>
    </property>
    <property name="toolTip">
-    <string>Opens a new window to setup your preferences</string>
+    <string>Open a new window to set your preferences</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+T</string>
@@ -9222,7 +9243,7 @@ click on any object to have quick help
     <string>Simulation</string>
    </property>
    <property name="toolTip">
-    <string>Simulation mode: when ACTIVE the pump is NOT used</string>
+    <string>Simulation mode: when ACTIVE the PPC1 is NOT used</string>
    </property>
    <property name="shortcut">
     <string>F7</string>
@@ -9260,7 +9281,7 @@ click on any object to have quick help
     <string>Reboot</string>
    </property>
    <property name="toolTip">
-    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Reset the device&lt;br/&gt;&lt;br/&gt; The procedure will take around 30 seconds, &lt;br/&gt; It will be impossible to use the application during the reset process. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    <string>Reset the device. The procedure will take around 30 seconds. It will be impossible to use the application during the reset process.</string>
    </property>
   </action>
   <action name="actionShudown">
@@ -9289,6 +9310,9 @@ click on any object to have quick help
    </property>
    <property name="text">
     <string>Advanced</string>
+   </property>
+   <property name="toolTip">
+    <string>Show the advanced tab</string>
    </property>
    <property name="shortcut">
     <string>&gt;</string>

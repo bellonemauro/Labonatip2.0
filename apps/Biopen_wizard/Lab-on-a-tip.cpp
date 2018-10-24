@@ -80,10 +80,12 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   // this removes the visualization settings (but it will be shown in debug)
 #ifndef _DEBUG
   ui->tabWidget->removeTab(3);
-  ui->stackedWidget_main->setCurrentIndex(0);
-  ui->stackedWidget_indock->setCurrentIndex(0);
   //ui->dockWidget->setMinimumWidth(180);
 #endif
+
+  // make sure that we start from the default window
+  ui->stackedWidget_main->setCurrentIndex(0);
+  ui->stackedWidget_indock->setCurrentIndex(0);
 
   //initialize protocol reader and writer
   m_reader = new protocolReader();
