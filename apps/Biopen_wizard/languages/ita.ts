@@ -4,12 +4,12 @@
 <context>
     <name>Labonatip_GUI</name>
     <message>
-        <source>E&amp;xit</source>
-        <translation>E&amp;sci</translation>
+        <source>Exit</source>
+        <translation>Esci</translation>
     </message>
     <message>
-        <source>&amp;File</source>
-        <translation>&amp;File</translation>
+        <source>File</source>
+        <translation>File</translation>
     </message>
     <message>
         <source>Load profile</source>

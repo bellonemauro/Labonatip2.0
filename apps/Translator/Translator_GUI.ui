@@ -61,8 +61,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>863</width>
-        <height>565</height>
+        <width>859</width>
+        <height>561</height>
        </rect>
       </property>
       <property name="sizePolicy">
@@ -99,7 +99,7 @@
           <widget class="QLineEdit" name="lineEdit_writeData"/>
          </item>
          <item row="3" column="3">
-          <widget class="QPushButton" name="pushButton_ds">
+          <widget class="QPushButton" name="pushButton_save">
            <property name="toolTip">
             <string>Disconnect from the active COM port</string>
            </property>
@@ -107,7 +107,7 @@
             <string>Disconnect from the active COM port</string>
            </property>
            <property name="text">
-            <string>fdfsd</string>
+            <string>Save</string>
            </property>
           </widget>
          </item>
@@ -253,7 +253,7 @@
           </widget>
          </item>
          <item row="3" column="2">
-          <widget class="QPushButton" name="pushButton_ss">
+          <widget class="QPushButton" name="pushButton_open">
            <property name="toolTip">
             <string>Connect to the selected COM port</string>
            </property>
@@ -261,7 +261,7 @@
             <string>Connect to the selected COM port</string>
            </property>
            <property name="text">
-            <string>push</string>
+            <string>Open</string>
            </property>
           </widget>
          </item>
@@ -279,6 +279,16 @@
            <column>
             <property name="text">
              <string notr="true">1</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>2</string>
+            </property>
+           </column>
+           <column>
+            <property name="text">
+             <string>3</string>
             </property>
            </column>
           </widget>

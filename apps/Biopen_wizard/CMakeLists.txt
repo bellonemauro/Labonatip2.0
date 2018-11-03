@@ -155,42 +155,47 @@ elseif(BUILD_QT5)
 	#this allows the executable to encode all the icons 
     QT5_ADD_RESOURCES(UI_RESOURCES_RCC ${myProject_UI_RESOURCES})
 	
-	# this allows the automatic translation from cmake  
-	# step1:
-	# set the output folder we have to run this command, 
-    # see https://stackoverflow.com/questions/44782914/cmake-qt5-add-translation-how-to-specify-the-output-path
-	set_source_files_properties(${myProject_LANGUAGES_TS} PROPERTIES OUTPUT_LOCATION ${myProject_LANGUAGES_DIR})
-	
-	#TODO: language files got deleted after clean-build in MSVC !!!! why?
-	
-	# step2: 
-	# create translation files
-	#qt5_create_translation(QT_TRANSLATIONS_FILES ${myProject_LANGUAGES_DIR} ${myProject_LANGUAGES_TS})
-	#TODO: when qt5_create_translation if active, visual studio clean-build delete automatically TS files
-	#      this is not possible to happen
-	SET (TRANSLATION_GENERATOR "${QT5_BINARY_DIR}/lrelease.exe")
-	if ( ENABLE_verbose )
-		message (STATUS "${PROJECT_NAME} MESSAGE: myProject_LANGUAGES_TS  :: ${myProject_LANGUAGES_TS} ")
-		message (STATUS "${PROJECT_NAME} MESSAGE: myProject_LANGUAGES_DIR  :: ${myProject_LANGUAGES_DIR} ")
-		message (STATUS "${PROJECT_NAME} MESSAGE: QT_TRANSLATIONS_FILES  :: ${QT_TRANSLATIONS_FILES} ")	
-		message (STATUS "${TRANSLATION_GENERATOR} MESSAGE: TRANSLATION_GENERATOR  :: ${TRANSLATION_GENERATOR} ")
-	endif ( ENABLE_verbose )
 
-	# step 3 
-	# run the command  " lrelease.exe _file.ts _file.qm " for each ts file 
-	# TODO: this is to be checked in linux
-	if(WIN32)
-	set (idx 0)
-	  FOREACH(F1 ${myProject_LANGUAGES_TS})
-		list (GET QT_TRANSLATIONS_FILES ${idx} F2)
-		execute_process(COMMAND ${TRANSLATION_GENERATOR} ${F1} ${F2})
+	option(BUILD_TRANSLATION "Build translation from ts files" "OFF") #this will be removed as qt4 will be no longer supported
+    if (BUILD_TRANSLATION)
+		# this allows the automatic translation from cmake  
+		# step1:
+		# set the output folder we have to run this command, 
+		# see https://stackoverflow.com/questions/44782914/cmake-qt5-add-translation-how-to-specify-the-output-path
+		set_source_files_properties(${myProject_LANGUAGES_TS} PROPERTIES OUTPUT_LOCATION ${myProject_LANGUAGES_DIR})
 		
+		#TODO: language files got deleted after clean-build in MSVC !!!! why?
+		
+		# step2: 
+		# create translation files
+		#qt5_create_translation(QT_TRANSLATIONS_FILES ${myProject_LANGUAGES_DIR} ${myProject_LANGUAGES_TS})
+		#TODO: when qt5_create_translation if active, visual studio clean-build delete automatically TS files
+		#      this is not possible to happen
+		SET (TRANSLATION_GENERATOR "${QT5_BINARY_DIR}/lrelease.exe")
 		if ( ENABLE_verbose )
-			message (STATUS " Added custom command ::: ${TRANSLATION_GENERATOR} ${F1} ${F2} ")
-		endif ( ENABLE_verbose )	  
-		MATH(EXPR idx "${idx}+1")
-	  ENDFOREACH(F1)	
-	endif()		
+			message (STATUS "${PROJECT_NAME} MESSAGE: myProject_LANGUAGES_TS  :: ${myProject_LANGUAGES_TS} ")
+			message (STATUS "${PROJECT_NAME} MESSAGE: myProject_LANGUAGES_DIR  :: ${myProject_LANGUAGES_DIR} ")
+			message (STATUS "${PROJECT_NAME} MESSAGE: QT_TRANSLATIONS_FILES  :: ${QT_TRANSLATIONS_FILES} ")	
+			message (STATUS "${TRANSLATION_GENERATOR} MESSAGE: TRANSLATION_GENERATOR  :: ${TRANSLATION_GENERATOR} ")
+		endif ( ENABLE_verbose )
+
+		# step 3 
+		# run the command  " lrelease.exe _file.ts _file.qm " for each ts file 
+		# TODO: this is to be checked in linux
+		if(WIN32)
+		set (idx 0)
+		  FOREACH(F1 ${myProject_LANGUAGES_TS})
+			list (GET QT_TRANSLATIONS_FILES ${idx} F2)
+			execute_process(COMMAND ${TRANSLATION_GENERATOR} ${F1} ${F2})
+			
+			if ( ENABLE_verbose )
+				message (STATUS " Added custom command ::: ${TRANSLATION_GENERATOR} ${F1} ${F2} ")
+			endif ( ENABLE_verbose )	  
+			MATH(EXPR idx "${idx}+1")
+		  ENDFOREACH(F1)	
+		endif()
+	
+	endif (BUILD_TRANSLATION)
 	
 	if ( ENABLE_verbose )
 		message (STATUS "${PROJECT_NAME} MESSAGE: myProject_FORMS_HEADERS  :: ${myProject_FORMS_HEADERS} ")

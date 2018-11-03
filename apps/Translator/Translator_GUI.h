@@ -12,7 +12,8 @@
 #define TRANSLATOR_GUI_H_
 
 #include "ui_Translator_GUI.h"
-
+#include "XmlTranslationReader.h"
+#include "XmlTranslationWriter.h"
 
 
 class Translator_GUI;
@@ -35,8 +36,11 @@ public:
 	
 private slots:
 
-	void slot1(){}
+	bool saveXml();
 	
+	bool openXml();
+
+
 private:
 	bool local;
 
