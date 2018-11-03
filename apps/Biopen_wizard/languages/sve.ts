@@ -37,7 +37,7 @@
     </message>
     <message>
         <source>Reset</source>
-        <translation>Reset</translation>
+        <translation>Återställ</translation>
     </message>
     <message>
         <source>Reboot</source>
@@ -97,7 +97,7 @@
     </message>
     <message>
         <source>Flow speed</source>
-        <translation>Flödestakt</translation>
+        <translation>Flödeshastighet</translation>
     </message>
     <message>
         <source>Vacuum</source>
@@ -173,7 +173,7 @@
     </message>
     <message>
         <source>Ok</source>
-        <translation>Okey</translation>
+        <translation>Ok</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -185,7 +185,7 @@
     </message>
     <message>
         <source>Simulation time</source>
-        <translation>Simulationstid</translation>
+        <translation>Simuleringstid</translation>
     </message>
     <message>
         <source>Command history</source>
@@ -233,7 +233,7 @@
     </message>
     <message>
         <source>Ratio</source>
-        <translation>Ratio</translation>
+        <translation>Förhållande</translation>
     </message>
     <message>
         <source>Flow rate 1 ( nL/s )</source>
@@ -321,7 +321,7 @@
     </message>
     <message>
         <source>PPC1 STATUS: UNSTABLE Connection  </source>
-        <translation>PPC1 STATUS: OSTADIG ansluten  </translation>
+        <translation>PPC1 STATUS: OSTADIG anslutning  </translation>
     </message>
     <message>
         <source>No protocol running  </source>
@@ -345,11 +345,11 @@
     </message>
     <message>
         <source>Unable to connect to PPC1</source>
-        <translation>Det gick inte att ansluta till PPC1</translation>
+        <translation>Gick ej att ansluta till PPC1</translation>
     </message>
     <message>
         <source>Unable to connect to PPC1 twice</source>
-        <translation>Det gick inte att ansluta till PPC1, andra försöket</translation>
+        <translation>Gick ej att ansluta till PPC1 två gånger</translation>
     </message>
     <message>
         <source>Please, check cables and settings and press Ok</source>
@@ -469,7 +469,7 @@
     </message>
     <message>
         <source>Please, check for out of bound values</source>
-        <translation>Please, check for out of bound values</translation>
+        <translation>Vänligen, leta efter värden utanför gränserna</translation>
     </message>
     <message>
         <source>This operation will take </source>
@@ -481,7 +481,7 @@
     </message>
     <message>
         <source>Ask message command</source>
-        <translation>Fråga meddelande, kontroll</translation>
+        <translation>Fråga meddelande kontroll</translation>
     </message>
     <message>
         <source> No protocol loaded : </source>
@@ -508,7 +508,7 @@
         <translation> ----- återstående tid,  </translation>
     </message>
     <message>
-        <source>Pulse time remaining: </source>
+        <source>Pulse time remaining:</source>
         <translation>Återstående pulstid: </translation>
     </message>
     <message>
@@ -517,7 +517,7 @@
     </message>
     <message>
         <source>Warning: the solution is running out</source>
-        <translation>Varning: lösningen avslutar</translation>
+        <translation>Varning: lösningen tar snart slut</translation>
     </message>
     <message>
         <source>Warning: the waste is full</source>
@@ -525,7 +525,7 @@
     </message>
     <message>
         <source>Operation cannot be done</source>
-        <translation>Operation kan inte göras</translation>
+        <translation>Operationen kan inte utföras</translation>
     </message>
     <message>
         <source>A protocol is running, stop the protocol first</source>
@@ -533,11 +533,11 @@
     </message>
     <message>
         <source>Lost connection with PPC1</source>
-        <translation>Förlorad anslutning med PPC1</translation>
+        <translation>Förlorad anslutningen med PPC1</translation>
     </message>
     <message>
         <source>swapping to simulation mode</source>
-        <translation>byta till simuleringsläge</translation>
+        <translation>byt till simuleringsläge</translation>
     </message>
     <message>
         <source>Current step time left : </source>
@@ -553,7 +553,7 @@
     </message>
     <message>
         <source>Commander</source>
-        <translation>Commander</translation>
+        <translation>Kontrollpanel</translation>
     </message>
     <message>
         <source>Charts</source>
@@ -597,7 +597,7 @@
     </message>
     <message>
         <source>Protocol duration : </source>
-        <translation>Protokoll-duration : </translation>
+        <translation>Protokoll-varaktighet : </translation>
     </message>
     <message>
         <source>Please check your settings and try again</source>
@@ -617,19 +617,19 @@
     </message>
     <message>
         <source>Do you want to overwrite?</source>
-        <translation>Vill du åsidosätta?</translation>
+        <translation>Vill du ersätta?</translation>
     </message>
     <message>
-        <source>Yes = overwrite, NO = saveAs, Cancel = do nothing</source>
-        <translation>Ja = åsidosätt, NEJ = spara, Avbryt = gör inget</translation>
+        <source>Yes = overwrite, NO = save As, Cancel = do nothing</source>
+        <translation>Ja = ersätt, NEJ = spara som, Avbryt = gör inget</translation>
     </message>
     <message>
         <source>Do you want to add to the bottom of the protocol?</source>
-        <translation>Vill du lägga till i botten av protokollet?</translation>
+        <translation>Vill du lägga till i slutet av protokollet?</translation>
     </message>
     <message>
         <source>Click NO to clean the workspace and load a new protocol</source>
-        <translation>Klicka på NO för att rengöra arbetsytan och ladda ett nytt protokoll</translation>
+        <translation>Klicka på NEJ för att rengöra arbetsytan och ladda ett nytt protokoll</translation>
     </message>
     <message>
         <source>Select folder</source>
@@ -641,15 +641,15 @@
     </message>
     <message>
         <source>Solution ended, the flow was stopped</source>
-        <translation>Lösningen slutade, flödet avbröts</translation>
+        <translation>Lösningen tog slut, flödet avbröts</translation>
     </message>
     <message>
         <source>A waste well is full and needs to be emptied. Click Ok to continue</source>
-        <translation>A waste well is full and needs to be emptied. Click Ok to continue</translation>
+        <translation>En avfallsbrunn är full och behövs tömmas. Tryck Ok för att frotsätta</translation>
     </message>
     <message>
         <source>PPC1 not connected, TTL test cannot run</source>
-        <translation>PPC1 ej ansluten, TTL testet kan inte köras</translation>
+        <translation>PPC1 ej ansluten, TTL-testet kan inte köras</translation>
     </message>
     <message>
         <source>Fluicell AB information</source>
@@ -840,7 +840,7 @@
     <name>Labonatip_macroRunner</name>
     <message>
         <source>Success</source>
-        <translation>Framgång</translation>
+        <translation>Slutförd</translation>
     </message>
     <message>
         <source>Failed</source>
@@ -924,7 +924,7 @@
     </message>
     <message>
         <source>Empty waste</source>
-        <translation>Empty waste</translation>
+        <translation>Töm avfallet</translation>
     </message>
     <message>
         <source>Refill solutions</source>
@@ -948,7 +948,7 @@
     </message>
     <message>
         <source>Comment</source>
-        <translation>Comment</translation>
+        <translation>Kommentar</translation>
     </message>
     <message>
         <source>Year</source>
@@ -992,7 +992,7 @@
     </message>
     <message>
         <source>Enable tool tips</source>
-        <translation>Råd och tips-På</translation>
+        <translation>Råd och tips - På</translation>
     </message>
     <message>
         <source>Solution settings</source>
@@ -1048,7 +1048,7 @@
     </message>
     <message>
         <source>Flow speed</source>
-        <translation>Flödestakt</translation>
+        <translation>Flödeshastighet</translation>
     </message>
     <message>
         <source>Vacuum</source>
@@ -1056,15 +1056,15 @@
     </message>
     <message>
         <source>Base increments</source>
-        <translation>Inkrement-inställningar</translation>
+        <translation>Öknings-inställningar</translation>
     </message>
     <message>
         <source>Verbose</source>
         <translation>Fullständig</translation>
     </message>
     <message>
-        <source>use set point / default values</source>
-        <translation>use set point / default values</translation>
+        <source>Use set point / default values</source>
+        <translation>Använd utgångsläge / standardvärden</translation>
     </message>
     <message>
         <source>Enable filter</source>
@@ -1184,7 +1184,7 @@
     </message>
     <message>
         <source>This will reset used defined settings and parameters to the factory default values</source>
-        <translation>Denna åtgärd, återställer inställningar och parametrar till fabriksinställningarna</translation>
+        <translation>Denna åtgärd återställer inställningar och parametrar till fabriksinställningarna</translation>
     </message>
     <message>
         <source>Are you sure?</source>
@@ -1206,14 +1206,6 @@
         <source>Apply</source>
         <translation>Tillämpa</translation>
     </message>
-    <message>
-        <source>General settings</source>
-        <translation>General settings</translation>
-    </message>	
-	<message>
-        <source>Solution settings</source>
-        <translation>Solution settings</translation>
-    </message>	
 	<message>
         <source>Pressure settings</source>
         <translation>Pressure settings</translation>
@@ -1327,10 +1319,6 @@
         <translation>Refill the solution wells</translation>
     </message>
 	<message>
-        <source>Empty waste</source>
-        <translation>Empty waste</translation>
-    </message>
-	<message>
         <source>Injection time in seconds</source>
         <translation>Injection time in seconds</translation>
     </message>
@@ -1393,10 +1381,6 @@
 	<message>
         <source>Pon pressure value for preset 1</source>
         <translation>Pon pressure value for preset 1</translation>
-    </message>
-	<message>
-        <source>Poff pressure value for preset 1</source>
-        <translation>Poff pressure value for preset 1</translation>
     </message>
 	<message>
         <source>Poff pressure value for preset 1</source>
@@ -1507,7 +1491,7 @@
     </message>
     <message>
         <source>Help</source>
-        <translation>Hejlp</translation>
+        <translation>Hjälp</translation>
     </message>
     <message>
         <source>Open</source>

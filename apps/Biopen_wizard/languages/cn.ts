@@ -5,19 +5,19 @@
     <name>Labonatip_GUI</name>
     <message>
         <source>E&amp;xit</source>
-        <translation>E&amp;xit</translation>
+        <translation>退出</translation>
     </message>
     <message>
         <source>&amp;File</source>
-        <translation>&amp;File</translation>
+        <translation>文件</translation>
     </message>
     <message>
         <source>Load profile</source>
-        <translation>加载配置文件</translation>
+        <translation>加载配置</translation>
     </message>
     <message>
         <source>Save profile</source>
-        <translation>保存配置文件</translation>
+        <translation>保存配置</translation>
     </message>
     <message>
         <source>Editor</source>
@@ -29,7 +29,7 @@
     </message>
     <message>
         <source>Simulation</source>
-        <translation>仿真</translation>
+        <translation>模拟</translation>
     </message>
     <message>
         <source>Connect</source>
@@ -49,609 +49,609 @@
     </message>
     <message>
         <source>Advanced</source>
-        <translation>高级</translation>
+        <translation>高级选项 </translation>
     </message>
     <message>
         <source>Basic</source>
-        <translation>基本</translation>
+        <translation>基本选项 </translation>
     </message>
     <message>
         <source>Actions</source>
-        <translation>Actions</translation>
+        <translation>操作</translation>
     </message>
     <message>
         <source>User :</source>
-        <translation>User :</translation>
+        <translation>用户 :</translation>
     </message>
     <message>
         <source>ACTIONS</source>
-        <translation>ACTIONS</translation>
+        <translation>操作</translation>
     </message>
     <message>
         <source>New tip</source>
-        <translation>New tip</translation>
+        <translation>新枪头</translation>
     </message>
     <message>
         <source>Operational</source>
-        <translation>Operational</translation>
+        <translation>运行模式</translation>
     </message>
     <message>
         <source>Stop</source>
-        <translation>Stop</translation>
+        <translation>结束</translation>
     </message>
     <message>
         <source>Standby</source>
-        <translation>Standby</translation>
+        <translation>待机</translation>
     </message>
     <message>
         <source>Delivery Zone Control</source>
-        <translation>Delivery Zone Control</translation>
+        <translation>给药区域控制</translation>
     </message>
     <message>
         <source>DELIVERY ZONE CONTROL</source>
-        <translation>DELIVERY ZONE CONTROL</translation>
+        <translation>给药区域控制</translation>
     </message>
     <message>
         <source>Zone size</source>
-        <translation>Zone size</translation>
+        <translation>面积大小</translation>
     </message>
     <message>
         <source>Flow speed</source>
-        <translation>Flow speed</translation>
+        <translation>流速</translation>
     </message>
     <message>
         <source>Vacuum</source>
-        <translation>Vacuum</translation>
+        <translation>负压</translation>
     </message>
     <message>
         <source>Waste</source>
-        <translation>Waste</translation>
+        <translation>废液</translation>
     </message>
     <message>
         <source>full in</source>
-        <translation>full in</translation>
+        <translation>已满</translation>
     </message>
     <message>
         <source>WASTE</source>
-        <translation>WASTE</translation>
+        <translation>废液</translation>
     </message>
     <message>
         <source>Solutions</source>
-        <translation>Solutions</translation>
+        <translation>溶液</translation>
     </message>
     <message>
         <source>SOLUTIONS</source>
-        <translation>SOLUTIONS</translation>
+        <translation>溶液</translation>
     </message>
     <message>
         <source>External</source>
-        <translation>External</translation>
+        <translation>外部</translation>
     </message>
     <message>
         <source>Internal</source>
-        <translation>Internal</translation>
+        <translation>内部</translation>
     </message>
     <message>
         <source>Controls</source>
-        <translation>Controls</translation>
+        <translation>管制</translation>
     </message>
     <message>
         <source>Info</source>
-        <translation>Info</translation>
+        <translation>信息</translation>
     </message>
     <message>
         <source>History</source>
-        <translation>History</translation>
+        <translation>历史记录</translation>
     </message>
     <message>
         <source>Waiting ...</source>
-        <translation>Waiting ...</translation>
+        <translation>等待 ...</translation>
     </message>
     <message>
         <source>Are you sure?</source>
-        <translation>Are you sure?</translation>
+        <translation>你确定吗?</translation>
     </message>
     <message>
         <source>Set as default</source>
-        <translation>Set as default</translation>
+        <translation>设为默认</translation>
     </message>
     <message>
         <source>Operation cancelled</source>
-        <translation>Operation cancelled</translation>
+        <translation>取消操作</translation>
     </message>
     <message>
         <source>No file loaded</source>
-        <translation>No file loaded</translation>
+        <translation>没有文件加载</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation>Yes</translation>
+        <translation>是</translation>
     </message>
     <message>
         <source>No</source>
-        <translation>No</translation>
+        <translation>否</translation>
     </message>
     <message>
         <source>Ok</source>
-        <translation>Ok</translation>
+        <translation>好</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Cancel</translation>
+        <translation>取消</translation>
     </message>
     <message>
         <source>Apply</source>
-        <translation>Apply</translation>
+        <translation>运用</translation>
     </message>
     <message>
         <source>Simulation time</source>
-        <translation>Simulation time</translation>
+        <translation>模拟时间</translation>
     </message>
     <message>
         <source>Command history</source>
-        <translation>Command history</translation>
+        <translation>历史指令记录</translation>
     </message>
     <message>
         <source>Error messages</source>
-        <translation>Error messages</translation>
+        <translation>指令错误</translation>
     </message>
     <message>
         <source>Enable history</source>
-        <translation>Enable history</translation>
+        <translation>启用历史记录</translation>
     </message>
     <message>
         <source>Dump to file</source>
-        <translation>Dump to file</translation>
+        <translation>储存到文档</translation>
     </message>
     <message>
         <source>Verbose output</source>
-        <translation>Verbose output</translation>
+        <translation>输出详情</translation>
     </message>
     <message>
         <source>Clear history</source>
-        <translation>Clear history</translation>
+        <translation>清楚历史记录</translation>
     </message>
     <message>
         <source>Output file path</source>
-        <translation>Output file path</translation>
+        <translation>输出文件路径</translation>
     </message>
     <message>
         <source>Value</source>
-        <translation>Value</translation>
+        <translation>数值</translation>
     </message>
     <message>
         <source>Outflow ( nL/s )</source>
-        <translation>Outflow ( nL/s )</translation>
+        <translation>外流 ( 纳升/秒 )</translation>
     </message>
     <message>
         <source>Inflow recirc ( nL/s )</source>
-        <translation>Inflow recirc ( nL/s )</translation>
+        <translation>外部回流流速 ( 纳升/秒 )</translation>
     </message>
     <message>
         <source>Inflow switch ( nL/s )</source>
-        <translation>Inflow switch ( nL/s )</translation>
+        <translation>内部回流流速 ( 纳升/秒 )</translation>
     </message>
     <message>
         <source>Ratio</source>
-        <translation>Ratio</translation>
+        <translation>比率</translation>
     </message>
     <message>
         <source>Flow rate 1 ( nL/s )</source>
-        <translation>Flow rate 1 ( nL/s )</translation>
+        <translation>流量 1 ( nL/s )</translation>
     </message>
     <message>
         <source>Flow rate 2 ( nL/s )</source>
-        <translation>Flow rate 2 ( nL/s )</translation>
+        <translation>流量 2 ( nL/s )</translation>
     </message>
     <message>
         <source>Flow rate 3 ( nL/s )</source>
-        <translation>Flow rate 3 ( nL/s )</translation>
+        <translation>流量 3 ( nL/s )</translation>
     </message>
     <message>
         <source>Flow rate 4 ( nL/s )</source>
-        <translation>Flow rate 4 ( nL/s )</translation>
+        <translation>流量 4 ( nL/s )</translation>
     </message>
     <message>
         <source>Flow rate 5 ( nL/s )</source>
-        <translation>Flow rate 5 ( nL/s )</translation>
+        <translation>流量 5 ( nL/s )</translation>
     </message>
     <message>
         <source>Flow rate 6 ( nL/s )</source>
-        <translation>Flow rate 6 ( nL/s )</translation>
+        <translation>流量 6 ( nL/s )</translation>
     </message>
     <message>
         <source>Flow rate 7 ( nL/s )</source>
-        <translation>Flow rate 7 ( nL/s )</translation>
+        <translation>流量 7 ( nL/s )</translation>
     </message>
     <message>
         <source>Flow rate 8 ( nL/s )</source>
-        <translation>Flow rate 8 ( nL/s )</translation>
+        <translation>流量 8 ( nL/s )</translation>
     </message>
     <message>
         <source>Volume in well 1 (uL)</source>
-        <translation>Volume in well 1 (uL)</translation>
+        <translation>在微槽 1 中溶液体积 (微升)</translation>
     </message>
     <message>
         <source>Volume in well 2 (uL)</source>
-        <translation>Volume in well 2 (uL)</translation>
+        <translation>在微槽 2 中溶液体积 (微升)</translation>
     </message>
     <message>
         <source>Volume in well 3 (uL)</source>
-        <translation>Volume in well 3 (uL)</translation>
+        <translation>在微槽 3 中溶液体积 (微升)</translation>
     </message>
     <message>
         <source>Volume in well 4 (uL)</source>
-        <translation>Volume in well 4 (uL)</translation>
+        <translation>在微槽 4 中溶液体积 (微升)</translation>
     </message>
     <message>
         <source>Volume in well 5 (uL)</source>
-        <translation>Volume in well 5 (uL)</translation>
+        <translation>在微槽 5 中溶液体积 (微升)</translation>
     </message>
     <message>
         <source>Volume in well 6 (uL)</source>
-        <translation>Volume in well 6 (uL)</translation>
+        <translation>在微槽 6 中溶液体积 (微升)</translation>
     </message>
     <message>
         <source>Volume in well 7 (uL)</source>
-        <translation>Volume in well 7 (uL)</translation>
+        <translation>在微槽 7 中溶液体积 (微升)</translation>
     </message>
     <message>
         <source>Volume in well 8 (uL)</source>
-        <translation>Volume in well 8 (uL)</translation>
+        <translation>在微槽 8 中溶液体积 (微升)</translation>
     </message>
     <message>
         <source>Information</source>
-        <translation>Information</translation>
+        <translation>信息</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Warning</translation>
+        <translation>警报</translation>
     </message>
     <message>
         <source>Error</source>
-        <translation>Error</translation>
+        <translation>故障</translation>
     </message>
     <message>
         <source>PPC1 STATUS: Connected  </source>
-        <translation>PPC1 STATUS: Connected  </translation>
+        <translation>PPC1状态: 连接  </translation>
     </message>
     <message>
         <source>PPC1 STATUS: NOT Connected  </source>
-        <translation>PPC1 STATUS: NOT Connected  </translation>
+        <translation>PPC1状态: 无连接  </translation>
     </message>
 	<message>
         <source>PPC1 STATUS: UNSTABLE Connection  </source>
-        <translation>PPC1 STATUS: UNSTABLE Connection  </translation>
+        <translation>PPC1状态: 不稳定连接  </translation>
     </message>
     <message>
         <source>No protocol running  </source>
-        <translation>No protocol running  </translation>
+        <translation>无流程运行</translation>
     </message>
     <message>
         <source>Disconnect</source>
-        <translation>Disconnect</translation>
+        <translation>断开连接</translation>
     </message>
     <message>
         <source>Cannot save the file</source>
-        <translation>Cannot save the file</translation>
+        <translation>不能保存文件</translation>
     </message>
     <message>
         <source>Cannot load the file</source>
-        <translation>Cannot load the file</translation>
+        <translation>不能加载文件</translation>
     </message>
     <message>
         <source>The program is in simulation mode</source>
-        <translation>The program is in simulation mode</translation>
+        <translation>该程序处于模拟模式</translation>
     </message>
     <message>
         <source>Unable to connect to PPC1</source>
-        <translation>Unable to connect to PPC1</translation>
+        <translation>无法连接到PPC1</translation>
     </message>
     <message>
         <source>Unable to connect to PPC1 twice</source>
-        <translation>Unable to connect to PPC1 twice</translation>
+        <translation>再次无法连接到PPC1</translation>
     </message>
     <message>
         <source>Please, check cables and settings and press Ok</source>
-        <translation>Please, check cables and settings and press Ok</translation>
+        <translation>请检查线路和设置，然后按OK</translation>
     </message>
     <message>
         <source>Automatically identify the connected device?</source>
-        <translation>Automatically identify the connected device?</translation>
+        <translation>自动识别连接的设备？</translation>
     </message>
     <message>
         <source>PPC1 is connected but not running</source>
-        <translation>PPC1 is connected but not running</translation>
+        <translation>连接到PPC1但并不运行</translation>
     </message>
     <message>
         <source>This will stop the PPC1</source>
-        <translation>This will stop the PPC1</translation>
+        <translation>将停止PPC1运行</translation>
     </message>
     <message>
         <source>Unable to stop and disconnect PPC1</source>
-        <translation>Unable to stop and disconnect PPC1</translation>
+        <translation>不能停止和断开与PPC1的连接</translation>
     </message>
     <message>
         <source>Shutdown pressed, this will take 30 seconds, press Ok to continue, cancel to abort</source>
-        <translation>Shutdown pressed, this will take 30 seconds, press Ok to continue, cancel to abort</translation>
+        <translation>按下关机，这将需要 30 秒，按确定继续，取消中止</translation>
     </message>
     <message>
         <source>The pressure is off, waiting for the vacuum</source>
-        <translation>The pressure is off, waiting for the vacuum</translation>
+        <translation>停止压力，等待负压</translation>
     </message>
     <message>
         <source>Vacuum off, stopping the flow in the device</source>
-        <translation>Vacuum off, stopping the flow in the device</translation>
+        <translation>停止负压，停止设备中的溶液流动</translation>
     </message>
     <message>
         <source>Rebooting ...</source>
-        <translation>Rebooting ...</translation>
+        <translation>重新启动 ...</translation>
     </message>
     <message>
         <source>Reconnecting ...</source>
-        <translation>Reconnecting ...</translation>
+        <translation>重新连接 ...</translation>
     </message>
     <message>
         <source>Initialization</source>
-        <translation>Initialization</translation>
+        <translation>初始化</translation>
     </message>
     <message>
         <source>Place the pipette into the holder and tighten. THEN PRESS OK</source>
-        <translation>Place the pipette into the holder and tighten. THEN PRESS OK</translation>
+        <translation>将枪头放入支架并且拧紧。然后按 OK</translation>
     </message>
     <message>
         <source>Pressurize the system</source>
-        <translation>Pressurize the system</translation>
+        <translation>系统加压</translation>
     </message>
     <message>
         <source>Wait until a droplet appears at the tip of the pipette and THEN PRESS OK</source>
-        <translation>Wait until a droplet appears at the tip of the pipette and THEN PRESS OK</translation>
+        <translation>等到枪头尖端出现液滴，然后按 OK</translation>
     </message>
     <message>
         <source>Purging the liquid channels</source>
-        <translation>Purging the liquid channels</translation>
+        <translation>清理液体通道</translation>
     </message>
     <message>
         <source>Still purging the liquid channels</source>
-        <translation>Still purging the liquid channels</translation>
+        <translation>继续清理液体通道</translation>
     </message>
     <message>
         <source>Remove the droplet using a lens tissue. THEN PRESS OK</source>
-        <translation>Remove the droplet using a lens tissue. THEN PRESS OK</translation>
+        <translation>用擦镜纸移除液滴. 然后按 OK</translation>
     </message>
     <message>
         <source>Put the pipette into solution. THEN PRESS OK</source>
-        <translation>Put the pipette into solution. THEN PRESS OK</translation>
+        <translation>将枪头放入溶液中. 然后按 OK</translation>
     </message>
     <message>
         <source>Purging the vacuum channels</source>
-        <translation>Purging the vacuum channels</translation>
+        <translation>清理负压管道</translation>
     </message>
     <message>
         <source>Establishing operational pressures</source>
-        <translation>Establishing operational pressures</translation>
+        <translation>建立运行压力</translation>
     </message>
     <message>
         <source>Pipette is ready for operation. PRESS OK TO START</source>
-        <translation>Pipette is ready for operation. PRESS OK TO START</translation>
+        <translation>枪头已准备好运行. 然后按 Ok 开始</translation>
     </message>
     <message>
         <source>Pumps are off, depressuring ...</source>
-        <translation>Pumps are off, depressuring ...</translation>
+        <translation>关闭压力泵, 减压中 ...</translation>
     </message>
     <message>
         <source>Depressuring ...</source>
-        <translation>Depressuring ...</translation>
+        <translation>减压中 ...</translation>
     </message>
     <message>
         <source>Standby operation progress</source>
-        <translation>Standby operation progress</translation>
+        <translation>待机操作进度</translation>
     </message>
     <message>
         <source>Run protocol</source>
-        <translation>Run protocol</translation>
+        <translation>运行流程</translation>
     </message>
     <message>
         <source>Stop protocol</source>
-        <translation>Stop protocol</translation>
+        <translation>停止流程</translation>
     </message>
     <message>
         <source>No protocol loaded, load one first</source>
-        <translation>No protocol loaded, load one first</translation>
+        <translation>无流程加载, 先加载一个</translation>
     </message>
     <message>
         <source>The protocol loaded is : </source>
-        <translation>The protocol loaded is : </translation>
+        <translation>加载的流程是 : </translation>
     </message>
     <message>
         <source>Press Ok to run the protocol, or press Cancel to load a new one</source>
-        <translation>Press Ok to run the protocol, or press Cancel to load a new one</translation>
+        <translation>按 OK 运行流程, 或按取消加载新流程</translation>
     </message>
     <message>
         <source>Please, check for out of bound values</source>
-        <translation>Please, check for out of bound values</translation>
+        <translation>请检查超出边界值</translation>
     </message>
     <message>
         <source>This operation will take </source>
-        <translation>This operation will take </translation>
+        <translation>这个操作需要 </translation>
     </message>
     <message>
         <source> seconds</source>
-        <translation> seconds</translation>
+        <translation>秒</translation>
     </message>
     <message>
         <source>Ask message command</source>
-        <translation>Ask message command</translation>
+        <translation>询问消息指令</translation>
     </message>
     <message>
         <source> No protocol loaded : </source>
-        <translation> No protocol loaded : </translation>
+        <translation> 无流程加载 : </translation>
     </message>
     <message>
         <source> Protocol loaded : </source>
-        <translation> Protocol loaded : </translation>
+        <translation> 加载流程 : </translation>
     </message>
     <message>
         <source>This will remove all the files in the history folder</source>
-        <translation>This will remove all the files in the history folder</translation>
+        <translation>这将删除历史文件夹中的所有文件</translation>
     </message>
     <message>
         <source>History cleaned</source>
-        <translation>History cleaned</translation>
+        <translation>清楚历史记录</translation>
     </message>
     <message>
         <source> PROTOCOL RUNNING : </source>
-        <translation> PROTOCOL RUNNING : </translation>
+        <translation> 运行流程 : </translation>
     </message>
     <message>
         <source> ----- remaining time,  </source>
-        <translation> ----- remaining time,  </translation>
+        <translation> ----- 剩余时间,  </translation>
     </message>
     <message>
-        <source>Pulse time remaining: </source>
-        <translation>Pulse time remaining: </translation>
+        <source>Pulse time remaining:</source>
+        <translation>脉冲剩余时间: </translation>
     </message>
     <message>
         <source>Continuous flowing</source>
-        <translation>Continuous flowing</translation>
+        <translation>继续流动</translation>
     </message>
     <message>
         <source>Warning: the solution is running out</source>
-        <translation>Warning: the solution is running out</translation>
+        <translation>警告: 溶液快用完</translation>
     </message>
     <message>
         <source>Warning: the waste is full</source>
-        <translation>Warning: the waste is full</translation>
+        <translation>警告: 废液已满</translation>
     </message>
     <message>
         <source>Operation cannot be done</source>
-        <translation>Operation cannot be done</translation>
+        <translation>无法进行操作</translation>
     </message>
     <message>
         <source>A protocol is running, stop the protocol first</source>
-        <translation>A protocol is running, stop the protocol first</translation>
+        <translation>流程正在运行中, 首先停止流程</translation>
     </message>
     <message>
         <source>Lost connection with PPC1</source>
-        <translation>Lost connection with PPC1</translation>
+        <translation>与PPC1失去连接</translation>
     </message>
     <message>
         <source>swapping to simulation mode</source>
-        <translation>swapping to simulation mode</translation>
+        <translation>切换到模拟模式</translation>
     </message>
     <message>
         <source>Current step time left : </source>
-        <translation>Current step time left : </translation>
+        <translation>当前步骤剩余时间 : </translation>
     </message>
     <message>
         <source>Load</source>
-        <translation>Load</translation>
+        <translation>加载</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>Save</translation>
+        <translation>保存</translation>
     </message>
     <message>
         <source>Commander</source>
-        <translation>Commander</translation>
+        <translation>指令</translation>
     </message>
     <message>
         <source>Charts</source>
-        <translation>Charts</translation>
+        <translation>图表</translation>
     </message>
     <message>
         <source>Params</source>
-        <translation>Params</translation>
+        <translation>参数</translation>
     </message>
     <message>
         <source>Wizard</source>
-        <translation>Wizard</translation>
+        <translation>向导</translation>
     </message>
     <message>
         <source>Command</source>
-        <translation>Command</translation>
+        <translation>指令</translation>
     </message>
     <message>
         <source>Status message</source>
-        <translation>Status message</translation>
+        <translation>状态消息</translation>
     </message>
     <message>
         <source>Folder</source>
-        <translation>Folder</translation>
+        <translation>文件夹</translation>
     </message>
     <message>
         <source>Load protocol</source>
-        <translation>Load protocol</translation>
+        <translation>加载流程</translation>
     </message>
     <message>
         <source>Save protocol</source>
-        <translation>Save protocol</translation>
+        <translation>保存流程</translation>
     </message>
     <message>
         <source>File not found</source>
-        <translation>File not found</translation>
+        <translation>文件未找到</translation>
     </message>
     <message>
         <source>File not saved</source>
-        <translation>File not saved</translation>
+        <translation>文件未保存</translation>
     </message>
     <message>
         <source>Protocol duration : </source>
-        <translation>Protocol duration : </translation>
+        <translation>流程时长 : </translation>
     </message>
     <message>
         <source>Please check your settings and try again</source>
-        <translation>Please check your settings and try again</translation>
+        <translation>请检查您的设置，然后再试一次</translation>
     </message>
     <message>
         <source>This action will remove the file, are you sure?</source>
-        <translation>This action will remove the file, are you sure?</translation>
+        <translation>这个操作会删除文件，你确定吗？</translation>
     </message>
     <message>
         <source>Negative level, file corrupted</source>
-        <translation>Negative level, file corrupted</translation>
+        <translation>负阶段, 文件已损坏</translation>
     </message>
     <message>
         <source>The current protocol file name is</source>
-        <translation>The current protocol file name is</translation>
+        <translation>当前流程的文件名称是</translation>
     </message>
     <message>
         <source>Do you want to overwrite?</source>
-        <translation>Do you want to overwrite?</translation>
+        <translation>你想要覆盖原文件吗？</translation>
     </message>
     <message>
         <source>Yes = overwrite, NO = saveAs, Cancel = do nothing</source>
-        <translation>Yes = overwrite, NO = saveAs, Cancel = do nothing</translation>
+        <translation>是 = 覆盖, 不 = 另存为, 取消 = 取消操作</translation>
     </message>
     <message>
         <source>Do you want to add to the bottom of the protocol?</source>
-        <translation>Do you want to add to the bottom of the protocol?</translation>
+        <translation>你想添加到现有流程的后面吗?</translation>
     </message>
     <message>
         <source>Click NO to clean the workspace and load a new protocol</source>
-        <translation>Click NO to clean the workspace and load a new protocol</translation>
+        <translation>单击 否 清除工作区并加载新的流程</translation>
     </message>
     <message>
         <source>Select folder</source>
-        <translation>Select folder</translation>
+        <translation>选择文件夹</translation>
     </message>
     <message>
         <source>This will clear all items in the current protocol</source>
-        <translation>This will clear all items in the current protocol</translation>
+        <translation>这将清除当前流程中的所有项目</translation>
     </message>
     <message>
         <source>Solution ended, the flow was stopped</source>
-        <translation>Solution ended, the flow was stopped</translation>
+        <translation>溶液用完, 流量已经停止</translation>
     </message>
     <message>
         <source>A waste well is full and needs to be emptied. Click Ok to continue</source>
-        <translation>A waste well is full and needs to be emptied. Click Ok to continue</translation>
+        <translation>回收槽已满需要清空. 单击 确定 继续</translation>
     </message>
     <message>
         <source>PPC1 not connected, TTL test cannot run</source>
-        <translation>PPC1 not connected, TTL test cannot run</translation>
+        <translation>PPC1没有连接, TTL 测试无法运行</translation>
     </message>
-	    <message>
+    <message>
         <source>Fluicell AB information</source>
         <translation>Fluicell AB information</translation>
     </message>
@@ -834,386 +834,378 @@
     <message>
         <source>Droplet size current percentage</source>
         <translation>Droplet size current percentage</translation>
-    </message>
+    </message>	
 </context>
 <context>
     <name>Labonatip_macroRunner</name>
     <message>
         <source>Success</source>
-        <translation>Success</translation>
+        <translation>成功</translation>
     </message>
     <message>
         <source>Failed</source>
-        <translation>Failed</translation>
+        <translation>失败</translation>
     </message>
     <message>
         <source>PROTOCOL STOPPED</source>
-        <translation>PROTOCOL STOPPED</translation>
+        <translation>流程停止</translation>
     </message>
     <message>
         <source>PPC1 is NOT running, connect and try again</source>
-        <translation>PPC1 is NOT running, connect and try again</translation>
+        <translation>PPC1 停止运行, 连接并且再试一次</translation>
     </message>
 </context>
 <context>
     <name>Labonatip_macroWizard</name>
     <message>
         <source>E&amp;xit</source>
-        <translation>E&amp;xit</translation>
+        <translation>退出</translation>
     </message>
     <message>
         <source>Initialization</source>
-        <translation>Initialization</translation>
+        <translation>初始化</translation>
     </message>
 </context>
 <context>
     <name>Labonatip_protocolReader</name>
     <message>
         <source>Warning</source>
-        <translation>Warning</translation>
+        <translation>警告</translation>
     </message>
     <message>
         <source>File not found</source>
-        <translation>File not found</translation>
+        <translation>无法找到文件</translation>
     </message>
     <message>
         <source>Negative level, file corrupted</source>
-        <translation>Negative level, file corrupted</translation>
+        <translation>负阶段, 文件已损坏</translation>
     </message>
 </context>
 <context>
     <name>Labonatip_protocolWriter</name>
     <message>
         <source>Warning</source>
-        <translation>Warning</translation>
+        <translation>警告</translation>
     </message>
     <message>
         <source>Check validity failed during protocol saving</source>
-        <translation>Check validity failed during protocol saving</translation>
+        <translation>在流程保存期间， 检查其有效性失效</translation>
     </message>
     <message>
         <source>Please check your settings and try again</source>
-        <translation>Please check your settings and try again</translation>
+        <translation>请检查您的设置，然后再试一次</translation>
     </message>
     <message>
         <source>File not saved</source>
-        <translation>File not saved</translation>
+        <translation>问价不能保存</translation>
     </message>
 </context>
 <context>
     <name>Labonatip_tools</name>
     <message>
         <source>E&amp;xit</source>
-        <translation>E&amp;xit</translation>
+        <translation>退出</translation>
     </message>
     <message>
         <source>General</source>
-        <translation>General</translation>
+        <translation>通常情况</translation>
     </message>
     <message>
         <source>Solution</source>
-        <translation>Solution</translation>
+        <translation>溶液</translation>
     </message>
     <message>
         <source>Solutions</source>
-        <translation>Solutions</translation>
+        <translation>多种溶液</translation>
     </message>
     <message>
         <source>Empty wells</source>
-        <translation>Empty wells</translation>
+        <translation>清空溶液槽</translation>
     </message>
     <message>
         <source>Empty waste</source>
-        <translation>Empty waste</translation>
+        <translation>清空废液</translation>
     </message>
     <message>
         <source>Refill solutions</source>
-        <translation>Refill solutions</translation>
+        <translation>补充溶液</translation>
     </message>
     <message>
         <source>Pressures</source>
-        <translation>Pressures</translation>
+        <translation>压力</translation>
     </message>
     <message>
         <source>Communication</source>
-        <translation>Communication</translation>
+        <translation>交流</translation>
     </message>
     <message>
         <source>General settings</source>
-        <translation>General settings</translation>
+        <translation>一般设置</translation>
     </message>
     <message>
         <source>Profile name</source>
-        <translation>Profile name</translation>
+        <translation>档案名称</translation>
     </message>
     <message>
         <source>Comment</source>
-        <translation>Comment</translation>
+        <translation>评论</translation>
     </message>
     <message>
         <source>Year</source>
-        <translation>Year</translation>
+        <translation>年</translation>
     </message>
     <message>
         <source>Month</source>
-        <translation>Month</translation>
+        <translation>月</translation>
     </message>
     <message>
         <source>Language</source>
-        <translation>Language</translation>
+        <translation>语言</translation>
     </message>
     <message>
         <source>Enable history</source>
-        <translation>Enable history</translation>
+        <translation>激活历史记录</translation>
     </message>
     <message>
         <source>Dump history to file</source>
-        <translation>Dump history to file</translation>
+        <translation>转存历史记录到文件</translation>
     </message>
     <message>
         <source>History cleaned</source>
-        <translation>History cleaned</translation>
+        <translation>清理历史记录</translation>
     </message>
     <message>
         <source>Operation cancelled</source>
-        <translation>Operation cancelled</translation>
+        <translation>取消操作</translation>
     </message>
     <message>
         <source>Verbose output</source>
-        <translation>Verbose output</translation>
+        <translation>详细输出</translation>
     </message>
     <message>
         <source>Output file path</source>
-        <translation>Output file path</translation>
+        <translation>输出文件路径</translation>
     </message>
     <message>
         <source>Reset to factory defaults</source>
-        <translation>Reset to factory defaults</translation>
+        <translation>重置为出厂默认值</translation>
     </message>
     <message>
         <source>Enable tool tips</source>
-        <translation>Enable tool tips</translation>
+        <translation>启用工具提示</translation>
     </message>
     <message>
         <source>Solution settings</source>
-        <translation>Solution settings</translation>
+        <translation>溶液设置</translation>
     </message>
     <message>
         <source>Volume</source>
-        <translation>Volume</translation>
+        <translation>体积</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation>Name</translation>
+        <translation>名称</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation>Color</translation>
+        <translation>颜色</translation>
     </message>
     <message>
         <source>Pulse duration</source>
-        <translation>Pulse duration</translation>
+        <translation>持续时间</translation>
     </message>
     <message>
         <source>Pulse duration well 1 :</source>
-        <translation>Pulse duration well 1 :</translation>
+        <translation>溶液槽 1 持续时间 :</translation>
     </message>
     <message>
         <source>Pulse duration well 2 :</source>
-        <translation>Pulse duration well 2 :</translation>
+        <translation>溶液槽 2 持续时间:</translation>
     </message>
     <message>
         <source>Pulse duration well 3 :</source>
-        <translation>Pulse duration well 3 :</translation>
+        <translation>溶液槽 3 持续时间:</translation>
     </message>
     <message>
         <source>Pulse duration well 4 :</source>
-        <translation>Pulse duration well 4 :</translation>
+        <translation>溶液槽 4 持续时间:</translation>
     </message>
     <message>
         <source>Continuous flowing</source>
-        <translation>Continuous flowing</translation>
+        <translation>连续流动</translation>
     </message>
     <message>
         <source>Pressure / Vacuum settings</source>
-        <translation>Pressure / Vacuum settings</translation>
+        <translation>正压 / 负压设置</translation>
     </message>
     <message>
         <source>Vacuum settings</source>
-        <translation>Vacuum settings</translation>
+        <translation>负压设置</translation>
     </message>
     <message>
         <source>Zone size</source>
-        <translation>Zone size</translation>
+        <translation>区域大小</translation>
     </message>
     <message>
         <source>Flow speed</source>
-        <translation>Flow speed</translation>
+        <translation>流速</translation>
     </message>
     <message>
         <source>Vacuum</source>
-        <translation>Vacuum</translation>
+        <translation>负压</translation>
     </message>
     <message>
         <source>Base increments</source>
-        <translation>Base increments</translation>
+        <translation>技术增量</translation>
     </message>
     <message>
         <source>Verbose</source>
-        <translation>Verbose</translation>
+        <translation>详细</translation>
     </message>
     <message>
         <source>use set point / default values</source>
-        <translation>use set point / default values</translation>
+        <translation>使用设定点 / 默认值</translation>
     </message>
     <message>
         <source>Enable filter</source>
-        <translation>Enable filter</translation>
+        <translation>启用过滤器</translation>
     </message>
     <message>
         <source>Filter window size</source>
-        <translation>Filter window size</translation>
+        <translation>过滤窗口大小</translation>
     </message>
     <message>
         <source>Well 1 :</source>
-        <translation>Well 1 :</translation>
+        <translation>溶液槽 1 :</translation>
     </message>
     <message>
         <source>Well 2 :</source>
-        <translation>Well 2 :</translation>
+        <translation>溶液槽 2 :</translation>
     </message>
     <message>
         <source>Well 3 :</source>
-        <translation>Well 3 :</translation>
+        <translation>溶液槽 3 :</translation>
     </message>
     <message>
         <source>Well 4 :</source>
-        <translation>Well 4 :</translation>
+        <translation>溶液槽 4 :</translation>
     </message>
     <message>
         <source>Well 5 :</source>
-        <translation>Well 5 :</translation>
+        <translation>溶液槽 5 :</translation>
     </message>
     <message>
         <source>Well 6 :</source>
-        <translation>Well 6 :</translation>
+        <translation>溶液槽 6 :</translation>
     </message>
     <message>
         <source>Well 7 :</source>
-        <translation>Well 7 :</translation>
+        <translation>溶液槽 7 :</translation>
     </message>
     <message>
         <source>Well 8 :</source>
-        <translation>Well 8 :</translation>
+        <translation>溶液槽 8 :</translation>
     </message>
     <message>
         <source>Well :</source>
-        <translation>Well :</translation>
+        <translation>溶液槽 :</translation>
     </message>
     <message>
         <source>Max</source>
-        <translation>Max</translation>
+        <translation>最大值</translation>
     </message>
     <message>
         <source>Min</source>
-        <translation>Min</translation>
+        <translation>最小值</translation>
     </message>
     <message>
         <source>Default</source>
-        <translation>Default</translation>
+        <translation>默认值</translation>
     </message>
     <message>
         <source>COM settings</source>
-        <translation>COM settings</translation>
+        <translation>接口设置</translation>
     </message>
     <message>
         <source>Port name</source>
-        <translation>Port name</translation>
+        <translation>端口名称</translation>
     </message>
     <message>
         <source>Baud rate</source>
-        <translation>Baud rate</translation>
+        <translation>波特率</translation>
     </message>
     <message>
         <source>Data bit</source>
-        <translation>Data bit</translation>
+        <translation>数据位</translation>
     </message>
     <message>
         <source>Parity</source>
-        <translation>Parity</translation>
+        <translation>奇偶性</translation>
     </message>
     <message>
         <source>Stop bit</source>
-        <translation>Stop bit</translation>
+        <translation>停止位元</translation>
     </message>
     <message>
         <source>Flow control</source>
-        <translation>Flow control</translation>
+        <translation>流量控制</translation>
     </message>
     <message>
         <source>Description:</source>
-        <translation>Description:</translation>
+        <translation>描述:</translation>
     </message>
     <message>
         <source>Manufacturer:</source>
-        <translation>Manufacturer:</translation>
+        <translation>生产商:</translation>
     </message>
     <message>
         <source>Serial number:</source>
-        <translation>Serial number:</translation>
+        <translation>序列号:</translation>
     </message>
     <message>
         <source>Location:</source>
-        <translation>Location:</translation>
+        <translation>位置:</translation>
     </message>
     <message>
         <source>Vendor ID:</source>
-        <translation>Vendor ID:</translation>
+        <translation>供应商ID:</translation>
     </message>
     <message>
         <source>Product ID:</source>
-        <translation>Product ID:</translation>
+        <translation>产品ID:</translation>
     </message>
     <message>
         <source>Update available devices</source>
-        <translation>Update available devices</translation>
+        <translation>更新可用设备</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Warning</translation>
+        <translation>警告</translation>
     </message>
     <message>
         <source>This will reset used defined settings and parameters to the factory default value. \nAre you sure ?</source>
-        <translation>This will reset used defined settings and parameters to the factory default value. \nAre you sure ?</translation>
+        <translation>这将会使用已定义的设置和参数重置为出厂默认值。 \n你确定吗？</translation>
     </message>
     <message>
         <source>Are you sure?</source>
-        <translation>Are you sure?</translation>
+        <translation>你确定吗？</translation>
     </message>
     <message>
         <source>Information</source>
-        <translation>Information</translation>
+        <translation>信息</translation>
     </message>
     <message>
         <source>Ok</source>
-        <translation>Ok</translation>
+        <translation>确定</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Cancel</translation>
+        <translation>取消</translation>
     </message>
     <message>
         <source>Apply</source>
-        <translation>Apply</translation>
+        <translation>应用</translation>
     </message>
-    <message>
-        <source>General settings</source>
-        <translation>General settings</translation>
-    </message>	
-	<message>
-        <source>Solution settings</source>
-        <translation>Solution settings</translation>
-    </message>	
 	<message>
         <source>Pressure settings</source>
         <translation>Pressure settings</translation>
@@ -1327,10 +1319,6 @@
         <translation>Refill the solution wells</translation>
     </message>
 	<message>
-        <source>Empty waste</source>
-        <translation>Empty waste</translation>
-    </message>
-	<message>
         <source>Injection time in seconds</source>
         <translation>Injection time in seconds</translation>
     </message>
@@ -1393,10 +1381,6 @@
 	<message>
         <source>Pon pressure value for preset 1</source>
         <translation>Pon pressure value for preset 1</translation>
-    </message>
-	<message>
-        <source>Poff pressure value for preset 1</source>
-        <translation>Poff pressure value for preset 1</translation>
     </message>
 	<message>
         <source>Poff pressure value for preset 1</source>
@@ -1495,75 +1479,75 @@
     <name>QPlatformTheme</name>
     <message>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation>确定</translation>
     </message>
     <message>
         <source>&amp;No</source>
-        <translation>&amp;No</translation>
+        <translation>否</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
-        <translation>&amp;Yes</translation>
+        <translation>&amp;是</translation>
     </message>
     <message>
         <source>Help</source>
-        <translation>Help</translation>
+        <translation>帮助</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation>Open</translation>
+        <translation>打开</translation>
     </message>
     <message>
         <source>Save</source>
-        <translation>Save</translation>
+        <translation>保存</translation>
     </message>
     <message>
         <source>Abort</source>
-        <translation>Abort</translation>
+        <translation>退出</translation>
     </message>
     <message>
         <source>Apply</source>
-        <translation>Apply</translation>
+        <translation>应用</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation>Close</translation>
+        <translation>关闭</translation>
     </message>
     <message>
         <source>Reset</source>
-        <translation>Reset</translation>
+        <translation>重启</translation>
     </message>
     <message>
         <source>Retry</source>
-        <translation>Retry</translation>
+        <translation>重试</translation>
     </message>
     <message>
         <source>Restore Defaults</source>
-        <translation>Restore Defaults</translation>
+        <translation>恢复默认值</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Cancel</translation>
+        <translation>取消</translation>
     </message>
     <message>
         <source>Ignore</source>
-        <translation>Ignore</translation>
+        <translation>忽略</translation>
     </message>
     <message>
         <source>N&amp;o to All</source>
-        <translation>N&amp;o to All</translation>
+        <translation>全部不同意</translation>
     </message>
     <message>
         <source>Save All</source>
-        <translation>Save All</translation>
+        <translation>保存所有</translation>
     </message>
     <message>
         <source>Discard</source>
-        <translation>Discard</translation>
+        <translation>放弃</translation>
     </message>
     <message>
         <source>Yes to &amp;All</source>
-        <translation>Yes to &amp;All</translation>
+        <translation>全部同意</translation>
     </message>
 </context>
 </TS>

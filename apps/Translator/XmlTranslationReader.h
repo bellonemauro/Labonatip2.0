@@ -30,15 +30,30 @@ public:
     
 	static inline QString versionAttribute() { return QStringLiteral("version"); }
 
+	QString getSourceLanguage() {
+		return source_language;
+	}
+
+	QString getTranslationLanguage() {
+		return translation_language;
+	}
+
 private:
     
-	void readXmlFile();
+	void readMessageElement(QTreeWidgetItem *_parent);
+
+	void readContexElement();
     
-	void readSource(QTreeWidgetItem *item);
+	void readSource(QTreeWidgetItem *_item);
     
-	void readTranslation(QTreeWidgetItem *item);
+	void readTranslation(QTreeWidgetItem *_item);
+
+	void readName(QTreeWidgetItem *_item);
 
 	QTreeWidgetItem *XmlTranslationReader::createChildItem(QTreeWidgetItem *item);
+
+	QString source_language;
+	QString translation_language;
 
 	QXmlStreamReader xml;
     QTreeWidget *treeWidget;

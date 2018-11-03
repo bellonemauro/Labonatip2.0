@@ -1,3 +1,7 @@
+V.2.0.68
+Added a useful translation tool
+Improved swedish and chinese translations
+
 V.2.0.67
 Added more descriptions as tool tips
 Changed behaviour of the preset/set buttons 

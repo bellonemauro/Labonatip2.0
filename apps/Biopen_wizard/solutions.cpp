@@ -100,7 +100,7 @@ void Labonatip_GUI::pushSolution1()
 		ui->widget_solutionArrow->setVisible(false);
 		//updateDrawing(-1);
 		m_pen_line.setColor(Qt::transparent);
-		ui->textEdit_emptyTime->setText(" ");
+		ui->textEdit_emptyTime->hide();// setText(" ");
 		updateFlowControlPercentages();
 		return;
 	}
@@ -174,7 +174,7 @@ void Labonatip_GUI::pushSolution2() {
 		ui->widget_solutionArrow->setVisible(false);
 		//updateDrawing(-1);
 		m_pen_line.setColor(Qt::transparent);
-		ui->textEdit_emptyTime->setText(" ");
+		ui->textEdit_emptyTime->hide();// setText(" ");
 		updateFlowControlPercentages();
 		return;
 	}
@@ -246,7 +246,7 @@ void Labonatip_GUI::pushSolution3() {
 		ui->widget_solutionArrow->setVisible(false);
 		//updateDrawing(-1);
 		m_pen_line.setColor(Qt::transparent);
-		ui->textEdit_emptyTime->setText(" ");
+		ui->textEdit_emptyTime->hide();// setText(" ");
 		updateFlowControlPercentages();
 		return;
 	}
@@ -320,7 +320,7 @@ void Labonatip_GUI::pushSolution4() {
 		ui->widget_solutionArrow->setVisible(false);
 		//updateDrawing(-1);
 		m_pen_line.setColor(Qt::transparent);
-		ui->textEdit_emptyTime->setText(" ");
+		ui->textEdit_emptyTime->hide();// setText(" ");
 		updateFlowControlPercentages();
 		return;
 	}
@@ -447,6 +447,7 @@ void Labonatip_GUI::updateTimingSliders()
 			s.append(" min ");
 			s.append(QString::number(remaining_secs));
 			s.append(" sec ");
+			ui->textEdit_emptyTime->show();
 			ui->textEdit_emptyTime->setText(s);
 			m_timer_solution++;
 
@@ -464,6 +465,7 @@ void Labonatip_GUI::updateTimingSliders()
 		else
 		{
 			s.append(m_str_pulse_continuous_flowing);  
+			ui->textEdit_emptyTime->show();
 			ui->textEdit_emptyTime->setText(s);
 
 			// show the warning label
@@ -506,7 +508,7 @@ void Labonatip_GUI::updateTimingSliders()
 
 		ui->label_warningIcon->hide();
 		ui->label_warning->hide();
-		ui->textEdit_emptyTime->setText(" ");
+		ui->textEdit_emptyTime->hide();// setText(" ");
 		return;
 	}
 

@@ -295,7 +295,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   this->colSolution4Changed(c4.red(), c4.green(), c4.blue());
 //  m_labonatip_chart_view->setGUIchart();
 
-  ui->textEdit_emptyTime->setText("");
+
 
   // refill solutions and waste according to the loaded settings
   refillSolution();
@@ -314,6 +314,9 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 
   qApp->installTranslator(&m_translator);
   this->switchLanguage(m_GUI_params->language);
+
+  ui->textEdit_emptyTime->hide();
+
 
   //speech synthesis
   m_speech = new QTextToSpeech(this);
@@ -934,7 +937,7 @@ void Labonatip_GUI::initCustomStrings()
 	m_str_cleaning_history_msg2 = tr("History cleaned");
 	m_str_update_time_macro_msg1 = tr(" PROTOCOL RUNNING : ");
 	m_str_update_time_macro_msg2 = tr(" ----- remaining time,  ");
-	m_str_pulse_remaining_time = tr("Pulse time remaining: ");
+	m_str_pulse_remaining_time = tr("Pulse time remaining:");
 	m_str_pulse_continuous_flowing = tr("Continuous flowing");
 	m_str_pulse_waste = tr("Waste");
 	m_str_pulse_full_in = tr("full in");
@@ -953,7 +956,7 @@ void Labonatip_GUI::initCustomStrings()
 	m_str_remove_file = tr("This action will remove the file, are you sure?");
 	m_str_current_prot_name = tr("The current protocol file name is");
 	m_str_question_override = tr("Do you want to overwrite?");
-	m_str_override_guide = tr(" Yes = overwrite, NO = saveAs, Cancel = do nothing");
+	m_str_override_guide = tr("Yes = overwrite, NO = save As, Cancel = do nothing");
 	m_str_add_protocol_bottom = tr("Do you want to add to the bottom of the protocol?");
 	m_str_add_protocol_bottom_guide = tr("Click NO to clean the workspace and load a new protocol");
 	m_str_clear_commands = tr("This will clear all items in the current protocol");

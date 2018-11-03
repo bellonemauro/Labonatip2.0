@@ -11,11 +11,12 @@
 #include "Translator_GUI.h"
 #include "QFileDialog"
 #include "QMessageBox"
+#include <iostream>
 
 
 Translator_GUI::Translator_GUI(QWidget *parent ):
-									 QDialog (parent),
-                                     ui (new Ui::Translator_GUI)
+									 QMainWindow (parent),
+                                     ui (new Ui::MainWindow)
 {
   ui->setupUi(this );
 
@@ -23,9 +24,15 @@ Translator_GUI::Translator_GUI(QWidget *parent ):
   // languages folder of biopen_wizard
   // and generate translation also including fix sentences and 
   // making it easier to translate new development of the app
+ 
+  QString source_language = "en_GB";
+  QString translation_language = "en_GB";
 
-  connect(ui->pushButton_open, SIGNAL(clicked()), this, SLOT(openXml()));
+  connect(ui->actionOpen, SIGNAL(triggered()), this, SLOT(openXml()));
+  connect(ui->actionSave, SIGNAL(triggered()), this, SLOT(saveXml()));
 
+  ui->treeWidget->setColumnWidth(0, 160);
+  ui->treeWidget->setColumnWidth(1, 400);
 }
 
 bool Translator_GUI::saveXml()
@@ -33,18 +40,25 @@ bool Translator_GUI::saveXml()
 	QString fileName =
 		QFileDialog::getSaveFileName(this, tr("Save Protocol File"),
 			QDir::currentPath(),
-			tr("XBEL Files (*.prt *.xml *.ts *.*)"));
+			tr("ts files (*.ts *.xml *.*)"));
+
 	if (fileName.isEmpty())
 		return false;
+
 	QFile file(fileName);
 	if (!file.open(QFile::WriteOnly | QFile::Text)) {
-		QMessageBox::warning(this, tr("QXmlStream Bookmarks"),
+		QMessageBox::warning(this, tr("QXmlStream Translations"),
 			tr("Cannot write file %1:\n%2.")
 			.arg(QDir::toNativeSeparators(fileName),
 				file.errorString()));
 		return false;
 	}
-	XmlTranslationWriter writer(ui->treeWidget_2);
+
+	XmlTranslationWriter writer(ui->treeWidget);
+
+	writer.setSourceLanguage(source_language);
+	writer.setTranslationLanguage(translation_language);
+
 	if (writer.writeFile(&file))
 	{
 		return true;
@@ -57,10 +71,12 @@ bool Translator_GUI::openXml()
 	QString fileName =
 		QFileDialog::getOpenFileName(this, tr("Open  File"),
 			QDir::currentPath(),
-			tr("prt Files (*.prt *.xml *ts *.*)"));
+			tr("ts Files (*.xml *ts *.*)"));
 	if (fileName.isEmpty())
 		return false;
-	ui->treeWidget_2->clear();
+
+	ui->treeWidget->clear();
+	
 	QFile file(fileName);
 	if (!file.open(QFile::ReadOnly | QFile::Text)) {
 		QMessageBox::warning(this, tr("QXmlStream Bookmarks"),
@@ -69,7 +85,9 @@ bool Translator_GUI::openXml()
 				file.errorString()));
 		return false;
 	}
-	XmlTranslationReader reader(ui->treeWidget_2);
+
+	XmlTranslationReader reader(ui->treeWidget);
+
 	if (!reader.read(&file)) {
 		QMessageBox::warning(this, tr("QXmlStream Bookmarks"),
 			tr("Parse error in file %1:\n\n%2")
@@ -77,6 +95,8 @@ bool Translator_GUI::openXml()
 				reader.errorString()));
 	}
 	else {
+		source_language = reader.getSourceLanguage();
+		translation_language = reader.getTranslationLanguage();
 		return true;
 	}
 	return false;

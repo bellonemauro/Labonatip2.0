@@ -22,7 +22,7 @@ class Translator_GUI;
 *  
 * \note
 */
-class Translator_GUI : public  QDialog
+class Translator_GUI : public  QMainWindow
 {
 	Q_OBJECT
 
@@ -44,9 +44,11 @@ private slots:
 private:
 	bool local;
 
+	QString source_language;
+	QString translation_language;
 
 protected:
-	Ui::Translator_GUI *ui;    //--> the user interface
+	Ui::MainWindow *ui;    //--> the user interface
 };
 
 #endif /* TRANSLATOR_GUI_H_ */

@@ -508,7 +508,7 @@
         <translation> ----- remaining time,  </translation>
     </message>
     <message>
-        <source>Pulse time remaining: </source>
+        <source>Pulse time remaining:</source>
         <translation>Pulse time remaining: </translation>
     </message>
     <message>
@@ -620,7 +620,7 @@
         <translation>Do you want to overwrite?</translation>
     </message>
     <message>
-        <source>Yes = overwrite, NO = saveAs, Cancel = do nothing</source>
+        <source>Yes = overwrite, NO = save As, Cancel = do nothing</source>
         <translation>Yes = overwrite, NO = saveAs, Cancel = do nothing</translation>
     </message>
     <message>
@@ -1063,7 +1063,7 @@
         <translation>Verbose</translation>
     </message>
     <message>
-        <source>use set point / default values</source>
+        <source>Use set point / default values</source>
         <translation>use set point / default values</translation>
     </message>
     <message>
@@ -1206,14 +1206,6 @@
         <source>Apply</source>
         <translation>Apply</translation>
     </message>
-    <message>
-        <source>General settings</source>
-        <translation>General settings</translation>
-    </message>	
-	<message>
-        <source>Solution settings</source>
-        <translation>Solution settings</translation>
-    </message>	
 	<message>
         <source>Pressure settings</source>
         <translation>Pressure settings</translation>
@@ -1327,10 +1319,6 @@
         <translation>Refill the solution wells</translation>
     </message>
 	<message>
-        <source>Empty waste</source>
-        <translation>Empty waste</translation>
-    </message>
-	<message>
         <source>Injection time in seconds</source>
         <translation>Injection time in seconds</translation>
     </message>
@@ -1393,10 +1381,6 @@
 	<message>
         <source>Pon pressure value for preset 1</source>
         <translation>Pon pressure value for preset 1</translation>
-    </message>
-	<message>
-        <source>Poff pressure value for preset 1</source>
-        <translation>Poff pressure value for preset 1</translation>
     </message>
 	<message>
         <source>Poff pressure value for preset 1</source>
