@@ -69,8 +69,9 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   ui->dockWidget->close();  
   // put the tab widget to the chart page
   ui->tabWidget->setCurrentIndex(1);  
-  //ui->treeWidget_macroInfo->resizeColumnToContents(0);
-  ui->treeWidget_macroInfo->setColumnWidth(0, 200);
+  ui->treeWidget_macroInfo->resizeColumnToContents(0);
+  //ui->treeWidget_macroInfo->setColumnWidth(0, 200);
+  ui->treeWidget_macroInfo->setHeaderHidden(false);
 
   // init the redirect buffer for messages
   qerr = new QDebugStream(std::cerr, ui->textEdit_qcerr);
@@ -879,6 +880,10 @@ void Labonatip_GUI::initCustomStrings()
 	m_str_error = tr("Error");
 	m_str_cancel = tr("Cancel");
 	m_str_ok = tr("Ok");
+	m_str_h = tr("h");
+	m_str_min = tr("min");
+	m_str_s = tr("s");
+	m_str_sec = tr("sec");
 	m_str_save = tr("Save");
 	m_str_save_profile = tr("Save profile");
 	m_str_load = tr("Load");

@@ -214,7 +214,7 @@ font-weight: 900;
             <item row="0" column="0">
              <widget class="QStackedWidget" name="stackedWidget_main">
               <property name="currentIndex">
-               <number>0</number>
+               <number>1</number>
               </property>
               <widget class="QWidget" name="page">
                <layout class="QGridLayout" name="gridLayout_18">
@@ -3533,7 +3533,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                    </font>
                   </property>
                   <property name="text">
-                   <string>  Protocol  duration : 0 h, 0 min, 0 sec</string>
+                   <string>Protocol  duration : 0 h, 0 min, 0 sec</string>
                   </property>
                  </widget>
                 </item>
@@ -3832,7 +3832,7 @@ QCheckBox::indicator:unchecked {
 }</string>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="page_runner">
         <layout class="QGridLayout" name="gridLayout_19">
@@ -3882,7 +3882,7 @@ QCheckBox::indicator:unchecked {
             <enum>QTabWidget::Triangular</enum>
            </property>
            <property name="currentIndex">
-            <number>2</number>
+            <number>1</number>
            </property>
            <property name="elideMode">
             <enum>Qt::ElideNone</enum>
@@ -6140,7 +6140,18 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                 </font>
                </property>
                <property name="styleSheet">
-                <string notr="true">QTreeWidget { 
+                <string notr="true">QHeaderView::section {
+     border: 1px solid  rgb(200, 200, 200);
+     border-top : 0px  solid  rgb(200, 200, 200);
+     border-bottom : 0px;
+     border-left : 0px;
+    color: rgb(80, 80, 80);
+    background-color: rgb(235, 235, 240);
+    padding-left: 5px;
+
+}
+
+QTreeWidget { 
      border: 2px solid  rgb(200, 200, 200); ; 
      border-radius: 10px; 
     color: rgb(80, 80, 80);
@@ -6173,7 +6184,7 @@ QTreeView::item:selected:!active {
                 <bool>false</bool>
                </property>
                <property name="headerHidden">
-                <bool>true</bool>
+                <bool>false</bool>
                </property>
                <property name="columnCount">
                 <number>2</number>
@@ -6188,7 +6199,7 @@ QTreeView::item:selected:!active {
                 <bool>false</bool>
                </attribute>
                <attribute name="headerStretchLastSection">
-                <bool>false</bool>
+                <bool>true</bool>
                </attribute>
                <column>
                 <property name="text">
@@ -6207,6 +6218,9 @@ QTreeView::item:selected:!active {
                 <property name="text">
                  <string>0</string>
                 </property>
+                <property name="textAlignment">
+                 <set>AlignLeading|AlignVCenter</set>
+                </property>
                </item>
                <item>
                 <property name="text">
@@ -6214,6 +6228,9 @@ QTreeView::item:selected:!active {
                 </property>
                 <property name="text">
                  <string>0</string>
+                </property>
+                <property name="textAlignment">
+                 <set>AlignLeading|AlignVCenter</set>
                 </property>
                </item>
                <item>
@@ -6223,6 +6240,9 @@ QTreeView::item:selected:!active {
                 <property name="text">
                  <string>0</string>
                 </property>
+                <property name="textAlignment">
+                 <set>AlignLeading|AlignVCenter</set>
+                </property>
                </item>
                <item>
                 <property name="text">
@@ -6230,6 +6250,9 @@ QTreeView::item:selected:!active {
                 </property>
                 <property name="text">
                  <string>0</string>
+                </property>
+                <property name="textAlignment">
+                 <set>AlignLeading|AlignVCenter</set>
                 </property>
                </item>
                <item>
@@ -6239,6 +6262,9 @@ QTreeView::item:selected:!active {
                 <property name="text">
                  <string>0</string>
                 </property>
+                <property name="textAlignment">
+                 <set>AlignLeading|AlignVCenter</set>
+                </property>
                </item>
                <item>
                 <property name="text">
@@ -6246,6 +6272,9 @@ QTreeView::item:selected:!active {
                 </property>
                 <property name="text">
                  <string>0</string>
+                </property>
+                <property name="textAlignment">
+                 <set>AlignLeading|AlignVCenter</set>
                 </property>
                </item>
                <item>
@@ -6255,6 +6284,9 @@ QTreeView::item:selected:!active {
                 <property name="text">
                  <string>0</string>
                 </property>
+                <property name="textAlignment">
+                 <set>AlignLeading|AlignVCenter</set>
+                </property>
                </item>
                <item>
                 <property name="text">
@@ -6262,6 +6294,9 @@ QTreeView::item:selected:!active {
                 </property>
                 <property name="text">
                  <string>0</string>
+                </property>
+                <property name="textAlignment">
+                 <set>AlignLeading|AlignVCenter</set>
                 </property>
                </item>
                <item>

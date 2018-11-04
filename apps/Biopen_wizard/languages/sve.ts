@@ -4,12 +4,12 @@
 <context>
     <name>Labonatip_GUI</name>
     <message>
-        <source>E&amp;xit</source>
-        <translation>E&amp;xit</translation>
+        <source>Exit</source>
+        <translation>Exit</translation>
     </message>
     <message> 
-        <source>&amp;File</source>
-        <translation>&amp;File</translation>
+        <source>File</source>
+        <translation>File</translation>
     </message>
     <message>
         <source>Load profile</source>
@@ -183,10 +183,50 @@
         <source>Apply</source>
         <translation>Tillämpa</translation>
     </message>
+	<message>
+        <source>h</source>
+        <translation>h</translation>
+    </message>
+	<message>
+        <source>min</source>
+        <translation>min</translation>
+    </message>
+	<message>
+        <source>s</source>
+        <translation>s</translation>
+    </message>
+	<message>
+        <source>sec</source>
+        <translation>sec</translation>
+    </message>
     <message>
         <source>Simulation time</source>
         <translation>Simuleringstid</translation>
     </message>
+    <message>
+        <source>Preset 1</source>
+        <translation>Förinställning 1</translation>
+    </message>	
+    <message>
+        <source>Preset 2</source>
+        <translation>Förinställning 2</translation>
+    </message>	
+    <message>
+        <source>Preset 3</source>
+        <translation>Förinställning 3</translation>
+    </message>	
+    <message>
+        <source>Save 1</source>
+        <translation>Spara 1</translation>
+    </message>	
+    <message>
+        <source>Save 2</source>
+        <translation>Spara 2</translation>
+    </message>	
+    <message>
+        <source>Save 3</source>
+        <translation>Spara 3</translation>
+    </message>	
     <message>
         <source>Command history</source>
         <translation>Kommandohistorik</translation>
@@ -232,8 +272,8 @@
         <translation>Inflöde växel ( nL/s )</translation>
     </message>
     <message>
-        <source>Ratio</source>
-        <translation>Förhållande</translation>
+        <source>Ratio (-)</source>
+        <translation>Förhållande (-)</translation>
     </message>
     <message>
         <source>Flow rate 1 ( nL/s )</source>
@@ -484,6 +524,10 @@
         <translation>Fråga meddelande kontroll</translation>
     </message>
     <message>
+        <source>No protocol loaded</source>
+        <translation>Inget protokoll laddat</translation>
+    </message>
+    <message>
         <source> No protocol loaded : </source>
         <translation> Inget protokoll laddat : </translation>
     </message>
@@ -509,7 +553,7 @@
     </message>
     <message>
         <source>Pulse time remaining:</source>
-        <translation>Återstående pulstid: </translation>
+        <translation>Återstående pulstid:</translation>
     </message>
     <message>
         <source>Continuous flowing</source>
@@ -572,6 +616,10 @@
         <translation>Kommando</translation>
     </message>
     <message>
+        <source>Range</source>
+        <translation>Range</translation>
+    </message>
+    <message>
         <source>Status message</source>
         <translation>Statusmeddelande</translation>
     </message>
@@ -599,6 +647,18 @@
         <source>Protocol duration : </source>
         <translation>Protokoll-varaktighet : </translation>
     </message>
+    <message>
+        <source>Protocol  duration : 0 h, 0 min, 0 sec</source>
+        <translation>Protokoll-varaktighet : 0 h, 0 min, 0 sec</translation>
+    </message>
+    <message>
+        <source>Protocol duration (s)</source>
+        <translation>Protokoll-varaktighet (s)</translation>
+    </message>
+    <message>
+        <source>Protocols</source>
+        <translation>Protokoll</translation>
+    </message>	
     <message>
         <source>Please check your settings and try again</source>
         <translation>Undersök dina inställningar och prova igen</translation>
@@ -858,8 +918,8 @@
 <context>
     <name>Labonatip_macroWizard</name>
     <message>
-        <source>E&amp;xit</source>
-        <translation>E&amp;xit</translation>
+        <source>Exit</source>
+        <translation>Exit</translation>
     </message>
     <message>
         <source>Initialization</source>
@@ -903,8 +963,8 @@
 <context>
     <name>Labonatip_tools</name>
     <message>
-        <source>E&amp;xit</source>
-        <translation>E&amp;xit</translation>
+        <source>Exit</source>
+        <translation>Exit</translation>
     </message>
     <message>
         <source>General</source>
@@ -931,7 +991,7 @@
         <translation>Fyll på lösningar</translation>
     </message>
     <message>
-        <source>Pressure</source>
+        <source>Pressures</source>
         <translation>Tryck</translation>
     </message>
     <message>
@@ -940,7 +1000,7 @@
     </message>
     <message>
         <source>General settings</source>
-        <translation>Allmänna Inställningar</translation>
+        <translation>Allmänna inställningar</translation>
     </message>
     <message>
         <source>Profile name</source>
@@ -961,6 +1021,10 @@
     <message>
         <source>Language</source>
         <translation>Språk</translation>
+    </message>
+	<message>
+        <source>GUI settings</source>
+        <translation>Gränssnitt inställningar</translation>
     </message>
     <message>
         <source>Enable history</source>
@@ -993,6 +1057,10 @@
     <message>
         <source>Enable tool tips</source>
         <translation>Råd och tips - På</translation>
+    </message>
+    <message>
+        <source>Enable speech synthesis</source>
+        <translation>Talsyntes</translation>
     </message>
     <message>
         <source>Solution settings</source>
@@ -1039,6 +1107,18 @@
         <translation>Tryck / Vakuuminställningar</translation>
     </message>
     <message>
+        <source>Preset 1</source>
+        <translation>Preset 1</translation>
+    </message>	
+    <message>
+        <source>Preset 2</source>
+        <translation>Preset 2</translation>
+    </message>	
+    <message>
+        <source>Preset 3</source>
+        <translation>Preset 3</translation>
+    </message>	
+    <message>
         <source>Vacuum settings</source>
         <translation>Vakuuminställningar</translation>
     </message>
@@ -1073,6 +1153,18 @@
     <message>
         <source>Filter window size</source>
         <translation>Filterfönsterstorlek</translation>
+    </message>
+    <message>
+        <source>High/low</source>
+        <translation>Hög/låg</translation>
+    </message>
+    <message>
+        <source>Sync timeout (sec)</source>
+        <translation>Sync timeout (sec)</translation>
+    </message>
+    <message>
+        <source>Test TTL</source>
+        <translation>Test TTL</translation>
     </message>
     <message>
         <source>Well 1 :</source>
@@ -1183,7 +1275,7 @@
         <translation>Varning</translation>
     </message>
     <message>
-        <source>This will reset used defined settings and parameters to the factory default values</source>
+        <source>This will reset user defined settings and parameters to the factory default values</source>
         <translation>Denna åtgärd återställer inställningar och parametrar till fabriksinställningarna</translation>
     </message>
     <message>
@@ -1359,10 +1451,6 @@
         <translation>Min possible value for Vswitch vacuum in PPC1</translation>
     </message>
 	<message>
-        <source></source>
-        <translation></translation>
-    </message>
-	<message>
         <source>Default operational value for Vswitch vacuum in PPC1</source>
         <translation>Default operational value for Vswitch vacuum in PPC1</translation>
     </message>
@@ -1482,12 +1570,12 @@
         <translation>OK</translation>
     </message>
     <message>
-        <source>&amp;No</source>
-        <translation>&amp;Nej</translation>
+        <source>No</source>
+        <translation>Nej</translation>
     </message>
     <message>
-        <source>&amp;Yes</source>
-        <translation>&amp;Ja</translation>
+        <source>Yes</source>
+        <translation>Ja</translation>
     </message>
     <message>
         <source>Help</source>
@@ -1534,8 +1622,8 @@
         <translation>Ignorera</translation>
     </message>
     <message>
-        <source>N&amp;o to All</source>
-        <translation>N&amp;ej till Allt</translation>
+        <source>No to All</source>
+        <translation>Nej till Allt</translation>
     </message>
     <message>
         <source>Save All</source>
@@ -1546,8 +1634,8 @@
         <translation>Kasta bort</translation>
     </message>
     <message>
-        <source>Yes to &amp;All</source>
-        <translation>Ja till &amp;Allt</translation>
+        <source>Yes to All</source>
+        <translation>Ja till Allt</translation>
     </message>
 </context>
 </TS>

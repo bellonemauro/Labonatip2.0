@@ -961,9 +961,15 @@ void Labonatip_GUI::updateWaste()
 	int remaining_mins = floor(((int)waste_remaining_time_in_sec % 3600) / 60); // 60 minutes in a hour
 	int remaining_secs = waste_remaining_time_in_sec - remaining_hours * 3600 - remaining_mins * 60; // 60 minutes in a hour
 	s.append(QString::number(remaining_hours));
-	s.append(" h ");
+	//s.append(" h ");
+	//s.append(QString::number(remaining_mins));
+	//s.append(" min ");
+	s.append(" ");
+	s.append(m_str_h);
+	s.append(",   ");
 	s.append(QString::number(remaining_mins));
-	s.append(" min ");
+	s.append(" ");
+	s.append(m_str_min);
 	//s.append(QString::number(remaining_secs));
 	//s.append(" sec ");
 
@@ -1013,11 +1019,22 @@ void Labonatip_GUI::updateMacroTimeStatus(const double &_status)
     int remaining_secs = remaining_time_sec - remaining_hours * 3600 - remaining_mins * 60; // 60 minutes in a hour
     
 	s.append(QString::number(remaining_hours));
-    s.append(" h,   ");
-    s.append(QString::number(remaining_mins));
-    s.append(" min,   ");
-    s.append(QString::number(remaining_secs));
-    s.append(" sec   ");
+    //s.append(" h,   ");
+    //s.append(QString::number(remaining_mins));
+    //s.append(" min,   ");
+    //s.append(QString::number(remaining_secs));
+    //s.append(" sec   ");
+	s.append(" ");
+	s.append(m_str_h);
+	s.append(",   ");
+	s.append(QString::number(remaining_mins));
+	s.append(" ");
+	s.append(m_str_min);
+	s.append(",   ");
+	s.append(QString::number(remaining_secs));
+	s.append(" ");
+	s.append(m_str_sec);
+	s.append("   ");
     ui->progressBar_macroStatus->setValue(_status);
     ui->label_macroStatus->setText(s);
 

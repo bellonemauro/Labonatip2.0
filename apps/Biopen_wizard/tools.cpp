@@ -1294,7 +1294,7 @@ void Labonatip_tools::initCustomStrings()
 {
 
 	m_str_warning = tr("Warning");
-	m_str_factory_reset = tr("This will reset used defined settings and parameters to the factory default values");
+	m_str_factory_reset = tr("This will reset user defined settings and parameters to the factory default values");
 	m_str_areyousure = tr("Are you sure?");
 	m_str_information = tr("Information");
 	m_str_ok = tr("Ok");

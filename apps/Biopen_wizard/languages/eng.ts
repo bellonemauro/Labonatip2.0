@@ -4,12 +4,12 @@
 <context>
     <name>Labonatip_GUI</name>
     <message>
-        <source>E&amp;xit</source>
-        <translation>E&amp;xit</translation>
+        <source>Exit</source>
+        <translation>Exit</translation>
     </message>
     <message>
-        <source>&amp;File</source>
-        <translation>&amp;File</translation>
+        <source>File</source>
+        <translation>File</translation>
     </message>
     <message>
         <source>Load profile</source>
@@ -183,10 +183,50 @@
         <source>Apply</source>
         <translation>Apply</translation>
     </message>
+	<message>
+        <source>h</source>
+        <translation>h</translation>
+    </message>
+	<message>
+        <source>min</source>
+        <translation>min</translation>
+    </message>
+	<message>
+        <source>s</source>
+        <translation>s</translation>
+    </message>
+	<message>
+        <source>sec</source>
+        <translation>sec</translation>
+    </message>
     <message>
         <source>Simulation time</source>
         <translation>Simulation time</translation>
     </message>
+    <message>
+        <source>Preset 1</source>
+        <translation>Preset 1</translation>
+    </message>	
+    <message>
+        <source>Preset 2</source>
+        <translation>Preset 2</translation>
+    </message>	
+    <message>
+        <source>Preset 3</source>
+        <translation>Preset 3</translation>
+    </message>	
+    <message>
+        <source>Save 1</source>
+        <translation>Save 1</translation>
+    </message>	
+    <message>
+        <source>Save 2</source>
+        <translation>Save 2</translation>
+    </message>	
+    <message>
+        <source>Save 3</source>
+        <translation>Save 3</translation>
+    </message>	
     <message>
         <source>Command history</source>
         <translation>Command history</translation>
@@ -232,8 +272,8 @@
         <translation>Inflow switch ( nL/s )</translation>
     </message>
     <message>
-        <source>Ratio</source>
-        <translation>Ratio</translation>
+        <source>Ratio (-)</source>
+        <translation>Ratio (-)</translation>
     </message>
     <message>
         <source>Flow rate 1 ( nL/s )</source>
@@ -484,6 +524,10 @@
         <translation>Ask message command</translation>
     </message>
     <message>
+        <source>No protocol loaded</source>
+        <translation>No protocol loaded</translation>
+    </message>
+    <message>
         <source> No protocol loaded : </source>
         <translation> No protocol loaded : </translation>
     </message>
@@ -509,7 +553,7 @@
     </message>
     <message>
         <source>Pulse time remaining:</source>
-        <translation>Pulse time remaining: </translation>
+        <translation>Pulse time remaining:</translation>
     </message>
     <message>
         <source>Continuous flowing</source>
@@ -572,6 +616,10 @@
         <translation>Command</translation>
     </message>
     <message>
+        <source>Range</source>
+        <translation>Range</translation>
+    </message>
+    <message>
         <source>Status message</source>
         <translation>Status message</translation>
     </message>
@@ -599,6 +647,18 @@
         <source>Protocol duration : </source>
         <translation>Protocol duration : </translation>
     </message>
+    <message>
+        <source>Protocol  duration : 0 h, 0 min, 0 sec</source>
+        <translation>Protocol  duration : 0 h, 0 min, 0 sec</translation>
+    </message>
+    <message>
+        <source>Protocol duration (s)</source>
+        <translation>Protocol  duration (s)</translation>
+    </message>
+    <message>
+        <source>Protocols</source>
+        <translation>Protocols</translation>
+    </message>	
     <message>
         <source>Please check your settings and try again</source>
         <translation>Please check your settings and try again</translation>
@@ -858,8 +918,8 @@
 <context>
     <name>Labonatip_macroWizard</name>
     <message>
-        <source>E&amp;xit</source>
-        <translation>E&amp;xit</translation>
+        <source>Exit</source>
+        <translation>Exit</translation>
     </message>
     <message>
         <source>Initialization</source>
@@ -903,8 +963,8 @@
 <context>
     <name>Labonatip_tools</name>
     <message>
-        <source>E&amp;xit</source>
-        <translation>E&amp;xit</translation>
+        <source>Exit</source>
+        <translation>Exit</translation>
     </message>
     <message>
         <source>General</source>
@@ -962,6 +1022,10 @@
         <source>Language</source>
         <translation>Language</translation>
     </message>
+	<message>
+        <source>GUI settings</source>
+        <translation>GUI settings</translation>
+    </message>
     <message>
         <source>Enable history</source>
         <translation>Enable history</translation>
@@ -993,6 +1057,10 @@
     <message>
         <source>Enable tool tips</source>
         <translation>Enable tool tips</translation>
+    </message>
+    <message>
+        <source>Enable speech synthesis</source>
+        <translation>Enable speech synthesis</translation>
     </message>
     <message>
         <source>Solution settings</source>
@@ -1039,6 +1107,18 @@
         <translation>Pressure / Vacuum settings</translation>
     </message>
     <message>
+        <source>Preset 1</source>
+        <translation>Preset 1</translation>
+    </message>	
+    <message>
+        <source>Preset 2</source>
+        <translation>Preset 2</translation>
+    </message>	
+    <message>
+        <source>Preset 3</source>
+        <translation>Preset 3</translation>
+    </message>	
+    <message>
         <source>Vacuum settings</source>
         <translation>Vacuum settings</translation>
     </message>
@@ -1073,6 +1153,18 @@
     <message>
         <source>Filter window size</source>
         <translation>Filter window size</translation>
+    </message>
+	<message>
+        <source>High/low</source>
+        <translation>High/low</translation>
+    </message>
+    <message>
+        <source>Sync timeout (sec)</source>
+        <translation>Sync timeout (sec)</translation>
+    </message>
+    <message>
+        <source>Test TTL</source>
+        <translation>Test TTL</translation>
     </message>
     <message>
         <source>Well 1 :</source>
@@ -1183,8 +1275,8 @@
         <translation>Warning</translation>
     </message>
     <message>
-        <source>This will reset used defined settings and parameters to the factory default values</source>
-        <translation>This will reset used defined settings and parameters to the factory default values</translation>
+        <source>This will reset user defined settings and parameters to the factory default values</source>
+        <translation>This will reset user defined settings and parameters to the factory default values</translation>
     </message>
     <message>
         <source>Are you sure?</source>
@@ -1359,10 +1451,6 @@
         <translation>Min possible value for Vswitch vacuum in PPC1</translation>
     </message>
 	<message>
-        <source></source>
-        <translation></translation>
-    </message>
-	<message>
         <source>Default operational value for Vswitch vacuum in PPC1</source>
         <translation>Default operational value for Vswitch vacuum in PPC1</translation>
     </message>
@@ -1482,12 +1570,12 @@
         <translation>OK</translation>
     </message>
     <message>
-        <source>&amp;No</source>
-        <translation>&amp;No</translation>
+        <source>No</source>
+        <translation>No</translation>
     </message>
     <message>
-        <source>&amp;Yes</source>
-        <translation>&amp;Yes</translation>
+        <source>Yes</source>
+        <translation>Yes</translation>
     </message>
     <message>
         <source>Help</source>
@@ -1534,8 +1622,8 @@
         <translation>Ignore</translation>
     </message>
     <message>
-        <source>N&amp;o to All</source>
-        <translation>N&amp;o to All</translation>
+        <source>No to All</source>
+        <translation>No to All</translation>
     </message>
     <message>
         <source>Save All</source>
@@ -1546,8 +1634,8 @@
         <translation>Discard</translation>
     </message>
     <message>
-        <source>Yes to &amp;All</source>
-        <translation>Yes to &amp;All</translation>
+        <source>Yes to All</source>
+        <translation>Yes to All</translation>
     </message>
 </context>
 </TS>

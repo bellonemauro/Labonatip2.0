@@ -183,10 +183,50 @@
         <source>Apply</source>
         <translation>Applica</translation>
     </message>
+	<message>
+        <source>h</source>
+        <translation>h</translation>
+    </message>
+	<message>
+        <source>min</source>
+        <translation>min</translation>
+    </message>
+	<message>
+        <source>s</source>
+        <translation>s</translation>
+    </message>
+	<message>
+        <source>sec</source>
+        <translation>sec</translation>
+    </message>
     <message>
         <source>Simulation time</source>
         <translation>Tempo di simulazione</translation>
     </message>
+    <message>
+        <source>Preset 1</source>
+        <translation>Preset 1</translation>
+    </message>	
+    <message>
+        <source>Preset 2</source>
+        <translation>Preset 2</translation>
+    </message>	
+    <message>
+        <source>Preset 3</source>
+        <translation>Preset 3</translation>
+    </message>	
+    <message>
+        <source>Save 1</source>
+        <translation>Salva 1</translation>
+    </message>	
+    <message>
+        <source>Save 2</source>
+        <translation>Salva 2</translation>
+    </message>	
+    <message>
+        <source>Save 3</source>
+        <translation>Salva 3</translation>
+    </message>	
     <message>
         <source>Command history</source>
         <translation>Cronologia comandi</translation>
@@ -232,8 +272,8 @@
         <translation>Flusso di aspirazione switch ( nL/s )</translation>
     </message>
     <message>
-        <source>Ratio</source>
-        <translation>Rapporto</translation>
+        <source>Ratio (-)</source>
+        <translation>Rapporto (-)</translation>
     </message>
     <message>
         <source>Flow rate 1 ( nL/s )</source>
@@ -373,7 +413,7 @@
     </message>
     <message>
         <source>Shutdown pressed, this will take 30 seconds, press Ok to continue, cancel to abort</source>
-        <translation>Shutdown avviato, la procedura richiederà 30 secondi, premi Ok per continuare, annulla per uscire.</translation>
+        <translation>Shutdown avviato, la procedura richiederà 30 secondi, premi Ok per continuare, annulla per uscire</translation>
     </message>
     <message>
         <source>The pressure is off, waiting for the vacuum</source>
@@ -484,6 +524,10 @@
         <translation>Comando di richiesta messaggio</translation>
     </message>
     <message>
+        <source>No protocol loaded</source>
+        <translation>Nessun protocollo caricato</translation>
+    </message>
+    <message>
         <source> No protocol loaded : </source>
         <translation> Nessun protocollo caricato : </translation>
     </message>
@@ -572,6 +616,10 @@
         <translation>Comando</translation>
     </message>
     <message>
+        <source>Range</source>
+        <translation>Range</translation>
+    </message>
+    <message>
         <source>Status message</source>
         <translation>Messaggio di stato</translation>
     </message>
@@ -600,7 +648,19 @@
         <translation>Durata del protocollo : </translation>
     </message>
     <message>
-        <source>please check your settings and try again</source>
+        <source>Protocol  duration : 0 h, 0 min, 0 sec</source>
+        <translation>Durata del protocollo : 0 h, 0 min, 0 sec</translation>
+    </message>
+    <message>
+        <source>Protocol duration (s)</source>
+        <translation>Durata del protocollo (s)</translation>
+    </message>
+	<message>
+        <source>Protocols</source>
+        <translation>Protocolli</translation>
+    </message>
+    <message>
+        <source>Please check your settings and try again</source>
         <translation>Controlla i settaggi e riprova</translation>
     </message>
     <message>
@@ -613,7 +673,7 @@
     </message>
     <message>
         <source>The current protocol file name is</source>
-        <translation>Il protocollo corrente è </translation>
+        <translation>Il protocollo corrente è</translation>
     </message>
     <message>
         <source>Do you want to overwrite?</source>
@@ -858,8 +918,8 @@
 <context>
     <name>Labonatip_macroWizard</name>
     <message>
-        <source>E&amp;xit</source>
-        <translation>E&amp;sci</translation>
+        <source>Exit</source>
+        <translation>Esci</translation>
     </message>
     <message>
         <source>Initialization</source>
@@ -903,8 +963,8 @@
 <context>
     <name>Labonatip_tools</name>
     <message>
-        <source>E&amp;xit</source>
-        <translation>E&amp;sci</translation>
+        <source>Exit</source>
+        <translation>Esci</translation>
     </message>
     <message>
         <source>General</source>
@@ -962,6 +1022,10 @@
         <source>Language</source>
         <translation>Lingua</translation>
     </message>
+	<message>
+        <source>GUI settings</source>
+        <translation>Impostazioni interfaccia</translation>
+    </message>
     <message>
         <source>Enable history</source>
         <translation>Abilita cronologia</translation>
@@ -993,6 +1057,10 @@
     <message>
         <source>Enable tool tips</source>
         <translation>Abilita tool tips</translation>
+    </message>
+    <message>
+        <source>Enable speech synthesis</source>
+        <translation>Abilita sintesi vocale</translation>
     </message>
     <message>
         <source>Solution settings</source>
@@ -1039,6 +1107,18 @@
         <translation>Settaggi di pressione / aspirazione</translation>
     </message>
     <message>
+        <source>Preset 1</source>
+        <translation>Preset 1</translation>
+    </message>	
+    <message>
+        <source>Preset 2</source>
+        <translation>Preset 2</translation>
+    </message>	
+    <message>
+        <source>Preset 3</source>
+        <translation>Preset 3</translation>
+    </message>	
+    <message>
         <source>Vacuum settings</source>
         <translation>Settaggi di aspirazione</translation>
     </message>
@@ -1073,6 +1153,18 @@
     <message>
         <source>Filter window size</source>
         <translation>Dimensione finestra di filtraggio</translation>
+    </message>
+	<message>
+        <source>High/low</source>
+        <translation>Alto/basso</translation>
+    </message>
+    <message>
+        <source>Sync timeout (sec)</source>
+        <translation>Sync timeout (sec)</translation>
+    </message>
+    <message>
+        <source>Test TTL</source>
+        <translation>Test TTL</translation>
     </message>
     <message>
         <source>Well 1 :</source>
@@ -1183,7 +1275,7 @@
         <translation>Attenzione</translation>
     </message>
     <message>
-        <source>This will reset used defined settings and parameters to the factory default values</source>
+        <source>This will reset user defined settings and parameters to the factory default values</source>
         <translation>Questa operazione resetterà il sistema alle impostazioni di fabbrica</translation>
     </message>
     <message>
@@ -1359,10 +1451,6 @@
         <translation>Min possible value for Vswitch vacuum in PPC1</translation>
     </message>
 	<message>
-        <source></source>
-        <translation></translation>
-    </message>
-	<message>
         <source>Default operational value for Vswitch vacuum in PPC1</source>
         <translation>Default operational value for Vswitch vacuum in PPC1</translation>
     </message>
@@ -1482,12 +1570,12 @@
         <translation>OK</translation>
     </message>
     <message>
-        <source>&amp;No</source>
-        <translation>&amp;No</translation>
+        <source>No</source>
+        <translation>No</translation>
     </message>
     <message>
-        <source>&amp;Yes</source>
-        <translation>&amp;Sì</translation>
+        <source>Yes</source>
+        <translation>Sì</translation>
     </message>
     <message>
         <source>Help</source>
@@ -1534,8 +1622,8 @@
         <translation>Ignora</translation>
     </message>
     <message>
-        <source>N&amp;o to All</source>
-        <translation>N&amp;o a Tutto</translation>
+        <source>No to All</source>
+        <translation>No a Tutto</translation>
     </message>
     <message>
         <source>Save All</source>
@@ -1546,8 +1634,8 @@
         <translation>Discard</translation>
     </message>
     <message>
-        <source>Yes to &amp;All</source>
-        <translation>Sì a &amp;Tutto</translation>
+        <source>Yes to All</source>
+        <translation>Sì a Tutto</translation>
     </message>
 </context>
 </TS>

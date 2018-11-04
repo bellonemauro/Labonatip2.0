@@ -1058,6 +1058,10 @@ private:
   QString m_str_error;
   QString m_str_cancel;
   QString m_str_ok;
+  QString m_str_h;
+  QString m_str_min;
+  QString m_str_s;
+  QString m_str_sec;
   QString m_str_save;
   QString m_str_load;
   QString m_str_commander;

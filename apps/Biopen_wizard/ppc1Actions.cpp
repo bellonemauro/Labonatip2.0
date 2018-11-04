@@ -172,11 +172,22 @@ void Labonatip_GUI::runProtocol() {
 			int remaining_mins = floor((remaining_time_sec % 3600) / 60); // 60 minutes in a hour
 			int remaining_secs = remaining_time_sec - remaining_hours * 3600 - remaining_mins * 60; // 60 minutes in a hour
 			s.append(QString::number(remaining_hours));
-			s.append(" h,   ");
+			//s.append(" h,   ");
+			//s.append(QString::number(remaining_mins));
+			//s.append(" min,   ");
+			//s.append(QString::number(remaining_secs));
+			//s.append(" sec   ");
+			s.append(" ");
+			s.append(m_str_h);
+			s.append(",   ");
 			s.append(QString::number(remaining_mins));
-			s.append(" min,   ");
+			s.append(" ");
+			s.append(m_str_min);
+			s.append(",   ");
 			s.append(QString::number(remaining_secs));
-			s.append(" sec   ");
+			s.append(" ");
+			s.append(m_str_sec);
+			s.append("   ");
 			ui->progressBar_macroStatus->setValue(0);
 			ui->label_macroStatus->setText(s);
 

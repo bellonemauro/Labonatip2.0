@@ -4,11 +4,11 @@
 <context>
     <name>Labonatip_GUI</name>
     <message>
-        <source>E&amp;xit</source>
+        <source>Exit</source>
         <translation>退出</translation>
     </message>
     <message>
-        <source>&amp;File</source>
+        <source>File</source>
         <translation>文件</translation>
     </message>
     <message>
@@ -33,7 +33,7 @@
     </message>
     <message>
         <source>Connect</source>
-        <translation> 连接</translation>
+        <translation>连接</translation>
     </message>
     <message>
         <source>Reset</source>
@@ -49,11 +49,11 @@
     </message>
     <message>
         <source>Advanced</source>
-        <translation>高级选项 </translation>
+        <translation>高级选项</translation>
     </message>
     <message>
         <source>Basic</source>
-        <translation>基本选项 </translation>
+        <translation>基本选项</translation>
     </message>
     <message>
         <source>Actions</source>
@@ -183,10 +183,50 @@
         <source>Apply</source>
         <translation>运用</translation>
     </message>
+	<message>
+        <source>h</source>
+        <translation>h</translation>
+    </message>
+	<message>
+        <source>min</source>
+        <translation>min</translation>
+    </message>
+	<message>
+        <source>s</source>
+        <translation>s</translation>
+    </message>
+	<message>
+        <source>sec</source>
+        <translation>sec</translation>
+    </message>
     <message>
         <source>Simulation time</source>
         <translation>模拟时间</translation>
     </message>
+    <message>
+        <source>Preset 1</source>
+        <translation>Preset 1</translation>
+    </message>	
+    <message>
+        <source>Preset 2</source>
+        <translation>Preset 2</translation>
+    </message>	
+    <message>
+        <source>Preset 3</source>
+        <translation>Preset 3</translation>
+    </message>	
+    <message>
+        <source>Save 1</source>
+        <translation>Save 1</translation>
+    </message>	
+    <message>
+        <source>Save 2</source>
+        <translation>Save 2</translation>
+    </message>	
+    <message>
+        <source>Save 3</source>
+        <translation>Save 3</translation>
+    </message>	
     <message>
         <source>Command history</source>
         <translation>历史指令记录</translation>
@@ -200,7 +240,7 @@
         <translation>启用历史记录</translation>
     </message>
     <message>
-        <source>Dump to file</source>
+        <source>Dump history to file</source>
         <translation>储存到文档</translation>
     </message>
     <message>
@@ -232,8 +272,8 @@
         <translation>内部回流流速 ( 纳升/秒 )</translation>
     </message>
     <message>
-        <source>Ratio</source>
-        <translation>比率</translation>
+        <source>Ratio (-)</source>
+        <translation>比率 (-)</translation>
     </message>
     <message>
         <source>Flow rate 1 ( nL/s )</source>
@@ -325,7 +365,7 @@
     </message>
     <message>
         <source>No protocol running  </source>
-        <translation>无流程运行</translation>
+        <translation>无流程运行  </translation>
     </message>
     <message>
         <source>Disconnect</source>
@@ -477,11 +517,15 @@
     </message>
     <message>
         <source> seconds</source>
-        <translation>秒</translation>
+        <translation> 秒</translation>
     </message>
     <message>
         <source>Ask message command</source>
         <translation>询问消息指令</translation>
+    </message>
+    <message>
+        <source>No protocol loaded</source>
+        <translation>无流程加载</translation>
     </message>
     <message>
         <source> No protocol loaded : </source>
@@ -509,7 +553,7 @@
     </message>
     <message>
         <source>Pulse time remaining:</source>
-        <translation>脉冲剩余时间: </translation>
+        <translation>脉冲剩余时间:</translation>
     </message>
     <message>
         <source>Continuous flowing</source>
@@ -572,6 +616,10 @@
         <translation>指令</translation>
     </message>
     <message>
+        <source>Range</source>
+        <translation>Range</translation>
+    </message>
+    <message>
         <source>Status message</source>
         <translation>状态消息</translation>
     </message>
@@ -600,6 +648,18 @@
         <translation>流程时长 : </translation>
     </message>
     <message>
+        <source>Protocol  duration : 0 h, 0 min, 0 sec</source>
+        <translation>流程时长 : 0 h, 0 min, 0 sec</translation>
+    </message>
+    <message>
+        <source>Protocol duration (s)</source>
+        <translation>Protocol duration (s)</translation>
+    </message>
+    <message>
+        <source>Protocols</source>
+        <translation>Protocols</translation>
+    </message>
+    <message>
         <source>Please check your settings and try again</source>
         <translation>请检查您的设置，然后再试一次</translation>
     </message>
@@ -620,7 +680,7 @@
         <translation>你想要覆盖原文件吗？</translation>
     </message>
     <message>
-        <source>Yes = overwrite, NO = saveAs, Cancel = do nothing</source>
+        <source>Yes = overwrite, NO = save As, Cancel = do nothing</source>
         <translation>是 = 覆盖, 不 = 另存为, 取消 = 取消操作</translation>
     </message>
     <message>
@@ -858,7 +918,7 @@
 <context>
     <name>Labonatip_macroWizard</name>
     <message>
-        <source>E&amp;xit</source>
+        <source>Exit</source>
         <translation>退出</translation>
     </message>
     <message>
@@ -903,7 +963,7 @@
 <context>
     <name>Labonatip_tools</name>
     <message>
-        <source>E&amp;xit</source>
+        <source>Exit</source>
         <translation>退出</translation>
     </message>
     <message>
@@ -962,6 +1022,10 @@
         <source>Language</source>
         <translation>语言</translation>
     </message>
+	<message>
+        <source>GUI settings</source>
+        <translation>GUI settings</translation>
+    </message>
     <message>
         <source>Enable history</source>
         <translation>激活历史记录</translation>
@@ -993,6 +1057,10 @@
     <message>
         <source>Enable tool tips</source>
         <translation>启用工具提示</translation>
+    </message>
+    <message>
+        <source>Enable speech synthesis</source>
+        <translation>Enable speech synthesis</translation>
     </message>
     <message>
         <source>Solution settings</source>
@@ -1039,6 +1107,18 @@
         <translation>正压 / 负压设置</translation>
     </message>
     <message>
+        <source>Preset 1</source>
+        <translation>Preset 1</translation>
+    </message>	
+    <message>
+        <source>Preset 2</source>
+        <translation>Preset 2</translation>
+    </message>	
+    <message>
+        <source>Preset 3</source>
+        <translation>Preset 3</translation>
+    </message>		
+    <message>
         <source>Vacuum settings</source>
         <translation>负压设置</translation>
     </message>
@@ -1063,7 +1143,7 @@
         <translation>详细</translation>
     </message>
     <message>
-        <source>use set point / default values</source>
+        <source>Use set point / default values</source>
         <translation>使用设定点 / 默认值</translation>
     </message>
     <message>
@@ -1073,6 +1153,18 @@
     <message>
         <source>Filter window size</source>
         <translation>过滤窗口大小</translation>
+    </message>
+	<message>
+        <source>High/low</source>
+        <translation>High/low</translation>
+    </message>
+    <message>
+        <source>Sync timeout (sec)</source>
+        <translation>Sync timeout (sec)</translation>
+    </message>
+    <message>
+        <source>Test TTL</source>
+        <translation>Test TTL</translation>
     </message>
     <message>
         <source>Well 1 :</source>
@@ -1183,8 +1275,8 @@
         <translation>警告</translation>
     </message>
     <message>
-        <source>This will reset used defined settings and parameters to the factory default value. \nAre you sure ?</source>
-        <translation>这将会使用已定义的设置和参数重置为出厂默认值。 \n你确定吗？</translation>
+        <source>This will reset user defined settings and parameters to the factory default values</source>
+        <translation>这将会使用已定义的设置和参数重置为出厂默认值</translation>
     </message>
     <message>
         <source>Are you sure?</source>
@@ -1359,10 +1451,6 @@
         <translation>Min possible value for Vswitch vacuum in PPC1</translation>
     </message>
 	<message>
-        <source></source>
-        <translation></translation>
-    </message>
-	<message>
         <source>Default operational value for Vswitch vacuum in PPC1</source>
         <translation>Default operational value for Vswitch vacuum in PPC1</translation>
     </message>
@@ -1482,12 +1570,12 @@
         <translation>确定</translation>
     </message>
     <message>
-        <source>&amp;No</source>
+        <source>No</source>
         <translation>否</translation>
     </message>
     <message>
-        <source>&amp;Yes</source>
-        <translation>&amp;是</translation>
+        <source>Yes</source>
+        <translation>是</translation>
     </message>
     <message>
         <source>Help</source>
@@ -1534,7 +1622,7 @@
         <translation>忽略</translation>
     </message>
     <message>
-        <source>N&amp;o to All</source>
+        <source>No to All</source>
         <translation>全部不同意</translation>
     </message>
     <message>
@@ -1546,7 +1634,7 @@
         <translation>放弃</translation>
     </message>
     <message>
-        <source>Yes to &amp;All</source>
+        <source>Yes to All</source>
         <translation>全部同意</translation>
     </message>
 </context>
