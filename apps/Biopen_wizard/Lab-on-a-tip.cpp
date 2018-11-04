@@ -1306,7 +1306,7 @@ void Labonatip_GUI::about() {
 
 	if (messageBox.clickedButton() == pButtonYes) {
 		//Execute command
-		QString fileName = QDir::currentPath() + "./guide/BioPen2018.pdf";
+		QString fileName = QDir::currentPath() + "./guide/BioPenWizard_v2.1_QuickStartGuide_2018.pdf";
 		QDesktopServices::openUrl(QUrl("file:///" + fileName));
 	}
 }
