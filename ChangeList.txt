@@ -1,3 +1,10 @@
+V.2.1.0
+This is the first official release and it incorporates all the changes
+
+V.2.0.69
+Added new protocols and default settings 
+Update the quick start guide
+
 V.2.0.68
 Added a useful translation tool
 Improved swedish and chinese translations
