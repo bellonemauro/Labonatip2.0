@@ -23,6 +23,7 @@
 #include <QTranslator>
 #include <QDateTime>
 #include <QTimer>
+
 //#include <QWhatsthis>
 #include <qwhatsthis.h>
 #include <QException>
@@ -47,6 +48,7 @@
 #include "protocolWriter.h"
 #include "protocolRunner.h"
 #include "chart.h"
+#include "updater.h"
 
 // serial
 #include <serial/serial.h>
@@ -512,6 +514,10 @@ private slots:
 	  */
 	void  about();
 
+	/** \brief Check for updates online
+	*/
+	void checkForUpdates();
+
 	/** \brief Empty waste wells in the pipette
 	*
 	*    This function is activated through a button in the tools dialog
@@ -694,6 +700,9 @@ private slots:
 	*       setVrecirc(-45)
 	*/
 	void standby();
+
+
+	void closeBiopen();
 
 protected:
 // event control
@@ -960,6 +969,7 @@ private:
 // Class members
   Ui::Labonatip_GUI *ui;               //!< the main user interface
   Labonatip_tools * m_dialog_tools;    //!< pointer to the tools dialog
+  biopen_updater * m_biopen_updated;    //!< pointer to the tools dialog
 
   QDebugStream *qout;                 //!< redirect cout for messages into the GUI
   QDebugStream *qerr;                 //!< redirect cerr for messages into the GUI

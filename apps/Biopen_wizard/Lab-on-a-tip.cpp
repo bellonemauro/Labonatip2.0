@@ -52,6 +52,9 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   // used in this application to allow translation
   initCustomStrings();
 
+  m_biopen_updated = new biopen_updater();
+  
+
   // initialize the tools as we need the settings
   m_dialog_tools = new Labonatip_tools();
   m_dialog_tools->setExtDataPath(m_ext_data_path);
@@ -500,7 +503,7 @@ void Labonatip_GUI::switchLanguage(int _value )
 		m_macroRunner_thread->switchLanguage(translation_file);
 		m_reader->switchLanguage(translation_file);
 		m_writer->switchLanguage(translation_file);
-
+		m_biopen_updated->switchLanguage(translation_file);
 	}
 	else cout << " translation not loaded " << endl;
 
@@ -768,6 +771,10 @@ void Labonatip_GUI::initConnects()
 		SIGNAL(valueChanged(int)), this, 
 		SLOT(sliderSwitchChanged(int)));
 	
+	connect(m_biopen_updated,
+		SIGNAL(exit()), this,
+		SLOT(closeBiopen())); 
+
 	connect(m_dialog_tools,
 		SIGNAL(emptyWaste()), this,
 		SLOT(emptyWells()));
@@ -1299,18 +1306,32 @@ void Labonatip_GUI::about() {
 	messageBox.setWindowIcon(QPixmap(":/icons/fluicell_iconBIG.ico"));
 	messageBox.setFixedSize(200, 300);
 
-	QAbstractButton* pButtonYes = messageBox.addButton(tr("Open quick guide"), QMessageBox::YesRole);
+	QAbstractButton* pButtonQG = messageBox.addButton(tr("Open quick guide"), QMessageBox::YesRole);
 	messageBox.addButton(m_str_ok, QMessageBox::NoRole);
 
+	QAbstractButton* pButtonCU = messageBox.addButton(tr("Check update"), QMessageBox::YesRole);
+	
 	messageBox.exec();
 
-	if (messageBox.clickedButton() == pButtonYes) {
+	if (messageBox.clickedButton() == pButtonQG) {
 		//Execute command
 		QString fileName = QDir::currentPath() + "./guide/BioPenWizard_v2.1_QuickStartGuide_2018.pdf";
 		QDesktopServices::openUrl(QUrl("file:///" + fileName));
 	}
-}
 
+	if (messageBox.clickedButton() == pButtonCU) {
+		this->checkForUpdates();
+	}
+
+	return;
+}
+void Labonatip_GUI::checkForUpdates() {
+
+	m_biopen_updated->setVersion(m_version);
+	m_biopen_updated->setParent(this);
+	m_biopen_updated->setWindowFlags(Qt::Window);
+	m_biopen_updated->show();
+}
 /*
 double Labonatip_GUI::protocolDuration(std::vector<fluicell::PPC1api::command> _protocol)
 {
@@ -1450,11 +1471,36 @@ void Labonatip_GUI::setSettingsUserPath(QString _path) {
 }
 
 void Labonatip_GUI::setVersion(string _version) {
+	// set the version in the main window
 	m_version = QString::fromStdString(_version);
 	this->setWindowTitle(QString("Lab-on-a-tip v.") + m_version);
 }
 
-Labonatip_GUI::~Labonatip_GUI ()
+void Labonatip_GUI::closeBiopen()
+{
+	if (m_macroRunner_thread->isRunning()) {
+		//this->runProtocol(); // this will stop the macro if running
+		QMessageBox::question(this, m_str_information, m_str_protocol_running_stop, m_str_ok);
+		
+		return;
+	}
+	// dump log file
+	if (m_GUI_params->dumpHistoryToFile)
+	{
+		// save log data, messages from the console ect. 
+		dumpLogs();
+	}
+	if (m_ppc1->isConnected()) {
+
+		m_ppc1->stop();
+		m_ppc1->disconnectCOM(); //if is active, disconnect
+	}
+	delete m_dialog_tools;
+	//delete m_dialog_p_editor;
+	qApp->quit();
+}
+
+Labonatip_GUI::~Labonatip_GUI()
 {
   delete qout;
   delete qerr;
@@ -1486,6 +1532,7 @@ Labonatip_GUI::~Labonatip_GUI ()
   delete m_reader;
   delete m_writer;
 
+  delete m_biopen_updated;
   delete ui;
   qApp->quit();
 }

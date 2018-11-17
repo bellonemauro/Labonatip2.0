@@ -153,12 +153,12 @@ QString protocolWriter::createHeader()
 	header.append(tr("%% +---------------------------------------------------------------------------+ \n"));
 	header.append(tr("%% List of parameters: \n"));
 	header.append(tr("%%  - Command :  \n")); 
-	header.append(tr("%%  -       0:  Set Zone size (%)             :  Set the droplet size in % respect to the default values \n"));
-	header.append(tr("%%  -       1:  Change Zone size (%)          :  Change the droplet size in % respect to the current values \n"));
-	header.append(tr("%%  -       2:  Set Flow speed (%)            :  Set the flow speed in % respect to the default values\n"));
-	header.append(tr("%%  -       3:  change Flow speed (%)         :  Change the flow speed in % respect to the current values\n"));
-	header.append(tr("%%  -       4:  Set Vacuum (%)                :  Set the vacuum in % respect to the default values\n"));
-	header.append(tr("%%  -       5:  change Vacuum (%)             :  Change the vacuum in % respect to the current values\n"));
+	header.append(tr("%%  -       0:  Set Zone size (%)             :  Set the droplet size percentage in the range [50, 200]  \n"));
+	header.append(tr("%%  -       1:  Change Zone size by (%)       :  Change the droplet size in % respect to the current values, accepted range [-40, +40] \n"));
+	header.append(tr("%%  -       2:  Set Flow speed (%)            :  Set the flow speed percentage in the range [50, 220] \n"));
+	header.append(tr("%%  -       3:  Change Flow speed by (%)      :  Change the flow speed in % respect to the current values, accepted range [-40, +40] \n"));
+	header.append(tr("%%  -       4:  Set Vacuum (%)                :  Set the vacuum percentage in the range [50, 250] \n"));
+	header.append(tr("%%  -       5:  Change Vacuum by (%)          :  Change the vacuum in % respect to the current values, accepted range [-40, +40] \n"));
 	header.append(tr("%%  -       6:  Wait (s)                      :  Wait in seconds \n"));
 	header.append(tr("%%  -       7:  All Off                       :  All the valves 1 - 4 will be closed \n"));
 	header.append(tr("%%  -       8:  Solution 1 (open/close)       :  \n"));

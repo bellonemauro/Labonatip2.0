@@ -9,7 +9,7 @@
 
 //uncomment to hide the console when the app starts
 #ifndef _DEBUG
- #define HIDE_TERMINAL 
+#define HIDE_TERMINAL 
 #endif
 #ifdef HIDE_TERMINAL
 	#if defined (_WIN64) || defined (_WIN32)

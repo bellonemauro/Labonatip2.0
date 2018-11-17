@@ -121,7 +121,7 @@ elseif(BUILD_QT5)
 	cmake_policy(SET CMP0020 NEW)
 	
 	# Find the QtWidgets library ---- really weird way of find libraries ---TODO solve this ! 
-	find_package(Qt5 COMPONENTS Core Widgets Gui Charts Concurrent LinguistTools TextToSpeech REQUIRED)
+	find_package(Qt5 COMPONENTS Core Widgets Network Gui Charts Concurrent LinguistTools TextToSpeech REQUIRED)
 	
 	# set the policy for the automoc generation, only for cmake >3.10
 	# see https://cmake.org/cmake/help/git-stage/policy/CMP0071.html
@@ -203,7 +203,7 @@ elseif(BUILD_QT5)
 
 	add_executable (${PROJECT_NAME}  	${myProject_SOURCES} ${myProject_HEADERS}
 									${myProject_FORMS_HEADERS} ${UI_RESOURCES_RCC})
-	qt5_use_modules(${PROJECT_NAME} Widgets TextToSpeech)
+	qt5_use_modules(${PROJECT_NAME} Network Widgets TextToSpeech)
 	
 	target_link_libraries ( ${PROJECT_NAME}  
 							${QT_LIBRARIES}  ${Qt5Charts_LIBRARIES} 
