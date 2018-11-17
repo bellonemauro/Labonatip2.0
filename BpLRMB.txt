@@ -1,3 +1,3 @@
 2.1.0
-https://github.com/bellonemauro/Labonatip2.0/releases/download/2.1/Biopen_wizard-2.1.0-win64.exe
-https://github.com/bellonemauro/Labonatip2.0/releases/download/2.1/Biopen_wizard-2.1.0-win32.exe
+http://download2266.mediafire.com/gfj3n5kmrjtg/js98vvmgzz07xa7/Biopen_wizard-2.1.0-win64.exe
+http://download2262.mediafire.com/1kqpcprdwb7g/jjsdgn68o73a66h/Biopen_wizard-2.1.0-win32.exe
