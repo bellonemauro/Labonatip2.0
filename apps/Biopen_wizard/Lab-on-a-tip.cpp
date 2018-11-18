@@ -786,6 +786,10 @@ void Labonatip_GUI::initConnects()
 	connect(m_dialog_tools, 
 		SIGNAL(apply()), this, 
 		SLOT(toolApply()));
+	
+	connect(m_dialog_tools,
+		SIGNAL(checkUpdatesNow()), this,
+		SLOT(checkForUpdates()));
 
 	connect(m_dialog_tools,
 		&Labonatip_tools::TTLsignal, this,
@@ -1309,7 +1313,7 @@ void Labonatip_GUI::about() {
 	QAbstractButton* pButtonQG = messageBox.addButton(tr("Open quick guide"), QMessageBox::YesRole);
 	messageBox.addButton(m_str_ok, QMessageBox::NoRole);
 
-	QAbstractButton* pButtonCU = messageBox.addButton(tr("Check update"), QMessageBox::YesRole);
+	//QAbstractButton* pButtonCU = messageBox.addButton(tr("Check update"), QMessageBox::YesRole);
 	
 	messageBox.exec();
 
@@ -1317,10 +1321,6 @@ void Labonatip_GUI::about() {
 		//Execute command
 		QString fileName = QDir::currentPath() + "./guide/BioPenWizard_v2.1_QuickStartGuide_2018.pdf";
 		QDesktopServices::openUrl(QUrl("file:///" + fileName));
-	}
-
-	if (messageBox.clickedButton() == pButtonCU) {
-		this->checkForUpdates();
 	}
 
 	return;

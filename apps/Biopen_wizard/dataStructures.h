@@ -291,6 +291,7 @@ struct GUIparams {
 	GUIparams() 
 	{   // default values
 		this->showTextToolBar = Qt::ToolButtonIconOnly;
+		this->automaticUpdates = true;
 		this->enableToolTips = false;
 		this->verboseOutput = true;
 		this->enableHistory = true;
@@ -316,6 +317,7 @@ struct GUIparams {
 	}
 
 	Qt::ToolButtonStyle showTextToolBar;     //!<  ToolButtonIconOnly --- n 
+	bool automaticUpdates;
 	bool enableToolTips;
 	bool verboseOutput;
 	bool enableHistory;

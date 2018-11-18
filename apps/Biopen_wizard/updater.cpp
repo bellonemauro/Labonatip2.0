@@ -15,6 +15,9 @@ biopen_updater::biopen_updater(QWidget *parent):
 	QMainWindow(parent),
 	ui_updater(new Ui::Updater)
 {
+	//Main things to add: 
+	// 1. trigger the exit event to avoid pending download
+	// 2. the cancel button is still not wired
 		ui_updater->setupUi(this );
 		this->initCustomStrings();
 

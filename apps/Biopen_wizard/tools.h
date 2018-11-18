@@ -62,7 +62,7 @@ class Labonatip_tools : public  QMainWindow
 		void colSol2Changed(const int _r, const int _g, const int _b); //!< signal generated when the solution color is changed
 		void colSol3Changed(const int _r, const int _g, const int _b); //!< signal generated when the solution color is changed
 		void colSol4Changed(const int _r, const int _g, const int _b); //!< signal generated when the solution color is changed
-
+		void checkUpdatesNow(); //!< signal generated when the updates button is pressed
 
 public:
 
@@ -160,6 +160,8 @@ private slots:
 	void showPortInfo(int idx);
 
 	void enableToolTip(int _inx);
+
+	void checkForUpdates();
 
 	void testTTL();
 	/** Color solution 1 changed

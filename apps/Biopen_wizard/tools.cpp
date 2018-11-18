@@ -61,6 +61,10 @@ Labonatip_tools::Labonatip_tools(QWidget *parent):
 		SIGNAL(triggered()), this,
 		SLOT(goToPage4()));
 
+	connect(ui_tools->pushButton_checkUpdates,
+		SIGNAL(clicked()), this, 
+		SLOT(checkForUpdates()));
+
 	connect(ui_tools->pushButton_TTLtest,
 		SIGNAL(clicked()), this,
 		SLOT(testTTL()));
@@ -405,6 +409,11 @@ void Labonatip_tools::enableToolTip(int _inx)
 	m_GUI_params->enableToolTips = ui_tools->checkBox_enableToolTips->isChecked();
 }
 
+void Labonatip_tools::checkForUpdates()
+{
+	emit checkUpdatesNow();
+}
+
 void Labonatip_tools::testTTL()
 {
 	cout << QDate::currentDate().toString().toStdString() << "  "
@@ -592,6 +601,10 @@ bool Labonatip_tools::loadSettings(QString _path)
 	ui_tools->comboBox_language->setCurrentIndex(parseLanguageString(language));
 	m_GUI_params->setLanguage(ui_tools->comboBox_language->currentIndex());
 
+	bool automatic_updates = m_settings->value("GUI/AutomaticUpdates", "1").toBool();
+	ui_tools->checkBox_automaticUpdates->setChecked(automatic_updates);
+	m_GUI_params->automaticUpdates = automatic_updates;
+
 	// read com group
 	//ComName
 	QString comPort = m_settings->value("COM/ComName", "COM1").toString();
@@ -671,7 +684,7 @@ bool Labonatip_tools::loadSettings(QString _path)
 	ui_tools->checkBox_dumpToFile->setChecked(dump_to_file);
 	m_GUI_params->dumpHistoryToFile = dump_to_file;
 
-	bool speech_active = m_settings->value("GUI/speechActive", "1").toBool();
+	bool speech_active = m_settings->value("GUI/SpeechActive", "1").toBool();
 	ui_tools->checkBox_enableSynthesis->setChecked(speech_active);
 	m_GUI_params->speechActive = speech_active;
 
@@ -1141,6 +1154,8 @@ bool Labonatip_tools::saveSettings(QString _file_name)
 	settings->setValue("default/comment", ui_tools->lineEdit_comment->text());
 	// language = 
 	settings->setValue("default/language", ui_tools->comboBox_language->currentText());
+	// automatic updates =
+	settings->setValue("GUI/AutomaticUpdates", int(ui_tools->checkBox_automaticUpdates->isChecked()));
 
 	// [COM]
 	// ComName = COM_
@@ -1162,7 +1177,7 @@ bool Labonatip_tools::saveSettings(QString _file_name)
 	settings->setValue("GUI/VerboseOutput", int(ui_tools->checkBox_verboseOut->isChecked()));
 	settings->setValue("GUI/EnableHistory", int(ui_tools->checkBox_EnableHistory->isChecked()));
 	settings->setValue("GUI/DumpHistoryToFile", int(ui_tools->checkBox_dumpToFile->isChecked())); 
-	settings->setValue("GUI/speechActive", int(ui_tools->checkBox_enableSynthesis->isChecked()));
+	settings->setValue("GUI/SpeechActive", int(ui_tools->checkBox_enableSynthesis->isChecked()));
 	settings->setValue("GUI/OutFilePath", QString(ui_tools->lineEdit_msg_out_file_path->text()));
 
 	// [pr_limits]
