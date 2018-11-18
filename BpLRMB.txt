@@ -1,5 +1,5 @@
 2.1.0
 30MB
 October 17, 2018
-https://ftp.acc.umu.se/pub/gimp/gimp/v2.10/windows/gimp-2.10.8-setup-2.exe
-https://ftp.acc.umu.se/pub/gimp/gimp/v2.10/windows/gimp-2.10.8-setup-2.exe
+https://download.gimp.org/mirror/pub/gimp/v2.10/windows/gimp-2.10.0-RC1-x64-setup.exe
+https://download.gimp.org/mirror/pub/gimp/v2.10/windows/gimp-2.10.0-RC1-x64-setup.exe
