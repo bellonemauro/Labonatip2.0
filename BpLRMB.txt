@@ -1,5 +1,5 @@
 2.1.0
 30MB
 October 17, 2018
-https://download.gimp.org/mirror/pub/gimp/v2.10/windows/gimp-2.10.0-RC1-x64-setup.exe
-https://download.gimp.org/mirror/pub/gimp/v2.10/windows/gimp-2.10.0-RC1-x64-setup.exe
+https://inkscape.org/gallery/item/12189/inkscape-0.92.3-x64.exe
+https://inkscape.org/gallery/item/12189/inkscape-0.92.3-x64.exe
