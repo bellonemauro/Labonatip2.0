@@ -1313,8 +1313,6 @@ void Labonatip_GUI::about() {
 	QAbstractButton* pButtonQG = messageBox.addButton(tr("Open quick guide"), QMessageBox::YesRole);
 	messageBox.addButton(m_str_ok, QMessageBox::NoRole);
 
-	//QAbstractButton* pButtonCU = messageBox.addButton(tr("Check update"), QMessageBox::YesRole);
-	
 	messageBox.exec();
 
 	if (messageBox.clickedButton() == pButtonQG) {

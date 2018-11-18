@@ -271,42 +271,70 @@ private slots:
 	*/
 	bool saveSettings(QString _file_name = QString("./settings/setting_save.ini"));
 
+	/** \brief Reset all the values to default values
+	*
+	*/
 	void resetToDefaultValues();
 
 private:
 
-	QSettings *m_settings;
+	QSettings *m_settings; //!<  data member containing the setting information
 
+	/** \brief Initialize all the custom strings
+	*
+	*/
 	void initCustomStrings();
 
+	/** \brief Parse the language string
+	*
+	*   The string _language is parced as an index
+	*/
 	int parseLanguageString(QString _language);
 
+	/** \brief Get the serial port setting from the tool dialog
+	*
+	*/
 	void getCOMsettingsFromGUI();
 
+	/** \brief Get the solution setting from the tool dialog
+	*
+	*/
 	void getSolutionSettingsFromGUI();
 
+	/** \brief Get the GUI setting from the tool dialog
+	*
+	*/
 	void getGUIsettingsFromGUI();
 
+	/** \brief Get the pressure and vacuum setting from the tool dialog
+	*
+	*/
 	void getPRsettingsFromGUI();
 
+	/** \brief From _position to 3 RGB bytes 
+	*
+	*/
 	uint32_t giveRainbowColor(float _position);
 
     /** \brief Check the size of the history and ask to clean it if necessary
     *
-    * \note
     */
     void checkHistory ();
 
-    int calculateFolderSize(const QString _wantedDirPath);
 
-	QString m_setting_file_name;
+	/** \brief Calculate the size of a folder, used for cleaning history
+	*
+	*/
+	int calculateFolderSize(const QString _wantedDirPath);
 
-	QTranslator m_translator_tool;
+	QString m_setting_file_name;   //!<  setting file name for loading and saving
 
-	COMSettings *m_comSettings;
-	solutionsParams *m_solutionParams;
-	pr_params *m_pr_params;
-	GUIparams *m_GUI_params;
+	QTranslator m_translator_tool; //!<  translation object
+
+	COMSettings *m_comSettings;    //!<  serial port setting structure
+	solutionsParams *m_solutionParams;  //!<  solution setting structure
+	pr_params *m_pr_params;       //!<  pressure and vacuum setting structure
+	GUIparams *m_GUI_params;      //!<  GUI setting structure
 
 	// translatable strings
 	QString m_str_warning;

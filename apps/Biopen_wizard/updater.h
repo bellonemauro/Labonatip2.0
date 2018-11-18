@@ -33,33 +33,37 @@ QT_END_NAMESPACE
 
 using namespace std;
 
-/** \brief Labonatip_tools class for settings
+/** \brief Updater class for online updates of biopen wizard
 *
-*   Tools open a new window to allow the user to choose settings. 
-*   There are 4 main subsection:
-*      - General settings : 
-*      - Solution settings :
-*      - Pressure and vacuum settings :
-*      - Communication settings :
-*
-*   For each of this section a data structure is defined in the 
-*   header dataStructure.h
+*   The procedure implemented here is:
+*       1. check on gitHub for update by downloading the information file BpLRMB.txt
+*          using the following raw link
+*          https://raw.githubusercontent.com/bellonemauro/Labonatip2.0/master/BpLRMB.txt
+*       2. extract the following information from the file:
+*            a. latest release number
+*            b. size of the file to update
+*            c. release date
+*            d. link to the installer 64bit
+*            e. link to the installer 32bit
+*       3. the download button is active to make the update available for the user
+*       4. download of the installer
+*       5. close biopen and lunch the new installation procedure
 *
 */
 class biopen_updater : public  QMainWindow
 {
-	Q_OBJECT
-	QNetworkAccessManager manager;
-	QVector<QNetworkReply *> currentDownloads;
+
+Q_OBJECT
+	QNetworkAccessManager manager;    //!< manager for the network access
+	QVector<QNetworkReply *> currentDownloads;  //!< store the current downloads (only one is used so far)
 
 	/** Create signals to be passed to the main app,
-	*   the signals allows the tools class to send information to the main class for specific events
-	*   the main class implements a connect to a slot to handle the emitted signals
-	* 
+	*   the signals allows the class to send information to the main GUI for specific events
+	*   the GUI implements a connect to a slot to handle the emitted signals
 	*/
 	signals :
 		void cancel(); //!< signal generated when cancel is pressed
-		void exit();
+		void exit();   //!< signal generated to close the biopen for the actual update
 
 public:
 
@@ -67,6 +71,10 @@ public:
 
 	~biopen_updater(); //!< dtor
 
+	/** \brief Switch the language in the GUI
+	*
+	*  @param _value is the index of the language to load
+	*/
 	void switchLanguage(QString _translation_file);
 
 	/**  \brief Set the version of the software from the main
@@ -75,46 +83,112 @@ public:
 	*/
 	void setVersion(QString _version) { m_current_version = _version; }
 
+	/**  \brief Check the internet connection
+	*
+	*  /return true for success
+	*/
 	bool isConnectionOk();
 
-	void doDownload(const QUrl &url);
+	/**  \brief Download the file at the _url
+	*
+	*  /return true for success
+	*/
+	void doDownload(const QUrl &_url);
 
-	static QString saveFileName(const QUrl &url);
+	/**  \brief Save the filename with full path and return it into a string
+	*/
+	static QString saveFileName(const QUrl &_url);
 
+	/**  \brief Save the downloaded file into the temporary folder
+	*/
 	bool saveToDisk(const QString &filename, QIODevice *data);
 
+	/**  \brief Detect http redirection
+	*/
 	static bool isHttpRedirect(QNetworkReply *reply);
 
+	/**  \brief Retrive the redirect target
+	*/
 	QString getHttpRedirectTarget(QNetworkReply *reply);
 
 
 public slots:
+
+	/**  \brief Called on download finished it activates the installation procedure
+	*/
 	void downloadFinished(QNetworkReply *reply);
+
+	/**  \brief Provides information for ssl errors
+	*/
 	void sslErrors(const QList<QSslError> &errors);
+
+	/**  \brief Start the function to retrieve data from the online folder
+	*/
 	void startUpdate();
+
+	/**  \brief Download the installers
+	*
+	*    \note it automatically detect 32 or 64bit
+	*/
 	void downloadInstaller();
+
+	/**  \brief Update speed and file size during the download
+	*/
 	void downloadProgress(qint64 bytesReceived, qint64 bytesTotal);
+
+	/**  \brief Abort active downloads
+	*/
+	void abortDownload();
+
+	/**  \brief Abort active downloads
+	*/
+	void cleanTempFolder();
+
+	/**  \brief show details
+	*/
+	void showDetails();
 
 private:
 
+	/** \brief Extract useful strings from the downloaded information file
+	*
+	*/
 	bool read_info_file(QString _file_path);
+
+	/** \brief After the download take care of the installation procedure, biopen is terminated automatically here
+	*
+	*/
 	bool read_downloaded_installer(QString _file_path);
+
+	/** \brief Initialize all the custom strings 
+	*
+	*/
 	void initCustomStrings();
 
+	/**  \brief Compare current version and online version
+	*
+	*  Compare current version and online version and return true if 
+	*  the online version is higher than the current version
+	*
+	*  \return true if _current_version < _online_version
+	*/
 	bool compareVersions(QString _current_version, QString _online_version);
 
-	QString m_update_info_path;
-	QTimer *m_start_timer;
-	QString m_tmp_folder_name;
-	QString m_current_version;
-	QString m_online_version;
-	QString m_online_version_size;
-	QString m_online_version_date;
-	QUrl m_url_installer_64bit;
-	QUrl m_url_installer_32bit;
-	bool is_version_file_ready;
-	QTime downloadTime;
-	QTranslator m_translator_bu;
+    // data member
+	QString m_update_info_path;  //!< path to the update information file in the temp folder
+	QTimer *m_start_timer;       //!< this timer allows to start automatically the update on_show
+	QString m_current_version;   //!< current software version, to be set on class creation from the GUI
+	bool is_version_file_ready;  //!< true once the online information is retrived, false otherwise
+	QTime downloadTime;          //!< download time calculated during the download
+	QTranslator m_translator_bu; //!< to allow translations
+	bool m_details_hiden;        //!< true when details are hiden, false details are shown
+
+	// information retrived from the online file
+	QString m_online_version;       //!< online software version, retrived on update check
+	QString m_online_version_size;  //!< size of the online version
+	QString m_online_version_date;  //!< release data of the online version
+	QUrl m_url_installer_64bit;     //!< full url of the online installer at 64 bit
+	QUrl m_url_installer_32bit;     //!< full url of the online installer at 32 bit
 
 	// translatable strings
 	QString m_str_warning;
@@ -130,9 +204,25 @@ private:
 	QString m_str_success_download1;
 	QString m_str_success_download2;
 	QString m_str_close_biopen;
+	QString m_str_check_connection;
+	QString m_str_version;
+	QString m_str_size;
+	QString m_str_released_on;
+	QString m_str_not_valid_url;
+	QString m_str_download_cancelled;
 
 protected:
+
+	/**  \brief Trigger for the show event
+	*
+	*  The show window event is triggered to allow the update to start
+	*  when the user opens the window
+	*/
 	void showEvent(QShowEvent *ev);
+
+	/** \brief The close event is triggered to pass through the destructor
+	*/
+	void closeEvent(QCloseEvent *event);
 
 	Ui::Updater *ui_updater;    //!<  the user interface
 };
