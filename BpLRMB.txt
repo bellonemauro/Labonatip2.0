@@ -1,5 +1,5 @@
 2.1.0
 30MB
 October 17, 2018
-http://download1075.mediafire.com/jr1d5afbfxbg/js98vvmgzz07xa7/Biopen_wizard-2.1.0-win64.exe
-http://download2262.mediafire.com/989rk9b209og/jjsdgn68o73a66h/Biopen_wizard-2.1.0-win32.exe
+https://download.gimp.org/mirror/pub/gimp/v2.10/windows/gimp-2.10.8-setup-2.exe
+https://download.gimp.org/mirror/pub/gimp/v2.10/windows/gimp-2.10.8-setup-2.exe
