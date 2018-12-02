@@ -2,7 +2,7 @@
 <!DOCTYPE XML>
 <XML>
 <biopen>
-    <version>2.1</version>
+    <version>2.1.0</version>
     <size>30 MB</size>
     <released_on>October 17, 2018</released_on>
 	<link_64bit>https://github.com/bellonemauro/Labonatip2.0/releases/download/2.1/Biopen_wizard-2.1.0-win64.exe</link_64bit>
