@@ -548,6 +548,7 @@ void Labonatip_tools::getSolutionSettingsFromGUI()
 void Labonatip_tools::getGUIsettingsFromGUI()
 {
 //	m_GUI_params->showTextToolBar = Qt::ToolButtonStyle(ui_tools->comboBox_toolButtonStyle->currentIndex());
+	m_GUI_params->automaticUpdates = ui_tools->checkBox_automaticUpdates->isChecked();
 	m_GUI_params->enableToolTips = ui_tools->checkBox_enableToolTips->isChecked();
 	m_GUI_params->verboseOutput = ui_tools->checkBox_verboseOut->isChecked();
 	m_GUI_params->enableHistory = ui_tools->checkBox_EnableHistory->isChecked();

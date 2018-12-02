@@ -193,12 +193,14 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   m_update_GUI = new QTimer();
   m_update_waste = new QTimer();
   m_waste_remainder = new QTimer();
+  m_check_updates = new QTimer();
   m_timer_solution = 0;
 
   m_update_flowing_sliders->setInterval(m_base_time_step);
   m_update_GUI->setInterval(10);// (m_base_time_step);
   m_update_waste->setInterval(m_base_time_step);
   m_waste_remainder->setInterval(300 * m_base_time_step);
+  m_check_updates->setInterval(10000);
   
   connect(m_update_flowing_sliders,
 	  SIGNAL(timeout()), this,
@@ -218,6 +220,10 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	  SIGNAL(timeout()), this,
 	  SLOT(emptyWasteRemainder()));
 
+  connect(m_check_updates,
+	  SIGNAL(timeout()), this,
+	  SLOT(automaticCheckForUpdates()));
+  m_check_updates->start();
 
   // reset the macrotable widget
   ui->treeWidget_macroTable->setColumnWidth(editorParams::c_idx, 70);
@@ -356,6 +362,38 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 
 }
 
+void Labonatip_GUI::automaticCheckForUpdates()
+{
+	m_check_updates->stop();
+
+	connect(m_biopen_updated,
+		&biopen_updater::updateAvailable, this,
+		&Labonatip_GUI::handleUpdateAvailable);
+
+	if (m_GUI_params->automaticUpdates)
+	{
+		// check for updates on startup
+		m_biopen_updated->setVersion(m_version);
+		m_biopen_updated->isUpdateAvailable();
+		//checkForUpdates();
+	}
+}
+
+void Labonatip_GUI::handleUpdateAvailable()
+{
+
+	QMessageBox::StandardButton resBtn =
+		QMessageBox::question(this, m_str_information, 
+			"update available, do you want to download the update now?", //TODO: string
+			QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
+			QMessageBox::Yes);
+	if (resBtn != QMessageBox::Yes) {
+		 
+	}
+	else {
+		checkForUpdates();
+	}
+}
 
 
 void Labonatip_GUI::askMessage(const QString &_message) 

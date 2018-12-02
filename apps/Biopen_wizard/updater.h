@@ -23,7 +23,7 @@
 #include <QDir>
 #include <QtCore>
 #include <QtNetwork\QtNetwork>
-
+#include <QXmlStreamReader>
 
 
 
@@ -64,6 +64,7 @@ Q_OBJECT
 	signals :
 		void cancel(); //!< signal generated when cancel is pressed
 		void exit();   //!< signal generated to close the biopen for the actual update
+		void updateAvailable();
 
 public:
 
@@ -89,6 +90,12 @@ public:
 	*/
 	bool isConnectionOk();
 
+	/**  \brief Check for updates
+	*
+	*  /return true for success
+	*/
+	bool isUpdateAvailable();
+
 	/**  \brief Download the file at the _url
 	*
 	*  /return true for success
@@ -97,7 +104,7 @@ public:
 
 	/**  \brief Save the filename with full path and return it into a string
 	*/
-	static QString saveFileName(const QUrl &_url);
+	QString saveFileName(const QUrl &_url);
 
 	/**  \brief Save the downloaded file into the temporary folder
 	*/
@@ -110,6 +117,10 @@ public:
 	/**  \brief Retrive the redirect target
 	*/
 	QString getHttpRedirectTarget(QNetworkReply *reply);
+
+	/**  \brief Set verbose to have more output
+	*/
+	void setVerbose(bool _verbose) { m_verbose = _verbose; }
 
 
 public slots:
@@ -125,6 +136,8 @@ public slots:
 	/**  \brief Start the function to retrieve data from the online folder
 	*/
 	void startUpdate();
+
+	bool checkConnection();
 
 	/**  \brief Download the installers
 	*
@@ -153,7 +166,7 @@ private:
 	/** \brief Extract useful strings from the downloaded information file
 	*
 	*/
-	bool read_info_file(QString _file_path);
+	bool read_xmlinfo_file(QString _file_path);
 
 	/** \brief After the download take care of the installation procedure, biopen is terminated automatically here
 	*
@@ -174,28 +187,43 @@ private:
 	*/
 	bool compareVersions(QString _current_version, QString _online_version);
 
+
+	bool updateValidityCheck();
+
+
     // data member
 	QString m_update_info_path;  //!< path to the update information file in the temp folder
 	QTimer *m_start_timer;       //!< this timer allows to start automatically the update on_show
+	QTimer *m_connection_timer;  //!< check connection and then start the update on_show
 	QString m_current_version;   //!< current software version, to be set on class creation from the GUI
 	bool is_version_file_ready;  //!< true once the online information is retrived, false otherwise
 	QTime downloadTime;          //!< download time calculated during the download
 	QTranslator m_translator_bu; //!< to allow translations
 	bool m_details_hiden;        //!< true when details are hiden, false details are shown
+	bool m_is_update_available;  //!< set to true if the update is available
+	bool m_verbose;              //!< true for more verbose information
+	bool m_is_window_active;     //!< true when the window is visualized
 
 	// information retrived from the online file
 	QString m_online_version;       //!< online software version, retrived on update check
 	QString m_online_version_size;  //!< size of the online version
 	QString m_online_version_date;  //!< release data of the online version
+	int m_is_experimental;          //|< this is 0 for a normal release, 1 for an experimental release
 	QUrl m_url_installer_64bit;     //!< full url of the online installer at 64 bit
 	QUrl m_url_installer_32bit;     //!< full url of the online installer at 32 bit
+
+	const QUrl m_fluicell_url;      //!< static url to fluicell website, used for connection verification
+	const QUrl m_update_info_url;   //!< static url to the update information file
+	const QString m_temp_folder;
 
 	// translatable strings
 	QString m_str_warning;
 	QString m_str_areyousure;
 	QString m_str_information;
 	QString m_str_ok;
+	QString m_str_no_connection;
 	QString m_str_checking;
+	QString m_str_checking_connection;
 	QString m_str_update_found;
 	QString m_str_no_updates;
 	QString m_str_downloaded;
@@ -210,6 +238,8 @@ private:
 	QString m_str_released_on;
 	QString m_str_not_valid_url;
 	QString m_str_download_cancelled;
+	QString m_str_xml_problem;
+	QString m_str_xml_no_info;
 
 protected:
 

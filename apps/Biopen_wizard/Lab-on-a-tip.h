@@ -702,6 +702,27 @@ private slots:
 	void standby();
 
 
+	/** \brief Automatic check for updates
+	*
+	*    Called on m_check_updates timeout, 
+	*    it will check for updates, if the automatic 
+	*    update option is active in the settings
+	*/
+	void automaticCheckForUpdates();
+
+	/** \brief Handle the update available signal
+	*
+	*    The biopen_updater emits a signal if an update 
+	*    is available. The signal is chatched and forwarded
+	*    so that we can activate the updates
+	*/
+	void handleUpdateAvailable();
+
+	/** \brief Close biopen
+	*
+	*    Used to close the application 
+	*    via closeEvent or update signal
+	*/
 	void closeBiopen();
 
 protected:
@@ -995,6 +1016,7 @@ private:
   QTimer *m_update_GUI;                    //!< update GUI to show PPC1 values
   QTimer *m_update_waste;                  //!< update GUI to show PPC1 values
   QTimer *m_waste_remainder;               //!< empty waste remainder every 5 minutes
+  QTimer *m_check_updates;                 //!< timer for checking for updates
   const int m_base_time_step;              //!< used to set the update timers, every step is by default 1000 ms
   int m_flowing_solution;                  //!< needed for the visualization function relative to solution 1 - 2 - 3- 4
 

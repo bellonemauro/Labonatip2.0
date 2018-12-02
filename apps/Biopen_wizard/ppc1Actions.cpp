@@ -605,4 +605,3 @@ void Labonatip_GUI::standby()
 	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 
 }
-

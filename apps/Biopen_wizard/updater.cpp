@@ -13,11 +13,16 @@
 
 biopen_updater::biopen_updater(QWidget *parent):
 	QMainWindow(parent),
-	ui_updater(new Ui::Updater)
+	ui_updater(new Ui::Updater),
+	m_verbose(false),
+	m_temp_folder("/biopen_tmp"),
+	m_is_window_active(false),
+	m_fluicell_url("http://fluicell.com/"),
+	m_update_info_url("https://raw.githubusercontent.com/bellonemauro/Labonatip2.0/master/update_data.xml")
 {
 	//Main things to add: 
 	// 1. trigger the exit event to avoid pending download
-	// 2. the cancel button is still not wired
+
 		ui_updater->setupUi(this );
 		this->initCustomStrings();
 
@@ -29,12 +34,17 @@ biopen_updater::biopen_updater(QWidget *parent):
 		m_details_hiden = false;
 
 		m_start_timer = new QTimer();
-		m_start_timer->setInterval(100);
+		m_start_timer->setInterval(2000);
+		m_connection_timer = new QTimer();
+		m_connection_timer->setInterval(100);
+
 		m_url_installer_64bit = "";
 		m_url_installer_32bit = "";
 		is_version_file_ready = false;
 
-		ui_updater->pushButton_download->setEnabled(false);
+		connect(m_connection_timer,
+			SIGNAL(timeout()), this,
+			SLOT(checkConnection()));
 
 		connect(m_start_timer,
 			SIGNAL(timeout()), this,
@@ -42,8 +52,7 @@ biopen_updater::biopen_updater(QWidget *parent):
 	
 		connect(ui_updater->pushButton_download,
 			SIGNAL(clicked()), this,
-			SLOT(downloadInstaller()));
-		
+			SLOT(downloadInstaller()));	
 		
 		connect(ui_updater->pushButton_details,
 			SIGNAL(clicked()), this,
@@ -55,7 +64,6 @@ biopen_updater::biopen_updater(QWidget *parent):
 
 		connect(&manager, SIGNAL(finished(QNetworkReply*)),
 			SLOT(downloadFinished(QNetworkReply*)));
-
 }
 
 
@@ -65,8 +73,10 @@ void biopen_updater::showEvent(QShowEvent *ev)
 
 	//make sure that the GUI is clear and ready for the new check
 	ui_updater->textEdit_details->clear();
-	ui_updater->label_title->setText(m_str_checking); 
-	
+	ui_updater->label_title->setText(m_str_checking_connection); 
+	ui_updater->pushButton_download->setEnabled(false);
+	ui_updater->label_icon->setEnabled(false);
+
 	// turn off the download and cancel button
 	ui_updater->pushButton_download->setEnabled(false);
 	ui_updater->pushButton_cancelDownload->setEnabled(false);
@@ -91,31 +101,51 @@ void biopen_updater::showEvent(QShowEvent *ev)
 
 		this->resize(this->width(), this->height() - gb_size_h);
 	}
+
+	m_is_window_active = true;
 	// this timer is required to start the actual online request
-	m_start_timer->start();
+	m_connection_timer->start();
 }
 
 
 bool biopen_updater::isConnectionOk()
 {
-
+	m_connection_timer->stop();
 	QNetworkAccessManager nam;
-	QNetworkRequest req(QUrl("http://fluicell.com/"));
+	QNetworkRequest req(m_fluicell_url);
 	QNetworkReply *reply = nam.get(req);
 	QEventLoop loop;
 	connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
 	loop.exec();
-	if (reply->bytesAvailable())
+	if (reply->bytesAvailable()) {
+		ui_updater->label_icon->setEnabled(true); 
 		return true;
-	else
+	}
+	else {
+		ui_updater->label_icon->setEnabled(false);
 		return false;
+	}
+}
+
+bool biopen_updater::isUpdateAvailable()
+{
+	if (this->isConnectionOk())
+	{
+		this->doDownload(m_update_info_url);
+	}
+	return false;
 }
 
 
 void biopen_updater::doDownload(const QUrl & _url)
 {
+
 	QNetworkRequest request(_url);
+	request.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
 	QNetworkReply *reply = manager.get(request);
+
+	if (m_verbose) ui_updater->textEdit_details->append("Downloading file from: ");
+	if (m_verbose) ui_updater->textEdit_details->append(_url.toString());
 
 #if QT_CONFIG(ssl)
 	connect(reply, SIGNAL(sslErrors(QList<QSslError>)),
@@ -142,7 +172,7 @@ void biopen_updater::abortDownload()
 void biopen_updater::cleanTempFolder()
 {
 	QString save_path = QDir::tempPath();
-	save_path.append("/biopen_tmp"); // temporary folder for download
+	save_path.append(m_temp_folder); // temporary folder for download
 	// if the temp folder exist we can clean it for the next download
 	QDir dir(save_path);
 	// list all the file names
@@ -161,12 +191,13 @@ void biopen_updater::downloadProgress(qint64 bytesReceived, qint64 bytesTotal)
 	//progressBar.setStatus(bytesReceived, bytesTotal);
 	QString status_msg;
 	status_msg.append(m_str_downloaded);
+	status_msg.append(" ");
 	double br = bytesReceived / 100000;
 	br = br / 10.0;
 	status_msg.append(QString::number(br));
 	status_msg.append(" / ");
 	double tot = bytesTotal / 100000;
-	tot = br / 10.0;
+	tot = tot / 10.0;
 	status_msg.append(QString::number(tot));
 	status_msg.append(" MB");
 	
@@ -178,11 +209,11 @@ void biopen_updater::downloadProgress(qint64 bytesReceived, qint64 bytesTotal)
 	double speed = bytesReceived * 1000.0 / downloadTime.elapsed();
 	QString unit;
 	if (speed < 1024) {
-		unit = "bytes/sec";
+		unit = " bytes/sec";
 	}
 	else if (speed < 1024 * 1024) {
 		speed /= 1024;
-		unit = "kB/s";
+		unit = " kB/s";
 	}
 	else {
 		speed /= 1024 * 1024;
@@ -196,9 +227,6 @@ void biopen_updater::downloadProgress(qint64 bytesReceived, qint64 bytesTotal)
 
 	ui_updater->label_download_status->setText(status_msg);
 
-	//progressBar.setMessage(QString::fromLatin1("%1 %2")
-	//	.arg(speed, 3, 'f', 1).arg(unit));
-	//progressBar.update();
 }
 
 QString biopen_updater::saveFileName(const QUrl & _url)
@@ -210,7 +238,7 @@ QString biopen_updater::saveFileName(const QUrl & _url)
 		basename = "download";
 
 	QString save_path = QDir::tempPath();
-	save_path.append("/biopen_tmp"); // temporary folder for download
+	save_path.append(m_temp_folder);
 	QDir temp_path;
 	if (!temp_path.exists(save_path)) {
 		//cerr << " BiopenWizard temporary directory does not exists .... creating it" << endl;
@@ -219,7 +247,7 @@ QString biopen_updater::saveFileName(const QUrl & _url)
 		    //temp_path.toStdString() << endl;
 	}
 	else {
-		// if the temp folder exist we can clean it for the next download
+		// if the temp folder exists, we can clean it for the next download
 		QDir dir(save_path);
 		// list all the file names
 		dir.setNameFilters(QStringList() << "*.*");
@@ -283,23 +311,50 @@ void biopen_updater::downloadFinished(QNetworkReply * reply)
 	}
 	else {
 		if (this->isHttpRedirect(reply)) {
-			ui_updater->textEdit_details->append("Request was redirected to\n");
-			url = this->getHttpRedirectTarget(reply);
-			ui_updater->textEdit_details->append(url.toString());
+			if (m_verbose) {
+				ui_updater->textEdit_details->append("Request was redirected to\n");
+				QUrl new_url = this->getHttpRedirectTarget(reply);
+				ui_updater->textEdit_details->append(new_url.toString());
+			}
+
+//THIS may be a problem as it could, in principle, generate an endless loop
+/*			const QVariant redirectionTarget = 
+				reply->attribute(QNetworkRequest::RedirectionTargetAttribute);
+
+			if (!redirectionTarget.isNull()) {
+				const QUrl redirectedUrl = url.resolved(redirectionTarget.toUrl());
+				
+				doDownload(redirectedUrl);
+				return;
+			}*/
 		}
 		else
 		{
 			m_update_info_path = saveFileName(url);
 			if (saveToDisk(m_update_info_path, reply)) {
-				ui_updater->textEdit_details->append("Download of succeeded (saved to ");// %s)\n",
-				ui_updater->textEdit_details->append(url.toEncoded().constData());
-				ui_updater->textEdit_details->append(qPrintable(m_update_info_path));
-				ui_updater->textEdit_details->append("\n");
+				if (m_verbose) {
+					ui_updater->textEdit_details->append("Download succeeded (saved to ");// %s)\n",
+					ui_updater->textEdit_details->append(url.toEncoded().constData());
+					ui_updater->textEdit_details->append(qPrintable(m_update_info_path));
+					ui_updater->textEdit_details->append("\n");
+				}
 
 				if (!is_version_file_ready) {
-					read_info_file(m_update_info_path);
+					read_xmlinfo_file(m_update_info_path);
 					is_version_file_ready = true;
 					ui_updater->label_download_status->setText(" ");
+
+					if (this->updateValidityCheck())
+					{
+						ui_updater->pushButton_download->setEnabled(true);
+
+						ui_updater->label_title->setText(m_str_update_found);
+						if (m_verbose) ui_updater->textEdit_details->append("Your version is outdated, please dowload the new version");
+					}
+					else
+					{
+						ui_updater->label_title->setText(m_str_no_updates);
+					}
 				}
 				else
 				{
@@ -314,7 +369,6 @@ void biopen_updater::downloadFinished(QNetworkReply * reply)
 
 	if (currentDownloads.isEmpty()) {
 		// all downloads finished
-		//QCoreApplication::instance()->quit();
 	}
 }
 
@@ -338,18 +392,33 @@ void biopen_updater::startUpdate()
 {
 	m_start_timer->stop();
 
+	//if (this->isConnectionOk()) // if we are here, connection is already verified
+	{	
+		//the connection is ok, go on and download
+		if (m_verbose) ui_updater->textEdit_details->append("Connection ok, downloading version file");
+		this->doDownload(m_update_info_url);
+	}
+}
+
+bool biopen_updater::checkConnection()
+{
 	if (this->isConnectionOk())
 	{
-		//the connection is ok, go on and download
-		ui_updater->textEdit_details->append("Connection ok, downloading version file");
-		this->doDownload(QUrl("https://raw.githubusercontent.com/bellonemauro/Labonatip2.0/master/BpLRMB.txt"));
+		ui_updater->label_title->setText(m_str_checking);
+		ui_updater->label_icon->setEnabled(true);
+		m_start_timer->start();
+		return true;
 	}
-	else
+	else 
 	{
-		ui_updater->textEdit_details->append(m_str_check_connection);
-		ui_updater->textEdit_details->append(m_str_check_connection);
-	}
+		if (m_verbose) ui_updater->textEdit_details->append(m_str_check_connection);
 
+		ui_updater->label_icon->setEnabled(false);
+		QMessageBox::warning(this, m_str_warning, m_str_check_connection);
+		ui_updater->label_title->setText(m_str_no_connection);
+		ui_updater->progressBar_chechUpdates->setValue(0);
+		return false;
+	}
 }
 
 void biopen_updater::downloadInstaller()
@@ -374,8 +443,6 @@ void biopen_updater::showDetails()
 	if (!ui_updater->pushButton_details->isChecked())
 	{
 		// hide details
-		
-		
 		int gb_size_h = ui_updater->groupBox->height();
 		ui_updater->groupBox->hide();
 		m_details_hiden = true;
@@ -397,118 +464,91 @@ void biopen_updater::showDetails()
 	}
 }
 
-bool biopen_updater::read_info_file(QString _file_path)
+bool biopen_updater::read_xmlinfo_file(QString _file_path)
 {
-	QFile info_file(_file_path);
-
-	if (info_file.exists() &&
-		info_file.open(QIODevice::ReadWrite))
-	{
-		// this is the protocol file content
-		QByteArray content = info_file.readLine();
-
-		ui_updater->textEdit_details->append("The current version is : ");
-		ui_updater->textEdit_details->append(m_current_version);
-		ui_updater->textEdit_details->append("\n");
-		ui_updater->textEdit_details->append("System info : "); 
-		QString system_version = QSysInfo::buildCpuArchitecture();
-		int build_version = 0;
-		if (system_version.compare("x86_64"))
-			build_version = 64;
-		else
-			build_version = 32;
-		ui_updater->textEdit_details->append(system_version);
-		ui_updater->textEdit_details->append("\n");
-
-		// browse the entire file content
-		while (!content.isEmpty())
-		{
-			// the first line is the version
-			m_online_version = content; 
-			content = content.remove(content.size() - 1, 2); //I need to remove the last character to avoid "\n" to be considered
-			ui_updater->label_version->setText(QString(m_str_version + ": " + content));
-
-			// the second line is the size of the installer
-			content.clear();
-			content = info_file.readLine(); 
-			content = content.remove(content.size()-1, 2);
-			ui_updater->label_size->setText(QString(m_str_size + ": " + content));
-
-			// the third line is the date of release
-			content.clear();
-			content = info_file.readLine();
-			content = content.remove(content.size() - 1, 2);
-			ui_updater->label_releaseDate->setText(QString(m_str_released_on + ": " + content));
-
-			// the forth line is the url of the installer in 64 bit
-			content.clear();
-			content = info_file.readLine();
-			m_url_installer_64bit = content;
-
-			// the fifth line is the url of the installer in 32 bit
-			content.clear();
-			content = info_file.readLine();		
-			m_url_installer_32bit = content;
-
-			content.clear();
-			// we are ready to read the new line
-			content = info_file.readLine();
-		}
-
-		ui_updater->textEdit_details->append("The online version is: ");
-		ui_updater->textEdit_details->append(m_online_version);
-		ui_updater->textEdit_details->append("\n");
-		ui_updater->textEdit_details->append("The 64bit installer url is:");
-		ui_updater->textEdit_details->append(m_url_installer_64bit.toString());
-		ui_updater->textEdit_details->append("\n");
-		ui_updater->textEdit_details->append("The 32bit installer url is:");
-		ui_updater->textEdit_details->append(m_url_installer_32bit.toString());
-
-		bool sf_version_success = false;
-		sf_version_success = this->compareVersions(m_current_version, m_online_version);
-
-		if (!m_url_installer_64bit.isValid())
-		{
-			ui_updater->textEdit_details->append("the installer 64 bit is not a valid address");
-			QMessageBox::warning(this, m_str_warning, m_str_not_valid_url);
-			return false;
-		}
-
-		if (!m_url_installer_32bit.isValid())
-		{
-			ui_updater->textEdit_details->append("the installer 32 bit is not a valid address");
-			QMessageBox::warning(this, m_str_warning, m_str_not_valid_url);
-			return false;
-		}
-
-		if (sf_version_success)
-		{
-			ui_updater->pushButton_download->setEnabled(true);
-			
-			ui_updater->label_title->setText(m_str_update_found);
-			ui_updater->textEdit_details->append("Your version is outdated, please dowload the new version");
-		}
-		else
-		{
-			ui_updater->label_title->setText(m_str_no_updates);
-		}
-
-	}
-	else
-	{
-		QMessageBox::warning(this,m_str_warning, m_str_file_not_found);
+	QFile xmlFile(_file_path);
+	if (!xmlFile.open(QIODevice::ReadOnly | QIODevice::Text)) {
+		QMessageBox::warning(this, m_str_xml_problem,
+			m_str_xml_no_info, QMessageBox::Ok);
 		return false;
 	}
-	return true;
+	QXmlStreamReader xml;
+	xml.setDevice(&xmlFile);
+
+	while (xml.readNextStartElement()) {
+		if (xml.name() == QLatin1String("biopen")) {
+			while (xml.readNextStartElement()) {
+				
+				if (xml.name() == QLatin1String("version"))
+				{
+					m_online_version = xml.readElementText();
+					ui_updater->label_version->setText(QString(m_str_version + ": " + m_online_version));
+					if(m_verbose) ui_updater->textEdit_details->append(m_online_version);
+				}
+				else if (xml.name() == QLatin1String("size"))
+				{
+					m_online_version_size = xml.readElementText();
+					ui_updater->label_size->setText(QString(m_str_size + ": " + m_online_version_size));
+					if (m_verbose) ui_updater->textEdit_details->append(m_online_version_size);
+
+				}
+				else if (xml.name() == QLatin1String("released_on"))
+				{
+					m_online_version_date = xml.readElementText();
+					ui_updater->label_releaseDate->setText(QString(m_str_released_on + ": " + m_online_version_date));
+					if (m_verbose) ui_updater->textEdit_details->append(m_online_version_date);
+				}
+				else if (xml.name() == QLatin1String("experimental"))
+				{
+					QString is_experimental = xml.readElementText();
+					m_is_experimental = is_experimental.toInt();
+					if (m_verbose) ui_updater->textEdit_details->append(QString::number( m_is_experimental));
+				}
+				else if (xml.name() == QLatin1String("link_64bit"))
+				{
+					m_url_installer_64bit = xml.readElementText();
+					if (m_verbose) ui_updater->textEdit_details->append(m_url_installer_64bit.toString());
+
+				}
+				else if (xml.name() == QLatin1String("link_32bit"))
+				{
+					m_url_installer_32bit = xml.readElementText();
+					if (m_verbose) ui_updater->textEdit_details->append(m_url_installer_32bit.toString());
+				}
+				else if (xml.name() == QLatin1String("change_list"))
+				{
+					ui_updater->textEdit_details->append("Change list: \n");
+					while (xml.readNextStartElement()) {
+						
+						if (xml.name() == QLatin1String("change"))
+						{
+							QString ss = xml.readElementText();
+							ui_updater->textEdit_details->append(ss);
+							//TODO: show change list ?
+						}					
+					}
+				}
+				else {
+					xml.skipCurrentElement();
+				}
+			}
+		}
+	}
+	return !xml.error();
 
 }
 
+
 bool biopen_updater::read_downloaded_installer(QString _file_path)
 {
-
+	QFile file = _file_path;
+	QFileInfo fileInfo(file.fileName());
+	//QString filename(fileInfo.fileName());
+	QString absolutePath = fileInfo.absolutePath();
+	file.rename(QString(absolutePath + "/biopen_installer.exe"));
 	QMessageBox::StandardButton resBtn =
 		QMessageBox::question(this, m_str_information, m_str_success_download1 +",\n" +
-			_file_path + " " + m_str_success_download1,
+			file.fileName() + " " + m_str_success_download2,
 			QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
 			QMessageBox::Yes);
 	if (resBtn != QMessageBox::Yes) {
@@ -517,7 +557,7 @@ bool biopen_updater::read_downloaded_installer(QString _file_path)
 	}
 	else {
 		QMessageBox::warning(this, m_str_warning, m_str_close_biopen);
-		QDesktopServices::openUrl(QUrl("file:///" + _file_path));
+		QDesktopServices::openUrl(QUrl("file:///" + file.fileName()));
 		emit exit();
 	}
 
@@ -552,6 +592,32 @@ bool biopen_updater::compareVersions(QString _current_version, QString _online_v
 	return false;
 }
 
+bool biopen_updater::updateValidityCheck()
+{
+
+	m_is_update_available = this->compareVersions(m_current_version, m_online_version);
+
+	if (!m_is_update_available) return false;
+
+	if(!m_is_window_active) emit updateAvailable();
+
+	if (!m_url_installer_64bit.isValid())
+	{
+		ui_updater->textEdit_details->append("the installer 64 bit is not a valid address");
+		QMessageBox::warning(this, m_str_warning, m_str_not_valid_url);
+		return false;
+	}
+
+	if (!m_url_installer_32bit.isValid())
+	{
+		ui_updater->textEdit_details->append("the installer 32 bit is not a valid address");
+		QMessageBox::warning(this, m_str_warning, m_str_not_valid_url);
+		return false;
+	}
+	
+	return true;
+}
+
 
 
 void biopen_updater::initCustomStrings( )
@@ -560,7 +626,9 @@ void biopen_updater::initCustomStrings( )
 	m_str_areyousure = tr("Are you sure?");
 	m_str_information = tr("Information");
 	m_str_ok = tr("Ok");
-	m_str_checking = tr("Checking for online updates, please wait");
+	m_str_no_connection = tr("Please, connect your device to internet to check for updates");
+	m_str_checking = tr("Connection ok, checking for online updates");
+	m_str_checking_connection = tr("Checking connection");
 	m_str_update_found = tr("Newer version available");
 	m_str_no_updates = tr("Your version is up-to-date");
 	m_str_downloaded = tr("Downloaded");
@@ -568,13 +636,15 @@ void biopen_updater::initCustomStrings( )
 	m_str_file_not_found = tr("file not found");
 	m_str_success_download1 = tr("The installer was downloaded at");
 	m_str_success_download2 = tr("do you want to run the instaler now?");
-	m_str_close_biopen = tr("Biopen wizard will be now closed for the update");
+	m_str_close_biopen = tr("Biopen wizard will be closed for the update");
 	m_str_check_connection = tr("Biopen wizard could not reach fluicell.com, check your internet connection");
 	m_str_version = tr("Version");
 	m_str_size = tr("Size");
 	m_str_released_on = tr("Released on");
 	m_str_not_valid_url = tr("Not valid url");
 	m_str_download_cancelled = tr("Download cancelled");
+	m_str_xml_problem = tr("Load XML File Problem");
+	m_str_xml_no_info = tr("Could not open the xml file to load settings for download");
 }
 
 void biopen_updater::switchLanguage(QString _translation_file)
@@ -606,7 +676,10 @@ void biopen_updater::closeEvent(QCloseEvent *_event) {
 		<< QTime::currentTime().toString().toStdString() << "  "
 		<< "biopen_updater::closeEvent   " << endl;
 
+	m_is_window_active = false;
 	return;
+
+	// the message is not shown
 	QMessageBox::StandardButton resBtn =
 		QMessageBox::question(this, m_str_information, m_str_areyousure,
 			QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
