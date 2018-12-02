@@ -416,7 +416,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
               </font>
              </property>
              <property name="text">
-              <string>Enable notification</string>
+              <string>Check updates at start-up</string>
              </property>
              <property name="checked">
               <bool>false</bool>

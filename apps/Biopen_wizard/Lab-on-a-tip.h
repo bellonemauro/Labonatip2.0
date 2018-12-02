@@ -1176,6 +1176,7 @@ private:
   QString m_str_solution_ended;
   QString m_str_waste_full;
   QString m_str_TTL_failed;
+  QString m_str_update_information;
 
   // speech synthesis
   QTextToSpeech *m_speech;

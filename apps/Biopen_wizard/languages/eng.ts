@@ -588,6 +588,10 @@
         <translation>Current step time left : </translation>
     </message>
     <message>
+        <source>A new update is available, do you want to download it now?</source>
+        <translation>A new update is available, do you want to download it now?</translation>
+    </message>
+    <message>
         <source>Load</source>
         <translation>Load</translation>
     </message>
@@ -1021,6 +1025,18 @@
     <message>
         <source>Language</source>
         <translation>Language</translation>
+    </message>
+    <message>
+        <source>Updates</source>
+        <translation>Updates</translation>
+    </message>
+    <message>
+        <source>Check updates at start-up</source>
+        <translation>Check updates at start-up</translation>
+    </message>
+    <message>
+        <source>Check for updates now</source>
+        <translation>Check for updates now</translation>
     </message>
 	<message>
         <source>GUI settings</source>
@@ -1562,6 +1578,101 @@
         <source>Rescan serial port to detect and update the list of connected devices</source>
         <translation>Rescan serial port to detect and update the list of connected devices</translation>
     </message>
+</context>
+<context>
+<name>biopen_updater</name>
+    <message>
+        <source>Warning</source>
+        <translation>Warning</translation>
+    </message>
+    <message>
+        <source>Are you sure?</source>
+        <translation>Are you sure?</translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <translation>Information</translation>
+    </message>
+    <message>
+        <source>Ok</source>
+        <translation>Ok</translation>
+    </message>
+    <message>
+        <source>Please, connect your device to internet to check for updates</source>
+        <translation>Please, connect your device to internet to check for updates</translation>
+    </message>	
+    <message>
+        <source>Connection ok, checking for online updates</source>
+        <translation>Connection ok, checking for online updates</translation>
+    </message>
+	<message>
+        <source>Checking connection</source>
+        <translation>Checking connection</translation>
+    </message>
+	<message>
+        <source>Newer version available</source>
+        <translation>Newer version available</translation>
+    </message>
+	<message>
+        <source>Your version is up-to-date</source>
+        <translation>Your version is up-to-date</translation>
+    </message>
+	<message>
+        <source>Downloaded</source>
+        <translation>Downloaded</translation>
+    </message>
+	<message>
+        <source>speed</source>
+        <translation>speed</translation>
+    </message>
+	<message>
+        <source>file not found</source>
+        <translation>file not found</translation>
+    </message>
+	<message>
+        <source>The installer was downloaded at</source>
+        <translation>The installer was downloaded at</translation>
+    </message>
+	<message>
+        <source>do you want to run the instaler now?</source>
+        <translation>do you want to run the instaler now?</translation>
+    </message>
+	<message>
+        <source>Biopen wizard will be closed for the update</source>
+        <translation>Biopen wizard will be closed for the update</translation>
+    </message>
+    <message>
+        <source>Biopen wizard could not reach fluicell.com, check your internet connection</source>
+        <translation>Biopen wizard could not reach fluicell.com, check your internet connection</translation>
+    </message>
+    <message>
+        <source>Version</source>
+        <translation>Version</translation>
+    </message>
+    <message>
+        <source>Size</source>
+        <translation>Size</translation>
+    </message>
+    <message>
+        <source>Released on</source>
+        <translation>Released on</translation>
+    </message>	
+    <message>
+        <source>Not valid url</source>
+        <translation>Not valid url</translation>
+    </message>
+    <message>
+        <source>Download cancelled</source>
+        <translation>Download cancelled</translation>
+    </message>	
+    <message>
+        <source>Load XML File Problem</source>
+        <translation>Load XML File Problem</translation>
+    </message>	
+    <message>
+        <source>Could not open the xml file to load settings for download</source>
+        <translation>Could not open the xml file to load settings for download</translation>
+    </message>	
 </context>
 <context>
     <name>QPlatformTheme</name>

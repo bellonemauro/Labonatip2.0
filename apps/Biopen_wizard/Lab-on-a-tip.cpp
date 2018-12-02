@@ -384,7 +384,7 @@ void Labonatip_GUI::handleUpdateAvailable()
 
 	QMessageBox::StandardButton resBtn =
 		QMessageBox::question(this, m_str_information, 
-			"update available, do you want to download the update now?", //TODO: string
+			m_str_update_information, //TODO: string
 			QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
 			QMessageBox::Yes);
 	if (resBtn != QMessageBox::Yes) {
@@ -1017,7 +1017,7 @@ void Labonatip_GUI::initCustomStrings()
 	m_str_solution_ended = tr("Solution ended, the flow was stopped");
 	m_str_waste_full = tr("A waste well is full and needs to be emptied. Click Ok to continue");// ("The waste is full, click yes to empty");
 	m_str_TTL_failed = tr("PPC1 not connected, TTL test cannot run");
-	
+	m_str_update_information = tr("A new update is available, do you want to download it now?");
 }
 
 void Labonatip_GUI::setProtocolUserPath(QString _path)
