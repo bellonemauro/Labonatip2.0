@@ -1,5 +1,5 @@
 2.1.0
 30MB
 October 17, 2018
-https://github.com/bellonemauro/Labonatip2.0/releases/download/2.1/Biopen_wizard-2.1.0-win64.exe
-https://github.com/bellonemauro/Labonatip2.0/releases/download/2.1/Biopen_wizard-2.1.0-win32.exe
+http://github.com/bellonemauro/Labonatip2.0/releases/download/2.1/Biopen_wizard-2.1.0-win64.exe
+http://github.com/bellonemauro/Labonatip2.0/releases/download/2.1/Biopen_wizard-2.1.0-win32.exe
