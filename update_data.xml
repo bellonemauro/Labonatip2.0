@@ -2,14 +2,14 @@
 <!DOCTYPE XML>
 <XML>
 <biopen>
-    <version>2.1.0</version>
-    <size>30 MB</size>
-    <released_on>October 17, 2018</released_on>
+    <version>2.1.02</version>
+    <size>32 MB</size>
+    <released_on>December 8, 2018</released_on>
 	<experimental>1</experimental>
 	<link_64bit>https://github.com/bellonemauro/Labonatip2.0/releases/download/2.1/Biopen_wizard-2.1.0-win64.exe</link_64bit>
 	<link_32bit>https://github.com/bellonemauro/Labonatip2.0/releases/download/2.1/Biopen_wizard-2.1.0-win32.exe</link_32bit>
     <change_list>
-        <change>Improvement 1</change>
+        <change>Added on line updater</change>
         <change>Improvement 2</change>
         <change>Improvement 3</change>
     </change_list>
