@@ -9,18 +9,15 @@
 #
 #################################################################################################
 #
-# ---------      DANGEROUS CODE !!!!! to set environment variables for debugging 
-# ---------      read this carefully before using this file !!! 
-# ---------      http://cmake.limitpoint.com/setting-the-visual-studio-debugger-path-using-cmake/
+# ---------      to set environment variables for debugging 
+# ---------      from the project.vcxproj.user.in it generates a file 
+# ---------      with local environmental variables !!! 
 #
 #################################################################################################
 
 SET (PATHS_TO_DLL ${QT_BINARY_DIR})
 LIST(APPEND PATHS_TO_DLL ${CMAKE_MODULE_PATH}) # Directory for CMake scripts
-#LIST(APPEND PATHS_TO_DLL ${OpenCV_DIR}/bin/Release) #TODO: MB - check this 
-#LIST(APPEND PATHS_TO_DLL ${VTK_DIR}/bin/Debug) 
-#LIST(APPEND PATHS_TO_DLL ${VTK_DIR}/bin/Release) 
-
+#LIST(APPEND PATHS_TO_DLL ${some_dir}/bin/Release) #TODO: MB - check this 
 
 # Find user and system name
 SET(SYSTEM_NAME $ENV{USERDOMAIN} CACHE STRING SystemName)

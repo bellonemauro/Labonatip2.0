@@ -2,8 +2,6 @@
 
 # Biopen wizard - Version 2.1
 
-**IMPORTANT**: This software is still under development !!! 
-
 The Biopen wizard is a software that enables facile configuration and use of the <a href="http://fluicell.com/">Fluicell</a> <a href="http://fluicell.com/thebiopensystem/">BioPen</a> system. 
 The cross-platform BioPen software allows independent control of each pressure line and solution delivery.
 
@@ -71,9 +69,6 @@ New developers can contribute to the code by compiling in Windows or Linux.
 QT GUI must be modified using QT creator/designer
 
 
-## Known issues
-The uninstaller does not completely remove the start-menu folder sometimes, 
-if it happens, remove manually from C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Lab-on-a-tip______
 
 ---------------------------------------------------------------------
 <sup> Software released under GNU GPL License. <br>

@@ -1,7 +1,7 @@
 #  +---------------------------------------------------------------------------+
 #  |                                                                           |
 #  | Fluicell AB, http://fluicell.com/                                         |
-#  | Lab-on-a-tip - console app                                                |
+#  | Translator app                                                            |
 #  |                                                                           |
 #  | Authors: Mauro Bellone - http://www.maurobellone.com                      |
 #  | Released under GNU GPL License.                                           |

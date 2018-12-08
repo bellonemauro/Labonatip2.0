@@ -1,3 +1,6 @@
+V.2.1.01
+Added online updater
+
 V.2.1.0
 This is the first official release and it incorporates all the changes
 

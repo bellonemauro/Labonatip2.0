@@ -1,7 +1,7 @@
 #  +---------------------------------------------------------------------------+
 #  |                                                                           |
 #  | Fluicell AB, http://fluicell.com/                                         |
-#  | Lab-on-a-tip                                                              |
+#  | PPC1_api test                                                             |
 #  |                                                                           |
 #  | Authors: Mauro Bellone - http://www.maurobellone.com                      |
 #  | Released under GNU GPL License.                                           |
@@ -11,12 +11,11 @@ project(PPC1api_test_cmdline)
 
 #  including external libraries
 include_directories(${PPC1api_INCLUDE_DIR})
-
 include_directories(${serial_INCLUDE_DIR})
 
 if ( ENABLE_verbose )
 	message (STATUS "${PROJECT_NAME} MESSAGE: serial_INCLUDE_DIR    :: ${serial_INCLUDE_DIR}")
-	message (STATUS "${PROJECT_NAME} MESSAGE: PPC1api_INCLUDE_DIR    :: ${mylib_lib_INCLUDE_DIR}")
+	message (STATUS "${PROJECT_NAME} MESSAGE: PPC1api_INCLUDE_DIR    :: ${PPC1api_INCLUDE_DIR}")
 endif ( ENABLE_verbose )
 
 	

@@ -1,7 +1,7 @@
 #  +---------------------------------------------------------------------------+
 #  |                                                                           |
 #  | Fluicell AB, http://fluicell.com/                                         |
-#  | Light Serial communication library                                                             |
+#  | Light Serial communication library                                        |
 #  |                                                                           |
 #  | Authors: Mauro Bellone - http://www.maurobellone.com                      |
 #  | Released under GNU GPL License.                                           |

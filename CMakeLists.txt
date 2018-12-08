@@ -1,13 +1,13 @@
 #  +---------------------------------------------------------------------------+
 #  |                                                                           |
 #  | Fluicell AB, http://fluicell.com/                                         |
-#  | Lab-on-a-tip                                                              |
+#  | Biopen wizard                                                             |
 #  |                                                                           |
 #  | Authors: Mauro Bellone - http://www.maurobellone.com                      |
 #  | Released under GNU GPL License.                                           |
 #  +---------------------------------------------------------------------------+ 
 
-project(Fluicell)   # Fluicell lab-on-a-tip
+project(Fluicell)   # Fluicell
 
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
@@ -42,7 +42,7 @@ if(COMMAND cmake_policy) #return true if the COMMAND cmake_policy exist - this a
 	#endif(NOT "${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION}" LESS 3.0)
 	
 	# pass to the installer the project name
-	cmake_policy(SET CMP0053 OLD) 
+	cmake_policy(SET CMP0053 NEW) 
 	
 endif(COMMAND cmake_policy)
 
@@ -113,19 +113,19 @@ endif(ENABLE_BUILD_apps)
 find_package(Doxygen)
 if(DOXYGEN_FOUND)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/docs/Doxyfile_labonatip.in ${CMAKE_CURRENT_BINARY_DIR}/docs/Doxyfile @ONLY)
-add_custom_target(Lab-on-a-tip_docs 
+add_custom_target(${PROJECT_NAME}_docs 
 	COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile 
 	WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
 COMMENT "Generating API documentation with Doxygen" VERBATIM )
 
 if(MSVC)
-	set_target_properties(Lab-on-a-tip_docs PROPERTIES FOLDER "documentation")
+	set_target_properties(${PROJECT_NAME}_docs PROPERTIES FOLDER "documentation")
 endif(MSVC)
 
 endif(DOXYGEN_FOUND)
 
 # --------------------------------------
-#  settings for install and package --- not fully supported yet
+#  settings for install and package 
 # --------------------------------------					
 OPTION(ENABLE_BUILD_install "Option to add the install target - ON by default" ON)
 if (ENABLE_BUILD_install)

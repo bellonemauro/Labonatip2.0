@@ -38,7 +38,7 @@ using namespace std;
 *   The procedure implemented here is:
 *       1. check on gitHub for update by downloading the information file BpLRMB.txt
 *          using the following raw link
-*          https://raw.githubusercontent.com/bellonemauro/Labonatip2.0/master/BpLRMB.txt
+*          https://raw.githubusercontent.com/bellonemauro/Labonatip2.0/master/update_data.xml
 *       2. extract the following information from the file:
 *            a. latest release number
 *            b. size of the file to update
@@ -187,7 +187,13 @@ private:
 	*/
 	bool compareVersions(QString _current_version, QString _online_version);
 
-
+	/**  \brief Update validity check
+	*
+	*  Used from the main app to check for a valid update
+	*  it will call compareVersions(-) and emit the updateAvilable signal 
+	*
+	*  \return true if a new version is available online
+	*/
 	bool updateValidityCheck();
 
 
