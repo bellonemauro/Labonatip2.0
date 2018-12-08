@@ -94,20 +94,20 @@ if (WIN32 AND NOT UNIX)
 
 	# copy a specific file to the install folder
 	# INSTALL(FILES "${PROJECT_SOURCE_DIR}/apps/nomeFile.extension" DESTINATION ./)		
-	FILE(GLOB FILE_EXE "${PROJECT_BINARY_DIR}/bin/Release/*.exe")
+	FILE(GLOB FILE_EXE "${PROJECT_BINARY_DIR}/bin/Release/*.*")
 	  FOREACH(F ${FILE_EXE})
 		INSTALL(FILES "${F}" DESTINATION ./)
 	  ENDFOREACH(F)
 
-	FILE(GLOB INTERNAL_DLL "${PROJECT_BINARY_DIR}/bin/Release/*.dll")
-	  FOREACH(F ${INTERNAL_DLL})
-		INSTALL(FILES "${F}" DESTINATION ./)
-	  ENDFOREACH(F)
+#	FILE(GLOB INTERNAL_DLL "${PROJECT_BINARY_DIR}/bin/Release/*.dll")
+#	  FOREACH(F ${INTERNAL_DLL})
+#		INSTALL(FILES "${F}" DESTINATION ./)
+#	  ENDFOREACH(F)
 
-	FILE(GLOB INTERNAL_LIB "${PROJECT_BINARY_DIR}/bin/Release/*.lib")
-	  FOREACH(F ${INTERNAL_LIB})
-		INSTALL(FILES "${F}" DESTINATION ./)
-	  ENDFOREACH(F)
+#	FILE(GLOB INTERNAL_LIB "${PROJECT_BINARY_DIR}/bin/Release/*.lib")
+#	  FOREACH(F ${INTERNAL_LIB})
+#		INSTALL(FILES "${F}" DESTINATION ./)
+#	  ENDFOREACH(F)
 
 	  
 	  
@@ -122,6 +122,11 @@ if (WIN32 AND NOT UNIX)
 	endif (  )
 	ENDFOREACH(F)				
 
+	FILE(GLOB myProject_BEARER "${PROJECT_BINARY_DIR}/bin/Release/bearer/*.*") 
+	FOREACH(F ${myProject_BEARER})
+		INSTALL(FILES "${F}" DESTINATION ./bearer)
+	ENDFOREACH(F)
+	
 	FILE(GLOB myProject_GUIDE "${PROJECT_BINARY_DIR}/bin/Release/guide/*.*") 
 	FOREACH(F ${myProject_GUIDE})
 		INSTALL(FILES "${F}" DESTINATION ./guide)
@@ -146,6 +151,11 @@ if (WIN32 AND NOT UNIX)
 	FOREACH(F ${myProject_MACROS})
 		INSTALL(FILES "${F}" DESTINATION ./presetProtocols)
 	ENDFOREACH(F)		
+
+	FILE(GLOB myProject_STYLES "${PROJECT_BINARY_DIR}/bin/Release/styles/*.*") 
+	FOREACH(F ${myProject_STYLES})
+		INSTALL(FILES "${F}" DESTINATION ./styles)
+	ENDFOREACH(F)	
 
 	FILE(GLOB myProject_SETTINGS "${PROJECT_BINARY_DIR}/bin/Release/texttospeech/*.*") 
 	FOREACH(F ${myProject_SETTINGS})

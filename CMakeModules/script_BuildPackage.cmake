@@ -27,7 +27,7 @@ set(CPACK_PACKAGE_NAME "Biopen_wizard")
 set(CPACK_PACKAGE_VENDOR "Fluicell AB")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Fluicell Biopen wizard")
 set(CPACK_NSIS_CONTACT "Mauro Bellone bellonemauro@gmail.com" )
-set(CPACK_PACKAGE_INSTALL_DIRECTORY "@PROJECT_NAME@")# @_VERSION@")
+set(CPACK_PACKAGE_INSTALL_DIRECTORY "Fluicell")# @_VERSION@")
 
 # this allows to check older installations and properly remove them
 set(CPACK_NSIS_ENABLE_UNINSTALL_BEFORE_INSTALL "ON") 
@@ -40,6 +40,8 @@ set(CPACK_RESOURCE_FILE_README "${CMAKE_CURRENT_SOURCE_DIR}/README.md")#AUTHORS.
 
 #set the package version
 set (CPACK_PACKAGE_VERSION "${CMAKE_Fluicell_FULL_VERSION}")     
+
+set (BIOPEN_PROJECT_NAME "BiopenWizard")   
 
 #set a cool icon to start the application
 set (CPACK_NSIS_MUI_ICON "${CMAKE_CURRENT_SOURCE_DIR}/resources/fluicell_logo.ico") #program icon
@@ -72,7 +74,7 @@ SET(CPACK_PACKAGE_EXECUTABLES "Biopen_wizard" "Biopen_wizard")
 
 
 # required by cmake to install new registry key for the executable
-set(CPACK_PACKAGE_INSTALL_REGISTRY_KEY "${CMAKE_PROJECT_NAME}")#-${CMAKE_Fluicell_FULL_VERSION}")
+set(CPACK_PACKAGE_INSTALL_REGISTRY_KEY "${BIOPEN_PROJECT_NAME}")
 
 
 # this is to create the user folders during the installation
@@ -112,17 +114,22 @@ set(CPACK_NSIS_MUI_FINISHPAGE_RUN Biopen_wizard.exe)
 set( CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS "
 	Delete \\\"$DESKTOP\\\\biopen.lnk\\\"
 	Delete \\\"$PROFILE\\\\..\\\\..\\\\ProgramData\\\\Microsoft\\\\Windows\\\\Start Menu\\\\Programs\\\\Fluicell biopen wizard\\\\*.*\\\"
-	Delete \\\"$PROFILE\\\\Documents\\\\Biopen\\\\presetProtocols\\\\*.*\\\" 
-	Delete \\\"$PROFILE\\\\Documents\\\\Biopen\\\\guide\\\\*.*\\\" 
-	Delete \\\"$PROFILE\\\\Documents\\\\Biopen\\\\settings\\\\*.*\\\" 
-	Delete \\\"$PROFILE\\\\Documents\\\\Biopen\\\\Ext_data\\\\*.*\\\" 
-	RMDir \\\"$PROFILE\\\\Documents\\\\Biopen\\\\presetProtocols\\\"
-	RMDir \\\"$PROFILE\\\\Documents\\\\Biopen\\\\guide\\\" 
-	RMDir \\\"$PROFILE\\\\Documents\\\\Biopen\\\\settings\\\" 
-	RMDir \\\"$PROFILE\\\\Documents\\\\Biopen\\\\Ext_data\\\" 
 	RMDir \\\"$PROFILE\\\\..\\\\..\\\\ProgramData\\\\Microsoft\\\\Windows\\\\Start Menu\\\\Programs\\\\Fluicell biopen wizard\\\"
-	RMDir \\\"$PROFILE\\\\Documents\\\\Biopen\\\" 
 ")
+#set( CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS "
+#	Delete \\\"$DESKTOP\\\\biopen.lnk\\\"
+#	Delete \\\"$PROFILE\\\\..\\\\..\\\\ProgramData\\\\Microsoft\\\\Windows\\\\Start Menu\\\\Programs\\\\Fluicell biopen wizard\\\\*.*\\\"
+	#Delete \\\"$PROFILE\\\\Documents\\\\Biopen\\\\presetProtocols\\\\*.*\\\" 
+	#Delete \\\"$PROFILE\\\\Documents\\\\Biopen\\\\guide\\\\*.*\\\" 
+	#Delete \\\"$PROFILE\\\\Documents\\\\Biopen\\\\settings\\\\*.*\\\" 
+	#Delete \\\"$PROFILE\\\\Documents\\\\Biopen\\\\Ext_data\\\\*.*\\\" 
+	#RMDir \\\"$PROFILE\\\\Documents\\\\Biopen\\\\presetProtocols\\\"
+	#RMDir \\\"$PROFILE\\\\Documents\\\\Biopen\\\\guide\\\" 
+	#RMDir \\\"$PROFILE\\\\Documents\\\\Biopen\\\\settings\\\" 
+	#RMDir \\\"$PROFILE\\\\Documents\\\\Biopen\\\\Ext_data\\\" 
+#	RMDir \\\"$PROFILE\\\\..\\\\..\\\\ProgramData\\\\Microsoft\\\\Windows\\\\Start Menu\\\\Programs\\\\Fluicell biopen wizard\\\"
+	#RMDir \\\"$PROFILE\\\\Documents\\\\Biopen\\\" 
+#")
 
 												   
 message (STATUS "BUILD PACKAGE STATUS MESSAGE : building version ${CMAKE_Fluicell_FULL_VERSION} " )
@@ -139,7 +146,7 @@ if(BUILD_WINDEPLOYQT AND WIN32)
         #INSTALL(FILES "${F}" DESTINATION ./)
  	    message (STATUS "     WINDEPLOYQT_EXECUTABLE is : ${WINDEPLOYQT_EXECUTABLE} \n")
  	    message (STATUS "     Current file target is : ${F} \n")
-		message (STATUS "     PROJECT_NAME is : ${PROJECT_NAME} \n")
+		message (STATUS "     BIOPEN_PROJECT_NAME is : ${BIOPEN_PROJECT_NAME} \n")
 	    #HERE we cannot specify the target PACKAGE or package 
 		#add_custom_command(TARGET PACKAGE PRE_BUILD WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/bin/Release/ COMMAND ${WINDEPLOYQT_EXECUTABLE} $<TARGET_FILE:${F}> COMMENT "Preparing Qt runtime dependencies")
 

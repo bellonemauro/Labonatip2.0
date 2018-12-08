@@ -40,10 +40,7 @@ if(COMMAND cmake_policy) #return true if the COMMAND cmake_policy exist - this a
 	#if(NOT "${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION}" LESS 3.0)
 	cmake_policy(SET CMP0026 NEW)
 	#endif(NOT "${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION}" LESS 3.0)
-	
-	# pass to the installer the project name
-	cmake_policy(SET CMP0053 NEW) 
-	
+		
 endif(COMMAND cmake_policy)
 
 # Our own CMake configurations

@@ -458,13 +458,13 @@ void biopen_updater::downloadInstaller()
 
 	if (system_version.compare("x86_64"))
 	{
-		this->doDownload(m_url_installer_64bit);
-		build_version = 64;
+		build_version = 32;
+		this->doDownload(m_url_installer_32bit);
 		ui_updater->pushButton_download->setEnabled(false);
 	}
 	else {
-		build_version = 32;
-		this->doDownload(m_url_installer_32bit);
+		this->doDownload(m_url_installer_64bit);
+		build_version = 64;
 		ui_updater->pushButton_download->setEnabled(false);
 	}
 }
