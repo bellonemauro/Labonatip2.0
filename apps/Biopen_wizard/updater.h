@@ -122,6 +122,12 @@ public:
 	*/
 	void setVerbose(bool _verbose) { m_verbose = _verbose; }
 
+	/**  \brief Allows to notify official versions only
+	*
+	*     true = notify all versions
+	*     false = notify official releases only
+	*/
+	void setNotifyExperimental(bool _notify) { m_notify_experimental_ver = _notify; }
 
 public slots:
 
@@ -209,6 +215,7 @@ private:
 	bool m_is_update_available;  //!< set to true if the update is available
 	bool m_verbose;              //!< true for more verbose information
 	bool m_is_window_active;     //!< true when the window is visualized
+	bool m_notify_experimental_ver; //!< if true all versions will be notified
 
 	// information retrived from the online file
 	QString m_online_version;       //!< online software version, retrived on update check

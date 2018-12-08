@@ -10,11 +10,13 @@
 #include "updater.h"
 #include <QDesktopServices>
 #include <QDesktopWidget>
+#include <QInputDialog>
 
 biopen_updater::biopen_updater(QWidget *parent):
 	QMainWindow(parent),
 	ui_updater(new Ui::Updater),
 	m_verbose(false),
+	m_notify_experimental_ver(false),
 	m_temp_folder("/biopen_tmp"),
 	m_is_window_active(false),
 	m_fluicell_url("http://fluicell.com/"),
@@ -425,6 +427,35 @@ void biopen_updater::downloadInstaller()
 {
 	QString system_version = QSysInfo::buildCpuArchitecture();
 	int build_version = 0;
+
+	if (m_is_experimental)
+	{
+		//QMessageBox::warning(this, m_str_warning, "Password is needed");
+		bool ok;
+		// Ask for birth date as a string.
+		QString text = QInputDialog::getText(0, m_str_warning,
+			"This is an experimental version, a password is required", QLineEdit::Normal,
+			"", &ok);
+		if (ok && !text.isEmpty()) {
+			QString password = text;
+			QString password_check = "FluicellGrowth2018";
+			if (!password.compare(password_check))
+			{
+				QMessageBox::warning(this, m_str_warning, "Correct password");
+			}
+			else
+			{
+				QMessageBox::warning(this, m_str_warning, "Wrong password");
+				return;
+			}
+
+		}
+		else
+		{
+			return;
+		}
+	}
+
 	if (system_version.compare("x86_64"))
 	{
 		this->doDownload(m_url_installer_64bit);
@@ -599,7 +630,20 @@ bool biopen_updater::updateValidityCheck()
 
 	if (!m_is_update_available) return false;
 
-	if(!m_is_window_active) emit updateAvailable();
+	if (!m_is_window_active) {
+		if (m_notify_experimental_ver)
+		{
+			emit updateAvailable();
+		}
+		else
+		{
+			if (m_is_experimental == 0)
+			{
+				emit updateAvailable();
+			}
+		}
+	}
+
 
 	if (!m_url_installer_64bit.isValid())
 	{

@@ -1027,8 +1027,16 @@
         <translation>Updates</translation>
     </message>
     <message>
-        <source>Check updates at start-up</source>
-        <translation>Check updates at start-up</translation>
+        <source>No check for updates</source>
+        <translation>No check for updates</translation>
+    </message>
+    <message>
+        <source>Notify all updates</source>
+        <translation>Notify all updates</translation>
+    </message>	
+    <message>
+        <source>Notify official releases only</source>
+        <translation>Notify official releases only</translation>
     </message>
     <message>
         <source>Check for updates now</source>

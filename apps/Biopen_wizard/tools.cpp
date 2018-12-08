@@ -548,7 +548,7 @@ void Labonatip_tools::getSolutionSettingsFromGUI()
 void Labonatip_tools::getGUIsettingsFromGUI()
 {
 //	m_GUI_params->showTextToolBar = Qt::ToolButtonStyle(ui_tools->comboBox_toolButtonStyle->currentIndex());
-	m_GUI_params->automaticUpdates = ui_tools->checkBox_automaticUpdates->isChecked();
+	m_GUI_params->automaticUpdates_idx = ui_tools->comboBox_automaticUpdates->currentIndex(); 
 	m_GUI_params->enableToolTips = ui_tools->checkBox_enableToolTips->isChecked();
 	m_GUI_params->verboseOutput = ui_tools->checkBox_verboseOut->isChecked();
 	m_GUI_params->enableHistory = ui_tools->checkBox_EnableHistory->isChecked();
@@ -601,10 +601,10 @@ bool Labonatip_tools::loadSettings(QString _path)
 	QString language = m_settings->value("default/language", "English").toString();
 	ui_tools->comboBox_language->setCurrentIndex(parseLanguageString(language));
 	m_GUI_params->setLanguage(ui_tools->comboBox_language->currentIndex());
-
-	bool automatic_updates = m_settings->value("GUI/AutomaticUpdates", "1").toBool();
-	ui_tools->checkBox_automaticUpdates->setChecked(automatic_updates);
-	m_GUI_params->automaticUpdates = automatic_updates;
+	
+	int automaticUpdates_index = m_settings->value("GUI/AutomaticUpdates", "0").toInt();
+	ui_tools->comboBox_automaticUpdates->setCurrentIndex(automaticUpdates_index);
+	m_GUI_params->automaticUpdates_idx = automaticUpdates_index;
 
 	// read com group
 	//ComName
@@ -1156,7 +1156,7 @@ bool Labonatip_tools::saveSettings(QString _file_name)
 	// language = 
 	settings->setValue("default/language", ui_tools->comboBox_language->currentText());
 	// automatic updates =
-	settings->setValue("GUI/AutomaticUpdates", int(ui_tools->checkBox_automaticUpdates->isChecked()));
+	settings->setValue("GUI/AutomaticUpdates", int(ui_tools->comboBox_automaticUpdates->currentIndex()));
 
 	// [COM]
 	// ComName = COM_

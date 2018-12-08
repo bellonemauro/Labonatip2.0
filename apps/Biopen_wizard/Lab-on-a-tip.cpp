@@ -370,9 +370,15 @@ void Labonatip_GUI::automaticCheckForUpdates()
 		&biopen_updater::updateAvailable, this,
 		&Labonatip_GUI::handleUpdateAvailable);
 
-	if (m_GUI_params->automaticUpdates)
+	if (!m_GUI_params->automaticUpdates_idx == 0)
 	{
 		// check for updates on startup
+		if (m_GUI_params->automaticUpdates_idx == 1) {
+			m_biopen_updated->setNotifyExperimental(true);
+		}
+		else {
+			m_biopen_updated->setNotifyExperimental(false);
+		}
 		m_biopen_updated->setVersion(m_version);
 		m_biopen_updated->isUpdateAvailable();
 		//checkForUpdates();
