@@ -156,7 +156,7 @@ elseif(BUILD_QT5)
     QT5_ADD_RESOURCES(UI_RESOURCES_RCC ${myProject_UI_RESOURCES})
 	
 
-	option(BUILD_TRANSLATION "Build translation from ts files" "OFF") #this will be removed as qt4 will be no longer supported
+	option(BUILD_TRANSLATION "Build translation from ts files" "OFF")
     if (BUILD_TRANSLATION)
 		# this allows the automatic translation from cmake  
 		# step1:
@@ -224,8 +224,47 @@ elseif(BUILD_QT5)
 			message (STATUS "${PROJECT_NAME} MESSAGE: WINDEPLOYQT_EXECUTABLE is : ${WINDEPLOYQT_EXECUTABLE} \n")
 			message (STATUS "${PROJECT_NAME} MESSAGE: Current file target is : ${F} \n")
 		endif ( ENABLE_verbose )
-			add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD WORKING_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/ COMMAND ${WINDEPLOYQT_EXECUTABLE} $<TARGET_FILE:${PROJECT_NAME}> --no-translations COMMENT "Preparing Qt runtime dependencies")
-			#add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD WORKING_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/ COMMAND ${WINDEPLOYQT_EXECUTABLE} $<TARGET_FILE:${PROJECT_NAME}> COMMENT "Preparing Qt runtime dependencies")
+		add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD WORKING_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/ COMMAND ${WINDEPLOYQT_EXECUTABLE} $<TARGET_FILE:${PROJECT_NAME}> --no-translations COMMENT "Preparing Qt runtime dependencies")
+		#add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD WORKING_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/ COMMAND ${WINDEPLOYQT_EXECUTABLE} $<TARGET_FILE:${PROJECT_NAME}> COMMENT "Preparing Qt runtime dependencies")
+		
+		
+		# this is done to copy dll from the "iCLS client" which are required in the deployment with QNetwork for the communication
+		# they are different for 64bit and 32bit
+		if(NOT "${CMAKE_GENERATOR}" MATCHES "(Win64|IA64)")
+			set(iCLS_Client_x32_DIR "$ENV{ProgramFiles} (x86)/Intel/iCLS Client/")
+			message (STATUS "${PROJECT_NAME} MESSAGE: iCLS_Client_x32_DIR  :: ${iCLS_Client_x32_DIR} ")	
+			FILE(GLOB iCLS_Client_x32_dll "${iCLS_Client_x32_DIR}/*32.dll") 
+			
+			#TODO: here there is a static link to the program file folder 
+			#      with the "Intel/iCLS client" but there is no check for existence
+			list( LENGTH iCLS_Client_x32_dll dll_num )
+			if (dll_num EQUAL 0)
+				message (WARNING "${PROJECT_NAME} MESSAGE: no dll found in ${iCLS_Client_x32_DIR} this may cause problems in ssl connection to updates")	
+			endif()
+			 
+			 FOREACH(F ${iCLS_Client_x32_dll})
+				file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/)
+				message (STATUS "            ${PROJECT_NAME} MESSAGE: copied file :: ${F} ")
+			  ENDFOREACH(F)					
+			
+		elseif("${CMAKE_GENERATOR}" MATCHES "(Win64|IA64)")			
+			set(iCLS_Client_x64_DIR "$ENV{PROGRAMFILES}/Intel/iCLS Client/")
+			message (STATUS "${PROJECT_NAME} MESSAGE: iCLS_Client_x64_DIR  :: ${iCLS_Client_x64_DIR} ")
+			FILE(GLOB iCLS_Client_x64_dll "${iCLS_Client_x64_DIR}/*32.dll") 				
+			
+			#TODO: here there is a static link to the program file folder 
+			#      with the "Intel/iCLS client" but there is no check for existence
+			list( LENGTH iCLS_Client_x64_dll dll_num )
+			if (dll_num EQUAL 0)
+				message (WARNING "${PROJECT_NAME} MESSAGE: no dll found in ${iCLS_Client_x64_DIR} this may cause problems in ssl connection to updates")	
+			endif()
+			
+			FOREACH(F ${iCLS_Client_x64_dll})
+				file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/)
+				message (STATUS "            ${PROJECT_NAME} MESSAGE: copied file :: ${F} ")
+			ENDFOREACH(F)				
+
+		endif()	
 	endif()
   
 	# allows folders for MSVC
