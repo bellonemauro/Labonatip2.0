@@ -28,10 +28,6 @@ void Labonatip_GUI::readProtocolFolder(QString _path)
 		QTreeWidgetItem *item = new QTreeWidgetItem();
 		item->setText(0, list.at(i));
 		ui->treeWidget_protocol_folder->addTopLevelItem(item);
-		//TODO: here there is a possible memory leak, 
-		//      the pointer *item will never be removed anymore outside the cycle
-		//      however, ->addTopLevelItem only accepts pointers 
-		//      this means that if one dereferentiate *item that will be removed automatically from the list
 	}
 
 }

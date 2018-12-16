@@ -243,8 +243,8 @@ elseif(BUILD_QT5)
 			endif()
 			 
 			 FOREACH(F ${iCLS_Client_x32_dll})
-				file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/)
-				message (STATUS "            ${PROJECT_NAME} MESSAGE: copied file :: ${F} ")
+				file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/)
+				message (STATUS "            ${PROJECT_NAME} MESSAGE: copied file :: ${F} to ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/")
 			  ENDFOREACH(F)					
 			
 		elseif("${CMAKE_GENERATOR}" MATCHES "(Win64|IA64)")			
@@ -260,8 +260,8 @@ elseif(BUILD_QT5)
 			endif()
 			
 			FOREACH(F ${iCLS_Client_x64_dll})
-				file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/)
-				message (STATUS "            ${PROJECT_NAME} MESSAGE: copied file :: ${F} ")
+				file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release)
+				message (STATUS "            ${PROJECT_NAME} MESSAGE: copied file :: ${F} to ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/")
 			ENDFOREACH(F)				
 
 		endif()	

@@ -439,12 +439,12 @@ void protocolChart::updateChartProtocol(f_protocol *_protocol)
 			break;
 		}
 		case pCmd::setZoneSize: { //zoneSize 
-			//TODO: in case fo zone size the chart is not updated 
+			//TODO: in case of zone size the chart is not updated 
 			//      but the values of pon poff vs vr are different
 			break;
 		}
 		case pCmd::setFlowSpeed: { //flowSpeed
-			//TODO: in case fo zone size the chart is not updated 
+			//TODO: in case of zone size the chart is not updated 
 			//      but the values of pon poff vs vr are different
 			break;
 		}
