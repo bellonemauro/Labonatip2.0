@@ -22,7 +22,7 @@ void Labonatip_GUI::newTip()
 	this->askMessage(m_str_newtip_msg1);
 	QApplication::setOverrideCursor(Qt::WaitCursor);   
 
-	// reset weels and solutions
+	// reset wells and solutions
 	emptyWells();
 	refillSolution();
 

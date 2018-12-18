@@ -46,7 +46,7 @@ bool protocolReader::readProtocol(QTreeWidget *_out_tree, QString _filename)
 	// there is no real check if _out_tree is inizialized, 
 	if (_out_tree == NULL) return false;
 
-	// open the file and check its existance
+	// open the file and check its existence
 	if (protocol_file.exists() &&
 		protocol_file.open(QIODevice::ReadWrite))
 	{

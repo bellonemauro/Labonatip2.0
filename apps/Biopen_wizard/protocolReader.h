@@ -89,7 +89,7 @@ private:
 		QByteArray &_command, protocolTreeWidgetItem &_out_item);
 	
 
-	/** \brief Return the level fo the data in the widget to allow loops in the protocol file
+	/** \brief Return the level of the data in the widget to allow loops in the protocol file
 	*
 	*/
 	int getLevel(QTreeWidgetItem _item);

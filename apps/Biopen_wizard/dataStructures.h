@@ -23,10 +23,10 @@
 #include <serial/serial.h>
 
 // Global definitions
-#define MIN_WARNING_VOLUME 6    // in mL
-#define MAX_VOLUME_IN_WELL 30   // in mL
-#define MAX_WASTE_VOLUME 35     // value in mL
-#define MAX_WASTE_WARNING_VOLUME 27    // in mL
+#define MIN_WARNING_VOLUME 6    // in ml
+#define MAX_VOLUME_IN_WELL 30   // in ml
+#define MAX_WASTE_VOLUME 35     // value in ml
+#define MAX_WASTE_WARNING_VOLUME 27    // in ml
 
 // just re-definition of a protocol command to get a shorter name
 typedef fluicell::PPC1api::command::instructions pCmd;
@@ -118,14 +118,14 @@ struct solutionsParams {
 
 	}
 
-	double vol_well1;                 //!<  initial volume of solution in the well 1 in uL
-	double vol_well2;                 //!<  initial volume of solution in the well 2 in uL
-	double vol_well3;                 //!<  initial volume of solution in the well 3 in uL
-	double vol_well4;                 //!<  initial volume of solution in the well 4 in uL
-	double vol_well5;                 //!<  initial volume of solution in the well 5 in uL
-	double vol_well6;                 //!<  initial volume of solution in the well 6 in uL
-	double vol_well7;                 //!<  initial volume of solution in the well 7 in uL
-	double vol_well8;                 //!<  initial volume of solution in the well 8 in uL
+	double vol_well1;                 //!<  initial volume of solution in the well 1 in ul
+	double vol_well2;                 //!<  initial volume of solution in the well 2 in ul
+	double vol_well3;                 //!<  initial volume of solution in the well 3 in ul
+	double vol_well4;                 //!<  initial volume of solution in the well 4 in ul
+	double vol_well5;                 //!<  initial volume of solution in the well 5 in ul
+	double vol_well6;                 //!<  initial volume of solution in the well 6 in ul
+	double vol_well7;                 //!<  initial volume of solution in the well 7 in ul
+	double vol_well8;                 //!<  initial volume of solution in the well 8 in ul
 	QString sol1;                     //!<  name of the solution 1
 	QString sol2;                     //!<  name of the solution 2
 	QString sol3;                     //!<  name of the solution 3
@@ -197,22 +197,22 @@ struct pipetteStatus{
 	double in_out_ratio_tot;
 	double solution_usage_off;
 	double solution_usage_on;
-	double flow_well1;                //!<  flow in the well 1 nL/s
-	double flow_well2;                //!<  flow in the well 2 nL/s
-	double flow_well3;                //!<  flow in the well 3 nL/s
-	double flow_well4;                //!<  flow in the well 4 nL/s
-	double flow_well5;                //!<  flow in the well 5 nL/s
-	double flow_well6;                //!<  flow in the well 6 nL/s
-	double flow_well7;                //!<  flow in the well 7 nL/s
-	double flow_well8;                //!<  flow in the well 8 nL/s
-	double rem_vol_well1;             //!<  remaining volume of solution in the well 1 in mL
-	double rem_vol_well2;             //!<  remaining volume of solution in the well 2 in mL
-	double rem_vol_well3;             //!<  remaining volume of solution in the well 3 in mL
-	double rem_vol_well4;             //!<  remaining volume of solution in the well 4 in mL
-	double rem_vol_well5;             //!<  remaining volume of solution in the well 5 in mL
-	double rem_vol_well6;             //!<  remaining volume of solution in the well 6 in mL
-	double rem_vol_well7;             //!<  remaining volume of solution in the well 7 in mL
-	double rem_vol_well8;             //!<  remaining volume of solution in the well 8 in mL
+	double flow_well1;                //!<  flow in the well 1 nl/s
+	double flow_well2;                //!<  flow in the well 2 nl/s
+	double flow_well3;                //!<  flow in the well 3 nl/s
+	double flow_well4;                //!<  flow in the well 4 nl/s
+	double flow_well5;                //!<  flow in the well 5 nl/s
+	double flow_well6;                //!<  flow in the well 6 nl/s
+	double flow_well7;                //!<  flow in the well 7 nl/s
+	double flow_well8;                //!<  flow in the well 8 nl/s
+	double rem_vol_well1;             //!<  remaining volume of solution in the well 1 in ml
+	double rem_vol_well2;             //!<  remaining volume of solution in the well 2 in ml
+	double rem_vol_well3;             //!<  remaining volume of solution in the well 3 in ml
+	double rem_vol_well4;             //!<  remaining volume of solution in the well 4 in ml
+	double rem_vol_well5;             //!<  remaining volume of solution in the well 5 in ml
+	double rem_vol_well6;             //!<  remaining volume of solution in the well 6 in ml
+	double rem_vol_well7;             //!<  remaining volume of solution in the well 7 in ml
+	double rem_vol_well8;             //!<  remaining volume of solution in the well 8 in ml
 };
 
 	// structure to handle solutions name parameters

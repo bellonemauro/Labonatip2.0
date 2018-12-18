@@ -22,8 +22,8 @@
 
 class protocolChart 
 {
-
-	typedef std::vector<fluicell::PPC1api::command> f_protocol; // define a type for fluicel protocol
+	// define a type for Fluicell protocol
+	typedef std::vector<fluicell::PPC1api::command> f_protocol; 
 
 public:
 
@@ -125,34 +125,34 @@ private:
 	*/
 	void appendPonPoint(double _current_time, double _value);
 
-	/** \brief Append a new point to Pof serie
+	/** \brief Append a new point to Pof series
 	*
-	*   Append a new point to Poff serie
+	*   Append a new point to Poff series
 	*
 	*
 	*  \note: changes private data member m_series_poff
 	*/
 	void appendPoffPoint(double _current_time, double _value);
 
-	/** \brief Append a new point to Vrecirc serie
+	/** \brief Append a new point to Vrecirc series
 	*
-	*   Append a new point to Vrecirc serie
+	*   Append a new point to Vrecirc series
 	*
 	*
 	*  \note: changes private data member 
 	*/
 	void appendVrPoint(double _current_time, double _value);
 
-	/** \brief Append a new point to Vswitch serie
+	/** \brief Append a new point to Vswitch series
 	*
-	*   Append a new point to Vswitch serie
+	*   Append a new point to Vswitch series
 	*
 	*
 	*  \note: changes private data member
 	*/
 	void appendVsPoint(double _current_time, double _value);
 
-	/** \brief Append a new point to solutions serie
+	/** \brief Append a new point to solutions series
 	*
 	*   Append a new point to solution series
 	*
@@ -186,8 +186,8 @@ private:
 	QtCharts::QLineSeries *m_series_ask;           //!> Ask series
 	QtCharts::QLineSeries *m_series_sync_in;       //!> SyincIn series
 	QtCharts::QLineSeries *m_series_sync_out;      //!> SyincOut series
-	QtCharts::QLineSeries *m_time_line_b;          //!> Time line seies (base)
-	QtCharts::QLineSeries *m_time_line_t;          //!> Time line seies (top)
+	QtCharts::QLineSeries *m_time_line_b;          //!> Time line series (base)
+	QtCharts::QLineSeries *m_time_line_t;          //!> Time line series (top)
 	QtCharts::QAreaSeries *m_past_time_area;       //!> The time line is made using an area between top and base
 	QtCharts::QChart *m_chart;                     //!> The chart
 	QtCharts::QChartView *m_chartView;             //!> The chart view

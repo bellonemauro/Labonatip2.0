@@ -47,7 +47,7 @@ void Labonatip_GUI::onProtocolClicked(QTreeWidgetItem *item, int column)
 		<< QTime::currentTime().toString().toStdString()
 		<< "Labonatip_GUI::onProtocolClicked " << endl;
 
-	// retrive the clicked file name
+	// retrieve the clicked file name
 	QString file = item->text(0);
 	m_current_protocol_file_name = file;
 	// append the path

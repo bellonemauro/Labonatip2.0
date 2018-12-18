@@ -138,7 +138,7 @@ private slots:
 
 	/**  \brief This shows the help on the protocol tree widget
 	*
-	*   It is currently a placeholder for something else
+	*   It is currently a place holder for something else
 	*/
 	void helpTriggered();
 
@@ -205,7 +205,7 @@ private slots:
 	*/
 	void clearAllCommands();
 	
-	/** \brief Visualize the stack for redo/undo currently hiden
+	/** \brief Visualize the stack for redo/undo currently hidden
 	*/
 	void showUndoStack();
 
@@ -220,7 +220,7 @@ private slots:
 	/** \brief Run a test for the TTL signals in the PPC1
 	*
 	*    In the tool dialog there is a button for TTL test, 
-	*    the signal generated is catched here to run a test 
+	*    the signal generated is catch here to run a test 
 	*    on the TTL output of the PPC1. 
 	*    If the PPC1 is not connected a message will pop out
 	*/
@@ -713,7 +713,7 @@ private slots:
 	/** \brief Handle the update available signal
 	*
 	*    The biopen_updater emits a signal if an update 
-	*    is available. The signal is chatched and forwarded
+	*    is available. The signal is catch and forwarded
 	*    so that we can activate the updates
 	*/
 	void handleUpdateAvailable();
@@ -849,7 +849,7 @@ private:
 	*/
 	void setRedirect(bool _enable = true);
 
-	/** \brief Generate a style sheet to change the weels drawing in the pipette
+	/** \brief Generate a style sheet to change the wells drawing in the pipette
 	*
 	*  @param _r  red
 	*  @param _g  green
@@ -859,7 +859,7 @@ private:
 	*/
 	QString generateStyleSheet(const int _r, const int _g, const int _b);
 
-	/** \brief Overload of generate a style sheet to change the weels drawing in the pipette
+	/** \brief Overload of generate a style sheet to change the wells drawing in the pipette
 	*
 	*  @param _color 
 	*
@@ -957,7 +957,7 @@ private:
 
   /** \brief Save the current protocol to file
   *
-  *   \note the current protocol file is overriden
+  *   \note the current protocol file is overwritten
   */
   bool saveProtocol();
 

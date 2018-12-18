@@ -554,10 +554,12 @@ void protocolChart::appendVsPoint(double _current_time, double _value)
 	double normalization_vs = max_v_switch / chart_width; // the values are normalized in the height reserved for the chart
 	double second_y = min_series_V_switch - _value / normalization_vs;  // new point
 
-	m_series_V_switch->append(first_x, first_y); // add the fist point
-	m_series_V_switch->append(second_x, second_y); // add the second point 
+	// add the fist point
+	m_series_V_switch->append(first_x, first_y); 
+	// add the second point 
+	m_series_V_switch->append(second_x, second_y); 
 
-												   //the last point is added at each step, and it must be removed every time a new point is added
+	//the last point is added at each step, and it must be removed every time a new point is added
 	m_series_V_switch->append(max_time_line, second_y);
 }
 
@@ -616,8 +618,10 @@ void protocolChart::appendSolutionPoint(QtCharts::QLineSeries *_serie, double _c
 		}
 	}
 
-	_serie->append(first_x, first_y); // add the fist point
-	_serie->append(second_x, second_y); // add the second point 
+	// add the fist point
+	_serie->append(first_x, first_y); 
+	// add the second point 
+	_serie->append(second_x, second_y); 
 }
 
 

@@ -24,7 +24,7 @@ void Labonatip_GUI::zoneSizePlus()
 		return;
 	}
 
-	// if the pippette is active the command will be sent to the PPC1
+	// if the pipette is active the command will be sent to the PPC1
 	if (m_pipette_active) {
 
 		// use a flag to store success operations
@@ -109,7 +109,7 @@ void Labonatip_GUI::zoneSizeMinus()
 		return;
 	}
 
-	// if the pippette is active the command will be sent to the PPC1
+	// if the pipette is active the command will be sent to the PPC1
 	if (m_pipette_active) {
 
 		// use a flag to store success operations
@@ -193,7 +193,7 @@ void Labonatip_GUI::flowSpeedPlus()
 		return;
 	}
 
-	// if the pippette is active the command will be sent to the PPC1
+	// if the pipette is active the command will be sent to the PPC1
 	if (m_pipette_active) {
 		bool success = false;
 		if (m_pr_params->useDefValSetPoint)  

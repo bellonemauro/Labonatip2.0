@@ -208,17 +208,17 @@ private:
 	QTimer *m_start_timer;       //!< this timer allows to start automatically the update on_show
 	QTimer *m_connection_timer;  //!< check connection and then start the update on_show
 	QString m_current_version;   //!< current software version, to be set on class creation from the GUI
-	bool is_version_file_ready;  //!< true once the online information is retrived, false otherwise
+	bool is_version_file_ready;  //!< true once the online information is retrieved, false otherwise
 	QTime downloadTime;          //!< download time calculated during the download
 	QTranslator m_translator_bu; //!< to allow translations
-	bool m_details_hiden;        //!< true when details are hiden, false details are shown
+	bool m_details_hiden;        //!< true when details are hidden, false details are shown
 	bool m_is_update_available;  //!< set to true if the update is available
 	bool m_verbose;              //!< true for more verbose information
 	bool m_is_window_active;     //!< true when the window is visualized
 	bool m_notify_experimental_ver; //!< if true all versions will be notified
 
-	// information retrived from the online file
-	QString m_online_version;       //!< online software version, retrived on update check
+	// information retrieved from the online file
+	QString m_online_version;       //!< online software version, retrieved on update check
 	QString m_online_version_size;  //!< size of the online version
 	QString m_online_version_date;  //!< release data of the online version
 	int m_is_experimental;          //|< this is 0 for a normal release, 1 for an experimental release

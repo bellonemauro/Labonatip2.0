@@ -70,7 +70,7 @@ private:
 	
 	/** \brief Visit the tree and pull all the commands into the _list
 	*
-	*    Here the top level items are visited and calle the overload function
+	*    Here the top level items are visited and call the overload function
 	*    for each element (that can also be a sublevel of the tree)
 	*
 	*/

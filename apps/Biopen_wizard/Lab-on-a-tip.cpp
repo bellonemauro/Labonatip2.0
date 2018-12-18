@@ -225,7 +225,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	  SLOT(automaticCheckForUpdates()));
   m_check_updates->start();
 
-  // reset the macrotable widget
+  // reset the protocol table widget
   ui->treeWidget_macroTable->setColumnWidth(editorParams::c_idx, 70);
   ui->treeWidget_macroTable->setColumnWidth(editorParams::c_command, 240);
   ui->treeWidget_macroTable->setColumnWidth(editorParams::c_range, 160);
@@ -390,7 +390,7 @@ void Labonatip_GUI::handleUpdateAvailable()
 
 	QMessageBox::StandardButton resBtn =
 		QMessageBox::question(this, m_str_information, 
-			m_str_update_information, //TODO: string
+			m_str_update_information, 
 			QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
 			QMessageBox::Yes);
 	if (resBtn != QMessageBox::Yes) {
@@ -477,7 +477,7 @@ void Labonatip_GUI::setRedirect(bool _enable)
 
 #ifndef _DEBUG
 	// if we are not in debug 
-	//we redirect normal messages to the GUI accoring to the settings
+	//we redirect normal messages to the GUI according to the settings
 	qout->redirectOutInGUI(_enable);
 	// and normal messages will not go to the terminal
 	qout->copyOutToTerminal(false);
@@ -503,7 +503,7 @@ void Labonatip_GUI::switchLanguage(int _value )
 	if (_value == m_language_idx) 
 		return; // no translation needed
 
-	// this will re-init custom strings to english for re-translation
+	// this will re-init custom strings to English for re-translation
 	qApp->removeTranslator(&m_translator);
 	QString translation_file;
 	m_language_idx = _value;
@@ -1242,7 +1242,7 @@ bool Labonatip_GUI::visualizeProgressMessage(int _seconds, QString _message)
 	PD->setMaximumHeight(300);
 	PD->setValue(0);
 	PD->setMinimumDuration(0); // Change the Minimum Duration before displaying from 4 sec. to 0 sec. 
-	PD->show(); // Make sure dialog is displayed immediately
+	PD->show(); // Make sure that the dialog is displayed immediately
 	PD->setValue(1); 
 	PD->setWindowModality(Qt::WindowModal);
 	//PD->setCancelButtonText(m_str_cancel);// (QApplication::translate("Labonatip_GUI", "Cancel", Q_NULLPTR));
@@ -1268,7 +1268,7 @@ bool Labonatip_GUI::visualizeProgressMessage(int _seconds, QString _message)
 		current_time += time_step;
 		qint64 sleep_for = current_time - QDateTime::currentMSecsSinceEpoch();
 		if (sleep_for < 0) {
-			// We got preempted for too long - for all we know, the system could
+			// We got prompted for too long - for all we know, the system could
 			// have even gotten suspended (lid close on a laptop).
 			// Note: We should avoid the implementation-defined behavior of 
 			// modulus (%) for negative values.
