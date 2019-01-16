@@ -3,15 +3,14 @@
 <XML>
 <biopen>
     <version>2.1.01</version>
-    <size>22 MB</size>
+    <size>35 MB</size>
     <released_on>January 16, 2019</released_on>
 	<experimental>1</experimental>
-	<link_64bit>https://github.com/bellonemauro/Labonatip2.0/releases/download/2.1.01/Biopen_wizard-2.1.01-win64.exe</link_64bit>
-	<link_32bit>https://github.com/bellonemauro/Labonatip2.0/releases/download/2.1.01/Biopen_wizard-2.1.01-win32.exe</link_32bit>
+	<link_64bit>https://github.com/bellonemauro/Labonatip2.0/releases/download/2.1.03/Biopen_wizard-2.1.03-win64.exe</link_64bit>
+	<link_32bit>https://github.com/bellonemauro/Labonatip2.0/releases/download/2.1.03/Biopen_wizard-2.1.03-win32.exe</link_32bit>
     <change_list>
-        <change>Added on line updater</change>
-        <change>Improvement 2</change>
-        <change>Improvement 3</change>
+        <change>Added tip selection in tools</change>
+        <change>Improvement of PPC1_API</change>
     </change_list>
 </biopen>
 </XML>
