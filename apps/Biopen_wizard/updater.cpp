@@ -442,30 +442,23 @@ void biopen_updater::downloadInstaller()
 			if (!password.compare(password_check))
 			{
 				QMessageBox::warning(this, m_str_warning, "Correct password");
+				if (system_version.compare("x86_64"))
+				{
+					build_version = 32;
+					this->doDownload(m_url_installer_32bit);
+					ui_updater->pushButton_download->setEnabled(false);
+				}
+				else {
+					this->doDownload(m_url_installer_64bit);
+					build_version = 64;
+					ui_updater->pushButton_download->setEnabled(false);
+				}
 			}
 			else
 			{
 				QMessageBox::warning(this, m_str_warning, "Wrong password");
-				return;
 			}
-
 		}
-		else
-		{
-			return;
-		}
-	}
-
-	if (system_version.compare("x86_64"))
-	{
-		build_version = 32;
-		this->doDownload(m_url_installer_32bit);
-		ui_updater->pushButton_download->setEnabled(false);
-	}
-	else {
-		this->doDownload(m_url_installer_64bit);
-		build_version = 64;
-		ui_updater->pushButton_download->setEnabled(false);
 	}
 }
 

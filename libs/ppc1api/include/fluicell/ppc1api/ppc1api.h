@@ -132,7 +132,7 @@ namespace fluicell
 	*		- MAY/2017: Creation (MB).
 	*  \ingroup __
 	*/
-	class PPC1API_EXPORT PPC1api : public PPC1_data, public PPC1_status, public serialDeviceInfo, public command
+	class PPC1API_EXPORT PPC1api : public PPC1_data, public PPC1_status, public tip, public serialDeviceInfo, public command
 	{
 
 	public:
@@ -280,6 +280,7 @@ namespace fluicell
 		
 		PPC1api::PPC1_data *m_PPC1_data; /*!< ppc1 output structure */
 		PPC1api::PPC1_status *m_PPC1_status;/*!< pipette status */
+		PPC1api::tip *m_tip;
 		int m_wait_sync_timeout;        //!< timeout for wait sync function in seconds, default value 60 sec
 
 		// threads
@@ -801,6 +802,36 @@ namespace fluicell
 			double _default_poff = 21.0,
 			double _default_v_recirc = -115.0,
 			double _default_v_switch = -115.0);
+
+		/** \brief Set the tip parameters
+		*
+		*  @param  _length_to_tip  see data structure reference for details
+		*  @param  _length_to_zone  see data structure reference for details
+		*
+		*  \note -  call this function without arguments to reset to the default values
+		*  \note -  values are in meters
+		**/
+		void setTipParameters( double _length_to_tip = DEFAULT_LENGTH_TO_TIP,
+			                   double _length_to_zone = DEFAULT_LENGTH_TO_ZONE) {
+			m_tip->length_to_tip = _length_to_tip;
+			m_tip->length_to_zone = _length_to_zone;
+		}
+
+		/** \brief Get the length_to_tip value
+		*
+		*  \return length to tip
+		**/
+		double getLegthToTip() {
+			return m_tip->length_to_tip;
+		}
+
+		/** \brief Get the length_to_zone value
+		*
+		*  \return length to zone
+		**/
+		double getLegthToZone() {
+			return m_tip->length_to_zone;
+		}
 
 		/**  \brief Get device serial number
 		  *

@@ -277,6 +277,18 @@ struct pr_params {
 
 }; // END pr_params struct
 
+struct tip
+{
+public:
+	double length_to_tip;
+	double length_to_zone;
+
+public:
+	tip() :
+		length_to_tip(0.065),
+		length_to_zone(0.062)
+	{}
+};
 
 struct GUIparams {
 

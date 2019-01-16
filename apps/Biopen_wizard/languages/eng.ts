@@ -1163,6 +1163,38 @@
         <translation>Base increments</translation>
     </message>
     <message>
+        <source>Tip</source>
+        <translation>Tip</translation>
+    </message>
+    <message>
+        <source>Length to the tip (m)</source>
+        <translation>Length to the tip (m)</translation>
+    </message>	
+    <message>
+        <source>Length to zone (m)</source>
+        <translation>Length to zone (m)</translation>
+    </message>	
+    <message>
+        <source>Select tip</source>
+        <translation>Select tip</translation>
+    </message>	
+    <message>
+        <source>Enable tip setting</source>
+        <translation>Enable tip setting</translation>
+    </message>
+    <message>
+        <source>Select tip</source>
+        <translation>Select tip</translation>
+    </message>
+	<message>
+        <source>Tip 1</source>
+        <translation>Tip 1</translation>
+    </message>
+	<message>
+        <source>Tip 2</source>
+        <translation>Tip 2</translation>
+    </message>
+    <message>
         <source>Verbose</source>
         <translation>Verbose</translation>
     </message>

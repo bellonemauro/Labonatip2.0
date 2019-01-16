@@ -1177,6 +1177,11 @@ void Labonatip_GUI::toolApply()
 	*m_solutionParams = m_dialog_tools->getSolutionsParams();
 	*m_pr_params = m_dialog_tools->getPr_params();
 	*m_GUI_params = m_dialog_tools->getGUIparams();
+	
+	if (m_dialog_tools->isExpertMode()) {
+		tip my_tip = m_dialog_tools->getTipParams();
+		m_ppc1->setTipParameters(my_tip.length_to_tip, my_tip.length_to_zone);
+	}
 
 	m_ppc1->setCOMport(m_comSettings->getName());
 	m_ppc1->setBaudRate((int)m_comSettings->getBaudRate());

@@ -17,6 +17,7 @@
 fluicell::PPC1api::PPC1api() :
 	m_PPC1_data(new PPC1api::PPC1_data),
 	m_PPC1_status(new PPC1api::PPC1_status),
+	m_tip(new PPC1api::tip),
 	m_verbose(false)
 {
 	// initialize and connect serial port objects
@@ -394,26 +395,26 @@ void fluicell::PPC1api::updateFlows(const PPC1_data &_PPC1_data, PPC1_status &_P
 	double delta_pressure = 100.0 * (-_PPC1_data.channel_A->sensor_reading);//   v_r;
 
 	_PPC1_status.inflow_recirculation = 2.0 * 
-		this->getFlowSimple(delta_pressure, LENGTH_TO_TIP);
+		this->getFlowSimple(delta_pressure, m_tip->length_to_tip);
 
 	delta_pressure = 100.0 * (-_PPC1_data.channel_A->sensor_reading +
-		2.0 * _PPC1_data.channel_C->sensor_reading * ( 1 - LENGTH_TO_TIP / LENGTH_TO_ZONE) );
-	_PPC1_status.inflow_switch = 2.0 * this->getFlowSimple(delta_pressure, LENGTH_TO_TIP);
+		2.0 * _PPC1_data.channel_C->sensor_reading * ( 1 - m_tip->length_to_tip / m_tip->length_to_zone) );
+	_PPC1_status.inflow_switch = 2.0 * this->getFlowSimple(delta_pressure, m_tip->length_to_tip);
 
 	delta_pressure = 100.0 * 2.0 * _PPC1_data.channel_C->sensor_reading;
-	_PPC1_status.solution_usage_off = this->getFlowSimple(delta_pressure, 2.0 * LENGTH_TO_ZONE);
+	_PPC1_status.solution_usage_off = this->getFlowSimple(delta_pressure, 2.0 * m_tip->length_to_zone);
 
 	delta_pressure = 100.0 * _PPC1_data.channel_D->sensor_reading;
-	_PPC1_status.solution_usage_on = this->getFlowSimple(delta_pressure, LENGTH_TO_TIP);
+	_PPC1_status.solution_usage_on = this->getFlowSimple(delta_pressure, m_tip->length_to_tip);
 
 	delta_pressure = 100.0 * (_PPC1_data.channel_D->sensor_reading +
 		(_PPC1_data.channel_C->sensor_reading * 3.0) -
 		(-_PPC1_data.channel_B->sensor_reading * 2.0));
-	_PPC1_status.outflow_on = this->getFlowSimple(delta_pressure, LENGTH_TO_TIP);
+	_PPC1_status.outflow_on = this->getFlowSimple(delta_pressure, m_tip->length_to_tip);
 
 	delta_pressure = 100.0 * ((_PPC1_data.channel_C->sensor_reading * 4.0) -
 		(-_PPC1_data.channel_B->sensor_reading * 2.0));
-	_PPC1_status.outflow_off = 2.0 * this->getFlowSimple(delta_pressure, 2.0 * LENGTH_TO_ZONE);
+	_PPC1_status.outflow_off = 2.0 * this->getFlowSimple(delta_pressure, 2.0 * m_tip->length_to_zone);
 
 	_PPC1_status.in_out_ratio_on = _PPC1_status.outflow_on / _PPC1_status.inflow_recirculation;
 	_PPC1_status.in_out_ratio_off = _PPC1_status.outflow_off / _PPC1_status.inflow_recirculation;
@@ -974,12 +975,12 @@ double fluicell::PPC1api::getZoneSizePerc()
 		double delta_pressure = 100.0 * (m_PPC1_data->channel_D->set_point +
 			(m_PPC1_data->channel_C->set_point * 3.0) -
 			(-m_PPC1_data->channel_B->set_point * 2.0));
-	    outflow_on = this->getFlowSimple(delta_pressure, LENGTH_TO_TIP);
+	    outflow_on = this->getFlowSimple(delta_pressure, m_tip->length_to_tip);
 
 		// calculate inflow_recirculation based on set value instead of the sensor reading
 		double inflow_recirculation;
 		delta_pressure = 100.0 * (-m_PPC1_data->channel_A->set_point);//   v_r;
-		inflow_recirculation = 2.0 * this->getFlowSimple(delta_pressure, LENGTH_TO_TIP);
+		inflow_recirculation = 2.0 * this->getFlowSimple(delta_pressure, m_tip->length_to_tip);
 		
 		in_out_ratio_on = outflow_on / inflow_recirculation;
 	}

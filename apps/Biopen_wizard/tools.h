@@ -102,6 +102,9 @@ public:
 	*/
 	GUIparams getGUIparams() { return *m_GUI_params; }
 
+	tip getTipParams() { return *m_tip; }
+	bool isExpertMode() { return m_expert; }
+
 	void switchLanguage(QString _translation_file);
 
 	void updateDevices() { this->enumerate(); 
@@ -271,10 +274,19 @@ private slots:
 	*/
 	bool saveSettings(QString _file_name = QString("./settings/setting_save.ini"));
 
+	/** \brief ask a password to unlock protected settings
+	*
+	*/
+	void askPasswordToUnlock();
+
+	void tipSelection(int _idx);
+
 	/** \brief Reset all the values to default values
 	*
 	*/
 	void resetToDefaultValues();
+
+
 
 private:
 
@@ -311,10 +323,19 @@ private:
 	*/
 	void getPRsettingsFromGUI();
 
+	void getTipSettingsFromGUI();
+
 	/** \brief From _position to 3 RGB bytes 
 	*
 	*/
 	uint32_t giveRainbowColor(float _position);
+
+	/** \brief lock protected settings
+	*
+	*/
+	void unlockProtectedSettings(bool _lock);
+
+
 
     /** \brief Check the size of the history and ask to clean it if necessary
     *
@@ -335,6 +356,9 @@ private:
 	solutionsParams *m_solutionParams;  //!<  solution setting structure
 	pr_params *m_pr_params;       //!<  pressure and vacuum setting structure
 	GUIparams *m_GUI_params;      //!<  GUI setting structure
+
+	tip *m_tip;
+	bool m_expert;       //!< expert mode, set to true upon correct password
 
 	// translatable strings
 	QString m_str_warning;

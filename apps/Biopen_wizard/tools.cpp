@@ -9,6 +9,7 @@
 
 #include "tools.h"
 #include  <QCheckBox>
+#include <QInputDialog>
 
 Labonatip_tools::Labonatip_tools(QWidget *parent):
 	QMainWindow(parent),
@@ -16,6 +17,8 @@ Labonatip_tools::Labonatip_tools(QWidget *parent):
 	m_comSettings(new COMSettings()),
 	m_solutionParams(new solutionsParams()),
 	m_pr_params(new pr_params()),
+	m_tip(new tip()),
+	m_expert(false),
 	m_GUI_params(new GUIparams()),
 	m_setting_file_name("/settings/settings.ini")
 {
@@ -118,6 +121,13 @@ Labonatip_tools::Labonatip_tools(QWidget *parent):
     connect(ui_tools->checkBox_enablePPC1filter,
         SIGNAL(stateChanged(int)), this, SLOT(enablePPC1filtering()));
 
+	connect(ui_tools->pushButton_enableTipSetting,
+		SIGNAL(clicked()), this, SLOT(askPasswordToUnlock()));
+
+	connect(ui_tools->comboBox_tipSelection,
+		static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this,
+		&Labonatip_tools::tipSelection);
+
     // connect tool window events Ok, Cancel, Apply
 	connect(ui_tools->buttonBox->button(QDialogButtonBox::Ok), 
 		SIGNAL(clicked()), this, SLOT(okPressed()));
@@ -216,15 +226,9 @@ void Labonatip_tools::setPreset3(int _p_on, int _p_off, int _v_switch, int _v_re
 
 void Labonatip_tools::okPressed() {
 
-	getCOMsettingsFromGUI();
-	getSolutionSettingsFromGUI();
-	getGUIsettingsFromGUI();
-	getPRsettingsFromGUI();
+	checkHistory ();
 
-	saveSettings(m_setting_file_name);
-    checkHistory ();
-
-    emit apply();
+	this->applyPressed();
 	this->close();
 }
 
@@ -242,6 +246,7 @@ void Labonatip_tools::applyPressed() {
 	getSolutionSettingsFromGUI();
 	getGUIsettingsFromGUI();
 	getPRsettingsFromGUI();
+	getTipSettingsFromGUI();
 
 	saveSettings(m_setting_file_name);
 
@@ -571,6 +576,15 @@ void Labonatip_tools::getPRsettingsFromGUI()
 	m_pr_params->enableFilter = ui_tools->checkBox_enablePPC1filter->isChecked();
 	m_pr_params->filterSize = ui_tools->spinBox_PPC1filterSize->value();
 	m_pr_params->waitSyncTimeout = ui_tools->spinBox_PPC1_sync_timeout->value();
+}
+
+void Labonatip_tools::getTipSettingsFromGUI()
+{
+	if (ui_tools->doubleSpinBox_lengthToTip->isEnabled())
+		m_tip->length_to_tip = ui_tools->doubleSpinBox_lengthToTip->value();
+
+	if (ui_tools->doubleSpinBox_lengthToZone->isEnabled())
+		m_tip->length_to_zone = ui_tools->doubleSpinBox_lengthToZone->value();
 }
 
 bool Labonatip_tools::loadSettings(QString _path)
@@ -1285,6 +1299,55 @@ bool Labonatip_tools::saveSettings(QString _file_name)
 	return true;
 }
 
+void Labonatip_tools::askPasswordToUnlock()
+{
+	//ask password
+	//if correct 
+	bool ok;
+	// Ask for birth date as a string.
+	QString text = QInputDialog::getText(0, m_str_warning,
+		"This is for expert users only, a password is required", QLineEdit::Normal,
+		"", &ok);
+	if (ok && !text.isEmpty()) {
+		QString password = text;
+		QString password_check = "FluicellGrowth2018";
+		if (!password.compare(password_check))
+		{
+			QMessageBox::warning(this, m_str_warning, "Correct password");
+			m_expert = true;
+			this->unlockProtectedSettings(true);
+		}
+		else
+		{
+			QMessageBox::warning(this, m_str_warning, "Wrong password");
+			this->unlockProtectedSettings(false);
+			return;
+		}
+
+	}
+	else
+	{
+		return;
+	}
+
+
+}
+
+void Labonatip_tools::tipSelection(int _idx)
+{
+	if (_idx == 0)
+	{
+		ui_tools->doubleSpinBox_lengthToTip->setValue(DEFAULT_LENGTH_TO_TIP);
+		ui_tools->doubleSpinBox_lengthToZone->setValue(DEFAULT_LENGTH_TO_ZONE);
+	}
+	if (_idx == 1)
+	{
+		ui_tools->doubleSpinBox_lengthToTip->setValue(0.001);
+		ui_tools->doubleSpinBox_lengthToZone->setValue(0.002);
+	}
+
+}
+
 
 void Labonatip_tools::resetToDefaultValues()
 {
@@ -1418,6 +1481,13 @@ uint32_t Labonatip_tools::giveRainbowColor(float _position)
 
 
 	return (R << 16) | (G << 8) | B;
+}
+
+void Labonatip_tools::unlockProtectedSettings(bool _lock)
+{
+	ui_tools->doubleSpinBox_lengthToTip->setEnabled(_lock);
+	ui_tools->doubleSpinBox_lengthToZone->setEnabled(_lock);
+	ui_tools->comboBox_tipSelection->setEnabled(_lock);
 }
 
 

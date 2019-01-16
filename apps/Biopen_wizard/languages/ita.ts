@@ -1162,7 +1162,39 @@
             <source>Base increments</source>
             <translation>Incrementi di base</translation>
         </message>
-        <message>
+    <message>
+        <source>Tip</source>
+        <translation>Punta</translation>
+    </message>
+    <message>
+        <source>Length to the tip (m)</source>
+        <translation>Lunghezza della punta (m)</translation>
+    </message>	
+    <message>
+        <source>Length to zone (m)</source>
+        <translation>Lunghezza della zona (m)</translation>
+    </message>	
+    <message>
+        <source>Select tip</source>
+        <translation>Seleziona punta</translation>
+    </message>	
+    <message>
+        <source>Enable tip setting</source>
+        <translation>Abilita settaggi punta</translation>
+    </message>
+    <message>
+        <source>Select tip</source>
+        <translation>Seleziona punta</translation>
+    </message>
+	<message>
+        <source>Tip 1</source>
+        <translation>Punta 1</translation>
+    </message>
+	<message>
+        <source>Tip 2</source>
+        <translation>Punta 2</translation>
+    </message>
+	<message>
             <source>Verbose</source>
             <translation>Verboso</translation>
         </message>

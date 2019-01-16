@@ -117,10 +117,10 @@ namespace fluicell
 			#define MIN_VACUUM_PERC 50      //!< %
 			#define MAX_VACUUM_PERC 250     //!< %
 			#define MAX_VACUUM_INCREMENT 40     //!< %
-			#define LENGTH_TO_TIP 0.065     /*!< length of the pipe to the tip, this value is used  
+			#define DEFAULT_LENGTH_TO_TIP 0.065     /*!< length of the pipe to the tip, this value is used  
 									             for the calculation of the flow using the Poiseuille equation
 												 see function getFlow() -- default value 0.065 m; */ 
-			#define LENGTH_TO_ZONE 0.062    /*!< length of the pipe to the zone, this value is used 
+			#define DEFAULT_LENGTH_TO_ZONE 0.062    /*!< length of the pipe to the zone, this value is used 
 												 for the calculation of the flow using the Poiseuille equation
 											 	 see function getFlow()-- default value 0.124 m; */
 			#define PPC1_VID "16D0"  //!< device vendor ID
@@ -389,6 +389,31 @@ namespace fluicell
 			{}
 		};
 
+		/**  \brief Data structure handling the type of the tip
+		*
+		*  This allows to modify the type of the tip
+		*
+		*  @param length_to_tip             /*!< length of the pipe to the tip, this value is used  
+		*							             for the calculation of the flow using the Poiseuille equation
+		*										 see function getFlow() -- default value 0.065 m; 
+		*  @param length_to_zone            /*!< length of the pipe to the zone, this value is used
+		*										 for the calculation of the flow using the Poiseuille equation
+		*										 see function getFlow()-- default value 0.124 m; 
+		*
+		* \note
+		*/
+		struct PPC1API_EXPORT tip
+		{
+		public: 
+			double length_to_tip;
+			double length_to_zone;
+
+		public:
+			tip() :
+				length_to_tip (0.065),
+				length_to_zone (0.062)
+				{}
+		};
 
 	/**  \brief Serial device info data structure
 		*
