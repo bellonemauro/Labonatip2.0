@@ -12,6 +12,7 @@
 #include <QtCharts/QAbstractAxis>
 #include <QDesktopServices.h>
 
+
 Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	QMainWindow(parent),
 	ui(new Ui::Labonatip_GUI),
@@ -902,6 +903,14 @@ void Labonatip_GUI::initConnects()
 		SIGNAL(clicked()), this, SLOT(createNewLoop()));
 
 
+	m_ppc1->port_disconnected.connectPPC1Signal2member(this, &Labonatip_GUI::handlePPC1exception);
+
+}
+
+void Labonatip_GUI::givemeamessage()
+{
+	QMessageBox::warning(this, m_str_warning, "here is your message");
+	return;
 }
 
 void Labonatip_GUI::testTTL(bool _state) {
@@ -1420,7 +1429,6 @@ void Labonatip_GUI::enableTab2(bool _enable)
 	ui->pushButton_set_preset3->setEnabled(_enable);
 	ui->pushButton_reset_preset3->setEnabled(_enable);
 }
-
 
 
 void Labonatip_GUI::closeEvent(QCloseEvent *event) {

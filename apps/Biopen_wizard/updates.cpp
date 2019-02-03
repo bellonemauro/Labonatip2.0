@@ -16,7 +16,7 @@
 
 void Labonatip_GUI::updateGUI() {
 
-	if (isExceptionTriggered()) return;
+	//if (isExceptionTriggered()) return;
 
 	// all the following update functions are for GUI only, 
 	// there is no time calculation
@@ -302,44 +302,58 @@ void Labonatip_GUI::updateSolutions()
 	}
 }
 
+void Labonatip_GUI::handlePPC1exception()
+{
+
+	// stop updating the GUI
+	m_update_GUI->stop();
+
+	// go back to the simulation mode
+	ui->actionConnectDisconnect->setEnabled(false);
+	ui->actionConnectDisconnect->setChecked(false);
+	ui->actionConnectDisconnect->setText(m_str_connect);
+	ui->actionReboot->setEnabled(false);
+	ui->actionShudown->setEnabled(false);
+
+	// disconnect from the PPC1
+	m_ppc1->disconnectCOM();
+	m_ppc1->stop();
+	QThread::msleep(500);
+
+	// verify that we are actually disconnected
+	if (m_ppc1->isConnected())
+		m_ppc1->disconnectCOM();
+	QThread::msleep(500);
+
+	// remember that the pipette is now deactivated
+	m_pipette_active = false;
+
+	// enable the simulation buttons
+	ui->actionSimulation->setEnabled(true);
+	ui->actionSimulation->setChecked(true);
+
+	//this->setStatusLed(false);
+	ui->status_PPC1_led->setPixmap(*led_red);
+	ui->status_PPC1_label->setText(m_str_PPC1_status_discon);
+
+	return;
+
+	// if there is an exception, a message is out
+	QMessageBox::information(NULL, m_str_warning,
+		m_str_lost_connection + "<br>" + m_str_swapping_to_simulation);
+
+}
+
 bool Labonatip_GUI::isExceptionTriggered() // return true if the exception is triggered
 {
 	if (!m_simulationOnly) {
 		// check exceptions, TODO: this is not the best way to do it !!!
 		//if (m_ppc1->isConnected() && m_ppc1->isExceptionHappened()) { // this was there before, why ? the exception can happen connected or not
 		if (m_ppc1->isExceptionHappened()) {
+			//handlePPC1exception();
 			// if there is an exception, a message is out
-			QMessageBox::information(this, m_str_warning,
-				m_str_lost_connection + "<br>" + m_str_swapping_to_simulation);
-
-			// stop updating the GUI
-			m_update_GUI->stop();
-
-			// go back to the simulation mode
-			ui->actionConnectDisconnect->setEnabled(false);
-			ui->actionConnectDisconnect->setChecked(false);
-			ui->actionConnectDisconnect->setText(m_str_connect);
-			ui->actionReboot->setEnabled(false);
-			ui->actionShudown->setEnabled(false);
-
-			// disconnect from the PPC1
-			m_ppc1->disconnectCOM();
-			m_ppc1->stop();
-			QThread::msleep(500);
-
-			// verify that we are actually disconnected
-			if (m_ppc1->isConnected())
-				m_ppc1->disconnectCOM();
-			QThread::msleep(500);
-
-			// enable the simulation buttons
-			ui->actionSimulation->setEnabled(true);
-			ui->actionSimulation->setChecked(true);
-			
-			//this->setStatusLed(false);
-			ui->status_PPC1_led->setPixmap(*led_red);
-			ui->status_PPC1_label->setText(m_str_PPC1_status_discon);
-
+			//QMessageBox::information(this, m_str_warning,
+			//	m_str_lost_connection + "<br>" + m_str_swapping_to_simulation);
 			// end
 			return true;
 		}

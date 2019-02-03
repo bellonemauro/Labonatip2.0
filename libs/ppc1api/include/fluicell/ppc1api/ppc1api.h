@@ -43,6 +43,7 @@
 #include <serial/serial.h>
 
 #include "ppc1api_data_structures.h"
+#include "ppc1api_signalProperties.h"
 
 using namespace std;
 
@@ -51,7 +52,13 @@ using namespace std;
   **/
 namespace fluicell
 {
-	
+	struct ppc1Exception : public std::exception 
+	{
+		const char * what() const throw() {
+			return "ppc1Exception";
+		}
+	};
+	/*
 	class  ppc1Exception : public std::exception
 	{
 		// Disable copy constructors
@@ -68,7 +75,7 @@ namespace fluicell
 		virtual const char* what() const throw () {
 			return e_what_.c_str();
 		}
-	};
+	};*/
 
 	/**  \brief Simple API for the communication with the Fluicell PPC1 controller
 	*
@@ -148,6 +155,10 @@ namespace fluicell
 		  *   are properly closed, then free memory
 		  */
 		~PPC1api();
+
+		// create new signal
+		//fluicell::ppc1apiSignals<std::string> port_disconnected;
+		fluicell::ppc1apiSignals<> port_disconnected;
 
 	private:
 

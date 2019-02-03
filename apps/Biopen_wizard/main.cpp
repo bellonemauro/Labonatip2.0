@@ -32,6 +32,45 @@
 #include <QDir>
 #include <QMessageBox>
 
+// subclass QApplication to handle some exception
+class BiopenApplication : public QApplication {
+public:
+	BiopenApplication(int & argc, char ** argv);
+
+	bool notify(QObject * receiver, QEvent * event);
+
+	void setBiopenAppPrt(Labonatip_GUI *_app) { m_app = _app; };
+
+	Labonatip_GUI *m_app;
+};
+
+BiopenApplication::BiopenApplication(int & argc, char ** argv) :
+	QApplication(argc, argv) {}
+
+bool BiopenApplication::notify(QObject * receiver, QEvent * event) {
+	bool done = true;
+	try {
+		done = QApplication::notify(receiver, event);
+	}
+	catch (const fluicell::ppc1Exception & ex) {
+		cout << " fluicell::ppc1Exception Some  exit \n\n"
+			<< ex.what() << "\n\n" << endl;
+
+		//m_app->handlePPC1exception(); // TODO: do something smart here
+
+	}
+	catch (const std::exception & ex) {
+		// some exception has happened, probably in the PPC1 api (through the serial library)
+		cout << "BiopenApplication::notify --- std::exception \n\n"
+			<< ex.what() << "\n\n" << endl;
+	}
+	catch (...) {
+		// any unknown exception is cautch here
+		cout << "BiopenApplication::notify --- Unknown exception "
+			 << endl;
+	}
+	return done;
+}
 
 // if it is the first time that the software runs,
 // it will check if required paths already exist and 
@@ -232,11 +271,12 @@ int main(int argc, char **argv)//(int argc, char *argv[])
 #endif
 	try {
 
-        QApplication a (argc, argv);
+		BiopenApplication a (argc, argv);
         // there is a problem with high dpi displays
         a.setAttribute(Qt::AA_EnableHighDpiScaling);
 		
 		Labonatip_GUI window;
+		a.setBiopenAppPrt(&window);
 
 		// check for high DPI screens
 		int logical_dpi_x = QApplication::desktop()->logicalDpiX();
@@ -319,6 +359,7 @@ int main(int argc, char **argv)//(int argc, char *argv[])
 	  return a.exec ();
   }
   catch (std::exception &e) {
+
 	  cerr << " Labonatip_GUI::main ::: Unhandled Exception: " 
 		   << e.what() << endl;
 	  // clean up here, e.g. save the session, save the current protocol

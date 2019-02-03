@@ -149,6 +149,10 @@ int	main (int argc, char** argv)
 			return 0;
 		}
 
+		my_ppc1->port_disconnected.connect2signal([](std::string arg1) {
+				std::cout << "\n " << arg1 << " \n"  << std::endl;
+			});
+
 		my_ppc1->run();
 		std::this_thread::sleep_for(std::chrono::milliseconds(500));
 		
@@ -164,8 +168,8 @@ int	main (int argc, char** argv)
 
 		// for some reason everything works but getDeviceID()
 		cout << " Getting device id ... " <<  endl;
-		string id = my_ppc1->getDeviceID();
-		cout << " device id is " << id << "\n\n press enter to continue " << endl;
+		//string id = my_ppc1->getDeviceID();
+		//cout << " device id is " << id << "\n\n press enter to continue " << endl;
 		
 
 		// try to just read from the data in the threaded class
@@ -274,7 +278,7 @@ int	main (int argc, char** argv)
 	}
 	catch ( std::exception &e)
 	{
-		cerr << "ciaoooooooooooo : " << e.what() << endl;
+		cerr << "PPC1-test --- Exception : \n" << e.what() << endl;
 		cin.get();
 	}
 	catch ( ... ) {

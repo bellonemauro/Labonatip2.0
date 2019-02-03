@@ -97,9 +97,12 @@ void fluicell::PPC1api::threadSerial()
 		m_PPC1_serial->close(); 
 		cerr << currentDateTime() 
 			 << " fluicell::PPC1api::threadSerial  ---- error --- MESSAGE:"
-			 << " IOException : " 
+			 << " IOException : \n" 
 			 << e.what() << endl;
 		m_excep_handler = true;
+		//throw fluicell::ppc1Exception();
+		port_disconnected.emitPPC1Signal();// ("IO error");
+
 		return;
 	}
 	catch (serial::SerialException &e) 	{
@@ -108,9 +111,11 @@ void fluicell::PPC1api::threadSerial()
 		m_PPC1_serial->close(); 
 		cerr << currentDateTime() 
 			 << " fluicell::PPC1api::threadSerial  ---- error --- MESSAGE:"
-			 << " SerialException : " 
+			 << " SerialException : \n" 
 			 << e.what() << endl;
 		m_excep_handler = true;
+		
+		//throw fluicell::ppc1Exception();
 		return;
 	}
 	catch (exception &e) 	{
@@ -122,6 +127,7 @@ void fluicell::PPC1api::threadSerial()
 			 << " --exception : " 
 			 << e.what() << endl;
 		m_excep_handler = true;
+		//throw fluicell::ppc1Exception();
 		return;
 	}
 
@@ -507,6 +513,7 @@ bool fluicell::PPC1api::connectCOM()
 			 << e.what() << endl;
 		m_PPC1_serial->close(); 
 		//throw e;
+		//throw fluicell::ppc1Exception();
 		m_excep_handler = true;
 		return false;
 	}
@@ -517,6 +524,7 @@ bool fluicell::PPC1api::connectCOM()
 			 << e.what() << endl;
 		m_PPC1_serial->close();
 		//throw e;
+		//throw fluicell::ppc1Exception();
 		m_excep_handler = true;
 		return false;
 	}
@@ -526,7 +534,7 @@ bool fluicell::PPC1api::connectCOM()
 			 << " fluicell::PPC1api::connectCOM ::: SerialException : " 
 			 << e.what() << endl;
 		m_PPC1_serial->close(); 
-		//throw e;
+		//throw fluicell::ppc1Exception();
 		m_excep_handler = true;
 		return false;
 	}
@@ -536,6 +544,20 @@ bool fluicell::PPC1api::connectCOM()
 		 << e.what() << endl;
 	m_PPC1_serial->close(); 
 	//throw e;  // TODO: this crashes
+	// Qt has caught an exception thrown from an event handler. 
+	// Throwing exceptions from an event handler is not supported in Qt.
+	// You must reimplement QApplication::notify() and catch all exceptions there.
+	//
+	// QApplication has been subclassed in the main and notify() has been implemented, 
+	// I can catch exceptions thrown from other places in the API but I cannot forward them from here
+	// as it crashes anyway, and in particular I cannot forward serialExceptions
+	//
+	// According to the QT documentation exceptions from 3rdparty libraries should be avoided
+	//
+	// Think about unsing std::signal architecture
+	// 
+	//throw fluicell::ppc1Exception();
+
 	m_excep_handler = true;
 	return false;
 	}
@@ -670,6 +692,7 @@ bool fluicell::PPC1api::setPressureChannelD(const double _value)
 
 bool fluicell::PPC1api::setValve_l(const bool _value)
 {
+	//port_disconnected.emitPPC1Signal();
 	if (_value) {
 		if (sendData("l1\n"))   // close
 		return true;

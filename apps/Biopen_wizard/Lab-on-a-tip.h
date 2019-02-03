@@ -27,6 +27,7 @@
 //#include <QWhatsthis>
 #include <qwhatsthis.h>
 #include <QException>
+#include <exception>
 #include <QtTextToSpeech/QTextToSpeech>
 #include <QUndoView>
 #include <QProgressDialog>
@@ -112,6 +113,7 @@ public:
 	*/
 	void appScaling(int _dpiX, int _dpiY);
 
+	void handlePPC1exception();
 
 private slots:
 
@@ -225,6 +227,8 @@ private slots:
 	*    If the PPC1 is not connected a message will pop out
 	*/
 	void testTTL(bool _state);
+
+	void givemeamessage();
 
 	/** \brief This function is called when the down arrow on Pon is called
 	  *        it decreases the pressure on Pon, it does not accept out-of-range
@@ -986,6 +990,9 @@ private:
   /** \brief Safe triggering of PPC1api exceptions when the PPC1 is active
   */
   bool isExceptionTriggered();
+
+
+
 
 // Class members
   Ui::Labonatip_GUI *ui;               //!< the main user interface
