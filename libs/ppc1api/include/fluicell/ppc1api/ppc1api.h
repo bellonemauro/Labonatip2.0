@@ -52,12 +52,12 @@ using namespace std;
   **/
 namespace fluicell
 {
-	struct ppc1Exception : public std::exception 
+	/*struct ppc1Exception : public std::exception 
 	{
 		const char * what() const throw() {
 			return "ppc1Exception";
 		}
-	};
+	};*/
 	/*
 	class  ppc1Exception : public std::exception
 	{
@@ -158,7 +158,10 @@ namespace fluicell
 
 		// create new signal
 		//fluicell::ppc1apiSignals<std::string> port_disconnected;
-		fluicell::ppc1apiSignals<> port_disconnected;
+		fluicell::ppc1apiSignals<> serialPortDisconnected;
+		fluicell::ppc1apiSignals<> serialPortNotOpen;
+		fluicell::ppc1apiSignals<> serialError;
+
 
 	private:
 

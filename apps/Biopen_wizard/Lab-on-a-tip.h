@@ -1026,6 +1026,7 @@ private:
   QTimer *m_check_updates;                 //!< timer for checking for updates
   const int m_base_time_step;              //!< used to set the update timers, every step is by default 1000 ms
   int m_flowing_solution;                  //!< needed for the visualization function relative to solution 1 - 2 - 3- 4
+  bool m_wasExceptionTriggered;			   //!< always false, it is true when a ppc1 exception was triggered
 
   //!< set the multiplicators for the time step, 
   //    e.g. desired_duration (sec) = multiplicator * m_base_time_step (100ms)

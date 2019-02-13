@@ -17,6 +17,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	QMainWindow(parent),
 	ui(new Ui::Labonatip_GUI),
 	m_pipette_active(false),
+	m_wasExceptionTriggered(false),
 	m_ppc1 ( new fluicell::PPC1api() ),
 	led_green (new QPixmap(QSize(20, 20))),
 	led_orange (new QPixmap( QSize(20, 20))),
@@ -41,7 +42,6 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	qerr(NULL),
 	qout(NULL)
 {
-
   // allows to use path alias
   //QDir::setSearchPaths("icons", QStringList(QDir::currentPath() + "/icons/"));
   
@@ -903,7 +903,7 @@ void Labonatip_GUI::initConnects()
 		SIGNAL(clicked()), this, SLOT(createNewLoop()));
 
 
-	m_ppc1->port_disconnected.connectPPC1Signal2member(this, &Labonatip_GUI::handlePPC1exception);
+	m_ppc1->serialPortDisconnected.connectPPC1Signal2member(this, &Labonatip_GUI::handlePPC1exception);
 
 }
 

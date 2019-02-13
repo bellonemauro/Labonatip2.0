@@ -52,13 +52,13 @@ bool BiopenApplication::notify(QObject * receiver, QEvent * event) {
 	try {
 		done = QApplication::notify(receiver, event);
 	}
-	catch (const fluicell::ppc1Exception & ex) {
-		cout << " fluicell::ppc1Exception Some  exit \n\n"
-			<< ex.what() << "\n\n" << endl;
+	//catch (const fluicell::ppc1Exception & ex) {
+	//	cout << " fluicell::ppc1Exception Some  exit \n\n"
+	//		<< ex.what() << "\n\n" << endl;
 
 		//m_app->handlePPC1exception(); // TODO: do something smart here
 
-	}
+	//}
 	catch (const std::exception & ex) {
 		// some exception has happened, probably in the PPC1 api (through the serial library)
 		cout << "BiopenApplication::notify --- std::exception \n\n"

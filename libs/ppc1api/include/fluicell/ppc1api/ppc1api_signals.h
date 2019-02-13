@@ -35,7 +35,8 @@ namespace fluicell {
 
 		// connects a member function to this Signal
 		template <typename T>
-		int connectPPC1Signal2member(T *inst, void (T::*func)(Args...)) {
+		int connectPPC1Signal2member(T *inst, void (T::*func)(Args...)) 
+		{
 			return connectPPC1Signal([=](Args... args) {
 				(inst->*func)(args...);
 			});
@@ -43,7 +44,8 @@ namespace fluicell {
 
 		// connects a const member function to this Signal
 		template <typename T>
-		int connectPPC1Signal2member(T *inst, void (T::*func)(Args...) const) {
+		int connectPPC1Signal2member(T *inst, void (T::*func)(Args...) const) 
+		{
 			return connectPPC1Signal([=](Args... args) {
 				(inst->*func)(args...);
 			});
@@ -51,7 +53,8 @@ namespace fluicell {
 
 		// connects a std::function to the signal. The returned
 		// value can be used to disconnect the function again
-		int connectPPC1Signal(std::function<void(Args...)> const& slot) const {
+		int connectPPC1Signal(std::function<void(Args...)> const& slot) const 
+		{
 			m_slots.insert(std::make_pair(++m_current_id, slot));
 			return m_current_id;
 		}

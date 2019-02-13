@@ -2,7 +2,7 @@
 #define PROPERTY_HPP
 
 #include "ppc1api_signals.h"
-/*
+
 #include <iostream>
 
 namespace fluicell {
@@ -92,7 +92,7 @@ namespace fluicell {
 		// it will e disconnected
 		virtual void disconnectPPC1Property() {
 			if (m_connection) {
-				m_connection->on_change().disconnectPPC1Property(m_current_id);
+				m_connection->on_change().disconnectPPC1Signal(m_current_id);
 				m_current_id = -1;
 				m_connection = nullptr;
 			}
@@ -177,5 +177,5 @@ namespace fluicell {
 		val.set(tmp);
 		return in_stream;
 	}
-}*/
+}
 #endif /* PROPERTY_HPP */

@@ -17,6 +17,13 @@
 void Labonatip_GUI::updateGUI() {
 
 	//if (isExceptionTriggered()) return;
+	//if (m_wasExceptionTriggered)
+	{
+	//	m_wasExceptionTriggered = false;
+	//	QMessageBox::information(NULL, m_str_warning,
+	//		m_str_lost_connection + "<br>" + m_str_swapping_to_simulation);
+	//	return;
+	}
 
 	// all the following update functions are for GUI only, 
 	// there is no time calculation
@@ -318,12 +325,12 @@ void Labonatip_GUI::handlePPC1exception()
 	// disconnect from the PPC1
 	m_ppc1->disconnectCOM();
 	m_ppc1->stop();
-	QThread::msleep(500);
+	QThread::msleep(200);
 
 	// verify that we are actually disconnected
 	if (m_ppc1->isConnected())
 		m_ppc1->disconnectCOM();
-	QThread::msleep(500);
+	QThread::msleep(200);
 
 	// remember that the pipette is now deactivated
 	m_pipette_active = false;
@@ -335,12 +342,18 @@ void Labonatip_GUI::handlePPC1exception()
 	//this->setStatusLed(false);
 	ui->status_PPC1_led->setPixmap(*led_red);
 	ui->status_PPC1_label->setText(m_str_PPC1_status_discon);
+	
+	m_wasExceptionTriggered = true;
+	//QMessageBox::information(this, m_str_warning,
+	//		m_str_lost_connection + "<br>" + m_str_swapping_to_simulation);
 
 	return;
 
 	// if there is an exception, a message is out
-	QMessageBox::information(NULL, m_str_warning,
-		m_str_lost_connection + "<br>" + m_str_swapping_to_simulation);
+	//QMessageBox::information(NULL, m_str_warning,
+	//	m_str_lost_connection + "<br>" + m_str_swapping_to_simulation);
+	//TODO: this is to be checked, using the signal slot function, the 
+	//      message pops out and che application crashes, the application cannot be stopped
 
 }
 

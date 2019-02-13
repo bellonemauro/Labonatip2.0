@@ -101,8 +101,7 @@ void fluicell::PPC1api::threadSerial()
 			 << e.what() << endl;
 		m_excep_handler = true;
 		//throw fluicell::ppc1Exception();
-		port_disconnected.emitPPC1Signal();// ("IO error");
-
+		serialPortDisconnected.emitPPC1Signal();// ("IO error");
 		return;
 	}
 	catch (serial::SerialException &e) 	{
@@ -116,6 +115,7 @@ void fluicell::PPC1api::threadSerial()
 		m_excep_handler = true;
 		
 		//throw fluicell::ppc1Exception();
+		serialError.emitPPC1Signal();
 		return;
 	}
 	catch (exception &e) 	{
@@ -127,7 +127,7 @@ void fluicell::PPC1api::threadSerial()
 			 << " --exception : " 
 			 << e.what() << endl;
 		m_excep_handler = true;
-		//throw fluicell::ppc1Exception();
+		serialError.emitPPC1Signal();
 		return;
 	}
 
@@ -514,6 +514,7 @@ bool fluicell::PPC1api::connectCOM()
 		m_PPC1_serial->close(); 
 		//throw e;
 		//throw fluicell::ppc1Exception();
+		serialPortDisconnected.emitPPC1Signal();
 		m_excep_handler = true;
 		return false;
 	}
@@ -525,6 +526,7 @@ bool fluicell::PPC1api::connectCOM()
 		m_PPC1_serial->close();
 		//throw e;
 		//throw fluicell::ppc1Exception();
+		serialPortNotOpen.emitPPC1Signal();
 		m_excep_handler = true;
 		return false;
 	}
@@ -536,6 +538,7 @@ bool fluicell::PPC1api::connectCOM()
 		m_PPC1_serial->close(); 
 		//throw fluicell::ppc1Exception();
 		m_excep_handler = true;
+		serialError.emitPPC1Signal();
 		return false;
 	}
 	catch (exception &e) {
@@ -559,6 +562,7 @@ bool fluicell::PPC1api::connectCOM()
 	//throw fluicell::ppc1Exception();
 
 	m_excep_handler = true;
+	serialError.emitPPC1Signal();
 	return false;
 	}
 }
@@ -692,7 +696,6 @@ bool fluicell::PPC1api::setPressureChannelD(const double _value)
 
 bool fluicell::PPC1api::setValve_l(const bool _value)
 {
-	//port_disconnected.emitPPC1Signal();
 	if (_value) {
 		if (sendData("l1\n"))   // close
 		return true;
