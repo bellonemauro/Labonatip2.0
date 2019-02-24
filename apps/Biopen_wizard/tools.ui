@@ -17,7 +17,7 @@
    <string notr="true">QToolButton:!hover {
 background-color:rgb(0, 94, 116);
 color:rgb(255,255,255);
-font-size: 11pt;
+font-size: 14px;
 font-weight: 900;
 }
 
@@ -30,19 +30,19 @@ font-weight: 900;
 QToolBar {
 background-color:rgb(0, 94, 116);
 color:rgb(255,255,255);
-font-size: 11pt;
+font-size: 12px;
 font-weight: 900;
 border:0;
 }
 
 QGroupBox{
-    font-size: 11pt;
+    font-size: 16px;
 }
 
 QCheckBox {
     background-color: transparent;
     color: black;
-    font-size: 10pt;
+    font-size: 12px;
 }
 
 
@@ -80,7 +80,7 @@ QCheckBox::indicator:unchecked {
      border: 1px solid #8f8f91;
      border-radius: 6px;
      height: 25px;
-    font-size: 10pt;
+    font-size: 12px;
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                        stop: 0 #f6f7fa, stop: 1 #dadbde);
 
@@ -112,7 +112,7 @@ QComboBox {
     border-radius: 6px;
 	border-color: rgb(170, 170, 170);
     min-width: 6em;
-    font-size: 10pt;
+    font-size: 12px;
 	background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                        stop: 0 #f6f7fa, stop: 1 #dadbde);
 }
@@ -145,16 +145,16 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
 
 QLabel 
 {
-    font-size: 10pt;
+    font-size: 12px;
 }
 
 
 QSpinBox {
-    font-size: 10pt;
+    font-size: 12px;
 }
 
 QDoubleSpinBox {
-    font-size: 10pt;
+    font-size: 12px;
 }
 </string>
   </property>
@@ -254,7 +254,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
           </property>
           <property name="font">
            <font>
-            <pointsize>11</pointsize>
+            <pointsize>-1</pointsize>
            </font>
           </property>
           <property name="styleSheet">
@@ -268,7 +268,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
             <widget class="QLabel" name="label_17">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -280,7 +280,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
             <widget class="QLabel" name="label_15">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -313,7 +313,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
             <widget class="QLabel" name="label_19">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -331,13 +331,13 @@ QPushButton:disabled{ background-color: #CCCCCC; }
              </property>
              <property name="minimumSize">
               <size>
-               <width>98</width>
+               <width>86</width>
                <height>24</height>
               </size>
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -441,13 +441,13 @@ QPushButton:disabled{ background-color: #CCCCCC; }
             <widget class="QComboBox" name="comboBox_automaticUpdates">
              <property name="minimumSize">
               <size>
-               <width>98</width>
+               <width>86</width>
                <height>24</height>
               </size>
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="styleSheet">
@@ -474,7 +474,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
             <widget class="QLabel" name="label_22">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -492,7 +492,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
           </property>
           <property name="font">
            <font>
-            <pointsize>11</pointsize>
+            <pointsize>-1</pointsize>
            </font>
           </property>
           <property name="title">
@@ -503,7 +503,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
             <widget class="QLabel" name="label_8">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -518,7 +518,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
             <widget class="QCheckBox" name="checkBox_EnableHistory">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -545,7 +545,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -563,7 +563,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
             <widget class="QCheckBox" name="checkBox_enableToolTips">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -578,7 +578,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
             <widget class="QCheckBox" name="checkBox_dumpToFile">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -631,7 +631,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
             <widget class="QCheckBox" name="checkBox_enableSynthesis">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -658,7 +658,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
           </property>
           <property name="font">
            <font>
-            <pointsize>11</pointsize>
+            <pointsize>-1</pointsize>
            </font>
           </property>
           <property name="title">
@@ -675,7 +675,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -702,7 +702,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -735,7 +735,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -750,7 +750,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
             <widget class="QCheckBox" name="checkBox_useSetPoint">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -771,7 +771,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -805,7 +805,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
             <widget class="QLabel" name="label_38">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -823,7 +823,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -847,7 +847,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -896,7 +896,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
           </property>
           <property name="font">
            <font>
-            <pointsize>10</pointsize>
+            <pointsize>-1</pointsize>
            </font>
           </property>
           <property name="toolTip">
@@ -921,7 +921,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
          <widget class="QGroupBox" name="groupBox_solutionNames">
           <property name="font">
            <font>
-            <pointsize>11</pointsize>
+            <pointsize>-1</pointsize>
            </font>
           </property>
           <property name="title">
@@ -948,9 +948,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
             <widget class="QLabel" name="label_34">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
-               <weight>50</weight>
-               <bold>false</bold>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -962,9 +960,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
             <widget class="QLabel" name="label_11">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
-               <weight>50</weight>
-               <bold>false</bold>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -976,9 +972,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
             <widget class="QCheckBox" name="checkBox_disableTimer_s1">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
-               <weight>50</weight>
-               <bold>false</bold>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -1020,9 +1014,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
-               <weight>50</weight>
-               <bold>false</bold>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -1158,7 +1150,7 @@ border-radius: 4px;
             <widget class="QPushButton" name="pushButton_emptyWaste">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -1197,9 +1189,7 @@ border-radius: 4px;
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
-               <weight>50</weight>
-               <bold>false</bold>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -1248,9 +1238,7 @@ background-color: rgb(255, 255, 255);</string>
             <widget class="QLabel" name="label_24">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
-               <weight>50</weight>
-               <bold>false</bold>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -1262,9 +1250,7 @@ background-color: rgb(255, 255, 255);</string>
             <widget class="QLabel" name="label_37">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
-               <weight>50</weight>
-               <bold>false</bold>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -1297,9 +1283,7 @@ background-color: rgb(255, 255, 255);</string>
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
-               <weight>50</weight>
-               <bold>false</bold>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -1348,9 +1332,7 @@ background-color: rgb(255, 255, 255);</string>
             <widget class="QCheckBox" name="checkBox_disableTimer_s3">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
-               <weight>50</weight>
-               <bold>false</bold>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -1392,9 +1374,7 @@ background-color: rgb(255, 255, 255);</string>
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
-               <weight>50</weight>
-               <bold>false</bold>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -1443,9 +1423,7 @@ background-color: rgb(255, 255, 255);</string>
             <widget class="QLabel" name="label_10">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
-               <weight>75</weight>
-               <bold>true</bold>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -1460,9 +1438,7 @@ background-color: rgb(255, 255, 255);</string>
             <widget class="QCheckBox" name="checkBox_disableTimer_s2">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
-               <weight>50</weight>
-               <bold>false</bold>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -1489,9 +1465,7 @@ background-color: rgb(255, 255, 255);</string>
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
-               <weight>50</weight>
-               <bold>false</bold>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -1506,9 +1480,7 @@ background-color: rgb(255, 255, 255);</string>
             <widget class="QLabel" name="label_18">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
-               <weight>75</weight>
-               <bold>true</bold>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -1535,9 +1507,7 @@ background-color: rgb(255, 255, 255);</string>
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
-               <weight>50</weight>
-               <bold>false</bold>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -1570,9 +1540,7 @@ background-color: rgb(255, 255, 255);</string>
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
-               <weight>50</weight>
-               <bold>false</bold>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -1696,9 +1664,7 @@ border-radius: 4px;
             <widget class="QSpinBox" name="spinBox_vol_sol2">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
-               <weight>50</weight>
-               <bold>false</bold>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -1722,9 +1688,7 @@ border-radius: 4px;
             <widget class="QSpinBox" name="spinBox_vol_sol3">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
-               <weight>50</weight>
-               <bold>false</bold>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -1780,9 +1744,7 @@ border-radius: 4px;
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
-               <weight>50</weight>
-               <bold>false</bold>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -1871,9 +1833,7 @@ border-radius: 4px;
             <widget class="QCheckBox" name="checkBox_disableTimer_s4">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
-               <weight>50</weight>
-               <bold>false</bold>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -1894,9 +1854,7 @@ border-radius: 4px;
             <widget class="QSpinBox" name="spinBox_vol_sol4">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
-               <weight>50</weight>
-               <bold>false</bold>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -2055,9 +2013,7 @@ border-radius: 4px;
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
-               <weight>50</weight>
-               <bold>false</bold>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -2072,9 +2028,7 @@ border-radius: 4px;
             <widget class="QLabel" name="label_9">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
-               <weight>75</weight>
-               <bold>true</bold>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -2115,7 +2069,7 @@ border-radius: 4px;
           </property>
           <property name="font">
            <font>
-            <pointsize>11</pointsize>
+            <pointsize>-1</pointsize>
            </font>
           </property>
           <property name="styleSheet">
@@ -2129,7 +2083,7 @@ border-radius: 4px;
             <widget class="QLabel" name="label_27">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -2141,7 +2095,7 @@ border-radius: 4px;
             <widget class="QLabel" name="label_25">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -2153,7 +2107,7 @@ border-radius: 4px;
             <widget class="QLabel" name="label_26">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -2206,7 +2160,7 @@ border-radius: 4px;
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -2224,7 +2178,7 @@ border-radius: 4px;
             <widget class="QLabel" name="label_31">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -2236,7 +2190,7 @@ border-radius: 4px;
             <widget class="QLabel" name="label_29">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -2273,7 +2227,7 @@ border-radius: 4px;
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -2303,7 +2257,7 @@ border-radius: 4px;
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -2333,7 +2287,7 @@ border-radius: 4px;
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -2363,7 +2317,7 @@ border-radius: 4px;
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -2396,7 +2350,7 @@ border-radius: 4px;
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -2426,7 +2380,7 @@ border-radius: 4px;
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -2444,7 +2398,7 @@ border-radius: 4px;
             <widget class="QLabel" name="label_30">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -2465,7 +2419,7 @@ border-radius: 4px;
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -2486,7 +2440,7 @@ border-radius: 4px;
             <widget class="QLabel" name="label_28">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -2507,7 +2461,7 @@ border-radius: 4px;
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -2547,7 +2501,7 @@ border-radius: 4px;
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -2571,7 +2525,7 @@ border-radius: 4px;
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -2598,7 +2552,7 @@ border-radius: 4px;
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -2625,7 +2579,7 @@ border-radius: 4px;
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -2652,9 +2606,7 @@ border-radius: 4px;
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
-               <weight>50</weight>
-               <bold>false</bold>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -2678,7 +2630,7 @@ border-radius: 4px;
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -2696,7 +2648,7 @@ border-radius: 4px;
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -2720,7 +2672,7 @@ border-radius: 4px;
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -2747,7 +2699,7 @@ border-radius: 4px;
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -2771,7 +2723,7 @@ border-radius: 4px;
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -2798,7 +2750,7 @@ border-radius: 4px;
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -2822,7 +2774,7 @@ border-radius: 4px;
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -2849,7 +2801,7 @@ border-radius: 4px;
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -2867,7 +2819,7 @@ border-radius: 4px;
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -2891,7 +2843,7 @@ border-radius: 4px;
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -2909,7 +2861,7 @@ border-radius: 4px;
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -2933,7 +2885,7 @@ border-radius: 4px;
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -2960,7 +2912,7 @@ border-radius: 4px;
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -3019,7 +2971,7 @@ border-radius: 4px;
           </property>
           <property name="font">
            <font>
-            <pointsize>11</pointsize>
+            <pointsize>-1</pointsize>
            </font>
           </property>
           <property name="title">
@@ -3030,9 +2982,7 @@ border-radius: 4px;
             <widget class="QSpinBox" name="spinBox_ds_increment">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
-               <weight>50</weight>
-               <bold>false</bold>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -3065,9 +3015,7 @@ border-radius: 4px;
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
-               <weight>50</weight>
-               <bold>false</bold>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -3092,9 +3040,7 @@ border-radius: 4px;
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
-               <weight>50</weight>
-               <bold>false</bold>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -3106,9 +3052,7 @@ border-radius: 4px;
             <widget class="QSpinBox" name="spinBox_fs_increment">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
-               <weight>50</weight>
-               <bold>false</bold>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -3141,9 +3085,7 @@ border-radius: 4px;
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
-               <weight>50</weight>
-               <bold>false</bold>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -3155,9 +3097,7 @@ border-radius: 4px;
             <widget class="QSpinBox" name="spinBox_v_increment">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
-               <weight>50</weight>
-               <bold>false</bold>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -3213,7 +3153,7 @@ border-radius: 4px;
           </property>
           <property name="font">
            <font>
-            <pointsize>11</pointsize>
+            <pointsize>-1</pointsize>
            </font>
           </property>
           <property name="title">
@@ -3236,7 +3176,7 @@ border-radius: 4px;
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -3248,7 +3188,7 @@ border-radius: 4px;
             <widget class="QLabel" name="label_40">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -3260,7 +3200,7 @@ border-radius: 4px;
             <widget class="QLabel" name="label_41">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -3275,7 +3215,7 @@ border-radius: 4px;
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <item>
@@ -3303,7 +3243,7 @@ border-radius: 4px;
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="decimals">
@@ -3339,7 +3279,7 @@ border-radius: 4px;
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="decimals">
@@ -3440,7 +3380,7 @@ border-radius: 4px;
           </property>
           <property name="font">
            <font>
-            <pointsize>11</pointsize>
+            <pointsize>-1</pointsize>
            </font>
           </property>
           <property name="title">
@@ -3470,7 +3410,7 @@ border-radius: 4px;
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -3488,7 +3428,7 @@ border-radius: 4px;
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -3500,7 +3440,7 @@ border-radius: 4px;
             <widget class="QLabel" name="vidLabel">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -3518,7 +3458,7 @@ border-radius: 4px;
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -3530,7 +3470,7 @@ border-radius: 4px;
             <widget class="QLabel" name="pidLabel">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -3548,7 +3488,7 @@ border-radius: 4px;
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -3566,7 +3506,7 @@ border-radius: 4px;
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -3584,7 +3524,7 @@ border-radius: 4px;
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -3608,7 +3548,7 @@ border-radius: 4px;
              </property>
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -3620,7 +3560,7 @@ border-radius: 4px;
             <widget class="QLabel" name="manufacturerLabel">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -3632,7 +3572,7 @@ border-radius: 4px;
             <widget class="QComboBox" name="comboBox_serialInfo">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -3653,7 +3593,7 @@ border-radius: 4px;
             <widget class="QLabel" name="serialNumberLabel">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -3665,7 +3605,7 @@ border-radius: 4px;
             <widget class="QLabel" name="locationLabel">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="text">
@@ -3677,7 +3617,7 @@ border-radius: 4px;
             <widget class="QComboBox" name="comboBox_dataBit">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -3718,7 +3658,7 @@ border-radius: 4px;
             <widget class="QComboBox" name="comboBox_baudRate">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -3787,7 +3727,7 @@ border-radius: 4px;
             <widget class="QComboBox" name="comboBox_stopBit">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -3825,7 +3765,7 @@ border-radius: 4px;
             <widget class="QComboBox" name="comboBox_parity">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -3873,7 +3813,7 @@ border-radius: 4px;
             <widget class="QComboBox" name="comboBox_flowControl">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
@@ -3927,7 +3867,7 @@ border-radius: 4px;
             <widget class="QPushButton" name="pushButton_enumerate">
              <property name="font">
               <font>
-               <pointsize>10</pointsize>
+               <pointsize>-1</pointsize>
               </font>
              </property>
              <property name="toolTip">
