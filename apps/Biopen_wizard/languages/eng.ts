@@ -1182,10 +1182,6 @@
         <source>Enable tip setting</source>
         <translation>Enable tip setting</translation>
     </message>
-    <message>
-        <source>Select tip</source>
-        <translation>Select tip</translation>
-    </message>
 	<message>
         <source>Tip 1</source>
         <translation>Tip 1</translation>
@@ -1193,6 +1189,18 @@
 	<message>
         <source>Tip 2</source>
         <translation>Tip 2</translation>
+    </message>
+	<message>
+        <source>This is for expert users only, a password is required</source>
+        <translation>This is for expert users only, a password is required</translation>
+    </message>
+	<message>
+        <source>Wrong password</source>
+        <translation>Wrong password</translation>
+    </message>
+	<message>
+        <source>Correct password</source>
+        <translation>Correct password</translation>
     </message>
     <message>
         <source>Verbose</source>

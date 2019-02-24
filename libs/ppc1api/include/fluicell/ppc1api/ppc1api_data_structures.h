@@ -226,7 +226,7 @@ namespace fluicell
 
 					double sum = std::accumulate(_reading_vec.begin(), _reading_vec.end(), 0.0);
 					double filtered_reading = sum / _reading_vec.size();
-					return filtered_reading; //TODO: this is now the same, is filtered_sensor_reading really necessary ?
+					return filtered_reading; 
 				}
 
 				bool m_filter_enabled;          //!< class member to enable to filtering in the data reading
@@ -234,7 +234,7 @@ namespace fluicell
 				vector<double> m_reading_vec;   //!< internal vector used for the filter to save the history
 			};
 
-		public: //protected: //TODO: this should be protected
+		public: 
 
 			channel *channel_A;  //!< pointer to vacuum channel A   --- V_recirc
 			channel *channel_B;  //!< pointer to vacuum channel B   --- V_switch
@@ -830,13 +830,6 @@ namespace fluicell
 			**/
 			void setValue(double _value) { 
 				this->value = _value; }
-
-			/**  \brief True if the status is set to be visualized.
-			*
-			**/
-			bool isStatusVisualized() { 
-				return true;// this->visualize_status; //TODO: cleanup
-			}
 
 			/**  \brief Get the status message.
 			*

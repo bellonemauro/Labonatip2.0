@@ -1182,10 +1182,6 @@
         <source>Enable tip setting</source>
         <translation>Abilita settaggi punta</translation>
     </message>
-    <message>
-        <source>Select tip</source>
-        <translation>Seleziona punta</translation>
-    </message>
 	<message>
         <source>Tip 1</source>
         <translation>Punta 1</translation>
@@ -1193,6 +1189,18 @@
 	<message>
         <source>Tip 2</source>
         <translation>Punta 2</translation>
+    </message>
+	<message>
+        <source>This is for expert users only, a password is required</source>
+        <translation>Questa sezione è riservata a utenti esperti, inserisci la password</translation>
+    </message>
+	<message>
+        <source>Wrong password</source>
+        <translation>Password errata</translation>
+    </message>
+	<message>
+        <source>Correct password</source>
+        <translation>Password corretta</translation>
     </message>
 	<message>
             <source>Verbose</source>

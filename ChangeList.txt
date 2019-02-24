@@ -1,9 +1,15 @@
+V.2.1.04
+Improved tip type request and hidden password
+Improved some translations
+Fix small bug
+Code cleanup
+
+
 V.2.1.03
 Added tip selection to tool panels
 Added tip data structure for easy configuration of new tips
 Improvement in PPC1_API
 Skip V.2.1.02 as it was used for testing the online updater
-
 
 V.2.1.01
 Added online updater

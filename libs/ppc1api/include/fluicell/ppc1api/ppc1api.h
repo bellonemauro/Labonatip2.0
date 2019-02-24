@@ -85,8 +85,8 @@ namespace fluicell
 	*  Default parameters: Serial port baud rate 115200, 8 data bits, 1 stop bit, no parity
     *  NB! All commands must end with a newline character \n
 	*
-	*  Pressure setting commands. Argument %f - pressure in mbar as floating point number. Vacuum channels expects the
-    *  argument with minus sign. \n
+	*  Pressure setting commands. Argument %f - pressure in mbar as floating point number. 
+    *  Vacuum channels expects the argument with minus sign. \n
     *    - "A%f\n" set vacuum on channel A
     *    - "B%f\n" set vacuum on channel B
     *    - "C%f\n" set pressure on channel C
@@ -101,9 +101,11 @@ namespace fluicell
     *    - "i%u\n" set valve state on channel D (Do not use in closed loop (automatic) mode)
 	*
 	*
-	*  "u%u\n" sets serial data stream period. Argument "%u" is unsigned integer marking the time period in ms. Zero turns the data
-    *  stream off. (This is useful in order to catch the output of ? # or ~ commands in the terminal window) Default data stream
-    *  period is 100ms, and the minimum is 25ms.\n
+	*  "u%u\n" sets serial data stream period. Argument "%u" is unsigned integer 
+	*  marking the time period in ms. Zero turns the data stream off. 
+    *  (This is useful in order to catch the output of ? # or ~ commands in the terminal window) 
+	*  Default data stream period is 100ms, and the minimum is 25ms.\n
+    *  
     *  Example "u200\n" sets the data stream period to 200ms
 	*
 	*
@@ -695,7 +697,7 @@ namespace fluicell
 		*
 		*  \return -  flow (nL/s)
 		**/
-		double getFlow(double _square_channel_mod = 1.128, //TODO: explain the default values
+		double getFlow(double _square_channel_mod = 1.128, 
 			double _pipe_diameter = 0.00003,
 			double _delta_pressure = -14600.0,
 			double _dynamic_viscosity = 0.00089,
@@ -744,9 +746,12 @@ namespace fluicell
 		  *
 		  *  Send the string u%u\n to set the data stream period
 		  *
-		  *  u%u\n sets serial data stream period. Argument %u is unsigned integer marking the time period in ms. Zero turns the data
-		  *  stream off. (This is useful in order to catch the output of ? # or ~ commands in the terminal window) Default data stream
-		  *  period is 100ms, and the minimum is 25ms.
+		  *  u%u\n sets serial data stream period. Argument %u is unsigned 
+		  *  integer marking the time period in ms. Zero turns the data stream off.
+		  *  (This is useful in order to catch the output of ? # or ~ commands 
+		  *  in the terminal window)
+		  *  Default data stream period is 100ms, and the minimum is 25ms.
+		  *  
 		  *  Example "u200\n" sets the data stream period to 200ms
 		  *
 		  *  @param  _value in msec, default value = 200

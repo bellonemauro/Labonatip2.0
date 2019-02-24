@@ -368,6 +368,9 @@ private:
 	QString m_str_ok;
 	QString m_str_operation_cancelled;
 	QString m_str_history_cleaned;
+	QString m_ask_password;
+	QString m_wrong_password;
+	QString m_correct_password;
 
 protected:
 	Ui::Labonatip_tools *ui_tools;    //!<  the user interface
