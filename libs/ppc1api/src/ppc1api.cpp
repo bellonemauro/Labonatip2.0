@@ -1386,6 +1386,7 @@ bool fluicell::PPC1api::runCommand(command _cmd)
 		<< "fluicell::PPC1api::run(command _cmd)" 
 		<< " ::: running the command " << _cmd.getCommandAsString()
 		<< " value = " << _cmd.getValue()
+		<< " visualize_status = " << _cmd.isStatusVisualized()
 		<< " status message = " << _cmd.getStatusMessage() << endl;
 
 	switch (_cmd.getInstruction()) {

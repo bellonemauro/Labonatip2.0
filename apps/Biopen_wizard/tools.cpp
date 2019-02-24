@@ -1306,23 +1306,31 @@ void Labonatip_tools::askPasswordToUnlock()
 	bool ok;
 	// Ask for birth date as a string.
 	QString text = QInputDialog::getText(0, m_str_warning,
-		m_ask_password, QLineEdit::Password,
+		"This is for expert users only, a password is required", QLineEdit::Normal,
 		"", &ok);
 	if (ok && !text.isEmpty()) {
 		QString password = text;
 		QString password_check = "FluicellGrowth2018";
 		if (!password.compare(password_check))
 		{
-			QMessageBox::information(this, m_str_information, m_correct_password);
+			QMessageBox::warning(this, m_str_warning, "Correct password");
 			m_expert = true;
 			this->unlockProtectedSettings(true);
 		}
 		else
 		{
-			QMessageBox::warning(this, m_str_information, m_wrong_password);
+			QMessageBox::warning(this, m_str_warning, "Wrong password");
 			this->unlockProtectedSettings(false);
+			return;
 		}
+
 	}
+	else
+	{
+		return;
+	}
+
+
 }
 
 void Labonatip_tools::tipSelection(int _idx)
@@ -1371,9 +1379,7 @@ void Labonatip_tools::initCustomStrings()
 	m_str_ok = tr("Ok");
 	m_str_operation_cancelled = tr("Operation cancelled");
 	m_str_history_cleaned = tr("History cleaned");
-	m_ask_password = tr("This is for expert users only, a password is required");
-	m_wrong_password = tr("Wrong password");
-	m_correct_password = tr("Correct password");
+
 }
 
 int Labonatip_tools::parseLanguageString(QString _language)
