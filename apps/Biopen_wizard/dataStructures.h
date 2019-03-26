@@ -31,6 +31,8 @@
 // just re-definition of a protocol command to get a shorter name
 typedef fluicell::PPC1api::command::instructions pCmd;
 
+//TODO IMPORTANT: check duplicated structures between dataStructure.h and ppc1api_data_structure.h 
+
 /**  \brief Structure to handle COM parameters.
 *
 *  @param set_point is the closed loop PID controller input value (in mbar)
@@ -277,7 +279,7 @@ struct pr_params {
 
 }; // END pr_params struct
 
-struct tip
+/*struct tip
 {
 public:
 	double length_to_tip;
@@ -289,7 +291,7 @@ public:
 		length_to_zone(0.062)
 	{}
 };
-
+*/
 struct GUIparams {
 
 

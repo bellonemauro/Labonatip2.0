@@ -1,9 +1,12 @@
+V.2.1.05
+porting to modern qt 5.12 to improve stability 
+
+
 V.2.1.04
 Improved tip type request and hidden password
 Improved some translations
 Fix small bug
 Code cleanup
-
 
 V.2.1.03
 Added tip selection to tool panels

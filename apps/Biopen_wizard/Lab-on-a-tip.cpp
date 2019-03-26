@@ -131,6 +131,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   m_ppc1->setBaudRate((int)m_comSettings->getBaudRate());
   m_ppc1->setVerbose(m_GUI_params->verboseOutput);
   m_ppc1->setFilterSize(m_pr_params->filterSize);
+  m_ppc1->setTip(true);
 
   // init thread macroRunner 
   m_macroRunner_thread = new Labonatip_macroRunner(this);
@@ -1177,9 +1178,10 @@ void Labonatip_GUI::toolApply()
 	*m_solutionParams = m_dialog_tools->getSolutionsParams();
 	*m_pr_params = m_dialog_tools->getPr_params();
 	*m_GUI_params = m_dialog_tools->getGUIparams();
-	
+	m_ppc1->setTip(m_dialog_tools->getTipType());
+
 	if (m_dialog_tools->isExpertMode()) {
-		tip my_tip = m_dialog_tools->getTipParams();
+		fluicell::PPC1api::tip my_tip = m_dialog_tools->getTip();
 		m_ppc1->setTipParameters(my_tip.length_to_tip, my_tip.length_to_zone);
 	}
 

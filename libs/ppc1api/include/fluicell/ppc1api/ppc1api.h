@@ -398,6 +398,7 @@ namespace fluicell
 			std::this_thread::sleep_for(std::chrono::microseconds(1000));  //--> wait the last execution
 		}
 
+
 		/** \brief Set a value on the vacuum channel A, admitted values are [-300.0, 0.0] in mbar
 		  *
 		  *  Send the string A%f\n to set vacuum on channel A to activate vacuum at a specific value
@@ -816,10 +817,27 @@ namespace fluicell
 		*  \note -  call this function without arguments to reset to the default values
 		*  \note -  values are in meters
 		**/
-		void setTipParameters( double _length_to_tip = DEFAULT_LENGTH_TO_TIP,
-			                   double _length_to_zone = DEFAULT_LENGTH_TO_ZONE) {
+		void setTipParameters( double _length_to_tip,// = DEFAULT_LENGTH_TO_TIP,
+			                   double _length_to_zone){// = DEFAULT_LENGTH_TO_ZONE) {
 			m_tip->length_to_tip = _length_to_tip;
 			m_tip->length_to_zone = _length_to_zone;
+		}
+
+		fluicell::PPC1api::tip::tipType getTipType() {
+			return m_tip->type;
+		}
+
+		/** \brief Allows to set the tip type using pre-determined values
+		*
+		*   Two tips are currently allowed Prime and Flex 
+		*
+		*  @param  _tip : true = Prime, False = Flex
+		*
+		*  \note -  call this function without argument reset the tip to Prime
+		**/
+		void setTip(bool _tip = true) {
+			if (_tip == true) m_tip->usePrimeTip();
+			if (_tip == false) m_tip->useFlexTip();
 		}
 
 		/** \brief Get the length_to_tip value

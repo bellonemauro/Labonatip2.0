@@ -580,6 +580,12 @@ void Labonatip_GUI::standby()
 
 	setEnableMainWindow(false);
 
+	//TODO new standby values accordng to the tip selection
+	//Pon(mbar) 0
+	//Poff(mbar) 11
+	//Vswitch(mbar) - 55
+	//Vrecirc(mbar) - 55
+
 	//OLD SLEEP PROTOCOL
 	// allOff()
 	// setPoff(11)
@@ -587,19 +593,37 @@ void Labonatip_GUI::standby()
 	// sleep(5)
 	// setVswitch(-45)
 	// setVrecirc(-45)
+	double pon;
+	double poff;
+	double vs;
+	double vr;
+	if (m_ppc1->getTipType() == 0)
+	{
+		pon = 45.0;//TODO check this values
+		poff = 11.0;
+		vs = 45.0;
+		vr = 45.0;
+	}
+	if (m_ppc1->getTipType() == 1){
+		pon = 0.0;
+		poff = 11.0;
+		vs = 55.0;
+		vr = 55.0;
+	}
+
 	QApplication::setOverrideCursor(Qt::WaitCursor);  
 
 	//vf0
 	closeAllValves();
 	
 
-	updatePonSetPoint(45.0);
-	updatePoffSetPoint(11.0);
+	updatePonSetPoint(pon); //TODO check this values see above
+	updatePoffSetPoint(poff);
 
 	if (!visualizeProgressMessage(5, m_str_standby_operation)) return;
 
-	updateVswitchSetPoint(45.0);
-	updateVrecircSetPoint(45.0);
+	updateVswitchSetPoint(vs);
+	updateVrecircSetPoint(vr);
 
 	setEnableMainWindow(true);
 	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode

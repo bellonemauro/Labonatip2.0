@@ -117,12 +117,18 @@ namespace fluicell
 			#define MIN_VACUUM_PERC 50      //!< %
 			#define MAX_VACUUM_PERC 250     //!< %
 			#define MAX_VACUUM_INCREMENT 40     //!< %
-			#define DEFAULT_LENGTH_TO_TIP 0.065     /*!< length of the pipe to the tip, this value is used  
+			#define DEFAULT_LENGTH_TO_TIP_PRIME 0.065     /*!< length of the pipe to the tip, this value is used  
 									             for the calculation of the flow using the Poiseuille equation
 												 see function getFlow() -- default value 0.065 m; */ 
-			#define DEFAULT_LENGTH_TO_ZONE 0.062    /*!< length of the pipe to the zone, this value is used 
+			#define DEFAULT_LENGTH_TO_ZONE_PRIME 0.062    /*!< length of the pipe to the zone, this value is used 
 												 for the calculation of the flow using the Poiseuille equation
 											 	 see function getFlow()-- default value 0.124 m; */
+			#define DEFAULT_LENGTH_TO_TIP_FLEX 0.068     /*!< length of the pipe to the tip, this value is used  
+												 for the calculation of the flow using the Poiseuille equation
+												 see function getFlow() -- default value 0.065 m; */
+			#define DEFAULT_LENGTH_TO_ZONE_FLEX 0.063    /*!< length of the pipe to the zone, this value is used 
+												 for the calculation of the flow using the Poiseuille equation
+												 see function getFlow()-- default value 0.124 m; */
 			#define PPC1_VID "16D0"  //!< device vendor ID
 			#define PPC1_PID "083A"  //!< device product ID
 			   
@@ -405,14 +411,36 @@ namespace fluicell
 		struct PPC1API_EXPORT tip
 		{
 		public: 
+			
+			enum tipType {
+			prime = 0,
+			flex = 1
+			};
+
 			double length_to_tip;
 			double length_to_zone;
+			tipType type;
 
 		public:
 			tip() :
-				length_to_tip (0.065),
-				length_to_zone (0.062)
+				length_to_tip (DEFAULT_LENGTH_TO_TIP_PRIME),
+				length_to_zone (DEFAULT_LENGTH_TO_ZONE_PRIME),
+				type (prime)
 				{}
+
+			void usePrimeTip()
+			{
+				length_to_tip = DEFAULT_LENGTH_TO_TIP_PRIME;
+				length_to_zone = DEFAULT_LENGTH_TO_ZONE_PRIME;
+				type = prime;
+			}
+
+			void useFlexTip()
+			{
+				length_to_tip = DEFAULT_LENGTH_TO_TIP_FLEX;
+				length_to_zone = DEFAULT_LENGTH_TO_ZONE_FLEX;
+				type = flex;
+			}
 		};
 
 	/**  \brief Serial device info data structure

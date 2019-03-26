@@ -17,7 +17,7 @@ Labonatip_tools::Labonatip_tools(QWidget *parent):
 	m_comSettings(new COMSettings()),
 	m_solutionParams(new solutionsParams()),
 	m_pr_params(new pr_params()),
-	m_tip(new tip()),
+	m_tip(new fluicell::PPC1api::tip()),
 	m_expert(false),
 	m_GUI_params(new GUIparams()),
 	m_setting_file_name("/settings/settings.ini")
@@ -1006,6 +1006,43 @@ bool Labonatip_tools::loadSettings(QString _path)
 	ui_tools->spinBox_v_recirc_preset3->setValue(v_recirc_p1);
 	m_pr_params->v_recirc_preset3 = v_recirc_p3;
 
+
+	int tip_type = m_settings->value("tip/tip_type", "0").toInt(&ok);
+	if (!ok)
+	{
+		cerr << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_tools::loadSettings ::: Warning  :: "
+			<< "tip/tip_type corrupted in setting file, using default value " << endl;
+		tip_type = 0;
+	}
+	ui_tools->comboBox_tipSelection->setCurrentIndex(tip_type);
+	//m_pr_params->-----= ddddd;
+	//
+	
+	double length_to_zone = m_settings->value("tip/length_to_zone", "0.065").toDouble(&ok);
+	if (!ok)
+	{
+		cerr << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_tools::loadSettings ::: Warning  :: "
+			<< "tip/length_to_zone corrupted in setting file, using default value " << endl;
+		length_to_zone = DEFAULT_LENGTH_TO_ZONE_PRIME;
+	}
+	ui_tools->doubleSpinBox_lengthToZone->setValue(length_to_zone);
+
+	double length_to_tip = m_settings->value("tip/length_to_tip", "0.062").toDouble(&ok);
+	if (!ok)
+	{
+		cerr << QDate::currentDate().toString().toStdString() << "  "
+			<< QTime::currentTime().toString().toStdString() << "  "
+			<< "Labonatip_tools::loadSettings ::: Warning  :: "
+			<< "tip/length_to_zone corrupted in setting file, using default value " << endl;
+		length_to_tip = DEFAULT_LENGTH_TO_TIP_PRIME;
+	}
+	ui_tools->doubleSpinBox_lengthToTip->setValue(length_to_tip);
+
+
 	bool verbose_out = m_settings->value("PPC1/VerboseOut", "1").toBool();
 	ui_tools->checkBox_enablePPC1verboseOut->setChecked(verbose_out);
 	m_pr_params->verboseOut = verbose_out;
@@ -1258,6 +1295,11 @@ bool Labonatip_tools::saveSettings(QString _file_name)
 	// well 4
 	settings->setValue("solutions/volWell4", ui_tools->spinBox_vol_sol4->value());
 
+	// [tip settings]
+	settings->setValue("tip/tip_type", ui_tools->comboBox_tipSelection->currentIndex());
+	settings->setValue("tip/length_to_zone", ui_tools->doubleSpinBox_lengthToZone->value());
+	settings->setValue("tip/length_to_tip", ui_tools->doubleSpinBox_lengthToTip->value());
+
 
 	// [solutionNames]
 	// solution1 = CuSO4
@@ -1328,14 +1370,44 @@ void Labonatip_tools::askPasswordToUnlock()
 void Labonatip_tools::tipSelection(int _idx)
 {
 	if (_idx == 0)
-	{
-		ui_tools->doubleSpinBox_lengthToTip->setValue(DEFAULT_LENGTH_TO_TIP);
-		ui_tools->doubleSpinBox_lengthToZone->setValue(DEFAULT_LENGTH_TO_ZONE);
+	{   //tip prime
+		ui_tools->doubleSpinBox_lengthToTip->setValue(DEFAULT_LENGTH_TO_TIP_PRIME);
+		ui_tools->doubleSpinBox_lengthToZone->setValue(DEFAULT_LENGTH_TO_ZONE_PRIME);
+		m_tip->usePrimeTip();
+
+		//TODO SET THE DEFAULT VALUES
+		//Standard
+		//Pon(mbar) 190
+		ui_tools->spinBox_p_on_default->setValue(190);
+		//Poff(mbar) 22
+		ui_tools->spinBox_p_off_default->setValue(22);
+		//Vswitch(mbar) - 115
+		ui_tools->spinBox_v_switch_default->setValue(-115);
+		//Vrecirc(mbar) - 115
+		ui_tools->spinBox_v_recirc_default->setValue(-115);
 	}
 	if (_idx == 1)
-	{
-		ui_tools->doubleSpinBox_lengthToTip->setValue(0.001);
-		ui_tools->doubleSpinBox_lengthToZone->setValue(0.002);
+	{   // tip flex
+		ui_tools->doubleSpinBox_lengthToTip->setValue(DEFAULT_LENGTH_TO_TIP_FLEX);
+		ui_tools->doubleSpinBox_lengthToZone->setValue(DEFAULT_LENGTH_TO_ZONE_FLEX);
+		m_tip->useFlexTip();
+		//TODO: add save of the tip type
+		// TODO SET THE DEFAULT VALUES
+		//Standard
+		//Pon(mbar) 215
+		ui_tools->spinBox_p_on_default->setValue(215);
+		//Poff(mbar) 30
+		ui_tools->spinBox_p_off_default->setValue(30);
+		//Vswitch(mbar) - 135
+		ui_tools->spinBox_v_switch_default->setValue(-135);
+		//Vrecirc(mbar) - 135
+		ui_tools->spinBox_v_recirc_default->setValue(-135);
+		//Standby
+		//Pon(mbar) 0
+		//Poff(mbar) 11
+		//Vswitch(mbar) - 55
+		//Vrecirc(mbar) - 55
+
 	}
 
 }
@@ -1481,7 +1553,7 @@ void Labonatip_tools::unlockProtectedSettings(bool _lock)
 {
 	ui_tools->doubleSpinBox_lengthToTip->setEnabled(_lock);
 	ui_tools->doubleSpinBox_lengthToZone->setEnabled(_lock);
-	ui_tools->comboBox_tipSelection->setEnabled(_lock);
+	//ui_tools->comboBox_tipSelection->setEnabled(_lock);
 }
 
 
