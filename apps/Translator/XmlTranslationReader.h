@@ -50,13 +50,13 @@ private:
 
 	void readName(QTreeWidgetItem *_item);
 
-	QTreeWidgetItem *XmlTranslationReader::createChildItem(QTreeWidgetItem *item);
+	QTreeWidgetItem* createChildItem(QTreeWidgetItem *item);
 
 	QString source_language;
 	QString translation_language;
 
 	QXmlStreamReader xml;
-    QTreeWidget *treeWidget;
+   	QTreeWidget *treeWidget;
 
 };
 

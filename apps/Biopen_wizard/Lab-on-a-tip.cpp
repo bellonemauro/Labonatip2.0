@@ -10,7 +10,7 @@
 #include "Lab-on-a-tip.h"
 #include <QtCharts/QCategoryAxis>
 #include <QtCharts/QAbstractAxis>
-#include <QDesktopServices.h>
+#include <QDesktopServices>
 
 Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	QMainWindow(parent),

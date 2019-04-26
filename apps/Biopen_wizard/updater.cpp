@@ -565,7 +565,7 @@ bool biopen_updater::read_xmlinfo_file(QString _file_path)
 
 bool biopen_updater::read_downloaded_installer(QString _file_path)
 {
-	QFile file = _file_path;
+	QFile file(_file_path);
 	QFileInfo fileInfo(file.fileName());
 	//QString filename(fileInfo.fileName());
 	QString absolutePath = fileInfo.absolutePath();

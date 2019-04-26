@@ -22,7 +22,7 @@
 #include <QMessageBox>
 #include <QDir>
 #include <QtCore>
-#include <QtNetwork\QtNetwork>
+#include <QtNetwork>
 #include <QXmlStreamReader>
 
 
