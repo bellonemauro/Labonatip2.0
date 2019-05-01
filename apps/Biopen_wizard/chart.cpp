@@ -361,9 +361,9 @@ void protocolChart::updateChartProtocol(f_protocol *_protocol)
 		case pCmd::solution1: { //solution 1
 			if (_protocol->at(i).getValue() == 1)
 			{ // if we are opening the solution all the others will be closed
-				appendSolutionPoint(m_series_solution2, max_time_line, 0);
-				appendSolutionPoint(m_series_solution3, max_time_line, 0);
-				appendSolutionPoint(m_series_solution4, max_time_line, 0);
+				appendSolutionPoint(m_series_solution2, current_time, 0);
+				appendSolutionPoint(m_series_solution3, current_time, 0);
+				appendSolutionPoint(m_series_solution4, current_time, 0);
 			}
 			appendSolutionPoint(m_series_solution1, current_time, _protocol->at(i).getValue());
 			break;
@@ -371,9 +371,9 @@ void protocolChart::updateChartProtocol(f_protocol *_protocol)
 		case pCmd::solution2: { //solution 2
 			if (_protocol->at(i).getValue() == 1)
 			{ // if we are opening the solution all the others will be closed
-				appendSolutionPoint(m_series_solution1, max_time_line, 0);
-				appendSolutionPoint(m_series_solution3, max_time_line, 0);
-				appendSolutionPoint(m_series_solution4, max_time_line, 0);
+				appendSolutionPoint(m_series_solution1, current_time, 0);
+				appendSolutionPoint(m_series_solution3, current_time, 0);
+				appendSolutionPoint(m_series_solution4, current_time, 0);
 			}
 			appendSolutionPoint(m_series_solution2, current_time, _protocol->at(i).getValue()); 
 			break;
@@ -381,9 +381,9 @@ void protocolChart::updateChartProtocol(f_protocol *_protocol)
 		case pCmd::solution3: { //solution 3
 			if (_protocol->at(i).getValue() == 1)
 			{ // if we are opening the solution all the others will be closed
-				appendSolutionPoint(m_series_solution1, max_time_line, 0);
-				appendSolutionPoint(m_series_solution2, max_time_line, 0);
-				appendSolutionPoint(m_series_solution4, max_time_line, 0);
+				appendSolutionPoint(m_series_solution1, current_time, 0);
+				appendSolutionPoint(m_series_solution2, current_time, 0);
+				appendSolutionPoint(m_series_solution4, current_time, 0);
 			}
 			appendSolutionPoint(m_series_solution3, current_time, _protocol->at(i).getValue());
 			break;
@@ -391,9 +391,9 @@ void protocolChart::updateChartProtocol(f_protocol *_protocol)
 		case pCmd::solution4: { //solution 4
 			if (_protocol->at(i).getValue() == 1)
 			{ // if we are opening the solution all the others will be closed
-				appendSolutionPoint(m_series_solution1, max_time_line, 0);
-				appendSolutionPoint(m_series_solution2, max_time_line, 0);
-				appendSolutionPoint(m_series_solution3, max_time_line, 0);
+				appendSolutionPoint(m_series_solution1, current_time, 0);
+				appendSolutionPoint(m_series_solution2, current_time, 0);
+				appendSolutionPoint(m_series_solution3, current_time, 0);
 			}
 			appendSolutionPoint(m_series_solution4, current_time, _protocol->at(i).getValue());
 			break;
