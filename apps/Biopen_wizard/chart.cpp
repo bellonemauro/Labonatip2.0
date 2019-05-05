@@ -14,31 +14,29 @@
 #include "dataStructures.h"
 
 
-protocolChart::protocolChart(  )
+protocolChart::protocolChart(  ):
+	chart_width(10.0),
+	min_series_pon (80.0),
+	min_series_poff (70.0),
+	min_series_V_recirc(60.0),
+	min_series_V_switch (50.0),
+	min_series_solution (40.0),
+	min_series_ask (35.0),
+	min_series_sync_in (25.0),
+	min_series_sync_out (15.0),
+	max_pon (450),
+	max_poff (450),
+	max_v_recirc (300),
+	max_v_switch  (300),
+	max_time_line (100.0),  //!> the duration is scaled in the interval [0; 100]
+	min_time_line  (0.0),  //!> the duration is scaled in the interval [0; 100]
+	m_base_sol_value (42.0),
+	m_top_sol_value (48.0),
+	m_time_line_thickness(1.0)
 {
 	cout << QDate::currentDate().toString().toStdString() << "  " 
 		 << QTime::currentTime().toString().toStdString() << "  "
 		 << " Labonatip_chart::Labonatip_chart initialization " << endl;
-
-	chart_width = 10.0;
-	
-	min_series_pon = 80.0;
-	min_series_poff = 70.0;
-	min_series_V_recirc = 60.0;
-	min_series_V_switch = 50.0;
-	min_series_solution = 40.0;
-	min_series_ask = 30.0;
-	min_series_sync_in = 20.0;
-	min_series_sync_out = 10.0;
-
-	max_pon = 450;
-	max_poff = 450;
-	max_v_recirc = 300;
-	max_v_switch = 300;
-	max_time_line = 100.0;  //!> the duration is scaled in the interval [0; 100]
-
-	m_base_sol_value = 42.0;
-	m_top_sol_value = 48.0;
 
 	m_pen_s1 = new QPen();
 	m_pen_s2 = new QPen();
@@ -70,14 +68,14 @@ protocolChart::protocolChart(  )
 	m_time_line_t = new QtCharts::QLineSeries();
 
 	// add two points for each series, start and end
-	*m_series_Pon << QPointF(0.0, 85.0) << QPointF(100.0, 85.0);
-	*m_series_Poff << QPointF(0.0, 75.0) << QPointF(100.0, 75.0);
-	*m_series_V_switch << QPointF(0.0, 65.0) << QPointF(100.0, 65.0);
-	*m_series_V_recirc << QPointF(0.0, 55.0) << QPointF(100.0, 55.0);
-	*m_series_solution << QPointF(0.0, m_base_sol_value) << QPointF(100.0, m_base_sol_value);
-	*m_series_ask << QPointF(0.0, 35.0) << QPointF(100.0, 35.0);
-	*m_series_sync_in << QPointF(0.0, 25.0) << QPointF(100.0, 25.0);
-	*m_series_sync_out << QPointF(0.0, 15.0) << QPointF(100.0, 15.0);
+	*m_series_Pon << QPointF(min_time_line, min_series_pon) << QPointF(max_time_line, min_series_pon);
+	*m_series_Poff << QPointF(min_time_line, min_series_poff) << QPointF(max_time_line, min_series_poff);
+	*m_series_V_recirc << QPointF(min_time_line, min_series_V_recirc) << QPointF(max_time_line, min_series_V_recirc);
+	*m_series_V_switch << QPointF(min_time_line, min_series_V_switch) << QPointF(max_time_line, min_series_V_switch);
+	*m_series_solution << QPointF(min_time_line, m_base_sol_value) << QPointF(max_time_line, m_base_sol_value);
+	*m_series_ask << QPointF(min_time_line, min_series_ask) << QPointF(max_time_line, min_series_ask);
+	*m_series_sync_in << QPointF(min_time_line, min_series_sync_in) << QPointF(max_time_line, min_series_sync_in);
+	*m_series_sync_out << QPointF(min_time_line, min_series_sync_out) << QPointF(max_time_line, min_series_sync_out);
 
 
 	QPen pen_as(0x333333); // pen for ask and sync series
@@ -93,8 +91,8 @@ protocolChart::protocolChart(  )
 	m_series_sync_out->setPen(pen_as);
 
 	// set the vertical time line
-	*m_time_line_b << QPointF(0.0, 0.0) << QPointF(0.0, 100.0);
-	*m_time_line_t << QPointF(1.0, 0.0) << QPointF(1.0, 100.0);
+	*m_time_line_b << QPointF(min_time_line, min_time_line) << QPointF(min_time_line, max_time_line);
+	*m_time_line_t << QPointF(m_time_line_thickness, min_time_line) << QPointF(m_time_line_thickness, max_time_line);
 
 	// the pen is creates as the area between two vertical lines
 	m_past_time_area = new QtCharts::QAreaSeries(m_time_line_b, m_time_line_t);
@@ -214,9 +212,9 @@ protocolChart::protocolChart(  )
 
 	//axisY->append(" ", 10);
 	QString s;
-	axisY->append("Sync Out", min_series_sync_out + chart_width);
-	axisY->append("Sync In", min_series_sync_in + chart_width);
-	axisY->append("Ask", min_series_ask + chart_width);
+	axisY->append("Sync Out", min_series_sync_out + chart_width/2.0);
+	axisY->append("Sync In", min_series_sync_in + chart_width/2.0);
+	axisY->append("Ask", min_series_ask + chart_width/2.0);
 	axisY->append("Solution", min_series_solution + chart_width);
 	s = QStringLiteral("<html><head/><body><p>V<span style=\" vertical-align:sub;\">switch</span></p></body></html>");
 	axisY->append(s, min_series_V_switch + chart_width);
@@ -260,8 +258,10 @@ void protocolChart::updateChartTime(int _time_value)
 {
 	m_time_line_b->clear();
 	m_time_line_t->clear();
-	*m_time_line_b << QPointF(_time_value, 0.0) << QPointF(_time_value, 100.0);
-	*m_time_line_t << QPointF(_time_value + 1.0, 0.0) << QPointF(_time_value + 1.0, 100.0);
+	*m_time_line_b << QPointF(_time_value, min_time_line) 
+		<< QPointF(_time_value, max_time_line);
+	*m_time_line_t << QPointF(_time_value + m_time_line_thickness, min_time_line)
+		<< QPointF(_time_value + m_time_line_thickness, max_time_line);
 
 	m_chart->update();
 }
@@ -303,21 +303,21 @@ void protocolChart::updateChartProtocol(f_protocol *_protocol)
 	m_series_solution->append(current_time,
 		m_base_sol_value); 
 	m_series_ask->append(current_time,
-		min_series_ask + 5.0);  // + 5.0 just to set the line in the middle for now
+		min_series_ask );  // + 5.0 (chart_width/2) just to set the line in the middle for now
 	m_series_sync_in->append(current_time,
-		min_series_sync_in + 5.0); // + 5.0 just to set the line in the middle for now
+		min_series_sync_in ); // + 5.0 just to set the line in the middle for now
 	m_series_sync_out->append(current_time,
-		min_series_sync_out + 5.0); // + 5.0 just to set the line in the middle for now
+		min_series_sync_out ); // + 5.0 just to set the line in the middle for now
 	// this for now is just to show a straight line
 
 	m_series_solution->append(max_time_line,
 		m_base_sol_value ); 
 	m_series_ask->append(max_time_line,
-		min_series_ask + 5.0);  // + 5.0 just to set the line in the middle for now
+		min_series_ask );  // + 5.0 just to set the line in the middle for now
 	m_series_sync_in->append(max_time_line, 
-		min_series_sync_in + 5.0); // + 5.0 just to set the line in the middle for now
+		min_series_sync_in ); // + 5.0 just to set the line in the middle for now
 	m_series_sync_out->append(100.0, 
-		min_series_sync_out + 5.0); // + 5.0 just to set the line in the middle for now
+		min_series_sync_out ); // + 5.0 just to set the line in the middle for now
 
 
 	// if the macro is empty it does not update the chart
@@ -403,7 +403,7 @@ void protocolChart::updateChartProtocol(f_protocol *_protocol)
 			break;
 		}
 		case pCmd::ask_msg: { //ask_msg
-			m_series_ask->append(current_time, min_series_ask + 5.0);
+			m_series_ask->append(current_time, min_series_ask );
 			break;
 		}
 		case pCmd::allOff: { //allOff
@@ -431,11 +431,11 @@ void protocolChart::updateChartProtocol(f_protocol *_protocol)
 			break;
 		}
 		case pCmd::waitSync: { //waitSync
-			m_series_sync_in->append(current_time, min_series_sync_in + 5.0);
+			m_series_sync_in->append(current_time, min_series_sync_in );
 			break;
 		}
 		case pCmd::syncOut: { //syncOut
-			m_series_sync_out->append(current_time, min_series_sync_out + 5.0);
+			m_series_sync_out->append(current_time, min_series_sync_out );
 			break;
 		}
 		case pCmd::setZoneSize: { //zoneSize 

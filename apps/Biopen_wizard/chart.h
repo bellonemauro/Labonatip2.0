@@ -194,23 +194,25 @@ private:
 
 	// this variables configure the chart in the advanced panel  
 	// to show all the data lines in different levels
-	double chart_width;          //!> this is the height of section in the chart, 10 units reserve per line, = 10.0;
-	double min_series_pon;       //!> the Pon series will start from this level, = 80.0;
-	double min_series_poff;      //!> the Poff series will start from this level, = 70.0;
-	double min_series_V_recirc;  //!> the Vrecirc series will start from this level, = 60.0;
-	double min_series_V_switch;  //!> the Vswitch series will start from this level, = 50.0;
-	double min_series_solution;  //!> the Solution series will start from this level, = 40.0;
-	double min_series_ask;       //!> the Ask series will start from this level, = 30.0;
-	double min_series_sync_in;   //!> the SyncIn series will start from this level, = 20.0;
-	double min_series_sync_out;  //!> the SyncOut series will start from this level, = 10.0;
+	const double chart_width;          //!> this is the height of section in the chart, 10 units reserve per line, = 10.0;
+	const double min_series_pon;       //!> the Pon series will start from this level, = 80.0;
+	const double min_series_poff;      //!> the Poff series will start from this level, = 70.0;
+	const double min_series_V_recirc;  //!> the Vrecirc series will start from this level, = 60.0;
+	const double min_series_V_switch;  //!> the Vswitch series will start from this level, = 50.0;
+	const double min_series_solution;  //!> the Solution series will start from this level, = 40.0;
+	const double min_series_ask;       //!> the Ask series will start from this level, = 30.0;
+	const double min_series_sync_in;   //!> the SyncIn series will start from this level, = 20.0;
+	const double min_series_sync_out;  //!> the SyncOut series will start from this level, = 10.0;
 	
-	double max_pon;// = 450;
-	double max_poff;// = 450;
-	double max_v_recirc;// = 300;
-	double max_v_switch;// = 300;
-	double max_time_line;// = 100;
-	double m_base_sol_value;    //!> Base value for the solution area drawing
-	double m_top_sol_value;     //!> Top value for the solution area drawing
+	const double max_pon;// = 450;
+	const double max_poff;// = 450;
+	const double max_v_recirc;// = 300;
+	const double max_v_switch;// = 300;
+	const double max_time_line;// = 100;
+	const double min_time_line;// = 0.0;
+	const double m_base_sol_value;    //!> Base value for the solution area drawing
+	const double m_top_sol_value;     //!> Top value for the solution area drawing
+	const double m_time_line_thickness;     //!> Top value for the solution area drawing
 };
 
 

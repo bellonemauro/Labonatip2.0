@@ -1,3 +1,7 @@
+V.2.1.06
+Fix visualization bug for solution activation in the chart
+Take out many magic numbers from the chart generation and update
+
 V.2.1.05
 porting to modern qt 5.12 to improve stability 
 
