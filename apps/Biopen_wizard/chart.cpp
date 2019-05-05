@@ -233,18 +233,21 @@ protocolChart::protocolChart(  ):
 
 	axisY->setRange(10, 90);
 
-	m_chart->setAxisY(axisY, m_series_Pon);
-	m_chart->setAxisY(axisY, m_series_Poff);
-	m_chart->setAxisY(axisY, m_series_V_switch);
-	m_chart->setAxisY(axisY, m_series_V_recirc);
-	m_chart->setAxisY(axisY, m_area_solution1);
-	m_chart->setAxisY(axisY, m_area_solution2);
-	m_chart->setAxisY(axisY, m_area_solution3);
-	m_chart->setAxisY(axisY, m_area_solution4);
-	m_chart->setAxisY(axisY, m_series_ask);
-	m_chart->setAxisY(axisY, m_series_sync_in);
-	m_chart->setAxisY(axisY, m_series_sync_out);
-	m_chart->setAxisX(axisX, m_past_time_area);
+	m_chart->addAxis(axisY,Qt::AlignLeft);
+	m_series_Pon->attachAxis(axisY);
+	m_series_Poff->attachAxis(axisY);
+	m_series_V_switch->attachAxis(axisY);
+	m_series_V_recirc->attachAxis(axisY);
+	m_area_solution1->attachAxis(axisY);
+	m_area_solution2->attachAxis(axisY);
+	m_area_solution3->attachAxis(axisY);
+	m_area_solution4->attachAxis(axisY);
+	m_series_ask->attachAxis(axisY);
+	m_series_sync_in->attachAxis(axisY);
+	m_series_sync_out->attachAxis(axisY);
+	m_chart->addAxis(axisX, Qt::AlignBottom);
+	m_past_time_area->attachAxis(axisX);
+
 
 	m_chart->setMargins(QMargins(0, 0, 8, 0));
 	m_chart->setBackgroundBrush(QBrush(QColor(0xFA, 0xFA, 0xFA)));
