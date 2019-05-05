@@ -507,8 +507,7 @@ bool biopen_updater::read_xmlinfo_file(QString _file_path)
 				{
 					m_online_version = xml.readElementText();
 					ui_updater->label_version->setText(
-						QString(m_str_version + ": " + m_online_version + 
-							" current version" + m_current_version));
+						QString(m_str_version + ": " + m_online_version));
 					if(m_verbose) ui_updater->textEdit_details->append(m_online_version);
 				}
 				else if (xml.name() == QLatin1String("size"))
