@@ -19,7 +19,7 @@ biopen_updater::biopen_updater(QWidget *parent):
 	m_notify_experimental_ver(false),
 	m_temp_folder("/biopen_tmp"),
 	m_is_window_active(false),
-	m_fluicell_url("http://fluicell.com/"),
+	m_fluicell_url("https://fluicell.com/"),
 	m_update_info_url("https://raw.githubusercontent.com/bellonemauro/Labonatip2.0/master/update_data.xml")
 {
 	//Main things to add: 
@@ -506,7 +506,9 @@ bool biopen_updater::read_xmlinfo_file(QString _file_path)
 				if (xml.name() == QLatin1String("version"))
 				{
 					m_online_version = xml.readElementText();
-					ui_updater->label_version->setText(QString(m_str_version + ": " + m_online_version));
+					ui_updater->label_version->setText(
+						QString(m_str_version + ": " + m_online_version + 
+							" current version" + m_current_version));
 					if(m_verbose) ui_updater->textEdit_details->append(m_online_version);
 				}
 				else if (xml.name() == QLatin1String("size"))
