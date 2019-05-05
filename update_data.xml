@@ -5,12 +5,17 @@
     <version>2.1.06</version>
     <size>35 MB</size>
     <released_on>May 5, 2019</released_on>
-	<experimental>1</experimental>
+	<experimental>0</experimental>
 	<link_64bit>https://github.com/bellonemauro/Labonatip2.0/releases/download/2.1.06/Biopen_wizard-2.1.06-win64.exe</link_64bit>
 	<link_32bit>https://github.com/bellonemauro/Labonatip2.0/releases/download/2.1.06/Biopen_wizard-2.1.06-win32.exe</link_32bit>
     <change_list>
         <change>Added tip selection in tools</change>
         <change>Improvement of PPC1_API</change>
+		<change>Improved some translations</change>
+		<change>Improved tip type request</change>
+		<change>Porting to modern qt 5.12 to improve stability</change>
+		<change>Fix visualization bug for solution activation in the chart</change>
+		<change>Porting chart to new version to fix deprecated warnings</change>
     </change_list>
 </biopen>
 </XML>
