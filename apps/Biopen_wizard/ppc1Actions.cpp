@@ -601,8 +601,8 @@ void Labonatip_GUI::standby()
 	{
 		pon = 45.0;//TODO check this values
 		poff = 11.0;
-		vs = 45.0;
-		vr = 45.0;
+		vs = 50.0;
+		vr = 50.0;
 	}
 	if (m_ppc1->getTipType() == 1){
 		pon = 0.0;
