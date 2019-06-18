@@ -73,6 +73,9 @@ void biopen_updater::showEvent(QShowEvent *ev)
 {
 	QMainWindow::showEvent(ev);
 
+	// this prevent conflicts between the online updater and the tools window
+	this->abortDownload();
+
 	//make sure that the GUI is clear and ready for the new check
 	ui_updater->textEdit_details->clear();
 	ui_updater->label_title->setText(m_str_checking_connection); 
@@ -425,42 +428,56 @@ bool biopen_updater::checkConnection()
 
 void biopen_updater::downloadInstaller()
 {
-	QString system_version = QSysInfo::buildCpuArchitecture();
-	int build_version = 0;
 
 	if (m_is_experimental)
 	{
-		//QMessageBox::warning(this, m_str_warning, "Password is needed");
-		bool ok;
-		// Ask for birth date as a string.
-		QString text = QInputDialog::getText(0, m_str_warning,
-			"This is an experimental version, a password is required", QLineEdit::Normal,
-			"", &ok);
-		if (ok && !text.isEmpty()) {
-			QString password = text;
-			QString password_check = "FluicellGrowth2018";
-			if (!password.compare(password_check))
-			{
-				QMessageBox::warning(this, m_str_warning, "Correct password");
-				if (system_version.compare("x86_64"))
-				{
-					build_version = 32;
-					this->doDownload(m_url_installer_32bit);
-					ui_updater->pushButton_download->setEnabled(false);
-				}
-				else {
-					this->doDownload(m_url_installer_64bit);
-					build_version = 64;
-					ui_updater->pushButton_download->setEnabled(false);
-				}
-			}
-			else
-			{
-				QMessageBox::warning(this, m_str_warning, "Wrong password");
-			}
+		if (this->askPassword() == false)
+		{
+			return; // return without downloading
 		}
 	}
+
+	QString system_version = QSysInfo::buildCpuArchitecture();
+	int build_version = 0;
+
+	if (system_version.compare("x86_64"))
+	{
+		build_version = 32;
+		this->doDownload(m_url_installer_32bit);
+		ui_updater->pushButton_download->setEnabled(false);
+	}
+	else {
+		this->doDownload(m_url_installer_64bit);
+		build_version = 64;
+		ui_updater->pushButton_download->setEnabled(false);
+	}
 }
+
+bool biopen_updater::askPassword()
+{
+	//QMessageBox::warning(this, m_str_warning, "Password is needed");
+	bool ok;
+	// Ask for birth date as a string.
+	QString text = QInputDialog::getText(0, m_str_warning,
+		"This is an experimental version, a password is required", QLineEdit::Password,
+		"", &ok);
+	if (ok && !text.isEmpty()) {
+		QString password = text;
+		QString password_check = "FluicellGrowth2019";
+		if (!password.compare(password_check))
+		{
+			QMessageBox::warning(this, m_str_warning, "Correct password");
+			return true;
+		}
+		else
+		{
+			QMessageBox::warning(this, m_str_warning, "Wrong password");
+			return false;
+		}
+	}
+	return false;
+}
+
 
 void biopen_updater::showDetails()
 {

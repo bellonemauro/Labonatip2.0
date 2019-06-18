@@ -143,6 +143,8 @@ public slots:
 	*/
 	void startUpdate();
 
+	/**  \brief Check the connection by pinging fluicell.com
+	*/
 	bool checkConnection();
 
 	/**  \brief Download the installers
@@ -163,11 +165,18 @@ public slots:
 	*/
 	void cleanTempFolder();
 
+
 	/**  \brief show details
 	*/
 	void showDetails();
 
 private:
+
+
+	/** \brief Ask the password for downloading experimental versions
+	*
+	*/
+	bool askPassword();
 
 	/** \brief Extract useful strings from the downloaded information file
 	*
