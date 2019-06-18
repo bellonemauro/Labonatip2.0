@@ -9,7 +9,6 @@
 	<link_64bit>https://github.com/bellonemauro/Labonatip2.0/releases/download/2.1.07/Biopen_wizard-2.1.07-win64.exe</link_64bit>
 	<link_32bit>https://github.com/bellonemauro/Labonatip2.0/releases/download/2.1.07/Biopen_wizard-2.1.07-win32.exe</link_32bit>
     <change_list>
-        <change>This is an official release test</change>
         <change>Bugs fix</change>
         <change>Changed standby parameters</change>
 		<change>Serial console added to the binaries</change>
