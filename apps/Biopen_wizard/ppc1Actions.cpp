@@ -599,13 +599,13 @@ void Labonatip_GUI::standby()
 	double vr;
 	if (m_ppc1->getTipType() == 0)
 	{
-		pon = 45.0;//TODO check this values
+		pon = 45.0;
 		poff = 11.0;
 		vs = 50.0;
 		vr = 50.0;
 	}
 	if (m_ppc1->getTipType() == 1){
-		pon = 0.0;
+		pon = 45.0;
 		poff = 11.0;
 		vs = 55.0;
 		vr = 55.0;
