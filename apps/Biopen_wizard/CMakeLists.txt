@@ -120,8 +120,9 @@ elseif(BUILD_QT5)
 	# allows automatic linking of QT - see http://www.cmake.org/cmake/help/v3.0/policy/CMP0020.html
 	cmake_policy(SET CMP0020 NEW)
 	
-	# Find the QtWidgets library ---- really weird way of find libraries ---TODO solve this ! 
+	# Find the QtWidgets library 
 	find_package(Qt5 COMPONENTS Core Widgets Network Gui Charts Concurrent LinguistTools TextToSpeech REQUIRED)
+	# set Qt5DIR to ./Qt/__VERSION__/__COMPILER__/lib/cmake/Qt5
 	
 	# set the policy for the automoc generation, only for cmake >3.10
 	# see https://cmake.org/cmake/help/git-stage/policy/CMP0071.html

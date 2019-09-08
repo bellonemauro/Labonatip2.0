@@ -1,3 +1,7 @@
+V.2.1.07
+Porting to QT 5.12.4 to improve stability
+Protocol loading double click changed, it asks to add the protocol only if not empty
+
 V.2.1.06
 Fix visualization bug for solution activation in the chart
 Take out many magic numbers from the chart generation and update

@@ -55,12 +55,16 @@ void Labonatip_GUI::onProtocolClicked(QTreeWidgetItem *item, int column)
 	protocol_path.append("/");
 	protocol_path.append(file);
 
-	QMessageBox::StandardButton resBtn = QMessageBox::question(this, m_str_warning,
-		m_str_add_protocol_bottom + "<br>" + m_str_add_protocol_bottom_guide,
-		QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
-		QMessageBox::Yes);
+	QMessageBox::StandardButton resBtn = QMessageBox::Yes;
 
-
+	if (m_protocol->size() > 0)
+	{
+		resBtn = QMessageBox::question(this, m_str_warning,
+			m_str_add_protocol_bottom + "<br>" + m_str_add_protocol_bottom_guide,
+			QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
+			QMessageBox::Yes);
+	}
+	
 	if (resBtn == QMessageBox::Yes) {
 		// read the clicked protocol and add it to the current 
 		QApplication::setOverrideCursor(Qt::WaitCursor);   
@@ -78,13 +82,13 @@ void Labonatip_GUI::onProtocolClicked(QTreeWidgetItem *item, int column)
 		addAllCommandsToProtocol();
 		m_current_protocol_file_name = protocol_path;
 		QApplication::restoreOverrideCursor();
-
-
 	}
 	if (resBtn == QMessageBox::Cancel)
 	{
 		//do nothing
 	}
+
+	
 	//
 }
 
