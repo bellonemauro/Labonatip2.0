@@ -201,7 +201,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   m_update_GUI->setInterval(10);// (m_base_time_step);
   m_update_waste->setInterval(m_base_time_step);
   m_waste_remainder->setInterval(300 * m_base_time_step);
-  m_check_updates->setInterval(10000);
+  m_check_updates->setInterval(5000);
   
   connect(m_update_flowing_sliders,
 	  SIGNAL(timeout()), this,
