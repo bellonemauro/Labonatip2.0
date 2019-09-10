@@ -1,7 +1,9 @@
-V.2.1.07
+V.2.1.08
 Porting to QT 5.12.4 to improve stability
 Protocol loading double click changed, it asks to add the protocol only if not empty
 Fix protocol folder text field not showing initial path at start
+
+V.2.1.07
 Some bug fix in the online update
 Changed standby parameters for flex and prime tips
 Serial console added to the binaries
