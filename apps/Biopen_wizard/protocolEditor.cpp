@@ -22,7 +22,7 @@ void Labonatip_GUI::readProtocolFolder(QString _path)
 	QDir protocol_path;
 	protocol_path.setPath(_path);
 	QStringList list = protocol_path.entryList(filters);
-
+	
 	for (int i = 0; i < list.size(); i++) // starting from 2 it will not add ./ and ../
 	{
 		QTreeWidgetItem *item = new QTreeWidgetItem();
@@ -35,7 +35,6 @@ void Labonatip_GUI::readProtocolFolder(QString _path)
 void Labonatip_GUI::openProtocolFolder()
 {
 	QDir path = QFileDialog::getExistingDirectory(this, m_str_select_folder, m_protocol_path);
-
 	QString pp = path.path();
 	if (pp != ".") // this prevent cancel to delete the old path
 		setProtocolUserPath(pp);
