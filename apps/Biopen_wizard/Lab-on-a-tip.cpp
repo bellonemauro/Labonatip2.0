@@ -189,7 +189,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   ui->status_PPC1_label->setText(m_str_PPC1_status_discon);
   ui->label_macroStatus->setText(m_str_protocol_not_running);
 
-  // init the timers 
+  // init the timers // TODO: waste of performance in timers initialization, also check the delegates
   m_update_flowing_sliders = new QTimer();
   m_update_GUI = new QTimer();
   m_update_waste = new QTimer();
