@@ -55,7 +55,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   m_biopen_updated = new biopen_updater();
   
 
-  // initialize the tools as we need the settings
+  // initialize the tools as we need the settings  // TODO: waste of performances all these objects are created twice, ones in the default list and another here !!!! 
   m_dialog_tools = new Labonatip_tools();
   m_dialog_tools->setExtDataPath(m_ext_data_path);
   m_pipette_status = new pipetteStatus();
