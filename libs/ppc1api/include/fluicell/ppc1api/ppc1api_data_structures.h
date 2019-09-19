@@ -175,16 +175,21 @@ namespace fluicell
 				*    
 				*
 				**/
-				void setChannelData(double _set_point, double _sensor_reading, double PID_out_DC, int _state)
+				void setChannelData(const double _set_point, const double _sensor_reading, 
+					const double PID_out_DC, const int _state)
 				{
 					this->set_point = _set_point;
-					this->sensor_reading = _sensor_reading;
+					//this->sensor_reading = _sensor_reading;
 					this->PID_out_DC = PID_out_DC;
 					this->state = _state;
 
 					if (m_filter_enabled) {
 						this->sensor_reading = movingAveragefilter(m_reading_vec, _sensor_reading);
-					}				
+						//this->sensor_reading = lowPassFilter(this->sensor_reading, _sensor_reading);
+					}
+					else {
+						this->sensor_reading = _sensor_reading;
+					}
 				}
 
 				/**  \brief Constructor for PPC1 channel data container
@@ -196,16 +201,23 @@ namespace fluicell
 					PID_out_DC(0.0), 
 					state(0),
 					m_filter_enabled(true),
-					m_filter_size(20)
+					m_filter_size(20),
+					m_filter_alpha(0.1)
 				{}
 				
 				bool isFilterEnables() { return m_filter_enabled; }
 				void enableFilter(bool _enable) { m_filter_enabled = _enable; }
 				int getFiltersize() { return m_filter_size; }
 				void setFiltersize(int _size) { m_filter_size = _size; }
-
+				double getFilterAlpha() { return m_filter_alpha; }
+				void setFilterAlpha(double _alpha) { m_filter_alpha = _alpha; }
 			private:
 
+				double lowPassFilter(const double lastValue, const double currentValue) const
+				{
+					double value = (1 - m_filter_alpha)*lastValue + m_filter_alpha * currentValue;
+					return value;
+				}
 				/**  \brief Implement a moving average filter of PPC1 data
 				*
 				*   @param _reading_vec the stack containing the history of readings
@@ -237,6 +249,7 @@ namespace fluicell
 
 				bool m_filter_enabled;          //!< class member to enable to filtering in the data reading
 				unsigned int m_filter_size;     //!< class member to set the filter size
+				double m_filter_alpha;          //!< alpha for the low pass filter
 				vector<double> m_reading_vec;   //!< internal vector used for the filter to save the history
 			};
 
@@ -311,10 +324,14 @@ namespace fluicell
 						 << "Size of the filter in PPC1api cannot be negative " << endl;
 					return false; 
 				}
-				this->channel_A->setFiltersize(_size);
+				this->channel_A->setFiltersize(_size); 
+				this->channel_A->setFilterAlpha(double(_size) /100.0); 
 				this->channel_B->setFiltersize(_size);
+				this->channel_B->setFilterAlpha(double(_size) / 100.0);
 				this->channel_C->setFiltersize(_size);
+				this->channel_C->setFilterAlpha(double(_size) / 100.0);
 				this->channel_D->setFiltersize(_size);
+				this->channel_D->setFilterAlpha(double(_size) / 100.0);
 				return true;
 			}
 
@@ -822,7 +839,7 @@ namespace fluicell
 			/**  \brief Get the command from the enumerator.
 			*
 			**/
-			instructions getInstruction() { return this->instruction; }
+			instructions getInstruction() const { return this->instruction; }
 
 			/**  \brief Set the command.
 			*
@@ -832,7 +849,7 @@ namespace fluicell
 			/**  \brief Simple cast of the enumerator into the corresponding command as a string.
 			*
 			**/
-			std::string getCommandAsString()
+			std::string getCommandAsString() const
 			{
 				static const char* const text[] =
 				{ 
@@ -851,7 +868,7 @@ namespace fluicell
 			/**  \brief Get the value for the corresponding command.
 			*
 			**/
-			double getValue() { return this->value; }
+			double getValue() const { return this->value; }
 
 			/**  \brief Set the value for the corresponding command.
 			*
@@ -862,7 +879,7 @@ namespace fluicell
 			/**  \brief Get the status message.
 			*
 			**/
-			string getStatusMessage() { 
+			string getStatusMessage() const { 
 				return this->status_message; }
 
 			/**  \brief Set the status message.

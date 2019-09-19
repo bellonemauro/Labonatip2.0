@@ -18,26 +18,33 @@ fluicell::PPC1api::PPC1api() :
 	m_PPC1_data(new PPC1api::PPC1_data),
 	m_PPC1_status(new PPC1api::PPC1_status),
 	m_tip(new PPC1api::tip),
-	m_verbose(false)
+	m_verbose(false),
+	m_PPC1_serial(new serial::Serial()),
+	m_COMport("COM1"),
+	m_baud_rate(115200),
+	m_dataStreamPeriod(200),
+	m_COM_timeout(250),
+	m_wait_sync_timeout(60),
+	m_excep_handler(false)
 {
 	// initialize and connect serial port objects
-	m_PPC1_serial = new serial::Serial();
+	//m_PPC1_serial = new serial::Serial();
 
 	// com port name
-	m_COMport = "COM1";
+	//m_COMport = "COM1";
 
 	// exception handler
-	m_excep_handler = false;
+	//m_excep_handler = false;
 
 	// baud rate
-	m_baud_rate = 115200;
+	//m_baud_rate = 115200;
 
 	// data stream period
-	m_dataStreamPeriod = 200;
-	m_COM_timeout = 250;
+	//m_dataStreamPeriod = 200;
+	//m_COM_timeout = 250;
 
 	// default waitsync time out 
-	m_wait_sync_timeout = 60; // 1 minute
+	//m_wait_sync_timeout = 60; // 1 minute
 
 	// set default values for pressures and vacuums
 	setDefaultPV();
@@ -128,7 +135,7 @@ void fluicell::PPC1api::threadSerial()
 	return;
 }
 
-bool fluicell::PPC1api::decodeDataLine(const string &_data, PPC1_data *_PPC1_data) 
+bool fluicell::PPC1api::decodeDataLine(const string &_data, PPC1_data *_PPC1_data) const
 {
 	// check for empty data
 	if (_data.empty())
@@ -219,7 +226,7 @@ bool fluicell::PPC1api::decodeDataLine(const string &_data, PPC1_data *_PPC1_dat
 		//cout << " line type i " << _data << endl;
 		// string format:  i0|j0|k0|l0
 		// char index   :  0123456789
-		int value = toDigit(_data.at(1));  
+		int value = toDigit(_data.at(1));
 		if (value == 0 || value == 1) { // admitted values are only 0 and 1
 			_PPC1_data->i = value;
 		}
@@ -321,7 +328,7 @@ bool fluicell::PPC1api::decodeDataLine(const string &_data, PPC1_data *_PPC1_dat
 	return false;  // in case _data(0) is none of the expected value
 }
 
-bool fluicell::PPC1api::decodeChannelLine(const string &_data, vector<double> &_line)
+bool fluicell::PPC1api::decodeChannelLine(const string &_data, vector<double> &_line) const
 {
 	// check for empty data
 	if (_data.empty())
@@ -389,7 +396,7 @@ bool fluicell::PPC1api::decodeChannelLine(const string &_data, vector<double> &_
 	return true;
 }
 
-void fluicell::PPC1api::updateFlows(const PPC1_data &_PPC1_data, PPC1_status &_PPC1_status)
+void fluicell::PPC1api::updateFlows(const PPC1_data &_PPC1_data, PPC1_status &_PPC1_status) const
 {
 	// calculate inflow
 	double delta_pressure = 100.0 * (-_PPC1_data.channel_A->sensor_reading);//   v_r;
@@ -457,7 +464,7 @@ void fluicell::PPC1api::updateFlows(const PPC1_data &_PPC1_data, PPC1_status &_P
 
 }
 
-bool fluicell::PPC1api::connectCOM()
+bool fluicell::PPC1api::connectCOM() 
 {
 	try {
 
@@ -550,7 +557,7 @@ void fluicell::PPC1api::disconnectCOM()
 	}
 }
 
-void fluicell::PPC1api::pumpingOff()
+void fluicell::PPC1api::pumpingOff() const
 {
 	if (m_PPC1_serial->isOpen()) {
 		setVacuumChannelA(0.0);   
@@ -561,28 +568,28 @@ void fluicell::PPC1api::pumpingOff()
 	}
 }
 
-bool fluicell::PPC1api::openAllValves()
+bool fluicell::PPC1api::openAllValves() const
 {
 	if (m_PPC1_serial->isOpen()) 
 		return setValvesState(0xFF);
 	else return false;
 }
 
-bool fluicell::PPC1api::closeAllValves()
+bool fluicell::PPC1api::closeAllValves() const
 {
 	if (m_PPC1_serial->isOpen()) 
 		return setValvesState(0xF0);
 	else return false;
 }
 
-void fluicell::PPC1api::reboot()
+void fluicell::PPC1api::reboot() const
 {
 	if (m_PPC1_serial->isOpen()) {
 		m_PPC1_serial->write("!\n");
 	}
 }
 
-bool fluicell::PPC1api::setVacuumChannelA(const double _value)
+bool fluicell::PPC1api::setVacuumChannelA(const double _value) const
 {
 
 	if (_value >= MIN_CHAN_A && _value <= MAX_CHAN_A)
@@ -604,7 +611,7 @@ bool fluicell::PPC1api::setVacuumChannelA(const double _value)
 	return false;
 }
 
-bool fluicell::PPC1api::setVacuumChannelB(const double _value)
+bool fluicell::PPC1api::setVacuumChannelB(const double _value) const
 {
 	if (_value >= MIN_CHAN_B && _value <= MAX_CHAN_B)
 	{
@@ -625,7 +632,7 @@ bool fluicell::PPC1api::setVacuumChannelB(const double _value)
 	return false;
 }
 
-bool fluicell::PPC1api::setPressureChannelC(const double _value)
+bool fluicell::PPC1api::setPressureChannelC(const double _value) const
 {
 	if (_value >= MIN_CHAN_C && _value <= MAX_CHAN_C)
 	{
@@ -646,7 +653,7 @@ bool fluicell::PPC1api::setPressureChannelC(const double _value)
 	return false;
 }
 
-bool fluicell::PPC1api::setPressureChannelD(const double _value)
+bool fluicell::PPC1api::setPressureChannelD(const double _value) const
 {
 	if (_value >= MIN_CHAN_D && _value <= MAX_CHAN_D)
 	{
@@ -668,7 +675,7 @@ bool fluicell::PPC1api::setPressureChannelD(const double _value)
 	return false;
 }
 
-bool fluicell::PPC1api::setValve_l(const bool _value)
+bool fluicell::PPC1api::setValve_l(const bool _value) const
 {
 	if (_value) {
 		if (sendData("l1\n"))   // close
@@ -682,7 +689,8 @@ bool fluicell::PPC1api::setValve_l(const bool _value)
 	return false;
 }
 
-bool fluicell::PPC1api::setValve_k(const bool _value) {
+bool fluicell::PPC1api::setValve_k(const bool _value)  const 
+{
 	if (_value) {
 		if (sendData("k1\n"))   // close
 			return true;
@@ -695,7 +703,8 @@ bool fluicell::PPC1api::setValve_k(const bool _value) {
 	return false;
 }
 
-bool fluicell::PPC1api::setValve_j(const bool _value) {
+bool fluicell::PPC1api::setValve_j(const bool _value)  const 
+{
 	if (_value) {
 		if (sendData("j1\n"))   // close
 			return true;
@@ -708,7 +717,8 @@ bool fluicell::PPC1api::setValve_j(const bool _value) {
 	return false;
 }
 
-bool fluicell::PPC1api::setValve_i(const bool _value) {
+bool fluicell::PPC1api::setValve_i(const bool _value) const
+{
 	if (_value) {
 		if (sendData("i1\n"))   // close
 			return true;
@@ -721,7 +731,7 @@ bool fluicell::PPC1api::setValve_i(const bool _value) {
 	return false;
 }
 
-bool fluicell::PPC1api::setValvesState(const int _value)
+bool fluicell::PPC1api::setValvesState(const int _value) const
 {
 
 	stringstream value;
@@ -739,7 +749,7 @@ bool fluicell::PPC1api::setValvesState(const int _value)
 	return false;
 }
 
-bool fluicell::PPC1api::setTTLstate(const bool _value)
+bool fluicell::PPC1api::setTTLstate(const bool _value) const
 {
 
 	if (_value) {
@@ -760,7 +770,7 @@ bool fluicell::PPC1api::setTTLstate(const bool _value)
 	return false;
 }
 
-bool fluicell::PPC1api::setPulsePeriod(const int _value)
+bool fluicell::PPC1api::setPulsePeriod(const int _value) const
 {
 
 	if (_value >= MIN_PULSE_PERIOD )
@@ -783,7 +793,7 @@ bool fluicell::PPC1api::setPulsePeriod(const int _value)
 
 }
 
-bool fluicell::PPC1api::setRuntimeTimeout(const int _value)
+bool fluicell::PPC1api::setRuntimeTimeout(const int _value) const
 {
 
 	if (_value < 1)
@@ -806,7 +816,7 @@ bool fluicell::PPC1api::setRuntimeTimeout(const int _value)
 
 }
 
-bool fluicell::PPC1api::setZoneSizePerc(double _percentage)
+bool fluicell::PPC1api::setZoneSizePerc(double _percentage) const
 {
 	// check for out of bound values
 	if (_percentage < MIN_ZONE_SIZE_PERC ||
@@ -887,7 +897,7 @@ bool fluicell::PPC1api::setZoneSizePerc(double _percentage)
 	return true;
 }
 
-bool fluicell::PPC1api::changeZoneSizePercBy(double _percentage)
+bool fluicell::PPC1api::changeZoneSizePercBy(double _percentage) const
 {	
 	// check for out of bound values
 	if (std::abs(_percentage) > MAX_ZONE_SIZE_INCREMENT )
@@ -960,7 +970,7 @@ bool fluicell::PPC1api::changeZoneSizePercBy(double _percentage)
 }
 
 
-double fluicell::PPC1api::getZoneSizePerc()
+double fluicell::PPC1api::getZoneSizePerc() const
 {
 	double in_out_ratio_on = 0;
 
@@ -988,7 +998,7 @@ double fluicell::PPC1api::getZoneSizePerc()
 	return ds;
 }
 
-bool fluicell::PPC1api::setFlowSpeedPerc(const double _percentage)
+bool fluicell::PPC1api::setFlowSpeedPerc(const double _percentage) const
 {
 	// check for out of bound values
 	if (_percentage < MIN_FLOW_SPEED_PERC ||
@@ -1109,7 +1119,7 @@ bool fluicell::PPC1api::setFlowSpeedPerc(const double _percentage)
 	return true;
 }
 
-bool fluicell::PPC1api::changeFlowSpeedPercBy(const double _percentage)
+bool fluicell::PPC1api::changeFlowSpeedPercBy(const double _percentage) const
 {
 
 	// check for out of bound values
@@ -1225,7 +1235,7 @@ bool fluicell::PPC1api::changeFlowSpeedPercBy(const double _percentage)
 	return true;
 }
 
-double fluicell::PPC1api::getFlowSpeedPerc()
+double fluicell::PPC1api::getFlowSpeedPerc() const
 {
 	bool use_sensor_reading = false;
 	double p1 = 0;
@@ -1250,7 +1260,7 @@ double fluicell::PPC1api::getFlowSpeedPerc()
 	return mean_percentage;
 }
 
-bool fluicell::PPC1api::setVacuumPerc(const double _percentage)
+bool fluicell::PPC1api::setVacuumPerc(const double _percentage) const
 {
 	// check for out of bound values
 	if (_percentage < MIN_VACUUM_PERC ||
@@ -1305,7 +1315,7 @@ bool fluicell::PPC1api::setVacuumPerc(const double _percentage)
 	return true;
 }
 
-bool fluicell::PPC1api::changeVacuumPercBy(const double _percentage)
+bool fluicell::PPC1api::changeVacuumPercBy(const double _percentage) const
 {
 	// check for out of bound values
 	if (std::abs(_percentage) > MAX_VACUUM_INCREMENT)
@@ -1345,7 +1355,7 @@ bool fluicell::PPC1api::changeVacuumPercBy(const double _percentage)
 	return true;
 }
 
-double fluicell::PPC1api::getVacuumPerc()
+double fluicell::PPC1api::getVacuumPerc() const
 {
 	bool use_sensor_reading = false;
 	double value_A = 0;
@@ -1362,7 +1372,7 @@ double fluicell::PPC1api::getVacuumPerc()
 
 double fluicell::PPC1api::getFlow(double _square_channel_mod, 
 	double _pipe_diameter, double _delta_pressure, 
-	double _dynamic_viscosity, double _pipe_length)
+	double _dynamic_viscosity, double _pipe_length) const
 {
 	double num = M_PI * std::pow((_square_channel_mod * _pipe_diameter), 4) * _delta_pressure;
 	double den = 128.0 * _dynamic_viscosity * _pipe_length;
@@ -1373,7 +1383,7 @@ double fluicell::PPC1api::getFlow(double _square_channel_mod,
 	return flow;
 }
 
-bool fluicell::PPC1api::runCommand(command _cmd)
+bool fluicell::PPC1api::runCommand(command _cmd) const
 {
 	if (!_cmd.checkValidity())  {
 		cerr << currentDateTime()
@@ -1679,7 +1689,7 @@ if (_default_pon > MIN_CHAN_D && _default_pon < MAX_CHAN_D) {
 	return true;
 }
 
-string fluicell::PPC1api::getDeviceID()
+string fluicell::PPC1api::getDeviceID() 
 {
 	string serialNumber; //device serial number
 
@@ -1752,8 +1762,8 @@ void fluicell::PPC1api::setFilterSize(int _size)
 	m_PPC1_data->setFilterSize(_size); 
 }
 
-bool fluicell::PPC1api::sendData(const string &_data) {
-	//_data->append("\n");
+bool fluicell::PPC1api::sendData(const string &_data) const
+{
 	if (m_PPC1_serial->isOpen()) {
 		if(m_verbose) 
 			cout << currentDateTime() 
@@ -1771,10 +1781,11 @@ bool fluicell::PPC1api::sendData(const string &_data) {
 	return false;
 }
 
-bool fluicell::PPC1api::readData(string &_data) {
+bool fluicell::PPC1api::readData(string &_out_data)
+{
 	if (m_PPC1_serial->isOpen()) {
 		m_PPC1_serial->flush();   // make sure that the buffer is clean
-		if (m_PPC1_serial->readline(_data, 65536, "\n") > 0) {
+		if (m_PPC1_serial->readline(_out_data, 65536, "\n") > 0) {
 			//decodeDataLine(data);
 			return true;
 		}
@@ -1798,7 +1809,7 @@ bool fluicell::PPC1api::readData(string &_data) {
 	return false; // if the port is open but the readline fails
 }
 
-bool fluicell::PPC1api::checkVIDPID(std::string _port)
+bool fluicell::PPC1api::checkVIDPID(const std::string &_port) const
 {
 
 	// try to get device information
@@ -1849,7 +1860,8 @@ bool fluicell::PPC1api::checkVIDPID(std::string _port)
 	return false; // if only one on previous fails, return false VID/PID do not match
 }
 
-const std::string fluicell::PPC1api::currentDateTime() {
+const std::string fluicell::PPC1api::currentDateTime() const 
+{
 	time_t     now = time(0);
 	struct tm  tstruct;
 	char       buf[80];
@@ -1861,7 +1873,7 @@ const std::string fluicell::PPC1api::currentDateTime() {
 	return buf;
 }
 
-double fluicell::PPC1api::protocolDuration(std::vector<fluicell::PPC1api::command> _protocol)
+double fluicell::PPC1api::protocolDuration(std::vector<fluicell::PPC1api::command> &_protocol) const
 {
 	// compute the duration of the protocol
 	double duration = 0.0;
