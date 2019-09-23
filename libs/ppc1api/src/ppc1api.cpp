@@ -15,9 +15,9 @@
 #endif
 
 fluicell::PPC1api::PPC1api() :
-	m_PPC1_data(new PPC1api::PPC1_data),
-	m_PPC1_status(new PPC1api::PPC1_status),
-	m_tip(new PPC1api::tip),
+	m_PPC1_data(new fluicell::PPC1dataStructures::PPC1_data),
+	m_PPC1_status(new fluicell::PPC1dataStructures::PPC1_status),
+	m_tip(new fluicell::PPC1dataStructures::tip),
 	m_verbose(false),
 	m_PPC1_serial(new serial::Serial()),
 	m_COMport("COM1"),
@@ -27,6 +27,7 @@ fluicell::PPC1api::PPC1api() :
 	m_wait_sync_timeout(60),
 	m_excep_handler(false)
 {
+	
 	// initialize and connect serial port objects
 	//m_PPC1_serial = new serial::Serial();
 
@@ -58,6 +59,7 @@ fluicell::PPC1api::PPC1api() :
 	m_isRunning = false;
 }
 
+
 void fluicell::PPC1api::threadSerial() 
 {
 	try {
@@ -88,7 +90,8 @@ void fluicell::PPC1api::threadSerial()
 			}
 			else {
 				cerr << currentDateTime() 
-					 << " fluicell::PPC1api::threadSerial  ----  error --- MESSAGE: "
+					<< __FUNCTION__ 
+					<< " ----  error --- MESSAGE: "
 					 << " impossible to lock " << endl;
 				my_mutex.unlock();
 				m_threadTerminationHandler = true;
@@ -103,7 +106,8 @@ void fluicell::PPC1api::threadSerial()
 		m_threadTerminationHandler = true;
 		m_PPC1_serial->close(); 
 		cerr << currentDateTime() 
-			 << " fluicell::PPC1api::threadSerial  ---- error --- MESSAGE:"
+			 << __FUNCTION__ 
+			 << " ---- error --- MESSAGE:"
 			 << " IOException : " 
 			 << e.what() << endl;
 		m_excep_handler = true;
@@ -114,7 +118,8 @@ void fluicell::PPC1api::threadSerial()
 		m_threadTerminationHandler = true;
 		m_PPC1_serial->close(); 
 		cerr << currentDateTime() 
-			 << " fluicell::PPC1api::threadSerial  ---- error --- MESSAGE:"
+			 << __FUNCTION__
+			 << " ---- error --- MESSAGE:"
 			 << " SerialException : " 
 			 << e.what() << endl;
 		m_excep_handler = true;
@@ -135,7 +140,8 @@ void fluicell::PPC1api::threadSerial()
 	return;
 }
 
-bool fluicell::PPC1api::decodeDataLine(const string &_data, PPC1_data *_PPC1_data) const
+bool fluicell::PPC1api::decodeDataLine(const string &_data, 
+	fluicell::PPC1dataStructures::PPC1_data *_PPC1_data) const
 {
 	// check for empty data
 	if (_data.empty())
@@ -396,7 +402,8 @@ bool fluicell::PPC1api::decodeChannelLine(const string &_data, vector<double> &_
 	return true;
 }
 
-void fluicell::PPC1api::updateFlows(const PPC1_data &_PPC1_data, PPC1_status &_PPC1_status) const
+void fluicell::PPC1api::updateFlows(const fluicell::PPC1dataStructures::PPC1_data &_PPC1_data, 
+	fluicell::PPC1dataStructures::PPC1_status &_PPC1_status) const
 {
 	// calculate inflow
 	double delta_pressure = 100.0 * (-_PPC1_data.channel_A->sensor_reading);//   v_r;
@@ -1383,7 +1390,7 @@ double fluicell::PPC1api::getFlow(double _square_channel_mod,
 	return flow;
 }
 
-bool fluicell::PPC1api::runCommand(command _cmd) const
+bool fluicell::PPC1api::runCommand(fluicell::PPC1dataStructures::command _cmd) const
 {
 	if (!_cmd.checkValidity())  {
 		cerr << currentDateTime()
@@ -1399,44 +1406,44 @@ bool fluicell::PPC1api::runCommand(command _cmd) const
 		<< " status message = " << _cmd.getStatusMessage() << endl;
 
 	switch (_cmd.getInstruction()) {
-	case fluicell::PPC1api::command::instructions::setZoneSize: {//zoneSize
+	case fluicell::PPC1dataStructures::command::instructions::setZoneSize: {//zoneSize
 		if (m_verbose) cout << currentDateTime()
 			<< " fluicell::PPC1api::run(command _cmd) ::: setZoneSize "
 			<< _cmd.getValue() << endl;
 		return setZoneSizePerc(_cmd.getValue());
 	}
-	case fluicell::PPC1api::command::instructions::changeZoneSizeBy: {//zoneSize
+	case fluicell::PPC1dataStructures::command::instructions::changeZoneSizeBy: {//zoneSize
 		if (m_verbose) cout << currentDateTime()
 			<< " fluicell::PPC1api::run(command _cmd) ::: "
 			<< " dropletSize  NOT entirely implemented in the API"
 			<< _cmd.getValue() << endl;
 		return changeZoneSizePercBy(_cmd.getValue());
 	}
-	case fluicell::PPC1api::command::instructions::setFlowSpeed: {//flowSpeed
+	case fluicell::PPC1dataStructures::command::instructions::setFlowSpeed: {//flowSpeed
 		if (m_verbose) cout << currentDateTime()
 			<< " fluicell::PPC1api::run(command _cmd) ::: setFlowSpeed"
 			<< _cmd.getValue() << endl;
 		return setFlowSpeedPerc(_cmd.getValue());
 	}
-	case fluicell::PPC1api::command::instructions::changeFlowSpeedBy: {//flowSpeed
+	case fluicell::PPC1dataStructures::command::instructions::changeFlowSpeedBy: {//flowSpeed
 		if (m_verbose) cout << currentDateTime()
 			<< " fluicell::PPC1api::run(command _cmd) ::: setFlowSpeed"
 			<< _cmd.getValue() << endl;
 		return changeFlowSpeedPercBy(_cmd.getValue());
 	}
-	case fluicell::PPC1api::command::instructions::setVacuum: {//vacuum
+	case fluicell::PPC1dataStructures::command::instructions::setVacuum: {//vacuum
 		if (m_verbose) cout << currentDateTime()
 			<< " fluicell::PPC1api::run(command _cmd) ::: vacuum  "
 			<< _cmd.getValue() << endl;
 		return setVacuumPerc(_cmd.getValue());
 	}
-	case fluicell::PPC1api::command::instructions::changeVacuumBy: {//vacuum
+	case fluicell::PPC1dataStructures::command::instructions::changeVacuumBy: {//vacuum
 		if (m_verbose) cout << currentDateTime()
 			<< " fluicell::PPC1api::run(command _cmd) ::: vacuum  "
 			<< _cmd.getValue() << endl;
 		return changeVacuumPercBy(_cmd.getValue());
 	}
-	case fluicell::PPC1api::command::instructions::wait: {//sleep
+	case fluicell::PPC1dataStructures::command::instructions::wait: {//sleep
 		if (m_verbose) cout << currentDateTime()
 			<< " fluicell::PPC1api::run(command _cmd) ::: sleep  "
 			<< _cmd.getValue() << endl;
@@ -1457,12 +1464,12 @@ bool fluicell::PPC1api::runCommand(command _cmd) const
 		}*/
 		return true;
 	}
-	case fluicell::PPC1api::command::instructions::allOff: {//allOff	
+	case fluicell::PPC1dataStructures::command::instructions::allOff: {//allOff	
 		if (m_verbose) cout << currentDateTime()
 			<< " fluicell::PPC1api::run(command _cmd) ::: allOff  " << endl;
 		return closeAllValves();
 	}
-	case fluicell::PPC1api::command::instructions::solution1: {//solution1
+	case fluicell::PPC1dataStructures::command::instructions::solution1: {//solution1
 		if (m_verbose) cout << currentDateTime()
 			<< " fluicell::PPC1api::run(command _cmd) ::: solution1  "
 			<< _cmd.getValue() << endl;
@@ -1473,7 +1480,7 @@ bool fluicell::PPC1api::runCommand(command _cmd) const
 		else valve_status = true;
 		return setValve_l(valve_status);
 	}
-	case fluicell::PPC1api::command::instructions::solution2: {//solution2
+	case fluicell::PPC1dataStructures::command::instructions::solution2: {//solution2
 		if (m_verbose) cout << currentDateTime()
 			<< " fluicell::PPC1api::run(command _cmd) ::: solution2  "
 			<< _cmd.getValue() << endl;
@@ -1484,7 +1491,7 @@ bool fluicell::PPC1api::runCommand(command _cmd) const
 		else valve_status = true;
 		return setValve_k(valve_status);
 	}
-	case fluicell::PPC1api::command::instructions::solution3: {//solution3
+	case fluicell::PPC1dataStructures::command::instructions::solution3: {//solution3
 		if (m_verbose) cout << currentDateTime()
 			<< " fluicell::PPC1api::run(command _cmd) ::: solution3  "
 			<< _cmd.getValue() << endl;
@@ -1495,7 +1502,7 @@ bool fluicell::PPC1api::runCommand(command _cmd) const
 		else valve_status = true;
 		return setValve_j(valve_status);
 	}
-	case fluicell::PPC1api::command::instructions::solution4: {//solution4
+	case fluicell::PPC1dataStructures::command::instructions::solution4: {//solution4
 		if (m_verbose) cout << currentDateTime()
 			<< " fluicell::PPC1api::run(command _cmd) ::: solution4  "
 			<< _cmd.getValue() << endl;
@@ -1506,43 +1513,43 @@ bool fluicell::PPC1api::runCommand(command _cmd) const
 		else valve_status = true;
 		return setValve_i(valve_status);
 	}
-	case fluicell::PPC1api::command::instructions::setPon: { //setPon
+	case fluicell::PPC1dataStructures::command::instructions::setPon: { //setPon
 		if (m_verbose) cout << currentDateTime()
 			<< " fluicell::PPC1api::run(command _cmd) ::: setPon  "
 			<< _cmd.getValue() << endl;
 		return setPressureChannelD(_cmd.getValue());
 	}
-	case fluicell::PPC1api::command::instructions::setPoff: {//setPoff
+	case fluicell::PPC1dataStructures::command::instructions::setPoff: {//setPoff
 		if (m_verbose) cout << currentDateTime()
 			<< " fluicell::PPC1api::run(command _cmd) ::: setPoff  "
 			<< _cmd.getValue() << endl;
 		return setPressureChannelC(_cmd.getValue());
 	}
-	case fluicell::PPC1api::command::instructions::setVrecirc: {//setVrecirc
+	case fluicell::PPC1dataStructures::command::instructions::setVrecirc: {//setVrecirc
 		if (m_verbose) cout << currentDateTime()
 			<< " fluicell::PPC1api::run(command _cmd) ::: setVrecirc  "
 			<< _cmd.getValue() << endl;
 		return setVacuumChannelB(_cmd.getValue());
 	}
-	case fluicell::PPC1api::command::instructions::setVswitch: {//setVswitch
+	case fluicell::PPC1dataStructures::command::instructions::setVswitch: {//setVswitch
 		if (m_verbose) cout << currentDateTime()
 			<< " fluicell::PPC1api::run(command _cmd) ::: setVswitch  "
 			<< _cmd.getValue() << endl;
 		return setVacuumChannelA(_cmd.getValue());
 	}
-	case fluicell::PPC1api::command::instructions::ask_msg: {//ask_msg
+	case fluicell::PPC1dataStructures::command::instructions::ask_msg: {//ask_msg
 		if (m_verbose) cout << currentDateTime()
 			<< " fluicell::PPC1api::run(command _cmd) :::"
 			<< " ask_msg NOT implemented in the API " << endl;
 		return true;
 	}
-	case fluicell::PPC1api::command::instructions::pumpsOff: {//pumpsOff
+	case fluicell::PPC1dataStructures::command::instructions::pumpsOff: {//pumpsOff
 		if (m_verbose) cout << currentDateTime()
 			<< " fluicell::PPC1api::run(command _cmd) ::: pumpsOff  " << endl;
 		pumpingOff();
 		return true;
 	}
-	case fluicell::PPC1api::command::instructions::waitSync: {//waitSync 
+	case fluicell::PPC1dataStructures::command::instructions::waitSync: {//waitSync 
 			  // waitsync(front type : can be : RISE or FALL), 
 			  // protocol stops until trigger signal is received
 		bool state;
@@ -1571,7 +1578,7 @@ bool fluicell::PPC1api::runCommand(command _cmd) const
 		return true;
 
 	}
-	case fluicell::PPC1api::command::instructions::syncOut: {//syncOut //TODO
+	case fluicell::PPC1dataStructures::command::instructions::syncOut: {//syncOut //TODO
 			  // syncout(int: pulse length in ms) if negative then default state is 1
 			  // and pulse is 0, if positive, then pulse is 1 and default is 0
 		int v = static_cast<int>(_cmd.getValue());
@@ -1598,7 +1605,7 @@ bool fluicell::PPC1api::runCommand(command _cmd) const
 		double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;*/
 		return success;
 	}
-	case fluicell::PPC1api::command::instructions::loop: {//loop
+	case fluicell::PPC1dataStructures::command::instructions::loop: {//loop
 		if (m_verbose) cout << currentDateTime()
 			<< " fluicell::PPC1api::run(command _cmd) :::"
 			<< " loop NOT implemented in the API "
@@ -1814,10 +1821,10 @@ bool fluicell::PPC1api::checkVIDPID(const std::string &_port) const
 
 	// try to get device information
 	std::vector<serial::PortInfo> devices = serial::list_ports();
-	std::vector<serialDeviceInfo> devs;
+	std::vector<fluicell::PPC1dataStructures::serialDeviceInfo> devs;
 	for (unsigned int i = 0; i < devices.size(); i++) // for all the connected devices extract information
 	{
-		serialDeviceInfo dev;
+		fluicell::PPC1dataStructures::serialDeviceInfo dev;
 		dev.port = devices.at(i).port;
 		dev.description = devices.at(i).description;
 		dev.VID = "N/A";
@@ -1860,7 +1867,7 @@ bool fluicell::PPC1api::checkVIDPID(const std::string &_port) const
 	return false; // if only one on previous fails, return false VID/PID do not match
 }
 
-const std::string fluicell::PPC1api::currentDateTime() const 
+const std::string fluicell::PPC1api::currentDateTime() const
 {
 	time_t     now = time(0);
 	struct tm  tstruct;
@@ -1873,13 +1880,13 @@ const std::string fluicell::PPC1api::currentDateTime() const
 	return buf;
 }
 
-double fluicell::PPC1api::protocolDuration(std::vector<fluicell::PPC1api::command> &_protocol) const
+double fluicell::PPC1api::protocolDuration(std::vector<fluicell::PPC1dataStructures::command> &_protocol) const
 {
 	// compute the duration of the protocol
 	double duration = 0.0;
 	for (size_t i = 0; i < _protocol.size(); i++) {
 		if (_protocol.at(i).getInstruction() ==
-			fluicell::PPC1api::command::wait)
+			fluicell::PPC1dataStructures::command::wait)
 			duration += _protocol.at(i).getValue();
 	}
 

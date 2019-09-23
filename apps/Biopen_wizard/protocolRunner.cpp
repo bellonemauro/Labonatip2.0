@@ -57,7 +57,7 @@ void Labonatip_macroRunner::switchLanguage(QString _translation_file)
 	}
 }
 
-void Labonatip_macroRunner::simulateCommand(fluicell::PPC1api::command _cmd)
+void Labonatip_macroRunner::simulateCommand(fluicell::PPC1dataStructures::command _cmd)
 {
 
 	int ist = _cmd.getInstruction();

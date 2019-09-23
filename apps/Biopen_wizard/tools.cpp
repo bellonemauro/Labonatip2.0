@@ -17,7 +17,7 @@ Labonatip_tools::Labonatip_tools(QWidget *parent):
 	m_comSettings(new COMSettings()),
 	m_solutionParams(new solutionsParams()),
 	m_pr_params(new pr_params()),
-	m_tip(new fluicell::PPC1api::tip()),
+	m_tip(new fluicell::PPC1dataStructures::tip()),
 	m_expert(false),
 	m_GUI_params(new GUIparams()),
 	m_setting_file_name("/settings/settings.ini")
@@ -351,10 +351,10 @@ void Labonatip_tools::enumerate()
 
 	// try to get device information
 	std::vector<serial::PortInfo> devices = serial::list_ports();
-	std::vector<fluicell::PPC1api::serialDeviceInfo> devs;
+	std::vector<fluicell::PPC1dataStructures::serialDeviceInfo> devs;
 	for (unsigned int i = 0; i < devices.size(); i++) // for all the connected devices extract information
 	{
-		fluicell::PPC1api::serialDeviceInfo dev;
+		fluicell::PPC1dataStructures::serialDeviceInfo dev;
 		dev.port = devices.at(i).port;
 		dev.description = devices.at(i).description;
 		dev.hardware_ID = devices.at(i).hardware_id;

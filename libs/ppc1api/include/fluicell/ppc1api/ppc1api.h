@@ -134,7 +134,7 @@ namespace fluicell
 	*		- MAY/2017: Creation (MB).
 	*  \ingroup __
 	*/
-	class PPC1API_EXPORT PPC1api : public PPC1_data, public PPC1_status, public tip, public serialDeviceInfo, public command
+	class PPC1API_EXPORT PPC1api 
 	{
 
 	public:
@@ -142,7 +142,7 @@ namespace fluicell
 		/** \brief Constructor, initialize objects and parameters using default values
 		*        
 		*/
-		PPC1api();
+		explicit PPC1api();
 
 		/** \brief Destructor implementation to make sure everything is properly closed
 		  *  
@@ -192,7 +192,8 @@ namespace fluicell
 		  *
 		  * \note _PPC1_data will hold the last value in case of any error
 		  */
-		bool decodeDataLine(const string &_data, PPC1_data * _PPC1_data) const;
+		bool decodeDataLine(const string &_data, 
+			fluicell::PPC1dataStructures::PPC1_data * _PPC1_data) const;
 
 		/**  \brief Decode one channel line
 		*
@@ -225,7 +226,8 @@ namespace fluicell
 		* \note - For details about the specific calculations, refer to the
 		*         excel sheet in the resources folder
 		*/
-		void updateFlows(const PPC1_data &_PPC1_data, PPC1_status &_PPC1_status) const;
+		void updateFlows(const fluicell::PPC1dataStructures::PPC1_data &_PPC1_data, 
+			fluicell::PPC1dataStructures::PPC1_status &_PPC1_status) const;
 
 
 		/** \brief Send a string to the PPC1 controller
@@ -286,9 +288,9 @@ namespace fluicell
 		int m_baud_rate;                //!< baud rate	
 		int m_COM_timeout;              //!< timeout for the serial communication --- default value 250 ms
 		
-		PPC1api::PPC1_data *m_PPC1_data; /*!< ppc1 output structure */
-		PPC1api::PPC1_status *m_PPC1_status;/*!< pipette status */
-		PPC1api::tip *m_tip;
+		fluicell::PPC1dataStructures::PPC1_data *m_PPC1_data; /*!< ppc1 output structure */
+		fluicell::PPC1dataStructures::PPC1_status *m_PPC1_status;/*!< pipette status */
+		fluicell::PPC1dataStructures::tip *m_tip;
 		int m_wait_sync_timeout;        //!< timeout for wait sync function in seconds, default value 60 sec
 
 		// threads
@@ -747,7 +749,7 @@ namespace fluicell
 		*  @param  _cmd is a command, see <command> structure
 		*
 		**/
-		bool runCommand(command _cmd) const;
+		bool runCommand(fluicell::PPC1dataStructures::command _cmd) const;
 
 		/**  \brief Set the data stream period on the serial port
 		  *
@@ -829,7 +831,7 @@ namespace fluicell
 			m_tip->length_to_zone = _length_to_zone;
 		}
 
-		fluicell::PPC1api::tip::tipType getTipType() const {
+		fluicell::PPC1dataStructures::tip::tipType getTipType() const {
 			return m_tip->type;
 		}
 
@@ -988,86 +990,86 @@ namespace fluicell
 		*
 		*  \return true if exception
 		**/
-		bool isExceptionHappened()  const { return m_excep_handler; }
+		inline bool isExceptionHappened()  const { return m_excep_handler; }
 
 
 		/** \brief get vacuum recirculation set point
 		*
 		*  \return double recirculation set point
 		**/
-		double getVrecircSetPoint() const { return m_PPC1_data->channel_A->set_point; }
+		inline double getVrecircSetPoint() const { return m_PPC1_data->channel_A->set_point; }
 
 		/** \brief get vacuum recirculation sensor reading
 		*
 		*  \return double recirculation sensor reading
 		**/
-		double getVrecircReading()  const { return m_PPC1_data->channel_A->sensor_reading; }
+		inline double getVrecircReading()  const { return m_PPC1_data->channel_A->sensor_reading; }
 		
 		/** \brief get vacuum recirculation state of the error flag
 		*
 		*  \return int error flag
 		**/
-		int getVrecircState() const { return m_PPC1_data->channel_A->state; }
+		inline int getVrecircState() const { return m_PPC1_data->channel_A->state; }
 
 		/** \brief get vacuum switch set point
 		*
 		*  \return double switch set point
 		**/
-		double getVswitchSetPoint()  const { return m_PPC1_data->channel_B->set_point; }
+		inline double getVswitchSetPoint()  const { return m_PPC1_data->channel_B->set_point; }
 
 		/** \brief get vacuum switch sensor reading
 		*
 		*  \return double switch sensor reading
 		**/
-		double getVswitchReading() const { return m_PPC1_data->channel_B->sensor_reading; }
+		inline double getVswitchReading() const { return m_PPC1_data->channel_B->sensor_reading; }
 
 		/** \brief get vacuum switch state of the error flag
 		*
 		*  \return int error flag
 		**/
-		int getVswitchState()  const { return m_PPC1_data->channel_B->state; }
+		inline int getVswitchState()  const { return m_PPC1_data->channel_B->state; }
 
 		/** \brief get pressure off set point
 		*
 		*  \return double pressure off set point
 		**/
-		double getPoffSetPoint() const { return m_PPC1_data->channel_C->set_point; }
+		inline double getPoffSetPoint() const { return m_PPC1_data->channel_C->set_point; }
 
 		/** \brief get pressure off sensor reading
 		*
 		*  \return double pressure off sensor reading
 		**/
-		double getPoffReading() const { return m_PPC1_data->channel_C->sensor_reading; }
+		inline double getPoffReading() const { return m_PPC1_data->channel_C->sensor_reading; }
 
 		/** \brief get pressure off state of the error flag
 		*
 		*  \return int error flag
 		**/
-		int getPoffState()  const { return m_PPC1_data->channel_C->state; }
+		inline int getPoffState()  const { return m_PPC1_data->channel_C->state; }
 		
 		/** \brief get pressure on set point
 		*
 		*  \return double pressure on set point
 		**/
-		double getPonSetPoint()  const { return m_PPC1_data->channel_D->set_point; }
+		inline double getPonSetPoint()  const { return m_PPC1_data->channel_D->set_point; }
 
 		/** \brief get pressure on sensor reading
 		*
 		*  \return double pressure on sensor reading
 		**/
-		double getPonReading() const { return m_PPC1_data->channel_D->sensor_reading; }
+		inline double getPonReading() const { return m_PPC1_data->channel_D->sensor_reading; }
 
 		/** \brief get pressure on state of the error flag
 		*
 		*  \return int error flag
 		**/
-		int getPonState() const { return m_PPC1_data->channel_D->state; }
+		inline int getPonState() const { return m_PPC1_data->channel_D->state; }
 
 		/** \brief Get the communication state from the corrupted data flag
 		*
 		*  \return true if communication is ok, false in case of corrupted data
 		**/
-		bool getCommunicationState() const { return !m_PPC1_data->data_corrupted; }
+		inline bool getCommunicationState() const { return !m_PPC1_data->data_corrupted; }
 
 
 		/** \brief Check if the well 1 is open
@@ -1115,13 +1117,13 @@ namespace fluicell
 		*
 		* \return a double with the protocol duration in seconds
 		*/
-		double protocolDuration(std::vector<fluicell::PPC1api::command> &_protocol)  const;
+		double protocolDuration(std::vector<fluicell::PPC1dataStructures::command> &_protocol)  const;
 
 		/** \brief Get the pipette status 
 		*
 		*  \return a copy of the data member
 		**/
-		PPC1api::PPC1_status getPipetteStatus() const { return *m_PPC1_status; }
+		const fluicell::PPC1dataStructures::PPC1_status* getPipetteStatus() const { return m_PPC1_status; }
    };
 
 }

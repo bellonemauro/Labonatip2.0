@@ -42,7 +42,7 @@ public:
 
 	void setDevice(fluicell::PPC1api *_ppc1) { m_ppc1 = _ppc1; }
 	
-	void setProtocol(std::vector<fluicell::PPC1api::command> *_protocol) { m_protocol = _protocol; };
+	void setProtocol(std::vector<fluicell::PPC1dataStructures::command> *_protocol) { m_protocol = _protocol; };
 
 	void killMacro(bool _kill) {
 		m_ppc1->resetSycnSignals(true);  // makes sure that the waitSync command stops
@@ -83,12 +83,12 @@ signals:
 private: 
 	
 	void initCustomStrings();
-	void simulateCommand(fluicell::PPC1api::command _cmd);
+	void simulateCommand(fluicell::PPC1dataStructures::command _cmd);
 	void simulateWait(int _sleep_for);
 	
 
 	fluicell::PPC1api *m_ppc1;                            //!< pointer to the device to run the protocol 
-	std::vector<fluicell::PPC1api::command> *m_protocol;  //!< protocol to run
+	std::vector<fluicell::PPC1dataStructures::command> *m_protocol;  //!< protocol to run
 	bool m_simulation_only;                               //!< true if simulation, false use the PPC1
 	bool m_threadTerminationHandler;                      //!< true to terminate the macro
 	bool m_ask_ok;                                        //!< false when a message dialog is out, true to continue

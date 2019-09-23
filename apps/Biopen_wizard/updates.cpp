@@ -337,7 +337,8 @@ bool Labonatip_GUI::isExceptionTriggered() // return true if the exception is tr
 			ui->actionSimulation->setChecked(true);
 			
 			//this->setStatusLed(false);
-			ui->status_PPC1_led->setPixmap(*led_red);
+			status_bar_led->setColor(QFled::ColorType::red);
+			//ui->status_PPC1_led->setPixmap(*led_red);
 			ui->status_PPC1_label->setText(m_str_PPC1_status_discon);
 
 			// end
@@ -345,6 +346,15 @@ bool Labonatip_GUI::isExceptionTriggered() // return true if the exception is tr
 		}
 	}
 	return false;
+}
+
+void Labonatip_GUI::setLedColor(QLabel* led, QPixmap* color)
+{
+	// TODO: I do not like this, I should define a stucture delegate to QLabel as alias of QLed
+	const QPixmap* map = led->pixmap();
+	//if (map)
+		if (map != color) // this is clearly not working !
+			led->setPixmap(*color);
 }
 
 void Labonatip_GUI::updatePPC1Leds()
@@ -362,89 +372,137 @@ void Labonatip_GUI::updatePPC1Leds()
 			// the first is the communication state in the main GUI
 			if (m_ppc1->getCommunicationState() == true) {
 				//this->setStatusLed(true);
-				ui->status_PPC1_led->setPixmap(*led_green);
+				//TODO: here the led are redrawn constantly causing a waste of performance
+				//this->setLedColor(ui->status_PPC1_led, led_green);
+				status_bar_led->setColor(QFled::ColorType::green);
+				//ui->status_PPC1_led->setPixmap(*led_green);
 				// It is better to avoid to change the LED directly, 
 				// better to use the function setStatusLed(true/false)
 				ui->status_PPC1_label->setText(m_str_PPC1_status_con);
 			}
 			else
 			{
-				//setStatusLed(false);
-				ui->status_PPC1_led->setPixmap(*led_red);
+				//setStatusLed(false); // TODO check this setLedStatus
+				status_bar_led->setColor(QFled::ColorType::red);
+				//this->setLedColor(ui->status_PPC1_led, led_red);
+				//ui->status_PPC1_led->setPixmap(*led_red);
 				ui->status_PPC1_label->setText(m_str_PPC1_status_unstable_con); 
 			}
 
 			// update LED for Pon
 			if (m_ppc1->getPonState() == 0) {
-				ui->label_led_pon->setPixmap(*led_green);
+				
+				pon_bar_led->setColor(QFled::ColorType::green);
+				//this->setLedColor(ui->label_led_pon, led_green);
+				//ui->label_led_pon->setPixmap(*led_green);
 				if (std::abs(m_ppc1->getPonReading() - m_ppc1->getPonSetPoint()) >
 					0.1 * m_ppc1->getPonSetPoint() + 3)
 				{
-					ui->label_led_pon->setPixmap(*led_orange);
+					pon_bar_led->setColor(QFled::ColorType::orange);
+					//this->setLedColor(ui->label_led_pon, led_orange);
+					//ui->label_led_pon->setPixmap(*led_orange);
 				}
 			}
 			else {
-				ui->label_led_pon->setPixmap(*led_red);
+				pon_bar_led->setColor(QFled::ColorType::red);
+				//this->setLedColor(ui->label_led_pon, led_red);
+				//ui->label_led_pon->setPixmap(*led_red);
 			}
 
 			// update LED for Poff
 			if (m_ppc1->getPoffState() == 0) {
-				ui->label_led_poff->setPixmap(*led_green);
+				poff_bar_led->setColor(QFled::ColorType::green);
+				//this->setLedColor(ui->label_led_poff, led_green);
+				//ui->label_led_poff->setPixmap(*led_green);
 				if (std::abs(m_ppc1->getPoffReading() - m_ppc1->getPoffSetPoint()) >
 					0.1*m_ppc1->getPoffSetPoint() + 3)
 				{
-					ui->label_led_poff->setPixmap(*led_orange);
+					poff_bar_led->setColor(QFled::ColorType::orange);
+					//this->setLedColor(ui->label_led_poff, led_orange);
+					//ui->label_led_poff->setPixmap(*led_orange);
 				}
 			}
 			else {
-				ui->label_led_poff->setPixmap(*led_red);
+				poff_bar_led->setColor(QFled::ColorType::red);
+				//this->setLedColor(ui->label_led_poff, led_red);
+				//ui->label_led_poff->setPixmap(*led_red);
 			}
 
 			// update LED for Vswitch
 			if (m_ppc1->getVswitchState() == 0) {
-				ui->label_led_vs->setPixmap(*led_green);
+				vs_bar_led->setColor(QFled::ColorType::green);
+				//this->setLedColor(ui->label_led_vs, led_green);
+				//ui->label_led_vs->setPixmap(*led_green);
 				if (std::abs(m_ppc1->getVswitchReading() - m_ppc1->getVswitchSetPoint()) >
 					-0.1*m_ppc1->getVswitchSetPoint() + 3)
 				{
-					ui->label_led_vs->setPixmap(*led_orange);
+					vs_bar_led->setColor(QFled::ColorType::orange);
+					//this->setLedColor(ui->label_led_vs, led_orange);
+					//ui->label_led_vs->setPixmap(*led_orange);
 				}
 			}
 			else {
-				ui->label_led_vs->setPixmap(*led_red);
+				vs_bar_led->setColor(QFled::ColorType::red);
+				//this->setLedColor(ui->label_led_vs, led_red);
+				//ui->label_led_vs->setPixmap(*led_red);
 			}
 
 			// update LED for Vrecirc
 			if (m_ppc1->getVrecircState() == 0) {
-				ui->label_led_vr->setPixmap(*led_green);
+				vr_bar_led->setColor(QFled::ColorType::green);
+				//this->setLedColor(ui->label_led_vr, led_green);
+				//ui->label_led_vr->setPixmap(*led_green);
 				double as = m_ppc1->getVrecircReading();
 				double ad = m_ppc1->getVrecircSetPoint();
 				if (std::abs(m_ppc1->getVrecircReading() - m_ppc1->getVrecircSetPoint()) >
 					-0.1*m_ppc1->getVrecircSetPoint() + 3)
 				{
-					ui->label_led_vr->setPixmap(*led_orange);
+					vr_bar_led->setColor(QFled::ColorType::orange);
+					//this->setLedColor(ui->label_led_vr, led_orange);
+					//ui->label_led_vr->setPixmap(*led_orange);
 				}
 			}
 			else {
-				ui->label_led_vr->setPixmap(*led_red);
+				vr_bar_led->setColor(QFled::ColorType::red);
+				//this->setLedColor(ui->label_led_vr, led_red);
+				//ui->label_led_vr->setPixmap(*led_red);
 			}
 		}// end if m_ppc1->isRunning()
 		else
 		{
 			//this->setStatusLed(false);
-			ui->status_PPC1_led->setPixmap(*led_red);
-			ui->label_led_pon->setPixmap(*led_grey);
-			ui->label_led_poff->setPixmap(*led_grey);
-			ui->label_led_vs->setPixmap(*led_grey);
-			ui->label_led_vr->setPixmap(*led_grey);
+			status_bar_led->setColor(QFled::ColorType::red);
+			//this->setLedColor(ui->status_PPC1_led, led_red);
+			//ui->status_PPC1_led->setPixmap(*led_red);
+			pon_bar_led->setColor(QFled::ColorType::grey);
+			//this->setLedColor(ui->label_led_pon, led_grey);
+			//ui->label_led_pon->setPixmap(*led_grey);
+			poff_bar_led->setColor(QFled::ColorType::grey);
+			//this->setLedColor(ui->label_led_poff, led_grey);
+			//ui->label_led_poff->setPixmap(*led_grey);
+			vs_bar_led->setColor(QFled::ColorType::grey);
+			//this->setLedColor(ui->label_led_vs, led_grey);
+			//ui->label_led_vs->setPixmap(*led_grey);
+			vr_bar_led->setColor(QFled::ColorType::grey);
+			//this->setLedColor(ui->label_led_vr, led_grey);
+			//ui->label_led_vr->setPixmap(*led_grey);
 
 		}
 	}//end if m_simulation_only
 	else
 	{
-		ui->label_led_pon->setPixmap(*led_green);
-		ui->label_led_poff->setPixmap(*led_green);
-		ui->label_led_vs->setPixmap(*led_green);
-		ui->label_led_vr->setPixmap(*led_green);
+		pon_bar_led->setColor(QFled::ColorType::green);
+		//this->setLedColor(ui->label_led_pon, led_green);
+		//ui->label_led_pon->setPixmap(*led_green);
+		poff_bar_led->setColor(QFled::ColorType::green);
+		//this->setLedColor(ui->label_led_poff, led_green);
+		//ui->label_led_poff->setPixmap(*led_green);
+		vs_bar_led->setColor(QFled::ColorType::green);
+		//this->setLedColor(ui->label_led_vs, led_green);
+		//ui->label_led_vs->setPixmap(*led_green);
+		vr_bar_led->setColor(QFled::ColorType::green);
+		//this->setLedColor(ui->label_led_vr, led_green);
+		//ui->label_led_vr->setPixmap(*led_green);
 
 	}
 }
@@ -461,23 +519,23 @@ void Labonatip_GUI::updateFlows()
 	// otherwise the flows will be calculated according to the current values
 	if (!m_simulationOnly)
 	{ 
-		fluicell::PPC1api::PPC1_status status = m_ppc1->getPipetteStatus();
-		m_pipette_status->outflow_on = status.outflow_on;
-		m_pipette_status->outflow_off = status.outflow_off;
-		m_pipette_status->outflow_tot = status.outflow_tot;
-		m_pipette_status->inflow_recirculation = status.inflow_recirculation;
-		m_pipette_status->inflow_switch = status.inflow_switch;
-		m_pipette_status->in_out_ratio_on = status.in_out_ratio_on;
-		m_pipette_status->in_out_ratio_off = status.in_out_ratio_off;
-		m_pipette_status->in_out_ratio_tot = status.in_out_ratio_tot;
-		m_pipette_status->flow_well1 = status.flow_rate_1;
-		m_pipette_status->flow_well2 = status.flow_rate_2;
-		m_pipette_status->flow_well3 = status.flow_rate_3;
-		m_pipette_status->flow_well4 = status.flow_rate_4;
-		m_pipette_status->flow_well5 = status.flow_rate_5;
-		m_pipette_status->flow_well6 = status.flow_rate_6;
-		m_pipette_status->flow_well7 = status.flow_rate_7;
-		m_pipette_status->flow_well8 = status.flow_rate_8;
+		const fluicell::PPC1dataStructures::PPC1_status *status = m_ppc1->getPipetteStatus();
+		m_pipette_status->outflow_on = status->outflow_on;
+		m_pipette_status->outflow_off = status->outflow_off;
+		m_pipette_status->outflow_tot = status->outflow_tot;
+		m_pipette_status->inflow_recirculation = status->inflow_recirculation;
+		m_pipette_status->inflow_switch = status->inflow_switch;
+		m_pipette_status->in_out_ratio_on = status->in_out_ratio_on;
+		m_pipette_status->in_out_ratio_off = status->in_out_ratio_off;
+		m_pipette_status->in_out_ratio_tot = status->in_out_ratio_tot;
+		m_pipette_status->flow_well1 = status->flow_rate_1;
+		m_pipette_status->flow_well2 = status->flow_rate_2;
+		m_pipette_status->flow_well3 = status->flow_rate_3;
+		m_pipette_status->flow_well4 = status->flow_rate_4;
+		m_pipette_status->flow_well5 = status->flow_rate_5;
+		m_pipette_status->flow_well6 = status->flow_rate_6;
+		m_pipette_status->flow_well7 = status->flow_rate_7;
+		m_pipette_status->flow_well8 = status->flow_rate_8;
 	}
 	else {
 		// calculate inflow

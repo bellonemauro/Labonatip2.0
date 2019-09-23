@@ -29,13 +29,14 @@ public:
 	/** \brief Constructor
 	*
 	*/
-	 QDebugStream(std::ostream &stream, QTextEdit* text_edit) : m_stream(stream)
+	 explicit QDebugStream(std::ostream &stream, QTextEdit* text_edit) : m_stream(stream)
 	 {
 	  log_window = text_edit;
 	  m_old_buf = stream.rdbuf();
 	  stream.rdbuf(this);
 	  to_terminal = false;
 	  to_GUI = false;
+	  verbose = false;
 	 }
 
 	 /** \brief Detor
@@ -46,11 +47,14 @@ public:
 	 ~QDebugStream()
 	 {
 		 if (!m_string.empty()) {
-			 if (to_GUI) { 
-				 log_window->append(m_string.c_str()); 
-			 }
-			 if (to_terminal) { 
-				 printf("%s", m_string.c_str()); printf("\n");
+			 if (verbose) 
+			 {
+				if (to_GUI) { 
+					 log_window->append(m_string.c_str()); 
+				}
+				if (to_terminal) { 
+					 printf("%s", m_string.c_str()); printf("\n");
+				}
 			 }
 		 }
 	  // redirect again to the old buffer (cout of cerr)
@@ -132,6 +136,7 @@ private:
 	std::string m_string;      //<! actual message string
 	bool to_terminal;          //<! if true the output will also go to the terminal
 	bool to_GUI;               //<! if true the output will also go to the GUI
+	bool verbose;               //<! if true the output will also go to the GUI
 
 	QTextEdit* log_window;     /*<! pointer to the QTextEdit object in the GUI, 
 							        this must be set upon construction */

@@ -1,3 +1,8 @@
+V.2.1.09
+Performance improvement
+New QFled structure allows the GUI leds to update only if necessary
+Performance improvement on the PPC1api
+
 V.2.1.08
 Porting to QT 5.12.4 to improve stability
 Protocol loading double click changed, it asks to add the protocol only if not empty

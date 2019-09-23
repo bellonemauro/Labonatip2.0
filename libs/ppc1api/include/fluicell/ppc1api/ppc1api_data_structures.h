@@ -40,7 +40,7 @@ using namespace std;
 /**  \brief Define the Fluicell namespace, all the classes will be in here
   *  
   **/
-namespace fluicell
+namespace fluicell { namespace PPC1dataStructures
 {
 	
 	
@@ -184,6 +184,7 @@ namespace fluicell
 					this->state = _state;
 
 					if (m_filter_enabled) {
+						// TODO: enable lowPassFiltering to improve efficiency but mantain same behavior
 						this->sensor_reading = movingAveragefilter(m_reading_vec, _sensor_reading);
 						//this->sensor_reading = lowPassFilter(this->sensor_reading, _sensor_reading);
 					}
@@ -895,4 +896,4 @@ namespace fluicell
 
 		};
 
-}
+}}

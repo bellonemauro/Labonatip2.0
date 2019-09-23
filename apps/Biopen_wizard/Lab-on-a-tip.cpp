@@ -17,13 +17,13 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	ui(new Ui::Labonatip_GUI),
 	m_pipette_active(false),
 	m_ppc1 ( new fluicell::PPC1api() ),
-	led_green (new QPixmap(QSize(20, 20))),
-	led_orange (new QPixmap( QSize(20, 20))),
-	led_red(new QPixmap(QSize(20, 20))),
-	led_grey (new QPixmap( QSize(20, 20))),
+	//led_green (new QPixmap(QSize(20, 20))),
+	//led_orange (new QPixmap( QSize(20, 20))),
+	//led_red(new QPixmap(QSize(20, 20))),
+	//led_grey (new QPixmap( QSize(20, 20))),
 	m_g_spacer ( new QGroupBox()),
 	m_a_spacer (new QAction()),
-	m_protocol ( new std::vector<fluicell::PPC1api::command> ),
+	m_protocol ( new std::vector<fluicell::PPC1dataStructures::command> ),
 	m_protocol_duration(0.0),
 	m_pen_line_width(7),
 	l_x1(-16.0),
@@ -55,7 +55,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   m_biopen_updated = new biopen_updater();
   
 
-  // initialize the tools as we need the settings  // TODO: waste of performances all these objects are created twice, ones in the default list and another here !!!! 
+  // initialize the tools as we need the settings  // TODO: waste of performances all these objects are created twice
   m_dialog_tools = new Labonatip_tools();
   m_dialog_tools->setExtDataPath(m_ext_data_path);
   m_pipette_status = new pipetteStatus();
@@ -137,59 +137,64 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   m_macroRunner_thread = new Labonatip_macroRunner(this);
   m_macroRunner_thread->setDevice(m_ppc1);
 
-  // status bar to not connected
-  led_green->fill(Qt::transparent);
-  painter_led_green = new QPainter(led_green);
-  QRadialGradient radialGradient_green(8, 8, 12);
-  radialGradient_green.setColorAt(0.0, 0xF0F0F0);
-  radialGradient_green.setColorAt(0.5, 0x30D030);
-  radialGradient_green.setColorAt(1.0, Qt::transparent);
-  painter_led_green->setBackground(Qt::blue);
-  painter_led_green->setBrush(radialGradient_green);
-  painter_led_green->setPen(Qt::gray);
-  painter_led_green->drawEllipse(2, 2, 16, 16);
+  // status bar led
+  status_bar_led = new QFled(ui->status_PPC1_led, QFled::ColorType::red);
+  pon_bar_led = new QFled(ui->label_led_pon, QFled::ColorType::grey);
+  poff_bar_led = new QFled(ui->label_led_poff, QFled::ColorType::grey);
+  vr_bar_led = new QFled(ui->label_led_vr, QFled::ColorType::grey);
+  vs_bar_led = new QFled(ui->label_led_vs, QFled::ColorType::grey);
+  //led_green->fill(Qt::transparent);
+  //painter_led_green = new QPainter(led_green);
+  //QRadialGradient radialGradient_green(8, 8, 12);
+  //radialGradient_green.setColorAt(0.0, 0xF0F0F0);
+  //radialGradient_green.setColorAt(0.5, 0x30D030);
+  //radialGradient_green.setColorAt(1.0, Qt::transparent);
+  //painter_led_green->setBackground(Qt::blue);
+  //painter_led_green->setBrush(radialGradient_green);
+  //painter_led_green->setPen(Qt::gray);
+  //painter_led_green->drawEllipse(2, 2, 16, 16);
 
-  led_orange->fill(Qt::transparent);
-  painter_led_orange = new QPainter(led_orange);
-  QRadialGradient radialGradient_orange(8, 8, 12);
-  radialGradient_orange.setColorAt(0.0, 0xF0F0F0);
-  radialGradient_orange.setColorAt(0.5, 0xFF7213);
-  radialGradient_orange.setColorAt(1.0, Qt::transparent);
-  painter_led_orange->setBackground(Qt::blue);
-  painter_led_orange->setBrush(radialGradient_orange);
-  painter_led_orange->setPen(Qt::gray);
-  painter_led_orange->drawEllipse(2, 2, 16, 16);
+  //led_orange->fill(Qt::transparent);
+  //painter_led_orange = new QPainter(led_orange);
+  //QRadialGradient radialGradient_orange(8, 8, 12);
+  //radialGradient_orange.setColorAt(0.0, 0xF0F0F0);
+  //radialGradient_orange.setColorAt(0.5, 0xFF7213);
+  //radialGradient_orange.setColorAt(1.0, Qt::transparent);
+  //painter_led_orange->setBackground(Qt::blue);
+  //painter_led_orange->setBrush(radialGradient_orange);
+  //painter_led_orange->setPen(Qt::gray);
+  //painter_led_orange->drawEllipse(2, 2, 16, 16);
 
-  led_red->fill(Qt::transparent);
-  painter_led_red = new QPainter(led_red);
-  QRadialGradient radialGradient_red(8, 8, 12);
-  radialGradient_red.setColorAt(0.0, 0xF0F0F0);
-  radialGradient_red.setColorAt(0.5, 0xFF5050);
-  radialGradient_red.setColorAt(1.0, Qt::transparent);
-  painter_led_red->setBackground(Qt::blue);
-  //painter_led_red->setBrush(Qt::red);
-  painter_led_red->setBrush(radialGradient_red);
-  painter_led_red->setPen(Qt::gray);
-  painter_led_red->drawEllipse(2, 2, 16, 16);
+  //led_red->fill(Qt::transparent);
+  //painter_led_red = new QPainter(led_red);
+  //QRadialGradient radialGradient_red(8, 8, 12);
+  //radialGradient_red.setColorAt(0.0, 0xF0F0F0);
+  //radialGradient_red.setColorAt(0.5, 0xFF5050);
+  //radialGradient_red.setColorAt(1.0, Qt::transparent);
+  //painter_led_red->setBackground(Qt::blue);
+  ////painter_led_red->setBrush(Qt::red);
+  //painter_led_red->setBrush(radialGradient_red);
+  //painter_led_red->setPen(Qt::gray);
+  //painter_led_red->drawEllipse(2, 2, 16, 16);
 
-  led_grey->fill(Qt::transparent);
-  painter_led_grey = new QPainter(led_grey);
-  QRadialGradient radialGradient_grey(8, 8, 12);
-  radialGradient_grey.setColorAt(0.0, 0xF0F0F0);
-  radialGradient_grey.setColorAt(0.5, 0x909090);
-  radialGradient_grey.setColorAt(1.0, Qt::transparent);
-  painter_led_grey->setBackground(Qt::blue);
-  //painter_led_grey->setBrush(Qt::red);
-  painter_led_grey->setBrush(radialGradient_grey);
-  painter_led_grey->setPen(Qt::gray);
-  painter_led_grey->drawEllipse(2, 2, 16, 16);
+  //led_grey->fill(Qt::transparent);
+  //painter_led_grey = new QPainter(led_grey);
+  //QRadialGradient radialGradient_grey(8, 8, 12);
+  //radialGradient_grey.setColorAt(0.0, 0xF0F0F0);
+  //radialGradient_grey.setColorAt(0.5, 0x909090);
+  //radialGradient_grey.setColorAt(1.0, Qt::transparent);
+  //painter_led_grey->setBackground(Qt::blue);
+  ////painter_led_grey->setBrush(Qt::red);
+  //painter_led_grey->setBrush(radialGradient_grey);
+  //painter_led_grey->setPen(Qt::gray);
+  //painter_led_grey->drawEllipse(2, 2, 16, 16);
 
   this->setStatusLed(false);
 
   ui->status_PPC1_label->setText(m_str_PPC1_status_discon);
   ui->label_macroStatus->setText(m_str_protocol_not_running);
 
-  // init the timers // TODO: waste of performance in timers initialization, also check the delegates
+  // init the timers 
   m_update_flowing_sliders = new QTimer();
   m_update_GUI = new QTimer();
   m_update_waste = new QTimer();
@@ -278,10 +283,10 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   ui->groupBox_3->setEnabled(false);
   enableTab2(false);
 
-  ui->label_led_pon->setPixmap(*led_green);
+  /*ui->label_led_pon->setPixmap(*led_green);
   ui->label_led_poff->setPixmap(*led_green);
   ui->label_led_vs->setPixmap(*led_green);
-  ui->label_led_vr->setPixmap(*led_green);
+  ui->label_led_vr->setPixmap(*led_green);*/
 
   //init the chart view
   m_chart_view = new protocolChart();
@@ -603,10 +608,13 @@ void Labonatip_GUI::setStatusLed( bool _connect )
 	if (ui->actionConnectDisconnect->isChecked()) {
 		ui->status_PPC1_led->clear();
 		if (_connect) {
-			ui->status_PPC1_led->setPixmap(*led_green);
+			//ui->status_PPC1_led->setPixmap(*led_green);
+			status_bar_led->setColor(QFled::ColorType::green);
 		}
 		else {
-			ui->status_PPC1_led->setPixmap(*led_red);
+			//ui->status_PPC1_led->setPixmap(*led_red);
+			status_bar_led->setColor(QFled::ColorType::red);
+
 		}
 	}
 }
@@ -1181,7 +1189,7 @@ void Labonatip_GUI::toolApply()
 	m_ppc1->setTip(m_dialog_tools->getTipType());
 
 	if (m_dialog_tools->isExpertMode()) {
-		fluicell::PPC1api::tip my_tip = m_dialog_tools->getTip();
+		fluicell::PPC1dataStructures::tip my_tip = m_dialog_tools->getTip();
 		m_ppc1->setTipParameters(my_tip.length_to_tip, my_tip.length_to_zone);
 	}
 
@@ -1564,12 +1572,17 @@ Labonatip_GUI::~Labonatip_GUI()
   delete m_update_GUI;
   delete m_update_waste;
   delete m_scene_solution;
-  delete painter_led_green;
-  delete led_green;
-  delete painter_led_orange;
-  delete led_orange;
-  delete painter_led_red;
-  delete led_red;
+  delete status_bar_led;
+  delete pon_bar_led;
+  delete poff_bar_led;
+  delete vs_bar_led;
+  delete vr_bar_led;
+  //delete painter_led_green;
+  //delete led_green;
+  //delete painter_led_orange;
+  //delete led_orange;
+  //delete painter_led_red;
+  //delete led_red;
   delete m_g_spacer;
   delete m_a_spacer; 
   delete m_chart_view;

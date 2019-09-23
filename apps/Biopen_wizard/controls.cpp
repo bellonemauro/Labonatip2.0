@@ -19,7 +19,7 @@ void Labonatip_GUI::updatePonSetPoint(double _pon_set_point)
 		 << QTime::currentTime().toString().toStdString() << "  "
 		 << "Labonatip_GUI::updatePonSetPoint   :::: set value  =  " 
 		 << _pon_set_point 
-		 << " sensor value = " << m_ppc1->channel_D->sensor_reading << endl;
+		 << " sensor value = " << m_ppc1->getPonReading() << endl;
 
 	// avoid out of range values
     if (std::isnan(_pon_set_point))
@@ -60,7 +60,7 @@ void Labonatip_GUI::updatePoffSetPoint(double _poff_set_point)
 		 << QTime::currentTime().toString().toStdString() << "  "
 		 << "Labonatip_GUI::updatePoffSetPoint   :::: set value  =  " 
 		 << _poff_set_point
-		  << " sensor value = " << m_ppc1->channel_C->sensor_reading << endl;
+		  << " sensor value = " << m_ppc1->getPoffReading() << endl;
 
 	// avoid out of range values
     if (std::isnan(_poff_set_point))
@@ -99,7 +99,7 @@ void Labonatip_GUI::updateVrecircSetPoint(double _v_recirc_set_point)
 		 << QTime::currentTime().toString().toStdString() << "  "
 		 << "Labonatip_GUI::updateVrecircSetPoint   :::: set value  =  " 
 		 << _v_recirc_set_point
-		 << " sensor value = " << m_ppc1->channel_A->sensor_reading << endl;
+		 << " sensor value = " << m_ppc1->getVrecircReading() << endl;
 
 	// avoid out of range values
     if (std::isnan(_v_recirc_set_point))
@@ -137,7 +137,7 @@ void Labonatip_GUI::updateVswitchSetPoint(double _v_switch_set_point)
 		 << QTime::currentTime().toString().toStdString() << "  "
 		 << "Labonatip_GUI::updateVswitchSetPoint   :::: set value  =  " 
 		 << _v_switch_set_point
-		 << " sensor value = " << m_ppc1->channel_B->sensor_reading << endl;
+		 << " sensor value = " << m_ppc1->getVswitchReading() << endl;
 
 	// avoid out of range values
     if (std::isnan(_v_switch_set_point))

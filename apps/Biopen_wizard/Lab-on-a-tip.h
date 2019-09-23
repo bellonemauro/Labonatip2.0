@@ -979,6 +979,8 @@ private:
   */
   void updateSolutions();
 
+  void setLedColor(QLabel* led, QPixmap* color);
+
   /** \brief Update the leds of pressures and vacuum
   */
   void updatePPC1Leds();
@@ -1005,7 +1007,7 @@ private:
 
   // for serial communication with PPC1 API
   fluicell::PPC1api *m_ppc1;  //!< object for the PPC1api connection
-  std::vector<fluicell::PPC1api::command> *m_protocol;   //!< this is the current protocol to run
+  std::vector<fluicell::PPC1dataStructures::command> *m_protocol;   //!< this is the current protocol to run
 
   bool m_pipette_active;    //!< true when the pipette is active and communicating, false otherwise
   bool m_simulationOnly;    //!< if active the software will run without the hardware device connected
@@ -1186,14 +1188,19 @@ private:
   // to visualize the led on the status bar, 
   // I create two different leds and switch between them to create the effect on/off
   // the same led objects are used in different places
-  QPixmap * led_green;
-  QPixmap * led_orange;
-  QPixmap * led_red;
-  QPixmap * led_grey;
-  QPainter * painter_led_green;
-  QPainter * painter_led_orange;
-  QPainter * painter_led_red;
-  QPainter * painter_led_grey;
+  //QPixmap * led_green;
+  //QPixmap * led_orange;
+  //QPixmap * led_red;
+  //QPixmap * led_grey;
+  //QPainter * painter_led_green;
+  //QPainter * painter_led_orange;
+  //QPainter * painter_led_red;
+  //QPainter * painter_led_grey;
+  QFled* status_bar_led;
+  QFled* pon_bar_led;
+  QFled* poff_bar_led;
+  QFled* vs_bar_led;
+  QFled* vr_bar_led;
 
   // spacers for the toolbar to create the basic->advanced effect
   QGroupBox * m_g_spacer;

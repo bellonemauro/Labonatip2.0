@@ -36,7 +36,7 @@ protocolChart::protocolChart(  ):
 {
 	cout << QDate::currentDate().toString().toStdString() << "  " 
 		 << QTime::currentTime().toString().toStdString() << "  "
-		 << " Labonatip_chart::Labonatip_chart initialization " << endl;
+		 << __FUNCTION__ << endl; //<< " Labonatip_chart::Labonatip_chart initialization " << endl;
 
 	m_pen_s1 = new QPen();
 	m_pen_s2 = new QPen();

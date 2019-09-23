@@ -107,7 +107,7 @@ public:
 		return ui_tools->comboBox_tipSelection->currentIndex();
 	}
 
-	fluicell::PPC1api::tip getTip() { return *m_tip; }
+	fluicell::PPC1dataStructures::tip getTip() { return *m_tip; }
 	bool isExpertMode() { return m_expert; }
 
 	void switchLanguage(QString _translation_file);
@@ -362,7 +362,7 @@ private:
 	pr_params *m_pr_params;       //!<  pressure and vacuum setting structure
 	GUIparams *m_GUI_params;      //!<  GUI setting structure
 
-	fluicell::PPC1api::tip *m_tip;
+	fluicell::PPC1dataStructures::tip *m_tip;
 	bool m_expert;       //!< expert mode, set to true upon correct password
 
 	// translatable strings

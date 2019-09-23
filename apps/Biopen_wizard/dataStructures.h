@@ -17,6 +17,11 @@
 
 #include <QSettings>
 #include <QColor>
+#include <QtWidgets/QLabel>
+// QT for graphics
+#include <QGraphicsEllipseItem>
+#include <QGraphicsScene>
+#include <QGraphicsView>
 
 // PPC1api 
 #include <fluicell/ppc1api/ppc1api.h>
@@ -29,7 +34,7 @@
 #define MAX_WASTE_WARNING_VOLUME 27    // in ml
 
 // just re-definition of a protocol command to get a shorter name
-typedef fluicell::PPC1api::command::instructions pCmd;
+typedef fluicell::PPC1dataStructures::command::instructions pCmd;
 
 //TODO IMPORTANT: check duplicated structures between dataStructure.h and ppc1api_data_structure.h 
 
@@ -51,7 +56,7 @@ typedef fluicell::PPC1api::command::instructions pCmd;
 struct COMSettings {
 
 public:
-	COMSettings() {   // default values
+	explicit COMSettings() {   // default values
 		this->name = "COM1";
 		this->baudRate = 115200;
 		this->dataBits = serial::eightbits;
@@ -92,7 +97,7 @@ private:
 // structure to handle solutions name parameters
 struct solutionsParams {
 
-	solutionsParams() {   // default values
+	explicit solutionsParams() {   // default values
 		this->vol_well1 = 0.0;
 		this->vol_well2 = 0.0;
 		this->vol_well3 = 0.0;
@@ -149,7 +154,7 @@ struct solutionsParams {
 
 struct pipetteStatus{
 
-	pipetteStatus() {   // default values
+	explicit pipetteStatus() {   // default values
 		this->pon_set_point = 0.0;
 		this->poff_set_point = 0.0;
 		this->v_recirc_set_point = 0.0;
@@ -221,7 +226,7 @@ struct pipetteStatus{
 struct pr_params {
 
 
-	pr_params() : p_on_max (450), p_on_min(0), p_on_default(190),
+	explicit pr_params() : p_on_max (450), p_on_min(0), p_on_default(190),
 				p_off_max(450), p_off_min(0), p_off_default(21),
 				v_switch_max(0), v_switch_min(-300), v_switch_default(-115),
 				v_recirc_max(0), v_recirc_min(-300), v_recirc_default(-115),
@@ -302,7 +307,7 @@ struct GUIparams {
 		Svenska = 3,		
 	};
 
-	GUIparams() 
+	explicit GUIparams()
 	{   // default values
 		this->showTextToolBar = Qt::ToolButtonIconOnly;
 		this->automaticUpdates_idx = 0;
@@ -356,6 +361,122 @@ struct editorParams {
 	};
 
 }; // END solutionsNames struct
+
+
+struct QFled {
+
+	enum ColorType {
+		nocolor = 0,
+		green = 1,
+		orange = 2,
+		red = 3,
+		grey = 4
+	}; 
+
+	QLabel *led_label;
+	ColorType color_type;
+
+
+	QFled(QLabel *_led_label,  ColorType _color_type) {
+		led_label = _led_label;
+		color_type = nocolor;// _color_type;
+		
+		led_green = new QPixmap(QSize(20, 20));
+		led_orange = new QPixmap(QSize(20, 20));
+		led_red = new QPixmap(QSize(20, 20));
+		led_grey = new QPixmap(QSize(20, 20));
+
+		led_green->fill(Qt::transparent);
+		painter_led_green = new QPainter(led_green);
+		QRadialGradient radialGradient_green(8, 8, 12);
+		radialGradient_green.setColorAt(0.0, 0xF0F0F0);
+		radialGradient_green.setColorAt(0.5, 0x30D030);
+		radialGradient_green.setColorAt(1.0, Qt::transparent);
+		painter_led_green->setBackground(Qt::blue);
+		painter_led_green->setBrush(radialGradient_green);
+		painter_led_green->setPen(Qt::gray);
+		painter_led_green->drawEllipse(2, 2, 16, 16);
+
+		led_orange->fill(Qt::transparent);
+		painter_led_orange = new QPainter(led_orange);
+		QRadialGradient radialGradient_orange(8, 8, 12);
+		radialGradient_orange.setColorAt(0.0, 0xF0F0F0);
+		radialGradient_orange.setColorAt(0.5, 0xFF7213);
+		radialGradient_orange.setColorAt(1.0, Qt::transparent);
+		painter_led_orange->setBackground(Qt::blue);
+		painter_led_orange->setBrush(radialGradient_orange);
+		painter_led_orange->setPen(Qt::gray);
+		painter_led_orange->drawEllipse(2, 2, 16, 16);
+
+		led_red->fill(Qt::transparent);
+		painter_led_red = new QPainter(led_red);
+		QRadialGradient radialGradient_red(8, 8, 12);
+		radialGradient_red.setColorAt(0.0, 0xF0F0F0);
+		radialGradient_red.setColorAt(0.5, 0xFF5050);
+		radialGradient_red.setColorAt(1.0, Qt::transparent);
+		painter_led_red->setBackground(Qt::blue);
+		//painter_led_red->setBrush(Qt::red);
+		painter_led_red->setBrush(radialGradient_red);
+		painter_led_red->setPen(Qt::gray);
+		painter_led_red->drawEllipse(2, 2, 16, 16);
+
+		led_grey->fill(Qt::transparent);
+		painter_led_grey = new QPainter(led_grey);
+		QRadialGradient radialGradient_grey(8, 8, 12);
+		radialGradient_grey.setColorAt(0.0, 0xF0F0F0);
+		radialGradient_grey.setColorAt(0.5, 0x909090);
+		radialGradient_grey.setColorAt(1.0, Qt::transparent);
+		painter_led_grey->setBackground(Qt::blue);
+		//painter_led_grey->setBrush(Qt::red);
+		painter_led_grey->setBrush(radialGradient_grey);
+		painter_led_grey->setPen(Qt::gray);
+		painter_led_grey->drawEllipse(2, 2, 16, 16);
+
+		this->setColor(_color_type);
+	}
+
+	void setColor(ColorType _color_type)
+	{ 
+		if (_color_type != this->color_type)
+		{
+			switch (_color_type)
+			{
+			case nocolor: break;
+			case green:
+			{
+				this->color_type = green;
+				this->led_label->setPixmap(*led_green);
+				break;
+			}
+			case orange: {
+				this->color_type = orange;
+				this->led_label->setPixmap(*led_orange);
+				break;
+			}
+			case red: {
+				this->color_type = red;
+				this->led_label->setPixmap(*led_red);
+				break;
+			}
+			case grey:{
+				this->color_type = grey;
+				this->led_label->setPixmap(*led_grey);
+				break;
+			}
+			}
+		}
+	}
+
+private: 
+	QPixmap * led_green;
+	QPixmap * led_orange;
+	QPixmap * led_red;
+	QPixmap * led_grey;
+	QPainter * painter_led_green;
+	QPainter * painter_led_orange;
+	QPainter * painter_led_red;
+	QPainter * painter_led_grey;
+};
 
 
 #endif /* DATASTRUCTURES_H_ */

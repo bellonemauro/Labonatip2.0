@@ -23,7 +23,7 @@
 class protocolChart 
 {
 	// define a type for Fluicell protocol
-	typedef std::vector<fluicell::PPC1api::command> f_protocol; 
+	typedef std::vector<fluicell::PPC1dataStructures::command> f_protocol;
 
 public:
 
