@@ -56,8 +56,6 @@
 #include <fluicell/ppc1api/ppc1api.h>
 
 
-using namespace std;
-
 // new shorter class name = Lab-on-a-tip  -- Loat 
 class Labonatip_GUI : public QMainWindow
 {
@@ -81,7 +79,7 @@ public:
 	*
 	*  @param _version  version to be assigned to the class member m_version
 	*/
-	void setVersion(string _version);
+	void setVersion(std::string _version);
 
 	/**  \brief Set the protocol path in the user folder
 	*

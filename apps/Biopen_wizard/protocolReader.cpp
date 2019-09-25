@@ -19,9 +19,7 @@ void protocolReader::initCustomStrings()
 
 void protocolReader::switchLanguage(QString _translation_file)
 {
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_protocolWriter::switchLanguage " << endl;
+	std::cout << HERE << std::endl;
 
 	qApp->removeTranslator(&m_translator_reader);
 
@@ -33,9 +31,7 @@ void protocolReader::switchLanguage(QString _translation_file)
 
 		initCustomStrings();
 
-		cout << QDate::currentDate().toString().toStdString() << "  "
-			<< QTime::currentTime().toString().toStdString() << "  "
-			<< "Labonatip_protocolWriter::switchLanguage   installTranslator" << endl;
+		std::cout << HERE << " installTranslator" << std::endl;
 	}
 }
 
@@ -179,11 +175,8 @@ bool protocolReader::decodeProtocolCommand(
 	}
 
 	if (data_string.size() < 4) {
-		cerr << QDate::currentDate().toString().toStdString() << "  "
-			<< QTime::currentTime().toString().toStdString()
-			<< "Labonatip_protocolReader::decodeProtocolCommand ::: data_string size error - size = "
-			<< data_string.size()
-			<< " command = " << _command.toStdString() << endl;
+		std::cerr << HERE << " data_string size error - size = " << data_string.size()
+			<< " command = " << _command.toStdString() << std::endl;
 		// something went wrong, discard the line, but a message is out 
 		return false;
 	}

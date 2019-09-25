@@ -22,9 +22,7 @@ void protocolWriter::initCustomStrings()
 
 void protocolWriter::switchLanguage(QString _translation_file)
 {
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_protocolWriter::switchLanguage " << endl;
+	std::cout << HERE << std::endl;
 
 	qApp->removeTranslator(&m_translator_writer);
 
@@ -36,9 +34,7 @@ void protocolWriter::switchLanguage(QString _translation_file)
 
 		initCustomStrings();
 
-		cout << QDate::currentDate().toString().toStdString() << "  "
-			<< QTime::currentTime().toString().toStdString() << "  "
-			<< "Labonatip_protocolWriter::switchLanguage   installTranslator" << endl;
+		std::cout << HERE << "installTranslator" << std::endl;
 	}
 
 }
@@ -65,17 +61,9 @@ bool protocolWriter::saveProtocol(const QTreeWidget *_tree, QString _file_name)
 
 		QList<QStringList> result = visitTree(_tree);
 
-		//cout << QDate::currentDate().toString().toStdString() << "  " 
-		//	 << QTime::currentTime().toString().toStdString() << "  "
-		//	 << "Labonatip_tools::saveProtocol :::: result size " << result.size() << endl;
-
 		for (int i = 0; i < result.size(); i++) {
 			for (int j = 0; j < result.at(i).size(); j++)
 			{
-
-				//cout << QDate::currentDate().toString().toStdString() << "  " 
-				//     << QTime::currentTime().toString().toStdString() << "  "
-				//     << " element " << i << " is " << result.at(i).at(j).toStdString() << endl;
 				stream << result.at(i).at(j) << "#";
 			}
 			stream << endl;

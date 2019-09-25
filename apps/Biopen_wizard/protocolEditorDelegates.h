@@ -33,7 +33,6 @@
 
 #include "dataStructures.h"
 
-using namespace std;
 
 class QModelIndex;
 class QWidget;

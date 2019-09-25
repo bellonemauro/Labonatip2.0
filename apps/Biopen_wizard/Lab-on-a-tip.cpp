@@ -17,10 +17,6 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	ui(new Ui::Labonatip_GUI),
 	m_pipette_active(false),
 	m_ppc1 ( new fluicell::PPC1api() ),
-	//led_green (new QPixmap(QSize(20, 20))),
-	//led_orange (new QPixmap( QSize(20, 20))),
-	//led_red(new QPixmap(QSize(20, 20))),
-	//led_grey (new QPixmap( QSize(20, 20))),
 	m_g_spacer ( new QGroupBox()),
 	m_a_spacer (new QAction()),
 	m_protocol ( new std::vector<fluicell::PPC1dataStructures::command> ),
@@ -80,6 +76,8 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   qerr = new QDebugStream(std::cerr, ui->textEdit_qcerr);
   qout = new QDebugStream(std::cout, ui->textEdit_qcout);
   this->setRedirect(m_GUI_params->enableHistory);
+  qerr->setVerbose(m_pr_params->verboseOut);
+  qout->setVerbose(m_pr_params->verboseOut);
 
   // this removes the visualization settings (but it will be shown in debug)
 #ifndef _DEBUG
@@ -143,52 +141,6 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   poff_bar_led = new QFled(ui->label_led_poff, QFled::ColorType::grey);
   vr_bar_led = new QFled(ui->label_led_vr, QFled::ColorType::grey);
   vs_bar_led = new QFled(ui->label_led_vs, QFled::ColorType::grey);
-  //led_green->fill(Qt::transparent);
-  //painter_led_green = new QPainter(led_green);
-  //QRadialGradient radialGradient_green(8, 8, 12);
-  //radialGradient_green.setColorAt(0.0, 0xF0F0F0);
-  //radialGradient_green.setColorAt(0.5, 0x30D030);
-  //radialGradient_green.setColorAt(1.0, Qt::transparent);
-  //painter_led_green->setBackground(Qt::blue);
-  //painter_led_green->setBrush(radialGradient_green);
-  //painter_led_green->setPen(Qt::gray);
-  //painter_led_green->drawEllipse(2, 2, 16, 16);
-
-  //led_orange->fill(Qt::transparent);
-  //painter_led_orange = new QPainter(led_orange);
-  //QRadialGradient radialGradient_orange(8, 8, 12);
-  //radialGradient_orange.setColorAt(0.0, 0xF0F0F0);
-  //radialGradient_orange.setColorAt(0.5, 0xFF7213);
-  //radialGradient_orange.setColorAt(1.0, Qt::transparent);
-  //painter_led_orange->setBackground(Qt::blue);
-  //painter_led_orange->setBrush(radialGradient_orange);
-  //painter_led_orange->setPen(Qt::gray);
-  //painter_led_orange->drawEllipse(2, 2, 16, 16);
-
-  //led_red->fill(Qt::transparent);
-  //painter_led_red = new QPainter(led_red);
-  //QRadialGradient radialGradient_red(8, 8, 12);
-  //radialGradient_red.setColorAt(0.0, 0xF0F0F0);
-  //radialGradient_red.setColorAt(0.5, 0xFF5050);
-  //radialGradient_red.setColorAt(1.0, Qt::transparent);
-  //painter_led_red->setBackground(Qt::blue);
-  ////painter_led_red->setBrush(Qt::red);
-  //painter_led_red->setBrush(radialGradient_red);
-  //painter_led_red->setPen(Qt::gray);
-  //painter_led_red->drawEllipse(2, 2, 16, 16);
-
-  //led_grey->fill(Qt::transparent);
-  //painter_led_grey = new QPainter(led_grey);
-  //QRadialGradient radialGradient_grey(8, 8, 12);
-  //radialGradient_grey.setColorAt(0.0, 0xF0F0F0);
-  //radialGradient_grey.setColorAt(0.5, 0x909090);
-  //radialGradient_grey.setColorAt(1.0, Qt::transparent);
-  //painter_led_grey->setBackground(Qt::blue);
-  ////painter_led_grey->setBrush(Qt::red);
-  //painter_led_grey->setBrush(radialGradient_grey);
-  //painter_led_grey->setPen(Qt::gray);
-  //painter_led_grey->drawEllipse(2, 2, 16, 16);
-
   this->setStatusLed(false);
 
   ui->status_PPC1_label->setText(m_str_PPC1_status_discon);
@@ -283,11 +235,6 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   ui->groupBox_3->setEnabled(false);
   enableTab2(false);
 
-  /*ui->label_led_pon->setPixmap(*led_green);
-  ui->label_led_poff->setPixmap(*led_green);
-  ui->label_led_vs->setPixmap(*led_green);
-  ui->label_led_vr->setPixmap(*led_green);*/
-
   //init the chart view
   m_chart_view = new protocolChart();
   m_chartView = m_chart_view->getChartView();
@@ -320,13 +267,9 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   // set translation
   QString translation_file = "./languages/eng.qm";
   if (!m_translator.load(translation_file))
-	  cout << QDate::currentDate().toString().toStdString() << "  "
-	  << QTime::currentTime().toString().toStdString() << "  "
-	  << "Labonatip_GUI::Labonatip_GUI ::: translation not loaded" << endl;
+	  std::cout << HERE << " translation not loaded" << std::endl;
   else
-	  cout << QDate::currentDate().toString().toStdString() << "  "
-	  << QTime::currentTime().toString().toStdString() << "  "
-	  << " Translation loaded " << endl;
+	  std::cout << HERE << " Translation loaded " << std::endl;
 
   qApp->installTranslator(&m_translator);
   this->switchLanguage(m_GUI_params->language);
@@ -361,10 +304,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   // all the connects to signal/slots are in this function
   initConnects();
 
-  cout << QDate::currentDate().toString().toStdString() << "  "
-	  << QTime::currentTime().toString().toStdString() << "  "
-	  << "Labonatip_GUI::constructor :::: "
-	  << m_dialog_tools->getUserName().toStdString() << endl;
+  std::cout << HERE << m_dialog_tools->getUserName().toStdString() << std::endl;
 
 }
 
@@ -417,18 +357,13 @@ void Labonatip_GUI::askMessage(const QString &_message)
 	// an event is sent upon dialog close
 	m_macroRunner_thread->askOkEvent(true);
 	
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::askMessage :::: "
-		<< _message.toStdString() << endl;
+	std::cout << HERE << " " << _message.toStdString() << std::endl;
 }
 
 
 void Labonatip_GUI::pumpingOff() {
 
-	cout << QDate::currentDate().toString().toStdString() << "  " 
-		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::pumpingOff    " << endl;
+	std::cout << HERE << std::endl;
 
 	if (m_pipette_active) {
 		m_ppc1->pumpingOff();
@@ -447,9 +382,7 @@ void Labonatip_GUI::pumpingOff() {
 
 void Labonatip_GUI::closeAllValves() {
 
-	cout << QDate::currentDate().toString().toStdString() << "  " 
-		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::closeAllValves   " << endl;
+	std::cout << HERE << std::endl;
 
 	if (m_pipette_active) {
 		if (m_ppc1->isConnected()) m_ppc1->closeAllValves();
@@ -502,9 +435,7 @@ void Labonatip_GUI::setRedirect(bool _enable)
 
 void Labonatip_GUI::switchLanguage(int _value )
 {
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::switchLanguage   " << endl;
+	std::cout << HERE << std::endl;
 	
 	if (_value == m_language_idx) 
 		return; // no translation needed
@@ -555,7 +486,7 @@ void Labonatip_GUI::switchLanguage(int _value )
 		m_writer->switchLanguage(translation_file);
 		m_biopen_updated->switchLanguage(translation_file);
 	}
-	else cout << " translation not loaded " << endl;
+	else std::cout << HERE << " translation not loaded " << std::endl;
 
 }
 
@@ -614,14 +545,12 @@ void Labonatip_GUI::setStatusLed( bool _connect )
 		else {
 			//ui->status_PPC1_led->setPixmap(*led_red);
 			status_bar_led->setColor(QFled::ColorType::red);
-
 		}
 	}
 }
 
 void Labonatip_GUI::initConnects()
 {
-
 	//windows toolbar
 	connect(ui->actionTools, 
 		SIGNAL(triggered()), this, 
@@ -909,15 +838,11 @@ void Labonatip_GUI::initConnects()
 
 	connect(ui->pushButton_loop,
 		SIGNAL(clicked()), this, SLOT(createNewLoop()));
-
-
 }
 
 void Labonatip_GUI::testTTL(bool _state) {
 
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::testTTL   " << _state << endl;
+	std::cout << HERE << "  " << _state << std::endl;
 
 	if (m_ppc1->isConnected())
 	{
@@ -931,7 +856,6 @@ void Labonatip_GUI::testTTL(bool _state) {
 
 void Labonatip_GUI::initCustomStrings()
 {
-
 	//setting custom strings to translate 
 	m_str_areyousure = tr("Are you sure?");
 	m_str_waiting = tr("Waiting ...");
@@ -1111,10 +1035,7 @@ void Labonatip_GUI::appScaling(int _dpiX, int _dpiY)
 
 void Labonatip_GUI::emptyWells()
 {
-
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::emptyWells   " << endl;
+	std::cout << HERE << std::endl;
 
 	// empty the wells 
 	m_pipette_status->rem_vol_well5 = 0.0;
@@ -1133,9 +1054,7 @@ void Labonatip_GUI::emptyWells()
 
 void Labonatip_GUI::refillSolution()
 {
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::refillSolution   " << endl;
+	std::cout << HERE << std::endl;
 
 	// get the latest settings from the tools
 	*m_solutionParams = m_dialog_tools->getSolutionsParams();
@@ -1177,10 +1096,7 @@ void Labonatip_GUI::refillSolution()
 
 void Labonatip_GUI::toolApply()
 {
-
-	cout << QDate::currentDate().toString().toStdString() << "  " 
-		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::toolApply   " << endl;
+	std::cout << HERE << std::endl;
 
 	*m_comSettings = m_dialog_tools->getComSettings();
 	*m_solutionParams = m_dialog_tools->getSolutionsParams();
@@ -1198,6 +1114,8 @@ void Labonatip_GUI::toolApply()
 	m_ppc1->setFilterEnabled(m_pr_params->enableFilter);
 	m_ppc1->setFilterSize(m_pr_params->filterSize);
 	m_ppc1->setVerbose(m_pr_params->verboseOut);
+	qerr->setVerbose(m_pr_params->verboseOut);
+	qout->setVerbose(m_pr_params->verboseOut);
 	m_ext_data_path = m_GUI_params->outFilePath;
 	this->setRedirect(m_GUI_params->enableHistory);
 
@@ -1233,9 +1151,7 @@ void Labonatip_GUI::setEnableMainWindow(bool _enable) {
 
 bool Labonatip_GUI::visualizeProgressMessage(int _seconds, QString _message)
 {
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::visualizeProgressMessage   " << _message.toStdString() << endl;
+	std::cout << HERE << "   " << _message.toStdString() << std::endl;
 
 	QString msg = _message;
 	msg.append("<br>");
@@ -1299,19 +1215,14 @@ bool Labonatip_GUI::visualizeProgressMessage(int _seconds, QString _message)
 
 void Labonatip_GUI::ewst() {
 
-	cout << QDate::currentDate().toString().toStdString() << "  " 
-		 << QTime::currentTime().toString().toStdString() << "  "
-		 << " whats this mode " << endl;
+	std::cout << HERE << std::endl;
 	QWhatsThis::enterWhatsThisMode();
 
 }
 
 void Labonatip_GUI::cleanHistory()
 {
-
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::cleanHistory   " << endl;
+	std::cout << HERE << std::endl;
 
 	// question, will you delete history?
 	QMessageBox::StandardButton resBtn =
@@ -1345,9 +1256,7 @@ void Labonatip_GUI::cleanHistory()
 
 void Labonatip_GUI::about() {
 
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::about   " << endl;
+	std::cout << HERE << std::endl;
 
 	QMessageBox messageBox;
 	QString msg_title = "About Fluicell Lab-on-a-tip ";
@@ -1389,19 +1298,6 @@ void Labonatip_GUI::checkForUpdates() {
 	m_biopen_updated->setWindowFlags(Qt::Window);
 	m_biopen_updated->show();
 }
-/*
-double Labonatip_GUI::protocolDuration(std::vector<fluicell::PPC1api::command> _protocol)
-{
-	// compute the duration of the protocol
-	double duration = 0.0;
-	for (size_t i = 0; i < _protocol.size(); i++) {
-		if (_protocol.at(i).getInstruction() ==
-			pCmd::wait)
-			duration += _protocol.at(i).getValue();
-	}
-
-	return duration;
-}*/
 
 void Labonatip_GUI::enableTab2(bool _enable)
 {
@@ -1435,10 +1331,7 @@ void Labonatip_GUI::enableTab2(bool _enable)
 
 void Labonatip_GUI::closeEvent(QCloseEvent *event) {
 
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::closeEvent   " << endl;
-
+	std::cout << HERE << std::endl;
 
 	QMessageBox::StandardButton resBtn = 
 		QMessageBox::question(this, m_str_information, m_str_areyousure,
@@ -1474,9 +1367,8 @@ void Labonatip_GUI::closeEvent(QCloseEvent *event) {
 
 void Labonatip_GUI::dumpLogs()
 {
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::dumpLogs - version " << m_version.toStdString() << endl;
+	std::cout << HERE 
+		<< " - version " << m_version.toStdString() << std::endl;
 
 	// save log data, messages from the console ect. 
 	QString cout_file_name = m_ext_data_path;
@@ -1520,14 +1412,12 @@ void Labonatip_GUI::setSettingsUserPath(QString _path) {
 	m_settings_path = _path;
 	QString settings_filename = _path + "settings.ini";
 	if (!m_dialog_tools->setLoadSettingsFileName(settings_filename))
-		cerr << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::setSettingsUserPath  error in loading settings file " << endl;
+		std::cerr << HERE << " error in loading settings file " << std::endl;
 
 	toolApply();
 }
 
-void Labonatip_GUI::setVersion(string _version) {
+void Labonatip_GUI::setVersion(std::string _version) {
 	// set the version in the main window
 	m_version = QString::fromStdString(_version);
 	this->setWindowTitle(QString("Lab-on-a-tip v.") + m_version);
@@ -1577,12 +1467,6 @@ Labonatip_GUI::~Labonatip_GUI()
   delete poff_bar_led;
   delete vs_bar_led;
   delete vr_bar_led;
-  //delete painter_led_green;
-  //delete led_green;
-  //delete painter_led_orange;
-  //delete led_orange;
-  //delete painter_led_red;
-  //delete led_red;
   delete m_g_spacer;
   delete m_a_spacer; 
   delete m_chart_view;

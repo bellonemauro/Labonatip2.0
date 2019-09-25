@@ -25,13 +25,9 @@
 #include <QtNetwork>
 #include <QXmlStreamReader>
 
-
-
 QT_BEGIN_NAMESPACE
 class QSslError;
 QT_END_NAMESPACE
-
-using namespace std;
 
 /** \brief Updater class for online updates of biopen wizard
 *

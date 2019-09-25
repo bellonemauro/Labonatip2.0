@@ -16,9 +16,7 @@ Labonatip_macroWizard::Labonatip_macroWizard(QWidget *parent)
 	QDialog(parent),
 	m_protocol_name("")
 {
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_macroWizard::Labonatip_macroWizard    " << endl;
+	std::cout << HERE << std::endl;
 
 	ui_wizard->setupUi(this);
 
@@ -106,9 +104,7 @@ Labonatip_macroWizard::Labonatip_macroWizard(QWidget *parent)
 
 void Labonatip_macroWizard::next_page1to2()
 {
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_macroWizard::next_page1to2    " << endl;
+	std::cout << HERE << std::endl;
 
 	m_protocol_name = ui_wizard->lineEdit_protocol_name->text();
     
@@ -120,9 +116,7 @@ void Labonatip_macroWizard::next_page1to2()
 
 void Labonatip_macroWizard::next_page2to()
 {
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_macroWizard::next_page2to    " << endl;
+	std::cout << HERE << std::endl;
 
 	if (ui_wizard->radioButton_loadSetting_1->isChecked())
 	{
@@ -155,11 +149,7 @@ void Labonatip_macroWizard::next_page2to()
 
 void Labonatip_macroWizard::on_next4_clicked()
 {
-
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_macroWizard::on_next4_clicked    " << endl;
-
+	std::cout << HERE << std::endl;
 
 	if (ui_wizard->radioButton_init_stand->isChecked()) {
 		emit loadStdProtocol();
@@ -185,21 +175,14 @@ void Labonatip_macroWizard::on_next4_clicked()
 
 void Labonatip_macroWizard::on_next5_clicked()
 {
-
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_macroWizard::on_next5_clicked    " << endl;
-
-
+	std::cout << HERE << std::endl;
 
 }
 
 
 void Labonatip_macroWizard::next()
 {
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_macroWizard::next    " << endl;
+	std::cout << HERE << std::endl;
 
 	int current_idx = ui_wizard->stackedWidget->currentIndex() + 1;
 	ui_wizard->stackedWidget->setCurrentIndex(current_idx);
@@ -209,9 +192,7 @@ void Labonatip_macroWizard::next()
 
 void Labonatip_macroWizard::back()
 {
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_macroWizard::back    " << endl;
+	std::cout << HERE << std::endl;
 
 	int current_idx = ui_wizard->stackedWidget->currentIndex() - 1;
 	ui_wizard->stackedWidget->setCurrentIndex(current_idx);
@@ -222,10 +203,7 @@ void Labonatip_macroWizard::back()
 
 bool Labonatip_macroWizard::save()
 {
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_macroWizard::save    " << endl;
-
+	std::cout << HERE << std::endl;
 
 	if (ui_wizard->radioButton_end_sleep->isChecked()) {
 		emit loadSleepProtocol();
@@ -254,19 +232,15 @@ bool Labonatip_macroWizard::save()
 
 void Labonatip_macroWizard::exit()
 {
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_macroWizard::exit    " << endl;
+	std::cout << HERE << std::endl;
 
 	//emit ok();  // emit the signal ??
 	this->close();
 }
 
 void Labonatip_macroWizard::closeEvent(QCloseEvent *event) {
-	
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_macroWizard::closeEvent    " << endl;
+
+	std::cout << HERE << std::endl;
 
 	QMessageBox::StandardButton resBtn =
 		QMessageBox::question(this, "Lab-on-a-tip",
@@ -367,9 +341,7 @@ void Labonatip_macroWizard::setBanner(int _current_index)
 
 void Labonatip_macroWizard::switchLanguage(QString _translation_file)
 {
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_macroWizard::switchLanguage " << endl;
+	std::cout << HERE << std::endl;
 
 	qApp->removeTranslator(&m_translator_wizard);
 
@@ -382,9 +354,7 @@ void Labonatip_macroWizard::switchLanguage(QString _translation_file)
 		//m_str_warning = QApplication::translate("Labonatip_GUI", qPrintable(m_str_warning));
 		
 
-		cout << QDate::currentDate().toString().toStdString() << "  "
-			<< QTime::currentTime().toString().toStdString() << "  "
-			<< "Labonatip_macroWizard::switchLanguage   installTranslator" << endl;
+		std::cout << HERE << "  installTranslator" << std::endl;
 	}
 
 }

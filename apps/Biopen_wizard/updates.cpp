@@ -894,7 +894,7 @@ void Labonatip_GUI::updateWaste()
 	}
 
 	// only the minimum of the remaining solution is shown and important
-	vector<double> v1;
+	std::vector<double> v1;
 	v1.push_back(m_solutionParams->vol_well5 - m_pipette_status->rem_vol_well5);
 	v1.push_back(m_solutionParams->vol_well6 - m_pipette_status->rem_vol_well6);
 	v1.push_back(m_solutionParams->vol_well7 - m_pipette_status->rem_vol_well7);
@@ -947,9 +947,7 @@ void Labonatip_GUI::updateWaste()
 		break;
 	}
 	default: {
-		cerr << QDate::currentDate().toString().toStdString() << "  "
-			<< QTime::currentTime().toString().toStdString() << "  "
-			<< "Labonatip_GUI::updateWaste  error --- no max found " << endl;
+		std::cerr << HERE << " error --- no max found " << std::endl;
 	}
 	}
 

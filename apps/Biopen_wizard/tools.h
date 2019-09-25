@@ -27,8 +27,6 @@
 
 #include <dataStructures.h>
 
-using namespace std;
-
 
 /** \brief Labonatip_tools class for settings
 *

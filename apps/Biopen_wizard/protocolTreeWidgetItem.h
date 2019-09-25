@@ -33,9 +33,6 @@
 #include "protocolEditorDelegates.h"
 #include "dataStructures.h"
 
-using namespace std;
-
-
 
 /* Protocol widget item, this inherit the QTreeWidget methods
    

@@ -12,9 +12,7 @@
 
 void Labonatip_GUI::loadPressed()
 {
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::loadPressed   " << endl;
+	std::cout << HERE << std::endl;
 
 	if (ui->stackedWidget_main->currentIndex() == 0)
 	{
@@ -29,10 +27,7 @@ void Labonatip_GUI::loadPressed()
 bool Labonatip_GUI::loadProtocol()
 {
 
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::loadProtocol :::  "
-		<< m_protocol_path.toStdString() << "  " << endl;
+	std::cout << HERE << m_protocol_path.toStdString() << std::endl;
 
 	QString file_name = QFileDialog::getOpenFileName(
 		this, m_str_save_protocol, m_protocol_path,  // dialog to open files
@@ -56,9 +51,7 @@ bool Labonatip_GUI::loadProtocol()
 
 void Labonatip_GUI::openSettingsFile() {  // open setting file
 
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::openFile    " << endl;
+	std::cout << HERE << std::endl;
 
 	QString _path = QFileDialog::getOpenFileName(this, m_str_load_profile, m_settings_path,  // dialog to open files
 		"Profile file (*.ini);; All Files(*.*)", 0);
@@ -78,9 +71,7 @@ void Labonatip_GUI::openSettingsFile() {  // open setting file
 
 void Labonatip_GUI::savePressed()
 {
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::savePressed   " << endl;
+	std::cout << HERE << std::endl;
 
 	if (ui->stackedWidget_main->currentIndex() == 0)
 	{
@@ -95,9 +86,7 @@ void Labonatip_GUI::savePressed()
 
 bool Labonatip_GUI::saveProtocol()
 {
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_protocol_editor::saveProtocol    " << endl;
+	std::cout << HERE << std::endl;
 
     // if we are working with a new protocol, saveAs	
 	if (m_current_protocol_file_name.isEmpty())
@@ -135,12 +124,8 @@ bool Labonatip_GUI::saveProtocol()
 
 bool Labonatip_GUI::saveProtocolAs()
 {
-	QApplication::setOverrideCursor(Qt::WaitCursor);    
-
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_protocol_editor::saveProtocolAs    " << endl;
-
+	std::cout << HERE << std::endl;
+	QApplication::setOverrideCursor(Qt::WaitCursor);
 	QString file_name = QFileDialog::getSaveFileName(this,
 		m_str_save_protocol, m_protocol_path,  // dialog to open files
 		"Lab-on-a-tip protocol File (*.prt);; All Files(*.*)", 0);
@@ -160,9 +145,7 @@ bool Labonatip_GUI::saveProtocolAs()
 
 void Labonatip_GUI::saveSettingsFile() {
 
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::saveFile    " << endl;
+	std::cout << HERE << std::endl;
 
 	QString _path = QFileDialog::getSaveFileName(this, 
 		m_str_save_profile, m_settings_path,  // dialog to open files
@@ -184,9 +167,7 @@ void Labonatip_GUI::saveSettingsFile() {
 
 void Labonatip_GUI::showToolsDialog() {
 
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::showToolsDialog    " << endl;
+	std::cout << HERE << std::endl;
 
 	m_dialog_tools->setParent(this);
 	m_dialog_tools->setWindowFlags(Qt::Window);
@@ -197,9 +178,7 @@ void Labonatip_GUI::showToolsDialog() {
 
 void Labonatip_GUI::showProtocolEditor() { 
 
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::showProtocolEditor    " << endl;
+	std::cout << HERE << std::endl;
 
 	// if we are in the commander, we visualize the editor
 	if (ui->stackedWidget_main->currentIndex() == 0) {
@@ -239,10 +218,7 @@ void Labonatip_GUI::showProtocolEditor() {
 
 void Labonatip_GUI::simulationOnly()
 {
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::simulationOnly    " 
-		<< ui->actionSimulation->isChecked() << endl;
+	std::cout << HERE << "  " << ui->actionSimulation->isChecked() << std::endl;
 
 	this->stopSolutionFlow();
 
@@ -261,9 +237,7 @@ void Labonatip_GUI::simulationOnly()
 
 void Labonatip_GUI::shutdown() {
 
-	cout << QDate::currentDate().toString().toStdString() << "  " 
-		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::shutdown   " << endl;
+	std::cout << HERE << std::endl;
 
 	setEnableMainWindow(false);
 	QMessageBox::StandardButton resBtn = QMessageBox::question(this, m_str_warning,
@@ -312,12 +286,7 @@ void Labonatip_GUI::shutdown() {
 
 bool Labonatip_GUI::disCon(bool _connect)
 {
-
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::disCon    " << endl;
-
-	
+	std::cout << HERE << std::endl;
 
 	if (m_simulationOnly) {
 		QMessageBox::information(this, 
@@ -480,30 +449,22 @@ bool Labonatip_GUI::disCon(bool _connect)
 		} // end disconnect
 	} // end try
 	catch (serial::IOException &e) 	{
-		cerr << QDate::currentDate().toString().toStdString() << "  "
-			<< QTime::currentTime().toString().toStdString() << "  "
-			<< " Labonatip_GUI::disCon ::: IOException : " << e.what() << endl;
+		std::cerr << HERE << " IOException : " << e.what() << std::endl;
 		//m_PPC1_serial->close();
 		return false;
 	}
 	catch (serial::PortNotOpenedException &e)	{
-		cerr << QDate::currentDate().toString().toStdString() << "  "
-			<< QTime::currentTime().toString().toStdString() << "  "
-			<< " Labonatip_GUI::disCon ::: PortNotOpenedException : " << e.what() << endl;
+		std::cerr << HERE << " PortNotOpenedException : " << e.what() << std::endl;
 		//m_PPC1_serial->close();
 		return false;
 	}
 	catch (serial::SerialException &e)	{
-		cerr << QDate::currentDate().toString().toStdString() << "  "
-			<< QTime::currentTime().toString().toStdString() << "  "
-			<< " Labonatip_GUI::disCon ::: SerialException : " << e.what() << endl;
+		std::cerr << HERE << " SerialException : " << e.what() << std::endl;
 		//m_PPC1_serial->close();
 		return false;
 	}
-	catch (exception &e) {
-		cerr << QDate::currentDate().toString().toStdString() << "  "
-			<< QTime::currentTime().toString().toStdString() << "  "
-			<< " Labonatip_GUI::disCon ::: Unhandled Exception: " << e.what() << endl;
+	catch (std::exception &e) {
+		std::cerr << HERE << " Unhandled Exception: " << e.what() << std::endl;
 		//m_PPC1_serial->close();
 		return false;
 	}
@@ -512,9 +473,7 @@ bool Labonatip_GUI::disCon(bool _connect)
 
 void Labonatip_GUI::reboot() {
 
-	cout << QDate::currentDate().toString().toStdString() << "  " 
-		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::reboot    " << endl;
+	std::cout << HERE << std::endl;
 
 	QApplication::setOverrideCursor(Qt::WaitCursor);
 	setEnableMainWindow(false);
@@ -557,9 +516,7 @@ void Labonatip_GUI::reboot() {
 
 void Labonatip_GUI::closeOpenDockTools() {
 
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::closeOpenDockTools   " << endl;
+	std::cout << HERE << std::endl;
 
 	// get the screen resolution of the current screen
 	// so we can resize the application in case of small screens

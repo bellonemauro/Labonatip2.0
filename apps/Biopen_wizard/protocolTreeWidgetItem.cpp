@@ -18,9 +18,7 @@ protocolTreeWidgetItem::protocolTreeWidgetItem(protocolTreeWidgetItem *_parent) 
 	m_cmd_value_c (3), m_cmd_msg_c (4), m_cmd_level_c (5)
 {
 
-	//cout << QDate::currentDate().toString().toStdString() << "  "
-	//	<< QTime::currentTime().toString().toStdString() << "  "
-	//	<< "protocolTreeWidgetItem::protocolTreeWidgetItem   " << endl;
+	//	std::cout << HERE << std::endl;
 
 	QFont font;
 	font.setBold(true);
@@ -417,11 +415,7 @@ void protocolTreeWidgetItem::setElements(int _cmd_ind, int _value, bool _show_ms
 
 void protocolTreeWidgetItem::setData(int column, int role, const QVariant & value)
 {
-
-
-	//cout << QDate::currentDate().toString().toStdString() << "  "
-	//	<< QTime::currentTime().toString().toStdString() << "  "
-	//	<< "protocolTreeWidgetItem::setData   " 
+	//cout << HERE 
 	//	<< " previous " << this->text(column).toStdString() 
 	//	<< " new value " << value.toString().toStdString() << endl;
 

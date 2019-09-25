@@ -34,9 +34,7 @@ protocolChart::protocolChart(  ):
 	m_top_sol_value (48.0),
 	m_time_line_thickness(1.0)
 {
-	cout << QDate::currentDate().toString().toStdString() << "  " 
-		 << QTime::currentTime().toString().toStdString() << "  "
-		 << __FUNCTION__ << endl; //<< " Labonatip_chart::Labonatip_chart initialization " << endl;
+	std::cout << HERE << std::endl;
 
 	m_pen_s1 = new QPen();
 	m_pen_s2 = new QPen();
@@ -272,9 +270,7 @@ void protocolChart::updateChartTime(int _time_value)
 
 void protocolChart::updateChartProtocol(f_protocol *_protocol)
 {
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_chart::updateChartMacro   " << endl;
+	std::cout << HERE << std::endl;
 	
 	if (_protocol == NULL) return;      // if is null we do nothing
 
@@ -293,7 +289,6 @@ void protocolChart::updateChartProtocol(f_protocol *_protocol)
 
 	double current_time = 0.0; //!> starts from zero and will be updated according to the duration of the macro
 	
-
 	// append zero
 	m_series_Pon->append(current_time,
 		min_series_pon);  // in [80; 90]
@@ -334,9 +329,8 @@ void protocolChart::updateChartProtocol(f_protocol *_protocol)
 			total_duration += _protocol->at(i).getValue();
 	}
 
-	cout << QDate::currentDate().toString().toStdString() << "  " 
-		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::updateChartMacro ::: the complete duration is : " << total_duration << endl;
+	std::cout << HERE
+		 << " the complete duration is : " << total_duration << std::endl;
 
 	
 	for (size_t i = 0; i < _protocol->size(); i++) {

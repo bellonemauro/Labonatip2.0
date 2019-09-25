@@ -7,7 +7,6 @@
 *  | Released under GNU GPL License.                                           |
 *  +---------------------------------------------------------------------------+ */
 
-
 #ifndef Labonatip_macroWizard_H_
 #define Labonatip_macroWizard_H_
 
@@ -22,8 +21,6 @@
 #include <QDateTime>
 
 #include "dataStructures.h"
-
-using namespace std;
 
 class Labonatip_macroWizard : public QDialog
 {

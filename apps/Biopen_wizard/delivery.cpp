@@ -13,9 +13,7 @@ void Labonatip_GUI::zoneSizePlus()
 {
 	// only Pon + percentage
 	// V_recirc - percentage
-	cout << QDate::currentDate().toString().toStdString() << "  " 
-		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::zoneSizePlus    " << endl;
+	std::cout << HERE << std::endl;
 
 	// check for out of bound percentage values before doing any action
 	if (m_ds_perc < 0 || m_ds_perc > MAX_ZONE_SIZE_PERC) {
@@ -97,10 +95,7 @@ void Labonatip_GUI::zoneSizeMinus()
 {
 	// only Pon - percentage
 	// V_recirc + percentage
-
-	cout << QDate::currentDate().toString().toStdString() << "  " 
-		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::zoneSizeMinus    " << endl;
+	std::cout << HERE << std::endl;
 
 	// check for out of bound percentage values before doing any action
 	if ( m_ds_perc < MIN_ZONE_SIZE_PERC) {
@@ -181,10 +176,7 @@ void Labonatip_GUI::flowSpeedPlus()
 	// +percentage to all values
 	// Poff does not read too low values, 
 	// if 5% different is less than 5 mbar .... start -> start + 5 --> start - 5%
-
-	cout << QDate::currentDate().toString().toStdString() << "  " 
-		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::flowSpeedPlus    " << endl;
+	std::cout << HERE << std::endl;
 
 	// check for out of bound values
 	if (m_fs_perc > MAX_FLOW_SPEED_PERC ) {
@@ -256,10 +248,7 @@ void Labonatip_GUI::flowSpeedPlus()
 
 void Labonatip_GUI::flowSpeedMinus() {
 
-
-	cout << QDate::currentDate().toString().toStdString() << "  " 
-		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::flowSpeedMinus    " << endl;
+	std::cout << HERE << std::endl;
 
 	// check for out of bound values
 	if (m_fs_perc < MIN_FLOW_SPEED_PERC) {
@@ -328,9 +317,7 @@ void Labonatip_GUI::flowSpeedMinus() {
 
 void Labonatip_GUI::vacuumPlus() {
 
-	cout << QDate::currentDate().toString().toStdString() << "  " 
-		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::vacuumPlus    " << endl;
+	std::cout << HERE << std::endl;
 
 	// +percentage to v_recirculation
 	if (m_pipette_active) {
@@ -378,9 +365,7 @@ void Labonatip_GUI::vacuumPlus() {
 
 void Labonatip_GUI::vacuumMinus() {
 
-	cout << QDate::currentDate().toString().toStdString() << "  " 
-		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::vacuumMinus    " << endl;
+	std::cout << HERE << std::endl;
 
 	// -x% v_recirculation
 	if (m_pipette_active) {
@@ -430,9 +415,7 @@ void Labonatip_GUI::vacuumMinus() {
 
 void Labonatip_GUI::setZoneSizePercentage(double _perc)
 {
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::setZoneSizePercentage    " << _perc << endl;
+	std::cout << HERE << "  " << _perc << std::endl;
 
 	if (m_simulationOnly) {
 		
@@ -462,9 +445,7 @@ void Labonatip_GUI::setZoneSizePercentage(double _perc)
 
 void Labonatip_GUI::changeZoneSizePercentageBy(double _perc)
 {
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::changeZoneSizePercentageBy    " << _perc << endl;
+	std::cout << HERE << "  " << _perc << std::endl;
 
 	if (m_simulationOnly) {
 
@@ -497,9 +478,7 @@ void Labonatip_GUI::changeZoneSizePercentageBy(double _perc)
 
 void Labonatip_GUI::setFlowspeedPercentage(double _perc)
 {
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::setFlowSpeed    " << _perc << endl;
+	std::cout << HERE << "  " << _perc << std::endl;
 
 	if (m_simulationOnly) {
 		if (_perc < MIN_FLOW_SPEED_PERC || _perc > MAX_FLOW_SPEED_PERC) {
@@ -559,9 +538,7 @@ void Labonatip_GUI::changeFlowspeedPercentageBy(double _perc)
 
 void Labonatip_GUI::setVacuumPercentage(double _perc)
 {
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::setVacuumPercentage    " << _perc << endl;
+	std::cout << HERE << "  " << _perc << std::endl;
 
 	if (m_simulationOnly) {
 
@@ -581,9 +558,7 @@ void Labonatip_GUI::setVacuumPercentage(double _perc)
 
 void Labonatip_GUI::changeVacuumPercentageBy(double _perc)
 {
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::changeVacuumPercentageBy    " << _perc << endl;
+	std::cout << HERE << "  " << _perc << std::endl;
 
 	if (m_simulationOnly) {
 

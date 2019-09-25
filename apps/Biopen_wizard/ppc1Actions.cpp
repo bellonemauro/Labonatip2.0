@@ -12,9 +12,7 @@
 
 void Labonatip_GUI::newTip()
 {
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		 << QTime::currentTime().toString().toStdString() << "  "
-		 << __FUNCTION__ << endl; //<< "Labonatip_GUI::newTip    " << endl;
+	std::cout << HERE << std::endl;
 
 	setEnableMainWindow(false);
 
@@ -115,9 +113,7 @@ void Labonatip_GUI::newTip()
 
 void Labonatip_GUI::runProtocol() { 
 
-	cout << QDate::currentDate().toString().toStdString() << "  " 
-		 << QTime::currentTime().toString().toStdString() << "  "
-		 << __FUNCTION__ << endl; //<< "Labonatip_GUI::runProtocol    " << endl;
+	std::cout << HERE << std::endl;
 
 	if (!m_macroRunner_thread->isRunning()) {
 
@@ -197,9 +193,7 @@ void Labonatip_GUI::runProtocol() {
 		// if ok was pressed
 		m_ppc1->setVerbose(false);
 		m_macroRunner_thread->setProtocol(m_protocol);
-		cout << QDate::currentDate().toString().toStdString() << "  " 
-			 << QTime::currentTime().toString().toStdString() << "  "
-			 << __FUNCTION__ << endl; //<< "Labonatip_GUI::runProtocol " <<   msg.toStdString() << endl;
+		std::cout << HERE << "  " << msg.toStdString() << endl;
 
 		m_macroRunner_thread->setSimulationFlag(m_simulationOnly);
 		connect(m_macroRunner_thread,
@@ -345,9 +339,7 @@ void Labonatip_GUI::runProtocol() {
 
 void Labonatip_GUI::protocolFinished(const QString &_result) {
 
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		 << QTime::currentTime().toString().toStdString() << "  "
-		 << __FUNCTION__ << endl; //<< "Labonatip_GUI::protocolFinished    " << endl;
+	std::cout << HERE << std::endl;
 
 	QMessageBox::information(this, m_str_information, _result);
 
@@ -488,9 +480,7 @@ void Labonatip_GUI::operationalMode() {
 	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
 	setEnableMainWindow(false);
 
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< __FUNCTION__ << endl; // << "Labonatip_GUI::operationalMode    " << endl;
+	std::cout << HERE << std::endl;
 
 	//vf0
 	closeAllValves();
@@ -574,9 +564,7 @@ void Labonatip_GUI::stopSolutionFlow()
 
 void Labonatip_GUI::standby()
 {
-	cout << QDate::currentDate().toString().toStdString() << "  " 
-		 << QTime::currentTime().toString().toStdString() << "  "
-		 << __FUNCTION__ << endl; //<< "Labonatip_GUI::standby   " << endl;
+	std::cout << HERE << std::endl;
 
 	setEnableMainWindow(false);
 

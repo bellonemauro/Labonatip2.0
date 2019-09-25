@@ -84,9 +84,7 @@ void Labonatip_GUI::colSolution4Changed(const int _r, const int _g, const int _b
 
 void Labonatip_GUI::pushSolution1() 
 {
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::pushSolution1    " << endl;
+	std::cout << HERE << std::endl;
 
 	if (!ui->pushButton_solution1->isChecked()) { // this allows to stop the flow when active
 		m_timer_solution = m_time_multipilcator;
@@ -159,9 +157,7 @@ void Labonatip_GUI::pushSolution1()
 
 void Labonatip_GUI::pushSolution2() {
 
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::pushSolution2   " << endl;
+	std::cout << HERE << std::endl;
 
 	if (!ui->pushButton_solution2->isChecked()) {
 		m_timer_solution = m_time_multipilcator;
@@ -230,10 +226,7 @@ void Labonatip_GUI::pushSolution2() {
 
 void Labonatip_GUI::pushSolution3() {
 
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::pushSolution3   " << endl;
-
+	std::cout << HERE << std::endl;
 
 	if (!ui->pushButton_solution3->isChecked()) {
 		m_timer_solution = m_time_multipilcator;
@@ -304,10 +297,7 @@ void Labonatip_GUI::pushSolution3() {
 
 void Labonatip_GUI::pushSolution4() {
 
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::pushSolution4   " << endl;
-
+	std::cout << HERE << std::endl;
 
 	if (!ui->pushButton_solution4->isChecked()) {
 		m_timer_solution = m_time_multipilcator;
@@ -420,9 +410,8 @@ void Labonatip_GUI::updateTimingSliders()
 		break;
 	}
 	default: {
-		cerr << QDate::currentDate().toString().toStdString() << "  "
-			<< QTime::currentTime().toString().toStdString() << "  "
-			<< "Labonatip_GUI::updateTimingSliders  error --- no valid m_flowing_solution value " << endl;
+		std::cerr << HERE 
+			<< " error --- no valid m_flowing_solution value " << std::endl;
 		m_update_flowing_sliders->stop();  // stop the timer to make sure the function is not recalled if the solutions are not flowing
 		return;
 	}

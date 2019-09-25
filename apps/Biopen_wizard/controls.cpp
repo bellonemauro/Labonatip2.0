@@ -15,11 +15,8 @@ void Labonatip_GUI::updatePonSetPoint(double _pon_set_point)
 {
 	// update the set point
 	m_pipette_status->pon_set_point = _pon_set_point;
-	cout << QDate::currentDate().toString().toStdString() << "  " 
-		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::updatePonSetPoint   :::: set value  =  " 
-		 << _pon_set_point 
-		 << " sensor value = " << m_ppc1->getPonReading() << endl;
+	std::cout << HERE << " :::: set value  =  " << _pon_set_point 
+		 << " sensor value = " << m_ppc1->getPonReading() << std::endl;
 
 	// avoid out of range values
     if (std::isnan(_pon_set_point))
@@ -56,11 +53,8 @@ void Labonatip_GUI::updatePoffSetPoint(double _poff_set_point)
 {	
 	// update the set point
 	m_pipette_status->poff_set_point = _poff_set_point;
-	cout << QDate::currentDate().toString().toStdString() << "  " 
-		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::updatePoffSetPoint   :::: set value  =  " 
-		 << _poff_set_point
-		  << " sensor value = " << m_ppc1->getPoffReading() << endl;
+	std::cout << HERE << " set value  =  " << _poff_set_point
+		  << " sensor value = " << m_ppc1->getPoffReading() << std::endl;
 
 	// avoid out of range values
     if (std::isnan(_poff_set_point))
@@ -95,11 +89,8 @@ void Labonatip_GUI::updateVrecircSetPoint(double _v_recirc_set_point)
 {
 	// update the set point
 	m_pipette_status->v_recirc_set_point = _v_recirc_set_point;
-	cout << QDate::currentDate().toString().toStdString() << "  " 
-		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::updateVrecircSetPoint   :::: set value  =  " 
-		 << _v_recirc_set_point
-		 << " sensor value = " << m_ppc1->getVrecircReading() << endl;
+	std::cout << HERE  << " set value  =  " << _v_recirc_set_point
+		 << " sensor value = " << m_ppc1->getVrecircReading() << std::endl;
 
 	// avoid out of range values
     if (std::isnan(_v_recirc_set_point))
@@ -133,11 +124,8 @@ void Labonatip_GUI::updateVswitchSetPoint(double _v_switch_set_point)
 {
 	// update the set point
 	m_pipette_status->v_switch_set_point = _v_switch_set_point;
-	cout << QDate::currentDate().toString().toStdString() << "  " 
-		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::updateVswitchSetPoint   :::: set value  =  " 
-		 << _v_switch_set_point
-		 << " sensor value = " << m_ppc1->getVswitchReading() << endl;
+	std::cout << HERE << " set value  =  " << _v_switch_set_point
+		 << " sensor value = " << m_ppc1->getVswitchReading() << std::endl;
 
 	// avoid out of range values
     if (std::isnan(_v_switch_set_point))
@@ -146,7 +134,6 @@ void Labonatip_GUI::updateVswitchSetPoint(double _v_switch_set_point)
 		return;
 	if (-_v_switch_set_point > MAX_CHAN_B) 
 		return;
-
 
 	ui->label_switchPressure->setText(QString(
 		QString::number(-int(_v_switch_set_point)) + " mbar    "));
@@ -170,9 +157,7 @@ void Labonatip_GUI::updateVswitchSetPoint(double _v_switch_set_point)
 
 
 void Labonatip_GUI::pressurePonDown() {
-	cout << QDate::currentDate().toString().toStdString() << "  " 
-		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::pressurePonDown    " << endl;
+	std::cout << HERE << std::endl;
 
 	if (m_pipette_status->pon_set_point > m_pr_params->p_on_min)  // check if in range
 		// update the set point
@@ -180,9 +165,7 @@ void Labonatip_GUI::pressurePonDown() {
 }
 
 void Labonatip_GUI::pressurePonUp() {
-	cout << QDate::currentDate().toString().toStdString() << "  " 
-		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::pressurePonUp    " << endl;
+	std::cout << HERE << std::endl;
 
 	if (m_pipette_status->pon_set_point < m_pr_params->p_on_max)  // check if in range
 		// update the set point
@@ -190,54 +173,42 @@ void Labonatip_GUI::pressurePonUp() {
 }
 
 void Labonatip_GUI::pressurePoffDown() {
-	cout << QDate::currentDate().toString().toStdString() << "  " 
-		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::pressurePoffDown    " << endl;
+	std::cout << HERE << std::endl;
 
 	if (m_pipette_status->poff_set_point > m_pr_params->p_off_min)  // check if in range
 		updatePoffSetPoint(m_pipette_status->poff_set_point - 1.0);
 }
 
 void Labonatip_GUI::pressurePoffUp() {
-	cout << QDate::currentDate().toString().toStdString() << "  " 
-		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::pressurePoffUp    " << endl;
+	std::cout << HERE << std::endl;
 
 	if (m_pipette_status->poff_set_point < m_pr_params->p_off_max)  // check if in range
 		updatePoffSetPoint(m_pipette_status->poff_set_point + 1.0);
 }
 
 void Labonatip_GUI::pressButtonPressed_switchDown() {
-	cout << QDate::currentDate().toString().toStdString() << "  " 
-		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::pressButtonPressed_switchDown    " << endl;
+	std::cout << HERE << std::endl;
 
 	if (m_pipette_status->v_switch_set_point > m_pr_params->v_switch_max)  // check if in range
 		updateVswitchSetPoint(m_pipette_status->v_switch_set_point - 1.0);
 }
 
 void Labonatip_GUI::pressButtonPressed_switchUp() {
-	cout << QDate::currentDate().toString().toStdString() << "  " 
-		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::pressButtonPressed_switchUp    " << endl;
+	std::cout << HERE << std::endl;
 
 	if (m_pipette_status->v_switch_set_point < -m_pr_params->v_switch_min)  // check if in range
 		updateVswitchSetPoint(m_pipette_status->v_switch_set_point + 1.0);
 }
 
 void Labonatip_GUI::recirculationDown() {
-	cout << QDate::currentDate().toString().toStdString() << "  " 
-		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::recirculationDown    " << endl;
+	std::cout << HERE << std::endl;
 
 	if (m_pipette_status->v_recirc_set_point > m_pr_params->v_recirc_max)  // check if in range
 		updateVrecircSetPoint(m_pipette_status->v_recirc_set_point - 1.0);
 }
 
 void Labonatip_GUI::recirculationUp() {
-	cout << QDate::currentDate().toString().toStdString() << "  " 
-		 << QTime::currentTime().toString().toStdString() << "  "
-		 << "Labonatip_GUI::recirculationUp    " << endl;
+	std::cout << HERE << std::endl;
 
 	if (m_pipette_status->v_recirc_set_point < -m_pr_params->v_recirc_min)  // check if in range
 		updateVrecircSetPoint(m_pipette_status->v_recirc_set_point + 1.0);

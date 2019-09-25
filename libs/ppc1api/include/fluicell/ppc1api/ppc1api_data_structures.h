@@ -34,9 +34,6 @@
 #include <numeric>
 
 
-
-using namespace std;
-
 /**  \brief Define the Fluicell namespace, all the classes will be in here
   *  
   **/
@@ -185,8 +182,8 @@ namespace fluicell { namespace PPC1dataStructures
 
 					if (m_filter_enabled) {
 						// TODO: enable lowPassFiltering to improve efficiency but mantain same behavior
-						this->sensor_reading = movingAveragefilter(m_reading_vec, _sensor_reading);
-						//this->sensor_reading = lowPassFilter(this->sensor_reading, _sensor_reading);
+						//this->sensor_reading = movingAveragefilter(m_reading_vec, _sensor_reading);
+						this->sensor_reading = lowPassFilter(this->sensor_reading, _sensor_reading);
 					}
 					else {
 						this->sensor_reading = _sensor_reading;
@@ -230,7 +227,7 @@ namespace fluicell { namespace PPC1dataStructures
 				*   \return the filtered value
 				*
 				**/
-				double movingAveragefilter(vector<double> &_reading_vec, double _sensor_reading)
+				double movingAveragefilter(std::vector<double> &_reading_vec, double _sensor_reading)
 				{
 					if (_reading_vec.size() < m_filter_size) {
 						_reading_vec.push_back(_sensor_reading);
@@ -251,7 +248,7 @@ namespace fluicell { namespace PPC1dataStructures
 				bool m_filter_enabled;          //!< class member to enable to filtering in the data reading
 				unsigned int m_filter_size;     //!< class member to set the filter size
 				double m_filter_alpha;          //!< alpha for the low pass filter
-				vector<double> m_reading_vec;   //!< internal vector used for the filter to save the history
+				std::vector<double> m_reading_vec;   //!< internal vector used for the filter to save the history
 			};
 
 		public: 
@@ -321,12 +318,12 @@ namespace fluicell { namespace PPC1dataStructures
 			**/
 			bool setFilterSize(int _size) {
 				if (_size < 0) { 
-					cerr << " fluicell::PPC1_data::setFilterSize :: ---- error --- MESSAGE:" 
-						 << "Size of the filter in PPC1api cannot be negative " << endl;
+					std::cerr << " fluicell::PPC1_data::setFilterSize :: ---- error --- MESSAGE:"
+						 << "Size of the filter in PPC1api cannot be negative " << std::endl;
 					return false; 
 				}
 				this->channel_A->setFiltersize(_size); 
-				this->channel_A->setFilterAlpha(double(_size) /100.0); 
+				this->channel_A->setFilterAlpha(double(_size) / 100.0); 
 				this->channel_B->setFiltersize(_size);
 				this->channel_B->setFilterAlpha(double(_size) / 100.0);
 				this->channel_C->setFiltersize(_size);
@@ -476,11 +473,11 @@ namespace fluicell { namespace PPC1dataStructures
 		{
 		public:
 
-			string port;
-			string description;
-			string hardware_ID;
-			string VID;
-			string PID;
+			std::string port;
+			std::string description;
+			std::string hardware_ID;
+			std::string VID;
+			std::string PID;
 
 		public:
 			/**  \brief Constructor for serial device info
@@ -880,19 +877,19 @@ namespace fluicell { namespace PPC1dataStructures
 			/**  \brief Get the status message.
 			*
 			**/
-			string getStatusMessage() const { 
+			std::string getStatusMessage() const {
 				return this->status_message; }
 
 			/**  \brief Set the status message.
 			*
 			**/
-			void setStatusMessage(string _status_message) { 
+			void setStatusMessage(std::string _status_message) {
 				this->status_message = _status_message; }
 
 	private:
 			instructions instruction;	 //!< command
 			double value;                //!< corresponding value to be applied to the command
-			string status_message;       //!< message to show as status during the command running
+			std::string status_message;       //!< message to show as status during the command running
 
 		};
 

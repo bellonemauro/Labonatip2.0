@@ -20,7 +20,6 @@
 #include <QtSerialPort/QSerialPort>
 #include <QtSerialPort/QSerialPortInfo>
 
-using namespace std;
 
 class Labonatip_console;
 

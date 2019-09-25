@@ -75,6 +75,8 @@ public:
 	*/
 	void redirectOutInGUI(bool _to_GUI) { to_GUI = _to_GUI; }
 
+	void setVerbose(bool _verbose) { verbose = _verbose; }
+
 protected:
 
 	/** \brief Called on endline
@@ -83,16 +85,22 @@ protected:
 	*/
 	virtual int_type overflow(int_type v)
 	{
-	  if (v == '\n')
-	  {
-	   if (to_GUI) { 
-		   log_window->append(m_string.c_str());
-	   }
-	   if (to_terminal) { 
-		   printf("%s", m_string.c_str()); printf("\n"); 
-	   }
-	   m_string.erase(m_string.begin(), m_string.end());
-	  }
+		if (v == '\n')
+		{
+			if (verbose)
+			{
+				std::string toPrint = QDate::currentDate().toString().toStdString() + "  "
+					+ QTime::currentTime().toString().toStdString() + " " + m_string;
+				if (to_GUI) {
+					log_window->append(toPrint.c_str());
+				}
+				if (to_terminal) {
+					printf("%s", toPrint.c_str());
+					printf("\n");
+				}
+				m_string.erase(m_string.begin(), m_string.end());
+			}
+		}
 	  else
 	   m_string += v;
 
@@ -107,6 +115,7 @@ protected:
 	*/
 	virtual std::streamsize xsputn(const char *p, std::streamsize n)
 	{
+
 	  m_string.append(p, p + n);
   
 	  int pos = 0;

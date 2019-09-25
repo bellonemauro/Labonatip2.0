@@ -8,6 +8,7 @@
 *  +---------------------------------------------------------------------------+ */
 
 #include "updater.h"
+#include "dataStructures.h"
 #include <QDesktopServices>
 #include <QDesktopWidget>
 #include <QInputDialog>
@@ -246,10 +247,7 @@ QString biopen_updater::saveFileName(const QUrl & _url)
 	save_path.append(m_temp_folder);
 	QDir temp_path;
 	if (!temp_path.exists(save_path)) {
-		//cerr << " BiopenWizard temporary directory does not exists .... creating it" << endl;
 		temp_path.mkpath(save_path);
-		//cout << " Created directory " <<
-		    //temp_path.toStdString() << endl;
 	}
 	else {
 		// if the temp folder exists, we can clean it for the next download
@@ -704,9 +702,7 @@ void biopen_updater::initCustomStrings( )
 
 void biopen_updater::switchLanguage(QString _translation_file)
 {
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "biopen_updater::switchLanguage " << endl;
+	std::cout << HERE << std::endl;
 
 	qApp->removeTranslator(&m_translator_bu);
 
@@ -718,18 +714,16 @@ void biopen_updater::switchLanguage(QString _translation_file)
 
 		initCustomStrings();
 
-		cout << QDate::currentDate().toString().toStdString() << "  "
-			<< QTime::currentTime().toString().toStdString() << "  "
-			<< "biopen_updater::switchLanguage   installTranslator" << endl;
+		std::cout << HERE << " installTranslator" << std::endl;
 	}
 
 }
 
 void biopen_updater::closeEvent(QCloseEvent *_event) {
 
-	cout << QDate::currentDate().toString().toStdString() << "  "
+	std::cout << QDate::currentDate().toString().toStdString() << "  "
 		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "biopen_updater::closeEvent   " << endl;
+		<< "biopen_updater::closeEvent   " << std::endl;
 
 	m_is_window_active = false;
 	return;

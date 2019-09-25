@@ -42,9 +42,7 @@ void Labonatip_GUI::openProtocolFolder()
 
 void Labonatip_GUI::onProtocolClicked(QTreeWidgetItem *item, int column)
 {
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString()
-		<< "Labonatip_GUI::onProtocolClicked " << endl;
+	std::cout << HERE << std::endl;
 
 	// retrieve the clicked file name
 	QString file = item->text(0);
@@ -124,7 +122,7 @@ void Labonatip_GUI::addAllCommandsToProtocol()
 
 
 		if (item->childCount() < 1) { // if no children, just add the line 
-			string a = ui->treeWidget_macroTable->topLevelItem(i)->text(
+			std::string a = ui->treeWidget_macroTable->topLevelItem(i)->text(
 				editorParams::c_command).toStdString();
 
 			commands_vector.push_back(
@@ -166,7 +164,7 @@ void Labonatip_GUI::addAllCommandsToProtocol()
 
 		fluicell::PPC1dataStructures::command new_command;
 
-		string a = commands_vector.at(i)->text(editorParams::c_command).toStdString();
+		std::string a = commands_vector.at(i)->text(editorParams::c_command).toStdString();
 
 		new_command.setInstruction(static_cast<pCmd>(
 			commands_vector.at(i)->text(editorParams::c_command).toInt()));
@@ -206,10 +204,7 @@ void Labonatip_GUI::addAllCommandsToProtocol()
 
 void Labonatip_GUI::protocolsMenu(const QPoint & _pos)
 {
-
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString()
-		<< "Labonatip_tools::protocolsMenu " << endl;
+	std::cout << HERE << std::endl;
 
 	m_triggered_protocol_item = //a class member is used to pass a data between functions
 		ui->treeWidget_protocol_folder->indexAt(_pos).row();
@@ -237,18 +232,13 @@ void Labonatip_GUI::protocolsMenu(const QPoint & _pos)
 
 void Labonatip_GUI::helpTriggered() {
 
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::helpTriggered   " << endl;
-	
+	std::cout << HERE << std::endl;	
 	this->about();
 }
 
 void Labonatip_GUI::deleteProtocol()
 {
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString()
-		<< "Labonatip_tools::deleteProtocol " << endl;
+	std::cout << HERE << std::endl;
 
 	// TODO: this is not safe as the member could be modified somewhere else
 	int row = m_triggered_protocol_item;
@@ -286,9 +276,7 @@ void Labonatip_GUI::deleteProtocol()
 
 void Labonatip_GUI::addCommand()
 {
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::addMacroCommand " << endl;
+	std::cout << HERE << std::endl;
 
 	// create the command
 	addProtocolCommand *new_command;
@@ -327,9 +315,7 @@ void Labonatip_GUI::addCommand()
 
 void Labonatip_GUI::removeCommand()
 {
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::removeMacroCommand    " << endl;
+	std::cout << HERE << std::endl;
 
 	// avoid crash is no elements in the table or no selection
 	if (ui->treeWidget_macroTable->currentItem() &&
@@ -354,9 +340,7 @@ void Labonatip_GUI::removeCommand()
 
 void Labonatip_GUI::moveUp()
 {
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::moveUp    " << endl;
+	std::cout << HERE << std::endl;
 
 	// get the current selected item
 	protocolTreeWidgetItem *move_item =
@@ -396,10 +380,7 @@ void Labonatip_GUI::moveUp()
 
 void Labonatip_GUI::moveDown()
 {
-
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::moveDown    " << endl;
+	std::cout << HERE << std::endl;
 
 	// get the current selected item
 	protocolTreeWidgetItem *move_item =
@@ -437,10 +418,7 @@ void Labonatip_GUI::moveDown()
 
 void Labonatip_GUI::plusIndent()
 {
-
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::plusIndent    " << endl;
+	std::cout << HERE << std::endl;
 
 	// create the command
 	addProtocolCommand *cmd;
@@ -523,9 +501,7 @@ bool Labonatip_GUI::itemChanged(QTreeWidgetItem *_item, int _column)
 
 void Labonatip_GUI::duplicateItem()
 {
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::duplicateItem    " << endl;
+	std::cout << HERE << std::endl;
 
 	// avoid crash if no selection
 	if (!ui->treeWidget_macroTable->currentItem()) return;
@@ -565,10 +541,7 @@ void Labonatip_GUI::createNewLoop()
 
 void Labonatip_GUI::createNewLoop(int _loops)
 {
-
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::createNewLoop    " << endl;
+	std::cout << HERE << std::endl;
 
 	this->addCommand();
 	ui->treeWidget_macroTable->currentItem()->setText(
@@ -596,9 +569,7 @@ void Labonatip_GUI::clearAllCommandsRequest()
 
 
 void Labonatip_GUI::clearAllCommands() {
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::clearAllCommands    " << endl;
+	std::cout << HERE << std::endl;
 
 	ui->treeWidget_macroTable->clear();
 	m_protocol->clear();
@@ -609,20 +580,13 @@ void Labonatip_GUI::clearAllCommands() {
 
 void Labonatip_GUI::showUndoStack()
 {
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::showUndoStack " << endl;
-
+	std::cout << HERE << std::endl;
 	m_undo_view->show();
-
 }
 
 void Labonatip_GUI::undo()
 {
-
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::undo " << endl;
+	std::cout << HERE << std::endl;
 
 	ui->treeWidget_macroTable->blockSignals(true);
 	m_undo_stack->undo();
@@ -633,9 +597,7 @@ void Labonatip_GUI::undo()
 
 void Labonatip_GUI::redo()
 {
-	cout << QDate::currentDate().toString().toStdString() << "  "
-		<< QTime::currentTime().toString().toStdString() << "  "
-		<< "Labonatip_GUI::redo " << endl;
+	std::cout << HERE << std::endl;
 
 	ui->treeWidget_macroTable->blockSignals(true);
 	m_undo_stack->redo();

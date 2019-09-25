@@ -44,8 +44,6 @@
 
 #include "ppc1api_data_structures.h"
 
-using namespace std;
-
 /**  \brief Define the Fluicell namespace, all the classes will be in here
   *  
   **/
@@ -192,7 +190,7 @@ namespace fluicell
 		  *
 		  * \note _PPC1_data will hold the last value in case of any error
 		  */
-		bool decodeDataLine(const string &_data, 
+		bool decodeDataLine(const std::string &_data,
 			fluicell::PPC1dataStructures::PPC1_data * _PPC1_data) const;
 
 		/**  \brief Decode one channel line
@@ -210,7 +208,7 @@ namespace fluicell
 		*
 		* \note False occur for: empty data, NaN in the string, wrong data size
 		*/
-		bool decodeChannelLine(const string &_data, vector<double> &_line) const;
+		bool decodeChannelLine(const std::string &_data, std::vector<double> &_line) const;
 
 
 		/** \brief Update inflow and outflow calculation 
@@ -235,7 +233,7 @@ namespace fluicell
 		  * \note: does not return exceptions, but it prints errors in the serial port fail
 		  *
 		  */
-		bool sendData(const string &_data) const;
+		bool sendData(const std::string &_data) const;
 
 		/** Read data from serial port
 		  *
@@ -243,7 +241,7 @@ namespace fluicell
 		  *
 		  * \note this function read one line until the new line \n
 		  */
-		bool readData(string &_out_data);
+		bool readData(std::string &_out_data);
 
 		/**  \brief Convert char to digit 
 		*
@@ -268,6 +266,15 @@ namespace fluicell
 		*/
 		bool checkVIDPID(const std::string &_port) const;
 
+		/** \brief Allows to log errors with caller function and time stamp
+		*
+		*/
+		void logError(const std::string& _caller, const std::string& _message) const;
+
+		/** \brief Allows to log status with caller function and time stamp
+		*
+		*/
+		void logStatus(const std::string& _caller, const std::string& _message) const;
 
 		/** \brief  Get current date/time, format is YYYY-MM-DD.HH:mm:ss
 		*
@@ -284,7 +291,7 @@ namespace fluicell
 		// Serial port configuration parameters, only serial port number 
 		// and baud rate are configurable for the user, this is intentional!
 		serial::Serial *m_PPC1_serial;  //!< Pointer to serial port communication class
-		string m_COMport;	            //!< port number
+		std::string m_COMport;	            //!< port number
 		int m_baud_rate;                //!< baud rate	
 		int m_COM_timeout;              //!< timeout for the serial communication --- default value 250 ms
 		
@@ -294,7 +301,7 @@ namespace fluicell
 		int m_wait_sync_timeout;        //!< timeout for wait sync function in seconds, default value 60 sec
 
 		// threads
-		thread m_thread;                   //!< Member for the thread handling		
+		std::thread m_thread;                   //!< Member for the thread handling		
 		bool m_threadTerminationHandler;   //!< set to TRUE to stop the thread, automatically set to false during the thread starting
 		bool m_isRunning;                  //!< true when the thread is running
 
@@ -328,7 +335,7 @@ namespace fluicell
 		*  \return true if success, false for any error, a message is printed in case of fault
 		*
 		**/
-		bool connectCOM(string _COMport) {
+		bool connectCOM(std::string _COMport) {
 			setCOMport(_COMport);
 			return connectCOM();
 		}
@@ -341,7 +348,7 @@ namespace fluicell
 		*  \return true if success, false for any error, a message is printed in case of fault
 		*
 		**/
-		bool connectCOM(string _COMport, int _baudRate) {
+		bool connectCOM(std::string _COMport, int _baudRate) {
 			setCOMport(_COMport);
 			setBaudRate(_baudRate);
 			return connectCOM();
@@ -391,7 +398,7 @@ namespace fluicell
 		  **/
 		virtual void run() {
 			m_threadTerminationHandler = false; //TODO: too weak, add checking if running and initialized
-			m_thread = thread(&PPC1api::threadSerial, this);
+			m_thread = std::thread(&PPC1api::threadSerial, this);
 			// run_thread.join();
 		}
 
@@ -775,7 +782,7 @@ namespace fluicell
 		*
 		*  \note -  there is no actual check on the string, but it will out an error if the serial cannot connect
 		**/
-		void setCOMport(string _COMport = "COM1") { m_COMport = _COMport; }
+		void setCOMport(std::string _COMport = "COM1") { m_COMport = _COMport; }
 
 		/** \brief Allow to set the baudRate for the specified com port
 		*
@@ -875,7 +882,7 @@ namespace fluicell
 		  *
 		  * \return the device ID as a string
 		  **/
-		string getDeviceID();
+		std::string getDeviceID();
 
 		/**  \brief is filter enabled
 		*

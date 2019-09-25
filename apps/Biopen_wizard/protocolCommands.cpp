@@ -33,9 +33,7 @@ addProtocolCommand::addProtocolCommand(
 
 void addProtocolCommand::redo()
 {
-	//std::cout << QDate::currentDate().toString().toStdString() << "  "
-	//	<< QTime::currentTime().toString().toStdString() << "  "
-	//	<< "addProtocolCommand::redo " << std::endl;
+	//	std::cout << HERE << std::endl;
 	
 	// create the new command to add
 	m_new_item = new protocolTreeWidgetItem();
@@ -92,9 +90,7 @@ void addProtocolCommand::redo()
 
 void addProtocolCommand::undo()
 {
-	//std::cout << QDate::currentDate().toString().toStdString() << "  "
-	//	<< QTime::currentTime().toString().toStdString() << "  "
-	//	<< "addProtocolCommand::undo " << std::endl;
+	//	std::cout << HERE << std::endl;
 
 	if (m_tree_widget->topLevelItem(m_at_row) == NULL)
 	{
@@ -161,9 +157,7 @@ removeProtocolCommand::removeProtocolCommand(
 
 void removeProtocolCommand::redo()
 {
-	//std::cout << QDate::currentDate().toString().toStdString() << "  "
-	//	<< QTime::currentTime().toString().toStdString() << "  "
-	//	<< "removeProtocolCommand::redo " << std::endl;
+	//	std::cout << HERE << std::endl;
 
 	// if has a parent we have to remove the child
 	if (m_has_parent)
@@ -212,9 +206,7 @@ void removeProtocolCommand::redo()
 
 void removeProtocolCommand::undo()
 {
-	//std::cout << QDate::currentDate().toString().toStdString() << "  "
-	//	<< QTime::currentTime().toString().toStdString() << "  "
-	//	<< "removeProtocolCommand::undo " << std::endl;
+	//	std::cout << HERE << std::endl;
 
 	// create the item
 	m_remove_item = new protocolTreeWidgetItem();
@@ -277,9 +269,7 @@ changedProtocolCommand::changedProtocolCommand(
 
 void changedProtocolCommand::redo()
 {
-	//std::cout << QDate::currentDate().toString().toStdString() << "  "
-	//	<< QTime::currentTime().toString().toStdString() << "  "
-	//	<< "changedProtocolCommand::redo " << std::endl;
+	//	std::cout << HERE << std::endl;
 
 	// if it was previously un-done
 	if (is_undo == 1)
@@ -365,9 +355,7 @@ void changedProtocolCommand::redo()
 
 void changedProtocolCommand::undo()
 {
-	//std::cout << QDate::currentDate().toString().toStdString() << "  "
-	//	<< QTime::currentTime().toString().toStdString() << "  "
-	//	<< "changedProtocolCommand::undo " << std::endl;
+	//	std::cout << HERE << std::endl;
 
 	// if has parent
 	if (m_has_parent)
