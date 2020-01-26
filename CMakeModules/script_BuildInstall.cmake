@@ -32,17 +32,17 @@ if (WIN32 AND NOT UNIX)
 
 	# EXTRACT_DEB_REL_DLLS looks for ALL .dlls in the specified library, 
 	# it's of for installers but maybe allow the choice of necessary dlls only is mandatory for the sake of space saving
-	  EXTRACT_DEB_REL_DLLS (${QT5_BINARY_DIR} d )# --> QT5 changed the postfix ! 
-	  if (ENABLE_verbose)
+	EXTRACT_DEB_REL_DLLS (${QT5_BINARY_DIR} d )# --> QT5 changed the postfix ! 
+	if (ENABLE_verbose)
 		message (STATUS "     QT5_BINARY_DIR is : ${QT5_BINARY_DIR}") 
 		message (STATUS "\n\n REL DLLS are     : ${REL_DLLS}")
 		message (STATUS "\n\n DEB DLLS are     : ${DEB_DLLS}")
-	  endif (ENABLE_verbose)
+	endif (ENABLE_verbose)
 	  
 
-	  # differently than others, QT has the windeployqt file that takes care of dlls and other stuff
-	  # see this post: http://stackoverflow.com/questions/36981942/how-to-use-add-custom-command-to-copy-dlls-using-generator-expressions
-	  # Windows specific build steps
+	# differently than others, QT has the windeployqt file that takes care of dlls and other stuff
+	# see this post: http://stackoverflow.com/questions/36981942/how-to-use-add-custom-command-to-copy-dlls-using-generator-expressions
+	# Windows specific build steps
 	if(BUILD_WINDEPLOYQT AND WIN32)
 			# Run winddeployqt if it can be found
 		find_program(WINDEPLOYQT_EXECUTABLE NAMES windeployqt HINTS ${QT5_BINARY_DIR} ENV QTDIR PATH_SUFFIXES bin)
@@ -55,18 +55,7 @@ if (WIN32 AND NOT UNIX)
 			#add_custom_command(TARGET ${F} PRE_BUILD WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/bin/Release/ COMMAND ${WINDEPLOYQT_EXECUTABLE} $<TARGET_FILE:${F}> COMMENT "Preparing Qt runtime dependencies")
 
 		  ENDFOREACH(F)
-	  endif()
-	  
-	  
-	  #FOREACH(F ${REL_DLLS})
-	  #  INSTALL(FILES "${F}" DESTINATION ./)   # install all release dll
-	  #ENDFOREACH(F)
-
-	  #FOREACH(F ${DEB_DLLS})
-		#INSTALL(FILES "${F}" DESTINATION ./bin)   # no install debug for now
-	  #ENDFOREACH(F)
-	
-
+	endif()
 
 	# copy a specific file to the install folder
 	# INSTALL(FILES "${PROJECT_SOURCE_DIR}/apps/nomeFile.extension" DESTINATION ./)		
