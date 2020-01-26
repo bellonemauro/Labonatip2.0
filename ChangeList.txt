@@ -1,3 +1,7 @@
+V.2.1.10
+Porting to QT5.14 to improve stability and future compatibility to QT6
+Get rid of old QT4 flags, too old to be supported
+
 V.2.1.09
 Performance improvement
 New QFled structure allows the GUI leds to update only if necessary

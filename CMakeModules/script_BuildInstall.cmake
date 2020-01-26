@@ -30,30 +30,6 @@ if (WIN32 AND NOT UNIX)
 	  message(STATUS " Install script messages :  " )
 	endif (  )
 
-	if (QT5_BINARY_DIR AND NOT BUILD_QT5) #deprecated - QT5 is the only way to go! 
-	# EXTRACT_DEB_REL_DLLS looks for ALL .dlls in the specified library, 
-	# it's of for installers but maybe allow the choice of necessary dlls only is mandatory for the sake of space saving
-
-	  message (FATAL_ERROR "  QT4 is deprecated, please use QT5 instead ")
-
-	  EXTRACT_DEB_REL_DLLS (${QT5_BINARY_DIR} d4 )# --> OUR custom macro for searching dlls 
-
-	  if (ENABLE_verbose)
-		message (STATUS "     QT5_BINARY_DIR is : ${QT5_BINARY_DIR}")
-		message (STATUS "     REL DLLS are : ${REL_DLLS}")
-		message (STATUS "     DEB DLLS are : ${DEB_DLLS}")
-	  endif (ENABLE_verbose)
-
-	  FOREACH(F ${REL_DLLS})
-		INSTALL(FILES "${F}" DESTINATION ./)   # install all release dll
-	  ENDFOREACH(F)
-
-	  #FOREACH(F ${DEB_DLLS})
-		#INSTALL(FILES "${F}" DESTINATION bin)   # no install debug for now
-	  #ENDFOREACH(F)
-		
-	else(QT5_BINARY_DIR AND NOT BUILD_QT5)
-
 	# EXTRACT_DEB_REL_DLLS looks for ALL .dlls in the specified library, 
 	# it's of for installers but maybe allow the choice of necessary dlls only is mandatory for the sake of space saving
 	  EXTRACT_DEB_REL_DLLS (${QT5_BINARY_DIR} d )# --> QT5 changed the postfix ! 
@@ -89,7 +65,7 @@ if (WIN32 AND NOT UNIX)
 	  #FOREACH(F ${DEB_DLLS})
 		#INSTALL(FILES "${F}" DESTINATION ./bin)   # no install debug for now
 	  #ENDFOREACH(F)
-	endif ()
+	
 
 
 	# copy a specific file to the install folder
