@@ -129,9 +129,11 @@ bool protocolReader::readProtocol(QTreeWidget *_out_tree, QString _filename)
 			_out_tree->setCurrentItem(new_item, editorParams::c_value,
 				QItemSelectionModel::SelectionFlag::Rows);
 		}
-		_out_tree->setItemSelected(
-			_out_tree->topLevelItem(
-				_out_tree->topLevelItemCount() - 1), true);
+		_out_tree->topLevelItem(
+			_out_tree->topLevelItemCount() - 1)->setSelected(true);
+		//_out_tree->setItemSelected(
+		//	_out_tree->topLevelItem(
+		//		_out_tree->topLevelItemCount() - 1), true);
 	}
 	else {
 		QMessageBox::warning(this, m_str_warning,

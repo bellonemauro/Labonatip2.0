@@ -214,7 +214,7 @@ private:
 	QTimer *m_connection_timer;  //!< check connection and then start the update on_show
 	QString m_current_version;   //!< current software version, to be set on class creation from the GUI
 	bool is_version_file_ready;  //!< true once the online information is retrieved, false otherwise
-	QTime downloadTime;          //!< download time calculated during the download
+	QElapsedTimer downloadTime;  //!< download time calculated during the download
 	QTranslator m_translator_bu; //!< to allow translations
 	bool m_details_hiden;        //!< true when details are hidden, false details are shown
 	bool m_is_update_available;  //!< set to true if the update is available

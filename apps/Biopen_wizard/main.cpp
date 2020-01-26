@@ -31,7 +31,7 @@
 #include <QTimer>
 #include <QDir>
 #include <QMessageBox>
-
+#include <QScreen>
 
 // if it is the first time that the software runs,
 // it will check if required paths already exist and 
@@ -246,7 +246,8 @@ int main(int argc, char **argv)//(int argc, char *argv[])
 
 		// get the screen resolution of the current screen
 		// so we can resize the application in case of small screens
-		QRect rec = QApplication::desktop()->screenGeometry();
+	    QScreen *primaryScreen = QGuiApplication::primaryScreen();
+		QRect rec = primaryScreen->geometry();
 		int screen_height = rec.height();
 		int screen_width = rec.width();
 
