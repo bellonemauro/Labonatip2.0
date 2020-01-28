@@ -1262,7 +1262,7 @@ void Labonatip_GUI::about() {
 	QString msg_title = "About Fluicell Lab-on-a-tip ";
 	QString msg_content = tr("<b>Lab-on-a-tip</b> is a "
 		"<a href='http://fluicell.com/'>Fluicell</a> AB software <br>"
-		"Copyright Fluicell AB, Sweden 2017 <br> <br>"
+		"Copyright Fluicell AB, Sweden 2020 <br> <br>"
 		"Arvid Wallgrens Backe 20<br>"
 		"SE-41346 Gothenburg, Sweden<br>"
 		"Tel: +46 76 208 3354 <br>"
