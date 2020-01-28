@@ -1,6 +1,7 @@
 V.2.1.10
 Porting to QT5.14 to improve stability and future compatibility to QT6
 Get rid of old QT4 flags, too old to be supported
+Changed copiright to 2020
 
 V.2.1.09
 Performance improvement
