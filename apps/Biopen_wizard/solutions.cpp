@@ -390,7 +390,7 @@ void Labonatip_GUI::updateTimingSliders()
 		_button = ui->pushButton_solution2;
 		status = m_pipette_status->rem_vol_well2;
 		continuous_flowing = m_solutionParams->continuous_flowing_sol2;
-		release_time = m_solutionParams->pulse_duration_well1;
+		release_time = m_solutionParams->pulse_duration_well2;
 		break;
 	}
 	case 3: {
@@ -398,7 +398,7 @@ void Labonatip_GUI::updateTimingSliders()
 		_button = ui->pushButton_solution3;
 		status = m_pipette_status->rem_vol_well3;
 		continuous_flowing = m_solutionParams->continuous_flowing_sol3;
-		release_time = m_solutionParams->pulse_duration_well1;
+		release_time = m_solutionParams->pulse_duration_well3;
 		break;
 	}
 	case 4: {
@@ -406,7 +406,7 @@ void Labonatip_GUI::updateTimingSliders()
 		_button = ui->pushButton_solution4;
 		status = m_pipette_status->rem_vol_well4;
 		continuous_flowing = m_solutionParams->continuous_flowing_sol4;
-		release_time = m_solutionParams->pulse_duration_well1;
+		release_time = m_solutionParams->pulse_duration_well4;
 		break;
 	}
 	default: {

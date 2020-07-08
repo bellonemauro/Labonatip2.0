@@ -1515,7 +1515,7 @@ void fluicell::PPC1api::logStatus(const std::string& _caller, const std::string&
 			<< _message << std::endl;
 }
 
-const std::string fluicell::PPC1api::currentDateTime() const
+std::string fluicell::PPC1api::currentDateTime() const
 {
 	time_t     now = time(0);
 	struct tm  tstruct;

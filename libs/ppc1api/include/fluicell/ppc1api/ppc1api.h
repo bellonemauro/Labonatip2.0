@@ -251,7 +251,7 @@ namespace fluicell
 		*
 		* \note (int)char return the integer ASCII code for char so sub '0' is required
 		*/
-		int toDigit(const char _c) const { //TODO: _c is not passed by reference
+		int toDigit(const char _c) const { 
 			//TODO: too weak, there is no check for validity over _c
 			//      remember that '0' = 48 in ASCII  and '9' = 57 in ASCII 
 			//      but in principle this function only returns 0 or 1 according to 
@@ -264,7 +264,7 @@ namespace fluicell
 		*
 		* \return true if PPC1 VID/PID definitions match the VID/PID of the device connected on _port
 		*/
-		bool checkVIDPID(const std::string &_port) const;
+		bool checkVIDPID(const std::string& _port) const;
 
 		/** \brief Allows to log errors with caller function and time stamp
 		*
@@ -280,7 +280,7 @@ namespace fluicell
 		*
 		* \return a string
 		*/
-		const std::string currentDateTime() const;
+		std::string currentDateTime() const;
 
 		//some useful constants to decode the data messages
 		const char m_separator = '|';              // separator between data

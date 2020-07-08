@@ -1048,7 +1048,7 @@ bool Labonatip_tools::loadSettings(QString _path)
 	ui_tools->lineEdit_sol3_name->setText(solname3);
 	m_solutionParams->sol3 = solname3; 
 
-	QString solname4 = m_settings->value("solutions/sol1", "no name").toString();
+	QString solname4 = m_settings->value("solutions/sol4", "no name").toString();
 	ui_tools->lineEdit_sol4_name->setText(solname4);
 	m_solutionParams->sol4 = solname4; 
 

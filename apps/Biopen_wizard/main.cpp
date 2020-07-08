@@ -33,6 +33,7 @@
 #include <QMessageBox>
 #include <QScreen>
 
+
 // if it is the first time that the software runs,
 // it will check if required paths already exist and 
 // set up useful files and folders in the user files
@@ -221,8 +222,9 @@ bool initPaths(Labonatip_GUI &_l, QString &_protocols_user_path,
 }
 
 
-int main(int argc, char **argv)//(int argc, char *argv[])
+int main(int argc, char **argv)
 {	
+
 	// get the version 
 	std::string version;
 #ifdef LABONATIP_VERSION
