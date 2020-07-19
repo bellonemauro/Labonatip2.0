@@ -5,31 +5,33 @@
 %% |                          http://www.fluicell.com/                         |
 %% +---------------------------------------------------------------------------+
 %% 
-%% Protocol Header V. 0.6 
-%% file created on dd/mm/yyyy - Wed Aug 22 2018 12:02:07%% 
+%% Protocol Header V. 0.8 
+%% file created on dd/mm/yyyy - Sun Jul 19 2020 15:52:58%% 
 %% Fluicell Lab-on-a-tip protocol file description 
 %% +---------------------------------------------------------------------------+ 
 %% List of parameters: 
 %%  - Command :  
-%%  -       0:  Pressure ON (mbar)           :  Value in mbar
-%%  -       1:  Pressure OFF (mbar)          :  Value in mbar
-%%  -       2:  Vacuum Switch (mbar)         :  Value in mbar 
-%%  -       3:  Vacuum Recirculation (mbar)  :  Value in mbar 
-%%  -       4:  Solution 1 (open/close)      :  
-%%  -       5:  Solution 2 (open/close)      :  
-%%  -       6:  Solution 3 (open/close)      :  
-%%  -       7:  Solution 4 (open/close)      :  
-%%  -       8:  Sleep (s)                    :  Wait in seconds 
-%%  -       9:  Ask (string)                 :  Ask a message at the end of some operation 
-%%  -       10: All Off                      :  All the valves 1 - 4 will be closed 
-%%  -       11: Pumps Off                    :  Set the all the pumps to zero (pressure and vacuum) 
-%%  -       12: Valve state (HEX)            :  Set the valve state 
-%%  -       13: Wait sync                    :  Wait a sync signal 
-%%  -       14: Sync out                     :  Sync with external trigger 
-%%  -       15: Zone size (%)                :  Set the droplet size in % respect to the default values 
-%%  -       16: Flow speed (%)               :  Set the flow speed in % respect to the default values
-%%  -       17: Vacuum (%)                   :  Set the vacuum in % respect to the default values
-%%  -       18: Loop (num)                   :  All the commands inside the loop will run cyclically 
+%%  -       0:  Set Zone size (%)             :  Set the droplet size percentage in the range [50, 200]  
+%%  -       1:  Change Zone size by (%)       :  Change the droplet size in % respect to the current values, accepted range [-40, +40] 
+%%  -       2:  Set Flow speed (%)            :  Set the flow speed percentage in the range [50, 220] 
+%%  -       3:  Change Flow speed by (%)      :  Change the flow speed in % respect to the current values, accepted range [-40, +40] 
+%%  -       4:  Set Vacuum (%)                :  Set the vacuum percentage in the range [50, 250] 
+%%  -       5:  Change Vacuum by (%)          :  Change the vacuum in % respect to the current values, accepted range [-40, +40] 
+%%  -       6:  Wait (s)                      :  Wait in seconds 
+%%  -       7:  All Off                       :  All the valves 1 - 4 will be closed 
+%%  -       8:  Solution 1 (open/close)       :  
+%%  -       9:  Solution 2 (open/close)       :  
+%%  -       10: Solution 3 (open/close)       :  
+%%  -       11: Solution 4 (open/close)       :  
+%%  -       12: Pressure ON (mbar)            :  Value in mbar
+%%  -       13: Pressure OFF (mbar)           :  Value in mbar
+%%  -       14: Vacuum Recirculation (mbar)   :  Value in mbar 
+%%  -       15: Vacuum Switch (mbar)          :  Value in mbar 
+%%  -       16: Ask (string)                  :  Ask a message at the end of some operation 
+%%  -       17: Pumps Off                     :  Set the all the pumps to zero (pressure and vacuum) 
+%%  -       18: Wait sync                     :  Wait a sync signal 
+%%  -       19: Sync out                      :  Sync with external trigger 
+%%  -       20: Loop (num)                    :  All the commands inside the loop will run cyclically 
 %%  - 
 %%  - value (mbar, %, s) - value to be applied to the command
 %%  - status_message (string) 
@@ -39,29 +41,29 @@
 %% +---------------------------------------------------------------------------+ 
 %% Command Value status_message depth
 %% Follows a line example
-%% 13#1#2#message#0#? 
+%% 13#1#message#0#? 
 %% Command Value status_message depth
 %
-10##0# #0#
-0#250#0# #0#
-1#0#0# #0#
-2#0#0# #0#
-3#0#0# #0#
-8#8#0# #0#
-17#2#0# #0#
-4#1#0# #1#
-8#5#0# #1#
-4#0#0# #1#
-8#5#0# #1#
-5#1#0# #1#
-8#5#0# #1#
-5#0#0# #1#
-8#5#0# #1#
-6#1#0# #1#
-8#5#0# #1#
-6#0#0# #1#
-8#5#0# #1#
-7#1#0# #1#
-8#5#0# #1#
-7#0#0# #1#
-8#5#0# #1#
+7##0# #0#
+12#250#0# #0#
+13#0#0# #0#
+15#0#0# #0#
+14#0#0# #0#
+6#8#0# #0#
+20#2#0# #0#
+8#1#0# #1#
+6#5#0# #1#
+8#0#0# #1#
+6#5#0# #1#
+9#1#0# #1#
+6#5#0# #1#
+9#0#0# #1#
+6#5#0# #1#
+10#1#0# #1#
+6#5#0# #1#
+10#0#0# #1#
+6#5#0# #1#
+11#1#0# #1#
+6#5#0# #1#
+11#0#0# #1#
+6#5#0# #1#

@@ -5,30 +5,33 @@
 %% |                          http://www.fluicell.com/                         |
 %% +---------------------------------------------------------------------------+
 %% 
-%% Protocol Header V. 0.7 
-%% file created on dd/mm/yyyy - Sun Sep 9 2018 09:13:11%% 
+%% Protocol Header V. 0.8 
+%% file created on dd/mm/yyyy - Sun Jul 19 2020 15:56:36%% 
 %% Fluicell Lab-on-a-tip protocol file description 
 %% +---------------------------------------------------------------------------+ 
 %% List of parameters: 
 %%  - Command :  
-%%  -       0:  Zone size (%)                 :  Set the droplet size in % respect to the default values 
-%%  -       1:  Flow speed (%)                :  Set the flow speed in % respect to the default values
-%%  -       2:  Vacuum (%)                    :  Set the vacuum in % respect to the default values
-%%  -       3:  Wait (s)                      :  Wait in seconds 
-%%  -       4:  All Off                       :  All the valves 1 - 4 will be closed 
-%%  -       5:  Solution 1 (open/close)       :  
-%%  -       6:  Solution 2 (open/close)       :  
-%%  -       7:  Solution 3 (open/close)       :  
-%%  -       8:  Solution 4 (open/close)       :  
-%%  -       9:  Pressure ON (mbar)            :  Value in mbar
-%%  -       10: Pressure OFF (mbar)           :  Value in mbar
-%%  -       11: Vacuum Recirculation (mbar)   :  Value in mbar 
-%%  -       12: Vacuum Switch (mbar)          :  Value in mbar 
-%%  -       13: Ask (string)                  :  Ask a message at the end of some operation 
-%%  -       14: Pumps Off                     :  Set the all the pumps to zero (pressure and vacuum) 
-%%  -       15: Wait sync                     :  Wait a sync signal 
-%%  -       16: Sync out                      :  Sync with external trigger 
-%%  -       17: Loop (num)                    :  All the commands inside the loop will run cyclically 
+%%  -       0:  Set Zone size (%)             :  Set the droplet size percentage in the range [50, 200]  
+%%  -       1:  Change Zone size by (%)       :  Change the droplet size in % respect to the current values, accepted range [-40, +40] 
+%%  -       2:  Set Flow speed (%)            :  Set the flow speed percentage in the range [50, 220] 
+%%  -       3:  Change Flow speed by (%)      :  Change the flow speed in % respect to the current values, accepted range [-40, +40] 
+%%  -       4:  Set Vacuum (%)                :  Set the vacuum percentage in the range [50, 250] 
+%%  -       5:  Change Vacuum by (%)          :  Change the vacuum in % respect to the current values, accepted range [-40, +40] 
+%%  -       6:  Wait (s)                      :  Wait in seconds 
+%%  -       7:  All Off                       :  All the valves 1 - 4 will be closed 
+%%  -       8:  Solution 1 (open/close)       :  
+%%  -       9:  Solution 2 (open/close)       :  
+%%  -       10: Solution 3 (open/close)       :  
+%%  -       11: Solution 4 (open/close)       :  
+%%  -       12: Pressure ON (mbar)            :  Value in mbar
+%%  -       13: Pressure OFF (mbar)           :  Value in mbar
+%%  -       14: Vacuum Recirculation (mbar)   :  Value in mbar 
+%%  -       15: Vacuum Switch (mbar)          :  Value in mbar 
+%%  -       16: Ask (string)                  :  Ask a message at the end of some operation 
+%%  -       17: Pumps Off                     :  Set the all the pumps to zero (pressure and vacuum) 
+%%  -       18: Wait sync                     :  Wait a sync signal 
+%%  -       19: Sync out                      :  Sync with external trigger 
+%%  -       20: Loop (num)                    :  All the commands inside the loop will run cyclically 
 %%  - 
 %%  - value (mbar, %, s) - value to be applied to the command
 %%  - status_message (string) 
@@ -38,146 +41,146 @@
 %% +---------------------------------------------------------------------------+ 
 %% Command Value status_message depth
 %% Follows a line example
-%% 13#1#2#message#0#? 
+%% 13#1#message#0#? 
 %% Command Value status_message depth
 %
-13##0#Test for the droplet size begin - setting operational values#0#
-4##0#AllOff#0#
-3#1#0# #0#
-10#21#0#setPoff(21)#0#
-9#190#0#setPon(190)#0#
-12#-115#0#setVswitch(-115)#0#
-11#-115#0#setVrecirc(-115)#0#
-3#20#0# #0#
-13##0#Now I will set the droplet size to 110%#0#
+16##0#Test for the droplet size begin - setting operational values#0#
+7##0#AllOff#0#
+6#1#0# #0#
+13#21#0#setPoff(21)#0#
+12#190#0#setPon(190)#0#
+15#-115#0#setVswitch(-115)#0#
+14#-115#0#setVrecirc(-115)#0#
+6#20#0# #0#
+16##0#Now I will set the droplet size to 110%#0#
 0#110#0# #0#
-3#20#0# #0#
-13##0#Now I will set the droplet size to 100%#0#
+6#20#0# #0#
+16##0#Now I will set the droplet size to 100%#0#
 0#100#0# #0#
-3#20#0# #0#
-13##0#Now I will set the droplet size to 90%#0#
+6#20#0# #0#
+16##0#Now I will set the droplet size to 90%#0#
 0#90#0# #0#
-3#20#0# #0#
-13##0#Now I will set the droplet size to 100%#0#
+6#20#0# #0#
+16##0#Now I will set the droplet size to 100%#0#
 0#100#0# #0#
-3#20#0# #0#
-13##0#Now I will set the droplet size to 150%#0#
+6#20#0# #0#
+16##0#Now I will set the droplet size to 150%#0#
 0#150#0# #0#
-3#20#0# #0#
-13##0#Now I will set the droplet size to 50%#0#
+6#20#0# #0#
+16##0#Now I will set the droplet size to 50%#0#
 0#50#0# #0#
-3#20#0# #0#
-13##0#Now I will set the droplet size to 200%#0#
+6#20#0# #0#
+16##0#Now I will set the droplet size to 200%#0#
 0#200#0# #0#
-3#20#0# #0#
-13##0#Test for the flow speed begin - setting operational values#0#
-4##0#AllOff#0#
-10#21#0#setPoff(21)#0#
-9#190#0#setPon(190)#0#
-12#-115#0#setVswitch(-115)#0#
-11#-115#0#setVrecirc(-115)#0#
-3#20#0# #0#
-9#110#0#Now I will set the flow speed to 110%#0#
-1#100#0# #0#
-3#20#0# #0#
-13##0#Now I will set the flow speed size to 100%#0#
-1#100#0# #0#
-3#20#0# #0#
-13##0#Now I will set the flow speed size to 90%#0#
-1#90#0# #0#
-3#20#0# #0#
-13##0#Now I will set the flow speed size to 100%#0#
-1#100#0# #0#
-3#20#0# #0#
-13##0#Now I will set the flow speed size to 150%#0#
-1#150#0# #0#
-3#20#0# #0#
-13##0#Now I will set the flow speed size to 50%#0#
-1#50#0# #0#
-3#20#0# #0#
-13##0#Now I will set the flow speed size to 200%#0#
-1#200#0# #0#
-3#20#0# #0#
-13##0#Test finished - setting the operational values#0#
-10#21#0#setPoff(21)#0#
-9#190#0#setPon(190)#0#
-3#5#0# #0#
-12#-115#0#setVswitch(-115)#0#
-11#-115#0#setVrecirc(-115)#0#
-3#5#0# #0#
-13##0#Test for the vacuum begin - setting operational values#0#
-4##0#AllOff#0#
-10#21#0#setPoff(21)#0#
-9#190#0#setPon(190)#0#
-12#-115#0#setVswitch(-115)#0#
-11#-115#0#setVrecirc(-115)#0#
-3#10#0# #0#
-13##0#Now I will set the vacuum to 110%#0#
-2#110#0# #0#
-3#20#0# #0#
-13##0#Now I will set the vacuum size to 100%#0#
+6#20#0# #0#
+16##0#Test for the flow speed begin - setting operational values#0#
+7##0#AllOff#0#
+13#21#0#setPoff(21)#0#
+12#190#0#setPon(190)#0#
+15#-115#0#setVswitch(-115)#0#
+14#-115#0#setVrecirc(-115)#0#
+6#20#0# #0#
+12#110#0#Now I will set the flow speed to 110%#0#
 2#100#0# #0#
-3#20#0# #0#
-13##0#Now I will set the vacuum size to 90%#0#
+6#20#0# #0#
+16##0#Now I will set the flow speed size to 100%#0#
+2#100#0# #0#
+6#20#0# #0#
+16##0#Now I will set the flow speed size to 90%#0#
 2#90#0# #0#
-3#20#0# #0#
-13##0#Now I will set the vacuum size to 100%#0#
+6#20#0# #0#
+16##0#Now I will set the flow speed size to 100%#0#
 2#100#0# #0#
-3#20#0# #0#
-13##0#Now I will set the vacuum size to 150%#0#
+6#20#0# #0#
+16##0#Now I will set the flow speed size to 150%#0#
 2#150#0# #0#
-3#20#0# #0#
-13##0#Now I will set the vacuum size to 50%#0#
+6#20#0# #0#
+16##0#Now I will set the flow speed size to 50%#0#
 2#50#0# #0#
-3#20#0# #0#
-13##0#Now I will set the vacuum size to 200%#0#
+6#20#0# #0#
+16##0#Now I will set the flow speed size to 200%#0#
 2#200#0# #0#
-3#20#0# #0#
-13##0#Test finished - setting the operational values#0#
-10#21#0#setPoff(21)#0#
-9#190#0#setPon(190)#0#
-3#5#0# #0#
-12#-115#0#setVswitch(-115)#0#
-11#-115#0#setVrecirc(-115)#0#
-3#5#0# #0#
-13##0#Test for the loop starting - setting operational values#0#
-4##0#AllOff#0#
-10#21#0#setPoff(21)#0#
-9#190#0#setPon(190)#0#
-12#-115#0#setVswitch(-115)#0#
-11#-114#0#setVrecirc(-115)#0#
-3#10#0# #0#
-13##0#The loop will now run 5 times#0#
-17#2#0##0#
-5#1#0# #1#
-3#5#0# #1#
-5#0#0# #1#
-3#5#0# #1#
-13##0#test loop#1#
-3#5#0# #0#
-13##0#loop test for solution 1 finished, running solution 2#0#
-17#2#0# #0#
-6#1#0# #1#
-3#5#0# #1#
-6#0#0# #1#
-3#5#0# #1#
-13##0#test loop#1#
-3#5#0# #0#
-13##0#loop test for solution 1 finished, running solution 3#0#
-17#2#0# #0#
-7#1#0# #1#
-3#5#0# #1#
-7#0#0# #1#
-3#5#0# #1#
-13##0#test loop#1#
-3#5#0# #0#
-13##0#loop test for solution 1 finished, running solution 4#0#
-17#2#0# #0#
+6#20#0# #0#
+16##0#Test finished - setting the operational values#0#
+13#21#0#setPoff(21)#0#
+12#190#0#setPon(190)#0#
+6#5#0# #0#
+15#-115#0#setVswitch(-115)#0#
+14#-115#0#setVrecirc(-115)#0#
+6#5#0# #0#
+16##0#Test for the vacuum begin - setting operational values#0#
+7##0#AllOff#0#
+13#21#0#setPoff(21)#0#
+12#190#0#setPon(190)#0#
+15#-115#0#setVswitch(-115)#0#
+14#-115#0#setVrecirc(-115)#0#
+6#10#0# #0#
+16##0#Now I will set the vacuum to 110%#0#
+4#110#0# #0#
+6#20#0# #0#
+16##0#Now I will set the vacuum size to 100%#0#
+4#100#0# #0#
+6#20#0# #0#
+16##0#Now I will set the vacuum size to 90%#0#
+4#90#0# #0#
+6#20#0# #0#
+16##0#Now I will set the vacuum size to 100%#0#
+4#100#0# #0#
+6#20#0# #0#
+16##0#Now I will set the vacuum size to 150%#0#
+4#150#0# #0#
+6#20#0# #0#
+16##0#Now I will set the vacuum size to 50%#0#
+4#50#0# #0#
+6#20#0# #0#
+16##0#Now I will set the vacuum size to 200%#0#
+4#200#0# #0#
+6#20#0# #0#
+16##0#Test finished - setting the operational values#0#
+13#21#0#setPoff(21)#0#
+12#190#0#setPon(190)#0#
+6#5#0# #0#
+15#-115#0#setVswitch(-115)#0#
+14#-115#0#setVrecirc(-115)#0#
+6#5#0# #0#
+16##0#Test for the loop starting - setting operational values#0#
+7##0#AllOff#0#
+13#21#0#setPoff(21)#0#
+12#190#0#setPon(190)#0#
+15#-115#0#setVswitch(-115)#0#
+14#-114#0#setVrecirc(-115)#0#
+6#10#0# #0#
+16##0#The loop will now run 5 times#0#
+20#2#0##0#
 8#1#0# #1#
-3#5#0# #1#
+6#5#0# #1#
 8#0#0# #1#
-3#5#0# #1#
-13##0#test loop#1#
-3#5#0# #0#
-13##0#loop test finished#0#
-3#5#0# #0#
+6#5#0# #1#
+16##0#test loop#1#
+6#5#0# #0#
+16##0#loop test for solution 1 finished, running solution 2#0#
+20#2#0# #0#
+9#1#0# #1#
+6#5#0# #1#
+9#0#0# #1#
+6#5#0# #1#
+16##0#test loop#1#
+6#5#0# #0#
+16##0#loop test for solution 1 finished, running solution 3#0#
+20#2#0# #0#
+10#1#0# #1#
+6#5#0# #1#
+10#0#0# #1#
+6#5#0# #1#
+16##0#test loop#1#
+6#5#0# #0#
+16##0#loop test for solution 1 finished, running solution 4#0#
+20#2#0# #0#
+11#1#0# #1#
+6#5#0# #1#
+11#0#0# #1#
+6#5#0# #1#
+16##0#test loop#1#
+6#5#0# #0#
+16##0#loop test finished#0#
+6#5#0# #0#
