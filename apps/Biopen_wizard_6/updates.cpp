@@ -318,11 +318,52 @@ void Labonatip_GUI::updateSolutions()
 			ui->pushButton_solution6->blockSignals(true);
 			ui->pushButton_solution6->setChecked(false);
 			ui->pushButton_solution6->blockSignals(false);
-		}/**/
+		}
+		if (m_ppc1->isWeel6Open()) {
+			m_pen_line.setColor(m_sol6_color);
+			// move the arrow in the drawing to point on the solution 6
+			ui->widget_solutionArrow->setVisible(true);
+			ui->label_arrowSolution->setText(m_solutionParams->sol6);
+
+			// calculate the middle point between the two widgets
+			// to align the arrow to the progressbar
+			int pos_x = ui->progressBar_solution6->pos().x() -
+				ui->widget_solutionArrow->width() / 2 +
+				ui->progressBar_solution6->width() / 2;
+			ui->widget_solutionArrow->move(
+				QPoint(pos_x, ui->widget_solutionArrow->pos().ry()));
+
+			// switch on the button for the solution 6
+			ui->pushButton_solution6->blockSignals(true);
+			ui->pushButton_solution6->setChecked(true);
+			ui->pushButton_solution6->blockSignals(false);
+
+			// all the other buttons have to be off
+			ui->pushButton_solution1->blockSignals(true);
+			ui->pushButton_solution1->setChecked(false);
+			ui->pushButton_solution1->blockSignals(false);
+
+			ui->pushButton_solution2->blockSignals(true);
+			ui->pushButton_solution2->setChecked(false);
+			ui->pushButton_solution2->blockSignals(false);
+
+			ui->pushButton_solution3->blockSignals(true);
+			ui->pushButton_solution3->setChecked(false);
+			ui->pushButton_solution3->blockSignals(false);
+
+			ui->pushButton_solution4->blockSignals(true);
+			ui->pushButton_solution4->setChecked(false);
+			ui->pushButton_solution4->blockSignals(false);
+
+			ui->pushButton_solution5->blockSignals(true);
+			ui->pushButton_solution5->setChecked(false);
+			ui->pushButton_solution5->blockSignals(false);
+		}
 
 		// if we have no open wells the droplet is removed from the drawing
 		if (!m_ppc1->isWeel1Open() && !m_ppc1->isWeel2Open() &&
-			!m_ppc1->isWeel3Open() && !m_ppc1->isWeel4Open()) {
+			!m_ppc1->isWeel3Open() && !m_ppc1->isWeel4Open() &&
+			!m_ppc1->isWeel5Open() && !m_ppc1->isWeel6Open()) {
 			m_pen_line.setColor(Qt::transparent);
 			ui->widget_solutionArrow->setVisible(false);
 
@@ -343,11 +384,20 @@ void Labonatip_GUI::updateSolutions()
 			ui->pushButton_solution4->blockSignals(true);
 			ui->pushButton_solution4->setChecked(false);
 			ui->pushButton_solution4->blockSignals(false);
+
+			ui->pushButton_solution5->blockSignals(true);
+			ui->pushButton_solution5->setChecked(false);
+			ui->pushButton_solution5->blockSignals(false);
+
+			ui->pushButton_solution6->blockSignals(true);
+			ui->pushButton_solution6->setChecked(false);
+			ui->pushButton_solution6->blockSignals(false);
 		}
 
 		// this should never happen, but the droplet would be removed anyway
 		if (m_ppc1->isWeel1Open() && m_ppc1->isWeel2Open() &&
-			m_ppc1->isWeel3Open() && m_ppc1->isWeel4Open()) {
+			m_ppc1->isWeel3Open() && m_ppc1->isWeel4Open() &&
+			m_ppc1->isWeel5Open() && m_ppc1->isWeel6Open()) {
 			m_pen_line.setColor(Qt::transparent);
 			ui->widget_solutionArrow->setVisible(false);
 
@@ -368,6 +418,14 @@ void Labonatip_GUI::updateSolutions()
 			ui->pushButton_solution4->blockSignals(true);
 			ui->pushButton_solution4->setChecked(false);
 			ui->pushButton_solution4->blockSignals(false);
+
+			ui->pushButton_solution5->blockSignals(true);
+			ui->pushButton_solution5->setChecked(false);
+			ui->pushButton_solution5->blockSignals(false);
+
+			ui->pushButton_solution6->blockSignals(true);
+			ui->pushButton_solution6->setChecked(false);
+			ui->pushButton_solution6->blockSignals(false);
 
 		}
 
