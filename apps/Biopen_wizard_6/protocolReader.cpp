@@ -243,95 +243,17 @@ int protocolReader::checkProtocolVersion(QByteArray _command)
 
 QString protocolReader::remapForBackwardCompatibility(int _version, QString _old_data)
 {
-	if (_version < 7)
+	if (_version == 6)
 	{
-		//setPon = 0,      zoneSize = 0,
-		if (_old_data == "0") return "12";
-		//setPoff = 1,     flowSpeed = 1,
-		if (_old_data == "1") return "13";
-		//setVswitch = 2,  vacuum = 2,
-		if (_old_data == "2") return "15";
-		//setVrecirc = 3,  wait = 3,
-		if (_old_data == "3") return "14";
-		//solution1 = 4,   allOff = 4,
-		if (_old_data == "4") return "8";
-		//solution2 = 5,   solution1 = 5,
-		if (_old_data == "5") return "9";
-		//solution3 = 6,   solution2 = 6,
-		if (_old_data == "6") return "10";
-		//solution4 = 7,   solution3 = 7,
-		if (_old_data == "7") return "11";
-		//wait = 8,        solution4 = 8,
-		if (_old_data == "8") return "6";
-		//ask_msg = 9,     setPon = 9,
-		if (_old_data == "9") return "16";
-		//allOff = 10,     setPoff = 10,
-		if (_old_data == "10") return "7";
-		//pumpsOff = 11,   setVrecirc = 11,
-		if (_old_data == "11") return "17";
-		//waitSync = 12,   setVswitch = 12,
-		if (_old_data == "12") return "18";
-		//syncOut = 13,	   ask_msg = 13,
-		if (_old_data == "13") return "19";
-		//zoneSize = 14,   pumpsOff = 14,
-		if (_old_data == "14") return "0";
-		//flowSpeed = 15,  waitSync = 15,
-		if (_old_data == "15") return "2";
-		//vacuum = 16,     syncOut = 16,
-		if (_old_data == "16") return "4";
-		//loop = 17        loop = 17 
-		if (_old_data == "17") return "20";
-		// remap as 
-		// Zone size, Flow speed, Vacuum, Wait, Alloff, 
-		// Solution 1-4, Pon, Poff, Vrecirc, V switch, all the rest.
+		QMessageBox::warning(this, m_str_warning,
+			"THE PROTOCOL VERSION IS TOO OLD " + _version);
+
 	}
 	if (_version == 7)
 	{
-		// zoneSize = 0,     setZoneSize = 0,
-		if (_old_data == "0") return "0";
-		// flowSpeed = 1,    changeZoneSizeBy = 1,
-		if (_old_data == "1") return "2";
-		// vacuum = 2,       setFlowSpeed = 2,
-		if (_old_data == "2") return "4";
-		// wait = 3,         changeFlowSpeedBy = 3,
-		if (_old_data == "3") return "6";
-		// allOff = 4,       setVacuum = 4,
-		if (_old_data == "4") return "7";
-		// solution1 = 5,    changeVacuumBy = 5,
-		if (_old_data == "5") return "8";
-		// solution2 = 6,    wait = 6,
-		if (_old_data == "6") return "9";
-		// solution3 = 7,    allOff = 7,
-		if (_old_data == "7") return "10";
-		// solution4 = 8,    solution1 = 8,
-		if (_old_data == "8") return "11";
-		// setPon = 9,       solution2 = 9,
-		if (_old_data == "9") return "12";
-		// setPoff = 10,     solution3 = 10,
-		if (_old_data == "10") return "13";
-		// setVrecirc = 11,  solution4 = 11,
-		if (_old_data == "11") return "14";
-		// setVswitch = 12,  setPon = 12,
-		if (_old_data == "12") return "15";
-		// ask_msg = 13,     setPoff = 13,
-		if (_old_data == "13") return "16";
-		// pumpsOff = 14,    setVrecirc = 14,
-		if (_old_data == "14") return "17";
-		// waitSync = 15,    setVswitch = 15,
-		if (_old_data == "15") return "18";
-		// syncOut = 16,     ask_msg = 16,
-		if (_old_data == "16") return "19";
-		// loop = 17         pumpsOff = 17,
-		if (_old_data == "17") return "20";
-
-        // if we are here the command was not found so we return the same data
-		return _old_data;
-		//					 waitSync = 18,
-		//if (_old_data == "18") return "6";
-		//				 	 syncOut = 19,
-		//if (_old_data == "19") return "6";
-		//					 loop = 20,
-		//if (_old_data == "20") return "6";
+		QMessageBox::warning(this, m_str_warning,
+			"THE PROTOCOL VERSION IS TOO OLD "+ _version);
+		
 	}
 	if (_version == 8)
 	{

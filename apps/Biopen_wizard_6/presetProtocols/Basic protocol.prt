@@ -5,33 +5,35 @@
 %% |                          http://www.fluicell.com/                         |
 %% +---------------------------------------------------------------------------+
 %% 
-%% Protocol Header V. 0.8 
-%% file created on dd/mm/yyyy - Mon Nov 12 2018 10:25:08%% 
+%% Protocol Header V. 0.9 
+%% file created on dd/mm/yyyy - Sun Jul 19 2020 16:11:40%% 
 %% Fluicell Lab-on-a-tip protocol file description 
 %% +---------------------------------------------------------------------------+ 
 %% List of parameters: 
 %%  - Command :  
-%%  -       0:  Set Zone size (%)             :  Set the droplet size in % respect to the default values 
-%%  -       1:  Change Zone size (%)          :  Change the droplet size in % respect to the current values 
-%%  -       2:  Set Flow speed (%)            :  Set the flow speed in % respect to the default values
-%%  -       3:  change Flow speed (%)         :  Change the flow speed in % respect to the current values
-%%  -       4:  Set Vacuum (%)                :  Set the vacuum in % respect to the default values
-%%  -       5:  change Vacuum (%)             :  Change the vacuum in % respect to the current values
+%%  -       0:  Set Zone size (%)             :  Set the droplet size percentage in the range [50, 200]  
+%%  -       1:  Change Zone size by (%)       :  Change the droplet size in % respect to the current values, accepted range [-40, +40] 
+%%  -       2:  Set Flow speed (%)            :  Set the flow speed percentage in the range [50, 220] 
+%%  -       3:  Change Flow speed by (%)      :  Change the flow speed in % respect to the current values, accepted range [-40, +40] 
+%%  -       4:  Set Vacuum (%)                :  Set the vacuum percentage in the range [50, 250] 
+%%  -       5:  Change Vacuum by (%)          :  Change the vacuum in % respect to the current values, accepted range [-40, +40] 
 %%  -       6:  Wait (s)                      :  Wait in seconds 
 %%  -       7:  All Off                       :  All the valves 1 - 4 will be closed 
 %%  -       8:  Solution 1 (open/close)       :  
 %%  -       9:  Solution 2 (open/close)       :  
 %%  -       10: Solution 3 (open/close)       :  
 %%  -       11: Solution 4 (open/close)       :  
-%%  -       12: Pressure ON (mbar)            :  Value in mbar
-%%  -       13: Pressure OFF (mbar)           :  Value in mbar
-%%  -       14: Vacuum Recirculation (mbar)   :  Value in mbar 
-%%  -       15: Vacuum Switch (mbar)          :  Value in mbar 
-%%  -       16: Ask (string)                  :  Ask a message at the end of some operation 
-%%  -       17: Pumps Off                     :  Set the all the pumps to zero (pressure and vacuum) 
-%%  -       18: Wait sync                     :  Wait a sync signal 
-%%  -       19: Sync out                      :  Sync with external trigger 
-%%  -       20: Loop (num)                    :  All the commands inside the loop will run cyclically 
+%%  -       12: Solution 5 (open/close)       :  
+%%  -       13: Solution 6 (open/close)       :  
+%%  -       14: Pressure ON (mbar)            :  Value in mbar
+%%  -       15: Pressure OFF (mbar)           :  Value in mbar
+%%  -       16: Vacuum Recirculation (mbar)   :  Value in mbar 
+%%  -       17: Vacuum Switch (mbar)          :  Value in mbar 
+%%  -       18: Ask (string)                  :  Ask a message at the end of some operation 
+%%  -       19: Pumps Off                     :  Set the all the pumps to zero (pressure and vacuum) 
+%%  -       20: Wait sync                     :  Wait a sync signal 
+%%  -       21: Sync out                      :  Sync with external trigger 
+%%  -       22: Loop (num)                    :  All the commands inside the loop will run cyclically 
 %%  - 
 %%  - value (mbar, %, s) - value to be applied to the command
 %%  - status_message (string) 
@@ -58,3 +60,14 @@
 11#1#0# #0#
 6#5#0# #0#
 11#0#0# #0#
+2#100#0# #0#
+6#2#0# #0#
+12#1#0# #0#
+6#5#0# #0#
+12#0#0# #0#
+6#2#0# #0#
+13#1#0# #0#
+6#5#0# #0#
+13#0#0# #0#
+6#5#0# #0#
+0#100#0# #0#

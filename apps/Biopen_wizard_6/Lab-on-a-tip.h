@@ -441,7 +441,7 @@ private slots:
 		//the solution to be stopped during the protocol runner
 		m_solutionParams->continuous_flowing_sol6 = true;
 		// this settings need to be restored at the end of the protocol
-		ui->pushButton_solution4->setChecked(_enable);
+		ui->pushButton_solution6->setChecked(_enable);
 		pushSolution6();
 	}
 
