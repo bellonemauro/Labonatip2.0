@@ -82,6 +82,24 @@ void Labonatip_GUI::colSolution4Changed(const int _r, const int _g, const int _b
 	m_chart_view->setSolutionColor4(m_sol4_color);
 }
 
+void Labonatip_GUI::colSolution5Changed(const int _r, const int _g, const int _b)
+{
+
+	QString styleSheet = generateStyleSheet(_r, _g, _b);
+	m_sol4_color.setRgb(_r, _g, _b);
+	ui->progressBar_solution5->setStyleSheet(styleSheet);
+	m_chart_view->setSolutionColor5(m_sol5_color);
+}
+
+void Labonatip_GUI::colSolution6Changed(const int _r, const int _g, const int _b)
+{
+
+	QString styleSheet = generateStyleSheet(_r, _g, _b);
+	m_sol4_color.setRgb(_r, _g, _b);
+	ui->progressBar_solution6->setStyleSheet(styleSheet);
+	m_chart_view->setSolutionColor6(m_sol6_color);
+}
+
 void Labonatip_GUI::pushSolution1() 
 {
 	std::cout << HERE << std::endl;
@@ -117,6 +135,16 @@ void Labonatip_GUI::pushSolution1()
 	if (ui->pushButton_solution4->isChecked()) {
 		m_timer_solution = m_time_multipilcator;
 		ui->pushButton_solution4->setChecked(false);
+		m_update_flowing_sliders->stop();
+	}
+	if (ui->pushButton_solution5->isChecked()) {
+		m_timer_solution = m_time_multipilcator;
+		ui->pushButton_solution5->setChecked(false);
+		m_update_flowing_sliders->stop();
+	}
+	if (ui->pushButton_solution6->isChecked()) {
+		m_timer_solution = m_time_multipilcator;
+		ui->pushButton_solution6->setChecked(false);
 		m_update_flowing_sliders->stop();
 	}
 
@@ -190,6 +218,16 @@ void Labonatip_GUI::pushSolution2() {
 		ui->pushButton_solution4->setChecked(false);
 		m_update_flowing_sliders->stop();
 	}
+	if (ui->pushButton_solution5->isChecked()) {
+		m_timer_solution = m_time_multipilcator;
+		ui->pushButton_solution5->setChecked(false);
+		m_update_flowing_sliders->stop();
+	}
+	if (ui->pushButton_solution6->isChecked()) {
+		m_timer_solution = m_time_multipilcator;
+		ui->pushButton_solution6->setChecked(false);
+		m_update_flowing_sliders->stop();
+	}
 
 	// set the color into the drawing to fit the solution flow 
 	m_pen_line.setColor(m_sol2_color);
@@ -259,6 +297,16 @@ void Labonatip_GUI::pushSolution3() {
 		ui->pushButton_solution4->setChecked(false);
 		m_update_flowing_sliders->stop();
 	}
+	if (ui->pushButton_solution5->isChecked()) {
+		m_timer_solution = m_time_multipilcator;
+		ui->pushButton_solution5->setChecked(false);
+		m_update_flowing_sliders->stop();
+	}
+	if (ui->pushButton_solution6->isChecked()) {
+		m_timer_solution = m_time_multipilcator;
+		ui->pushButton_solution6->setChecked(false);
+		m_update_flowing_sliders->stop();
+	}
 
 	// set the color into the drawing to fit the solution flow 
 	m_pen_line.setColor(m_sol3_color);
@@ -315,7 +363,7 @@ void Labonatip_GUI::pushSolution4() {
 		return;
 	}
 
-	ui->pushButton_solution1->setChecked(false);
+	//ui->pushButton_solution1->setChecked(false);
 	if (ui->pushButton_solution1->isChecked()) {
 		m_timer_solution = m_time_multipilcator;
 		ui->pushButton_solution1->setChecked(false);
@@ -329,6 +377,16 @@ void Labonatip_GUI::pushSolution4() {
 	if (ui->pushButton_solution3->isChecked()) {
 		m_timer_solution = m_time_multipilcator;
 		ui->pushButton_solution3->setChecked(false);
+		m_update_flowing_sliders->stop();
+	}
+	if (ui->pushButton_solution5->isChecked()) {
+		m_timer_solution = m_time_multipilcator;
+		ui->pushButton_solution5->setChecked(false);
+		m_update_flowing_sliders->stop();
+	}
+	if (ui->pushButton_solution6->isChecked()) {
+		m_timer_solution = m_time_multipilcator;
+		ui->pushButton_solution6->setChecked(false);
 		m_update_flowing_sliders->stop();
 	}
 
@@ -355,6 +413,166 @@ void Labonatip_GUI::pushSolution4() {
 		m_ppc1->closeAllValves();
 		QThread::msleep(50);
 		m_ppc1->setValve_i(true);
+	}
+
+	m_timer_solution = 0;
+	//m_update_flowing_sliders->start();
+	updateTimingSliders();
+
+	updateFlows();
+	updateFlowControlPercentages();
+
+}
+
+void Labonatip_GUI::pushSolution5() {
+
+	std::cout << HERE << std::endl;
+
+	if (!ui->pushButton_solution5->isChecked()) {
+		m_timer_solution = m_time_multipilcator;
+
+		if (m_pipette_active) {
+			m_ppc1->closeAllValves();
+		}
+
+		m_update_flowing_sliders->stop();
+		ui->widget_solutionArrow->setVisible(false);
+		//updateDrawing(-1);
+		m_pen_line.setColor(Qt::transparent);
+		ui->textEdit_emptyTime->hide();// setText(" ");
+		updateFlowControlPercentages();
+		return;
+	}
+
+	if (ui->pushButton_solution1->isChecked()) {
+		m_timer_solution = m_time_multipilcator;
+		ui->pushButton_solution1->setChecked(false);
+		m_update_flowing_sliders->stop();
+	}
+	if (ui->pushButton_solution2->isChecked()) {
+		m_timer_solution = m_time_multipilcator;
+		ui->pushButton_solution2->setChecked(false);
+		m_update_flowing_sliders->stop();
+	}
+	if (ui->pushButton_solution3->isChecked()) {
+		m_timer_solution = m_time_multipilcator;
+		ui->pushButton_solution3->setChecked(false);
+		m_update_flowing_sliders->stop();
+	}
+	if (ui->pushButton_solution4->isChecked()) {
+		m_timer_solution = m_time_multipilcator;
+		ui->pushButton_solution4->setChecked(false);
+		m_update_flowing_sliders->stop();
+	}
+	if (ui->pushButton_solution6->isChecked()) {
+		m_timer_solution = m_time_multipilcator;
+		ui->pushButton_solution6->setChecked(false);
+		m_update_flowing_sliders->stop();
+	}
+
+	// set the color into the drawing to fit the solution flow 
+	m_pen_line.setColor(m_sol5_color);
+	m_flowing_solution = 5;
+
+	// move the arrow in the drawing to point on the solution 4
+	ui->widget_solutionArrow->setVisible(true);
+	ui->label_arrowSolution->setText(m_solutionParams->sol5);
+
+	// calculate the middle point between the two widget to align the arrow to the progressbar
+	int pos_x = ui->progressBar_solution5->pos().x() -
+		ui->widget_solutionArrow->width() / 2 +
+		ui->progressBar_solution5->width() / 2;
+	ui->widget_solutionArrow->move(
+		QPoint(pos_x, ui->widget_solutionArrow->pos().ry()));
+
+	double solution_release_time = m_solutionParams->pulse_duration_well5; //m_dialog_tools->getSolutionTime();
+	m_time_multipilcator = (int)solution_release_time;
+
+	if (m_pipette_active)
+	{
+		m_ppc1->closeAllValves();
+		QThread::msleep(50);
+		m_ppc1->setValve_e(true);
+	}
+
+	m_timer_solution = 0;
+	//m_update_flowing_sliders->start();
+	updateTimingSliders();
+
+	updateFlows();
+	updateFlowControlPercentages();
+
+}
+
+void Labonatip_GUI::pushSolution6() {
+
+	std::cout << HERE << std::endl;
+
+	if (!ui->pushButton_solution6->isChecked()) {
+		m_timer_solution = m_time_multipilcator;
+
+		if (m_pipette_active) {
+			m_ppc1->closeAllValves();
+		}
+
+		m_update_flowing_sliders->stop();
+		ui->widget_solutionArrow->setVisible(false);
+		//updateDrawing(-1);
+		m_pen_line.setColor(Qt::transparent);
+		ui->textEdit_emptyTime->hide();// setText(" ");
+		updateFlowControlPercentages();
+		return;
+	}
+
+	if (ui->pushButton_solution1->isChecked()) {
+		m_timer_solution = m_time_multipilcator;
+		ui->pushButton_solution1->setChecked(false);
+		m_update_flowing_sliders->stop();
+	}
+	if (ui->pushButton_solution2->isChecked()) {
+		m_timer_solution = m_time_multipilcator;
+		ui->pushButton_solution2->setChecked(false);
+		m_update_flowing_sliders->stop();
+	}
+	if (ui->pushButton_solution3->isChecked()) {
+		m_timer_solution = m_time_multipilcator;
+		ui->pushButton_solution3->setChecked(false);
+		m_update_flowing_sliders->stop();
+	}
+	if (ui->pushButton_solution4->isChecked()) {
+		m_timer_solution = m_time_multipilcator;
+		ui->pushButton_solution4->setChecked(false);
+		m_update_flowing_sliders->stop();
+	}
+	if (ui->pushButton_solution5->isChecked()) {
+		m_timer_solution = m_time_multipilcator;
+		ui->pushButton_solution5->setChecked(false);
+		m_update_flowing_sliders->stop();
+	}
+
+	// set the color into the drawing to fit the solution flow 
+	m_pen_line.setColor(m_sol6_color);
+	m_flowing_solution = 6;
+
+	// move the arrow in the drawing to point on the solution 6
+	ui->widget_solutionArrow->setVisible(true);
+	ui->label_arrowSolution->setText(m_solutionParams->sol6);
+
+	// calculate the middle point between the two widget to align the arrow to the progressbar
+	int pos_x = ui->progressBar_solution6->pos().x() -
+		ui->widget_solutionArrow->width() / 2 +
+		ui->progressBar_solution5->width() / 2;
+	ui->widget_solutionArrow->move(
+		QPoint(pos_x, ui->widget_solutionArrow->pos().ry()));
+
+	double solution_release_time = m_solutionParams->pulse_duration_well6; //m_dialog_tools->getSolutionTime();
+	m_time_multipilcator = (int)solution_release_time;
+
+	if (m_pipette_active)
+	{
+		m_ppc1->closeAllValves();
+		QThread::msleep(50);
+		m_ppc1->setValve_f(true);
 	}
 
 	m_timer_solution = 0;
@@ -409,6 +627,23 @@ void Labonatip_GUI::updateTimingSliders()
 		release_time = m_solutionParams->pulse_duration_well4;
 		break;
 	}
+	case 5: {
+		_bar = ui->progressBar_solution5;
+		_button = ui->pushButton_solution5;
+		status = m_pipette_status->rem_vol_well5;
+		continuous_flowing = m_solutionParams->continuous_flowing_sol5;
+		release_time = m_solutionParams->pulse_duration_well5;
+		break;
+	}
+	case 6: {
+		_bar = ui->progressBar_solution6;
+		_button = ui->pushButton_solution6;
+		status = m_pipette_status->rem_vol_well6;
+		continuous_flowing = m_solutionParams->continuous_flowing_sol6;
+		release_time = m_solutionParams->pulse_duration_well6;
+		break;
+	}
+
 	default: {
 		std::cerr << HERE 
 			<< " error --- no valid m_flowing_solution value " << std::endl;

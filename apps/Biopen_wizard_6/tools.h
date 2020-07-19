@@ -60,6 +60,8 @@ class Labonatip_tools : public  QMainWindow
 		void colSol2Changed(const int _r, const int _g, const int _b); //!< signal generated when the solution color is changed
 		void colSol3Changed(const int _r, const int _g, const int _b); //!< signal generated when the solution color is changed
 		void colSol4Changed(const int _r, const int _g, const int _b); //!< signal generated when the solution color is changed
+		void colSol5Changed(const int _r, const int _g, const int _b); //!< signal generated when the solution color is changed
+		void colSol6Changed(const int _r, const int _g, const int _b); //!< signal generated when the solution color is changed
 		void checkUpdatesNow(); //!< signal generated when the updates button is pressed
 
 public:
@@ -105,7 +107,7 @@ public:
 		return ui_tools->comboBox_tipSelection->currentIndex();
 	}
 
-	fluicell::PPC1dataStructures::tip getTip() { return *m_tip; }
+	fluicell::PPC1api6dataStructures::tip getTip() { return *m_tip; }
 	bool isExpertMode() { return m_expert; }
 
 	void switchLanguage(QString _translation_file);
@@ -194,6 +196,18 @@ private slots:
 	*/
 	void colorSol4Changed(int _value);
 
+	/** Color solution 5 changed
+	*
+	* \note
+	*/
+	void colorSol5Changed(int _value);
+
+	/** Color solution 6 changed
+	*
+	* \note
+	*/
+	void colorSol6Changed(int _value);
+
 	/** \brief Enable/Disable the timer for an infinite solution flow
 	*
 	* \note
@@ -226,6 +240,22 @@ private slots:
 		ui_tools->doubleSpinBox_pulse_sol4->setEnabled(!_state); 
 	}
 
+
+	/** \brief Enable/Disable the timer for an infinite solution flow
+	*
+	* \note
+	*/
+	void setContinuousFlow_s5(int _state) {
+		ui_tools->doubleSpinBox_pulse_sol5->setEnabled(!_state);
+	}
+
+	/** \brief Enable/Disable the timer for an infinite solution flow
+	*
+	* \note
+	*/
+	void setContinuousFlow_s6(int _state) {
+		ui_tools->doubleSpinBox_pulse_sol6->setEnabled(!_state);
+	}
 	/** emit ok signal, save the setting, send the current macro to the main
 	*   and close the window
 	* \note
@@ -360,7 +390,7 @@ private:
 	pr_params *m_pr_params;       //!<  pressure and vacuum setting structure
 	GUIparams *m_GUI_params;      //!<  GUI setting structure
 
-	fluicell::PPC1dataStructures::tip *m_tip;
+	fluicell::PPC1api6dataStructures::tip *m_tip;
 	bool m_expert;       //!< expert mode, set to true upon correct password
 
 	// translatable strings

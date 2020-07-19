@@ -17,10 +17,10 @@ Labonatip_tools::Labonatip_tools(QWidget *parent):
 	m_comSettings(new COMSettings()),
 	m_solutionParams(new solutionsParams()),
 	m_pr_params(new pr_params()),
-	m_tip(new fluicell::PPC1dataStructures::tip()),
+	m_tip(new fluicell::PPC1api6dataStructures::tip()),
 	m_expert(false),
 	m_GUI_params(new GUIparams()),
-	m_setting_file_name("/settings/settings.ini")
+	m_setting_file_name("/settings/settings_6.ini")
 {
 	ui_tools->setupUi(this );
 
@@ -89,6 +89,14 @@ Labonatip_tools::Labonatip_tools(QWidget *parent):
 		SIGNAL(valueChanged(int)), this,
 		SLOT(colorSol4Changed(int)));
 
+	connect(ui_tools->horizontalSlider_colorSol5,
+		SIGNAL(valueChanged(int)), this,
+		SLOT(colorSol5Changed(int)));
+
+	connect(ui_tools->horizontalSlider_colorSol6,
+		SIGNAL(valueChanged(int)), this,
+		SLOT(colorSol6Changed(int)));
+
 	connect(ui_tools->pushButton_emptyWaste,
 		SIGNAL(clicked()), this, SLOT(emptyWastePressed()));
 
@@ -111,6 +119,14 @@ Labonatip_tools::Labonatip_tools(QWidget *parent):
 	connect(ui_tools->checkBox_disableTimer_s4,
 		SIGNAL(stateChanged(int)), this,
         SLOT(setContinuousFlow_s4(int)));
+
+	connect(ui_tools->checkBox_disableTimer_s5,
+		SIGNAL(stateChanged(int)), this,
+		SLOT(setContinuousFlow_s5(int)));
+
+	connect(ui_tools->checkBox_disableTimer_s6,
+		SIGNAL(stateChanged(int)), this,
+		SLOT(setContinuousFlow_s6(int)));
 
 	connect(ui_tools->pushButton_toDefault,
 		SIGNAL(clicked()), this, SLOT(resetToDefaultValues()));
@@ -318,6 +334,8 @@ void Labonatip_tools::refillSolutionPressed() {
 	m_solutionParams->vol_well2 = ui_tools->spinBox_vol_sol2->value();
 	m_solutionParams->vol_well3 = ui_tools->spinBox_vol_sol3->value();
 	m_solutionParams->vol_well4 = ui_tools->spinBox_vol_sol4->value();
+	m_solutionParams->vol_well5 = ui_tools->spinBox_vol_sol5->value();
+	m_solutionParams->vol_well6 = ui_tools->spinBox_vol_sol6->value();
 
 	emit refillSolution();
 }
@@ -325,8 +343,6 @@ void Labonatip_tools::refillSolutionPressed() {
 void Labonatip_tools::emptyWastePressed() {
 	std::cout << HERE << std::endl;
 
-	m_solutionParams->vol_well5 = MAX_WASTE_VOLUME; 
-	m_solutionParams->vol_well6 = MAX_WASTE_VOLUME; 
 	m_solutionParams->vol_well7 = MAX_WASTE_VOLUME; 
 	m_solutionParams->vol_well8 = MAX_WASTE_VOLUME; 
 
@@ -344,10 +360,10 @@ void Labonatip_tools::enumerate()
 
 	// try to get device information
 	std::vector<serial::PortInfo> devices = serial::list_ports();
-	std::vector<fluicell::PPC1dataStructures::serialDeviceInfo> devs;
+	std::vector<fluicell::PPC1api6dataStructures::serialDeviceInfo> devs;
 	for (unsigned int i = 0; i < devices.size(); i++) // for all the connected devices extract information
 	{
-		fluicell::PPC1dataStructures::serialDeviceInfo dev;
+		fluicell::PPC1api6dataStructures::serialDeviceInfo dev;
 		dev.port = devices.at(i).port;
 		dev.description = devices.at(i).description;
 		dev.hardware_ID = devices.at(i).hardware_id;
@@ -493,6 +509,43 @@ void Labonatip_tools::colorSol4Changed(int _value)
 
 }
 
+void Labonatip_tools::colorSol5Changed(int _value)
+{
+	float v = _value / 16777216.0;
+
+	uint32_t color = giveRainbowColor(v);
+
+	int red = color & 0x0000FF;
+	int green = (color >> 8) & 0x0000FF;
+	int blue = (color >> 16) & 0x0000FF;
+
+	QPalette* palette = new QPalette();
+	palette->setColor(QPalette::Base, QColor::fromRgb(red, green, blue));
+	//palette.setColor(QPalette::Text, Qt::white);
+	ui_tools->lineEdit_sol5_name->setPalette(*palette);
+	m_solutionParams->sol5_color = QColor::fromRgb(red, green, blue);
+	emit colSol5Changed(red, green, blue);
+
+}
+
+void Labonatip_tools::colorSol6Changed(int _value)
+{
+	float v = _value / 16777216.0;
+
+	uint32_t color = giveRainbowColor(v);
+
+	int red = color & 0x0000FF;
+	int green = (color >> 8) & 0x0000FF;
+	int blue = (color >> 16) & 0x0000FF;
+
+	QPalette* palette = new QPalette();
+	palette->setColor(QPalette::Base, QColor::fromRgb(red, green, blue));
+	//palette.setColor(QPalette::Text, Qt::white);
+	ui_tools->lineEdit_sol6_name->setPalette(*palette);
+	m_solutionParams->sol6_color = QColor::fromRgb(red, green, blue);
+	emit colSol6Changed(red, green, blue);
+
+}
 void Labonatip_tools::getCOMsettingsFromGUI()
 {
 	m_comSettings->setName (ui_tools->comboBox_serialInfo->currentText().toStdString());
@@ -513,8 +566,8 @@ void Labonatip_tools::getSolutionSettingsFromGUI()
 	m_solutionParams->vol_well2 = ui_tools->spinBox_vol_sol2->value();
 	m_solutionParams->vol_well3 = ui_tools->spinBox_vol_sol3->value();
 	m_solutionParams->vol_well4 = ui_tools->spinBox_vol_sol4->value();
-	m_solutionParams->vol_well5 = MAX_WASTE_VOLUME;
-	m_solutionParams->vol_well6 = MAX_WASTE_VOLUME;
+	m_solutionParams->vol_well5 = ui_tools->spinBox_vol_sol5->value();
+	m_solutionParams->vol_well6 = ui_tools->spinBox_vol_sol6->value();
 	m_solutionParams->vol_well7 = MAX_WASTE_VOLUME; 
 	m_solutionParams->vol_well8 = MAX_WASTE_VOLUME; 
 
@@ -522,16 +575,22 @@ void Labonatip_tools::getSolutionSettingsFromGUI()
 	m_solutionParams->sol2 = ui_tools->lineEdit_sol2_name->text();
 	m_solutionParams->sol3 = ui_tools->lineEdit_sol3_name->text();
 	m_solutionParams->sol4 = ui_tools->lineEdit_sol4_name->text();
+	m_solutionParams->sol5 = ui_tools->lineEdit_sol5_name->text();
+	m_solutionParams->sol6 = ui_tools->lineEdit_sol6_name->text();
 
 	m_solutionParams->pulse_duration_well1 = ui_tools->doubleSpinBox_pulse_sol1->value();
 	m_solutionParams->pulse_duration_well2 = ui_tools->doubleSpinBox_pulse_sol2->value();
 	m_solutionParams->pulse_duration_well3 = ui_tools->doubleSpinBox_pulse_sol3->value();
 	m_solutionParams->pulse_duration_well4 = ui_tools->doubleSpinBox_pulse_sol4->value();
+	m_solutionParams->pulse_duration_well5 = ui_tools->doubleSpinBox_pulse_sol5->value();
+	m_solutionParams->pulse_duration_well6 = ui_tools->doubleSpinBox_pulse_sol6->value();
 
 	m_solutionParams->continuous_flowing_sol1 = ui_tools->checkBox_disableTimer_s1->isChecked();
 	m_solutionParams->continuous_flowing_sol2 = ui_tools->checkBox_disableTimer_s2->isChecked();
 	m_solutionParams->continuous_flowing_sol3 = ui_tools->checkBox_disableTimer_s3->isChecked();
 	m_solutionParams->continuous_flowing_sol4 = ui_tools->checkBox_disableTimer_s4->isChecked();
+	m_solutionParams->continuous_flowing_sol5 = ui_tools->checkBox_disableTimer_s5->isChecked();
+	m_solutionParams->continuous_flowing_sol6 = ui_tools->checkBox_disableTimer_s6->isChecked();
 
 	m_pr_params->base_ds_increment = ui_tools->spinBox_ds_increment->value();
 	m_pr_params->base_fs_increment = ui_tools->spinBox_fs_increment->value();
@@ -1034,6 +1093,21 @@ bool Labonatip_tools::loadSettings(QString _path)
 	ui_tools->spinBox_vol_sol4->setValue(vol_sol4);
 	m_solutionParams->vol_well4 = vol_sol4;
 
+	int vol_sol5 = m_settings->value("solutions/volWell5", "30").toInt(&ok);
+	if (!ok) {
+		std::cerr << HERE
+			<< " volume of solution 5 corrupted in setting file, using default value " << std::endl;
+	}
+	ui_tools->spinBox_vol_sol5->setValue(vol_sol5);
+	m_solutionParams->vol_well5 = vol_sol5;
+
+	int vol_sol6 = m_settings->value("solutions/volWell6", "30").toInt(&ok);
+	if (!ok) {
+		std::cerr << HERE
+			<< " volume of solution 6 corrupted in setting file, using default value " << std::endl;
+	}
+	ui_tools->spinBox_vol_sol6->setValue(vol_sol6);
+	m_solutionParams->vol_well6 = vol_sol6;
 
 	//Read solution names block
 	QString solname1 = m_settings->value("solutions/sol1", "no name").toString();
@@ -1052,6 +1126,14 @@ bool Labonatip_tools::loadSettings(QString _path)
 	ui_tools->lineEdit_sol4_name->setText(solname4);
 	m_solutionParams->sol4 = solname4; 
 
+	QString solname5 = m_settings->value("solutions/sol5", "no name").toString();
+	ui_tools->lineEdit_sol5_name->setText(solname5);
+	m_solutionParams->sol5 = solname5;
+
+	QString solname6 = m_settings->value("solutions/sol6", "no name").toString();
+	ui_tools->lineEdit_sol6_name->setText(solname6);
+	m_solutionParams->sol6 = solname6;
+
 	int sol1colSlider = m_settings->value("solutions/sol1colSlider", "3522620").toInt();
 	ui_tools->horizontalSlider_colorSol1->setValue(sol1colSlider);
 	colorSol1Changed(sol1colSlider);
@@ -1068,6 +1150,17 @@ bool Labonatip_tools::loadSettings(QString _path)
 	int sol4colSlider = m_settings->value("solutions/sol4colSlider", "1432930").toInt();
 	ui_tools->horizontalSlider_colorSol4->setValue(sol4colSlider);
 	colorSol4Changed(sol4colSlider);
+	
+	int sol5colSlider = m_settings->value("solutions/sol5colSlider", "5164400").toInt();
+	ui_tools->horizontalSlider_colorSol5->setValue(sol5colSlider);
+	colorSol5Changed(sol5colSlider);
+	
+	int sol6colSlider = m_settings->value("solutions/sol6colSlider", "3522620").toInt();
+	ui_tools->horizontalSlider_colorSol6->setValue(sol6colSlider);
+	colorSol6Changed(sol6colSlider);
+	
+
+
 
 	double pulseDuration1 = m_settings->value("solutions/pulseDuration1", "10.0").toDouble();
 	ui_tools->doubleSpinBox_pulse_sol1->setValue(pulseDuration1);
@@ -1084,7 +1177,15 @@ bool Labonatip_tools::loadSettings(QString _path)
 	double pulseDuration4 = m_settings->value("solutions/pulseDuration4", "10.0").toDouble();
 	ui_tools->doubleSpinBox_pulse_sol4->setValue(pulseDuration4);
 	m_solutionParams->pulse_duration_well4 = pulseDuration4;
-
+	
+	double pulseDuration5 = m_settings->value("solutions/pulseDuration5", "10.0").toDouble();
+	ui_tools->doubleSpinBox_pulse_sol5->setValue(pulseDuration5);
+	m_solutionParams->pulse_duration_well5 = pulseDuration5;
+	
+	double pulseDuration6 = m_settings->value("solutions/pulseDuration6", "10.0").toDouble();
+	ui_tools->doubleSpinBox_pulse_sol6->setValue(pulseDuration6);
+	m_solutionParams->pulse_duration_well6 = pulseDuration6;
+	
 	bool disableTimer_s1 = m_settings->value("solutions/continuousFlowingWell1", "1").toBool();
 	ui_tools->checkBox_disableTimer_s1->setChecked(disableTimer_s1);
 	ui_tools->doubleSpinBox_pulse_sol1->setEnabled(!disableTimer_s1);
@@ -1104,6 +1205,17 @@ bool Labonatip_tools::loadSettings(QString _path)
 	ui_tools->checkBox_disableTimer_s4->setChecked(disableTimer_s4);
 	ui_tools->doubleSpinBox_pulse_sol4->setEnabled(!disableTimer_s4);
 	m_solutionParams->continuous_flowing_sol4 = disableTimer_s4;
+
+	bool disableTimer_s5 = m_settings->value("solutions/continuousFlowingWell5", "1").toBool();
+	ui_tools->checkBox_disableTimer_s5->setChecked(disableTimer_s5);
+	ui_tools->doubleSpinBox_pulse_sol5->setEnabled(!disableTimer_s5);
+	m_solutionParams->continuous_flowing_sol5 = disableTimer_s5;
+
+	bool disableTimer_s6 = m_settings->value("solutions/continuousFlowingWell6", "1").toBool();
+	ui_tools->checkBox_disableTimer_s6->setChecked(disableTimer_s6);
+	ui_tools->doubleSpinBox_pulse_sol6->setEnabled(!disableTimer_s6);
+	m_solutionParams->continuous_flowing_sol6 = disableTimer_s6;
+	// continuous flowing
 
 	return true;
 }
@@ -1208,6 +1320,10 @@ bool Labonatip_tools::saveSettings(QString _file_name)
 	settings->setValue("solutions/volWell3", ui_tools->spinBox_vol_sol3->value());
 	// well 4
 	settings->setValue("solutions/volWell4", ui_tools->spinBox_vol_sol4->value());
+	// well 5
+	settings->setValue("solutions/volWell5", ui_tools->spinBox_vol_sol5->value());
+	// well 6
+	settings->setValue("solutions/volWell6", ui_tools->spinBox_vol_sol6->value());
 
 	// [tip settings]
 	settings->setValue("tip/tip_type", ui_tools->comboBox_tipSelection->currentIndex());
@@ -1216,14 +1332,18 @@ bool Labonatip_tools::saveSettings(QString _file_name)
 
 
 	// [solutionNames]
-	// solution1 = CuSO4
+	// solution1
 	settings->setValue("solutions/sol1", ui_tools->lineEdit_sol1_name->text());
-	// solution2 = NaCl
+	// solution2
 	settings->setValue("solutions/sol2", ui_tools->lineEdit_sol2_name->text());
-	// solution3 = NaHCO3
+	// solution3 
 	settings->setValue("solutions/sol3", ui_tools->lineEdit_sol3_name->text());
-	// solution4 = FeS
+	// solution4
 	settings->setValue("solutions/sol4", ui_tools->lineEdit_sol4_name->text());
+	// solution5 
+	settings->setValue("solutions/sol5", ui_tools->lineEdit_sol5_name->text());
+	// solution6
+	settings->setValue("solutions/sol6", ui_tools->lineEdit_sol6_name->text());
 	// sol1colSlider
 	settings->setValue("solutions/sol1colSlider", ui_tools->horizontalSlider_colorSol1->value());
 	// sol2colSlider
@@ -1232,6 +1352,10 @@ bool Labonatip_tools::saveSettings(QString _file_name)
 	settings->setValue("solutions/sol3colSlider", ui_tools->horizontalSlider_colorSol3->value());
 	// sol4colSlider
 	settings->setValue("solutions/sol4colSlider", ui_tools->horizontalSlider_colorSol4->value());
+	// sol5colSlider
+	settings->setValue("solutions/sol5colSlider", ui_tools->horizontalSlider_colorSol5->value());
+	// sol6colSlider
+	settings->setValue("solutions/sol6colSlider", ui_tools->horizontalSlider_colorSol6->value());
 
 	// pulse time solution 1
 	settings->setValue("solutions/pulseDuration1", ui_tools->doubleSpinBox_pulse_sol1->value());
@@ -1241,6 +1365,10 @@ bool Labonatip_tools::saveSettings(QString _file_name)
 	settings->setValue("solutions/pulseDuration3", ui_tools->doubleSpinBox_pulse_sol3->value());
 	// pulse time solution 4
 	settings->setValue("solutions/pulseDuration4", ui_tools->doubleSpinBox_pulse_sol4->value());
+	// pulse time solution 5
+	settings->setValue("solutions/pulseDuration5", ui_tools->doubleSpinBox_pulse_sol5->value());
+	// pulse time solution 6
+	settings->setValue("solutions/pulseDuration6", ui_tools->doubleSpinBox_pulse_sol6->value());
 	// continuous flowing sol 1
 	settings->setValue("solutions/continuousFlowingWell1", int(ui_tools->checkBox_disableTimer_s1->isChecked()));
 	// continuous flowing sol 2
@@ -1249,7 +1377,11 @@ bool Labonatip_tools::saveSettings(QString _file_name)
 	settings->setValue("solutions/continuousFlowingWell3", int(ui_tools->checkBox_disableTimer_s3->isChecked()));
 	// continuous flowing sol 4
 	settings->setValue("solutions/continuousFlowingWell4", int(ui_tools->checkBox_disableTimer_s4->isChecked()));
-	
+	// continuous flowing sol 5
+	settings->setValue("solutions/continuousFlowingWell5", int(ui_tools->checkBox_disableTimer_s5->isChecked()));
+	// continuous flowing sol 6
+	settings->setValue("solutions/continuousFlowingWell6", int(ui_tools->checkBox_disableTimer_s6->isChecked()));
+
 	settings->sync();
 	
 	return true;

@@ -60,7 +60,7 @@ bool initPaths(Labonatip_GUI &_l, QString &_protocols_user_path,
 	ext_data_path.append("/Ext_data/");
 
 	// if the directory Biopen does not exist in the home folder, create it
-	home_path.append("/Documents/Biopen/");
+	home_path.append("/Documents/Biopen6/");
 	QDir home_dir;
 	if (!home_dir.exists(home_path)) {
 		std::cerr << " BiopenWizard directory does not exists in the home folder .... creating it" << std::endl;

@@ -42,7 +42,7 @@
 // third party serial library
 #include <serial/serial.h>
 
-#include "ppc1api_data_structures.h"
+#include "ppc1api6_data_structures.h"
 
 /**  \brief Define the Fluicell namespace, all the classes will be in here
   *  
@@ -50,19 +50,19 @@
 namespace fluicell
 {
 	
-	class  ppc1Exception : public std::exception
+	class  ppc1api6Exception : public std::exception
 	{
 		// Disable copy constructors
-		ppc1Exception& operator=(const ppc1Exception&);
+		ppc1api6Exception& operator=(const ppc1api6Exception&);
 		std::string e_what_;
 	public:
-		ppc1Exception(const char *description) {
+		ppc1api6Exception(const char *description) {
 			std::stringstream ss;
 			ss << "ppc1Exception " << description << " failed.";
 			e_what_ = ss.str();
 		}
-		ppc1Exception(const ppc1Exception& other) : e_what_(other.e_what_) {}
-		virtual ~ppc1Exception() throw() {}
+		ppc1api6Exception(const ppc1api6Exception& other) : e_what_(other.e_what_) {}
+		virtual ~ppc1api6Exception() throw() {}
 		virtual const char* what() const throw () {
 			return e_what_.c_str();
 		}
@@ -132,7 +132,7 @@ namespace fluicell
 	*		- MAY/2017: Creation (MB).
 	*  \ingroup __
 	*/
-	class PPC1API_EXPORT PPC1api 
+	class PPC1API6_EXPORT PPC1api6 
 	{
 
 	public:
@@ -140,14 +140,14 @@ namespace fluicell
 		/** \brief Constructor, initialize objects and parameters using default values
 		*        
 		*/
-		explicit PPC1api();
+		explicit PPC1api6();
 
 		/** \brief Destructor implementation to make sure everything is properly closed
 		  *  
 		  *   Make sure the thread and the serial communication 
 		  *   are properly closed, then free memory
 		  */
-		~PPC1api();
+		~PPC1api6();
 
 	private:
 
@@ -191,7 +191,7 @@ namespace fluicell
 		  * \note _PPC1_data will hold the last value in case of any error
 		  */
 		bool decodeDataLine(const std::string &_data,
-			fluicell::PPC1dataStructures::PPC1_data * _PPC1_data) const;
+			fluicell::PPC1api6dataStructures::PPC1api6_data * _PPC1_data) const;
 
 		/**  \brief Decode one channel line
 		*
@@ -224,8 +224,8 @@ namespace fluicell
 		* \note - For details about the specific calculations, refer to the
 		*         excel sheet in the resources folder
 		*/
-		void updateFlows(const fluicell::PPC1dataStructures::PPC1_data &_PPC1_data, 
-			fluicell::PPC1dataStructures::PPC1_status &_PPC1_status) const;
+		void updateFlows(const fluicell::PPC1api6dataStructures::PPC1api6_data &_PPC1_data, 
+			fluicell::PPC1api6dataStructures::PPC1api6_status &_PPC1_status) const;
 
 
 		/** \brief Send a string to the PPC1 controller
@@ -295,9 +295,9 @@ namespace fluicell
 		int m_baud_rate;                //!< baud rate	
 		int m_COM_timeout;              //!< timeout for the serial communication --- default value 250 ms
 		
-		fluicell::PPC1dataStructures::PPC1_data *m_PPC1_data; /*!< ppc1 output structure */
-		fluicell::PPC1dataStructures::PPC1_status *m_PPC1_status;/*!< pipette status */
-		fluicell::PPC1dataStructures::tip *m_tip;
+		fluicell::PPC1api6dataStructures::PPC1api6_data *m_PPC1_data; /*!< ppc1 output structure */
+		fluicell::PPC1api6dataStructures::PPC1api6_status *m_PPC1_status;/*!< pipette status */
+		fluicell::PPC1api6dataStructures::tip *m_tip;
 		int m_wait_sync_timeout;        //!< timeout for wait sync function in seconds, default value 60 sec
 
 		// threads
@@ -398,7 +398,7 @@ namespace fluicell
 		  **/
 		virtual void run() {
 			m_threadTerminationHandler = false; //TODO: too weak, add checking if running and initialized
-			m_thread = std::thread(&PPC1api::threadSerial, this);
+			m_thread = std::thread(&PPC1api6::threadSerial, this);
 			// run_thread.join();
 		}
 
@@ -511,6 +511,30 @@ namespace fluicell
 		  *  \note -  false by default
 		  **/
 		bool setValve_i(const bool _value = false) const;
+
+		/** \brief Set the valve "e" value to true/false to Open/Close
+		  *
+		  *  Send the string c%u\n to set valve state on valve d
+		  *  (Do not use in closed loop (automatic) mode)
+		  *
+		  *  @param  _value true ==>   Open ==> %u=0
+		  *          _value false ==>  Closed ==> %u=1
+		  *
+		  *  \note -  false by default
+		  **/
+		bool setValve_e(const bool _value = false) const;
+
+		/** \brief Set the valve "f" value to true/false to Open/Close
+		  *
+		  *  Send the string c%u\n to set valve state on valve d
+		  *  (Do not use in closed loop (automatic) mode)
+		  *
+		  *  @param  _value true ==>   Open ==> %u=0
+		  *          _value false ==>  Closed ==> %u=1
+		  *
+		  *  \note -  false by default
+		  **/
+		bool setValve_f(const bool _value = false) const;
 		
 		/** \brief Set all the valves state in one command using a binary number where 1/0 are Open/Close
 		*
@@ -756,7 +780,7 @@ namespace fluicell
 		*  @param  _cmd is a command, see <command> structure
 		*
 		**/
-		bool runCommand(fluicell::PPC1dataStructures::command _cmd) const;
+		bool runCommand(fluicell::PPC1api6dataStructures::command _cmd) const;
 
 		/**  \brief Set the data stream period on the serial port
 		  *
@@ -838,7 +862,7 @@ namespace fluicell
 			m_tip->length_to_zone = _length_to_zone;
 		}
 
-		fluicell::PPC1dataStructures::tip::tipType getTipType() const {
+		fluicell::PPC1api6dataStructures::tip::tipType getTipType() const {
 			return m_tip->type;
 		}
 
@@ -1115,6 +1139,24 @@ namespace fluicell
 			else return false;
 		}
 
+		/** \brief Check if the well 5 is open
+		*
+		*  \return true if the well 5 is open, false otherwise
+		**/
+		bool isWeel5Open() const {
+			if (m_PPC1_data->e == 1) return true;
+			else return false;
+		}
+
+		/** \brief Check if the well 6 is open
+		*
+		*  \return true if the well 6 is open, false otherwise
+		**/
+		bool isWeel6Open() const {
+			if (m_PPC1_data->f == 1) return true;
+			else return false;
+		}
+
 
 		/** \brief Calculate the protocol duration in seconds
 		*
@@ -1125,13 +1167,13 @@ namespace fluicell
 		*
 		* \return a double with the protocol duration in seconds
 		*/
-		double protocolDuration(std::vector<fluicell::PPC1dataStructures::command> &_protocol)  const;
+		double protocolDuration(std::vector<fluicell::PPC1api6dataStructures::command> &_protocol)  const;
 
 		/** \brief Get the pipette status 
 		*
 		*  \return a copy of the data member
 		**/
-		const fluicell::PPC1dataStructures::PPC1_status* getPipetteStatus() const { return m_PPC1_status; }
+		const fluicell::PPC1api6dataStructures::PPC1api6_status* getPipetteStatus() const { return m_PPC1_status; }
    };
 
 }

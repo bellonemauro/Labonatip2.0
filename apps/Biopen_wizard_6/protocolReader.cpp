@@ -333,6 +333,55 @@ QString protocolReader::remapForBackwardCompatibility(int _version, QString _old
 		//					 loop = 20,
 		//if (_old_data == "20") return "6";
 	}
+	if (_version == 8)
+	{
+		// setZoneSize = 0,     setZoneSize = 0,
+		if (_old_data == "0") return "0";
+		// changeZoneSizeBy = 1,    changeZoneSizeBy = 1,
+		if (_old_data == "1") return "1";
+		// setFlowSpeed = 2,       setFlowSpeed = 2,
+		if (_old_data == "2") return "2";
+		// changeFlowSpeedBy = 3,         changeFlowSpeedBy = 3,
+		if (_old_data == "3") return "3";
+		// setVacuum = 4,       setVacuum = 4,
+		if (_old_data == "4") return "4";
+		// changeVacuumBy = 5,    changeVacuumBy = 5,
+		if (_old_data == "5") return "5";
+		// wait = 6,    wait = 6,
+		if (_old_data == "6") return "6";
+		// allOff = 7,    allOff = 7,
+		if (_old_data == "7") return "7";
+		// solution1 = 8,    solution1 = 8,
+		if (_old_data == "8") return "8";
+		// solution2 = 9,       solution2 = 9,
+		if (_old_data == "9") return "9";
+		// solution3 = 10,     solution3 = 10,
+		if (_old_data == "10") return "10";
+		// solution4 = 11,  solution4 = 11,
+		if (_old_data == "11") return "11";
+
+		// setPon = 12,  solution5 = 12,
+		if (_old_data == "12") return "14";
+		// setPoff = 13,     solution5 = 13,
+		if (_old_data == "13") return "15";
+		// setVrecirc = 14,    setPon = 14,
+		if (_old_data == "14") return "16";
+		// setVswitch = 15,    setVswitch = 15,
+		if (_old_data == "15") return "17";
+		// ask_msg = 16,     ask_msg = 16,
+		if (_old_data == "16") return "18";
+		// pumpsOff = 17         pumpsOff = 17,
+		if (_old_data == "17") return "19";
+
+		// if we are here the command was not found so we return the same data
+		return _old_data;
+		//					 waitSync = 18,
+		//if (_old_data == "18") return "6";
+		//				 	 syncOut = 19,
+		//if (_old_data == "19") return "6";
+		//					 loop = 20,
+		//if (_old_data == "20") return "6";
+	}
 	
 	return _old_data;
 }

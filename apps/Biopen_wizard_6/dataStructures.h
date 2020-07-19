@@ -24,7 +24,7 @@
 #include <QGraphicsView>
 
 // PPC1api 
-#include <fluicell/ppc1api/ppc1api.h>
+#include <fluicell/ppc1api6/ppc1api6.h>
 #include <serial/serial.h>
 
 // Global definitions
@@ -35,7 +35,7 @@
 #define HERE std::string(__FUNCTION__ )//+ std::string(" at line ") + std::to_string(__LINE__))
 
 // just re-definition of a protocol command to get a shorter name
-typedef fluicell::PPC1dataStructures::command::instructions pCmd;
+typedef fluicell::PPC1api6dataStructures::command::instructions pCmd;
 
 //TODO IMPORTANT: check duplicated structures between dataStructure.h and ppc1api_data_structure.h 
 
@@ -103,26 +103,34 @@ struct solutionsParams {
 		this->vol_well2 = 0.0;
 		this->vol_well3 = 0.0;
 		this->vol_well4 = 0.0;
-		this->vol_well5 = 30.0;
-		this->vol_well6 = 30.0;
+		this->vol_well5 = 0.0;
+		this->vol_well6 = 0.0;
 		this->vol_well7 = 30.0;
 		this->vol_well8 = 30.0;
 	    this->sol1 = "No name given to sol 1";
 		this->sol2 = "No name given to sol 2";
 		this->sol3 = "No name given to sol 3";
 		this->sol4 = "No name given to sol 4";
+		this->sol5 = "No name given to sol 4";
+		this->sol6 = "No name given to sol 4";
 		this->sol1_color = QColor::fromRgb(255, 189, 0);
 		this->sol2_color = QColor::fromRgb(255, 40, 0);
 		this->sol3_color = QColor::fromRgb(0, 158, 255);
 		this->sol4_color = QColor::fromRgb(130, 255, 0);
+		this->sol4_color = QColor::fromRgb(255, 40, 0);
+		this->sol4_color = QColor::fromRgb(255, 189, 0);
 		this->pulse_duration_well1 = 500.0;
 		this->pulse_duration_well2 = 500.0;
 		this->pulse_duration_well3 = 500.0;
 		this->pulse_duration_well4 = 500.0;
+		this->pulse_duration_well5 = 500.0;
+		this->pulse_duration_well6 = 500.0;
 		this->continuous_flowing_sol1 = 1;
 		this->continuous_flowing_sol2 = 1;
 		this->continuous_flowing_sol3 = 1;
 		this->continuous_flowing_sol4 = 1;
+		this->continuous_flowing_sol5 = 1;
+		this->continuous_flowing_sol6 = 1;
 
 	}
 
@@ -138,18 +146,26 @@ struct solutionsParams {
 	QString sol2;                     //!<  name of the solution 2
 	QString sol3;                     //!<  name of the solution 3
 	QString sol4;                     //!<  name of the solution 4
+	QString sol5;                     //!<  name of the solution 4
+	QString sol6;                     //!<  name of the solution 4
 	QColor sol1_color;                //!<  color of the solution 1
 	QColor sol2_color;                //!<  color of the solution 2
 	QColor sol3_color;                //!<  color of the solution 3
 	QColor sol4_color;                //!<  color of the solution 4
+	QColor sol5_color;                //!<  color of the solution 4
+	QColor sol6_color;                //!<  color of the solution 4
 	double pulse_duration_well1;
 	double pulse_duration_well2;
 	double pulse_duration_well3;
 	double pulse_duration_well4;
+	double pulse_duration_well5;
+	double pulse_duration_well6;
 	bool continuous_flowing_sol1;
 	bool continuous_flowing_sol2;
 	bool continuous_flowing_sol3;
 	bool continuous_flowing_sol4;
+	bool continuous_flowing_sol5;
+	bool continuous_flowing_sol6;
 }; // END solutionsNames struct
 
 

@@ -148,7 +148,15 @@ void Labonatip_GUI::updateSolutions()
 
 			ui->pushButton_solution4->blockSignals(true);
 			ui->pushButton_solution4->setChecked(false);
-			ui->pushButton_solution4->blockSignals(false);
+			ui->pushButton_solution4->blockSignals(false); 
+
+			ui->pushButton_solution5->blockSignals(true);
+			ui->pushButton_solution5->setChecked(false);
+			ui->pushButton_solution5->blockSignals(false);
+
+			ui->pushButton_solution6->blockSignals(true);
+			ui->pushButton_solution6->setChecked(false);
+			ui->pushButton_solution6->blockSignals(false); 
 
 		}
 		if (m_ppc1->isWeel2Open()) {
@@ -182,6 +190,14 @@ void Labonatip_GUI::updateSolutions()
 			ui->pushButton_solution4->blockSignals(true);
 			ui->pushButton_solution4->setChecked(false);
 			ui->pushButton_solution4->blockSignals(false);
+
+			ui->pushButton_solution5->blockSignals(true);
+			ui->pushButton_solution5->setChecked(false);
+			ui->pushButton_solution5->blockSignals(false);
+
+			ui->pushButton_solution6->blockSignals(true);
+			ui->pushButton_solution6->setChecked(false);
+			ui->pushButton_solution6->blockSignals(false);
 		}
 		if (m_ppc1->isWeel3Open()) {
 			m_pen_line.setColor(m_sol3_color);
@@ -214,6 +230,14 @@ void Labonatip_GUI::updateSolutions()
 			ui->pushButton_solution4->blockSignals(true);
 			ui->pushButton_solution4->setChecked(false);
 			ui->pushButton_solution4->blockSignals(false);
+
+			ui->pushButton_solution5->blockSignals(true);
+			ui->pushButton_solution5->setChecked(false);
+			ui->pushButton_solution5->blockSignals(false);
+
+			ui->pushButton_solution6->blockSignals(true);
+			ui->pushButton_solution6->setChecked(false);
+			ui->pushButton_solution6->blockSignals(false);
 		}
 		if (m_ppc1->isWeel4Open()) {
 			m_pen_line.setColor(m_sol4_color);
@@ -246,7 +270,55 @@ void Labonatip_GUI::updateSolutions()
 			ui->pushButton_solution3->blockSignals(true);
 			ui->pushButton_solution3->setChecked(false);
 			ui->pushButton_solution3->blockSignals(false);
+
+			ui->pushButton_solution5->blockSignals(true);
+			ui->pushButton_solution5->setChecked(false);
+			ui->pushButton_solution5->blockSignals(false);
+
+			ui->pushButton_solution6->blockSignals(true);
+			ui->pushButton_solution6->setChecked(false);
+			ui->pushButton_solution6->blockSignals(false);
 		}
+		if (m_ppc1->isWeel5Open()) {
+			m_pen_line.setColor(m_sol5_color);
+			// move the arrow in the drawing to point on the solution 5
+			ui->widget_solutionArrow->setVisible(true);
+			ui->label_arrowSolution->setText(m_solutionParams->sol5);
+
+			// calculate the middle point between the two widgets
+			// to align the arrow to the progressbar
+			int pos_x = ui->progressBar_solution5->pos().x() -
+				ui->widget_solutionArrow->width() / 2 +
+				ui->progressBar_solution5->width() / 2;
+			ui->widget_solutionArrow->move(
+				QPoint(pos_x, ui->widget_solutionArrow->pos().ry()));
+
+			// switch on the button for the solution 5
+			ui->pushButton_solution5->blockSignals(true);
+			ui->pushButton_solution5->setChecked(true);
+			ui->pushButton_solution5->blockSignals(false);
+
+			// all the other buttons have to be off
+			ui->pushButton_solution1->blockSignals(true);
+			ui->pushButton_solution1->setChecked(false);
+			ui->pushButton_solution1->blockSignals(false);
+
+			ui->pushButton_solution2->blockSignals(true);
+			ui->pushButton_solution2->setChecked(false);
+			ui->pushButton_solution2->blockSignals(false);
+
+			ui->pushButton_solution3->blockSignals(true);
+			ui->pushButton_solution3->setChecked(false);
+			ui->pushButton_solution3->blockSignals(false);
+
+			ui->pushButton_solution4->blockSignals(true);
+			ui->pushButton_solution4->setChecked(false);
+			ui->pushButton_solution4->blockSignals(false);
+
+			ui->pushButton_solution6->blockSignals(true);
+			ui->pushButton_solution6->setChecked(false);
+			ui->pushButton_solution6->blockSignals(false);
+		}/**/
 
 		// if we have no open wells the droplet is removed from the drawing
 		if (!m_ppc1->isWeel1Open() && !m_ppc1->isWeel2Open() &&
@@ -519,7 +591,7 @@ void Labonatip_GUI::updateFlows()
 	// otherwise the flows will be calculated according to the current values
 	if (!m_simulationOnly)
 	{ 
-		const fluicell::PPC1dataStructures::PPC1_status *status = m_ppc1->getPipetteStatus();
+		const fluicell::PPC1api6dataStructures::PPC1api6_status *status = m_ppc1->getPipetteStatus();
 		m_pipette_status->outflow_on = status->outflow_on;
 		m_pipette_status->outflow_off = status->outflow_off;
 		m_pipette_status->outflow_tot = status->outflow_tot;
@@ -804,7 +876,7 @@ void Labonatip_GUI::updateWaste()
 
 	if (m_ds_perc < 10) return;
 
-	double waste_remaining_time_in_sec;
+	double waste_remaining_time_in_sec = 0;
 
 	//updateWells();
 	int max = MAX_VOLUME_IN_WELL;  // just to have a shorter name in formulas
@@ -872,21 +944,45 @@ void Labonatip_GUI::updateWaste()
 		double perc = 100.0 * m_pipette_status->rem_vol_well4 / max;
 		ui->progressBar_solution4->setValue(int(perc));
 	}
+	if (ui->pushButton_solution5->isChecked()) {
+		m_pipette_status->rem_vol_well5 = m_pipette_status->rem_vol_well5 -
+			0.001 * m_pipette_status->flow_well5; // 0.001 is to transform in mL/s
+
+		if (m_pipette_status->rem_vol_well5 < 0) {
+			stopSolutionFlow();
+			QMessageBox::information(this, m_str_warning,
+				m_str_solution_ended);
+		}
+
+		double perc = 100.0 * m_pipette_status->rem_vol_well5 / max;
+		ui->progressBar_solution6->setValue(int(perc));
+	}
+	if (ui->pushButton_solution6->isChecked()) {
+		m_pipette_status->rem_vol_well6 = m_pipette_status->rem_vol_well6 -
+			0.001 * m_pipette_status->flow_well6; // 0.001 is to transform in mL/s
+
+		if (m_pipette_status->rem_vol_well6 < 0) {
+			stopSolutionFlow();
+			QMessageBox::information(this, m_str_warning,
+				m_str_solution_ended);
+		}
+
+		double perc = 100.0 * m_pipette_status->rem_vol_well6 / max;
+		ui->progressBar_solution6->setValue(int(perc));
+	}
 
 
-	m_pipette_status->rem_vol_well5 = m_pipette_status->rem_vol_well5 +
-		0.001 * m_pipette_status->flow_well5;
-	m_pipette_status->rem_vol_well6 = m_pipette_status->rem_vol_well6 +
-		0.001 * m_pipette_status->flow_well6;
+	//m_pipette_status->rem_vol_well5 = m_pipette_status->rem_vol_well5 +
+	//	0.001 * m_pipette_status->flow_well5;
+	//m_pipette_status->rem_vol_well6 = m_pipette_status->rem_vol_well6 +
+	//	0.001 * m_pipette_status->flow_well6;
 	m_pipette_status->rem_vol_well7 = m_pipette_status->rem_vol_well7 +
 		0.001 * m_pipette_status->flow_well7;
 	m_pipette_status->rem_vol_well8 = m_pipette_status->rem_vol_well8 +
 		0.001 * m_pipette_status->flow_well8;
 
 	// show the warning label
-	if (m_pipette_status->rem_vol_well5 > MAX_WASTE_WARNING_VOLUME ||
-		m_pipette_status->rem_vol_well6 > MAX_WASTE_WARNING_VOLUME ||
-		m_pipette_status->rem_vol_well7 > MAX_WASTE_WARNING_VOLUME ||
+	if (m_pipette_status->rem_vol_well7 > MAX_WASTE_WARNING_VOLUME ||
 		m_pipette_status->rem_vol_well8 > MAX_WASTE_WARNING_VOLUME) {
 		ui->label_warningIcon->show();
 		ui->label_warning->setText(m_str_warning_waste_full);
@@ -895,8 +991,8 @@ void Labonatip_GUI::updateWaste()
 
 	// only the minimum of the remaining solution is shown and important
 	std::vector<double> v1;
-	v1.push_back(m_solutionParams->vol_well5 - m_pipette_status->rem_vol_well5);
-	v1.push_back(m_solutionParams->vol_well6 - m_pipette_status->rem_vol_well6);
+	//v1.push_back(m_solutionParams->vol_well5 - m_pipette_status->rem_vol_well5);
+	//v1.push_back(m_solutionParams->vol_well6 - m_pipette_status->rem_vol_well6);
 	v1.push_back(m_solutionParams->vol_well7 - m_pipette_status->rem_vol_well7);
 	v1.push_back(m_solutionParams->vol_well8 - m_pipette_status->rem_vol_well8);
 
@@ -907,26 +1003,6 @@ void Labonatip_GUI::updateWaste()
 	switch (min_index)
 	{
 	case 0: {
-		if (m_pipette_status->flow_well5 > 0) {  
-			waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well5 -
-				m_pipette_status->rem_vol_well5) / m_pipette_status->flow_well5;
-		}
-		else {
-			waste_remaining_time_in_sec = 0;
-		}
-		break;
-	}
-	case 1: {
-		if (m_pipette_status->flow_well6 > 0) {
-			waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well6 -
-				m_pipette_status->rem_vol_well6) / m_pipette_status->flow_well6;
-		}
-		else {
-			waste_remaining_time_in_sec = 0;
-		}
-		break;
-	}
-	case 2: {
 		if (m_pipette_status->flow_well7 > 0) {
 			waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well7 -
 				m_pipette_status->rem_vol_well7) / m_pipette_status->flow_well7;
@@ -936,7 +1012,7 @@ void Labonatip_GUI::updateWaste()
 		}
 		break;
 	}
-	case 3: {
+	case 1: {
 		if (m_pipette_status->flow_well8 > 0) {
 			waste_remaining_time_in_sec = 1000.0 * (m_solutionParams->vol_well8 -
 				m_pipette_status->rem_vol_well8) / m_pipette_status->flow_well8;
@@ -968,17 +1044,11 @@ void Labonatip_GUI::updateWaste()
 	v = m_pipette_status->rem_vol_well8 * 10;
 	ui->treeWidget_macroInfo->topLevelItem(19)->setText(1, QString::number(v / 10.0));
 
-	double value = 100.0 *  m_pipette_status->rem_vol_well5 / m_solutionParams->vol_well5;
-	ui->progressBar_switchOut->setValue(value);
-
-	value = 100.0 * m_pipette_status->rem_vol_well6 / m_solutionParams->vol_well6;
-	ui->progressBar_switchIn->setValue(value);
-
-	value = 100.0 * m_pipette_status->rem_vol_well7 / m_solutionParams->vol_well7;
-	ui->progressBar_recircOut->setValue(value);
+	double value = 100.0 * m_pipette_status->rem_vol_well7 / m_solutionParams->vol_well7;
+	ui->progressBar_switch7->setValue(value);
 
 	value = 100.0 * m_pipette_status->rem_vol_well8 / m_solutionParams->vol_well8;
-	ui->progressBar_recircIn->setValue(value);
+	ui->progressBar_recirc8->setValue(value);
 
 
 	if (waste_remaining_time_in_sec < 0) {

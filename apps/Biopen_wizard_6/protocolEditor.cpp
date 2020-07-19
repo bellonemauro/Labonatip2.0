@@ -162,7 +162,7 @@ void Labonatip_GUI::addAllCommandsToProtocol()
 	for (size_t i = 0; i < commands_vector.size(); ++i)
 	{
 
-		fluicell::PPC1dataStructures::command new_command;
+		fluicell::PPC1api6dataStructures::command new_command;
 
 		std::string a = commands_vector.at(i)->text(editorParams::c_command).toStdString();
 
@@ -180,7 +180,7 @@ void Labonatip_GUI::addAllCommandsToProtocol()
 
 	// update duration
 	double duration = m_ppc1->protocolDuration(*m_protocol);
-	ui->treeWidget_params->topLevelItem(8)->setText(1, QString::number(duration));
+	ui->treeWidget_params->topLevelItem(10)->setText(1, QString::number(duration));
 	int remaining_time_sec = duration;
 	QString s;
 	s.append(m_str_protocol_duration);

@@ -17,9 +17,9 @@ message (STATUS "${PROJECT_NAME} MESSAGE:   ---   LIB_SOURCES    :: ${LIB_SOURCE
 message (STATUS "${PROJECT_NAME} MESSAGE:   ---   LIB_HEADERS    :: ${LIB_HEADERS}")
 
 #Allows other components to find this library
-set (PPC1api_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include  CACHE PATH "Path to the headers of PPC1 api") 
+set (PPC1api6_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include  CACHE PATH "Path to the headers of PPC1 api") 
 # necessary to allow the *.cpp to find headers 
-include_directories(${PPC1api_INCLUDE_DIR})
+include_directories(${PPC1api6_INCLUDE_DIR})
 
 #select all headers in the include dir
 FILE(GLOB LIB_HEADERS "${LIB_SOURCES}/include/fluicell/ppc1api6/*.h")   
@@ -32,7 +32,7 @@ message (STATUS "${PROJECT_NAME} MESSAGE:  serial_INCLUDE_DIR    :: ${serial_INC
 # Find includes in corresponding build directories
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-add_definitions(-DPPC1API) 
+add_definitions(-DPPC1API6) 
 
 # add library 
 # add_library(${PROJECT_NAME}  SHARED ${LIB_SOURCES} ${LIB_HEADERS} )

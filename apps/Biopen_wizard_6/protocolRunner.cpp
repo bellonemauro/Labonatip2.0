@@ -52,7 +52,7 @@ void Labonatip_macroRunner::switchLanguage(QString _translation_file)
 	}
 }
 
-void Labonatip_macroRunner::simulateCommand(fluicell::PPC1dataStructures::command _cmd)
+void Labonatip_macroRunner::simulateCommand(fluicell::PPC1api6dataStructures::command _cmd)
 {
 
 	int ist = _cmd.getInstruction();
@@ -99,6 +99,16 @@ void Labonatip_macroRunner::simulateCommand(fluicell::PPC1dataStructures::comman
 	}
 	case pCmd::solution4: {//solution4
 		emit solution4(bool(_cmd.getValue()));
+		msleep(50);
+		return;
+	}
+	case pCmd::solution5: {//solution4
+		emit solution5(bool(_cmd.getValue()));
+		msleep(50);
+		return;
+	}
+	case pCmd::solution6: {//solution4
+		emit solution6(bool(_cmd.getValue()));
 		msleep(50);
 		return;
 	}
@@ -162,7 +172,7 @@ void Labonatip_macroRunner::simulateCommand(fluicell::PPC1dataStructures::comman
 	}
 	default: {
 		std::cerr << HERE
-			<< " fluicell::PPC1api::runCommand(command _cmd) :::"
+			<< " fluicell::PPC1api6::runCommand(command _cmd) :::"
 			<< " Command NOT recognized "
 			<< std::endl;
 		return;

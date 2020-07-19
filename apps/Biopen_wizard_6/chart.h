@@ -18,12 +18,12 @@
 #include <QtCharts/QAreaSeries>
 
 // PPC1api test
-#include <fluicell/ppc1api/ppc1api.h>
+#include <fluicell/ppc1api6/ppc1api6.h>
 
 class protocolChart 
 {
 	// define a type for Fluicell protocol
-	typedef std::vector<fluicell::PPC1dataStructures::command> f_protocol;
+	typedef std::vector<fluicell::PPC1api6dataStructures::command> f_protocol;
 
 public:
 
@@ -100,6 +100,34 @@ public:
 		m_area_solution4->setColor(*m_col_sol4);
 	}
 
+	/** \brief Set solution 4 color
+	*
+	*  This set of color allow the dynamic change
+	*  of colors in the chart
+	*
+	*  \note: changes private data members
+	*/
+	void setSolutionColor5(QColor _col_sol) {
+		*m_col_sol5 = _col_sol;
+		m_pen_s5->setColor(*m_col_sol5);
+		m_area_solution4->setPen(*m_pen_s5);
+		m_area_solution4->setColor(*m_col_sol5);
+	}
+
+	/** \brief Set solution 4 color
+	*
+	*  This set of color allow the dynamic change
+	*  of colors in the chart
+	*
+	*  \note: changes private data members
+	*/
+	void setSolutionColor6(QColor _col_sol) {
+		*m_col_sol6 = _col_sol;
+		m_pen_s6->setColor(*m_col_sol6);
+		m_area_solution4->setPen(*m_pen_s6);
+		m_area_solution4->setColor(*m_col_sol6);
+	}
+
 	/** \brief Update the chart time line during the execution of a protocol
 	*
 	*/
@@ -169,7 +197,7 @@ private:
 	QtCharts::QLineSeries *m_series_solution1;   //!> Solution 1 series 
 	QtCharts::QLineSeries *m_series_solution2;   //!> Solution 2 series 
 	QtCharts::QLineSeries *m_series_solution3;   //!> Solution 3 series 
-	QtCharts::QLineSeries *m_series_solution4;   //!> Solution 4 series 
+	QtCharts::QLineSeries *m_series_solution4;   //!> Solution 4 series //TODO: add here the other solutions
 	QtCharts::QAreaSeries *m_area_solution1;     //!> Solution 1 area 
 	QtCharts::QAreaSeries *m_area_solution2;     //!> Solution 2 area 
 	QtCharts::QAreaSeries *m_area_solution3;     //!> Solution 3 area 
@@ -177,11 +205,15 @@ private:
 	QPen *m_pen_s1;        //!> Pen for solution 1, used to allow dynamic color change 
 	QPen *m_pen_s2;        //!> Pen for solution 2, used to allow dynamic color change
 	QPen *m_pen_s3;        //!> Pen for solution 3, used to allow dynamic color change
-	QPen *m_pen_s4;        //!> Pen for solution 4, used to allow dynamic color change
+	QPen* m_pen_s4;        //!> Pen for solution 4, used to allow dynamic color change
+	QPen* m_pen_s5;        //!> Pen for solution 4, used to allow dynamic color change   //TODO: the chart is not updated with the new solutions
+	QPen *m_pen_s6;        //!> Pen for solution 4, used to allow dynamic color change
 	QColor *m_col_sol1;    //!> Color for solution 1, used to allow dynamic color change
 	QColor *m_col_sol2;    //!> Color for solution 2, used to allow dynamic color change
 	QColor *m_col_sol3;    //!> Color for solution 3, used to allow dynamic color change
-	QColor *m_col_sol4;    //!> Color for solution 4, used to allow dynamic color change
+	QColor* m_col_sol4;    //!> Color for solution 4, used to allow dynamic color change
+	QColor* m_col_sol5;    //!> Color for solution 4, used to allow dynamic color change  //TODO: the chart is not updated with the new solutions
+	QColor *m_col_sol6;    //!> Color for solution 4, used to allow dynamic color change
 	QtCharts::QLineSeries *m_series_solution;
 	QtCharts::QLineSeries *m_series_ask;           //!> Ask series
 	QtCharts::QLineSeries *m_series_sync_in;       //!> SyincIn series

@@ -16,10 +16,10 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	QMainWindow(parent),
 	ui(new Ui::Labonatip_GUI),
 	m_pipette_active(false),
-	m_ppc1 ( new fluicell::PPC1api() ),
+	m_ppc1 ( new fluicell::PPC1api6() ),
 	m_g_spacer ( new QGroupBox()),
 	m_a_spacer (new QAction()),
-	m_protocol ( new std::vector<fluicell::PPC1dataStructures::command> ),
+	m_protocol ( new std::vector<fluicell::PPC1api6dataStructures::command> ),
 	m_protocol_duration(0.0),
 	m_pen_line_width(7),
 	l_x1(-16.0),
@@ -255,7 +255,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   QColor c3 = m_solutionParams->sol3_color;
   this->colSolution3Changed(c3.red(), c3.green(), c3.blue());
   QColor c4 = m_solutionParams->sol4_color;
-  this->colSolution4Changed(c4.red(), c4.green(), c4.blue());
+  this->colSolution4Changed(c4.red(), c4.green(), c4.blue()); //TODO
 //  m_labonatip_chart_view->setGUIchart();
 
 
@@ -289,6 +289,10 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	  QApplication::translate("Labonatip_GUI", "F3", Q_NULLPTR));
   ui->pushButton_solution4->setShortcut(
 	  QApplication::translate("Labonatip_GUI", "F4", Q_NULLPTR));
+  ui->pushButton_solution5->setShortcut(
+	  QApplication::translate("Labonatip_GUI", "F5", Q_NULLPTR)); 
+  ui->pushButton_solution6->setShortcut(
+	  QApplication::translate("Labonatip_GUI", "F6", Q_NULLPTR)); 
   ui->pushButton_undo->setShortcut(
 	  QApplication::translate("Labonatip_GUI", "Ctrl+Z", Q_NULLPTR));
   ui->pushButton_redo->setShortcut(
@@ -399,6 +403,8 @@ void Labonatip_GUI::setEnableSolutionButtons(bool _enable ) {
 	ui->pushButton_solution2->setEnabled(_enable);
 	ui->pushButton_solution3->setEnabled(_enable);
 	ui->pushButton_solution4->setEnabled(_enable);
+	ui->pushButton_solution5->setEnabled(_enable);
+	ui->pushButton_solution6->setEnabled(_enable);
 }
 
 
@@ -682,7 +688,15 @@ void Labonatip_GUI::initConnects()
 		SIGNAL(clicked()), this, 
 		SLOT(pushSolution4()));
 
-	connect(ui->pushButton_dropSize_minus, 
+	connect(ui->pushButton_solution5,
+		SIGNAL(clicked()), this,
+		SLOT(pushSolution5()));
+
+	connect(ui->pushButton_solution6,
+		SIGNAL(clicked()), this,
+		SLOT(pushSolution6()));
+
+	connect(ui->pushButton_dropSize_minus,
 		SIGNAL(clicked()), this, 
 		SLOT(zoneSizeMinus()));
 
@@ -792,6 +806,14 @@ void Labonatip_GUI::initConnects()
 	connect(m_dialog_tools,
 		&Labonatip_tools::colSol4Changed, this,
 		&Labonatip_GUI::colSolution4Changed);
+
+	connect(m_dialog_tools,
+		&Labonatip_tools::colSol5Changed, this,
+		&Labonatip_GUI::colSolution5Changed);
+
+	connect(m_dialog_tools,
+		&Labonatip_tools::colSol6Changed, this,
+		&Labonatip_GUI::colSolution6Changed);
 
 	connect(ui->treeWidget_protocol_folder,
 		SIGNAL(itemDoubleClicked(QTreeWidgetItem*, int)),
@@ -1038,8 +1060,8 @@ void Labonatip_GUI::emptyWells()
 	std::cout << HERE << std::endl;
 
 	// empty the wells 
-	m_pipette_status->rem_vol_well5 = 0.0;
-	m_pipette_status->rem_vol_well6 = 0.0; 
+	//m_pipette_status->rem_vol_well5 = 0.0;
+	//m_pipette_status->rem_vol_well6 = 0.0; 
 	m_pipette_status->rem_vol_well7 = 0.0;
 	m_pipette_status->rem_vol_well8 = 0.0;
 
@@ -1064,6 +1086,8 @@ void Labonatip_GUI::refillSolution()
 	m_pipette_status->rem_vol_well2 = m_solutionParams->vol_well2;
 	m_pipette_status->rem_vol_well3 = m_solutionParams->vol_well3;
 	m_pipette_status->rem_vol_well4 = m_solutionParams->vol_well4;
+	m_pipette_status->rem_vol_well5 = m_solutionParams->vol_well5;
+	m_pipette_status->rem_vol_well6 = m_solutionParams->vol_well6;
 
 	// remove the warnings
 	ui->label_warningIcon->hide();
@@ -1092,6 +1116,16 @@ void Labonatip_GUI::refillSolution()
 		perc = 100.0 * m_pipette_status->rem_vol_well4 / MAX_VOLUME_IN_WELL;
 		ui->progressBar_solution4->setValue(int(perc));
 
+		m_pipette_status->rem_vol_well5 = m_pipette_status->rem_vol_well5 -
+			0.001 * m_pipette_status->flow_well5;
+		perc = 100.0 * m_pipette_status->rem_vol_well5 / MAX_VOLUME_IN_WELL;
+		ui->progressBar_solution5->setValue(int(perc));
+
+		m_pipette_status->rem_vol_well6 = m_pipette_status->rem_vol_well6 -
+			0.001 * m_pipette_status->flow_well6;
+		perc = 100.0 * m_pipette_status->rem_vol_well6 / MAX_VOLUME_IN_WELL;
+		ui->progressBar_solution6->setValue(int(perc));
+
 }
 
 void Labonatip_GUI::toolApply()
@@ -1105,7 +1139,7 @@ void Labonatip_GUI::toolApply()
 	m_ppc1->setTip(m_dialog_tools->getTipType());
 
 	if (m_dialog_tools->isExpertMode()) {
-		fluicell::PPC1dataStructures::tip my_tip = m_dialog_tools->getTip();
+		fluicell::PPC1api6dataStructures::tip my_tip = m_dialog_tools->getTip();
 		m_ppc1->setTipParameters(my_tip.length_to_tip, my_tip.length_to_zone);
 	}
 
@@ -1123,11 +1157,13 @@ void Labonatip_GUI::toolApply()
 	ui->treeWidget_params->topLevelItem(1)->setText(1, m_solutionParams->sol2);
 	ui->treeWidget_params->topLevelItem(2)->setText(1, m_solutionParams->sol3);
 	ui->treeWidget_params->topLevelItem(3)->setText(1, m_solutionParams->sol4);
+	ui->treeWidget_params->topLevelItem(4)->setText(1, m_solutionParams->sol5); //TODO: CHECK THIS BETTER
+	ui->treeWidget_params->topLevelItem(5)->setText(1, m_solutionParams->sol6);
 
-	ui->treeWidget_params->topLevelItem(4)->setText(1, QString::number(m_pr_params->p_on_default));
-	ui->treeWidget_params->topLevelItem(5)->setText(1, QString::number(m_pr_params->p_off_default));
-	ui->treeWidget_params->topLevelItem(6)->setText(1, QString::number(m_pr_params->v_recirc_default));
-	ui->treeWidget_params->topLevelItem(7)->setText(1, QString::number(m_pr_params->v_switch_default));
+	ui->treeWidget_params->topLevelItem(6)->setText(1, QString::number(m_pr_params->p_on_default));
+	ui->treeWidget_params->topLevelItem(7)->setText(1, QString::number(m_pr_params->p_off_default));
+	ui->treeWidget_params->topLevelItem(8)->setText(1, QString::number(m_pr_params->v_recirc_default));
+	ui->treeWidget_params->topLevelItem(9)->setText(1, QString::number(m_pr_params->v_switch_default));
 
 	this->switchLanguage(m_GUI_params->language);
 
@@ -1410,7 +1446,7 @@ void Labonatip_GUI::dumpLogs()
 
 void Labonatip_GUI::setSettingsUserPath(QString _path) { 
 	m_settings_path = _path;
-	QString settings_filename = _path + "settings.ini";
+	QString settings_filename = _path + "settings_6.ini";
 	if (!m_dialog_tools->setLoadSettingsFileName(settings_filename))
 		std::cerr << HERE << " error in loading settings file " << std::endl;
 

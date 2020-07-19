@@ -9,18 +9,18 @@
 
  // for shared libraries 
  
-#ifndef __PPC1API_EXPORT_
-#define __PPC1API_EXPORT_
+#ifndef __PPC1API6_EXPORT_
+#define __PPC1API6_EXPORT_
 
 #if defined(_MSC_VER) || defined(__CYGWIN__) || defined(__MINGW32__) || defined( __BCPLUSPLUS__)  || defined( __MWERKS__)
-#  ifdef PPC1API
-#    define PPC1API_EXPORT __declspec(dllexport)
+#  ifdef PPC1API6
+#    define PPC1API6_EXPORT __declspec(dllexport)
 #  else
-#    define PPC1API_EXPORT __declspec(dllimport)
+#    define PPC1API6_EXPORT __declspec(dllimport)
 #  endif
 #else
-#  define PPC1API_EXPORT
+#  define PPC1API6_EXPORT
 #endif
 
-#endif // __PPC1API_EXPORT_
+#endif // __PPC1API6_EXPORT_
 

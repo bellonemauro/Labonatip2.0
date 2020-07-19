@@ -26,7 +26,7 @@
 #include "dataStructures.h"
 
 // PPC1api 
-#include <fluicell/ppc1api/ppc1api.h>
+#include <fluicell/ppc1api6/ppc1api6.h>
 
 class Labonatip_macroRunner : public  QThread
 {
@@ -40,9 +40,9 @@ public:
 
 	void switchLanguage(QString _translation_file);
 
-	void setDevice(fluicell::PPC1api *_ppc1) { m_ppc1 = _ppc1; }
+	void setDevice(fluicell::PPC1api6 *_ppc1) { m_ppc1 = _ppc1; }
 	
-	void setProtocol(std::vector<fluicell::PPC1dataStructures::command> *_protocol) { m_protocol = _protocol; };
+	void setProtocol(std::vector<fluicell::PPC1api6dataStructures::command> *_protocol) { m_protocol = _protocol; };
 
 	void killMacro(bool _kill) {
 		m_ppc1->resetSycnSignals(true);  // makes sure that the waitSync command stops
@@ -68,7 +68,9 @@ signals:
 	void solution1(const bool &_v);               //!< solution1
 	void solution2(const bool &_v);               //!< solution2
 	void solution3(const bool &_v);               //!< solution3
-	void solution4(const bool &_v);               //!< solution4
+	void solution4(const bool& _v);               //!< solution4
+	void solution5(const bool& _v);               //!< solution5
+	void solution6(const bool &_v);               //!< solution6
 
 	void closeAll();
 	void pumpOff();
@@ -83,12 +85,12 @@ signals:
 private: 
 	
 	void initCustomStrings();
-	void simulateCommand(fluicell::PPC1dataStructures::command _cmd);
+	void simulateCommand(fluicell::PPC1api6dataStructures::command _cmd);
 	void simulateWait(int _sleep_for);
 	
 
-	fluicell::PPC1api *m_ppc1;                            //!< pointer to the device to run the protocol 
-	std::vector<fluicell::PPC1dataStructures::command> *m_protocol;  //!< protocol to run
+	fluicell::PPC1api6 *m_ppc1;                            //!< pointer to the device to run the protocol 
+	std::vector<fluicell::PPC1api6dataStructures::command> *m_protocol;  //!< protocol to run
 	bool m_simulation_only;                               //!< true if simulation, false use the PPC1
 	bool m_threadTerminationHandler;                      //!< true to terminate the macro
 	bool m_ask_ok;                                        //!< false when a message dialog is out, true to continue

@@ -7,7 +7,7 @@
 #  | Released under GNU GPL License.                                           |
 #  +---------------------------------------------------------------------------+ 
 
-project(Biopen_wizard)
+project(Biopen_wizard_6)
 
 # --------------------------------------
 #  set variables for compilation 
@@ -26,10 +26,10 @@ FILE(GLOB myProject_LANGUAGES_TS "${myProject_LANGUAGES_DIR}/*.ts")
 
 SET (ENABLE_WINDEPLOYQT 0 CACHE BOOL "Set to 1 to activate deployment of QT apps, 0 by default" )
 
-include_directories(${PPC1api_INCLUDE_DIR})
+include_directories(${PPC1api6_INCLUDE_DIR})
 include_directories(${serial_INCLUDE_DIR})
 if ( ENABLE_verbose )
-	message (STATUS "${PROJECT_NAME} MESSAGE: PPC1api_INCLUDE_DIR    :: ${PPC1api_INCLUDE_DIR}")
+	message (STATUS "${PROJECT_NAME} MESSAGE: PPC1api_INCLUDE_DIR    :: ${PPC1api6_INCLUDE_DIR}")
 	message (STATUS "${PROJECT_NAME} MESSAGE: serial_INCLUDE_DIR    :: ${serial_INCLUDE_DIR}")
 endif ( ENABLE_verbose )
 
@@ -203,7 +203,7 @@ qt5_use_modules(${PROJECT_NAME} Network Widgets TextToSpeech)
 
 target_link_libraries ( ${PROJECT_NAME}  
 						${QT_LIBRARIES}  ${Qt5Charts_LIBRARIES} 
-						PPC1api serial )
+						PPC1api6 serial )
 					
 if (VLD_MemoryCheck)
 	message (STATUS "${PROJECT_NAME} Memory leak detector activated ")

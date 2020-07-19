@@ -158,7 +158,9 @@ bool protocolTreeWidgetItem::checkValidity( int _column)
 	case pCmd::solution1: 
 	case pCmd::solution2: 
 	case pCmd::solution3: 
-	case pCmd::solution4: 
+	case pCmd::solution4:
+	case pCmd::solution5:
+	case pCmd::solution6:
 	{ //from 4 to 7
 	// check open valve : 0 = no valve, 1,2,3,4 valves 1,2,3,4
 
@@ -329,7 +331,9 @@ QString protocolTreeWidgetItem::getRangeColumn( int _idx)
 	case pCmd::solution1:
 	case pCmd::solution2:
 	case pCmd::solution3:
-	case pCmd::solution4: 
+	case pCmd::solution4:
+	case pCmd::solution5:
+	case pCmd::solution6:
 	{ //from 4 to 7
 									  // check open valve : 0 = no valve, 1,2,3,4 valves 1,2,3,4
 		return QString("1/0 open/close");

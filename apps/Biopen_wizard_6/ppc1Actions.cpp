@@ -245,6 +245,14 @@ void Labonatip_GUI::runProtocol() {
 			&Labonatip_GUI::solution4);
 
 		connect(m_macroRunner_thread,
+			&Labonatip_macroRunner::solution5, this,
+			&Labonatip_GUI::solution5);
+
+		connect(m_macroRunner_thread,
+			&Labonatip_macroRunner::solution6, this,
+			&Labonatip_GUI::solution6);
+
+		connect(m_macroRunner_thread,
 			&Labonatip_macroRunner::closeAll, this,
 			&Labonatip_GUI::closeAllValves);
 
@@ -439,6 +447,14 @@ void Labonatip_GUI::protocolFinished(const QString &_result) {
 	disconnect(m_macroRunner_thread,
 		&Labonatip_macroRunner::solution4, this,
 		&Labonatip_GUI::solution4);
+
+	disconnect(m_macroRunner_thread,
+		&Labonatip_macroRunner::solution5, this,
+		&Labonatip_GUI::solution5);
+
+	disconnect(m_macroRunner_thread,
+		&Labonatip_macroRunner::solution6, this,
+		&Labonatip_GUI::solution6);
 
 	disconnect(m_macroRunner_thread,
 		&Labonatip_macroRunner::closeAll, this,

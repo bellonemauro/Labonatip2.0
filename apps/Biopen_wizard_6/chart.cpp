@@ -40,10 +40,14 @@ protocolChart::protocolChart(  ):
 	m_pen_s2 = new QPen();
 	m_pen_s3 = new QPen();
 	m_pen_s4 = new QPen();
+	m_pen_s5 = new QPen();
+	m_pen_s6 = new QPen();
 	m_col_sol1 = new QColor(0xFFBA00); //(255, 189, 0);
 	m_col_sol2 = new QColor(0xFF2800);
 	m_col_sol3 = new QColor(0x009EFF);
 	m_col_sol4 = new QColor(0x82FF00);
+	m_col_sol5 = new QColor(0x82FF00);
+	m_col_sol6 = new QColor(0x82FF00);
 
 	//initialize chart objects
 	m_series_Pon = new QtCharts::QLineSeries();
@@ -147,6 +151,7 @@ protocolChart::protocolChart(  ):
 	m_area_solution4->setUpperSeries(m_series_solution4);
 	m_area_solution4->setPen(*m_pen_s4);
 	m_area_solution4->setColor(*m_col_sol4);
+	//TODO: add the other colors in the chart
 
 	// set the chart
 	m_chart = new QtCharts::QChart();
@@ -239,7 +244,7 @@ protocolChart::protocolChart(  ):
 	m_area_solution1->attachAxis(axisY);
 	m_area_solution2->attachAxis(axisY);
 	m_area_solution3->attachAxis(axisY);
-	m_area_solution4->attachAxis(axisY);
+	m_area_solution4->attachAxis(axisY);//TODO
 	m_series_ask->attachAxis(axisY);
 	m_series_sync_in->attachAxis(axisY);
 	m_series_sync_out->attachAxis(axisY);
@@ -394,7 +399,7 @@ void protocolChart::updateChartProtocol(f_protocol *_protocol)
 			}
 			appendSolutionPoint(m_series_solution4, current_time, _protocol->at(i).getValue());
 			break;
-		}	
+		}	//TODO: !!
 		case pCmd::wait: { //sleep ---- update the current time
 			current_time +=  100.0 * _protocol->at(i).getValue() / total_duration; //the duration is scaled in the interval [0; 100]
 			break;

@@ -37,7 +37,7 @@
 /**  \brief Define the Fluicell namespace, all the classes will be in here
   *  
   **/
-namespace fluicell { namespace PPC1dataStructures
+namespace fluicell { namespace PPC1api6dataStructures
 {
 	
 	
@@ -49,7 +49,7 @@ namespace fluicell { namespace PPC1dataStructures
 		*    B|-0.000000|0.034291|0.000000|0 \n
 		*    C|0.000000|-0.103121|0.000000|0 \n
 		*    D|0.000000|0.028670|0.000000|0 \n
-		*    i0|j0|k0|l0 \n
+		*    i0|j0|k0|l0|e0|f0 \n
 		*    IN1|OUT1 \n
 		*
 		*    One stream packet contains minimum 6 lines, each ending with newline character \n. First 4 lines correspond to pressure
@@ -91,7 +91,7 @@ namespace fluicell { namespace PPC1dataStructures
 		*
 		* \note
 		*/
-		struct PPC1API_EXPORT PPC1_data
+		struct PPC1API6_EXPORT PPC1api6_data
 		{
 			// define class constants for ranges in vacuum and pressures
 			#define MIN_CHAN_A -300.0       //!< V_recirc in mbar
@@ -127,7 +127,8 @@ namespace fluicell { namespace PPC1dataStructures
 												 for the calculation of the flow using the Poiseuille equation
 												 see function getFlow()-- default value 0.124 m; */
 			#define PPC1_VID "16D0"  //!< device vendor ID
-			#define PPC1_PID "083A"  //!< device product ID
+			//#define PPC1_PID "083A"  //!< device product ID
+			#define PPC1_PID "0830"  //!< device product ID   //TODO: this is to recognize the device
 			   
 			/**  \brief Channel data structure 
 			*
@@ -148,7 +149,7 @@ namespace fluicell { namespace PPC1dataStructures
 			*                 The error flag clears when a new set point is set.
 			*
 			**/
-			struct PPC1API_EXPORT channel
+			struct PPC1API6_EXPORT channel
 			{
 			public:
 				double set_point;                 //!< the closed loop PID controller input value (in mbar)
@@ -266,6 +267,8 @@ namespace fluicell { namespace PPC1dataStructures
 			int j;  //!< 7
 			int k;  //!< 6
 			int l;  //!< 5
+			int e;  //!< 5 //TODO
+			int f;  //!< 5
 
 			int ppc1_IN;  //!< INx where x and y are either 0 or 1 and show the input state.
 			int ppc1_OUT; //!< OUTy where x and y are either 0 or 1 and show the output state
@@ -280,12 +283,12 @@ namespace fluicell { namespace PPC1dataStructures
 			/**  \brief Constructor for PPC1 data to group all information
 			*
 			**/
-			PPC1_data() :
+			PPC1api6_data() :
 				channel_A(new channel),
 				channel_B(new channel),
 				channel_C(new channel),
 				channel_D(new channel),
-				i(0), j(0), k(0), l(0),
+				i(0), j(0), k(0), l(0), e(0), f(0),
 				ppc1_IN(0), ppc1_OUT(0),
 				TTL_out_trigger(false),
 				trigger_fall(false),
@@ -337,7 +340,7 @@ namespace fluicell { namespace PPC1dataStructures
 			*
 			*    Essentially delete all the channels data structures (pointers) initialized
 			**/
-			~PPC1_data() {
+			~PPC1api6_data() {
 				delete channel_A;
 				delete channel_B;
 				delete channel_C;
@@ -372,7 +375,7 @@ namespace fluicell { namespace PPC1dataStructures
 		*
 		*  \note : TODO: the guide is still not entirely complete
 		**/
-		struct PPC1API_EXPORT PPC1_status
+		struct PPC1API6_EXPORT PPC1api6_status
 		{
 		public: 
 
@@ -399,7 +402,7 @@ namespace fluicell { namespace PPC1dataStructures
 
 		public:
 
-			PPC1_status() :
+			PPC1api6_status() :
 				delta_pressure(0.0), pipe_length(0.0), 
 				outflow_on(0.0), outflow_off(0.0), outflow_tot(0.0), 
 				inflow_recirculation(0.0), inflow_switch(0.0), 
@@ -423,7 +426,7 @@ namespace fluicell { namespace PPC1dataStructures
 		*
 		* \note
 		*/
-		struct PPC1API_EXPORT tip
+		struct PPC1API6_EXPORT tip
 		{
 		public: 
 			
@@ -469,7 +472,7 @@ namespace fluicell { namespace PPC1dataStructures
 		*
 		*  \note The structure is useful to check if VID/PID match the fluicell PPC1 device
 		**/
-		struct PPC1API_EXPORT serialDeviceInfo
+		struct PPC1API6_EXPORT serialDeviceInfo
 		{
 		public:
 
@@ -646,6 +649,8 @@ namespace fluicell { namespace PPC1dataStructures
 		*      9           |   solution2         |  true / false   |  closes other valves, then opens valve b for solution 2
 		*      10          |   solution3         |  true / false   |  closes other valves, then opens valve c for solution 3
 		*      11          |   solution4         |  true / false   |  closes other valves, then opens valve d for solution 4
+		*      11          |   solution5         |  true / false   |  closes other valves, then opens valve d for solution 4 //TODO
+		*      11          |   solution6         |  true / false   |  closes other valves, then opens valve d for solution 4
 		*      12          |   setPon            |  int [0 MAX]    |  (int: pressure in mbar) ---- Channel D
 		*      13          |   setPoff           |  int [0 MAX]    |  (int: pressure in mbar) ---- Channel C
 		*      14          |   setVrecirc        |  int [MIN 0]    |  (int: pressure in mbar) ---- Channel A
@@ -667,14 +672,14 @@ namespace fluicell { namespace PPC1dataStructures
 		*	    -   run the command still under development !! 
 		*
 		*/
-		struct PPC1API_EXPORT command
+		struct PPC1API6_EXPORT command
 		{
 		public: 
 
 			/**  \brief Enumerator for the supported commands.
 			*
 			**/
-			enum PPC1API_EXPORT instructions {
+			enum PPC1API6_EXPORT  instructions {
 				setZoneSize = 0,
 				changeZoneSizeBy = 1,
 				setFlowSpeed = 2,
@@ -687,15 +692,17 @@ namespace fluicell { namespace PPC1dataStructures
 				solution2 = 9,
 				solution3 = 10,
 				solution4 = 11,
-				setPon = 12,
-				setPoff = 13,
-				setVrecirc = 14,
-				setVswitch = 15,
-				ask_msg = 16,
-				pumpsOff = 17,
-				waitSync = 18,
-				syncOut = 19,
-				loop = 20,
+				solution5 = 12,
+				solution6 = 13,
+				setPon = 14,
+				setPoff = 15,
+				setVrecirc = 16,
+				setVswitch = 17,
+				ask_msg = 18,
+				pumpsOff = 19,
+				waitSync = 20,
+				syncOut = 21,
+				loop = 22,
 			};
 
 
@@ -748,8 +755,10 @@ namespace fluicell { namespace PPC1dataStructures
 				}
 				case instructions::solution1: 
 				case instructions::solution2: 
-				case instructions::solution3: 
-				case instructions::solution4: {//solution1,2,3,4
+				case instructions::solution3:
+				case instructions::solution4:
+				case instructions::solution5:
+				case instructions::solution6: {//solution1,2,3,4,5,6
 					if (this->value != 0 &&
 						this->value != 1 ) 
 						return false; // out of bound
@@ -855,7 +864,7 @@ namespace fluicell { namespace PPC1dataStructures
 					"setFlowSpeed", "changeFlowSpeedBy",
 					"setVacuum", "changeVacuumBy",
 					"wait",
-					"solution1", "solution2","solution3","solution4",
+					"solution1", "solution2","solution3","solution4","solution5","solution6",
 					"setPon", "setPoff",  "setVrecirc", "setVswitch",
 					"ask_msg", "allOff", "pumpsOff",
 					"waitSync", "syncOut", 

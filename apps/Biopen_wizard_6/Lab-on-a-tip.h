@@ -53,7 +53,7 @@
 // serial
 #include <serial/serial.h>
 // PPC1api 
-#include <fluicell/ppc1api/ppc1api.h>
+#include <fluicell/ppc1api6/ppc1api6.h>
 
 
 // new shorter class name = Lab-on-a-tip  -- Loat 
@@ -301,6 +301,16 @@ private slots:
 	*/
 	void colSolution4Changed(const int _r, const int _g, const int _b);
 
+	/** \brief Catch the signal from tool for the solution4 color changed
+	*          to adapt the wells in the pipette to the new color
+	*/
+	void colSolution5Changed(const int _r, const int _g, const int _b);
+	
+	/** \brief Catch the signal from tool for the solution4 color changed
+	*          to adapt the wells in the pipette to the new color
+	*/
+	void colSolution6Changed(const int _r, const int _g, const int _b);
+	
 	/** \brief Stop all pumps and close the valves
     */
 	void pumpingOff();
@@ -365,7 +375,7 @@ private slots:
 
 	/** \brief pushSolution4
 	*
-	*   //TODO: add an argument for all 1-4 _activate 
+	*   //TODO: add an argument for all 1-6 _activate 
 	*           if _activate = true, solution flow start
 	*           if _activate = false, solution flow stop
 	* \note
@@ -385,6 +395,54 @@ private slots:
 		// this settings need to be restored at the end of the protocol
 		ui->pushButton_solution4->setChecked(_enable);
 		pushSolution4();
+	}
+
+	/** \brief pushSolution5
+	*
+	*   //TODO: add an argument for all 1-6 _activate
+	*           if _activate = true, solution flow start
+	*           if _activate = false, solution flow stop
+	* \note
+	*/
+	void pushSolution5();
+
+	/** \brief solution4
+	*
+	*   This receive the command from the protocol and
+	*   simulate the solution 5 button press
+	* \note
+	*/
+	void solution5(bool _enable) {
+		// we need to overlap this setting to avoid 
+		//the solution to be stopped during the protocol runner
+		m_solutionParams->continuous_flowing_sol5 = true;
+		// this settings need to be restored at the end of the protocol
+		ui->pushButton_solution5->setChecked(_enable);
+		pushSolution5();
+	}
+
+	/** \brief pushSolution5
+	*
+	*   //TODO: add an argument for all 1-6 _activate
+	*           if _activate = true, solution flow start
+	*           if _activate = false, solution flow stop
+	* \note
+	*/
+	void pushSolution6();
+
+	/** \brief solution6
+	*
+	*   This receive the command from the protocol and
+	*   simulate the solution 6 button press
+	* \note
+	*/
+	void solution6(bool _enable) {
+		// we need to overlap this setting to avoid 
+		//the solution to be stopped during the protocol runner
+		m_solutionParams->continuous_flowing_sol6 = true;
+		// this settings need to be restored at the end of the protocol
+		ui->pushButton_solution4->setChecked(_enable);
+		pushSolution6();
 	}
 
 	/** \brief Increase/reduce the area for the solution depiction
@@ -1004,8 +1062,8 @@ private:
   pipetteStatus *m_pipette_status;    //!< pipette status in terms of pressures, vacuum and flows
 
   // for serial communication with PPC1 API
-  fluicell::PPC1api *m_ppc1;  //!< object for the PPC1api connection
-  std::vector<fluicell::PPC1dataStructures::command> *m_protocol;   //!< this is the current protocol to run
+  fluicell::PPC1api6 *m_ppc1;  //!< object for the PPC1api connection
+  std::vector<fluicell::PPC1api6dataStructures::command> *m_protocol;   //!< this is the current protocol to run
 
   bool m_pipette_active;    //!< true when the pipette is active and communicating, false otherwise
   bool m_simulationOnly;    //!< if active the software will run without the hardware device connected
@@ -1042,6 +1100,8 @@ private:
   QColor m_sol2_color;      //!< my solution 2 color for the pipette drawing
   QColor m_sol3_color;      //!< my solution 3 color for the pipette drawing
   QColor m_sol4_color;      //!< my solution 4 color for the pipette drawing
+  QColor m_sol5_color;      //!< my solution 4 color for the pipette drawing
+  QColor m_sol6_color;      //!< my solution 4 color for the pipette drawing
 
   // chart
   QtCharts::QChartView *m_chartView;

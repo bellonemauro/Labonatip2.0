@@ -27,7 +27,7 @@
 #include "protocolCommands.h"
 
 // PPC1api 
-#include <fluicell/ppc1api/ppc1api.h>
+#include <fluicell/ppc1api6/ppc1api6.h>
 
 /** \brief New class for the protocol reader
 *
@@ -105,7 +105,7 @@ private:
 	*   \return 0 if the protocol version is not readable, e.g. wrong line 
 	*
 	*/
-	int checkProtocolVersion(QByteArray _command);
+	int checkProtocolVersion(QByteArray _command);  //TODO very big
 
 	/** \brief Command remapping for backward compatibility
 	*
@@ -141,7 +141,7 @@ private:
 	*								 	 syncOut = 19,
 	*									 loop = 20,
 	*/
-	QString remapForBackwardCompatibility( int _version, QString _old_data);
+	QString remapForBackwardCompatibility( int _version, QString _old_data);   //TODO very big
 
 	// data members:
 

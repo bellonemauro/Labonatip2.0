@@ -26,6 +26,8 @@ ComboBoxDelegate::ComboBoxDelegate(QObject *parent)
 	Items.push_back("Solution 2");
 	Items.push_back("Solution 3");
 	Items.push_back("Solution 4");
+	Items.push_back("Solution 5");
+	Items.push_back("Solution 6");
 	Items.push_back("Pressure ON");
 	Items.push_back("Pressure OFF");
 	Items.push_back("Vacuum Recirculation");
