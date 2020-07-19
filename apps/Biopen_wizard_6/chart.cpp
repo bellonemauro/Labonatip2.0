@@ -58,10 +58,14 @@ protocolChart::protocolChart(  ):
 	m_series_solution2 = new QtCharts::QLineSeries();
 	m_series_solution3 = new QtCharts::QLineSeries();
 	m_series_solution4 = new QtCharts::QLineSeries();
+	m_series_solution5 = new QtCharts::QLineSeries();
+	m_series_solution6 = new QtCharts::QLineSeries();
 	m_area_solution1 = new QtCharts::QAreaSeries();
 	m_area_solution2 = new QtCharts::QAreaSeries();
 	m_area_solution3 = new QtCharts::QAreaSeries();
 	m_area_solution4 = new QtCharts::QAreaSeries();
+	m_area_solution5 = new QtCharts::QAreaSeries();
+	m_area_solution6 = new QtCharts::QAreaSeries();
 	m_series_solution = new QtCharts::QLineSeries();
 	m_series_ask = new QtCharts::QLineSeries();
 	m_series_sync_in = new QtCharts::QLineSeries();
@@ -151,8 +155,17 @@ protocolChart::protocolChart(  ):
 	m_area_solution4->setUpperSeries(m_series_solution4);
 	m_area_solution4->setPen(*m_pen_s4);
 	m_area_solution4->setColor(*m_col_sol4);
-	//TODO: add the other colors in the chart
 
+	m_area_solution5->setLowerSeries(m_series_solution);
+	m_area_solution5->setUpperSeries(m_series_solution5);
+	m_area_solution5->setPen(*m_pen_s5);
+	m_area_solution5->setColor(*m_col_sol5);
+
+	m_area_solution6->setLowerSeries(m_series_solution);
+	m_area_solution6->setUpperSeries(m_series_solution6);
+	m_area_solution6->setPen(*m_pen_s6);
+	m_area_solution6->setColor(*m_col_sol6);
+	
 	// set the chart
 	m_chart = new QtCharts::QChart();
 	m_chart->legend()->hide();
@@ -167,6 +180,8 @@ protocolChart::protocolChart(  ):
 	m_chart->addSeries(m_area_solution2);
 	m_chart->addSeries(m_area_solution3);
 	m_chart->addSeries(m_area_solution4);
+	m_chart->addSeries(m_area_solution5);
+	m_chart->addSeries(m_area_solution6);
 	m_chart->addSeries(m_series_ask);
 	m_chart->addSeries(m_series_sync_in);
 	m_chart->addSeries(m_series_sync_out);
@@ -244,7 +259,9 @@ protocolChart::protocolChart(  ):
 	m_area_solution1->attachAxis(axisY);
 	m_area_solution2->attachAxis(axisY);
 	m_area_solution3->attachAxis(axisY);
-	m_area_solution4->attachAxis(axisY);//TODO
+	m_area_solution4->attachAxis(axisY);
+	m_area_solution5->attachAxis(axisY);
+	m_area_solution6->attachAxis(axisY);
 	m_series_ask->attachAxis(axisY);
 	m_series_sync_in->attachAxis(axisY);
 	m_series_sync_out->attachAxis(axisY);
@@ -287,7 +304,9 @@ void protocolChart::updateChartProtocol(f_protocol *_protocol)
 	m_series_solution1->clear();
 	m_series_solution2->clear();
 	m_series_solution3->clear();
-	m_series_solution4->clear(); 
+	m_series_solution4->clear();
+	m_series_solution5->clear();
+	m_series_solution6->clear();
 	m_series_solution->clear();
 	m_series_sync_in->clear();
 	m_series_sync_out->clear();
@@ -366,6 +385,8 @@ void protocolChart::updateChartProtocol(f_protocol *_protocol)
 				appendSolutionPoint(m_series_solution2, current_time, 0);
 				appendSolutionPoint(m_series_solution3, current_time, 0);
 				appendSolutionPoint(m_series_solution4, current_time, 0);
+				appendSolutionPoint(m_series_solution5, current_time, 0);
+				appendSolutionPoint(m_series_solution6, current_time, 0);
 			}
 			appendSolutionPoint(m_series_solution1, current_time, _protocol->at(i).getValue());
 			break;
@@ -376,6 +397,8 @@ void protocolChart::updateChartProtocol(f_protocol *_protocol)
 				appendSolutionPoint(m_series_solution1, current_time, 0);
 				appendSolutionPoint(m_series_solution3, current_time, 0);
 				appendSolutionPoint(m_series_solution4, current_time, 0);
+				appendSolutionPoint(m_series_solution5, current_time, 0);
+				appendSolutionPoint(m_series_solution6, current_time, 0);
 			}
 			appendSolutionPoint(m_series_solution2, current_time, _protocol->at(i).getValue()); 
 			break;
@@ -386,6 +409,8 @@ void protocolChart::updateChartProtocol(f_protocol *_protocol)
 				appendSolutionPoint(m_series_solution1, current_time, 0);
 				appendSolutionPoint(m_series_solution2, current_time, 0);
 				appendSolutionPoint(m_series_solution4, current_time, 0);
+				appendSolutionPoint(m_series_solution5, current_time, 0);
+				appendSolutionPoint(m_series_solution6, current_time, 0);
 			}
 			appendSolutionPoint(m_series_solution3, current_time, _protocol->at(i).getValue());
 			break;
@@ -396,10 +421,36 @@ void protocolChart::updateChartProtocol(f_protocol *_protocol)
 				appendSolutionPoint(m_series_solution1, current_time, 0);
 				appendSolutionPoint(m_series_solution2, current_time, 0);
 				appendSolutionPoint(m_series_solution3, current_time, 0);
+				appendSolutionPoint(m_series_solution5, current_time, 0);
+				appendSolutionPoint(m_series_solution6, current_time, 0);
 			}
 			appendSolutionPoint(m_series_solution4, current_time, _protocol->at(i).getValue());
 			break;
-		}	//TODO: !!
+		}	
+		case pCmd::solution5: { //solution 5
+			if (_protocol->at(i).getValue() == 1)
+			{ // if we are opening the solution all the others will be closed
+				appendSolutionPoint(m_series_solution1, current_time, 0);
+				appendSolutionPoint(m_series_solution2, current_time, 0);
+				appendSolutionPoint(m_series_solution3, current_time, 0);
+				appendSolutionPoint(m_series_solution4, current_time, 0);
+				appendSolutionPoint(m_series_solution6, current_time, 0);
+			}
+			appendSolutionPoint(m_series_solution5, current_time, _protocol->at(i).getValue());
+			break;
+		}
+		case pCmd::solution6: { //solution 6
+			if (_protocol->at(i).getValue() == 1)
+			{ // if we are opening the solution all the others will be closed
+				appendSolutionPoint(m_series_solution1, current_time, 0);
+				appendSolutionPoint(m_series_solution2, current_time, 0);
+				appendSolutionPoint(m_series_solution3, current_time, 0);
+				appendSolutionPoint(m_series_solution4, current_time, 0);
+				appendSolutionPoint(m_series_solution5, current_time, 0);
+			}
+			appendSolutionPoint(m_series_solution6, current_time, _protocol->at(i).getValue());
+			break;
+		}
 		case pCmd::wait: { //sleep ---- update the current time
 			current_time +=  100.0 * _protocol->at(i).getValue() / total_duration; //the duration is scaled in the interval [0; 100]
 			break;
@@ -414,6 +465,8 @@ void protocolChart::updateChartProtocol(f_protocol *_protocol)
 			appendSolutionPoint(m_series_solution2, current_time, 0);
 			appendSolutionPoint(m_series_solution3, current_time, 0);
 			appendSolutionPoint(m_series_solution4, current_time, 0);
+			appendSolutionPoint(m_series_solution5, current_time, 0);
+			appendSolutionPoint(m_series_solution6, current_time, 0);
 
 			break;
 		}
@@ -423,6 +476,8 @@ void protocolChart::updateChartProtocol(f_protocol *_protocol)
 			appendSolutionPoint(m_series_solution2, current_time, 0);
 			appendSolutionPoint(m_series_solution3, current_time, 0);
 			appendSolutionPoint(m_series_solution4, current_time, 0);
+			appendSolutionPoint(m_series_solution5, current_time, 0);
+			appendSolutionPoint(m_series_solution6, current_time, 0);
 
 			//also the pon-poff-vr-vs need to be updated to add a zero
 			appendPonPoint(current_time, 0.0);
@@ -483,6 +538,8 @@ void protocolChart::updateChartProtocol(f_protocol *_protocol)
 	appendSolutionPoint(m_series_solution2, max_time_line, 0);
 	appendSolutionPoint(m_series_solution3, max_time_line, 0);
 	appendSolutionPoint(m_series_solution4, max_time_line, 0);
+	appendSolutionPoint(m_series_solution5, max_time_line, 0);
+	appendSolutionPoint(m_series_solution6, max_time_line, 0);
 	// update
 	m_chart->update();
 }
@@ -637,18 +694,26 @@ protocolChart::~protocolChart()
 	delete m_series_solution2;
 	delete m_series_solution3;
 	delete m_series_solution4;
+	delete m_series_solution5;
+	delete m_series_solution6;
 	delete m_area_solution1;
 	delete m_area_solution2;
 	delete m_area_solution3;
 	delete m_area_solution4;
+	delete m_area_solution5;
+	delete m_area_solution6;
 	delete m_pen_s1;
 	delete m_pen_s2;
 	delete m_pen_s3;
 	delete m_pen_s4;
+	delete m_pen_s5;
+	delete m_pen_s6;
 	delete m_col_sol1;
 	delete m_col_sol2;
 	delete m_col_sol3;
 	delete m_col_sol4;
+	delete m_col_sol5;
+	delete m_col_sol6;
 	delete m_series_solution;
 	delete m_series_ask;
 	delete m_series_sync_in;

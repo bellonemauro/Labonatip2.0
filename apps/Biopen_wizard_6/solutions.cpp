@@ -86,7 +86,7 @@ void Labonatip_GUI::colSolution5Changed(const int _r, const int _g, const int _b
 {
 
 	QString styleSheet = generateStyleSheet(_r, _g, _b);
-	m_sol4_color.setRgb(_r, _g, _b);
+	m_sol5_color.setRgb(_r, _g, _b);
 	ui->progressBar_solution5->setStyleSheet(styleSheet);
 	m_chart_view->setSolutionColor5(m_sol5_color);
 }
@@ -95,7 +95,7 @@ void Labonatip_GUI::colSolution6Changed(const int _r, const int _g, const int _b
 {
 
 	QString styleSheet = generateStyleSheet(_r, _g, _b);
-	m_sol4_color.setRgb(_r, _g, _b);
+	m_sol6_color.setRgb(_r, _g, _b);
 	ui->progressBar_solution6->setStyleSheet(styleSheet);
 	m_chart_view->setSolutionColor6(m_sol6_color);
 }

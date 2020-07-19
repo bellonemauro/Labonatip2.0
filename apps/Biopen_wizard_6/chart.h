@@ -110,8 +110,8 @@ public:
 	void setSolutionColor5(QColor _col_sol) {
 		*m_col_sol5 = _col_sol;
 		m_pen_s5->setColor(*m_col_sol5);
-		m_area_solution4->setPen(*m_pen_s5);
-		m_area_solution4->setColor(*m_col_sol5);
+		m_area_solution5->setPen(*m_pen_s5);
+		m_area_solution5->setColor(*m_col_sol5);
 	}
 
 	/** \brief Set solution 4 color
@@ -124,8 +124,8 @@ public:
 	void setSolutionColor6(QColor _col_sol) {
 		*m_col_sol6 = _col_sol;
 		m_pen_s6->setColor(*m_col_sol6);
-		m_area_solution4->setPen(*m_pen_s6);
-		m_area_solution4->setColor(*m_col_sol6);
+		m_area_solution6->setPen(*m_pen_s6);
+		m_area_solution6->setColor(*m_col_sol6);
 	}
 
 	/** \brief Update the chart time line during the execution of a protocol
@@ -198,10 +198,14 @@ private:
 	QtCharts::QLineSeries *m_series_solution2;   //!> Solution 2 series 
 	QtCharts::QLineSeries *m_series_solution3;   //!> Solution 3 series 
 	QtCharts::QLineSeries *m_series_solution4;   //!> Solution 4 series //TODO: add here the other solutions
+	QtCharts::QLineSeries* m_series_solution5;   //!> Solution 3 series
+	QtCharts::QLineSeries* m_series_solution6;   //!> Solution 3 series
 	QtCharts::QAreaSeries *m_area_solution1;     //!> Solution 1 area 
 	QtCharts::QAreaSeries *m_area_solution2;     //!> Solution 2 area 
 	QtCharts::QAreaSeries *m_area_solution3;     //!> Solution 3 area 
-	QtCharts::QAreaSeries *m_area_solution4;     //!> Solution 4 area 
+	QtCharts::QAreaSeries* m_area_solution4;     //!> Solution 4 area 
+	QtCharts::QAreaSeries* m_area_solution5;     //!> Solution 4 area 
+	QtCharts::QAreaSeries *m_area_solution6;     //!> Solution 4 area 
 	QPen *m_pen_s1;        //!> Pen for solution 1, used to allow dynamic color change 
 	QPen *m_pen_s2;        //!> Pen for solution 2, used to allow dynamic color change
 	QPen *m_pen_s3;        //!> Pen for solution 3, used to allow dynamic color change
