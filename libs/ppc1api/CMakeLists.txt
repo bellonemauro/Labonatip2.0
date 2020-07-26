@@ -36,15 +36,7 @@ add_definitions(-DPPC1API)
 
 # add library 
 # add_library(${PROJECT_NAME}  SHARED ${LIB_SOURCES} ${LIB_HEADERS} )
-# for some reason SHARED gives a link error in ubuntu related to serial library
-# Hence ---- use different modality for different OSs
-# TODO: SOLVE THIS PROBLEM TO AVOID THIS WORKAROUND
-IF(WIN32)
-   add_library(${PROJECT_NAME}  SHARED ${LIB_SOURCES} ${LIB_HEADERS} )
-ELSEIF(UNIX)
-   add_library(${PROJECT_NAME}  STATIC ${LIB_SOURCES} ${LIB_HEADERS} )
-ENDIF()
-
+add_library(${PROJECT_NAME}  STATIC ${LIB_SOURCES} ${LIB_HEADERS} )
 
 # set the postfix _d for debug libraries 
 set_target_properties(${PROJECT_NAME}  PROPERTIES DEBUG_POSTFIX "_d")

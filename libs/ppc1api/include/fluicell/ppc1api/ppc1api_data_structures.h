@@ -9,8 +9,6 @@
 
 #pragma once
 
-#include "export.h"
-
 // OS Specific 
 #if defined (_WIN64) || defined (_WIN32)
     #ifndef WIN32_LEAN_AND_MEAN
@@ -91,7 +89,7 @@ namespace fluicell { namespace PPC1dataStructures
 		*
 		* \note
 		*/
-		struct PPC1API_EXPORT PPC1_data
+		struct PPC1_data
 		{
 			// define class constants for ranges in vacuum and pressures
 			#define MIN_CHAN_A -300.0       //!< V_recirc in mbar
@@ -148,7 +146,7 @@ namespace fluicell { namespace PPC1dataStructures
 			*                 The error flag clears when a new set point is set.
 			*
 			**/
-			struct PPC1API_EXPORT channel
+			struct channel
 			{
 			public:
 				double set_point;                 //!< the closed loop PID controller input value (in mbar)
@@ -372,7 +370,7 @@ namespace fluicell { namespace PPC1dataStructures
 		*
 		*  \note : TODO: the guide is still not entirely complete
 		**/
-		struct PPC1API_EXPORT PPC1_status
+		struct PPC1_status
 		{
 		public: 
 
@@ -423,7 +421,7 @@ namespace fluicell { namespace PPC1dataStructures
 		*
 		* \note
 		*/
-		struct PPC1API_EXPORT tip
+		struct tip
 		{
 		public: 
 			
@@ -469,7 +467,7 @@ namespace fluicell { namespace PPC1dataStructures
 		*
 		*  \note The structure is useful to check if VID/PID match the fluicell PPC1 device
 		**/
-		struct PPC1API_EXPORT serialDeviceInfo
+		struct serialDeviceInfo
 		{
 		public:
 
@@ -667,14 +665,14 @@ namespace fluicell { namespace PPC1dataStructures
 		*	    -   run the command still under development !! 
 		*
 		*/
-		struct PPC1API_EXPORT command
+		struct command
 		{
 		public: 
 
 			/**  \brief Enumerator for the supported commands.
 			*
 			**/
-			enum PPC1API_EXPORT instructions {
+			enum instructions {
 				setZoneSize = 0,
 				changeZoneSizeBy = 1,
 				setFlowSpeed = 2,
