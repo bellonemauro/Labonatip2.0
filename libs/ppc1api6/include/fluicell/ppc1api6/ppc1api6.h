@@ -9,8 +9,6 @@
 
 #pragma once
 
-#include "export.h"
-
 // OS Specific 
 #if defined (_WIN64) || defined (_WIN32)
     #ifndef WIN32_LEAN_AND_MEAN
@@ -132,7 +130,7 @@ namespace fluicell
 	*		- MAY/2017: Creation (MB).
 	*  \ingroup __
 	*/
-	class PPC1API6_EXPORT PPC1api6 
+	class PPC1api6 
 	{
 
 	public:
