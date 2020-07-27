@@ -2362,9 +2362,9 @@ height: 0.5px;
                       <property name="geometry">
                        <rect>
                         <x>250</x>
-                        <y>30</y>
+                        <y>10</y>
                         <width>291</width>
-                        <height>101</height>
+                        <height>121</height>
                        </rect>
                       </property>
                       <property name="font">
@@ -2388,10 +2388,10 @@ p, li { white-space: pre-wrap; }
                      <widget class="QTextEdit" name="textEdit_emptyTime_waste">
                       <property name="geometry">
                        <rect>
-                        <x>820</x>
-                        <y>30</y>
-                        <width>191</width>
-                        <height>51</height>
+                        <x>830</x>
+                        <y>0</y>
+                        <width>101</width>
+                        <height>81</height>
                        </rect>
                       </property>
                       <property name="font">
@@ -2733,11 +2733,11 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                      <zorder>line_GW_sol</zorder>
                      <zorder>label_GW_waste</zorder>
                      <zorder>label_GW_sol</zorder>
-                     <zorder>textEdit_emptyTime_waste</zorder>
                      <zorder>label_GW_biopenView</zorder>
                      <zorder>label_4</zorder>
                      <zorder>label_5</zorder>
                      <zorder>groupBox_12</zorder>
+                     <zorder>textEdit_emptyTime_waste</zorder>
                     </widget>
                    </item>
                   </layout>
