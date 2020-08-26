@@ -367,8 +367,9 @@ void fluicell::PPC1api6::updateFlows(const fluicell::PPC1api6dataStructures::PPC
 	_PPC1_status.in_out_ratio_on = _PPC1_status.outflow_on / _PPC1_status.inflow_recirculation;
 	_PPC1_status.in_out_ratio_off = _PPC1_status.outflow_off / _PPC1_status.inflow_recirculation;
 
-	if (_PPC1_data.i || _PPC1_data.j ||
-		_PPC1_data.k || _PPC1_data.l) // if one of the solutions is on
+	if (_PPC1_data.e || _PPC1_data.f || 
+		_PPC1_data.i || _PPC1_data.j ||
+		_PPC1_data.k || _PPC1_data.l ) // if one of the solutions is on
 	{
 		delta_pressure = 100.0 * (_PPC1_data.channel_D->sensor_reading +
 			(_PPC1_data.channel_C->sensor_reading * 3.0) -
@@ -381,11 +382,15 @@ void fluicell::PPC1api6::updateFlows(const fluicell::PPC1api6dataStructures::PPC
 		_PPC1_status.flow_rate_2 = _PPC1_status.solution_usage_off;
 		_PPC1_status.flow_rate_3 = _PPC1_status.solution_usage_off;
 		_PPC1_status.flow_rate_4 = _PPC1_status.solution_usage_off;
+		_PPC1_status.flow_rate_5 = _PPC1_status.solution_usage_off;
+		_PPC1_status.flow_rate_6 = _PPC1_status.solution_usage_off;
 
 		if (_PPC1_data.l) _PPC1_status.flow_rate_1 = _PPC1_status.solution_usage_on;
 		if (_PPC1_data.k) _PPC1_status.flow_rate_2 = _PPC1_status.solution_usage_on;
 		if (_PPC1_data.j) _PPC1_status.flow_rate_3 = _PPC1_status.solution_usage_on;
 		if (_PPC1_data.i) _PPC1_status.flow_rate_4 = _PPC1_status.solution_usage_on;
+		if (_PPC1_data.e) _PPC1_status.flow_rate_5 = _PPC1_status.solution_usage_on;
+		if (_PPC1_data.f) _PPC1_status.flow_rate_6 = _PPC1_status.solution_usage_on;
 	}
 	else {
 
@@ -396,11 +401,14 @@ void fluicell::PPC1api6::updateFlows(const fluicell::PPC1api6dataStructures::PPC
 		_PPC1_status.flow_rate_2 = _PPC1_status.solution_usage_off;
 		_PPC1_status.flow_rate_3 = _PPC1_status.solution_usage_off;
 		_PPC1_status.flow_rate_4 = _PPC1_status.solution_usage_off;
+		_PPC1_status.flow_rate_5 = _PPC1_status.solution_usage_off;
+		_PPC1_status.flow_rate_6 = _PPC1_status.solution_usage_off;
 	}
 
-	_PPC1_status.flow_rate_5 = _PPC1_status.inflow_switch / 2.0;
-	_PPC1_status.flow_rate_6 = _PPC1_status.inflow_switch / 2.0;
-	_PPC1_status.flow_rate_7 = _PPC1_status.inflow_recirculation / 2.0;
+	//_PPC1_status.flow_rate_5 = _PPC1_status.inflow_switch / 2.0;
+	//_PPC1_status.flow_rate_6 = _PPC1_status.inflow_switch / 2.0;
+	//_PPC1_status.flow_rate_7 = _PPC1_status.inflow_recirculation / 2.0;
+	_PPC1_status.flow_rate_7 = _PPC1_status.inflow_switch / 2.0;
 	_PPC1_status.flow_rate_8 = _PPC1_status.inflow_recirculation / 2.0;
 
 }
@@ -1523,7 +1531,7 @@ bool fluicell::PPC1api6::checkVIDPID(const std::string &_port) const
 		dev.VID = "N/A";
 		dev.PID = "N/A";
 		std::string hw_info = devices.at(i).hardware_id;
-		std::string v = "VID"; //TODO: IMPORTANT -- with the new device the VID/PID should change!
+		std::string v = "VID"; 
 		std::string p = "PID";
 		// the fluicell PPC1 device expected string is USB\VID_16D0&PID_083A&REV_0200
 		if (hw_info.length() < 1) {

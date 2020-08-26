@@ -712,7 +712,10 @@ void Labonatip_GUI::updateFlows()
 		if (ui->pushButton_solution1->isChecked() ||
 			ui->pushButton_solution2->isChecked() ||
 			ui->pushButton_solution3->isChecked() ||
-			ui->pushButton_solution4->isChecked()) 
+			ui->pushButton_solution4->isChecked() ||
+			ui->pushButton_solution5->isChecked() ||
+			ui->pushButton_solution6->isChecked() 
+			) //TODO: fix here for 6 channels
 		{
 		
 			m_pipette_status->in_out_ratio_tot = m_pipette_status->in_out_ratio_on;
@@ -733,10 +736,20 @@ void Labonatip_GUI::updateFlows()
 			else
 				m_pipette_status->flow_well3 = m_pipette_status->solution_usage_off;
 
-			if (ui->pushButton_solution4->isChecked()) 
+			if (ui->pushButton_solution4->isChecked())
 				m_pipette_status->flow_well4 = m_pipette_status->solution_usage_on;
+			else
+				m_pipette_status->flow_well4 = m_pipette_status->solution_usage_off; 
+			
+			if (ui->pushButton_solution5->isChecked())
+				m_pipette_status->flow_well5 = m_pipette_status->solution_usage_on;
+			else
+				m_pipette_status->flow_well5 = m_pipette_status->solution_usage_off; 
+			
+			if (ui->pushButton_solution6->isChecked())
+				m_pipette_status->flow_well6 = m_pipette_status->solution_usage_on;
 			else 
-				m_pipette_status->flow_well4 = m_pipette_status->solution_usage_off;
+				m_pipette_status->flow_well6 = m_pipette_status->solution_usage_off;
 
 		}
 		else // flow when solution is on 
@@ -751,11 +764,15 @@ void Labonatip_GUI::updateFlows()
 			m_pipette_status->flow_well2 = m_pipette_status->solution_usage_off;
 			m_pipette_status->flow_well3 = m_pipette_status->solution_usage_off;
 			m_pipette_status->flow_well4 = m_pipette_status->solution_usage_off;
+			m_pipette_status->flow_well5 = m_pipette_status->solution_usage_off;
+			m_pipette_status->flow_well6 = m_pipette_status->solution_usage_off;
+			
 
 		}
-		m_pipette_status->flow_well5 = m_pipette_status->inflow_switch / 2.0;
-		m_pipette_status->flow_well6 = m_pipette_status->inflow_switch / 2.0;
-		m_pipette_status->flow_well7 = m_pipette_status->inflow_recirculation / 2.0;
+		//m_pipette_status->flow_well5 = m_pipette_status->inflow_switch / 2.0;
+		//m_pipette_status->flow_well6 = m_pipette_status->inflow_switch / 2.0;
+		//m_pipette_status->flow_well7 = m_pipette_status->inflow_recirculation / 2.0;
+		m_pipette_status->flow_well7 = m_pipette_status->inflow_switch / 2.0;
 		m_pipette_status->flow_well8 = m_pipette_status->inflow_recirculation / 2.0;
 	}
 
@@ -945,7 +962,7 @@ void Labonatip_GUI::updateWaste()
 			0.001 * m_pipette_status->flow_well1; // 0.001 is to transform in mL/s
 
 		if (m_pipette_status->rem_vol_well1 < 0) {
-			stopSolutionFlow();
+			//stopSolutionFlow(); //automatic stop of solution flow on solution ended
 			QMessageBox::information(this, m_str_warning,
 				m_str_solution_ended);
 
@@ -968,7 +985,7 @@ void Labonatip_GUI::updateWaste()
 			0.001 * m_pipette_status->flow_well2; // 0.001 is to transform in mL/s
 
 		if (m_pipette_status->rem_vol_well2 < 0) {
-			stopSolutionFlow();
+			//stopSolutionFlow(); //automatic stop of solution flow on solution ended
 			QMessageBox::information(this, m_str_warning,
 				m_str_solution_ended);
 		}
@@ -981,7 +998,7 @@ void Labonatip_GUI::updateWaste()
 			0.001 * m_pipette_status->flow_well3; // 0.001 is to transform in mL/s
 
 		if (m_pipette_status->rem_vol_well3 < 0) {
-			stopSolutionFlow();
+			//stopSolutionFlow();  //automatic stop of solution flow on solution ended
 			QMessageBox::information(this, m_str_warning,
 				m_str_solution_ended);
 		}
@@ -994,7 +1011,7 @@ void Labonatip_GUI::updateWaste()
 			0.001 * m_pipette_status->flow_well4; // 0.001 is to transform in mL/s
 
 		if (m_pipette_status->rem_vol_well4 < 0) {
-			stopSolutionFlow();
+			//stopSolutionFlow();  //automatic stop of solution flow on solution ended
 			QMessageBox::information(this, m_str_warning,
 				m_str_solution_ended);
 		}
@@ -1007,7 +1024,7 @@ void Labonatip_GUI::updateWaste()
 			0.001 * m_pipette_status->flow_well5; // 0.001 is to transform in mL/s
 
 		if (m_pipette_status->rem_vol_well5 < 0) {
-			stopSolutionFlow();
+			//stopSolutionFlow();  //automatic stop of solution flow on solution ended
 			QMessageBox::information(this, m_str_warning,
 				m_str_solution_ended);
 		}
@@ -1020,7 +1037,7 @@ void Labonatip_GUI::updateWaste()
 			0.001 * m_pipette_status->flow_well6; // 0.001 is to transform in mL/s
 
 		if (m_pipette_status->rem_vol_well6 < 0) {
-			stopSolutionFlow();
+			//stopSolutionFlow();  //automatic stop of solution flow on solution ended
 			QMessageBox::information(this, m_str_warning,
 				m_str_solution_ended);
 		}
@@ -1180,6 +1197,8 @@ void Labonatip_GUI::updateMacroStatusMessage(const QString &_message) {
     s.append(" >>> remaining time = "); 
 
     s.append(_message);
+
+	std::cout << HERE << s.toStdString() << std::endl;
 
 }
 

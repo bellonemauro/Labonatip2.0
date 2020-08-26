@@ -721,7 +721,7 @@ void Labonatip_GUI::updateTimingSliders()
 		if (m_pipette_active)
 		{
 			//m_ppc1->setValve_l(false);
-			m_ppc1->closeAllValves();
+			//m_ppc1->closeAllValves(); //automatic shutdown of pumps when the solution ends
 		}
 		setEnableSolutionButtons(true);
 		_button->setChecked(false);
