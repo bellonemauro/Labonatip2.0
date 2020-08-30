@@ -35,6 +35,9 @@ void protocolReader::switchLanguage(QString _translation_file)
 	}
 }
 
+//TODO: the way the protocol is read is not very clever, this must be fixed.
+//      what happens is that the protocol file is read into the qtreewidget
+//      and then passed into the data structure m_protocol, this is not correct
 bool protocolReader::readProtocol(QTreeWidget *_out_tree, QString _filename)
 {
 	QFile protocol_file(_filename);
@@ -227,6 +230,7 @@ int protocolReader::checkProtocolVersion(QByteArray _command)
 	if (_command.contains("%% Protocol Header ")) {
 	
 	// headerVersionLine = "%% Protocol Header V. 0.___ \n";
+	if (_command.contains("0.9")) { return 9; }
 	if (_command.contains("0.8")) { return 8; }
 	if (_command.contains("0.7")) { return 7; }
 	if (_command.contains("0.6")) { return 6; }
@@ -243,7 +247,7 @@ int protocolReader::checkProtocolVersion(QByteArray _command)
 
 QString protocolReader::remapForBackwardCompatibility(int _version, QString _old_data)
 {
-	if (_version == 6)
+	if (_version <= 6)
 	{
 		QMessageBox::warning(this, m_str_warning,
 			"THE PROTOCOL VERSION IS TOO OLD " + _version);

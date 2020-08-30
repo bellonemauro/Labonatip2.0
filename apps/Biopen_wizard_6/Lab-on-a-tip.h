@@ -110,6 +110,7 @@ public:
 	*/
 	void appScaling(int _dpiX, int _dpiY);
 
+	void runProtocolFile(QString _protocol_path = "");
 
 private slots:
 

@@ -107,8 +107,15 @@ void Labonatip_GUI::pushSolution1()
 	if (!ui->pushButton_solution1->isChecked()) { // this allows to stop the flow when active
 		m_timer_solution = m_time_multipilcator;
 
-		if (m_pipette_active) {
-			m_ppc1->closeAllValves();
+		//if (m_pipette_active) 
+		{
+			//m_ppc1->closeAllValves();
+
+			// stop pumping protocol
+			m_current_protocol_file_name = m_protocol_path;
+			m_current_protocol_file_name.append("/");
+			m_current_protocol_file_name.append("stopSolution1.prt");
+			this->runProtocolFile(m_current_protocol_file_name);
 		}
 
 		//m_update_time_s1->stop();
@@ -168,11 +175,17 @@ void Labonatip_GUI::pushSolution1()
 
 
 	// SET vacum to _value
-	if (m_pipette_active)
+	//if (m_pipette_active)
 	{
-		m_ppc1->closeAllValves();
-		QThread::msleep(50);
-		m_ppc1->setValve_l(true);
+		//m_ppc1->closeAllValves();
+		//QThread::msleep(50);
+		//m_ppc1->setValve_l(true);
+
+		// start pumping protocol
+		m_current_protocol_file_name = m_protocol_path;
+		m_current_protocol_file_name.append("/");
+		m_current_protocol_file_name.append("pumpSolution1.prt");
+		this->runProtocolFile(m_current_protocol_file_name);
 	}
 	m_timer_solution = 0;
 	//m_update_flowing_sliders->start();
@@ -190,8 +203,14 @@ void Labonatip_GUI::pushSolution2() {
 	if (!ui->pushButton_solution2->isChecked()) {
 		m_timer_solution = m_time_multipilcator;
 
-		if (m_pipette_active) {
-			m_ppc1->closeAllValves();
+		//if (m_pipette_active) 
+		{
+			//m_ppc1->closeAllValves();
+			// stop pumping protocol
+			m_current_protocol_file_name = m_protocol_path;
+			m_current_protocol_file_name.append("/");
+			m_current_protocol_file_name.append("stopSolution2.prt");
+			this->runProtocolFile(m_current_protocol_file_name);
 		}
 
 		m_update_flowing_sliders->stop();
@@ -246,11 +265,17 @@ void Labonatip_GUI::pushSolution2() {
 	double solution_release_time = m_solutionParams->pulse_duration_well2; //m_dialog_tools->getSolutionTime();
 	m_time_multipilcator = (int)solution_release_time;
 
-	if (m_pipette_active)
+	//if (m_pipette_active)
 	{
-		m_ppc1->closeAllValves();
-		QThread::msleep(50);
-		m_ppc1->setValve_k(true);
+		//m_ppc1->closeAllValves();
+		//QThread::msleep(50);
+		//m_ppc1->setValve_k(true);
+
+		// start pumping protocol
+		m_current_protocol_file_name = m_protocol_path;
+		m_current_protocol_file_name.append("/");
+		m_current_protocol_file_name.append("pumpSolution2.prt");
+		this->runProtocolFile(m_current_protocol_file_name);
 	}
 
 	m_timer_solution = 0;
@@ -269,8 +294,14 @@ void Labonatip_GUI::pushSolution3() {
 	if (!ui->pushButton_solution3->isChecked()) {
 		m_timer_solution = m_time_multipilcator;
 
-		if (m_pipette_active) {
-			m_ppc1->closeAllValves();
+		//if (m_pipette_active) 
+		{
+			//m_ppc1->closeAllValves();
+			// stop pumping protocol
+			m_current_protocol_file_name = m_protocol_path;
+			m_current_protocol_file_name.append("/");
+			m_current_protocol_file_name.append("stopSolution3.prt");
+			this->runProtocolFile(m_current_protocol_file_name);
 		}
 
 		m_update_flowing_sliders->stop();
@@ -327,11 +358,17 @@ void Labonatip_GUI::pushSolution3() {
 	double solution_release_time = m_solutionParams->pulse_duration_well3; //m_dialog_tools->getSolutionTime();
 	m_time_multipilcator = (int)solution_release_time;
 
-	if (m_pipette_active)
+	//if (m_pipette_active)
 	{
-		m_ppc1->closeAllValves();
-		QThread::msleep(50);
-		m_ppc1->setValve_j(true);
+		//m_ppc1->closeAllValves();
+		//QThread::msleep(50);
+		//m_ppc1->setValve_j(true);
+
+		// start pumping protocol
+		m_current_protocol_file_name = m_protocol_path;
+		m_current_protocol_file_name.append("/");
+		m_current_protocol_file_name.append("pumpSolution3.prt");
+		this->runProtocolFile(m_current_protocol_file_name);
 	}
 
 	m_timer_solution = 0;
@@ -350,8 +387,14 @@ void Labonatip_GUI::pushSolution4() {
 	if (!ui->pushButton_solution4->isChecked()) {
 		m_timer_solution = m_time_multipilcator;
 
-		if (m_pipette_active) {
+		//if (m_pipette_active) 
+		{
 			m_ppc1->closeAllValves();
+			// stop pumping protocol
+			m_current_protocol_file_name = m_protocol_path;
+			m_current_protocol_file_name.append("/");
+			m_current_protocol_file_name.append("stopSolution4.prt");
+			this->runProtocolFile(m_current_protocol_file_name);
 		}
 
 		m_update_flowing_sliders->stop();
@@ -408,11 +451,16 @@ void Labonatip_GUI::pushSolution4() {
 	double solution_release_time = m_solutionParams->pulse_duration_well4; //m_dialog_tools->getSolutionTime();
 	m_time_multipilcator = (int)solution_release_time;
 
-	if (m_pipette_active)
+	//if (m_pipette_active)
 	{
-		m_ppc1->closeAllValves();
-		QThread::msleep(50);
-		m_ppc1->setValve_i(true);
+		//m_ppc1->closeAllValves();
+		//QThread::msleep(50);
+		//m_ppc1->setValve_i(true);
+		// start pumping protocol
+		m_current_protocol_file_name = m_protocol_path;
+		m_current_protocol_file_name.append("/");
+		m_current_protocol_file_name.append("pumpSolution4.prt");
+		this->runProtocolFile(m_current_protocol_file_name);
 	}
 
 	m_timer_solution = 0;
@@ -431,8 +479,14 @@ void Labonatip_GUI::pushSolution5() {
 	if (!ui->pushButton_solution5->isChecked()) {
 		m_timer_solution = m_time_multipilcator;
 
-		if (m_pipette_active) {
+		//if (m_pipette_active) 
+		{
 			m_ppc1->closeAllValves();
+			// stop pumping protocol
+			m_current_protocol_file_name = m_protocol_path;
+			m_current_protocol_file_name.append("/");
+			m_current_protocol_file_name.append("stopSolution5.prt");
+			this->runProtocolFile(m_current_protocol_file_name);
 		}
 
 		m_update_flowing_sliders->stop();
@@ -488,11 +542,17 @@ void Labonatip_GUI::pushSolution5() {
 	double solution_release_time = m_solutionParams->pulse_duration_well5; //m_dialog_tools->getSolutionTime();
 	m_time_multipilcator = (int)solution_release_time;
 
-	if (m_pipette_active)
+	//if (m_pipette_active)
 	{
-		m_ppc1->closeAllValves();
-		QThread::msleep(50);
-		m_ppc1->setValve_e(true);
+		//m_ppc1->closeAllValves();
+		//QThread::msleep(50);
+		//m_ppc1->setValve_e(true);
+
+		// start pumping protocol
+		m_current_protocol_file_name = m_protocol_path;
+		m_current_protocol_file_name.append("/");
+		m_current_protocol_file_name.append("pumpSolution5.prt");
+		this->runProtocolFile(m_current_protocol_file_name);
 	}
 
 	m_timer_solution = 0;
@@ -511,8 +571,14 @@ void Labonatip_GUI::pushSolution6() {
 	if (!ui->pushButton_solution6->isChecked()) {
 		m_timer_solution = m_time_multipilcator;
 
-		if (m_pipette_active) {
+		//if (m_pipette_active) 
+		{
 			m_ppc1->closeAllValves();
+			// stop pumping protocol
+			m_current_protocol_file_name = m_protocol_path;
+			m_current_protocol_file_name.append("/");
+			m_current_protocol_file_name.append("stopSolution6.prt");
+			this->runProtocolFile(m_current_protocol_file_name);
 		}
 
 		m_update_flowing_sliders->stop();
@@ -568,11 +634,22 @@ void Labonatip_GUI::pushSolution6() {
 	double solution_release_time = m_solutionParams->pulse_duration_well6; //m_dialog_tools->getSolutionTime();
 	m_time_multipilcator = (int)solution_release_time;
 
-	if (m_pipette_active)
+	//if (m_pipette_active)
 	{
-		m_ppc1->closeAllValves();
-		QThread::msleep(50);
-		m_ppc1->setValve_f(true);
+		//m_ppc1->closeAllValves();
+		//QThread::msleep(50);
+		//m_ppc1->setValve_f(true);
+
+		// start pumping protocol
+		m_current_protocol_file_name = m_protocol_path;
+		m_current_protocol_file_name.append("/");
+		m_current_protocol_file_name.append("pumpSolution6.prt");
+		//bool suc = 
+		if (QFile::exists(m_current_protocol_file_name)) 
+		{
+		this->runProtocolFile(m_current_protocol_file_name);
+		}
+		
 	}
 
 	m_timer_solution = 0;
