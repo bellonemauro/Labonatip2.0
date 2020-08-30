@@ -21,6 +21,7 @@ unsigned long baudRate;
 bool threadStopped;
 serial::Serial my_serial;
 
+using namespace std;
 
 void print_usage()
 {

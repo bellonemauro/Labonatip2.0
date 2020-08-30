@@ -46,58 +46,58 @@ include_directories(${PROJECT_BINARY_DIR})
 if(MSVC)
   FILE(GLOB myProject_SETTINGS "${PROJECT_SOURCE_DIR}/settings/*.ini") 
   FOREACH(F ${myProject_SETTINGS})
-	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/settings/)
-	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Debug/settings/)
+	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/Biopen/settings/)
+	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Debug/Biopen/settings/)
   ENDFOREACH(F)				
  
   FILE(GLOB myProject_EXTDATA "${PROJECT_SOURCE_DIR}/Ext_data/*.*") 
   FOREACH(F ${myProject_EXTDATA})
-	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/Ext_data/)
-	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Debug/Ext_data/)
+	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/Biopen/Ext_data/)
+	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Debug/Biopen/Ext_data/)
   ENDFOREACH(F)
   
   FILE(GLOB myProject_GUIDE "${PROJECT_SOURCE_DIR}/guide/*.*") 
   FOREACH(F ${myProject_GUIDE})
-	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/guide/)
-	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Debug/guide/)
+	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/Biopen/guide/)
+	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Debug/Biopen/guide/)
   ENDFOREACH(F)
   
   FILE(GLOB myProject_PRESETPROTOCOLS "${PROJECT_SOURCE_DIR}/presetProtocols/*.*") 
   FOREACH(F ${myProject_PRESETPROTOCOLS})
-	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/presetProtocols/)
-	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Debug/presetProtocols/)
+	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/Biopen/presetProtocols/)
+	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Debug/Biopen/presetProtocols/)
   ENDFOREACH(F)
 
 #  FILE(GLOB myProject_LANGUAGES "${PROJECT_SOURCE_DIR}/languages/*.qm") 
 #  FOREACH(F ${myProject_LANGUAGES})
-#	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/languages/)
-#	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Debug/languages/)
+#	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/Biopen/languages/)
+#	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Debug/Biopen/languages/)
 #  ENDFOREACH(F)
   
 elseif( NOT MSVC)
   FILE(GLOB myProject_SETTINGS "${PROJECT_SOURCE_DIR}/settings/*.ini") 
   FOREACH(F ${myProject_SETTINGS})
-	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/settings/)
+	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Biopen/settings/)
   ENDFOREACH(F)				
 
   FILE(GLOB myProject_EXTDATA "${PROJECT_SOURCE_DIR}/Ext_data/*.*") 
   FOREACH(F ${myProject_EXTDATA})
-	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Ext_data/)
+	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Biopen/Ext_data/)
   ENDFOREACH(F)
   
     FILE(GLOB myProject_GUIDE "${PROJECT_SOURCE_DIR}/guide/*.*") 
   FOREACH(F ${myProject_GUIDE})
-	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/guide/)
+	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Biopen/guide/)
   ENDFOREACH(F)
   
   FILE(GLOB myProject_PRESETPROTOCOLS "${PROJECT_SOURCE_DIR}/presetProtocols/*.*") 
   FOREACH(F ${myProject_PRESETPROTOCOLS})
-	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/presetProtocols/)
+	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Biopen/presetProtocols/)
   ENDFOREACH(F)
   
 #  FILE(GLOB myProject_LANGUAGES "${PROJECT_SOURCE_DIR}/languages/*.qm") 
 #  FOREACH(F ${myProject_LANGUAGES})
-#	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/languages/)
+#	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Biopen/languages/)
 #  ENDFOREACH(F)
 
   endif()
@@ -201,6 +201,15 @@ add_executable (${PROJECT_NAME}  	${myProject_SOURCES} ${myProject_HEADERS}
 								${myProject_FORMS_HEADERS} ${UI_RESOURCES_RCC})
 qt5_use_modules(${PROJECT_NAME} Network Widgets TextToSpeech)
 
+set_target_properties (${PROJECT_NAME} 
+						PROPERTIES 
+						ARCHIVE_OUTPUT_DIRECTORY_DEBUG "${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}/Debug/Biopen"
+						LIBRARY_OUTPUT_DIRECTORY_DEBUG "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Debug/Biopen"
+						RUNTIME_OUTPUT_DIRECTORY_DEBUG "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Debug/Biopen"
+						ARCHIVE_OUTPUT_DIRECTORY_RELEASE "${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}/Release/Biopen"
+						LIBRARY_OUTPUT_DIRECTORY_RELEASE "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/Biopen"
+						RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Release/Biopen")
+						
 target_link_libraries ( ${PROJECT_NAME}  
 						${QT_LIBRARIES}  ${Qt5Charts_LIBRARIES} 
 						PPC1api serial )
@@ -220,8 +229,8 @@ if(ENABLE_WINDEPLOYQT AND WIN32)
 		message (STATUS "${PROJECT_NAME} MESSAGE: WINDEPLOYQT_EXECUTABLE is : ${WINDEPLOYQT_EXECUTABLE} \n")
 		message (STATUS "${PROJECT_NAME} MESSAGE: Current file target is : ${F} \n")
 	endif ( ENABLE_verbose )
-	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD WORKING_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/ COMMAND ${WINDEPLOYQT_EXECUTABLE} $<TARGET_FILE:${PROJECT_NAME}> --no-translations COMMENT "Preparing Qt runtime dependencies")
-	#add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD WORKING_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/ COMMAND ${WINDEPLOYQT_EXECUTABLE} $<TARGET_FILE:${PROJECT_NAME}> COMMENT "Preparing Qt runtime dependencies")
+	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD WORKING_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/Biopen/ COMMAND ${WINDEPLOYQT_EXECUTABLE} $<TARGET_FILE:${PROJECT_NAME}> --no-translations COMMENT "Preparing Qt runtime dependencies")
+	#add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD WORKING_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/Biopen/ COMMAND ${WINDEPLOYQT_EXECUTABLE} $<TARGET_FILE:${PROJECT_NAME}> COMMENT "Preparing Qt runtime dependencies")
 	
 	
 	# this is done to copy dll from the "iCLS client" which are required in the deployment with QNetwork for the communication
@@ -239,8 +248,8 @@ if(ENABLE_WINDEPLOYQT AND WIN32)
 		endif()
 		 
 		 FOREACH(F ${iCLS_Client_x32_dll})
-			file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/)
-			message (STATUS "            ${PROJECT_NAME} MESSAGE: copied file :: ${F} to ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/")
+			file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/Biopen/)
+			message (STATUS "            ${PROJECT_NAME} MESSAGE: copied file :: ${F} to ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/Biopen/")
 		  ENDFOREACH(F)					
 		
 	elseif("${CMAKE_GENERATOR}" MATCHES "(Win64|IA64)")			
@@ -256,8 +265,8 @@ if(ENABLE_WINDEPLOYQT AND WIN32)
 		endif()
 		
 		FOREACH(F ${iCLS_Client_x64_dll})
-			file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release)
-			message (STATUS "            ${PROJECT_NAME} MESSAGE: copied file :: ${F} to ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/")
+			file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/Biopen/)
+			message (STATUS "            ${PROJECT_NAME} MESSAGE: copied file :: ${F} to ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/Biopen/")
 		ENDFOREACH(F)				
 
 	endif()	

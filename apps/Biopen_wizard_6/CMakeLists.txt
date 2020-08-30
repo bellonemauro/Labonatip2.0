@@ -26,6 +26,7 @@ FILE(GLOB myProject_LANGUAGES_TS "${myProject_LANGUAGES_DIR}/*.ts")
 
 SET (ENABLE_WINDEPLOYQT 0 CACHE BOOL "Set to 1 to activate deployment of QT apps, 0 by default" )
 
+
 include_directories(${PPC1api6_INCLUDE_DIR})
 include_directories(${serial_INCLUDE_DIR})
 if ( ENABLE_verbose )
@@ -46,58 +47,58 @@ include_directories(${PROJECT_BINARY_DIR})
 if(MSVC)
   FILE(GLOB myProject_SETTINGS "${PROJECT_SOURCE_DIR}/settings/*.ini") 
   FOREACH(F ${myProject_SETTINGS})
-	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/settings/)
-	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Debug/settings/)
+	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/Biopen6/settings/)
+	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Debug/Biopen6/settings/)
   ENDFOREACH(F)				
  
   FILE(GLOB myProject_EXTDATA "${PROJECT_SOURCE_DIR}/Ext_data/*.*") 
   FOREACH(F ${myProject_EXTDATA})
-	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/Ext_data/)
-	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Debug/Ext_data/)
+	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/Biopen6/Ext_data/)
+	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Debug/Biopen6/Ext_data/)
   ENDFOREACH(F)
   
   FILE(GLOB myProject_GUIDE "${PROJECT_SOURCE_DIR}/guide/*.*") 
   FOREACH(F ${myProject_GUIDE})
-	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/guide/)
-	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Debug/guide/)
+	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/Biopen6/guide/)
+	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Debug/Biopen6/guide/)
   ENDFOREACH(F)
   
   FILE(GLOB myProject_PRESETPROTOCOLS "${PROJECT_SOURCE_DIR}/presetProtocols/*.*") 
   FOREACH(F ${myProject_PRESETPROTOCOLS})
-	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/presetProtocols/)
-	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Debug/presetProtocols/)
+	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/Biopen6/presetProtocols/)
+	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Debug/Biopen6/presetProtocols/)
   ENDFOREACH(F)
 
 #  FILE(GLOB myProject_LANGUAGES "${PROJECT_SOURCE_DIR}/languages/*.qm") 
 #  FOREACH(F ${myProject_LANGUAGES})
-#	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/languages/)
-#	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Debug/languages/)
+#	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/Biopen6/languages/)
+#	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Debug/Biopen6/languages/)
 #  ENDFOREACH(F)
   
 elseif( NOT MSVC)
   FILE(GLOB myProject_SETTINGS "${PROJECT_SOURCE_DIR}/settings/*.ini") 
   FOREACH(F ${myProject_SETTINGS})
-	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/settings/)
+	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Biopen6/settings/)
   ENDFOREACH(F)				
 
   FILE(GLOB myProject_EXTDATA "${PROJECT_SOURCE_DIR}/Ext_data/*.*") 
   FOREACH(F ${myProject_EXTDATA})
-	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Ext_data/)
+	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Biopen6/Ext_data/)
   ENDFOREACH(F)
   
     FILE(GLOB myProject_GUIDE "${PROJECT_SOURCE_DIR}/guide/*.*") 
   FOREACH(F ${myProject_GUIDE})
-	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/guide/)
+	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Biopen6/guide/)
   ENDFOREACH(F)
   
   FILE(GLOB myProject_PRESETPROTOCOLS "${PROJECT_SOURCE_DIR}/presetProtocols/*.*") 
   FOREACH(F ${myProject_PRESETPROTOCOLS})
-	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/presetProtocols/)
+	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Biopen6/presetProtocols/)
   ENDFOREACH(F)
   
 #  FILE(GLOB myProject_LANGUAGES "${PROJECT_SOURCE_DIR}/languages/*.qm") 
 #  FOREACH(F ${myProject_LANGUAGES})
-#	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/languages/)
+#	file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Biopen6/languages/)
 #  ENDFOREACH(F)
 
   endif()
@@ -124,6 +125,7 @@ find_package(Qt5 COMPONENTS Core Widgets Network Gui Charts Concurrent LinguistT
 if(${CMAKE_VERSION} VERSION_GREATER "3.10.0") 
 	cmake_policy(SET CMP0071 NEW)
 endif()
+
 
 #TODO: this is fine for now but it is not the best solution, 
 #      this _qt_bin_dir should be the right variable for binaries
@@ -201,6 +203,15 @@ add_executable (${PROJECT_NAME}  	${myProject_SOURCES} ${myProject_HEADERS}
 								${myProject_FORMS_HEADERS} ${UI_RESOURCES_RCC})
 qt5_use_modules(${PROJECT_NAME} Network Widgets TextToSpeech)
 
+set_target_properties (${PROJECT_NAME} 
+						PROPERTIES 
+						ARCHIVE_OUTPUT_DIRECTORY_DEBUG "${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}/Debug/Biopen6"
+						LIBRARY_OUTPUT_DIRECTORY_DEBUG "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Debug/Biopen6"
+						RUNTIME_OUTPUT_DIRECTORY_DEBUG "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Debug/Biopen6"
+						ARCHIVE_OUTPUT_DIRECTORY_RELEASE "${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}/Release/Biopen6"
+						LIBRARY_OUTPUT_DIRECTORY_RELEASE "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/Biopen6"
+						RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Release/Biopen6")
+
 target_link_libraries ( ${PROJECT_NAME}  
 						${QT_LIBRARIES}  ${Qt5Charts_LIBRARIES} 
 						PPC1api6 serial )
@@ -220,7 +231,7 @@ if(ENABLE_WINDEPLOYQT AND WIN32)
 		message (STATUS "${PROJECT_NAME} MESSAGE: WINDEPLOYQT_EXECUTABLE is : ${WINDEPLOYQT_EXECUTABLE} \n")
 		message (STATUS "${PROJECT_NAME} MESSAGE: Current file target is : ${F} \n")
 	endif ( ENABLE_verbose )
-	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD WORKING_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/ COMMAND ${WINDEPLOYQT_EXECUTABLE} $<TARGET_FILE:${PROJECT_NAME}> --no-translations COMMENT "Preparing Qt runtime dependencies")
+	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD WORKING_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/Biopen6 COMMAND ${WINDEPLOYQT_EXECUTABLE} $<TARGET_FILE:${PROJECT_NAME}> --no-translations COMMENT "Preparing Qt runtime dependencies")
 	#add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD WORKING_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/ COMMAND ${WINDEPLOYQT_EXECUTABLE} $<TARGET_FILE:${PROJECT_NAME}> COMMENT "Preparing Qt runtime dependencies")
 	
 	
@@ -239,8 +250,8 @@ if(ENABLE_WINDEPLOYQT AND WIN32)
 		endif()
 		 
 		 FOREACH(F ${iCLS_Client_x32_dll})
-			file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/)
-			message (STATUS "            ${PROJECT_NAME} MESSAGE: copied file :: ${F} to ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/")
+			file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/Biopen6/)
+			message (STATUS "            ${PROJECT_NAME} MESSAGE: copied file :: ${F} to ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/Biopen6/")
 		  ENDFOREACH(F)					
 		
 	elseif("${CMAKE_GENERATOR}" MATCHES "(Win64|IA64)")			
@@ -256,8 +267,8 @@ if(ENABLE_WINDEPLOYQT AND WIN32)
 		endif()
 		
 		FOREACH(F ${iCLS_Client_x64_dll})
-			file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release)
-			message (STATUS "            ${PROJECT_NAME} MESSAGE: copied file :: ${F} to ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/")
+			file(COPY "${F}" DESTINATION ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/Biopen6/)
+			message (STATUS "            ${PROJECT_NAME} MESSAGE: copied file :: ${F} to ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/Biopen6/")
 		ENDFOREACH(F)				
 
 	endif()	
