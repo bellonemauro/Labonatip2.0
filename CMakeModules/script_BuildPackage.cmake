@@ -52,6 +52,7 @@ set (CPACK_NSIS_MUI_ICON "${CMAKE_CURRENT_SOURCE_DIR}/resources/fluicell_logo.ic
 set(CPACK_NSIS_MENU_LINKS 
             "${WEBSITE}" "Homepage for Fluicell"          
             "Biopen_wizard.exe" "Biopen_wizard"
+			"Biopen_wizard6.exe" "Biopen_wizard6"
             "Serial_console.exe" "Serial console"
 			"uninstall.exe" "Uninstall Biopen"
 			"${WEB_TUTORIAL}" "Tutorials"
@@ -79,15 +80,24 @@ set(CPACK_PACKAGE_INSTALL_REGISTRY_KEY "${BIOPEN_PROJECT_NAME}")
 
 # this is to create the user folders during the installation
 set( CPACK_NSIS_EXTRA_INSTALL_COMMANDS "
-	CreateShortCut \\\"$DESKTOP\\\\Biopen.lnk\\\" \\\"$INSTDIR\\\\Biopen_wizard.exe\\\"
+	CreateShortCut \\\"$DESKTOP\\\\Biopen.lnk\\\" \\\"$INSTDIR\\\\Biopen\\\\Biopen_wizard.exe\\\"
+	CreateShortCut \\\"$DESKTOP\\\\Biopen.lnk\\\" \\\"$INSTDIR\\\\Biopen6\\\\Biopen_wizard6.exe\\\"
 	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Biopen\\\" 
 	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Biopen\\\\presetProtocols\\\"
 	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Biopen\\\\settings\\\" 
 	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Biopen\\\\guide\\\" 
 	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Biopen\\\\Ext_data\\\" 
-	CopyFiles \\\"$INSTDIR\\\\presetProtocols\\\\*.prt\\\" \\\"$PROFILE\\\\Documents\\\\Biopen\\\\presetProtocols\\\"
-	CopyFiles \\\"$INSTDIR\\\\guide\\\\*.pdf\\\" \\\"$PROFILE\\\\Documents\\\\Biopen\\\\guide\\\"
-	CopyFiles \\\"$INSTDIR\\\\settings\\\\*.ini\\\" \\\"$PROFILE\\\\Documents\\\\Biopen\\\\settings\\\"
+	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Biopen6\\\" 
+	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Biopen6\\\\presetProtocols\\\"
+	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Biopen6\\\\settings\\\" 
+	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Biopen6\\\\guide\\\" 
+	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Biopen6\\\\Ext_data\\\" 
+	CopyFiles \\\"$INSTDIR\\\\Biopen\\\\presetProtocols\\\\*.prt\\\" \\\"$PROFILE\\\\Documents\\\\Biopen\\\\presetProtocols\\\"
+	CopyFiles \\\"$INSTDIR\\\\Biopen\\\\guide\\\\*.pdf\\\" \\\"$PROFILE\\\\Documents\\\\Biopen\\\\guide\\\"
+	CopyFiles \\\"$INSTDIR\\\\Biopen\\\\settings\\\\*.ini\\\" \\\"$PROFILE\\\\Documents\\\\Biopen\\\\settings\\\"
+	CopyFiles \\\"$INSTDIR\\\\Biopen6\\\\presetProtocols\\\\*.prt\\\" \\\"$PROFILE\\\\Documents\\\\Biopen6\\\\presetProtocols\\\"
+	CopyFiles \\\"$INSTDIR\\\\Biopen6\\\\guide\\\\*.pdf\\\" \\\"$PROFILE\\\\Documents\\\\Biopen6\\\\guide\\\"
+	CopyFiles \\\"$INSTDIR\\\\Biopen6\\\\settings\\\\*.ini\\\" \\\"$PROFILE\\\\Documents\\\\Biopen6\\\\settings\\\"
 	")
 
 set(CPACK_NSIS_EXECUTABLES_DIRECTORY ".")
@@ -113,6 +123,7 @@ set(CPACK_NSIS_MUI_FINISHPAGE_RUN Biopen_wizard.exe)
 #Delete \\\"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\\\" #TODO this folder must to be removed
 set( CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS "
 	Delete \\\"$DESKTOP\\\\biopen.lnk\\\"
+	Delete \\\"$DESKTOP\\\\biopen6.lnk\\\"
 	Delete \\\"$PROFILE\\\\..\\\\..\\\\ProgramData\\\\Microsoft\\\\Windows\\\\Start Menu\\\\Programs\\\\Fluicell biopen wizard\\\\*.*\\\"
 	RMDir \\\"$PROFILE\\\\..\\\\..\\\\ProgramData\\\\Microsoft\\\\Windows\\\\Start Menu\\\\Programs\\\\Fluicell biopen wizard\\\"
 ")
@@ -138,20 +149,20 @@ message (STATUS "BUILD PACKAGE STATUS MESSAGE : building version ${CMAKE_Fluicel
 include (CPack)
 
 # I really would like to have this feature but unfortunately it is still not supported ! 
-if(BUILD_WINDEPLOYQT AND WIN32)
-		# Run winddeployqt if it can be found
-	find_program(WINDEPLOYQT_EXECUTABLE NAMES windeployqt HINTS ${QT5_BINARY_DIR} ENV QTDIR PATH_SUFFIXES bin)
-    FILE(GLOB FILE_EXE "${PROJECT_BINARY_DIR}/bin/Release/*.exe")
-      FOREACH(F ${FILE_EXE})
-        #INSTALL(FILES "${F}" DESTINATION ./)
- 	    message (STATUS "     WINDEPLOYQT_EXECUTABLE is : ${WINDEPLOYQT_EXECUTABLE} \n")
- 	    message (STATUS "     Current file target is : ${F} \n")
-		message (STATUS "     BIOPEN_PROJECT_NAME is : ${BIOPEN_PROJECT_NAME} \n")
-	    #HERE we cannot specify the target PACKAGE or package 
-		#add_custom_command(TARGET PACKAGE PRE_BUILD WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/bin/Release/ COMMAND ${WINDEPLOYQT_EXECUTABLE} $<TARGET_FILE:${F}> COMMENT "Preparing Qt runtime dependencies")
+#if(BUILD_WINDEPLOYQT AND WIN32)
+#		# Run winddeployqt if it can be found
+#	find_program(WINDEPLOYQT_EXECUTABLE NAMES windeployqt HINTS ${QT5_BINARY_DIR} ENV QTDIR PATH_SUFFIXES bin)
+#    FILE(GLOB FILE_EXE "${PROJECT_BINARY_DIR}/bin/Release/Biopen/*.exe")
+#      FOREACH(F ${FILE_EXE})
+#        #INSTALL(FILES "${F}" DESTINATION ./)
+# 	    message (STATUS "     WINDEPLOYQT_EXECUTABLE is : ${WINDEPLOYQT_EXECUTABLE} \n")
+# 	    message (STATUS "     Current file target is : ${F} \n")
+#		message (STATUS "     BIOPEN_PROJECT_NAME is : ${BIOPEN_PROJECT_NAME} \n")
+#	    #HERE we cannot specify the target PACKAGE or package 
+#		#add_custom_command(TARGET PACKAGE PRE_BUILD WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/bin/Release/ COMMAND ${WINDEPLOYQT_EXECUTABLE} $<TARGET_FILE:${F}> COMMENT "Preparing Qt runtime dependencies")
 
-	  ENDFOREACH(F)
-endif()
+#	  ENDFOREACH(F)
+#endif()
 
 #in order to support the previous feature of deploying QT, the previous lines have been added to the lab-on-a-tip gui application
 #anyway to avoid the deployment to run every time it is compiled, the variable BUILD_WINDEPLOYQT is set to 0

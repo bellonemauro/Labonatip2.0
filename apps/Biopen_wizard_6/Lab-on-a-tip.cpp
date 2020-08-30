@@ -1446,7 +1446,7 @@ void Labonatip_GUI::dumpLogs()
 
 void Labonatip_GUI::setSettingsUserPath(QString _path) { 
 	m_settings_path = _path;
-	QString settings_filename = _path + "settings_6.ini";
+	QString settings_filename = _path + "settings.ini";
 	if (!m_dialog_tools->setLoadSettingsFileName(settings_filename))
 		std::cerr << HERE << " error in loading settings file " << std::endl;
 

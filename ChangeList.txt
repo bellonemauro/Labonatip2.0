@@ -1,3 +1,8 @@
+V.2.1.12
+Many changes in Biopen6
+Better organization of folders
+New applications included in the installer
+
 V.2.1.11
 Added Biopen6 for testing with 6 solutions
 Changed protocols settings
