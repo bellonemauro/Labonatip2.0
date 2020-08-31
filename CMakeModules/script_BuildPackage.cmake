@@ -14,7 +14,7 @@
 if( WIN32 AND NOT UNIX )
 
 #define the website -- TODO: change with the real website
-set (WEBSITE "http://fluicell.com/")   
+set (WEBSITE "https://www.fluicell.com/")   
 set (WEB_TUTORIAL "http://fluicell.com/products/biopen-system-prime-flex/")  
 set (WEB_DOCS "https://bellonemauro.github.io/PPC1API-docs.io/")  
 set (GUIDE_PDF "/guide/BioPen2018.pdf")  
@@ -51,21 +51,22 @@ set (CPACK_NSIS_MUI_ICON "${CMAKE_CURRENT_SOURCE_DIR}/resources/fluicell_logo.ic
 
 set(CPACK_NSIS_MENU_LINKS 
             "${WEBSITE}" "Homepage for Fluicell"          
-            "Biopen_wizard.exe" "Biopen_wizard"
-			"Biopen_wizard6.exe" "Biopen_wizard6"
-            "Serial_console.exe" "Serial console"
+            #"\\\\Biopen\\\\Biopen_wizard.exe" "Biopen_wizard" 
+			#"\\\\Biopen6\\\\Biopen_wizard6.exe" "Biopen_wizard_6"
+            #"\\\\SerialConsole\\\\Serial_console.exe" "Serial console"
 			"uninstall.exe" "Uninstall Biopen"
 			"${WEB_TUTORIAL}" "Tutorials"
             "${WEB_DOCS}" "Documentation"
             "${GUIDE_PDF}" "Quick start guide" )
+	
 
-set(CPACK_NSIS_DISPLAY_NAME "Fluicell biopen wizard ") #V.${CMAKE_Fluicell_FULL_VERSION}")
+set(CPACK_NSIS_DISPLAY_NAME \\\"Fluicell biopen wizard ") #V.${CMAKE_Fluicell_FULL_VERSION}")
 			
 #allows NSIS to modify paths
 #set (CPACK_NSIS_MODIFY_PATH "ON")     
 
 #SET(CPACK_PACKAGE_EXECUTABLES "Target_Name" "Target Name")
-SET(CPACK_PACKAGE_EXECUTABLES "Biopen_wizard" "Biopen_wizard")
+#SET(CPACK_PACKAGE_EXECUTABLES "Biopen_wizard" "Biopen_wizard")
 
 
 #create a desktop icon with link to the .exe file
@@ -81,7 +82,7 @@ set(CPACK_PACKAGE_INSTALL_REGISTRY_KEY "${BIOPEN_PROJECT_NAME}")
 # this is to create the user folders during the installation
 set( CPACK_NSIS_EXTRA_INSTALL_COMMANDS "
 	CreateShortCut \\\"$DESKTOP\\\\Biopen.lnk\\\" \\\"$INSTDIR\\\\Biopen\\\\Biopen_wizard.exe\\\"
-	CreateShortCut \\\"$DESKTOP\\\\Biopen.lnk\\\" \\\"$INSTDIR\\\\Biopen6\\\\Biopen_wizard6.exe\\\"
+	CreateShortCut \\\"$DESKTOP\\\\Biopen6.lnk\\\" \\\"$INSTDIR\\\\Biopen6\\\\Biopen_wizard6.exe\\\"
 	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Biopen\\\" 
 	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Biopen\\\\presetProtocols\\\"
 	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Biopen\\\\settings\\\" 
@@ -98,8 +99,24 @@ set( CPACK_NSIS_EXTRA_INSTALL_COMMANDS "
 	CopyFiles \\\"$INSTDIR\\\\Biopen6\\\\presetProtocols\\\\*.prt\\\" \\\"$PROFILE\\\\Documents\\\\Biopen6\\\\presetProtocols\\\"
 	CopyFiles \\\"$INSTDIR\\\\Biopen6\\\\guide\\\\*.pdf\\\" \\\"$PROFILE\\\\Documents\\\\Biopen6\\\\guide\\\"
 	CopyFiles \\\"$INSTDIR\\\\Biopen6\\\\settings\\\\*.ini\\\" \\\"$PROFILE\\\\Documents\\\\Biopen6\\\\settings\\\"
+	CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Biopen_wizard.lnk\\\" \\\"$INSTDIR\\\\Biopen\\\\Biopen_wizard.exe\\\" 
 	")
-
+	
+#set( CPACK_NSIS_EXTRA_INSTALL_COMMANDS " 
+#		CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Biopen_wizard.lnk\\\" \\\"$INSTDIR\\\\Biopen\\\\Biopen_wizard.exe\\\" 
+#	")	
+  #CreateDirectory \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER" 
+  #CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Biopen_wizard.lnk\\\"  \\\"$INSTDIR\\\\Biopen\\\\Biopen_wizard.exe\\\" "Biopen"
+  #WriteINIStr \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Homepage for Fluicell.url\\\" \\\"InternetShortcut" "URL" "https://www.fluicell.com/\\\" 
+  #CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Biopen_wizard.lnk\\\" \\\"$INSTDIR\\\\Biopen\\\\Biopen_wizard.exe\\\" "Biopen" "startFromHere"
+  #CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Biopen_wizard_6.lnk\\\" \\\"$INSTDIR\\\\Biopen6\\\\Biopen_wizard6.exe\\\" 
+  #CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Serial console.lnk\\\" \\\"$INSTDIR\\\\SerialConsole\\\\Serial_console.exe\\\" 
+  #CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Uninstall Biopen.lnk\\\" \\\"$INSTDIR\\\\uninstall.exe\\\" 
+  #WriteINIStr \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Tutorials.url\\\" \\\"InternetShortcut" \\\"URL" \\\"http://fluicell.com/products/biopen-system-prime-flex/\\\" 
+  #WriteINIStr \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Documentation.url\\\" \\\"InternetShortcut" \\\"URL" \\\"https://bellonemauro.github.io/PPC1API-docs.io/\\\" 
+  #CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Quick start guide.lnk\\\" \\\"$INSTDIR\\\\guide\\\\BioPen2018.pdf\\\"			
+	
+	
 set(CPACK_NSIS_EXECUTABLES_DIRECTORY ".")
 
 
@@ -149,20 +166,21 @@ message (STATUS "BUILD PACKAGE STATUS MESSAGE : building version ${CMAKE_Fluicel
 include (CPack)
 
 # I really would like to have this feature but unfortunately it is still not supported ! 
-#if(BUILD_WINDEPLOYQT AND WIN32)
-#		# Run winddeployqt if it can be found
-#	find_program(WINDEPLOYQT_EXECUTABLE NAMES windeployqt HINTS ${QT5_BINARY_DIR} ENV QTDIR PATH_SUFFIXES bin)
-#    FILE(GLOB FILE_EXE "${PROJECT_BINARY_DIR}/bin/Release/Biopen/*.exe")
-#      FOREACH(F ${FILE_EXE})
-#        #INSTALL(FILES "${F}" DESTINATION ./)
-# 	    message (STATUS "     WINDEPLOYQT_EXECUTABLE is : ${WINDEPLOYQT_EXECUTABLE} \n")
-# 	    message (STATUS "     Current file target is : ${F} \n")
-#		message (STATUS "     BIOPEN_PROJECT_NAME is : ${BIOPEN_PROJECT_NAME} \n")
-#	    #HERE we cannot specify the target PACKAGE or package 
-#		#add_custom_command(TARGET PACKAGE PRE_BUILD WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/bin/Release/ COMMAND ${WINDEPLOYQT_EXECUTABLE} $<TARGET_FILE:${F}> COMMENT "Preparing Qt runtime dependencies")
+if(BUILD_WINDEPLOYQT AND WIN32)
+		# Run winddeployqt if it can be found
+	find_program(WINDEPLOYQT_EXECUTABLE NAMES windeployqt HINTS ${QT5_BINARY_DIR} ENV QTDIR PATH_SUFFIXES bin)
+    FILE(GLOB FILE_EXE "${PROJECT_BINARY_DIR}/bin/Release/Biopen/*.exe")
+      FOREACH(F ${FILE_EXE})
+        #INSTALL(FILES "${F}" DESTINATION ./)
+ 	    message (STATUS "     WINDEPLOYQT_EXECUTABLE is : ${WINDEPLOYQT_EXECUTABLE} \n")
+ 	    message (STATUS "     Current file target is : ${F} \n")
+		message (STATUS "     BIOPEN_PROJECT_NAME is : ${BIOPEN_PROJECT_NAME} \n")
+	    #HERE we cannot specify the target PACKAGE or package 
+		#add_custom_command(TARGET PACKAGE PRE_BUILD WORKING_DIRECTORY ${PROJECT_BINARY_DIR}/bin/Release/ COMMAND ${WINDEPLOYQT_EXECUTABLE} $<TARGET_FILE:${F}> COMMENT "Preparing Qt runtime dependencies")
 
-#	  ENDFOREACH(F)
-#endif()
+	  ENDFOREACH(F)
+
+endif()
 
 #in order to support the previous feature of deploying QT, the previous lines have been added to the lab-on-a-tip gui application
 #anyway to avoid the deployment to run every time it is compiled, the variable BUILD_WINDEPLOYQT is set to 0
