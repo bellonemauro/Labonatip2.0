@@ -60,7 +60,7 @@ set(CPACK_NSIS_MENU_LINKS
             "${GUIDE_PDF}" "Quick start guide" )
 	
 
-set(CPACK_NSIS_DISPLAY_NAME \\\"Fluicell biopen wizard ") #V.${CMAKE_Fluicell_FULL_VERSION}")
+set(CPACK_NSIS_DISPLAY_NAME "Fluicell biopen wizard ") #V.${CMAKE_Fluicell_FULL_VERSION}")
 			
 #allows NSIS to modify paths
 #set (CPACK_NSIS_MODIFY_PATH "ON")     
@@ -81,8 +81,11 @@ set(CPACK_PACKAGE_INSTALL_REGISTRY_KEY "${BIOPEN_PROJECT_NAME}")
 
 # this is to create the user folders during the installation
 set( CPACK_NSIS_EXTRA_INSTALL_COMMANDS "
+	SetOutPath \\\"$INSTDIR\\\\Biopen\\\"
 	CreateShortCut \\\"$DESKTOP\\\\Biopen.lnk\\\" \\\"$INSTDIR\\\\Biopen\\\\Biopen_wizard.exe\\\"
-	CreateShortCut \\\"$DESKTOP\\\\Biopen6.lnk\\\" \\\"$INSTDIR\\\\Biopen6\\\\Biopen_wizard6.exe\\\"
+	SetOutPath \\\"$INSTDIR\\\\Biopen6\\\"
+	CreateShortCut \\\"$DESKTOP\\\\Biopen6.lnk\\\" \\\"$INSTDIR\\\\Biopen6\\\\Biopen_wizard_6.exe\\\"
+	SetOutPath \\\"$INSTDIR\\\"
 	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Biopen\\\" 
 	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Biopen\\\\presetProtocols\\\"
 	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Biopen\\\\settings\\\" 
@@ -99,8 +102,13 @@ set( CPACK_NSIS_EXTRA_INSTALL_COMMANDS "
 	CopyFiles \\\"$INSTDIR\\\\Biopen6\\\\presetProtocols\\\\*.prt\\\" \\\"$PROFILE\\\\Documents\\\\Biopen6\\\\presetProtocols\\\"
 	CopyFiles \\\"$INSTDIR\\\\Biopen6\\\\guide\\\\*.pdf\\\" \\\"$PROFILE\\\\Documents\\\\Biopen6\\\\guide\\\"
 	CopyFiles \\\"$INSTDIR\\\\Biopen6\\\\settings\\\\*.ini\\\" \\\"$PROFILE\\\\Documents\\\\Biopen6\\\\settings\\\"
+	SetOutPath \\\"$INSTDIR\\\\Biopen\\\"
 	CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Biopen_wizard.lnk\\\" \\\"$INSTDIR\\\\Biopen\\\\Biopen_wizard.exe\\\" 
-	")
+	SetOutPath \\\"$INSTDIR\\\\Biopen6\\\"
+	CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Biopen_wizard_6.lnk\\\" \\\"$INSTDIR\\\\Biopen6\\\\Biopen_wizard_6.exe\\\" 
+	SetOutPath \\\"$INSTDIR\\\\SerialConsole\\\"
+	CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\SerialConsole.lnk\\\" \\\"$INSTDIR\\\\SerialConsole\\\\Serial_console.exe\\\" 
+	SetOutPath \\\"$INSTDIR\\\"")
 	
 #set( CPACK_NSIS_EXTRA_INSTALL_COMMANDS " 
 #		CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Biopen_wizard.lnk\\\" \\\"$INSTDIR\\\\Biopen\\\\Biopen_wizard.exe\\\" 
