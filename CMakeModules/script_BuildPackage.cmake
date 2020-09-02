@@ -15,7 +15,7 @@ if( WIN32 AND NOT UNIX )
 
 #define the website -- TODO: change with the real website
 set (WEBSITE "https://www.fluicell.com/")   
-set (WEB_TUTORIAL "http://fluicell.com/products/biopen-system-prime-flex/")  
+set (WEB_TUTORIAL "https://fluicell.com/products-fluicell/biopensystems/")  
 set (WEB_DOCS "https://bellonemauro.github.io/PPC1API-docs.io/")  
 set (GUIDE_PDF "/guide/BioPen2018.pdf")  
 
@@ -109,21 +109,6 @@ set( CPACK_NSIS_EXTRA_INSTALL_COMMANDS "
 	SetOutPath \\\"$INSTDIR\\\\SerialConsole\\\"
 	CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\SerialConsole.lnk\\\" \\\"$INSTDIR\\\\SerialConsole\\\\Serial_console.exe\\\" 
 	SetOutPath \\\"$INSTDIR\\\"")
-	
-#set( CPACK_NSIS_EXTRA_INSTALL_COMMANDS " 
-#		CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Biopen_wizard.lnk\\\" \\\"$INSTDIR\\\\Biopen\\\\Biopen_wizard.exe\\\" 
-#	")	
-  #CreateDirectory \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER" 
-  #CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Biopen_wizard.lnk\\\"  \\\"$INSTDIR\\\\Biopen\\\\Biopen_wizard.exe\\\" "Biopen"
-  #WriteINIStr \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Homepage for Fluicell.url\\\" \\\"InternetShortcut" "URL" "https://www.fluicell.com/\\\" 
-  #CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Biopen_wizard.lnk\\\" \\\"$INSTDIR\\\\Biopen\\\\Biopen_wizard.exe\\\" "Biopen" "startFromHere"
-  #CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Biopen_wizard_6.lnk\\\" \\\"$INSTDIR\\\\Biopen6\\\\Biopen_wizard6.exe\\\" 
-  #CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Serial console.lnk\\\" \\\"$INSTDIR\\\\SerialConsole\\\\Serial_console.exe\\\" 
-  #CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Uninstall Biopen.lnk\\\" \\\"$INSTDIR\\\\uninstall.exe\\\" 
-  #WriteINIStr \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Tutorials.url\\\" \\\"InternetShortcut" \\\"URL" \\\"http://fluicell.com/products/biopen-system-prime-flex/\\\" 
-  #WriteINIStr \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Documentation.url\\\" \\\"InternetShortcut" \\\"URL" \\\"https://bellonemauro.github.io/PPC1API-docs.io/\\\" 
-  #CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Quick start guide.lnk\\\" \\\"$INSTDIR\\\\guide\\\\BioPen2018.pdf\\\"			
-	
 	
 set(CPACK_NSIS_EXECUTABLES_DIRECTORY ".")
 
