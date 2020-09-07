@@ -202,7 +202,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	  editorParams::c_range, new NoEditDelegate(this));
   ui->treeWidget_macroTable->setItemDelegateForColumn(
 	  editorParams::c_value, new SpinBoxDelegate(this));
-
+ 
   ui->treeWidget_macroTable->setContextMenuPolicy(
 	  Qt::CustomContextMenu);
   ui->treeWidget_protocol_folder->setContextMenuPolicy(

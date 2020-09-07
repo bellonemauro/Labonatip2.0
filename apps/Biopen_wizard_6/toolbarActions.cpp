@@ -42,7 +42,7 @@ bool Labonatip_GUI::loadProtocol()
 	
 	if (m_reader->readProtocol(ui->treeWidget_macroTable, file_name))
 	{
-		addAllCommandsToProtocol();
+		addAllCommandsToProtocol(ui->treeWidget_macroTable, m_protocol);
 		m_current_protocol_file_name = file_name;
 		return true;
 	}

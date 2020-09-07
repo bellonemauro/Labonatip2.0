@@ -112,10 +112,10 @@ void Labonatip_GUI::pushSolution1()
 			//m_ppc1->closeAllValves();
 
 			// stop pumping protocol
-			m_current_protocol_file_name = m_protocol_path;
-			m_current_protocol_file_name.append("/");
-			m_current_protocol_file_name.append("stopSolution1.prt");
-			this->runProtocolFile(m_current_protocol_file_name);
+			QString currentProtocolFileName = m_protocol_path;
+			currentProtocolFileName.append("/");
+			currentProtocolFileName.append("stopSolution1.prt");
+			this->runProtocolFile(currentProtocolFileName);
 		}
 
 		//m_update_time_s1->stop();
@@ -182,10 +182,10 @@ void Labonatip_GUI::pushSolution1()
 		//m_ppc1->setValve_l(true);
 
 		// start pumping protocol
-		m_current_protocol_file_name = m_protocol_path;
-		m_current_protocol_file_name.append("/");
-		m_current_protocol_file_name.append("pumpSolution1.prt");
-		this->runProtocolFile(m_current_protocol_file_name);
+		QString currentProtocolFileName = m_protocol_path;
+		currentProtocolFileName.append("/");
+		currentProtocolFileName.append("pumpSolution1.prt");
+		this->runProtocolFile(currentProtocolFileName);
 	}
 	m_timer_solution = 0;
 	//m_update_flowing_sliders->start();
@@ -207,10 +207,10 @@ void Labonatip_GUI::pushSolution2() {
 		{
 			//m_ppc1->closeAllValves();
 			// stop pumping protocol
-			m_current_protocol_file_name = m_protocol_path;
-			m_current_protocol_file_name.append("/");
-			m_current_protocol_file_name.append("stopSolution2.prt");
-			this->runProtocolFile(m_current_protocol_file_name);
+			QString currentProtocolFileName = m_protocol_path;
+			currentProtocolFileName.append("/");
+			currentProtocolFileName.append("stopSolution2.prt");
+			this->runProtocolFile(currentProtocolFileName);
 		}
 
 		m_update_flowing_sliders->stop();
@@ -272,10 +272,10 @@ void Labonatip_GUI::pushSolution2() {
 		//m_ppc1->setValve_k(true);
 
 		// start pumping protocol
-		m_current_protocol_file_name = m_protocol_path;
-		m_current_protocol_file_name.append("/");
-		m_current_protocol_file_name.append("pumpSolution2.prt");
-		this->runProtocolFile(m_current_protocol_file_name);
+		QString currentProtocolFileName = m_protocol_path;
+		currentProtocolFileName.append("/");
+		currentProtocolFileName.append("pumpSolution2.prt");
+		this->runProtocolFile(currentProtocolFileName);
 	}
 
 	m_timer_solution = 0;
@@ -298,10 +298,10 @@ void Labonatip_GUI::pushSolution3() {
 		{
 			//m_ppc1->closeAllValves();
 			// stop pumping protocol
-			m_current_protocol_file_name = m_protocol_path;
-			m_current_protocol_file_name.append("/");
-			m_current_protocol_file_name.append("stopSolution3.prt");
-			this->runProtocolFile(m_current_protocol_file_name);
+			QString currentProtocolFileName = m_protocol_path;
+			currentProtocolFileName.append("/");
+			currentProtocolFileName.append("stopSolution3.prt");
+			this->runProtocolFile(currentProtocolFileName);
 		}
 
 		m_update_flowing_sliders->stop();
@@ -365,10 +365,10 @@ void Labonatip_GUI::pushSolution3() {
 		//m_ppc1->setValve_j(true);
 
 		// start pumping protocol
-		m_current_protocol_file_name = m_protocol_path;
-		m_current_protocol_file_name.append("/");
-		m_current_protocol_file_name.append("pumpSolution3.prt");
-		this->runProtocolFile(m_current_protocol_file_name);
+		QString currentProtocolFileName = m_protocol_path;
+		currentProtocolFileName.append("/");
+		currentProtocolFileName.append("pumpSolution3.prt");
+		this->runProtocolFile(currentProtocolFileName);
 	}
 
 	m_timer_solution = 0;
@@ -391,10 +391,10 @@ void Labonatip_GUI::pushSolution4() {
 		{
 			m_ppc1->closeAllValves();
 			// stop pumping protocol
-			m_current_protocol_file_name = m_protocol_path;
-			m_current_protocol_file_name.append("/");
-			m_current_protocol_file_name.append("stopSolution4.prt");
-			this->runProtocolFile(m_current_protocol_file_name);
+			QString currentProtocolFileName = m_protocol_path;
+			currentProtocolFileName.append("/");
+			currentProtocolFileName.append("stopSolution4.prt");
+			this->runProtocolFile(currentProtocolFileName);
 		}
 
 		m_update_flowing_sliders->stop();
@@ -457,10 +457,10 @@ void Labonatip_GUI::pushSolution4() {
 		//QThread::msleep(50);
 		//m_ppc1->setValve_i(true);
 		// start pumping protocol
-		m_current_protocol_file_name = m_protocol_path;
-		m_current_protocol_file_name.append("/");
-		m_current_protocol_file_name.append("pumpSolution4.prt");
-		this->runProtocolFile(m_current_protocol_file_name);
+		QString currentProtocolFileName = m_protocol_path;
+		currentProtocolFileName.append("/");
+		currentProtocolFileName.append("pumpSolution4.prt");
+		this->runProtocolFile(currentProtocolFileName);
 	}
 
 	m_timer_solution = 0;
@@ -483,10 +483,10 @@ void Labonatip_GUI::pushSolution5() {
 		{
 			m_ppc1->closeAllValves();
 			// stop pumping protocol
-			m_current_protocol_file_name = m_protocol_path;
-			m_current_protocol_file_name.append("/");
-			m_current_protocol_file_name.append("stopSolution5.prt");
-			this->runProtocolFile(m_current_protocol_file_name);
+			QString currentProtocolFileName = m_protocol_path;
+			currentProtocolFileName.append("/");
+			currentProtocolFileName.append("stopSolution5.prt");
+			this->runProtocolFile(currentProtocolFileName);
 		}
 
 		m_update_flowing_sliders->stop();
@@ -549,10 +549,10 @@ void Labonatip_GUI::pushSolution5() {
 		//m_ppc1->setValve_e(true);
 
 		// start pumping protocol
-		m_current_protocol_file_name = m_protocol_path;
-		m_current_protocol_file_name.append("/");
-		m_current_protocol_file_name.append("pumpSolution5.prt");
-		this->runProtocolFile(m_current_protocol_file_name);
+		QString currentProtocolFileName = m_protocol_path;
+		currentProtocolFileName.append("/");
+		currentProtocolFileName.append("pumpSolution5.prt");
+		this->runProtocolFile(currentProtocolFileName);
 	}
 
 	m_timer_solution = 0;
@@ -575,10 +575,10 @@ void Labonatip_GUI::pushSolution6() {
 		{
 			m_ppc1->closeAllValves();
 			// stop pumping protocol
-			m_current_protocol_file_name = m_protocol_path;
-			m_current_protocol_file_name.append("/");
-			m_current_protocol_file_name.append("stopSolution6.prt");
-			this->runProtocolFile(m_current_protocol_file_name);
+			QString currentProtocolFileName = m_protocol_path;
+			currentProtocolFileName.append("/");
+			currentProtocolFileName.append("stopSolution6.prt");
+			this->runProtocolFile(currentProtocolFileName);
 		}
 
 		m_update_flowing_sliders->stop();
@@ -641,13 +641,13 @@ void Labonatip_GUI::pushSolution6() {
 		//m_ppc1->setValve_f(true);
 
 		// start pumping protocol
-		m_current_protocol_file_name = m_protocol_path;
-		m_current_protocol_file_name.append("/");
-		m_current_protocol_file_name.append("pumpSolution6.prt");
+		QString currentProtocolFileName = m_protocol_path;
+		currentProtocolFileName.append("/");
+		currentProtocolFileName.append("pumpSolution6.prt");
 		//bool suc = 
-		if (QFile::exists(m_current_protocol_file_name)) 
+		if (QFile::exists(currentProtocolFileName))
 		{
-		this->runProtocolFile(m_current_protocol_file_name);
+		this->runProtocolFile(currentProtocolFileName);
 		}
 		
 	}

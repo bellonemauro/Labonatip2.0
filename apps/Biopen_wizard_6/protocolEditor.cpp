@@ -66,7 +66,7 @@ void Labonatip_GUI::onProtocolClicked(QTreeWidgetItem *item, int column)
 		// read the clicked protocol and add it to the current 
 		QApplication::setOverrideCursor(Qt::WaitCursor);   
 		m_reader->readProtocol(ui->treeWidget_macroTable, protocol_path);
-		addAllCommandsToProtocol();
+		addAllCommandsToProtocol(ui->treeWidget_macroTable, m_protocol);
 		m_current_protocol_file_name = protocol_path;
 		QApplication::restoreOverrideCursor();   
 	}
@@ -76,7 +76,7 @@ void Labonatip_GUI::onProtocolClicked(QTreeWidgetItem *item, int column)
 		QApplication::setOverrideCursor(Qt::WaitCursor);
 		clearAllCommands(); 
 		m_reader->readProtocol(ui->treeWidget_macroTable, protocol_path);
-		addAllCommandsToProtocol();
+		addAllCommandsToProtocol(ui->treeWidget_macroTable, m_protocol);
 		m_current_protocol_file_name = protocol_path;
 		QApplication::restoreOverrideCursor();
 	}
@@ -89,7 +89,7 @@ void Labonatip_GUI::onProtocolClicked(QTreeWidgetItem *item, int column)
 	//
 }
 
-void Labonatip_GUI::addAllCommandsToProtocol()
+void Labonatip_GUI::addAllCommandsToProtocol(QTreeWidget* _tree, std::vector<fluicell::PPC1api6dataStructures::command>* _protocol)
 {
 	/////////////////////////////////////////////////////////////////////////////////
 	//TODO THIS IS WEIRD
@@ -102,32 +102,32 @@ void Labonatip_GUI::addAllCommandsToProtocol()
 	//TODO: this is not the best way, 
 	//      every time it will re-build the whole macro 
 	//      instead of update (waste of time)
-	m_protocol->clear();
+	_protocol->clear();
 
 	// push all the items in the macro table into the command vector
 	for (int i = 0;
-		i < ui->treeWidget_macroTable->topLevelItemCount();
+		i < _tree->topLevelItemCount();
 		++i) {
 
 		// get the current item
 		protocolTreeWidgetItem *item =
 			dynamic_cast<protocolTreeWidgetItem * > (
-				ui->treeWidget_macroTable->topLevelItem(i));
-		ui->treeWidget_macroTable->blockSignals(true);
+				_tree->topLevelItem(i));
+		_tree->blockSignals(true);
 		item->setText(editorParams::c_idx, QString::number(i + 1));
-		ui->treeWidget_macroTable->blockSignals(false);
+		_tree->blockSignals(false);
 		//item->blockSignals(true);
 		//item->checkValidity(m_cmd_value_c);
 		//item->blockSignals(false);
 
 
 		if (item->childCount() < 1) { // if no children, just add the line 
-			std::string a = ui->treeWidget_macroTable->topLevelItem(i)->text(
+			std::string a = _tree->topLevelItem(i)->text(
 				editorParams::c_command).toStdString();
 
 			commands_vector.push_back(
 				dynamic_cast<protocolTreeWidgetItem *> (
-					ui->treeWidget_macroTable->topLevelItem(i)));
+					_tree->topLevelItem(i)));
 
 		}
 		else
@@ -144,13 +144,13 @@ void Labonatip_GUI::addAllCommandsToProtocol()
 					commands_vector.push_back(
 						dynamic_cast<protocolTreeWidgetItem *> (
 							item->child(childrenCount)));
-					ui->treeWidget_macroTable->blockSignals(true);
+					_tree->blockSignals(true);
 					protocolTreeWidgetItem *item_child =
 						dynamic_cast<protocolTreeWidgetItem *> (
-							ui->treeWidget_macroTable->topLevelItem(i)->child(childrenCount));//
+							_tree->topLevelItem(i)->child(childrenCount));//
 					item_child->setText(
 						editorParams::c_idx, QString::number(childrenCount + 1));
-					ui->treeWidget_macroTable->blockSignals(false);
+					_tree->blockSignals(false);
 					//item_child->blockSignals(true);
 					//item_child->checkValidity(m_cmd_value_c);
 					//item_child->blockSignals(false);
@@ -172,7 +172,7 @@ void Labonatip_GUI::addAllCommandsToProtocol()
 		new_command.setValue(commands_vector.at(i)->text(editorParams::c_value).toInt());
 		new_command.setStatusMessage(commands_vector.at(i)->text(editorParams::c_msg).toStdString());
 
-		m_protocol->push_back(new_command);
+		_protocol->push_back(new_command);
 	}
 
 	// add the protocol to the stack
@@ -310,7 +310,7 @@ void Labonatip_GUI::addCommand()
 
 	// every time we add a new command we update all macro commands
 	// this is not really nice, better to append (much faster)
-	addAllCommandsToProtocol();
+	addAllCommandsToProtocol(ui->treeWidget_macroTable, m_protocol);
 }
 
 void Labonatip_GUI::removeCommand()
@@ -333,7 +333,7 @@ void Labonatip_GUI::removeCommand()
 	}
 
 	// every time we remove a command we update the macro command
-	addAllCommandsToProtocol();  //TODO: this is not really nice, better to append (much faster)
+	addAllCommandsToProtocol(ui->treeWidget_macroTable, m_protocol);  //TODO: this is not really nice, better to append (much faster)
 
 }
 
@@ -374,7 +374,7 @@ void Labonatip_GUI::moveUp()
 	}
 
 	// update the macro command
-	addAllCommandsToProtocol();  //TODO: this is not really nice, better to append (much faster)
+	addAllCommandsToProtocol(ui->treeWidget_macroTable, m_protocol);  //TODO: this is not really nice, better to append (much faster)
 
 }
 
@@ -412,7 +412,7 @@ void Labonatip_GUI::moveDown()
 	}
 
 	// update the macro command
-	addAllCommandsToProtocol();  // TODO: this is not really nice, better to append (much faster)
+	addAllCommandsToProtocol(ui->treeWidget_macroTable, m_protocol);  // TODO: this is not really nice, better to append (much faster)
 
 }
 
@@ -455,7 +455,7 @@ void Labonatip_GUI::plusIndent()
 	m_undo_stack->push(cmd);
 
 	// update the macro command
-	addAllCommandsToProtocol();  //TODO this is not really nice, better to append (much faster)
+	addAllCommandsToProtocol(ui->treeWidget_macroTable, m_protocol);  //TODO this is not really nice, better to append (much faster)
 }
 
 bool Labonatip_GUI::itemChanged(QTreeWidgetItem *_item, int _column)
@@ -494,7 +494,7 @@ bool Labonatip_GUI::itemChanged(QTreeWidgetItem *_item, int _column)
 		dynamic_cast<protocolTreeWidgetItem *>(_item)->checkValidity(_column);
 	}
 
-	addAllCommandsToProtocol();
+	addAllCommandsToProtocol(ui->treeWidget_macroTable, m_protocol);
 	return true;
 }
 
@@ -529,7 +529,7 @@ void Labonatip_GUI::duplicateItem()
 	//clone->setCheckState(m_cmd_command_c, show_msg);
 	clone->setText(editorParams::c_msg, msg);
 
-	addAllCommandsToProtocol();
+	addAllCommandsToProtocol(ui->treeWidget_macroTable, m_protocol);
 	return;
 }
 
@@ -548,7 +548,7 @@ void Labonatip_GUI::createNewLoop(int _loops)
 		editorParams::c_command, QString::number(pCmd::loop));// "Loop"); // 
 
 	this->plusIndent();
-	addAllCommandsToProtocol();
+	addAllCommandsToProtocol(ui->treeWidget_macroTable, m_protocol);
 	return;
 }
 
@@ -591,7 +591,7 @@ void Labonatip_GUI::undo()
 	ui->treeWidget_macroTable->blockSignals(true);
 	m_undo_stack->undo();
 	ui->treeWidget_macroTable->blockSignals(false);
-	addAllCommandsToProtocol();
+	addAllCommandsToProtocol(ui->treeWidget_macroTable, m_protocol);
 
 }
 

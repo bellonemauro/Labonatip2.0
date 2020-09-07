@@ -43,7 +43,6 @@
 
 #include "Q_DebugStream.h"
 #include "tools.h"
-//#include "protocolEditor.h"
 #include "protocolReader.h"
 #include "protocolWriter.h"
 #include "protocolRunner.h"
@@ -641,6 +640,7 @@ private slots:
 	*/
 	void loadPressed();
 
+
 	/** \brief Save icon pressed
 	*
     *   When the save icon is pressed an automatic detection of GUI status
@@ -965,7 +965,7 @@ private:
   /** \brief All the commands in the tree widget are added to the protocol
   *
   */
-  void addAllCommandsToProtocol();
+  void addAllCommandsToProtocol(QTreeWidget *_tree, std::vector<fluicell::PPC1api6dataStructures::command>* _protocol );
 
   /** \brief enable/disable the entire main window
   *

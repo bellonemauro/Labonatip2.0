@@ -1,3 +1,6 @@
+V.2.1.13
+Fix protocol running and solution running 
+
 V.2.1.12
 Many changes in Biopen6
 Better organization of folders

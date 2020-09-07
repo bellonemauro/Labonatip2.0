@@ -197,21 +197,23 @@ void Labonatip_GUI::runProtocolFile(QString _protocol_path) {
 		if (!m_protocol) {
 			QMessageBox::information(this, m_str_information,
 				m_str_no_protocol_load_first);
-				return;
+			return;
 		}
-
 		QApplication::setOverrideCursor(Qt::WaitCursor);
-		this->clearAllCommands();
-		m_reader->readProtocol(ui->treeWidget_macroTable, _protocol_path);
-		addAllCommandsToProtocol();
-		m_current_protocol_file_name = _protocol_path;
+		//this->clearAllCommands();
+		QTreeWidget* virtualTree = new QTreeWidget;
+		//m_reader->readProtocol(ui->treeWidget_macroTable, _protocol_path);
+		m_reader->readProtocol(virtualTree, _protocol_path);
+		//addAllCommandsToProtocol(ui->treeWidget_macroTable, m_protocol);
+		addAllCommandsToProtocol(virtualTree, m_protocol);
+		//m_current_protocol_file_name = _protocol_path;
 		QApplication::restoreOverrideCursor();
 
 		// if ok was pressed in runProtocol()
 		m_ppc1->setVerbose(false);
+		
 		m_macroRunner_thread->setProtocol(m_protocol);
 
-		
 
 		m_macroRunner_thread->setSimulationFlag(m_simulationOnly);
 
@@ -368,7 +370,7 @@ void Labonatip_GUI::protocolFinished(const QString &_result) {
 
 	std::cout << HERE << std::endl;
 
-	QMessageBox::information(this, m_str_information, _result);
+	//QMessageBox::information(this, m_str_information, _result);
 
 	// restore settings that have been overlapped during the protocol running
 	this->toolApply();

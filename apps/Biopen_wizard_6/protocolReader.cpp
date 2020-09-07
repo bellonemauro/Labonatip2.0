@@ -35,10 +35,13 @@ void protocolReader::switchLanguage(QString _translation_file)
 	}
 }
 
+
+
 //TODO: the way the protocol is read is not very clever, this must be fixed.
 //      what happens is that the protocol file is read into the qtreewidget
 //      and then passed into the data structure m_protocol, this is not correct
-bool protocolReader::readProtocol(QTreeWidget *_out_tree, QString _filename)
+bool protocolReader::readProtocol(QTreeWidget *_out_tree, 
+	const QString _filename)
 {
 	QFile protocol_file(_filename);
 
@@ -144,7 +147,9 @@ bool protocolReader::readProtocol(QTreeWidget *_out_tree, QString _filename)
 		return false;
 
 	}
-
+	int cou = _out_tree->topLevelItemCount();
+	std::cout << HERE << " number of items in the tree " 
+		<< cou << std::endl;
 	return true;
 }
 

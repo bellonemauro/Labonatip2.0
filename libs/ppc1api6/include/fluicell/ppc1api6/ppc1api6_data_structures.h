@@ -30,7 +30,7 @@
 // standard libraries 
 #include <string>
 #include <numeric>
-
+#include <iostream>
 
 /**  \brief Define the Fluicell namespace, all the classes will be in here
   *  
@@ -850,6 +850,7 @@ namespace fluicell { namespace PPC1api6dataStructures
 			*
 			**/
 			void setInstruction(instructions _instruction) { this->instruction = _instruction; }
+			void setInstruction(int _instruction) { this->instruction = instructions(_instruction); }
 
 			/**  \brief Simple cast of the enumerator into the corresponding command as a string.
 			*

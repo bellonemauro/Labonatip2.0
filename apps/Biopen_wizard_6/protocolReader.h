@@ -65,7 +65,8 @@ public:
 	*  @param _tree the protocol will be loaded into this tree widget
 	*  @param _filename complete path to the file to be loaded
 	*/
-	bool readProtocol(QTreeWidget *_tree, QString _filename);
+	bool readProtocol(QTreeWidget* _out_tree, 
+		const QString _filename);
 
 private:
 
