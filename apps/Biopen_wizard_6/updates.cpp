@@ -107,9 +107,14 @@ void Labonatip_GUI::updatePressureVacuum()
 			ui->lcdNumber_flowspeed_percentage->display(0);
 			ui->lcdNumber_vacuum_percentage->display(0);
 		}
-
-
 	}// end if m_simulation
+}
+
+void Labonatip_GUI::checkButtonWithoutSignals(QPushButton *_button, bool _enable)
+{
+	_button->blockSignals(true);
+	_button->setChecked(_enable);
+	_button->blockSignals(false);
 }
 
 void Labonatip_GUI::updateSolutions()
@@ -133,31 +138,13 @@ void Labonatip_GUI::updateSolutions()
 				QPoint(pos_x, ui->widget_solutionArrow->pos().ry()));
 
 			// switch on the button for the solution 1
-			ui->pushButton_solution1->blockSignals(true);
-			ui->pushButton_solution1->setChecked(true);
-			ui->pushButton_solution1->blockSignals(false);
-
+			checkButtonWithoutSignals(ui->pushButton_solution1, true);
 			// all the other buttons have to be off
-			ui->pushButton_solution2->blockSignals(true);
-			ui->pushButton_solution2->setChecked(false);
-			ui->pushButton_solution2->blockSignals(false);
-
-			ui->pushButton_solution3->blockSignals(true);
-			ui->pushButton_solution3->setChecked(false);
-			ui->pushButton_solution3->blockSignals(false);
-
-			ui->pushButton_solution4->blockSignals(true);
-			ui->pushButton_solution4->setChecked(false);
-			ui->pushButton_solution4->blockSignals(false); 
-
-			ui->pushButton_solution5->blockSignals(true);
-			ui->pushButton_solution5->setChecked(false);
-			ui->pushButton_solution5->blockSignals(false);
-
-			ui->pushButton_solution6->blockSignals(true);
-			ui->pushButton_solution6->setChecked(false);
-			ui->pushButton_solution6->blockSignals(false); 
-
+			checkButtonWithoutSignals(ui->pushButton_solution2, false);
+			checkButtonWithoutSignals(ui->pushButton_solution3, false);
+			checkButtonWithoutSignals(ui->pushButton_solution4, false);
+			checkButtonWithoutSignals(ui->pushButton_solution5, false);
+			checkButtonWithoutSignals(ui->pushButton_solution6, false);
 		}
 		if (m_ppc1->isWeel2Open()) {
 			m_pen_line.setColor(m_sol2_color);
@@ -174,30 +161,13 @@ void Labonatip_GUI::updateSolutions()
 				QPoint(pos_x, ui->widget_solutionArrow->pos().ry()));
 
 			// switch on the button for the solution 2
-			ui->pushButton_solution2->blockSignals(true);
-			ui->pushButton_solution2->setChecked(true);
-			ui->pushButton_solution2->blockSignals(false);
-
+			checkButtonWithoutSignals(ui->pushButton_solution2, true);
 			// all the other buttons have to be off
-			ui->pushButton_solution1->blockSignals(true);
-			ui->pushButton_solution1->setChecked(false);
-			ui->pushButton_solution1->blockSignals(false);
-
-			ui->pushButton_solution3->blockSignals(true);
-			ui->pushButton_solution3->setChecked(false);
-			ui->pushButton_solution3->blockSignals(false);
-
-			ui->pushButton_solution4->blockSignals(true);
-			ui->pushButton_solution4->setChecked(false);
-			ui->pushButton_solution4->blockSignals(false);
-
-			ui->pushButton_solution5->blockSignals(true);
-			ui->pushButton_solution5->setChecked(false);
-			ui->pushButton_solution5->blockSignals(false);
-
-			ui->pushButton_solution6->blockSignals(true);
-			ui->pushButton_solution6->setChecked(false);
-			ui->pushButton_solution6->blockSignals(false);
+			checkButtonWithoutSignals(ui->pushButton_solution1, false);
+			checkButtonWithoutSignals(ui->pushButton_solution3, false);
+			checkButtonWithoutSignals(ui->pushButton_solution4, false);
+			checkButtonWithoutSignals(ui->pushButton_solution5, false);
+			checkButtonWithoutSignals(ui->pushButton_solution6, false);
 		}
 		if (m_ppc1->isWeel3Open()) {
 			m_pen_line.setColor(m_sol3_color);
@@ -214,30 +184,13 @@ void Labonatip_GUI::updateSolutions()
 				QPoint(pos_x, ui->widget_solutionArrow->pos().ry()));
 
 			// switch on the button for the solution 3
-			ui->pushButton_solution3->blockSignals(true);
-			ui->pushButton_solution3->setChecked(true);
-			ui->pushButton_solution3->blockSignals(false);
-
+			checkButtonWithoutSignals(ui->pushButton_solution3, true);
 			// all the other buttons have to be off
-			ui->pushButton_solution1->blockSignals(true);
-			ui->pushButton_solution1->setChecked(false);
-			ui->pushButton_solution1->blockSignals(false);
-
-			ui->pushButton_solution2->blockSignals(true);
-			ui->pushButton_solution2->setChecked(false);
-			ui->pushButton_solution2->blockSignals(false);
-
-			ui->pushButton_solution4->blockSignals(true);
-			ui->pushButton_solution4->setChecked(false);
-			ui->pushButton_solution4->blockSignals(false);
-
-			ui->pushButton_solution5->blockSignals(true);
-			ui->pushButton_solution5->setChecked(false);
-			ui->pushButton_solution5->blockSignals(false);
-
-			ui->pushButton_solution6->blockSignals(true);
-			ui->pushButton_solution6->setChecked(false);
-			ui->pushButton_solution6->blockSignals(false);
+			checkButtonWithoutSignals(ui->pushButton_solution1, false);
+			checkButtonWithoutSignals(ui->pushButton_solution2, false);
+			checkButtonWithoutSignals(ui->pushButton_solution4, false);
+			checkButtonWithoutSignals(ui->pushButton_solution5, false);
+			checkButtonWithoutSignals(ui->pushButton_solution6, false);
 		}
 		if (m_ppc1->isWeel4Open()) {
 			m_pen_line.setColor(m_sol4_color);
@@ -254,30 +207,13 @@ void Labonatip_GUI::updateSolutions()
 				QPoint(pos_x, ui->widget_solutionArrow->pos().ry()));
 
 			// switch on the button for the solution 4
-			ui->pushButton_solution4->blockSignals(true);
-			ui->pushButton_solution4->setChecked(true);
-			ui->pushButton_solution4->blockSignals(false);
-
+			checkButtonWithoutSignals(ui->pushButton_solution4, true);
 			// all the other buttons have to be off
-			ui->pushButton_solution1->blockSignals(true);
-			ui->pushButton_solution1->setChecked(false);
-			ui->pushButton_solution1->blockSignals(false);
-
-			ui->pushButton_solution2->blockSignals(true);
-			ui->pushButton_solution2->setChecked(false);
-			ui->pushButton_solution2->blockSignals(false);
-
-			ui->pushButton_solution3->blockSignals(true);
-			ui->pushButton_solution3->setChecked(false);
-			ui->pushButton_solution3->blockSignals(false);
-
-			ui->pushButton_solution5->blockSignals(true);
-			ui->pushButton_solution5->setChecked(false);
-			ui->pushButton_solution5->blockSignals(false);
-
-			ui->pushButton_solution6->blockSignals(true);
-			ui->pushButton_solution6->setChecked(false);
-			ui->pushButton_solution6->blockSignals(false);
+			checkButtonWithoutSignals(ui->pushButton_solution1, false);
+			checkButtonWithoutSignals(ui->pushButton_solution2, false);
+			checkButtonWithoutSignals(ui->pushButton_solution3, false);
+			checkButtonWithoutSignals(ui->pushButton_solution5, false);
+			checkButtonWithoutSignals(ui->pushButton_solution6, false);
 		}
 		if (m_ppc1->isWeel5Open()) {
 			m_pen_line.setColor(m_sol5_color);
@@ -294,30 +230,13 @@ void Labonatip_GUI::updateSolutions()
 				QPoint(pos_x, ui->widget_solutionArrow->pos().ry()));
 
 			// switch on the button for the solution 5
-			ui->pushButton_solution5->blockSignals(true);
-			ui->pushButton_solution5->setChecked(true);
-			ui->pushButton_solution5->blockSignals(false);
-
+			checkButtonWithoutSignals(ui->pushButton_solution5, true);
 			// all the other buttons have to be off
-			ui->pushButton_solution1->blockSignals(true);
-			ui->pushButton_solution1->setChecked(false);
-			ui->pushButton_solution1->blockSignals(false);
-
-			ui->pushButton_solution2->blockSignals(true);
-			ui->pushButton_solution2->setChecked(false);
-			ui->pushButton_solution2->blockSignals(false);
-
-			ui->pushButton_solution3->blockSignals(true);
-			ui->pushButton_solution3->setChecked(false);
-			ui->pushButton_solution3->blockSignals(false);
-
-			ui->pushButton_solution4->blockSignals(true);
-			ui->pushButton_solution4->setChecked(false);
-			ui->pushButton_solution4->blockSignals(false);
-
-			ui->pushButton_solution6->blockSignals(true);
-			ui->pushButton_solution6->setChecked(false);
-			ui->pushButton_solution6->blockSignals(false);
+			checkButtonWithoutSignals(ui->pushButton_solution1, false);
+			checkButtonWithoutSignals(ui->pushButton_solution2, false);
+			checkButtonWithoutSignals(ui->pushButton_solution3, false);
+			checkButtonWithoutSignals(ui->pushButton_solution4, false);
+			checkButtonWithoutSignals(ui->pushButton_solution6, false);
 		}
 		if (m_ppc1->isWeel6Open()) {
 			m_pen_line.setColor(m_sol6_color);
@@ -333,31 +252,14 @@ void Labonatip_GUI::updateSolutions()
 			ui->widget_solutionArrow->move(
 				QPoint(pos_x, ui->widget_solutionArrow->pos().ry()));
 
-			// switch on the button for the solution 6
-			ui->pushButton_solution6->blockSignals(true);
-			ui->pushButton_solution6->setChecked(true);
-			ui->pushButton_solution6->blockSignals(false);
-
+			// switch on the button for the solution 5
+			checkButtonWithoutSignals(ui->pushButton_solution6, true);
 			// all the other buttons have to be off
-			ui->pushButton_solution1->blockSignals(true);
-			ui->pushButton_solution1->setChecked(false);
-			ui->pushButton_solution1->blockSignals(false);
-
-			ui->pushButton_solution2->blockSignals(true);
-			ui->pushButton_solution2->setChecked(false);
-			ui->pushButton_solution2->blockSignals(false);
-
-			ui->pushButton_solution3->blockSignals(true);
-			ui->pushButton_solution3->setChecked(false);
-			ui->pushButton_solution3->blockSignals(false);
-
-			ui->pushButton_solution4->blockSignals(true);
-			ui->pushButton_solution4->setChecked(false);
-			ui->pushButton_solution4->blockSignals(false);
-
-			ui->pushButton_solution5->blockSignals(true);
-			ui->pushButton_solution5->setChecked(false);
-			ui->pushButton_solution5->blockSignals(false);
+			checkButtonWithoutSignals(ui->pushButton_solution1, false);
+			checkButtonWithoutSignals(ui->pushButton_solution2, false);
+			checkButtonWithoutSignals(ui->pushButton_solution3, false);
+			checkButtonWithoutSignals(ui->pushButton_solution4, false);
+			checkButtonWithoutSignals(ui->pushButton_solution5, false);
 		}
 
 		// if we have no open wells the droplet is removed from the drawing
@@ -367,31 +269,12 @@ void Labonatip_GUI::updateSolutions()
 			m_pen_line.setColor(Qt::transparent);
 			ui->widget_solutionArrow->setVisible(false);
 
-			// this connect the solution buttons to what happens in the PPC1
-			// during the protocol running
-			ui->pushButton_solution1->blockSignals(true);
-			ui->pushButton_solution1->setChecked(false);
-			ui->pushButton_solution1->blockSignals(false);
-
-			ui->pushButton_solution2->blockSignals(true);
-			ui->pushButton_solution2->setChecked(false);
-			ui->pushButton_solution2->blockSignals(false);
-
-			ui->pushButton_solution3->blockSignals(true);
-			ui->pushButton_solution3->setChecked(false);
-			ui->pushButton_solution3->blockSignals(false);
-
-			ui->pushButton_solution4->blockSignals(true);
-			ui->pushButton_solution4->setChecked(false);
-			ui->pushButton_solution4->blockSignals(false);
-
-			ui->pushButton_solution5->blockSignals(true);
-			ui->pushButton_solution5->setChecked(false);
-			ui->pushButton_solution5->blockSignals(false);
-
-			ui->pushButton_solution6->blockSignals(true);
-			ui->pushButton_solution6->setChecked(false);
-			ui->pushButton_solution6->blockSignals(false);
+			checkButtonWithoutSignals(ui->pushButton_solution1, false);
+			checkButtonWithoutSignals(ui->pushButton_solution2, false);
+			checkButtonWithoutSignals(ui->pushButton_solution3, false);
+			checkButtonWithoutSignals(ui->pushButton_solution4, false);
+			checkButtonWithoutSignals(ui->pushButton_solution5, false);
+			checkButtonWithoutSignals(ui->pushButton_solution6, false);
 		}
 
 		// this should never happen, but the droplet would be removed anyway
@@ -401,34 +284,13 @@ void Labonatip_GUI::updateSolutions()
 			m_pen_line.setColor(Qt::transparent);
 			ui->widget_solutionArrow->setVisible(false);
 
-			// this connect the solution buttons to what happens in the PPC1
-			// during the protocol running
-			ui->pushButton_solution1->blockSignals(true);
-			ui->pushButton_solution1->setChecked(false);
-			ui->pushButton_solution1->blockSignals(false);
-
-			ui->pushButton_solution2->blockSignals(true);
-			ui->pushButton_solution2->setChecked(false);
-			ui->pushButton_solution2->blockSignals(false);
-
-			ui->pushButton_solution3->blockSignals(true);
-			ui->pushButton_solution3->setChecked(false);
-			ui->pushButton_solution3->blockSignals(false);
-
-			ui->pushButton_solution4->blockSignals(true);
-			ui->pushButton_solution4->setChecked(false);
-			ui->pushButton_solution4->blockSignals(false);
-
-			ui->pushButton_solution5->blockSignals(true);
-			ui->pushButton_solution5->setChecked(false);
-			ui->pushButton_solution5->blockSignals(false);
-
-			ui->pushButton_solution6->blockSignals(true);
-			ui->pushButton_solution6->setChecked(false);
-			ui->pushButton_solution6->blockSignals(false);
-
+			checkButtonWithoutSignals(ui->pushButton_solution1, false);
+			checkButtonWithoutSignals(ui->pushButton_solution2, false);
+			checkButtonWithoutSignals(ui->pushButton_solution3, false);
+			checkButtonWithoutSignals(ui->pushButton_solution4, false);
+			checkButtonWithoutSignals(ui->pushButton_solution5, false);
+			checkButtonWithoutSignals(ui->pushButton_solution6, false);
 		}
-
 	}
 }
 
@@ -489,7 +351,6 @@ void Labonatip_GUI::setLedColor(QLabel* led, QPixmap* color)
 
 void Labonatip_GUI::updatePPC1Leds()
 {
-
 	// update leds according to the PPC1 pressure/vacuum status, 
 	// for each channel the state of the PPC1 is connected to the led
 	// ok = 0 = green, 
@@ -514,8 +375,6 @@ void Labonatip_GUI::updatePPC1Leds()
 			{
 				//setStatusLed(false); // TODO check this setLedStatus
 				status_bar_led->setColor(QFled::ColorType::red);
-				//this->setLedColor(ui->status_PPC1_led, led_red);
-				//ui->status_PPC1_led->setPixmap(*led_red);
 				ui->status_PPC1_label->setText(m_str_PPC1_status_unstable_con); 
 			}
 
@@ -523,117 +382,73 @@ void Labonatip_GUI::updatePPC1Leds()
 			if (m_ppc1->getPonState() == 0) {
 				
 				pon_bar_led->setColor(QFled::ColorType::green);
-				//this->setLedColor(ui->label_led_pon, led_green);
-				//ui->label_led_pon->setPixmap(*led_green);
 				if (std::abs(m_ppc1->getPonReading() - m_ppc1->getPonSetPoint()) >
 					0.1 * m_ppc1->getPonSetPoint() + 3)
 				{
 					pon_bar_led->setColor(QFled::ColorType::orange);
-					//this->setLedColor(ui->label_led_pon, led_orange);
-					//ui->label_led_pon->setPixmap(*led_orange);
 				}
 			}
 			else {
 				pon_bar_led->setColor(QFled::ColorType::red);
-				//this->setLedColor(ui->label_led_pon, led_red);
-				//ui->label_led_pon->setPixmap(*led_red);
 			}
 
 			// update LED for Poff
 			if (m_ppc1->getPoffState() == 0) {
 				poff_bar_led->setColor(QFled::ColorType::green);
-				//this->setLedColor(ui->label_led_poff, led_green);
-				//ui->label_led_poff->setPixmap(*led_green);
 				if (std::abs(m_ppc1->getPoffReading() - m_ppc1->getPoffSetPoint()) >
 					0.1*m_ppc1->getPoffSetPoint() + 3)
 				{
 					poff_bar_led->setColor(QFled::ColorType::orange);
-					//this->setLedColor(ui->label_led_poff, led_orange);
-					//ui->label_led_poff->setPixmap(*led_orange);
 				}
 			}
 			else {
 				poff_bar_led->setColor(QFled::ColorType::red);
-				//this->setLedColor(ui->label_led_poff, led_red);
-				//ui->label_led_poff->setPixmap(*led_red);
 			}
 
 			// update LED for Vswitch
 			if (m_ppc1->getVswitchState() == 0) {
 				vs_bar_led->setColor(QFled::ColorType::green);
-				//this->setLedColor(ui->label_led_vs, led_green);
-				//ui->label_led_vs->setPixmap(*led_green);
 				if (std::abs(m_ppc1->getVswitchReading() - m_ppc1->getVswitchSetPoint()) >
 					-0.1*m_ppc1->getVswitchSetPoint() + 3)
 				{
 					vs_bar_led->setColor(QFled::ColorType::orange);
-					//this->setLedColor(ui->label_led_vs, led_orange);
-					//ui->label_led_vs->setPixmap(*led_orange);
 				}
 			}
 			else {
 				vs_bar_led->setColor(QFled::ColorType::red);
-				//this->setLedColor(ui->label_led_vs, led_red);
-				//ui->label_led_vs->setPixmap(*led_red);
 			}
 
 			// update LED for Vrecirc
 			if (m_ppc1->getVrecircState() == 0) {
 				vr_bar_led->setColor(QFled::ColorType::green);
-				//this->setLedColor(ui->label_led_vr, led_green);
-				//ui->label_led_vr->setPixmap(*led_green);
 				double as = m_ppc1->getVrecircReading();
 				double ad = m_ppc1->getVrecircSetPoint();
 				if (std::abs(m_ppc1->getVrecircReading() - m_ppc1->getVrecircSetPoint()) >
 					-0.1*m_ppc1->getVrecircSetPoint() + 3)
 				{
 					vr_bar_led->setColor(QFled::ColorType::orange);
-					//this->setLedColor(ui->label_led_vr, led_orange);
-					//ui->label_led_vr->setPixmap(*led_orange);
 				}
 			}
 			else {
 				vr_bar_led->setColor(QFled::ColorType::red);
-				//this->setLedColor(ui->label_led_vr, led_red);
-				//ui->label_led_vr->setPixmap(*led_red);
 			}
 		}// end if m_ppc1->isRunning()
 		else
 		{
-			//this->setStatusLed(false);
 			status_bar_led->setColor(QFled::ColorType::red);
-			//this->setLedColor(ui->status_PPC1_led, led_red);
-			//ui->status_PPC1_led->setPixmap(*led_red);
 			pon_bar_led->setColor(QFled::ColorType::grey);
-			//this->setLedColor(ui->label_led_pon, led_grey);
-			//ui->label_led_pon->setPixmap(*led_grey);
 			poff_bar_led->setColor(QFled::ColorType::grey);
-			//this->setLedColor(ui->label_led_poff, led_grey);
-			//ui->label_led_poff->setPixmap(*led_grey);
 			vs_bar_led->setColor(QFled::ColorType::grey);
-			//this->setLedColor(ui->label_led_vs, led_grey);
-			//ui->label_led_vs->setPixmap(*led_grey);
 			vr_bar_led->setColor(QFled::ColorType::grey);
-			//this->setLedColor(ui->label_led_vr, led_grey);
-			//ui->label_led_vr->setPixmap(*led_grey);
 
 		}
 	}//end if m_simulation_only
 	else
 	{
 		pon_bar_led->setColor(QFled::ColorType::green);
-		//this->setLedColor(ui->label_led_pon, led_green);
-		//ui->label_led_pon->setPixmap(*led_green);
 		poff_bar_led->setColor(QFled::ColorType::green);
-		//this->setLedColor(ui->label_led_poff, led_green);
-		//ui->label_led_poff->setPixmap(*led_green);
 		vs_bar_led->setColor(QFled::ColorType::green);
-		//this->setLedColor(ui->label_led_vs, led_green);
-		//ui->label_led_vs->setPixmap(*led_green);
 		vr_bar_led->setColor(QFled::ColorType::green);
-		//this->setLedColor(ui->label_led_vr, led_green);
-		//ui->label_led_vr->setPixmap(*led_green);
-
 	}
 }
 
@@ -1179,14 +994,11 @@ void Labonatip_GUI::updateWaste()
 
 void Labonatip_GUI::emptyWasteRemainder()
 {
-
 	QMessageBox::information(this, m_str_warning,
 		m_str_waste_full);
 
 	m_waste_remainder->start();
-	
 }
-
 
 void Labonatip_GUI::updateMacroStatusMessage(const QString &_message) {
 
@@ -1199,7 +1011,6 @@ void Labonatip_GUI::updateMacroStatusMessage(const QString &_message) {
     s.append(_message);
 
 	std::cout << HERE << s.toStdString() << std::endl;
-
 }
 
 
@@ -1266,5 +1077,4 @@ void Labonatip_GUI::updateMacroTimeStatus(const double &_status)
 
 	double currentTime = _status * duration / 100.0 ;
     updateFlowControlPercentages();
-
 }

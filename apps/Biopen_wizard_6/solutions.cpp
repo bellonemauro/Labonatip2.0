@@ -752,8 +752,7 @@ void Labonatip_GUI::updateTimingSliders()
 
 		m_update_flowing_sliders->stop();
 		m_timer_solution = 0;
-		//_bar->setValue(10); //set the minimum just to visualize something
-							//ui->widget_sol1->setValue(100);
+		
 		if (m_pipette_active)
 		{
 			//m_ppc1->closeAllValves(); //automatic shutdown of pumps when the solution ends
@@ -768,7 +767,7 @@ void Labonatip_GUI::updateTimingSliders()
 
 		ui->label_warningIcon->hide();
 		ui->label_warning->hide();
-		ui->textEdit_emptyTime->hide();// setText(" ");
+		ui->textEdit_emptyTime->hide();
 		return;
 	}
 }
