@@ -405,6 +405,7 @@ namespace fluicell
 		  **/
 		void stop() {
 			pumpingOff();  // as we end the thread is good to put the PPC1 to zero
+			closeAllValves();
 			m_thread.detach();
 			m_thread.~thread();
 			m_threadTerminationHandler = true;

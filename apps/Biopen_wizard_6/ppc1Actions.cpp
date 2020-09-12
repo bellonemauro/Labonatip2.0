@@ -192,13 +192,13 @@ void Labonatip_GUI::runProtocolFile(QString _protocol_path) {
 
 	std::cout << HERE << std::endl;
 
-	if (!m_macroRunner_thread->isRunning()) {
+	if (!m_macroRunner_thread->isRunning()) { 
 
 		if (!m_protocol) {
 			QMessageBox::information(this, m_str_information,
 				m_str_no_protocol_load_first);
 			return;
-		}
+		} 
 		QApplication::setOverrideCursor(Qt::WaitCursor);
 		//this->clearAllCommands();
 		QTreeWidget* virtualTree = new QTreeWidget;
@@ -551,49 +551,6 @@ void Labonatip_GUI::stopFlow()
 	updateVswitchSetPoint(0.0);
 	updateVrecircSetPoint(0.0);
 	if (!visualizeProgressMessage(3, m_str_stop_2)) return;
-
-	return;
-}
-
-void Labonatip_GUI::stopSolutionFlow()
-	{
-	// look for the active flow
-	if (ui->pushButton_solution1->isChecked()) {
-		ui->pushButton_solution1->setChecked(false);
-		pushSolution1(); // if the flow is active, this should stop it!
-
-		updateDrawing(-1);
-		//ui->pushButton_stop->released();
-		//ui->pushButton_stop->setEnabled(false);
-		return;
-	}
-
-	if (ui->pushButton_solution2->isChecked()) {
-		ui->pushButton_solution2->setChecked(false);
-		pushSolution2();
-		updateDrawing(-1);
-		//ui->pushButton_stop->released();
-		//ui->pushButton_stop->setEnabled(false);
-		return;
-	}
-
-	if (ui->pushButton_solution3->isChecked()) {
-		ui->pushButton_solution3->setChecked(false);
-		pushSolution3();
-		updateDrawing(-1);
-		//ui->pushButton_stop->released();
-		//ui->pushButton_stop->setEnabled(false);
-		return;
-	}
-
-	if (ui->pushButton_solution4->isChecked()) {
-		ui->pushButton_solution4->setChecked(false);
-		pushSolution4();
-		updateDrawing(-1);
-		//ui->pushButton_stop->released();
-		//ui->pushButton_stop->setEnabled(false);
-		return;
-	}
 
 	return;
 }

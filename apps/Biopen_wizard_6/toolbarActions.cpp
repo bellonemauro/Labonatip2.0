@@ -220,7 +220,7 @@ void Labonatip_GUI::simulationOnly()
 {
 	std::cout << HERE << "  " << ui->actionSimulation->isChecked() << std::endl;
 
-	this->stopSolutionFlow();
+	//this->stopSolutionFlow();
 
 	m_simulationOnly = ui->actionSimulation->isChecked();
 
@@ -403,7 +403,7 @@ bool Labonatip_GUI::disCon(bool _connect)
 
 			// stop the PPC1
 			QApplication::setOverrideCursor(Qt::WaitCursor);    
-			this->stopSolutionFlow(); 
+			//this->stopSolutionFlow(); 
 			m_ppc1->stop();
 			
 			QThread::msleep(500);

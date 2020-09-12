@@ -674,27 +674,27 @@ void Labonatip_GUI::initConnects()
 
 	connect(ui->pushButton_solution1, 
 		SIGNAL(clicked()), this, 
-		SLOT(pushSolution1()));
+		SLOT(onPushButtonSolution1()));
 
 	connect(ui->pushButton_solution2, 
 		SIGNAL(clicked()), this, 
-		SLOT(pushSolution2()));
+		SLOT(onPushButtonSolution2()));
 
 	connect(ui->pushButton_solution3, 
 		SIGNAL(clicked()), this, 
-		SLOT(pushSolution3()));
+		SLOT(onPushButtonSolution3()));
 
 	connect(ui->pushButton_solution4, 
 		SIGNAL(clicked()), this, 
-		SLOT(pushSolution4()));
+		SLOT(onPushButtonSolution4()));
 
 	connect(ui->pushButton_solution5,
 		SIGNAL(clicked()), this,
-		SLOT(pushSolution5()));
+		SLOT(onPushButtonSolution5()));
 
 	connect(ui->pushButton_solution6,
 		SIGNAL(clicked()), this,
-		SLOT(pushSolution6()));
+		SLOT(onPushButtonSolution6()));
 
 	connect(ui->pushButton_dropSize_minus,
 		SIGNAL(clicked()), this, 

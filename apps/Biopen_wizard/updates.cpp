@@ -1054,7 +1054,7 @@ void Labonatip_GUI::updateMacroStatusMessage(const QString &_message) {
     s.append(_message);
 
 }
-
+ 
 
 void Labonatip_GUI::updateMacroTimeStatus(const double &_status) 
 {

@@ -100,68 +100,68 @@ void Labonatip_GUI::colSolution6Changed(const int _r, const int _g, const int _b
 	m_chart_view->setSolutionColor6(m_sol6_color);
 }
 
-void Labonatip_GUI::pushSolution1() 
+void Labonatip_GUI::onPushButtonSolution1()
 {
 	std::cout << HERE << std::endl;
+	if (!ui->pushButton_solution1->isChecked()) {
 
-	if (!ui->pushButton_solution1->isChecked()) { // this allows to stop the flow when active
-		m_timer_solution = m_time_multipilcator;
-
-		//if (m_pipette_active) 
-		{
-			//m_ppc1->closeAllValves();
-
-			// stop pumping protocol
-			QString currentProtocolFileName = m_protocol_path;
-			currentProtocolFileName.append("/");
-			currentProtocolFileName.append("stopSolution1.prt");
+		// stop pumping protocol
+		QString currentProtocolFileName = m_protocol_path;
+		currentProtocolFileName.append("/");
+		currentProtocolFileName.append("stopSolution1.prt");
+		if (QFile::exists(currentProtocolFileName)) {
 			this->runProtocolFile(currentProtocolFileName);
 		}
+	}
+	else
+	{
+		// start pumping protocol
+		QString currentProtocolFileName = m_protocol_path;
+		currentProtocolFileName.append("/");
+		currentProtocolFileName.append("pumpSolution1.prt");
+		if (QFile::exists(currentProtocolFileName)) {
+			this->runProtocolFile(currentProtocolFileName);
+		}
+	}
 
-		//m_update_time_s1->stop();
+}
+
+
+void Labonatip_GUI::solution1(bool _enable)
+{
+	std::cout << HERE << std::endl;
+	// we need to overlap this setting to avoid 
+	//the solution to be stopped during the protocol runner
+	m_solutionParams->continuous_flowing_sol1 = true;
+	// this settings need to be restored at the end of the protocol
+
+
+	// close all the valves
+	this->closeAllValves();
+	this->setEnableSolutionButtons(false);
+
+	// if enable is false just turn off and exit
+	if (!_enable)
+	{
 		m_update_flowing_sliders->stop();
 		ui->widget_solutionArrow->setVisible(false);
 		//updateDrawing(-1);
 		m_pen_line.setColor(Qt::transparent);
 		ui->textEdit_emptyTime->hide();// setText(" ");
-		updateFlowControlPercentages();
+		this->updateFlowControlPercentages();
 		return;
 	}
 
-	// stop all other valves
-	if (ui->pushButton_solution2->isChecked()) {
-		m_timer_solution = m_time_multipilcator;
-		ui->pushButton_solution2->setChecked(false);
-		m_update_flowing_sliders->stop();
-	}
-	if (ui->pushButton_solution3->isChecked()) {
-		m_timer_solution = m_time_multipilcator;
-		ui->pushButton_solution3->setChecked(false);
-		m_update_flowing_sliders->stop();
-	}
-	if (ui->pushButton_solution4->isChecked()) {
-		m_timer_solution = m_time_multipilcator;
-		ui->pushButton_solution4->setChecked(false);
-		m_update_flowing_sliders->stop();
-	}
-	if (ui->pushButton_solution5->isChecked()) {
-		m_timer_solution = m_time_multipilcator;
-		ui->pushButton_solution5->setChecked(false);
-		m_update_flowing_sliders->stop();
-	}
-	if (ui->pushButton_solution6->isChecked()) {
-		m_timer_solution = m_time_multipilcator;
-		ui->pushButton_solution6->setChecked(false);
-		m_update_flowing_sliders->stop();
-	}
+	// if _enable is true continue
 
 	// set the color into the drawing to fit the solution flow 
 	m_pen_line.setColor(m_sol1_color);
 	m_flowing_solution = 1;
 
-	// move the arrow in the drawing to point on the solution 1
+	// move the arrow in the drawing to point on the solution X
 	ui->widget_solutionArrow->setVisible(true);
 	ui->label_arrowSolution->setText(m_solutionParams->sol1);
+
 	// calculate the middle point between the two widget to align the arrow to the progressbar
 	int pos_x = ui->progressBar_solution1->pos().x() -
 		ui->widget_solutionArrow->width() / 2 +
@@ -169,113 +169,101 @@ void Labonatip_GUI::pushSolution1()
 	ui->widget_solutionArrow->move(
 		QPoint(pos_x, ui->widget_solutionArrow->pos().ry()));
 
-	// Here start the solution flow 
-	double solution_release_time = m_solutionParams->pulse_duration_well1; //    m_dialog_tools->getSolutionTime();
+	// set the solution release time
+	double solution_release_time = m_solutionParams->pulse_duration_well1;
 	m_time_multipilcator = (int)solution_release_time;
 
-
-	// SET vacum to _value
-	//if (m_pipette_active)
+	ui->pushButton_solution3->setChecked(_enable);
+	if (m_pipette_active)
 	{
-		//m_ppc1->closeAllValves();
-		//QThread::msleep(50);
-		//m_ppc1->setValve_l(true);
-
-		// start pumping protocol
-		QString currentProtocolFileName = m_protocol_path;
-		currentProtocolFileName.append("/");
-		currentProtocolFileName.append("pumpSolution1.prt");
-		this->runProtocolFile(currentProtocolFileName);
+		m_ppc1->setValve_l(true);
 	}
+
 	m_timer_solution = 0;
 	//m_update_flowing_sliders->start();
 	updateTimingSliders();
 
 	updateFlows();
 	updateFlowControlPercentages();
+}
+
+void Labonatip_GUI::onPushButtonSolution2()
+{
+	std::cout << HERE << std::endl;
+	if (!ui->pushButton_solution2->isChecked()) {
+
+		// stop pumping protocol
+		QString currentProtocolFileName = m_protocol_path;
+		currentProtocolFileName.append("/");
+		currentProtocolFileName.append("stopSolution2.prt");
+		if (QFile::exists(currentProtocolFileName)) {
+			this->runProtocolFile(currentProtocolFileName);
+		}
+	}
+	else
+	{
+		// start pumping protocol
+		QString currentProtocolFileName = m_protocol_path;
+		currentProtocolFileName.append("/");
+		currentProtocolFileName.append("pumpSolution2.prt");
+		if (QFile::exists(currentProtocolFileName)) {
+			this->runProtocolFile(currentProtocolFileName);
+		}
+	}
 
 }
 
-void Labonatip_GUI::pushSolution2() {
 
+void Labonatip_GUI::solution2(bool _enable)
+{
 	std::cout << HERE << std::endl;
+	// we need to overlap this setting to avoid 
+	//the solution to be stopped during the protocol runner
+	m_solutionParams->continuous_flowing_sol2 = true;
+	// this settings need to be restored at the end of the protocol
 
-	if (!ui->pushButton_solution2->isChecked()) {
-		m_timer_solution = m_time_multipilcator;
 
-		//if (m_pipette_active) 
-		{
-			//m_ppc1->closeAllValves();
-			// stop pumping protocol
-			QString currentProtocolFileName = m_protocol_path;
-			currentProtocolFileName.append("/");
-			currentProtocolFileName.append("stopSolution2.prt");
-			this->runProtocolFile(currentProtocolFileName);
-		}
+	// close all the valves
+	this->closeAllValves();
+	this->setEnableSolutionButtons(false);
 
+	// if enable is false just turn off and exit
+	if (!_enable)//ui->pushButton_solution6->isChecked())
+	{
 		m_update_flowing_sliders->stop();
 		ui->widget_solutionArrow->setVisible(false);
 		//updateDrawing(-1);
 		m_pen_line.setColor(Qt::transparent);
 		ui->textEdit_emptyTime->hide();// setText(" ");
-		updateFlowControlPercentages();
+		this->updateFlowControlPercentages();
 		return;
 	}
 
-	if (ui->pushButton_solution1->isChecked()) {
-		m_timer_solution = m_time_multipilcator;
-		ui->pushButton_solution1->setChecked(false);
-		m_update_flowing_sliders->stop();
-	}
-	if (ui->pushButton_solution3->isChecked()) {
-		m_timer_solution = m_time_multipilcator;
-		ui->pushButton_solution3->setChecked(false);
-		m_update_flowing_sliders->stop();
-	}
-	if (ui->pushButton_solution4->isChecked()) {
-		m_timer_solution = m_time_multipilcator;
-		ui->pushButton_solution4->setChecked(false);
-		m_update_flowing_sliders->stop();
-	}
-	if (ui->pushButton_solution5->isChecked()) {
-		m_timer_solution = m_time_multipilcator;
-		ui->pushButton_solution5->setChecked(false);
-		m_update_flowing_sliders->stop();
-	}
-	if (ui->pushButton_solution6->isChecked()) {
-		m_timer_solution = m_time_multipilcator;
-		ui->pushButton_solution6->setChecked(false);
-		m_update_flowing_sliders->stop();
-	}
+	// if _enable is true continue
 
 	// set the color into the drawing to fit the solution flow 
 	m_pen_line.setColor(m_sol2_color);
 	m_flowing_solution = 2;
 
-	// move the arrow in the drawing to point on the solution 2
+	// move the arrow in the drawing to point on the solution X
 	ui->widget_solutionArrow->setVisible(true);
 	ui->label_arrowSolution->setText(m_solutionParams->sol2);
 
+	// calculate the middle point between the two widget to align the arrow to the progressbar
 	int pos_x = ui->progressBar_solution2->pos().x() -
 		ui->widget_solutionArrow->width() / 2 +
 		ui->progressBar_solution2->width() / 2;
 	ui->widget_solutionArrow->move(
 		QPoint(pos_x, ui->widget_solutionArrow->pos().ry()));
 
-	double solution_release_time = m_solutionParams->pulse_duration_well2; //m_dialog_tools->getSolutionTime();
+	// set the solution release time
+	double solution_release_time = m_solutionParams->pulse_duration_well2;
 	m_time_multipilcator = (int)solution_release_time;
 
-	//if (m_pipette_active)
+	ui->pushButton_solution3->setChecked(_enable);
+	if (m_pipette_active)
 	{
-		//m_ppc1->closeAllValves();
-		//QThread::msleep(50);
-		//m_ppc1->setValve_k(true);
-
-		// start pumping protocol
-		QString currentProtocolFileName = m_protocol_path;
-		currentProtocolFileName.append("/");
-		currentProtocolFileName.append("pumpSolution2.prt");
-		this->runProtocolFile(currentProtocolFileName);
+		m_ppc1->setValve_k(true);
 	}
 
 	m_timer_solution = 0;
@@ -284,69 +272,69 @@ void Labonatip_GUI::pushSolution2() {
 
 	updateFlows();
 	updateFlowControlPercentages();
+}
+
+void Labonatip_GUI::onPushButtonSolution3()
+{
+	std::cout << HERE << std::endl;
+	if (!ui->pushButton_solution3->isChecked()) {
+
+		// stop pumping protocol
+		QString currentProtocolFileName = m_protocol_path;
+		currentProtocolFileName.append("/");
+		currentProtocolFileName.append("stopSolution3.prt");
+		if (QFile::exists(currentProtocolFileName)) {
+			this->runProtocolFile(currentProtocolFileName);
+		}
+	}
+	else
+	{
+		// start pumping protocol
+		QString currentProtocolFileName = m_protocol_path;
+		currentProtocolFileName.append("/");
+		currentProtocolFileName.append("pumpSolution3.prt");
+		if (QFile::exists(currentProtocolFileName)) {
+			this->runProtocolFile(currentProtocolFileName);
+		}
+	}
 
 }
 
-void Labonatip_GUI::pushSolution3() {
 
+void Labonatip_GUI::solution3(bool _enable)
+{
 	std::cout << HERE << std::endl;
+	// we need to overlap this setting to avoid 
+	//the solution to be stopped during the protocol runner
+	m_solutionParams->continuous_flowing_sol3 = true;
+	// this settings need to be restored at the end of the protocol
 
-	if (!ui->pushButton_solution3->isChecked()) {
-		m_timer_solution = m_time_multipilcator;
 
-		//if (m_pipette_active) 
-		{
-			//m_ppc1->closeAllValves();
-			// stop pumping protocol
-			QString currentProtocolFileName = m_protocol_path;
-			currentProtocolFileName.append("/");
-			currentProtocolFileName.append("stopSolution3.prt");
-			this->runProtocolFile(currentProtocolFileName);
-		}
+	// close all the valves
+	this->closeAllValves();
+	this->setEnableSolutionButtons(false);
 
+	// if enable is false just turn off and exit
+	if (!_enable)//ui->pushButton_solution6->isChecked())
+	{
 		m_update_flowing_sliders->stop();
 		ui->widget_solutionArrow->setVisible(false);
 		//updateDrawing(-1);
 		m_pen_line.setColor(Qt::transparent);
 		ui->textEdit_emptyTime->hide();// setText(" ");
-		updateFlowControlPercentages();
+		this->updateFlowControlPercentages();
 		return;
 	}
 
-	if (ui->pushButton_solution1->isChecked()) {
-		m_timer_solution = m_time_multipilcator;
-		ui->pushButton_solution1->setChecked(false);
-		m_update_flowing_sliders->stop();
-	}
-	if (ui->pushButton_solution2->isChecked()) {
-		m_timer_solution = m_time_multipilcator;
-		ui->pushButton_solution2->setChecked(false);
-		m_update_flowing_sliders->stop();
-	}
-	if (ui->pushButton_solution4->isChecked()) {
-		m_timer_solution = m_time_multipilcator;
-		ui->pushButton_solution4->setChecked(false);
-		m_update_flowing_sliders->stop();
-	}
-	if (ui->pushButton_solution5->isChecked()) {
-		m_timer_solution = m_time_multipilcator;
-		ui->pushButton_solution5->setChecked(false);
-		m_update_flowing_sliders->stop();
-	}
-	if (ui->pushButton_solution6->isChecked()) {
-		m_timer_solution = m_time_multipilcator;
-		ui->pushButton_solution6->setChecked(false);
-		m_update_flowing_sliders->stop();
-	}
+	// if _enable is true continue
 
 	// set the color into the drawing to fit the solution flow 
 	m_pen_line.setColor(m_sol3_color);
 	m_flowing_solution = 3;
 
-	// move the arrow in the drawing to point on the solution 3
+	// move the arrow in the drawing to point on the solution X
 	ui->widget_solutionArrow->setVisible(true);
 	ui->label_arrowSolution->setText(m_solutionParams->sol3);
-	//ui->widget_solutionArrow->move(QPoint(290, ui->widget_solutionArrow->pos().ry()));
 
 	// calculate the middle point between the two widget to align the arrow to the progressbar
 	int pos_x = ui->progressBar_solution3->pos().x() -
@@ -355,20 +343,14 @@ void Labonatip_GUI::pushSolution3() {
 	ui->widget_solutionArrow->move(
 		QPoint(pos_x, ui->widget_solutionArrow->pos().ry()));
 
-	double solution_release_time = m_solutionParams->pulse_duration_well3; //m_dialog_tools->getSolutionTime();
+	// set the solution release time
+	double solution_release_time = m_solutionParams->pulse_duration_well3;
 	m_time_multipilcator = (int)solution_release_time;
 
-	//if (m_pipette_active)
+	ui->pushButton_solution3->setChecked(_enable);
+	if (m_pipette_active)
 	{
-		//m_ppc1->closeAllValves();
-		//QThread::msleep(50);
-		//m_ppc1->setValve_j(true);
-
-		// start pumping protocol
-		QString currentProtocolFileName = m_protocol_path;
-		currentProtocolFileName.append("/");
-		currentProtocolFileName.append("pumpSolution3.prt");
-		this->runProtocolFile(currentProtocolFileName);
+		m_ppc1->setValve_j(true);
 	}
 
 	m_timer_solution = 0;
@@ -377,67 +359,67 @@ void Labonatip_GUI::pushSolution3() {
 
 	updateFlows();
 	updateFlowControlPercentages();
+}
+
+void Labonatip_GUI::onPushButtonSolution4()
+{
+	std::cout << HERE << std::endl;
+	if (!ui->pushButton_solution4->isChecked()) {
+
+		// stop pumping protocol
+		QString currentProtocolFileName = m_protocol_path;
+		currentProtocolFileName.append("/");
+		currentProtocolFileName.append("stopSolution4.prt"); 
+		if (QFile::exists(currentProtocolFileName)) {
+			this->runProtocolFile(currentProtocolFileName);
+		}
+	}
+	else
+	{
+		// start pumping protocol
+		QString currentProtocolFileName = m_protocol_path;
+		currentProtocolFileName.append("/");
+		currentProtocolFileName.append("pumpSolution4.prt");
+		if (QFile::exists(currentProtocolFileName)) {
+			this->runProtocolFile(currentProtocolFileName);
+		}
+	}
 
 }
 
-void Labonatip_GUI::pushSolution4() {
 
+void Labonatip_GUI::solution4(bool _enable)
+{
 	std::cout << HERE << std::endl;
+	// we need to overlap this setting to avoid 
+	//the solution to be stopped during the protocol runner
+	m_solutionParams->continuous_flowing_sol4 = true;
+	// this settings need to be restored at the end of the protocol
 
-	if (!ui->pushButton_solution4->isChecked()) {
-		m_timer_solution = m_time_multipilcator;
 
-		//if (m_pipette_active) 
-		{
-			m_ppc1->closeAllValves();
-			// stop pumping protocol
-			QString currentProtocolFileName = m_protocol_path;
-			currentProtocolFileName.append("/");
-			currentProtocolFileName.append("stopSolution4.prt");
-			this->runProtocolFile(currentProtocolFileName);
-		}
+	// close all the valves
+	this->closeAllValves();
+	this->setEnableSolutionButtons(false);
 
+	// if enable is false just turn off and exit
+	if (!_enable)//ui->pushButton_solution6->isChecked())
+	{
 		m_update_flowing_sliders->stop();
 		ui->widget_solutionArrow->setVisible(false);
 		//updateDrawing(-1);
 		m_pen_line.setColor(Qt::transparent);
 		ui->textEdit_emptyTime->hide();// setText(" ");
-		updateFlowControlPercentages();
+		this->updateFlowControlPercentages();
 		return;
 	}
 
-	//ui->pushButton_solution1->setChecked(false);
-	if (ui->pushButton_solution1->isChecked()) {
-		m_timer_solution = m_time_multipilcator;
-		ui->pushButton_solution1->setChecked(false);
-		m_update_flowing_sliders->stop();
-	}
-	if (ui->pushButton_solution2->isChecked()) {
-		m_timer_solution = m_time_multipilcator;
-		ui->pushButton_solution2->setChecked(false);
-		m_update_flowing_sliders->stop();
-	}
-	if (ui->pushButton_solution3->isChecked()) {
-		m_timer_solution = m_time_multipilcator;
-		ui->pushButton_solution3->setChecked(false);
-		m_update_flowing_sliders->stop();
-	}
-	if (ui->pushButton_solution5->isChecked()) {
-		m_timer_solution = m_time_multipilcator;
-		ui->pushButton_solution5->setChecked(false);
-		m_update_flowing_sliders->stop();
-	}
-	if (ui->pushButton_solution6->isChecked()) {
-		m_timer_solution = m_time_multipilcator;
-		ui->pushButton_solution6->setChecked(false);
-		m_update_flowing_sliders->stop();
-	}
+	// if _enable is true continue
 
 	// set the color into the drawing to fit the solution flow 
 	m_pen_line.setColor(m_sol4_color);
 	m_flowing_solution = 4;
 
-	// move the arrow in the drawing to point on the solution 4
+	// move the arrow in the drawing to point on the solution X
 	ui->widget_solutionArrow->setVisible(true);
 	ui->label_arrowSolution->setText(m_solutionParams->sol4);
 
@@ -448,19 +430,14 @@ void Labonatip_GUI::pushSolution4() {
 	ui->widget_solutionArrow->move(
 		QPoint(pos_x, ui->widget_solutionArrow->pos().ry()));
 
-	double solution_release_time = m_solutionParams->pulse_duration_well4; //m_dialog_tools->getSolutionTime();
+	// set the solution release time
+	double solution_release_time = m_solutionParams->pulse_duration_well4;
 	m_time_multipilcator = (int)solution_release_time;
 
-	//if (m_pipette_active)
+	ui->pushButton_solution4->setChecked(_enable);
+	if (m_pipette_active)
 	{
-		//m_ppc1->closeAllValves();
-		//QThread::msleep(50);
-		//m_ppc1->setValve_i(true);
-		// start pumping protocol
-		QString currentProtocolFileName = m_protocol_path;
-		currentProtocolFileName.append("/");
-		currentProtocolFileName.append("pumpSolution4.prt");
-		this->runProtocolFile(currentProtocolFileName);
+		m_ppc1->setValve_i(true);
 	}
 
 	m_timer_solution = 0;
@@ -469,66 +446,69 @@ void Labonatip_GUI::pushSolution4() {
 
 	updateFlows();
 	updateFlowControlPercentages();
+}
+
+
+
+void Labonatip_GUI::onPushButtonSolution5()
+{
+	std::cout << HERE << std::endl;
+	if (!ui->pushButton_solution5->isChecked()) {
+
+		// stop pumping protocol
+		QString currentProtocolFileName = m_protocol_path;
+		currentProtocolFileName.append("/");
+		currentProtocolFileName.append("stopSolution5.prt");
+		if (QFile::exists(currentProtocolFileName)) {
+			this->runProtocolFile(currentProtocolFileName);
+		}
+	}
+	else
+	{
+		// start pumping protocol
+		QString currentProtocolFileName = m_protocol_path;
+		currentProtocolFileName.append("/");
+		currentProtocolFileName.append("pumpSolution5.prt");
+		if (QFile::exists(currentProtocolFileName)) {
+			this->runProtocolFile(currentProtocolFileName);
+		}
+	}
 
 }
 
-void Labonatip_GUI::pushSolution5() {
 
+void Labonatip_GUI::solution5(bool _enable)
+{
 	std::cout << HERE << std::endl;
+	// we need to overlap this setting to avoid 
+	//the solution to be stopped during the protocol runner
+	m_solutionParams->continuous_flowing_sol5 = true;
+	// this settings need to be restored at the end of the protocol
 
-	if (!ui->pushButton_solution5->isChecked()) {
-		m_timer_solution = m_time_multipilcator;
 
-		//if (m_pipette_active) 
-		{
-			m_ppc1->closeAllValves();
-			// stop pumping protocol
-			QString currentProtocolFileName = m_protocol_path;
-			currentProtocolFileName.append("/");
-			currentProtocolFileName.append("stopSolution5.prt");
-			this->runProtocolFile(currentProtocolFileName);
-		}
+	// close all the valves
+	this->closeAllValves();
+	this->setEnableSolutionButtons(false);
 
+	// if enable is false just turn off and exit
+	if (!_enable)//ui->pushButton_solution6->isChecked())
+	{
 		m_update_flowing_sliders->stop();
 		ui->widget_solutionArrow->setVisible(false);
 		//updateDrawing(-1);
 		m_pen_line.setColor(Qt::transparent);
 		ui->textEdit_emptyTime->hide();// setText(" ");
-		updateFlowControlPercentages();
+		this->updateFlowControlPercentages();
 		return;
 	}
 
-	if (ui->pushButton_solution1->isChecked()) {
-		m_timer_solution = m_time_multipilcator;
-		ui->pushButton_solution1->setChecked(false);
-		m_update_flowing_sliders->stop();
-	}
-	if (ui->pushButton_solution2->isChecked()) {
-		m_timer_solution = m_time_multipilcator;
-		ui->pushButton_solution2->setChecked(false);
-		m_update_flowing_sliders->stop();
-	}
-	if (ui->pushButton_solution3->isChecked()) {
-		m_timer_solution = m_time_multipilcator;
-		ui->pushButton_solution3->setChecked(false);
-		m_update_flowing_sliders->stop();
-	}
-	if (ui->pushButton_solution4->isChecked()) {
-		m_timer_solution = m_time_multipilcator;
-		ui->pushButton_solution4->setChecked(false);
-		m_update_flowing_sliders->stop();
-	}
-	if (ui->pushButton_solution6->isChecked()) {
-		m_timer_solution = m_time_multipilcator;
-		ui->pushButton_solution6->setChecked(false);
-		m_update_flowing_sliders->stop();
-	}
+	// if _enable is true continue
 
 	// set the color into the drawing to fit the solution flow 
 	m_pen_line.setColor(m_sol5_color);
 	m_flowing_solution = 5;
 
-	// move the arrow in the drawing to point on the solution 4
+	// move the arrow in the drawing to point on the solution X
 	ui->widget_solutionArrow->setVisible(true);
 	ui->label_arrowSolution->setText(m_solutionParams->sol5);
 
@@ -539,20 +519,14 @@ void Labonatip_GUI::pushSolution5() {
 	ui->widget_solutionArrow->move(
 		QPoint(pos_x, ui->widget_solutionArrow->pos().ry()));
 
-	double solution_release_time = m_solutionParams->pulse_duration_well5; //m_dialog_tools->getSolutionTime();
+	// set the solution release time
+	double solution_release_time = m_solutionParams->pulse_duration_well5;
 	m_time_multipilcator = (int)solution_release_time;
 
-	//if (m_pipette_active)
+	ui->pushButton_solution5->setChecked(_enable);
+	if (m_pipette_active)
 	{
-		//m_ppc1->closeAllValves();
-		//QThread::msleep(50);
-		//m_ppc1->setValve_e(true);
-
-		// start pumping protocol
-		QString currentProtocolFileName = m_protocol_path;
-		currentProtocolFileName.append("/");
-		currentProtocolFileName.append("pumpSolution5.prt");
-		this->runProtocolFile(currentProtocolFileName);
+		m_ppc1->setValve_e(true);
 	}
 
 	m_timer_solution = 0;
@@ -561,95 +535,84 @@ void Labonatip_GUI::pushSolution5() {
 
 	updateFlows();
 	updateFlowControlPercentages();
+}
+
+void Labonatip_GUI::onPushButtonSolution6()
+{
+	std::cout << HERE << std::endl;
+	if (!ui->pushButton_solution6->isChecked()) {
+
+		// stop pumping protocol
+		QString currentProtocolFileName = m_protocol_path;
+		currentProtocolFileName.append("/");
+		currentProtocolFileName.append("stopSolution6.prt");
+		if (QFile::exists(currentProtocolFileName)) {
+			this->runProtocolFile(currentProtocolFileName);
+		}
+	}
+	else
+	{
+		// start pumping protocol
+		QString currentProtocolFileName = m_protocol_path;
+		currentProtocolFileName.append("/");
+		currentProtocolFileName.append("pumpSolution6.prt");
+		if (QFile::exists(currentProtocolFileName))	{
+			this->runProtocolFile(currentProtocolFileName);
+		}
+	}
 
 }
 
-void Labonatip_GUI::pushSolution6() {
-
+void Labonatip_GUI::solution6(bool _enable) 
+{
 	std::cout << HERE << std::endl;
+	// we need to overlap this setting to avoid 
+	//the solution to be stopped during the protocol runner
+	m_solutionParams->continuous_flowing_sol6 = true;
+	// this settings need to be restored at the end of the protocol
+	
+	
+	// close all the valves
+	this->closeAllValves();
+	this->setEnableSolutionButtons(false);
 
-	if (!ui->pushButton_solution6->isChecked()) {
-		m_timer_solution = m_time_multipilcator;
-
-		//if (m_pipette_active) 
-		{
-			m_ppc1->closeAllValves();
-			// stop pumping protocol
-			QString currentProtocolFileName = m_protocol_path;
-			currentProtocolFileName.append("/");
-			currentProtocolFileName.append("stopSolution6.prt");
-			this->runProtocolFile(currentProtocolFileName);
-		}
-
+	// if enable is false just turn off and exit
+	if (!_enable)//ui->pushButton_solution6->isChecked())
+	{
 		m_update_flowing_sliders->stop();
 		ui->widget_solutionArrow->setVisible(false);
 		//updateDrawing(-1);
 		m_pen_line.setColor(Qt::transparent);
 		ui->textEdit_emptyTime->hide();// setText(" ");
-		updateFlowControlPercentages();
+		this->updateFlowControlPercentages();
 		return;
 	}
 
-	if (ui->pushButton_solution1->isChecked()) {
-		m_timer_solution = m_time_multipilcator;
-		ui->pushButton_solution1->setChecked(false);
-		m_update_flowing_sliders->stop();
-	}
-	if (ui->pushButton_solution2->isChecked()) {
-		m_timer_solution = m_time_multipilcator;
-		ui->pushButton_solution2->setChecked(false);
-		m_update_flowing_sliders->stop();
-	}
-	if (ui->pushButton_solution3->isChecked()) {
-		m_timer_solution = m_time_multipilcator;
-		ui->pushButton_solution3->setChecked(false);
-		m_update_flowing_sliders->stop();
-	}
-	if (ui->pushButton_solution4->isChecked()) {
-		m_timer_solution = m_time_multipilcator;
-		ui->pushButton_solution4->setChecked(false);
-		m_update_flowing_sliders->stop();
-	}
-	if (ui->pushButton_solution5->isChecked()) {
-		m_timer_solution = m_time_multipilcator;
-		ui->pushButton_solution5->setChecked(false);
-		m_update_flowing_sliders->stop();
-	}
-
+	// if _enable is true continue
+	
 	// set the color into the drawing to fit the solution flow 
 	m_pen_line.setColor(m_sol6_color);
 	m_flowing_solution = 6;
 
-	// move the arrow in the drawing to point on the solution 6
+	// move the arrow in the drawing to point on the solution X
 	ui->widget_solutionArrow->setVisible(true);
 	ui->label_arrowSolution->setText(m_solutionParams->sol6);
 
 	// calculate the middle point between the two widget to align the arrow to the progressbar
 	int pos_x = ui->progressBar_solution6->pos().x() -
 		ui->widget_solutionArrow->width() / 2 +
-		ui->progressBar_solution5->width() / 2;
+		ui->progressBar_solution6->width() / 2;
 	ui->widget_solutionArrow->move(
 		QPoint(pos_x, ui->widget_solutionArrow->pos().ry()));
 
-	double solution_release_time = m_solutionParams->pulse_duration_well6; //m_dialog_tools->getSolutionTime();
+	// set the solution release time
+	double solution_release_time = m_solutionParams->pulse_duration_well6; 
 	m_time_multipilcator = (int)solution_release_time;
 
-	//if (m_pipette_active)
+	ui->pushButton_solution6->setChecked(_enable);
+	if (m_pipette_active)
 	{
-		//m_ppc1->closeAllValves();
-		//QThread::msleep(50);
-		//m_ppc1->setValve_f(true);
-
-		// start pumping protocol
-		QString currentProtocolFileName = m_protocol_path;
-		currentProtocolFileName.append("/");
-		currentProtocolFileName.append("pumpSolution6.prt");
-		//bool suc = 
-		if (QFile::exists(currentProtocolFileName))
-		{
-		this->runProtocolFile(currentProtocolFileName);
-		}
-		
+		m_ppc1->setValve_f(true);		
 	}
 
 	m_timer_solution = 0;
@@ -658,7 +621,6 @@ void Labonatip_GUI::pushSolution6() {
 
 	updateFlows();
 	updateFlowControlPercentages();
-
 }
 
 
@@ -777,9 +739,6 @@ void Labonatip_GUI::updateTimingSliders()
 			}
 			return;
 		}
-		
-
-		
 	}
 	else  // here we are ending the release process of the solution
 	{
@@ -797,10 +756,10 @@ void Labonatip_GUI::updateTimingSliders()
 							//ui->widget_sol1->setValue(100);
 		if (m_pipette_active)
 		{
-			//m_ppc1->setValve_l(false);
 			//m_ppc1->closeAllValves(); //automatic shutdown of pumps when the solution ends
 		}
-		setEnableSolutionButtons(true);
+		if (!m_macroRunner_thread->isRunning())
+			setEnableSolutionButtons(true);
 		_button->setChecked(false);
 		ui->widget_solutionArrow->setVisible(false);
 		
@@ -812,5 +771,4 @@ void Labonatip_GUI::updateTimingSliders()
 		ui->textEdit_emptyTime->hide();// setText(" ");
 		return;
 	}
-
 }

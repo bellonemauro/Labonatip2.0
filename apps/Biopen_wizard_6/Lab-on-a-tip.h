@@ -319,68 +319,36 @@ private slots:
 	*/
 	void closeAllValves();
 
-	/** \brief pushSolution1
-	*/
-	void pushSolution1();
+	void onPushButtonSolution1();
 
 	/** \brief solution1
 	*
 	*   This receive the command from the protocol and
 	*   simulate the solution 1 button press
 	*/
-	void solution1(bool _enable) {
-		// we need to overlap this setting to avoid 
-		//the solution to be stopped during the protocol runner
-		m_solutionParams->continuous_flowing_sol1 = true;
-		// this settings need to be restored at the end of the protocol
-		ui->pushButton_solution1->setChecked(_enable);
-		pushSolution1();
-	}
+	void solution1(bool _enable);
 
-	/** \brief  pushSolution2
-	*/
-	void pushSolution2();
+	void onPushButtonSolution2();
 
 	/** \brief solution2
 	*
 	*   This receive the command from the protocol and
 	*   simulate the solution 2 button press
 	*/
-	void solution2(bool _enable) {
-		// we need to overlap this setting to avoid 
-		//the solution to be stopped during the protocol runner
-		m_solutionParams->continuous_flowing_sol2 = true;
-		// this settings need to be restored at the end of the protocol
-		ui->pushButton_solution2->setChecked(_enable);
-		pushSolution2();
-	}
+	void solution2(bool _enable);
 
-	/** \brief pushSolution3
-	*/
-	void pushSolution3();
+	void onPushButtonSolution3();
+
 
 	/** \brief solution3
 	*
 	*   This receives the command from the protocol and 
 	*   simulate the solution 3 button press
 	*/
-	void solution3(bool _enable) {
-		// we need to overlap this setting to avoid 
-		//the solution to be stopped during the protocol runner
-		m_solutionParams->continuous_flowing_sol3 = true;
-		// this settings need to be restored at the end of the protocol
-		ui->pushButton_solution3->setChecked(_enable);
-		pushSolution3();
-	}
+	void solution3(bool _enable);
 
-	/** \brief pushSolution4
-	*
-	*   //TODO: add an argument for all 1-6 _activate 
-	*           if _activate = true, solution flow start
-	*           if _activate = false, solution flow stop
-	* \note
-	*/
-	void pushSolution4();
+	void onPushButtonSolution4();
+
 
 	/** \brief solution4
 	*
@@ -388,23 +356,9 @@ private slots:
 	*   simulate the solution 4 button press
 	* \note
 	*/
-	void solution4(bool _enable) {
-		// we need to overlap this setting to avoid 
-		//the solution to be stopped during the protocol runner
-		m_solutionParams->continuous_flowing_sol4 = true;
-		// this settings need to be restored at the end of the protocol
-		ui->pushButton_solution4->setChecked(_enable);
-		pushSolution4();
-	}
+	void solution4(bool _enable);
 
-	/** \brief pushSolution5
-	*
-	*   //TODO: add an argument for all 1-6 _activate
-	*           if _activate = true, solution flow start
-	*           if _activate = false, solution flow stop
-	* \note
-	*/
-	void pushSolution5();
+	void onPushButtonSolution5();
 
 	/** \brief solution4
 	*
@@ -412,23 +366,17 @@ private slots:
 	*   simulate the solution 5 button press
 	* \note
 	*/
-	void solution5(bool _enable) {
-		// we need to overlap this setting to avoid 
-		//the solution to be stopped during the protocol runner
-		m_solutionParams->continuous_flowing_sol5 = true;
-		// this settings need to be restored at the end of the protocol
-		ui->pushButton_solution5->setChecked(_enable);
-		pushSolution5();
-	}
+	void solution5(bool _enable);
 
-	/** \brief pushSolution5
+	void onPushButtonSolution6();
+	/** \brief pushSolution6
 	*
 	*   //TODO: add an argument for all 1-6 _activate
 	*           if _activate = true, solution flow start
 	*           if _activate = false, solution flow stop
 	* \note
 	*/
-	void pushSolution6();
+	//void pushSolution6();  //TODO: this should not be a slot anymore! 
 
 	/** \brief solution6
 	*
@@ -436,14 +384,7 @@ private slots:
 	*   simulate the solution 6 button press
 	* \note
 	*/
-	void solution6(bool _enable) {
-		// we need to overlap this setting to avoid 
-		//the solution to be stopped during the protocol runner
-		m_solutionParams->continuous_flowing_sol6 = true;
-		// this settings need to be restored at the end of the protocol
-		ui->pushButton_solution6->setChecked(_enable);
-		pushSolution6();
-	}
+	void solution6(bool _enable);
 
 	/** \brief Increase/reduce the area for the solution depiction
 	*/
@@ -742,7 +683,7 @@ private slots:
 	*
 	* \note
 	*/
-	void stopSolutionFlow();
+	//void stopSolutionFlow();
 
 	/** \brief  Put the device into a standby mode
 	*
