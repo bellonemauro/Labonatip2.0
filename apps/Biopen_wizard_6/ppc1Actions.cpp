@@ -88,19 +88,19 @@ void Labonatip_GUI::newTip()
 	if (!visualizeProgressMessage(90, m_str_newtip_msg8)) return;
 
 	//C21
-	updatePoffSetPoint(m_pr_params->p_off_default );// (21.0);
+	updatePoffSetPoint(m_pr_params->p_off_default );
 
 	//D190
-	updatePonSetPoint(m_pr_params->p_on_default );// (190.0);
+	updatePonSetPoint(m_pr_params->p_on_default );
 
 	//Wait 5 seconds
 	if (!visualizeProgressMessage(5, m_str_newtip_msg9)) return;
 
 	//B - 115
-	updateVswitchSetPoint(-m_pr_params->v_switch_default);// (115);
+	updateVswitchSetPoint(-m_pr_params->v_switch_default);
 
 	//A - 115
-	updateVrecircSetPoint(-m_pr_params->v_recirc_default );// (115);
+	updateVrecircSetPoint(-m_pr_params->v_recirc_default );
 
 	//Ask: Pipette is ready for operation.PRESS OK TO START.
 	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
@@ -135,25 +135,9 @@ void Labonatip_GUI::runProtocol()
 		m_macroRunner_thread->killMacro(true);
 
 		m_ppc1->setVerbose(m_pr_params->verboseOut);
-		ui->groupBox_deliveryZone->setEnabled(true);
-		ui->pushButton_operational->setEnabled(true);
-		ui->pushButton_newTip->setEnabled(true);
-		ui->pushButton_standby->setEnabled(true);
-		ui->pushButton_stop->setEnabled(true);
-		ui->toolBar_2->setEnabled(true);
-		//ui->tabWidget->setEnabled(false);
-		//ui->tab_2->setEnabled(true);
-		enableTab2(true);
-		ui->tab_4->setEnabled(true);
-		setEnableSolutionButtons(true);
-		ui->actionConnectDisconnect->setEnabled(!m_simulationOnly);
-		ui->actionSimulation->setEnabled(!m_simulationOnly);
-		ui->actionReboot->setEnabled(!m_simulationOnly);
-		ui->actionShudown->setEnabled(!m_simulationOnly);
-		ui->label_runMacro->setText(m_str_label_run_protocol);
-
+		
 		QString s = " Protocol execution stopped : ";
-		s.append(m_current_protocol_file_name);// m_dialog_p_editor->getProtocolName());
+		s.append(m_current_protocol_file_name);
 		int remaining_time_sec = m_protocol_duration - 0 * m_protocol_duration / 100;
 		s.append(" ----- remaining time,  ");
 		int remaining_hours = floor(remaining_time_sec / 3600); // 3600 sec in a hour
@@ -184,7 +168,6 @@ void Labonatip_GUI::runProtocol()
 
 	std::cout << HERE << "  " << msg.toStdString() << endl;
 	this->runProtocolFile(m_current_protocol_file_name);
-
 }
 
 
@@ -209,7 +192,6 @@ void Labonatip_GUI::runProtocolFile(QString _protocol_path) {
 		//m_current_protocol_file_name = _protocol_path;
 		QApplication::restoreOverrideCursor();
 
-		// if ok was pressed in runProtocol()
 		m_ppc1->setVerbose(false);
 		
 		m_macroRunner_thread->setProtocol(m_protocol);
@@ -314,8 +296,6 @@ void Labonatip_GUI::runProtocolFile(QString _protocol_path) {
 		ui->pushButton_standby->setEnabled(false);
 		ui->pushButton_stop->setEnabled(false);
 		ui->toolBar_2->setEnabled(false);
-		//ui->tabWidget->setEnabled(false);
-		//ui->tab_2->setEnabled(false);
 		enableTab2(false);
 		ui->tab_4->setEnabled(false);
 		setEnableSolutionButtons(false);
@@ -326,7 +306,6 @@ void Labonatip_GUI::runProtocolFile(QString _protocol_path) {
 		else { 
 			ui->actionSimulation->setEnabled(false); 
 		}
-		//ui->actionSimulation->setEnabled(false);
 		ui->actionReboot->setEnabled(false);
 		ui->actionShudown->setEnabled(false);
 		ui->label_runMacro->setText(m_str_label_stop_protocol);
@@ -344,8 +323,6 @@ void Labonatip_GUI::runProtocolFile(QString _protocol_path) {
 		ui->pushButton_standby->setEnabled(true);
 		ui->toolBar_2->setEnabled(true);
 		ui->pushButton_stop->setEnabled(true);
-		//ui->tabWidget->setEnabled(false);
-		//ui->tab_2->setEnabled(true);
 		enableTab2(true);
 		ui->tab_4->setEnabled(true);
 		setEnableSolutionButtons(true);
@@ -356,13 +333,11 @@ void Labonatip_GUI::runProtocolFile(QString _protocol_path) {
 		else { 
 			ui->actionSimulation->setEnabled(false); 
 		}
-			//ui->actionSimulation->setEnabled(m_simulationOnly);
 
 		ui->actionReboot->setEnabled(!m_simulationOnly);
 		ui->actionShudown->setEnabled(!m_simulationOnly);
 		ui->label_runMacro->setText(m_str_label_run_protocol);
 	}
-
 }
 
 
@@ -370,6 +345,9 @@ void Labonatip_GUI::protocolFinished(const QString &_result) {
 
 	std::cout << HERE << std::endl;
 
+	// TODO: this was removed to allow solutions to run protocols properly without
+	//       annoying success messages, this can be achieved anyway by adding 
+	//       an ask command as last command of a protocol
 	//QMessageBox::information(this, m_str_information, _result);
 
 	// restore settings that have been overlapped during the protocol running
@@ -383,8 +361,6 @@ void Labonatip_GUI::protocolFinished(const QString &_result) {
 	ui->pushButton_stop->setEnabled(true);
 	ui->pushButton_standby->setEnabled(true);
 	ui->toolBar_2->setEnabled(true);
-	//ui->tabWidget->setEnabled(false);
-	//ui->tab_2->setEnabled(true);
 	enableTab2(true);
 	ui->tab_4->setEnabled(true);
 	setEnableSolutionButtons(true);
@@ -514,15 +490,14 @@ void Labonatip_GUI::protocolFinished(const QString &_result) {
 
 void Labonatip_GUI::operationalMode() {
 
-	QApplication::setOverrideCursor(Qt::WaitCursor);    //transform the cursor for waiting mode
-	setEnableMainWindow(false);
-
 	std::cout << HERE << std::endl;
+
+	QApplication::setOverrideCursor(Qt::WaitCursor);   
+	setEnableMainWindow(false);
 
 	//vf0
 	closeAllValves();
 	
-
 	updateVrecircSetPoint(-m_pr_params->v_recirc_default );// update the set point
 	updateVswitchSetPoint(-m_pr_params->v_switch_default );// update the set point
 	if (!visualizeProgressMessage(5, m_str_waiting)) return;
@@ -530,20 +505,12 @@ void Labonatip_GUI::operationalMode() {
 	updatePonSetPoint(m_pr_params->p_on_default);// update the set point
 
 	setEnableMainWindow(true);
-	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-
+	QApplication::restoreOverrideCursor();
 }
 
 
 void Labonatip_GUI::stopFlow()
 {
-	//  AllOff()
-	//	setPoff(0)
-	//	setPon(0)
-	//	sleep(3)
-	//	setVswitch(0)
-	//	setVrecirc(0)
-	//	sleep(3)
 	closeAllValves();
 	updatePoffSetPoint(0.0);
 	updatePonSetPoint(0.0);
@@ -562,23 +529,11 @@ void Labonatip_GUI::standby()
 
 	setEnableMainWindow(false);
 
-	//TODO new standby values accordng to the tip selection
-	//Pon(mbar) 0
-	//Poff(mbar) 11
-	//Vswitch(mbar) - 55
-	//Vrecirc(mbar) - 55
-
-	//OLD SLEEP PROTOCOL
-	// allOff()
-	// setPoff(11)
-	// setPon(0)
-	// sleep(5)
-	// setVswitch(-45)
-	// setVrecirc(-45)
-	double pon;
-	double poff;
-	double vs;
-	double vr;
+	//Set new standby values according to the tip selection
+	double pon = 0;
+	double poff = 0;
+	double vs = 0;
+	double vr = 0;
 	if (m_ppc1->getTipType() == 0)
 	{
 		pon = 45.0;
@@ -598,8 +553,7 @@ void Labonatip_GUI::standby()
 	//vf0
 	closeAllValves();
 	
-
-	updatePonSetPoint(pon); //TODO check this values see above
+	updatePonSetPoint(pon); 
 	updatePoffSetPoint(poff);
 
 	if (!visualizeProgressMessage(5, m_str_standby_operation)) return;
@@ -608,6 +562,5 @@ void Labonatip_GUI::standby()
 	updateVrecircSetPoint(vr);
 
 	setEnableMainWindow(true);
-	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
-
+	QApplication::restoreOverrideCursor(); 
 }

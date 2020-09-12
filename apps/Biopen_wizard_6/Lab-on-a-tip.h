@@ -185,12 +185,6 @@ private slots:
 	*/
 	void createNewLoop(int _loops);
 
-	/**  \brief Build a droplet size vs flow speed map
-	*
-	*   this is just a try for a future support of a look up table
-	*/
-	void buildDPmap();
-
 	/** \brief Gets the clear commands request 
 	*
 	*  The command request is driven here to ask an "are you sure" message 
@@ -319,72 +313,35 @@ private slots:
 	*/
 	void closeAllValves();
 
+	/** \brief On push button solution X
+	*
+	*   When the solution buttons are pressed now there are 2 possible protocols
+	*   that can be set to run, stopSolution and pumpSolution. The selection is based on
+	*   activation/deactivation status of the button. 
+	*
+	*   These protocols are located into the default protocol folder and they 
+	*   may be changed by the user
+	*
+	*/
 	void onPushButtonSolution1();
+	void onPushButtonSolution2();
+	void onPushButtonSolution3();
+	void onPushButtonSolution4();
+	void onPushButtonSolution5();
+	void onPushButtonSolution6();
 
-	/** \brief solution1
+	/** \brief Activate/deactivate solutionX command
 	*
 	*   This receive the command from the protocol and
-	*   simulate the solution 1 button press
+	*   activate the flow of the solution X
 	*/
 	void solution1(bool _enable);
-
-	void onPushButtonSolution2();
-
-	/** \brief solution2
-	*
-	*   This receive the command from the protocol and
-	*   simulate the solution 2 button press
-	*/
 	void solution2(bool _enable);
-
-	void onPushButtonSolution3();
-
-
-	/** \brief solution3
-	*
-	*   This receives the command from the protocol and 
-	*   simulate the solution 3 button press
-	*/
 	void solution3(bool _enable);
-
-	void onPushButtonSolution4();
-
-
-	/** \brief solution4
-	*
-	*   This receive the command from the protocol and
-	*   simulate the solution 4 button press
-	* \note
-	*/
 	void solution4(bool _enable);
-
-	void onPushButtonSolution5();
-
-	/** \brief solution4
-	*
-	*   This receive the command from the protocol and
-	*   simulate the solution 5 button press
-	* \note
-	*/
 	void solution5(bool _enable);
-
-	void onPushButtonSolution6();
-	/** \brief pushSolution6
-	*
-	*   //TODO: add an argument for all 1-6 _activate
-	*           if _activate = true, solution flow start
-	*           if _activate = false, solution flow stop
-	* \note
-	*/
-	//void pushSolution6();  //TODO: this should not be a slot anymore! 
-
-	/** \brief solution6
-	*
-	*   This receive the command from the protocol and
-	*   simulate the solution 6 button press
-	* \note
-	*/
 	void solution6(bool _enable);
+
 
 	/** \brief Increase/reduce the area for the solution depiction
 	*/
@@ -456,7 +413,6 @@ private slots:
 		QMessageBox::warning(this, m_str_information, "Current settings saved in the preset 1");
 		resetPreset1();
 	}
-
 
 	/** \brief Memorized the current value for the preset mode 2
 	*
@@ -657,7 +613,6 @@ private slots:
 	*      setVswitch(-115)
 	*      setVrecirc(-115)
 	*
-	*
 	* \note
 	*/
 	void operationalMode();
@@ -679,7 +634,6 @@ private slots:
 	/** \brief Stop solution flow
 	*
 	*   Stop the flow of the solution if one of the solutions is flowing
-	*
 	*
 	* \note
 	*/
