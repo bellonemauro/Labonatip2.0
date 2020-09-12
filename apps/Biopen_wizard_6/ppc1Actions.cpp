@@ -183,20 +183,21 @@ void Labonatip_GUI::runProtocolFile(QString _protocol_path) {
 			return;
 		} 
 		QApplication::setOverrideCursor(Qt::WaitCursor);
-		//this->clearAllCommands();
+		
+		// Reload the protocol in a virtual tree every time is executed to avoid 
+		// modifications to the existing protocol in the editor
 		QTreeWidget* virtualTree = new QTreeWidget;
-		//m_reader->readProtocol(ui->treeWidget_macroTable, _protocol_path);
 		m_reader->readProtocol(virtualTree, _protocol_path);
-		//addAllCommandsToProtocol(ui->treeWidget_macroTable, m_protocol);
 		addAllCommandsToProtocol(virtualTree, m_protocol);
-		//m_current_protocol_file_name = _protocol_path;
+
+		//update the chart
+		m_chart_view->updateChartProtocol(m_protocol);
+
 		QApplication::restoreOverrideCursor();
 
 		m_ppc1->setVerbose(false);
 		
 		m_macroRunner_thread->setProtocol(m_protocol);
-
-
 		m_macroRunner_thread->setSimulationFlag(m_simulationOnly);
 
 		connect(m_macroRunner_thread,
@@ -262,7 +263,6 @@ void Labonatip_GUI::runProtocolFile(QString _protocol_path) {
 		connect(m_macroRunner_thread,
 			&Labonatip_macroRunner::pumpOff, this,
 			&Labonatip_GUI::pumpingOff);
-
 
 		connect(m_macroRunner_thread,
 			&Labonatip_macroRunner::setDropletSizeSIG, this,
@@ -484,6 +484,9 @@ void Labonatip_GUI::protocolFinished(const QString &_result) {
 	disconnect(m_macroRunner_thread,
 		&Labonatip_macroRunner::changeVacuumSIG, this,
 		&Labonatip_GUI::changeVacuumPercentageBy);
+
+	addAllCommandsToProtocol(ui->treeWidget_macroTable, m_protocol);
+	m_chart_view->updateChartProtocol(m_protocol);
 
 }
 

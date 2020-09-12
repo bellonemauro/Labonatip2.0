@@ -188,6 +188,8 @@ void Labonatip_GUI::showProtocolEditor() {
 		ui->actionLoad_profile->setText(m_str_load);
 		ui->actionEditor->setText(m_str_commander);
 		ui->actionEditor->setIcon(QIcon(":/icons/controls.png")); 
+		// update the chart
+		m_chart_view->updateChartProtocol(m_protocol);
 	}
 	//otherwise we are in the editor and we need to get back to the commander
 	else

@@ -173,7 +173,7 @@ void Labonatip_GUI::solution1(bool _enable)
 	double solution_release_time = m_solutionParams->pulse_duration_well1;
 	m_time_multipilcator = (int)solution_release_time;
 
-	ui->pushButton_solution3->setChecked(_enable);
+	ui->pushButton_solution1->setChecked(_enable);
 	if (m_pipette_active)
 	{
 		m_ppc1->setValve_l(true);
@@ -260,7 +260,7 @@ void Labonatip_GUI::solution2(bool _enable)
 	double solution_release_time = m_solutionParams->pulse_duration_well2;
 	m_time_multipilcator = (int)solution_release_time;
 
-	ui->pushButton_solution3->setChecked(_enable);
+	ui->pushButton_solution2->setChecked(_enable);
 	if (m_pipette_active)
 	{
 		m_ppc1->setValve_k(true);

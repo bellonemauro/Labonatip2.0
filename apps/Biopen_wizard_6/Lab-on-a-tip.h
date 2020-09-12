@@ -859,8 +859,10 @@ private:
 
   /** \brief All the commands in the tree widget are added to the protocol
   *
+  *   OBS: the _protocol will be overwritten with anything is in the treeWidget
   */
-  void addAllCommandsToProtocol(QTreeWidget *_tree, std::vector<fluicell::PPC1api6dataStructures::command>* _protocol );
+  void addAllCommandsToProtocol(QTreeWidget *_tree, 
+	  std::vector<fluicell::PPC1api6dataStructures::command>* _protocol );
 
   /** \brief enable/disable the entire main window
   *
