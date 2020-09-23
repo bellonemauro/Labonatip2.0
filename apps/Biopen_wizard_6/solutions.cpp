@@ -105,6 +105,7 @@ void Labonatip_GUI::onPushButtonSolution1()
 	std::cout << HERE << std::endl;
 	if (!ui->pushButton_solution1->isChecked()) {
 
+		ui->pushButton_solution1->setChecked(false);
 		// stop pumping protocol
 		QString currentProtocolFileName = m_protocol_path;
 		currentProtocolFileName.append("/");
@@ -192,6 +193,7 @@ void Labonatip_GUI::onPushButtonSolution2()
 	std::cout << HERE << std::endl;
 	if (!ui->pushButton_solution2->isChecked()) {
 
+		ui->pushButton_solution2->setChecked(false);
 		// stop pumping protocol
 		QString currentProtocolFileName = m_protocol_path;
 		currentProtocolFileName.append("/");
@@ -279,6 +281,7 @@ void Labonatip_GUI::onPushButtonSolution3()
 	std::cout << HERE << std::endl;
 	if (!ui->pushButton_solution3->isChecked()) {
 
+		ui->pushButton_solution3->setChecked(false);
 		// stop pumping protocol
 		QString currentProtocolFileName = m_protocol_path;
 		currentProtocolFileName.append("/");
@@ -366,6 +369,7 @@ void Labonatip_GUI::onPushButtonSolution4()
 	std::cout << HERE << std::endl;
 	if (!ui->pushButton_solution4->isChecked()) {
 
+		ui->pushButton_solution4->setChecked(false);
 		// stop pumping protocol
 		QString currentProtocolFileName = m_protocol_path;
 		currentProtocolFileName.append("/");
@@ -455,6 +459,7 @@ void Labonatip_GUI::onPushButtonSolution5()
 	std::cout << HERE << std::endl;
 	if (!ui->pushButton_solution5->isChecked()) {
 
+		ui->pushButton_solution5->setChecked(false);
 		// stop pumping protocol
 		QString currentProtocolFileName = m_protocol_path;
 		currentProtocolFileName.append("/");
@@ -542,6 +547,7 @@ void Labonatip_GUI::onPushButtonSolution6()
 	std::cout << HERE << std::endl;
 	if (!ui->pushButton_solution6->isChecked()) {
 
+		ui->pushButton_solution6->setChecked(false);
 		// stop pumping protocol
 		QString currentProtocolFileName = m_protocol_path;
 		currentProtocolFileName.append("/");

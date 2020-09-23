@@ -81,6 +81,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 
   // this removes the visualization settings (but it will be shown in debug)
 #ifndef _DEBUG
+  ui->tabWidget->removeTab(4);
   ui->tabWidget->removeTab(3);
   //ui->dockWidget->setMinimumWidth(180);
 #endif

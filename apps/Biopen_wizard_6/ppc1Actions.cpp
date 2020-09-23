@@ -105,7 +105,7 @@ void Labonatip_GUI::newTip()
 	//Ask: Pipette is ready for operation.PRESS OK TO START.
 	QApplication::restoreOverrideCursor();    //close transform the cursor for waiting mode
 	this->askMessage(m_str_newtip_msg10);
-
+	
 	setEnableMainWindow(true);
 
 }
