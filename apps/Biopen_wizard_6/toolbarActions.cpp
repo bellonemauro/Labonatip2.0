@@ -231,6 +231,7 @@ void Labonatip_GUI::simulationOnly()
 
 	ui->groupBox_action->setEnabled(m_simulationOnly || ui->actionConnectDisconnect->isChecked());
 	ui->groupBox_deliveryZone->setEnabled(m_simulationOnly || ui->actionConnectDisconnect->isChecked());
+	ui->groupBox_operMode->setEnabled(m_simulationOnly || ui->actionConnectDisconnect->isChecked());
 	ui->groupBox_3->setEnabled(m_simulationOnly || ui->actionConnectDisconnect->isChecked());
 	//ui->tab_2->setEnabled(m_simulationOnly || ui->actionConnectDisconnect->isChecked());
 	enableTab2(m_simulationOnly || ui->actionConnectDisconnect->isChecked());
@@ -361,6 +362,7 @@ bool Labonatip_GUI::disCon(bool _connect)
 					ui->actionSimulation->setEnabled(false);
 					ui->groupBox_action->setEnabled(true);
 					ui->groupBox_deliveryZone->setEnabled(true);
+					ui->groupBox_operMode->setEnabled(true);
 					ui->groupBox_3->setEnabled(true);
 					//ui->tab_2->setEnabled(true);
 					enableTab2(true);
@@ -421,6 +423,7 @@ bool Labonatip_GUI::disCon(bool _connect)
 				ui->actionSimulation->setEnabled(true);
 				ui->groupBox_action->setEnabled(false);
 				ui->groupBox_deliveryZone->setEnabled(false);
+				ui->groupBox_operMode->setEnabled(false);
 				ui->groupBox_3->setEnabled(false);
 				//ui->tab_2->setEnabled(false);
 				enableTab2(false);

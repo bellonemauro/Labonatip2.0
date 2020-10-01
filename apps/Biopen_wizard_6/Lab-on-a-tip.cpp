@@ -234,6 +234,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   ui->groupBox_action->setEnabled(false);
   ui->groupBox_deliveryZone->setEnabled(false);
   ui->groupBox_3->setEnabled(false);
+  ui->groupBox_operMode->setEnabled(false);
   enableTab2(false);
 
   //init the chart view
