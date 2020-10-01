@@ -53,6 +53,10 @@
     <file>icons/save.png</file>
 	<file>icons/save_off.png</file> 
     <file>icons/save_orange.png</file>
+    <file>icons/setPipe1.png</file>
+    <file>icons/setPipe2.png</file>
+    <file>icons/setPipe3.png</file>
+    <file>icons/setPipe4.png</file>
     <file>icons/standby.png</file>
     <file>icons/simulation.png</file>
 	<file>icons/simulation_off.png</file>

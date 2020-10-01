@@ -725,6 +725,22 @@ void Labonatip_GUI::initConnects()
 		SIGNAL(clicked()), this, 
 		SLOT(standby()));
 
+	connect(ui->pushButton_setPipe1,
+		SIGNAL(clicked()), this,
+		SLOT(setPipe1()));
+
+	connect(ui->pushButton_setPipe2,
+		SIGNAL(clicked()), this,
+		SLOT(setPipe2()));
+
+	connect(ui->pushButton_setPipe3,
+		SIGNAL(clicked()), this,
+		SLOT(setPipe3()));
+
+	connect(ui->pushButton_setPipe4,
+		SIGNAL(clicked()), this,
+		SLOT(setPipe4()));
+
 	connect(ui->pushButton_stop, 
 		SIGNAL(clicked()), this, 
 		SLOT(stopFlow()));

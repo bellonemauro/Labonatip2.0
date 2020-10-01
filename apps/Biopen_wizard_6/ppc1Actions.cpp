@@ -567,3 +567,28 @@ void Labonatip_GUI::standby()
 	setEnableMainWindow(true);
 	QApplication::restoreOverrideCursor(); 
 }
+
+
+void Labonatip_GUI::setPipe1()
+{
+	std::cout << HERE << std::endl;
+
+}
+
+void Labonatip_GUI::setPipe2()
+{
+	std::cout << HERE << std::endl;
+
+}
+
+void Labonatip_GUI::setPipe3()
+{
+	std::cout << HERE << std::endl;
+
+}
+
+void Labonatip_GUI::setPipe4()
+{
+	std::cout << HERE << std::endl;
+
+}

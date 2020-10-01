@@ -653,6 +653,11 @@ private slots:
 	*/
 	void standby();
 
+	void setPipe1();
+	void setPipe2();
+	void setPipe3();
+	void setPipe4();
+
 
 	/** \brief Automatic check for updates
 	*

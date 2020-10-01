@@ -899,11 +899,11 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                      </property>
                      <layout class="QGridLayout" name="gridLayout_32">
                       <item row="2" column="1">
-                       <widget class="QPushButton" name="pushButton_Set1">
+                       <widget class="QPushButton" name="pushButton_setPipe1">
                         <property name="minimumSize">
                          <size>
-                          <width>50</width>
-                          <height>50</height>
+                          <width>90</width>
+                          <height>90</height>
                          </size>
                         </property>
                         <property name="font">
@@ -912,7 +912,17 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                          </font>
                         </property>
                         <property name="text">
-                         <string>Set 1</string>
+                         <string/>
+                        </property>
+                        <property name="icon">
+                         <iconset resource="resources.qrc">
+                          <normaloff>:/icons/setPipe1.png</normaloff>:/icons/setPipe1.png</iconset>
+                        </property>
+                        <property name="iconSize">
+                         <size>
+                          <width>90</width>
+                          <height>90</height>
+                         </size>
                         </property>
                        </widget>
                       </item>
@@ -930,11 +940,11 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                        </spacer>
                       </item>
                       <item row="4" column="3">
-                       <widget class="QPushButton" name="pushButton_Set4">
+                       <widget class="QPushButton" name="pushButton_setPipe4">
                         <property name="minimumSize">
                          <size>
-                          <width>50</width>
-                          <height>50</height>
+                          <width>90</width>
+                          <height>90</height>
                          </size>
                         </property>
                         <property name="font">
@@ -943,7 +953,17 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                          </font>
                         </property>
                         <property name="text">
-                         <string>Set 4</string>
+                         <string/>
+                        </property>
+                        <property name="icon">
+                         <iconset resource="resources.qrc">
+                          <normaloff>:/icons/setPipe4.png</normaloff>:/icons/setPipe4.png</iconset>
+                        </property>
+                        <property name="iconSize">
+                         <size>
+                          <width>90</width>
+                          <height>90</height>
+                         </size>
                         </property>
                        </widget>
                       </item>
@@ -972,11 +992,11 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                        </widget>
                       </item>
                       <item row="2" column="3">
-                       <widget class="QPushButton" name="pushButton_Set2">
+                       <widget class="QPushButton" name="pushButton_setPipe3">
                         <property name="minimumSize">
                          <size>
-                          <width>50</width>
-                          <height>50</height>
+                          <width>90</width>
+                          <height>90</height>
                          </size>
                         </property>
                         <property name="font">
@@ -985,16 +1005,26 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                          </font>
                         </property>
                         <property name="text">
-                         <string>Set 2</string>
+                         <string/>
+                        </property>
+                        <property name="icon">
+                         <iconset resource="resources.qrc">
+                          <normaloff>:/icons/setPipe3.png</normaloff>:/icons/setPipe3.png</iconset>
+                        </property>
+                        <property name="iconSize">
+                         <size>
+                          <width>90</width>
+                          <height>90</height>
+                         </size>
                         </property>
                        </widget>
                       </item>
                       <item row="4" column="1">
-                       <widget class="QPushButton" name="pushButton_Set3">
+                       <widget class="QPushButton" name="pushButton_setPipe2">
                         <property name="minimumSize">
                          <size>
-                          <width>50</width>
-                          <height>50</height>
+                          <width>90</width>
+                          <height>90</height>
                          </size>
                         </property>
                         <property name="font">
@@ -1003,7 +1033,17 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                          </font>
                         </property>
                         <property name="text">
-                         <string>Set 3</string>
+                         <string/>
+                        </property>
+                        <property name="icon">
+                         <iconset resource="resources.qrc">
+                          <normaloff>:/icons/setPipe2.png</normaloff>:/icons/setPipe2.png</iconset>
+                        </property>
+                        <property name="iconSize">
+                         <size>
+                          <width>90</width>
+                          <height>90</height>
+                         </size>
                         </property>
                        </widget>
                       </item>
