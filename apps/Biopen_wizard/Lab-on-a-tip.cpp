@@ -1386,7 +1386,7 @@ void Labonatip_GUI::dumpLogs()
 	coutfile.setFileName(cout_file_name);
 	coutfile.open(QIODevice::Append | QIODevice::Text);
 	QTextStream c_out(&coutfile);
-	c_out << ui->textEdit_qcout->toPlainText() << endl;
+    c_out << ui->textEdit_qcout->toPlainText() << Qt::endl;
 
 	// save log data, messages from the console ect. 
 	QString Err_file_name = m_ext_data_path;
@@ -1404,7 +1404,7 @@ void Labonatip_GUI::dumpLogs()
 	cerrfile.setFileName(Err_file_name);
 	cerrfile.open(QIODevice::Append | QIODevice::Text);
 	QTextStream c_err(&cerrfile);
-	c_err << ui->textEdit_qcerr->toPlainText() << endl;
+    c_err << ui->textEdit_qcerr->toPlainText() << Qt::endl;
 
 }
 

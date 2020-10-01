@@ -24,7 +24,7 @@ void protocolWriter::switchLanguage(QString _translation_file)
 {
 	std::cout << HERE << std::endl;
 
-	qApp->removeTranslator(&m_translator_writer);
+    qApp->removeTranslator(&m_translator_writer);
 
 	if (m_translator_writer.load(_translation_file)) {
 		//m_translator_tool.translate("Labonatip_tool", "english");
@@ -57,7 +57,7 @@ bool protocolWriter::saveProtocol(const QTreeWidget *_tree, QString _file_name)
 	{
 		QTextStream stream(&macroFile);
 		QString header = createHeader();
-		stream << header << endl;
+        stream << header << Qt::endl;
 
 		QList<QStringList> result = visitTree(_tree);
 
@@ -66,7 +66,7 @@ bool protocolWriter::saveProtocol(const QTreeWidget *_tree, QString _file_name)
 			{
 				stream << result.at(i).at(j) << "#";
 			}
-			stream << endl;
+            stream << Qt::endl;
 		}
 	}
 	else {

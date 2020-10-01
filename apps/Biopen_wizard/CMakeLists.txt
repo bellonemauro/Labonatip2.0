@@ -201,6 +201,7 @@ add_executable (${PROJECT_NAME}  	${myProject_SOURCES} ${myProject_HEADERS}
 								${myProject_FORMS_HEADERS} ${UI_RESOURCES_RCC})
 qt5_use_modules(${PROJECT_NAME} Network Widgets TextToSpeech)
 
+if (WIN32)
 set_target_properties (${PROJECT_NAME} 
 						PROPERTIES 
 						ARCHIVE_OUTPUT_DIRECTORY_DEBUG "${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}/Debug/Biopen"
@@ -209,7 +210,17 @@ set_target_properties (${PROJECT_NAME}
 						ARCHIVE_OUTPUT_DIRECTORY_RELEASE "${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}/Release/Biopen"
 						LIBRARY_OUTPUT_DIRECTORY_RELEASE "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/Biopen"
 						RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Release/Biopen")
-						
+endif()
+if (UNIX)
+    set_target_properties (${PROJECT_NAME}
+                                                    PROPERTIES
+                                                    ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}/Biopen"
+                                                    LIBRARY_OUTPUT_DIRECTORY "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Biopen"
+                                                    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Biopen")
+
+endif()
+
+
 target_link_libraries ( ${PROJECT_NAME}  
 						${QT_LIBRARIES}  ${Qt5Charts_LIBRARIES} 
 						PPC1api serial )
