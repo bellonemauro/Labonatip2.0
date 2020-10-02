@@ -230,7 +230,7 @@ int main(int argc, char **argv)
 #ifdef LABONATIP_VERSION
 	version = VER;
 	std::cout << "\n Running Lab-on-a-tip version "
-         << version << "\n"<< endl;
+         << version << "\n"<< std::endl;
 #endif
 	try {
 
@@ -323,11 +323,11 @@ int main(int argc, char **argv)
   }
   catch (std::exception &e) {
 	  std::cerr << " Labonatip_GUI::main ::: Unhandled Exception: "
-		   << e.what() << endl;
+           << e.what() << std::endl;
 	  // clean up here, e.g. save the session, save the current protocol
 	  // and close all config files.
 	  std::cout << " Something really bad just happened, press ok to exit "
-		   << endl;
+           << std::endl;
 #ifndef HIDE_TERMINAL
 	  std::cin.get();
 #endif

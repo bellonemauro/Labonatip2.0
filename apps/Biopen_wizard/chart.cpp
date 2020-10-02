@@ -566,7 +566,6 @@ void protocolChart::appendSolutionPoint(QtCharts::QLineSeries *_serie, double _c
 	double second_x = _current_time;
 	double first_y = 0;
 	double second_y = 0;
-	int sz = _serie->count();
 
 	// if this is the first point, 
 	// we need to check if it is 0 to avoid misleading points
