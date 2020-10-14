@@ -1260,7 +1260,6 @@ void Labonatip_tools::askPasswordToUnlock()
 	//ask password
 	//if correct 
 	bool ok;
-	// Ask for birth date as a string.
 	QString text = QInputDialog::getText(0, m_str_warning,
 		m_ask_password, QLineEdit::Password,
 		"", &ok);

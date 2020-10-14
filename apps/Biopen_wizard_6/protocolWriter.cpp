@@ -11,13 +11,18 @@
 #include <QTextStream>
 #include <QMessageBox>
 #include <QDateTime>
+#include <QInputDialog>
 
 void protocolWriter::initCustomStrings()
 {
 	m_str_warning = tr("Warning");
+	m_str_information = tr("Information");
 	m_str_check_validity_protocol = tr("Check validity failed during protocol saving");
 	m_str_check_validity_protocol_try_again = tr("Please check your settings and try again");
 	m_str_file_not_saved = tr("File not saved");
+	m_ask_password = tr("This is for expert users only, a password is required");
+	m_wrong_password = tr("Wrong password, file not saved");
+	m_correct_password = tr("Correct password, file saved");
 }
 
 void protocolWriter::switchLanguage(QString _translation_file)
@@ -46,6 +51,31 @@ bool protocolWriter::saveProtocol(const QTreeWidget *_tree, QString _file_name)
 
 		return false;
 	}
+
+	if (_file_name.contains("stopSolution", Qt::CaseSensitive) ||
+		_file_name.contains("pumpSolution", Qt::CaseSensitive))
+	{
+		// Ask for the password
+		bool ok; 
+		QString text = QInputDialog::getText(0, m_str_warning,
+			m_ask_password, QLineEdit::Password,
+			"", &ok);
+		if (ok && !text.isEmpty()) {
+			QString password = text;
+			QString password_check = "FluicellGrowth2018";
+			if (!password.compare(password_check))
+			{
+				QMessageBox::information(this, m_str_information, m_correct_password);
+				// continue and go out of this statement to save the file
+			}
+			else
+			{
+				QMessageBox::warning(this, m_str_information, m_wrong_password);
+				return false;
+			}
+		}
+	}
+
 
 	if (!_file_name.endsWith(".prt", Qt::CaseSensitive)) {
 		_file_name.append(".prt");

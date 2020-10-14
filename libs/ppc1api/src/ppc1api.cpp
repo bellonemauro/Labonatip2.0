@@ -1236,10 +1236,10 @@ bool fluicell::PPC1api::runCommand(fluicell::PPC1dataStructures::command _cmd) c
 		return setPressureChannelC(_cmd.getValue());
 	}
 	case fluicell::PPC1dataStructures::command::instructions::setVrecirc: {//setVrecirc
-		return setVacuumChannelB(_cmd.getValue());
+		return setVacuumChannelA(_cmd.getValue());
 	}
 	case fluicell::PPC1dataStructures::command::instructions::setVswitch: {//setVswitch
-		return setVacuumChannelA(_cmd.getValue());
+		return setVacuumChannelB(_cmd.getValue());
 	}
 	case fluicell::PPC1dataStructures::command::instructions::ask_msg: {//ask_msg
 		logStatus(HERE, " ask_msg NOT implemented in the API ");

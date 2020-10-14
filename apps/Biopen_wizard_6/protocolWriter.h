@@ -90,9 +90,13 @@ private:
 
 	//custom translatable strings
 	QString m_str_warning;
+	QString m_str_information;
 	QString m_str_check_validity_protocol;
 	QString m_str_check_validity_protocol_try_again;
 	QString m_str_file_not_saved;
+	QString m_ask_password;
+	QString m_wrong_password;
+	QString m_correct_password;
 
 	QTranslator m_translator_writer;
 };
