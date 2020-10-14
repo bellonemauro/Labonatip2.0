@@ -166,7 +166,7 @@ void Labonatip_GUI::runProtocol()
 		return;
 	}
 
-	std::cout << HERE << "  " << msg.toStdString() << endl;
+    std::cout << HERE << "  " << msg.toStdString() << std::endl;
 	this->runProtocolFile(m_current_protocol_file_name);
 }
 

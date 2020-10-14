@@ -57,7 +57,7 @@ bool protocolWriter::saveProtocol(const QTreeWidget *_tree, QString _file_name)
 	{
 		QTextStream stream(&macroFile);
 		QString header = createHeader();
-		stream << header << endl;
+        stream << header << Qt::endl;
 
 		QList<QStringList> result = visitTree(_tree);
 
@@ -66,7 +66,7 @@ bool protocolWriter::saveProtocol(const QTreeWidget *_tree, QString _file_name)
 			{
 				stream << result.at(i).at(j) << "#";
 			}
-			stream << endl;
+            stream << Qt::endl;
 		}
 	}
 	else {

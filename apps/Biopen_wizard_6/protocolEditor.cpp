@@ -89,7 +89,8 @@ void Labonatip_GUI::onProtocolClicked(QTreeWidgetItem *item, int column)
 	//
 }
 
-void Labonatip_GUI::addAllCommandsToProtocol(QTreeWidget* _tree, std::vector<fluicell::PPC1api6dataStructures::command>* _protocol)
+void Labonatip_GUI::addAllCommandsToProtocol(QTreeWidget* _tree,
+                                             std::vector<fluicell::PPC1api6dataStructures::command>* _protocol)
 {
 	/////////////////////////////////////////////////////////////////////////////////
 	//TODO THIS IS WEIRD
@@ -166,6 +167,11 @@ void Labonatip_GUI::addAllCommandsToProtocol(QTreeWidget* _tree, std::vector<flu
 
 		std::string a = commands_vector.at(i)->text(editorParams::c_command).toStdString();
 
+        //TODO: here it would be possible in principle to use a different interpretation from
+        //      tree structure to actual protocol command, this would allow to have more complex command made of
+        //      a series of commands, example: ramp pressure can be seen as a series of different pressures and wait commands
+        //      hence it is possible to separate elementary commands and complex commands that can be destructurated
+        //      into a set of elementary commands
 		new_command.setInstruction(static_cast<pCmd>(
 			commands_vector.at(i)->text(editorParams::c_command).toInt()));
 

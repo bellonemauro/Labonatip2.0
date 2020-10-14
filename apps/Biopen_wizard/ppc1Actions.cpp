@@ -193,7 +193,7 @@ void Labonatip_GUI::runProtocol() {
 		// if ok was pressed
 		m_ppc1->setVerbose(false);
 		m_macroRunner_thread->setProtocol(m_protocol);
-		std::cout << HERE << "  " << msg.toStdString() << endl;
+        std::cout << HERE << "  " << msg.toStdString() << std::endl;
 
 		m_macroRunner_thread->setSimulationFlag(m_simulationOnly);
 		connect(m_macroRunner_thread,

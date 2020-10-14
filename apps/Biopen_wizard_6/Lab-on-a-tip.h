@@ -563,7 +563,7 @@ private slots:
 	*/
 	bool disCon(bool _connect);
 	
-	/** \brief Reboot the PPC1
+    /** \brief Reboot the PPC1
 	*
 	* \note This is a hard reboot for the PPC1 device,
 	*       it will cause the disconnection from the serial port
