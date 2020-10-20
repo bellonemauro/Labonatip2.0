@@ -1,7 +1,7 @@
 /*  +---------------------------------------------------------------------------+
 *  |                                                                           |
 *  | Fluicell AB, http://fluicell.com/                                         |
-*  | Biopen wizard 2.1                                                         |
+*  | BioPen wizard 2.1                                                         |
 *  |                                                                           |
 *  | Authors: Mauro Bellone - http://www.maurobellone.com                      |
 *  | Released under GNU GPL License.                                           |
@@ -63,7 +63,7 @@ bool initPaths(Labonatip_GUI &_l, QString &_protocols_user_path,
 	home_path.append("/Documents/Biopen6/");
 	QDir home_dir;
 	if (!home_dir.exists(home_path)) {
-		std::cerr << " BiopenWizard directory does not exists in the home folder .... creating it" << std::endl;
+		std::cerr << " BioPen wizard directory does not exists in the home folder .... creating it" << std::endl;
 		home_dir.mkpath(home_path);
 		std::cout << " Created directory " <<
             home_path.toStdString() << std::endl;
@@ -78,11 +78,11 @@ bool initPaths(Labonatip_GUI &_l, QString &_protocols_user_path,
 	QDir protocols_dir;
 	protocols_dir.setPath(protocols_path);
 	if (!protocols_dir.exists(protocols_path) ) {
-		std::cerr << "ERROR: Biopen protocols directory does not exists in the installation folder"
+		std::cerr << "ERROR: BioPen protocols directory does not exists in the installation folder"
 			 << "A reinstallation may solve the problem "<< std::endl;
 		QString ss = "Protocols directory does not exists in the installation folder,";
-		ss.append("Biopen wizard cannot run  <br>"); 
-		ss.append ("A reinstallation of Biopen wizard may solve the problem ");
+		ss.append("BioPen wizard cannot run  <br>"); 
+		ss.append ("A reinstallation of BioPen wizard may solve the problem ");
 		QMessageBox::warning(&_l, "ERROR", ss);
 		return false;
 	}
@@ -96,10 +96,10 @@ bool initPaths(Labonatip_GUI &_l, QString &_protocols_user_path,
 	QDir settings_dir;
 	settings_dir.setPath(settings_path);
 	if (!settings_dir.exists(settings_path)) {
-		std::cerr << "Biopen wizard settings directory does not exists" << std::endl;
+		std::cerr << "BioPen wizard settings directory does not exists" << std::endl;
 		QString ss = "Settings directory does not exists in the installation folder,";
-		ss.append("Biopen wizard cannot run  <br>");
-		ss.append("A reinstallation of Biopen wizard may solve the problem ");
+		ss.append("BioPen wizard cannot run  <br>");
+		ss.append("A reinstallation of BioPen wizard may solve the problem ");
 		QMessageBox::warning(&_l, "ERROR", ss);
 		return false;
 	}
@@ -113,10 +113,10 @@ bool initPaths(Labonatip_GUI &_l, QString &_protocols_user_path,
 	QDir ext_data_dir;
 	ext_data_dir.setPath(ext_data_path);
 	if (!ext_data_dir.exists(ext_data_path)) {
-		std::cerr << "Biopen wizard ext_data directory does not exists" << std::endl;
+		std::cerr << "BioPen wizard ext_data directory does not exists" << std::endl;
 		QString ss = "Ext_data directory does not exists in the installation folder,";
-		ss.append("Biopen wizard cannot run  <br>");
-		ss.append("A reinstallation of Biopen wizard may solve the problem ");
+		ss.append("BioPen wizard cannot run  <br>");
+		ss.append("A reinstallation of BioPen wizard may solve the problem ");
 		QMessageBox::warning(&_l, "ERROR", ss);
 		return false;
 	}
@@ -262,9 +262,9 @@ int main(int argc, char **argv)
 			<< " screen_width " << screen_width << std::endl;
 
 		if (logical_dpi_x > 150) {
-			QString ss = "Your display DPI is out of bound for the correct visualization of Biopen wizard\n";
+			QString ss = "Your display DPI is out of bound for the correct visualization of BioPen wizard\n";
 			ss.append("You can continue, but you will probably get bad visualization \n\n");
-			ss.append("To properly visualize Biopen wizard, try to reduce the resolution and scaling of your screen");
+			ss.append("To properly visualize BioPen wizard, try to reduce the resolution and scaling of your screen");
 			
 			QMessageBox::warning(&window, "ERROR", ss);
 

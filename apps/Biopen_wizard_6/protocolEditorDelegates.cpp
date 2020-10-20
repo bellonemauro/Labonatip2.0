@@ -1,7 +1,7 @@
 /*  +---------------------------------------------------------------------------+
 *  |                                                                           |
 *  | Fluicell AB, http://fluicell.com/                                         |
-*  | Biopen wizard 2.1                                                         |
+*  | BioPen wizard 2.1                                                         |
 *  |                                                                           |
 *  | Authors: Mauro Bellone - http://www.maurobellone.com                      |
 *  | Released under GNU GPL License.                                           |
@@ -37,6 +37,7 @@ ComboBoxDelegate::ComboBoxDelegate(QObject *parent)
 	Items.push_back("Wait sync");
 	Items.push_back("Sync out");
 	Items.push_back("Loop");
+	Items.push_back("Ramp up"); //TODO
 }
 
 

@@ -647,19 +647,19 @@ namespace fluicell { namespace PPC1api6dataStructures
 		*      9           |   solution2         |  true / false   |  closes other valves, then opens valve b for solution 2
 		*      10          |   solution3         |  true / false   |  closes other valves, then opens valve c for solution 3
 		*      11          |   solution4         |  true / false   |  closes other valves, then opens valve d for solution 4
-		*      11          |   solution5         |  true / false   |  closes other valves, then opens valve d for solution 4 //TODO
-		*      11          |   solution6         |  true / false   |  closes other valves, then opens valve d for solution 4
-		*      12          |   setPon            |  int [0 MAX]    |  (int: pressure in mbar) ---- Channel D
-		*      13          |   setPoff           |  int [0 MAX]    |  (int: pressure in mbar) ---- Channel C
-		*      14          |   setVrecirc        |  int [MIN 0]    |  (int: pressure in mbar) ---- Channel A
-		*      15          |   setVswitch        |  int [MIN 0]    |  (int: pressure in mbar) ---- Channel B
-		*      16          |   ask_msg           |  true / false   |  set true to stop execution and ask confirmation to continue,
+		*      12          |   solution5         |  true / false   |  closes other valves, then opens valve d for solution 4 //TODO
+		*      13          |   solution6         |  true / false   |  closes other valves, then opens valve d for solution 4
+		*      14          |   setPon            |  int [0 MAX]    |  (int: pressure in mbar) ---- Channel D
+		*      15          |   setPoff           |  int [0 MAX]    |  (int: pressure in mbar) ---- Channel C
+		*      16          |   setVrecirc        |  int [MIN 0]    |  (int: pressure in mbar) ---- Channel A
+		*      17          |   setVswitch        |  int [MIN 0]    |  (int: pressure in mbar) ---- Channel B
+		*      18          |   ask_msg           |  true / false   |  set true to stop execution and ask confirmation to continue,
 		*                  |                     |                 |  INTEPRETED but NO ACTION required at API level
-		*      17          |   pumpsOff          |       -         |  stop pressures and vacuum by setting the channels to 0
-		*      18          |   waitSync          |  int [0 MAX]    |  protocol stops until trigger signal is received
-		*      19          |   syncOut           |  int [0 MAX]    |  if negative then default state is 1 and pulse is 0,
+		*      19          |   pumpsOff          |       -         |  stop pressures and vacuum by setting the channels to 0
+		*      20          |   waitSync          |  int [0 MAX]    |  protocol stops until trigger signal is received
+		*      21          |   syncOut           |  int [0 MAX]    |  if negative then default state is 1 and pulse is 0,
 		*                  |                     |                 |  if positive, then pulse is 1 and default is 0
-		*      20          |   loop              |  int [0 MAX]    |  number of loops, not running at API level
+		*      22          |   loop              |  int [0 MAX]    |  number of loops, not running at API level
 		*                  |                     |                 |
 		*   ---------------+---------------------+-----------------+-------------------------------------------------------------
 		* end commented section -->

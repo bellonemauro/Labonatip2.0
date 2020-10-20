@@ -1,7 +1,7 @@
 /*  +---------------------------------------------------------------------------+
 *  |                                                                           |
 *  | Fluicell AB, http://fluicell.com/                                         |
-*  | Biopen wizard 2.1                                                         |
+*  | BioPen wizard 2.1                                                         |
 *  |                                                                           |
 *  | Authors: Mauro Bellone - http://www.maurobellone.com                      |
 *  | Released under GNU GPL License.                                           |
@@ -98,6 +98,11 @@ void Labonatip_GUI::addAllCommandsToProtocol(QTreeWidget* _tree,
 	/////////////////////////////////////////////////////////////////////////////////
 
 
+	// TODO: here we need to build a different system: 
+	//       basic commands   : fluicell::PPC1api6data::command
+	//       compound commands : to be defined, the idea here is that one compound command can
+	//                           can be translated to one or more basic commands
+
 	// all the items 
 	std::vector<protocolTreeWidgetItem*> commands_vector;
 	//TODO: this is not the best way, 
@@ -137,7 +142,13 @@ void Labonatip_GUI::addAllCommandsToProtocol(QTreeWidget* _tree,
 		 //commands_vector.push_back(ui_p_editor->treeWidget_macroTable->topLevelItem(i)); 
 		 //TODO: the actual item is the loop and it should not be added, 
 		 //      loops are not supported in the API, they are a high-level feature
-		 //TODO: here there is a bug, there is no check that the upper level is actually a loop! 
+		 //TODO: here there is a bug, there is no check that the upper level is actually a loop!
+		 //      it only considers that it is a children instead of being a topLevelItem
+			protocolTreeWidgetItem* current_item = 
+				dynamic_cast<protocolTreeWidgetItem*> (_tree->topLevelItem(i));
+
+			//TODO: here we need to retrive che actual command and interpret it to perform the proper action
+
 			for (int loop = 0; loop < item->text(editorParams::c_value).toInt(); loop++) {
 				// we need to check how many times we need to run the operations
 				// and add the widget to the list
@@ -157,6 +168,9 @@ void Labonatip_GUI::addAllCommandsToProtocol(QTreeWidget* _tree,
 					//item_child->blockSignals(false);
 				}
 			}
+
+
+
 		}
 	}
 

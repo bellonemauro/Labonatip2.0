@@ -306,7 +306,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
              </property>
              <property name="plainText">
               <string>
-This wizard will help you to create a new execution protocol for the biopen device
+This wizard will help you to create a new execution protocol for the BioPen device
 
 
 

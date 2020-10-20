@@ -868,8 +868,8 @@
             <translation>Indicatore di progressione del protocollo 0 - 100%</translation>
         </message>
         <message>
-            <source>Initiate the preparation of the Biopen system for operation</source>
-            <translation>Inizia la preparazione del sistema Biopen per l'esecuzione</translation>
+            <source>Initiate the preparation of the BioPen system for operation</source>
+            <translation>Inizia la preparazione del sistema BioPen per l'esecuzione</translation>
         </message>
         <message>
             <source>Start the last protocol loaded in the Editor window</source>
@@ -1686,12 +1686,12 @@
             <translation>vuoi eseguire l'installazione ora?</translation>
         </message>
         <message>
-            <source>Biopen wizard will be closed for the update</source>
-            <translation>Biopen wizard sarà chiusto per completare l'aggiornamento</translation>
+            <source>BioPen wizard will be closed for the update</source>
+            <translation>BioPen wizard sarà chiusto per completare l'aggiornamento</translation>
         </message>
         <message>
-            <source>Biopen wizard could not reach fluicell.com, check your internet connection</source>
-            <translation>Biopen wizard non ha potuto raggiungere fluicell.com, controlla la tua connessione internet</translation>
+            <source>BioPen wizard could not reach fluicell.com, check your internet connection</source>
+            <translation>BioPen wizard non ha potuto raggiungere fluicell.com, controlla la tua connessione internet</translation>
         </message>
         <message>
             <source>Version</source>

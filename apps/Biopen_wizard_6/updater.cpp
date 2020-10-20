@@ -1,7 +1,7 @@
 /*  +---------------------------------------------------------------------------+
 *  |                                                                           |
 *  | Fluicell AB, http://fluicell.com/                                         |
-*  | Biopen wizard 2.1                                                         |
+*  | BioPen wizard 2.1                                                         |
 *  |                                                                           |
 *  | Authors: Mauro Bellone - http://www.maurobellone.com                      |
 *  | Released under GNU GPL License.                                           |
@@ -689,8 +689,8 @@ void biopen_updater::initCustomStrings( )
 	m_str_file_not_found = tr("file not found");
 	m_str_success_download1 = tr("The installer was downloaded at");
 	m_str_success_download2 = tr("do you want to run the instaler now?");
-	m_str_close_biopen = tr("Biopen wizard will be closed for the update");
-	m_str_check_connection = tr("Biopen wizard could not reach fluicell.com, check your internet connection");
+	m_str_close_biopen = tr("BioPen wizard will be closed for the update");
+	m_str_check_connection = tr("BioPen wizard could not reach fluicell.com, check your internet connection");
 	m_str_version = tr("Version");
 	m_str_size = tr("Size");
 	m_str_released_on = tr("Released on");
