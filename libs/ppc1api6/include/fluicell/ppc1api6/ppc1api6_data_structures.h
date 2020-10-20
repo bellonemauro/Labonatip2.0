@@ -635,31 +635,25 @@ namespace fluicell { namespace PPC1api6dataStructures
 		*
 		*    enum index    |   Command           |   value         |
 		*   ---------------+---------------------+-----------------+-------------------------------------------------------------
-		*      0           |   zoneSize          |  int [MIN MAX]  |  Change the zone size percentage to _value
-		*      1           |   changeZoneSizeBy  |  int [MIN MAX]  |  Change the zone size percentage to _value
-		*      2           |   flowSpeed         |  int [MIN MAX]  |  Change the flow speed percentage to _value
-		*      3           |   changeFlowSpeedBy |  int [MIN MAX]  |  Change the flow speed percentage to _value
-		*      4           |   vacuum            |  int [MIN MAX]  |  Change the vacuum percentage to _value
-		*      5           |   changeVacuumBy    |  int [MIN MAX]  |  Change the vacuum percentage to _value
-		*      6           |   wait              |  int n          |  wait for n seconds
-		*      7           |   allOff            |       -         |  stop all solutions flow
-		*      8           |   solution1         |  true / false   |  closes other valves, then opens valve a for solution 1
-		*      9           |   solution2         |  true / false   |  closes other valves, then opens valve b for solution 2
-		*      10          |   solution3         |  true / false   |  closes other valves, then opens valve c for solution 3
-		*      11          |   solution4         |  true / false   |  closes other valves, then opens valve d for solution 4
-		*      12          |   solution5         |  true / false   |  closes other valves, then opens valve d for solution 4 //TODO
-		*      13          |   solution6         |  true / false   |  closes other valves, then opens valve d for solution 4
-		*      14          |   setPon            |  int [0 MAX]    |  (int: pressure in mbar) ---- Channel D
-		*      15          |   setPoff           |  int [0 MAX]    |  (int: pressure in mbar) ---- Channel C
-		*      16          |   setVrecirc        |  int [MIN 0]    |  (int: pressure in mbar) ---- Channel A
-		*      17          |   setVswitch        |  int [MIN 0]    |  (int: pressure in mbar) ---- Channel B
-		*      18          |   ask_msg           |  true / false   |  set true to stop execution and ask confirmation to continue,
+		*      0           |   wait              |  int n          |  wait for n seconds
+		*      1           |   allOff            |       -         |  stop all solutions flow
+		*      2           |   solution1         |  true / false   |  closes other valves, then opens valve a for solution 1
+		*      3           |   solution2         |  true / false   |  closes other valves, then opens valve b for solution 2
+		*      4           |   solution3         |  true / false   |  closes other valves, then opens valve c for solution 3
+		*      5           |   solution4         |  true / false   |  closes other valves, then opens valve d for solution 4
+		*      6           |   solution5         |  true / false   |  closes other valves, then opens valve d for solution 4 //TODO
+		*      7           |   solution6         |  true / false   |  closes other valves, then opens valve d for solution 4
+		*      8           |   setPon            |  int [0 MAX]    |  (int: pressure in mbar) ---- Channel D
+		*      9           |   setPoff           |  int [0 MAX]    |  (int: pressure in mbar) ---- Channel C
+		*      10          |   setVrecirc        |  int [MIN 0]    |  (int: pressure in mbar) ---- Channel A
+		*      11          |   setVswitch        |  int [MIN 0]    |  (int: pressure in mbar) ---- Channel B
+		*      12          |   ask_msg           |  true / false   |  set true to stop execution and ask confirmation to continue,
 		*                  |                     |                 |  INTEPRETED but NO ACTION required at API level
-		*      19          |   pumpsOff          |       -         |  stop pressures and vacuum by setting the channels to 0
-		*      20          |   waitSync          |  int [0 MAX]    |  protocol stops until trigger signal is received
-		*      21          |   syncOut           |  int [0 MAX]    |  if negative then default state is 1 and pulse is 0,
+		*      13          |   pumpsOff          |       -         |  stop pressures and vacuum by setting the channels to 0
+		*      14          |   waitSync          |  int [0 MAX]    |  protocol stops until trigger signal is received
+		*      15          |   syncOut           |  int [0 MAX]    |  if negative then default state is 1 and pulse is 0,
 		*                  |                     |                 |  if positive, then pulse is 1 and default is 0
-		*      22          |   loop              |  int [0 MAX]    |  number of loops, not running at API level
+		*      16          |   loop              |  int [0 MAX]    |  number of loops, not running at API level
 		*                  |                     |                 |
 		*   ---------------+---------------------+-----------------+-------------------------------------------------------------
 		* end commented section -->
@@ -678,29 +672,29 @@ namespace fluicell { namespace PPC1api6dataStructures
 			*
 			**/
 			enum  instructions {
-				setZoneSize = 0,
-				changeZoneSizeBy = 1,
-				setFlowSpeed = 2,
-				changeFlowSpeedBy = 3,
-				setVacuum = 4,
-				changeVacuumBy = 5,
-				wait = 6,
-				allOff = 7,
-				solution1 = 8,
-				solution2 = 9,
-				solution3 = 10,
-				solution4 = 11,
-				solution5 = 12,
-				solution6 = 13,
-				setPon = 14,
-				setPoff = 15,
-				setVrecirc = 16,
-				setVswitch = 17,
-				ask_msg = 18,
-				pumpsOff = 19,
-				waitSync = 20,
-				syncOut = 21,
-				loop = 22,
+				//setZoneSize = 0,
+				//changeZoneSizeBy = 1,
+				//setFlowSpeed = 2,
+				//changeFlowSpeedBy = 3,
+				//setVacuum = 4,
+				//changeVacuumBy = 5,
+				wait = 0,
+				allOff = 1,
+				solution1 = 2,
+				solution2 = 3,
+				solution3 = 4,
+				solution4 = 5,
+				solution5 = 6,
+				solution6 = 7,
+				setPon = 8,
+				setPoff = 9,
+				setVrecirc = 10,
+				setVswitch = 11,
+				ask_msg = 12,
+				pumpsOff = 13,
+				waitSync = 14,
+				syncOut = 15,
+				loop = 16,
 			};
 
 
@@ -717,7 +711,7 @@ namespace fluicell { namespace PPC1api6dataStructures
 			bool checkValidity() {
 			
 				// check that the instruction is valid
-				if (this->instruction < instructions::setZoneSize) return false;
+				if (this->instruction < instructions::wait) return false;
 				if (this->instruction > instructions::loop) return false;
 
 				int inst = this->instruction;
@@ -784,48 +778,6 @@ namespace fluicell { namespace PPC1api6dataStructures
 				 //not checked for now
 					return true;
 				}
-				case instructions::setZoneSize: {//zone size
-					if (this->value < MIN_ZONE_SIZE_PERC ||
-						this->value > MAX_ZONE_SIZE_PERC) 
-						return false; // out of bound
-					else
-						return true;
-				}
-				case instructions::changeZoneSizeBy: {//zone size
-					if (this->value < -MAX_ZONE_SIZE_INCREMENT ||
-						this->value > MAX_ZONE_SIZE_INCREMENT)
-						return false; // out of bound
-					else
-						return true;
-				}
-				case instructions::setFlowSpeed: {//flowSpeed
-					if (this->value < MIN_FLOW_SPEED_PERC ||
-						this->value > MAX_FLOW_SPEED_PERC) 
-						return false; // out of bound
-					else
-						return true;
-				}
-				case instructions::changeFlowSpeedBy: {//flow speed
-					if (this->value < -MAX_FLOW_SPEED_INCREMENT ||
-						this->value > MAX_FLOW_SPEED_INCREMENT)
-						return false; // out of bound
-					else
-						return true;
-				}
-				case instructions::setVacuum: {//vacuum
-					if (this->value < MIN_VACUUM_PERC ||
-						this->value > MAX_VACUUM_PERC) 
-						return false; // out of bound
-					else
-						return true;
-				}
-				case instructions::changeVacuumBy: {//vacuum
-					if (this->value < -MAX_VACUUM_INCREMENT ||
-						this->value > MAX_VACUUM_INCREMENT)
-						return false; // out of bound
-					else
-						return true;
-				}
 				case instructions::loop: {//loop
 					if (this->value < 0) 
 						return false;
@@ -859,9 +811,6 @@ namespace fluicell { namespace PPC1api6dataStructures
 			{
 				static const char* const text[] =
 				{ 
-					"setZoneSize", "changeZoneSizeBy",
-					"setFlowSpeed", "changeFlowSpeedBy",
-					"setVacuum", "changeVacuumBy",
 					"wait",
 					"solution1", "solution2","solution3","solution4","solution5","solution6",
 					"setPon", "setPoff",  "setVrecirc", "setVswitch",

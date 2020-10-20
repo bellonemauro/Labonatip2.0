@@ -14,12 +14,12 @@
 ComboBoxDelegate::ComboBoxDelegate(QObject *parent)
 	:QItemDelegate(parent)
 {
-	Items.push_back("Set zone size");
-	Items.push_back("Change zone size by");
-	Items.push_back("Set flow speed");
-	Items.push_back("Change flow speed by");
-	Items.push_back("Set vacuum");
-	Items.push_back("Change vacuum by");
+	Items.push_back("Button 1");
+	Items.push_back("Button 2");
+	Items.push_back("Button 3");
+	Items.push_back("Button 4");
+	Items.push_back("Button 5");
+	Items.push_back("Button 6");
 	Items.push_back("Wait");
 	Items.push_back("All Off");
 	Items.push_back("Solution 1");

@@ -715,136 +715,6 @@ bool fluicell::PPC1api6::setRuntimeTimeout(const int _value) const
 	}
 }
 
-bool fluicell::PPC1api6::setZoneSizePerc(double _percentage) const
-{
-	// check for out of bound values
-	if (_percentage < MIN_ZONE_SIZE_PERC ||
-		_percentage > MAX_ZONE_SIZE_PERC)
-	{
-		logError(HERE, " zone size value out of range ");
-		return false; // out of bound
-	}
-
-	// convert percentage
-	double percentage = _percentage / 100.0;
-
-	// the zone size is actually the cubic root of the display value	
-	double value = m_default_v_recirc * (2.0 -
-		std::pow(percentage, (1.0 / 3.0)));
-	
-	logStatus(HERE, " new recirculation value " + std::to_string(value) +
-			"m_default_v_recirc" + std::to_string(m_default_v_recirc));
-
-	// check for out of bound vacuum values after the calculation before
-	// sending the command to the PPC1
-	if (value <= MIN_CHAN_A || value >= MAX_CHAN_A) {
-		logError(HERE, " recirculation value out of range ");
-		return false; // out of bound
-	}
-
-	// send the command
-	if (!setVacuumChannelA(value)) {
-		return false;
-	}
-
-	// reset the switch to default
-	if (!setVacuumChannelB(m_default_v_switch)) {
-		return false;
-	}
-
-	// wait 10msec - just to give time to de device to accept the new value
-	std::this_thread::sleep_for(std::chrono::milliseconds(10));
-
-	// calculate the new Pon value
-	// using the cubic root of the display value
-	value = m_default_pon * (
-		std::pow(percentage, (1.0 / 3.0)));
-
-	logStatus(HERE," new pon value " + std::to_string(value) +
-			"m_default_pon" + std::to_string(m_default_pon));
-
-	// check for out of bound pressure values after the calculation before
-	// sending the command to the PPC1
-	if (value <= MIN_CHAN_D || value >= MAX_CHAN_D) {
-		logError(HERE, " pon pressure value out of range ");
-		return false; // out of bound 
-	}
-
-	// send the command
-	if (!setPressureChannelD(value)) {
-		return false;
-	}
-
-	// reset the poff to default
-	if (!setPressureChannelC(m_default_poff)) {
-		return false;
-	}
-
-	// wait 10msec - just to give time to de device to accept the new value
-	std::this_thread::sleep_for(std::chrono::milliseconds(10));
-	return true;
-}
-
-bool fluicell::PPC1api6::changeZoneSizePercBy(double _percentage) const
-{	
-	// check for out of bound values
-	if (std::abs(_percentage) > MAX_ZONE_SIZE_INCREMENT )
-	{
-		logError(HERE, " zone size value out of range ");
-		return false; // out of bound
-	}
-
-	// convert percentage
-	double increment = (100.0 + _percentage) / 100.0;
-
-	// calculate new vacuum value
-	// the zone size is actually the cubic root of the display value	
-	double delta = (1.0 - std::pow(increment, (1.0 / 3.0)));
-	double value = m_PPC1_data->channel_A->set_point +
-		m_default_v_recirc * delta;
-
-	logStatus(HERE,	" new recirculation value " + std::to_string(value) +
-			"m_default_v_recirc" + std::to_string(m_default_v_recirc));
-	 
-	// check for out of bound vacuum values after the calculation before
-	// sending the command to the PPC1
-	if (value <= MIN_CHAN_A || value >= MAX_CHAN_A) {
-		logError(HERE, " recirculation value out of range ");
-		return false; // out of bound
-	}
-
-	// send the command
-	if (!setVacuumChannelA(value)) {
-		return false;
-	}
-
-	// wait 10msec - just to give time to de device to accept the new value
-	std::this_thread::sleep_for(std::chrono::milliseconds(10));
-	
-	// calculate new pressure value
-	// the zone size is actually the cubic root of the display value	
-	//delta = (1.0 - std::pow(increment, (1.0 / 3.0)));
-	value = m_PPC1_data->channel_D->set_point - m_default_pon  * delta;
-	
-	logStatus(HERE,	" new pon value " + std::to_string(value) +
-			"m_default_pon" + std::to_string(m_default_pon));
-	
-	// check for out of bound pressure values after the calculation before
-	// sending the command to the PPC1
-	if (value <= MIN_CHAN_D || value >= MAX_CHAN_D) {
-		logError(HERE, " pon pressure value out of range ");
-		return false; // out of bound
-	}
-	
-	// send the command
-	if (!setPressureChannelD(value)) {
-		return false;
-	}
-	
-	// wait 10msec - just to give time to de device to accept the new value
-	std::this_thread::sleep_for(std::chrono::milliseconds(10));
-	return true;
-}
 
 double fluicell::PPC1api6::getZoneSizePerc() const
 {
@@ -874,194 +744,6 @@ double fluicell::PPC1api6::getZoneSizePerc() const
 	return ds;
 }
 
-bool fluicell::PPC1api6::setFlowSpeedPerc(const double _percentage) const
-{
-	// check for out of bound values
-	if (_percentage < MIN_FLOW_SPEED_PERC ||
-		_percentage > MAX_FLOW_SPEED_PERC)
-	{
-		logError(HERE, " zone size value out of range ");
-		return false; // out of bound
-	}
-
-	// convert percentage
-	double percentage = _percentage / 100.0;
-
-	// calculate new recirculation value
-	double value = m_default_v_recirc * percentage;  
-
-	logStatus(HERE, " new recirculation value " + std::to_string(value) );
-
-	// check for out of bound vacuum values after the calculation before
-	// sending the command to the PPC1
-	if (value <= MIN_CHAN_A || value >= MAX_CHAN_A) {
-		logError(HERE, " recirculation value out of range ");
-		return false; // out of bound
-	}
-
-	// send the command
-	if (!setVacuumChannelA(value)) { 
-		return false;
-	}
-
-	// wait 10msec - just to give time to de device to accept the new value
-	std::this_thread::sleep_for(std::chrono::milliseconds(10));
-
-	// calculate new switch value
-	value = m_default_v_switch * percentage;  
-
-	logStatus(HERE, " new switch value " + std::to_string(value));
-
-	// check for out of bound vacuum values after the calculation before
-	// sending the command to the PPC1
-	if (value <= MIN_CHAN_B || value >= MAX_CHAN_B) {
-		logError(HERE, " switch value out of range ");
-		return false; // out of bound
-	}
-
-	// send the command
-	if (!setVacuumChannelB(value)) {
-		return false;
-	}
-
-	// wait 10msec - just to give time to de device to accept the new value
-	std::this_thread::sleep_for(std::chrono::milliseconds(10));
-
-	// calculate new Poff value
-	value = m_default_poff * percentage;  
-
-	logStatus(HERE, " new poff value " + std::to_string(value));
-
-	// check for out of bound pressure values after the calculation before
-	// sending the command to the PPC1
-	if (value <= MIN_CHAN_C || value >= MAX_CHAN_C) {
-		logError(HERE, " poff pressure value out of range ");
-		return false; // out of bound
-	}
-
-	// send the command
-	if (!setPressureChannelC(value)) { // increase C by _percentage%
-		return false;
-	}
-	
-	// wait 10msec - just to give time to de device to accept the new value
-	std::this_thread::sleep_for(std::chrono::milliseconds(10));
-
-	// calculate new Pon value
-	value = m_default_pon * percentage;  
-	logStatus(HERE,	" new pon value " + std::to_string(value));
-
-	// check for out of bound pressure values after the calculation before
-	// sending the command to the PPC1
-	if (value <= MIN_CHAN_D || value >= MAX_CHAN_D) {
-		logError(HERE, " pon pressure value out of range ");
-		return false; // out of bound
-	}
-
-	// send the command
-	if (!setPressureChannelD(value)) { // increase D by _percentage%
-		return false;
-	}
-
-	// wait 10msec - just to give time to de device to accept the new value
-	std::this_thread::sleep_for(std::chrono::milliseconds(10));
-
-	return true;
-}
-
-bool fluicell::PPC1api6::changeFlowSpeedPercBy(const double _percentage) const
-{
-
-	// check for out of bound values
-	if (std::abs(_percentage) > MAX_FLOW_SPEED_INCREMENT)
-	{
-		logError(HERE, " flow speed value out of range ");
-		return false; // out of bound
-	}
-
-	// convert percentage
-	double percentage = _percentage / 100.0;
-
-	// calculate new recirculation value
-	double value = m_PPC1_data->channel_A->set_point + 
-		m_default_v_recirc * percentage;  // new recirc value
-
-	logStatus(HERE,	" new recirculation value " + std::to_string(value));
-
-	// check for out of bound vacuum values after the calculation before
-	// sending the command to the PPC1
-	if (value <= MIN_CHAN_A || value >= MAX_CHAN_A) {
-		logError(HERE, " recirculation value out of range ");
-		return false; // out of bound
-	}
-
-	// send the command
-	if ( !setVacuumChannelA(value)) { 
-		return false;
-	}
-
-	// wait 10msec - just to give time to de device to accept the new value
-	std::this_thread::sleep_for(std::chrono::milliseconds(10)); // wait 10msec
-
-	//calculate new switch value
-	value = m_PPC1_data->channel_B->set_point + m_default_v_switch * percentage;  
-	logStatus(HERE, " new switch value " + std::to_string(value));
-
-	// check for out of bound vacuum values after the calculation before
-	// sending the command to the PPC1
-	if (value <= MIN_CHAN_B || value >= MAX_CHAN_B) {
-		logError(HERE, " switch value out of range ");
-		return false; // out of bound
-	}
-
-	// send the command
-	if (!setVacuumChannelB(value)) { 
-		return false;
-	}
-
-	// wait 10msec - just to give time to de device to accept the new value
-	std::this_thread::sleep_for(std::chrono::milliseconds(10)); // wait 10msec
-
-	// calculate new Poff value
-	value = m_PPC1_data->channel_C->set_point + m_default_poff * percentage;  // new pressure poff value
-	logStatus(HERE, " new poff value " + std::to_string(value));
-	
-	// check for out of bound pressure values after the calculation before
-	// sending the command to the PPC1
-	if (value <= MIN_CHAN_C || value >= MAX_CHAN_C) {
-		logError(HERE, " poff pressure value out of range ");
-		return false; // out of bound
-	}
-
-	// send the command
-	if (!setPressureChannelC(value)) { 
-		return false;
-	}
-	
-	// wait 10msec - just to give time to de device to accept the new value
-	std::this_thread::sleep_for(std::chrono::milliseconds(10));
-	
-	// calculate new Pon value
-	value = m_PPC1_data->channel_D->set_point + m_default_pon * percentage;  
-	logStatus(HERE, " new pon value " + std::to_string(value)); 
-
-	// check for out of bound pressure values after the calculation before
-	// sending the command to the PPC1
-	if (value <= MIN_CHAN_D || value >= MAX_CHAN_D) {
-		logError(HERE, " pon pressure value out of range ");
-		return false; // out of bound
-	}
-
-	// send the command
-	if (!setPressureChannelD(value)) { // increase D by _percentage%
-		return false;
-	}
-
-	// wait 10msec - just to give time to de device to accept the new value
-	std::this_thread::sleep_for(std::chrono::milliseconds(10));
-
-	return true;
-}
 
 double fluicell::PPC1api6::getFlowSpeedPerc() const
 {
@@ -1088,83 +770,6 @@ double fluicell::PPC1api6::getFlowSpeedPerc() const
 	return mean_percentage;
 }
 
-bool fluicell::PPC1api6::setVacuumPerc(const double _percentage) const
-{
-	// check for out of bound values
-	if (_percentage < MIN_VACUUM_PERC ||
-		_percentage > MAX_VACUUM_PERC)
-	{
-		logError(HERE, " vacuum value out of range ");
-		return false; // out of bound
-	}
-
-	// convert percentage
-	double percentage = _percentage / 100.0;
-
-	// calculate new recirculation value
-	double value = m_default_v_recirc * percentage;
-
-	logStatus(HERE, "new recirculation value " + std::to_string(value));
-
-	// check for out of bound vacuum values after the calculation before
-	// sending the command to the PPC1
-	if (value <= MIN_CHAN_A || value >= MAX_CHAN_A) {
-		logError(HERE, " recirculation value out of range ");
-		return false; // out of bound
-	}
-
-	// send the command
-	if (!setVacuumChannelA(value))
-		return false;
-
-	// reset the poff to default
-	if (!setVacuumChannelB(m_default_v_switch)) {
-		return false;
-	}
-
-	// reset the poff to default
-	if (!setPressureChannelC(m_default_poff)) {
-		return false;
-	}
-
-	// reset the poff to default
-	if (!setPressureChannelD(m_default_pon)) {
-		return false;
-	}
-
-	return true;
-}
-
-bool fluicell::PPC1api6::changeVacuumPercBy(const double _percentage) const
-{
-	// check for out of bound values
-	if (std::abs(_percentage) > MAX_VACUUM_INCREMENT)
-	{
-		logError(HERE, " vacuum value out of range ");
-		return false; // out of bound
-	}
-
-	// convert percentage
-	double percentage = _percentage / 100.0;
-
-	// calculate new recirculation value
-	double value = m_PPC1_data->channel_A->set_point +
-		m_default_v_recirc * percentage;  // new recirc value
-	logStatus(HERE, " new recirculation value " + std::to_string(value));
-
-	// check for out of bound vacuum values after the calculation before
-	// sending the command to the PPC1
-	if (value <= MIN_CHAN_A || value >= MAX_CHAN_A) {
-		logError(HERE, " recirculation value out of range ");
-		return false; // out of bound
-	}
-
-	// send the command
-	if (!setVacuumChannelA(value))
-		return false;
-
-	return true;
-}
 
 double fluicell::PPC1api6::getVacuumPerc() const
 {
@@ -1205,24 +810,6 @@ bool fluicell::PPC1api6::runCommand(fluicell::PPC1api6dataStructures::command _c
 	  " value " + std::to_string(_cmd.getValue()));
 
 	switch (_cmd.getInstruction()) {
-	case fluicell::PPC1api6dataStructures::command::instructions::setZoneSize: {//zoneSize
-		return setZoneSizePerc(_cmd.getValue());
-	}
-	case fluicell::PPC1api6dataStructures::command::instructions::changeZoneSizeBy: {//zoneSize
-		return changeZoneSizePercBy(_cmd.getValue());
-	}
-	case fluicell::PPC1api6dataStructures::command::instructions::setFlowSpeed: {//flowSpeed
-		return setFlowSpeedPerc(_cmd.getValue());
-	}
-	case fluicell::PPC1api6dataStructures::command::instructions::changeFlowSpeedBy: {//flowSpeed
-		return changeFlowSpeedPercBy(_cmd.getValue());
-	}
-	case fluicell::PPC1api6dataStructures::command::instructions::setVacuum: {//vacuum
-		return setVacuumPerc(_cmd.getValue());
-	}
-	case fluicell::PPC1api6dataStructures::command::instructions::changeVacuumBy: {//vacuum
-		return changeVacuumPercBy(_cmd.getValue());
-	}
 	case fluicell::PPC1api6dataStructures::command::instructions::wait: {//sleep
 		//TODO: this is not safe as one can stop the macro without breaking the wait function
 		//however, wait function is handled at GUI level not at API level
@@ -1276,7 +863,7 @@ bool fluicell::PPC1api6::runCommand(fluicell::PPC1api6dataStructures::command _c
 		else valve_status = true;
 		return setValve_i(valve_status);
 	}
-	case fluicell::PPC1api6dataStructures::command::instructions::solution5: {//solution4
+	case fluicell::PPC1api6dataStructures::command::instructions::solution5: {//solution5
 		if (!closeAllValves())return false;
 		int v = static_cast<int>(_cmd.getValue());
 		bool valve_status;
@@ -1284,7 +871,7 @@ bool fluicell::PPC1api6::runCommand(fluicell::PPC1api6dataStructures::command _c
 		else valve_status = true;
 		return setValve_e(valve_status);
 	}
-	case fluicell::PPC1api6dataStructures::command::instructions::solution6: {//solution4
+	case fluicell::PPC1api6dataStructures::command::instructions::solution6: {//solution6
 		if (!closeAllValves())return false;
 		int v = static_cast<int>(_cmd.getValue());
 		bool valve_status;
@@ -1305,7 +892,7 @@ bool fluicell::PPC1api6::runCommand(fluicell::PPC1api6dataStructures::command _c
 		return setVacuumChannelB(_cmd.getValue());
 	}
 	case fluicell::PPC1api6dataStructures::command::instructions::ask_msg: {//ask_msg
-		logStatus(HERE, " ask_msg NOT implemented in the API ");
+		logStatus(HERE, " ask_msg NOT implemented at the API level ");
 		return true;
 	}
 	case fluicell::PPC1api6dataStructures::command::instructions::pumpsOff: {//pumpsOff
@@ -1361,7 +948,7 @@ bool fluicell::PPC1api6::runCommand(fluicell::PPC1api6dataStructures::command _c
 		return success;
 	}
 	case fluicell::PPC1api6dataStructures::command::instructions::loop: {//loop
-		logStatus(HERE, " loop NOT implemented in the API " );
+		logStatus(HERE, " loop NOT implemented at the API level " );
 		return true;
 	}
 	default:{

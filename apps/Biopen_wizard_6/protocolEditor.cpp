@@ -106,7 +106,7 @@ void Labonatip_GUI::addAllCommandsToProtocol(QTreeWidget* _tree,
 	// all the items 
 	std::vector<protocolTreeWidgetItem*> commands_vector;
 	//TODO: this is not the best way, 
-	//      every time it will re-build the whole macro 
+	//      every time it will re-build the whole protocol 
 	//      instead of update (waste of time)
 	_protocol->clear();
 

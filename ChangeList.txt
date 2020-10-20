@@ -1,4 +1,9 @@
 V.2.1.13
+Fix bug running protocols setVrecic -- setVswitch
+Changed Biopen to BioPen for marketing
+Starting with new compound commands for protocols
+
+V.2.1.13
 Fix protocol running and solution running 
 
 V.2.1.12
@@ -15,7 +20,7 @@ PPC1api6 changed to static
 V.2.1.10
 Porting to QT5.14 to improve stability and future compatibility to QT6
 Get rid of old QT4 flags, too old to be supported
-Changed copiright to 2020
+Changed copyright to 2020
 
 V.2.1.09
 Performance improvement
