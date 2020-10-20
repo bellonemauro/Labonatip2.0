@@ -498,134 +498,127 @@ namespace fluicell { namespace PPC1api6dataStructures
 		*    <table>
         *     <caption id="multi_row">Supported commands</caption>
         *     <tr>
-        *       <th>enum index</th> <th>Command</th> <th>value</th> <th> Comment </th>
+        *       <th>enum index</th> <th>Command</th> <th>value</th> <th> Low level command </th> <th> Comment </th>
         *     </tr>
 		*     <tr>
-		*       <td> 0  </td>
-		*       <td> zoneSize  </td>
-		*       <td> percentage [MIN, MAX]  </td>
-		*       <td> Change the zone size percentage to _value  </td>
-		*     </tr>
-		*     <tr>
-		*       <td> 1  </td>
-		*       <td> changeZoneSizeBy  </td>
-		*       <td> percentage [MIN, MAX]  </td>
-		*       <td> Change the zone size percentage to _value  </td>
-		*     </tr>
-		*     <tr>
-		*       <td> 2  </td>
-		*       <td> flowSpeed  </td>
-		*       <td> percentage [MIN, MAX]  </td>
-		*       <td> Change the flow speed percentage to _value  </td>
-		*     </tr>
-		*     <tr>
-		*       <td> 3  </td>
-		*       <td> changeFlowSpeedBy  </td>
-		*       <td> percentage [MIN, MAX]  </td>
-		*       <td> Change the flow speed percentage to _value  </td>
-		*     </tr>
-		*     <tr>
-		*       <td> 4  </td>
-		*       <td> vacuum  </td>
-		*       <td> percentage [MIN, MAX]  </td>
-		*       <td> Change the vacuum percentage to _value  </td>
-		*     </tr>
-		*     <tr>
-		*       <td> 5  </td>
-		*       <td> changeVacuumBy  </td>
-		*       <td> percentage [MIN, MAX]  </td>
-		*       <td> Change the vacuum percentage to _value  </td>
-		*     </tr>
-		*     <tr>
-		*       <td> 6 </td>
+		*       <td> 0 </td>
 		*       <td> wait  </td>
 		*       <td> int n  </td>
+		*       <td> -  </td>
 		*       <td> wait for n seconds </td>
 		*     </tr>
 		*     <tr>
-		*       <td> 7  </td>
+		*       <td> 1  </td>
 		*       <td> allOff  </td>
 		*       <td> -  </td>
-		*       <td> stop all solutions flow </td>
+		*       <td> v0x30  </td>
+		*       <td> stop all solutions flow by using setValvesState(0x30) </td>
 		*     </tr>
 		*     <tr>
-		*       <td> 8 </td>
+		*       <td> 2 </td>
 		*       <td> solution1    </td>
 		*       <td> true / false  </td>
-		*       <td> closes other valves, then opens valve 'a' for solution 1 </td>
+		*       <td> l1/0  </td>
+		*       <td> closes other valves, then opens valve for solution 1 </td>
 		*     </tr>
 		*     <tr>
-		*       <td> 9 </td>
+		*       <td> 3 </td>
 		*       <td> solution2 </td>
 		*       <td> true / false </td>
-		*       <td> closes other valves, then opens valve 'b' for solution 1 </td>
+		*       <td> k1/0  </td>
+		*       <td> closes other valves, then opens valve for solution 2 </td>
 		*     </tr>
 		*     <tr>
-		*       <td> 10 </td>
+		*       <td> 4 </td>
 		*       <td> solution3 </td>
 		*       <td> true / false </td>
-		*       <td> closes other valves, then opens valve 'c' for solution 1 </td>
+		*       <td> j1/0  </td>
+		*       <td> closes other valves, then opens valve for solution 3 </td>
 		*     </tr>
 		*     <tr>
-		*       <td> 11 </td>
+		*       <td> 5 </td>
 		*       <td> solution4 </td>
 		*       <td> true / false </td>
-		*       <td> closes other valves, then opens valve 'd' for solution 1 </td>
+		*       <td> i1/0   </td>
+		*       <td> closes other valves, then opens valve for solution 4 </td>
 		*     </tr>
 		*     <tr>
-        *       <td> 12 </td>  
+		*       <td> 6 </td>
+		*       <td> solution5 </td>
+		*       <td> true / false </td>
+		*       <td> f1/0  </td>
+		*       <td> closes other valves, then opens valve for solution 5 </td>
+		*     </tr>
+		*     <tr>
+		*       <td> 7 </td>
+		*       <td> solution6 </td>
+		*       <td> true / false </td>
+		*       <td> e1/0   </td>
+		*       <td> closes other valves, then opens valve for solution 6 </td>
+		*     </tr>
+		*     <tr>
+        *       <td> 8 </td>  
 		*       <td> setPon </td> 
 		*       <td> int [0 MAX] </td> 
+		*       <td> Dvalue  </td>
 		*       <td> (int: pressure in mbar) - - - - Channel D </td>
         *     </tr>
         *     <tr>
-        *       <td> 13 </td> 
+        *       <td> 9 </td> 
 		*       <td> setPoff </td>
 		*       <td> int [0 MAX] </td> 
+		*       <td> Cvalue  </td>
 		*       <td> (int: pressure in mbar) - - - - Channel C </td>
         *     </tr>
 		*     <tr>
-		*       <td> 14 </td>
+		*       <td> 10 </td>
 		*       <td> setVrecirc   </td>
 		*       <td> int [MIN 0]   </td>
+		*       <td> Avalue  </td>
 		*       <td> (int: pressure in mbar) - - - - Channel A </td>
 		*     </tr>
 		*     <tr>
-		*       <td> 15 </td>  
+		*       <td> 11 </td>  
 		*       <td> setVswitch </td> 
 		*       <td> int [MIN 0] </td> 
+		*       <td> Bvalue  </td>
 		*       <td> (int: pressure in mbar) - - - - Channel B </td>
 		*     </tr>
 		*     <tr>
-		*       <td> 16 </td>  
+		*       <td> 12 </td>  
 		*       <td> ask_msg   </td>
 		*       <td> true / false  </td> 
+		*       <td> -  </td>
 		*       <td> set true to stop execution and ask confirmation to continue,\n
 		*            INTEPRETED but NO ACTION required at API level </td>
 		*     </tr>
 		*     <tr>
-		*       <td> 17 </td>
+		*       <td> 13 </td>
 		*       <td> pumpsOff  </td>
 		*       <td> -  </td>
+		*       <td> A0 B0 C0 D0 v0x30  </td>
 		*       <td> stop pressures and vacuum by setting the channels to 0 </td>
 		*     </tr>
 		*     <tr>
-		*       <td> 18 </td>
+		*       <td> 14 </td>
 		*       <td> waitSync  </td>
 		*       <td> int [0 MAX]  </td>
+		*       <td> -  </td>
 		*       <td> protocol stops until trigger signal is received </td>
 		*     </tr>
 		*     <tr>
-		*       <td> 19 </td>
+		*       <td> 15 </td>
 		*       <td> syncOut  </td>
 		*       <td> int [0 MAX]  </td>
+		*       <td> -  </td>
 		*       <td> if negative then default state is 1 and pulse is 0,\n
 		*            if positive, then pulse is 1 and default is 0</td>
 		*     </tr>
 		*     <tr>
-		*       <td> 20 </td>
+		*       <td> 16 </td>
 		*       <td> loop  </td>
 		*       <td> int [0 MAX] </td>
+		*       <td> -  </td>
 		*       <td> number of loops </td>
 		*     </tr>
         *    </table>

@@ -35,7 +35,8 @@
 #define HERE std::string(__FUNCTION__ )//+ std::string(" at line ") + std::to_string(__LINE__))
 
 // just re-definition of a protocol command to get a shorter name
-typedef fluicell::PPC1api6dataStructures::command::instructions pCmd;
+//typedef fluicell::PPC1api6dataStructures::command::instructions pCmd;
+typedef fluicell::PPC1api6dataStructures::command::instructions ppc1Cmd;
 
 //TODO IMPORTANT: check duplicated structures between dataStructure.h and ppc1api_data_structure.h 
 

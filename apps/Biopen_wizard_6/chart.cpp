@@ -349,7 +349,7 @@ void protocolChart::updateChartProtocol(f_protocol *_protocol)
 	// compute the duration of the macro
 	double total_duration = 0.0;
 	for (size_t i = 0; i < _protocol->size(); i++) {
-		if (_protocol->at(i).getInstruction() == pCmd::wait)
+		if (_protocol->at(i).getInstruction() == ppc1Cmd::wait)
 			total_duration += _protocol->at(i).getValue();
 	}
 
@@ -363,23 +363,23 @@ void protocolChart::updateChartProtocol(f_protocol *_protocol)
 
 		switch (_protocol->at(i).getInstruction())
 		{
-		case pCmd::setPon: { // Pon
+		case ppc1Cmd::setPon: { // Pon
 			appendPonPoint(current_time, _protocol->at(i).getValue());
 			break;
 		}
-		case pCmd::setPoff: { // Poff
+		case ppc1Cmd::setPoff: { // Poff
 			appendPoffPoint(current_time, _protocol->at(i).getValue());
 			break;
 		}
-		case pCmd::setVswitch: { // v_switch
+		case ppc1Cmd::setVswitch: { // v_switch
 			appendVsPoint(current_time, _protocol->at(i).getValue());
 			break;
 		}
-		case pCmd::setVrecirc: { // V_recirc
+		case ppc1Cmd::setVrecirc: { // V_recirc
 			appendVrPoint(current_time, _protocol->at(i).getValue());
 			break;
 		}
-		case pCmd::solution1: { //solution 1
+		case ppc1Cmd::solution1: { //solution 1
 			if (_protocol->at(i).getValue() == 1)
 			{ // if we are opening the solution all the others will be closed
 				appendSolutionPoint(m_series_solution2, current_time, 0);
@@ -391,7 +391,7 @@ void protocolChart::updateChartProtocol(f_protocol *_protocol)
 			appendSolutionPoint(m_series_solution1, current_time, _protocol->at(i).getValue());
 			break;
 		}
-		case pCmd::solution2: { //solution 2
+		case ppc1Cmd::solution2: { //solution 2
 			if (_protocol->at(i).getValue() == 1)
 			{ // if we are opening the solution all the others will be closed
 				appendSolutionPoint(m_series_solution1, current_time, 0);
@@ -403,7 +403,7 @@ void protocolChart::updateChartProtocol(f_protocol *_protocol)
 			appendSolutionPoint(m_series_solution2, current_time, _protocol->at(i).getValue()); 
 			break;
 		}
-		case pCmd::solution3: { //solution 3
+		case ppc1Cmd::solution3: { //solution 3
 			if (_protocol->at(i).getValue() == 1)
 			{ // if we are opening the solution all the others will be closed
 				appendSolutionPoint(m_series_solution1, current_time, 0);
@@ -415,7 +415,7 @@ void protocolChart::updateChartProtocol(f_protocol *_protocol)
 			appendSolutionPoint(m_series_solution3, current_time, _protocol->at(i).getValue());
 			break;
 		}
-		case pCmd::solution4: { //solution 4
+		case ppc1Cmd::solution4: { //solution 4
 			if (_protocol->at(i).getValue() == 1)
 			{ // if we are opening the solution all the others will be closed
 				appendSolutionPoint(m_series_solution1, current_time, 0);
@@ -427,7 +427,7 @@ void protocolChart::updateChartProtocol(f_protocol *_protocol)
 			appendSolutionPoint(m_series_solution4, current_time, _protocol->at(i).getValue());
 			break;
 		}	
-		case pCmd::solution5: { //solution 5
+		case ppc1Cmd::solution5: { //solution 5
 			if (_protocol->at(i).getValue() == 1)
 			{ // if we are opening the solution all the others will be closed
 				appendSolutionPoint(m_series_solution1, current_time, 0);
@@ -439,7 +439,7 @@ void protocolChart::updateChartProtocol(f_protocol *_protocol)
 			appendSolutionPoint(m_series_solution5, current_time, _protocol->at(i).getValue());
 			break;
 		}
-		case pCmd::solution6: { //solution 6
+		case ppc1Cmd::solution6: { //solution 6
 			if (_protocol->at(i).getValue() == 1)
 			{ // if we are opening the solution all the others will be closed
 				appendSolutionPoint(m_series_solution1, current_time, 0);
@@ -451,15 +451,15 @@ void protocolChart::updateChartProtocol(f_protocol *_protocol)
 			appendSolutionPoint(m_series_solution6, current_time, _protocol->at(i).getValue());
 			break;
 		}
-		case pCmd::wait: { //sleep ---- update the current time
+		case ppc1Cmd::wait: { //sleep ---- update the current time
 			current_time +=  100.0 * _protocol->at(i).getValue() / total_duration; //the duration is scaled in the interval [0; 100]
 			break;
 		}
-		case pCmd::ask_msg: { //ask_msg
+		case ppc1Cmd::ask_msg: { //ask_msg
 			m_series_ask->append(current_time, min_series_ask );
 			break;
 		}
-		case pCmd::allOff: { //allOff
+		case ppc1Cmd::allOff: { //allOff
 			// if the command is allOff the solutions will be closed
 			appendSolutionPoint(m_series_solution1, current_time, 0);
 			appendSolutionPoint(m_series_solution2, current_time, 0);
@@ -470,7 +470,7 @@ void protocolChart::updateChartProtocol(f_protocol *_protocol)
 
 			break;
 		}
-		case pCmd::pumpsOff: { //pumpsOff
+		case ppc1Cmd::pumpsOff: { //pumpsOff
 			// if the command is allOff the solutions will be closed
 			appendSolutionPoint(m_series_solution1, current_time, 0);
 			appendSolutionPoint(m_series_solution2, current_time, 0);
@@ -487,15 +487,15 @@ void protocolChart::updateChartProtocol(f_protocol *_protocol)
 
 			break;
 		}
-		case pCmd::waitSync: { //waitSync
+		case ppc1Cmd::waitSync: { //waitSync
 			m_series_sync_in->append(current_time, min_series_sync_in );
 			break;
 		}
-		case pCmd::syncOut: { //syncOut
+		case ppc1Cmd::syncOut: { //syncOut
 			m_series_sync_out->append(current_time, min_series_sync_out );
 			break;
 		}
-		case pCmd::loop: { //loop
+		case ppc1Cmd::loop: { //loop
 			break;
 		}
 		default:
