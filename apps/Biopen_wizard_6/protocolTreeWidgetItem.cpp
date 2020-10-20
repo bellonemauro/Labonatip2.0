@@ -222,78 +222,7 @@ bool protocolTreeWidgetItem::checkValidity( int _column)
 		}
 		break;
 	}
-	case pCmd::setZoneSize: {
-		// Droplet size (%) 
-		int number = this->text(_column).toInt();
-		if (number < 0)
-		{
-			number = -number;
-			this->setText(_column, QString::number(number));
-		}
-		if (number < MIN_ZONE_SIZE_PERC ||
-			number > MAX_ZONE_SIZE_PERC) { // if is not the range
-			this->setText(_column, QString("100")); // if the value is not valid, reset to 100 %
-			return false;
-		}
-		break;
-	}
-	case pCmd::changeZoneSizeBy: {
-		// Vacuum (%) 
-		int number = this->text(_column).toInt();
-		if (std::abs(number) > MAX_ZONE_SIZE_INCREMENT) {  // if is not the range
-			this->setText(_column, QString("0")); // if the value is not valid, reset to 0 %
-			return false;
-		}
-		break;
-	}
-	case pCmd::setFlowSpeed: {
-		// Flow speed (%)
-		int number = this->text(_column).toInt();
-		if (number < 0)
-		{
-			number = -number;
-			this->setText(_column, QString::number(number));
-		}
-		if (number < MIN_FLOW_SPEED_PERC || 
-			number > MAX_FLOW_SPEED_PERC) { // if is not the range
-			this->setText(_column, QString("100")); // if the value is not valid, reset to 100 %
-			return false;
-		}
-		break;
-	}
-	case pCmd::changeFlowSpeedBy: {
-		// Vacuum (%) 
-		int number = this->text(_column).toInt();
-		if (std::abs(number) > MAX_FLOW_SPEED_INCREMENT) { // if is not the range
-			this->setText(_column, QString("0")); // if the value is not valid, reset to 0 %
-			return false;
-		}
-		break;
-	}
-	case pCmd::setVacuum: {
-		// Vacuum (%) 
-		int number = this->text(_column).toInt();
-		if (number < 0)
-		{
-			number = -number;
-			this->setText(_column, QString::number(number));
-		}
-		if (number < MIN_VACUUM_PERC || 
-			number > MAX_VACUUM_PERC) { // if is not the range
-			this->setText(_column, QString("100")); // if the value is not valid, reset to 100 %
-			return false;
-		}
-		break;
-	}
-	case pCmd::changeVacuumBy: {
-		// Vacuum (%) 
-		int number = this->text(_column).toInt();
-		if (std::abs(number) > MAX_VACUUM_INCREMENT ) { // if is not the range
-			this->setText(_column, QString("0")); // if the value is not valid, reset to 0 %
-			return false;
-		}
-		break;
-	}
+#pragma message (" TODO: here instructions were removed setFlowSpeed, setVacuum and setSize, others should be added")
 	case pCmd::loop: {  
 		 // check loops
 		int number = this->text(_column).toInt();
@@ -362,36 +291,7 @@ QString protocolTreeWidgetItem::getRangeColumn( int _idx)
 		// Sync out"
 		return QString(">20");
 	}
-	case pCmd::setZoneSize: {
-		// Droplet size (%) -- "(%) [50, 200]"
-		return QString("(%) [" + QString::number(MIN_ZONE_SIZE_PERC) + 
-			", " + QString::number(MAX_ZONE_SIZE_PERC) + "]");
-	}
-	case pCmd::setFlowSpeed: {
-		// Flow speed (%) -- "(%) [50, 220]"
-		return QString("(%) [" + QString::number(MIN_FLOW_SPEED_PERC) +
-			", " + QString::number(MAX_FLOW_SPEED_PERC) + "]");
-	}
-	case pCmd::setVacuum: {
-		// Vacuum (%)   -- "(%) [50, 250]"
-		return QString("(%) [" + QString::number(MIN_VACUUM_PERC) +
-			", " + QString::number(MAX_VACUUM_PERC) + "]");
-	}
-	case pCmd::changeZoneSizeBy: {
-		// Droplet size (%)  -- "(%) [-40, 40]"
-		return QString("(%) [-" + QString::number(MAX_ZONE_SIZE_INCREMENT) +
-			", " + QString::number(MAX_ZONE_SIZE_INCREMENT) + "]");
-	}
-	case pCmd::changeFlowSpeedBy: {
-		// Flow speed (%) -- "(%) [-40, 40]"
-		return QString("(%) [-" + QString::number(MAX_FLOW_SPEED_INCREMENT) +
-			", " + QString::number(MAX_FLOW_SPEED_INCREMENT) + "]");
-	}
-	case pCmd::changeVacuumBy: {
-		// Vacuum (%) -- "(%) [-40, 40]"
-		return QString("(%) [-" + QString::number(MAX_VACUUM_INCREMENT) +
-			", " + QString::number(MAX_VACUUM_INCREMENT) + "]");
-	}
+#pragma message (" TODO: here instructions were removed setFlowSpeed, setVacuum and setSize, others should be added")
 	case pCmd::loop: {
 		// check loops
 		return QString("(#) > 0");

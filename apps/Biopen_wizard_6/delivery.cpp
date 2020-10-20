@@ -31,13 +31,15 @@ void Labonatip_GUI::zoneSizePlus()
 		{
 			// if we are using the set point values, the zone size
 			// will be increased by a percentage defined in the tools
-			success = m_ppc1->changeZoneSizePercBy(m_pr_params->base_ds_increment);
+			success = true;// m_ppc1->changeZoneSizePercBy(m_pr_params->base_ds_increment);
+#pragma message (" TODO: m_ppc1->changeZoneSizePercBy(...) to be implemented at the high level ")
 		}
 		else {
 			// if we are using the default values, the zone size
 			// will be modified by setting the values at a specific percentage 
-			success = m_ppc1->setZoneSizePerc( m_ds_perc + 
-				m_pr_params->base_ds_increment);
+			success = true;// m_ppc1->setZoneSizePerc( m_ds_perc + m_pr_params->base_ds_increment);
+#pragma message (" TODO: m_ppc1->setZoneSizePerc(...) to be implemented at the high level ")
+
 		}
 
 		// if not success, the user need to be warned and the function ends
@@ -113,13 +115,14 @@ void Labonatip_GUI::zoneSizeMinus()
 		{
 			// if we are using the set point values, the zone size
 			// will be increased by a percentage defined in the tools
-			success = m_ppc1->changeZoneSizePercBy(-m_pr_params->base_ds_increment);
+			success = true;// m_ppc1->changeZoneSizePercBy(-m_pr_params->base_ds_increment);
+#pragma message (" TODO: m_ppc1->changeZoneSizePercBy(...) to be implemented at the high level ")
 		}
 		else {
 			// if we are using the default values, the zone size
 			// will be modified by setting the values at a specific percentage 
-			success = m_ppc1->setZoneSizePerc( m_ds_perc -
-				m_pr_params->base_ds_increment);
+			success = true; // m_ppc1->setZoneSizePerc(m_ds_perc - m_pr_params->base_ds_increment);
+#pragma message (" TODO: m_ppc1->setZoneSizePerc(...) to be implemented at the high level ")
 		}
 
 		// if not success, the user need to be warned and the function ends
@@ -190,11 +193,12 @@ void Labonatip_GUI::flowSpeedPlus()
 		bool success = false;
 		if (m_pr_params->useDefValSetPoint)  
 		{
-			success = m_ppc1->changeFlowSpeedPercBy(m_pr_params->base_fs_increment);
+			success = true;// m_ppc1->changeFlowSpeedPercBy(m_pr_params->base_fs_increment);
+#pragma message (" TODO: m_ppc1->changeFlowSpeedPercBy(...) to be implemented at the high level ")
 		}
 		else{
-			success = m_ppc1->setFlowSpeedPerc(m_fs_perc +
-				m_pr_params->base_fs_increment);
+			success = true;// m_ppc1->setFlowSpeedPerc(m_fs_perc + m_pr_params->base_fs_increment);
+#pragma message (" TODO: m_ppc1->setFlowSpeedPerc(...) to be implemented at the high level ")
 		}
 
 		if (!success) {
@@ -262,11 +266,12 @@ void Labonatip_GUI::flowSpeedMinus() {
 		bool success = false;
 		if (m_pr_params->useDefValSetPoint)  
 		{
-			success = m_ppc1->changeFlowSpeedPercBy(-m_pr_params->base_fs_increment);
+			success = true;// m_ppc1->changeFlowSpeedPercBy(-m_pr_params->base_fs_increment);
+#pragma message (" TODO: m_ppc1->changeFlowSpeedPercBy(...) to be implemented at the high level ")
 		}
 		else {
-			success = m_ppc1->setFlowSpeedPerc(m_fs_perc -
-				m_pr_params->base_fs_increment);
+			success = true; // m_ppc1->setFlowSpeedPerc(m_fs_perc - m_pr_params->base_fs_increment);
+#pragma message (" TODO: m_ppc1->setFlowSpeedPerc(...) to be implemented at the high level ")
 		}
 
 		if (!success) {
@@ -324,11 +329,12 @@ void Labonatip_GUI::vacuumPlus() {
 		bool success = false;
 		if (m_pr_params->useDefValSetPoint )  
 		{
-			success = m_ppc1->changeVacuumPercBy(m_pr_params->base_v_increment);
+			success = true;// m_ppc1->changeVacuumPercBy(m_pr_params->base_v_increment);
+#pragma message (" TODO: m_ppc1->changeVacuumPercBy(...) to be implemented at the high level ")
 		}
 		else {
-			success = m_ppc1->setVacuumPerc(m_v_perc + 
-				m_pr_params->base_v_increment);
+			success = true; // m_ppc1->setVacuumPerc(m_v_perc + m_pr_params->base_v_increment);
+#pragma message (" TODO: m_ppc1->setVacuumPerc(...) to be implemented at the high level ")
 		}
 
 		if (!success) {
@@ -372,11 +378,12 @@ void Labonatip_GUI::vacuumMinus() {
 		bool success = false; 
 		if (m_pr_params->useDefValSetPoint) 
 		{
-			success = m_ppc1->changeVacuumPercBy(-m_pr_params->base_v_increment);
+			success = true; // m_ppc1->changeVacuumPercBy(-m_pr_params->base_v_increment);
+#pragma message (" TODO: m_ppc1->changeVacuumPercBy(...) to be implemented at the high level ")
 		}
 		else {
-			success = m_ppc1->setVacuumPerc(m_v_perc - 
-				m_pr_params->base_v_increment);
+			success = true; // m_ppc1->setVacuumPerc(m_v_perc - m_pr_params->base_v_increment);
+#pragma message (" TODO: m_ppc1->setVacuumPerc(...) to be implemented at the high level ")
 		}
 
 		if (!success) {

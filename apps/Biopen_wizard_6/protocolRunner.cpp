@@ -142,30 +142,30 @@ void Labonatip_macroRunner::simulateCommand(fluicell::PPC1api6dataStructures::co
 		// nothing is really to be done in simulation
 		return;
 	}
-	case pCmd::setZoneSize: {//zoneSize
-		emit setDropletSizeSIG(_cmd.getValue());
-		return;
-	}
-	case pCmd::changeZoneSizeBy: {//changeZoneSize
-		emit changeDropletSizeSIG(_cmd.getValue());
-		return;
-	}
-	case pCmd::setFlowSpeed: {//flowSpeed
-		emit setFlowSpeedSIG(_cmd.getValue());
-		return;
-	}
-	case pCmd::changeFlowSpeedBy: {//changeFlowSpeed
-		emit changeFlowSpeedSIG(_cmd.getValue());
-		return;
-	}
-	case pCmd::setVacuum: {//vacuum
-		emit setVacuumSIG(_cmd.getValue());
-		return;
-	}
-	case pCmd::changeVacuumBy: {//vacuum
-		emit changeVacuumSIG(_cmd.getValue());
-		return;
-	}
+	//case pCmd::setZoneSize: {//zoneSize
+	//	emit setDropletSizeSIG(_cmd.getValue());
+	//	return;
+	//}
+	//case pCmd::changeZoneSizeBy: {//changeZoneSize
+	//	emit changeDropletSizeSIG(_cmd.getValue());
+	//	return;
+	//}
+	//case pCmd::setFlowSpeed: {//flowSpeed
+	//	emit setFlowSpeedSIG(_cmd.getValue());
+	//	return;
+	//}
+	//case pCmd::changeFlowSpeedBy: {//changeFlowSpeed
+	//	emit changeFlowSpeedSIG(_cmd.getValue());
+	//	return;
+	//}
+	//case pCmd::setVacuum: {//vacuum
+	//	emit setVacuumSIG(_cmd.getValue());
+	//	return;
+	//}
+	//case pCmd::changeVacuumBy: {//vacuum
+	//	emit changeVacuumSIG(_cmd.getValue());
+	//	return;
+	//}
 	case pCmd::loop: {//loop
 		// this is not to be done here
 		return;
