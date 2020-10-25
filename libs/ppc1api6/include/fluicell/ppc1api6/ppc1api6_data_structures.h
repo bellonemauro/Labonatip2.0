@@ -665,28 +665,23 @@ namespace fluicell { namespace PPC1api6dataStructures
 			*
 			**/
 			enum  instructions {
-				//setZoneSize = 0,
-				//changeZoneSizeBy = 1,
-				//setFlowSpeed = 2,
-				//changeFlowSpeedBy = 3,
-				//setVacuum = 4,
-				//changeVacuumBy = 5,
-				wait = 0,
-				allOff = 1,
-				solution1 = 2,
-				solution2 = 3,
-				solution3 = 4,
-				solution4 = 5,
-				solution5 = 6,
-				solution6 = 7,
-				setPon = 8,
-				setPoff = 9,
-				setVrecirc = 10,
-				setVswitch = 11,
-				ask_msg = 12,
-				pumpsOff = 13,
-				waitSync = 14,
-				syncOut = 15,
+
+				allOff = 0,
+				solution1 = 1,
+				solution2 = 2,
+				solution3 = 3,
+				solution4 = 4,
+				solution5 = 5,
+				solution6 = 6,
+				setPon = 7,
+				setPoff = 8,
+				setVrecirc = 9,
+				setVswitch = 10,
+				waitSync = 11,
+				syncOut = 12,
+				wait = 13,
+				ask = 14,
+				pumpsOff = 15,
 				loop = 16,
 			};
 
@@ -757,8 +752,14 @@ namespace fluicell { namespace PPC1api6dataStructures
 					else
 						return true;
 				}
-				case instructions::ask_msg: 
-				case instructions::allOff: 
+				case instructions::ask: {//ask 
+				 //not checked for now
+					return true;
+				}
+				case instructions::allOff: {//allOff 
+				 //not checked for now
+					return true;
+				}
 				case instructions::pumpsOff: {//ask_msg //allOff //pumpsOff
 					// nothing to check here, the value is ignored
 					return true;
@@ -804,11 +805,11 @@ namespace fluicell { namespace PPC1api6dataStructures
 			{
 				static const char* const text[] =
 				{ 
-					"wait",
+					"allOff",
 					"solution1", "solution2","solution3","solution4","solution5","solution6",
 					"setPon", "setPoff",  "setVrecirc", "setVswitch",
-					"ask_msg", "allOff", "pumpsOff",
-					"waitSync", "syncOut", 
+					"waitSync", "syncOut", "wait",
+					"ask", "pumpsOff", 
 					 "loop" };
 				return  text[int(this->instruction)]; // cast to integer
 			}

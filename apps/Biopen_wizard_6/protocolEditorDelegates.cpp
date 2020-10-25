@@ -14,30 +14,8 @@
 ComboBoxDelegate::ComboBoxDelegate(QObject *parent)
 	:QItemDelegate(parent)
 {
-	Items.push_back("Button 1");
-	Items.push_back("Button 2");
-	Items.push_back("Button 3");
-	Items.push_back("Button 4");
-	Items.push_back("Button 5");
-	Items.push_back("Button 6");
-	Items.push_back("Wait");
-	Items.push_back("All Off");
-	Items.push_back("Solution 1");
-	Items.push_back("Solution 2");
-	Items.push_back("Solution 3");
-	Items.push_back("Solution 4");
-	Items.push_back("Solution 5");
-	Items.push_back("Solution 6");
-	Items.push_back("Pressure ON");
-	Items.push_back("Pressure OFF");
-	Items.push_back("Vacuum Recirculation");
-	Items.push_back("Vacuum Switch");
-	Items.push_back("Ask");
-	Items.push_back("Pumps Off");
-	Items.push_back("Wait sync");
-	Items.push_back("Sync out");
-	Items.push_back("Loop");
-	Items.push_back("Ramp up"); //TODO
+	for (int i = 0; i < protocolCommands::END; i++)
+		Items.push_back(protocolCommands::asString(i)); // populate the combo with all the commands
 }
 
 
@@ -124,6 +102,21 @@ void ComboBoxDelegate::paint(QPainter *painter,
 	//QApplication::style()->drawControl(QStyle::CE_ItemViewItem, &myOption, painter);
 }
 
+ std::string ComboBoxDelegate::getElementAt(int _idx)  
+{
+	std::string elementAsText = this->Items.at(_idx);
+	return elementAsText;
+}
+
+ int ComboBoxDelegate::getElementIndex(std::string _name)
+ {
+	 for (int i = 0; i < this->Items.size(); i++)
+	 {
+		 if (this->Items.at(i).c_str() == _name)
+			 return i;
+	 }
+	 return 0;
+ }
 
 SpinBoxDelegate::SpinBoxDelegate(QObject *parent)
 	: QStyledItemDelegate(parent)

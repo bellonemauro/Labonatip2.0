@@ -61,6 +61,10 @@ public:
 	void paint(QPainter *painter, 
 		const QStyleOptionViewItem &option, const QModelIndex &index) const;
 
+	std::string getElementAt(int _idx);
+	int getElementIndex(std::string _name);
+
+
 private:
 
 	std::vector<std::string> Items;

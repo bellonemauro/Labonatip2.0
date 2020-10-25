@@ -54,70 +54,72 @@ void Labonatip_macroRunner::switchLanguage(QString _translation_file)
 
 void Labonatip_macroRunner::simulateCommand(fluicell::PPC1api6dataStructures::command _cmd)
 {
+	//TODO: this function should not have the fluicell::PPC1api6dataStructures::command data 
+	//      but rather a new command type better defined at the high level 
 
 	int ist = _cmd.getInstruction();
 
 	switch (ist)
 	{
-	case pCmd::setPon: { //setPon
+	case ppc1Cmd::setPon: { //setPon
 		emit setPon(_cmd.getValue());
 		msleep(50);
 		return;
 	}
-	case pCmd::setPoff: {//setPoff
+	case ppc1Cmd::setPoff: {//setPoff
 		emit setPoff(_cmd.getValue());
 		msleep(50);
 		return;
 
 	}
-	case pCmd::setVswitch: {//setVswitch
+	case ppc1Cmd::setVswitch: {//setVswitch
 		emit setVs(-_cmd.getValue());
 		msleep(50);
 		return;
 
 	}
-	case pCmd::setVrecirc: {//setVrecirc
+	case ppc1Cmd::setVrecirc: {//setVrecirc
 		emit setVr(-_cmd.getValue());
 		msleep(50);
 		return;
 
 	}
-	case pCmd::solution1: {//solution1
+	case ppc1Cmd::solution1: {//solution1
 		emit solution1(bool(_cmd.getValue()));
 		msleep(50);
 		return;
 	}
-	case pCmd::solution2: {//solution2
+	case ppc1Cmd::solution2: {//solution2
 		emit solution2(bool(_cmd.getValue()));
 		msleep(50);
 		return;
 	}
-	case pCmd::solution3: {//solution3
+	case ppc1Cmd::solution3: {//solution3
 		emit solution3(bool(_cmd.getValue()));
 		msleep(50);
 		return;
 	}
-	case pCmd::solution4: {//solution4
+	case ppc1Cmd::solution4: {//solution4
 		emit solution4(bool(_cmd.getValue()));
 		msleep(50);
 		return;
 	}
-	case pCmd::solution5: {//solution4
+	case ppc1Cmd::solution5: {//solution4
 		emit solution5(bool(_cmd.getValue()));
 		msleep(50);
 		return;
 	}
-	case pCmd::solution6: {//solution4
+	case ppc1Cmd::solution6: {//solution4
 		emit solution6(bool(_cmd.getValue()));
 		msleep(50);
 		return;
 	}
-	case pCmd::wait: {//sleep
+	case ppc1Cmd::wait: {//sleep
 		int val = static_cast<int>(_cmd.getValue());
 		simulateWait(val);
 		return;
 	}
-	case pCmd::ask_msg: {//ask_msg
+	case ppc1Cmd::ask: {//ask_msg
 		QString msg = QString::fromStdString(_cmd.getStatusMessage());
 		emit sendAskMessage(msg); // send ask message event
 		m_ask_ok = false;
@@ -126,22 +128,23 @@ void Labonatip_macroRunner::simulateCommand(fluicell::PPC1api6dataStructures::co
 		}
 		return;
 	}
-	case pCmd::allOff: {//allOff	
+	case ppc1Cmd::allOff: {//allOff	
 		emit closeAll();
 		return;
 	}
-	case pCmd::pumpsOff: {//pumpsOff
+	case ppc1Cmd::pumpsOff: {//pumpsOff
 		emit pumpOff();
 		return;
 	}
-	case pCmd::waitSync: {//waitSync
+	case ppc1Cmd::waitSync: {//waitSync
 		// nothing is really to be done in simulation
 		return;
 	}
-	case pCmd::syncOut: {//syncOut 
+	case ppc1Cmd::syncOut: {//syncOut 
 		// nothing is really to be done in simulation
 		return;
 	}
+#pragma message("TODO: remove all these old commands")
 	//case pCmd::setZoneSize: {//zoneSize
 	//	emit setDropletSizeSIG(_cmd.getValue());
 	//	return;
@@ -166,7 +169,7 @@ void Labonatip_macroRunner::simulateCommand(fluicell::PPC1api6dataStructures::co
 	//	emit changeVacuumSIG(_cmd.getValue());
 	//	return;
 	//}
-	case pCmd::loop: {//loop
+	case ppc1Cmd::loop: {//loop
 		// this is not to be done here
 		return;
 	}
@@ -263,7 +266,8 @@ void Labonatip_macroRunner::run()
 						
 						// at GUI level only ask_msg and wait are handled
 						if (m_protocol->at(i).getInstruction() ==
-							pCmd::ask_msg) {
+							ppc1Cmd::ask) {
+#pragma message (" TODO: here there should be the interpreter for ask_msg ")
 							QString msg = QString::fromStdString(m_protocol->at(i).getStatusMessage());
 
 							emit sendAskMessage(msg); // send ask message event
@@ -274,8 +278,9 @@ void Labonatip_macroRunner::run()
 						}
 
 						// If the command is to wait, we do it here
-						if (m_protocol->at(i).getInstruction() == pCmd::wait) 
+						if (m_protocol->at(i).getInstruction() == ppc1Cmd::wait) 
 						{	
+#pragma message (" TODO: here there should be the interpreter for wait ")
 							int val = static_cast<int>(m_protocol->at(i).getValue());
 							simulateWait(val);							
 						}//TODO: the waitSync works properly in the ppc1api, however, when the command is run

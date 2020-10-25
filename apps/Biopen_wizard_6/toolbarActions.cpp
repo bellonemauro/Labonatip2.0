@@ -42,7 +42,7 @@ bool Labonatip_GUI::loadProtocol()
 	
 	if (m_reader->readProtocol(ui->treeWidget_macroTable, file_name))
 	{
-		addAllCommandsToProtocol(ui->treeWidget_macroTable, m_protocol);
+		updateTreeView(ui->treeWidget_macroTable);
 		m_current_protocol_file_name = file_name;
 		return true;
 	}
@@ -188,8 +188,7 @@ void Labonatip_GUI::showProtocolEditor() {
 		ui->actionLoad_profile->setText(m_str_load);
 		ui->actionEditor->setText(m_str_commander);
 		ui->actionEditor->setIcon(QIcon(":/icons/controls.png")); 
-		// update the chart
-		m_chart_view->updateChartProtocol(m_protocol);
+
 	}
 	//otherwise we are in the editor and we need to get back to the commander
 	else
@@ -203,7 +202,9 @@ void Labonatip_GUI::showProtocolEditor() {
 		iconEditor.addFile(QStringLiteral("://icons/protocolEditor.png"), QSize(), QIcon::Normal, QIcon::Off);
 		iconEditor.addFile(QStringLiteral(":/icons/protocolEditor_off.png"), QSize(), QIcon::Disabled, QIcon::Off);
 		ui->actionEditor->setIcon(iconEditor);
-
+		
+		addAllCommandsToPPC1Protocol(ui->treeWidget_macroTable, m_protocol);
+#pragma message("TODO: check the update of the protocol-tree here")
 		//update the chart
 		m_chart_view->updateChartProtocol(m_protocol);
 

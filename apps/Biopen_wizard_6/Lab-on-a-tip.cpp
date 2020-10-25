@@ -12,6 +12,7 @@
 #include <QtCharts/QAbstractAxis>
 #include <QDesktopServices>
 
+
 Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	QMainWindow(parent),
 	ui(new Ui::Labonatip_GUI),
@@ -189,6 +190,10 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   ui->treeWidget_macroTable->setColumnWidth(editorParams::c_command, 240);
   ui->treeWidget_macroTable->setColumnWidth(editorParams::c_range, 160);
   ui->treeWidget_macroTable->setColumnWidth(editorParams::c_value, 100);
+
+  ui->tabWidget_editor->setCurrentIndex(0);
+  new XmlSyntaxHighlighter(ui->textBrowser_XMLcode->document());
+
 
   // set delegates
   m_combo_delegate = new ComboBoxDelegate();
@@ -762,6 +767,14 @@ void Labonatip_GUI::initConnects()
 		SIGNAL(clicked()), this,
 		SLOT(cleanHistory()));
 
+	connect(ui->pushButton_loadXML,
+		SIGNAL(clicked()), this,
+		SLOT(openXml()));
+
+	connect(ui->pushButton_saveXML,
+		SIGNAL(clicked()), this,
+		SLOT(saveXml()));
+
 // this button is connected only if the developer settings tab is visualized
 //if (ui->tabWidget->count() > 3) 
 //	connect(ui->pushButton_updateDrawing,
@@ -844,6 +857,11 @@ void Labonatip_GUI::initConnects()
 		SIGNAL(customContextMenuRequested(const QPoint&)),
 		this, SLOT(protocolsMenu(const QPoint&)));
 
+	connect(ui->tabWidget_editor,
+		SIGNAL(currentChanged(int)),
+		this, SLOT(onTabEditorChanged(int)));
+
+
 	connect(ui->pushButton_undo,
 		SIGNAL(clicked()), this, SLOT(undo()));
 
@@ -878,6 +896,9 @@ void Labonatip_GUI::initConnects()
 
 	connect(ui->pushButton_loop,
 		SIGNAL(clicked()), this, SLOT(createNewLoop()));
+
+	connect(ui->pushButton_addFunction,
+		SIGNAL(clicked()), this, SLOT(createNewFunction()));
 }
 
 void Labonatip_GUI::testTTL(bool _state) {
@@ -1001,9 +1022,10 @@ void Labonatip_GUI::initCustomStrings()
 
 void Labonatip_GUI::setProtocolUserPath(QString _path)
 {
-		m_protocol_path = _path;  // set the data member
-		this->readProtocolFolder(m_protocol_path);  // look for files in the folder
-		ui->lineEdit_protocolPath->setText(_path);  // set the current path in the GUI field
+	_path = QDir::cleanPath(_path); 
+	m_protocol_path = _path;  // set the data member
+	this->readProtocolFolder(m_protocol_path);  // look for files in the folder
+	ui->lineEdit_protocolPath->setText(_path);  // set the current path in the GUI field
 }
 
 // the appScaling is still to be done
@@ -1500,6 +1522,71 @@ void Labonatip_GUI::closeBiopen()
 	//delete m_dialog_p_editor;
 	qApp->quit();
 }
+
+
+bool Labonatip_GUI::saveXml()
+{
+	QString fileName =
+		QFileDialog::getSaveFileName(this, tr("Save Protocol File"),
+			QDir::currentPath(),
+			tr("XBEL Files (*.prt *.xml)"));
+	if (fileName.isEmpty())
+		return false;
+	QFile file(fileName);
+	if (!file.open(QFile::WriteOnly | QFile::Text)) {
+		QMessageBox::warning(this, tr("QXmlStream Bookmarks"),
+			tr("Cannot write file %1:\n%2.")
+			.arg(QDir::toNativeSeparators(fileName),
+				file.errorString()));
+		return false;
+	}
+	XmlProtocolWriter writer(ui->treeWidget_macroTable);
+	if (writer.writeFile(&file))
+	{
+		return true;
+	}
+
+	return false;
+}
+
+bool Labonatip_GUI::openXml()
+{
+	QString fileName =
+		QFileDialog::getOpenFileName(this, tr("Open  File"),
+			QDir::currentPath(),
+			tr("prt Files (*.prt *.xml)"));
+	if (fileName.isEmpty())
+		return false;
+
+	//ui->treeWidget_macroTable->clear();
+
+	return openXml(fileName, ui->treeWidget_macroTable);
+}
+
+
+bool Labonatip_GUI::openXml(QString _filename, QTreeWidget* _widget)
+{
+
+	XmlProtocolReader reader(_widget);
+	//if (!reader.read(&file, dynamic_cast<protocolTreeWidgetItem*> (
+	//	ui->treeWidget_macroTable->currentItem()))) 
+	QFile file(_filename);
+	if (!file.open(QFile::ReadOnly | QFile::Text)) {
+		std::cerr << HERE << " impossible to open the file " << std::endl;
+		return false;
+	}
+	if (!reader.read(&file, 0))
+	{
+		QMessageBox::warning(this, tr("QXmlStream Bookmarks"),
+			tr("Parse error in file %1:\n\n%2")
+			.arg(QDir::toNativeSeparators(_filename),
+				reader.errorString()));
+		return true;
+	}
+	return false;
+}
+
+
 
 Labonatip_GUI::~Labonatip_GUI()
 {

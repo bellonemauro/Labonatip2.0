@@ -167,7 +167,12 @@ void Labonatip_GUI::runProtocol()
 	}
 
     std::cout << HERE << "  " << msg.toStdString() << std::endl;
-	this->runProtocolFile(m_current_protocol_file_name);
+#pragma message("TODO: this means that the file in the editor MUST be saved to be run")
+	QString tmp_file = QDir::tempPath();
+	tmp_file.append("/tmp_biopen_protocol.prt");
+	m_writer->saveProtocol(ui->treeWidget_macroTable, tmp_file);
+	//this->runProtocolFile(m_current_protocol_file_name);
+	this->runProtocolFile(tmp_file);
 }
 
 
@@ -188,7 +193,8 @@ void Labonatip_GUI::runProtocolFile(QString _protocol_path) {
 		// modifications to the existing protocol in the editor
 		QTreeWidget* virtualTree = new QTreeWidget;
 		m_reader->readProtocol(virtualTree, _protocol_path);
-		addAllCommandsToProtocol(virtualTree, m_protocol);
+		addAllCommandsToPPC1Protocol(virtualTree, m_protocol);
+#pragma message("TODO: check the update of the protocol-tree here")
 
 		//update the chart
 		m_chart_view->updateChartProtocol(m_protocol);
@@ -485,7 +491,9 @@ void Labonatip_GUI::protocolFinished(const QString &_result) {
 		&Labonatip_macroRunner::changeVacuumSIG, this,
 		&Labonatip_GUI::changeVacuumPercentageBy);
 
-	addAllCommandsToProtocol(ui->treeWidget_macroTable, m_protocol);
+	addAllCommandsToPPC1Protocol(ui->treeWidget_macroTable, m_protocol);
+#pragma message("TODO: check the update of the protocol-tree here")
+
 	m_chart_view->updateChartProtocol(m_protocol);
 
 }

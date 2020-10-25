@@ -25,7 +25,8 @@ addProtocolCommand::addProtocolCommand(
 	if (_parent)
 	{
 		m_has_parent = true;
-		m_parent_row = _tree_widget->indexOfTopLevelItem(_parent);
+		//m_parent_row = _tree_widget->indexOfTopLevelItem(_parent);
+		m_parent_row = _parent->text(0).toInt();
 		m_parent = _parent;
 	}
 
@@ -53,8 +54,8 @@ void addProtocolCommand::redo()
 			// this is for safety, it is better to update the pointer 
 			// to the parent as it could have been deleted during the
 			// tree operations
-			m_parent = dynamic_cast<protocolTreeWidgetItem *> (
-				m_tree_widget->topLevelItem(m_parent_row));
+			//m_parent = dynamic_cast<protocolTreeWidgetItem *> (
+			//	m_tree_widget->topLevelItem(m_parent_row));
 			m_parent->insertChild(m_at_row, m_new_item);
 		}
 		else
@@ -69,10 +70,10 @@ void addProtocolCommand::redo()
 	// if we have a parent, the new item is added as a child
 	if (m_has_parent)
 	{
-		m_parent = dynamic_cast<protocolTreeWidgetItem *> (
-			m_tree_widget->topLevelItem(m_parent_row));
+		//m_parent = dynamic_cast<protocolTreeWidgetItem *> (
+		//	m_tree_widget->topLevelItem(m_parent_row));
 		m_parent->insertChild(m_at_row, m_new_item);
-		int rr = m_tree_widget->indexOfTopLevelItem(m_parent);
+		int rr = m_parent->text(0).toInt();// m_tree_widget->indexOfTopLevelItem(m_parent);
 		this->setText("Added child at " + QString::number(m_at_row)
 			+ " parent row " + QString::number(rr));
 	}
@@ -99,8 +100,8 @@ void addProtocolCommand::undo()
 
 	if ( m_has_parent )
 	{
-		m_parent = m_parent = dynamic_cast<protocolTreeWidgetItem *> (
-			m_tree_widget->topLevelItem(m_parent_row));
+		//m_parent = m_parent = dynamic_cast<protocolTreeWidgetItem *> (
+		//	m_tree_widget->topLevelItem(m_parent_row));
 
 		// get the item to be removed
 		m_new_item = dynamic_cast<protocolTreeWidgetItem *> (
@@ -149,7 +150,8 @@ removeProtocolCommand::removeProtocolCommand(
 	if (_parent)
 	{
 		m_has_parent = true;
-		m_parent_row = _tree_widget->indexOfTopLevelItem(_parent);
+		//m_parent_row = _tree_widget->indexOfTopLevelItem(_parent);
+		m_parent_row = _parent->text(0).toInt(); 
 		m_parent = _parent;
 	}
 }
@@ -163,8 +165,8 @@ void removeProtocolCommand::redo()
 	if (m_has_parent)
 	{
 		// update the pointers to parent and item to remove
-		m_parent = dynamic_cast<protocolTreeWidgetItem *> (
-			m_tree_widget->topLevelItem(m_parent_row));
+		//m_parent = dynamic_cast<protocolTreeWidgetItem *> (
+		//	m_tree_widget->topLevelItem(m_parent_row));
 		
 		m_remove_item = dynamic_cast<protocolTreeWidgetItem *>(
 			m_parent->child(m_at_row));
@@ -219,8 +221,8 @@ void removeProtocolCommand::undo()
 			m_cmd_idx, m_value, m_show_status_msg, m_status_msg);
 		
 		// update the pointer to the parent 
-		m_parent = dynamic_cast<protocolTreeWidgetItem *> (
-			m_tree_widget->topLevelItem(m_parent_row));
+		//m_parent = dynamic_cast<protocolTreeWidgetItem *> (
+		//	m_tree_widget->topLevelItem(m_parent_row));
 
 		// insert the element as a child at row
 		m_parent->insertChild(m_at_row, m_remove_item);
@@ -254,8 +256,8 @@ changedProtocolCommand::changedProtocolCommand(
 	{
 		m_parent = _parent;
 		m_has_parent = true;
-		m_parent_row = _tree_widget->indexOfTopLevelItem(_parent);
-
+		//m_parent_row = _tree_widget->indexOfTopLevelItem(_parent);
+		m_parent_row = _parent->text(0).toInt();
 		m_changed_row = m_parent->indexOfChild(_changed_item);
 	}
 	else
@@ -278,8 +280,8 @@ void changedProtocolCommand::redo()
 		if (m_has_parent)
 		{
 			// get the parent
-			m_parent = dynamic_cast<protocolTreeWidgetItem *> (
-				m_tree_widget->topLevelItem(m_parent_row));
+			//m_parent = dynamic_cast<protocolTreeWidgetItem *> (
+			//	m_tree_widget->topLevelItem(m_parent_row));
 			// get the child
 			m_changed_item = dynamic_cast<protocolTreeWidgetItem *> (
 				m_parent->child(m_changed_row));
@@ -319,9 +321,10 @@ void changedProtocolCommand::redo()
 		if (m_has_parent)
 		{
 			// get the parent
-			m_parent = dynamic_cast<protocolTreeWidgetItem *> (
-				m_tree_widget->topLevelItem(m_parent_row));
+			//m_parent = dynamic_cast<protocolTreeWidgetItem *> (
+			//	m_tree_widget->topLevelItem(m_parent_row));
 			// get the child
+#pragma message ("TODO: here there is a crash on multiple loops")
 			m_changed_item = dynamic_cast<protocolTreeWidgetItem *> (
 				m_parent->child(m_changed_row));
 		}
@@ -361,8 +364,8 @@ void changedProtocolCommand::undo()
 	if (m_has_parent)
 	{
 		// get the parent
-		m_parent = dynamic_cast<protocolTreeWidgetItem *> (
-			m_tree_widget->topLevelItem(m_parent_row));
+		//m_parent = dynamic_cast<protocolTreeWidgetItem *> (
+		//	m_tree_widget->topLevelItem(m_parent_row));
 		// get the child
 		m_changed_item = dynamic_cast<protocolTreeWidgetItem *> (
 			m_parent->child(m_changed_row));
@@ -398,7 +401,8 @@ moveUpCommand::moveUpCommand(
 	{
 		m_parent = _parent;
 		m_has_parent = true;
-		m_parent_row = _tree_widget->indexOfTopLevelItem(_parent);
+		//m_parent_row = _tree_widget->indexOfTopLevelItem(_parent);
+		m_parent_row = _parent->text(0).toInt();
 	}
 }
 
@@ -471,7 +475,8 @@ moveDownCommand::moveDownCommand(
 	{
 		m_parent = _parent;
 		m_has_parent = true;
-		m_parent_row = _tree_widget->indexOfTopLevelItem(_parent);
+		//m_parent_row = _tree_widget->indexOfTopLevelItem(_parent);
+		m_parent_row = _parent->text(0).toInt();
 	}
 }
 

@@ -112,8 +112,8 @@ struct solutionsParams {
 		this->sol2 = "No name given to sol 2";
 		this->sol3 = "No name given to sol 3";
 		this->sol4 = "No name given to sol 4";
-		this->sol5 = "No name given to sol 4";
-		this->sol6 = "No name given to sol 4";
+		this->sol5 = "No name given to sol 5";
+		this->sol6 = "No name given to sol 6";
 		this->sol1_color = QColor::fromRgb(255, 189, 0);
 		this->sol2_color = QColor::fromRgb(255, 40, 0);
 		this->sol3_color = QColor::fromRgb(0, 158, 255);
@@ -365,6 +365,84 @@ struct GUIparams {
 
 
 }; // END COMSettings struct
+
+
+struct protocolCommands {
+
+	enum command {
+		allOff = 0, 
+		solution1 = 1,
+		solution2 = 2,
+		solution3 = 3,
+		solution4 = 4,
+		solution5 = 5,
+		solution6 = 6,
+		setPon = 7,
+		setPoff = 8,
+		setVrecirc = 9,
+		setVswitch = 10,
+		waitSync = 11,
+		syncOut = 12,
+		wait = 13,
+		ask = 14,
+		pumpsOff = 15,
+		loop = 16,
+		comment = 17,
+		button1 = 18,
+		button2 = 19,
+		button3 = 20,
+		button4 = 21,
+		button5 = 22,
+		button6 = 23,
+		rampPon = 24,
+		rampPoff = 25,
+		rampVr = 26,
+		rampVs = 27,
+		function = 28,
+		END //THIS IS TO TAKE TRACK OF ENUMERATION
+	};
+
+	static std::string protocolCommands::asString(int _idx)
+	{
+		switch (_idx)
+		{
+		case allOff: return "allOff";
+		case solution1: return "solution1";
+		case solution2: return "solution2";
+		case solution3: return "solution3";
+		case solution4: return "solution4";
+		case solution5: return "solution5";
+		case solution6: return "solution6";
+		case setPon: return "setPon";
+		case setPoff: return "setPoff";
+		case setVrecirc: return "setVrecirc";
+		case setVswitch: return "setVswitch";
+		case waitSync: return "waitSync";
+		case syncOut: return "syncOut";
+		case wait: return "wait";
+		case ask: return "ask";
+		case pumpsOff: return "pumpsOff";
+		case loop: return "loop";
+		case comment: return "comment";
+		case button1: return "button1";
+		case button2: return "button2";
+		case button3: return "button3";
+		case button4: return "button4";
+		case button5: return "button5";
+		case button6: return "button6";
+		case rampPon: return "rampPon";
+		case rampPoff: return "rampPoff";
+		case rampVr: return "rampVr";
+		case rampVs: return "rampVrs";
+		case function: return "function";
+		case END: return "END";
+		}
+		return "Invalid";
+	}
+
+};
+
+
 
    // structure to handle editor parameters for now only the columns in the editor tree widget are used
 struct editorParams {

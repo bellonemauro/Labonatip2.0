@@ -23,11 +23,11 @@ protocolTreeWidgetItem::protocolTreeWidgetItem(protocolTreeWidgetItem *_parent) 
 	QFont font;
 	font.setBold(true);
 
-	this->setText(m_cmd_idx_c, "0");
-	this->setText(m_cmd_command_c, QString::number(0));
-	this->setText(m_cmd_range_c, this->getRangeColumn(0));
-	this->setText(m_cmd_value_c, "100"); // 
-	this->QTreeWidgetItem::setFont(m_cmd_value_c, font);
+	this->setText(editorParams::c_idx, "0");
+	this->setText(editorParams::c_command, QString::number(0));
+	this->setText(editorParams::c_range, this->getRangeColumn(0));
+	this->setText(editorParams::c_value, ""); // 
+	this->QTreeWidgetItem::setFont(editorParams::c_value, font);
 
 	//this->setCheckState(m_cmd_msg_c, Qt::CheckState::Checked); // status message
 	this->setText(m_cmd_msg_c, " "); // status message
@@ -50,24 +50,36 @@ bool protocolTreeWidgetItem::checkValidity( int _column)
 	{
 		// If we have children than the item IS a loop
 		// so we force the item column to the loop function 
-		this->setText(m_cmd_command_c, QString::number(pCmd::loop));
+
+		//this->setText(m_cmd_command_c, QString::number(ppc1Cmd::loop));
+
+		// 16 is loop and 28 is function
+		std::string ss = this->text(editorParams::c_command).toStdString();
+		if (ss != "16" && ss != "28")
+		{
+#pragma message (" TODO: check validity for loop ")
+			this->setText(editorParams::c_command, QString::number(ppc1Cmd::loop));
+		}
 	}
 
 	// get the command index 
-	int idx = this->text(m_cmd_command_c).toInt();
-
+	int idx = this->text(editorParams::c_command).toInt();
+    
 	// if the change comes from the command column
 	// the range field needs to be reset
-	if (_column == m_cmd_command_c) {
-		this->blockSignals(true);
-		this->setText(m_cmd_range_c, this->getRangeColumn(idx));
-		this->blockSignals(false);
+	//TODO: this was deprecated, remove if everything works
+	//if (_column == m_cmd_command_c) {
+	//	this->blockSignals(true);
+	//	this->setText(m_cmd_range_c, this->getRangeColumn(idx));
+	//	this->blockSignals(false);
 		// so it also automatically check the other column
-		_column = m_cmd_value_c;
-	}
+	//	_column = m_cmd_value_c;
+	//}
 
+
+	// TODO: this can also be removed when the old protocol version will be forgotten
 	//check for prohibited characters  # and §
-	if (_column == m_cmd_msg_c) {
+	if (_column == editorParams::c_msg) {
 		// here we browse the string looking for prohibited characters  # and §
 		QString s = this->text(_column);
 		QChar prohibited_char_1 = QChar::fromLatin1(*"#");
@@ -75,7 +87,7 @@ bool protocolTreeWidgetItem::checkValidity( int _column)
 		if (s.contains(prohibited_char_1, Qt::CaseSensitive) ||
 			s.contains(prohibited_char_2, Qt::CaseSensitive))
 		{
-			s.remove(prohibited_char_1, Qt::CaseSensitive); 
+			s.remove(prohibited_char_1, Qt::CaseSensitive);
 			s.remove(prohibited_char_2, Qt::CaseSensitive);
 			// we need to remove the string
 			this->setText(_column, s);
@@ -83,218 +95,316 @@ bool protocolTreeWidgetItem::checkValidity( int _column)
 		}
 	}
 
+
 	// perform the check on column 3 only
-	if (_column != m_cmd_value_c) return true;
-
-	switch (idx) {
-	case pCmd::setPon: { // check pon
-
-	    // get the number to be checked
-		int number = this->text(_column).toInt();
-
+	//if (_column != editorParams::c_value) return true;
+	// get the number to be checked
+	int number = this->text(editorParams::c_value).toInt();
+	switch (idx)
+	{
+	case protocolCommands::allOff: {
+		this->setText(editorParams::c_value, QString("")); // it removes whatever is there
+		return true;
+	}
+	case protocolCommands::solution1:
+	case protocolCommands::solution2:
+	case protocolCommands::solution3:
+	case protocolCommands::solution4:
+	case protocolCommands::solution5:
+	case protocolCommands::solution6: {
+		// check open valve : 0 = no valve, 1,2,3,4 valves 1,2,3,4
+		if (number != 1) {
+			this->setText(editorParams::c_value, QString("0")); // if the value is not valid, reset to zero
+			return false;
+		}
+		return true;
+	}
+	case protocolCommands::setPon: {
 		// if the number if lower than 0,
 		// the value becomes automatically positive
-		if (number < 0)
+		if (number < 1) {
+			number = -number;
+			this->setText(editorParams::c_value, QString::number(number));
+		}
+		// if is not the range
+		if (//number < m_pr_params->p_off_min || // not necessary as it min=0
+			number > m_pr_params->p_on_max) {
+			this->setText(editorParams::c_value, QString::number(m_pr_params->p_on_max));
+			return false;
+		}
+		return true;
+	}
+	case protocolCommands::setPoff: {
+		// if the number if lower than 0,
+		// the value becomes automatically positive
+		if (number < 1)
 		{
 			number = -number;
-			this->setText(_column, QString::number(number));
+			this->setText(editorParams::c_value, QString::number(number));
 		}
-		if (//number < m_pr_params->p_on_min || not necessary anymore
-			number > m_pr_params->p_on_max) { // if is not the range
-
-											  // values higher than the limit are not allowed
-			this->setText(_column, QString::number(m_pr_params->p_on_max));
+		// if is not the range
+		if (//number < m_pr_params->p_off_min || // not necessary as it min=0
+			number > m_pr_params->p_off_max) {
+			this->setText(editorParams::c_value, QString::number(m_pr_params->p_off_max)); // if the value is not valid, reset to zero
 			return false;
 		}
-		break;
+		return true;
 	}
-	case pCmd::setPoff: { // check poff
-
-			  // get the number to be checked
-		int number = this->text(_column).toInt();
-		if (number < 0)
+	case protocolCommands::setVrecirc: {
+		// if the number if higher than 0,
+		// the value becomes automatically negative
+		int number = this->text(editorParams::c_value).toInt();
+		if (number > -1)
 		{
 			number = -number;
-			this->setText(_column, QString::number(number));
+			this->setText(editorParams::c_value, QString::number(number));
 		}
-		if (number < m_pr_params->p_off_min ||
-			number > m_pr_params->p_off_max) { // if is not the range
-
-			this->setText(_column, QString::number(m_pr_params->p_off_max)); // if the value is not valid, reset to zero
+		// if is not the range
+		if (number < m_pr_params->v_recirc_min) {  
+			// || number > m_pr_params->v_recirc_max) { // not necessary as it max=0
+			this->setText(editorParams::c_value, QString::number(m_pr_params->v_recirc_min)); // if the value is not valid, reset to zero
 			return false;
 		}
-		break;
+		return true;
 	}
-	case pCmd::setVswitch: {// check v_s
-
-		int number = this->text(_column).toInt();
-		if (number > 0)
-		{
+	case protocolCommands::setVswitch: {
+		// if the number if higher than 0,
+		// the value becomes automatically negative
+		if (number > -1) {
 			number = -number;
-			this->setText(_column, QString::number(number));
+			this->setText(editorParams::c_value, QString::number(number));
 		}
-		if (number < m_pr_params->v_switch_min ||
-			number > m_pr_params->v_switch_max) { // if is not the range
-			this->setText(_column, QString::number(m_pr_params->v_switch_min)); // if the value is not valid, reset to zero
+		// if is not the range
+		if (number < m_pr_params->v_switch_min){
+			//number > m_pr_params->v_switch_max) {  // not necessary as it max=0
+			this->setText(editorParams::c_value, QString::number(m_pr_params->v_switch_min)); // if the value is not valid, reset to zero
 			return false;
 		}
-		break;
+		return true;
 	}
-	case pCmd::setVrecirc: { // check v_r
-
-		int number = this->text(_column).toInt();
-		if (number > 0)
-		{
-			number = -number;
-			this->setText(_column, QString::number(number));
-		}
-		if (number < m_pr_params->v_recirc_min ||  
-			number > m_pr_params->v_recirc_max) { // if is not the range
-			this->setText(_column, QString::number(m_pr_params->v_switch_min)); // if the value is not valid, reset to zero
+	case protocolCommands::waitSync: {
+		// if the value is not valid, reset to zero
+		if (number != 1) {
+			this->setText(editorParams::c_value, QString("0"));
 			return false;
 		}
-		break;
+		return true;
 	}
-	case pCmd::solution1: 
-	case pCmd::solution2: 
-	case pCmd::solution3: 
-	case pCmd::solution4:
-	case pCmd::solution5:
-	case pCmd::solution6:
-	{ //from 4 to 7
-	// check open valve : 0 = no valve, 1,2,3,4 valves 1,2,3,4
-
-		int number = this->text(_column).toInt();
-		if (number != 0 &&
-			number != 1) {
-			this->setText(_column, QString("0")); // if the value is not valid, reset to zero
-			return false;
-		}
-		break;
-	}
-	case pCmd::wait: {
-		// check Wait (s)
-
-		int number = this->text(_column).toInt();
-
-		if (number < 1) { // if is not the range
-			this->setText(_column, QString("1")); // if the value is not valid, reset to zero
-			return false;
-		}
-		break;
-	}
-	case pCmd::ask_msg: {
-		// ask 
-		// no need to check here
-
-		this->setText(_column, QString("")); // it removes whatever is there
-		break;
-	}
-	case pCmd::allOff: {
-		// all off
-		// no need to check here
-		this->setText(_column, QString("")); // it removes whatever is there
-		break;
-	}
-	case pCmd::pumpsOff: {
-		// pumps off
-		// no need to check here
-		this->setText(_column, QString("")); // it removes whatever is there
-		break;
-	}
-	case pCmd::waitSync: {
-		// Wait sync"
-		int number = this->text(_column).toInt();
-
-		if (number != 0 &&
-			number != 1) {
-			this->setText(_column, QString("0")); // if the value is not valid, reset to zero
-			return false;
-		}
-		break;
-	}
-	case pCmd::syncOut: {
-		// Sync out"
-		int number = this->text(_column).toInt();
+	case protocolCommands::syncOut: {
+		// if the value is not valid, reset to zero
 		if (number < MIN_PULSE_PERIOD) { // if is not the range
-			this->setText(_column, QString("20")); // if the value is not valid, reset to zero
+			this->setText(editorParams::c_value, QString("20"));
+			return false;
+		}
+		return true;
+	}
+	case protocolCommands::wait: {
+		// if the value is not valid, reset to one
+		if (number < 1) {
+			this->setText(editorParams::c_value, QString("1"));
+			return false;
+		}
+		return true;
+	}
+	case protocolCommands::ask: {
+		// no need to check here
+		this->setText(editorParams::c_value, QString("")); // it removes whatever is there
+		return true;
+	}
+	case protocolCommands::pumpsOff: {
+		// no need to check here
+		this->setText(editorParams::c_value, QString("")); // it removes whatever is there
+		return true;
+	}
+	case protocolCommands::loop: {
+		// if is not the range minimum number is 1
+		if (number < 1) {
+			this->setText(editorParams::c_value, QString("1")); // if the value is not valid, reset to zero
 			return false;
 		}
 		break;
 	}
-#pragma message (" TODO: here instructions were removed setFlowSpeed, setVacuum and setSize, others should be added")
-	case pCmd::loop: {  
-		 // check loops
-		int number = this->text(_column).toInt();
-		if (number < 1) { // if is not the range
-			this->setText(_column, QString("1")); // if the value is not valid, reset to zero
+	case protocolCommands::comment: {
+		// no need to check here
+		this->setText(editorParams::c_value, QString("")); // it removes whatever is there
+		return true;
+	}
+	case protocolCommands::button1:
+	case protocolCommands::button2:
+	case protocolCommands::button3:
+	case protocolCommands::button4:
+	case protocolCommands::button5:
+	case protocolCommands::button6: {
+		// check pump button : 0 = stop, 1 = pump
+		// if the value is not valid, reset to zero
+		if (number != 1) {
+			this->setText(editorParams::c_value, QString("0"));
 			return false;
 		}
-		break;
+		return true;
 	}
-
+	case protocolCommands::rampPon: {
+		// if the number if lower than 0,
+		// the value becomes automatically positive
+		if (number < 1) {
+			number = -number;
+			this->setText(editorParams::c_value, QString::number(number));
+		}
+		// if is not the range
+		if (//number < m_pr_params->p_off_min ||
+			number > m_pr_params->p_on_max) {
+			this->setText(editorParams::c_value, QString::number(m_pr_params->p_on_max));
+			return false;
+		}
+		return true;
+	}
+	case protocolCommands::rampPoff: {
+		// if the number if lower than 0,
+		// the value becomes automatically positive
+		if (number < 1)
+		{
+			number = -number;
+			this->setText(editorParams::c_value, QString::number(number));
+		}
+		// if is not the range
+		if (//number < m_pr_params->p_off_min ||
+			number > m_pr_params->p_off_max) {
+			this->setText(editorParams::c_value, QString::number(m_pr_params->p_off_max)); // if the value is not valid, reset to zero
+			return false;
+		}
+		return true;
+	}
+	case protocolCommands::rampVr: {
+		// if the number if higher than 0,
+		// the value becomes automatically negative
+		int number = this->text(editorParams::c_value).toInt();
+		if (number > -1)
+		{
+			number = -number;
+			this->setText(editorParams::c_value, QString::number(number));
+		}
+		// if is not the range
+		if (number < m_pr_params->v_recirc_min){// ||
+			//number > m_pr_params->v_recirc_max) {
+			this->setText(editorParams::c_value, QString::number(m_pr_params->v_recirc_min)); // if the value is not valid, reset to zero
+			return false;
+		}
+		return true;
+	}
+	case protocolCommands::rampVs: {
+		// if the number if higher than 0,
+		// the value becomes automatically negative
+		if (number > -1) {
+			number = -number;
+			this->setText(editorParams::c_value, QString::number(number));
+		}
+		// if is not the range
+		if (number < m_pr_params->v_switch_min){// ||
+			//number > m_pr_params->v_switch_max) {
+			this->setText(editorParams::c_value, QString::number(m_pr_params->v_switch_min)); // if the value is not valid, reset to zero
+			return false;
+		}
+		return true;
+	}
+	case protocolCommands::function: {
+		// no need to check here
+		this->setText(editorParams::c_value, QString("1")); // it can only be 1
+		return true;
+	}
 	default: {
 		// default function active if none of the previous
 
 		break;
+		}
 	}
-	}
-
+	
 	return true;
 }
 
 QString protocolTreeWidgetItem::getRangeColumn( int _idx)
 {
 
+#pragma message (" TODO: getRangeColumn ")
+	ComboBoxDelegate cb;
+
 	switch (_idx) {
-	case pCmd::setPoff: 
-	case pCmd::setPon: { // check pressures
-		return QString("(mbar) ["+ QString::number(MIN_CHAN_C) +
+	case protocolCommands::allOff://pCmd::setPoff: 
+	{
+		return QString("-");
+	}
+	case protocolCommands::solution1://pCmd::solution1: 
+	case protocolCommands::solution2://pCmd::solution2:
+	case protocolCommands::solution3://pCmd::solution3:
+	case protocolCommands::solution4://pCmd::solution4:
+	case protocolCommands::solution5://pCmd::solution5:
+	case protocolCommands::solution6://pCmd::solution6:
+	{ 
+		// check open valve : 0 = no valve, 1,2,3,4,5,6 valves 1,2,3,4,5,6
+		return QString("1/0 open/close");
+	} 
+	case protocolCommands::setPon://pCmd::setPon:
+	case protocolCommands::setPoff://pCmd::setPoff:
+	{ // check pressures
+		return QString("(mbar) [" + QString::number(MIN_CHAN_C) +
 			", " + QString::number(MAX_CHAN_C) + "] ");
 	}
-	case pCmd::setVswitch:	
-	case pCmd::setVrecirc: { // check vacuums
+	case protocolCommands::setVrecirc:	
+	case protocolCommands::setVswitch: { // check vacuums
 		return QString("(mbar) [" + QString::number(MIN_CHAN_A) +
 			", " + QString::number(MAX_CHAN_A) + "]");
 	}
-	case pCmd::solution1:
-	case pCmd::solution2:
-	case pCmd::solution3:
-	case pCmd::solution4:
-	case pCmd::solution5:
-	case pCmd::solution6:
-	{ //from 4 to 7
-									  // check open valve : 0 = no valve, 1,2,3,4 valves 1,2,3,4
-		return QString("1/0 open/close");
-	}
-	case pCmd::wait: {
-		// check Wait (s)
-		return QString("(s) > 0");
-	}
-	case pCmd::ask_msg: {
-		// ask 	
-		return QString("-");
-	}
-	case pCmd::allOff: {
-		// all off	
-		return QString("-");
-	}
-	case pCmd::pumpsOff: {
-		// pumps off
-		return QString("-");
-	}
-	case pCmd::waitSync: {
+	case protocolCommands::waitSync: {
 		// Wait sync"
 		return QString("1/0 rise/fall");
 	}
-	case pCmd::syncOut: {
+	case protocolCommands::syncOut: {
 		// Sync out"
 		return QString(">20");
 	}
+	case protocolCommands::wait: {
+		// check Wait (s)
+		return QString("(s) > 0");
+	}
+	case protocolCommands::ask: {
+		// ask 	
+		return QString("-");
+	}
+	case protocolCommands::pumpsOff: {
+		// pumps off
+		return QString("-");
+	}
+	case protocolCommands::loop: {
+		// loop	
+		return QString(" > 0");
+	}
+	case protocolCommands::comment: {
+		// Comment	
+		return QString("-");
+	}
+	case protocolCommands::button1: // Button1
+	case protocolCommands::button2: // Button2
+	case protocolCommands::button3: // Button3
+	case protocolCommands::button4: // Button4
+	case protocolCommands::button5: // Button5
+	case protocolCommands::button6: {// Button6	
+		return QString("1/0 pump/stop");
+	}
+	case protocolCommands::rampPon:	// RampPon	
+	case protocolCommands::rampPoff: {
+		// RampPoff	
+		return QString("(mbar) [" + QString::number(MIN_CHAN_C) +
+			", " + QString::number(MAX_CHAN_C) + "] ");
+	}
+	case protocolCommands::rampVr: // RampPVr	
+	case protocolCommands::rampVs: {
+		// RampVs	
+		return QString("(mbar) [" + QString::number(MIN_CHAN_A) +
+			", " + QString::number(MAX_CHAN_A) + "]");
+	}
 #pragma message (" TODO: here instructions were removed setFlowSpeed, setVacuum and setSize, others should be added")
-	case pCmd::loop: {
-		// check loops
-		return QString("(#) > 0");
+	case protocolCommands::function: {
+		// function
+		return QString("-");
 	}
 	default: {
 		// default function active if none of the previous
@@ -328,7 +438,6 @@ void protocolTreeWidgetItem::setData(int column, int role, const QVariant & valu
 	// bring the last value to the undo stack
 	m_last_command = this->text(1).toInt();
 	m_last_value = this->text(3).toInt();
-	//m_last_show_msg = this->checkState(4);
 	m_last_msg = this->text(4);
 
 	this->QTreeWidgetItem::setData(column, role, value);

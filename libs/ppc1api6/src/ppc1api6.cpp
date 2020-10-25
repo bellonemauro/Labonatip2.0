@@ -891,7 +891,7 @@ bool fluicell::PPC1api6::runCommand(fluicell::PPC1api6dataStructures::command _c
 	case fluicell::PPC1api6dataStructures::command::instructions::setVswitch: {//setVswitch
 		return setVacuumChannelB(_cmd.getValue());
 	}
-	case fluicell::PPC1api6dataStructures::command::instructions::ask_msg: {//ask_msg
+	case fluicell::PPC1api6dataStructures::command::instructions::ask: {//ask_msg
 		logStatus(HERE, " ask_msg NOT implemented at the API level ");
 		return true;
 	}
