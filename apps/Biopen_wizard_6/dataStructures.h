@@ -394,11 +394,15 @@ struct protocolCommands {
 		button4 = 21,
 		button5 = 22,
 		button6 = 23,
-		rampPon = 24,
-		rampPoff = 25,
-		rampVr = 26,
-		rampVs = 27,
+		ramp = 24,
+		operational = 25,
+		initialize = 26,
+		standby = 27,
 		function = 28,
+		smallAndSlow = 29,
+		smallAngFast = 30,
+		bigAndSlow = 31,
+		bigAndFast = 32,
 		END //THIS IS TO TAKE TRACK OF ENUMERATION
 	};
 
@@ -430,11 +434,15 @@ struct protocolCommands {
 		case button4: return "button4";
 		case button5: return "button5";
 		case button6: return "button6";
-		case rampPon: return "rampPon";
-		case rampPoff: return "rampPoff";
-		case rampVr: return "rampVr";
-		case rampVs: return "rampVrs";
+		case ramp: return "ramp";
+		case operational: return "operational";
+		case initialize: return "initialize";
+		case standby: return "standby";
 		case function: return "function";
+		case smallAndSlow: return "smallAndSlow";
+		case smallAngFast: return "smallAngFast";
+		case bigAndSlow: return "bigAndSlow";
+		case bigAndFast: return "bigAndFast";
 		case END: return "END";
 		}
 		return "Invalid";

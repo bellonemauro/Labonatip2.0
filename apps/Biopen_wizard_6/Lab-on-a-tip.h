@@ -701,6 +701,7 @@ private slots:
 	void closeBiopen();
 
 	bool saveXml();
+	bool saveXml(QString _filename, QTreeWidget* _widget);
 
 	bool openXml();
 	bool openXml(QString _filename, QTreeWidget* _widget);
@@ -898,6 +899,8 @@ private:
   void fromTreeToItemVector(QTreeWidget* _tree,
 	  std::vector<protocolTreeWidgetItem*>* _command_vector);
   
+  QString Labonatip_GUI::generateDurationString(int _time);
+
   void fromItemVectorToProtocol(std::vector<protocolTreeWidgetItem*>* _command_vector,
 	  std::vector<fluicell::PPC1api6dataStructures::command>* _protocol);
   
@@ -1079,8 +1082,8 @@ private:
   int m_triggered_protocol_item;  //!< triggered row with the right click in the protocol list
   
   //object for reading and writing protocols
-  protocolReader *m_reader;
-  protocolWriter *m_writer;
+  //protocolReader *m_reader;
+  //protocolWriter *m_writer;
 
   // for undo
   QUndoStack *m_undo_stack;

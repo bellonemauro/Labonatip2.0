@@ -11,8 +11,9 @@
 
 #include "XmlProtocolReader.h"
 
-XmlProtocolReader::XmlProtocolReader(QTreeWidget *treeWidget)
-    : treeWidget(treeWidget)
+XmlProtocolReader::XmlProtocolReader(QTreeWidget* treeWidget)
+	: treeWidget(treeWidget),
+	m_after_item(NULL)
 {
 	m_row = 0;
 }
@@ -80,6 +81,7 @@ void XmlProtocolReader::readProtocolItem(protocolTreeWidgetItem* parent_item)
 protocolTreeWidgetItem *XmlProtocolReader::createChildItem(protocolTreeWidgetItem *parent_item)
 {
 	protocolTreeWidgetItem *childItem;
+#pragma message("TODO: it looks that here there is a problem with the parent items, protocols are not loaded in the loop")
     if (parent_item) {
         childItem = new protocolTreeWidgetItem(parent_item);
 		parent_item->addChild(childItem);

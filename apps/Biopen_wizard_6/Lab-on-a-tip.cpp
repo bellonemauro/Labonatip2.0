@@ -92,8 +92,9 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   ui->stackedWidget_indock->setCurrentIndex(0);
 
   //initialize protocol reader and writer
-  m_reader = new protocolReader();
-  m_writer = new protocolWriter();
+#pragma message("TODO: clean here")
+  //m_reader = new protocolReader();
+  //m_writer = new protocolWriter();
 
   // set the flows in the table
   ui->treeWidget_macroInfo->topLevelItem(12)->setText(1,
@@ -193,7 +194,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 
   ui->tabWidget_editor->setCurrentIndex(0);
   new XmlSyntaxHighlighter(ui->textBrowser_XMLcode->document());
-
+  ui->tabWidget_editor_advanced->setCurrentIndex(0);
 
   // set delegates
   m_combo_delegate = new ComboBoxDelegate();
@@ -495,8 +496,9 @@ void Labonatip_GUI::switchLanguage(int _value )
 		// translate other dialogs and objects
 		m_dialog_tools->switchLanguage(translation_file);
 		m_macroRunner_thread->switchLanguage(translation_file);
-		m_reader->switchLanguage(translation_file);
-		m_writer->switchLanguage(translation_file);
+#pragma message("TODO: clean here")
+		//m_reader->switchLanguage(translation_file);
+		//m_writer->switchLanguage(translation_file);
 		m_biopen_updated->switchLanguage(translation_file);
 	}
 	else std::cout << HERE << " translation not loaded " << std::endl;
@@ -1526,21 +1528,27 @@ void Labonatip_GUI::closeBiopen()
 
 bool Labonatip_GUI::saveXml()
 {
-	QString fileName =
+	QString file_name =
 		QFileDialog::getSaveFileName(this, tr("Save Protocol File"),
 			QDir::currentPath(),
 			tr("XBEL Files (*.prt *.xml)"));
-	if (fileName.isEmpty())
-		return false;
-	QFile file(fileName);
+	if (!file_name.isEmpty())
+		return saveXml(file_name, ui->treeWidget_macroTable);
+
+	return false;
+}
+
+bool Labonatip_GUI::saveXml(QString _filename, QTreeWidget* _widget)
+{
+	QFile file(_filename);
 	if (!file.open(QFile::WriteOnly | QFile::Text)) {
-		QMessageBox::warning(this, tr("QXmlStream Bookmarks"),
-			tr("Cannot write file %1:\n%2.")
-			.arg(QDir::toNativeSeparators(fileName),
+		QMessageBox::warning(this, m_str_warning,
+			m_str_file_not_saved + tr("<br>%1:\n%2.")
+			.arg(QDir::toNativeSeparators(_filename),
 				file.errorString()));
 		return false;
 	}
-	XmlProtocolWriter writer(ui->treeWidget_macroTable);
+	XmlProtocolWriter writer(_widget);
 	if (writer.writeFile(&file))
 	{
 		return true;
@@ -1577,8 +1585,8 @@ bool Labonatip_GUI::openXml(QString _filename, QTreeWidget* _widget)
 	}
 	if (!reader.read(&file, 0))
 	{
-		QMessageBox::warning(this, tr("QXmlStream Bookmarks"),
-			tr("Parse error in file %1:\n\n%2")
+		QMessageBox::warning(this, m_str_warning,
+			m_str_file_not_saved + tr("<br>%1:\n%2.")
 			.arg(QDir::toNativeSeparators(_filename),
 				reader.errorString()));
 		return true;
@@ -1616,8 +1624,9 @@ Labonatip_GUI::~Labonatip_GUI()
   delete m_no_edit_delegate;
   delete m_no_edit_delegate2;
   delete m_spinbox_delegate;
-  delete m_reader;
-  delete m_writer;
+#pragma message("TODO: clean here")
+  //delete m_reader;
+  //delete m_writer;
 
   delete m_biopen_updated;
   delete ui;

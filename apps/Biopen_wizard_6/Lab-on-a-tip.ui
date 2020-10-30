@@ -192,7 +192,7 @@ font-weight: 900;
              <x>0</x>
              <y>0</y>
              <width>985</width>
-             <height>707</height>
+             <height>708</height>
             </rect>
            </property>
            <layout class="QGridLayout" name="gridLayout">
@@ -214,7 +214,7 @@ font-weight: 900;
             <item row="0" column="0">
              <widget class="QStackedWidget" name="stackedWidget_main">
               <property name="currentIndex">
-               <number>1</number>
+               <number>0</number>
               </property>
               <widget class="QWidget" name="page">
                <layout class="QGridLayout" name="gridLayout_18">
@@ -917,6 +917,9 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                       <string/>
                      </property>
                      <layout class="QGridLayout" name="gridLayout_32">
+                      <property name="verticalSpacing">
+                       <number>0</number>
+                      </property>
                       <item row="2" column="0">
                        <spacer name="horizontalSpacer_12">
                         <property name="orientation">
@@ -924,71 +927,13 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                         </property>
                         <property name="sizeHint" stdset="0">
                          <size>
-                          <width>40</width>
+                          <width>20</width>
                           <height>20</height>
                          </size>
                         </property>
                        </spacer>
                       </item>
                       <item row="6" column="1">
-                       <widget class="QLabel" name="label_7">
-                        <property name="font">
-                         <font>
-                          <pointsize>11</pointsize>
-                         </font>
-                        </property>
-                        <property name="text">
-                         <string>Small&amp;Fast</string>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignHCenter|Qt::AlignTop</set>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="4" column="1">
-                       <widget class="QLabel" name="label_2">
-                        <property name="font">
-                         <font>
-                          <pointsize>11</pointsize>
-                         </font>
-                        </property>
-                        <property name="text">
-                         <string>Small&amp;Slow</string>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignHCenter|Qt::AlignTop</set>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="5" column="3">
-                       <widget class="QPushButton" name="pushButton_setPipe4">
-                        <property name="minimumSize">
-                         <size>
-                          <width>90</width>
-                          <height>90</height>
-                         </size>
-                        </property>
-                        <property name="font">
-                         <font>
-                          <pointsize>11</pointsize>
-                         </font>
-                        </property>
-                        <property name="text">
-                         <string/>
-                        </property>
-                        <property name="icon">
-                         <iconset resource="resources.qrc">
-                          <normaloff>:/icons/setPipe4.png</normaloff>:/icons/setPipe4.png</iconset>
-                        </property>
-                        <property name="iconSize">
-                         <size>
-                          <width>90</width>
-                          <height>90</height>
-                         </size>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="5" column="1">
                        <widget class="QPushButton" name="pushButton_setPipe2">
                         <property name="minimumSize">
                          <size>
@@ -1016,37 +961,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                         </property>
                        </widget>
                       </item>
-                      <item row="4" column="3">
-                       <widget class="QLabel" name="label_6">
-                        <property name="font">
-                         <font>
-                          <pointsize>11</pointsize>
-                         </font>
-                        </property>
-                        <property name="text">
-                         <string>Big&amp;Small</string>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignHCenter|Qt::AlignTop</set>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="6" column="3">
-                       <widget class="QLabel" name="label_8">
-                        <property name="font">
-                         <font>
-                          <pointsize>11</pointsize>
-                         </font>
-                        </property>
-                        <property name="text">
-                         <string>Big&amp;Fast</string>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignHCenter|Qt::AlignTop</set>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="2" column="3">
+                      <item row="2" column="4">
                        <widget class="QPushButton" name="pushButton_setPipe3">
                         <property name="minimumSize">
                          <size>
@@ -1073,6 +988,140 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                          </size>
                         </property>
                        </widget>
+                      </item>
+                      <item row="1" column="1">
+                       <spacer name="verticalSpacer_13">
+                        <property name="orientation">
+                         <enum>Qt::Vertical</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>20</width>
+                          <height>40</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                      <item row="2" column="2">
+                       <spacer name="horizontalSpacer_13">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>20</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                      <item row="7" column="0" colspan="3">
+                       <widget class="QLabel" name="label_7">
+                        <property name="font">
+                         <font>
+                          <pointsize>11</pointsize>
+                         </font>
+                        </property>
+                        <property name="text">
+                         <string>Standard &amp; Regular</string>
+                        </property>
+                        <property name="alignment">
+                         <set>Qt::AlignHCenter|Qt::AlignTop</set>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="6" column="4">
+                       <widget class="QPushButton" name="pushButton_setPipe4">
+                        <property name="minimumSize">
+                         <size>
+                          <width>90</width>
+                          <height>90</height>
+                         </size>
+                        </property>
+                        <property name="font">
+                         <font>
+                          <pointsize>11</pointsize>
+                         </font>
+                        </property>
+                        <property name="text">
+                         <string/>
+                        </property>
+                        <property name="icon">
+                         <iconset resource="resources.qrc">
+                          <normaloff>:/icons/setPipe4.png</normaloff>:/icons/setPipe4.png</iconset>
+                        </property>
+                        <property name="iconSize">
+                         <size>
+                          <width>90</width>
+                          <height>90</height>
+                         </size>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="0" column="0" colspan="5">
+                       <widget class="QLabel" name="label_DZC_title_2">
+                        <property name="minimumSize">
+                         <size>
+                          <width>100</width>
+                          <height>30</height>
+                         </size>
+                        </property>
+                        <property name="font">
+                         <font>
+                          <pointsize>16</pointsize>
+                         </font>
+                        </property>
+                        <property name="styleSheet">
+                         <string notr="true"/>
+                        </property>
+                        <property name="text">
+                         <string>OPERATIONAL MODES</string>
+                        </property>
+                        <property name="alignment">
+                         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="2" column="5">
+                       <spacer name="horizontalSpacer_11">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>20</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                      <item row="7" column="3" colspan="3">
+                       <widget class="QLabel" name="label_8">
+                        <property name="font">
+                         <font>
+                          <pointsize>11</pointsize>
+                         </font>
+                        </property>
+                        <property name="text">
+                         <string>Large &amp; Regular</string>
+                        </property>
+                        <property name="alignment">
+                         <set>Qt::AlignHCenter|Qt::AlignTop</set>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="2" column="3">
+                       <spacer name="horizontalSpacer_14">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>20</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
                       </item>
                       <item row="2" column="1">
                        <widget class="QPushButton" name="pushButton_setPipe1">
@@ -1102,33 +1151,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                         </property>
                        </widget>
                       </item>
-                      <item row="2" column="4">
-                       <spacer name="horizontalSpacer_11">
-                        <property name="orientation">
-                         <enum>Qt::Horizontal</enum>
-                        </property>
-                        <property name="sizeHint" stdset="0">
-                         <size>
-                          <width>40</width>
-                          <height>20</height>
-                         </size>
-                        </property>
-                       </spacer>
-                      </item>
-                      <item row="1" column="1">
-                       <spacer name="verticalSpacer_13">
-                        <property name="orientation">
-                         <enum>Qt::Vertical</enum>
-                        </property>
-                        <property name="sizeHint" stdset="0">
-                         <size>
-                          <width>20</width>
-                          <height>40</height>
-                         </size>
-                        </property>
-                       </spacer>
-                      </item>
-                      <item row="3" column="1">
+                      <item row="4" column="1">
                        <spacer name="verticalSpacer_12">
                         <property name="orientation">
                          <enum>Qt::Vertical</enum>
@@ -1141,40 +1164,33 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                         </property>
                        </spacer>
                       </item>
-                      <item row="2" column="2">
-                       <spacer name="horizontalSpacer_13">
-                        <property name="orientation">
-                         <enum>Qt::Horizontal</enum>
-                        </property>
-                        <property name="sizeHint" stdset="0">
-                         <size>
-                          <width>40</width>
-                          <height>20</height>
-                         </size>
-                        </property>
-                       </spacer>
-                      </item>
-                      <item row="0" column="0" colspan="4">
-                       <widget class="QLabel" name="label_DZC_title_2">
-                        <property name="minimumSize">
-                         <size>
-                          <width>100</width>
-                          <height>30</height>
-                         </size>
-                        </property>
+                      <item row="3" column="1">
+                       <widget class="QLabel" name="label_2">
                         <property name="font">
                          <font>
-                          <pointsize>16</pointsize>
+                          <pointsize>11</pointsize>
                          </font>
                         </property>
-                        <property name="styleSheet">
-                         <string notr="true"/>
-                        </property>
                         <property name="text">
-                         <string>OPERATIONAL MODES</string>
+                         <string>Standard &amp; Slow</string>
                         </property>
                         <property name="alignment">
-                         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                         <set>Qt::AlignHCenter|Qt::AlignTop</set>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="3" column="4">
+                       <widget class="QLabel" name="label_6">
+                        <property name="font">
+                         <font>
+                          <pointsize>11</pointsize>
+                         </font>
+                        </property>
+                        <property name="text">
+                         <string>Large &amp; Slow</string>
+                        </property>
+                        <property name="alignment">
+                         <set>Qt::AlignHCenter|Qt::AlignTop</set>
                         </property>
                        </widget>
                       </item>
@@ -1907,63 +1923,11 @@ height: 0.5px;
                        </item>
                       </layout>
                      </widget>
-                     <widget class="QLabel" name="label_GW_sw">
-                      <property name="geometry">
-                       <rect>
-                        <x>780</x>
-                        <y>210</y>
-                        <width>101</width>
-                        <height>41</height>
-                       </rect>
-                      </property>
-                      <property name="font">
-                       <font>
-                        <pointsize>11</pointsize>
-                        <weight>75</weight>
-                        <bold>true</bold>
-                       </font>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true"/>
-                      </property>
-                      <property name="text">
-                       <string>Internal</string>
-                      </property>
-                      <property name="alignment">
-                       <set>Qt::AlignCenter</set>
-                      </property>
-                     </widget>
-                     <widget class="QLabel" name="label_GW_rec">
-                      <property name="geometry">
-                       <rect>
-                        <x>850</x>
-                        <y>210</y>
-                        <width>111</width>
-                        <height>41</height>
-                       </rect>
-                      </property>
-                      <property name="font">
-                       <font>
-                        <pointsize>11</pointsize>
-                        <weight>75</weight>
-                        <bold>true</bold>
-                       </font>
-                      </property>
-                      <property name="styleSheet">
-                       <string notr="true"/>
-                      </property>
-                      <property name="text">
-                       <string>External</string>
-                      </property>
-                      <property name="alignment">
-                       <set>Qt::AlignCenter</set>
-                      </property>
-                     </widget>
                      <widget class="Line" name="line_GW_waste">
                       <property name="geometry">
                        <rect>
                         <x>815</x>
-                        <y>245</y>
+                        <y>240</y>
                         <width>80</width>
                         <height>10</height>
                        </rect>
@@ -1985,7 +1949,7 @@ height: 0.5px;
                       <property name="geometry">
                        <rect>
                         <x>471</x>
-                        <y>245</y>
+                        <y>240</y>
                         <width>300</width>
                         <height>10</height>
                        </rect>
@@ -2007,7 +1971,7 @@ height: 0.5px;
                       <property name="geometry">
                        <rect>
                         <x>780</x>
-                        <y>255</y>
+                        <y>245</y>
                         <width>151</width>
                         <height>37</height>
                        </rect>
@@ -2032,8 +1996,8 @@ height: 0.5px;
                      <widget class="QLabel" name="label_GW_sol">
                       <property name="geometry">
                        <rect>
-                        <x>490</x>
-                        <y>255</y>
+                        <x>545</x>
+                        <y>245</y>
                         <width>161</width>
                         <height>37</height>
                        </rect>
@@ -2108,60 +2072,12 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Waste full in: 0 h 0 min&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                       </property>
                      </widget>
-                     <widget class="QLabel" name="label_4">
-                      <property name="geometry">
-                       <rect>
-                        <x>867</x>
-                        <y>155</y>
-                        <width>31</width>
-                        <height>51</height>
-                       </rect>
-                      </property>
-                      <property name="font">
-                       <font>
-                        <family>Arial</family>
-                        <pointsize>26</pointsize>
-                        <weight>50</weight>
-                        <bold>false</bold>
-                       </font>
-                      </property>
-                      <property name="text">
-                       <string>8</string>
-                      </property>
-                      <property name="alignment">
-                       <set>Qt::AlignCenter</set>
-                      </property>
-                     </widget>
-                     <widget class="QLabel" name="label_5">
-                      <property name="geometry">
-                       <rect>
-                        <x>809</x>
-                        <y>155</y>
-                        <width>31</width>
-                        <height>51</height>
-                       </rect>
-                      </property>
-                      <property name="font">
-                       <font>
-                        <family>Arial</family>
-                        <pointsize>26</pointsize>
-                        <weight>50</weight>
-                        <bold>false</bold>
-                       </font>
-                      </property>
-                      <property name="text">
-                       <string>7</string>
-                      </property>
-                      <property name="alignment">
-                       <set>Qt::AlignCenter</set>
-                      </property>
-                     </widget>
                      <widget class="QGroupBox" name="groupBox_12">
                       <property name="geometry">
                        <rect>
                         <x>450</x>
                         <y>170</y>
-                        <width>351</width>
+                        <width>471</width>
                         <height>71</height>
                        </rect>
                       </property>
@@ -2277,7 +2193,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Start the flow of solution, press again to stop.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                          </property>
                          <property name="whatsThis">
-                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pump solution 2&lt;br/&gt;&lt;br/&gt;The solutions in the well 1 will be released &lt;br/&gt;for the &lt;span style=&quot; font-style:italic;&quot;&gt;t&lt;/span&gt; seconds, expressed in the field delivery time. &lt;/p&gt;&lt;p&gt;Push again to stop the flow.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pump solution 2&lt;br/&gt;&lt;br/&gt;The solutions in the well 2 will be released &lt;br/&gt;for the &lt;span style=&quot; font-style:italic;&quot;&gt;t&lt;/span&gt; seconds, expressed in the field delivery time. &lt;/p&gt;&lt;p&gt;Push again to stop the flow.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                          </property>
                          <property name="styleSheet">
                           <string notr="true"/>
@@ -2317,7 +2233,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Start the flow of solution, press again to stop.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                          </property>
                          <property name="whatsThis">
-                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pump solution 3&lt;br/&gt;&lt;br/&gt;The solutions in the well 1 will be released &lt;br/&gt;for the &lt;span style=&quot; font-style:italic;&quot;&gt;t&lt;/span&gt; seconds, expressed in the field delivery time. &lt;/p&gt;&lt;p&gt;Push again to stop the flow.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pump solution 3&lt;br/&gt;&lt;br/&gt;The solutions in the well 3 will be released &lt;br/&gt;for the &lt;span style=&quot; font-style:italic;&quot;&gt;t&lt;/span&gt; seconds, expressed in the field delivery time. &lt;/p&gt;&lt;p&gt;Push again to stop the flow.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                          </property>
                          <property name="styleSheet">
                           <string notr="true"/>
@@ -2363,7 +2279,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Start the flow of solution, press again to stop.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                          </property>
                          <property name="whatsThis">
-                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pump solution 4&lt;br/&gt;&lt;br/&gt;The solutions in the well 1 will be released &lt;br/&gt;for the &lt;span style=&quot; font-style:italic;&quot;&gt;t&lt;/span&gt; seconds, expressed in the field delivery time. &lt;/p&gt;&lt;p&gt;Push again to stop the flow.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pump solution 4&lt;br/&gt;&lt;br/&gt;The solutions in the well 4 will be released &lt;br/&gt;for the &lt;span style=&quot; font-style:italic;&quot;&gt;t&lt;/span&gt; seconds, expressed in the field delivery time. &lt;/p&gt;&lt;p&gt;Push again to stop the flow.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                          </property>
                          <property name="styleSheet">
                           <string notr="true"/>
@@ -2393,6 +2309,12 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                        </item>
                        <item>
                         <widget class="QPushButton" name="pushButton_solution5">
+                         <property name="toolTip">
+                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Start the flow of solution, press again to stop.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                         </property>
+                         <property name="whatsThis">
+                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pump solution 5&lt;br/&gt;&lt;br/&gt;The solutions in the well 5 will be released &lt;br/&gt;for the &lt;span style=&quot; font-style:italic;&quot;&gt;t&lt;/span&gt; seconds, expressed in the field delivery time. &lt;/p&gt;&lt;p&gt;Push again to stop the flow.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                         </property>
                          <property name="text">
                           <string>5</string>
                          </property>
@@ -2403,11 +2325,49 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                        </item>
                        <item>
                         <widget class="QPushButton" name="pushButton_solution6">
+                         <property name="toolTip">
+                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Start the flow of solution, press again to stop.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                         </property>
+                         <property name="whatsThis">
+                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Pump solution 6&lt;br/&gt;&lt;br/&gt;The solutions in the well 6 will be released &lt;br/&gt;for the &lt;span style=&quot; font-style:italic;&quot;&gt;t&lt;/span&gt; seconds, expressed in the field delivery time. &lt;/p&gt;&lt;p&gt;Push again to stop the flow.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                         </property>
                          <property name="text">
                           <string>6</string>
                          </property>
                          <property name="checkable">
                           <bool>true</bool>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QPushButton" name="pushButton_wasteInt">
+                         <property name="enabled">
+                          <bool>false</bool>
+                         </property>
+                         <property name="toolTip">
+                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Internal waste.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                         </property>
+                         <property name="whatsThis">
+                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Waste internal&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                         </property>
+                         <property name="text">
+                          <string>7</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QPushButton" name="pushButton_wasteExt">
+                         <property name="enabled">
+                          <bool>false</bool>
+                         </property>
+                         <property name="toolTip">
+                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;External waste&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                         </property>
+                         <property name="whatsThis">
+                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Waste external&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                         </property>
+                         <property name="text">
+                          <string>8</string>
                          </property>
                         </widget>
                        </item>
@@ -2424,15 +2384,11 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                      <zorder>progressBar_recirc8</zorder>
                      <zorder>graphicsView</zorder>
                      <zorder>widget_solutionArrow</zorder>
-                     <zorder>label_GW_sw</zorder>
-                     <zorder>label_GW_rec</zorder>
                      <zorder>line_GW_waste</zorder>
                      <zorder>line_GW_sol</zorder>
                      <zorder>label_GW_waste</zorder>
                      <zorder>label_GW_sol</zorder>
                      <zorder>label_GW_biopenView</zorder>
-                     <zorder>label_4</zorder>
-                     <zorder>label_5</zorder>
                      <zorder>groupBox_12</zorder>
                      <zorder>textEdit_emptyTime_waste</zorder>
                     </widget>
@@ -2499,6 +2455,9 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                        <font>
                         <pointsize>11</pointsize>
                        </font>
+                      </property>
+                      <property name="toolTip">
+                       <string/>
                       </property>
                       <property name="accessibleDescription">
                        <string notr="true"/>
@@ -2710,7 +2669,7 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
                        <bool>false</bool>
                       </property>
                       <property name="textInteractionFlags">
-                       <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextEditable|Qt::TextSelectableByMouse</set>
+                       <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextEditable|Qt::TextEditorInteraction|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
                       </property>
                      </widget>
                     </item>
@@ -3613,7 +3572,7 @@ QCheckBox::indicator:unchecked {
 }</string>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
        <widget class="QWidget" name="page_runner">
         <layout class="QGridLayout" name="gridLayout_19">
@@ -6251,7 +6210,7 @@ color: rgb(0, 0, 0);</string>
                 <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:9.75pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
               </widget>
@@ -6293,7 +6252,7 @@ color: rgb(0, 0, 0);</string>
                 <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:9.75pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
               </widget>
@@ -7003,8 +6962,8 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>353</width>
-                  <height>3146</height>
+                  <width>361</width>
+                  <height>2859</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -7555,7 +7514,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:9.75pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8.25pt;&quot;&gt;arcTo(qreal x, qreal y, qreal w, qreal h, qreal startAngle, qreal arcLength)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                       </property>
                      </widget>
@@ -7572,7 +7531,7 @@ p, li { white-space: pre-wrap; }
                        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:9.75pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8.25pt;&quot;&gt;arcMoveTo(qreal x, qreal y, qreal w, qreal h, qreal angle)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                       </property>
                      </widget>
@@ -7848,7 +7807,7 @@ p, li { white-space: pre-wrap; }
                        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:9.75pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8.25pt;&quot;&gt;arcTo(qreal x, qreal y, qreal w, qreal h, qreal startAngle, qreal arcLength)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                       </property>
                      </widget>
@@ -7859,7 +7818,7 @@ p, li { white-space: pre-wrap; }
                        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:9.75pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8.25pt;&quot;&gt;arcMoveTo(qreal x, qreal y, qreal w, qreal h, qreal angle)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                       </property>
                      </widget>
@@ -8141,7 +8100,7 @@ p, li { white-space: pre-wrap; }
                        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:9.75pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8.25pt;&quot;&gt;arcTo(qreal x, qreal y, qreal w, qreal h, qreal startAngle, qreal arcLength)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                       </property>
                      </widget>
@@ -8152,7 +8111,7 @@ p, li { white-space: pre-wrap; }
                        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:9.75pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8.25pt;&quot;&gt;arcMoveTo(qreal x, qreal y, qreal w, qreal h, qreal angle)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                       </property>
                      </widget>
@@ -8246,7 +8205,7 @@ p, li { white-space: pre-wrap; }
                        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:9.75pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8.25pt;&quot;&gt;arcTo(qreal x, qreal y, qreal w, qreal h, qreal startAngle, qreal arcLength)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                       </property>
                      </widget>
@@ -8257,7 +8216,7 @@ p, li { white-space: pre-wrap; }
                        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:9.75pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8.25pt;&quot;&gt;arcMoveTo(qreal x, qreal y, qreal w, qreal h, qreal angle)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                       </property>
                      </widget>
@@ -8562,7 +8521,7 @@ p, li { white-space: pre-wrap; }
                        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:9.75pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8.25pt;&quot;&gt;arcTo(qreal x, qreal y, qreal w, qreal h, qreal startAngle, qreal arcLength)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                       </property>
                      </widget>
@@ -8573,7 +8532,7 @@ p, li { white-space: pre-wrap; }
                        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:9.75pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8.25pt;&quot;&gt;arcMoveTo(qreal x, qreal y, qreal w, qreal h, qreal angle)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                       </property>
                      </widget>
@@ -8859,7 +8818,7 @@ p, li { white-space: pre-wrap; }
                        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:9.75pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8.25pt;&quot;&gt;arcTo(qreal x, qreal y, qreal w, qreal h, qreal startAngle, qreal arcLength)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                       </property>
                      </widget>
@@ -9028,7 +8987,7 @@ p, li { white-space: pre-wrap; }
                        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:9.75pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8.25pt;&quot;&gt;arcMoveTo(qreal x, qreal y, qreal w, qreal h, qreal angle)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                       </property>
                      </widget>
@@ -9080,6 +9039,9 @@ p, li { white-space: pre-wrap; }
            <property name="tabPosition">
             <enum>QTabWidget::South</enum>
            </property>
+           <property name="tabShape">
+            <enum>QTabWidget::Triangular</enum>
+           </property>
            <property name="currentIndex">
             <number>0</number>
            </property>
@@ -9091,7 +9053,7 @@ p, li { white-space: pre-wrap; }
            </property>
            <widget class="QWidget" name="tab_6">
             <attribute name="title">
-             <string>Params</string>
+             <string>Browser</string>
             </attribute>
             <layout class="QGridLayout" name="gridLayout_31">
              <property name="leftMargin">
@@ -9167,182 +9129,6 @@ QTreeView::item:selected:!active {
                 <property name="bottomMargin">
                  <number>2</number>
                 </property>
-                <item>
-                 <widget class="QGroupBox" name="groupBox_17">
-                  <property name="minimumSize">
-                   <size>
-                    <width>0</width>
-                    <height>200</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>16777215</width>
-                    <height>320</height>
-                   </size>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">QGroupBox { 
-     border: 2px solid  rgb(250, 250, 250); ; 
-     border-radius: 10px; 
-    color: rgb( 250, 250, 250);
-    background-color: rgb(250, 250, 250);
-
- } </string>
-                  </property>
-                  <property name="title">
-                   <string>GroupBox</string>
-                  </property>
-                  <layout class="QGridLayout" name="gridLayout_29">
-                   <property name="leftMargin">
-                    <number>5</number>
-                   </property>
-                   <property name="topMargin">
-                    <number>5</number>
-                   </property>
-                   <property name="rightMargin">
-                    <number>5</number>
-                   </property>
-                   <property name="bottomMargin">
-                    <number>5</number>
-                   </property>
-                   <item row="1" column="0">
-                    <widget class="QTreeWidget" name="treeWidget_params">
-                     <property name="minimumSize">
-                      <size>
-                       <width>0</width>
-                       <height>0</height>
-                      </size>
-                     </property>
-                     <property name="maximumSize">
-                      <size>
-                       <width>16777215</width>
-                       <height>16777215</height>
-                      </size>
-                     </property>
-                     <property name="font">
-                      <font>
-                       <pointsize>11</pointsize>
-                      </font>
-                     </property>
-                     <property name="accessibleDescription">
-                      <string/>
-                     </property>
-                     <property name="styleSheet">
-                      <string notr="true"/>
-                     </property>
-                     <property name="frameShape">
-                      <enum>QFrame::NoFrame</enum>
-                     </property>
-                     <property name="indentation">
-                      <number>10</number>
-                     </property>
-                     <attribute name="headerVisible">
-                      <bool>false</bool>
-                     </attribute>
-                     <column>
-                      <property name="text">
-                       <string>Solutions</string>
-                      </property>
-                     </column>
-                     <column>
-                      <property name="text">
-                       <string>Value</string>
-                      </property>
-                     </column>
-                     <item>
-                      <property name="text">
-                       <string notr="true">Solution 1</string>
-                      </property>
-                      <property name="text">
-                       <string notr="true">name</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Solution 2</string>
-                      </property>
-                      <property name="text">
-                       <string notr="true">name</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Solution 3</string>
-                      </property>
-                      <property name="text">
-                       <string notr="true">name</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Solution 4</string>
-                      </property>
-                      <property name="text">
-                       <string notr="true">name</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Solution 5</string>
-                      </property>
-                      <property name="text">
-                       <string>name</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Solution 6</string>
-                      </property>
-                      <property name="text">
-                       <string>name</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Pon def (mbar)</string>
-                      </property>
-                      <property name="text">
-                       <string notr="true">190</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Poff def (mbar)</string>
-                      </property>
-                      <property name="text">
-                       <string notr="true">21</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Vrecirc def (mbar)</string>
-                      </property>
-                      <property name="text">
-                       <string notr="true">-115</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Vswitch def (mbar)</string>
-                      </property>
-                      <property name="text">
-                       <string notr="true">-115</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Protocol duration (s)</string>
-                      </property>
-                      <property name="text">
-                       <string notr="true">0</string>
-                      </property>
-                     </item>
-                    </widget>
-                   </item>
-                  </layout>
-                 </widget>
-                </item>
                 <item>
                  <widget class="QGroupBox" name="groupBox_18">
                   <property name="styleSheet">
@@ -9476,12 +9262,195 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                      </property>
                      <column>
                       <property name="text">
-                       <string>Protocols</string>
+                       <string>Protocol browser</string>
                       </property>
                      </column>
                     </widget>
                    </item>
                   </layout>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+           <widget class="QWidget" name="Params">
+            <attribute name="title">
+             <string>Params</string>
+            </attribute>
+            <layout class="QVBoxLayout" name="verticalLayout_7">
+             <item>
+              <widget class="QGroupBox" name="groupBox_17">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QGroupBox { 
+     border: 2px solid  rgb(250, 250, 250); ; 
+     border-radius: 10px; 
+    color: rgb( 250, 250, 250);
+    background-color: rgb(250, 250, 250);
+
+ } </string>
+               </property>
+               <property name="title">
+                <string>GroupBox</string>
+               </property>
+               <layout class="QGridLayout" name="gridLayout_29">
+                <property name="leftMargin">
+                 <number>5</number>
+                </property>
+                <property name="topMargin">
+                 <number>5</number>
+                </property>
+                <property name="rightMargin">
+                 <number>5</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>5</number>
+                </property>
+                <item row="1" column="0">
+                 <widget class="QTreeWidget" name="treeWidget_params">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
+                  <property name="accessibleDescription">
+                   <string/>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true"/>
+                  </property>
+                  <property name="frameShape">
+                   <enum>QFrame::NoFrame</enum>
+                  </property>
+                  <property name="indentation">
+                   <number>10</number>
+                  </property>
+                  <attribute name="headerVisible">
+                   <bool>false</bool>
+                  </attribute>
+                  <column>
+                   <property name="text">
+                    <string>Solutions</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>Value</string>
+                   </property>
+                  </column>
+                  <item>
+                   <property name="text">
+                    <string notr="true">Solution 1</string>
+                   </property>
+                   <property name="text">
+                    <string notr="true">name</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Solution 2</string>
+                   </property>
+                   <property name="text">
+                    <string notr="true">name</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Solution 3</string>
+                   </property>
+                   <property name="text">
+                    <string notr="true">name</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Solution 4</string>
+                   </property>
+                   <property name="text">
+                    <string notr="true">name</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Solution 5</string>
+                   </property>
+                   <property name="text">
+                    <string>name</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Solution 6</string>
+                   </property>
+                   <property name="text">
+                    <string>name</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Pon def (mbar)</string>
+                   </property>
+                   <property name="text">
+                    <string notr="true">190</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Poff def (mbar)</string>
+                   </property>
+                   <property name="text">
+                    <string notr="true">21</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Vrecirc def (mbar)</string>
+                   </property>
+                   <property name="text">
+                    <string notr="true">-115</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Vswitch def (mbar)</string>
+                   </property>
+                   <property name="text">
+                    <string notr="true">-115</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Protocol duration (s)</string>
+                   </property>
+                   <property name="text">
+                    <string notr="true">0</string>
+                   </property>
+                  </item>
                  </widget>
                 </item>
                </layout>

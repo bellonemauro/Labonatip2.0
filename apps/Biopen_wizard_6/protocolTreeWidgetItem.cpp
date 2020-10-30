@@ -11,7 +11,6 @@
 #include <QSpinBox>
 
 
-
 protocolTreeWidgetItem::protocolTreeWidgetItem(protocolTreeWidgetItem *_parent) :
 	m_pr_params(new pr_params),
 	m_cmd_idx_c(0), m_cmd_command_c (1), m_cmd_range_c (2),
@@ -33,6 +32,42 @@ protocolTreeWidgetItem::protocolTreeWidgetItem(protocolTreeWidgetItem *_parent) 
 	this->setText(m_cmd_msg_c, " "); // status message
 	this->setFlags(this->flags() | (Qt::ItemIsEditable) | (Qt::ItemIsSelectable));
 
+
+	m_tt_c_idx = tr("Index");
+	m_tt_c_cmd = tr("Protocol command");
+	m_tt_c_range = tr("Range of validity");
+	m_tt_c_value = tr("Value to be applied");
+	m_tt_c_msg = tr("Write here any message here");
+	m_tt_cmd_alloff = tr("Switch off all pressure pumps and close all solution valves");
+	m_tt_cmd_solution = tr("Open/close the solution X valve");
+	m_tt_cmd_setPon = tr("Set the pressureON channel to a specific value");
+	m_tt_cmd_setPoff = tr("Set the pressureOFF channel to a specific value");
+	m_tt_cmd_setVrecirc = tr("Set the vacuum recirculation channel to a specific value");
+	m_tt_cmd_setVswitch = tr("Set the vacuum switch channel to a specific value");
+	m_tt_cmd_waitSync = tr("");
+	m_tt_cmd_syncOut = tr("");
+	m_tt_cmd_wait = tr("Set a waiting time in seconds");
+	m_tt_cmd_ask = tr("Stop the protocol and ask a confirmation message");
+	m_tt_cmd_pumpsOff = tr("Switch off all the pressure pumps");
+	m_tt_cmd_loop = tr("Create a loop of commands");
+	m_tt_cmd_comment = tr("Comment for the designer, no effect on the protocol running");
+	m_tt_cmd_button = tr("Run push/stop protocol for button X");
+	m_tt_cmd_ramp = tr("");
+	m_tt_cmd_operational = tr("Run the operational protocol");
+	m_tt_cmd_initialize = tr("Run initialize protocol");
+	m_tt_cmd_standby = tr("Run standby protocol");
+	m_tt_cmd_function = tr("");
+	m_tt_cmd_smallAndSlow = tr("Set the droplet to be small and flow to be slow");
+	m_tt_cmd_smallAndFast = tr("Set the droplet to be small and flow to be fast");
+	m_tt_cmd_bigAndSlow = tr("Set the droplet to be big and flow to be slow");
+	m_tt_cmd_bigAndFast = tr("Set the droplet to be big and flow to be fast");
+
+	dynamic_cast<QTreeWidgetItem*>(this)->setToolTip(editorParams::c_idx, m_tt_c_idx);
+	dynamic_cast<QTreeWidgetItem*>(this)->setToolTip(editorParams::c_command, m_tt_c_cmd);
+	dynamic_cast<QTreeWidgetItem*>(this)->setToolTip(editorParams::c_range, m_tt_c_range);
+	dynamic_cast<QTreeWidgetItem*>(this)->setToolTip(editorParams::c_value, m_tt_c_value);
+	dynamic_cast<QTreeWidgetItem*>(this)->setToolTip(editorParams::c_msg, m_tt_c_msg);
+
 	if (_parent)
 	{
 		this->setParent(_parent);
@@ -43,8 +78,6 @@ protocolTreeWidgetItem::protocolTreeWidgetItem(protocolTreeWidgetItem *_parent) 
 bool protocolTreeWidgetItem::checkValidity( int _column)
 {
 	// check validity for the element
-
-	
 
 	if (this->childCount() > 0)
 	{
@@ -103,6 +136,7 @@ bool protocolTreeWidgetItem::checkValidity( int _column)
 	switch (idx)
 	{
 	case protocolCommands::allOff: {
+		dynamic_cast<QTreeWidgetItem*>(this)->setToolTip(editorParams::c_command, m_tt_cmd_alloff);
 		this->setText(editorParams::c_value, QString("")); // it removes whatever is there
 		return true;
 	}
@@ -113,6 +147,7 @@ bool protocolTreeWidgetItem::checkValidity( int _column)
 	case protocolCommands::solution5:
 	case protocolCommands::solution6: {
 		// check open valve : 0 = no valve, 1,2,3,4 valves 1,2,3,4
+		dynamic_cast<QTreeWidgetItem*>(this)->setToolTip(editorParams::c_command, m_tt_cmd_solution);
 		if (number != 1) {
 			this->setText(editorParams::c_value, QString("0")); // if the value is not valid, reset to zero
 			return false;
@@ -122,6 +157,7 @@ bool protocolTreeWidgetItem::checkValidity( int _column)
 	case protocolCommands::setPon: {
 		// if the number if lower than 0,
 		// the value becomes automatically positive
+		dynamic_cast<QTreeWidgetItem*>(this)->setToolTip(editorParams::c_command, m_tt_cmd_setPon);
 		if (number < 1) {
 			number = -number;
 			this->setText(editorParams::c_value, QString::number(number));
@@ -137,6 +173,7 @@ bool protocolTreeWidgetItem::checkValidity( int _column)
 	case protocolCommands::setPoff: {
 		// if the number if lower than 0,
 		// the value becomes automatically positive
+		dynamic_cast<QTreeWidgetItem*>(this)->setToolTip(editorParams::c_command, m_tt_cmd_setPoff);
 		if (number < 1)
 		{
 			number = -number;
@@ -153,7 +190,7 @@ bool protocolTreeWidgetItem::checkValidity( int _column)
 	case protocolCommands::setVrecirc: {
 		// if the number if higher than 0,
 		// the value becomes automatically negative
-		int number = this->text(editorParams::c_value).toInt();
+		dynamic_cast<QTreeWidgetItem*>(this)->setToolTip(editorParams::c_command, m_tt_cmd_setVrecirc);
 		if (number > -1)
 		{
 			number = -number;
@@ -170,6 +207,7 @@ bool protocolTreeWidgetItem::checkValidity( int _column)
 	case protocolCommands::setVswitch: {
 		// if the number if higher than 0,
 		// the value becomes automatically negative
+		dynamic_cast<QTreeWidgetItem*>(this)->setToolTip(editorParams::c_command, m_tt_cmd_setVswitch);
 		if (number > -1) {
 			number = -number;
 			this->setText(editorParams::c_value, QString::number(number));
@@ -184,6 +222,7 @@ bool protocolTreeWidgetItem::checkValidity( int _column)
 	}
 	case protocolCommands::waitSync: {
 		// if the value is not valid, reset to zero
+		dynamic_cast<QTreeWidgetItem*>(this)->setToolTip(editorParams::c_command, m_tt_cmd_waitSync);
 		if (number != 1) {
 			this->setText(editorParams::c_value, QString("0"));
 			return false;
@@ -192,6 +231,7 @@ bool protocolTreeWidgetItem::checkValidity( int _column)
 	}
 	case protocolCommands::syncOut: {
 		// if the value is not valid, reset to zero
+		dynamic_cast<QTreeWidgetItem*>(this)->setToolTip(editorParams::c_command, m_tt_cmd_syncOut);
 		if (number < MIN_PULSE_PERIOD) { // if is not the range
 			this->setText(editorParams::c_value, QString("20"));
 			return false;
@@ -200,6 +240,7 @@ bool protocolTreeWidgetItem::checkValidity( int _column)
 	}
 	case protocolCommands::wait: {
 		// if the value is not valid, reset to one
+		dynamic_cast<QTreeWidgetItem*>(this)->setToolTip(editorParams::c_command, m_tt_cmd_wait);
 		if (number < 1) {
 			this->setText(editorParams::c_value, QString("1"));
 			return false;
@@ -208,16 +249,19 @@ bool protocolTreeWidgetItem::checkValidity( int _column)
 	}
 	case protocolCommands::ask: {
 		// no need to check here
+		dynamic_cast<QTreeWidgetItem*>(this)->setToolTip(editorParams::c_command, m_tt_cmd_ask);
 		this->setText(editorParams::c_value, QString("")); // it removes whatever is there
 		return true;
 	}
 	case protocolCommands::pumpsOff: {
 		// no need to check here
+		dynamic_cast<QTreeWidgetItem*>(this)->setToolTip(editorParams::c_command, m_tt_cmd_pumpsOff);
 		this->setText(editorParams::c_value, QString("")); // it removes whatever is there
 		return true;
 	}
 	case protocolCommands::loop: {
 		// if is not the range minimum number is 1
+		dynamic_cast<QTreeWidgetItem*>(this)->setToolTip(editorParams::c_command, m_tt_cmd_loop);
 		if (number < 1) {
 			this->setText(editorParams::c_value, QString("1")); // if the value is not valid, reset to zero
 			return false;
@@ -226,6 +270,7 @@ bool protocolTreeWidgetItem::checkValidity( int _column)
 	}
 	case protocolCommands::comment: {
 		// no need to check here
+		dynamic_cast<QTreeWidgetItem*>(this)->setToolTip(editorParams::c_command, m_tt_cmd_comment);
 		this->setText(editorParams::c_value, QString("")); // it removes whatever is there
 		return true;
 	}
@@ -237,15 +282,17 @@ bool protocolTreeWidgetItem::checkValidity( int _column)
 	case protocolCommands::button6: {
 		// check pump button : 0 = stop, 1 = pump
 		// if the value is not valid, reset to zero
+		dynamic_cast<QTreeWidgetItem*>(this)->setToolTip(editorParams::c_command, m_tt_cmd_button);
 		if (number != 1) {
 			this->setText(editorParams::c_value, QString("0"));
 			return false;
 		}
 		return true;
 	}
-	case protocolCommands::rampPon: {
+	case protocolCommands::ramp: {
 		// if the number if lower than 0,
 		// the value becomes automatically positive
+		dynamic_cast<QTreeWidgetItem*>(this)->setToolTip(editorParams::c_command, m_tt_cmd_ramp);
 		if (number < 1) {
 			number = -number;
 			this->setText(editorParams::c_value, QString::number(number));
@@ -257,7 +304,7 @@ bool protocolTreeWidgetItem::checkValidity( int _column)
 			return false;
 		}
 		return true;
-	}
+	}/*
 	case protocolCommands::rampPoff: {
 		// if the number if lower than 0,
 		// the value becomes automatically positive
@@ -305,10 +352,53 @@ bool protocolTreeWidgetItem::checkValidity( int _column)
 			return false;
 		}
 		return true;
+	}*/
+	case protocolCommands::operational: {
+		// no need to check here
+		dynamic_cast<QTreeWidgetItem*>(this)->setToolTip(editorParams::c_command, m_tt_cmd_operational);
+		this->setText(editorParams::c_value, QString("")); // it removes whatever is there
+		return true;
+	}
+	case protocolCommands::initialize: {
+		// no need to check here
+		dynamic_cast<QTreeWidgetItem*>(this)->setToolTip(editorParams::c_command, m_tt_cmd_initialize);
+		this->setText(editorParams::c_value, QString("")); // it removes whatever is there
+		return true;
+	}
+	case protocolCommands::standby: {
+		// no need to check here
+		dynamic_cast<QTreeWidgetItem*>(this)->setToolTip(editorParams::c_command, m_tt_cmd_standby);
+		this->setText(editorParams::c_value, QString("")); // it removes whatever is there
+		return true;
 	}
 	case protocolCommands::function: {
 		// no need to check here
+		dynamic_cast<QTreeWidgetItem*>(this)->setToolTip(editorParams::c_command, m_tt_cmd_function);
 		this->setText(editorParams::c_value, QString("1")); // it can only be 1
+		return true;
+	}
+	case protocolCommands::smallAndSlow: {
+		// function
+		dynamic_cast<QTreeWidgetItem*>(this)->setToolTip(editorParams::c_command, m_tt_cmd_smallAndSlow);
+		this->setText(editorParams::c_value, QString("")); // it removes whatever is there
+		return true;
+	}
+	case protocolCommands::smallAngFast: {
+		// function
+		dynamic_cast<QTreeWidgetItem*>(this)->setToolTip(editorParams::c_command, m_tt_cmd_smallAndFast);
+		this->setText(editorParams::c_value, QString("")); // it removes whatever is there
+		return true;
+	}
+	case protocolCommands::bigAndSlow: {
+		// function
+		dynamic_cast<QTreeWidgetItem*>(this)->setToolTip(editorParams::c_command, m_tt_cmd_bigAndSlow);
+		this->setText(editorParams::c_value, QString("")); // it removes whatever is there
+		return true;
+	}
+	case protocolCommands::bigAndFast: {
+		// function
+		dynamic_cast<QTreeWidgetItem*>(this)->setToolTip(editorParams::c_command, m_tt_cmd_bigAndFast);
+		this->setText(editorParams::c_value, QString("")); // it removes whatever is there
 		return true;
 	}
 	default: {
@@ -389,8 +479,8 @@ QString protocolTreeWidgetItem::getRangeColumn( int _idx)
 	case protocolCommands::button6: {// Button6	
 		return QString("1/0 pump/stop");
 	}
-	case protocolCommands::rampPon:	// RampPon	
-	case protocolCommands::rampPoff: {
+	case protocolCommands::ramp:	// RampPon	
+	/*case protocolCommands::rampPoff: {
 		// RampPoff	
 		return QString("(mbar) [" + QString::number(MIN_CHAN_C) +
 			", " + QString::number(MAX_CHAN_C) + "] ");
@@ -400,9 +490,37 @@ QString protocolTreeWidgetItem::getRangeColumn( int _idx)
 		// RampVs	
 		return QString("(mbar) [" + QString::number(MIN_CHAN_A) +
 			", " + QString::number(MAX_CHAN_A) + "]");
-	}
+	}*/
 #pragma message (" TODO: here instructions were removed setFlowSpeed, setVacuum and setSize, others should be added")
+	case protocolCommands::operational: {
+		// function
+		return QString("-");
+	}
+	case protocolCommands::initialize: {
+		// function
+		return QString("-");
+	}
+	case protocolCommands::standby: {
+		// function
+		return QString("-");
+	}
 	case protocolCommands::function: {
+		// function
+		return QString("-");
+	}
+	case protocolCommands::smallAndSlow: {
+		// function
+		return QString("-");
+	}
+	case protocolCommands::smallAngFast: {
+		// function
+		return QString("-");
+	}
+	case protocolCommands::bigAndSlow: {
+		// function
+		return QString("-");
+	}
+	case protocolCommands::bigAndFast: {
 		// function
 		return QString("-");
 	}

@@ -68,7 +68,7 @@ public:
     QString getLastMsg() { return QString(m_last_show_msg); }
 
 private:
-	
+
 	// just to keep track of the last values changed
 	int m_last_command;
 	int m_last_value;
@@ -95,6 +95,39 @@ private:
 	
 	// index of the column for the level in the tree
 	const int m_cmd_level_c;       
+
+
+	// Tool tip strings
+	QString m_tt_c_idx;
+	QString m_tt_c_cmd;
+	QString m_tt_c_range;
+	QString m_tt_c_value;
+	QString m_tt_c_msg;
+
+	QString m_tt_cmd_alloff;
+	QString m_tt_cmd_solution;
+	QString m_tt_cmd_setPon;
+	QString m_tt_cmd_setPoff;
+	QString m_tt_cmd_setVrecirc;
+	QString m_tt_cmd_setVswitch;
+	QString m_tt_cmd_waitSync;
+	QString m_tt_cmd_syncOut;
+	QString m_tt_cmd_wait;
+	QString m_tt_cmd_ask;
+	QString m_tt_cmd_pumpsOff;
+	QString m_tt_cmd_loop;
+	QString m_tt_cmd_comment;
+	QString m_tt_cmd_button;
+	QString m_tt_cmd_ramp;
+	QString m_tt_cmd_operational;
+	QString m_tt_cmd_initialize;
+	QString m_tt_cmd_standby;
+	QString m_tt_cmd_function;
+	QString m_tt_cmd_smallAndSlow;
+	QString m_tt_cmd_smallAndFast;
+	QString m_tt_cmd_bigAndSlow;
+	QString m_tt_cmd_bigAndFast;
+
 };
 
 

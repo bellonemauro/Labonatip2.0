@@ -16,6 +16,7 @@ ComboBoxDelegate::ComboBoxDelegate(QObject *parent)
 {
 	for (int i = 0; i < protocolCommands::END; i++)
 		Items.push_back(protocolCommands::asString(i)); // populate the combo with all the commands
+
 }
 
 

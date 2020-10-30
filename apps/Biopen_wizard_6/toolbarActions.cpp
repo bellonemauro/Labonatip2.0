@@ -39,8 +39,9 @@ bool Labonatip_GUI::loadProtocol()
 		return false;
 	}
 	
-	
-	if (m_reader->readProtocol(ui->treeWidget_macroTable, file_name))
+#pragma message("TODO: here change to XML")
+	//if (m_reader->readProtocol(ui->treeWidget_macroTable, file_name))
+	if (this->openXml(file_name, ui->treeWidget_macroTable))
 	{
 		updateTreeView(ui->treeWidget_macroTable);
 		m_current_protocol_file_name = file_name;
@@ -103,12 +104,15 @@ bool Labonatip_GUI::saveProtocol()
 		QMessageBox::Yes);
 	if (resBtn == QMessageBox::Yes) {
 		// yes = override
-		if (!m_writer->saveProtocol(ui->treeWidget_macroTable, m_current_protocol_file_name)) {
-			QApplication::restoreOverrideCursor();    
-			QMessageBox::warning(this, m_str_warning, 
-				m_str_file_not_saved + "<br>" + m_current_protocol_file_name);
-			return false;
-		}
+#pragma message("TODO: here change to XML")
+		//if (!m_writer->saveProtocol(ui->treeWidget_macroTable, m_current_protocol_file_name)) {
+		//	QApplication::restoreOverrideCursor();    
+		//	QMessageBox::warning(this, m_str_warning, 
+		//		m_str_file_not_saved + "<br>" + m_current_protocol_file_name);
+		//	return false;
+		//}
+		return saveXml(m_current_protocol_file_name, ui->treeWidget_macroTable);
+
 	}
 	if (resBtn == QMessageBox::No)
 	{ //no = save as
@@ -130,13 +134,21 @@ bool Labonatip_GUI::saveProtocolAs()
 		m_str_save_protocol, m_protocol_path,  // dialog to open files
 		"Lab-on-a-tip protocol File (*.prt);; All Files(*.*)", 0);
 	
+	if (file_name.isEmpty())
+		return false;
 
-	if (!m_writer->saveProtocol(ui->treeWidget_macroTable, file_name)) {
-		QApplication::restoreOverrideCursor();    
-		QMessageBox::warning(this, m_str_warning, 
-			m_str_file_not_saved + "<br>" + file_name);
+#pragma message("TODO: here change to XML")
+	//if (!m_writer->saveProtocol(ui->treeWidget_macroTable, file_name)) {
+	//	QApplication::restoreOverrideCursor();    
+	//	QMessageBox::warning(this, m_str_warning, 
+	//		m_str_file_not_saved + "<br>" + file_name);
+	//	return false;
+	//}
+
+	if (!saveXml(file_name, ui->treeWidget_macroTable)) {
 		return false;
 	}
+
 	readProtocolFolder(m_protocol_path);
 	m_current_protocol_file_name = file_name;
 	QApplication::restoreOverrideCursor();    

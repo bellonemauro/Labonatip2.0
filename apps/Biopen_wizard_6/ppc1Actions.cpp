@@ -140,26 +140,7 @@ void Labonatip_GUI::runProtocol()
 		s.append(m_current_protocol_file_name);
 		int remaining_time_sec = m_protocol_duration - 0 * m_protocol_duration / 100;
 		s.append(" ----- remaining time,  ");
-		int remaining_hours = floor(remaining_time_sec / 3600); // 3600 sec in a hour
-		int remaining_mins = floor((remaining_time_sec % 3600) / 60); // 60 minutes in a hour
-		int remaining_secs = remaining_time_sec - remaining_hours * 3600 - remaining_mins * 60; // 60 minutes in a hour
-		s.append(QString::number(remaining_hours));
-		//s.append(" h,   ");
-		//s.append(QString::number(remaining_mins));
-		//s.append(" min,   ");
-		//s.append(QString::number(remaining_secs));
-		//s.append(" sec   ");
-		s.append(" ");
-		s.append(m_str_h);
-		s.append(",   ");
-		s.append(QString::number(remaining_mins));
-		s.append(" ");
-		s.append(m_str_min);
-		s.append(",   ");
-		s.append(QString::number(remaining_secs));
-		s.append(" ");
-		s.append(m_str_sec);
-		s.append("   ");
+		s.append(generateDurationString(remaining_time_sec));
 		ui->progressBar_macroStatus->setValue(0);
 		ui->label_macroStatus->setText(s);
 
@@ -167,10 +148,11 @@ void Labonatip_GUI::runProtocol()
 	}
 
     std::cout << HERE << "  " << msg.toStdString() << std::endl;
-#pragma message("TODO: this means that the file in the editor MUST be saved to be run")
+    //the tree in the editor MUST be saved to be run
 	QString tmp_file = QDir::tempPath();
 	tmp_file.append("/tmp_biopen_protocol.prt");
-	m_writer->saveProtocol(ui->treeWidget_macroTable, tmp_file);
+	this->saveXml(tmp_file, ui->treeWidget_macroTable);
+	//m_writer->saveProtocol(ui->treeWidget_macroTable, tmp_file);
 	//this->runProtocolFile(m_current_protocol_file_name);
 	this->runProtocolFile(tmp_file);
 }
@@ -191,10 +173,12 @@ void Labonatip_GUI::runProtocolFile(QString _protocol_path) {
 		
 		// Reload the protocol in a virtual tree every time is executed to avoid 
 		// modifications to the existing protocol in the editor
-		QTreeWidget* virtualTree = new QTreeWidget;
-		m_reader->readProtocol(virtualTree, _protocol_path);
-		addAllCommandsToPPC1Protocol(virtualTree, m_protocol);
+		QTreeWidget* virtual_tree = new QTreeWidget;
+		this->openXml(_protocol_path, virtual_tree);
+		//m_reader->readProtocol(virtualTree, _protocol_path);
+		addAllCommandsToPPC1Protocol(virtual_tree, m_protocol);
 #pragma message("TODO: check the update of the protocol-tree here")
+		// TODO: this is now reading using the old text version
 
 		//update the chart
 		m_chart_view->updateChartProtocol(m_protocol);

@@ -93,7 +93,8 @@ void Labonatip_GUI::onProtocolClicked(QTreeWidgetItem *item, int column)
 	if (resBtn == QMessageBox::Yes) {
 		// read the clicked protocol and add it to the current 
 		QApplication::setOverrideCursor(Qt::WaitCursor);   
-		m_reader->readProtocol(ui->treeWidget_macroTable, protocol_path);
+		//m_reader->readProtocol(ui->treeWidget_macroTable, protocol_path);
+		this->openXml(protocol_path, ui->treeWidget_macroTable);
 		updateTreeView(ui->treeWidget_macroTable);
 		m_current_protocol_file_name = protocol_path;
 		QApplication::restoreOverrideCursor();   
@@ -103,7 +104,8 @@ void Labonatip_GUI::onProtocolClicked(QTreeWidgetItem *item, int column)
 		// clear the current protocol and load the clicked protocol instead
 		QApplication::setOverrideCursor(Qt::WaitCursor);
 		clearAllCommands(); 
-		m_reader->readProtocol(ui->treeWidget_macroTable, protocol_path);
+		//m_reader->readProtocol(ui->treeWidget_macroTable, protocol_path);
+		this->openXml(protocol_path, ui->treeWidget_macroTable); 
 		updateTreeView(ui->treeWidget_macroTable);
 		m_current_protocol_file_name = protocol_path;
 		QApplication::restoreOverrideCursor();
@@ -204,9 +206,16 @@ void Labonatip_GUI::addAllCommandsToPPC1Protocol(QTreeWidget* _tree,
 	int remaining_time_sec = duration;
 	QString s;
 	s.append(m_str_protocol_duration);
-	int remaining_hours = floor(remaining_time_sec / 3600); // 3600 sec in a hour
-	int remaining_mins = floor((remaining_time_sec % 3600) / 60); // 60 minutes in a hour
-	int remaining_secs = remaining_time_sec - remaining_hours * 3600 - remaining_mins * 60; // 60 minutes in a hour
+	s.append(generateDurationString(remaining_time_sec));
+	ui->label_protocolDuration->setText(s);
+}
+
+QString Labonatip_GUI::generateDurationString(int _time)
+{
+	QString s;
+	int remaining_hours = floor(_time / 3600); // 3600 sec in a hour
+	int remaining_mins = floor((_time % 3600) / 60); // 60 minutes in a hour
+	int remaining_secs = _time - remaining_hours * 3600 - remaining_mins * 60; // 60 minutes in a hour
 	s.append(QString::number(remaining_hours));
 	s.append(" ");
 	s.append(m_str_h);
@@ -219,7 +228,7 @@ void Labonatip_GUI::addAllCommandsToPPC1Protocol(QTreeWidget* _tree,
 	s.append(" ");
 	s.append(m_str_sec);
 	s.append("   ");
-	ui->label_protocolDuration->setText(s);
+	return s;
 }
 
 void Labonatip_GUI::fromTreeToItemVector(QTreeWidget* _tree,
@@ -234,15 +243,7 @@ void Labonatip_GUI::fromTreeToItemVector(QTreeWidget* _tree,
 			dynamic_cast<protocolTreeWidgetItem*> (_tree->topLevelItem(i));
 
 		if (item->childCount() < 1) { // if no children, just add the line 
-
 			interpreter(item, _command_vector);
-
-			//_command_vector->push_back(
-			//	dynamic_cast<protocolTreeWidgetItem*> (item));
-
-			// TODO: here we need to traverse the commands in case of "subprotocols"
-#pragma message ("TODO: traverse the subprotocol")
-			// the interpreter should be here
 		}
 		else
 		{
@@ -314,7 +315,13 @@ void Labonatip_GUI::interpreter(protocolTreeWidgetItem* _item,
 		return;
 	}
 	case protocolCommands::loop: // this should never happen as there is a child for that
+	{
+		return;
+	}
 	case protocolCommands::function: // this should never happen as there is a child for that
+	{
+		return;
+	}
 	case protocolCommands::comment: // this is just a comment so nothing happens no command added
 	{
 		return;
@@ -323,11 +330,10 @@ void Labonatip_GUI::interpreter(protocolTreeWidgetItem* _item,
 	{ 
 		// load the protocol for pushSolution1 or stopSolution1
 		QTreeWidget* virtual_tree_widget = new QTreeWidget();
-#pragma message ("TODO: here all the files are missing")
 		if (_item->text(editorParams::c_value).toInt() == 1)
-			openXml("D:/code/Fluicell/Git/build_VS2019_64bit_test/bin/Release/Biopen6/presetProtocols/xml/pushSolution1.prt", virtual_tree_widget);
+			openXml("./presetProtocols/xml_preset/pushSolution1.prt", virtual_tree_widget);
 		else if (_item->text(editorParams::c_value).toInt() == 0)
-			openXml("stopButton1.prt", virtual_tree_widget);
+			openXml("./presetProtocols/xml_preset/stopSolution1.prt", virtual_tree_widget);
 		else // this should never happen 
 			return;
 
@@ -337,48 +343,109 @@ void Labonatip_GUI::interpreter(protocolTreeWidgetItem* _item,
 	case protocolCommands::button2:
 	{
 		// load the protocol for pushSolution2 or stopSolution2
+		QTreeWidget* virtual_tree_widget = new QTreeWidget();
+		if (_item->text(editorParams::c_value).toInt() == 1)
+			openXml("./presetProtocols/xml_preset/pushSolution2.prt", virtual_tree_widget);
+		else if (_item->text(editorParams::c_value).toInt() == 0)
+			openXml("./presetProtocols/xml_preset/stopSolution2.prt", virtual_tree_widget);
+		else // this should never happen 
+			return;
+
+		fromTreeToItemVector(virtual_tree_widget, _command_vector);
 		return;
 	}
 	case protocolCommands::button3:
 	{
 		// load the protocol for pushSolution3 or stopSolution3
+		QTreeWidget* virtual_tree_widget = new QTreeWidget();
+		if (_item->text(editorParams::c_value).toInt() == 1)
+			openXml("./presetProtocols/xml_preset/pushSolution3.prt", virtual_tree_widget);
+		else if (_item->text(editorParams::c_value).toInt() == 0)
+			openXml("./presetProtocols/xml_preset/stopSolution3.prt", virtual_tree_widget);
+		else // this should never happen 
+			return;
+
+		fromTreeToItemVector(virtual_tree_widget, _command_vector);
 		return;
 	}
 	case protocolCommands::button4:
 	{
 		// load the protocol for pushSolution4 or stopSolution4
+		QTreeWidget* virtual_tree_widget = new QTreeWidget();
+		if (_item->text(editorParams::c_value).toInt() == 1)
+			openXml("./presetProtocols/xml_preset/pushSolution4.prt", virtual_tree_widget);
+		else if (_item->text(editorParams::c_value).toInt() == 0)
+			openXml("./presetProtocols/xml_preset/stopSolution4.prt", virtual_tree_widget);
+		else // this should never happen 
+			return;
+
+		fromTreeToItemVector(virtual_tree_widget, _command_vector);
 		return;
 	}
 	case protocolCommands::button5:
 	{
 		// load the protocol for pushSolution5 or stopSolution5
+		QTreeWidget* virtual_tree_widget = new QTreeWidget();
+		if (_item->text(editorParams::c_value).toInt() == 1)
+			openXml("./presetProtocols/xml_preset/pushSolution5.prt", virtual_tree_widget);
+		else if (_item->text(editorParams::c_value).toInt() == 0)
+			openXml("./presetProtocols/xml_preset/stopSolution5.prt", virtual_tree_widget);
+		else // this should never happen 
+			return;
+
+		fromTreeToItemVector(virtual_tree_widget, _command_vector);
 		return;
 	}
 	case protocolCommands::button6:
 	{
 		// load the protocol for pushSolution6 or stopSolution6
+		QTreeWidget* virtual_tree_widget = new QTreeWidget();
+		if (_item->text(editorParams::c_value).toInt() == 1)
+			openXml("./presetProtocols/xml_preset/pushSolution6.prt", virtual_tree_widget);
+		else if (_item->text(editorParams::c_value).toInt() == 0)
+			openXml("./presetProtocols/xml_preset/stopSolution6.prt", virtual_tree_widget);
+		else // this should never happen 
+			return;
+
+		fromTreeToItemVector(virtual_tree_widget, _command_vector);
 		return;
 	}
-	case protocolCommands::rampPon:
+	case protocolCommands::ramp:
 	{
-		// load the protocol for pushSolution6 or stopSolution6
+		// load the protocol for ramp
+		QTreeWidget* virtual_tree_widget = new QTreeWidget();
+		openXml("./presetProtocols/xml_preset/rampPon.prt", virtual_tree_widget);
+		fromTreeToItemVector(virtual_tree_widget, _command_vector);
 		return;
 	}
-	case protocolCommands::rampPoff:
+	case protocolCommands::operational:
 	{
-		// load the protocol for pushSolution6 or stopSolution6
+		// load the protocol for operational
+		QTreeWidget* virtual_tree_widget = new QTreeWidget();
+		openXml("./presetProtocols/xml_preset/operational.prt", virtual_tree_widget);
+		fromTreeToItemVector(virtual_tree_widget, _command_vector);
 		return;
 	}
-	case protocolCommands::rampVr:
+	case protocolCommands::initialize:
 	{
-		// load the protocol for pushSolution6 or stopSolution6
+		// load the protocol for newtip
+		QTreeWidget* virtual_tree_widget = new QTreeWidget();
+		openXml("./presetProtocols/xml_preset/initialize.prt", virtual_tree_widget);
+		fromTreeToItemVector(virtual_tree_widget, _command_vector);
 		return;
 	}
-	case protocolCommands::rampVs:
+	case protocolCommands::standby:
 	{
-		// load the protocol for pushSolution6 or stopSolution6
+		// load the protocol for standby
+		QTreeWidget* virtual_tree_widget = new QTreeWidget();
+		openXml("./presetProtocols/xml_preset/standby.prt", virtual_tree_widget);
+		fromTreeToItemVector(virtual_tree_widget, _command_vector);
 		return;
 	}
+	case protocolCommands::smallAndSlow: return;
+	case protocolCommands::smallAngFast: return;
+	case protocolCommands::bigAndSlow: return;
+	case protocolCommands::bigAndFast: return;
 	default:
 		break;
 	}
@@ -396,17 +463,12 @@ void Labonatip_GUI::traverseChildren(protocolTreeWidgetItem* _parent,
 
 		// if the item is a loop or a function we need to traverse the subtree
 		if (child->childCount() < 1) { // if no children, just add the line 
-
 			interpreter(child, _command_vector);
-			//_command_vector->push_back(
-			//	dynamic_cast<protocolTreeWidgetItem*> (child));
-
-#pragma message ("TODO: traverse the subprotocol")// the interpreter should be here
-			// TODO: here we need to traverse the commands in case of "subprotocols"
 		}
 		else
 		{
-			// basically the subtree is always the same for loops or function, just the function will be traversed only once
+			// basically the subtree is always the same for loops or function, 
+			// just the function will be traversed only once
 			for (int loop = 0; loop < child->text(editorParams::c_value).toInt(); loop++) {
 				traverseChildren(child, _command_vector);
 			}
@@ -477,7 +539,7 @@ void Labonatip_GUI::onTabEditorChanged(int _idx)
 
 		ui->treeWidget_macroTable->clear();
 		openXml(save_tmp_file, ui->treeWidget_macroTable);
-
+		updateTreeView(ui->treeWidget_macroTable);
 		QFile f(save_tmp_file);
 		f.remove();
 		return;
