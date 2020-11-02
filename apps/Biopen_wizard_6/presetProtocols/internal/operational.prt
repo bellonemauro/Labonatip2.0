@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE prt>
+<!--Fluicell protocol xml-->
+<Protocol version="1.0">
+    <allOff value="" message="AllOff"/>
+    <setPon value="21" message="setPoff(21)"/>
+    <setPoff value="190" message="setPon(190)"/>
+    <wait value="5" message="sleep(5)"/>
+    <setVswitch value="-115" message="serVswitch(-115)"/>
+    <setVrecirc value="-115" message="setVrecirc(-115)"/>
+</Protocol>

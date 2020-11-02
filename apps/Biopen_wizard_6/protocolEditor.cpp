@@ -291,6 +291,15 @@ void Labonatip_GUI::interpreter(protocolTreeWidgetItem* _item,
 
 	int command_idx = _item->text(editorParams::c_command).toInt();
 
+	//TODO: this should be done once and for all at the very beginning
+	QString preset_protocols_path = QDir::homePath();
+	preset_protocols_path.append("/Documents/Biopen6/presetProtocols/internal/");
+	QDir preset_protocols_dir;
+	if (!preset_protocols_dir.exists(preset_protocols_path)) {
+		// TODO: define what to do here, re-install message?
+		return;
+	}
+
 	switch (command_idx)
 	{
 	case protocolCommands::allOff:
@@ -331,9 +340,9 @@ void Labonatip_GUI::interpreter(protocolTreeWidgetItem* _item,
 		// load the protocol for pushSolution1 or stopSolution1
 		QTreeWidget* virtual_tree_widget = new QTreeWidget();
 		if (_item->text(editorParams::c_value).toInt() == 1)
-			openXml("./presetProtocols/xml_preset/pushSolution1.prt", virtual_tree_widget);
+			openXml(QString (preset_protocols_path + "/pumpSolution1.prt"), virtual_tree_widget);
 		else if (_item->text(editorParams::c_value).toInt() == 0)
-			openXml("./presetProtocols/xml_preset/stopSolution1.prt", virtual_tree_widget);
+			openXml(QString(preset_protocols_path + "/stopSolution1.prt"), virtual_tree_widget);
 		else // this should never happen 
 			return;
 
@@ -345,9 +354,9 @@ void Labonatip_GUI::interpreter(protocolTreeWidgetItem* _item,
 		// load the protocol for pushSolution2 or stopSolution2
 		QTreeWidget* virtual_tree_widget = new QTreeWidget();
 		if (_item->text(editorParams::c_value).toInt() == 1)
-			openXml("./presetProtocols/xml_preset/pushSolution2.prt", virtual_tree_widget);
+			openXml(QString(preset_protocols_path + "/pumpSolution2.prt"), virtual_tree_widget);
 		else if (_item->text(editorParams::c_value).toInt() == 0)
-			openXml("./presetProtocols/xml_preset/stopSolution2.prt", virtual_tree_widget);
+			openXml(QString(preset_protocols_path + "/stopSolution2.prt"), virtual_tree_widget);
 		else // this should never happen 
 			return;
 
@@ -359,9 +368,9 @@ void Labonatip_GUI::interpreter(protocolTreeWidgetItem* _item,
 		// load the protocol for pushSolution3 or stopSolution3
 		QTreeWidget* virtual_tree_widget = new QTreeWidget();
 		if (_item->text(editorParams::c_value).toInt() == 1)
-			openXml("./presetProtocols/xml_preset/pushSolution3.prt", virtual_tree_widget);
+			openXml(QString(preset_protocols_path + "/pumpSolution3.prt"), virtual_tree_widget);
 		else if (_item->text(editorParams::c_value).toInt() == 0)
-			openXml("./presetProtocols/xml_preset/stopSolution3.prt", virtual_tree_widget);
+			openXml(QString(preset_protocols_path + "/stopSolution3.prt"), virtual_tree_widget);
 		else // this should never happen 
 			return;
 
@@ -373,9 +382,9 @@ void Labonatip_GUI::interpreter(protocolTreeWidgetItem* _item,
 		// load the protocol for pushSolution4 or stopSolution4
 		QTreeWidget* virtual_tree_widget = new QTreeWidget();
 		if (_item->text(editorParams::c_value).toInt() == 1)
-			openXml("./presetProtocols/xml_preset/pushSolution4.prt", virtual_tree_widget);
+			openXml(QString(preset_protocols_path + "/pumpSolution4.prt"), virtual_tree_widget);
 		else if (_item->text(editorParams::c_value).toInt() == 0)
-			openXml("./presetProtocols/xml_preset/stopSolution4.prt", virtual_tree_widget);
+			openXml(QString(preset_protocols_path + "/stopSolution4.prt"), virtual_tree_widget);
 		else // this should never happen 
 			return;
 
@@ -387,9 +396,9 @@ void Labonatip_GUI::interpreter(protocolTreeWidgetItem* _item,
 		// load the protocol for pushSolution5 or stopSolution5
 		QTreeWidget* virtual_tree_widget = new QTreeWidget();
 		if (_item->text(editorParams::c_value).toInt() == 1)
-			openXml("./presetProtocols/xml_preset/pushSolution5.prt", virtual_tree_widget);
+			openXml(QString(preset_protocols_path + "/pumpSolution5.prt"), virtual_tree_widget);
 		else if (_item->text(editorParams::c_value).toInt() == 0)
-			openXml("./presetProtocols/xml_preset/stopSolution5.prt", virtual_tree_widget);
+			openXml(QString(preset_protocols_path + "/stopSolution5.prt"), virtual_tree_widget);
 		else // this should never happen 
 			return;
 
@@ -401,9 +410,9 @@ void Labonatip_GUI::interpreter(protocolTreeWidgetItem* _item,
 		// load the protocol for pushSolution6 or stopSolution6
 		QTreeWidget* virtual_tree_widget = new QTreeWidget();
 		if (_item->text(editorParams::c_value).toInt() == 1)
-			openXml("./presetProtocols/xml_preset/pushSolution6.prt", virtual_tree_widget);
+			openXml(QString(preset_protocols_path + "/pumpSolution6.prt"), virtual_tree_widget);
 		else if (_item->text(editorParams::c_value).toInt() == 0)
-			openXml("./presetProtocols/xml_preset/stopSolution6.prt", virtual_tree_widget);
+			openXml(QString(preset_protocols_path + "/stopSolution1.prt"), virtual_tree_widget);
 		else // this should never happen 
 			return;
 
@@ -414,7 +423,7 @@ void Labonatip_GUI::interpreter(protocolTreeWidgetItem* _item,
 	{
 		// load the protocol for ramp
 		QTreeWidget* virtual_tree_widget = new QTreeWidget();
-		openXml("./presetProtocols/xml_preset/rampPon.prt", virtual_tree_widget);
+		openXml(QString(preset_protocols_path + "/rampPon.prt"), virtual_tree_widget);
 		fromTreeToItemVector(virtual_tree_widget, _command_vector);
 		return;
 	}
@@ -422,7 +431,7 @@ void Labonatip_GUI::interpreter(protocolTreeWidgetItem* _item,
 	{
 		// load the protocol for operational
 		QTreeWidget* virtual_tree_widget = new QTreeWidget();
-		openXml("./presetProtocols/xml_preset/operational.prt", virtual_tree_widget);
+		openXml(QString(preset_protocols_path + "/operational.prt"), virtual_tree_widget);
 		fromTreeToItemVector(virtual_tree_widget, _command_vector);
 		return;
 	}
@@ -430,7 +439,7 @@ void Labonatip_GUI::interpreter(protocolTreeWidgetItem* _item,
 	{
 		// load the protocol for newtip
 		QTreeWidget* virtual_tree_widget = new QTreeWidget();
-		openXml("./presetProtocols/xml_preset/initialize.prt", virtual_tree_widget);
+		openXml(QString(preset_protocols_path + "/initialize.prt"), virtual_tree_widget);
 		fromTreeToItemVector(virtual_tree_widget, _command_vector);
 		return;
 	}
@@ -438,14 +447,38 @@ void Labonatip_GUI::interpreter(protocolTreeWidgetItem* _item,
 	{
 		// load the protocol for standby
 		QTreeWidget* virtual_tree_widget = new QTreeWidget();
-		openXml("./presetProtocols/xml_preset/standby.prt", virtual_tree_widget);
+		openXml(QString(preset_protocols_path + "/standby.prt"), virtual_tree_widget);
 		fromTreeToItemVector(virtual_tree_widget, _command_vector);
 		return;
 	}
-	case protocolCommands::smallAndSlow: return;
-	case protocolCommands::smallAngFast: return;
-	case protocolCommands::bigAndSlow: return;
-	case protocolCommands::bigAndFast: return;
+	case protocolCommands::standardAndSlow: {
+		// load the protocol for standby
+		QTreeWidget* virtual_tree_widget = new QTreeWidget();
+		openXml(QString(preset_protocols_path + "/StandardAndSlow.prt"), virtual_tree_widget);
+		fromTreeToItemVector(virtual_tree_widget, _command_vector);
+		return;
+	}
+	case protocolCommands::standardAndRegular: {
+		// load the protocol for standby
+		QTreeWidget* virtual_tree_widget = new QTreeWidget();
+		openXml(QString(preset_protocols_path + "/StandardAndRegular.prt"), virtual_tree_widget);
+		fromTreeToItemVector(virtual_tree_widget, _command_vector);
+		return;
+	}
+	case protocolCommands::largeAndSlow: {
+		// load the protocol for standby
+		QTreeWidget* virtual_tree_widget = new QTreeWidget();
+		openXml(QString(preset_protocols_path + "/LargeAndSlow.prt"), virtual_tree_widget);
+		fromTreeToItemVector(virtual_tree_widget, _command_vector);
+		return;
+	}
+	case protocolCommands::largeAndRegular: {
+		// load the protocol for standby
+		QTreeWidget* virtual_tree_widget = new QTreeWidget();
+		openXml(QString(preset_protocols_path + "/LargeAndRegular.prt"), virtual_tree_widget);
+		fromTreeToItemVector(virtual_tree_widget, _command_vector);
+		return;
+	}
 	default:
 		break;
 	}

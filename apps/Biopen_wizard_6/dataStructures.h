@@ -291,6 +291,10 @@ struct pr_params {
 	int p_off_preset3;           //!< P_off value  for the preset 3
 	int v_switch_preset3;        //!< V_switch value for the preset 3
 	int v_recirc_preset3;        //!< V_recirc value for the preset 3
+	int p_on_customPreset;       //!< P_on value for the preset 3
+	int p_off_customPreset;      //!< P_off value  for the preset 3
+	int v_switch_customPreset;   //!< V_switch value for the preset 3
+	int v_recirc_customPreset;   //!< V_recirc value for the preset 3
 
 	//this are now here, but maybe I will set a new structure
 	bool verboseOut;             //!< Verbose out on PPC1 api 
@@ -399,10 +403,10 @@ struct protocolCommands {
 		initialize = 26,
 		standby = 27,
 		function = 28,
-		smallAndSlow = 29,
-		smallAngFast = 30,
-		bigAndSlow = 31,
-		bigAndFast = 32,
+		standardAndSlow = 29,
+		standardAndRegular = 30,
+		largeAndSlow = 31,
+		largeAndRegular = 32,
 		END //THIS IS TO TAKE TRACK OF ENUMERATION
 	};
 
@@ -439,10 +443,10 @@ struct protocolCommands {
 		case initialize: return "initialize";
 		case standby: return "standby";
 		case function: return "function";
-		case smallAndSlow: return "smallAndSlow";
-		case smallAngFast: return "smallAngFast";
-		case bigAndSlow: return "bigAndSlow";
-		case bigAndFast: return "bigAndFast";
+		case standardAndSlow: return "standardAndSlow";
+		case standardAndRegular: return "standardAndRegular";
+		case largeAndSlow: return "largeAndSlow";
+		case largeAndRegular: return "largeAndRegular";
 		case END: return "END";
 		}
 		return "Invalid";

@@ -134,8 +134,10 @@ bool Labonatip_GUI::saveProtocolAs()
 		m_str_save_protocol, m_protocol_path,  // dialog to open files
 		"Lab-on-a-tip protocol File (*.prt);; All Files(*.*)", 0);
 	
-	if (file_name.isEmpty())
+	if (file_name.isEmpty()) {
+		QApplication::restoreOverrideCursor();
 		return false;
+	}
 
 #pragma message("TODO: here change to XML")
 	//if (!m_writer->saveProtocol(ui->treeWidget_macroTable, file_name)) {
@@ -146,6 +148,7 @@ bool Labonatip_GUI::saveProtocolAs()
 	//}
 
 	if (!saveXml(file_name, ui->treeWidget_macroTable)) {
+		QApplication::restoreOverrideCursor();
 		return false;
 	}
 

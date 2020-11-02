@@ -671,10 +671,10 @@ private slots:
 	*/
 	void standby();
 
-	void setPipe1();
-	void setPipe2();
-	void setPipe3();
-	void setPipe4();
+	void setStandardAndSlow();
+	void setStandardAndRegular();
+	void setLargeAndSlow();
+	void setLargeAndRegular();
 
 
 	/** \brief Automatic check for updates

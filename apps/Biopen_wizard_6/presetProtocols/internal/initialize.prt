@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE prt>
+<!--Fluicell protocol xml-->
+<Protocol version="1.0">
+    <ask value="" message="Place the pipette to the holder and tighten. THEN PRESS OK"/>
+    <allOff value="" message="AllOff()"/>
+    <setVswitch value="0" message="setVswitch(0)"/>
+    <setVrecirc value="0" message="setVrecirc(0)"/>
+    <setPon value="0" message="setPon(0)"/>
+    <setPoff value="0" message="setPoff(0)"/>
+    <wait value="5" message="sleep(5)"/>
+    <setPon value="200" message="setPon(200)"/>
+    <wait value="5" message="sleep(5)"/>
+    <pumpsOff value="" message="pumpOff"/>
+    <ask value="" message="Wait until a droplet appears at the tip of the pipette and. THEN PRESS OK"/>
+    <wait value="40" message="sleep(40)"/>
+    <allOff value="" message="allOff()"/>
+    <setPon value="0" message="setPon(0)"/>
+    <wait value="10" message="sleep(10)"/>
+    <ask value="" message="Remove the droplet using a lens tissue and put the pipette into solution. THEN PRESS OK"/>
+    <setVswitch value="-200" message="setVswitch(-200)"/>
+    <setVrecirc value="-200" message="setVrecirc(-200)"/>
+    <wait value="90" message="sleep(90)"/>
+    <setPoff value="21" message="setPoff(21)"/>
+    <setPon value="190" message="setPon(190)"/>
+    <wait value="5" message="sleep(5)"/>
+    <setVswitch value="-115" message="setVswitch(-115)"/>
+    <setVrecirc value="-115" message="setVrecirc(-115)"/>
+    <ask value="" message="Pipette is ready for operation, press OK to start"/>
+</Protocol>

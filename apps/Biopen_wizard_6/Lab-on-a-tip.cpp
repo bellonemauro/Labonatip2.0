@@ -733,21 +733,21 @@ void Labonatip_GUI::initConnects()
 		SIGNAL(clicked()), this, 
 		SLOT(standby()));
 
-	connect(ui->pushButton_setPipe1,
+	connect(ui->pushButton_standardAndSlow,
 		SIGNAL(clicked()), this,
-		SLOT(setPipe1()));
+		SLOT(setStandardAndSlow()));
 
-	connect(ui->pushButton_setPipe2,
+	connect(ui->pushButton_largeAndSlow,
 		SIGNAL(clicked()), this,
-		SLOT(setPipe2()));
+		SLOT(setStandardAndRegular()));
 
-	connect(ui->pushButton_setPipe3,
+	connect(ui->pushButton_starndardAndRegular,
 		SIGNAL(clicked()), this,
 		SLOT(setPipe3()));
 
-	connect(ui->pushButton_setPipe4,
+	connect(ui->pushButton_largeAndRegular,
 		SIGNAL(clicked()), this,
-		SLOT(setPipe4()));
+		SLOT(setLargeAndRegular()));
 
 	connect(ui->pushButton_stop, 
 		SIGNAL(clicked()), this, 
@@ -769,13 +769,13 @@ void Labonatip_GUI::initConnects()
 		SIGNAL(clicked()), this,
 		SLOT(cleanHistory()));
 
-	connect(ui->pushButton_loadXML,
-		SIGNAL(clicked()), this,
-		SLOT(openXml()));
+	//connect(ui->pushButton_loadXML,
+	//	SIGNAL(clicked()), this,
+	//	SLOT(openXml()));
 
-	connect(ui->pushButton_saveXML,
-		SIGNAL(clicked()), this,
-		SLOT(saveXml()));
+	//connect(ui->pushButton_saveXML,
+	//	SIGNAL(clicked()), this,
+	//	SLOT(saveXml()));
 
 // this button is connected only if the developer settings tab is visualized
 //if (ui->tabWidget->count() > 3) 
@@ -1586,7 +1586,7 @@ bool Labonatip_GUI::openXml(QString _filename, QTreeWidget* _widget)
 	if (!reader.read(&file, 0))
 	{
 		QMessageBox::warning(this, m_str_warning,
-			m_str_file_not_saved + tr("<br>%1:\n%2.")
+			m_str_no_file_loaded + tr("<br>Is this a xml file protocol? <br>%1:\n%2.")
 			.arg(QDir::toNativeSeparators(_filename),
 				reader.errorString()));
 		return true;

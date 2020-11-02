@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE prt>
+<!--Fluicell protocol xml-->
+<Protocol version="1.0">
+    <wait value="1" message=" "/>
+    <setPon value="0" message=" "/>
+    <wait value="1" message=" "/>
+    <setPon value="10" message=" "/>
+    <wait value="1" message=" "/>
+    <setPon value="20" message=" "/>
+    <wait value="1" message=" "/>
+    <setPon value="30" message=" "/>
+    <wait value="1" message=" "/>
+    <setPon value="40" message=" "/>
+    <wait value="1" message=" "/>
+    <setPon value="50" message=" "/>
+    <wait value="1" message=" "/>
+    <setPon value="60" message=" "/>
+    <wait value="1" message=" "/>
+    <setPon value="70" message=" "/>
+    <wait value="1" message=" "/>
+    <setPon value="80" message=" "/>
+    <wait value="1" message=" "/>
+    <setPon value="90" message=" "/>
+    <wait value="1" message=" "/>
+    <setPon value="100" message=" "/>
+    <wait value="1" message=" "/>
+    <setPon value="110" message=" "/>
+    <wait value="1" message=" "/>
+    <setPon value="120" message=" "/>
+    <wait value="1" message=" "/>
+    <setPon value="130" message=" "/>
+    <wait value="1" message=" "/>
+    <setPon value="140" message=" "/>
+    <wait value="1" message=" "/>
+    <setPon value="150" message=" "/>
+    <wait value="1" message=" "/>
+    <setPon value="160" message=" "/>
+    <wait value="1" message=" "/>
+    <setPon value="170" message=" "/>
+    <wait value="1" message=" "/>
+    <setPon value="180" message=" "/>
+    <wait value="1" message=" "/>
+    <setPon value="190" message=" "/>
+    <wait value="1" message=" "/>
+    <setPon value="200" message=" "/>
+    <wait value="1" message=" "/>
+</Protocol>

@@ -934,7 +934,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                        </spacer>
                       </item>
                       <item row="6" column="1">
-                       <widget class="QPushButton" name="pushButton_setPipe2">
+                       <widget class="QPushButton" name="pushButton_starndardAndRegular">
                         <property name="minimumSize">
                          <size>
                           <width>90</width>
@@ -962,7 +962,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                        </widget>
                       </item>
                       <item row="2" column="4">
-                       <widget class="QPushButton" name="pushButton_setPipe3">
+                       <widget class="QPushButton" name="pushButton_largeAndSlow">
                         <property name="minimumSize">
                          <size>
                           <width>90</width>
@@ -1031,7 +1031,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                        </widget>
                       </item>
                       <item row="6" column="4">
-                       <widget class="QPushButton" name="pushButton_setPipe4">
+                       <widget class="QPushButton" name="pushButton_largeAndRegular">
                         <property name="minimumSize">
                          <size>
                           <width>90</width>
@@ -1124,7 +1124,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                        </spacer>
                       </item>
                       <item row="2" column="1">
-                       <widget class="QPushButton" name="pushButton_setPipe1">
+                       <widget class="QPushButton" name="pushButton_standardAndSlow">
                         <property name="minimumSize">
                          <size>
                           <width>90</width>
@@ -3101,44 +3101,6 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                        <width>30</width>
                        <height>30</height>
                       </size>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QPushButton" name="pushButton_saveXML">
-                     <property name="minimumSize">
-                      <size>
-                       <width>40</width>
-                       <height>40</height>
-                      </size>
-                     </property>
-                     <property name="maximumSize">
-                      <size>
-                       <width>40</width>
-                       <height>40</height>
-                      </size>
-                     </property>
-                     <property name="text">
-                      <string>sX</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QPushButton" name="pushButton_loadXML">
-                     <property name="minimumSize">
-                      <size>
-                       <width>40</width>
-                       <height>40</height>
-                      </size>
-                     </property>
-                     <property name="maximumSize">
-                      <size>
-                       <width>40</width>
-                       <height>40</height>
-                      </size>
-                     </property>
-                     <property name="text">
-                      <string>lX</string>
                      </property>
                     </widget>
                    </item>

@@ -561,25 +561,48 @@ void Labonatip_GUI::standby()
 }
 
 
-void Labonatip_GUI::setPipe1()
+void Labonatip_GUI::setStandardAndSlow()
+{
+	std::cout << HERE << std::endl;
+	
+	//TODO: this should be done once and for all at the very beginning
+	QString preset_protocols_path = QDir::homePath();
+	preset_protocols_path.append("/Documents/Biopen6/presetProtocols/internal/");
+	QDir preset_protocols_dir;
+	if (!preset_protocols_dir.exists(preset_protocols_path)) {
+		// TODO: define what to do here, re-install message?
+		return;
+	}
+
+	QString currentProtocolFileName = preset_protocols_path;
+	currentProtocolFileName.append("StandardAndSlow.prt");
+	if (QFile::exists(currentProtocolFileName)) {
+		this->runProtocolFile(currentProtocolFileName);
+	}
+	
+	QThread::sleep(5);
+
+	m_dialog_tools->setCustomPreset(ui->horizontalSlider_p_on->value(),
+		ui->horizontalSlider_p_off->value(),
+		-ui->horizontalSlider_switch->value(),
+		-ui->horizontalSlider_recirculation->value());
+	*m_pr_params = m_dialog_tools->getPr_params();
+
+}
+
+void Labonatip_GUI::setStandardAndRegular()
 {
 	std::cout << HERE << std::endl;
 
 }
 
-void Labonatip_GUI::setPipe2()
+void Labonatip_GUI::setLargeAndSlow()
 {
 	std::cout << HERE << std::endl;
 
 }
 
-void Labonatip_GUI::setPipe3()
-{
-	std::cout << HERE << std::endl;
-
-}
-
-void Labonatip_GUI::setPipe4()
+void Labonatip_GUI::setLargeAndRegular()
 {
 	std::cout << HERE << std::endl;
 

@@ -152,6 +152,13 @@ public:
 	*/
 	void setPreset3(int _p_on, int _p_off, int _v_switch, int _v_recirc);
 
+	/** \brief Set values of a custom preset mode
+	*
+	* \note
+	*/
+	void setCustomPreset(int _p_on, int _p_off, int _v_switch, int _v_recirc);
+
+
 	QString getUserName() { return ui_tools->lineEdit_userName->text(); }
 
 private slots:

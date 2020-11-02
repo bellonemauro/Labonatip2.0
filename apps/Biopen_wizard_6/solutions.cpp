@@ -108,7 +108,7 @@ void Labonatip_GUI::onPushButtonSolution1()
 		ui->pushButton_solution1->setChecked(false);
 		// stop pumping protocol
 		QString currentProtocolFileName = m_protocol_path;
-		currentProtocolFileName.append("/");
+		currentProtocolFileName.append("/internal/");
 		currentProtocolFileName.append("stopSolution1.prt");
 		if (QFile::exists(currentProtocolFileName)) {
 			this->runProtocolFile(currentProtocolFileName);
@@ -118,7 +118,7 @@ void Labonatip_GUI::onPushButtonSolution1()
 	{
 		// start pumping protocol
 		QString currentProtocolFileName = m_protocol_path;
-		currentProtocolFileName.append("/");
+		currentProtocolFileName.append("/internal/");
 		currentProtocolFileName.append("pumpSolution1.prt");
 		if (QFile::exists(currentProtocolFileName)) {
 			this->runProtocolFile(currentProtocolFileName);
@@ -196,7 +196,7 @@ void Labonatip_GUI::onPushButtonSolution2()
 		ui->pushButton_solution2->setChecked(false);
 		// stop pumping protocol
 		QString currentProtocolFileName = m_protocol_path;
-		currentProtocolFileName.append("/");
+		currentProtocolFileName.append("/internal/");
 		currentProtocolFileName.append("stopSolution2.prt");
 		if (QFile::exists(currentProtocolFileName)) {
 			this->runProtocolFile(currentProtocolFileName);
@@ -206,7 +206,7 @@ void Labonatip_GUI::onPushButtonSolution2()
 	{
 		// start pumping protocol
 		QString currentProtocolFileName = m_protocol_path;
-		currentProtocolFileName.append("/");
+		currentProtocolFileName.append("/internal/");
 		currentProtocolFileName.append("pumpSolution2.prt");
 		if (QFile::exists(currentProtocolFileName)) {
 			this->runProtocolFile(currentProtocolFileName);
@@ -284,7 +284,7 @@ void Labonatip_GUI::onPushButtonSolution3()
 		ui->pushButton_solution3->setChecked(false);
 		// stop pumping protocol
 		QString currentProtocolFileName = m_protocol_path;
-		currentProtocolFileName.append("/");
+		currentProtocolFileName.append("/internal/");
 		currentProtocolFileName.append("stopSolution3.prt");
 		if (QFile::exists(currentProtocolFileName)) {
 			this->runProtocolFile(currentProtocolFileName);
@@ -294,7 +294,7 @@ void Labonatip_GUI::onPushButtonSolution3()
 	{
 		// start pumping protocol
 		QString currentProtocolFileName = m_protocol_path;
-		currentProtocolFileName.append("/");
+		currentProtocolFileName.append("/internal/");
 		currentProtocolFileName.append("pumpSolution3.prt");
 		if (QFile::exists(currentProtocolFileName)) {
 			this->runProtocolFile(currentProtocolFileName);
@@ -372,7 +372,7 @@ void Labonatip_GUI::onPushButtonSolution4()
 		ui->pushButton_solution4->setChecked(false);
 		// stop pumping protocol
 		QString currentProtocolFileName = m_protocol_path;
-		currentProtocolFileName.append("/");
+		currentProtocolFileName.append("/internal/");
 		currentProtocolFileName.append("stopSolution4.prt"); 
 		if (QFile::exists(currentProtocolFileName)) {
 			this->runProtocolFile(currentProtocolFileName);
@@ -382,7 +382,7 @@ void Labonatip_GUI::onPushButtonSolution4()
 	{
 		// start pumping protocol
 		QString currentProtocolFileName = m_protocol_path;
-		currentProtocolFileName.append("/");
+		currentProtocolFileName.append("/internal/");
 		currentProtocolFileName.append("pumpSolution4.prt");
 		if (QFile::exists(currentProtocolFileName)) {
 			this->runProtocolFile(currentProtocolFileName);
@@ -462,7 +462,7 @@ void Labonatip_GUI::onPushButtonSolution5()
 		ui->pushButton_solution5->setChecked(false);
 		// stop pumping protocol
 		QString currentProtocolFileName = m_protocol_path;
-		currentProtocolFileName.append("/");
+		currentProtocolFileName.append("/internal/");
 		currentProtocolFileName.append("stopSolution5.prt");
 		if (QFile::exists(currentProtocolFileName)) {
 			this->runProtocolFile(currentProtocolFileName);
@@ -472,7 +472,7 @@ void Labonatip_GUI::onPushButtonSolution5()
 	{
 		// start pumping protocol
 		QString currentProtocolFileName = m_protocol_path;
-		currentProtocolFileName.append("/");
+		currentProtocolFileName.append("/internal/");
 		currentProtocolFileName.append("pumpSolution5.prt");
 		if (QFile::exists(currentProtocolFileName)) {
 			this->runProtocolFile(currentProtocolFileName);
@@ -550,7 +550,7 @@ void Labonatip_GUI::onPushButtonSolution6()
 		ui->pushButton_solution6->setChecked(false);
 		// stop pumping protocol
 		QString currentProtocolFileName = m_protocol_path;
-		currentProtocolFileName.append("/");
+		currentProtocolFileName.append("/internal/");
 		currentProtocolFileName.append("stopSolution6.prt");
 		if (QFile::exists(currentProtocolFileName)) {
 			this->runProtocolFile(currentProtocolFileName);
@@ -560,7 +560,7 @@ void Labonatip_GUI::onPushButtonSolution6()
 	{
 		// start pumping protocol
 		QString currentProtocolFileName = m_protocol_path;
-		currentProtocolFileName.append("/");
+		currentProtocolFileName.append("/internal/");
 		currentProtocolFileName.append("pumpSolution6.prt");
 		if (QFile::exists(currentProtocolFileName))	{
 			this->runProtocolFile(currentProtocolFileName);

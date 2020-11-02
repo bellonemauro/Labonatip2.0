@@ -304,55 +304,7 @@ bool protocolTreeWidgetItem::checkValidity( int _column)
 			return false;
 		}
 		return true;
-	}/*
-	case protocolCommands::rampPoff: {
-		// if the number if lower than 0,
-		// the value becomes automatically positive
-		if (number < 1)
-		{
-			number = -number;
-			this->setText(editorParams::c_value, QString::number(number));
-		}
-		// if is not the range
-		if (//number < m_pr_params->p_off_min ||
-			number > m_pr_params->p_off_max) {
-			this->setText(editorParams::c_value, QString::number(m_pr_params->p_off_max)); // if the value is not valid, reset to zero
-			return false;
-		}
-		return true;
 	}
-	case protocolCommands::rampVr: {
-		// if the number if higher than 0,
-		// the value becomes automatically negative
-		int number = this->text(editorParams::c_value).toInt();
-		if (number > -1)
-		{
-			number = -number;
-			this->setText(editorParams::c_value, QString::number(number));
-		}
-		// if is not the range
-		if (number < m_pr_params->v_recirc_min){// ||
-			//number > m_pr_params->v_recirc_max) {
-			this->setText(editorParams::c_value, QString::number(m_pr_params->v_recirc_min)); // if the value is not valid, reset to zero
-			return false;
-		}
-		return true;
-	}
-	case protocolCommands::rampVs: {
-		// if the number if higher than 0,
-		// the value becomes automatically negative
-		if (number > -1) {
-			number = -number;
-			this->setText(editorParams::c_value, QString::number(number));
-		}
-		// if is not the range
-		if (number < m_pr_params->v_switch_min){// ||
-			//number > m_pr_params->v_switch_max) {
-			this->setText(editorParams::c_value, QString::number(m_pr_params->v_switch_min)); // if the value is not valid, reset to zero
-			return false;
-		}
-		return true;
-	}*/
 	case protocolCommands::operational: {
 		// no need to check here
 		dynamic_cast<QTreeWidgetItem*>(this)->setToolTip(editorParams::c_command, m_tt_cmd_operational);
@@ -377,25 +329,25 @@ bool protocolTreeWidgetItem::checkValidity( int _column)
 		this->setText(editorParams::c_value, QString("1")); // it can only be 1
 		return true;
 	}
-	case protocolCommands::smallAndSlow: {
+	case protocolCommands::standardAndSlow: {
 		// function
 		dynamic_cast<QTreeWidgetItem*>(this)->setToolTip(editorParams::c_command, m_tt_cmd_smallAndSlow);
 		this->setText(editorParams::c_value, QString("")); // it removes whatever is there
 		return true;
 	}
-	case protocolCommands::smallAngFast: {
+	case protocolCommands::standardAndRegular: {
 		// function
 		dynamic_cast<QTreeWidgetItem*>(this)->setToolTip(editorParams::c_command, m_tt_cmd_smallAndFast);
 		this->setText(editorParams::c_value, QString("")); // it removes whatever is there
 		return true;
 	}
-	case protocolCommands::bigAndSlow: {
+	case protocolCommands::largeAndSlow: {
 		// function
 		dynamic_cast<QTreeWidgetItem*>(this)->setToolTip(editorParams::c_command, m_tt_cmd_bigAndSlow);
 		this->setText(editorParams::c_value, QString("")); // it removes whatever is there
 		return true;
 	}
-	case protocolCommands::bigAndFast: {
+	case protocolCommands::largeAndRegular: {
 		// function
 		dynamic_cast<QTreeWidgetItem*>(this)->setToolTip(editorParams::c_command, m_tt_cmd_bigAndFast);
 		this->setText(editorParams::c_value, QString("")); // it removes whatever is there
@@ -508,19 +460,19 @@ QString protocolTreeWidgetItem::getRangeColumn( int _idx)
 		// function
 		return QString("-");
 	}
-	case protocolCommands::smallAndSlow: {
+	case protocolCommands::standardAndSlow: {
 		// function
 		return QString("-");
 	}
-	case protocolCommands::smallAngFast: {
+	case protocolCommands::standardAndRegular: {
 		// function
 		return QString("-");
 	}
-	case protocolCommands::bigAndSlow: {
+	case protocolCommands::largeAndSlow: {
 		// function
 		return QString("-");
 	}
-	case protocolCommands::bigAndFast: {
+	case protocolCommands::largeAndRegular: {
 		// function
 		return QString("-");
 	}

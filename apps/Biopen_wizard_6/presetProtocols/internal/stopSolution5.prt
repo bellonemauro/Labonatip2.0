@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE prt>
+<!--Fluicell protocol xml-->
+<Protocol version="1.0">
+    <wait value="5" message=" "/>
+    <solution1 value="0" message=" "/>
+    <wait value="5" message=" "/>
+    <ask value="" message="Solution 5 stop"/>
+</Protocol>

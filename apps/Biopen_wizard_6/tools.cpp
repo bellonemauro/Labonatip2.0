@@ -240,6 +240,22 @@ void Labonatip_tools::setPreset3(int _p_on, int _p_off, int _v_switch, int _v_re
 
 }
 
+void Labonatip_tools::setCustomPreset(int _p_on, int _p_off, int _v_switch, int _v_recirc)
+{
+	m_pr_params->p_on_customPreset = _p_on;
+	m_pr_params->p_off_customPreset = _p_off;
+	m_pr_params->v_switch_customPreset = _v_switch;
+	m_pr_params->v_recirc_customPreset = _v_recirc;
+
+	//ui_tools->spinBox_p_on_preset3->setValue(_p_on);
+	//ui_tools->spinBox_p_off_preset3->setValue(_p_off);
+	//ui_tools->spinBox_v_switch_preset3->setValue(_v_switch);
+	//ui_tools->spinBox_v_recirc_preset3->setValue(_v_recirc);
+
+	//saveSettings(m_setting_file_name);
+}
+
+
 void Labonatip_tools::okPressed() {
 
 	checkHistory ();
