@@ -194,7 +194,7 @@ void Labonatip_GUI::addAllCommandsToPPC1Protocol(QTreeWidget* _tree,
 	// functions are substituted with their content and 
 	// complex commands are substituted with their rispective list of elements
 
-	// push all the items in the macro table into the command vector
+	// push all the items in the protocol table into the command vector
 	fromTreeToItemVector(_tree, &command_vector);
 	
 	// then from the command vector are pushed to the protocol
@@ -430,9 +430,43 @@ void Labonatip_GUI::interpreter(protocolTreeWidgetItem* _item,
 	case protocolCommands::operational:
 	{
 		// load the protocol for operational
-		QTreeWidget* virtual_tree_widget = new QTreeWidget();
-		openXml(QString(preset_protocols_path + "/operational.prt"), virtual_tree_widget);
-		fromTreeToItemVector(virtual_tree_widget, _command_vector);
+		//QTreeWidget* virtual_tree_widget = new QTreeWidget();
+		//openXml(QString(preset_protocols_path + "/operational.prt"), virtual_tree_widget);
+		//fromTreeToItemVector(virtual_tree_widget, _command_vector);
+
+		protocolTreeWidgetItem* item1 = new protocolTreeWidgetItem();
+		protocolTreeWidgetItem* item2 = new protocolTreeWidgetItem();
+		protocolTreeWidgetItem* item3 = new protocolTreeWidgetItem();
+		protocolTreeWidgetItem* item4 = new protocolTreeWidgetItem();
+		protocolTreeWidgetItem* item5 = new protocolTreeWidgetItem();
+		protocolTreeWidgetItem* item6 = new protocolTreeWidgetItem();
+
+		item1->setText(editorParams::c_command, QString::number(protocolCommands::allOff));
+
+		item2->setText(editorParams::c_command, QString::number(protocolCommands::setPon));
+		item2->setText(editorParams::c_value, QString::number(m_pr_params->p_on_default));
+		
+		item3->setText(editorParams::c_command, QString::number(protocolCommands::setPoff));
+		item3->setText(editorParams::c_value, QString::number(m_pr_params->p_off_default));
+
+		item4->setText(editorParams::c_command, QString::number(protocolCommands::wait));
+		item4->setText(editorParams::c_value, QString::number(5));
+
+		item5->setText(editorParams::c_command, QString::number(protocolCommands::setVrecirc));
+		item5->setText(editorParams::c_value, QString::number(m_pr_params->v_recirc_default));
+
+		item6->setText(editorParams::c_command, QString::number(protocolCommands::setVswitch));
+		item6->setText(editorParams::c_value, QString::number(m_pr_params->v_switch_default));
+
+		_command_vector->push_back(item1);
+		_command_vector->push_back(item2);
+		_command_vector->push_back(item3);
+		_command_vector->push_back(item4);
+		_command_vector->push_back(item5);
+		_command_vector->push_back(item6);
+
+
+
 		return;
 	}
 	case protocolCommands::initialize:

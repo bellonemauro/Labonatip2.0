@@ -244,13 +244,17 @@ struct pipetteStatus{
 struct pr_params {
 
 
-	explicit pr_params() : p_on_max (450), p_on_min(0), p_on_default(190),
-				p_off_max(450), p_off_min(0), p_off_default(21),
-				v_switch_max(0), v_switch_min(-300), v_switch_default(-115),
-				v_recirc_max(0), v_recirc_min(-300), v_recirc_default(-115),
+	explicit pr_params() : p_on_max (450), p_on_min(0), p_on_default(190), p_on_classical(190),
+				p_off_max(450), p_off_min(0), p_off_default(21), p_off_classical(21),
+				v_switch_max(0), v_switch_min(-300), v_switch_default(-115), v_switch_classical(-115),
+				v_recirc_max(0), v_recirc_min(-300), v_recirc_default(-115), v_recirc_classical(-115),
 				p_on_preset1(190), p_off_preset1(21), v_switch_preset1(-115), v_recirc_preset1(-115),
 				p_on_preset2(190), p_off_preset2(21), v_switch_preset2(-115), v_recirc_preset2(-115),
 				p_on_preset3(190), p_off_preset3(21), v_switch_preset3(-115), v_recirc_preset3(-115),
+				p_on_sAs(190), p_off_sAs(21), v_switch_sAs(-115), v_recirc_sAs(-115),
+				p_on_sAr(190), p_off_sAr(21), v_switch_sAr(-115), v_recirc_sAr(-115),
+				p_on_lAs(190), p_off_lAs(21), v_switch_lAs(-115), v_recirc_lAs(-115),
+				p_on_lAr(190), p_off_lAr(21), v_switch_lAr(-115), v_recirc_lAr(-115),
 				base_ds_increment(10), base_fs_increment(5), base_v_increment(5),
 		        verboseOut(true), useDefValSetPoint(true), enableFilter(true), filterSize (20), waitSyncTimeout(60)
 	{   // default values
@@ -267,15 +271,21 @@ struct pr_params {
 	int p_on_max;                //!< max P_on value
 	int p_on_min;                //!< min P_on value
 	int p_on_default;            //!< default P_on value
+	int p_on_classical;    //!< classical default P_on value, this is used to get back to default values
+	//TODO: the difference between classical and default is not clear yet, the classical value is never modified and it is used to 
+	//      reset the default value of p_on_default that has that name for historical reasons but cannot be called default anymore
 	int p_off_max;               //!< max P_off value
 	int p_off_min;               //!< min P_off value
 	int p_off_default;           //!< default P_off value
+	int p_off_classical;           //!< default P_off value
 	int v_switch_max;            //!< max V_switch value
 	int v_switch_min;            //!< min V_switch value
 	int v_switch_default;        //!< default V_switch value
+	int v_switch_classical;        //!< default V_switch value
 	int v_recirc_max;            //!< max V_recirc value
 	int v_recirc_min;            //!< min V_recirc value
 	int v_recirc_default;        //!< defauls V_recirc value 
+	int v_recirc_classical;        //!< defauls V_recirc value 
 	int base_ds_increment;       //!< base increment for droplet size in zone control
 	int base_fs_increment;       //!< base increment for flow speed in zone control
 	int base_v_increment;        //!< base increment for vacuum size in zone control
@@ -291,6 +301,32 @@ struct pr_params {
 	int p_off_preset3;           //!< P_off value  for the preset 3
 	int v_switch_preset3;        //!< V_switch value for the preset 3
 	int v_recirc_preset3;        //!< V_recirc value for the preset 3
+
+	// Standard and slow
+	int p_on_sAs;            //!< P_on value for the standard and slow operational mode
+	int p_off_sAs;           //!< P_off value  for the standard and slow operational mode
+	int v_switch_sAs;        //!< V_switch value for the standard and slow operational mode
+	int v_recirc_sAs;        //!< V_recirc value for the standard and slow operational mode
+
+	// Standard and regular
+	int p_on_sAr;            //!< P_on value for the standard and regular operational mode
+	int p_off_sAr;           //!< P_off value  for the standard and regular operational mode
+	int v_switch_sAr;        //!< V_switch value for the standard and regular operational mode
+	int v_recirc_sAr;        //!< V_recirc value for the standard and regular operational mode
+
+	// Large and slow
+	int p_on_lAs;            //!< P_on value for the large and slow operational mode
+	int p_off_lAs;           //!< P_off value  for the large and slow operational mode
+	int v_switch_lAs;        //!< V_switch value for the large and slow operational mode
+	int v_recirc_lAs;        //!< V_recirc value for the large and slow operational mode
+
+	// Large and regular
+	int p_on_lAr;            //!< P_on value for the large and regular operational mode
+	int p_off_lAr;           //!< P_off value  for the large and regular operational mode
+	int v_switch_lAr;        //!< V_switch value for the large and regular operational mode
+	int v_recirc_lAr;        //!< V_recirc value for the large and regular operational mode
+
+	//TODO check this custom preset as it may be useless
 	int p_on_customPreset;       //!< P_on value for the preset 3
 	int p_off_customPreset;      //!< P_off value  for the preset 3
 	int v_switch_customPreset;   //!< V_switch value for the preset 3

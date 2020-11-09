@@ -739,11 +739,11 @@ void Labonatip_GUI::initConnects()
 
 	connect(ui->pushButton_largeAndSlow,
 		SIGNAL(clicked()), this,
-		SLOT(setStandardAndRegular()));
+		SLOT(setLargeAndSlow()));
 
 	connect(ui->pushButton_starndardAndRegular,
 		SIGNAL(clicked()), this,
-		SLOT(setPipe3()));
+		SLOT(setStandardAndRegular())); //TODO: this is wrong
 
 	connect(ui->pushButton_largeAndRegular,
 		SIGNAL(clicked()), this,

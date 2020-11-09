@@ -408,6 +408,7 @@ void Labonatip_tools::setDefaultPressuresVacuums(int _p_on_default, int _p_off_d
 	ui_tools->spinBox_v_recirc_default->setValue(-_v_recirc_default);
 	ui_tools->spinBox_v_switch_default->setValue(-_v_switch_default);
 	
+	this->applyPressed();
 }
 
 
@@ -905,6 +906,151 @@ bool Labonatip_tools::loadSettings(QString _path)
 	ui_tools->spinBox_v_increment->setValue(base_v_increment);
 	m_pr_params->base_v_increment = base_v_increment;
 
+	int p_on_sAs = m_settings->value("pv_standardAndSlow/p_on", "190").toInt(&ok);
+	if (!ok) {
+		std::cerr << HERE
+			<< "pv_standardAndSlow/p_on corrupted in setting file, using default value " << std::endl;
+		p_on_sAs = 190;
+	}
+	ui_tools->spinBox_sAs_Pon_def->setValue(p_on_sAs);
+	m_pr_params->p_on_sAs = p_on_sAs;
+
+	int p_off_sAs = m_settings->value("pv_standardAndSlow/p_off", "21").toInt(&ok);
+	if (!ok) {
+		std::cerr << HERE
+			<< "pv_standardAndSlow/p_off corrupted in setting file, using default value " << std::endl;
+		p_off_sAs = 21;
+	}
+	ui_tools->spinBox_sAs_Poff_def->setValue(p_off_sAs);
+	m_pr_params->p_off_sAs = p_off_sAs;
+
+	int v_switch_sAs = m_settings->value("pv_standardAndSlow/v_switch", "-115").toInt(&ok);
+	if (!ok) {
+		std::cerr << HERE
+			<< "pv_standardAndSlow/v_switch corrupted in setting file, using default value " << std::endl;
+		v_switch_sAs = -115;
+	}
+	ui_tools->spinBox_sAs_Vs_def->setValue(v_switch_sAs);
+	m_pr_params->v_switch_sAs = v_switch_sAs;
+
+	int v_recirc_sAs = m_settings->value("pv_standardAndSlow/v_recirc", "-115").toInt(&ok);
+	if (!ok) {
+		std::cerr << HERE
+			<< "pv_standardAndSlow/v_recirc corrupted in setting file, using default value " << std::endl;
+		v_recirc_sAs = -115;
+	}
+	ui_tools->spinBox_sAs_Vr_def->setValue(v_recirc_sAs);
+	m_pr_params->v_recirc_sAs = v_recirc_sAs;
+
+
+	int p_on_sAr = m_settings->value("pv_standardAndRegular/p_on", "190").toInt(&ok);
+	if (!ok) {
+		std::cerr << HERE
+			<< "pv_standardAndRegular/p_on corrupted in setting file, using default value " << std::endl;
+		p_on_sAr = 190;
+	}
+	ui_tools->spinBox_sAr_Pon_def->setValue(p_on_sAr);
+	m_pr_params->p_on_sAr = p_on_sAr;
+
+	int p_off_sAr = m_settings->value("pv_standardAndRegular/p_off", "21").toInt(&ok);
+	if (!ok) {
+		std::cerr << HERE
+			<< "pv_standardAndRegular/p_off corrupted in setting file, using default value " << std::endl;
+		p_off_sAr = 21;
+	}
+	ui_tools->spinBox_sAr_Poff_def->setValue(p_off_sAr);
+	m_pr_params->p_off_sAr = p_off_sAr;
+
+	int v_switch_sAr = m_settings->value("pv_standardAndRegular/v_switch", "-115").toInt(&ok);
+	if (!ok) {
+		std::cerr << HERE
+			<< "pv_standardAndRegular/v_switch corrupted in setting file, using default value " << std::endl;
+		v_switch_sAr = -115;
+	}
+	ui_tools->spinBox_sAr_Vs_def->setValue(v_switch_sAr);
+	m_pr_params->v_switch_sAr = v_switch_sAr;
+
+	int v_recirc_sAr = m_settings->value("pv_standardAndRegular/v_recirc", "-115").toInt(&ok);
+	if (!ok) {
+		std::cerr << HERE
+			<< "pv_standardAndRegular/v_recirc corrupted in setting file, using default value " << std::endl;
+		v_recirc_sAr = -115;
+	}
+	ui_tools->spinBox_sAr_Vr_def->setValue(v_recirc_sAr);
+	m_pr_params->v_recirc_sAr = v_recirc_sAr;
+
+	int p_on_lAs = m_settings->value("pv_largeAndSlow/p_on", "190").toInt(&ok);
+	if (!ok) {
+		std::cerr << HERE
+			<< "pv_largeAndSlow/p_on corrupted in setting file, using default value " << std::endl;
+		p_on_lAs = 190;
+	}
+	ui_tools->spinBox_lAs_Pon_def->setValue(p_on_lAs);
+	m_pr_params->p_on_lAs = p_on_lAs;
+
+	int p_off_lAs = m_settings->value("pv_largeAndSlow/p_off", "21").toInt(&ok);
+	if (!ok) {
+		std::cerr << HERE
+			<< "pv_largeAndSlow/p_off corrupted in setting file, using default value " << std::endl;
+		p_off_lAs = 21;
+	}
+	ui_tools->spinBox_lAs_Poff_def->setValue(p_off_lAs);
+	m_pr_params->p_off_lAs = p_off_lAs;
+
+	int v_switch_lAs = m_settings->value("pv_largeAndSlow/v_switch", "-115").toInt(&ok);
+	if (!ok) {
+		std::cerr << HERE
+			<< "pv_largeAndSlow/v_switch corrupted in setting file, using default value " << std::endl;
+		v_switch_lAs = -115;
+	}
+	ui_tools->spinBox_lAs_Vs_def->setValue(v_switch_lAs);
+	m_pr_params->v_switch_lAs = v_switch_lAs;
+
+	int v_recirc_lAs = m_settings->value("pv_largeAndSlow/v_recirc", "-115").toInt(&ok);
+	if (!ok) {
+		std::cerr << HERE
+			<< "pv_largeAndSlow/v_recirc corrupted in setting file, using default value " << std::endl;
+		v_recirc_lAs = -115;
+	}
+	ui_tools->spinBox_lAs_Vr_def->setValue(v_recirc_lAs);
+	m_pr_params->v_recirc_lAs = v_recirc_lAs;
+
+	int p_on_lAr = m_settings->value("pv_largeAndRegular/p_on", "190").toInt(&ok);
+	if (!ok) {
+		std::cerr << HERE
+			<< "pv_largeAndRegular/p_on corrupted in setting file, using default value " << std::endl;
+		p_on_lAr = 190;
+	}
+	ui_tools->spinBox_lAr_Pon_def->setValue(p_on_lAr);
+	m_pr_params->p_on_lAr = p_on_lAr;
+
+	int p_off_lAr = m_settings->value("pv_largeAndRegular/p_off", "21").toInt(&ok);
+	if (!ok) {
+		std::cerr << HERE
+			<< "pv_largeAndRegular/p_off corrupted in setting file, using default value " << std::endl;
+		p_off_lAr = 21;
+	}
+	ui_tools->spinBox_lAr_Poff_def->setValue(p_off_lAr);
+	m_pr_params->p_off_lAr = p_off_lAr;
+
+	int v_switch_lAr = m_settings->value("pv_largeAndRegular/v_switch", "-115").toInt(&ok);
+	if (!ok) {
+		std::cerr << HERE
+			<< "pv_largeAndRegular/v_switch corrupted in setting file, using default value " << std::endl;
+		v_switch_lAr = -115;
+	}
+	ui_tools->spinBox_lAr_Vs_def->setValue(v_switch_lAr);
+	m_pr_params->v_switch_lAr = v_switch_lAr;
+
+	int v_recirc_lAr = m_settings->value("pv_largeAndRegular/v_recirc", "-115").toInt(&ok);
+	if (!ok) {
+		std::cerr << HERE
+			<< "pv_largeAndRegular/v_recirc corrupted in setting file, using default value " << std::endl;
+		v_recirc_lAr = -115;
+	}
+	ui_tools->spinBox_lAr_Vr_def->setValue(v_recirc_lAr);
+	m_pr_params->v_recirc_lAr = v_recirc_lAr;
+
 	int p_on_p1 = m_settings->value("pv_preset1/p_on", "190").toInt(&ok);
 	if (!ok) {
 		std::cerr << HERE
@@ -1305,6 +1451,27 @@ bool Labonatip_tools::saveSettings(QString _file_name)
 	settings->setValue("pr_limits/base_fs_increment", ui_tools->spinBox_fs_increment->value());
     // base_v_increment =
 	settings->setValue("pr_limits/base_v_increment", ui_tools->spinBox_v_increment->value());
+
+	settings->setValue("pv_standardAndSlow/p_on", ui_tools->spinBox_sAs_Pon_def->value());
+	settings->setValue("pv_standardAndSlow/p_off", ui_tools->spinBox_sAs_Poff_def->value());
+	settings->setValue("pv_standardAndSlow/v_switch", ui_tools->spinBox_sAs_Vs_def->value());
+	settings->setValue("pv_standardAndSlow/v_recirc", ui_tools->spinBox_sAs_Vr_def->value());
+
+	settings->setValue("pv_standardAndRegular/p_on", ui_tools->spinBox_sAr_Pon_def->value());
+	settings->setValue("pv_standardAndRegular/p_off", ui_tools->spinBox_sAr_Poff_def->value());
+	settings->setValue("pv_standardAndRegular/v_switch", ui_tools->spinBox_sAr_Vs_def->value());
+	settings->setValue("pv_standardAndRegular/v_recirc", ui_tools->spinBox_sAr_Vr_def->value());
+
+	settings->setValue("pv_largeAndSlow/p_on", ui_tools->spinBox_lAs_Pon_def->value());
+	settings->setValue("pv_largeAndSlow/p_off", ui_tools->spinBox_lAs_Poff_def->value());
+	settings->setValue("pv_largeAndSlow/v_switch", ui_tools->spinBox_lAs_Vs_def->value());
+	settings->setValue("pv_largeAndSlow/v_recirc", ui_tools->spinBox_lAs_Vr_def->value());
+
+	settings->setValue("pv_largeAndRegular/p_on", ui_tools->spinBox_lAr_Pon_def->value());
+	settings->setValue("pv_largeAndRegular/p_off", ui_tools->spinBox_lAr_Poff_def->value());
+	settings->setValue("pv_largeAndRegular/v_switch", ui_tools->spinBox_lAr_Vs_def->value());
+	settings->setValue("pv_largeAndRegular/v_recirc", ui_tools->spinBox_lAr_Vr_def->value());
+
 
 	settings->setValue("pv_preset1/p_on", ui_tools->spinBox_p_on_preset1->value());
 	settings->setValue("pv_preset1/p_off", ui_tools->spinBox_p_off_preset1->value());
