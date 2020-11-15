@@ -233,7 +233,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   ui->actionReboot->setEnabled(false);
   ui->actionShudown->setEnabled(false);
   ui->groupBox_action->setEnabled(false);
-  ui->groupBox_deliveryZone->setEnabled(false);
+  ui->groupBox_operMode->setEnabled(false);
   ui->groupBox_3->setEnabled(false);
   ui->groupBox_operMode->setEnabled(false);
   enableTab2(false);
@@ -700,30 +700,6 @@ void Labonatip_GUI::initConnects()
 		SIGNAL(clicked()), this,
 		SLOT(onPushButtonSolution6()));
 
-	connect(ui->pushButton_dropSize_minus,
-		SIGNAL(clicked()), this, 
-		SLOT(zoneSizeMinus()));
-
-	connect(ui->pushButton_dropSize_plus, 
-		SIGNAL(clicked()), this, 
-		SLOT(zoneSizePlus()));
-
-	connect(ui->pushButton_flowspeed_minus, 
-		SIGNAL(clicked()), this, 
-		SLOT(flowSpeedMinus()));
-
-	connect(ui->pushButton_flowspeed_plus,
-		SIGNAL(clicked()), this, 
-		SLOT(flowSpeedPlus()));
-
-	connect(ui->pushButton_vacuum_minus, 
-		SIGNAL(clicked()), this, 
-		SLOT(vacuumMinus()));
-
-	connect(ui->pushButton_vacuum_plus, 
-		SIGNAL(clicked()), this, 
-		SLOT(vacuumPlus()));
-	
 	connect(ui->pushButton_standby, 
 		SIGNAL(clicked()), this, 
 		SLOT(standby()));
@@ -1001,6 +977,9 @@ void Labonatip_GUI::initCustomStrings()
 	m_str_waste_full = tr("A waste well is full and needs to be emptied. Click Ok to continue");// ("The waste is full, click yes to empty");
 	m_str_TTL_failed = tr("PPC1 not connected, TTL test cannot run");
 	m_str_update_information = tr("A new update is available, do you want to download it now?");
+	m_ask_password = tr("This is for expert users only, a password is required");
+	m_wrong_password = tr("Wrong password, file not saved");
+	m_correct_password = tr("Correct password, file saved");
 }
 
 void Labonatip_GUI::setProtocolUserPath(QString _path)
@@ -1030,14 +1009,6 @@ void Labonatip_GUI::appScaling(int _dpiX, int _dpiY)
 	gr_b_action.scale(gr_b_action*_dpiX / 100, Qt::KeepAspectRatioByExpanding);
 	ui->groupBox_action->setMinimumSize(gr_b_action);
 
-	QSize gr_delivery_min = ui->groupBox_deliveryZone->minimumSize();
-	gr_delivery_min.scale(gr_delivery_min*_dpiX / 100, Qt::KeepAspectRatioByExpanding);
-	ui->groupBox_deliveryZone->setMinimumSize(gr_delivery_min);
-
-	QSize gr_delivery_max = ui->groupBox_deliveryZone->maximumSize();
-	gr_delivery_max.scale(gr_delivery_max*_dpiX / 100, Qt::KeepAspectRatioByExpanding);
-	ui->groupBox_deliveryZone->setMaximumSize(gr_delivery_max);
-
 	QSize gr_5 = ui->groupBox_5->minimumSize();
 	gr_5.scale(gr_5*_dpiX / 100, Qt::KeepAspectRatioByExpanding);
 	ui->groupBox_5->setMinimumSize(gr_5);
@@ -1062,20 +1033,7 @@ void Labonatip_GUI::appScaling(int _dpiX, int _dpiY)
 	ui->pushButton_stop->setIconSize(action_button_icon_size);
 	ui->pushButton_standby->setIconSize(action_button_icon_size);
 
-	QSize delivery_zone_buttons = ui->pushButton_dropSize_minus->size();
-	delivery_zone_buttons.scale(delivery_zone_buttons*_dpiX / 100, Qt::KeepAspectRatioByExpanding);
-	ui->pushButton_dropSize_minus->setFixedWidth(delivery_zone_buttons.height());
-	ui->pushButton_dropSize_plus->setFixedWidth(delivery_zone_buttons.height());
-	ui->pushButton_flowspeed_minus->setFixedWidth(delivery_zone_buttons.height());
-	ui->pushButton_flowspeed_plus->setFixedWidth(delivery_zone_buttons.height());
-	ui->pushButton_vacuum_minus->setFixedWidth(delivery_zone_buttons.height());
-	ui->pushButton_vacuum_plus->setFixedWidth(delivery_zone_buttons.height());
-	ui->pushButton_dropSize_minus->setFixedHeight(delivery_zone_buttons.height());
-	ui->pushButton_dropSize_plus->setFixedHeight(delivery_zone_buttons.height());
-	ui->pushButton_flowspeed_minus->setFixedHeight(delivery_zone_buttons.height());
-	ui->pushButton_flowspeed_plus->setFixedHeight(delivery_zone_buttons.height());
-	ui->pushButton_vacuum_minus->setFixedHeight(delivery_zone_buttons.height());
-	ui->pushButton_vacuum_plus->setFixedHeight(delivery_zone_buttons.height());
+	
 }
 
 void Labonatip_GUI::emptyWells()
@@ -1532,17 +1490,40 @@ bool Labonatip_GUI::saveXml()
 bool Labonatip_GUI::saveXml(QString _filename, QTreeWidget* _widget)
 {
 	QFile file(_filename);
-	if (!file.open(QFile::WriteOnly | QFile::Text)) {
-		QMessageBox::warning(this, m_str_warning,
-			m_str_file_not_saved + tr("<br>%1:\n%2.")
-			.arg(QDir::toNativeSeparators(_filename),
-				file.errorString()));
-		return false;
-	}
-	XmlProtocolWriter writer(_widget);
-	if (writer.writeFile(&file))
+	if (_filename.contains("stopSolution", Qt::CaseSensitive) ||
+		_filename.contains("pumpSolution", Qt::CaseSensitive))
 	{
-		return true;
+		// Ask for the password
+		bool ok;
+		QString text = QInputDialog::getText(0, m_str_warning,
+			m_ask_password, QLineEdit::Password,
+			"", &ok);
+		if (ok && !text.isEmpty()) {
+			QString password = text;
+			QString password_check = "FluicellGrowth2018";
+			if (!password.compare(password_check))
+			{
+				QMessageBox::information(this, m_str_information, m_correct_password);
+				
+				if (!file.open(QFile::WriteOnly | QFile::Text)) {
+					QMessageBox::warning(this, m_str_warning,
+						m_str_file_not_saved + tr("<br>%1:\n%2.")
+						.arg(QDir::toNativeSeparators(_filename),
+							file.errorString()));
+					return false;
+				}
+				XmlProtocolWriter writer(_widget);
+				if (writer.writeFile(&file))
+				{
+					return true;
+				}
+			}
+			else
+			{
+				QMessageBox::warning(this, m_str_information, m_wrong_password);
+				return false;
+			}
+		}
 	}
 
 	return false;

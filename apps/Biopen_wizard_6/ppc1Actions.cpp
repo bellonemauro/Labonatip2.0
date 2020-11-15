@@ -249,33 +249,9 @@ void Labonatip_GUI::runProtocolFile(QString _protocol_path) {
 			&Labonatip_macroRunner::pumpOff, this,
 			&Labonatip_GUI::pumpingOff);
 
-		connect(m_macroRunner_thread,
-			&Labonatip_macroRunner::setDropletSizeSIG, this,
-			&Labonatip_GUI::setZoneSizePercentage);
-		
-		connect(m_macroRunner_thread,
-			&Labonatip_macroRunner::changeDropletSizeSIG, this,
-			&Labonatip_GUI::changeZoneSizePercentageBy);
-
-		connect(m_macroRunner_thread,
-			&Labonatip_macroRunner::setFlowSpeedSIG, this,
-			&Labonatip_GUI::setFlowspeedPercentage);
-
-		connect(m_macroRunner_thread,
-			&Labonatip_macroRunner::changeFlowSpeedSIG, this,
-			&Labonatip_GUI::changeFlowspeedPercentageBy);
-
-		connect(m_macroRunner_thread,
-			&Labonatip_macroRunner::setVacuumSIG, this,
-			&Labonatip_GUI::setVacuumPercentage);
-
-		connect(m_macroRunner_thread,
-			&Labonatip_macroRunner::changeVacuumSIG, this,
-			&Labonatip_GUI::changeVacuumPercentageBy);
-
 		m_macroRunner_thread->start();
 
-		ui->groupBox_deliveryZone->setEnabled(false);
+		ui->groupBox_operMode->setEnabled(false);
 		ui->pushButton_operational->setEnabled(false);
 		ui->pushButton_newTip->setEnabled(false);
 		ui->pushButton_standby->setEnabled(false);
@@ -302,7 +278,7 @@ void Labonatip_GUI::runProtocolFile(QString _protocol_path) {
 		m_macroRunner_thread->killMacro(true);
 
 		m_ppc1->setVerbose(m_pr_params->verboseOut);
-		ui->groupBox_deliveryZone->setEnabled(true);
+		ui->groupBox_operMode->setEnabled(true);
 		ui->pushButton_operational->setEnabled(true);
 		ui->pushButton_newTip->setEnabled(true);
 		ui->pushButton_standby->setEnabled(true);
@@ -340,7 +316,7 @@ void Labonatip_GUI::protocolFinished(const QString &_result) {
 
 	// restore GUI 
 	ui->label_runMacro->setText(m_str_label_run_protocol);
-	ui->groupBox_deliveryZone->setEnabled(true);
+	ui->groupBox_operMode->setEnabled(true);
 	ui->pushButton_operational->setEnabled(true);
 	ui->pushButton_newTip->setEnabled(true);
 	ui->pushButton_stop->setEnabled(true);
@@ -445,30 +421,6 @@ void Labonatip_GUI::protocolFinished(const QString &_result) {
 	disconnect(m_macroRunner_thread,
 		&Labonatip_macroRunner::pumpOff, this,
 		&Labonatip_GUI::pumpingOff);
-
-	disconnect(m_macroRunner_thread,
-		&Labonatip_macroRunner::setDropletSizeSIG, this,
-		&Labonatip_GUI::setZoneSizePercentage);
-	
-	disconnect(m_macroRunner_thread,
-		&Labonatip_macroRunner::changeDropletSizeSIG, this,
-		&Labonatip_GUI::changeZoneSizePercentageBy);
-
-	disconnect(m_macroRunner_thread,
-		&Labonatip_macroRunner::setFlowSpeedSIG, this,
-		&Labonatip_GUI::setFlowspeedPercentage);
-	
-	disconnect(m_macroRunner_thread,
-		&Labonatip_macroRunner::changeFlowSpeedSIG, this,
-		&Labonatip_GUI::changeFlowspeedPercentageBy);
-
-	disconnect(m_macroRunner_thread,
-		&Labonatip_macroRunner::setVacuumSIG, this,
-		&Labonatip_GUI::setVacuumPercentage);
-	
-	disconnect(m_macroRunner_thread,
-		&Labonatip_macroRunner::changeVacuumSIG, this,
-		&Labonatip_GUI::changeVacuumPercentageBy);
 
 	addAllCommandsToPPC1Protocol(ui->treeWidget_macroTable, m_protocol);
 

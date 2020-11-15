@@ -3,9 +3,20 @@
 <!--Fluicell protocol xml-->
 <Protocol version="1.0">
     <allOff value="" message=" "/>
+    <setPon value="50" message=" "/>
+    <wait value="1" message=" "/>
+    <setPoff value="11" message=" "/>
+    <wait value="1" message=" "/>
     <solution2 value="1" message=" "/>
-    <wait value="5" message=" "/>
-    <solution2 value="0" message=" "/>
-    <wait value="5" message=" "/>
-    <ask value="" message="Solution 2 pump"/>
+    <setPon value="70" message=" "/>
+    <setPon value="75" message=" "/>
+    <wait value="1" message=" "/>
+    <setPon value="80" message=" "/>
+    <setPoff value="5" message=" "/>
+    <setPon value="85" message=" "/>
+    <wait value="1" message=" "/>
+    <setPon value="140" message=" "/>
+    <wait value="1" message=" "/>
+    <setPoff value="11" message=" "/>
+    <wait value="1" message=" "/>
 </Protocol>

@@ -34,6 +34,7 @@
 #include <QFileDialog>
 #include <QMenu>
 #include <QTextStream>
+#include <QInputDialog>
 
 // QT for graphics
 #include <QGraphicsEllipseItem>
@@ -507,46 +508,7 @@ private slots:
 	*/
 	void toolApply();
 
-	/** \brief This function is called when the button + on droplet size is clicked
-	*
-	*   only Pon and V_recirc + - 2.5%
-	*/
-	void zoneSizePlus();
-
-	/** \brief This function is called when the button - on droplet size is clicked
-	*
-	*   only Pon and V_recirc + - 2.5%
-	*/
-	void zoneSizeMinus();
-
-
-	/** \brief This function is called when the button + on flow speed is clicked
-	*
-	*   	 +5% to all values
-	*	 Poff does not read too low values,
-	*	 if 5% different is less than 5 mbar .... start -> start + 5 --> start - 5%
-	*/
-	void flowSpeedPlus();
-
-	/** \brief This function is called when the button - on flow speed is clicked
-	*
-	*   	 -5% to all values
-	*	 Poff does not read too low values,
-	*	 if 5% different is less than 5 mbar .... start -> start + 5 --> start - 5%
-	*/
-	void flowSpeedMinus();
-
-	/** \brief This function is called when the button + on flow speed is clicked
-	*
-	*   	 +5% v_recirculation
-	*/
-	void vacuumPlus();
-
-	/** \brief This function is called when the button - on flow speed is clicked
-	*
-	*   	 -5% v_recirculation
-	*/
-	void vacuumMinus();
+	
 
 	/** \brief Load icon pressed
 	*
@@ -791,42 +753,6 @@ private:
 	*   according to the same method in the PPC1 api
 	*/
 	void updateFlowControlPercentages();
-
-	/** \brief Emulate setZoneSizePerc from ppc1api for simulation
-	*
-	*   For details see fluicell::ppc1api::setZoneSizePerc
-	*/
-	void setZoneSizePercentage(double _perc = 100.0);
-
-	/** \brief Emulate changeZoneSizePercBy from ppc1api for simulation
-	*
-	*   For details see fluicell::ppc1api::changeZoneSizePercBy
-	*/
-	void changeZoneSizePercentageBy(double _perc = 0.0);
-
-	/** \brief Emulate setFlowSpeedPerc from ppc1api for simulation
-	*
-	*   For details see fluicell::ppc1api::setFlowSpeedPerc
-	*/
-	void setFlowspeedPercentage(double _perc = 100.0);
-
-	/** \brief Emulate changeFlowSpeedPercBy from ppc1api for simulation
-	*
-	*   For details see fluicell::ppc1api::changeFlowSpeedPercBy
-	*/
-	void changeFlowspeedPercentageBy(double _perc = 0.0);
-
-	/** \brief Emulate setVacuumPerc from ppc1api for simulation
-	*
-	*   For details see fluicell::ppc1api::setVacuumPerc
-	*/
-	void setVacuumPercentage(double _perc = 100.0);
-
-	/** \brief Emulate changeVacuumPercBy from ppc1api for simulation
-	*
-	*   For details see fluicell::ppc1api::changeVacuumPercBy
-	*/
-	void changeVacuumPercentageBy(double _perc = 0.0);
 
 	/** \brief Allow to reset the redirect buffer to history field or terminal
 	*
@@ -1188,6 +1114,9 @@ private:
   QString m_str_waste_full;
   QString m_str_TTL_failed;
   QString m_str_update_information;
+  QString m_ask_password;
+  QString m_wrong_password;
+  QString m_correct_password;
 
   // speech synthesis
   QTextToSpeech *m_speech;

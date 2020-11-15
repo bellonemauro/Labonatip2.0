@@ -34,7 +34,9 @@ void Labonatip_GUI::updateGUI() {
 		updateDrawing(m_ppc1->getZoneSizePerc()); 
 	}
 	else {
-		updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
+		updateFlowControlPercentages();
+		updateDrawing(m_ds_perc);
+		//updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
 	}
 }
 
@@ -77,7 +79,7 @@ void Labonatip_GUI::updatePressureVacuum()
 		m_v_perc = m_ppc1->getVacuumPerc();
 
 		// show the percentage in the display only if in the range [0,1000]
-		if (m_ds_perc >= 0 && m_ds_perc < 1000) {
+		/*if (m_ds_perc >= 0 && m_ds_perc < 1000) {
 			ui->lcdNumber_dropletSize_percentage->display(m_ds_perc);
 		}
 		else { //otherwise it shows display error = "E"
@@ -106,7 +108,7 @@ void Labonatip_GUI::updatePressureVacuum()
 			ui->lcdNumber_dropletSize_percentage->display(0);
 			ui->lcdNumber_flowspeed_percentage->display(0);
 			ui->lcdNumber_vacuum_percentage->display(0);
-		}
+		}*/
 	}// end if m_simulation
 }
 
@@ -1108,5 +1110,34 @@ void Labonatip_GUI::updateMacroTimeStatus(const double &_status)
     ui->horizontalSlider_p_on->blockSignals(false);
 
 	double currentTime = _status * duration / 100.0 ;
-    updateFlowControlPercentages();
+	updateFlowControlPercentages();
+}
+
+
+void Labonatip_GUI::updateFlowControlPercentages()
+{
+	updateFlows();
+	if (m_simulationOnly) {
+
+		// calculate droplet size percentage
+		m_ds_perc = 100.0 * (m_pipette_status->in_out_ratio_on + 0.21) / 0.31;
+		if (m_ds_perc < 0 || m_ds_perc > 1000) {
+			//ui->lcdNumber_dropletSize_percentage->display(display_e);
+		}
+		else {
+			//ui->lcdNumber_dropletSize_percentage->display(m_ds_perc);
+		}
+
+		// calculate flow speed percentage
+		double ponp = 100.0 * m_pipette_status->pon_set_point / m_pr_params->p_on_default;
+
+		//MB: mod to consider pon only in the calculation of the speed
+		m_fs_perc = ponp;
+		//ui->lcdNumber_flowspeed_percentage->display(m_fs_perc);
+
+		//calculate vacuum percentage
+		m_v_perc = 100.0 * m_pipette_status->v_recirc_set_point / (-m_pr_params->v_recirc_default);
+		//ui->lcdNumber_vacuum_percentage->display(m_v_perc);
+
+	}
 }

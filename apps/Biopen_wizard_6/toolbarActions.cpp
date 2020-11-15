@@ -39,8 +39,6 @@ bool Labonatip_GUI::loadProtocol()
 		return false;
 	}
 	
-#pragma message("TODO: here change to XML")
-	//if (m_reader->readProtocol(ui->treeWidget_macroTable, file_name))
 	if (this->openXml(file_name, ui->treeWidget_macroTable))
 	{
 		updateTreeView(ui->treeWidget_macroTable);
@@ -104,13 +102,6 @@ bool Labonatip_GUI::saveProtocol()
 		QMessageBox::Yes);
 	if (resBtn == QMessageBox::Yes) {
 		// yes = override
-#pragma message("TODO: here change to XML")
-		//if (!m_writer->saveProtocol(ui->treeWidget_macroTable, m_current_protocol_file_name)) {
-		//	QApplication::restoreOverrideCursor();    
-		//	QMessageBox::warning(this, m_str_warning, 
-		//		m_str_file_not_saved + "<br>" + m_current_protocol_file_name);
-		//	return false;
-		//}
 		return saveXml(m_current_protocol_file_name, ui->treeWidget_macroTable);
 
 	}
@@ -138,14 +129,6 @@ bool Labonatip_GUI::saveProtocolAs()
 		QApplication::restoreOverrideCursor();
 		return false;
 	}
-
-#pragma message("TODO: here change to XML")
-	//if (!m_writer->saveProtocol(ui->treeWidget_macroTable, file_name)) {
-	//	QApplication::restoreOverrideCursor();    
-	//	QMessageBox::warning(this, m_str_warning, 
-	//		m_str_file_not_saved + "<br>" + file_name);
-	//	return false;
-	//}
 
 	if (!saveXml(file_name, ui->treeWidget_macroTable)) {
 		QApplication::restoreOverrideCursor();
@@ -219,7 +202,6 @@ void Labonatip_GUI::showProtocolEditor() {
 		ui->actionEditor->setIcon(iconEditor);
 		
 		addAllCommandsToPPC1Protocol(ui->treeWidget_macroTable, m_protocol);
-#pragma message("TODO: check the update of the protocol-tree here")
 		//update the chart
 		m_chart_view->updateChartProtocol(m_protocol);
 
@@ -246,7 +228,6 @@ void Labonatip_GUI::simulationOnly()
 	m_macroRunner_thread->setSimulationFlag(m_simulationOnly);
 
 	ui->groupBox_action->setEnabled(m_simulationOnly || ui->actionConnectDisconnect->isChecked());
-	ui->groupBox_deliveryZone->setEnabled(m_simulationOnly || ui->actionConnectDisconnect->isChecked());
 	ui->groupBox_operMode->setEnabled(m_simulationOnly || ui->actionConnectDisconnect->isChecked());
 	ui->groupBox_3->setEnabled(m_simulationOnly || ui->actionConnectDisconnect->isChecked());
 	//ui->tab_2->setEnabled(m_simulationOnly || ui->actionConnectDisconnect->isChecked());
@@ -377,7 +358,6 @@ bool Labonatip_GUI::disCon(bool _connect)
 					ui->actionConnectDisconnect->setText(m_str_disconnect);
 					ui->actionSimulation->setEnabled(false);
 					ui->groupBox_action->setEnabled(true);
-					ui->groupBox_deliveryZone->setEnabled(true);
 					ui->groupBox_operMode->setEnabled(true);
 					ui->groupBox_3->setEnabled(true);
 					//ui->tab_2->setEnabled(true);
@@ -438,7 +418,6 @@ bool Labonatip_GUI::disCon(bool _connect)
 				m_pipette_active = false;
 				ui->actionSimulation->setEnabled(true);
 				ui->groupBox_action->setEnabled(false);
-				ui->groupBox_deliveryZone->setEnabled(false);
 				ui->groupBox_operMode->setEnabled(false);
 				ui->groupBox_3->setEnabled(false);
 				//ui->tab_2->setEnabled(false);

@@ -720,8 +720,11 @@ void Labonatip_GUI::updateTimingSliders()
 			ui->textEdit_emptyTime->setText(s);
 			m_timer_solution++;
 
-			if (m_pipette_active) updateDrawing(m_ppc1->getZoneSizePerc());
-			else updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
+			if (m_pipette_active) 
+				updateDrawing(m_ppc1->getZoneSizePerc());
+			else 
+				updateDrawing(m_ds_perc);
+			    //updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
 
 			// show the warning label
 			if (status < MIN_WARNING_VOLUME) {  
@@ -769,7 +772,8 @@ void Labonatip_GUI::updateTimingSliders()
 		ui->widget_solutionArrow->setVisible(false);
 		
 		m_pen_line.setColor(Qt::transparent);
-		updateDrawing(ui->lcdNumber_dropletSize_percentage->value());// (-1); // remove the droplet from the drawing
+		updateDrawing(m_ds_perc);// (-1); // remove the droplet from the drawing
+		//updateDrawing(ui->lcdNumber_dropletSize_percentage->value());
 
 		ui->label_warningIcon->hide();
 		ui->label_warning->hide();
