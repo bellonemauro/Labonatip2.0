@@ -43,9 +43,9 @@
 
 #include "Q_DebugStream.h"
 #include "tools.h"
-#include "protocolReader.h"
-#include "protocolWriter.h"
 #include "protocolRunner.h"
+#include "protocolTreeWidgetItem.h"
+#include "protocolCommands.h"
 #include "chart.h"
 #include "updater.h"
 #include "XmlProtocolReader.h"

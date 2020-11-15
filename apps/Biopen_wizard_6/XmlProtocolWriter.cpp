@@ -40,9 +40,8 @@ bool XmlProtocolWriter::writeFile(QIODevice *device)
 void XmlProtocolWriter::writeItem(const QTreeWidgetItem *item)
 {
 	xml.writeStartElement(getCommandAsString(item->text(1).toInt()));
-	xml.writeAttribute("value", item->text(3)); 
-#pragma message ("TODO: the attributes should be coded into variables")
-	xml.writeAttribute("message", item->text(4));
+	xml.writeAttribute(valueAttribute(), item->text(3)); 
+	xml.writeAttribute(messageAttribute(), item->text(4));
 	for (int i = 0; i < item->childCount(); ++i)
 		writeItem(item->child(i));
 	xml.writeEndElement();

@@ -66,9 +66,9 @@ void XmlProtocolReader::readProtocolItem(protocolTreeWidgetItem* parent_item)
 
 	for (int i = 0; i < xml.attributes().count(); i++)
 	{
-		if (xml.attributes().at(i).name() == QLatin1String("value"))
+		if (xml.attributes().at(i).name() == valueAttribute())
 			child_item->setText(3, xml.attributes().at(i).value().toString());
-		if (xml.attributes().at(i).name() == QLatin1String("message"))
+		if (xml.attributes().at(i).name() == messageAttribute())
 			child_item->setText(4, xml.attributes().at(i).value().toString());
 	}
 

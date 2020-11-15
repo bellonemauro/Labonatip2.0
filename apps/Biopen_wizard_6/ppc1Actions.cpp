@@ -152,8 +152,6 @@ void Labonatip_GUI::runProtocol()
 	QString tmp_file = QDir::tempPath();
 	tmp_file.append("/tmp_biopen_protocol.prt");
 	this->saveXml(tmp_file, ui->treeWidget_macroTable);
-	//m_writer->saveProtocol(ui->treeWidget_macroTable, tmp_file);
-	//this->runProtocolFile(m_current_protocol_file_name);
 	this->runProtocolFile(tmp_file);
 }
 
@@ -175,10 +173,7 @@ void Labonatip_GUI::runProtocolFile(QString _protocol_path) {
 		// modifications to the existing protocol in the editor
 		QTreeWidget* virtual_tree = new QTreeWidget;
 		this->openXml(_protocol_path, virtual_tree);
-		//m_reader->readProtocol(virtualTree, _protocol_path);
 		addAllCommandsToPPC1Protocol(virtual_tree, m_protocol);
-#pragma message("TODO: check the update of the protocol-tree here")
-		// TODO: this is now reading using the old text version
 
 		//update the chart
 		m_chart_view->updateChartProtocol(m_protocol);
@@ -476,10 +471,8 @@ void Labonatip_GUI::protocolFinished(const QString &_result) {
 		&Labonatip_GUI::changeVacuumPercentageBy);
 
 	addAllCommandsToPPC1Protocol(ui->treeWidget_macroTable, m_protocol);
-#pragma message("TODO: check the update of the protocol-tree here")
 
 	m_chart_view->updateChartProtocol(m_protocol);
-
 }
 
 
@@ -565,33 +558,10 @@ void Labonatip_GUI::setStandardAndSlow()
 {
 	std::cout << HERE << std::endl;
 	
-	//TODO: this should be done once and for all at the very beginning
-	/*QString preset_protocols_path = QDir::homePath();
-	preset_protocols_path.append("/Documents/Biopen6/presetProtocols/internal/");
-	QDir preset_protocols_dir;
-	if (!preset_protocols_dir.exists(preset_protocols_path)) {
-		// TODO: define what to do here, re-install message?
-		return;
-	}
-
-	QString currentProtocolFileName = preset_protocols_path;
-	currentProtocolFileName.append("StandardAndSlow.prt");
-	if (QFile::exists(currentProtocolFileName)) {
-		this->runProtocolFile(currentProtocolFileName);
-	}
-	
-	QThread::sleep(5);
-
-	m_dialog_tools->setCustomPreset(ui->horizontalSlider_p_on->value(),
-		ui->horizontalSlider_p_off->value(),
-		-ui->horizontalSlider_switch->value(),
-		-ui->horizontalSlider_recirculation->value());
-	*m_pr_params = m_dialog_tools->getPr_params();*/
-
 	if (ui->pushButton_standardAndSlow->isChecked())
 	{
 		// uncheck the other buttons
-		ui->pushButton_starndardAndRegular->setChecked(false);
+		ui->pushButton_standardAndRegular->setChecked(false);
 		ui->pushButton_largeAndSlow->setChecked(false);
 		ui->pushButton_largeAndRegular->setChecked(false);
 
@@ -634,7 +604,7 @@ void Labonatip_GUI::setStandardAndRegular()
 {
 	std::cout << HERE << std::endl;
 
-	if (ui->pushButton_starndardAndRegular->isChecked())
+	if (ui->pushButton_standardAndRegular->isChecked())
 	{
 		// uncheck the other buttons
 		ui->pushButton_standardAndSlow->setChecked(false);
@@ -682,7 +652,7 @@ void Labonatip_GUI::setLargeAndSlow()
 	{
 		// uncheck the other buttons
 		ui->pushButton_standardAndSlow->setChecked(false);
-		ui->pushButton_starndardAndRegular->setChecked(false);
+		ui->pushButton_standardAndRegular->setChecked(false);
 		ui->pushButton_largeAndRegular->setChecked(false);
 
 		// get the values 
@@ -725,7 +695,7 @@ void Labonatip_GUI::setLargeAndRegular()
 	{
 		// uncheck the other buttons
 		ui->pushButton_standardAndSlow->setChecked(false);
-		ui->pushButton_starndardAndRegular->setChecked(false);
+		ui->pushButton_standardAndRegular->setChecked(false);
 		ui->pushButton_largeAndSlow->setChecked(false);
 		
 		// get the values 

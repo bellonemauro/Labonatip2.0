@@ -27,6 +27,8 @@ public:
 
     QString errorString() const;
 
+    static inline QString valueAttribute() { return QStringLiteral("Value"); }
+    static inline QString messageAttribute() { return QStringLiteral("Message"); }
     static inline QString versionAttribute() { return QStringLiteral("version"); }
 
 private:

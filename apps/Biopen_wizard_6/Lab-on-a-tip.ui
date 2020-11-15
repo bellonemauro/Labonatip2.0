@@ -942,7 +942,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                        </spacer>
                       </item>
                       <item row="6" column="1">
-                       <widget class="QPushButton" name="pushButton_starndardAndRegular">
+                       <widget class="QPushButton" name="pushButton_standardAndRegular">
                         <property name="minimumSize">
                          <size>
                           <width>90</width>
@@ -6192,7 +6192,7 @@ color: rgb(0, 0, 0);</string>
                 <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:9.75pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
               </widget>
@@ -6234,7 +6234,7 @@ color: rgb(0, 0, 0);</string>
                 <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:9.75pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
               </widget>
@@ -6943,9 +6943,9 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>0</y>
+                  <y>-2981</y>
                   <width>361</width>
-                  <height>2859</height>
+                  <height>3667</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -7496,8 +7496,8 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:9.75pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8.25pt;&quot;&gt;arcTo(qreal x, qreal y, qreal w, qreal h, qreal startAngle, qreal arcLength)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;arcTo(qreal x, qreal y, qreal w, qreal h, qreal startAngle, qreal arcLength)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                       </property>
                      </widget>
                     </item>
@@ -7513,8 +7513,8 @@ p, li { white-space: pre-wrap; }
                        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:9.75pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8.25pt;&quot;&gt;arcMoveTo(qreal x, qreal y, qreal w, qreal h, qreal angle)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;arcMoveTo(qreal x, qreal y, qreal w, qreal h, qreal angle)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                       </property>
                      </widget>
                     </item>
@@ -7789,8 +7789,8 @@ p, li { white-space: pre-wrap; }
                        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:9.75pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8.25pt;&quot;&gt;arcTo(qreal x, qreal y, qreal w, qreal h, qreal startAngle, qreal arcLength)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;arcTo(qreal x, qreal y, qreal w, qreal h, qreal startAngle, qreal arcLength)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                       </property>
                      </widget>
                     </item>
@@ -7800,8 +7800,8 @@ p, li { white-space: pre-wrap; }
                        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:9.75pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8.25pt;&quot;&gt;arcMoveTo(qreal x, qreal y, qreal w, qreal h, qreal angle)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;arcMoveTo(qreal x, qreal y, qreal w, qreal h, qreal angle)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                       </property>
                      </widget>
                     </item>
@@ -7845,7 +7845,7 @@ p, li { white-space: pre-wrap; }
                        <double>500.000000000000000</double>
                       </property>
                       <property name="value">
-                       <double>40.000000000000000</double>
+                       <double>39.000000000000000</double>
                       </property>
                      </widget>
                     </item>
@@ -7868,7 +7868,7 @@ p, li { white-space: pre-wrap; }
                        <double>500.000000000000000</double>
                       </property>
                       <property name="value">
-                       <double>-36.000000000000000</double>
+                       <double>-34.000000000000000</double>
                       </property>
                      </widget>
                     </item>
@@ -7891,7 +7891,7 @@ p, li { white-space: pre-wrap; }
                        <double>500.000000000000000</double>
                       </property>
                       <property name="value">
-                       <double>79.000000000000000</double>
+                       <double>89.000000000000000</double>
                       </property>
                      </widget>
                     </item>
@@ -7914,7 +7914,7 @@ p, li { white-space: pre-wrap; }
                        <double>500.000000000000000</double>
                       </property>
                       <property name="value">
-                       <double>39.000000000000000</double>
+                       <double>51.000000000000000</double>
                       </property>
                      </widget>
                     </item>
@@ -7937,7 +7937,7 @@ p, li { white-space: pre-wrap; }
                        <double>500.000000000000000</double>
                       </property>
                       <property name="value">
-                       <double>50.000000000000000</double>
+                       <double>38.000000000000000</double>
                       </property>
                      </widget>
                     </item>
@@ -7960,7 +7960,7 @@ p, li { white-space: pre-wrap; }
                        <double>500.000000000000000</double>
                       </property>
                       <property name="value">
-                       <double>115.000000000000000</double>
+                       <double>112.000000000000000</double>
                       </property>
                      </widget>
                     </item>
@@ -7989,7 +7989,7 @@ p, li { white-space: pre-wrap; }
                        <double>500.000000000000000</double>
                       </property>
                       <property name="value">
-                       <double>115.000000000000000</double>
+                       <double>110.000000000000000</double>
                       </property>
                      </widget>
                     </item>
@@ -8012,7 +8012,7 @@ p, li { white-space: pre-wrap; }
                        <double>500.000000000000000</double>
                       </property>
                       <property name="value">
-                       <double>50.000000000000000</double>
+                       <double>40.000000000000000</double>
                       </property>
                      </widget>
                     </item>
@@ -8051,7 +8051,7 @@ p, li { white-space: pre-wrap; }
                        <double>500.000000000000000</double>
                       </property>
                       <property name="value">
-                       <double>66.000000000000000</double>
+                       <double>64.000000000000000</double>
                       </property>
                      </widget>
                     </item>
@@ -8082,8 +8082,8 @@ p, li { white-space: pre-wrap; }
                        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:9.75pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8.25pt;&quot;&gt;arcTo(qreal x, qreal y, qreal w, qreal h, qreal startAngle, qreal arcLength)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;arcTo(qreal x, qreal y, qreal w, qreal h, qreal startAngle, qreal arcLength)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                       </property>
                      </widget>
                     </item>
@@ -8093,8 +8093,8 @@ p, li { white-space: pre-wrap; }
                        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:9.75pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8.25pt;&quot;&gt;arcMoveTo(qreal x, qreal y, qreal w, qreal h, qreal angle)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;arcMoveTo(qreal x, qreal y, qreal w, qreal h, qreal angle)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                       </property>
                      </widget>
                     </item>
@@ -8161,7 +8161,7 @@ p, li { white-space: pre-wrap; }
                        <double>500.000000000000000</double>
                       </property>
                       <property name="value">
-                       <double>20.000000000000000</double>
+                       <double>16.000000000000000</double>
                       </property>
                      </widget>
                     </item>
@@ -8177,7 +8177,7 @@ p, li { white-space: pre-wrap; }
                        <double>500.000000000000000</double>
                       </property>
                       <property name="value">
-                       <double>98.000000000000000</double>
+                       <double>97.000000000000000</double>
                       </property>
                      </widget>
                     </item>
@@ -8187,8 +8187,8 @@ p, li { white-space: pre-wrap; }
                        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:9.75pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8.25pt;&quot;&gt;arcTo(qreal x, qreal y, qreal w, qreal h, qreal startAngle, qreal arcLength)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;arcTo(qreal x, qreal y, qreal w, qreal h, qreal startAngle, qreal arcLength)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                       </property>
                      </widget>
                     </item>
@@ -8198,8 +8198,8 @@ p, li { white-space: pre-wrap; }
                        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:9.75pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8.25pt;&quot;&gt;arcMoveTo(qreal x, qreal y, qreal w, qreal h, qreal angle)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;arcMoveTo(qreal x, qreal y, qreal w, qreal h, qreal angle)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                       </property>
                      </widget>
                     </item>
@@ -8298,7 +8298,7 @@ p, li { white-space: pre-wrap; }
                        <double>500.000000000000000</double>
                       </property>
                       <property name="value">
-                       <double>63.000000000000000</double>
+                       <double>66.000000000000000</double>
                       </property>
                      </widget>
                     </item>
@@ -8321,7 +8321,7 @@ p, li { white-space: pre-wrap; }
                        <double>500.000000000000000</double>
                       </property>
                       <property name="value">
-                       <double>12.000000000000000</double>
+                       <double>15.000000000000000</double>
                       </property>
                      </widget>
                     </item>
@@ -8337,7 +8337,7 @@ p, li { white-space: pre-wrap; }
                        <double>500.000000000000000</double>
                       </property>
                       <property name="value">
-                       <double>52.000000000000000</double>
+                       <double>53.000000000000000</double>
                       </property>
                      </widget>
                     </item>
@@ -8360,7 +8360,7 @@ p, li { white-space: pre-wrap; }
                        <double>500.000000000000000</double>
                       </property>
                       <property name="value">
-                       <double>-12.000000000000000</double>
+                       <double>-9.000000000000000</double>
                       </property>
                      </widget>
                     </item>
@@ -8450,7 +8450,7 @@ p, li { white-space: pre-wrap; }
                        <double>500.000000000000000</double>
                       </property>
                       <property name="value">
-                       <double>20.000000000000000</double>
+                       <double>19.000000000000000</double>
                       </property>
                      </widget>
                     </item>
@@ -8480,7 +8480,7 @@ p, li { white-space: pre-wrap; }
                        <double>500.000000000000000</double>
                       </property>
                       <property name="value">
-                       <double>37.000000000000000</double>
+                       <double>57.000000000000000</double>
                       </property>
                      </widget>
                     </item>
@@ -8503,8 +8503,8 @@ p, li { white-space: pre-wrap; }
                        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:9.75pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8.25pt;&quot;&gt;arcTo(qreal x, qreal y, qreal w, qreal h, qreal startAngle, qreal arcLength)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;arcTo(qreal x, qreal y, qreal w, qreal h, qreal startAngle, qreal arcLength)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                       </property>
                      </widget>
                     </item>
@@ -8514,8 +8514,8 @@ p, li { white-space: pre-wrap; }
                        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:9.75pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8.25pt;&quot;&gt;arcMoveTo(qreal x, qreal y, qreal w, qreal h, qreal angle)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;arcMoveTo(qreal x, qreal y, qreal w, qreal h, qreal angle)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                       </property>
                      </widget>
                     </item>
@@ -8581,7 +8581,7 @@ p, li { white-space: pre-wrap; }
                        <double>500.000000000000000</double>
                       </property>
                       <property name="value">
-                       <double>28.000000000000000</double>
+                       <double>23.000000000000000</double>
                       </property>
                      </widget>
                     </item>
@@ -8597,7 +8597,7 @@ p, li { white-space: pre-wrap; }
                        <double>500.000000000000000</double>
                       </property>
                       <property name="value">
-                       <double>28.000000000000000</double>
+                       <double>21.000000000000000</double>
                       </property>
                      </widget>
                     </item>
@@ -8620,7 +8620,7 @@ p, li { white-space: pre-wrap; }
                        <double>500.000000000000000</double>
                       </property>
                       <property name="value">
-                       <double>80.000000000000000</double>
+                       <double>84.000000000000000</double>
                       </property>
                      </widget>
                     </item>
@@ -8650,7 +8650,7 @@ p, li { white-space: pre-wrap; }
                        <double>500.000000000000000</double>
                       </property>
                       <property name="value">
-                       <double>36.000000000000000</double>
+                       <double>41.000000000000000</double>
                       </property>
                      </widget>
                     </item>
@@ -8673,7 +8673,7 @@ p, li { white-space: pre-wrap; }
                        <double>500.000000000000000</double>
                       </property>
                       <property name="value">
-                       <double>155.000000000000000</double>
+                       <double>158.000000000000000</double>
                       </property>
                      </widget>
                     </item>
@@ -8724,7 +8724,7 @@ p, li { white-space: pre-wrap; }
                        <double>500.000000000000000</double>
                       </property>
                       <property name="value">
-                       <double>77.000000000000000</double>
+                       <double>71.000000000000000</double>
                       </property>
                      </widget>
                     </item>
@@ -8760,7 +8760,7 @@ p, li { white-space: pre-wrap; }
                        <double>500.000000000000000</double>
                       </property>
                       <property name="value">
-                       <double>105.000000000000000</double>
+                       <double>104.000000000000000</double>
                       </property>
                      </widget>
                     </item>
@@ -8790,7 +8790,7 @@ p, li { white-space: pre-wrap; }
                        <double>500.000000000000000</double>
                       </property>
                       <property name="value">
-                       <double>50.000000000000000</double>
+                       <double>48.000000000000000</double>
                       </property>
                      </widget>
                     </item>
@@ -8800,8 +8800,8 @@ p, li { white-space: pre-wrap; }
                        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:9.75pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8.25pt;&quot;&gt;arcTo(qreal x, qreal y, qreal w, qreal h, qreal startAngle, qreal arcLength)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;arcTo(qreal x, qreal y, qreal w, qreal h, qreal startAngle, qreal arcLength)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                       </property>
                      </widget>
                     </item>
@@ -8840,7 +8840,7 @@ p, li { white-space: pre-wrap; }
                        <double>500.000000000000000</double>
                       </property>
                       <property name="value">
-                       <double>77.000000000000000</double>
+                       <double>83.000000000000000</double>
                       </property>
                      </widget>
                     </item>
@@ -8952,7 +8952,7 @@ p, li { white-space: pre-wrap; }
                        <double>500.000000000000000</double>
                       </property>
                       <property name="value">
-                       <double>10.000000000000000</double>
+                       <double>13.000000000000000</double>
                       </property>
                      </widget>
                     </item>
@@ -8969,8 +8969,597 @@ p, li { white-space: pre-wrap; }
                        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:9.75pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8.25pt;&quot;&gt;arcMoveTo(qreal x, qreal y, qreal w, qreal h, qreal angle)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;arcMoveTo(qreal x, qreal y, qreal w, qreal h, qreal angle)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QGroupBox" name="groupBox_14">
+                   <property name="minimumSize">
+                    <size>
+                     <width>23</width>
+                     <height>500</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>200</width>
+                     <height>16777215</height>
+                    </size>
+                   </property>
+                   <property name="title">
+                    <string>Path pipe 5</string>
+                   </property>
+                   <layout class="QGridLayout" name="gridLayout_35">
+                    <item row="0" column="0" colspan="2">
+                     <widget class="QTextEdit" name="textEdit_13">
+                      <property name="html">
+                       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;arcMoveTo(qreal x, qreal y, qreal w, qreal h, qreal angle)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="0">
+                     <widget class="QLabel" name="label_92">
+                      <property name="text">
+                       <string>x</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="1">
+                     <widget class="QLabel" name="label_89">
+                      <property name="text">
+                       <string>y</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="2" column="0">
+                     <widget class="QDoubleSpinBox" name="doubleSpinBox_p5_x">
+                      <property name="decimals">
+                       <number>0</number>
+                      </property>
+                      <property name="minimum">
+                       <double>-500.000000000000000</double>
+                      </property>
+                      <property name="maximum">
+                       <double>500.000000000000000</double>
+                      </property>
+                      <property name="value">
+                       <double>42.000000000000000</double>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="2" column="1">
+                     <widget class="QDoubleSpinBox" name="doubleSpinBox_p5_y">
+                      <property name="decimals">
+                       <number>0</number>
+                      </property>
+                      <property name="minimum">
+                       <double>-500.000000000000000</double>
+                      </property>
+                      <property name="maximum">
+                       <double>500.000000000000000</double>
+                      </property>
+                      <property name="value">
+                       <double>32.000000000000000</double>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="3" column="0">
+                     <widget class="QLabel" name="label_91">
+                      <property name="text">
+                       <string>w</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="3" column="1">
+                     <widget class="QLabel" name="label_94">
+                      <property name="text">
+                       <string>h</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="4" column="0">
+                     <widget class="QDoubleSpinBox" name="doubleSpinBox_p5_w">
+                      <property name="decimals">
+                       <number>0</number>
+                      </property>
+                      <property name="minimum">
+                       <double>-500.000000000000000</double>
+                      </property>
+                      <property name="maximum">
+                       <double>500.000000000000000</double>
+                      </property>
+                      <property name="value">
+                       <double>158.000000000000000</double>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="4" column="1">
+                     <widget class="QDoubleSpinBox" name="doubleSpinBox_p5_h">
+                      <property name="decimals">
+                       <number>0</number>
+                      </property>
+                      <property name="minimum">
+                       <double>-500.000000000000000</double>
+                      </property>
+                      <property name="maximum">
+                       <double>500.000000000000000</double>
+                      </property>
+                      <property name="value">
+                       <double>26.000000000000000</double>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="5" column="0">
+                     <widget class="QLabel" name="label_93">
+                      <property name="text">
+                       <string>angle</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="6" column="0">
+                     <widget class="QDoubleSpinBox" name="doubleSpinBox_p5_a">
+                      <property name="decimals">
+                       <number>0</number>
+                      </property>
+                      <property name="minimum">
+                       <double>-500.000000000000000</double>
+                      </property>
+                      <property name="maximum">
+                       <double>500.000000000000000</double>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="7" column="0" colspan="2">
+                     <widget class="QTextEdit" name="textEdit_14">
+                      <property name="html">
+                       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;arcTo(qreal x, qreal y, qreal w, qreal h, qreal startAngle, qreal arcLength)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="8" column="0">
+                     <widget class="QLabel" name="label_87">
+                      <property name="text">
+                       <string>x</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="8" column="1">
+                     <widget class="QLabel" name="label_88">
+                      <property name="text">
+                       <string>y</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="9" column="0">
+                     <widget class="QDoubleSpinBox" name="doubleSpinBox_p52x">
+                      <property name="decimals">
+                       <number>0</number>
+                      </property>
+                      <property name="minimum">
+                       <double>-500.000000000000000</double>
+                      </property>
+                      <property name="maximum">
+                       <double>500.000000000000000</double>
+                      </property>
+                      <property name="value">
+                       <double>78.000000000000000</double>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="9" column="1">
+                     <widget class="QDoubleSpinBox" name="doubleSpinBox_p52y">
+                      <property name="decimals">
+                       <number>0</number>
+                      </property>
+                      <property name="minimum">
+                       <double>-500.000000000000000</double>
+                      </property>
+                      <property name="maximum">
+                       <double>500.000000000000000</double>
+                      </property>
+                      <property name="value">
+                       <double>-1.000000000000000</double>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="10" column="0">
+                     <widget class="QLabel" name="label_90">
+                      <property name="text">
+                       <string>w</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="10" column="1">
+                     <widget class="QLabel" name="label_75">
+                      <property name="text">
+                       <string>h</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="11" column="0">
+                     <widget class="QDoubleSpinBox" name="doubleSpinBox_p52w">
+                      <property name="decimals">
+                       <number>0</number>
+                      </property>
+                      <property name="minimum">
+                       <double>-500.000000000000000</double>
+                      </property>
+                      <property name="maximum">
+                       <double>500.000000000000000</double>
+                      </property>
+                      <property name="value">
+                       <double>91.000000000000000</double>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="11" column="1">
+                     <widget class="QDoubleSpinBox" name="doubleSpinBox_p52h">
+                      <property name="decimals">
+                       <number>0</number>
+                      </property>
+                      <property name="minimum">
+                       <double>-500.000000000000000</double>
+                      </property>
+                      <property name="maximum">
+                       <double>500.000000000000000</double>
+                      </property>
+                      <property name="value">
+                       <double>69.000000000000000</double>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="12" column="0">
+                     <widget class="QLabel" name="label_95">
+                      <property name="text">
+                       <string>angle</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="12" column="1">
+                     <widget class="QLabel" name="label_74">
+                      <property name="text">
+                       <string>length</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="13" column="0">
+                     <widget class="QDoubleSpinBox" name="doubleSpinBox_p52a">
+                      <property name="decimals">
+                       <number>0</number>
+                      </property>
+                      <property name="minimum">
+                       <double>-500.000000000000000</double>
+                      </property>
+                      <property name="maximum">
+                       <double>500.000000000000000</double>
+                      </property>
+                      <property name="value">
+                       <double>-35.000000000000000</double>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="13" column="1">
+                     <widget class="QDoubleSpinBox" name="doubleSpinBox_p52l">
+                      <property name="decimals">
+                       <number>0</number>
+                      </property>
+                      <property name="minimum">
+                       <double>-500.000000000000000</double>
+                      </property>
+                      <property name="maximum">
+                       <double>500.000000000000000</double>
+                      </property>
+                      <property name="value">
+                       <double>226.000000000000000</double>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QGroupBox" name="groupBox_16">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>500</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>200</width>
+                     <height>16777215</height>
+                    </size>
+                   </property>
+                   <property name="title">
+                    <string>Path pipe 6</string>
+                   </property>
+                   <layout class="QGridLayout" name="gridLayout_36">
+                    <item row="0" column="0" colspan="2">
+                     <widget class="QTextEdit" name="textEdit_15">
+                      <property name="html">
+                       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;arcMoveTo(qreal x, qreal y, qreal w, qreal h, qreal angle)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="0">
+                     <widget class="QLabel" name="label_103">
+                      <property name="text">
+                       <string>x</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="1" column="1">
+                     <widget class="QLabel" name="label_100">
+                      <property name="text">
+                       <string>y</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="2" column="0">
+                     <widget class="QDoubleSpinBox" name="doubleSpinBox_p6_x">
+                      <property name="decimals">
+                       <number>0</number>
+                      </property>
+                      <property name="minimum">
+                       <double>-500.000000000000000</double>
+                      </property>
+                      <property name="maximum">
+                       <double>500.000000000000000</double>
+                      </property>
+                      <property name="value">
+                       <double>73.000000000000000</double>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="2" column="1">
+                     <widget class="QDoubleSpinBox" name="doubleSpinBox_p6_y">
+                      <property name="decimals">
+                       <number>0</number>
+                      </property>
+                      <property name="minimum">
+                       <double>-500.000000000000000</double>
+                      </property>
+                      <property name="maximum">
+                       <double>500.000000000000000</double>
+                      </property>
+                      <property name="value">
+                       <double>97.000000000000000</double>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="3" column="0">
+                     <widget class="QLabel" name="label_102">
+                      <property name="text">
+                       <string>w</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="3" column="1">
+                     <widget class="QLabel" name="label_105">
+                      <property name="text">
+                       <string>h</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="4" column="0">
+                     <widget class="QDoubleSpinBox" name="doubleSpinBox_p6_w">
+                      <property name="decimals">
+                       <number>0</number>
+                      </property>
+                      <property name="minimum">
+                       <double>-500.000000000000000</double>
+                      </property>
+                      <property name="maximum">
+                       <double>500.000000000000000</double>
+                      </property>
+                      <property name="value">
+                       <double>45.000000000000000</double>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="4" column="1">
+                     <widget class="QDoubleSpinBox" name="doubleSpinBox_p6_h">
+                      <property name="decimals">
+                       <number>0</number>
+                      </property>
+                      <property name="minimum">
+                       <double>-500.000000000000000</double>
+                      </property>
+                      <property name="maximum">
+                       <double>500.000000000000000</double>
+                      </property>
+                      <property name="value">
+                       <double>5.000000000000000</double>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="5" column="0">
+                     <widget class="QLabel" name="label_104">
+                      <property name="text">
+                       <string>angle</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="6" column="0">
+                     <widget class="QDoubleSpinBox" name="doubleSpinBox_p6_a">
+                      <property name="decimals">
+                       <number>0</number>
+                      </property>
+                      <property name="minimum">
+                       <double>-500.000000000000000</double>
+                      </property>
+                      <property name="maximum">
+                       <double>500.000000000000000</double>
+                      </property>
+                      <property name="value">
+                       <double>-29.000000000000000</double>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="7" column="0" colspan="2">
+                     <widget class="QTextEdit" name="textEdit_16">
+                      <property name="html">
+                       <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;arcTo(qreal x, qreal y, qreal w, qreal h, qreal startAngle, qreal arcLength)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="8" column="0">
+                     <widget class="QLabel" name="label_98">
+                      <property name="text">
+                       <string>x</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="8" column="1">
+                     <widget class="QLabel" name="label_99">
+                      <property name="text">
+                       <string>y</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="9" column="0">
+                     <widget class="QDoubleSpinBox" name="doubleSpinBox_p62x">
+                      <property name="decimals">
+                       <number>0</number>
+                      </property>
+                      <property name="minimum">
+                       <double>-500.000000000000000</double>
+                      </property>
+                      <property name="maximum">
+                       <double>500.000000000000000</double>
+                      </property>
+                      <property name="value">
+                       <double>122.000000000000000</double>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="9" column="1">
+                     <widget class="QDoubleSpinBox" name="doubleSpinBox_p62y">
+                      <property name="decimals">
+                       <number>0</number>
+                      </property>
+                      <property name="minimum">
+                       <double>-500.000000000000000</double>
+                      </property>
+                      <property name="maximum">
+                       <double>500.000000000000000</double>
+                      </property>
+                      <property name="value">
+                       <double>49.000000000000000</double>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="10" column="0">
+                     <widget class="QLabel" name="label_101">
+                      <property name="text">
+                       <string>w</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="10" column="1">
+                     <widget class="QLabel" name="label_97">
+                      <property name="text">
+                       <string>h</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="11" column="0">
+                     <widget class="QDoubleSpinBox" name="doubleSpinBox_p62w">
+                      <property name="decimals">
+                       <number>0</number>
+                      </property>
+                      <property name="minimum">
+                       <double>-500.000000000000000</double>
+                      </property>
+                      <property name="maximum">
+                       <double>500.000000000000000</double>
+                      </property>
+                      <property name="value">
+                       <double>-43.000000000000000</double>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="11" column="1">
+                     <widget class="QDoubleSpinBox" name="doubleSpinBox_p62h">
+                      <property name="decimals">
+                       <number>0</number>
+                      </property>
+                      <property name="minimum">
+                       <double>-500.000000000000000</double>
+                      </property>
+                      <property name="maximum">
+                       <double>500.000000000000000</double>
+                      </property>
+                      <property name="value">
+                       <double>41.000000000000000</double>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="12" column="0">
+                     <widget class="QLabel" name="label_106">
+                      <property name="text">
+                       <string>angle</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="12" column="1">
+                     <widget class="QLabel" name="label_96">
+                      <property name="text">
+                       <string>length</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="13" column="0">
+                     <widget class="QDoubleSpinBox" name="doubleSpinBox_p62a">
+                      <property name="decimals">
+                       <number>0</number>
+                      </property>
+                      <property name="minimum">
+                       <double>-500.000000000000000</double>
+                      </property>
+                      <property name="maximum">
+                       <double>500.000000000000000</double>
+                      </property>
+                      <property name="value">
+                       <double>-38.000000000000000</double>
+                      </property>
+                     </widget>
+                    </item>
+                    <item row="13" column="1">
+                     <widget class="QDoubleSpinBox" name="doubleSpinBox_p62l">
+                      <property name="decimals">
+                       <number>0</number>
+                      </property>
+                      <property name="minimum">
+                       <double>-500.000000000000000</double>
+                      </property>
+                      <property name="maximum">
+                       <double>500.000000000000000</double>
+                      </property>
+                      <property name="value">
+                       <double>65.000000000000000</double>
                       </property>
                      </widget>
                     </item>
@@ -8979,13 +9568,6 @@ p, li { white-space: pre-wrap; }
                  </item>
                 </layout>
                </widget>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_updateDrawing">
-               <property name="text">
-                <string>Update</string>
-               </property>
               </widget>
              </item>
             </layout>

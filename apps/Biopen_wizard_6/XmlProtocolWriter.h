@@ -23,13 +23,9 @@ public:
     explicit XmlProtocolWriter(const QTreeWidget *treeWidget);
     bool writeFile(QIODevice *device);
 
-	static inline QString index() { return QStringLiteral("Index"); }
-	static inline QString command_str() { return QStringLiteral("Command"); }
-	static inline QString command_element() { return QStringLiteral("Instruction"); }
-	static inline QString value() { return QStringLiteral("Value"); }
-	static inline QString message() { return QStringLiteral("Message"); }
+	static inline QString valueAttribute() { return QStringLiteral("Value"); }
+	static inline QString messageAttribute() { return QStringLiteral("Message"); }
 	static inline QString versionAttribute() { return QStringLiteral("version"); }
-
 
 private:
     void writeItem(const QTreeWidgetItem *item);

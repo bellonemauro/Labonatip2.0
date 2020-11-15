@@ -91,11 +91,6 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   ui->stackedWidget_main->setCurrentIndex(0);
   ui->stackedWidget_indock->setCurrentIndex(0);
 
-  //initialize protocol reader and writer
-#pragma message("TODO: clean here")
-  //m_reader = new protocolReader();
-  //m_writer = new protocolWriter();
-
   // set the flows in the table
   ui->treeWidget_macroInfo->topLevelItem(12)->setText(1,
 	  QString::number(m_pipette_status->rem_vol_well1));
@@ -263,9 +258,12 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   QColor c3 = m_solutionParams->sol3_color;
   this->colSolution3Changed(c3.red(), c3.green(), c3.blue());
   QColor c4 = m_solutionParams->sol4_color;
-  this->colSolution4Changed(c4.red(), c4.green(), c4.blue()); //TODO
+  this->colSolution4Changed(c4.red(), c4.green(), c4.blue()); 
+  QColor c5 = m_solutionParams->sol5_color;
+  this->colSolution5Changed(c5.red(), c5.green(), c5.blue()); 
+  QColor c6 = m_solutionParams->sol6_color;
+  this->colSolution6Changed(c6.red(), c6.green(), c6.blue()); 
 //  m_labonatip_chart_view->setGUIchart();
-
 
 
   // refill solutions and waste according to the loaded settings
@@ -496,9 +494,6 @@ void Labonatip_GUI::switchLanguage(int _value )
 		// translate other dialogs and objects
 		m_dialog_tools->switchLanguage(translation_file);
 		m_macroRunner_thread->switchLanguage(translation_file);
-#pragma message("TODO: clean here")
-		//m_reader->switchLanguage(translation_file);
-		//m_writer->switchLanguage(translation_file);
 		m_biopen_updated->switchLanguage(translation_file);
 	}
 	else std::cout << HERE << " translation not loaded " << std::endl;
@@ -741,7 +736,7 @@ void Labonatip_GUI::initConnects()
 		SIGNAL(clicked()), this,
 		SLOT(setLargeAndSlow()));
 
-	connect(ui->pushButton_starndardAndRegular,
+	connect(ui->pushButton_standardAndRegular,
 		SIGNAL(clicked()), this,
 		SLOT(setStandardAndRegular())); //TODO: this is wrong
 
@@ -768,20 +763,6 @@ void Labonatip_GUI::initConnects()
 	connect(ui->pushButton_cleanHistory,
 		SIGNAL(clicked()), this,
 		SLOT(cleanHistory()));
-
-	//connect(ui->pushButton_loadXML,
-	//	SIGNAL(clicked()), this,
-	//	SLOT(openXml()));
-
-	//connect(ui->pushButton_saveXML,
-	//	SIGNAL(clicked()), this,
-	//	SLOT(saveXml()));
-
-// this button is connected only if the developer settings tab is visualized
-//if (ui->tabWidget->count() > 3) 
-//	connect(ui->pushButton_updateDrawing,
-//		SIGNAL(clicked()), this,
-//		SLOT(updateDrawing(100)));
 
 	// connect sliders
 	connect(ui->horizontalSlider_p_on, 
@@ -1102,8 +1083,6 @@ void Labonatip_GUI::emptyWells()
 	std::cout << HERE << std::endl;
 
 	// empty the wells 
-	//m_pipette_status->rem_vol_well5 = 0.0;
-	//m_pipette_status->rem_vol_well6 = 0.0; 
 	m_pipette_status->rem_vol_well7 = 0.0;
 	m_pipette_status->rem_vol_well8 = 0.0;
 
@@ -1138,35 +1117,35 @@ void Labonatip_GUI::refillSolution()
 	// update wells volume. 
 	// The max volume is constant, 
 	// hence the visualization of the percentage is calculated according to the max volume
-		m_pipette_status->rem_vol_well1 = m_pipette_status->rem_vol_well1 - 
-			0.001 * m_pipette_status->flow_well1;
-		double perc = 100.0 * m_pipette_status->rem_vol_well1 / MAX_VOLUME_IN_WELL;
-		ui->progressBar_solution1->setValue(int(perc));
+	m_pipette_status->rem_vol_well1 = m_pipette_status->rem_vol_well1 - 
+		0.001 * m_pipette_status->flow_well1;
+	double perc = 100.0 * m_pipette_status->rem_vol_well1 / MAX_VOLUME_IN_WELL;
+	ui->progressBar_solution1->setValue(int(perc));
 
-		m_pipette_status->rem_vol_well2 = m_pipette_status->rem_vol_well2 -
-			0.001 * m_pipette_status->flow_well2;
-		perc = 100.0 * m_pipette_status->rem_vol_well2 / MAX_VOLUME_IN_WELL;
-		ui->progressBar_solution2->setValue(int(perc));
+	m_pipette_status->rem_vol_well2 = m_pipette_status->rem_vol_well2 -
+		0.001 * m_pipette_status->flow_well2;
+	perc = 100.0 * m_pipette_status->rem_vol_well2 / MAX_VOLUME_IN_WELL;
+	ui->progressBar_solution2->setValue(int(perc));
 
-		m_pipette_status->rem_vol_well3 = m_pipette_status->rem_vol_well3 -
-			0.001 * m_pipette_status->flow_well3;
-		perc = 100.0 * m_pipette_status->rem_vol_well3 / MAX_VOLUME_IN_WELL;
-		ui->progressBar_solution3->setValue(int(perc));
+	m_pipette_status->rem_vol_well3 = m_pipette_status->rem_vol_well3 -
+		0.001 * m_pipette_status->flow_well3;
+	perc = 100.0 * m_pipette_status->rem_vol_well3 / MAX_VOLUME_IN_WELL;
+	ui->progressBar_solution3->setValue(int(perc));
 
-		m_pipette_status->rem_vol_well4 = m_pipette_status->rem_vol_well4 -
-			0.001 * m_pipette_status->flow_well4;
-		perc = 100.0 * m_pipette_status->rem_vol_well4 / MAX_VOLUME_IN_WELL;
-		ui->progressBar_solution4->setValue(int(perc));
+	m_pipette_status->rem_vol_well4 = m_pipette_status->rem_vol_well4 -
+		0.001 * m_pipette_status->flow_well4;
+	perc = 100.0 * m_pipette_status->rem_vol_well4 / MAX_VOLUME_IN_WELL;
+	ui->progressBar_solution4->setValue(int(perc));
 
-		m_pipette_status->rem_vol_well5 = m_pipette_status->rem_vol_well5 -
-			0.001 * m_pipette_status->flow_well5;
-		perc = 100.0 * m_pipette_status->rem_vol_well5 / MAX_VOLUME_IN_WELL;
-		ui->progressBar_solution5->setValue(int(perc));
+	m_pipette_status->rem_vol_well5 = m_pipette_status->rem_vol_well5 -
+		0.001 * m_pipette_status->flow_well5;
+	perc = 100.0 * m_pipette_status->rem_vol_well5 / MAX_VOLUME_IN_WELL;
+	ui->progressBar_solution5->setValue(int(perc));
 
-		m_pipette_status->rem_vol_well6 = m_pipette_status->rem_vol_well6 -
-			0.001 * m_pipette_status->flow_well6;
-		perc = 100.0 * m_pipette_status->rem_vol_well6 / MAX_VOLUME_IN_WELL;
-		ui->progressBar_solution6->setValue(int(perc));
+	m_pipette_status->rem_vol_well6 = m_pipette_status->rem_vol_well6 -
+		0.001 * m_pipette_status->flow_well6;
+	perc = 100.0 * m_pipette_status->rem_vol_well6 / MAX_VOLUME_IN_WELL;
+	ui->progressBar_solution6->setValue(int(perc));
 
 }
 
@@ -1437,8 +1416,19 @@ void Labonatip_GUI::closeEvent(QCloseEvent *event) {
 			m_ppc1->stop();
 			m_ppc1->disconnectCOM(); //if is active, disconnect
 		}
+
+		// this is to make sure that the buttons are unchecked on close event
+		// thus the default values are back to normal and the setting file is properly written
+		ui->pushButton_standardAndSlow->setChecked(false);
+		this->setStandardAndSlow();
+		ui->pushButton_standardAndRegular->setChecked(false);
+		this->setStandardAndRegular();
+		ui->pushButton_largeAndRegular->setChecked(false);
+		this->setLargeAndRegular();
+		ui->pushButton_largeAndSlow->setChecked(false);
+		this->setLargeAndSlow();
+
 		delete m_dialog_tools;
-		//delete m_dialog_p_editor;
 		event->accept();
 	}
 }
@@ -1520,6 +1510,7 @@ void Labonatip_GUI::closeBiopen()
 		m_ppc1->stop();
 		m_ppc1->disconnectCOM(); //if is active, disconnect
 	}
+
 	delete m_dialog_tools;
 	//delete m_dialog_p_editor;
 	qApp->quit();
@@ -1624,10 +1615,6 @@ Labonatip_GUI::~Labonatip_GUI()
   delete m_no_edit_delegate;
   delete m_no_edit_delegate2;
   delete m_spinbox_delegate;
-#pragma message("TODO: clean here")
-  //delete m_reader;
-  //delete m_writer;
-
   delete m_biopen_updated;
   delete ui;
   qApp->quit();
