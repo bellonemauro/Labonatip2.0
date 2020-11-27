@@ -1504,19 +1504,7 @@ bool Labonatip_GUI::saveXml(QString _filename, QTreeWidget* _widget)
 			if (!password.compare(password_check))
 			{
 				QMessageBox::information(this, m_str_information, m_correct_password);
-				
-				if (!file.open(QFile::WriteOnly | QFile::Text)) {
-					QMessageBox::warning(this, m_str_warning,
-						m_str_file_not_saved + tr("<br>%1:\n%2.")
-						.arg(QDir::toNativeSeparators(_filename),
-							file.errorString()));
-					return false;
-				}
-				XmlProtocolWriter writer(_widget);
-				if (writer.writeFile(&file))
-				{
-					return true;
-				}
+				// continue out of the if statement
 			}
 			else
 			{
@@ -1524,6 +1512,19 @@ bool Labonatip_GUI::saveXml(QString _filename, QTreeWidget* _widget)
 				return false;
 			}
 		}
+	}
+
+	if (!file.open(QFile::WriteOnly | QFile::Text)) {
+		QMessageBox::warning(this, m_str_warning,
+			m_str_file_not_saved + tr("<br>%1:\n%2.")
+			.arg(QDir::toNativeSeparators(_filename),
+				file.errorString()));
+		return false;
+	}
+	XmlProtocolWriter writer(_widget);
+	if (writer.writeFile(&file))
+	{
+		return true;
 	}
 
 	return false;

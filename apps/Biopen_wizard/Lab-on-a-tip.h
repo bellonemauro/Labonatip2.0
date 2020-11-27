@@ -23,6 +23,7 @@
 #include <QTranslator>
 #include <QDateTime>
 #include <QTimer>
+#include <QDesktopServices>
 
 //#include <QWhatsthis>
 #include <qwhatsthis.h>
@@ -34,6 +35,7 @@
 #include <QFileDialog>
 #include <QMenu>
 #include <QTextStream>
+#include <QInputDialog>
 
 // QT for graphics
 #include <QGraphicsEllipseItem>
@@ -49,6 +51,9 @@
 #include "protocolRunner.h"
 #include "chart.h"
 #include "updater.h"
+#include "XmlProtocolReader.h"
+#include "XmlProtocolWriter.h"
+#include "xmlsyntaxhighlighter.h"
 
 // serial
 #include <serial/serial.h>
@@ -109,6 +114,8 @@ public:
 	*  \note This function is still not fully working //TODO
 	*/
 	void appScaling(int _dpiX, int _dpiY);
+	
+	void runProtocolFile(QString _protocol_path = "");
 
 
 private slots:
@@ -128,6 +135,16 @@ private slots:
 	*    This is used to delete a protocol from the folder
 	*/
 	void protocolsMenu(const QPoint & _pos);
+
+	/**  \brief Update the code on tab change
+	*
+	*/
+	void onTabEditorChanged(int _idx);
+
+	/**  \brief Open file explorer where the protocols are located
+	*
+	*/
+	void OnShowInFolderClicked();
 
 	/**  \brief Delete a protocol from the folder
 	*
@@ -722,6 +739,15 @@ private slots:
 	*    via closeEvent or update signal
 	*/
 	void closeBiopen();
+	
+	bool saveXml();
+	bool saveXml(QString _filename, QTreeWidget* _widget);
+
+	bool openXml();
+	bool openXml(QString _filename, QTreeWidget* _widget);
+
+
+
 
 protected:
 // event control
@@ -906,7 +932,33 @@ private:
   /** \brief All the commands in the tree widget are added to the protocol
   *
   */
-  void addAllCommandsToProtocol();
+  //void addAllCommandsToProtocol();
+
+  /*
+  *   OBS: the _protocol will be overwritten with anything is in the treeWidget
+  */ 
+  void addAllCommandsToPPC1Protocol(QTreeWidget* _tree,
+	  std::vector<fluicell::PPC1dataStructures::command>* _protocol);
+
+  void fromTreeToItemVector(QTreeWidget* _tree,
+	  std::vector<protocolTreeWidgetItem*>* _command_vector);
+  
+  QString Labonatip_GUI::generateDurationString(int _time);
+
+  void fromItemVectorToProtocol(std::vector<protocolTreeWidgetItem*>* _command_vector,
+	  std::vector<fluicell::PPC1dataStructures::command>* _protocol);
+  
+  void interpreter(protocolTreeWidgetItem* _item,
+	  std::vector<protocolTreeWidgetItem*>* _command_vector);
+
+  void traverseChildren(protocolTreeWidgetItem* _item, 
+	  std::vector<protocolTreeWidgetItem*>* _command_vector);
+
+
+  void updateTreeView(QTreeWidget* _tree);
+  
+  void updateChildrenView(protocolTreeWidgetItem* _parent);
+  
 
   /** \brief enable/disable the entire main window
   *
@@ -1177,7 +1229,10 @@ private:
   QString m_str_waste_full;
   QString m_str_TTL_failed;
   QString m_str_update_information;
-
+  QString m_ask_password;
+  QString m_wrong_password;
+  QString m_correct_password;
+  
   // speech synthesis
   QTextToSpeech *m_speech;
   QVector<QVoice> m_voices;

@@ -694,6 +694,7 @@ namespace fluicell { namespace PPC1dataStructures
 				waitSync = 18,
 				syncOut = 19,
 				loop = 20,
+				ask = 21
 			};
 
 

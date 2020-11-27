@@ -13,7 +13,7 @@
 void Labonatip_GUI::readProtocolFolder(QString _path)
 {
 	ui->treeWidget_protocol_folder->clear();
-
+	_path = QDir::cleanPath(_path);
 	ui->lineEdit_protocolPath->setText(_path);
 
 	QStringList filters;
@@ -21,15 +21,29 @@ void Labonatip_GUI::readProtocolFolder(QString _path)
 
 	QDir protocol_path;
 	protocol_path.setPath(_path);
-	QStringList list = protocol_path.entryList(filters);
-	
-	for (int i = 0; i < list.size(); i++) // starting from 2 it will not add ./ and ../
+
+	QStringList protocol_list = protocol_path.entryList(filters);
+	protocol_path.setFilter(QDir::Dirs | QDir::NoDot);
+	QStringList folder_list = protocol_path.entryList();
+
+
+	for (int i = 0; i < folder_list.size(); i++) // starting from 2 it will not add ./ and ../
 	{
-		QTreeWidgetItem *item = new QTreeWidgetItem();
-		item->setText(0, list.at(i));
+		QTreeWidgetItem* item = new QTreeWidgetItem();
+		item->setText(0, folder_list.at(i));
+		item->setIcon(0, QIcon(":/icons/open_off.png"));
+		//item->setBackgroundColor(0, QColor::fromRgb(220, 220, 220));
+		item->setBackground(0, QColor::fromRgb(220, 220, 220));
 		ui->treeWidget_protocol_folder->addTopLevelItem(item);
 	}
 
+	for (int i = 0; i < protocol_list.size(); i++) // starting from 2 it will not add ./ and ../
+	{
+		QTreeWidgetItem* item = new QTreeWidgetItem();
+		item->setText(0, protocol_list.at(i));
+		item->setIcon(0, QIcon(":/icons/dummy.png"));
+		ui->treeWidget_protocol_folder->addTopLevelItem(item);
+	}
 }
 
 void Labonatip_GUI::openProtocolFolder()
@@ -40,153 +54,169 @@ void Labonatip_GUI::openProtocolFolder()
 		setProtocolUserPath(pp);
 }
 
-void Labonatip_GUI::onProtocolClicked(QTreeWidgetItem *item, int column)
+void Labonatip_GUI::onProtocolClicked(QTreeWidgetItem* item, int column)
 {
 	std::cout << HERE << std::endl;
 
 	// retrieve the clicked file name
-	QString file = item->text(0);
-	m_current_protocol_file_name = file;
-	// append the path
-	QString protocol_path = m_protocol_path;
-	protocol_path.append("/");
-	protocol_path.append(file);
+	QString textOfItem = item->text(0);
+	int found = textOfItem.indexOf(".prt");
 
-	QMessageBox::StandardButton resBtn = QMessageBox::Yes;
+	if (found == -1)
+	{
+		// a folder was clicked
+		m_protocol_path.append("/");
+		m_protocol_path.append(textOfItem);
+		m_protocol_path = QDir::cleanPath(m_protocol_path);
+		readProtocolFolder(m_protocol_path);
+		return;
+	}
+	else
+	{
+		// a protocol was clicked
+		m_current_protocol_file_name = textOfItem;
+		// append the path
+		QString protocol_path = m_protocol_path;
+		protocol_path.append("/");
+		protocol_path.append(textOfItem);
 
-	if (m_protocol->size() > 0)
-	{
-		resBtn = QMessageBox::question(this, m_str_warning,
-			m_str_add_protocol_bottom + "<br>" + m_str_add_protocol_bottom_guide,
-			QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
-			QMessageBox::Yes);
-	}
-	
-	if (resBtn == QMessageBox::Yes) {
-		// read the clicked protocol and add it to the current 
-		QApplication::setOverrideCursor(Qt::WaitCursor);   
-		m_reader->readProtocol(ui->treeWidget_macroTable, protocol_path);
-		addAllCommandsToProtocol();
-		m_current_protocol_file_name = protocol_path;
-		QApplication::restoreOverrideCursor();   
-	}
-	if (resBtn == QMessageBox::No)
-	{
-		// clear the current protocol and load the clicked protocol instead
-		QApplication::setOverrideCursor(Qt::WaitCursor);
-		clearAllCommands(); 
-		m_reader->readProtocol(ui->treeWidget_macroTable, protocol_path);
-		addAllCommandsToProtocol();
-		m_current_protocol_file_name = protocol_path;
-		QApplication::restoreOverrideCursor();
-	}
-	if (resBtn == QMessageBox::Cancel)
-	{
-		//do nothing
+		QMessageBox::StandardButton resBtn = QMessageBox::Yes;
+
+		if (m_protocol->size() > 0)
+		{
+			resBtn = QMessageBox::question(this, m_str_warning,
+				m_str_add_protocol_bottom + "<br>" + m_str_add_protocol_bottom_guide,
+				QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
+				QMessageBox::Yes);
+		}
+
+		if (resBtn == QMessageBox::Yes) {
+			// read the clicked protocol and add it to the current 
+			QApplication::setOverrideCursor(Qt::WaitCursor);
+			//m_reader->readProtocol(ui->treeWidget_macroTable, protocol_path);
+			this->openXml(protocol_path, ui->treeWidget_macroTable);
+			updateTreeView(ui->treeWidget_macroTable);
+			m_current_protocol_file_name = protocol_path;
+			QApplication::restoreOverrideCursor();
+		}
+		if (resBtn == QMessageBox::No)
+		{
+			// clear the current protocol and load the clicked protocol instead
+			QApplication::setOverrideCursor(Qt::WaitCursor);
+			clearAllCommands();
+			//m_reader->readProtocol(ui->treeWidget_macroTable, protocol_path);
+			this->openXml(protocol_path, ui->treeWidget_macroTable);
+			updateTreeView(ui->treeWidget_macroTable);
+			m_current_protocol_file_name = protocol_path;
+			QApplication::restoreOverrideCursor();
+		}
+		if (resBtn == QMessageBox::Cancel)
+		{
+			//do nothing
+		}
 	}
 
-	
-	//
 }
 
-void Labonatip_GUI::addAllCommandsToProtocol()
+
+void Labonatip_GUI::updateTreeView(QTreeWidget* _tree)
 {
-	/////////////////////////////////////////////////////////////////////////////////
-	//TODO THIS IS WEIRD
-	//QList<QStringList> protocol_last = visitTree(ui_p_editor->treeWidget_macroTable);
-	/////////////////////////////////////////////////////////////////////////////////
-
-
-	// all the items 
-	std::vector<protocolTreeWidgetItem*> commands_vector;
-	//TODO: this is not the best way, 
-	//      every time it will re-build the whole macro 
-	//      instead of update (waste of time)
-	m_protocol->clear();
-
-	// push all the items in the macro table into the command vector
 	for (int i = 0;
-		i < ui->treeWidget_macroTable->topLevelItemCount();
+		i < _tree->topLevelItemCount();
 		++i) {
-
 		// get the current item
-		protocolTreeWidgetItem *item =
-			dynamic_cast<protocolTreeWidgetItem * > (
-				ui->treeWidget_macroTable->topLevelItem(i));
-		ui->treeWidget_macroTable->blockSignals(true);
+		protocolTreeWidgetItem* item =
+			dynamic_cast<protocolTreeWidgetItem*> (
+				_tree->topLevelItem(i));
+		// update the command numbering
+		_tree->blockSignals(true);
 		item->setText(editorParams::c_idx, QString::number(i + 1));
-		ui->treeWidget_macroTable->blockSignals(false);
-		//item->blockSignals(true);
-		//item->checkValidity(m_cmd_value_c);
-		//item->blockSignals(false);
+		item->setText(editorParams::c_range, item->getRangeColumn(item->text(editorParams::c_command).toInt()));
+		item->checkValidity(editorParams::c_value);
+		_tree->blockSignals(false);
 
 
-		if (item->childCount() < 1) { // if no children, just add the line 
-			std::string a = ui->treeWidget_macroTable->topLevelItem(i)->text(
-				editorParams::c_command).toStdString();
+		if (item->childCount() > 0)
+		{
+			for (int childrenCount = 0; childrenCount < item->childCount(); childrenCount++) {
+				_tree->blockSignals(true);
+				protocolTreeWidgetItem* item_child =
+					dynamic_cast<protocolTreeWidgetItem*> (
+						item->child(childrenCount));
+				item_child->setText(
+					editorParams::c_idx, QString::number(childrenCount + 1));
+				item_child->setText(editorParams::c_range, item_child->getRangeColumn(item_child->text(editorParams::c_command).toInt()));
+				item_child->checkValidity(editorParams::c_value);
 
-			commands_vector.push_back(
-				dynamic_cast<protocolTreeWidgetItem *> (
-					ui->treeWidget_macroTable->topLevelItem(i)));
+				if (item_child->childCount() > 0)
+					this->updateChildrenView(item_child);
 
-		}
-		else
-		{// otherwise we need to traverse the subtree
-
-		 //commands_vector.push_back(ui_p_editor->treeWidget_macroTable->topLevelItem(i)); 
-		 //TODO: the actual item is the loop and it should not be added, 
-		 //      loops are not supported in the API, they are a high-level feature
-		 //TODO: here there is a bug, there is no check that the upper level is actually a loop! 
-			for (int loop = 0; loop < item->text(editorParams::c_value).toInt(); loop++) {
-				// we need to check how many times we need to run the operations
-				// and add the widget to the list
-				for (int childrenCount = 0; childrenCount < item->childCount(); childrenCount++) {
-					commands_vector.push_back(
-						dynamic_cast<protocolTreeWidgetItem *> (
-							item->child(childrenCount)));
-					ui->treeWidget_macroTable->blockSignals(true);
-					protocolTreeWidgetItem *item_child =
-						dynamic_cast<protocolTreeWidgetItem *> (
-							ui->treeWidget_macroTable->topLevelItem(i)->child(childrenCount));//
-					item_child->setText(
-						editorParams::c_idx, QString::number(childrenCount + 1));
-					ui->treeWidget_macroTable->blockSignals(false);
-					//item_child->blockSignals(true);
-					//item_child->checkValidity(m_cmd_value_c);
-					//item_child->blockSignals(false);
-				}
+				_tree->blockSignals(false);
 			}
 		}
+
 	}
 
-	for (size_t i = 0; i < commands_vector.size(); ++i)
+}
+
+void Labonatip_GUI::updateChildrenView(protocolTreeWidgetItem* _parent)
+{
+	if (_parent->childCount() > 0)
 	{
+		for (int childrenCount = 0; childrenCount < _parent->childCount(); childrenCount++) {
+			protocolTreeWidgetItem* item_child =
+				dynamic_cast<protocolTreeWidgetItem*> (
+					_parent->child(childrenCount));
+			item_child->setText(
+				editorParams::c_idx, QString::number(childrenCount + 1));
+			item_child->checkValidity(editorParams::c_value);
 
-		fluicell::PPC1dataStructures::command new_command;
-
-		std::string a = commands_vector.at(i)->text(editorParams::c_command).toStdString();
-
-		new_command.setInstruction(static_cast<pCmd>(
-			commands_vector.at(i)->text(editorParams::c_command).toInt()));
-
-		new_command.setValue(commands_vector.at(i)->text(editorParams::c_value).toInt());
-		new_command.setStatusMessage(commands_vector.at(i)->text(editorParams::c_msg).toStdString());
-
-		m_protocol->push_back(new_command);
+			if (item_child->childCount() > 0)
+				this->updateChildrenView(item_child);
+		}
 	}
+}
 
-	// add the protocol to the stack
+void Labonatip_GUI::addAllCommandsToPPC1Protocol(QTreeWidget* _tree,
+	std::vector<fluicell::PPC1dataStructures::command>* _protocol)
+{
+	std::cout << HERE << std::endl;
+	// this should be done only in a few specific conditions
+	// 1. to update the chart
+	// 2. to run the protocol
 
+	// clear the old protocol
+	_protocol->clear();
 
+	// container for all the items from the protocol commands
+	std::vector<protocolTreeWidgetItem*> command_vector;
+	// the rational here is that all the commands from the high level are translated into
+	// elementary commands for the low level, hence loops becomes series of commands
+	// functions are substituted with their content and 
+	// complex commands are substituted with their rispective list of elements
+	
+	// push all the items in the protocol table into the command vector
+	fromTreeToItemVector(_tree, &command_vector);
+
+	// then from the command vector are pushed to the protocol
+	fromItemVectorToProtocol(&command_vector, _protocol);
+	
 	// update duration
-	double duration = m_ppc1->protocolDuration(*m_protocol);
+	double duration = m_ppc1->protocolDuration(*_protocol);
 	ui->treeWidget_params->topLevelItem(8)->setText(1, QString::number(duration));
 	int remaining_time_sec = duration;
 	QString s;
 	s.append(m_str_protocol_duration);
-	int remaining_hours = floor(remaining_time_sec / 3600); // 3600 sec in a hour
-	int remaining_mins = floor((remaining_time_sec % 3600) / 60); // 60 minutes in a hour
-	int remaining_secs = remaining_time_sec - remaining_hours * 3600 - remaining_mins * 60; // 60 minutes in a hour
+	s.append(generateDurationString(remaining_time_sec));
+	ui->label_protocolDuration->setText(s);
+}
+
+QString Labonatip_GUI::generateDurationString(int _time)
+{
+	QString s;
+	int remaining_hours = floor(_time / 3600); // 3600 sec in a hour
+	int remaining_mins = floor((_time % 3600) / 60); // 60 minutes in a hour
+	int remaining_secs = _time - remaining_hours * 3600 - remaining_mins * 60; // 60 minutes in a hour
 	s.append(QString::number(remaining_hours));
 	s.append(" ");
 	s.append(m_str_h);
@@ -199,10 +229,213 @@ void Labonatip_GUI::addAllCommandsToProtocol()
 	s.append(" ");
 	s.append(m_str_sec);
 	s.append("   ");
-	ui->label_protocolDuration->setText(s);
+	return s;
 }
 
-void Labonatip_GUI::protocolsMenu(const QPoint & _pos)
+void Labonatip_GUI::fromTreeToItemVector(QTreeWidget* _tree,
+	std::vector<protocolTreeWidgetItem*>* _command_vector)
+{
+	for (int i = 0;
+		i < _tree->topLevelItemCount();
+		++i) {
+
+		// get the current item
+		protocolTreeWidgetItem* item =
+			dynamic_cast<protocolTreeWidgetItem*> (_tree->topLevelItem(i));
+
+		if (item->childCount() < 1) { // if no children, just add the line 
+			interpreter(item, _command_vector);
+		}
+		else
+		{
+			// otherwise we need to traverse the subtree
+			for (int loop = 0; loop < item->text(editorParams::c_value).toInt(); loop++) {
+
+				traverseChildren(item, _command_vector);
+			}
+		}
+	}
+}
+
+void Labonatip_GUI::fromItemVectorToProtocol(std::vector<protocolTreeWidgetItem*>* _command_vector,
+	std::vector<fluicell::PPC1dataStructures::command>* _protocol)
+{
+	// now all the items are inside the vector and we can interpret them as protocol commands
+	for (int i = 0; i < _command_vector->size(); i++)
+	{
+		fluicell::PPC1dataStructures::command new_command;
+
+		std::string a = _command_vector->at(i)->text(editorParams::c_command).toStdString();
+		std::cout << HERE << " command vector    " << a << std::endl;
+		//TODO: here it would be possible in principle to use a different interpretation from
+		//      tree structure to actual protocol command, this would allow to have more complex command made of
+		//      a series of commands, example: ramp pressure can be seen as a series of different pressures and wait commands
+		//      hence it is possible to separate elementary commands and complex commands that can be destructurated
+		//      into a set of elementary commands
+#pragma message (" TODO: ----- setInstruction  static_cast<pCmd> ")
+		new_command.setInstruction(static_cast<pCmd>(
+			_command_vector->at(i)->text(editorParams::c_command).toInt()));
+
+		new_command.setValue(_command_vector->at(i)->text(editorParams::c_value).toInt());
+		new_command.setStatusMessage(_command_vector->at(i)->text(editorParams::c_msg).toStdString());
+
+		_protocol->push_back(new_command);
+	}
+}
+
+void Labonatip_GUI::interpreter(protocolTreeWidgetItem* _item,
+	std::vector<protocolTreeWidgetItem*>* _command_vector)
+{
+	if (_item->childCount() > 1)
+		// error this cannot be done
+		return;
+
+	int command_idx = _item->text(editorParams::c_command).toInt();
+
+	//TODO: this should be done once and for all at the very beginning
+	QString preset_protocols_path = QDir::homePath();
+	preset_protocols_path.append("/Documents/Biopen/presetProtocols/internal/");
+	QDir preset_protocols_dir;
+	if (!preset_protocols_dir.exists(preset_protocols_path)) {
+		// TODO: define what to do here, re-install message?
+		return;
+	}
+
+	switch (command_idx)
+	{
+	case protocolCommands::setZoneSize:
+	case protocolCommands::changeZoneSizeBy:
+	case protocolCommands::setFlowSpeed:
+	case protocolCommands::changeFlowSpeedBy:
+	case protocolCommands::setVacuum:
+	case protocolCommands::changeVacuumBy:
+	case protocolCommands::allOff:
+	case protocolCommands::solution1:
+	case protocolCommands::solution2:
+	case protocolCommands::solution3:
+	case protocolCommands::solution4:
+	case protocolCommands::setPon:
+	case protocolCommands::setPoff:
+	case protocolCommands::setVrecirc:
+	case protocolCommands::setVswitch:
+	case protocolCommands::waitSync:
+	case protocolCommands::syncOut:
+	case protocolCommands::wait:
+	case protocolCommands::ask:
+	case protocolCommands::pumpsOff: // TODO: check pump off as this is also a set of commands
+	{
+		_command_vector->push_back(
+			dynamic_cast<protocolTreeWidgetItem*> (_item));
+		return;
+	}
+	case protocolCommands::loop: // this should never happen as there is a child for that
+	{
+		return;
+	}
+	case protocolCommands::comment: // this is just a comment so nothing happens no command added
+	{
+		return;
+	}
+	/*
+	case protocolCommands::ramp:
+	{
+		// load the protocol for ramp
+		QTreeWidget* virtual_tree_widget = new QTreeWidget();
+		openXml(QString(preset_protocols_path + "/rampPon.prt"), virtual_tree_widget);
+		fromTreeToItemVector(virtual_tree_widget, _command_vector);
+		return;
+	}
+	case protocolCommands::operational:
+	{
+		// load the protocol for operational
+		//QTreeWidget* virtual_tree_widget = new QTreeWidget();
+		//openXml(QString(preset_protocols_path + "/operational.prt"), virtual_tree_widget);
+		//fromTreeToItemVector(virtual_tree_widget, _command_vector);
+
+		protocolTreeWidgetItem* item1 = new protocolTreeWidgetItem();
+		protocolTreeWidgetItem* item2 = new protocolTreeWidgetItem();
+		protocolTreeWidgetItem* item3 = new protocolTreeWidgetItem();
+		protocolTreeWidgetItem* item4 = new protocolTreeWidgetItem();
+		protocolTreeWidgetItem* item5 = new protocolTreeWidgetItem();
+		protocolTreeWidgetItem* item6 = new protocolTreeWidgetItem();
+
+		item1->setText(editorParams::c_command, QString::number(protocolCommands::allOff));
+
+		item2->setText(editorParams::c_command, QString::number(protocolCommands::setPon));
+		item2->setText(editorParams::c_value, QString::number(m_pr_params->p_on_default));
+
+		item3->setText(editorParams::c_command, QString::number(protocolCommands::setPoff));
+		item3->setText(editorParams::c_value, QString::number(m_pr_params->p_off_default));
+
+		item4->setText(editorParams::c_command, QString::number(protocolCommands::wait));
+		item4->setText(editorParams::c_value, QString::number(5));
+
+		item5->setText(editorParams::c_command, QString::number(protocolCommands::setVrecirc));
+		item5->setText(editorParams::c_value, QString::number(m_pr_params->v_recirc_default));
+
+		item6->setText(editorParams::c_command, QString::number(protocolCommands::setVswitch));
+		item6->setText(editorParams::c_value, QString::number(m_pr_params->v_switch_default));
+
+		_command_vector->push_back(item1);
+		_command_vector->push_back(item2);
+		_command_vector->push_back(item3);
+		_command_vector->push_back(item4);
+		_command_vector->push_back(item5);
+		_command_vector->push_back(item6);
+
+
+
+		return;
+	}
+	case protocolCommands::initialize:
+	{
+		// load the protocol for newtip
+		QTreeWidget* virtual_tree_widget = new QTreeWidget();
+		openXml(QString(preset_protocols_path + "/initialize.prt"), virtual_tree_widget);
+		fromTreeToItemVector(virtual_tree_widget, _command_vector);
+		return;
+	}
+	case protocolCommands::standby:
+	{
+		// load the protocol for standby
+		QTreeWidget* virtual_tree_widget = new QTreeWidget();
+		openXml(QString(preset_protocols_path + "/standby.prt"), virtual_tree_widget);
+		fromTreeToItemVector(virtual_tree_widget, _command_vector);
+		return;
+	}
+	*/
+	default:
+		break;
+	}
+}
+
+void Labonatip_GUI::traverseChildren(protocolTreeWidgetItem* _parent,
+	std::vector<protocolTreeWidgetItem*>* _command_vector)
+{
+	std::cout << HERE << std::endl;
+
+	for (int i = 0; i < _parent->childCount(); i++)
+	{
+		protocolTreeWidgetItem* child =
+			dynamic_cast<protocolTreeWidgetItem*> (_parent->child(i));
+
+		// if the item is a loop or a function we need to traverse the subtree
+		if (child->childCount() < 1) { // if no children, just add the line 
+			interpreter(child, _command_vector);
+		}
+		else
+		{
+			// basically the subtree is always the same for loops or function, 
+			// just the function will be traversed only once
+			for (int loop = 0; loop < child->text(editorParams::c_value).toInt(); loop++) {
+				traverseChildren(child, _command_vector);
+			}
+		}
+	}
+
+}
+
+void Labonatip_GUI::protocolsMenu(const QPoint& _pos)
 {
 	std::cout << HERE << std::endl;
 
@@ -210,18 +443,25 @@ void Labonatip_GUI::protocolsMenu(const QPoint & _pos)
 		ui->treeWidget_protocol_folder->indexAt(_pos).row();
 
 
-	QAction *delete_protocol = new QAction(
+	QAction* show_in_folder = new QAction(
+		QIcon(":/icons/open_off.png"), tr("&Show in folder"), this);
+	show_in_folder->setStatusTip(tr("new sth"));
+	connect(show_in_folder, SIGNAL(triggered()),
+		this, SLOT(OnShowInFolderClicked()));
+
+	QAction* delete_protocol = new QAction(
 		QIcon(":/icons/delete.png"), tr("&Delete"), this);
 	delete_protocol->setStatusTip(tr("new sth"));
 	connect(delete_protocol, SIGNAL(triggered()),
 		this, SLOT(deleteProtocol()));
 
-	QAction *help = new QAction(
+	QAction* help = new QAction(
 		QIcon(":/icons/about.png"), tr("&Help"), this);
 	help->setStatusTip(tr("new sth"));
 	connect(help, SIGNAL(triggered()), this, SLOT(helpTriggered()));
 
 	QMenu menu(this);
+	menu.addAction(show_in_folder);
 	menu.addAction(delete_protocol);
 	menu.addAction(help);
 
@@ -229,6 +469,136 @@ void Labonatip_GUI::protocolsMenu(const QPoint & _pos)
 	menu.exec(ui->treeWidget_protocol_folder->mapToGlobal(_pos));
 
 }
+
+void Labonatip_GUI::onTabEditorChanged(int _idx)
+{
+	std::cout << HERE << std::endl;
+
+	// update code from tree to xml to machine code and vice versa
+	int current_index = ui->tabWidget_editor->currentIndex();
+	switch (current_index)
+	{
+	case 0:
+	{// we are now in the tree view/editor
+
+		QString save_tmp_file = QDir::tempPath();
+		save_tmp_file.append("/tmp_biopen_xml.prt");
+		{
+			QFile file(save_tmp_file);
+			if (!file.open(QFile::WriteOnly | QFile::Text)) {
+				std::cerr << HERE <<
+					" impossible to open the temporary file for the protocol from the commander " << std::endl;
+				return;
+			}
+
+			QString fileContent = ui->textBrowser_XMLcode->toPlainText();
+			file.write(fileContent.toUtf8());
+		}
+
+		ui->treeWidget_macroTable->clear();
+		openXml(save_tmp_file, ui->treeWidget_macroTable);
+#pragma message ("TODO: uncomment this")
+		//updateTreeView(ui->treeWidget_macroTable);
+		QFile f(save_tmp_file);
+		f.remove();
+		return;
+	}
+	case 1:
+	{// we are now in the XML code view/editor
+
+#pragma message ("TODO: this is not correct, we are first writing to a file and then reloading it")
+		QString save_tmp_file = QDir::tempPath();
+		save_tmp_file.append("/tmp_biopen_xml.prt");
+		{// Do not remove this parentesis, the file is written on destruction which is automatically done when it goes out of scope
+			QFile file(save_tmp_file);
+			if (!file.open(QFile::ReadWrite | QFile::Text)) {
+				std::cerr << HERE <<
+					" impossible to open the temporary file for the protocol from the commander " << std::endl;
+				return;
+			}
+			XmlProtocolWriter writer(ui->treeWidget_macroTable);
+			if (!writer.writeFile(&file))
+			{
+				std::cerr << HERE <<
+					" impossible to write the temporary file for the protocol from the commander" << std::endl;
+				return;
+			}
+		}
+
+		QFile readfile(save_tmp_file);
+		readfile.open(QIODevice::ReadOnly);
+		QString plainXMLcode(QString::fromUtf8(readfile.readAll()));
+		ui->textBrowser_XMLcode->setPlainText(plainXMLcode);
+		return;
+	}
+	case 2:
+	{
+
+#pragma message ("TODO: this is not correct, we are first writing to a file and then reloading it")
+		QString save_tmp_file = QDir::tempPath();
+		save_tmp_file.append("/tmp_biopen_xml.prt");
+		{// Do not remove this parentesis, the file is written on destruction which is automatically done when it goes out of scope
+			QFile file(save_tmp_file);
+			if (!file.open(QFile::ReadWrite | QFile::Text)) {
+				std::cerr << HERE <<
+					" impossible to open the temporary file for the protocol from the commander " << std::endl;
+				return;
+			}
+			XmlProtocolWriter writer(ui->treeWidget_macroTable);
+			if (!writer.writeFile(&file))
+			{
+				std::cerr << HERE <<
+					" impossible to write the temporary file for the protocol from the commander" << std::endl;
+				return;
+			}
+		}
+
+		QFile readfile(save_tmp_file);
+		readfile.open(QIODevice::ReadOnly);
+		QString plainXMLcode(QString::fromUtf8(readfile.readAll()));
+		ui->textBrowser_XMLcode->setPlainText(plainXMLcode);
+
+#pragma message ("TODO: code repetition")
+
+		ui->textBrowser_machineCode->clear();
+		// we are now in the machine code editor
+		addAllCommandsToPPC1Protocol(ui->treeWidget_macroTable,
+			m_protocol);
+		
+		for (auto element = m_protocol->begin(); element < m_protocol->end(); element++)
+		{
+			QString new_line = QString::fromStdString(element->getCommandAsString());
+			new_line.append("  (");
+			if (element->getInstruction() == pCmd::ask) 
+				new_line.append(QString::fromStdString(element->getStatusMessage()));
+			else
+				new_line.append(QString::number(element->getValue()));
+			new_line.append(")  ");
+			ui->textBrowser_machineCode->append(new_line);
+		}
+
+
+		return;
+	}
+	default:
+	{
+		//something weird happened
+		return;
+	}
+	}
+
+
+}
+
+
+void Labonatip_GUI::OnShowInFolderClicked()
+{
+	std::cout << HERE << std::endl;
+
+	QString file_path = m_protocol_path;
+	QDesktopServices::openUrl(QUrl::fromLocalFile(m_protocol_path));
+}
+
 
 void Labonatip_GUI::helpTriggered() {
 
@@ -310,7 +680,9 @@ void Labonatip_GUI::addCommand()
 
 	// every time we add a new command we update all macro commands
 	// this is not really nice, better to append (much faster)
-	addAllCommandsToProtocol();
+	//addAllCommandsToProtocol();
+	updateTreeView(ui->treeWidget_macroTable);
+
 }
 
 void Labonatip_GUI::removeCommand()
@@ -333,8 +705,8 @@ void Labonatip_GUI::removeCommand()
 	}
 
 	// every time we remove a command we update the macro command
-	addAllCommandsToProtocol();  //TODO: this is not really nice, better to append (much faster)
-
+	//addAllCommandsToProtocol();  //TODO: this is not really nice, better to append (much faster)
+	updateTreeView(ui->treeWidget_macroTable);
 }
 
 
@@ -374,8 +746,8 @@ void Labonatip_GUI::moveUp()
 	}
 
 	// update the macro command
-	addAllCommandsToProtocol();  //TODO: this is not really nice, better to append (much faster)
-
+	//addAllCommandsToProtocol();  //TODO: this is not really nice, better to append (much faster)
+	updateTreeView(ui->treeWidget_macroTable);
 }
 
 void Labonatip_GUI::moveDown()
@@ -412,8 +784,8 @@ void Labonatip_GUI::moveDown()
 	}
 
 	// update the macro command
-	addAllCommandsToProtocol();  // TODO: this is not really nice, better to append (much faster)
-
+	//addAllCommandsToProtocol();  // TODO: this is not really nice, better to append (much faster)
+	updateTreeView(ui->treeWidget_macroTable);
 }
 
 void Labonatip_GUI::plusIndent()
@@ -455,7 +827,8 @@ void Labonatip_GUI::plusIndent()
 	m_undo_stack->push(cmd);
 
 	// update the macro command
-	addAllCommandsToProtocol();  //TODO this is not really nice, better to append (much faster)
+	//addAllCommandsToProtocol();  //TODO this is not really nice, better to append (much faster
+	updateTreeView(ui->treeWidget_macroTable);
 }
 
 bool Labonatip_GUI::itemChanged(QTreeWidgetItem *_item, int _column)
@@ -494,7 +867,8 @@ bool Labonatip_GUI::itemChanged(QTreeWidgetItem *_item, int _column)
 		dynamic_cast<protocolTreeWidgetItem *>(_item)->checkValidity(_column);
 	}
 
-	addAllCommandsToProtocol();
+	//addAllCommandsToProtocol();
+	updateTreeView(ui->treeWidget_macroTable);
 	return true;
 }
 
@@ -529,7 +903,8 @@ void Labonatip_GUI::duplicateItem()
 	//clone->setCheckState(m_cmd_command_c, show_msg);
 	clone->setText(editorParams::c_msg, msg);
 
-	addAllCommandsToProtocol();
+	//addAllCommandsToProtocol();
+	updateTreeView(ui->treeWidget_macroTable);
 	return;
 }
 
@@ -548,7 +923,8 @@ void Labonatip_GUI::createNewLoop(int _loops)
 		editorParams::c_command, QString::number(pCmd::loop));// "Loop"); // 
 
 	this->plusIndent();
-	addAllCommandsToProtocol();
+	//addAllCommandsToProtocol();
+	updateTreeView(ui->treeWidget_macroTable);
 	return;
 }
 
@@ -591,8 +967,8 @@ void Labonatip_GUI::undo()
 	ui->treeWidget_macroTable->blockSignals(true);
 	m_undo_stack->undo();
 	ui->treeWidget_macroTable->blockSignals(false);
-	addAllCommandsToProtocol();
-
+	//addAllCommandsToProtocol();
+	updateTreeView(ui->treeWidget_macroTable);
 }
 
 void Labonatip_GUI::redo()
