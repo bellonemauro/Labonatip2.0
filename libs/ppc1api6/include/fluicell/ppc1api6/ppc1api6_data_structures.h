@@ -761,8 +761,6 @@ namespace fluicell { namespace PPC1api6dataStructures
 				}
 				case instructions::allOff: {//allOff 
 				 //not checked for now
-					std::cerr <<  " check validity allOff " << ": "
-						<< " ---- error --- MESSAGE:" << this->value << std::endl;
 					return true;
 				}
 				case instructions::pumpsOff: {//ask_msg //allOff //pumpsOff

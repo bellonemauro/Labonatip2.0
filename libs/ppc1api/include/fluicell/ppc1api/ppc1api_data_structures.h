@@ -694,7 +694,8 @@ namespace fluicell { namespace PPC1dataStructures
 				waitSync = 18,
 				syncOut = 19,
 				loop = 20,
-				ask = 21
+				ask = 21,
+				END
 			};
 
 
@@ -711,8 +712,8 @@ namespace fluicell { namespace PPC1dataStructures
 			bool checkValidity() {
 			
 				// check that the instruction is valid
-				if (this->instruction < instructions::setZoneSize) return false;
-				if (this->instruction > instructions::loop) return false;
+				if (this->instruction < 0) return false;
+				if (this->instruction > instructions::END) return false;
 
 				int inst = this->instruction;
 
