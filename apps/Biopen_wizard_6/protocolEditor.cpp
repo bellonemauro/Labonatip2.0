@@ -327,10 +327,10 @@ void Labonatip_GUI::interpreter(protocolTreeWidgetItem* _item,
 	{
 		return;
 	}
-	case protocolCommands::function: // this should never happen as there is a child for that
-	{
-		return;
-	}
+	//case protocolCommands::function: // 
+	//{
+	//	return;
+	//}
 	case protocolCommands::comment: // this is just a comment so nothing happens no command added
 	{
 		return;
@@ -419,7 +419,7 @@ void Labonatip_GUI::interpreter(protocolTreeWidgetItem* _item,
 		fromTreeToItemVector(virtual_tree_widget, _command_vector);
 		return;
 	}
-	case protocolCommands::ramp:
+	case 555565://protocolCommands::ramp:
 	{
 		// load the protocol for ramp
 		QTreeWidget* virtual_tree_widget = new QTreeWidget();

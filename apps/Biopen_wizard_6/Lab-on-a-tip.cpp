@@ -51,6 +51,8 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 
   m_biopen_updated = new biopen_updater();
   
+  // hide this field for now as the calculation is wrong
+  ui->textEdit_emptyTime_waste->hide();
 
   // initialize the tools as we need the settings  // TODO: waste of performances all these objects are created twice
   m_dialog_tools = new Labonatip_tools();
@@ -69,9 +71,9 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   ui->dockWidget->close();  
   // put the tab widget to the chart page
   ui->tabWidget->setCurrentIndex(1);  
-  ui->treeWidget_macroInfo->resizeColumnToContents(0);
+  ui->treeWidget_flowInfo->resizeColumnToContents(0);
   //ui->treeWidget_macroInfo->setColumnWidth(0, 200);
-  ui->treeWidget_macroInfo->setHeaderHidden(false);
+  ui->treeWidget_flowInfo->setHeaderHidden(false);
 
   // init the redirect buffer for messages
   qerr = new QDebugStream(std::cerr, ui->textEdit_qcerr);
@@ -92,13 +94,13 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   ui->stackedWidget_indock->setCurrentIndex(0);
 
   // set the flows in the table
-  ui->treeWidget_macroInfo->topLevelItem(12)->setText(1,
+  ui->treeWidget_flowInfo->topLevelItem(12)->setText(1,
 	  QString::number(m_pipette_status->rem_vol_well1));
-  ui->treeWidget_macroInfo->topLevelItem(13)->setText(1,
+  ui->treeWidget_flowInfo->topLevelItem(13)->setText(1,
 	  QString::number(m_pipette_status->rem_vol_well2));
-  ui->treeWidget_macroInfo->topLevelItem(14)->setText(1, 
+  ui->treeWidget_flowInfo->topLevelItem(14)->setText(1, 
 	  QString::number(m_pipette_status->rem_vol_well3));
-  ui->treeWidget_macroInfo->topLevelItem(15)->setText(1, 
+  ui->treeWidget_flowInfo->topLevelItem(15)->setText(1, 
 	  QString::number(m_pipette_status->rem_vol_well4));
  
   // hide the warning label (it will be shown if there is a warning)
@@ -315,6 +317,8 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   initConnects();
 
   std::cout << HERE << m_dialog_tools->getUserName().toStdString() << std::endl;
+
+  ui->pushButton_standardAndRegular->setChecked(true);
 
 }
 
@@ -856,8 +860,8 @@ void Labonatip_GUI::initConnects()
 	connect(ui->pushButton_loop,
 		SIGNAL(clicked()), this, SLOT(createNewLoop()));
 
-	connect(ui->pushButton_addFunction,
-		SIGNAL(clicked()), this, SLOT(createNewFunction()));
+	//connect(ui->pushButton_addFunction,  //TODO: deprecated
+	//	SIGNAL(clicked()), this, SLOT(createNewFunction()));
 }
 
 void Labonatip_GUI::testTTL(bool _state) {

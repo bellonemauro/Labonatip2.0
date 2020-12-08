@@ -36,6 +36,16 @@ Labonatip_tools::Labonatip_tools(QWidget *parent):
     // check serial settings
 	ui_tools->comboBox_serialInfo->clear();
 
+	// by default the standard and regulad settings are applied 
+	int new_p_on_default = ui_tools->spinBox_sAr_Pon_def->value();// 50;
+	int new_p_off_default = ui_tools->spinBox_sAr_Poff_def->value();// 11;
+	int new_v_switch_default = ui_tools->spinBox_sAr_Vs_def->value();// -75;
+	int new_v_recirc_default = ui_tools->spinBox_sAr_Vr_def->value();// -115;
+	// apply the new values 
+	this->setDefaultPressuresVacuums(new_p_on_default, new_p_off_default,
+		-new_v_recirc_default, -new_v_switch_default);
+
+
 	connect(ui_tools->comboBox_serialInfo,
 		static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this,
 		&Labonatip_tools::showPortInfo);
@@ -143,6 +153,9 @@ Labonatip_tools::Labonatip_tools(QWidget *parent):
 	connect(ui_tools->comboBox_tipSelection,
 		static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this,
 		&Labonatip_tools::tipSelection);
+
+	connect(ui_tools->checkBox_modifyOperationalModeValues,
+		SIGNAL(stateChanged(int)), this, SLOT(activateOperationaModeSettings(int)));
 
     // connect tool window events Ok, Cancel, Apply
 	connect(ui_tools->buttonBox->button(QDialogButtonBox::Ok), 
@@ -650,6 +663,34 @@ void Labonatip_tools::getTipSettingsFromGUI()
 
 	if (ui_tools->doubleSpinBox_lengthToZone->isEnabled())
 		m_tip->length_to_zone = ui_tools->doubleSpinBox_lengthToZone->value();
+}
+
+void Labonatip_tools::activateOperationaModeSettings(int _enable)
+{
+	
+	std::cout << HERE << std::endl;
+
+	// enable all the fiels
+	ui_tools->spinBox_sAs_Pon_def->setEnabled(_enable);
+	ui_tools->spinBox_sAs_Poff_def->setEnabled(_enable);
+	ui_tools->spinBox_sAs_Vs_def->setEnabled(_enable);
+	ui_tools->spinBox_sAs_Vr_def->setEnabled(_enable);
+
+	ui_tools->spinBox_sAr_Pon_def->setEnabled(_enable);
+	ui_tools->spinBox_sAr_Poff_def->setEnabled(_enable);
+	ui_tools->spinBox_sAr_Vs_def->setEnabled(_enable);
+	ui_tools->spinBox_sAr_Vr_def->setEnabled(_enable);
+
+	ui_tools->spinBox_lAs_Pon_def->setEnabled(_enable);
+	ui_tools->spinBox_lAs_Poff_def->setEnabled(_enable);
+	ui_tools->spinBox_lAs_Vs_def->setEnabled(_enable);
+	ui_tools->spinBox_lAs_Vr_def->setEnabled(_enable);
+
+	ui_tools->spinBox_lAr_Pon_def->setEnabled(_enable);
+	ui_tools->spinBox_lAr_Poff_def->setEnabled(_enable);
+	ui_tools->spinBox_lAr_Vs_def->setEnabled(_enable);
+	ui_tools->spinBox_lAr_Vr_def->setEnabled(_enable);
+
 }
 
 bool Labonatip_tools::loadSettings(QString _path)

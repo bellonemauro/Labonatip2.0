@@ -302,6 +302,11 @@ private slots:
 			ui_tools->checkBox_enablePPC1filter->isChecked());
 	}
 
+	/** on check box clicked, it enable/disable the operationa modes setting fields
+	*
+	*/
+	void activateOperationaModeSettings(int _enable = false);
+
 	/** Load an ini setting file
 	* in the GUI initialization it takes a default value ./settings/setting.ini
 	* \note

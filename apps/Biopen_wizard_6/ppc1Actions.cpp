@@ -158,16 +158,16 @@ void Labonatip_GUI::runProtocol()
 
 void Labonatip_GUI::runProtocolFile(QString _protocol_path) {
 
-	std::cout << HERE << std::endl;
+	std::cout << HERE << " :: running protocol --> " << _protocol_path.toStdString() << std::endl;
 
 	if (!m_macroRunner_thread->isRunning()) { 
 
-		if (!m_protocol) {
-			QMessageBox::information(this, m_str_information,
-				m_str_no_protocol_load_first);
-			return;
-		} 
-		QApplication::setOverrideCursor(Qt::WaitCursor);
+		//if (!m_protocol) {
+		//	QMessageBox::information(this, m_str_information,
+		//		m_str_no_protocol_load_first);
+		//	return;
+		//} 
+		//QApplication::setOverrideCursor(Qt::WaitCursor);
 		
 		// Reload the protocol in a virtual tree every time is executed to avoid 
 		// modifications to the existing protocol in the editor
@@ -181,7 +181,9 @@ void Labonatip_GUI::runProtocolFile(QString _protocol_path) {
 		QApplication::restoreOverrideCursor();
 
 		m_ppc1->setVerbose(false);
-		
+
+		std::cout << HERE << " :: running protocol --> protocol size " << m_protocol->size() << std::endl;
+
 		m_macroRunner_thread->setProtocol(m_protocol);
 		m_macroRunner_thread->setSimulationFlag(m_simulationOnly);
 
@@ -558,6 +560,7 @@ void Labonatip_GUI::setStandardAndRegular()
 
 	if (ui->pushButton_standardAndRegular->isChecked())
 	{
+		std::cout << HERE << "CHECKED" << std::endl;
 		// uncheck the other buttons
 		ui->pushButton_standardAndSlow->setChecked(false);
 		ui->pushButton_largeAndSlow->setChecked(false);

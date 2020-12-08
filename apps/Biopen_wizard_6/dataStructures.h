@@ -434,11 +434,11 @@ struct protocolCommands {
 		button4 = 21,
 		button5 = 22,
 		button6 = 23,
-		ramp = 24,
+		//ramp = 24,
 		operational = 25,
 		initialize = 26,
 		standby = 27,
-		function = 28,
+		//function = 28,
 		standardAndSlow = 29,
 		standardAndRegular = 30,
 		largeAndSlow = 31,
@@ -474,11 +474,11 @@ struct protocolCommands {
 		case button4: return "button4";
 		case button5: return "button5";
 		case button6: return "button6";
-		case ramp: return "ramp";
+		//case ramp: return "ramp";
 		case operational: return "operational";
 		case initialize: return "initialize";
 		case standby: return "standby";
-		case function: return "function";
+		//case function: return "function";
 		case standardAndSlow: return "standardAndSlow";
 		case standardAndRegular: return "standardAndRegular";
 		case largeAndSlow: return "largeAndSlow";

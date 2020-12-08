@@ -289,7 +289,8 @@ bool protocolTreeWidgetItem::checkValidity( int _column)
 		}
 		return true;
 	}
-	case protocolCommands::ramp: {
+	case 454545://protocolCommands::ramp: 
+	{
 		// if the number if lower than 0,
 		// the value becomes automatically positive
 		dynamic_cast<QTreeWidgetItem*>(this)->setToolTip(editorParams::c_command, m_tt_cmd_ramp);
@@ -323,7 +324,8 @@ bool protocolTreeWidgetItem::checkValidity( int _column)
 		this->setText(editorParams::c_value, QString("")); // it removes whatever is there
 		return true;
 	}
-	case protocolCommands::function: {
+	case 487878: //protocolCommands::function: 
+	{
 		// no need to check here
 		dynamic_cast<QTreeWidgetItem*>(this)->setToolTip(editorParams::c_command, m_tt_cmd_function);
 		this->setText(editorParams::c_value, QString("1")); // it can only be 1
@@ -431,7 +433,7 @@ QString protocolTreeWidgetItem::getRangeColumn( int _idx)
 	case protocolCommands::button6: {// Button6	
 		return QString("1/0 pump/stop");
 	}
-	case protocolCommands::ramp:	// RampPon	
+	//case protocolCommands::ramp:	// RampPon	
 	/*case protocolCommands::rampPoff: {
 		// RampPoff	
 		return QString("(mbar) [" + QString::number(MIN_CHAN_C) +
@@ -456,7 +458,9 @@ QString protocolTreeWidgetItem::getRangeColumn( int _idx)
 		// function
 		return QString("-");
 	}
-	case protocolCommands::function: {
+	case 565656: //protocolCommands::function: 
+	{
+#pragma message (" TODO: here instructions were removed ")
 		// function
 		return QString("-");
 	}
