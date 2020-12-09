@@ -100,8 +100,8 @@ void Labonatip_GUI::colSolution6Changed(const int _r, const int _g, const int _b
 	m_chart_view->setSolutionColor6(m_sol6_color);
 }
 
-void Labonatip_GUI::onPushButtonSolution1()
-{
+void Labonatip_GUI::onPushButtonSolution1() 
+{ 
 	std::cout << HERE << std::endl;
 	if (!ui->pushButton_solution1->isChecked()) {
 
@@ -113,6 +113,12 @@ void Labonatip_GUI::onPushButtonSolution1()
 		if (QFile::exists(currentProtocolFileName)) {
 			this->runProtocolFile(currentProtocolFileName);
 		}
+		else
+		{
+			QMessageBox::warning(this, m_str_warning,
+				m_str_file_not_loaded + tr("<br>%1")
+				.arg(QDir::toNativeSeparators(currentProtocolFileName)));
+		}
 	}
 	else
 	{
@@ -122,6 +128,12 @@ void Labonatip_GUI::onPushButtonSolution1()
 		currentProtocolFileName.append("pumpSolution1.prt");
 		if (QFile::exists(currentProtocolFileName)) {
 			this->runProtocolFile(currentProtocolFileName);
+		}
+		else
+		{
+			QMessageBox::warning(this, m_str_warning,
+				m_str_file_not_loaded + tr("<br>%1")
+				.arg(QDir::toNativeSeparators(currentProtocolFileName)));
 		}
 	}
 
@@ -201,6 +213,13 @@ void Labonatip_GUI::onPushButtonSolution2()
 		if (QFile::exists(currentProtocolFileName)) {
 			this->runProtocolFile(currentProtocolFileName);
 		}
+		else
+		{
+			QMessageBox::warning(this, m_str_warning,
+				m_str_file_not_loaded + tr("<br>%1")
+				.arg(QDir::toNativeSeparators(currentProtocolFileName)));
+		}
+
 	}
 	else
 	{
@@ -211,6 +230,13 @@ void Labonatip_GUI::onPushButtonSolution2()
 		if (QFile::exists(currentProtocolFileName)) {
 			this->runProtocolFile(currentProtocolFileName);
 		}
+		else
+		{
+			QMessageBox::warning(this, m_str_warning,
+				m_str_file_not_loaded + tr("<br>%1")
+				.arg(QDir::toNativeSeparators(currentProtocolFileName)));
+		}
+
 	}
 
 }
@@ -289,6 +315,13 @@ void Labonatip_GUI::onPushButtonSolution3()
 		if (QFile::exists(currentProtocolFileName)) {
 			this->runProtocolFile(currentProtocolFileName);
 		}
+		else
+		{
+			QMessageBox::warning(this, m_str_warning,
+				m_str_file_not_loaded + tr("<br>%1")
+				.arg(QDir::toNativeSeparators(currentProtocolFileName)));
+		}
+
 	}
 	else
 	{
@@ -299,6 +332,13 @@ void Labonatip_GUI::onPushButtonSolution3()
 		if (QFile::exists(currentProtocolFileName)) {
 			this->runProtocolFile(currentProtocolFileName);
 		}
+		else
+		{
+			QMessageBox::warning(this, m_str_warning,
+				m_str_file_not_loaded + tr("<br>%1")
+				.arg(QDir::toNativeSeparators(currentProtocolFileName)));
+		}
+
 	}
 
 }
@@ -377,6 +417,13 @@ void Labonatip_GUI::onPushButtonSolution4()
 		if (QFile::exists(currentProtocolFileName)) {
 			this->runProtocolFile(currentProtocolFileName);
 		}
+		else
+		{
+			QMessageBox::warning(this, m_str_warning,
+				m_str_file_not_loaded + tr("<br>%1")
+				.arg(QDir::toNativeSeparators(currentProtocolFileName)));
+		}
+
 	}
 	else
 	{
@@ -387,6 +434,13 @@ void Labonatip_GUI::onPushButtonSolution4()
 		if (QFile::exists(currentProtocolFileName)) {
 			this->runProtocolFile(currentProtocolFileName);
 		}
+		else
+		{
+			QMessageBox::warning(this, m_str_warning,
+				m_str_file_not_loaded + tr("<br>%1")
+				.arg(QDir::toNativeSeparators(currentProtocolFileName)));
+		}
+
 	}
 
 }
@@ -467,6 +521,13 @@ void Labonatip_GUI::onPushButtonSolution5()
 		if (QFile::exists(currentProtocolFileName)) {
 			this->runProtocolFile(currentProtocolFileName);
 		}
+		else
+		{
+			QMessageBox::warning(this, m_str_warning,
+				m_str_file_not_loaded + tr("<br>%1")
+				.arg(QDir::toNativeSeparators(currentProtocolFileName)));
+		}
+
 	}
 	else
 	{
@@ -477,6 +538,13 @@ void Labonatip_GUI::onPushButtonSolution5()
 		if (QFile::exists(currentProtocolFileName)) {
 			this->runProtocolFile(currentProtocolFileName);
 		}
+		else
+		{
+			QMessageBox::warning(this, m_str_warning,
+				m_str_file_not_loaded + tr("<br>%1")
+				.arg(QDir::toNativeSeparators(currentProtocolFileName)));
+		}
+
 	}
 
 }
@@ -555,6 +623,13 @@ void Labonatip_GUI::onPushButtonSolution6()
 		if (QFile::exists(currentProtocolFileName)) {
 			this->runProtocolFile(currentProtocolFileName);
 		}
+		else
+		{
+			QMessageBox::warning(this, m_str_warning,
+				m_str_file_not_loaded + tr("<br>%1")
+				.arg(QDir::toNativeSeparators(currentProtocolFileName)));
+		}
+
 	}
 	else
 	{
@@ -565,6 +640,13 @@ void Labonatip_GUI::onPushButtonSolution6()
 		if (QFile::exists(currentProtocolFileName))	{
 			this->runProtocolFile(currentProtocolFileName);
 		}
+		else
+		{
+			QMessageBox::warning(this, m_str_warning,
+				m_str_file_not_loaded + tr("<br>%1")
+				.arg(QDir::toNativeSeparators(currentProtocolFileName)));
+		}
+
 	}
 
 }

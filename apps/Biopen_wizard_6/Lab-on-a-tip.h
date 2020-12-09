@@ -1108,6 +1108,7 @@ private:
   QString m_str_question_override;
   QString m_str_override_guide;
   QString m_str_file_not_saved;
+  QString m_str_file_not_loaded;
   QString m_str_save_protocol;
   QString m_str_clear_commands;
   QString m_str_solution_ended;

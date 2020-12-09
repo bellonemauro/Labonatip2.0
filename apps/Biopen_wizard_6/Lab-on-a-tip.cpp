@@ -969,6 +969,7 @@ void Labonatip_GUI::initCustomStrings()
 	m_str_save_protocol = tr("Save profile");
 	m_str_select_folder = tr("Select folder");
 	m_str_file_not_saved = tr("File not saved");
+	m_str_file_not_loaded = tr("File not loaded");
 	m_str_protocol_duration = tr("Protocol duration : ");
 	m_str_remove_file = tr("This action will remove the file, are you sure?");
 	m_str_current_prot_name = tr("The current protocol file name is");
@@ -1534,7 +1535,7 @@ bool Labonatip_GUI::saveXml(QString _filename, QTreeWidget* _widget)
 	return false;
 }
 
-bool Labonatip_GUI::openXml()
+bool Labonatip_GUI::openXml()  
 {
 	QString fileName =
 		QFileDialog::getOpenFileName(this, tr("Open  File"),
