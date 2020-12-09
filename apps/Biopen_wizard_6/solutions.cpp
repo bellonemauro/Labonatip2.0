@@ -118,6 +118,9 @@ void Labonatip_GUI::onPushButtonSolution1()
 			QMessageBox::warning(this, m_str_warning,
 				m_str_file_not_loaded + tr("<br>%1")
 				.arg(QDir::toNativeSeparators(currentProtocolFileName)));
+			ui->pushButton_solution1->setChecked(true);
+#pragma message ("TODO: add this to all")
+
 		}
 	}
 	else
@@ -134,6 +137,7 @@ void Labonatip_GUI::onPushButtonSolution1()
 			QMessageBox::warning(this, m_str_warning,
 				m_str_file_not_loaded + tr("<br>%1")
 				.arg(QDir::toNativeSeparators(currentProtocolFileName)));
+			ui->pushButton_solution1->setChecked(false);
 		}
 	}
 
@@ -218,6 +222,7 @@ void Labonatip_GUI::onPushButtonSolution2()
 			QMessageBox::warning(this, m_str_warning,
 				m_str_file_not_loaded + tr("<br>%1")
 				.arg(QDir::toNativeSeparators(currentProtocolFileName)));
+			ui->pushButton_solution2->setChecked(true);
 		}
 
 	}
@@ -235,6 +240,7 @@ void Labonatip_GUI::onPushButtonSolution2()
 			QMessageBox::warning(this, m_str_warning,
 				m_str_file_not_loaded + tr("<br>%1")
 				.arg(QDir::toNativeSeparators(currentProtocolFileName)));
+			ui->pushButton_solution2->setChecked(false);
 		}
 
 	}
@@ -320,6 +326,7 @@ void Labonatip_GUI::onPushButtonSolution3()
 			QMessageBox::warning(this, m_str_warning,
 				m_str_file_not_loaded + tr("<br>%1")
 				.arg(QDir::toNativeSeparators(currentProtocolFileName)));
+			ui->pushButton_solution3->setChecked(true);
 		}
 
 	}
@@ -337,6 +344,7 @@ void Labonatip_GUI::onPushButtonSolution3()
 			QMessageBox::warning(this, m_str_warning,
 				m_str_file_not_loaded + tr("<br>%1")
 				.arg(QDir::toNativeSeparators(currentProtocolFileName)));
+			ui->pushButton_solution3->setChecked(false);
 		}
 
 	}
@@ -422,6 +430,7 @@ void Labonatip_GUI::onPushButtonSolution4()
 			QMessageBox::warning(this, m_str_warning,
 				m_str_file_not_loaded + tr("<br>%1")
 				.arg(QDir::toNativeSeparators(currentProtocolFileName)));
+			ui->pushButton_solution4->setChecked(true);
 		}
 
 	}
@@ -439,6 +448,7 @@ void Labonatip_GUI::onPushButtonSolution4()
 			QMessageBox::warning(this, m_str_warning,
 				m_str_file_not_loaded + tr("<br>%1")
 				.arg(QDir::toNativeSeparators(currentProtocolFileName)));
+			ui->pushButton_solution4->setChecked(false);
 		}
 
 	}
@@ -526,6 +536,7 @@ void Labonatip_GUI::onPushButtonSolution5()
 			QMessageBox::warning(this, m_str_warning,
 				m_str_file_not_loaded + tr("<br>%1")
 				.arg(QDir::toNativeSeparators(currentProtocolFileName)));
+			ui->pushButton_solution5->setChecked(true);
 		}
 
 	}
@@ -543,6 +554,7 @@ void Labonatip_GUI::onPushButtonSolution5()
 			QMessageBox::warning(this, m_str_warning,
 				m_str_file_not_loaded + tr("<br>%1")
 				.arg(QDir::toNativeSeparators(currentProtocolFileName)));
+			ui->pushButton_solution5->setChecked(false);
 		}
 
 	}
@@ -628,6 +640,7 @@ void Labonatip_GUI::onPushButtonSolution6()
 			QMessageBox::warning(this, m_str_warning,
 				m_str_file_not_loaded + tr("<br>%1")
 				.arg(QDir::toNativeSeparators(currentProtocolFileName)));
+			ui->pushButton_solution6->setChecked(true);
 		}
 
 	}
@@ -645,6 +658,7 @@ void Labonatip_GUI::onPushButtonSolution6()
 			QMessageBox::warning(this, m_str_warning,
 				m_str_file_not_loaded + tr("<br>%1")
 				.arg(QDir::toNativeSeparators(currentProtocolFileName)));
+			ui->pushButton_solution6->setChecked(false);
 		}
 
 	}
