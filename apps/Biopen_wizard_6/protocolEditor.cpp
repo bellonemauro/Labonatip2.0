@@ -266,12 +266,6 @@ void Labonatip_GUI::fromItemVectorToProtocol(std::vector<protocolTreeWidgetItem*
 
 		std::string a = _command_vector->at(i)->text(editorParams::c_command).toStdString();
 
-		//TODO: here it would be possible in principle to use a different interpretation from
-		//      tree structure to actual protocol command, this would allow to have more complex command made of
-		//      a series of commands, example: ramp pressure can be seen as a series of different pressures and wait commands
-		//      hence it is possible to separate elementary commands and complex commands that can be destructurated
-		//      into a set of elementary commands
-#pragma message (" TODO: ----- setInstruction  static_cast<pCmd> ")
 		new_command.setInstruction(static_cast<ppc1Cmd>(
 			_command_vector->at(i)->text(editorParams::c_command).toInt()));
 
@@ -419,7 +413,7 @@ void Labonatip_GUI::interpreter(protocolTreeWidgetItem* _item,
 		fromTreeToItemVector(virtual_tree_widget, _command_vector);
 		return;
 	}
-	case 555565://protocolCommands::ramp:
+	case 555565://protocolCommands::ramp: //TODO: this is hidden for now
 	{
 		// load the protocol for ramp
 		QTreeWidget* virtual_tree_widget = new QTreeWidget();
@@ -430,42 +424,9 @@ void Labonatip_GUI::interpreter(protocolTreeWidgetItem* _item,
 	case protocolCommands::operational:
 	{
 		// load the protocol for operational
-		//QTreeWidget* virtual_tree_widget = new QTreeWidget();
-		//openXml(QString(preset_protocols_path + "/operational.prt"), virtual_tree_widget);
-		//fromTreeToItemVector(virtual_tree_widget, _command_vector);
-
-		protocolTreeWidgetItem* item1 = new protocolTreeWidgetItem();
-		protocolTreeWidgetItem* item2 = new protocolTreeWidgetItem();
-		protocolTreeWidgetItem* item3 = new protocolTreeWidgetItem();
-		protocolTreeWidgetItem* item4 = new protocolTreeWidgetItem();
-		protocolTreeWidgetItem* item5 = new protocolTreeWidgetItem();
-		protocolTreeWidgetItem* item6 = new protocolTreeWidgetItem();
-
-		item1->setText(editorParams::c_command, QString::number(protocolCommands::allOff));
-
-		item2->setText(editorParams::c_command, QString::number(protocolCommands::setPon));
-		item2->setText(editorParams::c_value, QString::number(m_pr_params->p_on_default));
-		
-		item3->setText(editorParams::c_command, QString::number(protocolCommands::setPoff));
-		item3->setText(editorParams::c_value, QString::number(m_pr_params->p_off_default));
-
-		item4->setText(editorParams::c_command, QString::number(protocolCommands::wait));
-		item4->setText(editorParams::c_value, QString::number(5));
-
-		item5->setText(editorParams::c_command, QString::number(protocolCommands::setVrecirc));
-		item5->setText(editorParams::c_value, QString::number(m_pr_params->v_recirc_default));
-
-		item6->setText(editorParams::c_command, QString::number(protocolCommands::setVswitch));
-		item6->setText(editorParams::c_value, QString::number(m_pr_params->v_switch_default));
-
-		_command_vector->push_back(item1);
-		_command_vector->push_back(item2);
-		_command_vector->push_back(item3);
-		_command_vector->push_back(item4);
-		_command_vector->push_back(item5);
-		_command_vector->push_back(item6);
-
-
+		this->createOperationalModeCommand(m_pr_params->p_on_default, m_pr_params->p_off_default,
+			m_pr_params->v_switch_default, m_pr_params->v_recirc_default,
+			_command_vector);
 
 		return;
 	}
@@ -487,159 +448,90 @@ void Labonatip_GUI::interpreter(protocolTreeWidgetItem* _item,
 	}
 	case protocolCommands::standardAndSlow: {
 		// load the protocol for standby
-		//QTreeWidget* virtual_tree_widget = new QTreeWidget();
-		//openXml(QString(preset_protocols_path + "/StandardAndSlow.prt"), virtual_tree_widget);
-		//fromTreeToItemVector(virtual_tree_widget, _command_vector);
-		protocolTreeWidgetItem* item1 = new protocolTreeWidgetItem();
-		protocolTreeWidgetItem* item2 = new protocolTreeWidgetItem();
-		protocolTreeWidgetItem* item3 = new protocolTreeWidgetItem();
-		protocolTreeWidgetItem* item4 = new protocolTreeWidgetItem();
-		protocolTreeWidgetItem* item5 = new protocolTreeWidgetItem();
-		protocolTreeWidgetItem* item6 = new protocolTreeWidgetItem();
-
-		item1->setText(editorParams::c_command, QString::number(protocolCommands::allOff));
-
-		item2->setText(editorParams::c_command, QString::number(protocolCommands::setPon));
-		item2->setText(editorParams::c_value, QString::number(m_pr_params->p_on_sAs));
-
-		item3->setText(editorParams::c_command, QString::number(protocolCommands::setPoff));
-		item3->setText(editorParams::c_value, QString::number(m_pr_params->p_off_sAs));
-
-		item4->setText(editorParams::c_command, QString::number(protocolCommands::wait));
-		item4->setText(editorParams::c_value, QString::number(5));
-
-		item5->setText(editorParams::c_command, QString::number(protocolCommands::setVrecirc));
-		item5->setText(editorParams::c_value, QString::number(m_pr_params->v_recirc_sAs));
-
-		item6->setText(editorParams::c_command, QString::number(protocolCommands::setVswitch));
-		item6->setText(editorParams::c_value, QString::number(m_pr_params->v_switch_sAs));
-
-		_command_vector->push_back(item1);
-		_command_vector->push_back(item2);
-		_command_vector->push_back(item3);
-		_command_vector->push_back(item4);
-		_command_vector->push_back(item5);
-		_command_vector->push_back(item6);
-
+		this->createOperationalModeCommand(m_pr_params->p_on_sAs, m_pr_params->p_off_sAs,
+			m_pr_params->v_switch_sAs, m_pr_params->v_recirc_sAs,
+			_command_vector);
+		//TODO: there is a problem with using this command consecutively in a protocol: 
+		//      assuming that the GUI is set in the standardAndRegular mode and run the following protocol
+		//
+		//      operational()      ---> set values are from standardAndRegular mode
+		//      sleep(1)
+		//      standardAndSlow()  ---> apply new values for the mode standardAndSlow()
+		//      sleep(1)
+		//      -do any other long operation here, change pressures, open valves, etc. 
+		//      sleep(1)
+		//      operational()      ---> here we have the issue-UNPREDICTIBLE BEHAVIOUR. HORRIBLE TERROR!!!
+		//                              The user would expect to have the pressure/vacuum values
+		//                              set to standardAndSlow(), but they will be set to standardAndRegular 
+		//                              instead as it is the starting point
 		return;
 	}
 	case protocolCommands::standardAndRegular: {
 		// load the protocol for standby
-		//QTreeWidget* virtual_tree_widget = new QTreeWidget();
-		//openXml(QString(preset_protocols_path + "/StandardAndRegular.prt"), virtual_tree_widget);
-		//fromTreeToItemVector(virtual_tree_widget, _command_vector);
-		protocolTreeWidgetItem* item1 = new protocolTreeWidgetItem();
-		protocolTreeWidgetItem* item2 = new protocolTreeWidgetItem();
-		protocolTreeWidgetItem* item3 = new protocolTreeWidgetItem();
-		protocolTreeWidgetItem* item4 = new protocolTreeWidgetItem();
-		protocolTreeWidgetItem* item5 = new protocolTreeWidgetItem();
-		protocolTreeWidgetItem* item6 = new protocolTreeWidgetItem();
-
-		item1->setText(editorParams::c_command, QString::number(protocolCommands::allOff));
-
-		item2->setText(editorParams::c_command, QString::number(protocolCommands::setPon));
-		item2->setText(editorParams::c_value, QString::number(m_pr_params->p_on_sAr));
-
-		item3->setText(editorParams::c_command, QString::number(protocolCommands::setPoff));
-		item3->setText(editorParams::c_value, QString::number(m_pr_params->p_off_sAr));
-
-		item4->setText(editorParams::c_command, QString::number(protocolCommands::wait));
-		item4->setText(editorParams::c_value, QString::number(5));
-
-		item5->setText(editorParams::c_command, QString::number(protocolCommands::setVrecirc));
-		item5->setText(editorParams::c_value, QString::number(m_pr_params->v_recirc_sAr));
-
-		item6->setText(editorParams::c_command, QString::number(protocolCommands::setVswitch));
-		item6->setText(editorParams::c_value, QString::number(m_pr_params->v_switch_sAr));
-
-		_command_vector->push_back(item1);
-		_command_vector->push_back(item2);
-		_command_vector->push_back(item3);
-		_command_vector->push_back(item4);
-		_command_vector->push_back(item5);
-		_command_vector->push_back(item6); 
+		this->createOperationalModeCommand(m_pr_params->p_on_sAr, m_pr_params->p_off_sAr,
+			m_pr_params->v_switch_sAr, m_pr_params->v_recirc_sAr,
+			_command_vector);
 		
 		return;
 	}
 	case protocolCommands::largeAndSlow: {
 		// load the protocol for standby
-		//QTreeWidget* virtual_tree_widget = new QTreeWidget();
-		//openXml(QString(preset_protocols_path + "/LargeAndSlow.prt"), virtual_tree_widget);
-		//fromTreeToItemVector(virtual_tree_widget, _command_vector);
-		protocolTreeWidgetItem* item1 = new protocolTreeWidgetItem();
-		protocolTreeWidgetItem* item2 = new protocolTreeWidgetItem();
-		protocolTreeWidgetItem* item3 = new protocolTreeWidgetItem();
-		protocolTreeWidgetItem* item4 = new protocolTreeWidgetItem();
-		protocolTreeWidgetItem* item5 = new protocolTreeWidgetItem();
-		protocolTreeWidgetItem* item6 = new protocolTreeWidgetItem();
 
-		item1->setText(editorParams::c_command, QString::number(protocolCommands::allOff));
-
-		item2->setText(editorParams::c_command, QString::number(protocolCommands::setPon));
-		item2->setText(editorParams::c_value, QString::number(m_pr_params->p_on_lAs));
-
-		item3->setText(editorParams::c_command, QString::number(protocolCommands::setPoff));
-		item3->setText(editorParams::c_value, QString::number(m_pr_params->p_off_lAs));
-
-		item4->setText(editorParams::c_command, QString::number(protocolCommands::wait));
-		item4->setText(editorParams::c_value, QString::number(5));
-
-		item5->setText(editorParams::c_command, QString::number(protocolCommands::setVrecirc));
-		item5->setText(editorParams::c_value, QString::number(m_pr_params->v_recirc_lAs));
-
-		item6->setText(editorParams::c_command, QString::number(protocolCommands::setVswitch));
-		item6->setText(editorParams::c_value, QString::number(m_pr_params->v_switch_lAs));
-
-		_command_vector->push_back(item1);
-		_command_vector->push_back(item2);
-		_command_vector->push_back(item3);
-		_command_vector->push_back(item4);
-		_command_vector->push_back(item5);
-		_command_vector->push_back(item6);
+		this->createOperationalModeCommand(m_pr_params->p_on_lAs, m_pr_params->p_off_lAs,
+			m_pr_params->v_switch_lAs, m_pr_params->v_recirc_lAs,
+			_command_vector);
 		return;
 	}
 	case protocolCommands::largeAndRegular: {
 		// load the protocol for standby
-		//QTreeWidget* virtual_tree_widget = new QTreeWidget();
-		//openXml(QString(preset_protocols_path + "/LargeAndRegular.prt"), virtual_tree_widget);
-		//fromTreeToItemVector(virtual_tree_widget, _command_vector);
-		protocolTreeWidgetItem* item1 = new protocolTreeWidgetItem();
-		protocolTreeWidgetItem* item2 = new protocolTreeWidgetItem();
-		protocolTreeWidgetItem* item3 = new protocolTreeWidgetItem();
-		protocolTreeWidgetItem* item4 = new protocolTreeWidgetItem();
-		protocolTreeWidgetItem* item5 = new protocolTreeWidgetItem();
-		protocolTreeWidgetItem* item6 = new protocolTreeWidgetItem();
-
-		item1->setText(editorParams::c_command, QString::number(protocolCommands::allOff));
-
-		item2->setText(editorParams::c_command, QString::number(protocolCommands::setPon));
-		item2->setText(editorParams::c_value, QString::number(m_pr_params->p_on_lAr));
-
-		item3->setText(editorParams::c_command, QString::number(protocolCommands::setPoff));
-		item3->setText(editorParams::c_value, QString::number(m_pr_params->p_off_lAr));
-
-		item4->setText(editorParams::c_command, QString::number(protocolCommands::wait));
-		item4->setText(editorParams::c_value, QString::number(5));
-
-		item5->setText(editorParams::c_command, QString::number(protocolCommands::setVrecirc));
-		item5->setText(editorParams::c_value, QString::number(m_pr_params->v_recirc_lAr));
-
-		item6->setText(editorParams::c_command, QString::number(protocolCommands::setVswitch));
-		item6->setText(editorParams::c_value, QString::number(m_pr_params->v_switch_lAr));
-
-		_command_vector->push_back(item1);
-		_command_vector->push_back(item2);
-		_command_vector->push_back(item3);
-		_command_vector->push_back(item4);
-		_command_vector->push_back(item5);
-		_command_vector->push_back(item6); 
 		
+		this->createOperationalModeCommand(m_pr_params->p_on_lAr, m_pr_params->p_off_lAr,
+			m_pr_params->v_switch_lAr, m_pr_params->v_recirc_lAr,
+			_command_vector);
+
 		return;
 	}
 	default:
 		break;
 	}
 }
+
+void Labonatip_GUI::createOperationalModeCommand(int _p_on, int _p_off, int _v_s, int _v_r,
+	std::vector<protocolTreeWidgetItem*>* _command_vector)
+{
+	protocolTreeWidgetItem* item1 = new protocolTreeWidgetItem();
+	protocolTreeWidgetItem* item2 = new protocolTreeWidgetItem();
+	protocolTreeWidgetItem* item3 = new protocolTreeWidgetItem();
+	protocolTreeWidgetItem* item4 = new protocolTreeWidgetItem();
+	protocolTreeWidgetItem* item5 = new protocolTreeWidgetItem();
+	protocolTreeWidgetItem* item6 = new protocolTreeWidgetItem();
+
+	item1->setText(editorParams::c_command, QString::number(protocolCommands::allOff));
+
+	item2->setText(editorParams::c_command, QString::number(protocolCommands::setPon));
+	item2->setText(editorParams::c_value, QString::number(_p_on));
+
+	item3->setText(editorParams::c_command, QString::number(protocolCommands::setPoff));
+	item3->setText(editorParams::c_value, QString::number(_p_off));
+
+	item4->setText(editorParams::c_command, QString::number(protocolCommands::wait));
+	item4->setText(editorParams::c_value, QString::number(5));
+
+	item5->setText(editorParams::c_command, QString::number(protocolCommands::setVrecirc));
+	item5->setText(editorParams::c_value, QString::number(_v_r));
+
+	item6->setText(editorParams::c_command, QString::number(protocolCommands::setVswitch));
+	item6->setText(editorParams::c_value, QString::number(_v_s));
+
+	_command_vector->push_back(item1);
+	_command_vector->push_back(item2);
+	_command_vector->push_back(item3);
+	_command_vector->push_back(item4);
+	_command_vector->push_back(item5);
+	_command_vector->push_back(item6);
+
+}
+
 
 void Labonatip_GUI::traverseChildren(protocolTreeWidgetItem* _parent, 
 	std::vector<protocolTreeWidgetItem*>* _command_vector)
@@ -705,17 +597,18 @@ void Labonatip_GUI::protocolsMenu(const QPoint & _pos)
 void Labonatip_GUI::onTabEditorChanged(int _idx)
 {
 	std::cout << HERE << std::endl;
+	
+#pragma message ("TODO: this is not correct, we are first writing to a file and then reloading it")
+	QString save_tmp_file = QDir::tempPath();
+	save_tmp_file.append("/tmp_biopen_xml.prt");
 
 	// update code from tree to xml to machine code and vice versa
-	int current_index = ui->tabWidget_editor->currentIndex();
-	switch (current_index)
+	switch (_idx) //_idx is the current index of the widget
 	{
 	case 0:
 	{// we are now in the tree view/editor
-
-		QString save_tmp_file = QDir::tempPath();
-		save_tmp_file.append("/tmp_biopen_xml.prt");
-		{
+		m_last_treeWidget_editor_idx = _idx;
+		{// Do not remove this parentesis, the file is written on destruction which is automatically done when it goes out of scope
 			QFile file(save_tmp_file);
 			if (!file.open(QFile::WriteOnly | QFile::Text)) {
 				std::cerr << HERE <<
@@ -736,25 +629,8 @@ void Labonatip_GUI::onTabEditorChanged(int _idx)
 	}
 	case 1:
 	{// we are now in the XML code view/editor
-
-#pragma message ("TODO: this is not correct, we are first writing to a file and then reloading it")
-		QString save_tmp_file = QDir::tempPath();
-		save_tmp_file.append("/tmp_biopen_xml.prt");
-		{// Do not remove this parentesis, the file is written on destruction which is automatically done when it goes out of scope
-			QFile file(save_tmp_file);
-			if (!file.open(QFile::ReadWrite | QFile::Text)) {
-				std::cerr << HERE <<
-					" impossible to open the temporary file for the protocol from the commander " << std::endl;
-				return;
-			}
-			XmlProtocolWriter writer(ui->treeWidget_macroTable);
-			if (!writer.writeFile(&file))
-			{
-				std::cerr << HERE <<
-					" impossible to write the temporary file for the protocol from the commander" << std::endl;
-				return;
-			}
-	    }
+		m_last_treeWidget_editor_idx = _idx;
+		this->saveXml(save_tmp_file, ui->treeWidget_macroTable);
 
 		QFile readfile(save_tmp_file);
 		readfile.open(QIODevice::ReadOnly);
@@ -763,33 +639,42 @@ void Labonatip_GUI::onTabEditorChanged(int _idx)
 		return;
 	}
 	case 2:
-	{
+	{ // we are now in the machine code 
 		
-#pragma message ("TODO: this is not correct, we are first writing to a file and then reloading it")
-		QString save_tmp_file = QDir::tempPath();
-		save_tmp_file.append("/tmp_biopen_xml.prt");
-		{// Do not remove this parentesis, the file is written on destruction which is automatically done when it goes out of scope
-			QFile file(save_tmp_file);
-			if (!file.open(QFile::ReadWrite | QFile::Text)) {
-				std::cerr << HERE <<
-					" impossible to open the temporary file for the protocol from the commander " << std::endl;
-				return;
+		// this is to update the tree if something was modified in the xml editor without passing to the tree first
+		if (m_last_treeWidget_editor_idx == 1) 
+		{
+			{// Do not remove this parentesis, the file is written on destruction which is automatically done when it goes out of scope
+				QFile file(save_tmp_file);
+				if (!file.open(QFile::WriteOnly | QFile::Text)) {
+					std::cerr << HERE <<
+						" impossible to open the temporary file for the protocol from the commander " << std::endl;
+					return;
+				}
+
+				QString fileContent = ui->textBrowser_XMLcode->toPlainText();
+				file.write(fileContent.toUtf8());
 			}
-			XmlProtocolWriter writer(ui->treeWidget_macroTable);
-			if (!writer.writeFile(&file))
-			{
-				std::cerr << HERE <<
-					" impossible to write the temporary file for the protocol from the commander" << std::endl;
-				return;
-			}
+
+			ui->treeWidget_macroTable->clear();
+			openXml(save_tmp_file, ui->treeWidget_macroTable);
+			updateTreeView(ui->treeWidget_macroTable);
+			QFile f(save_tmp_file);
+			f.remove();
 		}
+
+		m_last_treeWidget_editor_idx = _idx;
+
+		// this lines look like a repetition but it is required to 
+		// make the switch among tabs working properly always
+		// so we take the commands from the macro table
+		// save to file
+		this->saveXml(save_tmp_file, ui->treeWidget_macroTable);
 
 		QFile readfile(save_tmp_file);
 		readfile.open(QIODevice::ReadOnly);
 		QString plainXMLcode(QString::fromUtf8(readfile.readAll()));
 		ui->textBrowser_XMLcode->setPlainText(plainXMLcode);
-
-#pragma message ("TODO: code repetition")
 
 		ui->textBrowser_machineCode->clear();
 		// we are now in the machine code editor
@@ -808,7 +693,6 @@ void Labonatip_GUI::onTabEditorChanged(int _idx)
 			ui->textBrowser_machineCode->append(new_line);
 		}
 
-
 		return;
 	}
 	default:
@@ -817,8 +701,6 @@ void Labonatip_GUI::onTabEditorChanged(int _idx)
 		return;
 	}
 	}
-	
-
 }
 
 
@@ -1029,21 +911,9 @@ void Labonatip_GUI::plusIndent()
 		protocolTreeWidgetItem *parent =
 			dynamic_cast<protocolTreeWidgetItem *> (
 				ui->treeWidget_macroTable->currentItem());
-
-		//if (parent->QTreeWidgetItem::parent()) {
-		//	QMessageBox::warning(this, m_str_warning,
-		//		QString("Currently only one loop level is supported"));
-		//	return; //TODO: fix this --- translate string
-		//}
-#pragma message (" TODO: ----- support more loops and functions ")
-
 		if (parent) {
 
 			// set the current parent to be a loop
-#pragma message (" TODO: ----- QString::number(pCmd::loop) ")
-			//parent->setText(editorParams::c_command, QString::number(ppc1Cmd::loop));
-			// TODO: what should happen here is that only loop or functions can be added 
-
 			// add the new line as a child
 			cmd = new addProtocolCommand(
 				ui->treeWidget_macroTable, 0, parent);
@@ -1053,7 +923,6 @@ void Labonatip_GUI::plusIndent()
 
 	// add the new command in the undo stack
 	m_undo_stack->push(cmd);
-#pragma message ("TODO:  UNDO REDO do not work with multiple loops" )
 
 	// update the macro command
 	updateTreeView(ui->treeWidget_macroTable);
@@ -1148,7 +1017,6 @@ void Labonatip_GUI::createNewLoop(int _loops)
 	this->addCommand();
 	ui->treeWidget_macroTable->currentItem()->setText(
 		editorParams::c_command, QString::number(ppc1Cmd::loop));// "Loop"); // 
-#pragma message (" TODO: ----- QString::number(pCmd::loop) ")
 
 	this->plusIndent();
 	updateTreeView(ui->treeWidget_macroTable);
@@ -1158,14 +1026,14 @@ void Labonatip_GUI::createNewLoop(int _loops)
 
 void Labonatip_GUI::createNewFunction()
 {
+	//TODO: deprecated, remove or leave for later?
 	std::cout << HERE << std::endl;
 
-	this->addCommand();
-	ui->treeWidget_macroTable->currentItem()->setText(
-		editorParams::c_command, "28");// "function"); // 
-#pragma message (" TODO: ----- QString::number(function) ")
+	//this->addCommand();
+	//ui->treeWidget_macroTable->currentItem()->setText(
+	//	editorParams::c_command, "28");// "function"); // 
 
-	this->plusIndent();
+	//this->plusIndent();
 	updateTreeView(ui->treeWidget_macroTable);
 	return;
 }

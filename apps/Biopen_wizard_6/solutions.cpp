@@ -119,8 +119,6 @@ void Labonatip_GUI::onPushButtonSolution1()
 				m_str_file_not_loaded + tr("<br>%1")
 				.arg(QDir::toNativeSeparators(currentProtocolFileName)));
 			ui->pushButton_solution1->setChecked(true);
-#pragma message ("TODO: add this to all")
-
 		}
 	}
 	else

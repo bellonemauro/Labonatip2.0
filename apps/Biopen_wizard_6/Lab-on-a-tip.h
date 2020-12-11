@@ -836,6 +836,8 @@ private:
   void traverseChildren(protocolTreeWidgetItem* _item, 
 	  std::vector<protocolTreeWidgetItem*>* _command_vector);
 
+  void createOperationalModeCommand(int _p_on, int _p_off, int _v_s, int _v_r,
+	  std::vector<protocolTreeWidgetItem*>* _command_vector);
 
   void updateTreeView(QTreeWidget* _tree);
   void updateChildrenView(protocolTreeWidgetItem* _parent);
@@ -1001,6 +1003,8 @@ private:
   NoEditDelegate * m_no_edit_delegate;
   NoEditDelegate * m_no_edit_delegate2;
   SpinBoxDelegate * m_spinbox_delegate;
+
+  int m_last_treeWidget_editor_idx;
 
   // this is used only to pass the row index
   // from the popup menu into the tree widget

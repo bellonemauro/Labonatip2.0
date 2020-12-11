@@ -190,6 +190,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   ui->treeWidget_macroTable->setColumnWidth(editorParams::c_value, 100);
 
   ui->tabWidget_editor->setCurrentIndex(0);
+  m_last_treeWidget_editor_idx = 0;
   new XmlSyntaxHighlighter(ui->textBrowser_XMLcode->document());
   ui->tabWidget_editor_advanced->setCurrentIndex(0);
 
@@ -718,7 +719,7 @@ void Labonatip_GUI::initConnects()
 
 	connect(ui->pushButton_standardAndRegular,
 		SIGNAL(clicked()), this,
-		SLOT(setStandardAndRegular())); //TODO: this is wrong
+		SLOT(setStandardAndRegular())); 
 
 	connect(ui->pushButton_largeAndRegular,
 		SIGNAL(clicked()), this,
@@ -985,6 +986,7 @@ void Labonatip_GUI::initCustomStrings()
 	m_ask_password = tr("This is for expert users only, a password is required");
 	m_wrong_password = tr("Wrong password, file not saved");
 	m_correct_password = tr("Correct password, file saved");
+	m_new_settings_applied = tr("New settings applied, <br> please click operational to activate the pumps");
 }
 
 void Labonatip_GUI::setProtocolUserPath(QString _path)
@@ -1141,7 +1143,7 @@ void Labonatip_GUI::toolApply()
 	ui->treeWidget_params->topLevelItem(1)->setText(1, m_solutionParams->sol2);
 	ui->treeWidget_params->topLevelItem(2)->setText(1, m_solutionParams->sol3);
 	ui->treeWidget_params->topLevelItem(3)->setText(1, m_solutionParams->sol4);
-	ui->treeWidget_params->topLevelItem(4)->setText(1, m_solutionParams->sol5); //TODO: CHECK THIS BETTER
+	ui->treeWidget_params->topLevelItem(4)->setText(1, m_solutionParams->sol5); 
 	ui->treeWidget_params->topLevelItem(5)->setText(1, m_solutionParams->sol6);
 
 	ui->treeWidget_params->topLevelItem(6)->setText(1, QString::number(m_pr_params->p_on_default));
