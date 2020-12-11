@@ -512,6 +512,7 @@ void Labonatip_GUI::setStandardAndSlow()
 {
 	std::cout << HERE << std::endl;
 	
+	// if the button is unchecked, check it and uncheck all the others
 	if (ui->pushButton_standardAndSlow->isChecked())
 	{
 		// uncheck the other buttons
@@ -535,26 +536,11 @@ void Labonatip_GUI::setStandardAndSlow()
 			-new_v_recirc_default, -new_v_switch_default);
 
 		QMessageBox::information(this, m_str_information,
-			"New settings applied, <br> please click operational to send it to the PPC1");
-		//updatePonSetPoint(new_p_on_default);
-		//updatePoffSetPoint(new_p_off_default);
-		//updateVswitchSetPoint(-new_v_switch_default);
-		//updateVrecircSetPoint(-new_v_recirc_default);
-
+			m_new_settings_applied);
 	}
-	else
-	{
+	else {
 		ui->pushButton_standardAndSlow->setChecked(true);
-		// reset to classical values
-		//m_dialog_tools->setDefaultPressuresVacuums(m_pr_params->p_on_classical, m_pr_params->p_off_classical,
-		//	-m_pr_params->v_recirc_classical, -m_pr_params->v_switch_classical);
-		//updatePonSetPoint(m_pr_params->p_on_classical);
-		//updatePoffSetPoint(m_pr_params->p_off_classical);
-		//updateVswitchSetPoint(-m_pr_params->v_switch_classical);
-		//updateVrecircSetPoint(-m_pr_params->v_recirc_classical);
-
 	}
-
 }
 
 void Labonatip_GUI::setStandardAndRegular()
@@ -584,27 +570,11 @@ void Labonatip_GUI::setStandardAndRegular()
 			-new_v_recirc_default, -new_v_switch_default);
 
 		QMessageBox::information(this, m_str_information,
-			"New settings applied, <br> please click operational to send it to the PPC1");
-
-		//updatePonSetPoint(new_p_on_default);
-		//updatePoffSetPoint(new_p_off_default);
-		//updateVswitchSetPoint(-new_v_switch_default);
-		//updateVrecircSetPoint(-new_v_recirc_default);
+			m_new_settings_applied);
 	}
-	else
-	{
+	else {
 		ui->pushButton_standardAndRegular->setChecked(true);
-
-		// reset to classical values
-		//m_dialog_tools->setDefaultPressuresVacuums(m_pr_params->p_on_classical, m_pr_params->p_off_classical,
-		//	-m_pr_params->v_recirc_classical, -m_pr_params->v_switch_classical);
-		//updatePonSetPoint(m_pr_params->p_on_classical);
-		//updatePoffSetPoint(m_pr_params->p_off_classical);
-		//updateVswitchSetPoint(-m_pr_params->v_switch_classical);
-		//updateVrecircSetPoint(-m_pr_params->v_recirc_classical);
 	}
-
-
 }
 
 void Labonatip_GUI::setLargeAndSlow()
@@ -633,25 +603,11 @@ void Labonatip_GUI::setLargeAndSlow()
 			-new_v_recirc_default, -new_v_switch_default);
 
 		QMessageBox::information(this, m_str_information,
-			"New settings applied, <br> please click operational to send it to the PPC1");
-		//updatePonSetPoint(new_p_on_default);
-		//updatePoffSetPoint(new_p_off_default);
-		//updateVswitchSetPoint(-new_v_switch_default);
-		//updateVrecircSetPoint(-new_v_recirc_default);
+			m_new_settings_applied);
 	}
-	else
-	{
+	else {
 		ui->pushButton_largeAndSlow->setChecked(true);
-
-		// reset to classical values
-		//m_dialog_tools->setDefaultPressuresVacuums(m_pr_params->p_on_classical, m_pr_params->p_off_classical,
-		//	-m_pr_params->v_recirc_classical, -m_pr_params->v_switch_classical);
-		//updatePonSetPoint(m_pr_params->p_on_classical);
-		//updatePoffSetPoint(m_pr_params->p_off_classical);
-		//updateVswitchSetPoint(-m_pr_params->v_switch_classical);
-		//(-m_pr_params->v_recirc_classical);
 	}
-
 }
 
 void Labonatip_GUI::setLargeAndRegular()
@@ -680,22 +636,9 @@ void Labonatip_GUI::setLargeAndRegular()
 			-new_v_recirc_default, -new_v_switch_default);
 
 		QMessageBox::information(this, m_str_information,
-			"New settings applied, <br> please click operational to send it to the PPC1" );
-		//updatePonSetPoint(new_p_on_default);
-		//updatePoffSetPoint(new_p_off_default);
-		//updateVswitchSetPoint(-new_v_switch_default);
-		//(-new_v_recirc_default);
+			m_new_settings_applied);
 	}
-	else
-	{
+	else {
 		ui->pushButton_largeAndRegular->setChecked(true);
-
-		// reset to classical values
-		//m_dialog_tools->setDefaultPressuresVacuums(m_pr_params->p_on_classical, m_pr_params->p_off_classical,
-		//	-m_pr_params->v_recirc_classical, -m_pr_params->v_switch_classical);
-		//updatePonSetPoint(m_pr_params->p_on_classical);
-		//updatePoffSetPoint(m_pr_params->p_off_classical);
-		//updateVswitchSetPoint(-m_pr_params->v_switch_classical);
-		//updateVrecircSetPoint(-m_pr_params->v_recirc_classical);
 	}
 }

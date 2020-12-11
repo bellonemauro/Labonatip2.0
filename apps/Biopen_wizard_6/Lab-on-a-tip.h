@@ -1118,6 +1118,7 @@ private:
   QString m_ask_password;
   QString m_wrong_password;
   QString m_correct_password;
+  QString m_new_settings_applied; 
 
   // speech synthesis
   QTextToSpeech *m_speech;
