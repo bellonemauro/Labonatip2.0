@@ -487,30 +487,153 @@ void Labonatip_GUI::interpreter(protocolTreeWidgetItem* _item,
 	}
 	case protocolCommands::standardAndSlow: {
 		// load the protocol for standby
-		QTreeWidget* virtual_tree_widget = new QTreeWidget();
-		openXml(QString(preset_protocols_path + "/StandardAndSlow.prt"), virtual_tree_widget);
-		fromTreeToItemVector(virtual_tree_widget, _command_vector);
+		//QTreeWidget* virtual_tree_widget = new QTreeWidget();
+		//openXml(QString(preset_protocols_path + "/StandardAndSlow.prt"), virtual_tree_widget);
+		//fromTreeToItemVector(virtual_tree_widget, _command_vector);
+		protocolTreeWidgetItem* item1 = new protocolTreeWidgetItem();
+		protocolTreeWidgetItem* item2 = new protocolTreeWidgetItem();
+		protocolTreeWidgetItem* item3 = new protocolTreeWidgetItem();
+		protocolTreeWidgetItem* item4 = new protocolTreeWidgetItem();
+		protocolTreeWidgetItem* item5 = new protocolTreeWidgetItem();
+		protocolTreeWidgetItem* item6 = new protocolTreeWidgetItem();
+
+		item1->setText(editorParams::c_command, QString::number(protocolCommands::allOff));
+
+		item2->setText(editorParams::c_command, QString::number(protocolCommands::setPon));
+		item2->setText(editorParams::c_value, QString::number(m_pr_params->p_on_sAs));
+
+		item3->setText(editorParams::c_command, QString::number(protocolCommands::setPoff));
+		item3->setText(editorParams::c_value, QString::number(m_pr_params->p_off_sAs));
+
+		item4->setText(editorParams::c_command, QString::number(protocolCommands::wait));
+		item4->setText(editorParams::c_value, QString::number(5));
+
+		item5->setText(editorParams::c_command, QString::number(protocolCommands::setVrecirc));
+		item5->setText(editorParams::c_value, QString::number(m_pr_params->v_recirc_sAs));
+
+		item6->setText(editorParams::c_command, QString::number(protocolCommands::setVswitch));
+		item6->setText(editorParams::c_value, QString::number(m_pr_params->v_switch_sAs));
+
+		_command_vector->push_back(item1);
+		_command_vector->push_back(item2);
+		_command_vector->push_back(item3);
+		_command_vector->push_back(item4);
+		_command_vector->push_back(item5);
+		_command_vector->push_back(item6);
+
 		return;
 	}
 	case protocolCommands::standardAndRegular: {
 		// load the protocol for standby
-		QTreeWidget* virtual_tree_widget = new QTreeWidget();
-		openXml(QString(preset_protocols_path + "/StandardAndRegular.prt"), virtual_tree_widget);
-		fromTreeToItemVector(virtual_tree_widget, _command_vector);
+		//QTreeWidget* virtual_tree_widget = new QTreeWidget();
+		//openXml(QString(preset_protocols_path + "/StandardAndRegular.prt"), virtual_tree_widget);
+		//fromTreeToItemVector(virtual_tree_widget, _command_vector);
+		protocolTreeWidgetItem* item1 = new protocolTreeWidgetItem();
+		protocolTreeWidgetItem* item2 = new protocolTreeWidgetItem();
+		protocolTreeWidgetItem* item3 = new protocolTreeWidgetItem();
+		protocolTreeWidgetItem* item4 = new protocolTreeWidgetItem();
+		protocolTreeWidgetItem* item5 = new protocolTreeWidgetItem();
+		protocolTreeWidgetItem* item6 = new protocolTreeWidgetItem();
+
+		item1->setText(editorParams::c_command, QString::number(protocolCommands::allOff));
+
+		item2->setText(editorParams::c_command, QString::number(protocolCommands::setPon));
+		item2->setText(editorParams::c_value, QString::number(m_pr_params->p_on_sAr));
+
+		item3->setText(editorParams::c_command, QString::number(protocolCommands::setPoff));
+		item3->setText(editorParams::c_value, QString::number(m_pr_params->p_off_sAr));
+
+		item4->setText(editorParams::c_command, QString::number(protocolCommands::wait));
+		item4->setText(editorParams::c_value, QString::number(5));
+
+		item5->setText(editorParams::c_command, QString::number(protocolCommands::setVrecirc));
+		item5->setText(editorParams::c_value, QString::number(m_pr_params->v_recirc_sAr));
+
+		item6->setText(editorParams::c_command, QString::number(protocolCommands::setVswitch));
+		item6->setText(editorParams::c_value, QString::number(m_pr_params->v_switch_sAr));
+
+		_command_vector->push_back(item1);
+		_command_vector->push_back(item2);
+		_command_vector->push_back(item3);
+		_command_vector->push_back(item4);
+		_command_vector->push_back(item5);
+		_command_vector->push_back(item6); 
+		
 		return;
 	}
 	case protocolCommands::largeAndSlow: {
 		// load the protocol for standby
-		QTreeWidget* virtual_tree_widget = new QTreeWidget();
-		openXml(QString(preset_protocols_path + "/LargeAndSlow.prt"), virtual_tree_widget);
-		fromTreeToItemVector(virtual_tree_widget, _command_vector);
+		//QTreeWidget* virtual_tree_widget = new QTreeWidget();
+		//openXml(QString(preset_protocols_path + "/LargeAndSlow.prt"), virtual_tree_widget);
+		//fromTreeToItemVector(virtual_tree_widget, _command_vector);
+		protocolTreeWidgetItem* item1 = new protocolTreeWidgetItem();
+		protocolTreeWidgetItem* item2 = new protocolTreeWidgetItem();
+		protocolTreeWidgetItem* item3 = new protocolTreeWidgetItem();
+		protocolTreeWidgetItem* item4 = new protocolTreeWidgetItem();
+		protocolTreeWidgetItem* item5 = new protocolTreeWidgetItem();
+		protocolTreeWidgetItem* item6 = new protocolTreeWidgetItem();
+
+		item1->setText(editorParams::c_command, QString::number(protocolCommands::allOff));
+
+		item2->setText(editorParams::c_command, QString::number(protocolCommands::setPon));
+		item2->setText(editorParams::c_value, QString::number(m_pr_params->p_on_lAs));
+
+		item3->setText(editorParams::c_command, QString::number(protocolCommands::setPoff));
+		item3->setText(editorParams::c_value, QString::number(m_pr_params->p_off_lAs));
+
+		item4->setText(editorParams::c_command, QString::number(protocolCommands::wait));
+		item4->setText(editorParams::c_value, QString::number(5));
+
+		item5->setText(editorParams::c_command, QString::number(protocolCommands::setVrecirc));
+		item5->setText(editorParams::c_value, QString::number(m_pr_params->v_recirc_lAs));
+
+		item6->setText(editorParams::c_command, QString::number(protocolCommands::setVswitch));
+		item6->setText(editorParams::c_value, QString::number(m_pr_params->v_switch_lAs));
+
+		_command_vector->push_back(item1);
+		_command_vector->push_back(item2);
+		_command_vector->push_back(item3);
+		_command_vector->push_back(item4);
+		_command_vector->push_back(item5);
+		_command_vector->push_back(item6);
 		return;
 	}
 	case protocolCommands::largeAndRegular: {
 		// load the protocol for standby
-		QTreeWidget* virtual_tree_widget = new QTreeWidget();
-		openXml(QString(preset_protocols_path + "/LargeAndRegular.prt"), virtual_tree_widget);
-		fromTreeToItemVector(virtual_tree_widget, _command_vector);
+		//QTreeWidget* virtual_tree_widget = new QTreeWidget();
+		//openXml(QString(preset_protocols_path + "/LargeAndRegular.prt"), virtual_tree_widget);
+		//fromTreeToItemVector(virtual_tree_widget, _command_vector);
+		protocolTreeWidgetItem* item1 = new protocolTreeWidgetItem();
+		protocolTreeWidgetItem* item2 = new protocolTreeWidgetItem();
+		protocolTreeWidgetItem* item3 = new protocolTreeWidgetItem();
+		protocolTreeWidgetItem* item4 = new protocolTreeWidgetItem();
+		protocolTreeWidgetItem* item5 = new protocolTreeWidgetItem();
+		protocolTreeWidgetItem* item6 = new protocolTreeWidgetItem();
+
+		item1->setText(editorParams::c_command, QString::number(protocolCommands::allOff));
+
+		item2->setText(editorParams::c_command, QString::number(protocolCommands::setPon));
+		item2->setText(editorParams::c_value, QString::number(m_pr_params->p_on_lAr));
+
+		item3->setText(editorParams::c_command, QString::number(protocolCommands::setPoff));
+		item3->setText(editorParams::c_value, QString::number(m_pr_params->p_off_lAr));
+
+		item4->setText(editorParams::c_command, QString::number(protocolCommands::wait));
+		item4->setText(editorParams::c_value, QString::number(5));
+
+		item5->setText(editorParams::c_command, QString::number(protocolCommands::setVrecirc));
+		item5->setText(editorParams::c_value, QString::number(m_pr_params->v_recirc_lAr));
+
+		item6->setText(editorParams::c_command, QString::number(protocolCommands::setVswitch));
+		item6->setText(editorParams::c_value, QString::number(m_pr_params->v_switch_lAr));
+
+		_command_vector->push_back(item1);
+		_command_vector->push_back(item2);
+		_command_vector->push_back(item3);
+		_command_vector->push_back(item4);
+		_command_vector->push_back(item5);
+		_command_vector->push_back(item6); 
+		
 		return;
 	}
 	default:

@@ -670,6 +670,11 @@ void Labonatip_tools::activateOperationaModeSettings(int _enable)
 	
 	std::cout << HERE << std::endl;
 
+	ui_tools->spinBox_p_on_default->setEnabled(_enable);
+	ui_tools->spinBox_p_off_default->setEnabled(_enable);
+	ui_tools->spinBox_v_switch_default->setEnabled(_enable);
+	ui_tools->spinBox_v_recirc_default->setEnabled(_enable);
+
 	// enable all the fiels
 	ui_tools->spinBox_sAs_Pon_def->setEnabled(_enable);
 	ui_tools->spinBox_sAs_Poff_def->setEnabled(_enable);
@@ -830,7 +835,8 @@ bool Labonatip_tools::loadSettings(QString _path)
 	ui_tools->spinBox_p_on_min->setValue(p_on_min);
 	m_pr_params->p_on_min = p_on_min;
 
-	int p_on_default = m_settings->value("pr_limits/p_on_default", "190").toInt(&ok);
+	//int p_on_default = m_settings->value("pr_limits/p_on_default", "190").toInt(&ok);
+	int p_on_default = m_settings->value("pv_standardAndRegular/p_on", "190").toInt(&ok);
 	if (!ok) {
 		std::cerr << HERE
 			<< " p_on_default corrupted in setting file, using default value " << std::endl;
@@ -857,7 +863,8 @@ bool Labonatip_tools::loadSettings(QString _path)
 	ui_tools->spinBox_p_off_min->setValue(p_off_min);
 	m_pr_params->p_off_min = p_off_min;
 
-	int p_off_default = m_settings->value("pr_limits/p_off_default", "21").toInt(&ok);
+	//int p_off_default = m_settings->value("pr_limits/p_off_default", "21").toInt(&ok);
+	int p_off_default = m_settings->value("pv_standardAndRegular/p_off", "21").toInt(&ok);
 	if (!ok) {
 		std::cerr << HERE
 			<< " p_off_default corrupted in setting file, using default value " << std::endl;
@@ -884,7 +891,8 @@ bool Labonatip_tools::loadSettings(QString _path)
 	ui_tools->spinBox_v_switch_min->setValue(v_switch_min);
 	m_pr_params->v_switch_min = v_switch_min;
 
-	int v_switch_default = m_settings->value("pr_limits/v_switch_default", "-115").toInt(&ok);
+	//int v_switch_default = m_settings->value("pr_limits/v_switch_default", "-115").toInt(&ok);
+	int v_switch_default = m_settings->value("pv_standardAndRegular/v_switch", "-115").toInt(&ok);
 	if (!ok) {
 		std::cerr << HERE
 			<< " v_switch_default corrupted in setting file, using default value " << std::endl;
@@ -911,7 +919,8 @@ bool Labonatip_tools::loadSettings(QString _path)
 	ui_tools->spinBox_v_recirc_min->setValue(v_recirc_min);
 	m_pr_params->v_recirc_min = v_recirc_min;
 
-	int v_recirc_default = m_settings->value("pr_limits/v_recirc_default", "-115").toInt(&ok);
+	//int v_recirc_default = m_settings->value("pr_limits/v_recirc_default", "-115").toInt(&ok);
+	int v_recirc_default = m_settings->value("pv_standardAndRegular/v_recirc", "-115").toInt(&ok);
 	if (!ok) {
 		std::cerr << HERE
 			<< " v_recirc_default corrupted in setting file, using default value " << std::endl;

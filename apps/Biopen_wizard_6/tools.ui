@@ -2377,6 +2377,9 @@ background-color: rgb(255, 255, 255);
           <layout class="QGridLayout" name="gridLayout_14">
            <item row="3" column="6">
             <widget class="QSpinBox" name="spinBox_v_switch_default">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                <horstretch>0</horstretch>
@@ -2589,6 +2592,9 @@ background-color: rgb(255, 255, 255);
            </item>
            <item row="3" column="4">
             <widget class="QSpinBox" name="spinBox_p_off_default">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                <horstretch>0</horstretch>
@@ -3164,6 +3170,9 @@ background-color: rgb(255, 255, 255);
            </item>
            <item row="3" column="8">
             <widget class="QSpinBox" name="spinBox_v_recirc_default">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                <horstretch>0</horstretch>
@@ -3323,6 +3332,9 @@ background-color: rgb(255, 255, 255);
            </item>
            <item row="3" column="2">
             <widget class="QSpinBox" name="spinBox_p_on_default">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
              <property name="sizePolicy">
               <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
                <horstretch>0</horstretch>

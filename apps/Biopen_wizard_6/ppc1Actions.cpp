@@ -521,10 +521,10 @@ void Labonatip_GUI::setStandardAndSlow()
 
 
 		// get the values 
-		int new_p_on_default = 40;
-		int new_p_off_default = 8;
-		int new_v_switch_default = -45;
-		int new_v_recirc_default = -90;
+		int new_p_on_default = m_pr_params->p_on_sAs;// 40;
+		int new_p_off_default = m_pr_params->p_off_sAs;//8;
+		int new_v_switch_default = m_pr_params->v_switch_sAs;//-90;
+		int new_v_recirc_default = m_pr_params->v_recirc_sAs;//-45;
 		//    <setPon value="40" message=" "/>
 		//    <setPoff value = "8" message = " " / >
 		//    <setVrecirc value = "-45" message = " " / >
@@ -534,21 +534,24 @@ void Labonatip_GUI::setStandardAndSlow()
 		m_dialog_tools->setDefaultPressuresVacuums(new_p_on_default, new_p_off_default, 
 			-new_v_recirc_default, -new_v_switch_default);
 
-		updatePonSetPoint(new_p_on_default);
-		updatePoffSetPoint(new_p_off_default);
-		updateVswitchSetPoint(-new_v_switch_default);
-		updateVrecircSetPoint(-new_v_recirc_default);
+		QMessageBox::information(this, m_str_information,
+			"New settings applied, <br> please click operational to send it to the PPC1");
+		//updatePonSetPoint(new_p_on_default);
+		//updatePoffSetPoint(new_p_off_default);
+		//updateVswitchSetPoint(-new_v_switch_default);
+		//updateVrecircSetPoint(-new_v_recirc_default);
 
 	}
 	else
 	{
+		ui->pushButton_standardAndSlow->setChecked(true);
 		// reset to classical values
-		m_dialog_tools->setDefaultPressuresVacuums(m_pr_params->p_on_classical, m_pr_params->p_off_classical,
-			-m_pr_params->v_recirc_classical, -m_pr_params->v_switch_classical);
-		updatePonSetPoint(m_pr_params->p_on_classical);
-		updatePoffSetPoint(m_pr_params->p_off_classical);
-		updateVswitchSetPoint(-m_pr_params->v_switch_classical);
-		updateVrecircSetPoint(-m_pr_params->v_recirc_classical);
+		//m_dialog_tools->setDefaultPressuresVacuums(m_pr_params->p_on_classical, m_pr_params->p_off_classical,
+		//	-m_pr_params->v_recirc_classical, -m_pr_params->v_switch_classical);
+		//updatePonSetPoint(m_pr_params->p_on_classical);
+		//updatePoffSetPoint(m_pr_params->p_off_classical);
+		//updateVswitchSetPoint(-m_pr_params->v_switch_classical);
+		//updateVrecircSetPoint(-m_pr_params->v_recirc_classical);
 
 	}
 
@@ -567,10 +570,10 @@ void Labonatip_GUI::setStandardAndRegular()
 		ui->pushButton_largeAndRegular->setChecked(false);
 
 		// get the values 
-		int new_p_on_default = 50;
-		int new_p_off_default = 11;
-		int new_v_switch_default = -75;
-		int new_v_recirc_default = -115;
+		int new_p_on_default = m_pr_params->p_on_sAr;// 50;
+		int new_p_off_default = m_pr_params->p_off_sAr;//11;
+		int new_v_switch_default = m_pr_params->v_switch_sAr;//-115;
+		int new_v_recirc_default = m_pr_params->v_recirc_sAr;//-75;
 		//    <setPon value="50" message=" "/>
 		//    <setPoff value = "11" message = " " / >
 		//	<setVrecirc value = "-75" message = " " / >
@@ -580,20 +583,25 @@ void Labonatip_GUI::setStandardAndRegular()
 		m_dialog_tools->setDefaultPressuresVacuums(new_p_on_default, new_p_off_default,
 			-new_v_recirc_default, -new_v_switch_default);
 
-		updatePonSetPoint(new_p_on_default);
-		updatePoffSetPoint(new_p_off_default);
-		updateVswitchSetPoint(-new_v_switch_default);
-		updateVrecircSetPoint(-new_v_recirc_default);
+		QMessageBox::information(this, m_str_information,
+			"New settings applied, <br> please click operational to send it to the PPC1");
+
+		//updatePonSetPoint(new_p_on_default);
+		//updatePoffSetPoint(new_p_off_default);
+		//updateVswitchSetPoint(-new_v_switch_default);
+		//updateVrecircSetPoint(-new_v_recirc_default);
 	}
 	else
 	{
+		ui->pushButton_standardAndRegular->setChecked(true);
+
 		// reset to classical values
-		m_dialog_tools->setDefaultPressuresVacuums(m_pr_params->p_on_classical, m_pr_params->p_off_classical,
-			-m_pr_params->v_recirc_classical, -m_pr_params->v_switch_classical);
-		updatePonSetPoint(m_pr_params->p_on_classical);
-		updatePoffSetPoint(m_pr_params->p_off_classical);
-		updateVswitchSetPoint(-m_pr_params->v_switch_classical);
-		updateVrecircSetPoint(-m_pr_params->v_recirc_classical);
+		//m_dialog_tools->setDefaultPressuresVacuums(m_pr_params->p_on_classical, m_pr_params->p_off_classical,
+		//	-m_pr_params->v_recirc_classical, -m_pr_params->v_switch_classical);
+		//updatePonSetPoint(m_pr_params->p_on_classical);
+		//updatePoffSetPoint(m_pr_params->p_off_classical);
+		//updateVswitchSetPoint(-m_pr_params->v_switch_classical);
+		//updateVrecircSetPoint(-m_pr_params->v_recirc_classical);
 	}
 
 
@@ -611,10 +619,10 @@ void Labonatip_GUI::setLargeAndSlow()
 		ui->pushButton_largeAndRegular->setChecked(false);
 
 		// get the values 
-		int new_p_on_default = 40;
-		int new_p_off_default = 8;
-		int new_v_switch_default = -45;
-		int new_v_recirc_default = -80;
+		int new_p_on_default = m_pr_params->p_on_lAs;// 40;
+		int new_p_off_default = m_pr_params->p_off_lAs;//8;
+		int new_v_switch_default = m_pr_params->v_switch_lAs;//-80;
+		int new_v_recirc_default = m_pr_params->v_recirc_lAs;//45;
 		//    <setPon value="40" message=" "/>
 		//    <setPoff value = "8" message = " " / >
 		//	<setVrecirc value = "-45" message = " " / >
@@ -624,20 +632,24 @@ void Labonatip_GUI::setLargeAndSlow()
 		m_dialog_tools->setDefaultPressuresVacuums(new_p_on_default, new_p_off_default,
 			-new_v_recirc_default, -new_v_switch_default);
 
-		updatePonSetPoint(new_p_on_default);
-		updatePoffSetPoint(new_p_off_default);
-		updateVswitchSetPoint(-new_v_switch_default);
-		updateVrecircSetPoint(-new_v_recirc_default);
+		QMessageBox::information(this, m_str_information,
+			"New settings applied, <br> please click operational to send it to the PPC1");
+		//updatePonSetPoint(new_p_on_default);
+		//updatePoffSetPoint(new_p_off_default);
+		//updateVswitchSetPoint(-new_v_switch_default);
+		//updateVrecircSetPoint(-new_v_recirc_default);
 	}
 	else
 	{
+		ui->pushButton_largeAndSlow->setChecked(true);
+
 		// reset to classical values
-		m_dialog_tools->setDefaultPressuresVacuums(m_pr_params->p_on_classical, m_pr_params->p_off_classical,
-			-m_pr_params->v_recirc_classical, -m_pr_params->v_switch_classical);
-		updatePonSetPoint(m_pr_params->p_on_classical);
-		updatePoffSetPoint(m_pr_params->p_off_classical);
-		updateVswitchSetPoint(-m_pr_params->v_switch_classical);
-		updateVrecircSetPoint(-m_pr_params->v_recirc_classical);
+		//m_dialog_tools->setDefaultPressuresVacuums(m_pr_params->p_on_classical, m_pr_params->p_off_classical,
+		//	-m_pr_params->v_recirc_classical, -m_pr_params->v_switch_classical);
+		//updatePonSetPoint(m_pr_params->p_on_classical);
+		//updatePoffSetPoint(m_pr_params->p_off_classical);
+		//updateVswitchSetPoint(-m_pr_params->v_switch_classical);
+		//(-m_pr_params->v_recirc_classical);
 	}
 
 }
@@ -654,10 +666,10 @@ void Labonatip_GUI::setLargeAndRegular()
 		ui->pushButton_largeAndSlow->setChecked(false);
 		
 		// get the values 
-		int new_p_on_default = 50;
-		int new_p_off_default = 11;
-		int new_v_switch_default = -60;
-		int new_v_recirc_default = -105;
+		int new_p_on_default = m_pr_params->p_on_lAr;// 50;
+		int new_p_off_default = m_pr_params->p_off_lAr;//11;
+		int new_v_switch_default = m_pr_params->v_switch_lAr;//-105;
+		int new_v_recirc_default = m_pr_params->v_recirc_lAr;//-60;
 		//    <setPon value="50" message=" "/>
 		//    <setPoff value = "11" message = " " / >
 		//	<setVrecirc value = "-60" message = " " / >
@@ -667,19 +679,23 @@ void Labonatip_GUI::setLargeAndRegular()
 		m_dialog_tools->setDefaultPressuresVacuums(new_p_on_default, new_p_off_default,
 			-new_v_recirc_default, -new_v_switch_default);
 
-		updatePonSetPoint(new_p_on_default);
-		updatePoffSetPoint(new_p_off_default);
-		updateVswitchSetPoint(-new_v_switch_default);
-		updateVrecircSetPoint(-new_v_recirc_default);
+		QMessageBox::information(this, m_str_information,
+			"New settings applied, <br> please click operational to send it to the PPC1" );
+		//updatePonSetPoint(new_p_on_default);
+		//updatePoffSetPoint(new_p_off_default);
+		//updateVswitchSetPoint(-new_v_switch_default);
+		//(-new_v_recirc_default);
 	}
 	else
 	{
+		ui->pushButton_largeAndRegular->setChecked(true);
+
 		// reset to classical values
-		m_dialog_tools->setDefaultPressuresVacuums(m_pr_params->p_on_classical, m_pr_params->p_off_classical,
-			-m_pr_params->v_recirc_classical, -m_pr_params->v_switch_classical);
-		updatePonSetPoint(m_pr_params->p_on_classical);
-		updatePoffSetPoint(m_pr_params->p_off_classical);
-		updateVswitchSetPoint(-m_pr_params->v_switch_classical);
-		updateVrecircSetPoint(-m_pr_params->v_recirc_classical);
+		//m_dialog_tools->setDefaultPressuresVacuums(m_pr_params->p_on_classical, m_pr_params->p_off_classical,
+		//	-m_pr_params->v_recirc_classical, -m_pr_params->v_switch_classical);
+		//updatePonSetPoint(m_pr_params->p_on_classical);
+		//updatePoffSetPoint(m_pr_params->p_off_classical);
+		//updateVswitchSetPoint(-m_pr_params->v_switch_classical);
+		//updateVrecircSetPoint(-m_pr_params->v_recirc_classical);
 	}
 }
