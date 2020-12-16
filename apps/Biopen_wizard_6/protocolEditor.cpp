@@ -82,7 +82,7 @@ void Labonatip_GUI::onProtocolClicked(QTreeWidgetItem *item, int column)
 
 	QMessageBox::StandardButton resBtn = QMessageBox::Yes;
 
-	if (m_protocol->size() > 0)
+	if (ui->treeWidget_macroTable->topLevelItemCount() > 0)
 	{
 		resBtn = QMessageBox::question(this, m_str_warning,
 			m_str_add_protocol_bottom + "<br>" + m_str_add_protocol_bottom_guide,

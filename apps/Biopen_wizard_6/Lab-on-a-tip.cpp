@@ -193,7 +193,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   m_last_treeWidget_editor_idx = 0;
   new XmlSyntaxHighlighter(ui->textBrowser_XMLcode->document());
   ui->tabWidget_editor_advanced->setCurrentIndex(0);
-
+   
   // set delegates
   m_combo_delegate = new ComboBoxDelegate();
   m_no_edit_delegate = new NoEditDelegate();
@@ -1563,7 +1563,7 @@ bool Labonatip_GUI::openXml(QString _filename, QTreeWidget* _widget)
 		std::cerr << HERE << " impossible to open the file " << std::endl;
 		return false;
 	}
-	if (!reader.read(&file, 0))
+	if (!reader.read(&file, 0))// dynamic_cast<protocolTreeWidgetItem*>(_widget->currentItem())))
 	{
 		QMessageBox::warning(this, m_str_warning,
 			m_str_no_file_loaded + tr("<br>Is this a xml file protocol? <br>%1:\n%2.")

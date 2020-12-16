@@ -20,9 +20,11 @@ XmlProtocolReader::XmlProtocolReader(QTreeWidget* treeWidget)
 
 bool XmlProtocolReader::read(QIODevice *device, protocolTreeWidgetItem* after_item)
 {
+	std::cout << HERE << std::endl;
+
     xml.setDevice(device);
 	m_after_item = after_item;
-	m_row = treeWidget->currentIndex().row();
+	m_row = treeWidget->topLevelItemCount()-1;//    treeWidget->currentIndex().row();
     if (xml.readNextStartElement()) {
         if (xml.name() == QLatin1String("Protocol")
             && xml.attributes().value(versionAttribute()) == QLatin1String("1.0")) {
