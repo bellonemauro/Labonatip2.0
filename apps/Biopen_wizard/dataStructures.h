@@ -347,7 +347,69 @@ struct GUIparams {
 	languages language;
 
 
-}; // END COMSettings struct
+}; // END GUIparams struct
+
+
+struct protocolCommands {
+
+	enum command {
+		setZoneSize = 0,
+		changeZoneSizeBy = 1,
+		setFlowSpeed = 2,
+		changeFlowSpeedBy = 3,
+		setVacuum = 4,
+		changeVacuumBy = 5,
+		wait = 6,
+		allOff = 7,
+		solution1 = 8,
+		solution2 = 9,
+		solution3 = 10,
+		solution4 = 11,
+		setPon = 12,
+		setPoff = 13,
+		setVrecirc = 14,
+		setVswitch = 15,
+		ask = 16,
+		pumpsOff = 17,
+		waitSync = 18,
+		syncOut = 19,
+		loop = 20,
+		comment = 21,		
+		END //THIS IS TO TAKE TRACK OF ENUMERATION
+	};
+
+	static std::string protocolCommands::asString(int _idx)
+	{
+		switch (_idx)
+		{
+		case setZoneSize: return "setZoneSize";
+		case changeZoneSizeBy: return "changeZoneSizeBy";
+		case setFlowSpeed: return "setFlowSpeed";
+		case changeFlowSpeedBy: return "changeFlowSpeedBy";
+		case setVacuum: return "setVacuum";
+		case changeVacuumBy: return "changeVacuumBy";
+		case wait: return "wait";
+		case allOff: return "allOff";
+		case solution1: return "solution1";
+		case solution2: return "solution2";
+		case solution3: return "solution3";
+		case solution4: return "solution4";
+		case setPon: return "setPon";
+		case setPoff: return "setPoff";
+		case setVrecirc: return "setVrecirc";
+		case setVswitch: return "setVswitch";
+		case ask: return "ask";
+		case pumpsOff: return "pumpsOff";
+		case waitSync: return "waitSync";
+		case syncOut: return "syncOut";
+		case loop: return "loop";
+		case comment: return "comment";
+		case END: return "END";
+		}
+		return "Invalid";
+	}
+
+};
 
    // structure to handle editor parameters for now only the columns in the editor tree widget are used
 struct editorParams {

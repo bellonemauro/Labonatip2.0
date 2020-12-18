@@ -144,31 +144,6 @@ void Labonatip_macroRunner::simulateCommand(fluicell::PPC1api6dataStructures::co
 		// nothing is really to be done in simulation
 		return;
 	}
-#pragma message("TODO: remove all these old commands")
-	//case pCmd::setZoneSize: {//zoneSize
-	//	emit setDropletSizeSIG(_cmd.getValue());
-	//	return;
-	//}
-	//case pCmd::changeZoneSizeBy: {//changeZoneSize
-	//	emit changeDropletSizeSIG(_cmd.getValue());
-	//	return;
-	//}
-	//case pCmd::setFlowSpeed: {//flowSpeed
-	//	emit setFlowSpeedSIG(_cmd.getValue());
-	//	return;
-	//}
-	//case pCmd::changeFlowSpeedBy: {//changeFlowSpeed
-	//	emit changeFlowSpeedSIG(_cmd.getValue());
-	//	return;
-	//}
-	//case pCmd::setVacuum: {//vacuum
-	//	emit setVacuumSIG(_cmd.getValue());
-	//	return;
-	//}
-	//case pCmd::changeVacuumBy: {//vacuum
-	//	emit changeVacuumSIG(_cmd.getValue());
-	//	return;
-	//}
 	case ppc1Cmd::loop: {//loop
 		// this is not to be done here
 		return;
@@ -267,7 +242,6 @@ void Labonatip_macroRunner::run()
 						// at GUI level only ask_msg and wait are handled
 						if (m_protocol->at(i).getInstruction() ==
 							ppc1Cmd::ask) {
-#pragma message (" TODO: here there should be the interpreter for ask_msg ")
 							QString msg = QString::fromStdString(m_protocol->at(i).getStatusMessage());
 
 							emit sendAskMessage(msg); // send ask message event
@@ -280,7 +254,6 @@ void Labonatip_macroRunner::run()
 						// If the command is to wait, we do it here
 						if (m_protocol->at(i).getInstruction() == ppc1Cmd::wait) 
 						{	
-#pragma message (" TODO: here there should be the interpreter for wait ")
 							int val = static_cast<int>(m_protocol->at(i).getValue());
 							simulateWait(val);							
 						}//TODO: the waitSync works properly in the ppc1api, however, when the command is run

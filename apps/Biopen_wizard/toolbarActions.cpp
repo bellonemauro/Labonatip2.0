@@ -39,10 +39,9 @@ bool Labonatip_GUI::loadProtocol()
 		return false;
 	}
 	
-	
-	if (m_reader->readProtocol(ui->treeWidget_macroTable, file_name))
+	if (this->openXml(file_name, ui->treeWidget_macroTable))
 	{
-		addAllCommandsToProtocol();
+		updateTreeView(ui->treeWidget_macroTable);
 		m_current_protocol_file_name = file_name;
 		return true;
 	}
@@ -103,12 +102,8 @@ bool Labonatip_GUI::saveProtocol()
 		QMessageBox::Yes);
 	if (resBtn == QMessageBox::Yes) {
 		// yes = override
-		if (!m_writer->saveProtocol(ui->treeWidget_macroTable, m_current_protocol_file_name)) {
-			QApplication::restoreOverrideCursor();    
-			QMessageBox::warning(this, m_str_warning, 
-				m_str_file_not_saved + "<br>" + m_current_protocol_file_name);
-			return false;
-		}
+		return saveXml(m_current_protocol_file_name, ui->treeWidget_macroTable);
+
 	}
 	if (resBtn == QMessageBox::No)
 	{ //no = save as
@@ -130,13 +125,18 @@ bool Labonatip_GUI::saveProtocolAs()
 		m_str_save_protocol, m_protocol_path,  // dialog to open files
 		"Lab-on-a-tip protocol File (*.prt);; All Files(*.*)", 0);
 	
-
-	if (!m_writer->saveProtocol(ui->treeWidget_macroTable, file_name)) {
-		QApplication::restoreOverrideCursor();    
-		QMessageBox::warning(this, m_str_warning, 
-			m_str_file_not_saved + "<br>" + file_name);
+	if (file_name.isEmpty()) {
+		QApplication::restoreOverrideCursor();
 		return false;
 	}
+
+	if (!saveXml(file_name, ui->treeWidget_macroTable)) {
+		QApplication::restoreOverrideCursor();
+		QMessageBox::warning(this, m_str_warning,
+			m_str_cannot_save_profile + "<br>" + file_name);
+		return false;
+	}
+
 	readProtocolFolder(m_protocol_path);
 	m_current_protocol_file_name = file_name;
 	QApplication::restoreOverrideCursor();    
@@ -188,6 +188,7 @@ void Labonatip_GUI::showProtocolEditor() {
 		ui->actionLoad_profile->setText(m_str_load);
 		ui->actionEditor->setText(m_str_commander);
 		ui->actionEditor->setIcon(QIcon(":/icons/controls.png")); 
+
 	}
 	//otherwise we are in the editor and we need to get back to the commander
 	else
@@ -201,7 +202,8 @@ void Labonatip_GUI::showProtocolEditor() {
 		iconEditor.addFile(QStringLiteral("://icons/protocolEditor.png"), QSize(), QIcon::Normal, QIcon::Off);
 		iconEditor.addFile(QStringLiteral(":/icons/protocolEditor_off.png"), QSize(), QIcon::Disabled, QIcon::Off);
 		ui->actionEditor->setIcon(iconEditor);
-
+		
+		addAllCommandsToPPC1Protocol(ui->treeWidget_macroTable, m_protocol);
 		//update the chart
 		m_chart_view->updateChartProtocol(m_protocol);
 
@@ -220,7 +222,7 @@ void Labonatip_GUI::simulationOnly()
 {
 	std::cout << HERE << "  " << ui->actionSimulation->isChecked() << std::endl;
 
-	this->stopSolutionFlow();
+	//this->stopSolutionFlow();
 
 	m_simulationOnly = ui->actionSimulation->isChecked();
 
@@ -403,7 +405,7 @@ bool Labonatip_GUI::disCon(bool _connect)
 
 			// stop the PPC1
 			QApplication::setOverrideCursor(Qt::WaitCursor);    
-			this->stopSolutionFlow(); 
+			//this->stopSolutionFlow(); 
 			m_ppc1->stop();
 			
 			QThread::msleep(500);

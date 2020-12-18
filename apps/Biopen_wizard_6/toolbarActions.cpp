@@ -186,6 +186,7 @@ void Labonatip_GUI::showProtocolEditor() {
 		ui->actionLoad_profile->setText(m_str_load);
 		ui->actionEditor->setText(m_str_commander);
 		ui->actionEditor->setIcon(QIcon(":/icons/controls.png")); 
+		ui->tabWidget_editor->setCurrentIndex(0);
 
 	}
 	//otherwise we are in the editor and we need to get back to the commander

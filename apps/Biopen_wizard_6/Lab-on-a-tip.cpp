@@ -51,6 +51,8 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 
   m_biopen_updated = new biopen_updater();
   
+  // hide this field for now as the calculation is wrong
+  ui->textEdit_emptyTime_waste->hide();
 
   // initialize the tools as we need the settings  // TODO: waste of performances all these objects are created twice
   m_dialog_tools = new Labonatip_tools();
@@ -69,9 +71,9 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   ui->dockWidget->close();  
   // put the tab widget to the chart page
   ui->tabWidget->setCurrentIndex(1);  
-  ui->treeWidget_macroInfo->resizeColumnToContents(0);
+  ui->treeWidget_flowInfo->resizeColumnToContents(0);
   //ui->treeWidget_macroInfo->setColumnWidth(0, 200);
-  ui->treeWidget_macroInfo->setHeaderHidden(false);
+  ui->treeWidget_flowInfo->setHeaderHidden(false);
 
   // init the redirect buffer for messages
   qerr = new QDebugStream(std::cerr, ui->textEdit_qcerr);
@@ -92,13 +94,13 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   ui->stackedWidget_indock->setCurrentIndex(0);
 
   // set the flows in the table
-  ui->treeWidget_macroInfo->topLevelItem(12)->setText(1,
+  ui->treeWidget_flowInfo->topLevelItem(12)->setText(1,
 	  QString::number(m_pipette_status->rem_vol_well1));
-  ui->treeWidget_macroInfo->topLevelItem(13)->setText(1,
+  ui->treeWidget_flowInfo->topLevelItem(13)->setText(1,
 	  QString::number(m_pipette_status->rem_vol_well2));
-  ui->treeWidget_macroInfo->topLevelItem(14)->setText(1, 
+  ui->treeWidget_flowInfo->topLevelItem(14)->setText(1, 
 	  QString::number(m_pipette_status->rem_vol_well3));
-  ui->treeWidget_macroInfo->topLevelItem(15)->setText(1, 
+  ui->treeWidget_flowInfo->topLevelItem(15)->setText(1, 
 	  QString::number(m_pipette_status->rem_vol_well4));
  
   // hide the warning label (it will be shown if there is a warning)
@@ -188,9 +190,10 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   ui->treeWidget_macroTable->setColumnWidth(editorParams::c_value, 100);
 
   ui->tabWidget_editor->setCurrentIndex(0);
+  m_last_treeWidget_editor_idx = 0;
   new XmlSyntaxHighlighter(ui->textBrowser_XMLcode->document());
   ui->tabWidget_editor_advanced->setCurrentIndex(0);
-
+   
   // set delegates
   m_combo_delegate = new ComboBoxDelegate();
   m_no_edit_delegate = new NoEditDelegate();
@@ -315,6 +318,8 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   initConnects();
 
   std::cout << HERE << m_dialog_tools->getUserName().toStdString() << std::endl;
+
+  ui->pushButton_standardAndRegular->setChecked(true);
 
 }
 
@@ -714,7 +719,7 @@ void Labonatip_GUI::initConnects()
 
 	connect(ui->pushButton_standardAndRegular,
 		SIGNAL(clicked()), this,
-		SLOT(setStandardAndRegular())); //TODO: this is wrong
+		SLOT(setStandardAndRegular())); 
 
 	connect(ui->pushButton_largeAndRegular,
 		SIGNAL(clicked()), this,
@@ -856,8 +861,8 @@ void Labonatip_GUI::initConnects()
 	connect(ui->pushButton_loop,
 		SIGNAL(clicked()), this, SLOT(createNewLoop()));
 
-	connect(ui->pushButton_addFunction,
-		SIGNAL(clicked()), this, SLOT(createNewFunction()));
+	//connect(ui->pushButton_addFunction,  //TODO: deprecated
+	//	SIGNAL(clicked()), this, SLOT(createNewFunction()));
 }
 
 void Labonatip_GUI::testTTL(bool _state) {
@@ -965,6 +970,7 @@ void Labonatip_GUI::initCustomStrings()
 	m_str_save_protocol = tr("Save profile");
 	m_str_select_folder = tr("Select folder");
 	m_str_file_not_saved = tr("File not saved");
+	m_str_file_not_loaded = tr("File not loaded");
 	m_str_protocol_duration = tr("Protocol duration : ");
 	m_str_remove_file = tr("This action will remove the file, are you sure?");
 	m_str_current_prot_name = tr("The current protocol file name is");
@@ -980,6 +986,7 @@ void Labonatip_GUI::initCustomStrings()
 	m_ask_password = tr("This is for expert users only, a password is required");
 	m_wrong_password = tr("Wrong password, file not saved");
 	m_correct_password = tr("Correct password, file saved");
+	m_new_settings_applied = tr("New settings applied, <br> please click operational to activate the pumps");
 }
 
 void Labonatip_GUI::setProtocolUserPath(QString _path)
@@ -1136,7 +1143,7 @@ void Labonatip_GUI::toolApply()
 	ui->treeWidget_params->topLevelItem(1)->setText(1, m_solutionParams->sol2);
 	ui->treeWidget_params->topLevelItem(2)->setText(1, m_solutionParams->sol3);
 	ui->treeWidget_params->topLevelItem(3)->setText(1, m_solutionParams->sol4);
-	ui->treeWidget_params->topLevelItem(4)->setText(1, m_solutionParams->sol5); //TODO: CHECK THIS BETTER
+	ui->treeWidget_params->topLevelItem(4)->setText(1, m_solutionParams->sol5); 
 	ui->treeWidget_params->topLevelItem(5)->setText(1, m_solutionParams->sol6);
 
 	ui->treeWidget_params->topLevelItem(6)->setText(1, QString::number(m_pr_params->p_on_default));
@@ -1504,19 +1511,7 @@ bool Labonatip_GUI::saveXml(QString _filename, QTreeWidget* _widget)
 			if (!password.compare(password_check))
 			{
 				QMessageBox::information(this, m_str_information, m_correct_password);
-				
-				if (!file.open(QFile::WriteOnly | QFile::Text)) {
-					QMessageBox::warning(this, m_str_warning,
-						m_str_file_not_saved + tr("<br>%1:\n%2.")
-						.arg(QDir::toNativeSeparators(_filename),
-							file.errorString()));
-					return false;
-				}
-				XmlProtocolWriter writer(_widget);
-				if (writer.writeFile(&file))
-				{
-					return true;
-				}
+				// continue out of the if statement
 			}
 			else
 			{
@@ -1526,10 +1521,23 @@ bool Labonatip_GUI::saveXml(QString _filename, QTreeWidget* _widget)
 		}
 	}
 
+	if (!file.open(QFile::WriteOnly | QFile::Text)) {
+		QMessageBox::warning(this, m_str_warning,
+			m_str_file_not_saved + tr("<br>%1:\n%2.")
+			.arg(QDir::toNativeSeparators(_filename),
+				file.errorString()));
+		return false;
+	}
+	XmlProtocolWriter writer(_widget);
+	if (writer.writeFile(&file))
+	{
+		return true;
+	}
+
 	return false;
 }
 
-bool Labonatip_GUI::openXml()
+bool Labonatip_GUI::openXml()  
 {
 	QString fileName =
 		QFileDialog::getOpenFileName(this, tr("Open  File"),
@@ -1555,7 +1563,7 @@ bool Labonatip_GUI::openXml(QString _filename, QTreeWidget* _widget)
 		std::cerr << HERE << " impossible to open the file " << std::endl;
 		return false;
 	}
-	if (!reader.read(&file, 0))
+	if (!reader.read(&file, 0))// dynamic_cast<protocolTreeWidgetItem*>(_widget->currentItem())))
 	{
 		QMessageBox::warning(this, m_str_warning,
 			m_str_no_file_loaded + tr("<br>Is this a xml file protocol? <br>%1:\n%2.")

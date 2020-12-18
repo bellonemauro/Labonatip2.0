@@ -14,27 +14,8 @@
 ComboBoxDelegate::ComboBoxDelegate(QObject *parent)
 	:QItemDelegate(parent)
 {
-	Items.push_back("Set zone size");
-	Items.push_back("Change zone size by");
-	Items.push_back("Set flow speed");
-	Items.push_back("Change flow speed by");
-	Items.push_back("Set vacuum");
-	Items.push_back("Change vacuum by");
-	Items.push_back("Wait");
-	Items.push_back("All Off");
-	Items.push_back("Solution 1");
-	Items.push_back("Solution 2");
-	Items.push_back("Solution 3");
-	Items.push_back("Solution 4");
-	Items.push_back("Pressure ON");
-	Items.push_back("Pressure OFF");
-	Items.push_back("Vacuum Recirculation");
-	Items.push_back("Vacuum Switch");
-	Items.push_back("Ask");
-	Items.push_back("Pumps Off");
-	Items.push_back("Wait sync");
-	Items.push_back("Sync out");
-	Items.push_back("Loop");
+	for (int i = 0; i < protocolCommands::END; i++)
+		Items.push_back(protocolCommands::asString(i)); // populate the combo with all the commands
 }
 
 
@@ -120,6 +101,25 @@ void ComboBoxDelegate::paint(QPainter *painter,
 
 	//QApplication::style()->drawControl(QStyle::CE_ItemViewItem, &myOption, painter);
 }
+
+
+std::string ComboBoxDelegate::getElementAt(int _idx)
+{
+	std::string elementAsText = this->Items.at(_idx);
+	return elementAsText;
+}
+
+
+int ComboBoxDelegate::getElementIndex(std::string _name)
+{
+	for (int i = 0; i < this->Items.size(); i++)
+	{
+		if (this->Items.at(i).c_str() == _name)
+			return i;
+	}
+	return 0;
+}
+
 
 
 SpinBoxDelegate::SpinBoxDelegate(QObject *parent)

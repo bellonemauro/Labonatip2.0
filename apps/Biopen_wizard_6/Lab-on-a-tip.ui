@@ -399,6 +399,12 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                       </item>
                       <item row="3" column="1">
                        <widget class="QPushButton" name="pushButton_runMacro">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
                         <property name="minimumSize">
                          <size>
                           <width>90</width>
@@ -431,6 +437,12 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                       </item>
                       <item row="3" column="2">
                        <widget class="QPushButton" name="pushButton_operational">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
                         <property name="minimumSize">
                          <size>
                           <width>90</width>
@@ -467,6 +479,12 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                         <property name="enabled">
                          <bool>true</bool>
                         </property>
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
                         <property name="minimumSize">
                          <size>
                           <width>90</width>
@@ -501,6 +519,12 @@ closeAllValves()&lt;br/&gt;
                       </item>
                       <item row="3" column="0">
                        <widget class="QPushButton" name="pushButton_newTip">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
                         <property name="minimumSize">
                          <size>
                           <width>90</width>
@@ -587,6 +611,12 @@ closeAllValves()&lt;br/&gt;
                       </item>
                       <item row="3" column="4">
                        <widget class="QPushButton" name="pushButton_standby">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
                         <property name="minimumSize">
                          <size>
                           <width>90</width>
@@ -896,7 +926,7 @@ pumpsOff()&lt;br/&gt;
 
 QPushButton:checked{ 
           background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #D0D0DD, stop: 1 #f6f7fa);
+                                       stop: 0 #808088, stop: 1 #e6e7ea);
      border-style: inset;
      border-radius: 10px; 
 }
@@ -928,6 +958,82 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                       <property name="verticalSpacing">
                        <number>0</number>
                       </property>
+                      <item row="1" column="1">
+                       <spacer name="verticalSpacer_13">
+                        <property name="orientation">
+                         <enum>Qt::Vertical</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>20</width>
+                          <height>40</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                      <item row="2" column="3">
+                       <spacer name="horizontalSpacer_14">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>20</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                      <item row="4" column="1">
+                       <spacer name="verticalSpacer_12">
+                        <property name="orientation">
+                         <enum>Qt::Vertical</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>20</width>
+                          <height>40</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                      <item row="2" column="5">
+                       <spacer name="horizontalSpacer_11">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>20</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                      <item row="0" column="0" colspan="5">
+                       <widget class="QLabel" name="label_DZC_title_2">
+                        <property name="minimumSize">
+                         <size>
+                          <width>100</width>
+                          <height>30</height>
+                         </size>
+                        </property>
+                        <property name="font">
+                         <font>
+                          <pointsize>16</pointsize>
+                         </font>
+                        </property>
+                        <property name="styleSheet">
+                         <string notr="true"/>
+                        </property>
+                        <property name="text">
+                         <string>OPERATIONAL MODES</string>
+                        </property>
+                        <property name="alignment">
+                         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                        </property>
+                       </widget>
+                      </item>
                       <item row="2" column="0">
                        <spacer name="horizontalSpacer_12">
                         <property name="orientation">
@@ -941,8 +1047,27 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                         </property>
                        </spacer>
                       </item>
-                      <item row="6" column="1">
+                      <item row="2" column="2">
+                       <spacer name="horizontalSpacer_13">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>20</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                      <item row="2" column="1">
                        <widget class="QPushButton" name="pushButton_standardAndRegular">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
                         <property name="minimumSize">
                          <size>
                           <width>90</width>
@@ -970,178 +1095,19 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                         <property name="checkable">
                          <bool>true</bool>
                         </property>
-                       </widget>
-                      </item>
-                      <item row="2" column="4">
-                       <widget class="QPushButton" name="pushButton_largeAndSlow">
-                        <property name="minimumSize">
-                         <size>
-                          <width>90</width>
-                          <height>90</height>
-                         </size>
-                        </property>
-                        <property name="font">
-                         <font>
-                          <pointsize>11</pointsize>
-                         </font>
-                        </property>
-                        <property name="text">
-                         <string/>
-                        </property>
-                        <property name="icon">
-                         <iconset resource="resources.qrc">
-                          <normaloff>:/icons/setPipe3.png</normaloff>:/icons/setPipe3.png</iconset>
-                        </property>
-                        <property name="iconSize">
-                         <size>
-                          <width>90</width>
-                          <height>90</height>
-                         </size>
-                        </property>
-                        <property name="checkable">
+                        <property name="checked">
                          <bool>true</bool>
                         </property>
                        </widget>
                       </item>
-                      <item row="1" column="1">
-                       <spacer name="verticalSpacer_13">
-                        <property name="orientation">
-                         <enum>Qt::Vertical</enum>
-                        </property>
-                        <property name="sizeHint" stdset="0">
-                         <size>
-                          <width>20</width>
-                          <height>40</height>
-                         </size>
-                        </property>
-                       </spacer>
-                      </item>
-                      <item row="2" column="2">
-                       <spacer name="horizontalSpacer_13">
-                        <property name="orientation">
-                         <enum>Qt::Horizontal</enum>
-                        </property>
-                        <property name="sizeHint" stdset="0">
-                         <size>
-                          <width>20</width>
-                          <height>20</height>
-                         </size>
-                        </property>
-                       </spacer>
-                      </item>
-                      <item row="7" column="0" colspan="3">
-                       <widget class="QLabel" name="label_7">
-                        <property name="font">
-                         <font>
-                          <pointsize>11</pointsize>
-                         </font>
-                        </property>
-                        <property name="text">
-                         <string>Standard &amp; Regular</string>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignHCenter|Qt::AlignTop</set>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="6" column="4">
-                       <widget class="QPushButton" name="pushButton_largeAndRegular">
-                        <property name="minimumSize">
-                         <size>
-                          <width>90</width>
-                          <height>90</height>
-                         </size>
-                        </property>
-                        <property name="font">
-                         <font>
-                          <pointsize>11</pointsize>
-                         </font>
-                        </property>
-                        <property name="text">
-                         <string/>
-                        </property>
-                        <property name="icon">
-                         <iconset resource="resources.qrc">
-                          <normaloff>:/icons/setPipe4.png</normaloff>:/icons/setPipe4.png</iconset>
-                        </property>
-                        <property name="iconSize">
-                         <size>
-                          <width>90</width>
-                          <height>90</height>
-                         </size>
-                        </property>
-                        <property name="checkable">
-                         <bool>true</bool>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="0" column="0" colspan="5">
-                       <widget class="QLabel" name="label_DZC_title_2">
-                        <property name="minimumSize">
-                         <size>
-                          <width>100</width>
-                          <height>30</height>
-                         </size>
-                        </property>
-                        <property name="font">
-                         <font>
-                          <pointsize>16</pointsize>
-                         </font>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true"/>
-                        </property>
-                        <property name="text">
-                         <string>OPERATIONAL MODES</string>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="2" column="5">
-                       <spacer name="horizontalSpacer_11">
-                        <property name="orientation">
-                         <enum>Qt::Horizontal</enum>
-                        </property>
-                        <property name="sizeHint" stdset="0">
-                         <size>
-                          <width>20</width>
-                          <height>20</height>
-                         </size>
-                        </property>
-                       </spacer>
-                      </item>
-                      <item row="7" column="3" colspan="3">
-                       <widget class="QLabel" name="label_8">
-                        <property name="font">
-                         <font>
-                          <pointsize>11</pointsize>
-                         </font>
-                        </property>
-                        <property name="text">
-                         <string>Large &amp; Regular</string>
-                        </property>
-                        <property name="alignment">
-                         <set>Qt::AlignHCenter|Qt::AlignTop</set>
-                        </property>
-                       </widget>
-                      </item>
-                      <item row="2" column="3">
-                       <spacer name="horizontalSpacer_14">
-                        <property name="orientation">
-                         <enum>Qt::Horizontal</enum>
-                        </property>
-                        <property name="sizeHint" stdset="0">
-                         <size>
-                          <width>20</width>
-                          <height>20</height>
-                         </size>
-                        </property>
-                       </spacer>
-                      </item>
-                      <item row="2" column="1">
+                      <item row="6" column="1">
                        <widget class="QPushButton" name="pushButton_standardAndSlow">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
                         <property name="minimumSize">
                          <size>
                           <width>90</width>
@@ -1171,20 +1137,96 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                         </property>
                        </widget>
                       </item>
-                      <item row="4" column="1">
-                       <spacer name="verticalSpacer_12">
-                        <property name="orientation">
-                         <enum>Qt::Vertical</enum>
+                      <item row="2" column="4">
+                       <widget class="QPushButton" name="pushButton_largeAndRegular">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
                         </property>
-                        <property name="sizeHint" stdset="0">
+                        <property name="minimumSize">
                          <size>
-                          <width>20</width>
-                          <height>40</height>
+                          <width>90</width>
+                          <height>90</height>
                          </size>
                         </property>
-                       </spacer>
+                        <property name="font">
+                         <font>
+                          <pointsize>11</pointsize>
+                         </font>
+                        </property>
+                        <property name="text">
+                         <string/>
+                        </property>
+                        <property name="icon">
+                         <iconset resource="resources.qrc">
+                          <normaloff>:/icons/setPipe4.png</normaloff>:/icons/setPipe4.png</iconset>
+                        </property>
+                        <property name="iconSize">
+                         <size>
+                          <width>90</width>
+                          <height>90</height>
+                         </size>
+                        </property>
+                        <property name="checkable">
+                         <bool>true</bool>
+                        </property>
+                       </widget>
                       </item>
-                      <item row="3" column="1">
+                      <item row="6" column="4">
+                       <widget class="QPushButton" name="pushButton_largeAndSlow">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="minimumSize">
+                         <size>
+                          <width>90</width>
+                          <height>90</height>
+                         </size>
+                        </property>
+                        <property name="font">
+                         <font>
+                          <pointsize>11</pointsize>
+                         </font>
+                        </property>
+                        <property name="text">
+                         <string/>
+                        </property>
+                        <property name="icon">
+                         <iconset resource="resources.qrc">
+                          <normaloff>:/icons/setPipe3.png</normaloff>:/icons/setPipe3.png</iconset>
+                        </property>
+                        <property name="iconSize">
+                         <size>
+                          <width>90</width>
+                          <height>90</height>
+                         </size>
+                        </property>
+                        <property name="checkable">
+                         <bool>true</bool>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="3" column="0" colspan="3">
+                       <widget class="QLabel" name="label_7">
+                        <property name="font">
+                         <font>
+                          <pointsize>11</pointsize>
+                         </font>
+                        </property>
+                        <property name="text">
+                         <string>Standard &amp; Regular</string>
+                        </property>
+                        <property name="alignment">
+                         <set>Qt::AlignHCenter|Qt::AlignTop</set>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="8" column="0" colspan="3">
                        <widget class="QLabel" name="label_2">
                         <property name="font">
                          <font>
@@ -1199,8 +1241,23 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                         </property>
                        </widget>
                       </item>
-                      <item row="3" column="4">
+                      <item row="3" column="3" colspan="3">
                        <widget class="QLabel" name="label_6">
+                        <property name="font">
+                         <font>
+                          <pointsize>11</pointsize>
+                         </font>
+                        </property>
+                        <property name="text">
+                         <string>Large &amp; Regular</string>
+                        </property>
+                        <property name="alignment">
+                         <set>Qt::AlignHCenter|Qt::AlignTop</set>
+                        </property>
+                       </widget>
+                      </item>
+                      <item row="8" column="3" colspan="3">
+                       <widget class="QLabel" name="label_8">
                         <property name="font">
                          <font>
                           <pointsize>11</pointsize>
@@ -1848,9 +1905,9 @@ height: 0.5px;
                       <property name="geometry">
                        <rect>
                         <x>586</x>
-                        <y>0</y>
+                        <y>-11</y>
                         <width>141</width>
-                        <height>90</height>
+                        <height>101</height>
                        </rect>
                       </property>
                       <layout class="QGridLayout" name="gridLayout_13">
@@ -1871,6 +1928,12 @@ height: 0.5px;
                        </property>
                        <item row="1" column="1">
                         <widget class="QLabel" name="label_3">
+                         <property name="sizePolicy">
+                          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                           <horstretch>0</horstretch>
+                           <verstretch>0</verstretch>
+                          </sizepolicy>
+                         </property>
                          <property name="maximumSize">
                           <size>
                            <width>40</width>
@@ -1919,6 +1982,18 @@ height: 0.5px;
                        </item>
                        <item row="0" column="0" colspan="3">
                         <widget class="QLabel" name="label_arrowSolution">
+                         <property name="sizePolicy">
+                          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+                           <horstretch>0</horstretch>
+                           <verstretch>0</verstretch>
+                          </sizepolicy>
+                         </property>
+                         <property name="minimumSize">
+                          <size>
+                           <width>0</width>
+                           <height>20</height>
+                          </size>
+                         </property>
                          <property name="maximumSize">
                           <size>
                            <width>16777215</width>
@@ -2016,9 +2091,9 @@ height: 0.5px;
                      <widget class="QLabel" name="label_GW_sol">
                       <property name="geometry">
                        <rect>
-                        <x>545</x>
+                        <x>475</x>
                         <y>245</y>
-                        <width>161</width>
+                        <width>291</width>
                         <height>37</height>
                        </rect>
                       </property>
@@ -2069,9 +2144,9 @@ p, li { white-space: pre-wrap; }
                      <widget class="QTextEdit" name="textEdit_emptyTime_waste">
                       <property name="geometry">
                        <rect>
-                        <x>830</x>
+                        <x>840</x>
                         <y>0</y>
-                        <width>101</width>
+                        <width>91</width>
                         <height>81</height>
                        </rect>
                       </property>
@@ -2990,25 +3065,6 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                     </widget>
                    </item>
                    <item>
-                    <widget class="QPushButton" name="pushButton_addFunction">
-                     <property name="minimumSize">
-                      <size>
-                       <width>40</width>
-                       <height>40</height>
-                      </size>
-                     </property>
-                     <property name="maximumSize">
-                      <size>
-                       <width>40</width>
-                       <height>40</height>
-                      </size>
-                     </property>
-                     <property name="text">
-                      <string>F</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
                     <widget class="QPushButton" name="pushButton_plusIndent">
                      <property name="enabled">
                       <bool>true</bool>
@@ -3604,7 +3660,7 @@ QCheckBox::indicator:unchecked {
             <enum>QTabWidget::Triangular</enum>
            </property>
            <property name="currentIndex">
-            <number>0</number>
+            <number>1</number>
            </property>
            <property name="elideMode">
             <enum>Qt::ElideNone</enum>
@@ -5834,7 +5890,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
               </widget>
              </item>
              <item row="1" column="0">
-              <widget class="QTreeWidget" name="treeWidget_macroInfo">
+              <widget class="QTreeWidget" name="treeWidget_flowInfo">
                <property name="enabled">
                 <bool>true</bool>
                </property>
@@ -6288,7 +6344,7 @@ p, li { white-space: pre-wrap; }
                 <property name="geometry">
                  <rect>
                   <x>0</x>
-                  <y>-2981</y>
+                  <y>0</y>
                   <width>361</width>
                   <height>3667</height>
                  </rect>
@@ -8952,7 +9008,7 @@ p, li { white-space: pre-wrap; }
             <enum>QTabWidget::Triangular</enum>
            </property>
            <property name="currentIndex">
-            <number>0</number>
+            <number>1</number>
            </property>
            <property name="usesScrollButtons">
             <bool>false</bool>
@@ -8960,6 +9016,189 @@ p, li { white-space: pre-wrap; }
            <property name="documentMode">
             <bool>true</bool>
            </property>
+           <widget class="QWidget" name="Params">
+            <attribute name="title">
+             <string>Params</string>
+            </attribute>
+            <layout class="QVBoxLayout" name="verticalLayout_7">
+             <item>
+              <widget class="QGroupBox" name="groupBox_17">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QGroupBox { 
+     border: 2px solid  rgb(250, 250, 250); ; 
+     border-radius: 10px; 
+    color: rgb( 250, 250, 250);
+    background-color: rgb(250, 250, 250);
+
+ } </string>
+               </property>
+               <property name="title">
+                <string>GroupBox</string>
+               </property>
+               <layout class="QGridLayout" name="gridLayout_29">
+                <property name="leftMargin">
+                 <number>5</number>
+                </property>
+                <property name="topMargin">
+                 <number>5</number>
+                </property>
+                <property name="rightMargin">
+                 <number>5</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>5</number>
+                </property>
+                <item row="1" column="0">
+                 <widget class="QTreeWidget" name="treeWidget_params">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
+                  <property name="accessibleDescription">
+                   <string/>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true"/>
+                  </property>
+                  <property name="frameShape">
+                   <enum>QFrame::NoFrame</enum>
+                  </property>
+                  <property name="indentation">
+                   <number>10</number>
+                  </property>
+                  <attribute name="headerVisible">
+                   <bool>false</bool>
+                  </attribute>
+                  <column>
+                   <property name="text">
+                    <string>Solutions</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>Value</string>
+                   </property>
+                  </column>
+                  <item>
+                   <property name="text">
+                    <string notr="true">Solution 1</string>
+                   </property>
+                   <property name="text">
+                    <string notr="true">name</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Solution 2</string>
+                   </property>
+                   <property name="text">
+                    <string notr="true">name</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Solution 3</string>
+                   </property>
+                   <property name="text">
+                    <string notr="true">name</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Solution 4</string>
+                   </property>
+                   <property name="text">
+                    <string notr="true">name</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Solution 5</string>
+                   </property>
+                   <property name="text">
+                    <string>name</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Solution 6</string>
+                   </property>
+                   <property name="text">
+                    <string>name</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Pon def (mbar)</string>
+                   </property>
+                   <property name="text">
+                    <string notr="true">190</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Poff def (mbar)</string>
+                   </property>
+                   <property name="text">
+                    <string notr="true">21</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Vrecirc def (mbar)</string>
+                   </property>
+                   <property name="text">
+                    <string notr="true">-115</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Vswitch def (mbar)</string>
+                   </property>
+                   <property name="text">
+                    <string notr="true">-115</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Protocol duration (s)</string>
+                   </property>
+                   <property name="text">
+                    <string notr="true">0</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
+           </widget>
            <widget class="QWidget" name="tab_6">
             <attribute name="title">
              <string>Browser</string>
@@ -8997,7 +9236,7 @@ QGroupBox {
 QTreeWidget QHeaderView:section
 {
     font-size:11pt;
-    height:27px;
+    height:32px;
     color: rgb(80, 80, 80);
     background-color: transparent;
 }
@@ -9177,189 +9416,6 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                     </widget>
                    </item>
                   </layout>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-           <widget class="QWidget" name="Params">
-            <attribute name="title">
-             <string>Params</string>
-            </attribute>
-            <layout class="QVBoxLayout" name="verticalLayout_7">
-             <item>
-              <widget class="QGroupBox" name="groupBox_17">
-               <property name="minimumSize">
-                <size>
-                 <width>0</width>
-                 <height>0</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>16777215</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QGroupBox { 
-     border: 2px solid  rgb(250, 250, 250); ; 
-     border-radius: 10px; 
-    color: rgb( 250, 250, 250);
-    background-color: rgb(250, 250, 250);
-
- } </string>
-               </property>
-               <property name="title">
-                <string>GroupBox</string>
-               </property>
-               <layout class="QGridLayout" name="gridLayout_29">
-                <property name="leftMargin">
-                 <number>5</number>
-                </property>
-                <property name="topMargin">
-                 <number>5</number>
-                </property>
-                <property name="rightMargin">
-                 <number>5</number>
-                </property>
-                <property name="bottomMargin">
-                 <number>5</number>
-                </property>
-                <item row="1" column="0">
-                 <widget class="QTreeWidget" name="treeWidget_params">
-                  <property name="minimumSize">
-                   <size>
-                    <width>0</width>
-                    <height>0</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>16777215</width>
-                    <height>16777215</height>
-                   </size>
-                  </property>
-                  <property name="font">
-                   <font>
-                    <pointsize>11</pointsize>
-                   </font>
-                  </property>
-                  <property name="accessibleDescription">
-                   <string/>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true"/>
-                  </property>
-                  <property name="frameShape">
-                   <enum>QFrame::NoFrame</enum>
-                  </property>
-                  <property name="indentation">
-                   <number>10</number>
-                  </property>
-                  <attribute name="headerVisible">
-                   <bool>false</bool>
-                  </attribute>
-                  <column>
-                   <property name="text">
-                    <string>Solutions</string>
-                   </property>
-                  </column>
-                  <column>
-                   <property name="text">
-                    <string>Value</string>
-                   </property>
-                  </column>
-                  <item>
-                   <property name="text">
-                    <string notr="true">Solution 1</string>
-                   </property>
-                   <property name="text">
-                    <string notr="true">name</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Solution 2</string>
-                   </property>
-                   <property name="text">
-                    <string notr="true">name</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Solution 3</string>
-                   </property>
-                   <property name="text">
-                    <string notr="true">name</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Solution 4</string>
-                   </property>
-                   <property name="text">
-                    <string notr="true">name</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Solution 5</string>
-                   </property>
-                   <property name="text">
-                    <string>name</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Solution 6</string>
-                   </property>
-                   <property name="text">
-                    <string>name</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Pon def (mbar)</string>
-                   </property>
-                   <property name="text">
-                    <string notr="true">190</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Poff def (mbar)</string>
-                   </property>
-                   <property name="text">
-                    <string notr="true">21</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Vrecirc def (mbar)</string>
-                   </property>
-                   <property name="text">
-                    <string notr="true">-115</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Vswitch def (mbar)</string>
-                   </property>
-                   <property name="text">
-                    <string notr="true">-115</string>
-                   </property>
-                  </item>
-                  <item>
-                   <property name="text">
-                    <string>Protocol duration (s)</string>
-                   </property>
-                   <property name="text">
-                    <string notr="true">0</string>
-                   </property>
-                  </item>
                  </widget>
                 </item>
                </layout>

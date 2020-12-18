@@ -594,30 +594,31 @@ void Labonatip_GUI::updateFlows()
 	}
 
 	// update the tree widget
-	ui->treeWidget_macroInfo->topLevelItem(0)->setText(1,
+#pragma message("TODO: this was commented on 04122020 as the calculation is wrong, uncomment when the calculation is available")
+	/*ui->treeWidget_flowInfo->topLevelItem(0)->setText(1,
 		QString::number(m_pipette_status->outflow_tot, 'g', 3));
-	ui->treeWidget_macroInfo->topLevelItem(1)->setText(1,
+	ui->treeWidget_flowInfo->topLevelItem(1)->setText(1,
 		QString::number(m_pipette_status->inflow_recirculation, 'g', 4));
-	ui->treeWidget_macroInfo->topLevelItem(2)->setText(1,
+	ui->treeWidget_flowInfo->topLevelItem(2)->setText(1,
 		QString::number(m_pipette_status->inflow_switch, 'g', 4));
-	ui->treeWidget_macroInfo->topLevelItem(3)->setText(1,
+	ui->treeWidget_flowInfo->topLevelItem(3)->setText(1,
 		QString::number(m_pipette_status->in_out_ratio_tot, 'g', 2));
-	ui->treeWidget_macroInfo->topLevelItem(4)->setText(1,
+	ui->treeWidget_flowInfo->topLevelItem(4)->setText(1,
 		QString::number(m_pipette_status->flow_well1, 'g', 2));
-	ui->treeWidget_macroInfo->topLevelItem(5)->setText(1,
+	ui->treeWidget_flowInfo->topLevelItem(5)->setText(1,
 		QString::number(m_pipette_status->flow_well2, 'g', 2));
-	ui->treeWidget_macroInfo->topLevelItem(6)->setText(1,
+	ui->treeWidget_flowInfo->topLevelItem(6)->setText(1,
 		QString::number(m_pipette_status->flow_well3, 'g', 2));
-	ui->treeWidget_macroInfo->topLevelItem(7)->setText(1,
+	ui->treeWidget_flowInfo->topLevelItem(7)->setText(1,
 		QString::number(m_pipette_status->flow_well4, 'g', 2));
-	ui->treeWidget_macroInfo->topLevelItem(8)->setText(1,
+	ui->treeWidget_flowInfo->topLevelItem(8)->setText(1,
 		QString::number(m_pipette_status->flow_well5, 'g', 2));
-	ui->treeWidget_macroInfo->topLevelItem(9)->setText(1,
+	ui->treeWidget_flowInfo->topLevelItem(9)->setText(1,
 		QString::number(m_pipette_status->flow_well6, 'g', 2));
-	ui->treeWidget_macroInfo->topLevelItem(10)->setText(1,
+	ui->treeWidget_flowInfo->topLevelItem(10)->setText(1,
 		QString::number(m_pipette_status->flow_well7, 'g', 2));
-	ui->treeWidget_macroInfo->topLevelItem(11)->setText(1,
-		QString::number(m_pipette_status->flow_well8, 'g', 2));
+	ui->treeWidget_flowInfo->topLevelItem(11)->setText(1,
+		QString::number(m_pipette_status->flow_well8, 'g', 2));*/
 
 	return;
 }
@@ -680,7 +681,7 @@ void Labonatip_GUI::updateDrawing(int _value) {
 	int border_pen_pipe_width = 4; 
 	QBrush brush_pipes(Qt::transparent, Qt::NoBrush);
 	QPen border_pen_pipe1;
-	border_pen_pipe1.setColor(m_sol3_color); 
+	border_pen_pipe1.setColor(m_sol4_color);
 	border_pen_pipe1.setWidth(border_pen_pipe_width);
 	QPainterPath path_pipe1;
 	// void arcTo(qreal x, qreal y, qreal w, qreal h, qreal startAngle, qreal arcLength);
@@ -698,7 +699,7 @@ void Labonatip_GUI::updateDrawing(int _value) {
 	m_scene_solution->addPath(path_pipe1, border_pen_pipe1, brush_pipes);
 
 	QPen border_pen_pipe2;
-	border_pen_pipe2.setColor(m_sol1_color); 
+	border_pen_pipe2.setColor(m_sol2_color);
 	border_pen_pipe2.setWidth(border_pen_pipe_width);
 	QPainterPath path_pipe2;
 	// void arcTo(qreal x, qreal y, qreal w, qreal h, qreal startAngle, qreal arcLength);
@@ -716,7 +717,7 @@ void Labonatip_GUI::updateDrawing(int _value) {
 
 	
 	QPen border_pen_pipe3;
-	border_pen_pipe3.setColor(m_sol2_color); 
+	border_pen_pipe3.setColor(m_sol1_color); 
 	border_pen_pipe3.setWidth(border_pen_pipe_width);
 	QPainterPath path_pipe3; 
 	// void arcTo(qreal x, qreal y, qreal w, qreal h, qreal startAngle, qreal arcLength);
@@ -731,7 +732,7 @@ void Labonatip_GUI::updateDrawing(int _value) {
 
 	
 	QPen border_pen_pipe4;
-	border_pen_pipe4.setColor(m_sol4_color);
+	border_pen_pipe4.setColor(m_sol3_color);
 	border_pen_pipe4.setWidth(border_pen_pipe_width);
 	QPainterPath path_pipe4;
 	// void arcTo(qreal x, qreal y, qreal w, qreal h, qreal startAngle, qreal arcLength);
@@ -950,23 +951,23 @@ void Labonatip_GUI::updateWaste()
 		std::cerr << HERE << " error --- no max found " << std::endl;
 	}
 	}
-
+#pragma message("TODO: this was commented on 04122020 as the calculation is wrong, uncomment when the calculation is available")
 	int v = m_pipette_status->rem_vol_well1 * 10; // this is to set a single decimal digit
-	ui->treeWidget_macroInfo->topLevelItem(12)->setText(1, QString::number(v / 10.0));
+	/*ui->treeWidget_flowInfo->topLevelItem(12)->setText(1, QString::number(v / 10.0));
 	v = m_pipette_status->rem_vol_well2 * 10;
-	ui->treeWidget_macroInfo->topLevelItem(13)->setText(1, QString::number(v / 10.0));
+	ui->treeWidget_flowInfo->topLevelItem(13)->setText(1, QString::number(v / 10.0));
 	v = m_pipette_status->rem_vol_well3 * 10;
-	ui->treeWidget_macroInfo->topLevelItem(14)->setText(1, QString::number(v / 10.0));
+	ui->treeWidget_flowInfo->topLevelItem(14)->setText(1, QString::number(v / 10.0));
 	v = m_pipette_status->rem_vol_well4 * 10;
-	ui->treeWidget_macroInfo->topLevelItem(15)->setText(1, QString::number(v / 10.0));
+	ui->treeWidget_flowInfo->topLevelItem(15)->setText(1, QString::number(v / 10.0));
 	v = m_pipette_status->rem_vol_well5 * 10;
-	ui->treeWidget_macroInfo->topLevelItem(16)->setText(1, QString::number(v / 10.0));
+	ui->treeWidget_flowInfo->topLevelItem(16)->setText(1, QString::number(v / 10.0));
 	v = m_pipette_status->rem_vol_well6 * 10;
-	ui->treeWidget_macroInfo->topLevelItem(17)->setText(1, QString::number(v / 10.0));
+	ui->treeWidget_flowInfo->topLevelItem(17)->setText(1, QString::number(v / 10.0));
 	v = m_pipette_status->rem_vol_well7 * 10;
-	ui->treeWidget_macroInfo->topLevelItem(18)->setText(1, QString::number(v / 10.0));
+	ui->treeWidget_flowInfo->topLevelItem(18)->setText(1, QString::number(v / 10.0));
 	v = m_pipette_status->rem_vol_well8 * 10;
-	ui->treeWidget_macroInfo->topLevelItem(19)->setText(1, QString::number(v / 10.0));
+	ui->treeWidget_flowInfo->topLevelItem(19)->setText(1, QString::number(v / 10.0));*/
 
 	double value = 100.0 * m_pipette_status->rem_vol_well7 / m_solutionParams->vol_well7;
 	ui->progressBar_switch7->setValue(value);

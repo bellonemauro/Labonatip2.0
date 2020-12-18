@@ -683,6 +683,7 @@ namespace fluicell { namespace PPC1api6dataStructures
 				ask = 14,
 				pumpsOff = 15,
 				loop = 16,
+				END
 			};
 
 
@@ -699,10 +700,12 @@ namespace fluicell { namespace PPC1api6dataStructures
 			bool checkValidity() {
 			
 				// check that the instruction is valid
-				if (this->instruction < instructions::wait) return false;
-				if (this->instruction > instructions::loop) return false;
+				if (this->instruction < 0) return false;
+				if (this->instruction > instructions::END) return false;
 
 				int inst = this->instruction;
+
+
 
 				switch (inst) {
 				case instructions::setPon: { //setPon

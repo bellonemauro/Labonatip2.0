@@ -214,7 +214,7 @@ font-weight: 900;
             <item row="0" column="0">
              <widget class="QStackedWidget" name="stackedWidget_main">
               <property name="currentIndex">
-               <number>1</number>
+               <number>0</number>
               </property>
               <widget class="QWidget" name="page">
                <layout class="QGridLayout" name="gridLayout_18">
@@ -2782,9 +2782,9 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                  <number>0</number>
                 </property>
                 <item>
-                 <widget class="QGroupBox" name="groupBox_14">
+                 <widget class="QTabWidget" name="tabWidget_editor">
                   <property name="sizePolicy">
-                   <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
@@ -2795,6 +2795,11 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                     <height>233</height>
                    </size>
                   </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
                   <property name="styleSheet">
                    <string notr="true">QGroupBox { 
      border: 2px solid  rgb(250, 250, 250); ; 
@@ -2804,34 +2809,38 @@ QPushButton:disabled{ background-color: #CCCCCC; }
 
  } </string>
                   </property>
-                  <property name="title">
-                   <string>GroupBox</string>
+                  <property name="currentIndex">
+                   <number>0</number>
                   </property>
-                  <layout class="QGridLayout" name="gridLayout_20">
-                   <property name="leftMargin">
-                    <number>5</number>
-                   </property>
-                   <property name="topMargin">
-                    <number>5</number>
-                   </property>
-                   <property name="rightMargin">
-                    <number>0</number>
-                   </property>
-                   <property name="bottomMargin">
-                    <number>5</number>
-                   </property>
-                   <item row="0" column="2">
-                    <widget class="QTreeWidget" name="treeWidget_macroTable">
-                     <property name="font">
-                      <font>
-                       <pointsize>11</pointsize>
-                      </font>
-                     </property>
-                     <property name="accessibleDescription">
-                      <string notr="true"/>
-                     </property>
-                     <property name="styleSheet">
-                      <string notr="true">QTreeView {
+                  <widget class="QWidget" name="tabWidgetPage_editorTree" native="true">
+                   <attribute name="title">
+                    <string>Tree</string>
+                   </attribute>
+                   <layout class="QGridLayout" name="gridLayout_20">
+                    <property name="leftMargin">
+                     <number>5</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>5</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>5</number>
+                    </property>
+                    <item row="0" column="2">
+                     <widget class="QTreeWidget" name="treeWidget_macroTable">
+                      <property name="font">
+                       <font>
+                        <pointsize>11</pointsize>
+                       </font>
+                      </property>
+                      <property name="accessibleDescription">
+                       <string notr="true"/>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">QTreeView {
     show-decoration-selected: 1;
 	color: rgb(80, 80, 80);
 }
@@ -2913,107 +2922,147 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
 }
 
 </string>
-                     </property>
-                     <property name="frameShape">
-                      <enum>QFrame::Box</enum>
-                     </property>
-                     <property name="frameShadow">
-                      <enum>QFrame::Raised</enum>
-                     </property>
-                     <property name="lineWidth">
-                      <number>0</number>
-                     </property>
-                     <property name="midLineWidth">
-                      <number>0</number>
-                     </property>
-                     <property name="autoScroll">
-                      <bool>true</bool>
-                     </property>
-                     <property name="editTriggers">
-                      <set>QAbstractItemView::CurrentChanged|QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed|QAbstractItemView::SelectedClicked</set>
-                     </property>
-                     <property name="dragEnabled">
-                      <bool>true</bool>
-                     </property>
-                     <property name="dragDropMode">
-                      <enum>QAbstractItemView::NoDragDrop</enum>
-                     </property>
-                     <property name="defaultDropAction">
-                      <enum>Qt::MoveAction</enum>
-                     </property>
-                     <property name="alternatingRowColors">
-                      <bool>true</bool>
-                     </property>
-                     <property name="selectionMode">
-                      <enum>QAbstractItemView::SingleSelection</enum>
-                     </property>
-                     <property name="selectionBehavior">
-                      <enum>QAbstractItemView::SelectRows</enum>
-                     </property>
-                     <property name="textElideMode">
-                      <enum>Qt::ElideNone</enum>
-                     </property>
-                     <property name="animated">
-                      <bool>true</bool>
-                     </property>
-                     <property name="wordWrap">
-                      <bool>true</bool>
-                     </property>
-                     <property name="headerHidden">
-                      <bool>false</bool>
-                     </property>
-                     <property name="columnCount">
-                      <number>5</number>
-                     </property>
-                     <column>
-                      <property name="text">
-                       <string>#</string>
                       </property>
-                      <property name="textAlignment">
-                       <set>AlignCenter</set>
+                      <property name="frameShape">
+                       <enum>QFrame::Box</enum>
                       </property>
-                     </column>
-                     <column>
-                      <property name="text">
-                       <string>Command</string>
+                      <property name="frameShadow">
+                       <enum>QFrame::Raised</enum>
                       </property>
-                      <property name="textAlignment">
-                       <set>AlignCenter</set>
+                      <property name="lineWidth">
+                       <number>0</number>
                       </property>
-                     </column>
-                     <column>
-                      <property name="text">
-                       <string>Range</string>
+                      <property name="midLineWidth">
+                       <number>0</number>
                       </property>
-                      <property name="textAlignment">
-                       <set>AlignCenter</set>
+                      <property name="autoScroll">
+                       <bool>true</bool>
                       </property>
-                     </column>
-                     <column>
-                      <property name="text">
-                       <string>Value</string>
+                      <property name="editTriggers">
+                       <set>QAbstractItemView::CurrentChanged|QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed|QAbstractItemView::SelectedClicked</set>
                       </property>
-                      <property name="textAlignment">
-                       <set>AlignCenter</set>
+                      <property name="dragEnabled">
+                       <bool>true</bool>
                       </property>
-                     </column>
-                     <column>
-                      <property name="text">
-                       <string>Status message</string>
+                      <property name="dragDropMode">
+                       <enum>QAbstractItemView::NoDragDrop</enum>
                       </property>
-                      <property name="toolTip">
-                       <string>The status message will be visualized in the status bar</string>
+                      <property name="defaultDropAction">
+                       <enum>Qt::MoveAction</enum>
                       </property>
-                      <property name="statusTip">
-                       <string>The status message will be visualized in the status bar</string>
+                      <property name="alternatingRowColors">
+                       <bool>true</bool>
                       </property>
-                      <property name="whatsThis">
-                       <string>The status message will be visualized in the status bar</string>
+                      <property name="selectionMode">
+                       <enum>QAbstractItemView::SingleSelection</enum>
                       </property>
-                     </column>
-                    </widget>
-                   </item>
-                  </layout>
+                      <property name="selectionBehavior">
+                       <enum>QAbstractItemView::SelectRows</enum>
+                      </property>
+                      <property name="textElideMode">
+                       <enum>Qt::ElideNone</enum>
+                      </property>
+                      <property name="animated">
+                       <bool>true</bool>
+                      </property>
+                      <property name="wordWrap">
+                       <bool>true</bool>
+                      </property>
+                      <property name="headerHidden">
+                       <bool>false</bool>
+                      </property>
+                      <property name="columnCount">
+                       <number>5</number>
+                      </property>
+                      <column>
+                       <property name="text">
+                        <string>#</string>
+                       </property>
+                       <property name="textAlignment">
+                        <set>AlignCenter</set>
+                       </property>
+                      </column>
+                      <column>
+                       <property name="text">
+                        <string>Command</string>
+                       </property>
+                       <property name="textAlignment">
+                        <set>AlignCenter</set>
+                       </property>
+                      </column>
+                      <column>
+                       <property name="text">
+                        <string>Range</string>
+                       </property>
+                       <property name="textAlignment">
+                        <set>AlignCenter</set>
+                       </property>
+                      </column>
+                      <column>
+                       <property name="text">
+                        <string>Value</string>
+                       </property>
+                       <property name="textAlignment">
+                        <set>AlignCenter</set>
+                       </property>
+                      </column>
+                      <column>
+                       <property name="text">
+                        <string>Status message</string>
+                       </property>
+                       <property name="toolTip">
+                        <string>The status message will be visualized in the status bar</string>
+                       </property>
+                       <property name="statusTip">
+                        <string>The status message will be visualized in the status bar</string>
+                       </property>
+                       <property name="whatsThis">
+                        <string>The status message will be visualized in the status bar</string>
+                       </property>
+                      </column>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                  <widget class="QWidget" name="tabWidgetPage_editorXMLCode">
+                   <attribute name="title">
+                    <string>XML code</string>
+                   </attribute>
+                   <layout class="QGridLayout" name="gridLayout_32">
+                    <item row="0" column="0">
+                     <widget class="QTextBrowser" name="textBrowser_XMLcode">
+                      <property name="font">
+                       <font>
+                        <pointsize>11</pointsize>
+                       </font>
+                      </property>
+                      <property name="frameShape">
+                       <enum>QFrame::NoFrame</enum>
+                      </property>
+                      <property name="readOnly">
+                       <bool>false</bool>
+                      </property>
+                      <property name="textInteractionFlags">
+                       <set>Qt::LinksAccessibleByKeyboard|Qt::LinksAccessibleByMouse|Qt::TextBrowserInteraction|Qt::TextEditable|Qt::TextSelectableByMouse</set>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                  <widget class="QWidget" name="tabWidgetPage_editorMachineCode">
+                   <attribute name="title">
+                    <string>Machine Code</string>
+                   </attribute>
+                   <layout class="QGridLayout" name="gridLayout_33">
+                    <item row="0" column="0">
+                     <widget class="QTextBrowser" name="textBrowser_machineCode">
+                      <property name="frameShape">
+                       <enum>QFrame::NoFrame</enum>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
                  </widget>
                 </item>
                 <item>
@@ -3835,7 +3884,7 @@ QCheckBox::indicator:unchecked {
 }</string>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <widget class="QWidget" name="page_runner">
         <layout class="QGridLayout" name="gridLayout_19">
@@ -6570,7 +6619,7 @@ p, li { white-space: pre-wrap; }
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>357</width>
+                  <width>218</width>
                   <height>2655</height>
                  </rect>
                 </property>
@@ -8635,7 +8684,7 @@ p, li { white-space: pre-wrap; }
           <number>0</number>
          </property>
          <item row="0" column="0">
-          <widget class="QTabWidget" name="tabWidget_editor">
+          <widget class="QTabWidget" name="tabWidget_editor_advanced">
            <property name="font">
             <font>
              <pointsize>11</pointsize>
@@ -8656,9 +8705,9 @@ p, li { white-space: pre-wrap; }
            <property name="documentMode">
             <bool>true</bool>
            </property>
-           <widget class="QWidget" name="tab_6">
+           <widget class="QWidget" name="ProtocolBrowser">
             <attribute name="title">
-             <string>Params</string>
+             <string>Browser</string>
             </attribute>
             <layout class="QGridLayout" name="gridLayout_31">
              <property name="leftMargin">
@@ -8734,166 +8783,6 @@ QTreeView::item:selected:!active {
                 <property name="bottomMargin">
                  <number>2</number>
                 </property>
-                <item>
-                 <widget class="QGroupBox" name="groupBox_17">
-                  <property name="minimumSize">
-                   <size>
-                    <width>0</width>
-                    <height>200</height>
-                   </size>
-                  </property>
-                  <property name="maximumSize">
-                   <size>
-                    <width>16777215</width>
-                    <height>320</height>
-                   </size>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">QGroupBox { 
-     border: 2px solid  rgb(250, 250, 250); ; 
-     border-radius: 10px; 
-    color: rgb( 250, 250, 250);
-    background-color: rgb(250, 250, 250);
-
- } </string>
-                  </property>
-                  <property name="title">
-                   <string>GroupBox</string>
-                  </property>
-                  <layout class="QGridLayout" name="gridLayout_29">
-                   <property name="leftMargin">
-                    <number>5</number>
-                   </property>
-                   <property name="topMargin">
-                    <number>5</number>
-                   </property>
-                   <property name="rightMargin">
-                    <number>5</number>
-                   </property>
-                   <property name="bottomMargin">
-                    <number>5</number>
-                   </property>
-                   <item row="1" column="0">
-                    <widget class="QTreeWidget" name="treeWidget_params">
-                     <property name="minimumSize">
-                      <size>
-                       <width>0</width>
-                       <height>0</height>
-                      </size>
-                     </property>
-                     <property name="maximumSize">
-                      <size>
-                       <width>16777215</width>
-                       <height>16777215</height>
-                      </size>
-                     </property>
-                     <property name="font">
-                      <font>
-                       <pointsize>11</pointsize>
-                      </font>
-                     </property>
-                     <property name="accessibleDescription">
-                      <string/>
-                     </property>
-                     <property name="styleSheet">
-                      <string notr="true"/>
-                     </property>
-                     <property name="frameShape">
-                      <enum>QFrame::NoFrame</enum>
-                     </property>
-                     <property name="indentation">
-                      <number>10</number>
-                     </property>
-                     <attribute name="headerVisible">
-                      <bool>false</bool>
-                     </attribute>
-                     <column>
-                      <property name="text">
-                       <string>Solutions</string>
-                      </property>
-                     </column>
-                     <column>
-                      <property name="text">
-                       <string>Value</string>
-                      </property>
-                     </column>
-                     <item>
-                      <property name="text">
-                       <string notr="true">Solution 1</string>
-                      </property>
-                      <property name="text">
-                       <string notr="true">name</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Solution 2</string>
-                      </property>
-                      <property name="text">
-                       <string notr="true">name</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Solution 3</string>
-                      </property>
-                      <property name="text">
-                       <string notr="true">name</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Solution 4</string>
-                      </property>
-                      <property name="text">
-                       <string notr="true">name</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Pon def (mbar)</string>
-                      </property>
-                      <property name="text">
-                       <string notr="true">190</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Poff def (mbar)</string>
-                      </property>
-                      <property name="text">
-                       <string notr="true">21</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Vrecirc def (mbar)</string>
-                      </property>
-                      <property name="text">
-                       <string notr="true">-115</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Vswitch def (mbar)</string>
-                      </property>
-                      <property name="text">
-                       <string notr="true">-115</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Protocol duration (s)</string>
-                      </property>
-                      <property name="text">
-                       <string notr="true">0</string>
-                      </property>
-                     </item>
-                    </widget>
-                   </item>
-                  </layout>
-                 </widget>
-                </item>
                 <item>
                  <widget class="QGroupBox" name="groupBox_18">
                   <property name="styleSheet">
@@ -9033,6 +8922,173 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                     </widget>
                    </item>
                   </layout>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+           <widget class="QWidget" name="Params">
+            <attribute name="title">
+             <string>Params</string>
+            </attribute>
+            <layout class="QVBoxLayout" name="verticalLayout_6">
+             <item>
+              <widget class="QGroupBox" name="groupBox_17">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>200</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">QGroupBox { 
+     border: 2px solid  rgb(250, 250, 250); ; 
+     border-radius: 10px; 
+    color: rgb( 250, 250, 250);
+    background-color: rgb(250, 250, 250);
+
+ } </string>
+               </property>
+               <property name="title">
+                <string>GroupBox</string>
+               </property>
+               <layout class="QGridLayout" name="gridLayout_29">
+                <property name="leftMargin">
+                 <number>5</number>
+                </property>
+                <property name="topMargin">
+                 <number>5</number>
+                </property>
+                <property name="rightMargin">
+                 <number>5</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>5</number>
+                </property>
+                <item row="1" column="0">
+                 <widget class="QTreeWidget" name="treeWidget_params">
+                  <property name="minimumSize">
+                   <size>
+                    <width>0</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>16777215</width>
+                    <height>16777215</height>
+                   </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <pointsize>11</pointsize>
+                   </font>
+                  </property>
+                  <property name="accessibleDescription">
+                   <string/>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true"/>
+                  </property>
+                  <property name="frameShape">
+                   <enum>QFrame::NoFrame</enum>
+                  </property>
+                  <property name="indentation">
+                   <number>10</number>
+                  </property>
+                  <attribute name="headerVisible">
+                   <bool>false</bool>
+                  </attribute>
+                  <column>
+                   <property name="text">
+                    <string>Solutions</string>
+                   </property>
+                  </column>
+                  <column>
+                   <property name="text">
+                    <string>Value</string>
+                   </property>
+                  </column>
+                  <item>
+                   <property name="text">
+                    <string notr="true">Solution 1</string>
+                   </property>
+                   <property name="text">
+                    <string notr="true">name</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Solution 2</string>
+                   </property>
+                   <property name="text">
+                    <string notr="true">name</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Solution 3</string>
+                   </property>
+                   <property name="text">
+                    <string notr="true">name</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Solution 4</string>
+                   </property>
+                   <property name="text">
+                    <string notr="true">name</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Pon def (mbar)</string>
+                   </property>
+                   <property name="text">
+                    <string notr="true">190</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Poff def (mbar)</string>
+                   </property>
+                   <property name="text">
+                    <string notr="true">21</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Vrecirc def (mbar)</string>
+                   </property>
+                   <property name="text">
+                    <string notr="true">-115</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Vswitch def (mbar)</string>
+                   </property>
+                   <property name="text">
+                    <string notr="true">-115</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Protocol duration (s)</string>
+                   </property>
+                   <property name="text">
+                    <string notr="true">0</string>
+                   </property>
+                  </item>
                  </widget>
                 </item>
                </layout>

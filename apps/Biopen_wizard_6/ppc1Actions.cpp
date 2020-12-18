@@ -158,16 +158,16 @@ void Labonatip_GUI::runProtocol()
 
 void Labonatip_GUI::runProtocolFile(QString _protocol_path) {
 
-	std::cout << HERE << std::endl;
+	std::cout << HERE << " :: running protocol --> " << _protocol_path.toStdString() << std::endl;
 
 	if (!m_macroRunner_thread->isRunning()) { 
 
-		if (!m_protocol) {
-			QMessageBox::information(this, m_str_information,
-				m_str_no_protocol_load_first);
-			return;
-		} 
-		QApplication::setOverrideCursor(Qt::WaitCursor);
+		//if (!m_protocol) {
+		//	QMessageBox::information(this, m_str_information,
+		//		m_str_no_protocol_load_first);
+		//	return;
+		//} 
+		//QApplication::setOverrideCursor(Qt::WaitCursor);
 		
 		// Reload the protocol in a virtual tree every time is executed to avoid 
 		// modifications to the existing protocol in the editor
@@ -181,7 +181,9 @@ void Labonatip_GUI::runProtocolFile(QString _protocol_path) {
 		QApplication::restoreOverrideCursor();
 
 		m_ppc1->setVerbose(false);
-		
+
+		std::cout << HERE << " :: running protocol --> protocol size " << m_protocol->size() << std::endl;
+
 		m_macroRunner_thread->setProtocol(m_protocol);
 		m_macroRunner_thread->setSimulationFlag(m_simulationOnly);
 
@@ -510,6 +512,7 @@ void Labonatip_GUI::setStandardAndSlow()
 {
 	std::cout << HERE << std::endl;
 	
+	// if the button is unchecked, check it and uncheck all the others
 	if (ui->pushButton_standardAndSlow->isChecked())
 	{
 		// uncheck the other buttons
@@ -519,10 +522,10 @@ void Labonatip_GUI::setStandardAndSlow()
 
 
 		// get the values 
-		int new_p_on_default = 40;
-		int new_p_off_default = 8;
-		int new_v_switch_default = -45;
-		int new_v_recirc_default = -90;
+		int new_p_on_default = m_pr_params->p_on_sAs;// 40;
+		int new_p_off_default = m_pr_params->p_off_sAs;//8;
+		int new_v_switch_default = m_pr_params->v_switch_sAs;//-90;
+		int new_v_recirc_default = m_pr_params->v_recirc_sAs;//-45;
 		//    <setPon value="40" message=" "/>
 		//    <setPoff value = "8" message = " " / >
 		//    <setVrecirc value = "-45" message = " " / >
@@ -532,24 +535,12 @@ void Labonatip_GUI::setStandardAndSlow()
 		m_dialog_tools->setDefaultPressuresVacuums(new_p_on_default, new_p_off_default, 
 			-new_v_recirc_default, -new_v_switch_default);
 
-		updatePonSetPoint(new_p_on_default);
-		updatePoffSetPoint(new_p_off_default);
-		updateVswitchSetPoint(-new_v_switch_default);
-		updateVrecircSetPoint(-new_v_recirc_default);
-
+		QMessageBox::information(this, m_str_information,
+			m_new_settings_applied);
 	}
-	else
-	{
-		// reset to classical values
-		m_dialog_tools->setDefaultPressuresVacuums(m_pr_params->p_on_classical, m_pr_params->p_off_classical,
-			-m_pr_params->v_recirc_classical, -m_pr_params->v_switch_classical);
-		updatePonSetPoint(m_pr_params->p_on_classical);
-		updatePoffSetPoint(m_pr_params->p_off_classical);
-		updateVswitchSetPoint(-m_pr_params->v_switch_classical);
-		updateVrecircSetPoint(-m_pr_params->v_recirc_classical);
-
+	else {
+		ui->pushButton_standardAndSlow->setChecked(true);
 	}
-
 }
 
 void Labonatip_GUI::setStandardAndRegular()
@@ -558,16 +549,17 @@ void Labonatip_GUI::setStandardAndRegular()
 
 	if (ui->pushButton_standardAndRegular->isChecked())
 	{
+		std::cout << HERE << "CHECKED" << std::endl;
 		// uncheck the other buttons
 		ui->pushButton_standardAndSlow->setChecked(false);
 		ui->pushButton_largeAndSlow->setChecked(false);
 		ui->pushButton_largeAndRegular->setChecked(false);
 
 		// get the values 
-		int new_p_on_default = 50;
-		int new_p_off_default = 11;
-		int new_v_switch_default = -75;
-		int new_v_recirc_default = -115;
+		int new_p_on_default = m_pr_params->p_on_sAr;// 50;
+		int new_p_off_default = m_pr_params->p_off_sAr;//11;
+		int new_v_switch_default = m_pr_params->v_switch_sAr;//-115;
+		int new_v_recirc_default = m_pr_params->v_recirc_sAr;//-75;
 		//    <setPon value="50" message=" "/>
 		//    <setPoff value = "11" message = " " / >
 		//	<setVrecirc value = "-75" message = " " / >
@@ -577,23 +569,12 @@ void Labonatip_GUI::setStandardAndRegular()
 		m_dialog_tools->setDefaultPressuresVacuums(new_p_on_default, new_p_off_default,
 			-new_v_recirc_default, -new_v_switch_default);
 
-		updatePonSetPoint(new_p_on_default);
-		updatePoffSetPoint(new_p_off_default);
-		updateVswitchSetPoint(-new_v_switch_default);
-		updateVrecircSetPoint(-new_v_recirc_default);
+		QMessageBox::information(this, m_str_information,
+			m_new_settings_applied);
 	}
-	else
-	{
-		// reset to classical values
-		m_dialog_tools->setDefaultPressuresVacuums(m_pr_params->p_on_classical, m_pr_params->p_off_classical,
-			-m_pr_params->v_recirc_classical, -m_pr_params->v_switch_classical);
-		updatePonSetPoint(m_pr_params->p_on_classical);
-		updatePoffSetPoint(m_pr_params->p_off_classical);
-		updateVswitchSetPoint(-m_pr_params->v_switch_classical);
-		updateVrecircSetPoint(-m_pr_params->v_recirc_classical);
+	else {
+		ui->pushButton_standardAndRegular->setChecked(true);
 	}
-
-
 }
 
 void Labonatip_GUI::setLargeAndSlow()
@@ -608,10 +589,10 @@ void Labonatip_GUI::setLargeAndSlow()
 		ui->pushButton_largeAndRegular->setChecked(false);
 
 		// get the values 
-		int new_p_on_default = 40;
-		int new_p_off_default = 8;
-		int new_v_switch_default = -45;
-		int new_v_recirc_default = -80;
+		int new_p_on_default = m_pr_params->p_on_lAs;// 40;
+		int new_p_off_default = m_pr_params->p_off_lAs;//8;
+		int new_v_switch_default = m_pr_params->v_switch_lAs;//-80;
+		int new_v_recirc_default = m_pr_params->v_recirc_lAs;//45;
 		//    <setPon value="40" message=" "/>
 		//    <setPoff value = "8" message = " " / >
 		//	<setVrecirc value = "-45" message = " " / >
@@ -621,22 +602,12 @@ void Labonatip_GUI::setLargeAndSlow()
 		m_dialog_tools->setDefaultPressuresVacuums(new_p_on_default, new_p_off_default,
 			-new_v_recirc_default, -new_v_switch_default);
 
-		updatePonSetPoint(new_p_on_default);
-		updatePoffSetPoint(new_p_off_default);
-		updateVswitchSetPoint(-new_v_switch_default);
-		updateVrecircSetPoint(-new_v_recirc_default);
+		QMessageBox::information(this, m_str_information,
+			m_new_settings_applied);
 	}
-	else
-	{
-		// reset to classical values
-		m_dialog_tools->setDefaultPressuresVacuums(m_pr_params->p_on_classical, m_pr_params->p_off_classical,
-			-m_pr_params->v_recirc_classical, -m_pr_params->v_switch_classical);
-		updatePonSetPoint(m_pr_params->p_on_classical);
-		updatePoffSetPoint(m_pr_params->p_off_classical);
-		updateVswitchSetPoint(-m_pr_params->v_switch_classical);
-		updateVrecircSetPoint(-m_pr_params->v_recirc_classical);
+	else {
+		ui->pushButton_largeAndSlow->setChecked(true);
 	}
-
 }
 
 void Labonatip_GUI::setLargeAndRegular()
@@ -651,10 +622,10 @@ void Labonatip_GUI::setLargeAndRegular()
 		ui->pushButton_largeAndSlow->setChecked(false);
 		
 		// get the values 
-		int new_p_on_default = 50;
-		int new_p_off_default = 11;
-		int new_v_switch_default = -60;
-		int new_v_recirc_default = -105;
+		int new_p_on_default = m_pr_params->p_on_lAr;// 50;
+		int new_p_off_default = m_pr_params->p_off_lAr;//11;
+		int new_v_switch_default = m_pr_params->v_switch_lAr;//-105;
+		int new_v_recirc_default = m_pr_params->v_recirc_lAr;//-60;
 		//    <setPon value="50" message=" "/>
 		//    <setPoff value = "11" message = " " / >
 		//	<setVrecirc value = "-60" message = " " / >
@@ -664,19 +635,10 @@ void Labonatip_GUI::setLargeAndRegular()
 		m_dialog_tools->setDefaultPressuresVacuums(new_p_on_default, new_p_off_default,
 			-new_v_recirc_default, -new_v_switch_default);
 
-		updatePonSetPoint(new_p_on_default);
-		updatePoffSetPoint(new_p_off_default);
-		updateVswitchSetPoint(-new_v_switch_default);
-		updateVrecircSetPoint(-new_v_recirc_default);
+		QMessageBox::information(this, m_str_information,
+			m_new_settings_applied);
 	}
-	else
-	{
-		// reset to classical values
-		m_dialog_tools->setDefaultPressuresVacuums(m_pr_params->p_on_classical, m_pr_params->p_off_classical,
-			-m_pr_params->v_recirc_classical, -m_pr_params->v_switch_classical);
-		updatePonSetPoint(m_pr_params->p_on_classical);
-		updatePoffSetPoint(m_pr_params->p_off_classical);
-		updateVswitchSetPoint(-m_pr_params->v_switch_classical);
-		updateVrecircSetPoint(-m_pr_params->v_recirc_classical);
+	else {
+		ui->pushButton_largeAndRegular->setChecked(true);
 	}
 }

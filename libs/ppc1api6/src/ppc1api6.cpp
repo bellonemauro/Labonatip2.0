@@ -802,7 +802,11 @@ double fluicell::PPC1api6::getFlow(double _square_channel_mod,
 bool fluicell::PPC1api6::runCommand(fluicell::PPC1api6dataStructures::command _cmd) const
 {
 	if (!_cmd.checkValidity())  {
-		logError(HERE, " check validity failed ");
+		std::string msg = " check validity failed ";
+		msg.append(_cmd.getCommandAsString());
+		msg.append(" value ");
+		msg.append(std::to_string(_cmd.getValue()));
+		logError(HERE, msg );
 		return false;
 	}
 

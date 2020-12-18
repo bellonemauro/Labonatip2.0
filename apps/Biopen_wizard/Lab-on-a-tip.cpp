@@ -10,7 +10,7 @@
 #include "Lab-on-a-tip.h"
 #include <QtCharts/QCategoryAxis>
 #include <QtCharts/QAbstractAxis>
-#include <QDesktopServices>
+
 
 Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	QMainWindow(parent),
@@ -188,6 +188,10 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   ui->treeWidget_macroTable->setColumnWidth(editorParams::c_command, 240);
   ui->treeWidget_macroTable->setColumnWidth(editorParams::c_range, 160);
   ui->treeWidget_macroTable->setColumnWidth(editorParams::c_value, 100);
+  
+  ui->tabWidget_editor->setCurrentIndex(0);
+  new XmlSyntaxHighlighter(ui->textBrowser_XMLcode->document());
+  ui->tabWidget_editor_advanced->setCurrentIndex(0);
 
   // set delegates
   m_combo_delegate = new ComboBoxDelegate();
@@ -803,6 +807,10 @@ void Labonatip_GUI::initConnects()
 	connect(ui->treeWidget_protocol_folder,
 		SIGNAL(customContextMenuRequested(const QPoint&)),
 		this, SLOT(protocolsMenu(const QPoint&)));
+	
+	connect(ui->tabWidget_editor,
+		SIGNAL(currentChanged(int)),
+		this, SLOT(onTabEditorChanged(int)));
 
 	connect(ui->pushButton_undo,
 		SIGNAL(clicked()), this, SLOT(undo()));
@@ -1447,6 +1455,98 @@ void Labonatip_GUI::closeBiopen()
 	qApp->quit();
 }
 
+bool Labonatip_GUI::saveXml()
+{
+	QString file_name =
+		QFileDialog::getSaveFileName(this, tr("Save Protocol File"),
+			QDir::currentPath(),
+			tr("XBEL Files (*.prt *.xml)"));
+	if (!file_name.isEmpty())
+		return saveXml(file_name, ui->treeWidget_macroTable);
+
+	return false;
+}
+
+bool Labonatip_GUI::saveXml(QString _filename, QTreeWidget* _widget)
+{
+	QFile file(_filename);
+	if (_filename.contains("stopSolution", Qt::CaseSensitive) ||
+		_filename.contains("pumpSolution", Qt::CaseSensitive))
+	{
+		// Ask for the password
+		bool ok;
+		QString text = QInputDialog::getText(0, m_str_warning,
+			m_ask_password, QLineEdit::Password,
+			"", &ok);
+		if (ok && !text.isEmpty()) {
+			QString password = text;
+			QString password_check = "FluicellGrowth2018";
+			if (!password.compare(password_check))
+			{
+				QMessageBox::information(this, m_str_information, m_correct_password);
+				// continue out of the if statement
+			}
+			else
+			{
+				QMessageBox::warning(this, m_str_information, m_wrong_password);
+				return false;
+			}
+		}
+	}
+
+	if (!file.open(QFile::WriteOnly | QFile::Text)) {
+		QMessageBox::warning(this, m_str_warning,
+			m_str_file_not_saved + tr("<br>%1:\n%2.")
+			.arg(QDir::toNativeSeparators(_filename),
+				file.errorString()));
+		return false;
+	}
+	XmlProtocolWriter writer(_widget);
+	if (writer.writeFile(&file))
+	{
+		return true;
+	}
+
+	return false;
+}
+
+bool Labonatip_GUI::openXml()
+{
+	QString fileName =
+		QFileDialog::getOpenFileName(this, tr("Open  File"),
+			QDir::currentPath(),
+			tr("prt Files (*.prt *.xml)"));
+	if (fileName.isEmpty())
+		return false;
+
+	//ui->treeWidget_macroTable->clear();
+
+	return openXml(fileName, ui->treeWidget_macroTable);
+}
+
+
+bool Labonatip_GUI::openXml(QString _filename, QTreeWidget* _widget)
+{
+
+	XmlProtocolReader reader(_widget);
+	//if (!reader.read(&file, dynamic_cast<protocolTreeWidgetItem*> (
+	//	ui->treeWidget_macroTable->currentItem()))) 
+	QFile file(_filename);
+	if (!file.open(QFile::ReadOnly | QFile::Text)) {
+		std::cerr << HERE << " impossible to open the file " << std::endl;
+		return false;
+	}
+	if (!reader.read(&file, 0))
+	{
+		QMessageBox::warning(this, m_str_warning,
+			m_str_no_file_loaded + tr("<br>Is this a xml file protocol? <br>%1:\n%2.")
+			.arg(QDir::toNativeSeparators(_filename),
+				reader.errorString()));
+		return true;
+	}
+	return false;
+
+}
 Labonatip_GUI::~Labonatip_GUI()
 {
   delete qout;

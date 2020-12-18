@@ -836,6 +836,8 @@ private:
   void traverseChildren(protocolTreeWidgetItem* _item, 
 	  std::vector<protocolTreeWidgetItem*>* _command_vector);
 
+  void createOperationalModeCommand(int _p_on, int _p_off, int _v_s, int _v_r,
+	  std::vector<protocolTreeWidgetItem*>* _command_vector);
 
   void updateTreeView(QTreeWidget* _tree);
   void updateChildrenView(protocolTreeWidgetItem* _parent);
@@ -1002,6 +1004,8 @@ private:
   NoEditDelegate * m_no_edit_delegate2;
   SpinBoxDelegate * m_spinbox_delegate;
 
+  int m_last_treeWidget_editor_idx;
+
   // this is used only to pass the row index
   // from the popup menu into the tree widget
   // to the delete_protocol function
@@ -1108,6 +1112,7 @@ private:
   QString m_str_question_override;
   QString m_str_override_guide;
   QString m_str_file_not_saved;
+  QString m_str_file_not_loaded;
   QString m_str_save_protocol;
   QString m_str_clear_commands;
   QString m_str_solution_ended;
@@ -1117,6 +1122,7 @@ private:
   QString m_ask_password;
   QString m_wrong_password;
   QString m_correct_password;
+  QString m_new_settings_applied; 
 
   // speech synthesis
   QTextToSpeech *m_speech;
