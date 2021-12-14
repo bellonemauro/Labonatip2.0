@@ -1314,7 +1314,7 @@ void Labonatip_GUI::enableTab2(bool _enable)
 	ui->pushButton_p_on_up->setEnabled(_enable);
 		
 	ui->pushButton_p_off_down->setEnabled(_enable);
-	ui->horizontalSlider_p_on->setEnabled(_enable);
+	ui->horizontalSlider_p_off->setEnabled(_enable);
 	ui->pushButton_p_off_up->setEnabled(_enable);
 
 	ui->pushButton_switchDown->setEnabled(_enable);

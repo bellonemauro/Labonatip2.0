@@ -13,11 +13,11 @@ project(Biopen_wizard)
 #  set variables for compilation 
 # --------------------------------------
 # select all headers in the include dir
-FILE(GLOB myProject_HEADERS "${PROJECT_SOURCE_DIR}/*.h")   
+FILE(GLOB myProject_HEADERS "${PROJECT_SOURCE_DIR}/include/*.h")   
 # select all sources in the include dir
-FILE(GLOB myProject_SOURCES "${PROJECT_SOURCE_DIR}/*.cpp")  
+FILE(GLOB myProject_SOURCES "${PROJECT_SOURCE_DIR}/src/*.cpp")  
 # select all files for the graphical interface
-FILE(GLOB myProject_FORMS "${PROJECT_SOURCE_DIR}/*.ui")
+FILE(GLOB myProject_FORMS "${PROJECT_SOURCE_DIR}/forms/*.ui")
 # select all files for the resources
 FILE(GLOB myProject_UI_RESOURCES "${PROJECT_SOURCE_DIR}/*.qrc")
 # select all files for the resources
@@ -40,7 +40,7 @@ ENDIF()
 	
 # this is necessary to find in the code the ui____.h file built in the build folder
 include_directories(${PROJECT_BINARY_DIR}) 
-
+include_directories(${PROJECT_SOURCE_DIR}/include/)
 
 # copy icons and configuration files to the building folder
 if(MSVC)
