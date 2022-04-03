@@ -1,3 +1,12 @@
+V2.2.4
+Removed bug of a few commands in the editor generating random crash
+Removed old reference to the "internal" folder, wrongly coming from BioZone
+
+V2.2.1
+First working version with XML support
+Added support for CH6 unit, still experimental feature
+Clean up
+
 V.2.1.14
 XML load/unload working
 Full change of the old protocol text format to xml (Including writer and reader), limited backward compability
