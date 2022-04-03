@@ -27,9 +27,7 @@ public:
 
     QString errorString() const;
 
-    static inline QString valueAttribute() { return QStringLiteral("value"); }
-    static inline QString messageAttribute() { return QStringLiteral("message"); }
-    static inline QString versionAttribute() { return QStringLiteral("version"); }
+    
 
 private:
     void readPRT();
@@ -41,6 +39,13 @@ private:
     QTreeWidget *treeWidget;
     protocolTreeWidgetItem* m_after_item;
     int m_row;
+
+    static inline QString swProtocolAttribute() { return QStringLiteral("BioPenProtocol"); }
+    static inline QString valueAttribute() { return QStringLiteral("value"); }
+    static inline QString messageAttribute() { return QStringLiteral("message"); }
+    static inline QString versionAttribute() { return QStringLiteral("version"); }
+
+    QString m_str_notPRTvfile;
 };
 
 #endif

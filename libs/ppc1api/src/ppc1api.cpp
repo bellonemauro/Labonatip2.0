@@ -1497,7 +1497,7 @@ bool fluicell::PPC1api::checkVIDPID(const std::string &_port) const
 	for (unsigned int i = 0; i < devs.size(); i++) // for all the connected devices 
 		if (devs.at(i).port.compare(_port) == 0) // look for the device connected on _port
 			if (devs.at(i).VID.compare(PPC1_VID) == 0) // check VID
-				if (devs.at(i).PID.compare(PPC1_PID) == 0) // check PID
+				if (devs.at(i).PID.compare(PPC1_PID) == 0 || devs.at(i).PID.compare(PPC1_6CH_PID)==0) // check PID
 					return true; // if all success return true
 	return false; // if only one on previous fails, return false VID/PID do not match
 }

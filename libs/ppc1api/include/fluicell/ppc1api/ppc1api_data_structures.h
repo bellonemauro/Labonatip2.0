@@ -126,7 +126,8 @@ namespace fluicell { namespace PPC1dataStructures
 												 see function getFlow()-- default value 0.124 m; */
 			#define PPC1_VID "16D0"  //!< device vendor ID
 			#define PPC1_PID "083A"  //!< device product ID
-			   
+			#define PPC1_6CH_PID "0830"
+
 			/**  \brief Channel data structure 
 			*
 			*         it contains the information about a PPC1 channel
@@ -846,7 +847,7 @@ namespace fluicell { namespace PPC1dataStructures
 
 			/**  \brief Simple cast of the enumerator into the corresponding command as a string.
 			*
-			**/
+			*
 			std::string getCommandAsString() const
 			{
 				static const char* const text[] =
@@ -861,6 +862,36 @@ namespace fluicell { namespace PPC1dataStructures
 					"waitSync", "syncOut", 
 					 "loop" };
 				return  text[int(this->instruction)]; // cast to integer
+			}*/
+			std::string getCommandAsString() const
+			{
+				switch (int(this->instruction))
+				{
+				case setZoneSize: return "setZoneSize";
+				case changeZoneSizeBy: return "changeZoneSizeBy";
+				case setFlowSpeed: return "setFlowSpeed";
+				case changeFlowSpeedBy: return "changeFlowSpeedBy";
+				case setVacuum: return "setVacuum";
+				case changeVacuumBy: return "changeVacuumBy";
+				case wait: return "wait";
+				case solution1: return "solution1";
+				case solution2: return "solution2";
+				case solution3: return "solution3";
+				case solution4: return "solution4";
+				case setPon: return "setPon";
+				case setPoff: return "setPoff";
+				case setVrecirc: return "setVrecirc";
+				case setVswitch: return "setVswitch";
+				case ask_msg: return "ask_msg";
+				case allOff: return "allOff";
+				case pumpsOff: return "pumpsOff";
+				case waitSync: return "waitSync";
+				case syncOut: return "syncOut";
+				case loop: return "loop";
+				case END: return "END";
+				}
+				return "Invalid";
+
 			}
 
 			/**  \brief Get the value for the corresponding command.

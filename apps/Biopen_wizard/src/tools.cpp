@@ -356,7 +356,7 @@ void Labonatip_tools::enumerate()
 	}
 }
 
-
+/*
 void Labonatip_tools::setDefaultPressuresVacuums(int _p_on_default, int _p_off_default, int _v_recirc_default, int _v_switch_default)
 {
 	std::cout << HERE 
@@ -376,7 +376,7 @@ void Labonatip_tools::setDefaultPressuresVacuums(int _p_on_default, int _p_off_d
 	ui_tools->spinBox_v_recirc_default->setValue(-_v_recirc_default);
 	ui_tools->spinBox_v_switch_default->setValue(-_v_switch_default);
 	
-}
+}*/
 
 
 

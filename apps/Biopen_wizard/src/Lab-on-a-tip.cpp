@@ -190,6 +190,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   ui->treeWidget_macroTable->setColumnWidth(editorParams::c_value, 100);
   
   ui->tabWidget_editor->setCurrentIndex(0);
+  m_last_treeWidget_editor_idx = 0;
   new XmlSyntaxHighlighter(ui->textBrowser_XMLcode->document());
   ui->tabWidget_editor_advanced->setCurrentIndex(0);
 
@@ -1268,11 +1269,11 @@ void Labonatip_GUI::about() {
 
 	QMessageBox messageBox;
 	QString msg_title = "About Fluicell Lab-on-a-tip ";
-	QString msg_content = tr("<b>Lab-on-a-tip</b> is a "
+	QString msg_content = QStringLiteral("<b>BioPen</b> is a "
 		"<a href='http://fluicell.com/'>Fluicell</a> AB software <br>"
 		"Copyright Fluicell AB, Sweden 2020 <br> <br>"
-		"Arvid Wallgrens Backe 20<br>"
-		"SE-41346 Gothenburg, Sweden<br>"
+		"Flöjelbergsgatan 8C<br>"
+		"SE-431 37 Mölndal, Sweden<br>"
 		"Tel: +46 76 208 3354 <br>"
 		"e-mail: info@fluicell.com <br><br>"
 		"Developer:<a href='http://www.maurobellone.com'>Mauro Bellone</a> <br>"

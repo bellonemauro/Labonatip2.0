@@ -91,7 +91,18 @@ void ComboBoxDelegate::paint(QPainter *painter,
 	option.widget->style()->drawPrimitive(QStyle::PE_PanelItemViewItem, &myOption, painter);
 
 	//text
-	QString text = Items[index.data().toInt()].c_str();
+	int my_int_test = index.data().toInt();
+	if (my_int_test > protocolCommands::END)
+	{
+		std::cout << my_int_test << std::endl;
+	}
+
+	QString text =  Items[index.data().toInt()].c_str();
+	// QString::fromStdString(protocolCommands::asString(index.data().toInt())); 
+	// the previous line instead of Items[index.data().toInt()].c_str(); would be more stable 
+	// as in the worst case scenario it would return "invalid" when the index is out of range for any reason
+	// TODO: investigate how to make this more stable 
+
 	myOption.text = text;
 	QRect textRect = option.rect;
 	textRect.setLeft(textRect.left() + 25);//offset it a bit to the right

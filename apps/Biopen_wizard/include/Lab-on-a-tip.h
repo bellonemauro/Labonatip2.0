@@ -1117,6 +1117,8 @@ private:
   NoEditDelegate * m_no_edit_delegate2;
   SpinBoxDelegate * m_spinbox_delegate;
 
+  int m_last_treeWidget_editor_idx;
+
   // this is used only to pass the row index
   // from the popup menu into the tree widget
   // to the delete_protocol function

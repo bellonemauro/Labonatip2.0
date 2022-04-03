@@ -129,8 +129,9 @@ public:
 		return saveSettings(_filename);
 	}
 
-	void setDefaultPressuresVacuums(int _p_on_default, int _p_off_default, 
-		                            int _v_recirc_default, int _v_switch_default);
+	//TODO: this seems to be unused 
+	//void setDefaultPressuresVacuums(int _p_on_default, int _p_off_default, 
+	//	                            int _v_recirc_default, int _v_switch_default);
 
 	/** \brief Set values of preset group 1
 	*

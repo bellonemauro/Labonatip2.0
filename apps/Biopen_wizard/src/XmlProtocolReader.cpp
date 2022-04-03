@@ -16,6 +16,7 @@ XmlProtocolReader::XmlProtocolReader(QTreeWidget* treeWidget)
 	m_after_item(NULL)
 {
 	m_row = 0;
+	m_str_notPRTvfile = QObject::tr("The file is not an PRT version 1.0 file.");
 }
 
 bool XmlProtocolReader::read(QIODevice *device, protocolTreeWidgetItem* after_item)
@@ -24,11 +25,11 @@ bool XmlProtocolReader::read(QIODevice *device, protocolTreeWidgetItem* after_it
 	m_after_item = after_item;
 	m_row = treeWidget->currentIndex().row();
     if (xml.readNextStartElement()) {
-        if (xml.name() == QLatin1String("Protocol")
+        if (xml.name() == swProtocolAttribute()
             && xml.attributes().value(versionAttribute()) == QLatin1String("1.0")) {
             readPRT();
         } else {
-            xml.raiseError(QObject::tr("The file is not an PRT version 1.0 file."));
+            xml.raiseError(m_str_notPRTvfile);
         }
     }
 
@@ -45,7 +46,7 @@ QString XmlProtocolReader::errorString() const
 
 void XmlProtocolReader::readPRT()
 {
-	Q_ASSERT(xml.isStartElement() && xml.name() == QLatin1String("Protocol"));
+	Q_ASSERT(xml.isStartElement() && xml.name() == swProtocolAttribute());
 
 	while (xml.readNextStartElement()) {
 		if (m_after_item)

@@ -180,7 +180,7 @@ void Labonatip_GUI::updateChildrenView(protocolTreeWidgetItem* _parent)
 void Labonatip_GUI::addAllCommandsToPPC1Protocol(QTreeWidget* _tree,
 	std::vector<fluicell::PPC1dataStructures::command>* _protocol)
 {
-	std::cout << HERE << std::endl;
+	std::cout << HERE << "Tree TopLevelItem count " << _tree->topLevelItemCount() << std::endl;
 	// this should be done only in a few specific conditions
 	// 1. to update the chart
 	// 2. to run the protocol
@@ -197,10 +197,16 @@ void Labonatip_GUI::addAllCommandsToPPC1Protocol(QTreeWidget* _tree,
 	
 	// push all the items in the protocol table into the command vector
 	fromTreeToItemVector(_tree, &command_vector);
+	std::cout << HERE << "Converted command vector size " << command_vector.size() << std::endl;
 
 	// then from the command vector are pushed to the protocol
 	fromItemVectorToProtocol(&command_vector, _protocol);
 	
+	//TODO: add here a protocol validity check
+	//bool success = protocolValidityCheck(_tree, _protocol);
+
+	std::cout << HERE << " Converted protocol size " << _protocol->size() << std::endl;
+
 	// update duration
 	double duration = m_ppc1->protocolDuration(*_protocol);
 	ui->treeWidget_params->topLevelItem(8)->setText(1, QString::number(duration));
@@ -235,6 +241,8 @@ QString Labonatip_GUI::generateDurationString(int _time)
 void Labonatip_GUI::fromTreeToItemVector(QTreeWidget* _tree,
 	std::vector<protocolTreeWidgetItem*>* _command_vector)
 {
+	std::cout << HERE << " Tree TopLevelItem count " << _tree->topLevelItemCount() << std::endl;
+
 	for (int i = 0;
 		i < _tree->topLevelItemCount();
 		++i) {
@@ -244,7 +252,9 @@ void Labonatip_GUI::fromTreeToItemVector(QTreeWidget* _tree,
 			dynamic_cast<protocolTreeWidgetItem*> (_tree->topLevelItem(i));
 
 		if (item->childCount() < 1) { // if no children, just add the line 
+			std::cout << HERE << " interpreted item " << item->text(editorParams::c_command).toInt() << std::endl;
 			interpreter(item, _command_vector);
+			std::cout << HERE << " interpreted command vector size " << _command_vector->size() << std::endl;
 		}
 		else
 		{
@@ -255,6 +265,9 @@ void Labonatip_GUI::fromTreeToItemVector(QTreeWidget* _tree,
 			}
 		}
 	}
+
+	std::cout << HERE << " Converted command vector size " << _command_vector->size() << std::endl;
+
 }
 
 void Labonatip_GUI::fromItemVectorToProtocol(std::vector<protocolTreeWidgetItem*>* _command_vector,
@@ -294,7 +307,7 @@ void Labonatip_GUI::interpreter(protocolTreeWidgetItem* _item,
 
 	//TODO: this should be done once and for all at the very beginning
 	QString preset_protocols_path = QDir::homePath();
-	preset_protocols_path.append("/Documents/Biopen/presetProtocols/internal/");
+	preset_protocols_path.append("/Documents/Biopen/presetProtocols/");
 	QDir preset_protocols_dir;
 	if (!preset_protocols_dir.exists(preset_protocols_path)) {
 		// TODO: define what to do here, re-install message?
@@ -474,16 +487,20 @@ void Labonatip_GUI::onTabEditorChanged(int _idx)
 {
 	std::cout << HERE << std::endl;
 
+	//"TODO: this is not correct, we are first writing to a file and then reloading it
+	// this could be done in principle using a stringBuffer instead of a file to increase generality
+	// but the save/open functions take files as input so this is still the easiest solution
+	QString save_tmp_file = QDir::tempPath();
+	save_tmp_file.append("/tmp_biopen_xml.prt");
+
 	// update code from tree to xml to machine code and vice versa
-	int current_index = ui->tabWidget_editor->currentIndex();
-	switch (current_index)
+	switch (_idx) //_idx is the current index of the widget
 	{
 	case 0:
 	{// we are now in the tree view/editor
 
-		QString save_tmp_file = QDir::tempPath();
-		save_tmp_file.append("/tmp_biopen_xml.prt");
-		{
+		m_last_treeWidget_editor_idx = _idx;
+		{// Do not remove this parentesis, the file is written on destruction which is automatically done when it goes out of scope
 			QFile file(save_tmp_file);
 			if (!file.open(QFile::WriteOnly | QFile::Text)) {
 				std::cerr << HERE <<
@@ -498,7 +515,7 @@ void Labonatip_GUI::onTabEditorChanged(int _idx)
 		ui->treeWidget_macroTable->clear();
 		openXml(save_tmp_file, ui->treeWidget_macroTable);
 #pragma message ("TODO: uncomment this")
-		//updateTreeView(ui->treeWidget_macroTable);
+		updateTreeView(ui->treeWidget_macroTable);
 		QFile f(save_tmp_file);
 		f.remove();
 		return;
@@ -506,24 +523,8 @@ void Labonatip_GUI::onTabEditorChanged(int _idx)
 	case 1:
 	{// we are now in the XML code view/editor
 
-#pragma message ("TODO: this is not correct, we are first writing to a file and then reloading it")
-		QString save_tmp_file = QDir::tempPath();
-		save_tmp_file.append("/tmp_biopen_xml.prt");
-		{// Do not remove this parentesis, the file is written on destruction which is automatically done when it goes out of scope
-			QFile file(save_tmp_file);
-			if (!file.open(QFile::ReadWrite | QFile::Text)) {
-				std::cerr << HERE <<
-					" impossible to open the temporary file for the protocol from the commander " << std::endl;
-				return;
-			}
-			XmlProtocolWriter writer(ui->treeWidget_macroTable);
-			if (!writer.writeFile(&file))
-			{
-				std::cerr << HERE <<
-					" impossible to write the temporary file for the protocol from the commander" << std::endl;
-				return;
-			}
-		}
+		m_last_treeWidget_editor_idx = _idx; 
+		this->saveXml(save_tmp_file, ui->treeWidget_macroTable);
 
 		QFile readfile(save_tmp_file);
 		readfile.open(QIODevice::ReadOnly);
@@ -532,29 +533,52 @@ void Labonatip_GUI::onTabEditorChanged(int _idx)
 		return;
 	}
 	case 2:
-	{
+	{ // we are now in the machine code 
+		std::cerr << HERE <<
+			" machine code clicked " << std::endl;
+		std::cerr << HERE <<
+			" m_last_treeWidget_editor_idx  " << m_last_treeWidget_editor_idx << std::endl;
+		// this is to update the tree if something was modified in the xml editor without passing to the tree first
+		if (m_last_treeWidget_editor_idx == 1)
+		{
+			{// Do not remove this parentesis, the file is written on destruction which is automatically done when it goes out of scope
+				QFile file(save_tmp_file);
+				if (!file.open(QFile::WriteOnly | QFile::Text)) {
+					std::cerr << HERE <<
+						" impossible to open the temporary file for the protocol from the commander " << std::endl;
+					return;
+				}
 
-#pragma message ("TODO: this is not correct, we are first writing to a file and then reloading it")
-		QString save_tmp_file = QDir::tempPath();
-		save_tmp_file.append("/tmp_biopen_xml.prt");
-		{// Do not remove this parentesis, the file is written on destruction which is automatically done when it goes out of scope
-			QFile file(save_tmp_file);
-			if (!file.open(QFile::ReadWrite | QFile::Text)) {
-				std::cerr << HERE <<
-					" impossible to open the temporary file for the protocol from the commander " << std::endl;
-				return;
+				QString fileContent = ui->textBrowser_XMLcode->toPlainText();
+				file.write(fileContent.toUtf8());
 			}
-			XmlProtocolWriter writer(ui->treeWidget_macroTable);
-			if (!writer.writeFile(&file))
-			{
-				std::cerr << HERE <<
-					" impossible to write the temporary file for the protocol from the commander" << std::endl;
-				return;
-			}
+
+			ui->treeWidget_macroTable->clear();
+			openXml(save_tmp_file, ui->treeWidget_macroTable);
+			updateTreeView(ui->treeWidget_macroTable);
+			QFile f(save_tmp_file);
+			f.remove();
 		}
 
+		m_last_treeWidget_editor_idx = _idx;
+
+		std::cerr << HERE <<
+			" ui->treeWidget_macroTable->topLevelItemCount  " << ui->treeWidget_macroTable->topLevelItemCount() << std::endl;
+
+		// this lines look like a repetition but it is required to 
+		// make the switch among tabs working properly always
+		// so we take the commands from the protocol table
+		// save to file
+		this->saveXml(save_tmp_file, ui->treeWidget_macroTable);
+
 		QFile readfile(save_tmp_file);
-		readfile.open(QIODevice::ReadOnly);
+		if (!readfile.open(QIODevice::ReadOnly))
+		{
+			std::cerr << HERE <<
+				" impossible to open the temporary file for the protocol from the commander " << std::endl;
+		}
+
+
 		QString plainXMLcode(QString::fromUtf8(readfile.readAll()));
 		ui->textBrowser_XMLcode->setPlainText(plainXMLcode);
 
@@ -564,7 +588,10 @@ void Labonatip_GUI::onTabEditorChanged(int _idx)
 		// we are now in the machine code editor
 		addAllCommandsToPPC1Protocol(ui->treeWidget_macroTable,
 			m_protocol);
-		
+
+		std::cerr << HERE <<
+			" m_protocol size " << m_protocol->size() << std::endl;
+
 		for (auto element = m_protocol->begin(); element < m_protocol->end(); element++)
 		{
 			QString new_line = QString::fromStdString(element->getCommandAsString());
