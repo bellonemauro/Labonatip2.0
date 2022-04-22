@@ -130,8 +130,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.98994949"
-     inkscape:cx="928.79269"
-     inkscape:cy="578.30472"
+     inkscape:cx="995.65282"
+     inkscape:cy="503.05958"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -156,6 +156,33 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1">
+    <g
+       id="g4201"
+       transform="matrix(1.1872054,0,0,0.9988789,-31.201881,0.13310936)"
+       inkscape:export-filename="D:\code\Fluicell\Git\Labonatip2.0\apps\Biopen_wizard\icons\splash_screen.png"
+       inkscape:export-xdpi="95.43763"
+       inkscape:export-ydpi="95.43763">
+      <rect
+         inkscape:export-filename="D:\code\Fluicell\Git\Labonatip2.0\apps\Biopen_wizard\icons\splash_screen.png"
+         inkscape:export-ydpi="95.43763"
+         inkscape:export-xdpi="95.43763"
+         y="79.043724"
+         x="166.91319"
+         height="79.375"
+         width="132.29167"
+         id="rect4152-3"
+         style="opacity:1;fill:#005f75;fill-opacity:1;stroke:#005064;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-filename="D:\code\Fluicell\Git\Labonatip2.0\apps\Biopen_wizard\icons\splash_screen.png"
+         inkscape:export-ydpi="95.43763"
+         inkscape:export-xdpi="95.43763"
+         y="79.478035"
+         x="167.3308"
+         height="78.598145"
+         width="131.57878"
+         id="rect6130-5"
+         style="opacity:1;fill:none;fill-opacity:1;stroke:#005a6e;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    </g>
     <rect
        style="opacity:1;fill:#005f75;fill-opacity:1;stroke:#005064;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        id="rect4152"
@@ -261,17 +288,7 @@
            x="73.741135"
            y="1005.342" /></flowRegion><flowPara
          id="flowPara4186"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:192px;font-family:'AR DECODE';-inkscape-font-specification:'AR DECODE';fill:#ff0000">6</flowPara></flowRoot>    <rect
-       style="opacity:1;fill:#005f75;fill-opacity:1;stroke:#005064;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       id="rect4152-3"
-       width="132.29167"
-       height="79.375"
-       x="166.91319"
-       y="79.043724"
-       inkscape:export-xdpi="95.43763"
-       inkscape:export-ydpi="95.43763"
-       inkscape:export-filename="D:\code\Fluicell\Git\Labonatip2.0\apps\Biopen_wizard\icons\splash_screen.png" />
-    <image
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:192px;font-family:'AR DECODE';-inkscape-font-specification:'AR DECODE';fill:#ff0000">6</flowPara></flowRoot>    <image
        y="81.151695"
        x="172.69859"
        id="image4442-5"
@@ -286,7 +303,7 @@
        xml:space="preserve"
        id="flowRoot4445-5"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:0;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none"
-       transform="matrix(0.26458333,0,0,0.26458333,-13.148898,-171.81603)"
+       transform="matrix(0.26458333,0,0,0.26458333,-3.0947292,-171.81603)"
        inkscape:export-xdpi="95.43763"
        inkscape:export-ydpi="95.43763"
        inkscape:export-filename="D:\code\Fluicell\Git\Labonatip2.0\apps\Biopen_wizard\icons\splash_screen.png"><flowRegion
@@ -303,7 +320,7 @@
        xml:space="preserve"
        id="flowRoot4445-4-8"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:0;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#fffffe;fill-opacity:1;stroke:none"
-       transform="matrix(0.26458333,0,0,0.26458333,27.615032,-161.07331)"
+       transform="matrix(0.26458333,0,0,0.26458333,37.669205,-161.07331)"
        inkscape:export-xdpi="95.43763"
        inkscape:export-ydpi="95.43763"
        inkscape:export-filename="D:\code\Fluicell\Git\Labonatip2.0\apps\Biopen_wizard\icons\splash_screen.png"><flowRegion
@@ -320,10 +337,10 @@
        xml:space="preserve"
        id="flowRoot4445-4-1-4"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:0;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-opacity:1"
-       transform="matrix(0.26458333,0,0,0.26458333,-35.051238,-142.41964)"
        inkscape:export-xdpi="95.43763"
        inkscape:export-ydpi="95.43763"
-       inkscape:export-filename="D:\code\Fluicell\Git\Labonatip2.0\apps\Biopen_wizard\icons\splash_screen.png"><flowRegion
+       inkscape:export-filename="D:\code\Fluicell\Git\Labonatip2.0\apps\Biopen_wizard\icons\splash_screen.png"
+       transform="matrix(0.26458333,0,0,0.26458333,-35.580405,-142.41964)"><flowRegion
          id="flowRegion4447-1-8-8"
          style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-opacity:1"><rect
            id="rect4449-6-5-3"
@@ -333,15 +350,22 @@
            y="1095.3768"
            style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-opacity:1" /></flowRegion><flowPara
          id="flowPara4451-8-5-8"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.66666603px;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-opacity:1">Copyright Fluicell AB Sweden 2020</flowPara></flowRoot>    <rect
-       style="opacity:1;fill:none;fill-opacity:1;stroke:#005a6e;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       id="rect6130-5"
-       width="131.57878"
-       height="78.598145"
-       x="167.3308"
-       y="79.478035"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.66666698px;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-opacity:1">BioPen Wizard is part of the Lab-on-a-tip   technology family, copyrighted Sweden 2022</flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4445-4-1-4-5"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:0;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-opacity:1"
        inkscape:export-xdpi="95.43763"
        inkscape:export-ydpi="95.43763"
-       inkscape:export-filename="D:\code\Fluicell\Git\Labonatip2.0\apps\Biopen_wizard\icons\splash_screen.png" />
-  </g>
+       inkscape:export-filename="D:\code\Fluicell\Git\Labonatip2.0\apps\Biopen_wizard\icons\splash_screen.png"
+       transform="matrix(0.26458333,0,0,0.26458333,33.264162,-143.93368)"><flowRegion
+         id="flowRegion4447-1-8-8-4"
+         style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-opacity:1"><rect
+           id="rect4449-6-5-3-2"
+           width="780.91675"
+           height="124.73397"
+           x="782.85712"
+           y="1095.3768"
+           style="fill:#ffffff;fill-opacity:1;stroke:none;stroke-opacity:1" /></flowRegion><flowPara
+         id="flowPara4451-8-5-8-3"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8px;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-opacity:1">  ® </flowPara></flowRoot>  </g>
 </svg>

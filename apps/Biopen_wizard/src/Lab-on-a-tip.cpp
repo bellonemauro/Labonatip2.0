@@ -1268,15 +1268,15 @@ void Labonatip_GUI::about() {
 	std::cout << HERE << std::endl;
 
 	QMessageBox messageBox;
-	QString msg_title = "About Fluicell Lab-on-a-tip ";
-	QString msg_content = QStringLiteral("<b>BioPen</b> is a "
-		"<a href='http://fluicell.com/'>Fluicell</a> AB software <br>"
-		"Copyright Fluicell AB, Sweden 2020 <br> <br>"
+	QString msg_title = "About BioPen Wizard ";
+	QString msg_content = QStringLiteral("BioPen Wizard is part of the <br> Fluicell Lab-on-a-tip technology family,<br>"
+		"Copyrighted Sweden 2022.<br><br>"
+		"BioPen®, Fluicell®, Lab-on-a-tip® <br>are all registered trademarks of Fluicell AB, Sweden <br> <br>"
 		"Flöjelbergsgatan 8C<br>"
 		"SE-431 37 Mölndal, Sweden<br>"
 		"Tel: +46 76 208 3354 <br>"
 		"e-mail: info@fluicell.com <br><br>"
-		"Developer:<a href='http://www.maurobellone.com'>Mauro Bellone</a> <br>"
+		"Developer: Mauro Bellone <br>"
 		"Version: ");
 	msg_content.append(m_version);
 	messageBox.setText(msg_content);

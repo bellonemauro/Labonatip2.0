@@ -40,11 +40,13 @@ private:
     protocolTreeWidgetItem* m_after_item;
     int m_row;
 
+    // constant xml attributes and tag
     static inline QString swProtocolAttribute() { return QStringLiteral("BioPenProtocol"); }
     static inline QString valueAttribute() { return QStringLiteral("value"); }
     static inline QString messageAttribute() { return QStringLiteral("message"); }
     static inline QString versionAttribute() { return QStringLiteral("version"); }
 
+    // custom strings for translations
     QString m_str_notPRTvfile;
 };
 

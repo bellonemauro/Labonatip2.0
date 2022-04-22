@@ -1,3 +1,10 @@
+V2.2.6
+New splash screen
+
+V2.2.5
+Added BioPenProtocol as xml protocol attribute
+Word on documentation and commenting
+
 V2.2.4
 Removed bug of a few commands in the editor generating random crash
 Removed old reference to the "internal" folder, wrongly coming from BioZone
