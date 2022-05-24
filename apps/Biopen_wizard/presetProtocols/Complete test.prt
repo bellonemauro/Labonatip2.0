@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE prt>
+<!--Fluicell protocol xml-->
+<BioPenProtocol version="1.0">
+    <ask value="" message="Test for the droplet size begin - setting operational values"/>
+    <allOff value="" message=" "/>
+    <wait value="1" message=" "/>
+    <setPoff value="21" message=" "/>
+    <setPon value="190" message=" "/>
+    <setVswitch value="-115" message=" "/>
+    <setVrecirc value="-115" message=" "/>
+    <wait value="20" message=" "/>
+    <ask value="" message="Now I will set the droplet size to 110%"/>
+    <setZoneSize value="110" message=" "/>
+    <wait value="20" message=" "/>
+    <ask value="" message="Now I will set the droplet size to 100%"/>
+    <setZoneSize value="100" message=" "/>
+    <wait value="20" message=" "/>
+    <ask value="" message="Now I will set the droplet size to 90%"/>
+    <setZoneSize value="90" message=" "/>
+    <wait value="20" message=" "/>
+    <ask value="" message="Now I will set the droplet size to 100%"/>
+    <setZoneSize value="90" message=" "/>
+    <wait value="20" message=" "/>
+    <ask value="" message="Now I will set the droplet size to 150%"/>
+    <setZoneSize value="150" message=" "/>
+    <wait value="20" message=" "/>
+    <ask value="" message="Now I will set the droplet size to 50%"/>
+    <setZoneSize value="50" message=" "/>
+    <wait value="20" message=" "/>
+    <ask value="" message="Now I will set the droplet size to 200%"/>
+    <setZoneSize value="200" message=" "/>
+    <wait value="20" message=" "/>
+    <ask value="" message="Test for the flow speed begin - setting operational values"/>
+    <allOff value="" message=" "/>
+    <setPoff value="21" message=" "/>
+    <setPon value="190" message=" "/>
+    <setVswitch value="-115" message=" "/>
+    <setVrecirc value="-115" message=" "/>
+    <wait value="20" message=" "/>
+    <ask value="" message="Now I will set the flow speed to 110%"/>
+    <setFlowSpeed value="110" message=" "/>
+    <wait value="20" message=" "/>
+    <ask value="" message="Now I will set the flow speed to 100%"/>
+    <setFlowSpeed value="100" message=" "/>
+    <wait value="20" message=" "/>
+    <ask value="" message="Now I will set the flow speed to 90%"/>
+    <setFlowSpeed value="90" message=" "/>
+    <wait value="20" message=" "/>
+    <ask value="" message="Now I will set the flow speed to 100%"/>
+    <setFlowSpeed value="100" message=" "/>
+    <wait value="20" message=" "/>
+    <ask value="" message="Now I will set the flow speed to 150%"/>
+    <setFlowSpeed value="150" message=" "/>
+    <wait value="20" message=" "/>
+    <ask value="" message="Now I will set the flow speed to 50%"/>
+    <setFlowSpeed value="50" message=" "/>
+    <wait value="20" message=" "/>
+    <ask value="" message="Now I will set the flow speed to 200%"/>
+    <setFlowSpeed value="200" message=" "/>
+    <wait value="20" message=" "/>
+    <ask value="" message="Test finished - setting the operational values"/>
+    <setPoff value="21" message=" "/>
+    <setPon value="190" message=" "/>
+    <wait value="5" message=" "/>
+    <setVswitch value="-115" message=" "/>
+    <setVrecirc value="-115" message=" "/>
+    <wait value="5" message="Test for the vacuum begin - setting operational values"/>
+    <setPoff value="21" message=" "/>
+    <setPon value="190" message=" "/>
+    <setVswitch value="-115" message=" "/>
+    <setVrecirc value="-115" message=" "/>
+    <wait value="10" message=" "/>
+    <ask value="" message="Now I will set the vacuum to 110%"/>
+    <setVacuum value="110" message=" "/>
+    <wait value="20" message=""/>
+    <ask value="" message="Now I will set the vacuum to 100%"/>
+    <setVacuum value="100" message=" "/>
+    <wait value="20" message=" "/>
+    <ask value="" message="Now I will set the vacuum to 90%"/>
+    <setVacuum value="90" message=" "/>
+    <wait value="20" message=" "/>
+    <ask value="" message="Now I will set the vacuum to 100%"/>
+    <setVacuum value="100" message=" "/>
+    <wait value="20" message=" "/>
+    <ask value="" message="Now I will set the vacuum to 150%"/>
+    <setVacuum value="150" message=" "/>
+    <wait value="20" message=" "/>
+    <ask value="" message="Now I will set the vacuum to 50%"/>
+    <setVacuum value="50" message=" "/>
+    <wait value="20" message=" "/>
+    <ask value="" message="Now I will set the vacuum to 200%"/>
+    <setVacuum value="200" message=" "/>
+    <wait value="20" message=" "/>
+    <ask value="" message="Test finished - setting the operational values"/>
+    <setPoff value="21" message=" "/>
+    <setPon value="190" message=" "/>
+    <wait value="5" message=" "/>
+    <setVswitch value="-115" message=" "/>
+    <setVrecirc value="-115" message=" "/>
+    <wait value="5" message=" "/>
+    <ask value="" message="Test for the loop starting - setting operational values"/>
+    <allOff value="" message=" "/>
+    <setPoff value="21" message=" "/>
+    <setPon value="190" message=" "/>
+    <setVrecirc value="-115" message=" "/>
+    <setVrecirc value="-115" message=" "/>
+    <wait value="10" message=" "/>
+    <ask value="" message="The loop will now run 5 times"/>
+    <loop value="5" message="">
+        <solution1 value="1" message=" "/>
+        <wait value="5" message=" "/>
+        <solution1 value="0" message=" "/>
+        <wait value="5" message=" "/>
+        <ask value="" message="Test loop 1"/>
+    </loop>
+    <wait value="5" message=" "/>
+    <ask value="" message="loop test for solution 1 finished, running solution 2"/>
+    <loop value="100" message=" ">
+        <solution2 value="1" message=" "/>
+        <wait value="5" message=" "/>
+        <solution2 value="0" message=" "/>
+        <wait value="5" message=" "/>
+        <ask value="" message="Test loop 2"/>
+    </loop>
+    <wait value="5" message=" "/>
+    <ask value="" message="loop test for solution 2 finished, running solution 3"/>
+    <loop value="100" message=" ">
+        <solution3 value="1" message=" "/>
+        <wait value="5" message=" "/>
+        <solution3 value="0" message=" "/>
+        <wait value="5" message=" "/>
+        <ask value="" message="Test loop 3"/>
+    </loop>
+    <wait value="20" message=" "/>
+    <ask value="" message="loop test for solution 3 finished, running solution 4"/>
+    <loop value="100" message=" ">
+        <solution4 value="1" message=" "/>
+        <wait value="5" message=" "/>
+        <solution4 value="0" message=" "/>
+        <wait value="5" message=" "/>
+    </loop>
+    <ask value="" message="Test loop finished"/>
+    <wait value="5" message=" "/>
+</BioPenProtocol>

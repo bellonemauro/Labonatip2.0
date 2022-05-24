@@ -26,6 +26,7 @@ public:
 	static inline QString valueAttribute() { return QStringLiteral("value"); }
 	static inline QString messageAttribute() { return QStringLiteral("message"); }
 	static inline QString versionAttribute() { return QStringLiteral("version"); }
+    static inline QString swProtocolAttribute() { return QStringLiteral("BioPenProtocol"); }
 
 private:
     void writeItem(const QTreeWidgetItem *item);

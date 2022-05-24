@@ -28,7 +28,7 @@ bool XmlProtocolWriter::writeFile(QIODevice *device)
     xml.writeDTD(QStringLiteral("<!DOCTYPE prt>"));
     xml.writeComment("Fluicell protocol xml");
 #pragma message ("TODO: write a full header")
-    xml.writeStartElement(QStringLiteral("Protocol"));
+    xml.writeStartElement(swProtocolAttribute());
     xml.writeAttribute(versionAttribute(), QStringLiteral("1.0"));
     for (int i = 0; i < treeWidget->topLevelItemCount(); ++i)
         writeItem(treeWidget->topLevelItem(i));

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE prt>
+<!--Fluicell protocol xml-->
+<BioPenProtocol version="1.0">
+    <allOff value="" message=" "/>
+    <setPoff value="11" message=" "/>
+    <setPon value="0" message=" "/>
+    <wait value="5" message=" "/>
+    <setVswitch value="-45" message=" "/>
+    <setVrecirc value="-45" message=" "/>
+</BioPenProtocol>

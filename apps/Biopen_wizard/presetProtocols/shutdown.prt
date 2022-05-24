@@ -1,54 +1,13 @@
-%% +---------------------------------------------------------------------------+
-%% |                           FLUICELL LAB-ON-A-TIP                           |
-%% |                                                                           |
-%% |                                                                           |
-%% |                          http://www.fluicell.com/                         |
-%% +---------------------------------------------------------------------------+
-%% 
-%% Protocol Header V. 0.8 
-%% file created on dd/mm/yyyy - Sun Jul 19 2020 15:55:01%% 
-%% Fluicell Lab-on-a-tip protocol file description 
-%% +---------------------------------------------------------------------------+ 
-%% List of parameters: 
-%%  - Command :  
-%%  -       0:  Set Zone size (%)             :  Set the droplet size percentage in the range [50, 200]  
-%%  -       1:  Change Zone size by (%)       :  Change the droplet size in % respect to the current values, accepted range [-40, +40] 
-%%  -       2:  Set Flow speed (%)            :  Set the flow speed percentage in the range [50, 220] 
-%%  -       3:  Change Flow speed by (%)      :  Change the flow speed in % respect to the current values, accepted range [-40, +40] 
-%%  -       4:  Set Vacuum (%)                :  Set the vacuum percentage in the range [50, 250] 
-%%  -       5:  Change Vacuum by (%)          :  Change the vacuum in % respect to the current values, accepted range [-40, +40] 
-%%  -       6:  Wait (s)                      :  Wait in seconds 
-%%  -       7:  All Off                       :  All the valves 1 - 4 will be closed 
-%%  -       8:  Solution 1 (open/close)       :  
-%%  -       9:  Solution 2 (open/close)       :  
-%%  -       10: Solution 3 (open/close)       :  
-%%  -       11: Solution 4 (open/close)       :  
-%%  -       12: Pressure ON (mbar)            :  Value in mbar
-%%  -       13: Pressure OFF (mbar)           :  Value in mbar
-%%  -       14: Vacuum Recirculation (mbar)   :  Value in mbar 
-%%  -       15: Vacuum Switch (mbar)          :  Value in mbar 
-%%  -       16: Ask (string)                  :  Ask a message at the end of some operation 
-%%  -       17: Pumps Off                     :  Set the all the pumps to zero (pressure and vacuum) 
-%%  -       18: Wait sync                     :  Wait a sync signal 
-%%  -       19: Sync out                      :  Sync with external trigger 
-%%  -       20: Loop (num)                    :  All the commands inside the loop will run cyclically 
-%%  - 
-%%  - value (mbar, %, s) - value to be applied to the command
-%%  - status_message (string) 
-%%  - depth : depth in the tree of the command, all the commands at different layers will run in loop
-%% +---------------------------------------------------------------------------+ 
-%%  - 
-%% +---------------------------------------------------------------------------+ 
-%% Command Value status_message depth
-%% Follows a line example
-%% 13#1#message#0#? 
-%% Command Value status_message depth
-%
-7##0#AllOff#0#
-12#0#0#setPon(0)#0#
-13#0#0#setPoff(0)#0#
-6#10#0#sleep(10)#0#
-15#0#0#setVswitch(0)#0#
-14#0#0#setVrecirc(0)#0#
-6#15#0#sleep(15)#0#
-17##0#pumpsOff()#0#
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE prt>
+<!--Fluicell protocol xml-->
+<BioPenProtocol version="1.0">
+    <allOff value="" message=" "/>
+    <setPon value="0" message=" "/>
+    <setPoff value="0" message=" "/>
+    <wait value="10" message=" "/>
+    <setVrecirc value="0" message=" "/>
+    <setVswitch value="0" message=" "/>
+    <wait value="15" message=" "/>
+    <pumpsOff value="" message=" "/>
+</BioPenProtocol>

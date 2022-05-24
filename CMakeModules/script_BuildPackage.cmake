@@ -27,7 +27,7 @@ set(CPACK_PACKAGE_NAME "Biopen_wizard")
 set(CPACK_PACKAGE_VENDOR "Fluicell AB")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Fluicell Biopen wizard")
 set(CPACK_NSIS_CONTACT "Mauro Bellone bellonemauro@gmail.com" )
-set(CPACK_PACKAGE_INSTALL_DIRECTORY "Fluicell")# @_VERSION@")
+set(CPACK_PACKAGE_INSTALL_DIRECTORY "FluicellBioPen")# @_VERSION@")
 
 # this allows to check older installations and properly remove them
 set(CPACK_NSIS_ENABLE_UNINSTALL_BEFORE_INSTALL "ON") 

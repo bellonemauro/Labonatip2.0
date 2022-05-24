@@ -1,71 +1,27 @@
-%% +---------------------------------------------------------------------------+
-%% |                           FLUICELL LAB-ON-A-TIP                           |
-%% |                                                                           |
-%% |                                                                           |
-%% |                          http://www.fluicell.com/                         |
-%% +---------------------------------------------------------------------------+
-%% 
-%% Protocol Header V. 0.8 
-%% file created on dd/mm/yyyy - Sun Jul 19 2020 15:56:04%% 
-%% Fluicell Lab-on-a-tip protocol file description 
-%% +---------------------------------------------------------------------------+ 
-%% List of parameters: 
-%%  - Command :  
-%%  -       0:  Set Zone size (%)             :  Set the droplet size percentage in the range [50, 200]  
-%%  -       1:  Change Zone size by (%)       :  Change the droplet size in % respect to the current values, accepted range [-40, +40] 
-%%  -       2:  Set Flow speed (%)            :  Set the flow speed percentage in the range [50, 220] 
-%%  -       3:  Change Flow speed by (%)      :  Change the flow speed in % respect to the current values, accepted range [-40, +40] 
-%%  -       4:  Set Vacuum (%)                :  Set the vacuum percentage in the range [50, 250] 
-%%  -       5:  Change Vacuum by (%)          :  Change the vacuum in % respect to the current values, accepted range [-40, +40] 
-%%  -       6:  Wait (s)                      :  Wait in seconds 
-%%  -       7:  All Off                       :  All the valves 1 - 4 will be closed 
-%%  -       8:  Solution 1 (open/close)       :  
-%%  -       9:  Solution 2 (open/close)       :  
-%%  -       10: Solution 3 (open/close)       :  
-%%  -       11: Solution 4 (open/close)       :  
-%%  -       12: Pressure ON (mbar)            :  Value in mbar
-%%  -       13: Pressure OFF (mbar)           :  Value in mbar
-%%  -       14: Vacuum Recirculation (mbar)   :  Value in mbar 
-%%  -       15: Vacuum Switch (mbar)          :  Value in mbar 
-%%  -       16: Ask (string)                  :  Ask a message at the end of some operation 
-%%  -       17: Pumps Off                     :  Set the all the pumps to zero (pressure and vacuum) 
-%%  -       18: Wait sync                     :  Wait a sync signal 
-%%  -       19: Sync out                      :  Sync with external trigger 
-%%  -       20: Loop (num)                    :  All the commands inside the loop will run cyclically 
-%%  - 
-%%  - value (mbar, %, s) - value to be applied to the command
-%%  - status_message (string) 
-%%  - depth : depth in the tree of the command, all the commands at different layers will run in loop
-%% +---------------------------------------------------------------------------+ 
-%%  - 
-%% +---------------------------------------------------------------------------+ 
-%% Command Value status_message depth
-%% Follows a line example
-%% 13#1#message#0#? 
-%% Command Value status_message depth
-%
-16##0#ask(Place_the_pipette_to_the_holder_and_tighten._THEN_PRESS_OK)#0#
-7##0#AllOff()#0#
-15#0#0#setVswitch(0)#0#
-14#0#0#setVrecirc(0)#0#
-12#0#0#setPon(0)#0#
-13#0#0#setPoff(0)#0#
-6#5#0#sleep(5)#0#
-12#200#0#setPon(200)#0#
-6#5#0#sleep(5)#0#
-17##0#pumpOff#0#
-16##0#ask(Wait_until_a_droplet_appears_at_the_tip_of_the_pipette_and_THEN_PRESS_OK)#0#
-6#40#0#sleep(40)#0#
-7##0#allOff()#0#
-12#0#0#setPon(0)#0#
-6#10#0#sleep(10)#0#
-16##0#ask(Remove_the_droplet_using_a_lens_tissue_and_put_the_pipette_into_solution._THEN_PRESS_OK)#0#
-15#-200#0#setVswitch(-200)#0#
-14#-200#0#setVrecirc(-200)#0#
-6#90#0#sleep(90)#0#
-13#21#0#setPoff(21)#0#
-12#190#0#setPon(190)#0#
-6#5#0#sleep(5)#0#
-15#-115#0#setVswitch(-115)#0#
-14#-115#0#setVrecirc(-115)#0#
-16##0#ask(Pipette_is_ready_for_operation,_press_OK_to_start.)#0#
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE prt>
+<!--Fluicell protocol xml-->
+<BioPenProtocol version="1.0">
+    <ask value="" message="Place the pipette to the holder and tighten. THEN PRESS OK"/>
+    <allOff value="" message=" "/>
+    <setVswitch value="0" message=" "/>
+    <setVrecirc value="0" message=" "/>
+    <setPon value="0" message=" "/>
+    <setPoff value="0" message=" "/>
+    <wait value="5" message=" "/>
+    <pumpsOff value="" message=" "/>
+    <ask value="" message="Wait until a droplet appears at the tip of the pipette and THEN PRESS OK"/>
+    <wait value="40" message=" "/>
+    <allOff value="" message=" "/>
+    <setPon value="0" message=" "/>
+    <ask value="" message=" Remove the droplet using a lens tissue and put the pipette into solution. THEN PRESS OK"/>
+    <setVswitch value="-200" message=" "/>
+    <setVrecirc value="-200" message=" "/>
+    <wait value="90" message=" "/>
+    <setPoff value="21" message=" "/>
+    <setPon value="190" message=" "/>
+    <wait value="5" message=" "/>
+    <setVswitch value="-115" message=" "/>
+    <setVrecirc value="-115" message=" "/>
+    <ask value="" message="Pipette is ready for operation, press OK to start."/>
+</BioPenProtocol>

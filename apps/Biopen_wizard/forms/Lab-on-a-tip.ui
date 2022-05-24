@@ -43,7 +43,7 @@
    <string>BioPen wizard</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../Serial_console/resources.qrc">
+   <iconset resource="../resources.qrc">
     <normaloff>:/icons/fluicell_iconBIG.png</normaloff>:/icons/fluicell_iconBIG.png</iconset>
   </property>
   <property name="windowOpacity">
@@ -214,7 +214,7 @@ font-weight: 900;
             <item row="0" column="0">
              <widget class="QStackedWidget" name="stackedWidget_main">
               <property name="currentIndex">
-               <number>0</number>
+               <number>1</number>
               </property>
               <widget class="QWidget" name="page">
                <layout class="QGridLayout" name="gridLayout_18">
@@ -344,7 +344,7 @@ font-weight: 900;
                          <string/>
                         </property>
                         <property name="pixmap">
-                         <pixmap resource="resources.qrc">:/icons/warning.png</pixmap>
+                         <pixmap resource="../resources.qrc">:/icons/warning.png</pixmap>
                         </property>
                         <property name="scaledContents">
                          <bool>true</bool>
@@ -532,7 +532,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                          <string/>
                         </property>
                         <property name="icon">
-                         <iconset resource="resources.qrc">
+                         <iconset resource="../resources.qrc">
                           <normaloff>:/icons/play.png</normaloff>:/icons/play.png</iconset>
                         </property>
                         <property name="iconSize">
@@ -565,7 +565,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                          <string/>
                         </property>
                         <property name="icon">
-                         <iconset resource="resources.qrc">
+                         <iconset resource="../resources.qrc">
                           <normaloff>:/icons/run.png</normaloff>:/icons/run.png</iconset>
                         </property>
                         <property name="iconSize">
@@ -602,7 +602,7 @@ closeAllValves()&lt;br/&gt;
                          <string/>
                         </property>
                         <property name="icon">
-                         <iconset resource="resources.qrc">
+                         <iconset resource="../resources.qrc">
                           <normaloff>:/icons/stop.png</normaloff>:/icons/stop.png</iconset>
                         </property>
                         <property name="iconSize">
@@ -631,7 +631,7 @@ closeAllValves()&lt;br/&gt;
                          <string/>
                         </property>
                         <property name="icon">
-                         <iconset resource="resources.qrc">
+                         <iconset resource="../resources.qrc">
                           <normaloff>:/icons/newTip.png</normaloff>:/icons/newTip.png</iconset>
                         </property>
                         <property name="iconSize">
@@ -729,7 +729,7 @@ pumpsOff()&lt;br/&gt;
                          <string/>
                         </property>
                         <property name="icon">
-                         <iconset resource="resources.qrc">
+                         <iconset resource="../resources.qrc">
                           <normaloff>:/icons/standby.png</normaloff>:/icons/standby.png</iconset>
                         </property>
                         <property name="iconSize">
@@ -949,7 +949,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                          <string/>
                         </property>
                         <property name="icon">
-                         <iconset resource="resources.qrc">
+                         <iconset resource="../resources.qrc">
                           <normaloff>:/icons/minus.png</normaloff>:/icons/minus.png</iconset>
                         </property>
                         <property name="iconSize">
@@ -998,7 +998,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                          <string/>
                         </property>
                         <property name="icon">
-                         <iconset resource="resources.qrc">
+                         <iconset resource="../resources.qrc">
                           <normaloff>:/icons/minus.png</normaloff>:/icons/minus.png</iconset>
                         </property>
                         <property name="iconSize">
@@ -1203,7 +1203,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                          <string/>
                         </property>
                         <property name="icon">
-                         <iconset resource="resources.qrc">
+                         <iconset resource="../resources.qrc">
                           <normaloff>:/icons/plus.png</normaloff>:/icons/plus.png</iconset>
                         </property>
                         <property name="iconSize">
@@ -1244,7 +1244,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                          <string/>
                         </property>
                         <property name="icon">
-                         <iconset resource="resources.qrc">
+                         <iconset resource="../resources.qrc">
                           <normaloff>:/icons/plus.png</normaloff>:/icons/plus.png</iconset>
                         </property>
                         <property name="iconSize">
@@ -1298,7 +1298,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                          <string/>
                         </property>
                         <property name="icon">
-                         <iconset resource="resources.qrc">
+                         <iconset resource="../resources.qrc">
                           <normaloff>:/icons/minus.png</normaloff>:/icons/minus.png</iconset>
                         </property>
                         <property name="iconSize">
@@ -1412,7 +1412,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                          <string/>
                         </property>
                         <property name="icon">
-                         <iconset resource="resources.qrc">
+                         <iconset resource="../resources.qrc">
                           <normaloff>:/icons/plus.png</normaloff>:/icons/plus.png</iconset>
                         </property>
                         <property name="iconSize">
@@ -1636,7 +1636,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                        <string/>
                       </property>
                       <property name="pixmap">
-                       <pixmap resource="resources.qrc">:/icons/pipette.png</pixmap>
+                       <pixmap resource="../resources.qrc">:/icons/pipette.png</pixmap>
                       </property>
                       <property name="scaledContents">
                        <bool>true</bool>
@@ -2146,7 +2146,7 @@ height: 0.5px;
                           <string/>
                          </property>
                          <property name="pixmap">
-                          <pixmap resource="resources.qrc">:/icons/darkArrow.png</pixmap>
+                          <pixmap resource="../resources.qrc">:/icons/darkArrow.png</pixmap>
                          </property>
                          <property name="scaledContents">
                           <bool>true</bool>
@@ -2812,7 +2812,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                   <property name="currentIndex">
                    <number>0</number>
                   </property>
-                  <widget class="QWidget" name="tabWidgetPage_editorTree" native="true">
+                  <widget class="QWidget" name="tabWidgetPage_editorTree">
                    <attribute name="title">
                     <string>Tree</string>
                    </attribute>
@@ -3022,6 +3022,509 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
                       </column>
                      </widget>
                     </item>
+                    <item row="1" column="2">
+                     <widget class="QGroupBox" name="groupBox_13">
+                      <property name="enabled">
+                       <bool>true</bool>
+                      </property>
+                      <property name="minimumSize">
+                       <size>
+                        <width>0</width>
+                        <height>0</height>
+                       </size>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true"> QPushButton {
+     border: 1px solid #8f8f91;
+     border-radius: 6px;
+     width: 40px;
+     height: 40px;
+     font-size: 16px;
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
+
+ }
+
+ QPushButton:focus:pressed {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #F0F0FF, stop: 1 #f6f7fa);
+ }
+
+
+ QPushButton:focus:checked {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #dadbde, stop: 1 #dadbde);
+ }
+
+
+ QPushButton:hover {
+     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                       stop: 0 #f6f7fa, stop: 1 #F0F0FF);
+ }
+
+QPushButton:disabled{ background-color: #CCCCCC; }
+
+ QPushButton:flat {
+     border: none; /* no border for a flat push button */
+ }
+
+ QPushButton:default {
+     border-color: navy; /* make the default button prominent */
+ }</string>
+                      </property>
+                      <property name="title">
+                       <string/>
+                      </property>
+                      <layout class="QHBoxLayout" name="horizontalLayout_4">
+                       <item>
+                        <widget class="QPushButton" name="pushButton_addMacroCommand">
+                         <property name="enabled">
+                          <bool>true</bool>
+                         </property>
+                         <property name="minimumSize">
+                          <size>
+                           <width>40</width>
+                           <height>40</height>
+                          </size>
+                         </property>
+                         <property name="maximumSize">
+                          <size>
+                           <width>40</width>
+                           <height>40</height>
+                          </size>
+                         </property>
+                         <property name="font">
+                          <font>
+                           <pointsize>-1</pointsize>
+                          </font>
+                         </property>
+                         <property name="toolTip">
+                          <string>Add new command</string>
+                         </property>
+                         <property name="statusTip">
+                          <string>Add new command</string>
+                         </property>
+                         <property name="whatsThis">
+                          <string>Add new command</string>
+                         </property>
+                         <property name="text">
+                          <string/>
+                         </property>
+                         <property name="icon">
+                          <iconset resource="../resources.qrc">
+                           <normaloff>:/icons/plus.png</normaloff>:/icons/plus.png</iconset>
+                         </property>
+                         <property name="iconSize">
+                          <size>
+                           <width>20</width>
+                           <height>20</height>
+                          </size>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QPushButton" name="pushButton_removeMacroCommand">
+                         <property name="enabled">
+                          <bool>true</bool>
+                         </property>
+                         <property name="minimumSize">
+                          <size>
+                           <width>40</width>
+                           <height>40</height>
+                          </size>
+                         </property>
+                         <property name="maximumSize">
+                          <size>
+                           <width>40</width>
+                           <height>40</height>
+                          </size>
+                         </property>
+                         <property name="font">
+                          <font>
+                           <pointsize>-1</pointsize>
+                          </font>
+                         </property>
+                         <property name="toolTip">
+                          <string>Remove command</string>
+                         </property>
+                         <property name="statusTip">
+                          <string>Remove command</string>
+                         </property>
+                         <property name="whatsThis">
+                          <string>Remove command</string>
+                         </property>
+                         <property name="text">
+                          <string/>
+                         </property>
+                         <property name="icon">
+                          <iconset resource="../resources.qrc">
+                           <normaloff>:/icons/minus.png</normaloff>:/icons/minus.png</iconset>
+                         </property>
+                         <property name="iconSize">
+                          <size>
+                           <width>25</width>
+                           <height>25</height>
+                          </size>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QPushButton" name="pushButton_moveUp">
+                         <property name="enabled">
+                          <bool>true</bool>
+                         </property>
+                         <property name="minimumSize">
+                          <size>
+                           <width>40</width>
+                           <height>40</height>
+                          </size>
+                         </property>
+                         <property name="maximumSize">
+                          <size>
+                           <width>40</width>
+                           <height>40</height>
+                          </size>
+                         </property>
+                         <property name="font">
+                          <font>
+                           <pointsize>-1</pointsize>
+                          </font>
+                         </property>
+                         <property name="toolTip">
+                          <string>Move up</string>
+                         </property>
+                         <property name="statusTip">
+                          <string>Move up</string>
+                         </property>
+                         <property name="whatsThis">
+                          <string>Move up</string>
+                         </property>
+                         <property name="text">
+                          <string/>
+                         </property>
+                         <property name="icon">
+                          <iconset resource="../resources.qrc">
+                           <normaloff>:/icons/upArrow.png</normaloff>:/icons/upArrow.png</iconset>
+                         </property>
+                         <property name="iconSize">
+                          <size>
+                           <width>20</width>
+                           <height>20</height>
+                          </size>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QPushButton" name="pushButton_moveDown">
+                         <property name="enabled">
+                          <bool>true</bool>
+                         </property>
+                         <property name="minimumSize">
+                          <size>
+                           <width>40</width>
+                           <height>40</height>
+                          </size>
+                         </property>
+                         <property name="maximumSize">
+                          <size>
+                           <width>40</width>
+                           <height>40</height>
+                          </size>
+                         </property>
+                         <property name="font">
+                          <font>
+                           <pointsize>-1</pointsize>
+                          </font>
+                         </property>
+                         <property name="toolTip">
+                          <string>Move down</string>
+                         </property>
+                         <property name="statusTip">
+                          <string>Move down</string>
+                         </property>
+                         <property name="whatsThis">
+                          <string>Move down</string>
+                         </property>
+                         <property name="text">
+                          <string/>
+                         </property>
+                         <property name="icon">
+                          <iconset resource="../resources.qrc">
+                           <normaloff>:/icons/downArrow.png</normaloff>:/icons/downArrow.png</iconset>
+                         </property>
+                         <property name="iconSize">
+                          <size>
+                           <width>20</width>
+                           <height>20</height>
+                          </size>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QPushButton" name="pushButton_loop">
+                         <property name="enabled">
+                          <bool>true</bool>
+                         </property>
+                         <property name="minimumSize">
+                          <size>
+                           <width>40</width>
+                           <height>40</height>
+                          </size>
+                         </property>
+                         <property name="maximumSize">
+                          <size>
+                           <width>40</width>
+                           <height>40</height>
+                          </size>
+                         </property>
+                         <property name="toolTip">
+                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Add a new loop&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                         </property>
+                         <property name="text">
+                          <string/>
+                         </property>
+                         <property name="icon">
+                          <iconset resource="../resources.qrc">
+                           <normaloff>:/icons/loop.png</normaloff>:/icons/loop.png</iconset>
+                         </property>
+                         <property name="iconSize">
+                          <size>
+                           <width>30</width>
+                           <height>30</height>
+                          </size>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QPushButton" name="pushButton_plusIndent">
+                         <property name="enabled">
+                          <bool>true</bool>
+                         </property>
+                         <property name="minimumSize">
+                          <size>
+                           <width>40</width>
+                           <height>40</height>
+                          </size>
+                         </property>
+                         <property name="maximumSize">
+                          <size>
+                           <width>40</width>
+                           <height>40</height>
+                          </size>
+                         </property>
+                         <property name="toolTip">
+                          <string>Add new command in the loop</string>
+                         </property>
+                         <property name="statusTip">
+                          <string>Add new command in the loop</string>
+                         </property>
+                         <property name="whatsThis">
+                          <string>Add new command in the loop</string>
+                         </property>
+                         <property name="text">
+                          <string/>
+                         </property>
+                         <property name="icon">
+                          <iconset resource="../resources.qrc">
+                           <normaloff>:/icons/indentPlus.png</normaloff>:/icons/indentPlus.png</iconset>
+                         </property>
+                         <property name="iconSize">
+                          <size>
+                           <width>25</width>
+                           <height>25</height>
+                          </size>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QPushButton" name="pushButton_duplicateLine">
+                         <property name="enabled">
+                          <bool>true</bool>
+                         </property>
+                         <property name="toolTip">
+                          <string>Duplicate command</string>
+                         </property>
+                         <property name="statusTip">
+                          <string>duplicate command</string>
+                         </property>
+                         <property name="whatsThis">
+                          <string>duplicate command</string>
+                         </property>
+                         <property name="text">
+                          <string/>
+                         </property>
+                         <property name="icon">
+                          <iconset resource="../resources.qrc">
+                           <normaloff>:/icons/duplicate.png</normaloff>:/icons/duplicate.png</iconset>
+                         </property>
+                         <property name="iconSize">
+                          <size>
+                           <width>30</width>
+                           <height>30</height>
+                          </size>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QPushButton" name="pushButton_clearCommands">
+                         <property name="enabled">
+                          <bool>true</bool>
+                         </property>
+                         <property name="minimumSize">
+                          <size>
+                           <width>40</width>
+                           <height>40</height>
+                          </size>
+                         </property>
+                         <property name="maximumSize">
+                          <size>
+                           <width>40</width>
+                           <height>40</height>
+                          </size>
+                         </property>
+                         <property name="font">
+                          <font>
+                           <pointsize>-1</pointsize>
+                          </font>
+                         </property>
+                         <property name="toolTip">
+                          <string>Clear all commands</string>
+                         </property>
+                         <property name="statusTip">
+                          <string>Clear all commands</string>
+                         </property>
+                         <property name="whatsThis">
+                          <string>Clear all commands</string>
+                         </property>
+                         <property name="text">
+                          <string/>
+                         </property>
+                         <property name="icon">
+                          <iconset resource="../resources.qrc">
+                           <normaloff>:/icons/clearAll.png</normaloff>:/icons/clearAll.png</iconset>
+                         </property>
+                         <property name="iconSize">
+                          <size>
+                           <width>30</width>
+                           <height>30</height>
+                          </size>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <spacer name="horizontalSpacer_10">
+                         <property name="orientation">
+                          <enum>Qt::Horizontal</enum>
+                         </property>
+                         <property name="sizeHint" stdset="0">
+                          <size>
+                           <width>339</width>
+                           <height>20</height>
+                          </size>
+                         </property>
+                        </spacer>
+                       </item>
+                       <item>
+                        <widget class="QPushButton" name="pushButton_undo">
+                         <property name="enabled">
+                          <bool>true</bool>
+                         </property>
+                         <property name="minimumSize">
+                          <size>
+                           <width>40</width>
+                           <height>40</height>
+                          </size>
+                         </property>
+                         <property name="maximumSize">
+                          <size>
+                           <width>40</width>
+                           <height>40</height>
+                          </size>
+                         </property>
+                         <property name="font">
+                          <font>
+                           <pointsize>-1</pointsize>
+                          </font>
+                         </property>
+                         <property name="toolTip">
+                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Undo command&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                         </property>
+                         <property name="statusTip">
+                          <string>Clear all commands</string>
+                         </property>
+                         <property name="whatsThis">
+                          <string>Clear all commands</string>
+                         </property>
+                         <property name="text">
+                          <string/>
+                         </property>
+                         <property name="icon">
+                          <iconset resource="../resources.qrc">
+                           <normaloff>:/icons/undo.png</normaloff>:/icons/undo.png</iconset>
+                         </property>
+                         <property name="iconSize">
+                          <size>
+                           <width>30</width>
+                           <height>30</height>
+                          </size>
+                         </property>
+                         <property name="checkable">
+                          <bool>false</bool>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QPushButton" name="pushButton_redo">
+                         <property name="enabled">
+                          <bool>true</bool>
+                         </property>
+                         <property name="minimumSize">
+                          <size>
+                           <width>40</width>
+                           <height>40</height>
+                          </size>
+                         </property>
+                         <property name="maximumSize">
+                          <size>
+                           <width>40</width>
+                           <height>40</height>
+                          </size>
+                         </property>
+                         <property name="font">
+                          <font>
+                           <pointsize>-1</pointsize>
+                          </font>
+                         </property>
+                         <property name="toolTip">
+                          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Redo command&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                         </property>
+                         <property name="statusTip">
+                          <string>Clear all commands</string>
+                         </property>
+                         <property name="whatsThis">
+                          <string>Clear all commands</string>
+                         </property>
+                         <property name="text">
+                          <string/>
+                         </property>
+                         <property name="icon">
+                          <iconset resource="../resources.qrc">
+                           <normaloff>:/icons/redo.png</normaloff>:/icons/redo.png</iconset>
+                         </property>
+                         <property name="iconSize">
+                          <size>
+                           <width>30</width>
+                           <height>30</height>
+                          </size>
+                         </property>
+                         <property name="checkable">
+                          <bool>false</bool>
+                         </property>
+                        </widget>
+                       </item>
+                      </layout>
+                     </widget>
+                    </item>
                    </layout>
                   </widget>
                   <widget class="QWidget" name="tabWidgetPage_editorXMLCode">
@@ -3063,509 +3566,6 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
                     </item>
                    </layout>
                   </widget>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QGroupBox" name="groupBox_13">
-                  <property name="enabled">
-                   <bool>true</bool>
-                  </property>
-                  <property name="minimumSize">
-                   <size>
-                    <width>0</width>
-                    <height>0</height>
-                   </size>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true"> QPushButton {
-     border: 1px solid #8f8f91;
-     border-radius: 6px;
-     width: 40px;
-     height: 40px;
-     font-size: 16px;
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
-
- }
-
- QPushButton:focus:pressed {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #F0F0FF, stop: 1 #f6f7fa);
- }
-
-
- QPushButton:focus:checked {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #dadbde, stop: 1 #dadbde);
- }
-
-
- QPushButton:hover {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #F0F0FF);
- }
-
-QPushButton:disabled{ background-color: #CCCCCC; }
-
- QPushButton:flat {
-     border: none; /* no border for a flat push button */
- }
-
- QPushButton:default {
-     border-color: navy; /* make the default button prominent */
- }</string>
-                  </property>
-                  <property name="title">
-                   <string/>
-                  </property>
-                  <layout class="QHBoxLayout" name="horizontalLayout_4">
-                   <item>
-                    <widget class="QPushButton" name="pushButton_addMacroCommand">
-                     <property name="enabled">
-                      <bool>true</bool>
-                     </property>
-                     <property name="minimumSize">
-                      <size>
-                       <width>40</width>
-                       <height>40</height>
-                      </size>
-                     </property>
-                     <property name="maximumSize">
-                      <size>
-                       <width>40</width>
-                       <height>40</height>
-                      </size>
-                     </property>
-                     <property name="font">
-                      <font>
-                       <pointsize>-1</pointsize>
-                      </font>
-                     </property>
-                     <property name="toolTip">
-                      <string>Add new command</string>
-                     </property>
-                     <property name="statusTip">
-                      <string>Add new command</string>
-                     </property>
-                     <property name="whatsThis">
-                      <string>Add new command</string>
-                     </property>
-                     <property name="text">
-                      <string/>
-                     </property>
-                     <property name="icon">
-                      <iconset resource="resources.qrc">
-                       <normaloff>:/icons/plus.png</normaloff>:/icons/plus.png</iconset>
-                     </property>
-                     <property name="iconSize">
-                      <size>
-                       <width>20</width>
-                       <height>20</height>
-                      </size>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QPushButton" name="pushButton_removeMacroCommand">
-                     <property name="enabled">
-                      <bool>true</bool>
-                     </property>
-                     <property name="minimumSize">
-                      <size>
-                       <width>40</width>
-                       <height>40</height>
-                      </size>
-                     </property>
-                     <property name="maximumSize">
-                      <size>
-                       <width>40</width>
-                       <height>40</height>
-                      </size>
-                     </property>
-                     <property name="font">
-                      <font>
-                       <pointsize>-1</pointsize>
-                      </font>
-                     </property>
-                     <property name="toolTip">
-                      <string>Remove command</string>
-                     </property>
-                     <property name="statusTip">
-                      <string>Remove command</string>
-                     </property>
-                     <property name="whatsThis">
-                      <string>Remove command</string>
-                     </property>
-                     <property name="text">
-                      <string/>
-                     </property>
-                     <property name="icon">
-                      <iconset resource="resources.qrc">
-                       <normaloff>:/icons/minus.png</normaloff>:/icons/minus.png</iconset>
-                     </property>
-                     <property name="iconSize">
-                      <size>
-                       <width>25</width>
-                       <height>25</height>
-                      </size>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QPushButton" name="pushButton_moveUp">
-                     <property name="enabled">
-                      <bool>true</bool>
-                     </property>
-                     <property name="minimumSize">
-                      <size>
-                       <width>40</width>
-                       <height>40</height>
-                      </size>
-                     </property>
-                     <property name="maximumSize">
-                      <size>
-                       <width>40</width>
-                       <height>40</height>
-                      </size>
-                     </property>
-                     <property name="font">
-                      <font>
-                       <pointsize>-1</pointsize>
-                      </font>
-                     </property>
-                     <property name="toolTip">
-                      <string>Move up</string>
-                     </property>
-                     <property name="statusTip">
-                      <string>Move up</string>
-                     </property>
-                     <property name="whatsThis">
-                      <string>Move up</string>
-                     </property>
-                     <property name="text">
-                      <string/>
-                     </property>
-                     <property name="icon">
-                      <iconset resource="resources.qrc">
-                       <normaloff>:/icons/upArrow.png</normaloff>:/icons/upArrow.png</iconset>
-                     </property>
-                     <property name="iconSize">
-                      <size>
-                       <width>20</width>
-                       <height>20</height>
-                      </size>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QPushButton" name="pushButton_moveDown">
-                     <property name="enabled">
-                      <bool>true</bool>
-                     </property>
-                     <property name="minimumSize">
-                      <size>
-                       <width>40</width>
-                       <height>40</height>
-                      </size>
-                     </property>
-                     <property name="maximumSize">
-                      <size>
-                       <width>40</width>
-                       <height>40</height>
-                      </size>
-                     </property>
-                     <property name="font">
-                      <font>
-                       <pointsize>-1</pointsize>
-                      </font>
-                     </property>
-                     <property name="toolTip">
-                      <string>Move down</string>
-                     </property>
-                     <property name="statusTip">
-                      <string>Move down</string>
-                     </property>
-                     <property name="whatsThis">
-                      <string>Move down</string>
-                     </property>
-                     <property name="text">
-                      <string/>
-                     </property>
-                     <property name="icon">
-                      <iconset resource="resources.qrc">
-                       <normaloff>:/icons/downArrow.png</normaloff>:/icons/downArrow.png</iconset>
-                     </property>
-                     <property name="iconSize">
-                      <size>
-                       <width>20</width>
-                       <height>20</height>
-                      </size>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QPushButton" name="pushButton_loop">
-                     <property name="enabled">
-                      <bool>true</bool>
-                     </property>
-                     <property name="minimumSize">
-                      <size>
-                       <width>40</width>
-                       <height>40</height>
-                      </size>
-                     </property>
-                     <property name="maximumSize">
-                      <size>
-                       <width>40</width>
-                       <height>40</height>
-                      </size>
-                     </property>
-                     <property name="toolTip">
-                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Add a new loop&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                     </property>
-                     <property name="text">
-                      <string/>
-                     </property>
-                     <property name="icon">
-                      <iconset resource="resources.qrc">
-                       <normaloff>:/icons/loop.png</normaloff>:/icons/loop.png</iconset>
-                     </property>
-                     <property name="iconSize">
-                      <size>
-                       <width>30</width>
-                       <height>30</height>
-                      </size>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QPushButton" name="pushButton_plusIndent">
-                     <property name="enabled">
-                      <bool>true</bool>
-                     </property>
-                     <property name="minimumSize">
-                      <size>
-                       <width>40</width>
-                       <height>40</height>
-                      </size>
-                     </property>
-                     <property name="maximumSize">
-                      <size>
-                       <width>40</width>
-                       <height>40</height>
-                      </size>
-                     </property>
-                     <property name="toolTip">
-                      <string>Add new command in the loop</string>
-                     </property>
-                     <property name="statusTip">
-                      <string>Add new command in the loop</string>
-                     </property>
-                     <property name="whatsThis">
-                      <string>Add new command in the loop</string>
-                     </property>
-                     <property name="text">
-                      <string/>
-                     </property>
-                     <property name="icon">
-                      <iconset resource="resources.qrc">
-                       <normaloff>:/icons/indentPlus.png</normaloff>:/icons/indentPlus.png</iconset>
-                     </property>
-                     <property name="iconSize">
-                      <size>
-                       <width>25</width>
-                       <height>25</height>
-                      </size>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QPushButton" name="pushButton_duplicateLine">
-                     <property name="enabled">
-                      <bool>true</bool>
-                     </property>
-                     <property name="toolTip">
-                      <string>Duplicate command</string>
-                     </property>
-                     <property name="statusTip">
-                      <string>duplicate command</string>
-                     </property>
-                     <property name="whatsThis">
-                      <string>duplicate command</string>
-                     </property>
-                     <property name="text">
-                      <string/>
-                     </property>
-                     <property name="icon">
-                      <iconset resource="resources.qrc">
-                       <normaloff>:/icons/duplicate.png</normaloff>:/icons/duplicate.png</iconset>
-                     </property>
-                     <property name="iconSize">
-                      <size>
-                       <width>30</width>
-                       <height>30</height>
-                      </size>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QPushButton" name="pushButton_clearCommands">
-                     <property name="enabled">
-                      <bool>true</bool>
-                     </property>
-                     <property name="minimumSize">
-                      <size>
-                       <width>40</width>
-                       <height>40</height>
-                      </size>
-                     </property>
-                     <property name="maximumSize">
-                      <size>
-                       <width>40</width>
-                       <height>40</height>
-                      </size>
-                     </property>
-                     <property name="font">
-                      <font>
-                       <pointsize>-1</pointsize>
-                      </font>
-                     </property>
-                     <property name="toolTip">
-                      <string>Clear all commands</string>
-                     </property>
-                     <property name="statusTip">
-                      <string>Clear all commands</string>
-                     </property>
-                     <property name="whatsThis">
-                      <string>Clear all commands</string>
-                     </property>
-                     <property name="text">
-                      <string/>
-                     </property>
-                     <property name="icon">
-                      <iconset resource="resources.qrc">
-                       <normaloff>:/icons/clearAll.png</normaloff>:/icons/clearAll.png</iconset>
-                     </property>
-                     <property name="iconSize">
-                      <size>
-                       <width>30</width>
-                       <height>30</height>
-                      </size>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <spacer name="horizontalSpacer_10">
-                     <property name="orientation">
-                      <enum>Qt::Horizontal</enum>
-                     </property>
-                     <property name="sizeHint" stdset="0">
-                      <size>
-                       <width>339</width>
-                       <height>20</height>
-                      </size>
-                     </property>
-                    </spacer>
-                   </item>
-                   <item>
-                    <widget class="QPushButton" name="pushButton_undo">
-                     <property name="enabled">
-                      <bool>true</bool>
-                     </property>
-                     <property name="minimumSize">
-                      <size>
-                       <width>40</width>
-                       <height>40</height>
-                      </size>
-                     </property>
-                     <property name="maximumSize">
-                      <size>
-                       <width>40</width>
-                       <height>40</height>
-                      </size>
-                     </property>
-                     <property name="font">
-                      <font>
-                       <pointsize>-1</pointsize>
-                      </font>
-                     </property>
-                     <property name="toolTip">
-                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Undo command&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                     </property>
-                     <property name="statusTip">
-                      <string>Clear all commands</string>
-                     </property>
-                     <property name="whatsThis">
-                      <string>Clear all commands</string>
-                     </property>
-                     <property name="text">
-                      <string/>
-                     </property>
-                     <property name="icon">
-                      <iconset resource="resources.qrc">
-                       <normaloff>:/icons/undo.png</normaloff>:/icons/undo.png</iconset>
-                     </property>
-                     <property name="iconSize">
-                      <size>
-                       <width>30</width>
-                       <height>30</height>
-                      </size>
-                     </property>
-                     <property name="checkable">
-                      <bool>false</bool>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QPushButton" name="pushButton_redo">
-                     <property name="enabled">
-                      <bool>true</bool>
-                     </property>
-                     <property name="minimumSize">
-                      <size>
-                       <width>40</width>
-                       <height>40</height>
-                      </size>
-                     </property>
-                     <property name="maximumSize">
-                      <size>
-                       <width>40</width>
-                       <height>40</height>
-                      </size>
-                     </property>
-                     <property name="font">
-                      <font>
-                       <pointsize>-1</pointsize>
-                      </font>
-                     </property>
-                     <property name="toolTip">
-                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:10pt;&quot;&gt;Redo command&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                     </property>
-                     <property name="statusTip">
-                      <string>Clear all commands</string>
-                     </property>
-                     <property name="whatsThis">
-                      <string>Clear all commands</string>
-                     </property>
-                     <property name="text">
-                      <string/>
-                     </property>
-                     <property name="icon">
-                      <iconset resource="resources.qrc">
-                       <normaloff>:/icons/redo.png</normaloff>:/icons/redo.png</iconset>
-                     </property>
-                     <property name="iconSize">
-                      <size>
-                       <width>30</width>
-                       <height>30</height>
-                      </size>
-                     </property>
-                     <property name="checkable">
-                      <bool>false</bool>
-                     </property>
-                    </widget>
-                   </item>
-                  </layout>
                  </widget>
                 </item>
                 <item>
@@ -4308,7 +4308,7 @@ border-top-left-radius: 5px;
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="resources.qrc">
+                   <iconset resource="../resources.qrc">
                     <normaloff>:/icons/minus.png</normaloff>:/icons/minus.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -4349,7 +4349,7 @@ border-top-left-radius: 5px;
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="resources.qrc">
+                   <iconset resource="../resources.qrc">
                     <normaloff>:/icons/plus.png</normaloff>:/icons/plus.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -4512,7 +4512,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="resources.qrc">
+                   <iconset resource="../resources.qrc">
                     <normaloff>:/icons/minus.png</normaloff>:/icons/minus.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -4753,7 +4753,7 @@ border-top-left-radius: 5px;
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="resources.qrc">
+                   <iconset resource="../resources.qrc">
                     <normaloff>:/icons/plus.png</normaloff>:/icons/plus.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -5093,7 +5093,7 @@ border-top-left-radius: 5px;
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="resources.qrc">
+                   <iconset resource="../resources.qrc">
                     <normaloff>:/icons/minus.png</normaloff>:/icons/minus.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -5125,7 +5125,7 @@ border-top-left-radius: 5px;
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="resources.qrc">
+                   <iconset resource="../resources.qrc">
                     <normaloff>:/icons/plus.png</normaloff>:/icons/plus.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -5471,7 +5471,7 @@ border-radius: 4px;
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="resources.qrc">
+                   <iconset resource="../resources.qrc">
                     <normaloff>:/icons/minus.png</normaloff>:/icons/minus.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -5554,7 +5554,7 @@ border-radius: 4px;
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="resources.qrc">
+                   <iconset resource="../resources.qrc">
                     <normaloff>:/icons/plus.png</normaloff>:/icons/plus.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -8883,7 +8883,7 @@ QPushButton:disabled{ background-color: #CCCCCC; }
                       <string/>
                      </property>
                      <property name="icon">
-                      <iconset resource="resources.qrc">
+                      <iconset resource="../resources.qrc">
                        <normaloff>:/icons/folder.png</normaloff>:/icons/folder.png</iconset>
                      </property>
                     </widget>
@@ -9385,7 +9385,7 @@ click on any object to have quick help
   </action>
   <action name="actionShudown">
    <property name="icon">
-    <iconset resource="resources.qrc">
+    <iconset resource="../resources.qrc">
      <normaloff>:/icons/shutdown.png</normaloff>
      <disabledoff>:/icons/shutdown_off.png</disabledoff>:/icons/shutdown.png</iconset>
    </property>
@@ -9438,7 +9438,7 @@ click on any object to have quick help
     <bool>false</bool>
    </property>
    <property name="icon">
-    <iconset resource="resources.qrc">
+    <iconset resource="../resources.qrc">
      <normaloff>:/icons/wand.png</normaloff>
      <disabledoff>:/icons/wand_off.png</disabledoff>:/icons/wand.png</iconset>
    </property>
@@ -9451,7 +9451,8 @@ click on any object to have quick help
   </action>
  </widget>
  <resources>
-  <include location="../Serial_console/resources.qrc"/>
+  <include location="../resources.qrc"/>
+  <include location="../resources.qrc"/>
   <include location="resources.qrc"/>
  </resources>
  <connections/>
