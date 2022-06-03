@@ -80,6 +80,8 @@ void Labonatip_GUI::onProtocolClicked(QTreeWidgetItem* item, int column)
 		protocol_path.append("/");
 		protocol_path.append(textOfItem);
 
+		ui->tabWidget_editor->setCurrentIndex(0);
+
 		QMessageBox::StandardButton resBtn = QMessageBox::Yes;
 
 		if (m_protocol->size() > 0)
@@ -96,6 +98,8 @@ void Labonatip_GUI::onProtocolClicked(QTreeWidgetItem* item, int column)
 			//m_reader->readProtocol(ui->treeWidget_macroTable, protocol_path);
 			this->openXml(protocol_path, ui->treeWidget_macroTable);
 			updateTreeView(ui->treeWidget_macroTable);
+			addAllCommandsToPPC1Protocol(ui->treeWidget_macroTable,
+				m_protocol);
 			m_current_protocol_file_name = protocol_path;
 			QApplication::restoreOverrideCursor();
 		}
@@ -107,6 +111,8 @@ void Labonatip_GUI::onProtocolClicked(QTreeWidgetItem* item, int column)
 			//m_reader->readProtocol(ui->treeWidget_macroTable, protocol_path);
 			this->openXml(protocol_path, ui->treeWidget_macroTable);
 			updateTreeView(ui->treeWidget_macroTable);
+			addAllCommandsToPPC1Protocol(ui->treeWidget_macroTable,
+				m_protocol);
 			m_current_protocol_file_name = protocol_path;
 			QApplication::restoreOverrideCursor();
 		}
@@ -156,6 +162,7 @@ void Labonatip_GUI::updateTreeView(QTreeWidget* _tree)
 		}
 
 	}
+	
 
 }
 
@@ -514,8 +521,9 @@ void Labonatip_GUI::onTabEditorChanged(int _idx)
 
 		ui->treeWidget_macroTable->clear();
 		openXml(save_tmp_file, ui->treeWidget_macroTable);
-#pragma message ("TODO: uncomment this")
 		updateTreeView(ui->treeWidget_macroTable);
+		addAllCommandsToPPC1Protocol(ui->treeWidget_macroTable,
+			m_protocol);
 		QFile f(save_tmp_file);
 		f.remove();
 		return;

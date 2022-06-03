@@ -38,10 +38,13 @@ bool Labonatip_GUI::loadProtocol()
 		//	m_str_file_not_found + "<br>" + file_name);
 		return false;
 	}
-	
+
+	ui->tabWidget_editor->setCurrentIndex(0);
 	if (this->openXml(file_name, ui->treeWidget_macroTable))
 	{
 		updateTreeView(ui->treeWidget_macroTable);
+		addAllCommandsToPPC1Protocol(ui->treeWidget_macroTable,
+			m_protocol);
 		m_current_protocol_file_name = file_name;
 		return true;
 	}
