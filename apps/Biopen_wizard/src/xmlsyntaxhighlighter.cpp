@@ -86,21 +86,25 @@ void XmlSyntaxHighlighter::highlightBlock(const QString &text)
 {
      for (const HighlightingRule &rule : qAsConst(highlightingRules)) {
          QRegExp expression(rule.pattern);
-         int index = text.indexOf(expression);
+         //int index = text.indexOf(expression);
+         int index = expression.indexIn(text);
          while (index >= 0) {
              int length = expression.matchedLength();
              setFormat(index, length, rule.format);
-             index = text.indexOf(expression, index + length);
+             //index = text.indexOf(expression, index + length);
+             index = expression.indexIn(text, index + length);
          }
      }
      setCurrentBlockState(0);
 
      int startIndex = 0;
      if (previousBlockState() != 1)
-         startIndex = text.indexOf(commentStartExpression);
+        //startIndex = text.indexOf(commentStartExpression);
+        startIndex = commentStartExpression.indexIn(text);
 
      while (startIndex >= 0) {
-         int endIndex = text.indexOf(commentEndExpression, startIndex);
+         //int endIndex = text.indexOf(commentEndExpression, startIndex);
+         int endIndex = commentEndExpression.indexIn(text, startIndex);
          int commentLength;
          if (endIndex == -1) {
              setCurrentBlockState(1);
@@ -110,7 +114,8 @@ void XmlSyntaxHighlighter::highlightBlock(const QString &text)
                              + commentEndExpression.matchedLength();
          }
          setFormat(startIndex, commentLength, commentFormat);
-         startIndex = text.indexOf(commentStartExpression,
-                                                 startIndex + commentLength);
+         //startIndex = text.indexOf(commentStartExpression,
+         //                                        startIndex + commentLength);
+         startIndex = commentStartExpression.indexIn(text, startIndex + commentLength);
      }
 }

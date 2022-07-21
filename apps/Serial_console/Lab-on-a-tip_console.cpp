@@ -22,9 +22,7 @@ Labonatip_console::Labonatip_console(QWidget *parent ):
 
 // initialize and connect serial port objects
   //serial = new QSerialPort(this);
-  connect(serial, static_cast<void (QSerialPort::*)(QSerialPort::SerialPortError)>
-	                         (&QSerialPort::error),
-	      this, &Labonatip_console::handleError);
+  connect(serial, &QSerialPort::errorOccurred, this, &Labonatip_console::handleError);
   connect(serial, &QSerialPort::readyRead, this, &Labonatip_console::readData);
 
   // set serial port description for the first found port
@@ -150,8 +148,8 @@ void Labonatip_console::emumeratePorts()
 			+ QObject::tr("Manufacturer: ") + info.manufacturer() + "\n"
 			+ QObject::tr("Serial number: ") + info.serialNumber() + "\n"
 			+ QObject::tr("Vendor Identifier: ") + (info.hasVendorIdentifier() ? QString::number(info.vendorIdentifier(), 16) : QString()) + "\n"
-			+ QObject::tr("Product Identifier: ") + (info.hasProductIdentifier() ? QString::number(info.productIdentifier(), 16) : QString()) + "\n"
-			+ QObject::tr("Busy: ") + (info.isBusy() ? QObject::tr("Yes") : QObject::tr("No")) + "\n";
+			+ QObject::tr("Product Identifier: ") + (info.hasProductIdentifier() ? QString::number(info.productIdentifier(), 16) : QString()) + "\n";
+			//+ QObject::tr("Busy: ") + (info.isBusy() ? QObject::tr("Yes") : QObject::tr("No")) + "\n";
 
 		ui_console->textEdit_console->append(s);
 		ui_console->comboBox_serialInfo->addItem(info.portName());

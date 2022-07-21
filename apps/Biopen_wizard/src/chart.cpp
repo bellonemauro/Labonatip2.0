@@ -46,24 +46,24 @@ protocolChart::protocolChart(  ):
 	m_col_sol4 = new QColor(0x82FF00);
 
 	//initialize chart objects
-	m_series_Pon = new QtCharts::QLineSeries();
-	m_series_Poff = new QtCharts::QLineSeries();
-	m_series_V_switch = new QtCharts::QLineSeries();
-	m_series_V_recirc = new QtCharts::QLineSeries();
-	m_series_solution1 = new QtCharts::QLineSeries();
-	m_series_solution2 = new QtCharts::QLineSeries();
-	m_series_solution3 = new QtCharts::QLineSeries();
-	m_series_solution4 = new QtCharts::QLineSeries();
-	m_area_solution1 = new QtCharts::QAreaSeries();
-	m_area_solution2 = new QtCharts::QAreaSeries();
-	m_area_solution3 = new QtCharts::QAreaSeries();
-	m_area_solution4 = new QtCharts::QAreaSeries();
-	m_series_solution = new QtCharts::QLineSeries();
-	m_series_ask = new QtCharts::QLineSeries();
-	m_series_sync_in = new QtCharts::QLineSeries();
-	m_series_sync_out = new QtCharts::QLineSeries();
-	m_time_line_b = new QtCharts::QLineSeries();
-	m_time_line_t = new QtCharts::QLineSeries();
+	m_series_Pon = new QLineSeries();
+	m_series_Poff = new QLineSeries();
+	m_series_V_switch = new QLineSeries();
+	m_series_V_recirc = new QLineSeries();
+	m_series_solution1 = new QLineSeries();
+	m_series_solution2 = new QLineSeries();
+	m_series_solution3 = new QLineSeries();
+	m_series_solution4 = new QLineSeries();
+	m_area_solution1 = new QAreaSeries();
+	m_area_solution2 = new QAreaSeries();
+	m_area_solution3 = new QAreaSeries();
+	m_area_solution4 = new QAreaSeries();
+	m_series_solution = new QLineSeries();
+	m_series_ask = new QLineSeries();
+	m_series_sync_in = new QLineSeries();
+	m_series_sync_out = new QLineSeries();
+	m_time_line_b = new QLineSeries();
+	m_time_line_t = new QLineSeries();
 
 	// add two points for each series, start and end
 	*m_series_Pon << QPointF(min_time_line, min_series_pon) << QPointF(max_time_line, min_series_pon);
@@ -93,7 +93,7 @@ protocolChart::protocolChart(  ):
 	*m_time_line_t << QPointF(m_time_line_thickness, min_time_line) << QPointF(m_time_line_thickness, max_time_line);
 
 	// the pen is creates as the area between two vertical lines
-	m_past_time_area = new QtCharts::QAreaSeries(m_time_line_b, m_time_line_t);
+	m_past_time_area = new QAreaSeries(m_time_line_b, m_time_line_t);
 	m_past_time_area->setName("Time line");
 	QPen pen_t(0xFFFFFF);
 	pen_t.setWidth(1);
@@ -149,7 +149,7 @@ protocolChart::protocolChart(  ):
 	m_area_solution4->setColor(*m_col_sol4);
 
 	// set the chart
-	m_chart = new QtCharts::QChart();
+	m_chart = new QChart();
 	m_chart->legend()->hide();
 
 	// add the series to the chart
@@ -170,14 +170,14 @@ protocolChart::protocolChart(  ):
 	m_chart->addSeries(m_past_time_area);
 
 	// set the axis
-	QtCharts::QCategoryAxis *axisX = new QtCharts::QCategoryAxis();
-	QtCharts::QCategoryAxis *axisY = new QtCharts::QCategoryAxis();
+	QCategoryAxis *axisX = new QCategoryAxis();
+	QCategoryAxis *axisY = new QCategoryAxis();
 
 	// Customize axis label font
 	QFont labelsFont;
 	labelsFont.setPointSize(8);
 	axisX->setLabelsFont(labelsFont);
-	axisX->setLabelsPosition(QtCharts::QCategoryAxis::AxisLabelsPositionOnValue);
+	axisX->setLabelsPosition(QCategoryAxis::AxisLabelsPositionOnValue);
 	axisY->setLabelsFont(labelsFont);
 
 	// Customize axis colors
@@ -250,7 +250,7 @@ protocolChart::protocolChart(  ):
 	m_chart->setMargins(QMargins(0, 0, 8, 0));
 	m_chart->setBackgroundBrush(QBrush(QColor(0xFA, 0xFA, 0xFA)));
 
-	m_chartView = new QtCharts::QChartView(m_chart);
+	m_chartView = new QChartView(m_chart);
 	m_chartView->setRenderHint(QPainter::Antialiasing);
 	m_chartView->setBackgroundBrush(QBrush(QColor(0xFA, 0xFA, 0xFA)));
 }
@@ -560,7 +560,7 @@ void protocolChart::appendVsPoint(double _current_time, double _value)
 	m_series_V_switch->append(max_time_line, second_y);
 }
 
-void protocolChart::appendSolutionPoint(QtCharts::QLineSeries *_serie, double _current_time, double _value)
+void protocolChart::appendSolutionPoint(QLineSeries *_serie, double _current_time, double _value)
 {
 	double first_x = _current_time;
 	double second_x = _current_time;

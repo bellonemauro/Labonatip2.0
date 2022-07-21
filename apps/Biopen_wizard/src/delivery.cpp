@@ -636,7 +636,7 @@ void Labonatip_GUI::buildDPmap()
 							<< vs_idx << " "
 							<< vr_idx << " "
 							<< m_ds_perc << " "
-							<< m_fs_perc << " " << endl;
+							<< m_fs_perc << " " << "\n";
 					}
 					//QThread::msleep(100);
 				}

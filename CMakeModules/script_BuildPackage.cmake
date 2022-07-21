@@ -80,19 +80,19 @@ set(CPACK_PACKAGE_INSTALL_REGISTRY_KEY "${BIOPEN_PROJECT_NAME}")
 
 # this is to create the user folders during the installation
 set( CPACK_NSIS_EXTRA_INSTALL_COMMANDS "
-	SetOutPath \\\"$INSTDIR\\\\Biopen\\\"
-	CreateShortCut \\\"$DESKTOP\\\\Biopen.lnk\\\" \\\"$INSTDIR\\\\Biopen\\\\Biopen_wizard.exe\\\"
+	SetOutPath \\\"$INSTDIR\\\\Biopen_wizard\\\"
+	CreateShortCut \\\"$DESKTOP\\\\Biopen_wizard.lnk\\\" \\\"$INSTDIR\\\\Biopen_wizard\\\\Biopen_wizard.exe\\\"
 	SetOutPath \\\"$INSTDIR\\\"
-	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Biopen\\\" 
-	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Biopen\\\\presetProtocols\\\"
-	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Biopen\\\\settings\\\" 
-	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Biopen\\\\guide\\\" 
-	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Biopen\\\\Ext_data\\\" 
-	CopyFiles \\\"$INSTDIR\\\\Biopen\\\\presetProtocols\\\\*.prt\\\" \\\"$PROFILE\\\\Documents\\\\Biopen\\\\presetProtocols\\\"
-	CopyFiles \\\"$INSTDIR\\\\Biopen\\\\guide\\\\*.pdf\\\" \\\"$PROFILE\\\\Documents\\\\Biopen\\\\guide\\\"
-	CopyFiles \\\"$INSTDIR\\\\Biopen\\\\settings\\\\*.ini\\\" \\\"$PROFILE\\\\Documents\\\\Biopen\\\\settings\\\"
-	SetOutPath \\\"$INSTDIR\\\\Biopen\\\"
-	CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Biopen_wizard.lnk\\\" \\\"$INSTDIR\\\\Biopen\\\\Biopen_wizard.exe\\\" 
+	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Biopen_wizard\\\" 
+	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Biopen_wizard\\\\presetProtocols\\\"
+	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Biopen_wizard\\\\settings\\\" 
+	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Biopen_wizard\\\\guide\\\" 
+	CreateDirectory \\\"$PROFILE\\\\Documents\\\\Biopen_wizard\\\\Ext_data\\\" 
+	CopyFiles \\\"$INSTDIR\\\\Biopen_wizard\\\\presetProtocols\\\\*.prt\\\" \\\"$PROFILE\\\\Documents\\\\Biopen_wizard\\\\presetProtocols\\\"
+	CopyFiles \\\"$INSTDIR\\\\Biopen_wizard\\\\guide\\\\*.pdf\\\" \\\"$PROFILE\\\\Documents\\\\Biopen_wizard\\\\guide\\\"
+	CopyFiles \\\"$INSTDIR\\\\Biopen_wizard\\\\settings\\\\*.ini\\\" \\\"$PROFILE\\\\Documents\\\\Biopen_wizard\\\\settings\\\"
+	SetOutPath \\\"$INSTDIR\\\\Biopen_wizard\\\"
+	CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Biopen_wizard.lnk\\\" \\\"$INSTDIR\\\\Biopen_wizard\\\\Biopen_wizard.exe\\\" 
 	SetOutPath \\\"$INSTDIR\\\\SerialConsole\\\"
 	CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Serial Console.lnk\\\" \\\"$INSTDIR\\\\SerialConsole\\\\Serial_console.exe\\\" 
 	SetOutPath \\\"$INSTDIR\\\"")
@@ -119,23 +119,23 @@ set(CPACK_NSIS_MUI_FINISHPAGE_RUN Biopen_wizard.exe)
 #add a command to remove user created files - ATTENTION: it will also remove user created files !!!
 #Delete \\\"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\\\" #TODO this folder must to be removed
 set( CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS "
-	Delete \\\"$DESKTOP\\\\biopen.lnk\\\"
+	Delete \\\"$DESKTOP\\\\Biopen_wizard.lnk\\\"
 	Delete \\\"$PROFILE\\\\..\\\\..\\\\ProgramData\\\\Microsoft\\\\Windows\\\\Start Menu\\\\Programs\\\\Fluicell biopen wizard\\\\*.*\\\"
 	RMDir \\\"$PROFILE\\\\..\\\\..\\\\ProgramData\\\\Microsoft\\\\Windows\\\\Start Menu\\\\Programs\\\\Fluicell biopen wizard\\\"
 ")
 #set( CPACK_NSIS_EXTRA_UNINSTALL_COMMANDS "
-#	Delete \\\"$DESKTOP\\\\biopen.lnk\\\"
+#	Delete \\\"$DESKTOP\\\\Biopen_wizard.lnk\\\"
 #	Delete \\\"$PROFILE\\\\..\\\\..\\\\ProgramData\\\\Microsoft\\\\Windows\\\\Start Menu\\\\Programs\\\\Fluicell biopen wizard\\\\*.*\\\"
-	#Delete \\\"$PROFILE\\\\Documents\\\\Biopen\\\\presetProtocols\\\\*.*\\\" 
-	#Delete \\\"$PROFILE\\\\Documents\\\\Biopen\\\\guide\\\\*.*\\\" 
-	#Delete \\\"$PROFILE\\\\Documents\\\\Biopen\\\\settings\\\\*.*\\\" 
-	#Delete \\\"$PROFILE\\\\Documents\\\\Biopen\\\\Ext_data\\\\*.*\\\" 
-	#RMDir \\\"$PROFILE\\\\Documents\\\\Biopen\\\\presetProtocols\\\"
-	#RMDir \\\"$PROFILE\\\\Documents\\\\Biopen\\\\guide\\\" 
-	#RMDir \\\"$PROFILE\\\\Documents\\\\Biopen\\\\settings\\\" 
-	#RMDir \\\"$PROFILE\\\\Documents\\\\Biopen\\\\Ext_data\\\" 
+	#Delete \\\"$PROFILE\\\\Documents\\\\Biopen_wizard\\\\presetProtocols\\\\*.*\\\" 
+	#Delete \\\"$PROFILE\\\\Documents\\\\Biopen_wizard\\\\guide\\\\*.*\\\" 
+	#Delete \\\"$PROFILE\\\\Documents\\\\Biopen_wizard\\\\settings\\\\*.*\\\" 
+	#Delete \\\"$PROFILE\\\\Documents\\\\Biopen_wizard\\\\Ext_data\\\\*.*\\\" 
+	#RMDir \\\"$PROFILE\\\\Documents\\\\Biopen_wizard\\\\presetProtocols\\\"
+	#RMDir \\\"$PROFILE\\\\Documents\\\\Biopen_wizard\\\\guide\\\" 
+	#RMDir \\\"$PROFILE\\\\Documents\\\\Biopen_wizard\\\\settings\\\" 
+	#RMDir \\\"$PROFILE\\\\Documents\\\\Biopen_wizard\\\\Ext_data\\\" 
 #	RMDir \\\"$PROFILE\\\\..\\\\..\\\\ProgramData\\\\Microsoft\\\\Windows\\\\Start Menu\\\\Programs\\\\Fluicell biopen wizard\\\"
-	#RMDir \\\"$PROFILE\\\\Documents\\\\Biopen\\\" 
+	#RMDir \\\"$PROFILE\\\\Documents\\\\Biopen_wizard\\\" 
 #")
 
 												   
@@ -148,7 +148,7 @@ include (CPack)
 if(BUILD_WINDEPLOYQT AND WIN32)
 		# Run winddeployqt if it can be found
 	find_program(WINDEPLOYQT_EXECUTABLE NAMES windeployqt HINTS ${QT5_BINARY_DIR} ENV QTDIR PATH_SUFFIXES bin)
-    FILE(GLOB FILE_EXE "${PROJECT_BINARY_DIR}/bin/Release/Biopen/*.exe")
+    FILE(GLOB FILE_EXE "${PROJECT_BINARY_DIR}/bin/Release/Biopen_wizard/*.exe")
       FOREACH(F ${FILE_EXE})
         #INSTALL(FILES "${F}" DESTINATION ./)
  	    message (STATUS "     WINDEPLOYQT_EXECUTABLE is : ${WINDEPLOYQT_EXECUTABLE} \n")

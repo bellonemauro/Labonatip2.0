@@ -22,7 +22,10 @@
 #include <QMessageBox>
 #include <QDir>
 #include <QtCore>
-#include <QtNetwork>
+#include <QtNetwork/qnetworkaccessmanager.h>
+#include <QtNetwork/qnetworkreply.h>
+#include <QtNetwork/qnetworkrequest.h>
+//#include <QtNetwork>
 #include <QXmlStreamReader>
 
 QT_BEGIN_NAMESPACE

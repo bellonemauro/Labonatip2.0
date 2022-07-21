@@ -65,7 +65,7 @@ public:
 	int getLastCommand() { return m_last_command; }
 	int getLastValue() { return m_last_value; }
 	Qt::CheckState getLastSM() { return m_last_show_msg; }
-    QString getLastMsg() { return QString(m_last_show_msg); }
+    QString getLastMsg() { return QString(m_last_msg); }
 
 private:
 

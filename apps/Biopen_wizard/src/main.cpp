@@ -26,7 +26,7 @@
 
 #include "Lab-on-a-tip.h"
 #include <QApplication>
-#include <QDesktopWidget>
+#include <QScreen>
 #include <QSplashScreen>
 #include <QTimer>
 #include <QDir>
@@ -241,10 +241,10 @@ int main(int argc, char **argv)
 		Labonatip_GUI window;
 
 		// check for high DPI screens
-		int logical_dpi_x = QApplication::desktop()->logicalDpiX();
-		int logical_dpi_y = QApplication::desktop()->logicalDpiY();
-		int physical_dpi_x = QApplication::desktop()->physicalDpiX();
-		int physical_dpi_y = QApplication::desktop()->physicalDpiY();
+		int logical_dpi_x = QApplication::primaryScreen()->logicalDotsPerInchX();// ->logicalDpiX();
+		int logical_dpi_y = QApplication::primaryScreen()->logicalDotsPerInchY();//desktop()->logicalDpiY();
+		int physical_dpi_x = QApplication::primaryScreen()->physicalDotsPerInchX();// ->physicalDpiX();
+		int physical_dpi_y = QApplication::primaryScreen()->physicalDotsPerInchY();//desktop()->physicalDpiY();
 
 		// get the screen resolution of the current screen
 		// so we can resize the application in case of small screens

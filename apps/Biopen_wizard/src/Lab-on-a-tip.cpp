@@ -10,7 +10,7 @@
 #include "Lab-on-a-tip.h"
 #include <QtCharts/QCategoryAxis>
 #include <QtCharts/QAbstractAxis>
-
+#include <QDesktopServices>
 
 Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
 	QMainWindow(parent),
@@ -88,10 +88,6 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   // make sure that we start from the default window
   ui->stackedWidget_main->setCurrentIndex(0);
   ui->stackedWidget_indock->setCurrentIndex(0);
-
-  //initialize protocol reader and writer
-  m_reader = new protocolReader();
-  m_writer = new protocolWriter();
 
   // set the flows in the table
   ui->treeWidget_macroInfo->topLevelItem(12)->setText(1,
@@ -487,8 +483,6 @@ void Labonatip_GUI::switchLanguage(int _value )
 		// translate other dialogs and objects
 		m_dialog_tools->switchLanguage(translation_file);
 		m_macroRunner_thread->switchLanguage(translation_file);
-		m_reader->switchLanguage(translation_file);
-		m_writer->switchLanguage(translation_file);
 		m_biopen_updated->switchLanguage(translation_file);
 	}
 	else std::cout << HERE << " translation not loaded " << std::endl;
@@ -1576,8 +1570,6 @@ Labonatip_GUI::~Labonatip_GUI()
   delete m_no_edit_delegate;
   delete m_no_edit_delegate2;
   delete m_spinbox_delegate;
-  delete m_reader;
-  delete m_writer;
 
   delete m_biopen_updated;
   delete ui;

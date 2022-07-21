@@ -348,14 +348,6 @@ bool Labonatip_GUI::isExceptionTriggered() // return true if the exception is tr
 	return false;
 }
 
-void Labonatip_GUI::setLedColor(QLabel* led, QPixmap* color)
-{
-	// TODO: I do not like this, I should define a stucture delegate to QLabel as alias of QLed
-	const QPixmap* map = led->pixmap();
-	//if (map)
-		if (map != color) // this is clearly not working !
-			led->setPixmap(*color);
-}
 
 void Labonatip_GUI::updatePPC1Leds()
 {

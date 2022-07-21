@@ -10,8 +10,7 @@
 #include "updater.h"
 #include "dataStructures.h"
 #include <QDesktopServices>
-#include <QDesktopWidget>
-#include <QInputDialog>
+#include <QInputDialog> 
 
 biopen_updater::biopen_updater(QWidget *parent):
 	QMainWindow(parent),
@@ -147,7 +146,8 @@ void biopen_updater::doDownload(const QUrl & _url)
 {
 
 	QNetworkRequest request(_url);
-	request.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
+	//request.setAttribute(QNetworkRequest::FollowRedirectsAttribute, true);
+	request.setAttribute(QNetworkRequest::RedirectPolicyAttribute, QNetworkRequest::ManualRedirectPolicy);
 	QNetworkReply *reply = manager.get(request);
 
 	if (m_verbose) ui_updater->textEdit_details->append("Downloading file from: ");

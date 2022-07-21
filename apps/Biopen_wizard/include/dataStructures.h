@@ -378,7 +378,7 @@ struct protocolCommands {
 		END //THIS IS TO TAKE TRACK OF ENUMERATION
 	};
 
-	static std::string protocolCommands::asString(int _idx)
+	static std::string asString(int _idx)
 	{
 		switch (_idx)
 		{

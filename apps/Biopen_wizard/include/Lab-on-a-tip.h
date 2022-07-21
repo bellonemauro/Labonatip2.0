@@ -30,6 +30,7 @@
 #include <QException>
 #include <QtTextToSpeech/QTextToSpeech>
 #include <QUndoView>
+#include <QUndoStack>
 #include <QProgressDialog>
 #include <QDir>
 #include <QFileDialog>
@@ -41,13 +42,12 @@
 #include <QGraphicsEllipseItem>
 #include <QGraphicsScene>
 #include <QGraphicsView>
-
+#include <QtCharts/qchart.h>
+#include <qgroupbox.h>
 
 #include "Q_DebugStream.h"
 #include "tools.h"
-//#include "protocolEditor.h"
-#include "protocolReader.h"
-#include "protocolWriter.h"
+#include "protocolCommands.h"
 #include "protocolRunner.h"
 #include "chart.h"
 #include "updater.h"
@@ -943,7 +943,7 @@ private:
   void fromTreeToItemVector(QTreeWidget* _tree,
 	  std::vector<protocolTreeWidgetItem*>* _command_vector);
   
-  QString Labonatip_GUI::generateDurationString(int _time);
+  QString generateDurationString(int _time);
 
   void fromItemVectorToProtocol(std::vector<protocolTreeWidgetItem*>* _command_vector,
 	  std::vector<fluicell::PPC1dataStructures::command>* _protocol);
@@ -1029,8 +1029,7 @@ private:
   */
   void updateSolutions();
 
-  void setLedColor(QLabel* led, QPixmap* color);
-
+  
   /** \brief Update the leds of pressures and vacuum
   */
   void updatePPC1Leds();
@@ -1096,7 +1095,7 @@ private:
   QColor m_sol4_color;      //!< my solution 4 color for the pipette drawing
 
   // chart
-  QtCharts::QChartView *m_chartView;
+  QChartView *m_chartView;
   protocolChart *m_chart_view;   //!< the main chart is built in a different class
 
   // zone controls
@@ -1123,10 +1122,6 @@ private:
   // from the popup menu into the tree widget
   // to the delete_protocol function
   int m_triggered_protocol_item;  //!< triggered row with the right click in the protocol list
-  
-  //object for reading and writing protocols
-  protocolReader *m_reader;
-  protocolWriter *m_writer;
 
   // for undo
   QUndoStack *m_undo_stack;

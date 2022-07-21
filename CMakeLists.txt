@@ -101,6 +101,7 @@ if (ENABLE_BUILD_plugins)
 endif(ENABLE_BUILD_plugins)
 
 # -------------------- apps --------------------------------
+OPTION (with_QT6 "Option to build with QT6, off during porting" ON)
 OPTION(ENABLE_BUILD_apps "Option for building apps - ON by default" ON)
 if (ENABLE_BUILD_apps)
 	add_subdirectory(apps)

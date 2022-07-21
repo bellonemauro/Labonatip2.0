@@ -19,9 +19,9 @@ if (WIN32 AND NOT UNIX)
 	set(CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS_SKIP  ON)  # this allows the InstallRequiredSystemLibraries to find all the libraries without installing in the ./bin folder  .... so we can set the destination for the redistributables 
 	include (InstallRequiredSystemLibraries )
 	  FOREACH(F ${CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS})
-		INSTALL(FILES "${F}" DESTINATION ./Biopen/)
-		INSTALL(FILES "${F}" DESTINATION ./SerialConsole/)
-		INSTALL(FILES "${F}" DESTINATION ./TranslatorGUI/)
+		INSTALL(FILES "${F}" DESTINATION ./Biopen_wizard/)
+		INSTALL(FILES "${F}" DESTINATION ./Serial_console/)
+		INSTALL(FILES "${F}" DESTINATION ./Translator_GUI/)
 	  ENDFOREACH(F)
 	#install(FILES "C:/Program Files (x86)/Microsoft Visual Studio 11.0/VC/redist/x64/Microsoft.VC110.OpenMP/Microsoft.VC90.OpenMP.manifest" DESTINATION bin COMPONENT Libraries)
 	#endif(OPENMP_FOUND)
@@ -34,9 +34,9 @@ if (WIN32 AND NOT UNIX)
 
 	# EXTRACT_DEB_REL_DLLS looks for ALL .dlls in the specified library, 
 	# it's of for installers but maybe allow the choice of necessary dlls only is mandatory for the sake of space saving
-	EXTRACT_DEB_REL_DLLS (${QT5_BINARY_DIR} d )# --> QT5 changed the postfix ! 
+	EXTRACT_DEB_REL_DLLS (${QT6_BINARY_DIR} d )# --> QT5 changed the postfix ! 
 	if (ENABLE_verbose)
-		message (STATUS "     QT5_BINARY_DIR is : ${QT5_BINARY_DIR}") 
+		message (STATUS "     QT6_BINARY_DIR is : ${QT6_BINARY_DIR}") 
 		message (STATUS "\n\n REL DLLS are     : ${REL_DLLS}")
 		message (STATUS "\n\n DEB DLLS are     : ${DEB_DLLS}")
 	endif (ENABLE_verbose)
@@ -47,7 +47,7 @@ if (WIN32 AND NOT UNIX)
 	# Windows specific build steps
 	if(BUILD_WINDEPLOYQT AND WIN32)
 			# Run winddeployqt if it can be found
-		find_program(WINDEPLOYQT_EXECUTABLE NAMES windeployqt HINTS ${QT5_BINARY_DIR} ENV QTDIR PATH_SUFFIXES bin)
+		find_program(WINDEPLOYQT_EXECUTABLE NAMES windeployqt HINTS ${QT6_BINARY_DIR} ENV QTDIR PATH_SUFFIXES bin)
 		FILE(GLOB FILE_EXE "${PROJECT_BINARY_DIR}/bin/Release/*.exe")
 		  FOREACH(F ${FILE_EXE})
 			#INSTALL(FILES "${F}" DESTINATION ./)

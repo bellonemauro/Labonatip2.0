@@ -33,10 +33,50 @@ include_directories(${PROJECT_BINARY_DIR})
 
 
 # Add options to build specific targets
-option(BUILD_QT5 "Build support with QT 5" "ON") #this will be removed as qt4 will be no longer supported
-if(NOT BUILD_QT5)
-	message (FATAL_ERROR  "QT 4 does not support serial port communication - cannot build ${PROJECT_NAME}")
-elseif(  BUILD_QT5)
+IF(with_QT6)
+	set(CMAKE_CXX_STANDARD 17)
+	set(CMAKE_CXX_STANDARD_REQUIRED ON)
+	# Find includes in corresponding build directories
+	set(CMAKE_INCLUDE_CURRENT_DIR ON)
+	set (QMAKE_CFLAGS_UTF8_SOURCE "/source-charset:windows-1252")
+	
+	set(CMAKE_AUTOMOC ON)
+	set(CMAKE_AUTORCC ON)
+	set(CMAKE_AUTOUIC ON)
+    
+	find_package(Qt6 COMPONENTS Core Widgets Gui   REQUIRED) # here some package is missing, serialport charts and networking at least
+
+	add_definitions (${QT_DEFINITIONS})   #required to use QT and gui
+
+	add_executable (${PROJECT_NAME}  	${myProject_SOURCES} ${myProject_HEADERS}
+									${myProject_FORMS_HEADERS} ${myProject_UI_RESOURCES})
+	
+	set_target_properties (${PROJECT_NAME} 
+							PROPERTIES 
+							ARCHIVE_OUTPUT_DIRECTORY_DEBUG "${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}/Debug/${PROJECT_NAME}"
+							LIBRARY_OUTPUT_DIRECTORY_DEBUG "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Debug/${PROJECT_NAME}"
+							RUNTIME_OUTPUT_DIRECTORY_DEBUG "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Debug/${PROJECT_NAME}"
+							ARCHIVE_OUTPUT_DIRECTORY_RELEASE "${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}/Release/${PROJECT_NAME}"
+							LIBRARY_OUTPUT_DIRECTORY_RELEASE "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/${PROJECT_NAME}"
+							RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Release/${PROJECT_NAME}")
+							
+	target_link_libraries(${PROJECT_NAME} Qt6::Core Qt6::Widgets Qt6::Gui )
+	
+	# differently than others, QT has the windeployqt file that takes care of dlls and other stuff
+	# see this post: http://stackoverflow.com/questions/36981942/how-to-use-add-custom-command-to-copy-dlls-using-generator-expressions
+	# Windows specific build steps
+	if(ENABLE_WINDEPLOYQT AND WIN32)
+		# Run winddeployqt if it can be found
+	find_program(WINDEPLOYQT_EXECUTABLE NAMES windeployqt HINTS ${QT6_BINARY_DIR} ENV QTDIR PATH_SUFFIXES bin)
+		if ( ENABLE_verbose )
+			message (STATUS "${PROJECT_NAME} MESSAGE: WINDEPLOYQT_EXECUTABLE is : ${WINDEPLOYQT_EXECUTABLE} \n")
+			message (STATUS "${PROJECT_NAME} MESSAGE: Current file target is : ${F} \n")
+		endif ( ENABLE_verbose )
+	
+	# Pay attention here: this command assumes that we are building in release (or that release has already built)
+	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD WORKING_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/${PROJECT_NAME} COMMAND ${WINDEPLOYQT_EXECUTABLE} $<TARGET_FILE:${PROJECT_NAME}> --no-translations COMMENT "Preparing Qt runtime dependencies")
+	endif()
+elseif(with_QT6)
 
 	# allows automatic linking of QT - see http://www.cmake.org/cmake/help/v3.0/policy/CMP0020.html
 	cmake_policy(SET CMP0020 NEW)
@@ -81,14 +121,14 @@ elseif(  BUILD_QT5)
 
 	set_target_properties (${PROJECT_NAME} 
 						PROPERTIES 
-						ARCHIVE_OUTPUT_DIRECTORY_DEBUG "${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}/Debug/TranslatorGUI"
-						LIBRARY_OUTPUT_DIRECTORY_DEBUG "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Debug/TranslatorGUI"
-						RUNTIME_OUTPUT_DIRECTORY_DEBUG "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Debug/TranslatorGUI"
-						ARCHIVE_OUTPUT_DIRECTORY_RELEASE "${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}/Release/TranslatorGUI"
-						LIBRARY_OUTPUT_DIRECTORY_RELEASE "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/TranslatorGUI"
-						RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Release/TranslatorGUI")
+						ARCHIVE_OUTPUT_DIRECTORY_DEBUG "${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}/Debug/${PROJECT_NAME}"
+						LIBRARY_OUTPUT_DIRECTORY_DEBUG "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Debug/${PROJECT_NAME}"
+						RUNTIME_OUTPUT_DIRECTORY_DEBUG "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Debug/${PROJECT_NAME}"
+						ARCHIVE_OUTPUT_DIRECTORY_RELEASE "${CMAKE_ARCHIVE_OUTPUT_DIRECTORY}/Release/${PROJECT_NAME}"
+						LIBRARY_OUTPUT_DIRECTORY_RELEASE "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/${PROJECT_NAME}"
+						RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/Release/${PROJECT_NAME}")
 						
-    target_link_libraries ( ${PROJECT_NAME}  ${QT_LIBRARIES} ${Qt5SerialPort_LIBRARIES})
+    target_link_libraries ( ${PROJECT_NAME}  ${QT_LIBRARIES} )
 
 
 
@@ -102,14 +142,15 @@ elseif(  BUILD_QT5)
 		message (STATUS "${PROJECT_NAME} MESSAGE: WINDEPLOYQT_EXECUTABLE is : ${WINDEPLOYQT_EXECUTABLE} \n")
 		message (STATUS "${PROJECT_NAME} MESSAGE: Current file target is : ${F} \n")
 	endif ( ENABLE_verbose )
-	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD WORKING_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/TranslatorGUI COMMAND ${WINDEPLOYQT_EXECUTABLE} $<TARGET_FILE:${PROJECT_NAME}> --no-translations COMMENT "Preparing Qt runtime dependencies")
+	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD WORKING_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/${PROJECT_NAME} COMMAND ${WINDEPLOYQT_EXECUTABLE} $<TARGET_FILE:${PROJECT_NAME}> --no-translations COMMENT "Preparing Qt runtime dependencies")
 	endif()
 
-
-	# allows folders for MSVC
-	if (MSVC AND ENABLE_SOLUTION_FOLDERS) 
-		set_target_properties(${PROJECT_NAME} PROPERTIES FOLDER "Apps")
-	endif (MSVC AND ENABLE_SOLUTION_FOLDERS)
-
 endif()
+
+# allows folders for MSVC
+if (MSVC AND ENABLE_SOLUTION_FOLDERS) 
+	set_target_properties(${PROJECT_NAME} PROPERTIES FOLDER "Apps")
+endif (MSVC AND ENABLE_SOLUTION_FOLDERS)
+
+
 
