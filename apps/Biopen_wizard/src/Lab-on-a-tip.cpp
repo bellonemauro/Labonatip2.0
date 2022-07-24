@@ -1,4 +1,4 @@
-/*  +---------------------------------------------------------------------------+
+ï»¿/*  +---------------------------------------------------------------------------+
 *  |                                                                           |
 *  | Fluicell AB, http://fluicell.com/                                         |
 *  | BioPen wizard 2.1                                                         |
@@ -354,7 +354,9 @@ void Labonatip_GUI::askMessage(const QString &_message)
 	// if the speech is active, the message will be read
 	if (m_GUI_params->speechActive)  m_speech->say(_message);
 	
-	QMessageBox::question(this, m_str_ask_msg, _message, m_str_ok);
+	QMessageBox mb = QMessageBox(QMessageBox::Question,
+		m_str_ask_msg, _message, QMessageBox::Ok);
+	mb.exec();
 	// an event is sent upon dialog close
 	m_macroRunner_thread->askOkEvent(true);
 	
@@ -1235,7 +1237,9 @@ void Labonatip_GUI::cleanHistory()
 			QMessageBox::Yes);
 	if (resBtn != QMessageBox::Yes) {
 	//if is not yes, the operation is cancelled
-		QMessageBox::question(this, m_str_information, m_str_operation_cancelled, m_str_ok);
+		QMessageBox mb = QMessageBox(QMessageBox::Question,
+			m_str_information, m_str_operation_cancelled, QMessageBox::Ok);
+		mb.exec(); 
 		return;
 	}
 	else {
@@ -1251,7 +1255,9 @@ void Labonatip_GUI::cleanHistory()
 			dir.remove(dirFile);
 		}
 		// confirm message
-		QMessageBox::question(this, m_str_information, m_str_cleaning_history_msg2, m_str_ok);
+		QMessageBox mb = QMessageBox(QMessageBox::Question,
+			m_str_information, m_str_cleaning_history_msg2, QMessageBox::Ok);
+		mb.exec();
 		return;
 	}
 
@@ -1265,9 +1271,9 @@ void Labonatip_GUI::about() {
 	QString msg_title = "About BioPen Wizard ";
 	QString msg_content = QStringLiteral("BioPen Wizard is part of the <br> Fluicell Lab-on-a-tip technology family,<br>"
 		"Copyrighted Sweden 2022.<br><br>"
-		"BioPen®, Fluicell®, Lab-on-a-tip® <br>are all registered trademarks of Fluicell AB, Sweden <br> <br>"
-		"Flöjelbergsgatan 8C<br>"
-		"SE-431 37 Mölndal, Sweden<br>"
+		"BioPenï¿½, Fluicellï¿½, Lab-on-a-tipï¿½ <br>are all registered trademarks of Fluicell AB, Sweden <br> <br>"
+		"Flï¿½jelbergsgatan 8C<br>"
+		"SE-431 37 Mï¿½lndal, Sweden<br>"
 		"Tel: +46 76 208 3354 <br>"
 		"e-mail: info@fluicell.com <br><br>"
 		"Developer: Mauro Bellone <br>"
@@ -1347,7 +1353,9 @@ void Labonatip_GUI::closeEvent(QCloseEvent *event) {
 
 		if (m_macroRunner_thread->isRunning()) {
 			//this->runProtocol(); // this will stop the macro if running
-			QMessageBox::question(this, m_str_information, m_str_protocol_running_stop, m_str_ok);
+			QMessageBox mb = QMessageBox(QMessageBox::Question,
+				m_str_information, m_str_protocol_running_stop, QMessageBox::Ok);
+			mb.exec(); 
 			event->ignore();
 			return;
 		}
@@ -1430,8 +1438,9 @@ void Labonatip_GUI::closeBiopen()
 {
 	if (m_macroRunner_thread->isRunning()) {
 		//this->runProtocol(); // this will stop the macro if running
-		QMessageBox::question(this, m_str_information, m_str_protocol_running_stop, m_str_ok);
-		
+		QMessageBox mb = QMessageBox(QMessageBox::Question,
+			m_str_information, m_str_protocol_running_stop, QMessageBox::Ok);
+		mb.exec();
 		return;
 	}
 	// dump log file

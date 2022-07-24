@@ -33,6 +33,7 @@ message (STATUS "${PROJECT_NAME} MESSAGE:  serial_INCLUDE_DIR    :: ${serial_INC
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 add_definitions(-DPPC1API) 
+add_definitions (-D_USE_MATH_DEFINES)
 
 # add library 
 # add_library(${PROJECT_NAME}  SHARED ${LIB_SOURCES} ${LIB_HEADERS} )

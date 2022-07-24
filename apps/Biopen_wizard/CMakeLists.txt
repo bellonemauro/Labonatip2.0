@@ -33,6 +33,7 @@ if ( ENABLE_verbose )
 	message (STATUS "${PROJECT_NAME} MESSAGE: serial_INCLUDE_DIR    :: ${serial_INCLUDE_DIR}")
 endif ( ENABLE_verbose )
 
+
 # resource file for icon
 IF(WIN32)
 	SET(myProject_SOURCES ${myProject_SOURCES} resources.rc)
@@ -129,7 +130,7 @@ if(with_QT6)
 	add_definitions (${QT_DEFINITIONS})   #required to use QT and gui
 	add_definitions (-DBIOZONE6_VERSION=${SOFTWARE_VERSION})   #required to use QT and gui
 	add_definitions (-DUSEQT6)
-
+	
 	add_executable (${PROJECT_NAME}  	${myProject_SOURCES} ${myProject_HEADERS}
 									${myProject_FORMS_HEADERS} ${myProject_UI_RESOURCES})
 	

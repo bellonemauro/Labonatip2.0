@@ -1,4 +1,4 @@
-/*  +---------------------------------------------------------------------------+
+ï»¿/*  +---------------------------------------------------------------------------+
 *  |                                                                           |
 *  | Fluicell AB, http://fluicell.com/                                         |
 *  | BioPen wizard 2.1                                                         |
@@ -111,9 +111,9 @@ bool protocolTreeWidgetItem::checkValidity( int _column)
 
 
 	// TODO: this can also be removed when the old protocol version will be forgotten
-	//check for prohibited characters  # and §
+	//check for prohibited characters  # and Â§
 	if (_column == editorParams::c_msg) {
-		// here we browse the string looking for prohibited characters  # and §
+		// here we browse the string looking for prohibited characters  # and Â§
 		QString s = this->text(_column);
 		QChar prohibited_char_1 = QChar::fromLatin1(*"#");
 		QChar prohibited_char_2 = QChar::fromLatin1(*"\n");

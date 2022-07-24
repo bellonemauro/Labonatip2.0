@@ -11,6 +11,12 @@
 #ifndef Labonatip_GUI_H_
 #define Labonatip_GUI_H_
 
+// this is to avoid re-definition of math contants in cmath 
+// https://docs.microsoft.com/en-us/answers/questions/694635/the-hardest-warning-to-remove-34warning-c4005-39m.html
+//#ifndef _USE_MATH_DEFINES
+//#define _USE_MATH_DEFINES
+//#endif
+
 // standard libraries
 #include <iostream>
 #include <string>

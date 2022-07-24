@@ -236,7 +236,7 @@ int main(int argc, char **argv)
 
         QApplication a (argc, argv);
         // there is a problem with high dpi displays
-        a.setAttribute(Qt::AA_EnableHighDpiScaling);
+        // a.setAttribute(Qt::AA_EnableHighDpiScaling); this attribute is always enabled by default since qt6
 		
 		Labonatip_GUI window;
 
