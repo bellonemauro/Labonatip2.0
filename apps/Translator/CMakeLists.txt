@@ -9,6 +9,8 @@
 
 project(Translator_GUI)
 
+
+
 # --------------------------------------
 #  set variables for compilation 
 # --------------------------------------
@@ -30,7 +32,6 @@ ENDIF()
 	
 # this is necessary to find in the code the ui____.h file built in the build folder
 include_directories(${PROJECT_BINARY_DIR}) 
-
 
 # Add options to build specific targets
 IF(with_QT6)
@@ -76,8 +77,7 @@ IF(with_QT6)
 	# Pay attention here: this command assumes that we are building in release (or that release has already built)
 	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD WORKING_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/Release/${PROJECT_NAME} COMMAND ${WINDEPLOYQT_EXECUTABLE} $<TARGET_FILE:${PROJECT_NAME}> --no-translations COMMENT "Preparing Qt runtime dependencies")
 	endif()
-elseif(with_QT6)
-
+else(with_QT6)
 	# allows automatic linking of QT - see http://www.cmake.org/cmake/help/v3.0/policy/CMP0020.html
 	cmake_policy(SET CMP0020 NEW)
 

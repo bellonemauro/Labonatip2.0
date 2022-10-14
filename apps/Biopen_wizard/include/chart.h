@@ -16,6 +16,7 @@
 #include <QtCharts/QChartView>
 #include <QtCharts/QLineSeries>
 #include <QtCharts/QAreaSeries>
+#include <QtCharts>
 
 // PPC1api test
 #include <fluicell/ppc1api/ppc1api.h>

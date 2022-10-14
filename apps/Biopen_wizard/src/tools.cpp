@@ -266,9 +266,11 @@ void Labonatip_tools::checkHistory () {
             QMessageBox::No | QMessageBox::Yes,
             QMessageBox::Yes);
         if (resBtn != QMessageBox::Yes) {
-			QMessageBox mb = QMessageBox(QMessageBox::Question,
-				m_str_information, m_str_operation_cancelled, QMessageBox::Ok);
-			mb.exec();
+			//QMessageBox mb = QMessageBox(QMessageBox::Question,
+			//	m_str_information, m_str_operation_cancelled, QMessageBox::Ok);
+			//mb.exec();
+			QMessageBox::question(this, m_str_information,
+				m_str_operation_cancelled, m_str_ok);
         }
         else {
             QDir dir(m_GUI_params->outFilePath);
@@ -278,9 +280,11 @@ void Labonatip_tools::checkHistory () {
             {
                 dir.remove(dirFile);
             }
-			QMessageBox mb = QMessageBox(QMessageBox::Question,
-				m_str_information, m_str_history_cleaned, QMessageBox::Ok);
-			mb.exec();
+			//QMessageBox mb = QMessageBox(QMessageBox::Question,
+			//	m_str_information, m_str_history_cleaned, QMessageBox::Ok);
+			//mb.exec();
+			QMessageBox::question(this, m_str_information, 
+				m_str_history_cleaned, m_str_ok);
         }
 
     }
