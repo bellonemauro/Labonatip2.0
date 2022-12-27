@@ -16,7 +16,7 @@
 //#ifndef _USE_MATH_DEFINES
 //#define _USE_MATH_DEFINES
 //#endif
-
+ 
 // standard libraries
 #include <iostream>
 #include <string>
@@ -60,6 +60,7 @@
 #include "XmlProtocolReader.h"
 #include "XmlProtocolWriter.h"
 #include "xmlsyntaxhighlighter.h"
+#include "myQTled.h"
 
 // serial
 #include <serial/serial.h>

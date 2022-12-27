@@ -16,7 +16,7 @@
     #endif
 
 // thread and mutex generate warning C4251 - dll interface needed
-// however the objects are private so I will never export this data, warning can be ignored
+// warning can be ignored
 // see http://www.unknownroad.com/rtfm/VisualStudio/warningC4251.html
 	#pragma warning( disable: 4251 )
     #ifndef _EXPORT_H

@@ -354,11 +354,11 @@ void Labonatip_GUI::askMessage(const QString &_message)
 	// if the speech is active, the message will be read
 	if (m_GUI_params->speechActive)  m_speech->say(_message);
 	
-	//QMessageBox mb = QMessageBox(QMessageBox::Question,
-	//	m_str_ask_msg, _message, QMessageBox::Ok);
-	//mb.exec();
+	QMessageBox mb = QMessageBox(QMessageBox::Question,
+		m_str_ask_msg, _message, QMessageBox::Ok);
+	mb.exec();
 	
-	QMessageBox::question(this, m_str_ask_msg, _message, m_str_ok);
+	//QMessageBox::question(this, m_str_ask_msg, _message, m_str_ok);
 
 	// an event is sent upon dialog close
 	m_macroRunner_thread->askOkEvent(true);
@@ -1240,10 +1240,10 @@ void Labonatip_GUI::cleanHistory()
 			QMessageBox::Yes);
 	if (resBtn != QMessageBox::Yes) {
 	//if is not yes, the operation is cancelled
-		//QMessageBox mb = QMessageBox(QMessageBox::Question,
-		//	m_str_information, m_str_operation_cancelled, QMessageBox::Ok);
-		//mb.exec(); 
-		QMessageBox::question(this, m_str_information, m_str_operation_cancelled, m_str_ok);
+		QMessageBox mb = QMessageBox(QMessageBox::Question,
+			m_str_information, m_str_operation_cancelled, QMessageBox::Ok);
+		mb.exec(); 
+		//QMessageBox::question(this, m_str_information, m_str_operation_cancelled, m_str_ok);
 		return;
 	}
 	else {
@@ -1259,11 +1259,11 @@ void Labonatip_GUI::cleanHistory()
 			dir.remove(dirFile);
 		}
 		// confirm message
-		//QMessageBox mb = QMessageBox(QMessageBox::Question,
-		//	m_str_information, m_str_cleaning_history_msg2, QMessageBox::Ok);
-		//mb.exec();
-		QMessageBox::question(this, m_str_information,
-			m_str_cleaning_history_msg2, m_str_ok);
+		QMessageBox mb = QMessageBox(QMessageBox::Question,
+			m_str_information, m_str_cleaning_history_msg2, QMessageBox::Ok);
+		mb.exec();
+		//QMessageBox::question(this, m_str_information,
+		//	m_str_cleaning_history_msg2, m_str_ok);
 		return;
 	}
 
@@ -1354,34 +1354,33 @@ void Labonatip_GUI::closeEvent(QCloseEvent *event) {
 		QMessageBox::Yes);
 	if (resBtn != QMessageBox::Yes) {
 		event->ignore();
+		return;
 	}
-	else {
 
-		if (m_macroRunner_thread->isRunning()) {
-			//this->runProtocol(); // this will stop the macro if running
-			//QMessageBox mb = QMessageBox(QMessageBox::Question,
-			//	m_str_information, m_str_protocol_running_stop, QMessageBox::Ok);
-			//mb.exec(); 
-			QMessageBox::question(this, m_str_information,
-				m_str_protocol_running_stop, m_str_ok);
-			event->ignore();
-			return;
-		}
-		// dump log file
-		if (m_GUI_params->dumpHistoryToFile)
-		{
-			// save log data, messages from the console ect. 
-			dumpLogs();
-		}
-		if (m_ppc1->isConnected()) {
-			
-			m_ppc1->stop();
-			m_ppc1->disconnectCOM(); //if is active, disconnect
-		}
-		delete m_dialog_tools;
-		//delete m_dialog_p_editor;
-		event->accept();
+	if (m_macroRunner_thread->isRunning()) {
+		//this->runProtocol(); // this will stop the macro if running
+		QMessageBox mb = QMessageBox(QMessageBox::Question,
+			m_str_information, m_str_protocol_running_stop, QMessageBox::Ok);
+		mb.exec(); 
+		//QMessageBox::question(this, m_str_information,
+		//	m_str_protocol_running_stop, m_str_ok);
+		event->ignore();
+		return;
 	}
+	// dump log file
+	if (m_GUI_params->dumpHistoryToFile)
+	{
+		// save log data, messages from the console ect. 
+		dumpLogs();
+	}
+	if (m_ppc1->isConnected()) {
+			
+		m_ppc1->stop();
+		m_ppc1->disconnectCOM(); //if is active, disconnect
+	}
+	delete m_dialog_tools;
+	//delete m_dialog_p_editor;
+	event->accept();
 }
 
 void Labonatip_GUI::dumpLogs()
@@ -1446,11 +1445,11 @@ void Labonatip_GUI::closeBiopen()
 {
 	if (m_macroRunner_thread->isRunning()) {
 		//this->runProtocol(); // this will stop the macro if running
-		//QMessageBox mb = QMessageBox(QMessageBox::Question,
-		//	m_str_information, m_str_protocol_running_stop, QMessageBox::Ok);
-		//mb.exec();
-		QMessageBox::question(this, m_str_information,
-			m_str_protocol_running_stop, m_str_ok);
+		QMessageBox mb = QMessageBox(QMessageBox::Question,
+			m_str_information, m_str_protocol_running_stop, QMessageBox::Ok);
+		mb.exec();
+		//QMessageBox::question(this, m_str_information,
+			//m_str_protocol_running_stop, m_str_ok);
 		return;
 	}
 	// dump log file
