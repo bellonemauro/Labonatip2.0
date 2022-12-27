@@ -14,7 +14,7 @@ API documentation available <a href="https://bellonemauro.github.io/PPC1API-docs
 The external dependences for this applications are:
   - <a href="https://github.com/wjwwood/serial">Serial</a> for serial port communication, a modified light version is Included as 3rdParty library. <br>
     NOTE: The official version of serial library available on github will not work, refer to the third party folder in this package.
-  - QT  v. >5.14, for GUI - https://www.qt.io/
+  - QT  v. >6.4.1, for GUI - https://www.qt.io/
   - nsis http://nsis.sourceforge.net/Main_Page - only to generate the installation package
   - <a href="http://www.cmake.org">CMake</a> to generate the solution for your system and build. 
   - To install on some previous windows version you may need to update your Universal C Runtime in Windows <a href="https://support.microsoft.com/en-us/help/2999226/update-for-universal-c-runtime-in-windows">here</a>
