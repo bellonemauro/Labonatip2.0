@@ -128,7 +128,7 @@ if(with_QT6)
 	#  add definitions
 	# --------------------------------------
 	add_definitions (${QT_DEFINITIONS})   #required to use QT and gui
-	add_definitions (-DBIOZONE6_VERSION=${SOFTWARE_VERSION})   #required to use QT and gui
+	add_definitions (-DLABONATIP_VERSION=${SOFTWARE_VERSION})   #required to use QT and gui
 	add_definitions (-DUSEQT6)
 	
 	add_executable (${PROJECT_NAME}  	${myProject_SOURCES} ${myProject_HEADERS}

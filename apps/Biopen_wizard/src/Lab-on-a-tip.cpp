@@ -1276,7 +1276,7 @@ void Labonatip_GUI::about() {
 	QMessageBox messageBox;
 	QString msg_title = "About BioPen Wizard ";
 	QString msg_content = QStringLiteral("BioPen Wizard is part of the <br> Fluicell Lab-on-a-tip technology family,<br>"
-		"Copyrighted Sweden 2022.<br><br>"
+		"Copyrighted Sweden 2023.<br><br>"
 		"BioPen®, Fluicell®, Lab-on-a-tip® <br>are all registered trademarks of Fluicell AB, Sweden <br> <br>"
 		"Flöjelbergsgatan 8C<br>"
 		"SE-431 37 Mölndal, Sweden<br>"

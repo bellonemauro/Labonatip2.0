@@ -1,3 +1,9 @@
+V2.2.16
+Version non appearing bug fix
+New splash screen
+Code cleanup 
+
+
 V2.2.15
 Bug fix
 Code cleanup 

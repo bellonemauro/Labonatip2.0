@@ -103,7 +103,7 @@ set(CPACK_NSIS_EXECUTABLES_DIRECTORY ".")
 # Icon in the add/remove control panel. Must be an .exe file 
 set(CPACK_NSIS_INSTALLED_ICON_NAME Biopen_wizard.exe)
 
-set(CPACK_NSIS_MUI_FINISHPAGE_RUN Biopen_wizard.exe)
+#set(CPACK_NSIS_MUI_FINISHPAGE_RUN Biopen_wizard.exe)
 
 
 #set(CPACK_NSIS_MUI_UNPAGE_WELCOME )

@@ -60,13 +60,24 @@ bool initPaths(Labonatip_GUI &_l, QString &_protocols_user_path,
 	ext_data_path.append("/Ext_data/");
 
 	// if the directory Biopen does not exist in the home folder, create it
-	home_path.append("/Documents/Biopen/");
+	home_path.append("/Documents/Biopen_wizard/");
 	QDir home_dir;
 	if (!home_dir.exists(home_path)) {
 		std::cerr << " BioPen wizard directory does not exists in the home folder .... creating it" << std::endl;
-		home_dir.mkpath(home_path);
-		std::cout << " Created directory " <<
-            home_path.toStdString() << std::endl;
+		if (home_dir.mkpath(home_path))
+		{
+			std::cout << " Directory created " <<
+				home_path.toStdString() << std::endl;
+		}
+		else
+		{
+			std::cerr << " BioPen wizard could not create the home folder " << std::endl;
+			QString ss = "Home documents directory does not exists in the installation folder,";
+			ss.append("BioPen wizard cannot run  <br>");
+			ss.append("A reinstallation of BioPen wizard may solve the problem ");
+			QMessageBox::warning(&_l, "ERROR", ss);
+			return false;
+		}
 	}
 	else {
 		std::cout << " Found directory " <<
@@ -131,7 +142,6 @@ bool initPaths(Labonatip_GUI &_l, QString &_protocols_user_path,
 	protocols_home_path.append("/presetProtocols/");
 	if (!protocols_user_dir.exists(protocols_home_path)) // if the macro user folder does not exist, create and copy
 	{
-		_protocols_user_path = protocols_home_path;
 		if (!protocols_user_dir.mkpath(_protocols_user_path))
 		{
 			std::cerr << "Could not create presetProtocols folder in the user directory" << std::endl;
@@ -139,12 +149,9 @@ bool initPaths(Labonatip_GUI &_l, QString &_protocols_user_path,
 			QMessageBox::warning(&_l, "ERROR", ss);
 			return false;
 		}
-
 	}
-	else {
-		_protocols_user_path = protocols_home_path;
-	}
-
+	_protocols_user_path = protocols_home_path;
+	
 	// directory exists, copy files 
 	{
 		QStringList filesList = protocols_dir.entryList(QDir::Files);
