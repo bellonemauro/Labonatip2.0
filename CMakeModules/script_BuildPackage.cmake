@@ -93,8 +93,8 @@ set( CPACK_NSIS_EXTRA_INSTALL_COMMANDS "
 	CopyFiles \\\"$INSTDIR\\\\Biopen_wizard\\\\settings\\\\*.ini\\\" \\\"$PROFILE\\\\Documents\\\\Biopen_wizard\\\\settings\\\"
 	SetOutPath \\\"$INSTDIR\\\\Biopen_wizard\\\"
 	CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Biopen_wizard.lnk\\\" \\\"$INSTDIR\\\\Biopen_wizard\\\\Biopen_wizard.exe\\\" 
-	SetOutPath \\\"$INSTDIR\\\\SerialConsole\\\"
-	CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Serial Console.lnk\\\" \\\"$INSTDIR\\\\SerialConsole\\\\Serial_console.exe\\\" 
+	SetOutPath \\\"$INSTDIR\\\\Serial_console\\\"
+	CreateShortCut \\\"$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Serial Console.lnk\\\" \\\"$INSTDIR\\\\Serial_console\\\\Serial_console.exe\\\" 
 	SetOutPath \\\"$INSTDIR\\\"")
 	
 set(CPACK_NSIS_EXECUTABLES_DIRECTORY ".")

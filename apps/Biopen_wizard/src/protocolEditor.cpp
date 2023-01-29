@@ -71,56 +71,44 @@ void Labonatip_GUI::onProtocolClicked(QTreeWidgetItem* item, int column)
 		readProtocolFolder(m_protocol_path);
 		return;
 	}
-	else
+
+	// a protocol was clicked
+	m_current_protocol_file_name = textOfItem;
+	// append the path
+
+	QString protocol_path = m_protocol_path;
+	protocol_path.append("/");
+	protocol_path.append(textOfItem);
+
+	ui->tabWidget_editor->setCurrentIndex(0);
+
+	QMessageBox::StandardButton resBtn = QMessageBox::Yes;
+
+	if (m_protocol->size() > 0)
 	{
-		// a protocol was clicked
-		m_current_protocol_file_name = textOfItem;
-		// append the path
-		QString protocol_path = m_protocol_path;
-		protocol_path.append("/");
-		protocol_path.append(textOfItem);
-
-		ui->tabWidget_editor->setCurrentIndex(0);
-
-		QMessageBox::StandardButton resBtn = QMessageBox::Yes;
-
-		if (m_protocol->size() > 0)
-		{
-			resBtn = QMessageBox::question(this, m_str_warning,
-				m_str_add_protocol_bottom + "<br>" + m_str_add_protocol_bottom_guide,
-				QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
-				QMessageBox::Yes);
-		}
-
-		if (resBtn == QMessageBox::Yes) {
-			// read the clicked protocol and add it to the current 
-			QApplication::setOverrideCursor(Qt::WaitCursor);
-			//m_reader->readProtocol(ui->treeWidget_macroTable, protocol_path);
-			this->openXml(protocol_path, ui->treeWidget_macroTable);
-			updateTreeView(ui->treeWidget_macroTable);
-			addAllCommandsToPPC1Protocol(ui->treeWidget_macroTable,
-				m_protocol);
-			m_current_protocol_file_name = protocol_path;
-			QApplication::restoreOverrideCursor();
-		}
-		if (resBtn == QMessageBox::No)
-		{
-			// clear the current protocol and load the clicked protocol instead
-			QApplication::setOverrideCursor(Qt::WaitCursor);
-			clearAllCommands();
-			//m_reader->readProtocol(ui->treeWidget_macroTable, protocol_path);
-			this->openXml(protocol_path, ui->treeWidget_macroTable);
-			updateTreeView(ui->treeWidget_macroTable);
-			addAllCommandsToPPC1Protocol(ui->treeWidget_macroTable,
-				m_protocol);
-			m_current_protocol_file_name = protocol_path;
-			QApplication::restoreOverrideCursor();
-		}
-		if (resBtn == QMessageBox::Cancel)
-		{
-			//do nothing
-		}
+		resBtn = QMessageBox::question(this, m_str_warning,
+			m_str_add_protocol_bottom + "<br>" + m_str_add_protocol_bottom_guide,
+			QMessageBox::Cancel | QMessageBox::No | QMessageBox::Yes,
+			QMessageBox::Yes);
 	}
+	if (resBtn == QMessageBox::Cancel) {
+		return;
+	}
+	if (resBtn == QMessageBox::No)
+	{
+		// clear the current protocol and load the clicked protocol instead
+		clearAllCommands();
+	}
+
+	// read the clicked protocol and add it to the current 
+	QApplication::setOverrideCursor(Qt::WaitCursor);
+	//m_reader->readProtocol(ui->treeWidget_macroTable, protocol_path);
+	this->openXml(protocol_path, ui->treeWidget_macroTable);
+	updateTreeView(ui->treeWidget_macroTable);
+	addAllCommandsToPPC1Protocol(ui->treeWidget_macroTable,
+		m_protocol);
+	m_current_protocol_file_name = protocol_path;
+	QApplication::restoreOverrideCursor();
 
 }
 
@@ -142,9 +130,10 @@ void Labonatip_GUI::updateTreeView(QTreeWidget* _tree)
 		_tree->blockSignals(false);
 
 
-		if (item->childCount() > 0)
-		{
-			for (int childrenCount = 0; childrenCount < item->childCount(); childrenCount++) {
+		if (item->childCount() < 1)
+			continue;// return;
+
+		for (int childrenCount = 0; childrenCount < item->childCount(); childrenCount++) {
 				_tree->blockSignals(true);
 				protocolTreeWidgetItem* item_child =
 					dynamic_cast<protocolTreeWidgetItem*> (
@@ -159,28 +148,24 @@ void Labonatip_GUI::updateTreeView(QTreeWidget* _tree)
 
 				_tree->blockSignals(false);
 			}
-		}
-
 	}
-	
-
 }
 
 void Labonatip_GUI::updateChildrenView(protocolTreeWidgetItem* _parent)
 {
-	if (_parent->childCount() > 0)
-	{
-		for (int childrenCount = 0; childrenCount < _parent->childCount(); childrenCount++) {
-			protocolTreeWidgetItem* item_child =
-				dynamic_cast<protocolTreeWidgetItem*> (
-					_parent->child(childrenCount));
-			item_child->setText(
-				editorParams::c_idx, QString::number(childrenCount + 1));
-			item_child->checkValidity(editorParams::c_value);
+	if (_parent->childCount() < 1)
+		return;
 
-			if (item_child->childCount() > 0)
-				this->updateChildrenView(item_child);
-		}
+	for (int childrenCount = 0; childrenCount < _parent->childCount(); childrenCount++) {
+		protocolTreeWidgetItem* item_child =
+			dynamic_cast<protocolTreeWidgetItem*> (
+				_parent->child(childrenCount));
+		item_child->setText(
+			editorParams::c_idx, QString::number(childrenCount + 1));
+		item_child->checkValidity(editorParams::c_value);
+
+		if (item_child->childCount() > 0)
+			this->updateChildrenView(item_child);
 	}
 }
 
@@ -248,33 +233,22 @@ QString Labonatip_GUI::generateDurationString(int _time)
 void Labonatip_GUI::fromTreeToItemVector(QTreeWidget* _tree,
 	std::vector<protocolTreeWidgetItem*>* _command_vector)
 {
-	std::cout << HERE << " Tree TopLevelItem count " << _tree->topLevelItemCount() << std::endl;
-
-	for (int i = 0;
-		i < _tree->topLevelItemCount();
-		++i) {
+	for (int i = 0; i < _tree->topLevelItemCount(); ++i) {
 
 		// get the current item
 		protocolTreeWidgetItem* item =
 			dynamic_cast<protocolTreeWidgetItem*> (_tree->topLevelItem(i));
 
 		if (item->childCount() < 1) { // if no children, just add the line 
-			std::cout << HERE << " interpreted item " << item->text(editorParams::c_command).toInt() << std::endl;
 			interpreter(item, _command_vector);
-			std::cout << HERE << " interpreted command vector size " << _command_vector->size() << std::endl;
+			continue;
 		}
-		else
-		{
-			// otherwise we need to traverse the subtree
-			for (int loop = 0; loop < item->text(editorParams::c_value).toInt(); loop++) {
 
-				traverseChildren(item, _command_vector);
-			}
+		// otherwise we need to traverse the subtree
+		for (int loop = 0; loop < item->text(editorParams::c_value).toInt(); loop++) {
+			traverseChildren(item, _command_vector);
 		}
 	}
-
-	std::cout << HERE << " Converted command vector size " << _command_vector->size() << std::endl;
-
 }
 
 void Labonatip_GUI::fromItemVectorToProtocol(std::vector<protocolTreeWidgetItem*>* _command_vector,
@@ -313,13 +287,13 @@ void Labonatip_GUI::interpreter(protocolTreeWidgetItem* _item,
 	int command_idx = _item->text(editorParams::c_command).toInt();
 
 	//TODO: this should be done once and for all at the very beginning
-	QString preset_protocols_path = QDir::homePath();
-	preset_protocols_path.append("/Documents/Biopen/presetProtocols/");
-	QDir preset_protocols_dir;
-	if (!preset_protocols_dir.exists(preset_protocols_path)) {
+	//QString preset_protocols_path = QDir::homePath();
+	//preset_protocols_path.append("/Documents/Biopen/presetProtocols/");
+	//QDir preset_protocols_dir;
+	//if (!preset_protocols_dir.exists(preset_protocols_path)) {
 		// TODO: define what to do here, re-install message?
-		return;
-	}
+	//	return;
+	//}
 
 	switch (command_idx)
 	{
@@ -356,74 +330,7 @@ void Labonatip_GUI::interpreter(protocolTreeWidgetItem* _item,
 	{
 		return;
 	}
-	/*
-	case protocolCommands::ramp:
-	{
-		// load the protocol for ramp
-		QTreeWidget* virtual_tree_widget = new QTreeWidget();
-		openXml(QString(preset_protocols_path + "/rampPon.prt"), virtual_tree_widget);
-		fromTreeToItemVector(virtual_tree_widget, _command_vector);
-		return;
-	}
-	case protocolCommands::operational:
-	{
-		// load the protocol for operational
-		//QTreeWidget* virtual_tree_widget = new QTreeWidget();
-		//openXml(QString(preset_protocols_path + "/operational.prt"), virtual_tree_widget);
-		//fromTreeToItemVector(virtual_tree_widget, _command_vector);
-
-		protocolTreeWidgetItem* item1 = new protocolTreeWidgetItem();
-		protocolTreeWidgetItem* item2 = new protocolTreeWidgetItem();
-		protocolTreeWidgetItem* item3 = new protocolTreeWidgetItem();
-		protocolTreeWidgetItem* item4 = new protocolTreeWidgetItem();
-		protocolTreeWidgetItem* item5 = new protocolTreeWidgetItem();
-		protocolTreeWidgetItem* item6 = new protocolTreeWidgetItem();
-
-		item1->setText(editorParams::c_command, QString::number(protocolCommands::allOff));
-
-		item2->setText(editorParams::c_command, QString::number(protocolCommands::setPon));
-		item2->setText(editorParams::c_value, QString::number(m_pr_params->p_on_default));
-
-		item3->setText(editorParams::c_command, QString::number(protocolCommands::setPoff));
-		item3->setText(editorParams::c_value, QString::number(m_pr_params->p_off_default));
-
-		item4->setText(editorParams::c_command, QString::number(protocolCommands::wait));
-		item4->setText(editorParams::c_value, QString::number(5));
-
-		item5->setText(editorParams::c_command, QString::number(protocolCommands::setVrecirc));
-		item5->setText(editorParams::c_value, QString::number(m_pr_params->v_recirc_default));
-
-		item6->setText(editorParams::c_command, QString::number(protocolCommands::setVswitch));
-		item6->setText(editorParams::c_value, QString::number(m_pr_params->v_switch_default));
-
-		_command_vector->push_back(item1);
-		_command_vector->push_back(item2);
-		_command_vector->push_back(item3);
-		_command_vector->push_back(item4);
-		_command_vector->push_back(item5);
-		_command_vector->push_back(item6);
-
-
-
-		return;
-	}
-	case protocolCommands::initialize:
-	{
-		// load the protocol for newtip
-		QTreeWidget* virtual_tree_widget = new QTreeWidget();
-		openXml(QString(preset_protocols_path + "/initialize.prt"), virtual_tree_widget);
-		fromTreeToItemVector(virtual_tree_widget, _command_vector);
-		return;
-	}
-	case protocolCommands::standby:
-	{
-		// load the protocol for standby
-		QTreeWidget* virtual_tree_widget = new QTreeWidget();
-		openXml(QString(preset_protocols_path + "/standby.prt"), virtual_tree_widget);
-		fromTreeToItemVector(virtual_tree_widget, _command_vector);
-		return;
-	}
-	*/
+	
 	default:
 		break;
 	}
@@ -442,14 +349,13 @@ void Labonatip_GUI::traverseChildren(protocolTreeWidgetItem* _parent,
 		// if the item is a loop or a function we need to traverse the subtree
 		if (child->childCount() < 1) { // if no children, just add the line 
 			interpreter(child, _command_vector);
+			continue;
 		}
-		else
-		{
-			// basically the subtree is always the same for loops or function, 
-			// just the function will be traversed only once
-			for (int loop = 0; loop < child->text(editorParams::c_value).toInt(); loop++) {
-				traverseChildren(child, _command_vector);
-			}
+
+		// basically the subtree is always the same for loops or function, 
+		// just the function will be traversed only once
+		for (int loop = 0; loop < child->text(editorParams::c_value).toInt(); loop++) {
+			traverseChildren(child, _command_vector);
 		}
 	}
 
@@ -490,6 +396,21 @@ void Labonatip_GUI::protocolsMenu(const QPoint& _pos)
 
 }
 
+bool Labonatip_GUI::writeTmpProtocolFile(QString _save_tmp_file)
+{
+	QFile file(_save_tmp_file);
+	if (!file.open(QFile::WriteOnly | QFile::Text)) {
+		std::cerr << HERE <<
+			" impossible to open the temporary file for the protocol from the commander " << std::endl;
+		return false;
+	}
+
+	QString fileContent = ui->textBrowser_XMLcode->toPlainText();
+	if (file.write(fileContent.toUtf8()) > -1)
+		return true;
+	return false;
+}
+
 void Labonatip_GUI::onTabEditorChanged(int _idx)
 {
 	std::cout << HERE << std::endl;
@@ -507,17 +428,7 @@ void Labonatip_GUI::onTabEditorChanged(int _idx)
 	{// we are now in the tree view/editor
 
 		m_last_treeWidget_editor_idx = _idx;
-		{// Do not remove this parentesis, the file is written on destruction which is automatically done when it goes out of scope
-			QFile file(save_tmp_file);
-			if (!file.open(QFile::WriteOnly | QFile::Text)) {
-				std::cerr << HERE <<
-					" impossible to open the temporary file for the protocol from the commander " << std::endl;
-				return;
-			}
-
-			QString fileContent = ui->textBrowser_XMLcode->toPlainText();
-			file.write(fileContent.toUtf8());
-		}
+		writeTmpProtocolFile(save_tmp_file);
 
 		ui->treeWidget_macroTable->clear();
 		openXml(save_tmp_file, ui->treeWidget_macroTable);
@@ -549,17 +460,7 @@ void Labonatip_GUI::onTabEditorChanged(int _idx)
 		// this is to update the tree if something was modified in the xml editor without passing to the tree first
 		if (m_last_treeWidget_editor_idx == 1)
 		{
-			{// Do not remove this parentesis, the file is written on destruction which is automatically done when it goes out of scope
-				QFile file(save_tmp_file);
-				if (!file.open(QFile::WriteOnly | QFile::Text)) {
-					std::cerr << HERE <<
-						" impossible to open the temporary file for the protocol from the commander " << std::endl;
-					return;
-				}
-
-				QString fileContent = ui->textBrowser_XMLcode->toPlainText();
-				file.write(fileContent.toUtf8());
-			}
+			writeTmpProtocolFile(save_tmp_file);
 
 			ui->treeWidget_macroTable->clear();
 			openXml(save_tmp_file, ui->treeWidget_macroTable);
@@ -569,9 +470,6 @@ void Labonatip_GUI::onTabEditorChanged(int _idx)
 		}
 
 		m_last_treeWidget_editor_idx = _idx;
-
-		std::cerr << HERE <<
-			" ui->treeWidget_macroTable->topLevelItemCount  " << ui->treeWidget_macroTable->topLevelItemCount() << std::endl;
 
 		// this lines look like a repetition but it is required to 
 		// make the switch among tabs working properly always

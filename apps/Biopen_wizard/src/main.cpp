@@ -33,6 +33,52 @@
 #include <QMessageBox>
 #include <QScreen>
 
+bool copyPath(QString _src, QString _dst)
+{
+	// check if the source folder exists
+	QDir dir(_src);
+	if (!dir.exists())
+		return false;
+
+	foreach(QString d, dir.entryList(QDir::Dirs | QDir::NoDotAndDotDot)) {
+		QString dst_path = _dst + QDir::separator() + d;
+		dir.mkpath(dst_path);
+		copyPath(_src + QDir::separator() + d, dst_path); // recursive copy
+	}
+
+	foreach(QString f, dir.entryList(QDir::Files)) {
+		QFile::copy(_src + QDir::separator() + f, _dst + QDir::separator() + f);
+	}
+	return true;
+}
+
+bool existFolder(Labonatip_GUI& _l, QString _folder, bool _create = false)
+{
+	QDir my_dir;
+	if (!my_dir.exists(_folder)) {
+		std::cerr << _folder.toStdString() <<
+			" directory does not exists in the home folder .... creating it" << std::endl;
+		if (my_dir.mkpath(_folder) && _create)
+		{
+			std::cout << " Directory created " <<
+				_folder.toStdString() << std::endl;
+		}
+		else
+		{
+			std::cerr << " BioPen wizard could not create the " << _folder.toStdString() << " folder " << std::endl;
+
+			QString ss = "The BioPen wizard directory <br>";
+			ss.append(_folder);
+			ss.append("<br> does not exists in the installation folder, ");
+			ss.append("BioPen wizard cannot run  <br>");
+			ss.append("A reinstallation of BioZone6 wizard may solve the problem ");
+			QMessageBox::warning(&_l, "ERROR", ss);
+			return false;
+		}
+	}
+
+	return true;
+}
 
 // if it is the first time that the software runs,
 // it will check if required paths already exist and 
@@ -43,187 +89,56 @@ bool initPaths(Labonatip_GUI &_l, QString &_protocols_user_path,
 {
 	// detect the home path ... C:/users/user/
 	QString home_path = QDir::homePath();   
+	home_path.append("/Documents/Biopen_wizard/");
+	if (!existFolder(_l, home_path, true)) return false;
 
-	// is the installation folder  ... C:/Program Files/Biopen2
+
+	// is the software running folder  ... C:/Program Files/Biopen2
 	QDir app_dir = QDir::currentPath();    
 	
 	// default protocol path into the installation folder
 	QString protocols_path = app_dir.path();    
 	protocols_path.append("/presetProtocols/");
+	if (!existFolder(_l, protocols_path)) return false;
 
 	// default setting path into the installation folder
 	QString settings_path = app_dir.path(); 
 	settings_path.append("/settings/");
+	if (!existFolder(_l, settings_path)) return false;
 
 	// default ext_data path into the installation folder
 	QString ext_data_path = app_dir.path();
 	ext_data_path.append("/Ext_data/");
+	if (!existFolder(_l, ext_data_path)) return false;
+	
 
-	// if the directory Biopen does not exist in the home folder, create it
-	home_path.append("/Documents/Biopen_wizard/");
-	QDir home_dir;
-	if (!home_dir.exists(home_path)) {
-		std::cerr << " BioPen wizard directory does not exists in the home folder .... creating it" << std::endl;
-		if (home_dir.mkpath(home_path))
-		{
-			std::cout << " Directory created " <<
-				home_path.toStdString() << std::endl;
-		}
-		else
-		{
-			std::cerr << " BioPen wizard could not create the home folder " << std::endl;
-			QString ss = "Home documents directory does not exists in the installation folder,";
-			ss.append("BioPen wizard cannot run  <br>");
-			ss.append("A reinstallation of BioPen wizard may solve the problem ");
-			QMessageBox::warning(&_l, "ERROR", ss);
-			return false;
-		}
-	}
-	else {
-		std::cout << " Found directory " <<
-            home_path.toStdString() << std::endl;
-	}
-
-	// check if the protocol directory exists in the program files path, 
-	// if it doesn't the installation may be broken
-	QDir protocols_dir;
-	protocols_dir.setPath(protocols_path);
-	if (!protocols_dir.exists(protocols_path) ) {
-		std::cerr << "ERROR: BioPen protocols directory does not exists in the installation folder"
-			 << "A reinstallation may solve the problem "<< std::endl;
-		QString ss = "Protocols directory does not exists in the installation folder,";
-		ss.append("BioPen wizard cannot run  <br>"); 
-		ss.append ("A reinstallation of BioPen wizard may solve the problem ");
-		QMessageBox::warning(&_l, "ERROR", ss);
-		return false;
-	}
-	else {
-		std::cout << " Found directory " <<
-            protocols_path.toStdString() << std::endl;
-	}
-
-	// check if the settings directory exists in the program files path, 
-	// if it doesn't the installation may be broken
-	QDir settings_dir;
-	settings_dir.setPath(settings_path);
-	if (!settings_dir.exists(settings_path)) {
-		std::cerr << "BioPen wizard settings directory does not exists" << std::endl;
-		QString ss = "Settings directory does not exists in the installation folder,";
-		ss.append("BioPen wizard cannot run  <br>");
-		ss.append("A reinstallation of BioPen wizard may solve the problem ");
-		QMessageBox::warning(&_l, "ERROR", ss);
-		return false;
-	}
-	else {
-		std::cout << " Found directory " <<
-            settings_path.toStdString() << std::endl;
-	}
-
-	// check if the ext_data directory exists in the program files path, 
-	// if it doesn't the installation may be broken
-	QDir ext_data_dir;
-	ext_data_dir.setPath(ext_data_path);
-	if (!ext_data_dir.exists(ext_data_path)) {
-		std::cerr << "BioPen wizard ext_data directory does not exists" << std::endl;
-		QString ss = "Ext_data directory does not exists in the installation folder,";
-		ss.append("BioPen wizard cannot run  <br>");
-		ss.append("A reinstallation of BioPen wizard may solve the problem ");
-		QMessageBox::warning(&_l, "ERROR", ss);
-		return false;
-	}
-	else {
-		std::cout << " Found directory " <<
-            ext_data_path.toStdString() << std::endl;
-	}
 
 	// here we set the macro path in the user folder 
-	QDir protocols_user_dir;
-	QString protocols_home_path = home_path;
-	protocols_home_path.append("/presetProtocols/");
-	if (!protocols_user_dir.exists(protocols_home_path)) // if the macro user folder does not exist, create and copy
+	// here we set the tips path in the user folder 
+	_protocols_user_path = home_path + "/presetProtocols/";
+	if (!existFolder(_l, _protocols_user_path, true)) return false;
+	if (!copyPath(protocols_path, _protocols_user_path))
 	{
-		if (!protocols_user_dir.mkpath(_protocols_user_path))
-		{
-			std::cerr << "Could not create presetProtocols folder in the user directory" << std::endl;
-			QString ss = "Could not create presetProtocols folder in the user directory";
-			QMessageBox::warning(&_l, "ERROR", ss);
-			return false;
-		}
+		std::cerr << "Could not copy tips folder in the user directory" << std::endl;
+		QString ss = "Could not copy tips folder in the user directory";
+		QMessageBox::warning(&_l, "ERROR", ss);
+		return false;
 	}
-	_protocols_user_path = protocols_home_path;
 	
-	// directory exists, copy files 
-	{
-		QStringList filesList = protocols_dir.entryList(QDir::Files);
-		std::cout << "filesList info, protocols folder contains "
-			<< filesList.size() << " files " << std::endl;
-
-		QString file_name;
-		foreach(file_name, filesList)
-		{
-			QFile file1(_protocols_user_path + file_name);
-			QFile file2(protocols_path + file_name);
-			if (!file1.exists())
-				QFile::copy(file2.fileName(), file1.fileName());
-		}
-	}
-
 	// here we set the setting path in the user folder 
-	QDir settings_user_dir;
-	QString settings_home_path = home_path;
-	settings_home_path.append("/settings/");
-	if (!settings_user_dir.exists(settings_home_path))
+	_settings_user_path = home_path + "/settings/";
+	if (!existFolder(_l, _settings_user_path, true)) return false;
+	if (!copyPath(settings_path, _settings_user_path))
 	{
-		_settings_user_path = settings_home_path;
-		if (!settings_user_dir.mkpath(_settings_user_path)) {
-			std::cerr << "Could not create settings folder in the user directory" << std::endl;
-			QString ss = "Could not create settings folder in the user directory";
-			QMessageBox::warning(&_l, "ERROR", ss);
-			return false;
-		}
-		
+		std::cerr << "Could not copy settings folder in the user directory" << std::endl;
+		QString ss = "Could not copy settings folder in the user directory";
+		QMessageBox::warning(&_l, "ERROR", ss);
+		return false;
 	}
-	else {
-		_settings_user_path = settings_home_path;
-	}
-
-	// directory exists, copy files
-	{
-		_settings_user_path = settings_home_path;
-
-		QStringList filesList = settings_dir.entryList(QDir::Files);
-		std::cout << "filesList info, setting folder contains "
-			 << filesList.size() << " files " << std::endl;
-
-		QString file_name;
-		foreach(file_name, filesList)
-		{
-			QFile file1(_settings_user_path + file_name);
-			QFile file2(settings_path + file_name);
-			if (!file1.exists())
-				QFile::copy(file2.fileName(), file1.fileName());
-		}
-	}
-
 
 	// here we set the ext data path in the user folder 
-	QDir ext_data_user_dir;
-	QString ext_data_home_path = home_path;
-	ext_data_home_path.append("/Ext_data/");
-	if (!ext_data_user_dir.exists(ext_data_home_path))
-	{
-		_ext_data_user_path = ext_data_home_path;
-		if (!ext_data_user_dir.mkpath(_ext_data_user_path)) {
-			std::cerr << "Could not create ext_data folder in the user directory" << std::endl;
-			QString ss = "Could not create ext_data folder in the user directory";
-			QMessageBox::warning(&_l, "ERROR", ss);
-			return false;
-		}
-
-	}
-	else {
-		_ext_data_user_path = ext_data_home_path;
-	}
+	_ext_data_user_path = home_path + "/Ext_data/";
+	if (!existFolder(_l, _ext_data_user_path, true)) return false;
 
 	return true;
 }

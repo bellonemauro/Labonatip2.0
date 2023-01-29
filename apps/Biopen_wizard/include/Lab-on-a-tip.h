@@ -122,8 +122,15 @@ public:
 	*/
 	void appScaling(int _dpiX, int _dpiY);
 	
+	/**  \brief Runs a protocol in a given file
+	*
+	*/
 	void runProtocolFile(QString _protocol_path = "");
 
+	/**  \brief This is just a support function to write a protocol to a tmp file avoiding code repetition
+	*
+	*/
+	bool writeTmpProtocolFile(QString _save_tmp_file);
 
 private slots:
 
