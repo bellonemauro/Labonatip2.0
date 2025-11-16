@@ -312,6 +312,16 @@ private slots:
 	*/
 	void askMessage(const QString &_message);
 
+	/** \brief Ask a message on wait sync
+	*
+	*    This is called from the macro runner to visualize a
+	*    dialog with a message to be asked in case of a wait sync event that is not triggered.
+	*    In this case the user can either chose to continue with the execution without a sync signal or wait more
+	*
+	*   \note the protocol runner is paused until the ok is pressed
+	*/
+	void askWaitSyncMessage(const QString& _message);
+
 	/** \brief Catch the signal from tool for the solution1 color changed
 	*          to adapt the wells in the pipette to the new color  
 	*/	

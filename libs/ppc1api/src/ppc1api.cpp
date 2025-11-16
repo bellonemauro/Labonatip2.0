@@ -459,15 +459,16 @@ void fluicell::PPC1api::disconnectCOM()
 	}
 }
 
-void fluicell::PPC1api::pumpingOff() const
+bool fluicell::PPC1api::pumpingOff() const
 {
 	if (m_PPC1_serial->isOpen()) {
 		setVacuumChannelA(0.0);   
 		setVacuumChannelB(0.0);   
 		setPressureChannelC(0.0); 
 		setPressureChannelD(0.0); 
-		closeAllValves();
+		return closeAllValves();
 	}
+	return false;
 }
 
 bool fluicell::PPC1api::openAllValves() const
@@ -648,6 +649,25 @@ bool fluicell::PPC1api::setPulsePeriod(const int _value) const
 		logError(HERE, " out of range ");
 		return false;
 	}
+}
+
+bool fluicell::PPC1api::sendTTLpulses(const int _value) const
+{
+	int period = 2000; // in ms
+	if (_value> 0 && _value <= MAX_PULSES)
+	{
+		for (int i = 0; i < _value; i++)
+		{
+			setTTLstate(true);
+			std::this_thread::sleep_for(std::chrono::milliseconds(period));
+			setTTLstate(false);
+			std::this_thread::sleep_for(std::chrono::milliseconds(period));
+		}
+		return true;
+	}
+
+	logError(HERE, " out of range ");
+	return false;
 }
 
 bool fluicell::PPC1api::setRuntimeTimeout(const int _value) const
@@ -1147,7 +1167,7 @@ double fluicell::PPC1api::getFlow(double _square_channel_mod,
 	return flow;
 }
 
-bool fluicell::PPC1api::runCommand(fluicell::PPC1dataStructures::command _cmd) const
+bool fluicell::PPC1api::runCommand(fluicell::PPC1dataStructures::command _cmd)
 {
 	if (!_cmd.checkValidity())  {
 		logError(HERE, " check validity failed ");
@@ -1241,13 +1261,18 @@ bool fluicell::PPC1api::runCommand(fluicell::PPC1dataStructures::command _cmd) c
 	case fluicell::PPC1dataStructures::command::instructions::setVswitch: {//setVswitch
 		return setVacuumChannelB(_cmd.getValue());
 	}
-	case fluicell::PPC1dataStructures::command::instructions::ask_msg: {//ask_msg
+	case fluicell::PPC1dataStructures::command::instructions::ask: {//ask_msg
 		logStatus(HERE, " ask_msg NOT implemented in the API ");
 		return true;
 	}
 	case fluicell::PPC1dataStructures::command::instructions::pumpsOff: {//pumpsOff
-		pumpingOff();
-		return true;
+		return pumpingOff();
+	}
+	case fluicell::PPC1dataStructures::command::instructions::sendPulses: {//sendPulses
+		return sendTTLpulses(_cmd.getValue());
+	}
+	case fluicell::PPC1dataStructures::command::setSyncTimeout: {
+		return setWaitSyncTimeout(_cmd.getValue());
 	}
 	case fluicell::PPC1dataStructures::command::instructions::waitSync: {//waitSync 
 		// waitsync(front type : can be : RISE or FALL), 
@@ -1498,7 +1523,7 @@ bool fluicell::PPC1api::checkVIDPID(const std::string &_port) const
 	for (unsigned int i = 0; i < devs.size(); i++) // for all the connected devices 
 		if (devs.at(i).port.compare(_port) == 0) // look for the device connected on _port
 			if (devs.at(i).VID.compare(PPC1_VID) == 0) // check VID
-				if (devs.at(i).PID.compare(PPC1_PID) == 0 || devs.at(i).PID.compare(PPC1_6CH_PID)==0) // check PID
+				if (devs.at(i).PID.compare(PPC1_PID) == 0)// || devs.at(i).PID.compare(PPC1_6CH_PID)==0) // check PID
 					return true; // if all success return true
 	return false; // if only one on previous fails, return false VID/PID do not match
 }

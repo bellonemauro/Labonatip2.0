@@ -40,7 +40,6 @@ Labonatip_tools::Labonatip_tools(QWidget *parent):
 		static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this,
 		&Labonatip_tools::showPortInfo);
 
-
 	// enumerate connected com ports
 	enumerate();
 
@@ -360,8 +359,16 @@ void Labonatip_tools::enumerate()
 		dev.description = devices.at(i).description;
 		dev.hardware_ID = devices.at(i).hardware_id;
 		devs.push_back(dev);
-		ui_tools->comboBox_serialInfo->addItem(QString::fromStdString(dev.port));
+		fluicell::PPC1api tmp_ppc1; 
+		if (tmp_ppc1.checkVIDPID(dev.port))
+			ui_tools->comboBox_serialInfo->addItem(QString::fromStdString(dev.port));
 	}
+}
+
+void Labonatip_tools::searchConnectedPPC1dev()
+{
+
+
 }
 
 /*
@@ -503,7 +510,7 @@ void Labonatip_tools::colorSol4Changed(int _value)
 
 void Labonatip_tools::getCOMsettingsFromGUI()
 {
-	m_comSettings->setName (ui_tools->comboBox_serialInfo->currentText().toStdString());
+	m_comSettings->setPort (ui_tools->comboBox_serialInfo->currentText().toStdString());
 	m_comSettings->setBaudRate ( ui_tools->comboBox_baudRate->currentText().toInt());
 	m_comSettings->setDataBits(static_cast<serial::bytesize_t>(
 		ui_tools->comboBox_dataBit->currentIndex()));
@@ -618,7 +625,7 @@ bool Labonatip_tools::loadSettings(QString _path)
 	// read com group
 	//ComName
 	QString comPort = m_settings->value("COM/ComName", "COM1").toString();
-	m_comSettings->setName ( comPort.toStdString());
+	m_comSettings->setPort ( comPort.toStdString());
 
 	//BaudRate
 	int baudRate = m_settings->value("COM/BaudRate", "115200").toInt();
@@ -1133,7 +1140,7 @@ bool Labonatip_tools::saveSettings(QString _file_name)
 
 	// [COM]
 	// ComName = COM_
-	settings->setValue("COM/ComName", QString::fromStdString(m_comSettings->getName())); 
+	settings->setValue("COM/ComName", QString::fromStdString(m_comSettings->getPort())); 
 	// BaudRate = 115200
 	settings->setValue("COM/BaudRate", ui_tools->comboBox_baudRate->currentText()); 
 	// DataBits = 8

@@ -84,7 +84,7 @@ XmlSyntaxHighlighter::XmlSyntaxHighlighter(QTextDocument *parent)
 
 void XmlSyntaxHighlighter::highlightBlock(const QString &text)
 {
-     for (const HighlightingRule &rule : qAsConst(highlightingRules)) {
+     for (const HighlightingRule &rule : std::as_const(highlightingRules)) {
          QRegExp expression(rule.pattern);
          //int index = text.indexOf(expression);
          int index = expression.indexIn(text);

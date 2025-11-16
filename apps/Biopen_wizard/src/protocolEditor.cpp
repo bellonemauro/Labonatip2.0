@@ -316,6 +316,8 @@ void Labonatip_GUI::interpreter(protocolTreeWidgetItem* _item,
 	case protocolCommands::syncOut:
 	case protocolCommands::wait:
 	case protocolCommands::ask:
+	case protocolCommands::sendPulses:
+	case protocolCommands::setSyncTimeout:
 	case protocolCommands::pumpsOff: // TODO: check pump off as this is also a set of commands
 	{
 		_command_vector->push_back(

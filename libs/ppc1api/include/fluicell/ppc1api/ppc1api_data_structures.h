@@ -103,6 +103,7 @@ namespace fluicell { namespace PPC1dataStructures
 			#define MIN_STREAM_PERIOD 0     //!< in msec
 			#define MAX_STREAM_PERIOD 500   //!< in msec
 			#define MIN_PULSE_PERIOD 20     //!< in msec
+			#define MAX_PULSES 4            //!< number of pulses
 			#define MIN_ZONE_SIZE_PERC 50   //!< %
 			#define MAX_ZONE_SIZE_PERC 200  //!< %
 			#define MAX_ZONE_SIZE_INCREMENT 40  //!< %
@@ -690,12 +691,14 @@ namespace fluicell { namespace PPC1dataStructures
 				setPoff = 13,
 				setVrecirc = 14,
 				setVswitch = 15,
-				ask_msg = 16,
+				ask = 16,
 				pumpsOff = 17,
 				waitSync = 18,
 				syncOut = 19,
-				loop = 20,
-				ask = 21,
+				sendPulses = 20,
+				setSyncTimeout = 21,
+				loop = 22,
+				comment = 23,
 				END
 			};
 
@@ -764,7 +767,7 @@ namespace fluicell { namespace PPC1dataStructures
 					else
 						return true;
 				}
-				case instructions::ask_msg: 
+				case instructions::ask: 
 				case instructions::allOff: 
 				case instructions::pumpsOff: {//ask_msg //allOff //pumpsOff
 					// nothing to check here, the value is ignored
@@ -826,6 +829,20 @@ namespace fluicell { namespace PPC1dataStructures
 					else
 						return true;
 				}
+				case instructions::sendPulses:
+				{
+					if (this->value < 0 || this->value > MAX_PULSES)
+						return false;
+					else
+						return true;
+				}
+				case instructions::setSyncTimeout:
+				{
+					if (this->value < 0)
+						return false;
+					else
+						return true;
+				}
 				default: {
 					return false;
 				}
@@ -882,12 +899,14 @@ namespace fluicell { namespace PPC1dataStructures
 				case setPoff: return "setPoff";
 				case setVrecirc: return "setVrecirc";
 				case setVswitch: return "setVswitch";
-				case ask_msg: return "ask_msg";
+				case ask: return "ask";
 				case allOff: return "allOff";
 				case pumpsOff: return "pumpsOff";
 				case waitSync: return "waitSync";
 				case syncOut: return "syncOut";
 				case loop: return "loop";
+				case sendPulses: return "sendPulses";
+				case setSyncTimeout: return "setSyncTimeout";
 				case END: return "END";
 				}
 				return "Invalid";

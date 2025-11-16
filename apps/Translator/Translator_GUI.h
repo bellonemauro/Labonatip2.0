@@ -42,7 +42,7 @@ private slots:
 
 
 private:
-	bool local;
+	//bool local;
 
 	QString source_language;
 	QString translation_language;

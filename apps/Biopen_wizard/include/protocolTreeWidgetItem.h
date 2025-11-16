@@ -116,6 +116,8 @@ private:
 	QString m_tt_cmd_ask;
 	QString m_tt_cmd_pumpsOff;
 	QString m_tt_cmd_loop;
+	QString m_tt_cmd_sendPulses;
+	QString m_tt_cmd_setWaitSyncTimeout;
 	QString m_tt_cmd_comment;
 	QString m_tt_cmd_button;
 	QString m_tt_cmd_ramp;

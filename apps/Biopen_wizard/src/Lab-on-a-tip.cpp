@@ -121,7 +121,7 @@ Labonatip_GUI::Labonatip_GUI(QMainWindow *parent) :
   m_pen_line.setWidth(m_pen_line_width);
  
   // initialize PPC1api
-  m_ppc1->setCOMport(m_comSettings->getName());
+  m_ppc1->setCOMport(m_comSettings->getPort());
   m_ppc1->setBaudRate((int)m_comSettings->getBaudRate());
   m_ppc1->setVerbose(m_GUI_params->verboseOutput);
   m_ppc1->setFilterSize(m_pr_params->filterSize);
@@ -366,6 +366,34 @@ void Labonatip_GUI::askMessage(const QString &_message)
 	std::cout << HERE << " " << _message.toStdString() << std::endl;
 }
 
+void Labonatip_GUI::askWaitSyncMessage(const QString& _message)
+{
+	// if the speech is active, the message will be read
+	if (m_GUI_params->speechActive)  m_speech->say(_message);
+
+	//QMessageBox::information(this, m_str_ask_msg, _message, m_str_ok);
+	QMessageBox mb(QMessageBox::Information,
+		m_str_ask_msg,
+		_message,
+		QMessageBox::Ok);
+
+	QPushButton* waitMoreBtn = mb.addButton("Wait more", QMessageBox::ActionRole);
+	mb.exec();
+
+	if (mb.clickedButton() == waitMoreBtn) {
+		// "Wait more"
+		m_macroRunner_thread->askOkkWaitSyncEvent(true);
+	}
+	else {
+		// OK
+		// an event is sent upon dialog close
+		m_macroRunner_thread->askOkEvent(true);
+	}
+
+
+
+	std::cout << HERE << " " << _message.toStdString() << std::endl;
+}
 
 void Labonatip_GUI::pumpingOff() {
 
@@ -1117,11 +1145,12 @@ void Labonatip_GUI::toolApply()
 		m_ppc1->setTipParameters(my_tip.length_to_tip, my_tip.length_to_zone);
 	}
 
-	m_ppc1->setCOMport(m_comSettings->getName());
+	m_ppc1->setCOMport(m_comSettings->getPort());
 	m_ppc1->setBaudRate((int)m_comSettings->getBaudRate());
 	m_ppc1->setFilterEnabled(m_pr_params->enableFilter);
 	m_ppc1->setFilterSize(m_pr_params->filterSize);
 	m_ppc1->setVerbose(m_pr_params->verboseOut);
+	m_ppc1->setWaitSyncTimeout(m_pr_params->waitSyncTimeout);
 	qerr->setVerbose(m_pr_params->verboseOut);
 	qout->setVerbose(m_pr_params->verboseOut);
 	m_ext_data_path = m_GUI_params->outFilePath;
@@ -1276,7 +1305,7 @@ void Labonatip_GUI::about() {
 	QMessageBox messageBox;
 	QString msg_title = "About BioPen Wizard ";
 	QString msg_content = QStringLiteral("BioPen Wizard is part of the <br> Fluicell Lab-on-a-tip technology family,<br>"
-		"Copyrighted Sweden 2023.<br><br>"
+		"Copyrighted Sweden 2024.<br><br>"
 		"BioPen®, Fluicell®, Lab-on-a-tip® <br>are all registered trademarks of Fluicell AB, Sweden <br> <br>"
 		"Flöjelbergsgatan 8C<br>"
 		"SE-431 37 Mölndal, Sweden<br>"

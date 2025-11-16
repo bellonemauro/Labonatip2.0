@@ -7,9 +7,9 @@
 #  | Released under GNU GPL License.                                           |
 #  +---------------------------------------------------------------------------+ 
 
-project(Fluicell)   # Fluicell
+cmake_minimum_required(VERSION 3.16 FATAL_ERROR)
 
-cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
+project(Fluicell)   # Fluicell
 
 option(ENABLE_verbose "Verbose cmake cofiguration " "OFF")
 if ( ENABLE_verbose )
@@ -40,6 +40,8 @@ if(COMMAND cmake_policy) #return true if the COMMAND cmake_policy exist - this a
 	#if(NOT "${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION}" LESS 3.0)
 	cmake_policy(SET CMP0026 NEW)
 	#endif(NOT "${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION}" LESS 3.0)
+		
+	cmake_policy(SET CMP0177 NEW)
 		
 endif(COMMAND cmake_policy)
 

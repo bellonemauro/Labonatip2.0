@@ -44,7 +44,9 @@ protocolTreeWidgetItem::protocolTreeWidgetItem(protocolTreeWidgetItem *_parent) 
 	m_tt_cmd_setPoff = tr("Set the pressureOFF channel to a specific value");
 	m_tt_cmd_setVrecirc = tr("Set the vacuum recirculation channel to a specific value");
 	m_tt_cmd_setVswitch = tr("Set the vacuum switch channel to a specific value");
-	m_tt_cmd_waitSync = tr("");
+	m_tt_cmd_sendPulses = tr("Send a train of pulses to identify solution, \n1 pulse for solution 1, ... \n4 pulses for solution 4");
+	m_tt_cmd_waitSync = tr("Wait for a sync TTL signal");
+	m_tt_cmd_setWaitSyncTimeout = tr("Set the wait sync timeout");
 	m_tt_cmd_syncOut = tr("");
 	m_tt_cmd_wait = tr("Set a waiting time in seconds");
 	m_tt_cmd_ask = tr("Stop the protocol and ask a confirmation message");
@@ -344,6 +346,24 @@ bool protocolTreeWidgetItem::checkValidity( int _column)
 		}
 		break;
 	}
+	case protocolCommands::sendPulses: {
+		// if the value is not valid, reset to zero
+		if (number < 1) {
+			number = -number;
+			this->setText(editorParams::c_value, QString::number(number));
+		}
+		else
+		{
+			this->setText(editorParams::c_value, QString::number(int(number)));
+		}
+		// if is not the range
+		if (number > MAX_PULSES) {
+			//number > m_pr_params->v_switch_max) {  // not necessary as it max=0
+			this->setText(editorParams::c_value, QString::number(int(MAX_PULSES))); // if the value is not valid, reset to zero
+			return false;
+		}
+		return true;
+	}
 	case protocolCommands::comment: {
 		// no need to check here
 		dynamic_cast<QTreeWidgetItem*>(this)->setToolTip(editorParams::c_command, m_tt_cmd_comment);
@@ -447,6 +467,14 @@ QString protocolTreeWidgetItem::getRangeColumn( int _idx)
 	case protocolCommands::comment: {
 		// Comment	
 		return QString("-");
+	}
+	case protocolCommands::sendPulses: {
+		// Send pulse train"
+		return QString("1-4 solution index");
+	}
+	case protocolCommands::setSyncTimeout: {
+		// set the time out for the sync operations"
+		return QString("(s) > 0");
 	}
 	default: {
 		// default function active if none of the previous

@@ -258,6 +258,8 @@ private slots:
 	*/
 	void enumerate();
 
+	void searchConnectedPPC1dev(); 
+
 	/** on enable check box clicked, it enable/disable the filtering
 	*
 	*/

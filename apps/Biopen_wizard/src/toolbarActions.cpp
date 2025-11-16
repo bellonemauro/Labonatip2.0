@@ -332,7 +332,7 @@ bool Labonatip_GUI::disCon(bool _connect)
 					else {  // new attempt to connect 
 						m_dialog_tools->updateDevices();
 						
-						m_ppc1->setCOMport(m_comSettings->getName());
+						m_ppc1->setCOMport(m_comSettings->getPort());
 						m_ppc1->setBaudRate((int)m_comSettings->getBaudRate());
 						if (!m_ppc1->connectCOM())
 						{

@@ -30,6 +30,7 @@ void Labonatip_macroRunner::initCustomStrings()
 	m_str_failed = tr("Failed");
 	m_str_stopped = tr("PROTOCOL STOPPED");
 	m_str_not_connected = tr("PPC1 is NOT running, connect and try again");
+	m_str_waitSync_timeout = tr("Wait sync timeout, press ok to continue");
 }
 
 void Labonatip_macroRunner::switchLanguage(QString _translation_file)
@@ -56,6 +57,16 @@ void Labonatip_macroRunner::simulateCommand(fluicell::PPC1dataStructures::comman
 {
 
 	int ist = _cmd.getInstruction();
+
+	// in simulation we set the status message
+	QString message = QString::fromStdString(_cmd.getStatusMessage());
+	message.append(" >>> command :  ");
+	message.append(QString::fromStdString(_cmd.getCommandAsString()));
+	message.append(" value ");
+	message.append(QString::number(_cmd.getValue()));
+	message.append(" status message ");
+	message.append(QString::fromStdString(_cmd.getStatusMessage()));
+	emit sendStatusMessage(message);
 
 	switch (ist)
 	{
@@ -107,7 +118,7 @@ void Labonatip_macroRunner::simulateCommand(fluicell::PPC1dataStructures::comman
 		simulateWait(val);
 		return;
 	}
-	case pCmd::ask_msg: {//ask_msg
+	case pCmd::ask: {//ask_msg
 		QString msg = QString::fromStdString(_cmd.getStatusMessage());
 		emit sendAskMessage(msg); // send ask message event
 		m_ask_ok = false;
@@ -200,6 +211,75 @@ void Labonatip_macroRunner::simulateWait(int _sleep_for)
 
 }
 
+void Labonatip_macroRunner::runCommandOnPPC1(fluicell::PPC1dataStructures::command _cmd)
+{
+	// if we are not in simulation and the ppc1 is running 
+					// the commands will be sent to the ppc1 api
+	if (!m_ppc1->isRunning()) {
+		std::cerr << HERE << "  ---- error --- MESSAGE:"
+			<< " ppc1 is NOT running " << std::endl;
+
+		QString  result = m_str_not_connected;
+		emit resultReady(result);
+		return;
+	}
+
+	// at GUI level only ask_msg and wait are handled
+	if (_cmd.getInstruction() ==
+		pCmd::ask) {
+		QString msg = QString::fromStdString(_cmd.getStatusMessage());
+
+		emit sendAskMessage(msg); // send ask message event
+		m_ask_ok = false;
+		while (!m_ask_ok) {  // wait until the signal ok is pressed on the GUI
+			msleep(500);
+		}
+	}
+
+	// If the command is to wait, we do it here
+	if (_cmd.getInstruction() == pCmd::wait)
+	{
+		int val = static_cast<int>(_cmd.getValue());
+		simulateWait(val);
+		return;
+	}//TODO: the waitSync works properly in the ppc1api, however, when the command is run
+		//      the ppc1api stops waiting for the signal and the GUI looks freezing without any message
+	//if (m_protocol->at(i).getInstruction() == // If the command is to wait, we do it here
+	//	pCmd::waitSync) {
+
+	//	emit sendAskMessage("wait sync will run now another message will appear when the sync signal is detected");
+	//	if (!m_ppc1->runCommand(m_protocol->at(i))) // otherwise we run the actual command on the PPC1 
+	//	{
+	//		cerr << HERE 
+	//			<< " ---- error --- MESSAGE:"
+	//			<< " error in ppc1api PPC1api::runCommand" << endl;
+	//	}
+	//	emit sendAskMessage("sync arrived");
+	//}
+	
+	if (!m_ppc1->runCommand(_cmd)) // otherwise we run the actual command on the PPC1 
+	{
+
+		std::cerr << HERE << " ---- error --- MESSAGE:"
+			<< " error in ppc1api PPC1api::runCommandOnPPC1 --- Command: "
+			<< _cmd.getCommandAsString() << std::endl;
+
+		if (_cmd.getInstruction() == fluicell::PPC1dataStructures::command::waitSync)
+		{
+			emit sendAskWaitSync(m_str_waitSync_timeout); // send ask message event
+			m_ask_ok = false;  // here this means continue execution
+			m_ask_wait_sync_rewait = false;  // this mean that I need to run the command again
+			while (!m_ask_ok || !m_ask_wait_sync_rewait) {  // wait until the signal ok is pressed on the GUI
+				msleep(500);
+			}
+
+			if (m_ask_wait_sync_rewait)
+				runCommandOnPPC1(_cmd);
+
+			return;
+		}
+	}
+}
 
 void Labonatip_macroRunner::run() 
 {
@@ -232,72 +312,12 @@ void Labonatip_macroRunner::run()
 
 				if (m_simulation_only)
 				{
-					// in simulation we set the status message
-					QString message = QString::fromStdString(m_protocol->at(i).getStatusMessage());
-					message.append(" >>> command :  ");
-					message.append(QString::fromStdString(m_protocol->at(i).getCommandAsString()));
-					message.append(" value ");
-					message.append(QString::number(m_protocol->at(i).getValue()));
-					message.append(" status message ");
-					message.append(QString::fromStdString(m_protocol->at(i).getStatusMessage()));
-					emit sendStatusMessage(message);
-
 					// the command is simulated
 					simulateCommand(m_protocol->at(i));
 
 				}// end simulation only
 				else {
-					// if we are not in simulation and the ppc1 is running 
-					// the commands will be sent to the ppc1 api
-					if (m_ppc1->isRunning()) {
-						
-						// at GUI level only ask_msg and wait are handled
-						if (m_protocol->at(i).getInstruction() ==
-							pCmd::ask_msg) {
-							QString msg = QString::fromStdString(m_protocol->at(i).getStatusMessage());
-
-							emit sendAskMessage(msg); // send ask message event
-							m_ask_ok = false;
-							while (!m_ask_ok) {  // wait until the signal ok is pressed on the GUI
-								msleep(500);
-							}
-						}
-
-						// If the command is to wait, we do it here
-						if (m_protocol->at(i).getInstruction() == pCmd::wait) 
-						{	
-							int val = static_cast<int>(m_protocol->at(i).getValue());
-							simulateWait(val);							
-						}//TODO: the waitSync works properly in the ppc1api, however, when the command is run
-						 //      the ppc1api stops waiting for the signal and the GUI looks freezing without any message
-						//if (m_protocol->at(i).getInstruction() == // If the command is to wait, we do it here
-						//	pCmd::waitSync) {
-
-						//	emit sendAskMessage("wait sync will run now another message will appear when the sync signal is detected");
-						//	if (!m_ppc1->runCommand(m_protocol->at(i))) // otherwise we run the actual command on the PPC1 
-						//	{
-						//		cerr << HERE 
-						//			<< " ---- error --- MESSAGE:"
-						//			<< " error in ppc1api PPC1api::runCommand" << endl;
-						//	}
-						//	emit sendAskMessage("sync arrived");
-						//}
-						else {
-							if (!m_ppc1->runCommand(m_protocol->at(i))) // otherwise we run the actual command on the PPC1 
-							{
-								std::cerr << HERE << " ---- error --- MESSAGE:"
-									<< " error in ppc1api PPC1api::runCommand" << std::endl;
-							}
-						}
-					}
-					else {
-						std::cerr << HERE << "  ---- error --- MESSAGE:"
-							 << " ppc1 is NOT running " << std::endl;
-
-						result = m_str_not_connected; 
-						emit resultReady(result);
-						return;
-					}
+					runCommandOnPPC1(m_protocol->at(i));
 				}
 			}//end for protocol
 		}

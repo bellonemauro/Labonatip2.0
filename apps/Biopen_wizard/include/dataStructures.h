@@ -58,16 +58,17 @@ struct COMSettings {
 
 public:
 	explicit COMSettings() {   // default values
-		this->name = "COM1";
+		this->port = "COM1";
 		this->baudRate = 115200;
 		this->dataBits = serial::eightbits;
 		this->parity = serial::parity_none;
 		this->stopBits = serial::stopbits_one;
 		this->flowControl = serial::flowcontrol_none;
+		this->localEchoEnabled = false;
 	}
 
-	void setName(std::string _name) { name = _name; }
-	std::string getName() { return name; }
+	void setPort(std::string _port) { port = _port; }
+	std::string getPort() { return port; }
 
 	void setBaudRate(int _baudRate) { baudRate = _baudRate; }
 	int getBaudRate() { return baudRate; }
@@ -85,7 +86,7 @@ public:
 	serial::flowcontrol_t getFlowControl() { return flowControl; }
 
 private:
-	std::string name;                    //!<  COM1 --- n 
+	std::string port;                    //!<  COM1 --- n 
 	int baudRate;                        //!<  4200 - 9600 --- 
 	serial::bytesize_t dataBits;         //!<  5 - 6 - 7 - 8
 	serial::parity_t parity;             //!<  None, Even, Odd, Mark, Space 
@@ -373,8 +374,11 @@ struct protocolCommands {
 		pumpsOff = 17,
 		waitSync = 18,
 		syncOut = 19,
-		loop = 20,
-		comment = 21,		
+		sendPulses = 20,
+		setSyncTimeout = 21, 
+		loop = 22,
+		comment = 23,	
+		
 		END //THIS IS TO TAKE TRACK OF ENUMERATION
 	};
 
@@ -403,6 +407,8 @@ struct protocolCommands {
 		case waitSync: return "waitSync";
 		case syncOut: return "syncOut";
 		case loop: return "loop";
+		case sendPulses: return "sendPulses";
+		case setSyncTimeout: return "setSyncTimeout";
 		case comment: return "comment";
 		case END: return "END";
 		}
