@@ -213,6 +213,10 @@ void Labonatip_GUI::runProtocol() {
 			&Labonatip_GUI::askMessage);
 
 		connect(m_macroRunner_thread,
+			&Labonatip_macroRunner::sendAskWaitSync, this,
+			&Labonatip_GUI::askWaitSyncMessage);
+
+		connect(m_macroRunner_thread,
 			&Labonatip_macroRunner::setPon, this,
 			&Labonatip_GUI::updatePonSetPoint);
 
@@ -407,6 +411,11 @@ void Labonatip_GUI::protocolFinished(const QString &_result) {
 	disconnect(m_macroRunner_thread,
 		&Labonatip_macroRunner::sendAskMessage, this,
 		&Labonatip_GUI::askMessage);
+
+
+	disconnect(m_macroRunner_thread,
+		&Labonatip_macroRunner::sendAskWaitSync, this,
+		&Labonatip_GUI::askWaitSyncMessage);
 
 	disconnect(m_macroRunner_thread,
 		&Labonatip_macroRunner::setPon, this,

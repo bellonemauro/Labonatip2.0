@@ -1,3 +1,10 @@
+V.2.2.19
+Added two more commands in the protocol editor
+Fix automatic com port detection
+Added waitsync management
+Additional tools settings
+Build with QT6.9
+
 V2.2.18
 Build with QT6.6
 Code cleanup

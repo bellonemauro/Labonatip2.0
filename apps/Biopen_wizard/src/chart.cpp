@@ -399,7 +399,7 @@ void protocolChart::updateChartProtocol(f_protocol *_protocol)
 			current_time +=  100.0 * _protocol->at(i).getValue() / total_duration; //the duration is scaled in the interval [0; 100]
 			break;
 		}
-		case pCmd::ask_msg: { //ask_msg
+		case pCmd::ask: { //ask_msg
 			m_series_ask->append(current_time, min_series_ask );
 			break;
 		}

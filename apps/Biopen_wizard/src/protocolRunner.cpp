@@ -269,7 +269,7 @@ void Labonatip_macroRunner::runCommandOnPPC1(fluicell::PPC1dataStructures::comma
 			emit sendAskWaitSync(m_str_waitSync_timeout); // send ask message event
 			m_ask_ok = false;  // here this means continue execution
 			m_ask_wait_sync_rewait = false;  // this mean that I need to run the command again
-			while (!m_ask_ok || !m_ask_wait_sync_rewait) {  // wait until the signal ok is pressed on the GUI
+			while (!m_ask_ok && !m_ask_wait_sync_rewait) {  // wait until the signal ok is pressed on the GUI
 				msleep(500);
 			}
 
