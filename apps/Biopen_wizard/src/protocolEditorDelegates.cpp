@@ -76,7 +76,7 @@ void ComboBoxDelegate::paint(QPainter *painter,
 		//bgColor = 0xDDDDDD;
 		if (option.state & QStyle::State_Active)//check if item is selected
 		{
-			int grey = 239;  //TODO: what the fuck is this shit !
+			int grey = 239;  //TODO: what is this  !
 			bgColor = qRgba(grey, grey-34, grey-62, 255);
 
 			//background color won't show on selected items unless you do this
