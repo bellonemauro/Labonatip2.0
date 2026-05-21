@@ -288,9 +288,9 @@ namespace fluicell
 		int m_baud_rate;                //!< baud rate	
 		int m_COM_timeout;              //!< timeout for the serial communication --- default value 250 ms
 		
-		fluicell::PPC1dataStructures::PPC1_data *m_PPC1_data; /*!< ppc1 output structure */
-		fluicell::PPC1dataStructures::PPC1_status *m_PPC1_status;/*!< pipette status */
-		fluicell::PPC1dataStructures::tip *m_tip;
+		std::unique_ptr<fluicell::PPC1dataStructures::PPC1_data> *m_PPC1_data; /*!< ppc1 output structure */
+		std::unique_ptr<fluicell::PPC1dataStructures::PPC1_status> *m_PPC1_status;/*!< pipette status */
+		std::unique_ptr<fluicell::PPC1dataStructures::tip> *m_tip;
 		int m_wait_sync_timeout;        //!< timeout for wait sync function in seconds, default value 60 sec
 
 		// threads

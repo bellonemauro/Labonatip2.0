@@ -1581,4 +1581,5 @@ fluicell::PPC1api::~PPC1api()
 	delete m_PPC1_data;
 	delete m_PPC1_status;
 	delete m_PPC1_serial;
+	delete m_tip;
 }

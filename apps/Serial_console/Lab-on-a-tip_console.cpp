@@ -215,7 +215,9 @@ void Labonatip_console::readData()
 	if (serial->isReadable()) {
 		QByteArray data = serial->readAll();
 //		cout << "data size " << data.size() << " content " << data.toStdString() << endl;
-		ui_console->textEdit_console->append(data);
+		//ui_console->textEdit_console->append(data);
+		QString hexString = data.toHex(' ').toUpper();
+		ui_console->textEdit_console->append(hexString);
 	}
 }
 
